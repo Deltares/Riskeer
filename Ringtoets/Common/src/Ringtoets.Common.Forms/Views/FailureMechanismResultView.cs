@@ -34,13 +34,10 @@ namespace Ringtoets.Common.Forms.Views
     /// <summary>
     /// The view for the <see cref="FailureMechanismSectionResult"/>.
     /// </summary>
-    public partial class FailureMechanismResultView : UserControl, IView
+    public abstract partial class FailureMechanismResultView<T> : UserControl, IView where T : FailureMechanismSectionResult
     {
-        private readonly Observer failureMechanismObserver;
-        private readonly RecursiveObserver<FailureMechanismBase<FailureMechanismSectionResult>, FailureMechanismSectionResult> failureMechanismSectionResultObserver;
-
-        private IEnumerable<FailureMechanismSectionResult> failureMechanismSectionResult;
-        private FailureMechanismBase<FailureMechanismSectionResult> failureMechanism;
+        private IEnumerable<T> failureMechanismSectionResult;
+        private IFailureMechanism failureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultView"/>.
@@ -50,8 +47,8 @@ namespace Ringtoets.Common.Forms.Views
             InitializeComponent();
             InitializeDataGridView();
 
-            failureMechanismObserver = new Observer(UpdataDataGridViewDataSource);
-            failureMechanismSectionResultObserver = new RecursiveObserver<FailureMechanismBase<FailureMechanismSectionResult>, FailureMechanismSectionResult>(RefreshDataGridView, mechanism => mechanism.SectionResults);
+            FailureMechanismObserver = new Observer(UpdataDataGridViewDataSource);
+            FailureMechanismSectionResultObservers = new List<Observer>();
         }
 
         /// <summary>
@@ -59,16 +56,10 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         public IFailureMechanism FailureMechanism
         {
-            get
-            {
-                return failureMechanism;
-            }
             set
             {
-                failureMechanism = value as FailureMechanismBase<FailureMechanismSectionResult>;
-
-                failureMechanismObserver.Observable = failureMechanism;
-                failureMechanismSectionResultObserver.Observable = failureMechanism;
+                failureMechanism = value;
+                FailureMechanismObserver.Observable = failureMechanism;
             }
         }
 
@@ -80,7 +71,7 @@ namespace Ringtoets.Common.Forms.Views
             }
             set
             {
-                failureMechanismSectionResult = value as IEnumerable<FailureMechanismSectionResult>;
+                FailureMechanismSectionResult = value as IEnumerable<T>;
 
                 if (failureMechanismSectionResult != null)
                 {
@@ -96,32 +87,17 @@ namespace Ringtoets.Common.Forms.Views
         protected override void Dispose(bool disposing)
         {
             FailureMechanism = null;
-
-            failureMechanismObserver.Dispose();
-            failureMechanismSectionResultObserver.Dispose();
+            FailureMechanismSectionResult = null;
+            if (FailureMechanismObserver != null)
+            {
+                FailureMechanismObserver.Dispose();
+            }
 
             if (disposing && (components != null))
             {
                 components.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private void InitializeDataGridView()
-        {
-            dataGridView.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
-            dataGridView.CellValidating += DataGridViewCellValidating;
-            dataGridView.DataError += DataGridViewDataError;
-            dataGridView.GotFocus += DataGridViewGotFocus;
-
-            dataGridView.AutoGenerateColumns = false;
-            dataGridView.Columns.AddRange(GetDataGridColumns().ToArray());
-
-            foreach (var column in dataGridView.Columns.OfType<DataGridViewColumn>())
-            {
-                column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
         }
 
         protected virtual IEnumerable<DataGridViewColumn> GetDataGridColumns()
@@ -134,11 +110,63 @@ namespace Ringtoets.Common.Forms.Views
             };
         }
 
-        private void UpdataDataGridViewDataSource()
+        protected void UpdataDataGridViewDataSource()
         {
             EndEdit();
 
-            dataGridView.DataSource = failureMechanismSectionResult.Select(sr => new FailureMechanismSectionResultRow(sr)).ToList();
+            dataGridView.DataSource = failureMechanismSectionResult.Select(sr => CreateFailureMechanismSectionResultRow(sr)).ToList();
+        }
+
+        protected abstract object CreateFailureMechanismSectionResultRow(T sectionResult);
+
+        protected void RefreshDataGridView()
+        {
+            dataGridView.Refresh();
+            dataGridView.AutoResizeColumns();
+        }
+
+        private IList<Observer> FailureMechanismSectionResultObservers { get; set; }
+        private Observer FailureMechanismObserver { get; set; }
+
+        private IEnumerable<T> FailureMechanismSectionResult
+        {
+            set
+            {
+                ClearSectionResultObservers();
+                failureMechanismSectionResult = value;
+
+                if (failureMechanismSectionResult != null)
+                {
+                    AddSectionResultObservers();
+                }
+            }
+        }
+
+        private void AddSectionResultObservers()
+        {
+            foreach (var sectionResult in failureMechanismSectionResult)
+            {
+                FailureMechanismSectionResultObservers.Add(new Observer(RefreshDataGridView)
+                {
+                    Observable = sectionResult
+                });
+            }
+        }
+
+        private void ClearSectionResultObservers()
+        {
+            foreach (var observer in FailureMechanismSectionResultObservers)
+            {
+                observer.Dispose();
+            }
+            FailureMechanismSectionResultObservers.Clear();
+        }
+
+        private void InitializeDataGridView()
+        {
+            dataGridView.GotFocus += DataGridViewGotFocus;
+            dataGridView.AutoGenerateColumns = false;
+            dataGridView.Columns.AddRange(GetDataGridColumns().ToArray());
         }
 
         private void EndEdit()
@@ -146,15 +174,9 @@ namespace Ringtoets.Common.Forms.Views
             if (dataGridView.IsCurrentCellInEditMode)
             {
                 dataGridView.CancelEdit();
-                dataGridView.EndEdit(); 
+                dataGridView.EndEdit();
                 dataGridView.CurrentCell = null;
             }
-        }
-
-        private void RefreshDataGridView()
-        {
-            dataGridView.Refresh();
-            dataGridView.AutoResizeColumns();
         }
 
         #region Event handling

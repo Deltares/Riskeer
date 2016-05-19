@@ -271,7 +271,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
-            return failureMechanism != null && ReferenceEquals(view.Data, ((FailureMechanismBase<GrassCoverErosionInwardsFailureMechanismSectionResult>) failureMechanism).SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.Data, ((GrassCoverErosionInwardsFailureMechanism)failureMechanism).SectionResults);
         }
 
         #endregion

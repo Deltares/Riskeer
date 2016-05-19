@@ -24,7 +24,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.Result;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {
@@ -39,7 +38,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism" />.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedFailureMechanism"/> or <paramref name="parent"/> are <c>null</c>.</exception>
-        public CustomFailureMechanismContext(FailureMechanismBase<CustomFailureMechanismSectionResult> wrappedFailureMechanism, IAssessmentSection parent) :
+        public CustomFailureMechanismContext(FailureMechanismBase wrappedFailureMechanism, IAssessmentSection parent) :
             base(wrappedFailureMechanism, parent)
         {
             

@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.Properties;
-using Ringtoets.Integration.Data.StandAlone.Result;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Data.StandAlone
@@ -31,14 +30,18 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// <summary>
     /// Defines a stand alone failure mechanisms objects
     /// </summary>
-    public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase<CustomFailureMechanismSectionResult>
+    public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<CustomFailureMechanismSectionResult>
     {
+        private readonly IList<CustomFailureMechanismSectionResult> sectionResults;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsFailureMechanism"/> class.
         /// </summary>
         public MacroStabilityInwardsFailureMechanism()
             : base(Resources.MacrostabilityInwardFailureMechanism_DisplayName, Resources.MacrostabilityInwardFailureMechanism_Code)
-        { }
+        {
+            sectionResults = new List<CustomFailureMechanismSectionResult>();
+        }
 
         public override IEnumerable<ICalculation> Calculations
         {
@@ -48,9 +51,25 @@ namespace Ringtoets.Integration.Data.StandAlone
             }
         }
 
-        protected override CustomFailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+        public override void AddSection(FailureMechanismSection section)
         {
-            return new CustomFailureMechanismSectionResult(section);
+            base.AddSection(section);
+
+            sectionResults.Add(new CustomFailureMechanismSectionResult(section));
+        }
+
+        public override void ClearAllSections()
+        {
+            base.ClearAllSections();
+            sectionResults.Clear();
+        }
+
+        public IEnumerable<CustomFailureMechanismSectionResult> SectionResults
+        {
+            get
+            {
+                return sectionResults;
+            }
         }
     }
 }

@@ -42,13 +42,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     {
         private const double tolerance = 1e-6;
         private readonly Observer failureMechanismObserver;
-        private readonly RecursiveObserver<FailureMechanismBase<GrassCoverErosionInwardsFailureMechanismSectionResult>, GrassCoverErosionInwardsFailureMechanismSectionResult> failureMechanismSectionResultObserver;
+        private readonly RecursiveObserver<GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsFailureMechanismSectionResult> failureMechanismSectionResultObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
         private IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> failureMechanismSectionResult;
-        private FailureMechanismBase<GrassCoverErosionInwardsFailureMechanismSectionResult> failureMechanism;
+        private GrassCoverErosionInwardsFailureMechanism failureMechanism;
         private DataGridViewTextBoxColumn assessmentLayerTwoA;
         private DataGridViewTextBoxColumn assessmentLayerTwoB;
         private DataGridViewTextBoxColumn assessmentLayerThree;
@@ -62,7 +62,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             InitializeDataGridView();
 
             failureMechanismObserver = new Observer(UpdataDataGridViewDataSource);
-            failureMechanismSectionResultObserver = new RecursiveObserver<FailureMechanismBase<GrassCoverErosionInwardsFailureMechanismSectionResult>, GrassCoverErosionInwardsFailureMechanismSectionResult>(RefreshDataGridView, mechanism => mechanism.SectionResults);
+            failureMechanismSectionResultObserver = new RecursiveObserver<GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsFailureMechanismSectionResult>(RefreshDataGridView, mechanism => mechanism.SectionResults);
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(UpdataDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.GetObservableInput())));
             calculationOutputObserver = new RecursiveObserver<CalculationGroup, ICalculationOutput>(UpdataDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.GetObservableOutput())));
@@ -81,7 +81,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
             set
             {
-                failureMechanism = value as FailureMechanismBase<GrassCoverErosionInwardsFailureMechanismSectionResult>;
+                failureMechanism = value as GrassCoverErosionInwardsFailureMechanism;
 
                 failureMechanismObserver.Observable = failureMechanism;
                 failureMechanismSectionResultObserver.Observable = failureMechanism;

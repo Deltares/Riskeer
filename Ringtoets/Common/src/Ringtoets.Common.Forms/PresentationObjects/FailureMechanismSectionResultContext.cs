@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionResultContext{T}"/>.
         /// </summary>
-        /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="Ringtoets.Piping.Data.PipingFailureMechanismSectionResult"/> to wrap.</param>
+        /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <typeparamref name="T"/> to wrap.</param>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> <paramref name="sectionResults"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResults"/> or <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public FailureMechanismSectionResultContext(IEnumerable<T> sectionResults, IFailureMechanism failureMechanism)
@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the wrapped <see cref="IEnumerable{T}"/> of <see cref="Ringtoets.Piping.Data.PipingFailureMechanismSectionResult"/>.
+        /// Gets the wrapped <see cref="IEnumerable{T}"/> of <typeparamref name="T"/>.
         /// </summary>
         public IEnumerable<T> SectionResults { get; private set; }
 

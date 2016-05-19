@@ -20,29 +20,11 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.Contribution
+namespace Ringtoets.Common.Data.FailureMechanism
 {
-    /// <summary>
-    /// This class represents a failure mechanism which has no representative within Ringtoets but 
-    /// contributes to the overall verdict nonetheless.
-    /// </summary>
-    public class OtherFailureMechanism : FailureMechanismBase
+    public interface IHasSectionResults<out T> where T : FailureMechanismSectionResult
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="OtherFailureMechanism"/>.
-        /// </summary>
-        public OtherFailureMechanism() : base(Resources.OtherFailureMechanism_DisplayName, Resources.OtherFailureMechanism_DisplayCode) {}
-
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                yield break;
-            }
-        }
+        IEnumerable<T> SectionResults { get; }
     }
 }

@@ -31,7 +31,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.Result;
 using Ringtoets.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -125,9 +124,15 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
     }
 
-    public class SimpleFailureMechanism : FailureMechanismBase<CustomFailureMechanismSectionResult>
+    public class SimpleFailureMechanism : FailureMechanismBase, IHasSectionResults<CustomFailureMechanismSectionResult>
     {
-        public SimpleFailureMechanism() : base("N", "C") {}
+        public SimpleFailureMechanism()
+            : base("N", "C")
+        {
+            SectionResults = new List<CustomFailureMechanismSectionResult>();
+        }
+
+        public IEnumerable<CustomFailureMechanismSectionResult> SectionResults { get; private set; }
 
         public override IEnumerable<ICalculation> Calculations
         {
@@ -135,11 +140,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 throw new System.NotImplementedException();
             }
-        }
-
-        protected override CustomFailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

@@ -633,7 +633,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             }
         }
 
-        private class Simple : FailureMechanismBase<FailureMechanismSectionResult>
+        private class Simple : FailureMechanismBase
         {
             public Simple() : base("Stubbed name","Stubbed code") {}
 
@@ -643,11 +643,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 {
                     throw new NotImplementedException();
                 }
-            }
-
-            protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
-            {
-                return new FailureMechanismSectionResult(section); 
             }
         }
 

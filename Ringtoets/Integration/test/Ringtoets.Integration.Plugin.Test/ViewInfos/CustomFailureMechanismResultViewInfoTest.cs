@@ -30,7 +30,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Data.StandAlone.Result;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Piping.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -163,7 +162,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var viewMock = mocks.StrictMock<CustomFailureMechanismResultView>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mocks.Stub<FailureMechanismBase<FailureMechanismSectionResult>>("N","C");
+            var failureMechanismMock = mocks.Stub<FailureMechanismBase>("N", "C");
             var failureMechanism = new Simple();
 
             viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
@@ -296,9 +295,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.VerifyAll();
         }
 
-        private class Simple : FailureMechanismBase<CustomFailureMechanismSectionResult>
+        private class Simple : FailureMechanismBase, IHasSectionResults<CustomFailureMechanismSectionResult>
         {
-            public Simple() : base("simple failure mechanism", "simple code") {}
+            public Simple() : base("simple failure mechanism", "simple code")
+            {
+                SectionResults = new List<CustomFailureMechanismSectionResult>();
+            }
+
+            public IEnumerable<CustomFailureMechanismSectionResult> SectionResults { get; private set; }
 
             public override IEnumerable<ICalculation> Calculations
             {
@@ -306,11 +310,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 {
                     throw new NotImplementedException();
                 }
-            }
-
-            protected override CustomFailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
-            {
-                throw new NotImplementedException();
             }
         }
     }

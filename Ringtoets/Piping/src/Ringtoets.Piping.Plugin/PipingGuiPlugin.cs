@@ -283,7 +283,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
-            return failureMechanism != null && ReferenceEquals(view.Data, ((FailureMechanismBase<PipingFailureMechanismSectionResult>) failureMechanism).SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.Data, ((PipingFailureMechanism) failureMechanism).SectionResults);
         }
 
         # endregion

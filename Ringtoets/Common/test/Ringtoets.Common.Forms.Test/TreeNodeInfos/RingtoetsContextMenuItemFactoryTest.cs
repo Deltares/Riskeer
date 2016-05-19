@@ -953,7 +953,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 base(wrappedFailureMechanism, parent) {}
         }
 
-        private class TestFailureMechanism : FailureMechanismBase<FailureMechanismSectionResult>
+        private class TestFailureMechanism : FailureMechanismBase
         {
             private readonly IEnumerable<ICalculation> calculations;
 
@@ -969,11 +969,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 {
                     return calculations;
                 }
-            }
-
-            protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
-            {
-                return null;
             }
         }
 

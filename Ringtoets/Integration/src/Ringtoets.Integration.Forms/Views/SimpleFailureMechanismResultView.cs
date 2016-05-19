@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Views
 {
-    public class SimpleFailureMechanismResultView : FailureMechanismResultView
+    public class SimpleFailureMechanismResultView : FailureMechanismResultView<SimpleFailureMechanismSectionResult>
     {
         protected override IEnumerable<DataGridViewColumn> GetDataGridColumns()
         {
@@ -21,15 +26,20 @@ namespace Ringtoets.Integration.Forms.Views
                 Name = "column_AssessmentLayerOne"
             };
 
-            yield return new DataGridViewTextBoxColumn
+            yield return new DataGridViewComboBoxColumn
             {
                 DataPropertyName = "AssessmentLayerTwoA",
                 HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
                 Name = "column_AssessmentLayerTwoA",
-                ReadOnly = true
+                DataSource = Enum.GetValues(typeof(AssessmentLayerTwoAResult))
+                    .OfType<AssessmentLayerTwoAResult>()
+                    .Select(el => new WrappedEnum<AssessmentLayerTwoAResult>(el))
+                    .ToList(),
+                ValueMember = "Value",
+                DisplayMember = "DisplayName"
             };
 
-            yield return new DataGridViewComboBoxColumn()
+            yield return new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "AssessmentLayerTwoB",
                 HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b,
@@ -42,6 +52,31 @@ namespace Ringtoets.Integration.Forms.Views
                 HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three,
                 Name = "column_AssessmentLayerThree"
             };
+        }
+
+        protected override object CreateFailureMechanismSectionResultRow(SimpleFailureMechanismSectionResult sectionResult)
+        {
+            return new SimpleFailureMechanismSectionResultRow(sectionResult);
+        }
+    }
+
+    public class WrappedEnum<T>
+    {
+        public WrappedEnum(T value)
+        {
+            Value = value;
+        }
+
+        public T Value { get; private set; }
+
+        public string DisplayName
+        {
+            get
+            {
+                var enumField = typeof(T).GetField(Enum.GetName(typeof(T), Value));
+                var displayName = (ResourcesDisplayNameAttribute)Attribute.GetCustomAttribute(enumField, typeof(ResourcesDisplayNameAttribute));
+                return displayName == null ? Value.ToString() : displayName.DisplayName;
+            }
         }
     }
 }

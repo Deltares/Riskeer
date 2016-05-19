@@ -54,7 +54,6 @@ using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
 using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.Result;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
@@ -204,13 +203,7 @@ namespace Ringtoets.Integration.Plugin
                                    Gui.Get(nodeData, treeViewControl).AddImportItem().Build()
             };
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<SimpleFailureMechanismContext>(
-                StandAloneFailureMechanismEnabledChildNodeObjects,
-                StandAloneFailureMechanismDisabledChildNodeObjects,
-                StandAloneFailureMechanismEnabledContextMenuStrip,
-                StandAloneFailureMechanismDisabledContextMenuStrip);
-
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<CustomFailureMechanismContext>(
+            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(
                 StandAloneFailureMechanismEnabledChildNodeObjects,
                 StandAloneFailureMechanismDisabledChildNodeObjects,
                 StandAloneFailureMechanismEnabledContextMenuStrip,
@@ -328,42 +321,44 @@ namespace Ringtoets.Integration.Plugin
 
         #region FailureMechanismResults ViewInfo
 
-        private static bool CloseSimpleFailureMechanismResultViewForData(FailureMechanismResultView view, object o)
+        private static bool CloseSimpleFailureMechanismResultViewForData(SimpleFailureMechanismResultView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as IFailureMechanism;
             var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
+            var data = view.Data;
             if (assessmentSection != null)
             {
                 return assessmentSection
                     .GetFailureMechanisms()
-                    .OfType<FailureMechanismBase<SimpleFailureMechanismSectionResult>>()
-                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+                    .OfType<IHasSectionResults<FailureMechanismSectionResult>>()
+                    .Any(fm => ReferenceEquals(data, fm.SectionResults));
             }
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
-            return failureMechanism != null && ReferenceEquals(view.Data, ((FailureMechanismBase<SimpleFailureMechanismSectionResult>)failureMechanism).SectionResults);
+            return failureMechanism != null && ReferenceEquals(data, ((IHasSectionResults<FailureMechanismSectionResult>)failureMechanism).SectionResults);
         }
 
-        private static bool CloseCustomFailureMechanismResultViewForData(FailureMechanismResultView view, object o)
+        private static bool CloseCustomFailureMechanismResultViewForData(CustomFailureMechanismResultView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as IFailureMechanism;
             var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
+            var data = view.Data;
             if (assessmentSection != null)
             {
                 return assessmentSection
                     .GetFailureMechanisms()
-                    .OfType<FailureMechanismBase<CustomFailureMechanismSectionResult>>()
-                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+                    .OfType<IHasSectionResults<FailureMechanismSectionResult>>()
+                    .Any(fm => ReferenceEquals(data, fm.SectionResults));
             }
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
-            return failureMechanism != null && ReferenceEquals(view.Data, ((FailureMechanismBase<CustomFailureMechanismSectionResult>)failureMechanism).SectionResults);
+            return failureMechanism != null && ReferenceEquals(data, ((IHasSectionResults<FailureMechanismSectionResult>)failureMechanism).SectionResults);
         }
 
         #endregion
@@ -590,8 +585,8 @@ namespace Ringtoets.Integration.Plugin
 
         private IList GetOutputs(IFailureMechanism nodeData)
         {
-            var simple = nodeData as FailureMechanismBase<SimpleFailureMechanismSectionResult>;
-            var custom = nodeData as FailureMechanismBase<CustomFailureMechanismSectionResult>;
+            var simple = nodeData as IHasSectionResults<SimpleFailureMechanismSectionResult>;
+            var custom = nodeData as IHasSectionResults<CustomFailureMechanismSectionResult>;
             var failureMechanismSectionResultContexts = new object[1];
             if (simple != null)
             {

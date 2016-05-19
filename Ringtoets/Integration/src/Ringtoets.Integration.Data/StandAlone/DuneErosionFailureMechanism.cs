@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.Properties;
-using Ringtoets.Integration.Data.StandAlone.Result;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Data.StandAlone
@@ -31,14 +30,18 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// <summary>
     /// Defines a stand alone failure mechanisms objects
     /// </summary>
-    public class DuneErosionFailureMechanism : FailureMechanismBase<SimpleFailureMechanismSectionResult>
+    public class DuneErosionFailureMechanism : FailureMechanismBase, IHasSectionResults<SimpleFailureMechanismSectionResult>
     {
+        private readonly IList<SimpleFailureMechanismSectionResult> sectionResults;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DuneErosionFailureMechanism"/> class.
         /// </summary>
         public DuneErosionFailureMechanism()
             : base(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code)
-        { }
+        {
+            sectionResults = new List<SimpleFailureMechanismSectionResult>();
+        }
 
         public override IEnumerable<ICalculation> Calculations
         {
@@ -47,10 +50,26 @@ namespace Ringtoets.Integration.Data.StandAlone
                 yield break;
             }
         }
-
-        protected override SimpleFailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+        
+        public override void AddSection(FailureMechanismSection section)
         {
-            return new SimpleFailureMechanismSectionResult(section);
+            base.AddSection(section);
+
+            sectionResults.Add(new SimpleFailureMechanismSectionResult(section));
+        }
+
+        public override void ClearAllSections()
+        {
+            base.ClearAllSections();
+            sectionResults.Clear();
+        }
+
+        public IEnumerable<SimpleFailureMechanismSectionResult> SectionResults
+        {
+            get
+            {
+                return sectionResults;
+            }
         }
     }
 }

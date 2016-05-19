@@ -158,7 +158,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
             using (var view = new PipingFailureMechanismResultView
             {
@@ -578,7 +578,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private PipingFailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView()
         {
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
 
             failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
             {
@@ -599,9 +599,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             return failureMechanismResultView;
         }
 
-        private class SimpleFailureMechanism : FailureMechanismBase<PipingFailureMechanismSectionResult>
+        private class SimpleFailureMechanism : FailureMechanismBase, IHasSectionResults<PipingFailureMechanismSectionResult>
         {
-            public SimpleFailureMechanism() : base("Stubbed name", "Stubbed code") {}
+            public SimpleFailureMechanism() : base("Stubbed name", "Stubbed code")
+            {
+                SectionResults = new List<PipingFailureMechanismSectionResult>();
+            }
+
+            public IEnumerable<PipingFailureMechanismSectionResult> SectionResults { get; private set; }
 
             public override IEnumerable<ICalculation> Calculations
             {
@@ -609,11 +614,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 {
                     throw new NotImplementedException();
                 }
-            }
-
-            protected override PipingFailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
-            {
-                return new PipingFailureMechanismSectionResult(section);
             }
         }
 

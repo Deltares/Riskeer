@@ -24,7 +24,6 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.Result;
 
 namespace Ringtoets.Integration.Data.Test.StandAlone
 {
@@ -38,7 +37,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
             var failureMechanism = new PipingStructureFailureMechanism();
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismBase<SimpleFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.AreEqual("Kunstwerken - Piping bij kunstwerk", failureMechanism.Name);
             Assert.AreEqual("PKW", failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);

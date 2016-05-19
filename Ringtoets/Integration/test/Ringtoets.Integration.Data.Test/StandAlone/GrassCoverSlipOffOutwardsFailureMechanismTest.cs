@@ -24,7 +24,6 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.Result;
 
 namespace Ringtoets.Integration.Data.Test.StandAlone
 {
@@ -38,7 +37,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismBase<SimpleFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.AreEqual("Dijken en dammen - Grasbekleding afschuiven buitentalud", failureMechanism.Name);
             Assert.AreEqual("GABU", failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);

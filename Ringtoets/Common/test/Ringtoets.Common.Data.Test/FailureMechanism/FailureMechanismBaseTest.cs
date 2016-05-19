@@ -258,60 +258,6 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void AddSection_SectionValid_SectionAddedSectionResults()
-        {
-            // Setup
-            var failureMechanism = new SimpleFailureMechanismBase();
-
-            var section = new FailureMechanismSection("A", new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            });
-
-            // Precondition
-            Assert.AreEqual(0, failureMechanism.SectionResults.Count());
-
-            // Call
-            failureMechanism.AddSection(section);
-
-            // Assert
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-        }
-
-        [Test]
-        public void SectionResults_Always_ReturnsExpectedSectionResultsAfterAddingSections()
-        {
-            // Setup
-            var failureMechanism = new SimpleFailureMechanismBase();
-
-            var section = new FailureMechanismSection("A", new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            });
-
-            var section2 = new FailureMechanismSection("B", new[]
-            {
-                new Point2D(3, 4),
-                new Point2D(7, 8)
-            });
-
-            failureMechanism.AddSection(section);
-            failureMechanism.AddSection(section2);
-
-            // Call
-            var data = failureMechanism.SectionResults.ToList();
-
-            // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                section,
-                section2
-            }, data.Select(d => d.Section));
-        }
-
-        [Test]
         public void ClearAllSections_HasSections_ClearSections()
         {
             // Setup
@@ -331,7 +277,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
 
-        private class SimpleFailureMechanismBase : FailureMechanismBase<FailureMechanismSectionResult>
+        private class SimpleFailureMechanismBase : FailureMechanismBase
         {
             public SimpleFailureMechanismBase(string name = "SomeName", string failureMechanismCode = "SomeCode") : base(name, failureMechanismCode) {}
 
@@ -341,11 +287,6 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
                 {
                     throw new NotImplementedException();
                 }
-            }
-
-            protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
-            {
-                return new FailureMechanismSectionResult(section);
             }
         }
     }

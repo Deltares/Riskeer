@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);
         }
 
-        private class TestFailureMechanism : FailureMechanismBase<FailureMechanismSectionResult>
+        private class TestFailureMechanism : FailureMechanismBase
         {
             public TestFailureMechanism() : base("name", "code")
             { }
@@ -101,11 +101,6 @@ namespace Application.Ringtoets.Storage.Test.Create
                 {
                     throw new NotImplementedException();
                 }
-            }
-
-            protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
-            {
-                return new FailureMechanismSectionResult(section);
             }
         }
     }

@@ -31,8 +31,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// Model for performing grass cover erosion inwards calculations.
     /// </summary>
-    public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase<GrassCoverErosionInwardsFailureMechanismSectionResult>, ICalculatableFailureMechanism
+    public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<GrassCoverErosionInwardsFailureMechanismSectionResult>
     {
+        private readonly List<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsFailureMechanism"/> class.
         /// </summary>
@@ -42,6 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
             GeneralInput = new GeneralGrassCoverErosionInwardsInput();
             NormProbabilityInput = new GeneralNormProbabilityInput();
+            sectionResults = new List<GrassCoverErosionInwardsFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -52,9 +55,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
         }
 
-        protected override GrassCoverErosionInwardsFailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+        public override void AddSection(FailureMechanismSection section)
         {
-            return new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            base.AddSection(section);
+
+            sectionResults.Add(new GrassCoverErosionInwardsFailureMechanismSectionResult(section));
+        }
+
+        public override void ClearAllSections()
+        {
+            base.ClearAllSections();
+            sectionResults.Clear();
         }
 
         /// <summary>
@@ -68,5 +79,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public GeneralNormProbabilityInput NormProbabilityInput { get; private set; }
 
         public CalculationGroup CalculationsGroup { get; private set; }
+
+        public IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> SectionResults
+        {
+            get
+            {
+                return sectionResults;
+            }
+        }
     }
 }

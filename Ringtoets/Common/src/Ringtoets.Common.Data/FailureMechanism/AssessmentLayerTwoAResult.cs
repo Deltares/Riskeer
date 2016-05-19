@@ -19,12 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Integration.Data.StandAlone.Result
+using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Data.Properties;
+
+namespace Ringtoets.Common.Data.FailureMechanism
 {
     public enum AssessmentLayerTwoAResult
     {
+        [ResourcesDisplayName(typeof(Resources), "AssessmentLayerTwoAResult_NotCalculated")]
         NotCalculated,
+        [ResourcesDisplayName(typeof(Resources), "AssessmentLayerTwoAResult_Failed")]
         Failed,
+        [ResourcesDisplayName(typeof(Resources), "AssessmentLayerTwoAResult_Successful")]
         Successful
     }
 }

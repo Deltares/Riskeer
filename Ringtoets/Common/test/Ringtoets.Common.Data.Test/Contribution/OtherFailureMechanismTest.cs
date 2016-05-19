@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             // Assert
             Assert.AreEqual("Overig", result.Name);
             Assert.AreEqual("NWOoc", result.Code);
-            Assert.IsInstanceOf<FailureMechanismBase<FailureMechanismSectionResult>>(result);
+            Assert.IsInstanceOf<FailureMechanismBase>(result);
             CollectionAssert.IsEmpty(result.Calculations);
         }
     }

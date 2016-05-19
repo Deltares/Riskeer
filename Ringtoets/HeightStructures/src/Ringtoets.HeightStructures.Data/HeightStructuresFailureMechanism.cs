@@ -30,14 +30,17 @@ namespace Ringtoets.HeightStructures.Data
     /// <summary>
     /// Failure mechanism for Height structures.
     /// </summary>
-    public class HeightStructuresFailureMechanism : FailureMechanismBase<FailureMechanismSectionResult>, ICalculatableFailureMechanism
+    public class HeightStructuresFailureMechanism : FailureMechanismBase, IHasSectionResults<CustomFailureMechanismSectionResult>
     {
+        private readonly IList<CustomFailureMechanismSectionResult> sectionResults;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="HeightStructuresFailureMechanism"/> class.
         /// </summary>
         public HeightStructuresFailureMechanism()
             : base(Resources.HeightStructureFailureMechanism_DisplayName, Resources.HeightStructureFailureMechanism_Code)
         {
+            sectionResults = new List<CustomFailureMechanismSectionResult>();
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
             NormProbabilityInput = new GeneralNormProbabilityInput();
         }
@@ -50,11 +53,26 @@ namespace Ringtoets.HeightStructures.Data
             }
         }
 
-        protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+        public override void AddSection(FailureMechanismSection section)
         {
-            return new FailureMechanismSectionResult(section);
+            base.AddSection(section);
+
+            sectionResults.Add(new CustomFailureMechanismSectionResult(section));
         }
 
+        public override void ClearAllSections()
+        {
+            base.ClearAllSections();
+            sectionResults.Clear();
+        }
+
+        public IEnumerable<CustomFailureMechanismSectionResult> SectionResults
+        {
+            get
+            {
+                return sectionResults;
+            }
+        }
         /// <summary>
         /// Gets the length-effect parameters.
         /// </summary>

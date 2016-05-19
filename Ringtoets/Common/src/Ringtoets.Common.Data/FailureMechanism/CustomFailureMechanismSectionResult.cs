@@ -20,21 +20,20 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Integration.Data.StandAlone.Result
+namespace Ringtoets.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// Class which represents a result for a failure mechanism section with three possible outcomes
-    /// for a layer 2a assessment.
+    /// Class which represents a result for a failure mechanism section with a custom outcome
+    /// of a layer 2a assessment.
     /// </summary>
-    public class SimpleFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class CustomFailureMechanismSectionResult: FailureMechanismSectionResult
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SimpleFailureMechanismSectionResult"/>
+        /// Creates a new instance of <see cref="CustomFailureMechanismSectionResult"/>
         /// </summary>
         /// <param name="section">The section for which to add the result.</param>
-        public SimpleFailureMechanismSectionResult(FailureMechanismSection section) : base(section) { }
+        public CustomFailureMechanismSectionResult(FailureMechanismSection section) : base(section) { }
 
         /// <summary>
         /// Gets or sets the state of the assessment layer one.
@@ -44,7 +43,7 @@ namespace Ringtoets.Integration.Data.StandAlone.Result
         /// <summary>
         /// Gets the value of assessment layer two a.
         /// </summary>
-        public AssessmentLayerTwoAResult AssessmentLayerTwoA { get; set; }
+        public RoundedDouble AssessmentLayerTwoA { get; set; }
 
         /// <summary>
         /// Gets or sets the value of assessment layer two b.

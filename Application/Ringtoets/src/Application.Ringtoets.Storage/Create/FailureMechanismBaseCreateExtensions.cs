@@ -27,12 +27,12 @@ using Ringtoets.Integration.Data.StandAlone;
 namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
-    /// Extension methods for <see cref="FailureMechanismBase{T}"/> related to creating a <see cref="FailureMechanismEntity"/>.
+    /// Extension methods for <see cref="FailureMechanismBase"/> related to creating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
     internal static class FailureMechanismBaseCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="FailureMechanismBase{T}"/>.
+        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="FailureMechanismBase"/>.
         /// </summary>
         /// <param name="mechanism">The failure mechanism to create a database entity for.</param>
         /// <param name="type">The type of the failure mechanism that is being created.</param>
@@ -59,7 +59,7 @@ namespace Application.Ringtoets.Storage.Create
         }
 
         /// <summary>
-        /// Creates <see cref="FailureMechanismSectionEntity"/> instances based on the information of the <see cref="FailureMechanismBase{T}"/>.
+        /// Creates <see cref="FailureMechanismSectionEntity"/> instances based on the information of the <see cref="FailureMechanismBase"/>.
         /// </summary>
         /// <param name="mechanism">The failure mechanism to create a database failure mechanism section entities for.</param>
         /// <param name="collector">The object keeping track of create operations.</param>

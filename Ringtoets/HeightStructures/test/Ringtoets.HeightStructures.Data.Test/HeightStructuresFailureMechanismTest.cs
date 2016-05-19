@@ -38,9 +38,9 @@ namespace Ringtoets.HeightStructures.Data.Test
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismBase<FailureMechanismSectionResult>>(failureMechanism);
-            Assert.AreEqual(Resources.HeightStructureFailureMechanism_DisplayName, failureMechanism.Name);
-            Assert.AreEqual(Resources.HeightStructureFailureMechanism_Code, failureMechanism.Code);
+            Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
+            Assert.AreEqual("Kunstwerken - Hoogte kunstwerk", failureMechanism.Name);
+            Assert.AreEqual("HTKW", failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
@@ -62,7 +62,7 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             // Assert
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.IsInstanceOf<FailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+            Assert.IsInstanceOf<CustomFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
         }
     }
 }

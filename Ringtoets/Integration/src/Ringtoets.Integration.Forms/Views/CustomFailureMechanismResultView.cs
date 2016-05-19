@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Views
 {
-    public class CustomFailureMechanismResultView : FailureMechanismResultView
+    public class CustomFailureMechanismResultView : FailureMechanismResultView<CustomFailureMechanismSectionResult>
     {
         protected override IEnumerable<DataGridViewColumn> GetDataGridColumns()
         {
@@ -25,8 +26,7 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 DataPropertyName = "AssessmentLayerTwoA",
                 HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
-                Name = "column_AssessmentLayerTwoA",
-                ReadOnly = true
+                Name = "column_AssessmentLayerTwoA"
             };
 
             yield return new DataGridViewTextBoxColumn
@@ -42,6 +42,11 @@ namespace Ringtoets.Integration.Forms.Views
                 HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three,
                 Name = "column_AssessmentLayerThree"
             };
+        }
+
+        protected override object CreateFailureMechanismSectionResultRow(CustomFailureMechanismSectionResult sectionResult)
+        {
+            return new CustomFailureMechanismSectionResultRow(sectionResult);
         }
     }
 }

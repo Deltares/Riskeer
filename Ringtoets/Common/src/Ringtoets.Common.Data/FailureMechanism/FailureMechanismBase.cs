@@ -33,14 +33,13 @@ namespace Ringtoets.Common.Data.FailureMechanism
     /// to implement <see cref="IFailureMechanism"/> can and should most likely inherit
     /// from this class.
     /// </summary>
-    public abstract class FailureMechanismBase<T> : Observable, IFailureMechanism where T : FailureMechanismSectionResult
+    public abstract class FailureMechanismBase : Observable, IFailureMechanism
     {
         private readonly List<FailureMechanismSection> sections;
         private double contribution;
-        private readonly IList<T> sectionResults;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="FailureMechanismBase{T}"/> class.
+        /// Creates a new instance of the <see cref="FailureMechanismBase"/> class.
         /// </summary>
         /// <param name="name">The name of the failure mechanism.</param>
         /// <param name="failureMechanismCode">The code of the failure mechanism.</param>
@@ -57,7 +56,6 @@ namespace Ringtoets.Common.Data.FailureMechanism
             Name = name;
             Code = failureMechanismCode;
             sections = new List<FailureMechanismSection>();
-            sectionResults = new List<T>();
             IsRelevant = true;
         }
 
@@ -91,24 +89,13 @@ namespace Ringtoets.Common.Data.FailureMechanism
             }
         }
 
-        /// <summary>
-        /// Gets the failure mechanism section results.
-        /// </summary>
-        public IEnumerable<T> SectionResults
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
-
         public long StorageId { get; set; }
 
         public string Comments { get; set; }
 
         public bool IsRelevant { get; set; }
 
-        public void AddSection(FailureMechanismSection section)
+        public virtual void AddSection(FailureMechanismSection section)
         {
             if (section == null)
             {
@@ -123,16 +110,11 @@ namespace Ringtoets.Common.Data.FailureMechanism
             {
                 InsertSectionWhileMaintainingConnectivityOrder(section);
             }
-
-            sectionResults.Add(CreateFailureMechanismSectionResult(section));
         }
-
-        protected abstract T CreateFailureMechanismSectionResult(FailureMechanismSection section);
-
-        public void ClearAllSections()
+        
+        public virtual void ClearAllSections()
         {
             sections.Clear();
-            sectionResults.Clear();
         }
 
         private static void ValidateParameters(string failureMechanismName, string failureMechanismCode)

@@ -43,13 +43,13 @@ namespace Ringtoets.Piping.Forms.Views
     {
         private const double tolerance = 1e-6;
         private readonly Observer failureMechanismObserver;
-        private readonly RecursiveObserver<FailureMechanismBase<PipingFailureMechanismSectionResult>, PipingFailureMechanismSectionResult> failureMechanismSectionResultObserver;
+        private readonly RecursiveObserver<PipingFailureMechanism, PipingFailureMechanismSectionResult> failureMechanismSectionResultObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
         private IEnumerable<PipingFailureMechanismSectionResult> failureMechanismSectionResult;
-        private FailureMechanismBase<PipingFailureMechanismSectionResult> failureMechanism;
+        private PipingFailureMechanism failureMechanism;
         private DataGridViewTextBoxColumn assessmentLayerTwoA;
         private DataGridViewTextBoxColumn assessmentLayerTwoB;
         private DataGridViewTextBoxColumn assessmentLayerThree;
@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Forms.Views
             InitializeDataGridView();
 
             failureMechanismObserver = new Observer(UpdataDataGridViewDataSource);
-            failureMechanismSectionResultObserver = new RecursiveObserver<FailureMechanismBase<PipingFailureMechanismSectionResult>, PipingFailureMechanismSectionResult>(RefreshDataGridView, mechanism => mechanism.SectionResults);
+            failureMechanismSectionResultObserver = new RecursiveObserver<PipingFailureMechanism, PipingFailureMechanismSectionResult>(RefreshDataGridView, mechanism => mechanism.SectionResults);
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(UpdataDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.GetObservableInput())));
             calculationOutputObserver = new RecursiveObserver<CalculationGroup, ICalculationOutput>(UpdataDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.GetObservableOutput())));
@@ -82,7 +82,7 @@ namespace Ringtoets.Piping.Forms.Views
             }
             set
             {
-                failureMechanism = value as FailureMechanismBase<PipingFailureMechanismSectionResult>;
+                failureMechanism = value as PipingFailureMechanism;
 
                 failureMechanismObserver.Observable = failureMechanism;
                 failureMechanismSectionResultObserver.Observable = failureMechanism;

@@ -32,8 +32,10 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// Model for performing piping calculations.
     /// </summary>
-    public class PipingFailureMechanism : FailureMechanismBase<PipingFailureMechanismSectionResult>, ICalculatableFailureMechanism
+    public class PipingFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<PipingFailureMechanismSectionResult>
     {
+        private readonly IList<PipingFailureMechanismSectionResult> sectionResults;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingFailureMechanism"/> class.
         /// </summary>
@@ -45,6 +47,8 @@ namespace Ringtoets.Piping.Data
             SurfaceLines = new List<RingtoetsPipingSurfaceLine>();
             StochasticSoilModels = new ObservableList<StochasticSoilModel>();
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
+
+            sectionResults = new List<PipingFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -90,9 +94,18 @@ namespace Ringtoets.Piping.Data
 
         public CalculationGroup CalculationsGroup { get; private set; }
 
-        protected override PipingFailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+        public override void AddSection(FailureMechanismSection section)
         {
-            return new PipingFailureMechanismSectionResult(section);
+            base.AddSection(section);
+            sectionResults.Add(new PipingFailureMechanismSectionResult(section));
+        }
+
+        public IEnumerable<PipingFailureMechanismSectionResult> SectionResults
+        {
+            get
+            {
+                return sectionResults;
+            }
         }
     }
 }

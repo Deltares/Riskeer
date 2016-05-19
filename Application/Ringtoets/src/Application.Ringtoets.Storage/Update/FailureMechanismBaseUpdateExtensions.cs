@@ -27,13 +27,13 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Application.Ringtoets.Storage.Update
 {
     /// <summary>
-    /// Extension methods for <see cref="FailureMechanismBase{T}"/> related to updating a <see cref="FailureMechanismEntity"/>.
+    /// Extension methods for <see cref="FailureMechanismBase"/> related to updating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
     internal static class FailureMechanismBaseUpdateExtensions
     {
         /// <summary>
         /// Updates <see cref="FailureMechanismSectionEntity"/> instances of a <see cref="FailureMechanismEntity"/>
-        /// based on the sections defined on the <see cref="FailureMechanismBase{T}"/>.
+        /// based on the sections defined on the <see cref="FailureMechanismBase"/>.
         /// </summary>
         /// <param name="mechanism">The failure mechanism to update the database failure mechanism section entities for.</param>
         /// <param name="collector">The object keeping track of update operations.</param>
