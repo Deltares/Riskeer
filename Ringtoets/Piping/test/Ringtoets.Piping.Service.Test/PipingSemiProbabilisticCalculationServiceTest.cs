@@ -11,10 +11,10 @@ namespace Ringtoets.Piping.Service.Test
     public class PipingSemiProbabilisticCalculationServiceTest
     {
         [Test]
-        [TestCase(30000, 1.2, 1.0 / 7.36633055700265E-06)]
-        [TestCase(30000, 1.0, 1.0 / 4.13743266617776E-05)]
-        [TestCase(20000, 1.2, 1.0 / 9.53352884976163E-06)]
-        [TestCase(20000, 1.0, 1.0 / 5.24016937211752E-05)]
+        [TestCase(30000, 1.2, 1.0/7.36633055700265E-06)]
+        [TestCase(30000, 1.0, 1.0/4.13743266617776E-05)]
+        [TestCase(20000, 1.2, 1.0/9.53352884976163E-06)]
+        [TestCase(20000, 1.0, 1.0/5.24016937211752E-05)]
         public void UpliftProbability_DifferentInputs_ReturnsExpectedValue(int norm, double factorOfSafety, double expectedResult)
         {
             // Setup
@@ -36,10 +36,10 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        [TestCase(30000, 0.6, 1 / 0.000233011)]
-        [TestCase(30000, 0.4, 1 / 0.003967252)]
-        [TestCase(20000, 0.6, 1 / 0.000292194)]
-        [TestCase(20000, 0.4, 1 / 0.004742775)]
+        [TestCase(30000, 0.6, 1/0.000233011)]
+        [TestCase(30000, 0.4, 1/0.003967252)]
+        [TestCase(20000, 0.6, 1/0.000292194)]
+        [TestCase(20000, 0.4, 1/0.004742775)]
         public void HeaveProbability_DifferentInputs_ReturnsExpectedValue(int norm, double factorOfSafety, double expectedResult)
         {
             // Setup
@@ -61,10 +61,10 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        [TestCase(30000, 0.9, 1 / 1.0988217217028E-05)]
-        [TestCase(30000, 0.6, 1 / 8.22098269097995E-04)]
-        [TestCase(20000, 0.9, 1 / 1.80799783465546E-05)]
-        [TestCase(20000, 0.6, 1 / 1.20312928722076E-03)]
+        [TestCase(30000, 0.9, 1/1.0988217217028E-05)]
+        [TestCase(30000, 0.6, 1/8.22098269097995E-04)]
+        [TestCase(20000, 0.9, 1/1.80799783465546E-05)]
+        [TestCase(20000, 0.6, 1/1.20312928722076E-03)]
         public void SellmeijerProbability_DifferentInputs_ReturnsExpectedValue(int norm, double factorOfSafety, double expectedResult)
         {
             // Setup
@@ -160,7 +160,7 @@ namespace Ringtoets.Piping.Service.Test
 
             var calculation = AsPipingCalculation(calculatorResult, pipingInput);
 
-            PipingSemiProbabilisticCalculationService.Calculate(calculation); 
+            PipingSemiProbabilisticCalculationService.Calculate(calculation);
 
             // Call
             RoundedDouble result = calculation.SemiProbabilisticOutput.PipingFactorOfSafety;
@@ -190,13 +190,13 @@ namespace Ringtoets.Piping.Service.Test
 
             var calculation = AsPipingCalculation(calculatorResult, pipingInput);
 
-            PipingSemiProbabilisticCalculationService.Calculate(calculation); 
+            PipingSemiProbabilisticCalculationService.Calculate(calculation);
 
             // Call
             RoundedDouble result = calculation.SemiProbabilisticOutput.PipingFactorOfSafety;
 
             // Assert
-            Assert.AreEqual(calculation.SemiProbabilisticOutput.RequiredReliability / calculation.SemiProbabilisticOutput.PipingReliability, result, result.GetAccuracy());
+            Assert.AreEqual(calculation.SemiProbabilisticOutput.RequiredReliability/calculation.SemiProbabilisticOutput.PipingReliability, result, result.GetAccuracy());
         }
 
         [Test]
@@ -235,7 +235,7 @@ namespace Ringtoets.Piping.Service.Test
             TestDelegate test = () => PipingSemiProbabilisticCalculationService.Calculate(pipingCalculation);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Cannot perform a semi-probabilistic calculation without output form the piping kernel.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Cannot perform a semi-probabilistic calculation without output from the piping kernel.");
         }
 
         private PipingCalculation AsPipingCalculation(PipingOutput pipingOutput, NormProbabilityPipingInput normProbabilityPipingInput)

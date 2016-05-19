@@ -175,7 +175,7 @@ namespace Ringtoets.Piping.Service
         {
             if (!calculation.HasOutput)
             {
-                throw new ArgumentException("Cannot perform a semi-probabilistic calculation without output form the piping kernel.");
+                throw new ArgumentException("Cannot perform a semi-probabilistic calculation without output from the piping kernel.");
             }
         }
 

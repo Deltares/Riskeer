@@ -37,16 +37,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculation"/>.
         /// </summary>
-        /// <param name="generalInputParameters">General grass cover erosion inwards calculation input parameters that apply to each calculation.</param>
-        /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/> is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsCalculation(GeneralGrassCoverErosionInwardsInput generalInputParameters)
+        /// <param name="generalInputParameters">General grass cover erosion inwards calculation input parameters 
+        /// that apply to each calculation.</param>
+        /// <param name="normProbabilityInput">General norm probabilistic parameters that apply to each 
+        /// calculation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <list type="bullet">
+        /// <item><paramref name="generalInputParameters"/> is <c>null</c>.</item>
+        /// <item><paramref name="normProbabilityInput"/> is <c>null</c>.</item>
+        /// </list> </exception>
+        public GrassCoverErosionInwardsCalculation(GeneralGrassCoverErosionInwardsInput generalInputParameters,
+                                                   NormProbabilityGrassCoverErosionInwardsInput normProbabilityInput)
         {
             if (generalInputParameters == null)
             {
                 throw new ArgumentNullException("generalInputParameters");
             }
+            if (normProbabilityInput == null)
+            {
+                throw new ArgumentNullException("normProbabilityInput");
+            }
             Name = Resources.GrassCoverErosionInwardsCalculation_DefaultName;
             InputParameters = new GrassCoverErosionInwardsInput(generalInputParameters);
+            NormProbabilityInput = normProbabilityInput;
             AddDemoInput();
         }
 
@@ -54,6 +66,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets the input parameters to perform a grass cover erosion inwards calculation with.
         /// </summary>
         public GrassCoverErosionInwardsInput InputParameters { get; private set; }
+
+        /// <summary>
+        /// Gets the length-effect parameters.
+        /// </summary>
+        public NormProbabilityGrassCoverErosionInwardsInput NormProbabilityInput { get; private set; }
 
         /// <summary>
         /// Gets or sets <see cref="GrassCoverErosionInwardsOutput"/>, which contains the results of a grass cover erosion inwards calculation.
@@ -105,8 +122,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             // CriticalFlowRate
             InputParameters.CriticalFlowRate = new LognormalDistribution(4)
             {
-                Mean = new RoundedDouble(4,0.004),
-                StandardDeviation = new RoundedDouble(4,0.0006)
+                Mean = new RoundedDouble(4, 0.004),
+                StandardDeviation = new RoundedDouble(4, 0.0006)
             };
 
             // Dike and Foreshore

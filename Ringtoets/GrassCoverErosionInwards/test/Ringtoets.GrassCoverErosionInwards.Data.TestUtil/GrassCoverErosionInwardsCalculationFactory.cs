@@ -36,7 +36,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
         /// <returns>A new instance of <see cref="GrassCoverErosionInwardsCalculation"/> without data.</returns>
         public static GrassCoverErosionInwardsCalculation CreateCalculationWithInvalidData()
         {
-            return new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput());
+            return new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
+                                                           new NormProbabilityGrassCoverErosionInwardsInput());
         }
 
         /// <summary>
@@ -50,7 +51,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
                 DesignWaterLevel = (RoundedDouble) 1.0
             };
 
-            return new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput())
+            return new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
+                                                           new NormProbabilityGrassCoverErosionInwardsInput())
             {
                 InputParameters =
                 {

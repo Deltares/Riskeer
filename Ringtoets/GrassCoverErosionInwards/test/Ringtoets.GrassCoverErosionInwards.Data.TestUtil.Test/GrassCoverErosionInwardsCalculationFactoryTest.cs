@@ -38,7 +38,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
             var calculation = GrassCoverErosionInwardsCalculationFactory.CreateCalculationWithInvalidData();
 
             // Assert
-            var emptyCalculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput());
+            var emptyCalculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
+                                                                           new NormProbabilityGrassCoverErosionInwardsInput());
             AssertGrassCoverErosionInwardsCalculationAreEqual(emptyCalculation, calculation);
         }
 
@@ -54,7 +55,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
                 DesignWaterLevel = (RoundedDouble) 1.0
             };
 
-            var validCalculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput())
+            var validCalculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
+                                                                           new NormProbabilityGrassCoverErosionInwardsInput())
             {
                 InputParameters =
                 {

@@ -35,11 +35,29 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         [Test]
         public void Constructor_NullGeneralInput_ThrowsArgumentNullException()
         {
-            // Setup & Call
-            TestDelegate test = () => new GrassCoverErosionInwardsCalculation(null);
+            // Setup
+            var normProbabilityInput = new NormProbabilityGrassCoverErosionInwardsInput();
+
+            // Call
+            TestDelegate test = () => new GrassCoverErosionInwardsCalculation(null, normProbabilityInput);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("generalInputParameters", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_NullNormProbabilityGrassCoverErosionInwardsInput_ThrowsArgumentNullException()
+        {
+            // Setup
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+
+            // Call
+            TestDelegate test = () => new GrassCoverErosionInwardsCalculation(generalInput, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("normProbabilityInput", exception.ParamName);
         }
 
         [Test]
@@ -47,9 +65,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            var normProbabilityInput = new NormProbabilityGrassCoverErosionInwardsInput();
 
             // Call
-            var calculation = new GrassCoverErosionInwardsCalculation(generalInput);
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput, normProbabilityInput);
 
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
@@ -60,6 +79,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsNull(calculation.Comments);
             Assert.IsNull(calculation.Output);
             Assert.IsInstanceOf<Observable>(calculation);
+            Assert.AreEqual(normProbabilityInput, calculation.NormProbabilityInput);
             AssertDemoInput(calculation.InputParameters);
         }
 
@@ -71,7 +91,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var calculation = new GrassCoverErosionInwardsCalculation(generalInput);
+            var normProbabilityInput = new NormProbabilityGrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput, normProbabilityInput);
 
             // Call
             calculation.Name = name;
@@ -88,7 +109,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var calculation = new GrassCoverErosionInwardsCalculation(generalInput);
+            var normProbabilityInput = new NormProbabilityGrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput, normProbabilityInput);
 
             // Call
             calculation.Comments = comments;
@@ -102,7 +124,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var calculation = new GrassCoverErosionInwardsCalculation(generalInput)
+            var normProbabilityInput = new NormProbabilityGrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput, normProbabilityInput)
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -119,7 +142,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var calculation = new GrassCoverErosionInwardsCalculation(generalInput)
+            var normProbabilityInput = new NormProbabilityGrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput, normProbabilityInput)
             {
                 Output = null
             };
@@ -133,7 +157,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var calculation = new GrassCoverErosionInwardsCalculation(generalInput)
+            var normProbabilityInput = new NormProbabilityGrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput, normProbabilityInput)
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -147,7 +172,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var calculation = new GrassCoverErosionInwardsCalculation(generalInput);
+            var normProbabilityInput = new NormProbabilityGrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput, normProbabilityInput);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1.0, 2.0);
             calculation.InputParameters.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
@@ -166,7 +192,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var calculation = new GrassCoverErosionInwardsCalculation(generalInput);
+            var normProbabilityInput = new NormProbabilityGrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput, normProbabilityInput);
             var inputParameters = calculation.InputParameters;
 
             // Call
@@ -181,7 +208,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var output = new GrassCoverErosionInwardsOutput(2.0, 3.0, 1.4, 50.3, 16.3);
-            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput())
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            var normProbabilityInput = new NormProbabilityGrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput, normProbabilityInput)
             {
                 Output = output
             };

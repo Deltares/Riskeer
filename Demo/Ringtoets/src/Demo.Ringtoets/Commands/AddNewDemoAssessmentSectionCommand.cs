@@ -68,8 +68,6 @@ namespace Demo.Ringtoets.Commands
             return demoAssessmentSection;
         }
 
-       
-
         private void InitializeDemoReferenceLine(AssessmentSection demoAssessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "traject_6-3.shp", "traject_6-3.dbf", "traject_6-3.prj", "traject_6-3.shx"))
@@ -148,7 +146,7 @@ namespace Demo.Ringtoets.Commands
         {
             GrassCoverErosionInwardsFailureMechanism failureMechanism = demoAssessmentSection.GrassCoverErosionInwards;
 
-            var calculation = new GrassCoverErosionInwardsCalculation(failureMechanism.GeneralInput);
+            var calculation = new GrassCoverErosionInwardsCalculation(failureMechanism.GeneralInput, failureMechanism.NormProbabilityInput);
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();
