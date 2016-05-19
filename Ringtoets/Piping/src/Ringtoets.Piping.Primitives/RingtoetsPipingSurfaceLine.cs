@@ -39,6 +39,8 @@ namespace Ringtoets.Piping.Primitives
     /// </summary>
     public class RingtoetsPipingSurfaceLine : IStorable
     {
+        private Point3D[] geometryPoints;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RingtoetsPipingSurfaceLine"/> class.
         /// </summary>
