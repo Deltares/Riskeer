@@ -47,6 +47,11 @@ namespace Ringtoets.HeightStructures.Plugin
                 FailureMechanismDisabledChildNodeObjects,
                 (context, o, treeViewControl) => new ContextMenuStrip(),
                 (context, o, treeViewControl) => new ContextMenuStrip());
+
+            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<HeightStructuresCalculationGroupContext>(
+                context => new object[0],
+                (context, o, treeViewControl) => new ContextMenuStrip(),
+                (context, parentNodeData) => { });
         }
 
         #region HeightStructuresFailureMechanismContext TreeNodeInfo
@@ -57,6 +62,7 @@ namespace Ringtoets.HeightStructures.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, context.Parent), TreeFolderCategory.Input),
+                new HeightStructuresCalculationGroupContext(wrappedData.CalculationsGroup, wrappedData, context.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
