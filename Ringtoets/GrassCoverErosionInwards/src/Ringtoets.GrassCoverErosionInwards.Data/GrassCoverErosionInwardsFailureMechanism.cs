@@ -24,6 +24,7 @@ using System.Linq;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
@@ -38,7 +39,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public GrassCoverErosionInwardsFailureMechanism()
             : base(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode)
         {
-            CalculationsGroup = new CalculationGroup(Resources.GrassCoverErosionInwardsFailureMechanism_Calculations_DisplayName, false);
+            CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
             GeneralInput = new GeneralGrassCoverErosionInwardsInput();
             NormProbabilityInput = new NormProbabilityGrassCoverErosionInwardsInput();
         }

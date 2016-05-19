@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HeightStructures.Data.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Data
 {
@@ -36,7 +37,9 @@ namespace Ringtoets.HeightStructures.Data
         /// </summary>
         public HeightStructuresFailureMechanism()
             : base(Resources.HeightStructureFailureMechanism_DisplayName, Resources.HeightStructureFailureMechanism_Code)
-        { }
+        {
+            CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
+        }
 
         public override IEnumerable<ICalculation> Calculations
         {

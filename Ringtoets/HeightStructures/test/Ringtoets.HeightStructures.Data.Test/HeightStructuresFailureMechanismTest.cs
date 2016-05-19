@@ -41,6 +41,9 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(Resources.HeightStructureFailureMechanism_DisplayName, failureMechanism.Name);
             Assert.AreEqual(Resources.HeightStructureFailureMechanism_Code, failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
+            Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
+            Assert.IsEmpty(failureMechanism.CalculationsGroup.Children);
         }
 
         [Test]

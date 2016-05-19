@@ -138,9 +138,6 @@
   <data name="CalculationReport_DisplayName" xml:space="preserve">
     <value>Berekeningsverslag</value>
   </data>
-  <data name="PipingFailureMechanism_Calculations_DisplayName" xml:space="preserve">
-    <value>Berekeningen</value>
-  </data>
   <data name="RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range" xml:space="preserve">
     <value>{0} L moet in het bereik van [{1}, {2}] liggen.</value>
   </data>

@@ -195,4 +195,7 @@
   <data name="Categories_General" xml:space="preserve">
     <value>Algemeen</value>
   </data>
+  <data name="FailureMechanism_Calculations_DisplayName" xml:space="preserve">
+    <value>Berekeningen</value>
+  </data>
 </root>

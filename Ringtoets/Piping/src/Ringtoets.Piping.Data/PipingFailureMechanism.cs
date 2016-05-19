@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Data
             GeneralInput = new GeneralPipingInput();
             SurfaceLines = new List<RingtoetsPipingSurfaceLine>();
             StochasticSoilModels = new ObservableList<StochasticSoilModel>();
-            CalculationsGroup = new CalculationGroup(PipingDataResources.PipingFailureMechanism_Calculations_DisplayName, false);
+            CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
         }
 
         public override IEnumerable<ICalculation> Calculations
