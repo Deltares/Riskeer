@@ -289,7 +289,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         #endregion
 
-        #region GrassCoverErosionInwards TreeNodeInfo
+        #region GrassCoverErosionInwardsFailureMechanismContext TreeNodeInfo
 
         private object[] FailureMechanismEnabledChildNodeObjects(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext)
         {
