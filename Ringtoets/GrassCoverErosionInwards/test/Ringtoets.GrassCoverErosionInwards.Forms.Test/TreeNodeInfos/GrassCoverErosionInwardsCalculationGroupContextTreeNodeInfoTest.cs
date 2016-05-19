@@ -621,8 +621,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                                                      failureMechanism,
                                                                                      assessmentSectionMock);
 
-            var calculationItem = mocks.Stub<ICalculationBase>();
-            calculationItem.Stub(ci => ci.Name).Return("Nieuwe map");
+            var calculationItem = new CalculationGroup
+            {
+                Name = "Nieuwe map"
+            };
 
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -671,8 +673,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                                                      failureMechanism,
                                                                                      assessmentSectionMock);
 
-            var calculationItem = mocks.Stub<ICalculationBase>();
-            calculationItem.Stub(ci => ci.Name).Return("Nieuwe berekening");
+            var calculationItem = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput())
+            {
+                Name = "Nieuwe berekening"
+            };
 
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());

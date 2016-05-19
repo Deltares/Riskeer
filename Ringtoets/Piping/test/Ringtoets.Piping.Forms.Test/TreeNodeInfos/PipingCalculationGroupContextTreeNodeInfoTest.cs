@@ -543,8 +543,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                        pipingFailureMechanismMock,
                                                        assessmentSectionMock);
 
-            var calculationItem = mocks.Stub<ICalculationBase>();
-            calculationItem.Stub(ci => ci.Name).Return("Nieuwe map");
+            var calculationItem = new CalculationGroup
+            {
+                Name = "Nieuwe map"
+            };
 
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -600,8 +602,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                    pipingFailureMechanismMock,
                                                                    assessmentSectionMock);
 
-            var calculationItem = mocks.Stub<ICalculationBase>();
-            calculationItem.Stub(ci => ci.Name).Return("Nieuwe berekening");
+            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
+            {
+                Name = "Nieuwe berekening"
+            };
 
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
