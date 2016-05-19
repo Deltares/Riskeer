@@ -20,48 +20,45 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Forms.Properties;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
+namespace Ringtoets.HeightStructures.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object representing all required grass cover erosion inwards input knowledge to configure and create
+    /// Presentation object representing all required height structures input knowledge to configure and create
     /// related objects. It'll delegate observable behavior to the wrapped data object.
     /// </summary>
-    public abstract class GrassCoverErosionInwardsContext<T> : WrappedObjectContextBase<T> where T : IObservable
+    public abstract class HeightStructuresContext<T> : WrappedObjectContextBase<T> where T : IObservable
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsContext{T}"/> class.
+        /// Initializes a new instance of the <see cref="HeightStructuresContext{T}"/> class.
         /// </summary>
         /// <param name="wrappedData">The concrete data instance wrapped by this context object.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="System.ArgumentNullException">When any input parameter is null.</exception>
-        protected GrassCoverErosionInwardsContext(
+        protected HeightStructuresContext(
             T wrappedData,
-            GrassCoverErosionInwardsFailureMechanism failureMechanism,
+            HeightStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (failureMechanism == null)
             {
-                var message = String.Format(Resources.GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.GrassCoverErosionInwardsContext_DataDescription_GrassCoverErosionInwardsFailureMechanism);
+                var message = String.Format(Resources.HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                                            Resources.HeightStructuresContext_DataDescription_HeightStructuresFailureMechanism);
 
                 throw new ArgumentNullException("failureMechanism", message);
             }
 
             if (assessmentSection == null)
             {
-                var message = String.Format(Resources.GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.GrassCoverErosionInwardsContext_DataDescription_AssessmentSection);
+                var message = String.Format(Resources.HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                                            Resources.HeightStructuresContext_DataDescription_AssessmentSection);
                 throw new ArgumentNullException("assessmentSection", message);
             }
 
@@ -72,25 +69,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         /// <summary>
         /// Gets the failure mechanism which the context belongs to.
         /// </summary>
-        public GrassCoverErosionInwardsFailureMechanism FailureMechanism { get; private set; }
+        public HeightStructuresFailureMechanism FailureMechanism { get; private set; }
 
         /// <summary>
         /// Gets the assessment section which the context belongs to.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
-
-        /// <summary>
-        /// Gets the available hydraulic boundary locations in order for the user to select one to 
-        /// set <see cref="GrassCoverErosionInwardsInput.HydraulicBoundaryLocation"/>.
-        /// </summary>
-        public IEnumerable<HydraulicBoundaryLocation> AvailableHydraulicBoundaryLocations
-        {
-            get
-            {
-                return AssessmentSection.HydraulicBoundaryDatabase == null ?
-                           Enumerable.Empty<HydraulicBoundaryLocation>() :
-                           AssessmentSection.HydraulicBoundaryDatabase.Locations;
-            }
-        }
     }
 }
