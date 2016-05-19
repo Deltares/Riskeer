@@ -709,7 +709,14 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
 
-            var calculationGroup = new CalculationGroup();
+            var nestedGroup = new CalculationGroup();
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    nestedGroup
+                }
+            };
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
 
             // Call

@@ -118,7 +118,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 Resources.CalculateAllIcon,
                 (o, args) => calculateAllAction(calculationGroup, calculationGroupContext));
 
-            if (!calculationGroupContext.WrappedData.Children.Any())
+            if (!calculationGroupContext.WrappedData.GetCalculations().Any())
             {
                 performAllItem.Enabled = false;
                 performAllItem.ToolTipText = Resources.CalculationGroup_CalculateAll_No_calculations_to_run;
