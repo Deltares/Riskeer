@@ -21,8 +21,7 @@
 
 using System;
 using NUnit.Framework;
-
-using Ringtoets.Piping.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -50,13 +49,13 @@ namespace Ringtoets.Piping.Data.Test
 
             // Call
             var output = new PipingSemiProbabilisticOutput(
-                upliftFactorOfSafety, 
+                upliftFactorOfSafety,
                 upliftReliability,
                 upliftProbability,
-                heaveFactorOfSafety, 
+                heaveFactorOfSafety,
                 heaveReliability,
                 heaveProbability,
-                sellmeijerFactorOfSafety, 
+                sellmeijerFactorOfSafety,
                 sellmeijerReliability,
                 sellmeijerProbability,
                 requiredProbability,

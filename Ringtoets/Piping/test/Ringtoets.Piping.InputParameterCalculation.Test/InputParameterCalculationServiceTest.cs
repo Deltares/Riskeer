@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Deltares.WTIPiping;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;

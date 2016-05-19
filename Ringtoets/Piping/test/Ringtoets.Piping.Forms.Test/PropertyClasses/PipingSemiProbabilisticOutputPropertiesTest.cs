@@ -1,8 +1,8 @@
 ﻿using System;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PropertyClasses;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
@@ -20,7 +20,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ObjectProperties<PipingSemiProbabilisticOutput>>(properties);
             Assert.IsNull(properties.Data);
         }
-        
+
         [Test]
         public void GetProperties_WithData_ReturnExpectedValues()
         {
@@ -29,28 +29,28 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var bigFactor = 1000000;
             double upliftFactorOfSafety = random.NextDouble();
             double upliftReliability = random.NextDouble();
-            double upliftProbability = random.NextDouble() * bigFactor;
+            double upliftProbability = random.NextDouble()*bigFactor;
             double heaveFactorOfSafety = random.NextDouble();
             double heaveReliability = random.NextDouble();
-            double heaveProbability = random.NextDouble() * bigFactor;
+            double heaveProbability = random.NextDouble()*bigFactor;
             double sellmeijerFactorOfSafety = random.NextDouble();
             double sellmeijerReliability = random.NextDouble();
-            double sellmeijerProbability = random.NextDouble() * bigFactor;
+            double sellmeijerProbability = random.NextDouble()*bigFactor;
             double requiredProbability = random.NextDouble();
             double requiredReliability = random.NextDouble();
-            double pipingProbability = random.NextDouble() * bigFactor;
-            double pipingReliability = random.NextDouble() * bigFactor;
+            double pipingProbability = random.NextDouble()*bigFactor;
+            double pipingReliability = random.NextDouble()*bigFactor;
             double pipingFactorOfSafety = random.NextDouble();
 
             // Call
             var semiProbabilisticOutput = new PipingSemiProbabilisticOutput(
-                upliftFactorOfSafety, 
+                upliftFactorOfSafety,
                 upliftReliability,
                 upliftProbability,
-                heaveFactorOfSafety, 
+                heaveFactorOfSafety,
                 heaveReliability,
                 heaveProbability,
-                sellmeijerFactorOfSafety, 
+                sellmeijerFactorOfSafety,
                 sellmeijerReliability,
                 sellmeijerProbability,
                 requiredProbability,

@@ -2,8 +2,8 @@
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.TestUtil;
 
 namespace Ringtoets.Piping.Service.Test
 {

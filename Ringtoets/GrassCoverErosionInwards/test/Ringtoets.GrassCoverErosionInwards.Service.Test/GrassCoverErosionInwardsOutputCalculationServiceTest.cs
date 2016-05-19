@@ -19,9 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service.Test
@@ -33,8 +33,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         public void Calculate_CompleteInput_ReturnsGrassCoverErosionInwardsOutputWithValues()
         {
             // Setup
-            var norm = 30000;
-            var probability = 0.24;
+            const int norm = 30000;
+            const double probability = 0.24;
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
                                                                       new GeneralNormProbabilityInput());
 
@@ -42,8 +42,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, norm, probability);
 
             // Assert
-            RoundedDouble result = calculation.Output.FactorOfSafety;
-            Assert.AreEqual(0.919890363, result, 1e-2);
+            GrassCoverErosionInwardsOutput output = calculation.Output;
+            Assert.AreEqual(0.9199, output.FactorOfSafety, output.FactorOfSafety.GetAccuracy());
+            Assert.AreEqual(probability, output.Probability, output.Probability.GetAccuracy());
+            Assert.AreEqual(4.107, output.Reliability, output.Reliability.GetAccuracy());
+            Assert.AreEqual(3.99, output.RequiredProbability, output.RequiredProbability.GetAccuracy());
+            Assert.AreEqual(4.465, output.RequiredReliability, output.RequiredReliability.GetAccuracy());
         }
     }
 }
