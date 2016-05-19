@@ -57,7 +57,6 @@
     <Compile Include="StandAlone\DuneErosionFailureMechanismTest.cs" />
     <Compile Include="StandAlone\GrassCoverErosionOutwardsFailureMechanismTest.cs" />
     <Compile Include="StandAlone\GrassCoverSlipOffOutwardsFailureMechanismTest.cs" />
-    <Compile Include="StandAlone\HeightStructureFailureMechanismTest.cs" />
     <Compile Include="StandAlone\MacroStabilityInwardsFailureMechanismTest.cs" />
     <Compile Include="StandAlone\PipingStructureFailureMechanismTest.cs" />
     <Compile Include="StandAlone\StabilityStoneCoverFailureMechanismTest.cs" />
@@ -93,6 +92,10 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
       <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+      <Project>{1c0017d8-35b5-4ca0-8fc7-a83f46dbdc99}</Project>
+      <Name>Ringtoets.HeightStructures.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>

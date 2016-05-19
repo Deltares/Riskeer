@@ -27,6 +27,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data.Properties;
 using Ringtoets.Integration.Data.StandAlone;
@@ -60,7 +61,7 @@ namespace Ringtoets.Integration.Data
             WaveImpactAsphaltCover = new WaveImpactAsphaltCoverFailureMechanism();
             GrassCoverErosionOutwards = new GrassCoverErosionOutwardsFailureMechanism();
             GrassCoverSlipOffOutwards = new GrassCoverSlipOffOutwardsFailureMechanism();
-            HeightStructure = new HeightStructureFailureMechanism();
+            HeightStructures = new HeightStructuresFailureMechanism();
             ClosingStructure = new ClosingStructureFailureMechanism();
             StrengthStabilityPointConstruction = new StrengthStabilityPointConstructionFailureMechanism();
             PipingStructure = new PipingStructureFailureMechanism();
@@ -108,7 +109,7 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets the "Kunstwerken - Hoogte kunstwerk" failure mechanism.
         /// </summary>
-        public HeightStructureFailureMechanism HeightStructure { get; private set; }
+        public HeightStructuresFailureMechanism HeightStructures { get; private set; }
 
         /// <summary>
         /// Gets the "Kunstwerken - Betrouwbaarheid sluiting kunstwerk" failure mechanism.
@@ -175,7 +176,7 @@ namespace Ringtoets.Integration.Data
             yield return WaveImpactAsphaltCover;
             yield return GrassCoverErosionOutwards;
             yield return GrassCoverSlipOffOutwards;
-            yield return HeightStructure;
+            yield return HeightStructures;
             yield return ClosingStructure;
             yield return PipingStructure;
             yield return StrengthStabilityPointConstruction;
@@ -194,7 +195,7 @@ namespace Ringtoets.Integration.Data
                     WaveImpactAsphaltCover.Contribution = 1;
                     GrassCoverErosionOutwards.Contribution = 5;
                     GrassCoverSlipOffOutwards.Contribution = 1;
-                    HeightStructure.Contribution = 24;
+                    HeightStructures.Contribution = 24;
                     ClosingStructure.Contribution = 4;
                     PipingStructure.Contribution = 2;
                     StrengthStabilityPointConstruction.Contribution = 2;
@@ -209,7 +210,7 @@ namespace Ringtoets.Integration.Data
                     WaveImpactAsphaltCover.Contribution = 0;
                     GrassCoverErosionOutwards.Contribution = 0;
                     GrassCoverSlipOffOutwards.Contribution = 0;
-                    HeightStructure.Contribution = 0;
+                    HeightStructures.Contribution = 0;
                     ClosingStructure.Contribution = 0;
                     PipingStructure.Contribution = 0;
                     StrengthStabilityPointConstruction.Contribution = 0;
@@ -224,7 +225,7 @@ namespace Ringtoets.Integration.Data
                     WaveImpactAsphaltCover.Contribution = 1;
                     GrassCoverErosionOutwards.Contribution = 5;
                     GrassCoverSlipOffOutwards.Contribution = 1;
-                    HeightStructure.Contribution = 24;
+                    HeightStructures.Contribution = 24;
                     ClosingStructure.Contribution = 4;
                     PipingStructure.Contribution = 2;
                     StrengthStabilityPointConstruction.Contribution = 2;

@@ -128,7 +128,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(waveImpactAsphaltName, section.WaveImpactAsphaltCover.Name);
             Assert.AreEqual(grassCoverErosionOutwardsName, section.GrassCoverErosionOutwards.Name);
             Assert.AreEqual(grassCoverSlipOffOutsideName, section.GrassCoverSlipOffOutwards.Name);
-            Assert.AreEqual(heightStructureName, section.HeightStructure.Name);
+            Assert.AreEqual(heightStructureName, section.HeightStructures.Name);
             Assert.AreEqual(closingStructureName, section.ClosingStructure.Name);
             Assert.AreEqual(pipingStructureName, section.PipingStructure.Name);
             Assert.AreEqual(strengthStabilityPointConstructionName, section.StrengthStabilityPointConstruction.Name);
@@ -195,7 +195,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreSame(assessmentSection.WaveImpactAsphaltCover, failureMechanisms[4]);
             Assert.AreSame(assessmentSection.GrassCoverErosionOutwards, failureMechanisms[5]);
             Assert.AreSame(assessmentSection.GrassCoverSlipOffOutwards, failureMechanisms[6]);
-            Assert.AreSame(assessmentSection.HeightStructure, failureMechanisms[7]);
+            Assert.AreSame(assessmentSection.HeightStructures, failureMechanisms[7]);
             Assert.AreSame(assessmentSection.ClosingStructure, failureMechanisms[8]);
             Assert.AreSame(assessmentSection.PipingStructure, failureMechanisms[9]);
             Assert.AreSame(assessmentSection.StrengthStabilityPointConstruction, failureMechanisms[10]);
@@ -322,7 +322,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(contributions[4], assessmentSection.WaveImpactAsphaltCover.Contribution);
             Assert.AreEqual(contributions[5], assessmentSection.GrassCoverErosionOutwards.Contribution);
             Assert.AreEqual(contributions[6], assessmentSection.GrassCoverSlipOffOutwards.Contribution);
-            Assert.AreEqual(contributions[7], assessmentSection.HeightStructure.Contribution);
+            Assert.AreEqual(contributions[7], assessmentSection.HeightStructures.Contribution);
             Assert.AreEqual(contributions[8], assessmentSection.ClosingStructure.Contribution);
             Assert.AreEqual(contributions[9], assessmentSection.PipingStructure.Contribution);
             Assert.AreEqual(contributions[10], assessmentSection.StrengthStabilityPointConstruction.Contribution);

@@ -252,7 +252,7 @@ namespace Application.Ringtoets.Storage.Test.Update
                         {
                             StorageId = 1
                         },
-                        HeightStructure =
+                        HeightStructures =
                         {
                             StorageId = 1
                         },

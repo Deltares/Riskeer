@@ -47,7 +47,6 @@
     <Compile Include="StandAlone\PipingStructureFailureMechanism.cs" />
     <Compile Include="StandAlone\StrengthStabilityPointConstructionFailureMechanism.cs" />
     <Compile Include="StandAlone\ClosingStructureFailureMechanism.cs" />
-    <Compile Include="StandAlone\HeightStructureFailureMechanism.cs" />
     <Compile Include="StandAlone\GrassCoverSlipOffOutwardsFailureMechanism.cs" />
     <Compile Include="StandAlone\GrassCoverErosionOutwardsFailureMechanism.cs" />
     <Compile Include="StandAlone\StabilityStoneCoverFailureMechanism.cs" />
@@ -91,6 +90,10 @@
       <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+      <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
+      <Name>Ringtoets.HeightStructures.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>

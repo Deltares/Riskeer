@@ -45,6 +45,8 @@ using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
@@ -455,7 +457,6 @@ namespace Ringtoets.Integration.Plugin
                 var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;
                 var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
                 var grassCoverSlipOffOutwardsFailureMechanism = failureMechanism as GrassCoverSlipOffOutwardsFailureMechanism;
-                var heightStructureFailureMechanism = failureMechanism as HeightStructureFailureMechanism;
                 var macroStabilityInwardsFailureMechanism = failureMechanism as MacroStabilityInwardsFailureMechanism;
                 var pipingStructureFailureMechanism = failureMechanism as PipingStructureFailureMechanism;
                 var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
@@ -464,6 +465,7 @@ namespace Ringtoets.Integration.Plugin
 
                 var piping = failureMechanism as PipingFailureMechanism;
                 var grassCoverErosionInwards = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
+                var heightStructureFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
 
                 if (closingStructureFailureMechanism != null)
                 {
@@ -480,10 +482,6 @@ namespace Ringtoets.Integration.Plugin
                 else if (grassCoverSlipOffOutwardsFailureMechanism != null)
                 {
                     yield return new SimpleFailureMechanismContext(grassCoverSlipOffOutwardsFailureMechanism, nodeData);
-                }
-                else if (heightStructureFailureMechanism != null)
-                {
-                    yield return new CustomFailureMechanismContext(heightStructureFailureMechanism, nodeData);
                 }
                 else if (macroStabilityInwardsFailureMechanism != null)
                 {
@@ -512,6 +510,10 @@ namespace Ringtoets.Integration.Plugin
                 else if (grassCoverErosionInwards != null)
                 {
                     yield return new GrassCoverErosionInwardsFailureMechanismContext(grassCoverErosionInwards, nodeData);
+                }
+                else if (heightStructureFailureMechanism != null)
+                {
+                    yield return new HeightStructuresFailureMechanismContext(heightStructureFailureMechanism, nodeData);
                 }
                 else
                 {

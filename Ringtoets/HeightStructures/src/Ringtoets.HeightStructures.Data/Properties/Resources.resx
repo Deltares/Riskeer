@@ -117,67 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FailureMechanismContribution_DisplayName" xml:space="preserve">
-    <value>Faalkansverdeling</value>
+  <data name="HeightStructureFailureMechanism_Code" xml:space="preserve">
+    <value>HTKW</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_DisplayName" xml:space="preserve">
-    <value>Hydraulische randvoorwaarden</value>
-  </data>
-  <data name="DuneErosionFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Duinwaterkering - Duinafslag</value>
-  </data>
-  <data name="AssessmentSection_DisplayName" xml:space="preserve">
-    <value>Traject</value>
-  </data>
-  <data name="MacrostabilityInwardFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Macrostabiliteit binnenwaarts</value>
-  </data>
-  <data name="StrengthStabilityPointConstructionFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Kunstwerken - Sterkte en stabiliteit puntconstructies</value>
-  </data>
-  <data name="WaveImpactAsphaltCoverFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Golfklappen op asfaltbekleding</value>
-  </data>
-  <data name="GrassCoverErosionOutwardsFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Grasbekleding erosie buitentalud</value>
-  </data>
-  <data name="ClosingStructureFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Kunstwerken - Betrouwbaarheid sluiting kunstwerk</value>
-  </data>
-  <data name="GrassCoverSlipOffOutwardsFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Grasbekleding afschuiven buitentalud</value>
-  </data>
-  <data name="PipingStructureFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Kunstwerken - Piping bij kunstwerk</value>
-  </data>
-  <data name="StabilityStoneCoverFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Stabiliteit steenzetting</value>
-  </data>
-  <data name="MacrostabilityInwardFailureMechanism_Code" xml:space="preserve">
-    <value>STBI</value>
-  </data>
-  <data name="StabilityStoneCoverFailureMechanism_Code" xml:space="preserve">
-    <value>ZST</value>
-  </data>
-  <data name="WaveImpactAsphaltCoverFailureMechanism_Code" xml:space="preserve">
-    <value>AGK</value>
-  </data>
-  <data name="GrassCoverErosionOutwardsFailureMechanism_Code" xml:space="preserve">
-    <value>GEBU</value>
-  </data>
-  <data name="GrassCoverSlipOffOutwardsFailureMechanism_Code" xml:space="preserve">
-    <value>GABU</value>
-  </data>
-  <data name="ClosingStructureFailureMechanism_Code" xml:space="preserve">
-    <value>BSKW</value>
-  </data>
-  <data name="StrengthStabilityPointConstructionFailureMechanism_Code" xml:space="preserve">
-    <value>STKWp</value>
-  </data>
-  <data name="PipingStructureFailureMechanism_Code" xml:space="preserve">
-    <value>PKW</value>
-  </data>
-  <data name="DuneErosionFailureMechanism_Code" xml:space="preserve">
-    <value>DA</value>
+  <data name="HeightStructureFailureMechanism_DisplayName" xml:space="preserve">
+    <value>Kunstwerken - Hoogte kunstwerk</value>
   </data>
 </root>

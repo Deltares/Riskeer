@@ -22,21 +22,19 @@
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.Properties;
-using Ringtoets.Integration.Data.StandAlone.Result;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using Ringtoets.HeightStructures.Data.Properties;
 
-namespace Ringtoets.Integration.Data.StandAlone
+namespace Ringtoets.HeightStructures.Data
 {
     /// <summary>
-    /// Defines a stand alone failure mechanisms objects
+    /// Failure mechanism for Height structures.
     /// </summary>
-    public class HeightStructureFailureMechanism : FailureMechanismBase<CustomFailureMechanismSectionResult>
+    public class HeightStructuresFailureMechanism : FailureMechanismBase<FailureMechanismSectionResult>, ICalculatableFailureMechanism
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="HeightStructureFailureMechanism"/> class.
+        /// Initializes a new instance of the <see cref="HeightStructuresFailureMechanism"/> class.
         /// </summary>
-        public HeightStructureFailureMechanism()
+        public HeightStructuresFailureMechanism()
             : base(Resources.HeightStructureFailureMechanism_DisplayName, Resources.HeightStructureFailureMechanism_Code)
         { }
 
@@ -48,9 +46,11 @@ namespace Ringtoets.Integration.Data.StandAlone
             }
         }
 
-        protected override CustomFailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+        protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
         {
-            return new CustomFailureMechanismSectionResult(section);
+            return new FailureMechanismSectionResult(section);
         }
+
+        public CalculationGroup CalculationsGroup { get; private set; }
     }
 }

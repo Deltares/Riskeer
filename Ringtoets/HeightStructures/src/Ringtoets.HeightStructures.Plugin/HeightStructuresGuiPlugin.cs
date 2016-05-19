@@ -19,11 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using Core.Common.Controls.TreeView;
+using Core.Common.Gui.Plugin;
+using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.HeightStructures.Forms.PresentationObjects;
 
-[assembly: AssemblyTitle("Ringtoets.HeightStructures.Data")]
-[assembly: AssemblyProduct("Ringtoets.HeightStructures.Data")]
-[assembly: Guid("418e2cad-51d3-4f2b-8fc4-0092b987f810")]
-[assembly: InternalsVisibleTo("Ringtoets.HeightStructures.Data.Test")]
+namespace Ringtoets.HeightStructures.Plugin
+{
+    public class HeightStructuresGuiPlugin : GuiPlugin
+    {
+        public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
+        {
+            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<HeightStructuresFailureMechanismContext>(
+                context => new object[0],
+                context => new object[0],
+                (context, o, treeViewControl) => new ContextMenuStrip(),
+                (context, o, treeViewControl) => new ContextMenuStrip());
+        }
+    }
+}

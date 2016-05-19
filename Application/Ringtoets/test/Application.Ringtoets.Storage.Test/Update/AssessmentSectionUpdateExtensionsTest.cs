@@ -434,9 +434,9 @@ namespace Application.Ringtoets.Storage.Test.Update
             section.MacrostabilityInwards.StorageId = 1;
             section.MacrostabilityInwards.Contribution = 0.5;
             section.MacrostabilityInwards.IsRelevant = true;
-            section.HeightStructure.StorageId = 2;
-            section.HeightStructure.Contribution = 0.5;
-            section.HeightStructure.IsRelevant = true;
+            section.HeightStructures.StorageId = 2;
+            section.HeightStructures.Contribution = 0.5;
+            section.HeightStructures.IsRelevant = true;
             section.ClosingStructure.StorageId = 3;
             section.ClosingStructure.Contribution = 0.5;
             section.ClosingStructure.IsRelevant = true;
@@ -558,7 +558,7 @@ namespace Application.Ringtoets.Storage.Test.Update
                 {
                     StorageId = 3
                 },
-                HeightStructure =
+                HeightStructures =
                 {
                     StorageId = 4
                 },

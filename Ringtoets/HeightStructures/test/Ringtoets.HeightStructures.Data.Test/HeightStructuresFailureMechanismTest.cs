@@ -23,24 +23,23 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.Result;
+using Ringtoets.HeightStructures.Data.Properties;
 
-namespace Ringtoets.Integration.Data.Test.StandAlone
+namespace Ringtoets.HeightStructures.Data.Test
 {
     [TestFixture]
-    public class HeightStructureFailureMechanismTest
+    public class HeightStructuresFailureMechanismTest
     {
         [Test]
         public void DefaultConstructor_Always_PropertiesSet()
         {
             // Call
-            var failureMechanism = new HeightStructureFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismBase<CustomFailureMechanismSectionResult>>(failureMechanism);
-            Assert.AreEqual("Kunstwerken - Hoogte kunstwerk", failureMechanism.Name);
-            Assert.AreEqual("HTKW", failureMechanism.Code);
+            Assert.IsInstanceOf<FailureMechanismBase<FailureMechanismSectionResult>>(failureMechanism);
+            Assert.AreEqual(Resources.HeightStructureFailureMechanism_DisplayName, failureMechanism.Name);
+            Assert.AreEqual(Resources.HeightStructureFailureMechanism_Code, failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
 
@@ -48,7 +47,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
         public void AddSection_WithSection_AddedCustomFailureMechanismResult()
         {
             // Setup
-            var failureMechanism = new HeightStructureFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
             
             // Call
             failureMechanism.AddSection(new FailureMechanismSection("", new[]
@@ -58,7 +57,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
 
             // Assert
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.IsInstanceOf<CustomFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+            Assert.IsInstanceOf<FailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
         }
     }
 }

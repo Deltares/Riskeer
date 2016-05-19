@@ -301,9 +301,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(isRelevant, section.MacrostabilityInwards.IsRelevant);
             Assert.AreEqual(2, section.MacrostabilityInwards.Sections.Count());
 
-            Assert.AreEqual(overtoppingEntityId, section.HeightStructure.StorageId);
-            Assert.AreEqual(isRelevant, section.HeightStructure.IsRelevant);
-            Assert.AreEqual(2, section.HeightStructure.Sections.Count());
+            Assert.AreEqual(overtoppingEntityId, section.HeightStructures.StorageId);
+            Assert.AreEqual(isRelevant, section.HeightStructures.IsRelevant);
+            Assert.AreEqual(2, section.HeightStructures.Sections.Count());
 
             Assert.AreEqual(closingEntityId, section.ClosingStructure.StorageId);
             Assert.AreEqual(isRelevant, section.ClosingStructure.IsRelevant);
