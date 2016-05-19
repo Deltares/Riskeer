@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System.Collections.ObjectModel;
+using System.Data.Entity;
+
 using Application.Ringtoets.Storage.DbContext;
 using Rhino.Mocks;
 
@@ -29,30 +31,40 @@ namespace Application.Ringtoets.Storage.TestUtil
     {
         public static IRingtoetsEntities Create(MockRepository mockRepository)
         {
+            DbSet<ProjectEntity> projectsSet = CreateEmptyTestDbSet<ProjectEntity>();
+            DbSet<HydraulicLocationEntity> hydraylicLocationsSet = CreateEmptyTestDbSet<HydraulicLocationEntity>();
+            DbSet<FailureMechanismEntity> failureMechanismsSet = CreateEmptyTestDbSet<FailureMechanismEntity>();
+            DbSet<FailureMechanismSectionEntity> failureMechanismSectionsSet = CreateEmptyTestDbSet<FailureMechanismSectionEntity>();
+            DbSet<FailureMechanismSectionPointEntity> failureMechanismSectionPointsSet = CreateEmptyTestDbSet<FailureMechanismSectionPointEntity>();
+            DbSet<AssessmentSectionEntity> assessmentSectionsSet = CreateEmptyTestDbSet<AssessmentSectionEntity>();
+            DbSet<ReferenceLinePointEntity> referenceLinesSet = CreateEmptyTestDbSet<ReferenceLinePointEntity>();
+            DbSet<StochasticSoilModelEntity> stochasticSoilModelsSet = CreateEmptyTestDbSet<StochasticSoilModelEntity>();
+            DbSet<StochasticSoilProfileEntity> stochasticSoilProfilesSet = CreateEmptyTestDbSet<StochasticSoilProfileEntity>();
+            DbSet<SoilProfileEntity> soilProfilesSet = CreateEmptyTestDbSet<SoilProfileEntity>();
+            DbSet<SoilLayerEntity> soilLayersSet = CreateEmptyTestDbSet<SoilLayerEntity>();
+            DbSet<SurfaceLineEntity> surfaceLinesSet = CreateEmptyTestDbSet<SurfaceLineEntity>();
+            DbSet<SurfaceLinePointEntity> surfaceLinePointsSet = CreateEmptyTestDbSet<SurfaceLinePointEntity>();
+
             var ringtoetsEntities = mockRepository.Stub<IRingtoetsEntities>();
-            var pSet = new TestDbSet<ProjectEntity>(new ObservableCollection<ProjectEntity>());
-            var hlSet = new TestDbSet<HydraulicLocationEntity>(new ObservableCollection<HydraulicLocationEntity>());
-            var fmSet = new TestDbSet<FailureMechanismEntity>(new ObservableCollection<FailureMechanismEntity>());
-            var fmsSet = new TestDbSet<FailureMechanismSectionEntity>(new ObservableCollection<FailureMechanismSectionEntity>());
-            var fmspSet = new TestDbSet<FailureMechanismSectionPointEntity>(new ObservableCollection<FailureMechanismSectionPointEntity>());
-            var dasSet = new TestDbSet<AssessmentSectionEntity>(new ObservableCollection<AssessmentSectionEntity>());
-            var rlpSet = new TestDbSet<ReferenceLinePointEntity>(new ObservableCollection<ReferenceLinePointEntity>());
-            var ssmSet = new TestDbSet<StochasticSoilModelEntity>(new ObservableCollection<StochasticSoilModelEntity>());
-            var sspSet = new TestDbSet<StochasticSoilProfileEntity>(new ObservableCollection<StochasticSoilProfileEntity>());
-            var spSet = new TestDbSet<SoilProfileEntity>(new ObservableCollection<SoilProfileEntity>());
-            var slSet = new TestDbSet<SoilLayerEntity>(new ObservableCollection<SoilLayerEntity>());
-            ringtoetsEntities.Stub(r => r.ProjectEntities).Return(pSet);
-            ringtoetsEntities.Stub(r => r.HydraulicLocationEntities).Return(hlSet);
-            ringtoetsEntities.Stub(r => r.FailureMechanismEntities).Return(fmSet);
-            ringtoetsEntities.Stub(r => r.FailureMechanismSectionEntities).Return(fmsSet);
-            ringtoetsEntities.Stub(r => r.FailureMechanismSectionPointEntities).Return(fmspSet);
-            ringtoetsEntities.Stub(r => r.AssessmentSectionEntities).Return(dasSet);
-            ringtoetsEntities.Stub(r => r.ReferenceLinePointEntities).Return(rlpSet);
-            ringtoetsEntities.Stub(r => r.StochasticSoilModelEntities).Return(ssmSet);
-            ringtoetsEntities.Stub(r => r.StochasticSoilProfileEntities).Return(sspSet);
-            ringtoetsEntities.Stub(r => r.SoilProfileEntities).Return(spSet);
-            ringtoetsEntities.Stub(r => r.SoilLayerEntities).Return(slSet);
+            ringtoetsEntities.Stub(r => r.ProjectEntities).Return(projectsSet);
+            ringtoetsEntities.Stub(r => r.HydraulicLocationEntities).Return(hydraylicLocationsSet);
+            ringtoetsEntities.Stub(r => r.FailureMechanismEntities).Return(failureMechanismsSet);
+            ringtoetsEntities.Stub(r => r.FailureMechanismSectionEntities).Return(failureMechanismSectionsSet);
+            ringtoetsEntities.Stub(r => r.FailureMechanismSectionPointEntities).Return(failureMechanismSectionPointsSet);
+            ringtoetsEntities.Stub(r => r.AssessmentSectionEntities).Return(assessmentSectionsSet);
+            ringtoetsEntities.Stub(r => r.ReferenceLinePointEntities).Return(referenceLinesSet);
+            ringtoetsEntities.Stub(r => r.StochasticSoilModelEntities).Return(stochasticSoilModelsSet);
+            ringtoetsEntities.Stub(r => r.StochasticSoilProfileEntities).Return(stochasticSoilProfilesSet);
+            ringtoetsEntities.Stub(r => r.SoilProfileEntities).Return(soilProfilesSet);
+            ringtoetsEntities.Stub(r => r.SoilLayerEntities).Return(soilLayersSet);
+            ringtoetsEntities.Stub(r => r.SurfaceLineEntities).Return(surfaceLinesSet);
+            ringtoetsEntities.Stub(r => r.SurfaceLinePointEntities).Return(surfaceLinePointsSet);
             return ringtoetsEntities;
+        }
+
+        private static DbSet<T> CreateEmptyTestDbSet<T>() where T : class
+        {
+            return new TestDbSet<T>(new ObservableCollection<T>());
         }
     }
 }

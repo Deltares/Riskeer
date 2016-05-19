@@ -154,6 +154,7 @@
     <Compile Include="Update\AssessmentSectionUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverErosionInwardsFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\FailureMechanismBaseUpdateExtensions.cs" />
+    <Compile Include="Update\RingtoetsPipingSurfaceLineUpdateExtensions.cs" />
     <Compile Include="Update\StandAloneFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\FailureMechanismSectionUpdateExtensions.cs" />
     <Compile Include="Update\HydraulicBoundaryLocationUpdateExtensions.cs" />

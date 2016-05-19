@@ -126,6 +126,7 @@
     <Compile Include="Update\PipingSoilLayerUpdateExtensionsTest.cs" />
     <Compile Include="Update\PipingSoilProfileUpdateExtensionsTest.cs" />
     <Compile Include="Update\ProjectUpdateExtensionsTest.cs" />
+    <Compile Include="Update\RingtoetsPipingSurfaceLineUpdateExtensionsTest.cs" />
     <Compile Include="Update\StochasticSoilModelUpdateExtensionsTest.cs" />
     <Compile Include="Update\StochasticSoilProfileUpdateExtensionsTest.cs" />
     <Compile Include="Update\UpdateConversionCollectorTest.cs" />
