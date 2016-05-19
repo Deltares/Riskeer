@@ -35,7 +35,7 @@ namespace Ringtoets.HeightStructures.Data
         private readonly IList<CustomFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HeightStructuresFailureMechanism"/> class.
+        /// Creates a new instance of the <see cref="HeightStructuresFailureMechanism"/> class.
         /// </summary>
         public HeightStructuresFailureMechanism()
             : base(Resources.HeightStructureFailureMechanism_DisplayName, Resources.HeightStructureFailureMechanism_Code)

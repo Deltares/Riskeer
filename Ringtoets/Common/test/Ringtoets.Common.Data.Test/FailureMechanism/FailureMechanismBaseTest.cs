@@ -119,7 +119,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         [TestCase(100)]
         [TestCase(50)]
         [TestCase(0)]
-        public void Contribution_ValueIntsideValidRegion_DoesNotThrow(double value)
+        public void Contribution_ValueInsideValidRegion_DoesNotThrow(double value)
         {
             // Setup
             var failureMechanism = new SimpleFailureMechanismBase();

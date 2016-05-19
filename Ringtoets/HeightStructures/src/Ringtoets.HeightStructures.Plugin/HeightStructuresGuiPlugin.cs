@@ -24,10 +24,14 @@ using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 
 namespace Ringtoets.HeightStructures.Plugin
 {
+    /// <summary>
+    /// The GUI plug-in for the <see cref="HeightStructuresFailureMechanism"/>.
+    /// </summary>
     public class HeightStructuresGuiPlugin : GuiPlugin
     {
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()

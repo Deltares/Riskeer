@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
         [TestCase(1)]
         [TestCase(10)]
         [TestCase(20)]
-        public void N_ValueIntsideValidRegion_DoesNotThrow(int value)
+        public void N_ValueInsideValidRegion_DoesNotThrow(int value)
         {
             // Setup
             var inputParameters = new GeneralNormProbabilityInput();

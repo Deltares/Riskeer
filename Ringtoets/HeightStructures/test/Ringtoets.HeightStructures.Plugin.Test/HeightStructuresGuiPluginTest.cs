@@ -37,24 +37,25 @@ namespace Ringtoets.HeightStructures.Plugin.Test
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // call
-            using (var grassCoverErosionInwardsGuiPlugin = new HeightStructuresGuiPlugin())
+            // Call
+            using (var heightStructuresGuiPlugin = new HeightStructuresGuiPlugin())
             {
-                // assert
-                Assert.IsInstanceOf<GuiPlugin>(grassCoverErosionInwardsGuiPlugin);
+                // Assert
+                Assert.IsInstanceOf<GuiPlugin>(heightStructuresGuiPlugin);
             }
         }
 
         [Test]
         public void GetTreeNodeInfos_ReturnsSupportedTreeNodeInfos()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var applicationCore = new ApplicationCore();
             var guiStub = mocks.Stub<IGui>();
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
 
+            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
             Expect.Call(guiStub.ApplicationCore).Return(applicationCore).Repeat.Any();
+
             mocks.ReplayAll();
 
             using (var guiPlugin = new HeightStructuresGuiPlugin
@@ -62,13 +63,14 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                 Gui = guiStub
             })
             {
-                // call
+                // Call
                 TreeNodeInfo[] treeNodeInfos = guiPlugin.GetTreeNodeInfos().ToArray();
 
-                // assert
+                // Assert
                 Assert.AreEqual(1, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresFailureMechanismContext)));
             }
+
             mocks.VerifyAll();
         }
     }
