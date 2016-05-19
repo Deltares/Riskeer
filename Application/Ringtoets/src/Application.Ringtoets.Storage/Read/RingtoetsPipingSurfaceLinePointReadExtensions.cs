@@ -27,42 +27,45 @@ using Core.Common.Base.Geometry;
 
 using Ringtoets.Piping.Primitives;
 
-namespace Application.Ringtoets.Storage.Create
+namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// Extensions methods for <see cref="RingtoetsPipingSurfaceLine.Points"/> related to
-    /// creating an <see cref="SurfaceLinePointEntity"/>.
+    /// This class defines extension methods for read operations for <see cref="Point3D"/>
+    /// for <see cref="RingtoetsPipingSurfaceLine.Points"/>based on the <see cref="SurfaceLinePointEntity"/>.
     /// </summary>
-    internal static class RingtoetsPipingSurfaceLinePointCreateExtensions
+    internal static class RingtoetsPipingSurfaceLinePointReadExtensions
     {
         /// <summary>
-        /// Creates the surface line point.
+        /// Read the <see cref="SurfaceLinePointEntity"/> and use the information to construct
+        /// a <see cref="Point3D"/> for a <see cref="RingtoetsPipingSurfaceLine"/>.
         /// </summary>
-        /// <param name="geometryPoint">The geometry point to create a database entity for.</param>
-        /// <param name="collector">The object keeping track of create operations.</param>
-        /// <param name="order">The index in <see cref="RingtoetsPipingSurfaceLine.Points"/>.</param>
-        /// <returns>A new <see cref="SurfaceLinePointEntity"/>.</returns>
+        /// <param name="entity">The <see cref="SurfaceLinePointEntity"/> to create
+        /// <see cref="Point3D"/> for.</param>
+        /// <param name="collector">The object keeping track of read operations.</param>
+        /// <returns>A new surfaceline geometry point.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static SurfaceLinePointEntity CreateSurfaceLinePoint(this Point3D geometryPoint,
-                                                                      CreateConversionCollector collector,
-                                                                      int order)
+        internal static Point3D Read(this SurfaceLinePointEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
             }
-
-            var entity = new SurfaceLinePointEntity
+            if (collector.Contains(entity))
             {
-                X = Convert.ToDecimal(geometryPoint.X),
-                Y = Convert.ToDecimal(geometryPoint.Y),
-                Z = Convert.ToDecimal(geometryPoint.Z),
-                Order = order
+                return collector.Get(entity);
+            }
+
+            var surfaceLineGeometryPoint = new Point3D(
+                Convert.ToDouble(entity.X),
+                Convert.ToDouble(entity.Y),
+                Convert.ToDouble(entity.Z))
+            {
+                StorageId = entity.SurfaceLinePointEntityId
             };
 
-            collector.Create(entity, geometryPoint);
+            collector.Read(entity, surfaceLineGeometryPoint);
 
-            return entity;
+            return surfaceLineGeometryPoint;
         }
     }
 }

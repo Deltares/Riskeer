@@ -20,8 +20,12 @@
 // All rights reserved.
 
 using System;
+
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
+
+using Core.Common.Base.Geometry;
+
 using NUnit.Framework;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 
@@ -30,6 +34,7 @@ namespace Application.Ringtoets.Storage.Test.Read
     [TestFixture]
     public class ReadConversionCollectorTest
     {
+        #region SoilProfileEntity: Read, Contains, Get
 
         [Test]
         public void Contains_WithoutEntity_ArgumentNullException()
@@ -38,7 +43,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Contains(null);
+            TestDelegate test = () => collector.Contains((SoilProfileEntity)null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -90,13 +95,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_WithoutEntity_ArgumentNullException()
+        public void Get_WithoutSoilProfileEntity_ThrowArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Get(null);
+            TestDelegate test = () => collector.Get((SoilProfileEntity)null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -175,5 +180,169 @@ namespace Application.Ringtoets.Storage.Test.Read
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
+
+        #endregion
+
+        #region SurfaceLinePointEntity: Read, Contains, Get
+
+        [Test]
+        public void Contains_SurfaceLinePointsEntityIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate call = () => collector.Contains((SurfaceLinePointEntity)null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Contains_SurfaceLinePointEntityAdded_True()
+        {
+            // Setup
+            var entity = new SurfaceLinePointEntity();
+            var model = new Point3D(1.1, 2.2, 3.3);
+
+            var collector = new ReadConversionCollector();
+            collector.Read(entity, model);
+
+            // Call
+            var hasEntity = collector.Contains(entity);
+
+            // Assert
+            Assert.IsTrue(hasEntity);
+        }
+
+        [Test]
+        public void Contains_SurfaceLinePointEntityNotAdded_False()
+        {
+            // Setup
+            var entity = new SurfaceLinePointEntity();
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var hasEntity = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(hasEntity);
+        }
+
+        [Test]
+        public void Contains_OtherSurfaceLinePointEntityAdded_False()
+        {
+            // Setup
+            var registeredEntity = new SurfaceLinePointEntity();
+            var model = new Point3D(1.1, 2.2, 3.3);
+
+            var collector = new ReadConversionCollector();
+            collector.Read(registeredEntity, model);
+
+            var unregisteredEntity = new SurfaceLinePointEntity();
+
+            // Call
+            var hasEntity = collector.Contains(unregisteredEntity);
+
+            // Assert
+            Assert.IsFalse(hasEntity);
+        }
+
+        [Test]
+        public void Get_SurfaceLinePointEntityIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate call = () => collector.Get((SurfaceLinePointEntity)null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Get_SurfaceLinePointEntityAdded_ReturnsPoint3D()
+        {
+            // Setup
+            var entity = new SurfaceLinePointEntity();
+            var model = new Point3D(1.1, 2.2, 3.3);
+
+            var collector = new ReadConversionCollector();
+            collector.Read(entity, model);
+
+            // Call
+            Point3D retrievedGeometryPoint = collector.Get(entity);
+
+            // Assert
+            Assert.AreSame(model, retrievedGeometryPoint);
+        }
+
+        [Test]
+        public void Get_SurfaceLinePointEntityNotAdded_ThrowInvalidOperationException()
+        {
+            // Setup
+            var entity = new SurfaceLinePointEntity();
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate call = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void Get_DifferentSurfaceLinePointEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var registeredEntity = new SurfaceLinePointEntity();
+            var model = new Point3D(1.1, 2.2, 3.3);
+
+            var collector = new ReadConversionCollector();
+            collector.Read(registeredEntity, model);
+
+            var unregisteredEntity = new SurfaceLinePointEntity();
+
+            // Call
+            TestDelegate call = () => collector.Get(unregisteredEntity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void Read_SurfaceLinePointEntityIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(null, new Point3D(2.3, 4.4, 5.5));
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Read_Point3DIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(new SurfaceLinePointEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        #endregion
     }
 }

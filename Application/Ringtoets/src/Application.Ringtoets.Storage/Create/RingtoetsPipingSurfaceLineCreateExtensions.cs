@@ -21,10 +21,11 @@
 
 using System;
 
-using Ringtoets.Piping.Primitives;
 using Application.Ringtoets.Storage.DbContext;
 
 using Core.Common.Base.Geometry;
+
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Create
 {
@@ -32,7 +33,7 @@ namespace Application.Ringtoets.Storage.Create
     /// Extensions methods for <see cref="RingtoetsPipingSurfaceLine"/> related to creating
     /// an <see cref="SurfaceLineEntity"/>.
     /// </summary>
-    public static class RingtoetsPipingSurfaceLineCreateExtensions
+    internal static class RingtoetsPipingSurfaceLineCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="SurfaceLineEntity"/> based on the information of the <see cref="RingtoetsPipingSurfaceLine"/>.
@@ -52,11 +53,23 @@ namespace Application.Ringtoets.Storage.Create
             {
                 Name = surfaceLine.Name
             };
+            CreateSurfaceLinePointEntities(surfaceLine, collector, entity);
+            CreateCharacteristicPointEntities(surfaceLine, collector, entity);
+
+            return entity;
+        }
+
+        private static void CreateSurfaceLinePointEntities(RingtoetsPipingSurfaceLine surfaceLine, CreateConversionCollector collector, SurfaceLineEntity entity)
+        {
             int order = 0;
             foreach (Point3D point3D in surfaceLine.Points)
             {
                 entity.SurfaceLinePointEntities.Add(point3D.CreateSurfaceLinePoint(collector, order++));
             }
+        }
+
+        private static void CreateCharacteristicPointEntities(RingtoetsPipingSurfaceLine surfaceLine, CreateConversionCollector collector, SurfaceLineEntity entity)
+        {
             if (surfaceLine.BottomDitchPolderSide != null)
             {
                 SurfaceLinePointEntity characteristicPointEntity = collector.GetSurfaceLinePoint(surfaceLine.BottomDitchPolderSide);
@@ -87,7 +100,6 @@ namespace Application.Ringtoets.Storage.Create
                 SurfaceLinePointEntity characteristicPointEntity = collector.GetSurfaceLinePoint(surfaceLine.DitchPolderSide);
                 entity.DitchPolderSidePointEntity = characteristicPointEntity;
             }
-            return entity;
         }
     }
 }

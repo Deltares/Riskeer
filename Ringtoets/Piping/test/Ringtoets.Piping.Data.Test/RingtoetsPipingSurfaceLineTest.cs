@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Data.Properties;
@@ -41,11 +42,14 @@ namespace Ringtoets.Piping.Data.Test
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Assert
+            Assert.IsInstanceOf<IStorable>(surfaceLine);
+
             Assert.AreEqual(String.Empty, surfaceLine.Name);
             CollectionAssert.IsEmpty(surfaceLine.Points);
             Assert.IsNull(surfaceLine.StartingWorldPoint);
             Assert.IsNull(surfaceLine.EndingWorldPoint);
             Assert.IsNull(surfaceLine.ReferenceLineIntersectionWorldPoint);
+            Assert.AreEqual(0, surfaceLine.StorageId);
         }
 
         [Test]
