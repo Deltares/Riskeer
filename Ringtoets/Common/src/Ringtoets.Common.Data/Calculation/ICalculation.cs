@@ -29,11 +29,6 @@ namespace Ringtoets.Common.Data.Calculation
     public interface ICalculation : ICalculationBase, ICommentable
     {
         /// <summary>
-        /// Gets or sets the name of this calculation item.
-        /// </summary>
-        new string Name { get; set; }
-       
-        /// <summary>
         /// Gets a value indicating whether or not this calculation item contains calculation output.
         /// </summary>
         bool HasOutput { get; }

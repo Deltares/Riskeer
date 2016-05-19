@@ -99,7 +99,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionInwardsCalculationContext>(
                 GrassCoverErosionInwardsFormsResources.CalculationIcon,
                 CalculationContextChildNodeObjects,
-                CalculationContextContextmenuStrip,
+                CalculationContextContextMenuStrip,
                 CalculationContextOnNodeRemoved);
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>>
@@ -480,7 +480,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             return childNodes.ToArray();
         }
 
-        private ContextMenuStrip CalculationContextContextmenuStrip(GrassCoverErosionInwardsCalculationContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationContextContextMenuStrip(GrassCoverErosionInwardsCalculationContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 

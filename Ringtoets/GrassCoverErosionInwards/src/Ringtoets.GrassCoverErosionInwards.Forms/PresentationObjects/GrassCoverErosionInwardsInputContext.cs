@@ -27,13 +27,17 @@ using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
 {
+    /// <summary>
+    /// Presentation object for all data required to configure an instance of <see cref="GrassCoverErosionInwardsInput"/>
+    /// in order to be able to configure grass cover erosion inwards calculations.
+    /// </summary>
     public class GrassCoverErosionInwardsInputContext : GrassCoverErosionInwardsContext<GrassCoverErosionInwardsInput>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionInwardsInputContext"/>
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsInputContext"/>.
         /// </summary>
         /// <param name="input">The grass cover erosion inwards input instance wrapped by this context object.</param>
-        /// <param name="calculation">The calculation item the <paramref name="input"/> belongs to.</param>
+        /// <param name="calculation">The calculation item which the <paramref name="input"/> belongs to.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is null.</exception>

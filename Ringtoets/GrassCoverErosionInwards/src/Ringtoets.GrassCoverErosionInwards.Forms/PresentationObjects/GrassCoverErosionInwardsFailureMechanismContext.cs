@@ -34,9 +34,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsFailureMechanismContext"/> class.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism.</param>
-        /// <param name="assessmentSection">The parent of <paramref name="failureMechanism"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> or <paramref name="assessmentSection"/> are <c>null</c>.</exception>
+        /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/> instance wrapped by this context object.</param>
+        /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> or <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismContext(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection) :
             base(failureMechanism, assessmentSection) {}
     }

@@ -91,13 +91,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_WithOutputData_ReturnOutputChildNode()
+        public void ChildNodeObjects_WithoutOutputData_ReturnCommentNodeInputNodeAndEmptyOutputChildNode()
         {
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput());
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
@@ -313,131 +312,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                           RingtoetsCommonFormsResources.Calculate,
                                                           RingtoetsCommonFormsResources.Calculate_ToolTip,
                                                           RingtoetsCommonFormsResources.CalculateIcon);
-        }
-
-        [Test]
-        public void ContextMenuStrip_CalculationWithoutOutput_ContextMenuItemClearOutputDisabled()
-        {
-            // Setup
-            var gui = mocks.StrictMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-
-            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput());
-
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
-
-            gui.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
-
-            mocks.ReplayAll();
-
-            plugin.Gui = gui;
-
-            // Call
-            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
-
-            // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
-
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1,
-                                                          RingtoetsCommonFormsResources.Clear_output,
-                                                          RingtoetsCommonFormsResources.ClearOutput_No_output_to_clear,
-                                                          RingtoetsCommonFormsResources.ClearIcon,
-                                                          false);
-        }
-
-        [Test]
-        public void ContextMenuStrip_CalculationWithOutput_ContextMenuItemClearOutputEnabled()
-        {
-            var gui = mocks.StrictMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput())
-            {
-                Output = new GrassCoverErosionInwardsOutput(0, 0, 0, 0, 0)
-            };
-
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
-
-            gui.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
-
-            mocks.ReplayAll();
-
-            plugin.Gui = gui;
-
-            // Call
-            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
-
-            // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
-
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1,
-                                                          RingtoetsCommonFormsResources.Clear_output,
-                                                          RingtoetsCommonFormsResources.Clear_output_ToolTip,
-                                                          RingtoetsCommonFormsResources.ClearIcon);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GivenCalculationWithOutput_WhenClearingOutput_ThenCalculationClearedAndNotified(bool confirm)
-        {
-            // Given
-            var gui = mocks.DynamicMock<IGui>();
-            var observer = mocks.StrictMock<IObserver>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput());
-
-            var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
-
-            gui.Expect(cmp => cmp.Get(calculationContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
-
-            int clearOutputItemPosition = 1;
-            if (confirm)
-            {
-                observer.Expect(o => o.UpdateObserver());
-            }
-
-            mocks.ReplayAll();
-
-            plugin.Gui = gui;
-
-            calculation.Output = new GrassCoverErosionInwardsOutput(0, 0, 0, 0, 0);
-            calculation.Attach(observer);
-
-            var contextMenuAdapter = info.ContextMenuStrip(calculationContext, null, treeViewControlMock);
-
-            string messageBoxText = null, messageBoxTitle = null;
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBox = new MessageBoxTester(wnd);
-                messageBoxText = messageBox.Text;
-                messageBoxTitle = messageBox.Title;
-                if (confirm)
-                {
-                    messageBox.ClickOk();
-                }
-                else
-                {
-                    messageBox.ClickCancel();
-                }
-            };
-
-            // When
-            contextMenuAdapter.Items[clearOutputItemPosition].PerformClick();
-
-            // Then
-            Assert.AreNotEqual(confirm, calculation.HasOutput);
-            Assert.AreEqual("Bevestigen", messageBoxTitle);
-            Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBoxText);
-            mocks.VerifyAll();
         }
 
         [Test]

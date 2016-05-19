@@ -77,11 +77,11 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Creates a <see cref="TreeNodeInfo"/> object for a calculation context of the type <typeparamref name="TCalculationContext"/>. 
         /// </summary>
+        /// <typeparam name="TCalculationContext">The type of calculation context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
         /// <param name="icon">The icon of the <see cref="TreeNodeInfo"/>.</param>
         /// <param name="childNodeObjects">The function for obtaining the child node objects.</param>
         /// <param name="contextMenuStrip">The function for obtaining the context menu strip.</param>
         /// <param name="onNodeRemoved">The action to perform on removing a node.</param>
-        /// <typeparam name="TCalculationContext">The type of calculation context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
         public static TreeNodeInfo<TCalculationContext> CreateCalculationContextTreeNodeInfo<TCalculationContext>(
             Bitmap icon,
@@ -110,13 +110,13 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Creates a <see cref="TreeNodeInfo"/> object for a failure mechanism context of the type <typeparamref name="TFailureMechanismContext"/>. 
+        /// Creates a <see cref="TreeNodeInfo"/> object for a failure mechanism context of the type <typeparamref name="TFailureMechanismContext"/>.
         /// </summary>
+        /// <typeparam name="TFailureMechanismContext">The type of failure mechanism context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
         /// <param name="enabledChildNodeObjects">The function for obtaining the child node objects when <see cref="IFailureMechanism.IsRelevant"/> is <c>true</c>.</param>
         /// <param name="disabledChildNodeObjects">The function for obtaining the child node objects when <see cref="IFailureMechanism.IsRelevant"/> is <c>false</c>.</param>
         /// <param name="enabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailureMechanism.IsRelevant"/> is <c>true</c>.</param>
         /// <param name="disabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailureMechanism.IsRelevant"/> is <c>false</c>.</param>
-        /// <typeparam name="TFailureMechanismContext">The type of failure mechanism context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
         public static TreeNodeInfo<TFailureMechanismContext> CreateFailureMechanismContextTreeNodeInfo<TFailureMechanismContext>(
             Func<TFailureMechanismContext, object[]> enabledChildNodeObjects,

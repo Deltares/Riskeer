@@ -31,6 +31,6 @@ namespace Ringtoets.Common.Data.Calculation
         /// <summary>
         /// Gets or sets the name of this calculation item.
         /// </summary>
-        string Name { get; }
+        string Name { get; set; }
     }
 }
