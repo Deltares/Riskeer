@@ -56,8 +56,11 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                return CalculationScenarios.Where(cs => cs.IsRelevant && cs.Status == CalculationScenarioStatus.Done)
-                                           .Aggregate((RoundedDouble) 0.0, (current, scenario) => (current + scenario.Contribution * scenario.Probability));
+                var calculationScenarios = CalculationScenarios.Where(cs => cs.IsRelevant && cs.Status == CalculationScenarioStatus.Done).ToList();
+
+                return calculationScenarios.Any()
+                    ? (RoundedDouble) (1.0 / calculationScenarios.Sum(scenario => (1.0 / scenario.Probability.Value) * scenario.Contribution.Value))
+                    : (RoundedDouble) 0.0;
             }
         }
 
