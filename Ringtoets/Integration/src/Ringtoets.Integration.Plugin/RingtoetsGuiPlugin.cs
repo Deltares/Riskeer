@@ -460,7 +460,7 @@ namespace Ringtoets.Integration.Plugin
 
                 var piping = failureMechanism as PipingFailureMechanism;
                 var grassCoverErosionInwards = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
-                var heightStructureFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
+                var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
 
                 if (closingStructureFailureMechanism != null)
                 {
@@ -506,9 +506,9 @@ namespace Ringtoets.Integration.Plugin
                 {
                     yield return new GrassCoverErosionInwardsFailureMechanismContext(grassCoverErosionInwards, nodeData);
                 }
-                else if (heightStructureFailureMechanism != null)
+                else if (heightStructuresFailureMechanism != null)
                 {
-                    yield return new HeightStructuresFailureMechanismContext(heightStructureFailureMechanism, nodeData);
+                    yield return new HeightStructuresFailureMechanismContext(heightStructuresFailureMechanism, nodeData);
                 }
                 else
                 {
