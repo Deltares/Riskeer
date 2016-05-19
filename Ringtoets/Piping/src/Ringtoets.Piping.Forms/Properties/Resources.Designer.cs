@@ -1124,7 +1124,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De veiligheidsfactor voor het heave toetsspoor..
+        ///   Looks up a localized string similar to De veiligheidsfactor voor het submechanisme Heave voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_HeaveFactorOfSafety_Description {
             get {
@@ -1142,7 +1142,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De kans dat het toetsspoor heave optreedt..
+        ///   Looks up a localized string similar to De kans dat het submechanisme Heave optreedt voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_HeaveProbability_Description {
             get {
@@ -1160,7 +1160,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De betrouwbaarheidsindex van het heave toetsspoor..
+        ///   Looks up a localized string similar to De betrouwbaarheidsindex voor het submechanisme Heave voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_HeaveReliability_Description {
             get {
@@ -1178,7 +1178,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De veiligheidsfactor voor het piping toetsspoor..
+        ///   Looks up a localized string similar to De veiligheidsfactor voor het toetsspoor piping voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_PipingFactorOfSafety_Description {
             get {
@@ -1196,7 +1196,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De kans dat het toetsspoor piping optreedt..
+        ///   Looks up a localized string similar to De kans dat het toetsspoor piping optreedt voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_PipingProbability_Description {
             get {
@@ -1214,7 +1214,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De betrouwbaarheidsindex van het piping toetsspoor..
+        ///   Looks up a localized string similar to De betrouwbaarheidsindex van de faalkans van het toetsspoor piping voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_PipingReliability_Description {
             get {
@@ -1223,7 +1223,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Betrouwbaarheidsindex [-].
+        ///   Looks up a localized string similar to Betrouwbaarheidsindex faalkans [-].
         /// </summary>
         public static string PipingSemiProbabilisticOutput_PipingReliability_DisplayName {
             get {
@@ -1268,7 +1268,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De veiligheidsfactor voor het Sellmeijer toetsspoor..
+        ///   Looks up a localized string similar to De veiligheidsfactor voor het submechanisme Sellmeijer voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_SellmeijerFactorOfSafety_Description {
             get {
@@ -1286,7 +1286,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De kans dat het toetsspoor Sellmeijer optreedt..
+        ///   Looks up a localized string similar to De kans dat het submechanisme Sellmeijer optreedt voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_SellmeijerProbability_Description {
             get {
@@ -1304,7 +1304,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De betrouwbaarheidsindex van het Sellmeijer toetsspoor..
+        ///   Looks up a localized string similar to De betrouwbaarheidsindex voor het submechanisme Sellmeijer voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_SellmeijerReliability_Description {
             get {
@@ -1322,7 +1322,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De veiligheidsfactor voor het opbarsten toetsspoor..
+        ///   Looks up a localized string similar to De veiligheidsfactor voor het submechanisme Opbarsten voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_UpliftFactorOfSafety_Description {
             get {
@@ -1340,7 +1340,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De kans dat het toetsspoor opbarsten optreedt..
+        ///   Looks up a localized string similar to De kans dat het submechanisme Opbarsten optreedt voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_UpliftProbability_Description {
             get {
@@ -1358,7 +1358,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De betrouwbaarheidsindex van het opbarsten toetsspoor..
+        ///   Looks up a localized string similar to De betrouwbaarheidsindex voor het submechanisme Opbarsten voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_UpliftReliability_Description {
             get {
