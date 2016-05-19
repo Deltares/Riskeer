@@ -120,7 +120,7 @@ namespace Ringtoets.Piping.Data.Test
             RoundedDouble? assessmentLayerTwoA = failureMechanismSectionResult.AssessmentLayerTwoA;
 
             // Assert
-            Assert.AreEqual(1.0 / ((1.0 / probability1) * contribution1 + (1.0 / probability2) * contribution2), assessmentLayerTwoA, 8);
+            Assert.AreEqual(1.0 / ((1.0 / probability1) * contribution1 + (1.0 / probability2) * contribution2), assessmentLayerTwoA, 1e-8);
             mocks.VerifyAll();
         }
 
