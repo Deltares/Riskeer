@@ -20,21 +20,19 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Forms.PresentationObjects;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
+namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsContextTest
+    public class HeightStructuresContextTest
     {
         private MockRepository mockRepository;
 
@@ -49,21 +47,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(null);
-            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var failureMechanismMock = mockRepository.StrictMock<HeightStructuresFailureMechanism>();
             mockRepository.ReplayAll();
 
             var target = new ObservableObject();
 
             // Call
-            var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(target, failureMechanismMock, assessmentSectionMock);
+            var context = new SimpleHeightStructuresContext<ObservableObject>(target, failureMechanismMock, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<WrappedObjectContextBase<ObservableObject>>(context);
             Assert.AreSame(target, context.WrappedData);
             Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
             Assert.AreSame(failureMechanismMock, context.FailureMechanism);
-            CollectionAssert.IsEmpty(context.AvailableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
         }
 
@@ -77,10 +73,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var observableObject = new ObservableObject();
 
             // Call
-            TestDelegate call = () => new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject, null, assessmentSectionMock);
+            TestDelegate call = () => new SimpleHeightStructuresContext<ObservableObject>(observableObject, null, assessmentSectionMock);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het grasbekleding erosie kruin en binnentalud toetsspoor mag niet 'null' zijn.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het hoogte kunstwerk toetsspoor mag niet 'null' zijn.");
             mockRepository.VerifyAll();
         }
 
@@ -88,47 +84,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         public void ParameteredConstructor_AssessmentSectionIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var failureMechanismMock = mockRepository.StrictMock<HeightStructuresFailureMechanism>();
             mockRepository.ReplayAll();
 
             var observableObject = new ObservableObject();
 
             // Call
-            TestDelegate call = () => new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject, failureMechanismMock, null);
+            TestDelegate call = () => new SimpleHeightStructuresContext<ObservableObject>(observableObject, failureMechanismMock, null);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het traject mag niet 'null' zijn.");
             mockRepository.VerifyAll();
         }
 
-        [Test]
-        public void AvailableHydraulicBoundaryLocations_HydraulicBoundaryDatabaseSet_ReturnsAllHydraulicBoundaryLocations()
+        private class ObservableObject : Observable { }
+
+        private class SimpleHeightStructuresContext<T> : HeightStructuresContext<T> where T : IObservable
         {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 1.1, 2.2));
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase).Repeat.Twice();
-            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            mockRepository.ReplayAll();
-
-            var target = new ObservableObject();
-            var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(target, failureMechanismMock, assessmentSectionMock);
-
-            // Call
-            var availableHydraulicBoundaryLocations = context.AvailableHydraulicBoundaryLocations;
-
-            // Assert
-            Assert.AreEqual(1, availableHydraulicBoundaryLocations.Count());
-            Assert.AreEqual(hydraulicBoundaryDatabase.Locations, availableHydraulicBoundaryLocations);
-            mockRepository.VerifyAll();
-        }
-
-        private class ObservableObject : Observable {}
-
-        private class SimpleGrassCoverErosionInwardsContext<T> : GrassCoverErosionInwardsContext<T> where T : IObservable
-        {
-            public SimpleGrassCoverErosionInwardsContext(T target, GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            public SimpleHeightStructuresContext(T target, HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(target, failureMechanism, assessmentSection) {}
         }
     }
