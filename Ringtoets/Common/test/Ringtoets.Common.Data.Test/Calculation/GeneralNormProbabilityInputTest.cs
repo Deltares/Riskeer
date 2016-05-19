@@ -22,18 +22,19 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionInwards.Data.Properties;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data.Test
+namespace Ringtoets.Common.Data.Test.Calculation
 {
     [TestFixture]
-    public class NormProbabilityGrassCoverErosionInwardsInputTest
+    public class GeneralNormProbabilityInputTest
     {
         [Test]
         public void Constructor_DefaultPropertiesSet()
         {
             // Call
-            var inputParameters = new NormProbabilityGrassCoverErosionInwardsInput();
+            var inputParameters = new GeneralNormProbabilityInput();
 
             // Assert
             Assert.AreEqual(2, inputParameters.N);
@@ -46,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void N_ValueIntsideValidRegion_DoesNotThrow(int value)
         {
             // Setup
-            var inputParameters = new NormProbabilityGrassCoverErosionInwardsInput();
+            var inputParameters = new GeneralNormProbabilityInput();
 
             // Call
             TestDelegate test = () => inputParameters.N = value;
@@ -62,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void N_ValueOutsideValidRegion_ThrowsArgumentException(int value)
         {
             // Setup
-            var inputParameters = new NormProbabilityGrassCoverErosionInwardsInput();
+            var inputParameters = new GeneralNormProbabilityInput();
 
             // Call
             TestDelegate test = () => inputParameters.N = value;

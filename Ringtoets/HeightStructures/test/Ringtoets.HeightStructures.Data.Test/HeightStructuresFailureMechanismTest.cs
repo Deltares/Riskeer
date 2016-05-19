@@ -22,6 +22,7 @@
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HeightStructures.Data.Properties;
 
@@ -44,6 +45,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
             Assert.IsEmpty(failureMechanism.CalculationsGroup.Children);
+            Assert.IsInstanceOf<GeneralNormProbabilityInput>(failureMechanism.NormProbabilityInput);
         }
 
         [Test]

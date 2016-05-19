@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
 
@@ -37,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
         public static GrassCoverErosionInwardsCalculation CreateCalculationWithInvalidData()
         {
             return new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                           new NormProbabilityGrassCoverErosionInwardsInput());
+                                                           new GeneralNormProbabilityInput());
         }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
             };
 
             return new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                           new NormProbabilityGrassCoverErosionInwardsInput())
+                                                           new GeneralNormProbabilityInput())
             {
                 InputParameters =
                 {

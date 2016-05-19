@@ -21,6 +21,7 @@
 
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service.Test
@@ -35,7 +36,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var norm = 30000;
             var probability = 0.24;
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                      new NormProbabilityGrassCoverErosionInwardsInput());
+                                                                      new GeneralNormProbabilityInput());
 
             // Call
             GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, norm, probability);

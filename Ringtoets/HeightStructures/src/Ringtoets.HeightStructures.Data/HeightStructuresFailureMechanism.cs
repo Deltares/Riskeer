@@ -39,6 +39,7 @@ namespace Ringtoets.HeightStructures.Data
             : base(Resources.HeightStructureFailureMechanism_DisplayName, Resources.HeightStructureFailureMechanism_Code)
         {
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
+            NormProbabilityInput = new GeneralNormProbabilityInput();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -53,6 +54,11 @@ namespace Ringtoets.HeightStructures.Data
         {
             return new FailureMechanismSectionResult(section);
         }
+
+        /// <summary>
+        /// Gets the length-effect parameters.
+        /// </summary>
+        public GeneralNormProbabilityInput NormProbabilityInput { get; private set; }
 
         public CalculationGroup CalculationsGroup { get; private set; }
     }

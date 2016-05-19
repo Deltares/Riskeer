@@ -20,21 +20,21 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.GrassCoverErosionInwards.Data.Properties;
+using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data
+namespace Ringtoets.Common.Data.Calculation
 {
     /// <summary>
     /// Model for length effect parameters.
     /// </summary>
-    public class NormProbabilityGrassCoverErosionInwardsInput
+    public class GeneralNormProbabilityInput
     {
         private int n;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NormProbabilityGrassCoverErosionInwardsInput"/> class.
+        /// Initializes a new instance of the <see cref="GeneralNormProbabilityInput"/> class.
         /// </summary>
-        public NormProbabilityGrassCoverErosionInwardsInput()
+        public GeneralNormProbabilityInput()
         {
             N = 2;
         }

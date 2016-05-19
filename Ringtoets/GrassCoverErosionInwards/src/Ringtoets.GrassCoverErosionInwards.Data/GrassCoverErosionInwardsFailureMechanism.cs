@@ -41,7 +41,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
             GeneralInput = new GeneralGrassCoverErosionInwardsInput();
-            NormProbabilityInput = new NormProbabilityGrassCoverErosionInwardsInput();
+            NormProbabilityInput = new GeneralNormProbabilityInput();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -65,7 +65,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the length-effect parameters.
         /// </summary>
-        public NormProbabilityGrassCoverErosionInwardsInput NormProbabilityInput { get; private set; }
+        public GeneralNormProbabilityInput NormProbabilityInput { get; private set; }
 
         public CalculationGroup CalculationsGroup { get; private set; }
     }

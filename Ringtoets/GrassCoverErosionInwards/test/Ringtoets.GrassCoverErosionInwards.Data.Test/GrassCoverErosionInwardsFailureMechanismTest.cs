@@ -22,6 +22,7 @@
 using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 
@@ -51,6 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode, grassCoverErosionInwardsFailureMechanism.Code);
             CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.Calculations);
             Assert.IsInstanceOf<GeneralGrassCoverErosionInwardsInput>(grassCoverErosionInwardsFailureMechanism.GeneralInput);
+            Assert.IsInstanceOf<GeneralNormProbabilityInput>(grassCoverErosionInwardsFailureMechanism.NormProbabilityInput);
             Assert.AreEqual("Berekeningen", grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Name);
             Assert.IsEmpty(grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children);
         }
