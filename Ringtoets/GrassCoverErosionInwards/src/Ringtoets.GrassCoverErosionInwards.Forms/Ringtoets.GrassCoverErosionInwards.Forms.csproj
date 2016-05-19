@@ -61,6 +61,7 @@
     <Compile Include="PropertyClasses\BreakWaterProperties.cs" />
     <Compile Include="PropertyClasses\DikeGeometryProperties.cs" />
     <Compile Include="PropertyClasses\DistributionProperties.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionInwardsOutputProperties.cs" />
     <Compile Include="PropertyClasses\LogNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\ReadOnlyNormalDistributionProperties.cs" />
     <Compile Include="TypeConverters\EnumTypeConverter.cs" />

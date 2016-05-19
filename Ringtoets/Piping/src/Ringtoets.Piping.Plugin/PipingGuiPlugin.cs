@@ -213,7 +213,7 @@ namespace Ringtoets.Piping.Plugin
             yield return new TreeNodeInfo<PipingSemiProbabilisticOutput>
             {
                 Text = pipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = pipingOutput => PipingFormsResources.PipingOutputIcon,
+                Image = pipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddExportItem()
                                                                                  .AddSeparator()
@@ -224,7 +224,7 @@ namespace Ringtoets.Piping.Plugin
             yield return new TreeNodeInfo<EmptyPipingOutput>
             {
                 Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyPipingOutput => PipingFormsResources.PipingOutputIcon,
+                Image = emptyPipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ForeColor = emptyPipingOutput => Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddExportItem()

@@ -59,13 +59,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_Always_ReturnsPipingOutputIcon()
+        public void Image_Always_ReturnsGeneralOutputIcon()
         {
             // Call
             var image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingOutputIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralOutputIcon, image);
         }
 
         [Test]

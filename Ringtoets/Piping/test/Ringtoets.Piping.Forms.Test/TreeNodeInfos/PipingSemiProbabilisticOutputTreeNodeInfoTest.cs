@@ -6,9 +6,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Plugin;
-
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
@@ -78,7 +76,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var image = info.Image(pipingOutput);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(Resources.PipingOutputIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralOutputIcon, image);
 
             mocks.VerifyAll();
         }

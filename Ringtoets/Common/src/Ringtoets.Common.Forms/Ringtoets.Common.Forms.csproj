@@ -160,6 +160,7 @@
     <None Include="Resources\Checkbox_ticked.png" />
     <Content Include="Resources\PlayHS.png" />
     <None Include="Resources\Sections.png" />
+    <None Include="Resources\table.png" />
     <Content Include="Resources\tickAll.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

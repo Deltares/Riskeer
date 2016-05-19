@@ -65,6 +65,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             yield return new PropertyInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanismContextProperties>();
             yield return new PropertyInfo<GrassCoverErosionInwardsCalculationContext, GrassCoverErosionInwardsCalculationContextProperties>();
             yield return new PropertyInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsInputContextProperties>();
+            yield return new PropertyInfo<GrassCoverErosionInwardsOutput, GrassCoverErosionInwardsOutputProperties>();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -123,10 +124,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .Build()
             };
 
+            yield return new TreeNodeInfo<GrassCoverErosionInwardsOutput>
+            {
+                Text = pipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = pipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddExportItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
+
             yield return new TreeNodeInfo<EmptyGrassCoverErosionInwardsOutput>
             {
                 Text = emptyOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyOutput => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Image = emptyOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ForeColor = emptyOutput => Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddExportItem()
@@ -212,6 +224,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             if (output != null)
             {
                 GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, norm, output.Beta);
+                calculation.NotifyObservers();
             }
             else
             {
@@ -474,7 +487,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                          calculationContext.AssessmentSection)
             };
 
-            if (!calculationContext.WrappedData.HasOutput)
+            if (calculationContext.WrappedData.HasOutput)
+            {
+                childNodes.Add(calculationContext.WrappedData.Output);
+            }
+            else
             {
                 childNodes.Add(new EmptyGrassCoverErosionInwardsOutput());
             }

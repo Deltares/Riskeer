@@ -81,6 +81,7 @@
     <Compile Include="PropertyClasses\ForeshorePropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsCalculationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsFailureMechanismContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionInwardsOutputPropertiesTest.cs" />
     <Compile Include="PropertyClasses\LogNormalDistributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ReadOnlyNormalDistributionPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyGrassCoverErosionInwardsOutputTreeNodeTest.cs" />

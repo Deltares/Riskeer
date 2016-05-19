@@ -152,6 +152,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Grasbekleding erosie kruin en binnentalud.
+        /// </summary>
+        public static string Categories_GrassCoverErosionInwards {
+            get {
+                return ResourceManager.GetString("Categories_GrassCoverErosionInwards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hydraulische gegevens.
         /// </summary>
         public static string Categories_HydraulicData {
@@ -484,6 +493,96 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string GrassCoverErosionInwardsInputContext_NodeDisplayName {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsInputContext_NodeDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De veiligheidsfactor voor deze berekening..
+        /// </summary>
+        public static string GrassCoverErosionInwardsOutput_FactorOfSafety_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsOutput_FactorOfSafety_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Veiligheidsfactor [-].
+        /// </summary>
+        public static string GrassCoverErosionInwardsOutput_FactorOfSafety_Displayname {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsOutput_FactorOfSafety_Displayname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De faalkans voor deze berekening..
+        /// </summary>
+        public static string GrassCoverErosionInwardsOutput_Probability_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsOutput_Probability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalkans [1/year].
+        /// </summary>
+        public static string GrassCoverErosionInwardsOutput_Probability_Displayname {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsOutput_Probability_Displayname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De betrouwbaarheidsindex van de faalkans voor deze berekening..
+        /// </summary>
+        public static string GrassCoverErosionInwardsOutput_Reliability_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsOutput_Reliability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Betrouwbaarheidsindex faalkans [-].
+        /// </summary>
+        public static string GrassCoverErosionInwardsOutput_Reliability_Displayname {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsOutput_Reliability_Displayname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kans dat het toetsspoor grasbekleding erosie kruin en binnentalud optreedt voor deze berekening..
+        /// </summary>
+        public static string GrassCoverErosionInwardsOutput_RequiredProbability_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsOutput_RequiredProbability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalkanseis [1/year].
+        /// </summary>
+        public static string GrassCoverErosionInwardsOutput_RequiredProbability_Displayname {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsOutput_RequiredProbability_Displayname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De betrouwbaarheidsindex van de faalkanseis voor deze berekening..
+        /// </summary>
+        public static string GrassCoverErosionInwardsOutput_RequiredReliability_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsOutput_RequiredReliability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Betrouwbaarheidsindex faalkanseis [-].
+        /// </summary>
+        public static string GrassCoverErosionInwardsOutput_RequiredReliability_Displayname {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsOutput_RequiredReliability_Displayname", resourceCulture);
             }
         }
         
