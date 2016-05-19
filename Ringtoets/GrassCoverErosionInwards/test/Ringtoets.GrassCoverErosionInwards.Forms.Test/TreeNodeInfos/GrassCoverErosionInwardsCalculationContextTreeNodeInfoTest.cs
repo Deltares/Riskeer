@@ -369,7 +369,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             DialogBoxHandler = (name, wnd) =>
             {
-                // Don't care about dialogs in this test.
+                // Expect an activity dialog which is automatically closed
             };
 
             // When

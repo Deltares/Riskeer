@@ -51,10 +51,8 @@ namespace Ringtoets.Common.Data.Test.Calculation
             rootGroup.Children.Add(new CalculationGroup());
             rootGroup.Children.Add(new CalculationGroup());
 
-            CalculationGroup groupsWithoutChildren = rootGroup;
-
             // Call
-            IEnumerable<ICalculation> result = groupsWithoutChildren.GetCalculations();
+            IEnumerable<ICalculation> result = rootGroup.GetCalculations();
 
             // Assert
             CollectionAssert.IsEmpty(result);
@@ -86,10 +84,8 @@ namespace Ringtoets.Common.Data.Test.Calculation
             rootGroup.Children.Add(calculation1);
             rootGroup.Children.Add(subgroup2);
 
-            CalculationGroup groupWithoutChildren = rootGroup;
-
             // Call
-            IEnumerable<ICalculation> result = groupWithoutChildren.GetCalculations();
+            IEnumerable<ICalculation> result = rootGroup.GetCalculations();
 
             // Assert
             var itemsThatShouldBeFound = new[]
@@ -138,10 +134,8 @@ namespace Ringtoets.Common.Data.Test.Calculation
             rootGroup.Children.Add(calculation1);
             rootGroup.Children.Add(subgroup2);
 
-            CalculationGroup groupWithoutChildren = rootGroup;
-
             // Call
-            groupWithoutChildren.ClearCalculationOutput();
+            rootGroup.ClearCalculationOutput();
 
             // Assert
             mocks.VerifyAll();
@@ -179,10 +173,8 @@ namespace Ringtoets.Common.Data.Test.Calculation
             rootGroup.Children.Add(calculation1);
             rootGroup.Children.Add(subgroup2);
 
-            CalculationGroup groupWithoutChildren = rootGroup;
-
             // Call
-            var hasOutput = groupWithoutChildren.HasOutput();
+            var hasOutput = rootGroup.HasOutput();
 
             // Assert
             Assert.IsFalse(hasOutput);
@@ -221,10 +213,8 @@ namespace Ringtoets.Common.Data.Test.Calculation
             rootGroup.Children.Add(calculation1);
             rootGroup.Children.Add(subgroup2);
 
-            CalculationGroup groupWithoutChildren = rootGroup;
-
             // Call
-            var hasOutput = groupWithoutChildren.HasOutput();
+            var hasOutput = rootGroup.HasOutput();
 
             // Assert
             Assert.IsTrue(hasOutput);
