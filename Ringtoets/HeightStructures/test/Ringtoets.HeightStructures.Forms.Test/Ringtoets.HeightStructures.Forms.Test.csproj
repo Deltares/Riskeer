@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PresentationObjects\HeightStructuresCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\HeightStructuresContextTest.cs" />
     <Compile Include="PresentationObjects\HeightStructuresFailureMechanismContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

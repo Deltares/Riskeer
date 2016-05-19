@@ -19,18 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Forms.PresentationObjects;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
+namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsCalculationGroupContextTest
+    public class HeightStructuresCalculationGroupContextTest
     {
         [Test]
         public void ParameteredConstructor_ExpectedValues()
@@ -39,14 +38,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var mockRepository = new MockRepository();
             var calculationGroup = new CalculationGroup();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var failureMechanismMock = mockRepository.StrictMock<HeightStructuresFailureMechanism>();
             mockRepository.ReplayAll();
 
             // Call
-            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup, failureMechanismMock, assessmentSectionMock);
+            var groupContext = new HeightStructuresCalculationGroupContext(calculationGroup, failureMechanismMock, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionInwardsContext<CalculationGroup>>(groupContext);
+            Assert.IsInstanceOf<HeightStructuresContext<CalculationGroup>>(groupContext);
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
             Assert.AreSame(failureMechanismMock, groupContext.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, groupContext.AssessmentSection);
