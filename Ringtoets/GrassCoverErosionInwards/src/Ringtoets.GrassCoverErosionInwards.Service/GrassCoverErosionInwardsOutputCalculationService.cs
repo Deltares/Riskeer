@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using MathNet.Numerics.Distributions;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -35,9 +36,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         private readonly double probability;
 
         // Results
-        private double betaTrajectNorm;
+        private double requiredProbability;
         private double pTCrossAllowed;
-        private double pTCrossGEKB;
+        private double pTCrossGrassCoverErosionInwards;
         private double requiredReliability;
         private double reliability;
         private double factorOfSafety;
@@ -50,18 +51,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         }
 
         /// <summary>
-        /// Calculates 
+        /// Calculates the <see cref="GrassCoverErosionInwardsOutput"/> given the <paramref name="calculation"/>, <paramref name="norm"/>, and <paramref name="probability"/>.
         /// </summary>
-        /// <param name="calculation"></param>
-        /// <param name="norm"></param>
-        /// <param name="probability"></param>
+        /// <param name="calculation">The calculation which is used.</param>
+        /// <param name="norm">The norm which has been defined on the assessment section.</param>
+        /// <param name="probability">The probability result.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public static void Calculate(GrassCoverErosionInwardsCalculation calculation, double norm, double probability)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException("calculation");
+            }
             var calculator = new GrassCoverErosionInwardsOutputCalculationService(norm, calculation.NormProbabilityInput.N, probability);
 
             calculator.Calculate();
 
-            calculation.Output = new GrassCoverErosionInwardsOutput(calculator.betaTrajectNorm,
+            calculation.Output = new GrassCoverErosionInwardsOutput(calculator.requiredProbability,
                                                                     calculator.requiredReliability,
                                                                     calculator.probability,
                                                                     calculator.reliability,
@@ -79,42 +85,42 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         private void CalculateReliability()
         {
-            betaTrajectNorm = BetaTrajectNorm(norm);
-            pTCrossAllowed = PTCrossAllowed(probability, norm, lengthEffectN);
-            pTCrossGEKB = PTCrossGEKB();
+            requiredProbability = RequiredProbability(norm);
+            pTCrossAllowed = PtCrossAllowed(probability, norm, lengthEffectN);
+            pTCrossGrassCoverErosionInwards = PtCrossGrassCoverErosionInwards();
         }
 
         private void CalculateRequiredReliability()
         {
-            requiredReliability = BetaCrossAllowed(pTCrossAllowed);
-            reliability = BetaCrossGEKB(pTCrossGEKB);
+            requiredReliability = RequiredReliability(pTCrossAllowed);
+            reliability = Reliability(pTCrossGrassCoverErosionInwards);
         }
 
         #region Sub calculations
 
-        private static double BetaTrajectNorm(double contribution)
+        private static double RequiredProbability(double contribution)
         {
             return new Normal().InverseCumulativeDistribution(1 - 1.0/contribution);
         }
 
-        private static double PTCrossAllowed(double probability, double contribution, double n)
+        private static double PtCrossAllowed(double probability, double contribution, double n)
         {
             return probability*(1.0/contribution)/n;
         }
 
-        private static double PTCrossGEKB()
+        private static double PtCrossGrassCoverErosionInwards()
         {
             return 1.0/50000;
         }
 
-        private static double BetaCrossAllowed(double pTCrossAllowed)
+        private static double RequiredReliability(double pTCrossAllowed)
         {
             return new Normal().InverseCumulativeDistribution(1 - pTCrossAllowed);
         }
 
-        private static double BetaCrossGEKB(double pTCrossGEKB)
+        private static double Reliability(double pTCross)
         {
-            return new Normal().InverseCumulativeDistribution(1 - pTCrossGEKB);
+            return new Normal().InverseCumulativeDistribution(1 - pTCross);
         }
 
         private static double FactorOfSafety(double betaCrossGekb, double betaCrossAllowed)

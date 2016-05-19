@@ -207,11 +207,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             }
         }
 
-        private static void ParseHydraRingOutput(GrassCoverErosionInwardsCalculation calculation, double contribution, ExceedanceProbabilityCalculationOutput output)
+        private static void ParseHydraRingOutput(GrassCoverErosionInwardsCalculation calculation, double norm, ExceedanceProbabilityCalculationOutput output)
         {
             if (output != null)
             {
-                GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, contribution, output.Beta);
+                GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, norm, output.Beta);
             }
             else
             {

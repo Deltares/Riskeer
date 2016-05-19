@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
@@ -30,11 +32,41 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
     public class GrassCoverErosionInwardsOutputCalculationServiceTest
     {
         [Test]
-        public void Calculate_CompleteInput_ReturnsGrassCoverErosionInwardsOutputWithValues()
+        public void Calculate_NullCalculation_ThrowsArgumentNullException()
+        {
+            // Setup & Call
+            TestDelegate test = () => GrassCoverErosionInwardsOutputCalculationService.Calculate(null, 0, 1);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(30000, 3.98787893661)]
+        [TestCase(20000, 3.89059188641)]
+        public void RequiredProbability_DifferentInputs_ReturnsExpectedValue(int norm, double expectedResult)
         {
             // Setup
-            const int norm = 30000;
-            const double probability = 0.24;
+            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
+                                                                      new GeneralNormProbabilityInput());
+
+            // Call
+            GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, norm, double.NaN);
+
+            // Assert
+            RoundedDouble output = calculation.Output.RequiredProbability;
+            Assert.AreEqual(expectedResult, output, output.GetAccuracy());
+        }
+
+        [Test]
+        [TestCase(30000, 1, 4.149409984)]
+        [TestCase(30000, 0.24, 4.465183916)]
+        [TestCase(20000, 1, 4.055626981)]
+        [TestCase(20000, 0.24, 4.377587847)]
+        public void RequiredReliability_DifferentInputs_ReturnsExpectedValue(int norm, double probability, double expectedResult)
+        {
+            // Setup
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
                                                                       new GeneralNormProbabilityInput());
 
@@ -42,12 +74,42 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, norm, probability);
 
             // Assert
-            GrassCoverErosionInwardsOutput output = calculation.Output;
-            Assert.AreEqual(0.9199, output.FactorOfSafety, output.FactorOfSafety.GetAccuracy());
-            Assert.AreEqual(probability, output.Probability, output.Probability.GetAccuracy());
-            Assert.AreEqual(4.107, output.Reliability, output.Reliability.GetAccuracy());
-            Assert.AreEqual(3.99, output.RequiredProbability, output.RequiredProbability.GetAccuracy());
-            Assert.AreEqual(4.465, output.RequiredReliability, output.RequiredReliability.GetAccuracy());
+            RoundedDouble output = calculation.Output.RequiredReliability;
+            Assert.AreEqual(expectedResult, output, output.GetAccuracy());
+        }
+
+        [Test]
+        public void Reliability_DifferentInputs_ReturnsExpectedValue()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
+                                                                      new GeneralNormProbabilityInput());
+
+            // Call
+            GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, double.NaN, double.NaN);
+
+            // Assert
+            RoundedDouble output = calculation.Output.Reliability;
+            Assert.AreEqual(4.107479655, output, output.GetAccuracy());
+        }
+
+        [Test]
+        [TestCase(30000, 1, 0.989894869)]
+        [TestCase(30000, 0.24, 0.919890363)]
+        [TestCase(20000, 1, 1.012785366)]
+        [TestCase(20000, 0.24, 0.938297482)]
+        public void FactorOfSafety_DifferentInputs_ReturnsExpectedValue(int norm, double probability, double expectedResult)
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
+                                                                      new GeneralNormProbabilityInput());
+
+            // Call
+            GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, norm, probability);
+
+            // Assert
+            RoundedDouble output = calculation.Output.FactorOfSafety;
+            Assert.AreEqual(expectedResult, output, output.GetAccuracy());
         }
     }
 }
