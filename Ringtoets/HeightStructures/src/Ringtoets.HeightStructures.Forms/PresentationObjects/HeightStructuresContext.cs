@@ -40,7 +40,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// <param name="wrappedData">The concrete data instance wrapped by this context object.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
-        /// <exception cref="System.ArgumentNullException">When any input parameter is null.</exception>
+        /// <exception cref="System.ArgumentNullException">When any input parameter is <c>null</c>.</exception>
         protected HeightStructuresContext(
             T wrappedData,
             HeightStructuresFailureMechanism failureMechanism,
