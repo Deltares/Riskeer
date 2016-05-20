@@ -25,14 +25,14 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
+using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.HeightStructures.Forms.Properties;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
+namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsInputContextTest
+    public class HeightStructuresInputContextTest
     {
         private MockRepository mocksRepository;
 
@@ -46,18 +46,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var inputMock = mocksRepository.StrictMock<GrassCoverErosionInwardsInput>(generalInput);
+            var inputMock = mocksRepository.StrictMock<HeightStructuresInput>();
             var calculationMock = mocksRepository.StrictMock<ICalculation>();
-            var failureMechanismMock = mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var failureMechanismMock = mocksRepository.StrictMock<HeightStructuresFailureMechanism>();
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             // Call
-            var context = new GrassCoverErosionInwardsInputContext(inputMock, calculationMock, failureMechanismMock, assessmentSectionMock);
+            var context = new HeightStructuresInputContext(inputMock, calculationMock, failureMechanismMock, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionInwardsContext<GrassCoverErosionInwardsInput>>(context);
+            Assert.IsInstanceOf<HeightStructuresContext<HeightStructuresInput>>(context);
             Assert.AreEqual(inputMock, context.WrappedData);
             Assert.AreEqual(calculationMock, context.Calculation);
             Assert.AreEqual(failureMechanismMock, context.FailureMechanism);
@@ -69,18 +68,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         public void Constructor_NullCalculation_ThrowsArgumentNullException()
         {
             // Setup
-            var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var inputMock = mocksRepository.StrictMock<GrassCoverErosionInwardsInput>(generalInput);
-            var failureMechanismMock = mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var inputMock = mocksRepository.StrictMock<HeightStructuresInput>();
+            var failureMechanismMock = mocksRepository.StrictMock<HeightStructuresFailureMechanism>();
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsInputContext(inputMock, null, failureMechanismMock, assessmentSectionMock);
+            TestDelegate test = () => new HeightStructuresInputContext(inputMock, null, failureMechanismMock, assessmentSectionMock);
 
             // Assert
-            var message = String.Format(Resources.GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                        Resources.GrassCoverErosionInwardsInputContext_DataDescription_GrassCoverErosionInwardsInputCalculationItem);
+            var message = String.Format(Resources.HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                                        Resources.HeightStructuresInputContext_DataDescription_HeightStructuresInputCalculationItem);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, message);
             mocksRepository.VerifyAll();
         }

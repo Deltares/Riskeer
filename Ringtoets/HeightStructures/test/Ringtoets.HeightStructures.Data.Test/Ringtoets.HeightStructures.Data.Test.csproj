@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="HeightStructuresCalculationTest.cs" />
     <Compile Include="HeightStructuresFailureMechanismTest.cs" />
+    <Compile Include="HeightStructuresInputTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
