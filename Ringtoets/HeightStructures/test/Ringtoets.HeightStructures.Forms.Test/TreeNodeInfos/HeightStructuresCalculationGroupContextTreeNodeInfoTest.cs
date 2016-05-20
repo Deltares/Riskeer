@@ -369,6 +369,50 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_ClickOnAddCalculationItem_AddCalculationToCalculationGroupAndNotifyObservers()
+        {
+            // Setup
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var group = new CalculationGroup();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var nodeData = new HeightStructuresCalculationGroupContext(group,
+                                                                               failureMechanism,
+                                                                               assessmentSectionMock);
+            var calculation = new HeightStructuresCalculation
+            {
+                Name = "Nieuwe berekening"
+            };
+            var observerMock = mocks.StrictMock<IObserver>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+
+            observerMock.Expect(o => o.UpdateObserver());
+            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            group.Children.Add(calculation);
+            nodeData.Attach(observerMock);
+
+            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+
+            // Precondition
+            Assert.AreEqual(1, group.Children.Count);
+
+            // Call
+            contextMenu.Items[contextMenuAddCalculationIndexRootGroup].PerformClick();
+
+            // Assert
+            Assert.AreEqual(2, group.Children.Count);
+            var newlyAddedItem = group.Children.Last();
+            Assert.IsInstanceOf<HeightStructuresCalculation>(newlyAddedItem);
+            Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
+                            "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void OnNodeRemoved_NestedCalculationGroup_RemoveGroupAndNotifyObservers()
         {
             // Setup

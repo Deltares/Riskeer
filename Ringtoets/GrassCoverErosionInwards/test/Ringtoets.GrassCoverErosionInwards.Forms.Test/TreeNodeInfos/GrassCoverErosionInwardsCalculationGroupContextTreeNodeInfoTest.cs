@@ -597,23 +597,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                failureMechanism,
                                                                                assessmentSectionMock);
-
             var calculationItem = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new GeneralNormProbabilityInput())
             {
                 Name = "Nieuwe berekening"
             };
-
             var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
+            observerMock.Expect(o => o.UpdateObserver());
             guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(menuBuilder);
 
             mocks.ReplayAll();
 
             group.Children.Add(calculationItem);
-
             nodeData.Attach(observerMock);
 
             var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);

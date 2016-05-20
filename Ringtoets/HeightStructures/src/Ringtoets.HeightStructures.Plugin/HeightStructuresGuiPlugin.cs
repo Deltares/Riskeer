@@ -29,11 +29,13 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using HeightStructuresDataResources = Ringtoets.HeightStructures.Data.Properties.Resources;
 using HeightStructuresFormsResources = Ringtoets.HeightStructures.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Plugin
@@ -208,7 +210,7 @@ namespace Ringtoets.HeightStructures.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(context, groupContext => { })
+                   .AddCreateCalculationItem(context, AddCalculation)
                    .AddSeparator()
                    .AddPerformAllCalculationsInGroupItem(group, context, (calculationGroup, groupContext) => { }, groupContext => "")
                    .AddClearAllCalculationOutputInGroupItem(group)
@@ -237,6 +239,16 @@ namespace Ringtoets.HeightStructures.Plugin
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
             parentGroupContext.NotifyObservers();
+        }
+
+        private static void AddCalculation(HeightStructuresCalculationGroupContext context)
+        {
+            var calculation = new HeightStructuresCalculation
+            {
+                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, HeightStructuresDataResources.HeightStructuresCalculation_DefaultName, c => c.Name)
+            };
+            context.WrappedData.Children.Add(calculation);
+            context.WrappedData.NotifyObservers();
         }
 
         #endregion
