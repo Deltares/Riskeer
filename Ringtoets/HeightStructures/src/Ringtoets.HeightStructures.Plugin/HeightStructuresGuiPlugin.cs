@@ -45,8 +45,8 @@ namespace Ringtoets.HeightStructures.Plugin
             yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<HeightStructuresFailureMechanismContext>(
                 FailureMechanismEnabledChildNodeObjects,
                 FailureMechanismDisabledChildNodeObjects,
-                (context, o, treeViewControl) => new ContextMenuStrip(),
-                (context, o, treeViewControl) => new ContextMenuStrip());
+                FailureMechanismEnabledContextMenuStrip,
+                FailureMechanismDisabledContextMenuStrip);
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<HeightStructuresCalculationGroupContext>(
                 context => new object[0],
@@ -67,14 +67,6 @@ namespace Ringtoets.HeightStructures.Plugin
             };
         }
 
-        private object[] FailureMechanismDisabledChildNodeObjects(HeightStructuresFailureMechanismContext context)
-        {
-            return new object[]
-            {
-                new CommentContext<ICommentable>(context.WrappedData)
-            };
-        }
-
         private static IList GetInputs(HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new ArrayList
@@ -90,6 +82,51 @@ namespace Ringtoets.HeightStructures.Plugin
             {
                 new FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
             };
+        }
+
+        private object[] FailureMechanismDisabledChildNodeObjects(HeightStructuresFailureMechanismContext context)
+        {
+            return new object[]
+            {
+                new CommentContext<ICommentable>(context.WrappedData)
+            };
+        }
+
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(HeightStructuresFailureMechanismContext context, object parentData, TreeViewControl treeViewControl)
+        {
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddPerformAllCalculationsInFailureMechanismItem(context, failureMechanismContext => { }, failureMechanismContext => "")
+                          .AddClearAllCalculationOutputInFailureMechanismItem(context.WrappedData)
+                          .AddSeparator()
+                          .AddImportItem()
+                          .AddExportItem()
+                          .AddSeparator()
+                          .AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        private void RemoveAllViewsForItem(HeightStructuresFailureMechanismContext context)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(context);
+        }
+
+        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(HeightStructuresFailureMechanismContext context, object parentData, TreeViewControl treeViewControl)
+        {
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+
+            return builder.AddToggleRelevancyOfFailureMechanismItem(context, null)
+                          .AddSeparator()
+                          .AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .Build();
         }
 
         #endregion

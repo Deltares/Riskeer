@@ -369,16 +369,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
-        private static void AddCalculation(GrassCoverErosionInwardsCalculationGroupContext context)
-        {
-            var calculation = new GrassCoverErosionInwardsCalculation(context.FailureMechanism.GeneralInput, context.FailureMechanism.NormProbabilityInput)
-            {
-                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsCalculation_DefaultName, c => c.Name)
-            };
-            context.WrappedData.Children.Add(calculation);
-            context.WrappedData.NotifyObservers();
-        }
-
         private void CalculateAll(GrassCoverErosionInwardsFailureMechanismContext context)
         {
             CalculateAll(context.WrappedData, context.WrappedData.Calculations.OfType<GrassCoverErosionInwardsCalculation>(), context.Parent);
@@ -465,6 +455,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             parentGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
             parentGroupContext.NotifyObservers();
+        }
+
+        private static void AddCalculation(GrassCoverErosionInwardsCalculationGroupContext context)
+        {
+            var calculation = new GrassCoverErosionInwardsCalculation(context.FailureMechanism.GeneralInput, context.FailureMechanism.NormProbabilityInput)
+            {
+                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsCalculation_DefaultName, c => c.Name)
+            };
+            context.WrappedData.Children.Add(calculation);
+            context.WrappedData.NotifyObservers();
         }
 
         private void CalculateAll(CalculationGroup group, GrassCoverErosionInwardsCalculationGroupContext context)
