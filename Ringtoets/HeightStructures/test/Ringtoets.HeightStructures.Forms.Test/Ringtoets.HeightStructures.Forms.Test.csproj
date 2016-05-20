@@ -51,6 +51,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PresentationObjects\HeightStructuresCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\HeightStructuresCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\HeightStructuresContextTest.cs" />
     <Compile Include="PresentationObjects\HeightStructuresFailureMechanismContextTest.cs" />

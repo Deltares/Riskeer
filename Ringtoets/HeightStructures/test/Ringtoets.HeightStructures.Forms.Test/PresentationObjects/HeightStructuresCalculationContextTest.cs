@@ -19,18 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Forms.PresentationObjects;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
+namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsCalculationContextTest
+    public class HeightStructuresCalculationContextTest
     {
         private MockRepository mocksRepository;
 
@@ -44,15 +42,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var calculationMock = mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(
-                new GeneralGrassCoverErosionInwardsInput(),
-                new GeneralNormProbabilityInput());
-            var failureMechanismMock = mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var calculationMock = mocksRepository.StrictMock<HeightStructuresCalculation>();
+            var failureMechanismMock = mocksRepository.StrictMock<HeightStructuresFailureMechanism>();
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             // Call
-            var context = new GrassCoverErosionInwardsCalculationContext(calculationMock, failureMechanismMock, assessmentSectionMock);
+            var context = new HeightStructuresCalculationContext(calculationMock, failureMechanismMock, assessmentSectionMock);
 
             // Assert
             Assert.AreEqual(calculationMock, context.WrappedData);
