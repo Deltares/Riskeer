@@ -19,9 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
@@ -31,122 +31,66 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismTest
     {
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
-
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // call
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // assert
-            Assert.IsInstanceOf<FailureMechanismBase>(grassCoverErosionInwardsFailureMechanism);
-            Assert.IsInstanceOf<ICalculatableFailureMechanism>(grassCoverErosionInwardsFailureMechanism);
-            Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, grassCoverErosionInwardsFailureMechanism.Name);
-            Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode, grassCoverErosionInwardsFailureMechanism.Code);
-            CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.Calculations);
-            Assert.IsInstanceOf<GeneralGrassCoverErosionInwardsInput>(grassCoverErosionInwardsFailureMechanism.GeneralInput);
-            Assert.IsInstanceOf<GeneralNormProbabilityInput>(grassCoverErosionInwardsFailureMechanism.NormProbabilityInput);
-            Assert.AreEqual("Berekeningen", grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Name);
-            Assert.IsEmpty(grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children);
+            Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
+            Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
+            Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, failureMechanism.Name);
+            Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode, failureMechanism.Code);
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
+            Assert.IsInstanceOf<GeneralGrassCoverErosionInwardsInput>(failureMechanism.GeneralInput);
+            Assert.IsInstanceOf<GeneralNormProbabilityInput>(failureMechanism.NormProbabilityInput);
+            Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
+            Assert.IsEmpty(failureMechanism.CalculationsGroup.Children);
         }
 
         [Test]
-        public void Notify_SingleListenerAttached_ListenerIsNotified()
+        public void AddSection_WithSection_AddedGrassCoverErosionInwardsFailureMechanismSectionResult()
         {
             // Setup
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            // Call
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(2, 1)
+            }));
 
-            grassCoverErosionInwardsFailureMechanism.Attach(observer);
-
-            // Call & Assert
-            grassCoverErosionInwardsFailureMechanism.NotifyObservers();
-            mockRepository.VerifyAll();
+            // Assert
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
+            Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
         }
 
         [Test]
-        public void Notify_SingleListenerAttachedAndDeattached_ListenerIsNotNotified()
+        public void ClearAllSections_WithSectionsAndSectionResults_SectionsAndSectionResultsCleared()
         {
             // Setup
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Never();
-            mockRepository.ReplayAll();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(2, 1)
+            }));
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(2, 1)
+            }));
 
-            grassCoverErosionInwardsFailureMechanism.Attach(observer);
-            grassCoverErosionInwardsFailureMechanism.Detach(observer);
+            // Precondition
+            Assert.AreEqual(2, failureMechanism.Sections.Count());
+            Assert.AreEqual(2, failureMechanism.SectionResults.Count());
 
-            // Call & Assert
-            grassCoverErosionInwardsFailureMechanism.NotifyObservers();
-            mockRepository.VerifyAll();
-        }
+            // Call
+            failureMechanism.ClearAllSections();
 
-        [Test]
-        public void Notify_TwoListenersAttached_BothAreNotified()
-        {
-            // Setup
-            var observerA = mockRepository.StrictMock<IObserver>();
-            observerA.Expect(o => o.UpdateObserver());
-
-            var observerB = mockRepository.StrictMock<IObserver>();
-            observerB.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            grassCoverErosionInwardsFailureMechanism.Attach(observerA);
-            grassCoverErosionInwardsFailureMechanism.Attach(observerB);
-
-            // Call & Assert
-            grassCoverErosionInwardsFailureMechanism.NotifyObservers();
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Notify_TwoListenersAttachedOneDetached_InvokedOnce()
-        {
-            // Setup
-            var observerA = mockRepository.StrictMock<IObserver>();
-            observerA.Expect(o => o.UpdateObserver()).Repeat.Never();
-
-            var observerB = mockRepository.StrictMock<IObserver>();
-            observerB.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            grassCoverErosionInwardsFailureMechanism.Attach(observerA);
-            grassCoverErosionInwardsFailureMechanism.Attach(observerB);
-            grassCoverErosionInwardsFailureMechanism.Detach(observerA);
-
-            // Call & Assert
-            grassCoverErosionInwardsFailureMechanism.NotifyObservers();
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Detach_DetachNonAttachedObserver_DoesNotThrowException()
-        {
-            // Setup
-            var observer = mockRepository.StrictMock<IObserver>();
-            mockRepository.ReplayAll();
-
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            // Call & Assert
-            grassCoverErosionInwardsFailureMechanism.Detach(observer);
-            mockRepository.VerifyAll();
+            // Assert
+            Assert.AreEqual(0, failureMechanism.Sections.Count());
+            Assert.AreEqual(0, failureMechanism.SectionResults.Count());
         }
     }
 }
