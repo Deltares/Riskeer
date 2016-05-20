@@ -72,6 +72,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         {
             // Assert
             Assert.AreEqual(typeof(GrassCoverErosionInwardsCalculationContext), info.TagType);
+            Assert.IsNotNull(info.Text);
+            Assert.IsNotNull(info.Image);
+            Assert.IsNotNull(info.EnsureVisibleOnCreate);
+            Assert.IsNotNull(info.ChildNodeObjects);
+            Assert.IsNotNull(info.ContextMenuStrip);
+            Assert.IsNotNull(info.CanRename);
+            Assert.IsNotNull(info.OnNodeRenamed);
+            Assert.IsNotNull(info.CanRemove);
+            Assert.IsNotNull(info.OnNodeRemoved);
+            Assert.IsNotNull(info.CanDrag);
             Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.IsChecked);
@@ -92,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_WithoutOutputData_ReturnCommentNodeInputNodeAndEmptyOutputChildNode()
+        public void ChildNodeObjects_CalculationWithoutOutput_ReturnCollectionWithEmptyOutputObject()
         {
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
@@ -106,15 +116,51 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(3, children.Length);
+
             var commentContext = children[0] as CommentContext<ICommentable>;
             Assert.IsNotNull(commentContext);
             Assert.AreSame(calculationContext.WrappedData, commentContext.CommentContainer);
 
-            var grassCoverErosionInwardsCalculationContext = (GrassCoverErosionInwardsInputContext) children[1];
-            Assert.AreSame(calculationContext.WrappedData.InputParameters, grassCoverErosionInwardsCalculationContext.WrappedData);
+            var heightStructuresInputContext = children[1] as GrassCoverErosionInwardsInputContext;
+            Assert.IsNotNull(heightStructuresInputContext);
+            Assert.AreSame(calculationContext.WrappedData.InputParameters, heightStructuresInputContext.WrappedData);
 
-            var emptyOutput = (EmptyGrassCoverErosionInwardsOutput) children[2];
+            var emptyOutput = children[2] as EmptyGrassCoverErosionInwardsOutput;
             Assert.IsNotNull(emptyOutput);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ChildNodeObjects_CalculationWithOutput_ReturnCollectionWithOutputObject()
+        {
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new GeneralNormProbabilityInput())
+            {
+                Output = new GrassCoverErosionInwardsOutput(0, 0, 0, 0, 0)
+            };
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
+
+            // Call
+            var children = info.ChildNodeObjects(calculationContext).ToArray();
+
+            // Assert
+            Assert.AreEqual(3, children.Length);
+
+            var commentContext = children[0] as CommentContext<ICommentable>;
+            Assert.IsNotNull(commentContext);
+            Assert.AreSame(calculationContext.WrappedData, commentContext.CommentContainer);
+
+            var heightStructuresInputContext = children[1] as GrassCoverErosionInwardsInputContext;
+            Assert.IsNotNull(heightStructuresInputContext);
+            Assert.AreSame(calculationContext.WrappedData.InputParameters, heightStructuresInputContext.WrappedData);
+
+            var output = children[2] as GrassCoverErosionInwardsOutput;
+            Assert.IsNotNull(output);
+
             mocks.VerifyAll();
         }
 
@@ -122,7 +168,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var gui = mocks.StrictMock<IGui>();
+            var guiMock = mocks.StrictMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
             var menuBuilderMock = mocks.Stub<IContextMenuBuilder>();
@@ -148,11 +194,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
-            gui.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(menuBuilderMock);
+            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(menuBuilderMock);
 
             mocks.ReplayAll();
 
-            plugin.Gui = gui;
+            plugin.Gui = guiMock;
 
             // Call
             info.ContextMenuStrip(nodeData, null, treeViewControlMock);
@@ -172,12 +218,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                                       new GeneralNormProbabilityInput());
 
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
-            var gui = mocks.StrictMock<IGui>();
-            gui.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            var guiMock = mocks.StrictMock<IGui>();
+            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
 
             mocks.ReplayAll();
 
-            plugin.Gui = gui;
+            plugin.Gui = guiMock;
 
             // Call
             var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
@@ -196,7 +242,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
         {
             // Setup
-            var gui = mocks.StrictMock<IGui>();
+            var guiMock = mocks.StrictMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -213,11 +259,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
-            gui.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
 
             mocks.ReplayAll();
 
-            plugin.Gui = gui;
+            plugin.Gui = guiMock;
 
             // Call
             var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
@@ -236,7 +282,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismSetHydraulicBoundaryDatabaseNotValid_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
         {
             // Setup
-            var gui = mocks.StrictMock<IGui>();
+            var guiMock = mocks.StrictMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -253,11 +299,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
-            gui.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
 
             mocks.ReplayAll();
 
-            plugin.Gui = gui;
+            plugin.Gui = guiMock;
 
             // Call
             ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
@@ -277,7 +323,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismSectionsAndHydraulicBoundaryDatabaseSet_ContextMenuItemPerformCalculationEnabled()
         {
             // Setup
-            var gui = mocks.StrictMock<IGui>();
+            var guiMock = mocks.StrictMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -302,11 +348,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
-            gui.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
 
             mocks.ReplayAll();
 
-            plugin.Gui = gui;
+            plugin.Gui = guiMock;
 
             // Call
             var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
@@ -326,7 +372,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Given
             var gui = mocks.DynamicMock<IGui>();
             var mainWindow = mocks.DynamicMock<IMainWindow>();
-            var observer = mocks.StrictMock<IObserver>();
+            var observerMock = mocks.StrictMock<IObserver>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var calculateContextMenuItemIndex = 0;
 
@@ -349,8 +395,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             };
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+            };
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
                                                                       new GeneralNormProbabilityInput())
             {
@@ -370,7 +418,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             plugin.Gui = gui;
 
-            calculation.Attach(observer);
+            calculation.Attach(observerMock);
 
             var contextMenuAdapter = info.ContextMenuStrip(calculationContext, null, treeViewControlMock);
 
@@ -401,8 +449,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromGroup(bool groupNameEditable)
         {
             // Setup
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
 
             var elementToBeRemoved = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
                                                                              new GeneralNormProbabilityInput());
@@ -411,7 +459,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             group.Children.Add(elementToBeRemoved);
             group.Children.Add(new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
                                                                        new GeneralNormProbabilityInput()));
-            group.Attach(observer);
+            group.Attach(observerMock);
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
