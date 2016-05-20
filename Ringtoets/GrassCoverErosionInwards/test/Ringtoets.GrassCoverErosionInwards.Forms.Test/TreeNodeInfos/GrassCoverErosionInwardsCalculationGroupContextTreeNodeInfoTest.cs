@@ -74,6 +74,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         {
             // Assert
             Assert.AreEqual(typeof(GrassCoverErosionInwardsCalculationGroupContext), info.TagType);
+            Assert.IsNotNull(info.Text);
+            Assert.IsNotNull(info.Image);
+            Assert.IsNotNull(info.EnsureVisibleOnCreate);
+            Assert.IsNotNull(info.ChildNodeObjects);
+            Assert.IsNotNull(info.ContextMenuStrip);
+            Assert.IsNotNull(info.CanRename);
+            Assert.IsNotNull(info.OnNodeRenamed);
+            Assert.IsNotNull(info.CanRemove);
+            Assert.IsNotNull(info.OnNodeRemoved);
+            Assert.IsNotNull(info.CanDrag);
+            Assert.IsNotNull(info.CanInsert);
+            Assert.IsNotNull(info.CanDrop);
+            Assert.IsNotNull(info.OnDrop);
             Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.IsChecked);
@@ -139,105 +152,182 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextmenuStrip_WithoutParentNodeDefaultBehavior_ReturnContextMenuWithoutOpenRenameAndRemove()
+        public void ContextMenuStrip_WithoutParentNodeDefaultBehavior_CallsContextMenuBuilderMethods()
         {
             // Setup
             var group = new CalculationGroup();
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
-
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                                                   failureMechanism,
+                                                                                   assessmentSectionMock);
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                               failureMechanism,
-                                                                               assessmentSectionMock);
-
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
-
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, nodeData, treeViewControl);
-            gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
-            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
-            viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(false);
+            menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            gui.Expect(cmp => cmp.Get(groupContext, treeViewControlMock)).Return(menuBuilderMock);
 
             mocks.ReplayAll();
 
             // Call
-            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+            info.ContextMenuStrip(groupContext, null, treeViewControlMock);
 
             // Assert
-            Assert.AreEqual(15, menu.Items.Count);
+            mocks.VerifyAll();
+        }
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, 0,
-                                                          CoreCommonGuiResources.Open,
-                                                          CoreCommonGuiResources.Open_ToolTip,
-                                                          CoreCommonGuiResources.OpenIcon,
-                                                          false);
+        [Test]
+        public void ContextMenuStrip_WithoutParentNodeDefaultBehavior_AddCustomItems()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                                                   failureMechanism,
+                                                                                   assessmentSectionMock);
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, 2,
+            gui.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            // Call
+            ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl);
+
+            // Assert
+            Assert.AreEqual(9, menu.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, 1,
                                                           RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
                                                           RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
                                                           RingtoetsFormsResources.AddFolderIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 3,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 2,
                                                           RingtoetsFormsResources.CalculationGroup_Add_Calculation,
                                                           RingtoetsFormsResources.CalculationGroup_Add_Calculation_Tooltip,
                                                           RingtoetsFormsResources.FailureMechanismIcon);
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, 5,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 4,
                                                           RingtoetsFormsResources.Calculate_all,
                                                           RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
                                                           RingtoetsFormsResources.CalculateIcon,
                                                           false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 6,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 5,
                                                           RingtoetsFormsResources.Clear_all_output,
                                                           RingtoetsFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
                                                           RingtoetsFormsResources.ClearIcon,
                                                           false);
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, 8,
-                                                          CoreCommonGuiResources.Import,
-                                                          CoreCommonGuiResources.Import_ToolTip,
-                                                          CoreCommonGuiResources.ImportIcon,
-                                                          false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 9,
-                                                          CoreCommonGuiResources.Export,
-                                                          CoreCommonGuiResources.Export_ToolTip,
-                                                          CoreCommonGuiResources.ExportIcon,
-                                                          false);
+            mocks.VerifyAll();
+        }
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, 11,
-                                                          CoreCommonGuiResources.Expand_all,
-                                                          CoreCommonGuiResources.Expand_all_ToolTip,
-                                                          CoreCommonGuiResources.ExpandAllIcon,
-                                                          false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 12,
-                                                          CoreCommonGuiResources.Collapse_all,
-                                                          CoreCommonGuiResources.Collapse_all_ToolTip,
-                                                          CoreCommonGuiResources.CollapseAllIcon,
-                                                          false);
+        [Test]
+        public void ContextMenuStrip_NestedCalculationGroup_CallsContextMenuBuilderMethods()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                                                   failureMechanism,
+                                                                                   assessmentSectionMock);
+            var parentGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
+                                                                                         failureMechanism,
+                                                                                         assessmentSectionMock);
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, 14,
-                                                          CoreCommonGuiResources.Properties,
-                                                          CoreCommonGuiResources.Properties_ToolTip,
-                                                          CoreCommonGuiResources.PropertiesHS,
-                                                          false);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            gui.Expect(cmp => cmp.Get(groupContext, treeViewControlMock)).Return(menuBuilderMock);
 
-            CollectionAssert.AllItemsAreInstancesOfType(new[]
-            {
-                menu.Items[1],
-                menu.Items[4],
-                menu.Items[7],
-                menu.Items[10],
-                menu.Items[13]
-            }, typeof(ToolStripSeparator));
+            mocks.ReplayAll();
+
+            // Call
+            info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControlMock);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_NestedCalculationGroup_AddCustomItems()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                                                   failureMechanism,
+                                                                                   assessmentSectionMock);
+            var parentGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
+                                                                                         failureMechanism,
+                                                                                         assessmentSectionMock);
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            gui.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            // Call
+            ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl);
+
+            // Assert
+            Assert.AreEqual(9, menu.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, 0,
+                                                          RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                          RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
+                                                          RingtoetsFormsResources.AddFolderIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 1,
+                                                          RingtoetsFormsResources.CalculationGroup_Add_Calculation,
+                                                          RingtoetsFormsResources.CalculationGroup_Add_Calculation_Tooltip,
+                                                          RingtoetsFormsResources.FailureMechanismIcon);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, 3,
+                                                          RingtoetsFormsResources.Calculate_all,
+                                                          RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
+                                                          RingtoetsFormsResources.CalculateIcon,
+                                                          false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 4,
+                                                          RingtoetsFormsResources.Clear_all_output,
+                                                          RingtoetsFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
+                                                          RingtoetsFormsResources.ClearIcon,
+                                                          false);
 
             mocks.VerifyAll();
         }
@@ -487,121 +577,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                           RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
                                                           RingtoetsFormsResources.CalculateIcon,
                                                           false);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ContextmenuStrip_NestedCalculationGroup_ReturnContextMenuWithAllItems()
-        {
-            // Setup
-            var parentGroup = new CalculationGroup();
-            var group = new CalculationGroup();
-
-            parentGroup.Children.Add(group);
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
-
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
-
-            var parentData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
-                                                                                 failureMechanism,
-                                                                                 assessmentSectionMock);
-
-            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                               failureMechanism,
-                                                                               assessmentSectionMock);
-
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
-
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, nodeData, treeViewControl);
-            gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
-            treeViewControl.Expect(tvc => tvc.CanRenameNodeForData(nodeData)).Return(true);
-            treeViewControl.Expect(tvc => tvc.CanRemoveNodeForData(nodeData)).Return(true);
-            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
-
-            mocks.ReplayAll();
-
-            // Call
-            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
-
-            // Assert
-            Assert.AreEqual(16, menu.Items.Count);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, 0,
-                                                          RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
-                                                          RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
-                                                          RingtoetsFormsResources.AddFolderIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 1,
-                                                          RingtoetsFormsResources.CalculationGroup_Add_Calculation,
-                                                          RingtoetsFormsResources.CalculationGroup_Add_Calculation_Tooltip,
-                                                          RingtoetsFormsResources.FailureMechanismIcon);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, 3,
-                                                          RingtoetsFormsResources.Calculate_all,
-                                                          RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
-                                                          RingtoetsFormsResources.CalculateIcon,
-                                                          false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 4,
-                                                          RingtoetsFormsResources.Clear_all_output,
-                                                          RingtoetsFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
-                                                          RingtoetsFormsResources.ClearIcon,
-                                                          false);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, 6,
-                                                          CoreCommonGuiResources.Rename,
-                                                          CoreCommonGuiResources.Rename_ToolTip,
-                                                          CoreCommonGuiResources.RenameIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 7,
-                                                          CoreCommonGuiResources.Delete,
-                                                          CoreCommonGuiResources.Delete_ToolTip,
-                                                          CoreCommonGuiResources.DeleteIcon);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, 9,
-                                                          CoreCommonGuiResources.Import,
-                                                          CoreCommonGuiResources.Import_ToolTip,
-                                                          CoreCommonGuiResources.ImportIcon,
-                                                          false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 10,
-                                                          CoreCommonGuiResources.Export,
-                                                          CoreCommonGuiResources.Export_ToolTip,
-                                                          CoreCommonGuiResources.ExportIcon,
-                                                          false);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, 12,
-                                                          CoreCommonGuiResources.Expand_all,
-                                                          CoreCommonGuiResources.Expand_all_ToolTip,
-                                                          CoreCommonGuiResources.ExpandAllIcon,
-                                                          false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 13,
-                                                          CoreCommonGuiResources.Collapse_all,
-                                                          CoreCommonGuiResources.Collapse_all_ToolTip,
-                                                          CoreCommonGuiResources.CollapseAllIcon,
-                                                          false);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, 15,
-                                                          CoreCommonGuiResources.Properties,
-                                                          CoreCommonGuiResources.Properties_ToolTip,
-                                                          CoreCommonGuiResources.PropertiesHS,
-                                                          false);
-
-            CollectionAssert.AllItemsAreInstancesOfType(new[]
-            {
-                menu.Items[2],
-                menu.Items[5],
-                menu.Items[8],
-                menu.Items[11],
-                menu.Items[14]
-            }, typeof(ToolStripSeparator));
-
             mocks.VerifyAll();
         }
 
