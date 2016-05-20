@@ -19,24 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
-using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
+using Ringtoets.HeightStructures.Data;
 
-namespace Ringtoets.HeightStructures.Data.Test
+namespace Ringtoets.HeightStructures.Forms.PresentationObjects
 {
-    [TestFixture]
-    public class HeightStructuresInputTest
-    {
-        [Test]
-        public void Constructor_DefaultPropertyValuesAreSet()
-        {
-            // Call
-            var input = new HeightStructuresInput();
-
-            // Assert
-            Assert.IsInstanceOf<Observable>(input);
-            Assert.IsInstanceOf<ICalculationInput>(input);
-        }
-    }
+    /// <summary>
+    /// This class represents the placeholder for a <see cref="HeightStructuresOutput"/> for a <see cref="HeightStructuresCalculation"/>
+    /// that has not been calculated yet.
+    /// </summary>
+    public class EmptyHeightStructuresOutput {}
 }

@@ -20,23 +20,12 @@
 // All rights reserved.
 
 using Core.Common.Base;
-using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.HeightStructures.Data.Test
+namespace Ringtoets.HeightStructures.Data
 {
-    [TestFixture]
-    public class HeightStructuresInputTest
-    {
-        [Test]
-        public void Constructor_DefaultPropertyValuesAreSet()
-        {
-            // Call
-            var input = new HeightStructuresInput();
-
-            // Assert
-            Assert.IsInstanceOf<Observable>(input);
-            Assert.IsInstanceOf<ICalculationInput>(input);
-        }
-    }
+    /// <summary>
+    /// This class contains the results of a height structures calculation.
+    /// </summary>
+    public class HeightStructuresOutput : Observable, ICalculationOutput {}
 }

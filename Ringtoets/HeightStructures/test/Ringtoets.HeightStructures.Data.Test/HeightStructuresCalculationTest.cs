@@ -42,5 +42,76 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.IsNull(calculation.Comments);
             Assert.IsFalse(calculation.HasOutput);
         }
+
+        [Test]
+        public void ClearOutput_Always_SetsOutputToNull()
+        {
+            // Setup
+            var calculation = new HeightStructuresCalculation
+            {
+                Output = new HeightStructuresOutput()
+            };
+
+            // Call
+            calculation.ClearOutput();
+
+            // Assert
+            Assert.IsNull(calculation.Output);
+        }
+
+        [Test]
+        public void HasOutput_OutputNull_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new HeightStructuresCalculation
+            {
+                Output = null
+            };
+
+            // Call & Assert
+            Assert.IsFalse(calculation.HasOutput);
+        }
+
+        [Test]
+        public void HasOutput_OutputSet_ReturnsTrue()
+        {
+            // Setup
+            var calculation = new HeightStructuresCalculation
+            {
+                Output = new HeightStructuresOutput()
+            };
+
+            // Call & Assert
+            Assert.IsTrue(calculation.HasOutput);
+        }
+
+        [Test]
+        public void GetObservableInput_Always_ReturnsInputParameters()
+        {
+            // Setup
+            var calculation = new HeightStructuresCalculation();
+
+            // Call
+            ICalculationInput input = calculation.GetObservableInput();
+
+            // Assert
+            Assert.AreSame(calculation.InputParameters, input);
+        }
+
+        [Test]
+        public void GetObservableOutput_Always_ReturnsOutput()
+        {
+            // Setup
+            var calculation = new HeightStructuresCalculation
+            {
+                Output = new HeightStructuresOutput()
+            };
+
+            // Call
+            ICalculationOutput output = calculation.GetObservableOutput();
+
+            // Assert
+            Assert.AreSame(calculation.Output, output);
+        }
     }
 }

@@ -26,17 +26,17 @@ using Ringtoets.Common.Data.Calculation;
 namespace Ringtoets.HeightStructures.Data.Test
 {
     [TestFixture]
-    public class HeightStructuresInputTest
+    public class HeightStructuresOutputTest
     {
         [Test]
         public void Constructor_DefaultPropertyValuesAreSet()
         {
             // Call
-            var input = new HeightStructuresInput();
+            var output = new HeightStructuresOutput();
 
             // Assert
-            Assert.IsInstanceOf<Observable>(input);
-            Assert.IsInstanceOf<ICalculationInput>(input);
+            Assert.IsInstanceOf<Observable>(output);
+            Assert.IsInstanceOf<ICalculationOutput>(output);
         }
     }
 }

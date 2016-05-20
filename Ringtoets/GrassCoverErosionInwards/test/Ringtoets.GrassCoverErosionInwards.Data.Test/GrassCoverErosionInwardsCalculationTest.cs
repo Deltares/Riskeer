@@ -187,7 +187,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void GetObservableInput_Always_ReturnsInputParamaters()
+        public void GetObservableInput_Always_ReturnsInputParameters()
         {
             // Setup
             var generalInput = new GeneralGrassCoverErosionInwardsInput();

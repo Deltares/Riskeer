@@ -44,6 +44,11 @@ namespace Ringtoets.HeightStructures.Data
         /// </summary>
         public HeightStructuresInput InputParameters { get; private set; }
 
+        /// <summary>
+        /// Gets or sets <see cref="HeightStructuresOutput"/>, which contains the results of a height structures calculation.
+        /// </summary>
+        public HeightStructuresOutput Output { get; set; }
+
         public string Name { get; set; }
 
         public string Comments { get; set; }
@@ -52,22 +57,25 @@ namespace Ringtoets.HeightStructures.Data
         {
             get
             {
-                return false;
+                return Output != null;
             }
         }
 
-        public void ClearOutput() {}
+        public void ClearOutput()
+        {
+            Output = null;
+        }
 
         public void ClearHydraulicBoundaryLocation() {}
 
         public ICalculationInput GetObservableInput()
         {
-            return null;
+            return InputParameters;
         }
 
         public ICalculationOutput GetObservableOutput()
         {
-            return null;
+            return Output;
         }
     }
 }
