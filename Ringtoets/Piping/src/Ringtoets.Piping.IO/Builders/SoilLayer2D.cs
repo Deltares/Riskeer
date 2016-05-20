@@ -187,13 +187,13 @@ namespace Ringtoets.Piping.IO.Builders
         private double EnsureBottomOutsideInnerLoop(IEnumerable<Tuple<double, double>> innerLoopIntersectionHeightPairs, double bottom)
         {
             var newBottom = bottom;
-            var heigthPairArray = innerLoopIntersectionHeightPairs.ToList();
-            var overlappingInnerLoop = heigthPairArray.FirstOrDefault(t => BottomInInnerLoop(t, newBottom));
+            var heightPairArray = innerLoopIntersectionHeightPairs.ToList();
+            var overlappingInnerLoop = heightPairArray.FirstOrDefault(t => BottomInInnerLoop(t, newBottom));
 
             while (overlappingInnerLoop != null)
             {
                 newBottom = overlappingInnerLoop.Item2;
-                overlappingInnerLoop = heigthPairArray.FirstOrDefault(t => BottomInInnerLoop(t, newBottom));
+                overlappingInnerLoop = heightPairArray.FirstOrDefault(t => BottomInInnerLoop(t, newBottom));
             }
             return newBottom;
         }

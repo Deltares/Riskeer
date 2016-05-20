@@ -358,7 +358,7 @@ namespace Core.Common.Controls.TreeView
         private static Point[] MakePlaceHoldeTriangle(TreeNode node, AnchorStyles anchor, PlaceholderLocation location)
         {
             const int placeHolderWidth = 4;
-            const int placeHolderHeigth = 8;
+            const int placeHolderHeight = 8;
 
             int xPos, yPos;
             var bounds = node.Bounds;
@@ -390,7 +390,7 @@ namespace Core.Common.Controls.TreeView
                     throw new ArgumentOutOfRangeException("location");
             }
 
-            return CreateTrianglePoints(new Rectangle(xPos, yPos - placeHolderWidth, placeHolderWidth, placeHolderHeigth), anchor);
+            return CreateTrianglePoints(new Rectangle(xPos, yPos - placeHolderWidth, placeHolderWidth, placeHolderHeight), anchor);
         }
 
         private static int GetImageLeft(TreeNode node)

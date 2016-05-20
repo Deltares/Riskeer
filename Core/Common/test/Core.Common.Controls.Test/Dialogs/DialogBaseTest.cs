@@ -77,7 +77,7 @@ namespace Core.Common.Controls.Test.Dialogs
 
         [TestCase(-1)]
         [TestCase(0)]
-        public void Constructor_IncorrectMinHeigth_ArgumentExceptionIsThrown(int minHeight)
+        public void Constructor_IncorrectMinHeight_ArgumentExceptionIsThrown(int minHeight)
         {
             // Setup
             var mocks = new MockRepository();
