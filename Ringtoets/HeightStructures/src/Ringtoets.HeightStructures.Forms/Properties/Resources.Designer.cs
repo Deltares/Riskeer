@@ -22,7 +22,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.HeightStructures.Forms.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,9 +61,19 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap CalculationIcon {
+            get {
+                object obj = ResourceManager.GetObject("CalculationIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} mag niet &apos;null&apos; zijn..
         /// </summary>
-        internal static string HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null {
+        public static string HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null {
             get {
                 return ResourceManager.GetString("HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null", resourceCulture);
             }
@@ -72,7 +82,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het traject.
         /// </summary>
-        internal static string HeightStructuresContext_DataDescription_AssessmentSection {
+        public static string HeightStructuresContext_DataDescription_AssessmentSection {
             get {
                 return ResourceManager.GetString("HeightStructuresContext_DataDescription_AssessmentSection", resourceCulture);
             }
@@ -81,9 +91,19 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het hoogte kunstwerk toetsspoor.
         /// </summary>
-        internal static string HeightStructuresContext_DataDescription_HeightStructuresFailureMechanism {
+        public static string HeightStructuresContext_DataDescription_HeightStructuresFailureMechanism {
             get {
                 return ResourceManager.GetString("HeightStructuresContext_DataDescription_HeightStructuresFailureMechanism", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De berekening.
+        /// </summary>
+        public static string HeightStructuresInputContext_DataDescription_HeightStructuresInputCalculationItem {
+            get {
+                return ResourceManager.GetString("HeightStructuresInputContext_DataDescription_HeightStructuresInputCalculationItem" +
+                        "", resourceCulture);
             }
         }
     }

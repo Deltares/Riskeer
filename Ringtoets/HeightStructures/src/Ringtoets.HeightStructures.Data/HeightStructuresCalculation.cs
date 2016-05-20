@@ -29,6 +29,19 @@ namespace Ringtoets.HeightStructures.Data
     /// </summary>
     public class HeightStructuresCalculation : Observable, ICalculation
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="HeightStructuresCalculation"/>.
+        /// </summary>
+        public HeightStructuresCalculation()
+        {
+            InputParameters = new HeightStructuresInput();
+        }
+
+        /// <summary>
+        /// Gets the input parameters to perform a height structures calculation with.
+        /// </summary>
+        public HeightStructuresInput InputParameters { get; private set; }
+
         public string Name { get; set; }
 
         public string Comments { get; set; }
