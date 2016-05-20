@@ -478,20 +478,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         #region GrassCoverErosionInwardsCalculationContext TreeNodeInfo
 
-        private static object[] CalculationContextChildNodeObjects(GrassCoverErosionInwardsCalculationContext calculationContext)
+        private static object[] CalculationContextChildNodeObjects(GrassCoverErosionInwardsCalculationContext context)
         {
             var childNodes = new List<object>
             {
-                new CommentContext<ICommentable>(calculationContext.WrappedData),
-                new GrassCoverErosionInwardsInputContext(calculationContext.WrappedData.InputParameters,
-                                                         calculationContext.WrappedData,
-                                                         calculationContext.FailureMechanism,
-                                                         calculationContext.AssessmentSection)
+                new CommentContext<ICommentable>(context.WrappedData),
+                new GrassCoverErosionInwardsInputContext(context.WrappedData.InputParameters,
+                                                         context.WrappedData,
+                                                         context.FailureMechanism,
+                                                         context.AssessmentSection)
             };
 
-            if (calculationContext.WrappedData.HasOutput)
+            if (context.WrappedData.HasOutput)
             {
-                childNodes.Add(calculationContext.WrappedData.Output);
+                childNodes.Add(context.WrappedData.Output);
             }
             else
             {
@@ -501,13 +501,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             return childNodes.ToArray();
         }
 
-        private ContextMenuStrip CalculationContextContextMenuStrip(GrassCoverErosionInwardsCalculationContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationContextContextMenuStrip(GrassCoverErosionInwardsCalculationContext context, object parentData, TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
 
-            GrassCoverErosionInwardsCalculation calculation = nodeData.WrappedData;
+            GrassCoverErosionInwardsCalculation calculation = context.WrappedData;
 
-            return builder.AddPerformCalculationItem(calculation, nodeData, PerformCalculation, EnablePerformCalculation)
+            return builder.AddPerformCalculationItem(calculation, context, PerformCalculation, EnablePerformCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
                           .AddRenameItem()
@@ -545,12 +545,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             ActivityProgressDialogRunner.Run(Gui.MainWindow, activity);
         }
 
-        private void CalculationContextOnNodeRemoved(GrassCoverErosionInwardsCalculationContext calculationScenarioContext, object parentNodeData)
+        private void CalculationContextOnNodeRemoved(GrassCoverErosionInwardsCalculationContext context, object parentData)
         {
-            var calculationGroupContext = parentNodeData as GrassCoverErosionInwardsCalculationGroupContext;
+            var calculationGroupContext = parentData as GrassCoverErosionInwardsCalculationGroupContext;
             if (calculationGroupContext != null)
             {
-                calculationGroupContext.WrappedData.Children.Remove(calculationScenarioContext.WrappedData);
+                calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
                 calculationGroupContext.NotifyObservers();
             }
         }
