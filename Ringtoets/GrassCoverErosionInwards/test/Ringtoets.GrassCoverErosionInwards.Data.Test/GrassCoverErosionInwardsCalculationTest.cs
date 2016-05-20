@@ -72,14 +72,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
-
+            Assert.IsInstanceOf<Observable>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
-            Assert.IsInstanceOf<GrassCoverErosionInwardsInput>(calculation.InputParameters);
+            Assert.IsNotNull(calculation.InputParameters);
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments);
             Assert.IsNull(calculation.Output);
-            Assert.IsInstanceOf<Observable>(calculation);
-            Assert.AreEqual(normProbabilityInput, calculation.NormProbabilityInput);
+            Assert.AreSame(normProbabilityInput, calculation.NormProbabilityInput);
             AssertDemoInput(calculation.InputParameters);
         }
 

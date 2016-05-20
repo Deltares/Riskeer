@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HeightStructuresCalculationTest.cs" />
     <Compile Include="HeightStructuresFailureMechanismTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

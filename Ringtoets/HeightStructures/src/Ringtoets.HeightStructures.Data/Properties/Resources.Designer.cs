@@ -61,6 +61,15 @@ namespace Ringtoets.HeightStructures.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nieuwe berekening.
+        /// </summary>
+        internal static string HeightStructuresCalculation_DefaultName {
+            get {
+                return ResourceManager.GetString("HeightStructuresCalculation_DefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to HTKW.
         /// </summary>
         internal static string HeightStructuresFailureMechanism_Code {
