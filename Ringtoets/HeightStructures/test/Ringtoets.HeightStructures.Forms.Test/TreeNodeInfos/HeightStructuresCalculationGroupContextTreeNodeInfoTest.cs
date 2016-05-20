@@ -21,6 +21,7 @@
 
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -321,5 +322,126 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             mocks.VerifyAll();
         }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnAddGroupItem_AddGroupToCalculationGroupAndNotifyObservers()
+        {
+            // Setup
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var nodeData = new HeightStructuresCalculationGroupContext(group,
+                                                                       failureMechanism,
+                                                                       assessmentSectionMock);
+            var parentNodeData = new HeightStructuresCalculationGroupContext(parentGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSectionMock);
+            var calculationGroup = new CalculationGroup
+            {
+                Name = "Nieuwe map"
+            };
+
+            var observer = mocks.StrictMock<IObserver>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+
+            observer.Expect(o => o.UpdateObserver());
+            gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            group.Children.Add(calculationGroup);
+            nodeData.Attach(observer);
+
+            ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl);
+
+            // Precondition
+            Assert.AreEqual(1, group.Children.Count);
+
+            // Call
+            contextMenu.Items[contextMenuAddCalculationGroupIndex].PerformClick();
+
+            // Assert
+            Assert.AreEqual(2, group.Children.Count);
+            var newlyAddedItem = group.Children.Last();
+            Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
+            Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
+                            "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OnNodeRemoved_NestedCalculationGroup_RemoveGroupAndNotifyObservers()
+        {
+            // Setup
+            var observer = mocks.StrictMock<IObserver>();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
+            var nodeData = new HeightStructuresCalculationGroupContext(group,
+                                                                       failureMechanism,
+                                                                       assessmentSectionMock);
+            var parentNodeData = new HeightStructuresCalculationGroupContext(parentGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSectionMock);
+
+            observer.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            parentGroup.Children.Add(group);
+            parentNodeData.Attach(observer);
+
+            // Precondition
+            Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentNodeData);
+
+            // Assert
+            CollectionAssert.DoesNotContain(parentGroup.Children, group);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OnNodeRemoved_NestedCalculationGroupContainingCalculations_RemoveGroupAndCalculationsAndNotifyObservers()
+        {
+            // Setup
+            var observer = mocks.StrictMock<IObserver>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
+            var nodeData = new HeightStructuresCalculationGroupContext(group,
+                                                                       failureMechanism,
+                                                                       assessmentSectionMock);
+            var parentNodeData = new HeightStructuresCalculationGroupContext(parentGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSectionMock);
+            var calculation = new HeightStructuresCalculation();
+
+            observer.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            group.Children.Add(calculation);
+            parentGroup.Children.Add(group);
+            parentNodeData.Attach(observer);
+
+            // Precondition
+            Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentNodeData);
+
+            // Assert
+            CollectionAssert.DoesNotContain(parentGroup.Children, group);
+            mocks.VerifyAll();
+        }
+
+        private const int contextMenuAddCalculationGroupIndex = 0;
     }
 }
