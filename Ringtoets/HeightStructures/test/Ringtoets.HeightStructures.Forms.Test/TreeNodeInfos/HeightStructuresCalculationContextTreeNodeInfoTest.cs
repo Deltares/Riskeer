@@ -21,6 +21,9 @@
 
 using System.Linq;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -146,5 +149,85 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             mocks.VerifyAll();
         }
+
+        [Test]
+        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
+        {
+            // Setup
+            var guiMock = mocks.StrictMock<IGui>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var calculation = new HeightStructuresCalculation();
+            var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(menuBuilderMock);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = guiMock;
+
+            // Call
+            info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+
+            // Assert
+            mocks.VerifyAll(); // Expect no calls on arguments
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_AddCustomItems()
+        {
+            // Setup
+            var guiMock = mocks.StrictMock<IGui>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var calculation = new HeightStructuresCalculation();
+            var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = guiMock;
+
+            // Call
+            var menu = info.ContextMenuStrip(nodeData, assessmentSectionMock, treeViewControlMock);
+
+            // Assert
+            Assert.AreEqual(6, menu.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateIndex,
+                                                          RingtoetsCommonFormsResources.Calculate,
+                                                          RingtoetsCommonFormsResources.Calculate_ToolTip,
+                                                          RingtoetsCommonFormsResources.CalculateIcon);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIndex,
+                                                          RingtoetsCommonFormsResources.Clear_output,
+                                                          RingtoetsCommonFormsResources.ClearOutput_No_output_to_clear,
+                                                          RingtoetsCommonFormsResources.ClearIcon,
+                                                          false);
+
+            mocks.VerifyAll();
+        }
+
+        private const int contextMenuCalculateIndex = 0;
+        private const int contextMenuClearIndex = 1;
     }
 }
