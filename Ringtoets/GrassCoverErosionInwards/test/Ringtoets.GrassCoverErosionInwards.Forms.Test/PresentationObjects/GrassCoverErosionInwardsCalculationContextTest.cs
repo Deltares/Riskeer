@@ -54,6 +54,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var context = new GrassCoverErosionInwardsCalculationContext(calculationMock, failureMechanismMock, assessmentSectionMock);
 
             // Assert
+            Assert.IsInstanceOf<GrassCoverErosionInwardsContext<GrassCoverErosionInwardsCalculation>>(context);
             Assert.AreEqual(calculationMock, context.WrappedData);
             Assert.AreEqual(failureMechanismMock, context.FailureMechanism);
             Assert.AreEqual(assessmentSectionMock, context.AssessmentSection);

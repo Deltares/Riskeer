@@ -644,8 +644,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                   failureMechanism,
-                                                                   assessmentSectionMock);
+                                                                               failureMechanism,
+                                                                               assessmentSectionMock);
             var parentNodeData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
                                                                                      failureMechanism,
                                                                                      assessmentSectionMock);
