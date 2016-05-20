@@ -305,7 +305,7 @@
     <value>Veiligheidsfactor [-]</value>
   </data>
   <data name="GrassCoverErosionInwardsOutput_Probability_Description" xml:space="preserve">
-    <value>De faalkans voor deze berekening.</value>
+    <value>De kans dat het toetsspoor grasbekleding erosie kruin en binnentalud optreedt voor deze berekening.</value>
   </data>
   <data name="GrassCoverErosionInwardsOutput_Probability_Displayname" xml:space="preserve">
     <value>Faalkans [1/year]</value>
@@ -317,13 +317,13 @@
     <value>Betrouwbaarheidsindex faalkans [-]</value>
   </data>
   <data name="GrassCoverErosionInwardsOutput_RequiredProbability_Description" xml:space="preserve">
-    <value>De kans dat het toetsspoor grasbekleding erosie kruin en binnentalud optreedt voor deze berekening.</value>
+    <value>De maximaal toegestane faalkanseis voor het toetsspoor grasbekleding erosie kruin en binnentalud.</value>
   </data>
   <data name="GrassCoverErosionInwardsOutput_RequiredProbability_Displayname" xml:space="preserve">
     <value>Faalkanseis [1/year]</value>
   </data>
   <data name="GrassCoverErosionInwardsOutput_RequiredReliability_Description" xml:space="preserve">
-    <value>De betrouwbaarheidsindex van de faalkanseis voor deze berekening.</value>
+    <value>De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor grasbekleding erosie kruin en binnentalud.</value>
   </data>
   <data name="GrassCoverErosionInwardsOutput_RequiredReliability_Displayname" xml:space="preserve">
     <value>Betrouwbaarheidsindex faalkanseis [-]</value>

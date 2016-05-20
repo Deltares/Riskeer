@@ -127,21 +127,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsTrue(requiredProbabilityProperty.IsReadOnly);
             Assert.AreEqual("Grasbekleding erosie kruin en binnentalud", requiredProbabilityProperty.Category);
             Assert.AreEqual("Faalkanseis [1/year]", requiredProbabilityProperty.DisplayName);
-            Assert.AreEqual("De kans dat het toetsspoor grasbekleding erosie kruin en binnentalud optreedt voor deze berekening.", requiredProbabilityProperty.Description);
+            Assert.AreEqual("De maximaal toegestane faalkanseis voor het toetsspoor grasbekleding erosie kruin en binnentalud.", requiredProbabilityProperty.Description);
 
             PropertyDescriptor requiredReliabilityProperty = dynamicProperties[requiredReliabilityPropertyIndex];
             Assert.IsNotNull(requiredReliabilityProperty);
             Assert.IsTrue(requiredReliabilityProperty.IsReadOnly);
             Assert.AreEqual("Grasbekleding erosie kruin en binnentalud", requiredReliabilityProperty.Category);
             Assert.AreEqual("Betrouwbaarheidsindex faalkanseis [-]", requiredReliabilityProperty.DisplayName);
-            Assert.AreEqual("De betrouwbaarheidsindex van de faalkanseis voor deze berekening.", requiredReliabilityProperty.Description);
+            Assert.AreEqual("De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor grasbekleding erosie kruin en binnentalud.", requiredReliabilityProperty.Description);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
             Assert.IsNotNull(probabilityProperty);
             Assert.IsTrue(probabilityProperty.IsReadOnly);
             Assert.AreEqual("Grasbekleding erosie kruin en binnentalud", probabilityProperty.Category);
             Assert.AreEqual("Faalkans [1/year]", probabilityProperty.DisplayName);
-            Assert.AreEqual("De faalkans voor deze berekening.", probabilityProperty.Description);
+            Assert.AreEqual("De kans dat het toetsspoor grasbekleding erosie kruin en binnentalud optreedt voor deze berekening.", probabilityProperty.Description);
 
             PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];
             Assert.IsNotNull(reliabilityProperty);

@@ -515,7 +515,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De faalkans voor deze berekening..
+        ///   Looks up a localized string similar to De kans dat het toetsspoor grasbekleding erosie kruin en binnentalud optreedt voor deze berekening..
         /// </summary>
         public static string GrassCoverErosionInwardsOutput_Probability_Description {
             get {
@@ -551,7 +551,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De kans dat het toetsspoor grasbekleding erosie kruin en binnentalud optreedt voor deze berekening..
+        ///   Looks up a localized string similar to De maximaal toegestane faalkanseis voor het toetsspoor grasbekleding erosie kruin en binnentalud..
         /// </summary>
         public static string GrassCoverErosionInwardsOutput_RequiredProbability_Description {
             get {
@@ -569,7 +569,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De betrouwbaarheidsindex van de faalkanseis voor deze berekening..
+        ///   Looks up a localized string similar to De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor grasbekleding erosie kruin en binnentalud..
         /// </summary>
         public static string GrassCoverErosionInwardsOutput_RequiredReliability_Description {
             get {
