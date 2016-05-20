@@ -43,16 +43,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        [TestCase(30000, 3.98787893661)]
-        [TestCase(20000, 3.89059188641)]
-        public void RequiredProbability_DifferentInputs_ReturnsExpectedValue(int norm, double expectedResult)
+        [TestCase(30000, 100, 60000)]
+        [TestCase(30000, 24, 250000)]
+        [TestCase(20000, 100, 40000)]
+        [TestCase(20000, 24, 166666.6667)]
+        public void RequiredProbability_DifferentInputs_ReturnsExpectedValue(int norm, double contribution, double expectedResult)
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
                                                                       new GeneralNormProbabilityInput());
 
             // Call
-            GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, norm, double.NaN, double.NaN);
+            GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, norm, contribution, double.NaN);
 
             // Assert
             RoundedDouble output = calculation.Output.RequiredProbability;
@@ -96,8 +98,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        [TestCase(4, 0.00013383023)]
-        [TestCase(5, 0.00000148672)]
+        [TestCase(4, 7472.1535758)]
+        [TestCase(5, 672621.8295310)]
         public void Probability_DifferentInputs_ReturnsExpectedValue(double probability, double expectedResult)
         {
             // Setup

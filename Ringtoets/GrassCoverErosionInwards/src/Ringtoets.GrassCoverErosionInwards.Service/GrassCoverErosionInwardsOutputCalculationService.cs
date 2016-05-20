@@ -36,45 +36,43 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         private readonly double norm;
         private readonly double contribution;
         private readonly int lengthEffectN;
-        private readonly double grassCoverErosionInwardsCrossSectionProbability;
+        private readonly double reliability;
 
         // Results
         private double requiredProbability;
-        private double allowedCrossSectionProbability;
         private double probability;
         private double requiredReliability;
-        private double reliability;
         private double factorOfSafety;
 
-        private GrassCoverErosionInwardsOutputCalculationService(double norm, double contribution, int lengthEffectN, double probability)
+        private GrassCoverErosionInwardsOutputCalculationService(double norm, double contribution, int lengthEffectN, double reliability)
         {
             this.norm = norm;
             this.contribution = contribution/100;
             this.lengthEffectN = lengthEffectN;
-            grassCoverErosionInwardsCrossSectionProbability = probability;
+            this.reliability = reliability;
         }
 
         /// <summary>
-        /// Calculates the <see cref="GrassCoverErosionInwardsOutput"/> given the <paramref name="calculation"/>, <paramref name="norm"/>, and <paramref name="probability"/>.
+        /// Calculates the <see cref="GrassCoverErosionInwardsOutput"/> given the <paramref name="calculation"/>, <paramref name="norm"/>, and <paramref name="reliability"/>.
         /// </summary>
         /// <param name="calculation">The calculation which is used.</param>
         /// <param name="contribution">The amount of contribution as a percentage [0-100] for the <see cref="IFailureMechanism"/> as part of the overall verdict. </param>
         /// <param name="norm">The norm which has been defined on the <see cref="AssessmentSection"/>.</param>
-        /// <param name="probability">The probability result.</param>
+        /// <param name="reliability">The reliability result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public static void Calculate(GrassCoverErosionInwardsCalculation calculation, double norm, double contribution, double probability)
+        public static void Calculate(GrassCoverErosionInwardsCalculation calculation, double norm, double contribution, double reliability)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException("calculation");
             }
-            var calculator = new GrassCoverErosionInwardsOutputCalculationService(norm, contribution, calculation.NormProbabilityInput.N, probability);
+            var calculator = new GrassCoverErosionInwardsOutputCalculationService(norm, contribution, calculation.NormProbabilityInput.N, reliability);
 
             calculator.Calculate();
 
-            calculation.Output = new GrassCoverErosionInwardsOutput(calculator.requiredProbability,
+            calculation.Output = new GrassCoverErosionInwardsOutput(1/calculator.requiredProbability,
                                                                     calculator.requiredReliability,
-                                                                    calculator.probability,
+                                                                    1/calculator.probability,
                                                                     calculator.reliability,
                                                                     calculator.factorOfSafety);
         }
@@ -90,27 +88,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         private void CalculateReliability()
         {
-            requiredProbability = RequiredProbability(norm);
-            allowedCrossSectionProbability = AllowedCrossSectionProbability(contribution, norm, lengthEffectN);
-            probability = AllowedCrossSectionProbability(grassCoverErosionInwardsCrossSectionProbability);
+            requiredProbability = AllowedCrossSectionProbability(contribution, norm, lengthEffectN);
+            probability = AllowedCrossSectionProbability(reliability);
         }
 
         private void CalculateRequiredReliability()
         {
-            requiredReliability = RequiredReliability(allowedCrossSectionProbability);
-            reliability = grassCoverErosionInwardsCrossSectionProbability;
+            requiredReliability = RequiredReliability(requiredProbability);
         }
 
         #region Sub calculations
 
-        private static double RequiredProbability(double norm)
-        {
-            return new Normal().InverseCumulativeDistribution(1 - 1.0/norm);
-        }
-
         private static double AllowedCrossSectionProbability(double probability, double contribution, double factorN)
         {
-            return probability*(1.0/contribution)/factorN;
+            return probability*(1/contribution)/factorN;
         }
 
         private static double AllowedCrossSectionProbability(double grassCoverErosionInwardsCrossSectionProbability)
