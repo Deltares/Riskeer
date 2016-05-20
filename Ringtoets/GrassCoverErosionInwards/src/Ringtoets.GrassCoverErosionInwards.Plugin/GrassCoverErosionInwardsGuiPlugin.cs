@@ -376,13 +376,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         #endregion
 
-        #region CalculationGroupContext TreeNodeInfo
+        #region GrassCoverErosionInwardsCalculationGroupContext TreeNodeInfo
 
-        private static object[] CalculationGroupContextChildNodeObjects(GrassCoverErosionInwardsCalculationGroupContext nodeData)
+        private static object[] CalculationGroupContextChildNodeObjects(GrassCoverErosionInwardsCalculationGroupContext context)
         {
             var childNodeObjects = new List<object>();
 
-            foreach (ICalculationBase calculationItem in nodeData.WrappedData.Children)
+            foreach (ICalculationBase calculationItem in context.WrappedData.Children)
             {
                 var calculation = calculationItem as GrassCoverErosionInwardsCalculation;
                 var group = calculationItem as CalculationGroup;
@@ -390,14 +390,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 if (calculation != null)
                 {
                     childNodeObjects.Add(new GrassCoverErosionInwardsCalculationContext(calculation,
-                                                                                        nodeData.FailureMechanism,
-                                                                                        nodeData.AssessmentSection));
+                                                                                        context.FailureMechanism,
+                                                                                        context.AssessmentSection));
                 }
                 else if (group != null)
                 {
                     childNodeObjects.Add(new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                                             nodeData.FailureMechanism,
-                                                                                             nodeData.AssessmentSection));
+                                                                                             context.FailureMechanism,
+                                                                                             context.AssessmentSection));
                 }
                 else
                 {
@@ -408,10 +408,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             return childNodeObjects.ToArray();
         }
 
-        private ContextMenuStrip CalculationGroupContextContextMenuStrip(GrassCoverErosionInwardsCalculationGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationGroupContextContextMenuStrip(GrassCoverErosionInwardsCalculationGroupContext context, object parentData, TreeViewControl treeViewControl)
         {
-            var group = nodeData.WrappedData;
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var group = context.WrappedData;
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
             var isNestedGroup = parentData is GrassCoverErosionInwardsCalculationGroupContext;
 
             if (!isNestedGroup)
@@ -421,9 +421,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(nodeData, AddCalculation)
+                   .AddCreateCalculationItem(context, AddCalculation)
                    .AddSeparator()
-                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, EnablePerformAllCalculationsInGroup)
+                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, EnablePerformAllCalculationsInGroup)
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddSeparator();
 
@@ -449,11 +449,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             return AllDataAvailable(context.AssessmentSection, context.FailureMechanism);
         }
 
-        private static void CalculationGroupContextOnNodeRemoved(GrassCoverErosionInwardsCalculationGroupContext nodeData, object parentNodeData)
+        private static void CalculationGroupContextOnNodeRemoved(GrassCoverErosionInwardsCalculationGroupContext context, object parentNodeData)
         {
             var parentGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) parentNodeData;
 
-            parentGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
+            parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
             parentGroupContext.NotifyObservers();
         }
 
@@ -474,7 +474,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         #endregion
 
-        #region CalculationContext TreeNodeInfo
+        #region GrassCoverErosionInwardsCalculationContext TreeNodeInfo
 
         private static object[] CalculationContextChildNodeObjects(GrassCoverErosionInwardsCalculationContext calculationContext)
         {

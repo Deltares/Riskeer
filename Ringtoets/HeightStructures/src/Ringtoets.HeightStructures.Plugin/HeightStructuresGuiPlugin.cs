@@ -26,6 +26,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -49,9 +50,9 @@ namespace Ringtoets.HeightStructures.Plugin
                 FailureMechanismDisabledContextMenuStrip);
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<HeightStructuresCalculationGroupContext>(
-                context => new object[0],
-                (context, o, treeViewControl) => new ContextMenuStrip(),
-                (context, parentNodeData) => { });
+                CalculationGroupContextChildNodeObjects,
+                CalculationGroupContextContextMenuStrip,
+                CalculationGroupContextOnNodeRemoved);
         }
 
         #region HeightStructuresFailureMechanismContext TreeNodeInfo
@@ -127,6 +128,84 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
                           .Build();
+        }
+
+        #endregion
+
+        #region HeightStructuresCalculationGroupContext TreeNodeInfo
+
+        private static object[] CalculationGroupContextChildNodeObjects(HeightStructuresCalculationGroupContext context)
+        {
+            var childNodeObjects = new List<object>();
+
+            foreach (ICalculationBase calculationItem in context.WrappedData.Children)
+            {
+                var calculation = calculationItem as HeightStructuresCalculation;
+                var group = calculationItem as CalculationGroup;
+
+                if (calculation != null)
+                {
+                    childNodeObjects.Add(new HeightStructuresCalculationContext(calculation,
+                                                                                context.FailureMechanism,
+                                                                                context.AssessmentSection));
+                }
+                else if (group != null)
+                {
+                    childNodeObjects.Add(new HeightStructuresCalculationGroupContext(group,
+                                                                                     context.FailureMechanism,
+                                                                                     context.AssessmentSection));
+                }
+                else
+                {
+                    childNodeObjects.Add(calculationItem);
+                }
+            }
+
+            return childNodeObjects.ToArray();
+        }
+
+        private ContextMenuStrip CalculationGroupContextContextMenuStrip(HeightStructuresCalculationGroupContext context, object parentData, TreeViewControl treeViewControl)
+        {
+            var group = context.WrappedData;
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var isNestedGroup = parentData is HeightStructuresCalculationGroupContext;
+
+            if (!isNestedGroup)
+            {
+                builder.AddOpenItem()
+                       .AddSeparator();
+            }
+
+            builder.AddCreateCalculationGroupItem(group)
+                   .AddCreateCalculationItem(context, groupContext => { })
+                   .AddSeparator()
+                   .AddPerformAllCalculationsInGroupItem(group, context, (calculationGroup, groupContext) => { }, groupContext => "")
+                   .AddClearAllCalculationOutputInGroupItem(group)
+                   .AddSeparator();
+
+            if (isNestedGroup)
+            {
+                builder.AddRenameItem()
+                       .AddDeleteItem()
+                       .AddSeparator();
+            }
+
+            return builder.AddImportItem()
+                          .AddExportItem()
+                          .AddSeparator()
+                          .AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        private static void CalculationGroupContextOnNodeRemoved(HeightStructuresCalculationGroupContext context, object parentNodeData)
+        {
+            var parentGroupContext = (HeightStructuresCalculationGroupContext) parentNodeData;
+
+            parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
+            parentGroupContext.NotifyObservers();
         }
 
         #endregion
