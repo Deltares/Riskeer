@@ -96,9 +96,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        [TestCase(1, 1)]
-        [TestCase(60000, 60000)]
-        public void Probability_Always_ReturnsExpectedValue(double probability, double expectedResult)
+        [TestCase(4, 0.00013383023)]
+        [TestCase(5, 0.00000148672)]
+        public void Probability_DifferentInputs_ReturnsExpectedValue(double probability, double expectedResult)
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),

@@ -36,12 +36,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         private readonly double norm;
         private readonly double contribution;
         private readonly int lengthEffectN;
-        private readonly double probability;
+        private readonly double grassCoverErosionInwardsCrossSectionProbability;
 
         // Results
         private double requiredProbability;
         private double allowedCrossSectionProbability;
-        private double grassCoverErosionInwardsCrossSectionProbability;
+        private double probability;
         private double requiredReliability;
         private double reliability;
         private double factorOfSafety;
@@ -51,7 +51,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             this.norm = norm;
             this.contribution = contribution/100;
             this.lengthEffectN = lengthEffectN;
-            this.probability = probability;
+            grassCoverErosionInwardsCrossSectionProbability = probability;
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         {
             requiredProbability = RequiredProbability(norm);
             allowedCrossSectionProbability = AllowedCrossSectionProbability(contribution, norm, lengthEffectN);
-            grassCoverErosionInwardsCrossSectionProbability = probability;
+            probability = AllowedCrossSectionProbability(grassCoverErosionInwardsCrossSectionProbability);
         }
 
         private void CalculateRequiredReliability()
@@ -111,6 +111,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         private static double AllowedCrossSectionProbability(double probability, double contribution, double factorN)
         {
             return probability*(1.0/contribution)/factorN;
+        }
+
+        private static double AllowedCrossSectionProbability(double grassCoverErosionInwardsCrossSectionProbability)
+        {
+            return new Normal().Density(grassCoverErosionInwardsCrossSectionProbability);
         }
 
         private static double RequiredReliability(double allowedCrossSectionProbability)
