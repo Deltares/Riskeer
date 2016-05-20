@@ -71,6 +71,11 @@
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuItemFactoryTest.cs" />
     <Compile Include="UITypeEditors\SelectionEditorTest.cs" />
     <Compile Include="Views\CommentViewTest.cs" />
+    <Compile Include="Views\CustomFailureMechanismSectionResultRowTest.cs" />
+    <Compile Include="Views\FailureMechanismResultViewTest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SimpleFailureMechanismSectionResultRowTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
@@ -113,6 +118,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

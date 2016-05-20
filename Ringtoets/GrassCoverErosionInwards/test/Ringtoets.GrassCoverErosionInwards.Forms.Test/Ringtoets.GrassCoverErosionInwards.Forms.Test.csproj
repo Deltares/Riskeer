@@ -91,6 +91,8 @@
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TypeConverters\EnumTypeConverterTest.cs" />
     <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditorTest.cs" />
+    <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismResultViewTest.cs" />
+    <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismSectionResultRowTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -134,6 +136,10 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
       <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>

@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create
 {
@@ -90,18 +91,5 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);
         }
 
-        private class TestFailureMechanism : FailureMechanismBase
-        {
-            public TestFailureMechanism() : base("name", "code")
-            { }
-
-            public override IEnumerable<ICalculation> Calculations
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
-        }
     }
 }

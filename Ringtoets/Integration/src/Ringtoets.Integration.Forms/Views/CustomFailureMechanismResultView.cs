@@ -6,6 +6,10 @@ using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Views
 {
+    /// <summary>
+    /// This class defines a view where <see cref="SimpleFailureMechanismSectionResult"/> are displayed in a grid
+    /// and can be modified.
+    /// </summary>
     public class CustomFailureMechanismResultView : FailureMechanismResultView<CustomFailureMechanismSectionResult>
     {
         protected override IEnumerable<DataGridViewColumn> GetDataGridColumns()

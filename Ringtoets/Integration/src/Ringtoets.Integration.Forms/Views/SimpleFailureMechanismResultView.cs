@@ -1,15 +1,18 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Utils.Attributes;
+using Core.Common.Utils;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Views
 {
+    /// <summary>
+    /// This class defines a view where <see cref="SimpleFailureMechanismSectionResult"/> are displayed in a grid
+    /// and can be modified.
+    /// </summary>
     public class SimpleFailureMechanismResultView : FailureMechanismResultView<SimpleFailureMechanismSectionResult>
     {
         protected override IEnumerable<DataGridViewColumn> GetDataGridColumns()
@@ -33,7 +36,7 @@ namespace Ringtoets.Integration.Forms.Views
                 Name = "column_AssessmentLayerTwoA",
                 DataSource = Enum.GetValues(typeof(AssessmentLayerTwoAResult))
                     .OfType<AssessmentLayerTwoAResult>()
-                    .Select(el => new WrappedEnum<AssessmentLayerTwoAResult>(el))
+                    .Select(el => new EnumDisplayWrapper<AssessmentLayerTwoAResult>(el))
                     .ToList(),
                 ValueMember = "Value",
                 DisplayMember = "DisplayName"
@@ -57,26 +60,6 @@ namespace Ringtoets.Integration.Forms.Views
         protected override object CreateFailureMechanismSectionResultRow(SimpleFailureMechanismSectionResult sectionResult)
         {
             return new SimpleFailureMechanismSectionResultRow(sectionResult);
-        }
-    }
-
-    public class WrappedEnum<T>
-    {
-        public WrappedEnum(T value)
-        {
-            Value = value;
-        }
-
-        public T Value { get; private set; }
-
-        public string DisplayName
-        {
-            get
-            {
-                var enumField = typeof(T).GetField(Enum.GetName(typeof(T), Value));
-                var displayName = (ResourcesDisplayNameAttribute)Attribute.GetCustomAttribute(enumField, typeof(ResourcesDisplayNameAttribute));
-                return displayName == null ? Value.ToString() : displayName.DisplayName;
-            }
         }
     }
 }

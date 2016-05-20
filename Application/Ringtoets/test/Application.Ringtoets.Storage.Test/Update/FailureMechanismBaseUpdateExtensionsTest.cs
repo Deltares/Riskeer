@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Update
 {
@@ -165,19 +166,5 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.VerifyAll();
         } 
-    }
-
-    public class TestFailureMechanism : FailureMechanismBase
-    {
-        public TestFailureMechanism() : base("name", "code")
-        {}
-
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
     }
 }

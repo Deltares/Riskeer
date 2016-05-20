@@ -77,8 +77,10 @@
     <Compile Include="Builders\FileReaderErrorMessageBuilderTest.cs" />
     <Compile Include="Drawing\GraphicsExtensionsTest.cs" />
     <Compile Include="Drawing\ImageExtensionsTest.cs" />
+    <Compile Include="EnumDisplayWrapperTest.cs" />
     <Compile Include="Events\EventArgsTest.cs" />
     <Compile Include="Events\NotifyCollectionChangeEventArgsTest.cs" />
+    <Compile Include="Exceptions\InvalidTypeParameterExceptionTest.cs" />
     <Compile Include="Extensions\CollectionExtensionsTest.cs" />
     <Compile Include="Extensions\ComparableExtensionsTest.cs" />
     <Compile Include="Extensions\EnumerableExtensionsTest.cs" />

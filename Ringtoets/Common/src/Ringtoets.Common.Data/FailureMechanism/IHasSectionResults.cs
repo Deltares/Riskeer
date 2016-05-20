@@ -23,8 +23,15 @@ using System.Collections.Generic;
 
 namespace Ringtoets.Common.Data.FailureMechanism
 {
+    /// <summary>
+    /// This interface describes methods for obtaining <see cref="FailureMechanismSectionResult"/> objects.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IHasSectionResults<out T> where T : FailureMechanismSectionResult
     {
+        /// <summary>
+        /// Gets an <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSectionResult"/>.
+        /// </summary>
         IEnumerable<T> SectionResults { get; }
     }
 }

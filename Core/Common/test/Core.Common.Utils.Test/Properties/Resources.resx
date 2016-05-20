@@ -160,4 +160,7 @@
   <data name="MethodStringResource" xml:space="preserve">
     <value>Awesome method value</value>
   </data>
+  <data name="EnumDisplayWrapperTest_DisplayNameValueDisplayName" xml:space="preserve">
+    <value>Display name</value>
+  </data>
 </root>

@@ -91,11 +91,13 @@
     <Compile Include="Builders\FileReaderErrorMessageBuilder.cs" />
     <Compile Include="Builders\FileWriterErrorMessageBuilder.cs" />
     <Compile Include="Drawing\GraphicsExtensions.cs" />
+    <Compile Include="EnumDisplayWrapper.cs" />
     <Compile Include="Events\EventArgs.cs" />
     <Compile Include="Events\INotifyCollectionChanged.cs" />
     <Compile Include="Events\NotifyCollectionChangeAction.cs" />
     <Compile Include="Events\NotifyCollectionChangedEventHandler.cs" />
     <Compile Include="Events\NotifyCollectionChangeEventArgs.cs" />
+    <Compile Include="Exceptions\InvalidTypeParameterException.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\ComparableExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />

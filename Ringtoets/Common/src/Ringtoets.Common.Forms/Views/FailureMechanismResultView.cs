@@ -38,28 +38,30 @@ namespace Ringtoets.Common.Forms.Views
     {
         private IEnumerable<T> failureMechanismSectionResult;
         private IFailureMechanism failureMechanism;
+        private readonly IList<Observer> failureMechanismSectionResultObservers;
+        private readonly Observer failureMechanismObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismResultView"/>.
+        /// Creates a new instance of <see cref="FailureMechanismResultView{T}"/>.
         /// </summary>
         protected FailureMechanismResultView()
         {
             InitializeComponent();
             InitializeDataGridView();
 
-            FailureMechanismObserver = new Observer(UpdataDataGridViewDataSource);
-            FailureMechanismSectionResultObservers = new List<Observer>();
+            failureMechanismObserver = new Observer(UpdataDataGridViewDataSource);
+            failureMechanismSectionResultObservers = new List<Observer>();
         }
 
         /// <summary>
-        /// Gets or sets the failure mechanism.
+        /// Sets the failure mechanism.
         /// </summary>
         public IFailureMechanism FailureMechanism
         {
             set
             {
                 failureMechanism = value;
-                FailureMechanismObserver.Observable = failureMechanism;
+                failureMechanismObserver.Observable = failureMechanism;
             }
         }
 
@@ -88,9 +90,9 @@ namespace Ringtoets.Common.Forms.Views
         {
             FailureMechanism = null;
             FailureMechanismSectionResult = null;
-            if (FailureMechanismObserver != null)
+            if (failureMechanismObserver != null)
             {
-                FailureMechanismObserver.Dispose();
+                failureMechanismObserver.Dispose();
             }
 
             if (disposing && (components != null))
@@ -100,6 +102,11 @@ namespace Ringtoets.Common.Forms.Views
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Gets all the columns that should be added to the <see cref="DataGridView"/> on the
+        /// <see cref="FailureMechanismResultView{T}"/>.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="DataGridViewColumn"/>.</returns>
         protected virtual IEnumerable<DataGridViewColumn> GetDataGridColumns()
         {
             yield return new DataGridViewTextBoxColumn
@@ -110,23 +117,14 @@ namespace Ringtoets.Common.Forms.Views
             };
         }
 
-        protected void UpdataDataGridViewDataSource()
-        {
-            EndEdit();
-
-            dataGridView.DataSource = failureMechanismSectionResult.Select(sr => CreateFailureMechanismSectionResultRow(sr)).ToList();
-        }
-
+        /// <summary>
+        /// Creates a display object for <paramref name="sectionResult"/> which is added to the
+        /// <see cref="DataGridView"/> on the <see cref="FailureMechanismResultView{T}"/>.
+        /// </summary>
+        /// <param name="sectionResult">The <typeparamref name="T"/> for which to create a
+        /// display object.</param>
+        /// <returns>A display object which can be added as a row to the <see cref="DataGridView"/>.</returns>
         protected abstract object CreateFailureMechanismSectionResultRow(T sectionResult);
-
-        protected void RefreshDataGridView()
-        {
-            dataGridView.Refresh();
-            dataGridView.AutoResizeColumns();
-        }
-
-        private IList<Observer> FailureMechanismSectionResultObservers { get; set; }
-        private Observer FailureMechanismObserver { get; set; }
 
         private IEnumerable<T> FailureMechanismSectionResult
         {
@@ -142,11 +140,24 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
+        private void UpdataDataGridViewDataSource()
+        {
+            EndEdit();
+
+            dataGridView.DataSource = failureMechanismSectionResult.Select(sr => CreateFailureMechanismSectionResultRow(sr)).ToList();
+        }
+
+        private void RefreshDataGridView()
+        {
+            dataGridView.Refresh();
+            dataGridView.AutoResizeColumns();
+        }
+
         private void AddSectionResultObservers()
         {
             foreach (var sectionResult in failureMechanismSectionResult)
             {
-                FailureMechanismSectionResultObservers.Add(new Observer(RefreshDataGridView)
+                failureMechanismSectionResultObservers.Add(new Observer(RefreshDataGridView)
                 {
                     Observable = sectionResult
                 });
@@ -155,11 +166,11 @@ namespace Ringtoets.Common.Forms.Views
 
         private void ClearSectionResultObservers()
         {
-            foreach (var observer in FailureMechanismSectionResultObservers)
+            foreach (var observer in failureMechanismSectionResultObservers)
             {
                 observer.Dispose();
             }
-            FailureMechanismSectionResultObservers.Clear();
+            failureMechanismSectionResultObservers.Clear();
         }
 
         private void InitializeDataGridView()

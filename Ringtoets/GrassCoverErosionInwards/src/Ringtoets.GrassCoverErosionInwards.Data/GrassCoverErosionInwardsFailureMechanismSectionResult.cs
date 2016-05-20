@@ -37,13 +37,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the value of assessment layer two a.
         /// </summary>
-        public RoundedDouble AssessmentLayerTwoA
-        {
-            get
-            {
-                return (RoundedDouble)0.5;
-            }
-        }
+        public RoundedDouble AssessmentLayerTwoA { get; set; }
 
         /// <summary>
         /// Gets or sets the value of assessment layer two b.

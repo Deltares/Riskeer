@@ -32,6 +32,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -952,25 +953,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             public TestFailureMechanismContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
                 base(wrappedFailureMechanism, parent) { }
-        }
-
-        private class TestFailureMechanism : FailureMechanismBase
-        {
-            private readonly IEnumerable<ICalculation> calculations;
-
-            public TestFailureMechanism(IEnumerable<ICalculation> calculations)
-                : base("Name", "Code")
-            {
-                this.calculations = calculations;
-            }
-
-            public override IEnumerable<ICalculation> Calculations
-            {
-                get
-                {
-                    return calculations;
-                }
-            }
         }
 
         private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, IFailureMechanism>

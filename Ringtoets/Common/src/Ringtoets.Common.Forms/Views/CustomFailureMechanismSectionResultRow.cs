@@ -1,22 +1,27 @@
-﻿using Core.Common.Base.Data;
+﻿using System;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Forms.Views
 {
     public class CustomFailureMechanismSectionResultRow
     {
-        public CustomFailureMechanismSectionResultRow(CustomFailureMechanismSectionResult failureMechanismSectionResult)
+        public CustomFailureMechanismSectionResultRow(CustomFailureMechanismSectionResult sectionResult)
         {
-            FailureMechanismSectionResult = failureMechanismSectionResult;
+            if (sectionResult == null)
+            {
+                throw new ArgumentNullException("sectionResult");
+            }
+            SectionResult = sectionResult;
         }
 
-        private CustomFailureMechanismSectionResult FailureMechanismSectionResult { get; set; }
+        private CustomFailureMechanismSectionResult SectionResult { get; set; }
 
         public string Name
         {
             get
             {
-                return FailureMechanismSectionResult.Section.Name;
+                return SectionResult.Section.Name;
             }
         }
 
@@ -24,12 +29,12 @@ namespace Ringtoets.Common.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResult.AssessmentLayerOne;
+                return SectionResult.AssessmentLayerOne;
             }
             set
             {
-                FailureMechanismSectionResult.AssessmentLayerOne = value;
-                FailureMechanismSectionResult.NotifyObservers();
+                SectionResult.AssessmentLayerOne = value;
+                SectionResult.NotifyObservers();
             }
         }
 
@@ -37,11 +42,11 @@ namespace Ringtoets.Common.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResult.AssessmentLayerTwoA;
+                return SectionResult.AssessmentLayerTwoA;
             }
             set
             {
-                FailureMechanismSectionResult.AssessmentLayerTwoA = value;
+                SectionResult.AssessmentLayerTwoA = value;
             }
         }
 
@@ -49,11 +54,11 @@ namespace Ringtoets.Common.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResult.AssessmentLayerTwoB;
+                return SectionResult.AssessmentLayerTwoB;
             }
             set
             {
-                FailureMechanismSectionResult.AssessmentLayerTwoB = value;
+                SectionResult.AssessmentLayerTwoB = value;
             }
         }
 
@@ -61,11 +66,11 @@ namespace Ringtoets.Common.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResult.AssessmentLayerThree;
+                return SectionResult.AssessmentLayerThree;
             }
             set
             {
-                FailureMechanismSectionResult.AssessmentLayerThree = value;
+                SectionResult.AssessmentLayerThree = value;
             }
         }
     }

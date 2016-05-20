@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -35,8 +34,8 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
@@ -148,19 +147,15 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
 
             using (var plugin = new RingtoetsGuiPlugin())
             {
                 var info = GetInfo(plugin);
 
                 var failureMechanism = new TestFailureMechanism("test", "C");
-                failureMechanism.AddSection(new FailureMechanismSection("A", new[]
-                {
-                    new Point2D(1, 2),
-                    new Point2D(5, 6)
-                }));
-                var failureMechanismContext = new CustomFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = mocks.Stub<FailureMechanismContext<IFailureMechanism>>(failureMechanism, assessmentSection);
+
+                mocks.ReplayAll();
 
                 // Call
                 object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -183,12 +178,64 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var outputFolder = (CategoryTreeFolder) children[1];
                 Assert.AreEqual("Uitvoer", outputFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ChildNodeObjects_FailureMechanismIsRelevantWithCustomSectinoResults_OutputNodeAdded()
+        {
+
+             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                var failureMechanism = mocks.StrictMultiMock<IHasSectionResults<CustomFailureMechanismSectionResult>>(typeof(IFailureMechanism));
+                failureMechanism.Expect(fm => ((IFailureMechanism) fm).IsRelevant).Return(true);
+                failureMechanism.Expect(fm => fm.SectionResults).Return(new List<CustomFailureMechanismSectionResult>()).Repeat.Any();
+                var failureMechanismContext = mocks.Stub<FailureMechanismContext<IFailureMechanism>>(failureMechanism, assessmentSection);
+
+                mocks.ReplayAll();
+
+                // Call
+                object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+                var outputFolder = (CategoryTreeFolder)children[1];
 
                 var failureMechanismResultsContext = (FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>) outputFolder.Contents[0];
                 Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
                 Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
             }
-            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ChildNodeObjects_FailureMechanismIsRelevantWithSimpleSectinoResults_OutputNodeAdded()
+        {
+
+             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                var failureMechanism = mocks.StrictMultiMock<IHasSectionResults<SimpleFailureMechanismSectionResult>>(typeof(IFailureMechanism));
+                failureMechanism.Expect(fm => ((IFailureMechanism)fm).IsRelevant).Return(true);
+                failureMechanism.Expect(fm => fm.SectionResults).Return(new List<SimpleFailureMechanismSectionResult>()).Repeat.Any();
+                var failureMechanismContext = mocks.Stub<FailureMechanismContext<IFailureMechanism>>(failureMechanism, assessmentSection);
+
+                mocks.ReplayAll();
+
+                // Call
+                object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+                var outputFolder = (CategoryTreeFolder)children[1];
+
+                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>) outputFolder.Contents[0];
+                Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
+                Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
+            }
         }
 
         [Test]
@@ -444,25 +491,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         private TreeNodeInfo GetInfo(RingtoetsGuiPlugin guiPlugin)
         {
             return guiPlugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismContext<IFailureMechanism>));
-        }
-
-        public class TestFailureMechanism : FailureMechanismBase, IHasSectionResults<CustomFailureMechanismSectionResult>
-        {
-            public TestFailureMechanism(string name, string code)
-                : base(name, code)
-            {
-                SectionResults = new List<CustomFailureMechanismSectionResult>();
-            }
-
-            public IEnumerable<CustomFailureMechanismSectionResult> SectionResults { get; private set; }
-
-            public override IEnumerable<ICalculation> Calculations
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
         }
     }
 
