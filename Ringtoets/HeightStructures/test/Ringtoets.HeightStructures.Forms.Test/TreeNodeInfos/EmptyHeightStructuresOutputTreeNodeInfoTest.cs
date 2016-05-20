@@ -53,6 +53,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         {
             // Assert
             Assert.AreEqual(typeof(EmptyHeightStructuresOutput), info.TagType);
+            Assert.IsNotNull(info.Text);
+            Assert.IsNotNull(info.Image);
+            Assert.IsNotNull(info.ForeColor);
+            Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
