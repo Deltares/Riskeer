@@ -68,7 +68,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void ParameteredConstructor_FailureMechanismIsNull_ThrowArgumentNullException()
+        public void ParameteredConstructor_FailureMechanismIsNull_ThrowsArgumentNullException()
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
@@ -85,7 +85,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void ParameteredConstructor_AssessmentSectionIsNull_ThrowArgumentNullException()
+        public void ParameteredConstructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();

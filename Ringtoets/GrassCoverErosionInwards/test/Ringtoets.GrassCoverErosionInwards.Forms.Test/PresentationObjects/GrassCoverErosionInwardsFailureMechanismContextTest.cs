@@ -53,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructor_FailureMechanismIsNull_ThrowArgumentNullException()
+        public void Constructor_FailureMechanismIsNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -69,7 +69,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructor_AssessmentSectionIsNull_ThrowArgumentNullException()
+        public void Constructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
