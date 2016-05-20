@@ -27,33 +27,32 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Plugin;
-using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
+using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.HeightStructures.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
+namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class EmptyGrassCoverErosionInwardsOutputTreeNodeTest
+    public class EmptyHeightStructuresOutputTreeNodeInfoTest
     {
         private MockRepository mocksRepository;
-        private GrassCoverErosionInwardsGuiPlugin plugin;
+        private HeightStructuresGuiPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocksRepository = new MockRepository();
-            plugin = new GrassCoverErosionInwardsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptyGrassCoverErosionInwardsOutput));
+            plugin = new HeightStructuresGuiPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptyHeightStructuresOutput));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(EmptyGrassCoverErosionInwardsOutput), info.TagType);
+            Assert.AreEqual(typeof(EmptyHeightStructuresOutput), info.TagType);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
@@ -103,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var gui = mocksRepository.StrictMock<IGui>();
+            var guiMock = mocksRepository.StrictMock<IGui>();
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
             var treeViewControlMock = mocksRepository.StrictMock<TreeViewControl>();
 
@@ -112,10 +111,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
-            gui.Expect(cmp => cmp.Get(null, treeViewControlMock)).Return(menuBuilderMock);
+            guiMock.Expect(cmp => cmp.Get(null, treeViewControlMock)).Return(menuBuilderMock);
             mocksRepository.ReplayAll();
 
-            plugin.Gui = gui;
+            plugin.Gui = guiMock;
 
             // Call
             info.ContextMenuStrip(null, null, treeViewControlMock);

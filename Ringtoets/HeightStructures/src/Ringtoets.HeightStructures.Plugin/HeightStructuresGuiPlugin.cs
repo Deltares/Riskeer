@@ -21,6 +21,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
@@ -53,6 +54,18 @@ namespace Ringtoets.HeightStructures.Plugin
                 CalculationGroupContextChildNodeObjects,
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
+
+            yield return new TreeNodeInfo<EmptyHeightStructuresOutput>
+            {
+                Text = emptyOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ForeColor = emptyOutput => Color.FromKnownColor(KnownColor.GrayText),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddExportItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
         }
 
         #region HeightStructuresFailureMechanismContext TreeNodeInfo
