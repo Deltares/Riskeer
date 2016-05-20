@@ -27,6 +27,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -70,7 +71,15 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                Assert.AreEqual(1, dataGridView.ColumnCount);
+                Assert.AreEqual(2, dataGridView.ColumnCount);
+
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
+                Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Section_name, dataGridView.Columns[nameColumnIndex].HeaderText);
+                Assert.IsTrue(dataGridView.Columns[nameColumnIndex].ReadOnly);
+
+                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
+                Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one, dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
+
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
             }
@@ -153,6 +162,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         private const int nameColumnIndex = 0;
+        private const int assessmentLayerOneIndex = 1;
 
         private TestFailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView()
         {

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -34,129 +35,217 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class SimpleFailureMechanismResultViewTest
     {
-        private const int assessmentLayerOneIndex = 1;
-        private const int assessmentLayerTwoAIndex = 2;
-        private const int assessmentLayerTwoBIndex = 3;
-        private const int assessmentLayerThreeIndex = 4;
-
         [Test]
         public void GivenFormWithSimpleFailureMechanismResultView_WhenAlways_ThenExpectedColumnsAreVisible()
         {
             // Setup
             using (var form = new Form())
-            using (var view = new SimpleFailureMechanismResultView())
             {
-                form.Controls.Add(view);
-                // Call
+                using (var view = new SimpleFailureMechanismResultView())
+                {
+                    form.Controls.Add(view);
+                    // Call
 
-                form.Show();
+                    form.Show();
 
-                // Assert
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                    // Assert
+                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                Assert.AreEqual(5, dataGridView.ColumnCount);
+                    Assert.AreEqual(5, dataGridView.ColumnCount);
 
-                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
-                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerTwoBIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
+                    Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
+                    Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
+                    Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerTwoBIndex]);
+                    Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
-                Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one, dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
-                Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
-                Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b, dataGridView.Columns[assessmentLayerTwoBIndex].HeaderText);
-                Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three, dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
+                    Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one, dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
+                    Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
+                    Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b, dataGridView.Columns[assessmentLayerTwoBIndex].HeaderText);
+                    Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three, dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
-                Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
-                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
+                    Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
+                    Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
+                }
             }
         }
 
         [Test]
         public void GivenFormWithSimpleFailureMechanismResultView_WhenDataSourceWithSimpleFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
         {
-            // Setup
-            var section1 = new FailureMechanismSection("Section 1", new [] { new Point2D(0,0) });
-            var section2 = new FailureMechanismSection("Section 2", new [] { new Point2D(0,0) });
+            // Given
+            var section1 = new FailureMechanismSection("Section 1", new[]
+            {
+                new Point2D(0, 0)
+            });
+            var section2 = new FailureMechanismSection("Section 2", new[]
+            {
+                new Point2D(0, 0)
+            });
             Random random = new Random(21);
             var result1 = new SimpleFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = true,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
-                AssessmentLayerTwoB = (RoundedDouble)random.NextDouble(),
-                AssessmentLayerThree = (RoundedDouble)random.NextDouble()
+                AssessmentLayerTwoB = (RoundedDouble) random.NextDouble(),
+                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
             var result2 = new SimpleFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = false,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
-                AssessmentLayerTwoB = (RoundedDouble)random.NextDouble(),
-                AssessmentLayerThree = (RoundedDouble)random.NextDouble()
+                AssessmentLayerTwoB = (RoundedDouble) random.NextDouble(),
+                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
 
-            // Call
             using (var form = new Form())
-            using (var view = new SimpleFailureMechanismResultView())
             {
-                form.Controls.Add(view);
-                form.Show();
-
-                view.Data = new[]
+                using (var view = new SimpleFailureMechanismResultView())
                 {
-                    result1,
-                    result2
-                };
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                    form.Controls.Add(view);
+                    form.Show();
 
-                // Assert
-                var rows = dataGridView.Rows;
-                Assert.AreEqual(2, rows.Count);
+                    // When
+                    view.Data = new[]
+                    {
+                        result1,
+                        result2
+                    };
 
-                var cells = rows[0].Cells;
-                Assert.AreEqual(5, cells.Count);
-                int nameColumnIndex = 0;
-                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                Assert.AreEqual(result1.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
-                Assert.AreEqual(string.Format("{0}", result1.AssessmentLayerTwoB), cells[assessmentLayerTwoBIndex].FormattedValue);
-                Assert.AreEqual(string.Format("{0}", result1.AssessmentLayerThree), cells[assessmentLayerThreeIndex].FormattedValue);
+                    // Then
+                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                cells = rows[1].Cells;
-                Assert.AreEqual(5, cells.Count);
-                Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
-                Assert.AreEqual(string.Format("{0}", result2.AssessmentLayerTwoB), cells[assessmentLayerTwoBIndex].FormattedValue);
-                Assert.AreEqual(string.Format("{0}", result2.AssessmentLayerThree), cells[assessmentLayerThreeIndex].FormattedValue);
+                    var rows = dataGridView.Rows;
+                    Assert.AreEqual(2, rows.Count);
+
+                    var cells = rows[0].Cells;
+                    Assert.AreEqual(5, cells.Count);
+                    Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+                    Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                    Assert.AreEqual(result1.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
+                    Assert.AreEqual(string.Format("{0}", result1.AssessmentLayerTwoB), cells[assessmentLayerTwoBIndex].FormattedValue);
+                    Assert.AreEqual(string.Format("{0}", result1.AssessmentLayerThree), cells[assessmentLayerThreeIndex].FormattedValue);
+
+                    AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                    AssertCellIsDisabled(cells[assessmentLayerTwoBIndex]);
+                    AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+
+                    cells = rows[1].Cells;
+                    Assert.AreEqual(5, cells.Count);
+                    Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
+                    Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                    Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
+                    Assert.AreEqual(string.Format("{0}", result2.AssessmentLayerTwoB), cells[assessmentLayerTwoBIndex].FormattedValue);
+                    Assert.AreEqual(string.Format("{0}", result2.AssessmentLayerThree), cells[assessmentLayerThreeIndex].FormattedValue);
+
+                    AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
+                    AssertCellIsEnabled(cells[assessmentLayerTwoBIndex]);
+                    AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenFormWithSimpleFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled()
+        {
+            // Given
+            var section = new FailureMechanismSection("Section 1", new[]
+            {
+                new Point2D(0, 0)
+            });
+            Random random = new Random(21);
+            var result = new SimpleFailureMechanismSectionResult(section)
+            {
+                AssessmentLayerOne = false,
+                AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
+                AssessmentLayerTwoB = (RoundedDouble) random.NextDouble(),
+                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+            };
+            using (var form = new Form())
+            {
+                using (var view = new SimpleFailureMechanismResultView())
+                {
+                    form.Controls.Add(view);
+                    form.Show();
+
+                    view.Data = new[]
+                    {
+                        result
+                    };
+
+                    // When
+                    result.AssessmentLayerOne = true;
+                    result.NotifyObservers();
+
+                    // Then
+                    var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                    var rows = dataGridView.Rows;
+                    Assert.AreEqual(1, rows.Count);
+
+                    var cells = rows[0].Cells;
+                    Assert.AreEqual(5, cells.Count);
+
+                    AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                    AssertCellIsDisabled(cells[assessmentLayerTwoBIndex]);
+                    AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                }
             }
         }
 
         [Test]
         public void GivenFormWithSimpleFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
         {
-            // Setup
-            var section1 = new FailureMechanismSection("Section 1", new[] { new Point2D(0, 0) });
-            var section2 = new FailureMechanismSection("Section 2", new[] { new Point2D(0, 0) });
+            // Given
+            var section1 = new FailureMechanismSection("Section 1", new[]
+            {
+                new Point2D(0, 0)
+            });
+            var section2 = new FailureMechanismSection("Section 2", new[]
+            {
+                new Point2D(0, 0)
+            });
             var result1 = new FailureMechanismSectionResult(section1);
             var result2 = new FailureMechanismSectionResult(section2);
 
-            // Call
             using (var form = new Form())
-            using (var view = new SimpleFailureMechanismResultView())
             {
-                form.Controls.Add(view);
-                form.Show();
-
-                view.Data = new[]
+                using (var view = new SimpleFailureMechanismResultView())
                 {
-                    result1,
-                    result2
-                };
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                    form.Controls.Add(view);
+                    form.Show();
 
-                // Assert
-                var rows = dataGridView.Rows;
-                Assert.AreEqual(0, rows.Count);
+                    // When
+                    view.Data = new[]
+                    {
+                        result1,
+                        result2
+                    };
+
+                    // Then
+                    var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                    var rows = dataGridView.Rows;
+                    Assert.AreEqual(0, rows.Count);
+                }
             }
+        }
+
+        private const int nameColumnIndex = 0;
+        private const int assessmentLayerOneIndex = 1;
+        private const int assessmentLayerTwoAIndex = 2;
+        private const int assessmentLayerTwoBIndex = 3;
+        private const int assessmentLayerThreeIndex = 4;
+
+        private void AssertCellIsDisabled(DataGridViewCell dataGridViewCell)
+        {
+            Assert.AreEqual(true, dataGridViewCell.ReadOnly);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), dataGridViewCell.Style.ForeColor);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), dataGridViewCell.Style.BackColor);
+        }
+
+        private void AssertCellIsEnabled(DataGridViewCell dataGridViewCell)
+        {
+            Assert.AreEqual(false, dataGridViewCell.ReadOnly);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataGridViewCell.Style.ForeColor);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.White), dataGridViewCell.Style.BackColor);
         }
     }
 }

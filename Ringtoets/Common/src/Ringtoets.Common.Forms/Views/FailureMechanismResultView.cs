@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -36,10 +37,12 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public abstract partial class FailureMechanismResultView<T> : UserControl, IView where T : FailureMechanismSectionResult
     {
-        private IEnumerable<T> failureMechanismSectionResult;
-        private IFailureMechanism failureMechanism;
         private readonly IList<Observer> failureMechanismSectionResultObservers;
         private readonly Observer failureMechanismObserver;
+        private const int assessmentLayerOneColumnIndex = 1;
+
+        private IEnumerable<T> failureMechanismSectionResult;
+        private IFailureMechanism failureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultView{T}"/>.
@@ -103,6 +106,53 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
+        /// Finds out whether the assessment section which is represented by the row at index 
+        /// <paramref name="rowIndex"/> has passed the level 0 assessment.
+        /// </summary>
+        /// <param name="rowIndex">The index of the row which has a section attached.</param>
+        /// <returns><c>false</c> if assessment level 0 has passed, <c>true</c> otherwise.</returns>
+        protected bool HasPassedLevelZero(int rowIndex)
+        {
+            var row = dataGridView.Rows[rowIndex];
+            return (bool) row.Cells[assessmentLayerOneColumnIndex].Value;
+        }
+
+        /// <summary>
+        /// Add a handler for the <see cref="DataGridView.CellFormatting"/> event.
+        /// </summary>
+        /// <param name="handler">The handler to add.</param>
+        protected void AddCellFormattingHandler(DataGridViewCellFormattingEventHandler handler)
+        {
+            dataGridView.CellFormatting += handler;
+        }
+
+        /// <summary>
+        /// Gives the cell at <paramref name="rowIndex"/>, <paramref name="columnIndex"/> an 
+        /// enabled style.
+        /// </summary>
+        /// <param name="rowIndex">The row index of the cell.</param>
+        /// <param name="columnIndex">The column index of the cell.</param>
+        protected void EnableCell(int rowIndex, int columnIndex)
+        {
+            var cell = dataGridView.Rows[rowIndex].Cells[columnIndex];
+            cell.ReadOnly = false;
+            SetCellStyle(cell, CellStyle.Enabled);
+        }
+
+        /// <summary>
+        /// Gives the cell at <paramref name="rowIndex"/>, <paramref name="columnIndex"/> a
+        /// disabled style.
+        /// </summary>
+        /// <param name="rowIndex">The row index of the cell.</param>
+        /// <param name="columnIndex">The column index of the cell.</param>
+        protected void DisableCell(int rowIndex, int columnIndex)
+        {
+            var cell = dataGridView.Rows[rowIndex].Cells[columnIndex];
+            cell.ReadOnly = true;
+            SetCellStyle(cell, CellStyle.Disabled);
+        }
+
+        /// <summary>
         /// Gets all the columns that should be added to the <see cref="DataGridView"/> on the
         /// <see cref="FailureMechanismResultView{T}"/>.
         /// </summary>
@@ -113,7 +163,15 @@ namespace Ringtoets.Common.Forms.Views
             {
                 DataPropertyName = "Name",
                 HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
-                Name = "column_Name"
+                Name = "column_Name",
+                ReadOnly = true
+            };
+
+            yield return new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "AssessmentLayerOne",
+                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
+                Name = "column_AssessmentLayerOne"
             };
         }
 
@@ -138,6 +196,12 @@ namespace Ringtoets.Common.Forms.Views
                     AddSectionResultObservers();
                 }
             }
+        }
+
+        private void SetCellStyle(DataGridViewCell cell, CellStyle style)
+        {
+            cell.Style.BackColor = style.BackgroundColor;
+            cell.Style.ForeColor = style.TextColor;
         }
 
         private void UpdataDataGridViewDataSource()
@@ -188,6 +252,24 @@ namespace Ringtoets.Common.Forms.Views
                 dataGridView.EndEdit();
                 dataGridView.CurrentCell = null;
             }
+        }
+
+        private class CellStyle
+        {
+            public static readonly CellStyle Enabled = new CellStyle
+            {
+                TextColor = Color.FromKnownColor(KnownColor.ControlText),
+                BackgroundColor = Color.FromKnownColor(KnownColor.White)
+            };
+
+            public static readonly CellStyle Disabled = new CellStyle
+            {
+                TextColor = Color.FromKnownColor(KnownColor.GrayText),
+                BackgroundColor = Color.FromKnownColor(KnownColor.DarkGray)
+            };
+
+            public Color TextColor { get; private set; }
+            public Color BackgroundColor { get; private set; }
         }
 
         #region Event handling

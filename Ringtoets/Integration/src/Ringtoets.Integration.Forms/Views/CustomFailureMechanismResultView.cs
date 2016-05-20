@@ -12,19 +12,35 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public class CustomFailureMechanismResultView : FailureMechanismResultView<CustomFailureMechanismSectionResult>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomFailureMechanismResultView"/>
+        /// </summary>
+        public CustomFailureMechanismResultView()
+        {
+            AddCellFormattingHandler(OnCellFormatting);
+        }
+
+        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
+        {
+            if (eventArgs.ColumnIndex > 1)
+            {
+                if (HasPassedLevelZero(eventArgs.RowIndex))
+                {
+                    DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
+                else
+                {
+                    EnableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
+            } 
+        }
+
         protected override IEnumerable<DataGridViewColumn> GetDataGridColumns()
         {
             foreach (var baseColumn in base.GetDataGridColumns())
             {
                 yield return baseColumn;
             }
-
-            yield return new DataGridViewCheckBoxColumn
-            {
-                DataPropertyName = "AssessmentLayerOne",
-                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
-                Name = "column_AssessmentLayerOne"
-            };
 
             yield return new DataGridViewTextBoxColumn
             {
