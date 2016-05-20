@@ -242,7 +242,7 @@
     <value>Toetslaag 2b</value>
   </data>
   <data name="FailureMechanismResultView_InitializeDataGridView_Section_name" xml:space="preserve">
-    <value>Vak (naam)</value>
+    <value>Vak</value>
   </data>
   <data name="DataGridViewCellValidating_Text_may_not_be_empty" xml:space="preserve">
     <value>De tekst mag niet leeg zijn.</value>

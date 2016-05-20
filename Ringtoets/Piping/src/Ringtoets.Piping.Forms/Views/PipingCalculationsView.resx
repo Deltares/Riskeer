@@ -175,7 +175,7 @@
     <value>0</value>
   </data>
   <data name="labelFailureMechanismSections.Text" xml:space="preserve">
-    <value>Vakken</value>
+    <value>Vak</value>
   </data>
   <data name="&gt;&gt;labelFailureMechanismSections.Name" xml:space="preserve">
     <value>labelFailureMechanismSections</value>

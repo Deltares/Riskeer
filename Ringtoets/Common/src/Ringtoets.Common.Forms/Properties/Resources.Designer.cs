@@ -516,7 +516,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vak (naam).
+        ///   Looks up a localized string similar to Vak.
         /// </summary>
         public static string FailureMechanismResultView_InitializeDataGridView_Section_name {
             get {
