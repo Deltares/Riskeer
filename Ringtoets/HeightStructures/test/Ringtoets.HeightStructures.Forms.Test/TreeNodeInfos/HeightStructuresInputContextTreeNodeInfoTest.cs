@@ -27,35 +27,34 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Plugin;
-using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
+using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.HeightStructures.Plugin;
+using HeightStructuresFormsResources = Ringtoets.HeightStructures.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
+namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsInputContextTreeNodeInfoTest
+    public class HeightStructuresInputContextTreeNodeInfoTest
     {
         private MockRepository mocksRepository;
-        private GrassCoverErosionInwardsGuiPlugin plugin;
+        private HeightStructuresGuiPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocksRepository = new MockRepository();
-            plugin = new GrassCoverErosionInwardsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsInputContext));
+            plugin = new HeightStructuresGuiPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresInputContext));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsInputContext), info.TagType);
+            Assert.AreEqual(typeof(HeightStructuresInputContext), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ContextMenuStrip);
@@ -79,21 +78,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var generalInput = new GeneralGrassCoverErosionInwardsInput();
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            var grassCoverErosionInwardsInputContext = new GrassCoverErosionInwardsInputContext(
-                mocksRepository.StrictMock<GrassCoverErosionInwardsInput>(generalInput),
-                mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput, new GeneralNormProbabilityInput()),
-                new GrassCoverErosionInwardsFailureMechanism(),
+            var heightStructuresInputContext = new HeightStructuresInputContext(
+                new HeightStructuresInput(),
+                new HeightStructuresCalculation(),
+                new HeightStructuresFailureMechanism(),
                 assessmentSectionMock);
 
             mocksRepository.ReplayAll();
 
             // Call
-            var text = info.Text(grassCoverErosionInwardsInputContext);
+            var text = info.Text(heightStructuresInputContext);
 
             // Assert
-            Assert.AreEqual(GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsInputContext_NodeDisplayName, text);
+            Assert.AreEqual(HeightStructuresFormsResources.HeightStructuresInputContext_NodeDisplayName, text);
             mocksRepository.VerifyAll();
         }
 
@@ -101,18 +99,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var generalInput = new GeneralGrassCoverErosionInwardsInput();
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            var grassCoverErosionInwardsInputContext = new GrassCoverErosionInwardsInputContext(
-                mocksRepository.StrictMock<GrassCoverErosionInwardsInput>(generalInput),
-                mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput, new GeneralNormProbabilityInput()),
-                new GrassCoverErosionInwardsFailureMechanism(),
+            var heightStructuresInputContext = new HeightStructuresInputContext(
+                new HeightStructuresInput(),
+                new HeightStructuresCalculation(),
+                new HeightStructuresFailureMechanism(),
                 assessmentSectionMock);
 
             mocksRepository.ReplayAll();
 
             // Call
-            var image = info.Image(grassCoverErosionInwardsInputContext);
+            var image = info.Image(heightStructuresInputContext);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);

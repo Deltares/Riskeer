@@ -64,6 +64,18 @@ namespace Ringtoets.HeightStructures.Plugin
                 CalculationContextContextMenuStrip,
                 CalculationContextOnNodeRemoved);
 
+            yield return new TreeNodeInfo<HeightStructuresInputContext>
+            {
+                Text = inputContext => HeightStructuresFormsResources.HeightStructuresInputContext_NodeDisplayName,
+                Image = inputContext => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddImportItem()
+                                                                                 .AddExportItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
+
             yield return new TreeNodeInfo<HeightStructuresOutput>
             {
                 Text = pipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,

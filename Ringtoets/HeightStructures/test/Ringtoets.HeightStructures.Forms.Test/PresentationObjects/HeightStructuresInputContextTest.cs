@@ -29,7 +29,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.Properties;
 
-namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
+namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class HeightStructuresInputContextTest

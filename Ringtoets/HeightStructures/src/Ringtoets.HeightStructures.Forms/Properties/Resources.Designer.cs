@@ -106,5 +106,14 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
                         "", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoer.
+        /// </summary>
+        public static string HeightStructuresInputContext_NodeDisplayName {
+            get {
+                return ResourceManager.GetString("HeightStructuresInputContext_NodeDisplayName", resourceCulture);
+            }
+        }
     }
 }
