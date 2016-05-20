@@ -83,6 +83,10 @@
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+      <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
+      <Name>Ringtoets.HeightStructures.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.Forms\Ringtoets.HeightStructures.Forms.csproj">
       <Project>{F0BCF06A-3D01-4D65-A249-E2A14AEC6EFD}</Project>
       <Name>Ringtoets.HeightStructures.Forms</Name>

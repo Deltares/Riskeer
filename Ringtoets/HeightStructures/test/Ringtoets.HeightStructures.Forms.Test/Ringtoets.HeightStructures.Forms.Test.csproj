@@ -60,6 +60,7 @@
     <Compile Include="TreeNodeInfos\HeightStructuresCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresInputContextTest.cs" />
+    <Compile Include="TreeNodeInfos\HeightStructuresOutputTreeNodeInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
