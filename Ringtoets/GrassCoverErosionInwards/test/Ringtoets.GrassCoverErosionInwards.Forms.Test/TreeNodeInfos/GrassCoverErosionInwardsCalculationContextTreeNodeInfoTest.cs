@@ -490,33 +490,30 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromGroup(bool groupNameEditable)
+        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromGroup()
         {
             // Setup
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-
+            var group = new CalculationGroup();
             var elementToBeRemoved = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
                                                                              new GeneralNormProbabilityInput());
-
-            var group = new CalculationGroup("", groupNameEditable);
-            group.Children.Add(elementToBeRemoved);
-            group.Children.Add(new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                       new GeneralNormProbabilityInput()));
-            group.Attach(observerMock);
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var observerMock = mocks.StrictMock<IObserver>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculationContext = new GrassCoverErosionInwardsCalculationContext(elementToBeRemoved,
                                                                                     failureMechanism,
                                                                                     assessmentSectionMock);
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                    failureMechanism,
                                                                                    assessmentSectionMock);
+
+            observerMock.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            group.Children.Add(elementToBeRemoved);
+            group.Children.Add(new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
+                                                                       new GeneralNormProbabilityInput()));
+            group.Attach(observerMock);
 
             // Precondition
             Assert.IsTrue(info.CanRemove(calculationContext, groupContext));

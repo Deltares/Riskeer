@@ -224,10 +224,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
                 var failureMechanism = new HeightStructuresFailureMechanism();
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
-                var menuBuilderMock = new CustomItemsOnlyContextMenuBuilder();
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var guiMock = mocksRepository.StrictMock<IGui>();
 
-                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilderMock);
+                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
                 guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
@@ -274,10 +274,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     IsRelevant = false
                 };
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
-                var menuBuilderMock = new CustomItemsOnlyContextMenuBuilder();
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var guiMock = mocksRepository.StrictMock<IGui>();
 
-                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilderMock);
+                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
                 guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 

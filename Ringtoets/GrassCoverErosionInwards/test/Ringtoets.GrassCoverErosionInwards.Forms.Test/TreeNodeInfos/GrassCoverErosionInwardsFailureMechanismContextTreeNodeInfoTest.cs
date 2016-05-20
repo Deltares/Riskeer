@@ -239,10 +239,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
                 var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
-                var menuBuilderMock = new CustomItemsOnlyContextMenuBuilder();
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var guiMock = mocksRepository.StrictMock<IGui>();
 
-                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilderMock);
+                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
                 guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
@@ -289,10 +289,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                     IsRelevant = false
                 };
                 var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
-                var menuBuilderMock = new CustomItemsOnlyContextMenuBuilder();
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var guiMock = mocksRepository.StrictMock<IGui>();
 
-                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilderMock);
+                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
                 guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 

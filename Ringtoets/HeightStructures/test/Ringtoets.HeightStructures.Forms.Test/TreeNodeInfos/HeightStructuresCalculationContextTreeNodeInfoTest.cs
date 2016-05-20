@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -29,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -223,6 +225,44 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                           RingtoetsCommonFormsResources.ClearOutput_No_output_to_clear,
                                                           RingtoetsCommonFormsResources.ClearIcon,
                                                           false);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromGroup()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var elementToBeRemoved = new HeightStructuresCalculation();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var observerMock = mocks.StrictMock<IObserver>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var calculationContext = new HeightStructuresCalculationContext(elementToBeRemoved,
+                                                                            failureMechanism,
+                                                                            assessmentSectionMock);
+            var groupContext = new HeightStructuresCalculationGroupContext(group,
+                                                                           failureMechanism,
+                                                                           assessmentSectionMock);
+
+            observerMock.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            group.Children.Add(elementToBeRemoved);
+            group.Children.Add(new HeightStructuresCalculation());
+            group.Attach(observerMock);
+
+            // Precondition
+            Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
+            Assert.AreEqual(2, group.Children.Count);
+
+            // Call
+            info.OnNodeRemoved(calculationContext, groupContext);
+
+            // Assert
+            Assert.AreEqual(1, group.Children.Count);
+            CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
 
             mocks.VerifyAll();
         }

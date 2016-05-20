@@ -367,10 +367,10 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var failureMechanism = new TestFailureMechanism("A", "C");
                 var context = new CustomFailureMechanismContext(failureMechanism, assessmentSection);
 
-                var menuBuilderMock = new CustomItemsOnlyContextMenuBuilder();
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(context, treeView)).Return(menuBuilderMock);
+                gui.Expect(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
