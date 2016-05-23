@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void Constructor_NullNormProbabilityGrassCoverErosionInwardsInput_ThrowsArgumentNullException()
+        public void Constructor_NullNormProbabilityInput_ThrowsArgumentNullException()
         {
             // Setup
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
