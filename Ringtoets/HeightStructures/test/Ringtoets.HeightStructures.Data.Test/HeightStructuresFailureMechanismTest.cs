@@ -22,6 +22,7 @@
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -52,7 +53,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-            
+
             // Call
             failureMechanism.AddSection(new FailureMechanismSection("", new[]
             {
@@ -89,6 +90,36 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Assert
             Assert.AreEqual(0, failureMechanism.Sections.Count());
             Assert.AreEqual(0, failureMechanism.SectionResults.Count());
+        }
+
+        [Test]
+        public void Calculations_MultipleChildrenAdded_ReturnHeightStructuresCalculations()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = new HeightStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        new CalculationGroup(),
+                        new HeightStructuresCalculation(),
+                        mocks.StrictMock<ICalculation>(),
+                        new HeightStructuresCalculation()
+                    }
+                }
+            };
+
+            mocks.ReplayAll();
+
+            // Call
+            var calculations = failureMechanism.Calculations.ToList();
+
+            // Assert
+            Assert.AreEqual(2, calculations.Count);
+            Assert.IsTrue(calculations.All(c => c is HeightStructuresCalculation));
+            mocks.VerifyAll();
         }
     }
 }

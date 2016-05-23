@@ -23,6 +23,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 
@@ -46,6 +47,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<HeightStructuresContext<CalculationGroup>>(groupContext);
+            Assert.IsInstanceOf<ICalculationContext<CalculationGroup, HeightStructuresFailureMechanism>>(groupContext);
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
             Assert.AreSame(failureMechanismMock, groupContext.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, groupContext.AssessmentSection);

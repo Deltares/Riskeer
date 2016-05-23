@@ -378,17 +378,17 @@ namespace Ringtoets.Integration.Plugin
 
         private static bool CloseCommentViewForData(CommentView commentView, object o)
         {
-            var calculationContext = o as PipingCalculationScenarioContext;
-            if (calculationContext != null)
-            {
-                return calculationContext.WrappedData == commentView.Data;
-            }
-
-            var calculationGroupContext = o as PipingCalculationGroupContext;
+            var calculationGroupContext = o as ICalculationContext<CalculationGroup, IFailureMechanism>;
             if (calculationGroupContext != null)
             {
-                return GetCommentableElements(calculationGroupContext)
+                return GetCommentableElements(calculationGroupContext.WrappedData)
                     .Any(commentableElement => ReferenceEquals(commentView.Data, commentableElement));
+            }
+
+            var calculationContext = o as ICalculationContext<ICalculationBase, IFailureMechanism>;
+            if (calculationContext != null)
+            {
+                return ReferenceEquals(commentView.Data, calculationContext.WrappedData);
             }
 
             var assessmentSection = o as IAssessmentSection;
@@ -401,9 +401,9 @@ namespace Ringtoets.Integration.Plugin
             return false;
         }
 
-        private static IEnumerable<ICommentable> GetCommentableElements(PipingCalculationGroupContext calculationGroupContext)
+        private static IEnumerable<ICommentable> GetCommentableElements(CalculationGroup calculationGroup)
         {
-            return calculationGroupContext.WrappedData.GetCalculations();
+            return calculationGroup.GetCalculations();
         }
 
         private static IEnumerable<ICommentable> GetCommentableElements(IAssessmentSection assessmentSection)

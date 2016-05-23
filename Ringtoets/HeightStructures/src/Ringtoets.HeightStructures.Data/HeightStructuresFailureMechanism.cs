@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HeightStructures.Data.Properties;
@@ -49,7 +50,7 @@ namespace Ringtoets.HeightStructures.Data
         {
             get
             {
-                yield break;
+                return CalculationsGroup.GetCalculations().OfType<HeightStructuresCalculation>();
             }
         }
 

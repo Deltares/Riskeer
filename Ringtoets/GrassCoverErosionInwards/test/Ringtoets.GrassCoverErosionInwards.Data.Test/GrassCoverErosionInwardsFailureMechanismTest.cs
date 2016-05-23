@@ -22,6 +22,7 @@
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
@@ -91,6 +92,36 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Assert
             Assert.AreEqual(0, failureMechanism.Sections.Count());
             Assert.AreEqual(0, failureMechanism.SectionResults.Count());
+        }
+
+        [Test]
+        public void Calculations_MultipleChildrenAdded_ReturnGrassCoverErosionInwardsCalculations()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        new CalculationGroup(),
+                        new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new GeneralNormProbabilityInput()),
+                        mocks.StrictMock<ICalculation>(),
+                        new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new GeneralNormProbabilityInput())
+                    }
+                }
+            };
+
+            mocks.ReplayAll();
+
+            // Call
+            var calculations = failureMechanism.Calculations.ToList();
+
+            // Assert
+            Assert.AreEqual(2, calculations.Count);
+            Assert.IsTrue(calculations.All(c => c is GrassCoverErosionInwardsCalculation));
+            mocks.VerifyAll();
         }
     }
 }

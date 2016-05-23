@@ -30,9 +30,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
@@ -337,17 +334,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedCalculationItem_ReturnsTrue()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var viewDataCalculation = mocks.Stub<ICalculation>();
+            var deletedCalculationContext = mocks.StrictMock<ICalculationContext<ICalculationBase, IFailureMechanism>>();
+
+            deletedCalculationContext.Expect(c => c.WrappedData).Return(viewDataCalculation);
+
             mocks.ReplayAll();
-
-            var viewDataCalculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-
-            var deletedCalculationContext = new PipingCalculationScenarioContext(viewDataCalculation,
-                                                                         Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                         Enumerable.Empty<StochasticSoilModel>(),
-                                                                         failureMechanism,
-                                                                         assessmentSectionMock);
 
             using (var view = new CommentView
             {
@@ -368,19 +360,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedCalculationItem_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var calculation = mocks.Stub<ICalculation>();
+            var viewDataCalculation = mocks.Stub<ICalculation>();
+            var deletedCalculationContext = mocks.StrictMock<ICalculationContext<ICalculationBase, IFailureMechanism>>();
+
+            deletedCalculationContext.Expect(c => c.WrappedData).Return(calculation);
+
             mocks.ReplayAll();
-
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
-            var viewDataCalculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
-
-            var failureMechanism = new PipingFailureMechanism();
-
-            var deletedCalculationContext = new PipingCalculationScenarioContext(calculation,
-                                                                         Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                         Enumerable.Empty<StochasticSoilModel>(),
-                                                                         failureMechanism,
-                                                                         assessmentSectionMock);
 
             using (var view = new CommentView
             {
@@ -393,6 +379,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -400,11 +387,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewDataIsCalculationOfRemovedCalculationGroup_ReturnsTrue()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-            var viewDataCalculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
+            var viewDataCalculation = mocks.Stub<ICalculation>();
+            var deletedGroupContext = mocks.StrictMock<ICalculationContext<CalculationGroup, IFailureMechanism>>();
             var deletedGroup = new CalculationGroup
             {
                 Children =
@@ -412,11 +396,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                     viewDataCalculation
                 }
             };
-            var deletedGroupContext = new PipingCalculationGroupContext(deletedGroup,
-                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                        Enumerable.Empty<StochasticSoilModel>(),
-                                                                        failureMechanism,
-                                                                        assessmentSectionMock);
+
+            deletedGroupContext.Expect(g => g.WrappedData).Return(deletedGroup);
+
+            mocks.ReplayAll();
 
             using (var view = new CommentView
             {
@@ -437,13 +420,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewDataIsCalculationButNotOfRemovedCalculationGroup_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-            var viewDataCalculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
-
-            var deletedCalculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
+            var viewDataCalculation = mocks.Stub<ICalculation>();
+            var deletedCalculation = mocks.Stub<ICalculation>();
+            var deletedGroupContext = mocks.StrictMock<ICalculationContext<CalculationGroup, IFailureMechanism>>();
             var deletedGroup = new CalculationGroup
             {
                 Children =
@@ -451,11 +430,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                     deletedCalculation
                 }
             };
-            var deletedGroupContext = new PipingCalculationGroupContext(deletedGroup,
-                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                        Enumerable.Empty<StochasticSoilModel>(),
-                                                                        failureMechanism,
-                                                                        assessmentSectionMock);
+
+            deletedGroupContext.Expect(g => g.WrappedData).Return(deletedGroup);
+
+            mocks.ReplayAll();
 
             using (var view = new CommentView
             {

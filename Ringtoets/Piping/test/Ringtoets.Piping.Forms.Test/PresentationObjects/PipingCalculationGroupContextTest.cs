@@ -4,6 +4,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -39,6 +40,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Assert
             Assert.IsInstanceOf<IObservable>(groupContext);
             Assert.IsInstanceOf<PipingContext<CalculationGroup>>(groupContext);
+            Assert.IsInstanceOf<ICalculationContext<CalculationGroup, PipingFailureMechanism>>(groupContext);
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
             Assert.AreSame(surfaceLines, groupContext.AvailablePipingSurfaceLines);
             Assert.AreSame(soilModels, groupContext.AvailableStochasticSoilModels);
