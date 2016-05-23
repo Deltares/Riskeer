@@ -43,19 +43,19 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var calculationMock = mocksRepository.StrictMock<HeightStructuresCalculation>();
-            var failureMechanismMock = mocksRepository.StrictMock<HeightStructuresFailureMechanism>();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput);
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             // Call
-            var context = new HeightStructuresCalculationContext(calculationMock, failureMechanismMock, assessmentSectionMock);
+            var context = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<HeightStructuresContext<HeightStructuresCalculation>>(context);
             Assert.IsInstanceOf<ICalculationContext<HeightStructuresCalculation, HeightStructuresFailureMechanism>>(context);
-            Assert.AreEqual(calculationMock, context.WrappedData);
-            Assert.AreEqual(failureMechanismMock, context.FailureMechanism);
+            Assert.AreEqual(calculation, context.WrappedData);
+            Assert.AreEqual(failureMechanism, context.FailureMechanism);
             Assert.AreEqual(assessmentSectionMock, context.AssessmentSection);
             mocksRepository.VerifyAll();
         }

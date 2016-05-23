@@ -47,6 +47,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.IsNotNull(failureMechanism.CalculationsGroup);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             Assert.IsNotNull(failureMechanism.NormProbabilityInput);
+            Assert.IsInstanceOf<GeneralHeightStructuresInput>(failureMechanism.GeneralInput);
         }
 
         [Test]
@@ -98,6 +99,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         {
             // Setup
             var mocks = new MockRepository();
+            var generalInput = new GeneralHeightStructuresInput();
             var failureMechanism = new HeightStructuresFailureMechanism
             {
                 CalculationsGroup =
@@ -105,9 +107,9 @@ namespace Ringtoets.HeightStructures.Data.Test
                     Children =
                     {
                         new CalculationGroup(),
-                        new HeightStructuresCalculation(),
+                        new HeightStructuresCalculation(generalInput),
                         mocks.StrictMock<ICalculation>(),
-                        new HeightStructuresCalculation()
+                        new HeightStructuresCalculation(generalInput)
                     }
                 }
             };

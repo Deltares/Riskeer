@@ -116,7 +116,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var group = new CalculationGroup();
             var childGroup = new CalculationGroup();
-            var childCalculation = new HeightStructuresCalculation();
+            var childCalculation = new HeightStructuresCalculation(failureMechanism.GeneralInput);
 
             group.Children.Add(childGroup);
             group.Children.Add(calculationItemMock);
@@ -240,8 +240,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                                            failureMechanism,
                                                                            assessmentSectionMock);
             var parentGroupContext = new HeightStructuresCalculationGroupContext(parentGroup,
-                                                                     failureMechanism,
-                                                                     assessmentSectionMock);
+                                                                                 failureMechanism,
+                                                                                 assessmentSectionMock);
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
@@ -377,9 +377,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
-                                                                               failureMechanism,
-                                                                               assessmentSectionMock);
-            var calculation = new HeightStructuresCalculation
+                                                                       failureMechanism,
+                                                                       assessmentSectionMock);
+            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput)
             {
                 Name = "Nieuwe berekening"
             };
@@ -461,7 +461,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var parentNodeData = new HeightStructuresCalculationGroupContext(parentGroup,
                                                                              failureMechanism,
                                                                              assessmentSectionMock);
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput);
 
             observerMock.Expect(o => o.UpdateObserver());
 

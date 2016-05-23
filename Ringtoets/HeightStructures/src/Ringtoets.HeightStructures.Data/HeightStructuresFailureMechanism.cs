@@ -45,6 +45,7 @@ namespace Ringtoets.HeightStructures.Data
             sectionResults = new List<HeightStructuresFailureMechanismSectionResult>();
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
             NormProbabilityInput = new NormProbabilityInput();
+            GeneralInput = new GeneralHeightStructuresInput();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -59,6 +60,11 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets the length-effect parameters.
         /// </summary>
         public NormProbabilityInput NormProbabilityInput { get; private set; }
+
+        /// <summary>
+        /// Gets the height structures calculation input parameters that apply to each calculation.
+        /// </summary>
+        public GeneralHeightStructuresInput GeneralInput { get; private set; }
 
         public CalculationGroup CalculationsGroup { get; private set; }
 

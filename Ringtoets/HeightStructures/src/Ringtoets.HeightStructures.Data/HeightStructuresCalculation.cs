@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.HeightStructures.Data.Properties;
@@ -33,9 +34,11 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresCalculation"/>.
         /// </summary>
-        public HeightStructuresCalculation()
+        /// <param name="generalInputParameters">General grass cover erosion inwards calculation input parameters that apply to each calculation.</param>
+        /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/> is <c>null</c>.</exception>
+        public HeightStructuresCalculation(GeneralHeightStructuresInput generalInputParameters)
         {
-            InputParameters = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            InputParameters = new HeightStructuresInput(generalInputParameters);
             Name = Resources.HeightStructuresCalculation_DefaultName;
         }
 
