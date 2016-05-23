@@ -22,7 +22,7 @@
           <Key>
             <PropertyRef Name="CharacteristicPointEntityId" />
           </Key>
-          <Property Name="CharacteristicPointEntityId" Type="integer" Nullable="false" />
+          <Property Name="CharacteristicPointEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CharacteristicPointType" Type="smallint" Nullable="false" />
           <Property Name="SurfaceLinePointEntityId" Type="integer" Nullable="false" />
         </EntityType>
@@ -121,7 +121,7 @@
           <Key>
             <PropertyRef Name="SurfaceLineEntityId" />
           </Key>
-          <Property Name="SurfaceLineEntityId" Type="integer" Nullable="false" />
+          <Property Name="SurfaceLineEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="ReferenceLineIntersectionX" Type="decimal" Precision="53" Scale="0" Nullable="false" />
@@ -466,7 +466,7 @@
           <Key>
             <PropertyRef Name="CharacteristicPointEntityId" />
           </Key>
-          <Property Name="CharacteristicPointEntityId" Type="Int64" Nullable="false" />
+          <Property Name="CharacteristicPointEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CharacteristicPointType" Type="Int16" Nullable="false" />
           <Property Name="SurfaceLinePointEntityId" Type="Int64" Nullable="false" />
           <NavigationProperty Name="SurfaceLinePointEntity" Relationship="RingtoetsEntitiesModel.FK_CharacteristicPointEntity_0_0" FromRole="CharacteristicPointEntity" ToRole="SurfaceLinePointEntity" />
@@ -583,7 +583,7 @@
           <Key>
             <PropertyRef Name="SurfaceLineEntityId" />
           </Key>
-          <Property Name="SurfaceLineEntityId" Type="Int64" Nullable="false" />
+          <Property Name="SurfaceLineEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="ReferenceLineIntersectionX" Type="Decimal" Nullable="false" Precision="53" Scale="0" />

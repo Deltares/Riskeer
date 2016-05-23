@@ -44,6 +44,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             DbSet<SoilLayerEntity> soilLayersSet = CreateEmptyTestDbSet<SoilLayerEntity>();
             DbSet<SurfaceLineEntity> surfaceLinesSet = CreateEmptyTestDbSet<SurfaceLineEntity>();
             DbSet<SurfaceLinePointEntity> surfaceLinePointsSet = CreateEmptyTestDbSet<SurfaceLinePointEntity>();
+            DbSet<CharacteristicPointEntity> characteristicPointsSet = CreateEmptyTestDbSet<CharacteristicPointEntity>();
 
             var ringtoetsEntities = mockRepository.Stub<IRingtoetsEntities>();
             ringtoetsEntities.Stub(r => r.ProjectEntities).Return(projectsSet);
@@ -59,6 +60,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             ringtoetsEntities.Stub(r => r.SoilLayerEntities).Return(soilLayersSet);
             ringtoetsEntities.Stub(r => r.SurfaceLineEntities).Return(surfaceLinesSet);
             ringtoetsEntities.Stub(r => r.SurfaceLinePointEntities).Return(surfaceLinePointsSet);
+            ringtoetsEntities.Stub(r => r.CharacteristicPointEntities).Return(characteristicPointsSet);
             return ringtoetsEntities;
         }
 
