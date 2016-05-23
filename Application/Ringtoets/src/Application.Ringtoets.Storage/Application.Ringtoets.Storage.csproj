@@ -70,6 +70,10 @@
     <Compile Include="DbContext\AssessmentSectionEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\CharacteristicPointEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\CharacteristicPointType.cs" />
     <Compile Include="DbContext\FailureMechanismEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>

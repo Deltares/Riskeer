@@ -68,29 +68,40 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadCharacteristicPoints(this SurfaceLineEntity entity, RingtoetsPipingSurfaceLine surfaceLine, ReadConversionCollector collector)
         {
-            if (entity.BottomDitchDikeSidePointEntity != null)
+            foreach (SurfaceLinePointEntity pointEntity in entity.SurfaceLinePointEntities)
             {
-                surfaceLine.SetBottomDitchDikeSideAt(collector.Get(entity.BottomDitchDikeSidePointEntity));
+                foreach (CharacteristicPointEntity characteristicPointEntity in pointEntity.CharacteristicPointEntities)
+                {
+                    SetCharacteristicPoint(surfaceLine, characteristicPointEntity, collector);
+                }
             }
-            if (entity.BottomDitchPolderSidePointEntity != null)
+        }
+
+        private static void SetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine, CharacteristicPointEntity characteristicPointEntity, ReadConversionCollector collector)
+        {
+            Point3D geometryPoint = collector.Get(characteristicPointEntity.SurfaceLinePointEntity);
+            switch ((CharacteristicPointType)characteristicPointEntity.CharacteristicPointType)
             {
-                surfaceLine.SetBottomDitchPolderSideAt(collector.Get(entity.BottomDitchPolderSidePointEntity));
-            }
-            if (entity.DikeToeAtPolderPointEntity != null)
-            {
-                surfaceLine.SetDikeToeAtPolderAt(collector.Get(entity.DikeToeAtPolderPointEntity));
-            }
-            if (entity.DikeToeAtRiverPointEntity != null)
-            {
-                surfaceLine.SetDikeToeAtRiverAt(collector.Get(entity.DikeToeAtRiverPointEntity));
-            }
-            if (entity.DitchDikeSidePointEntity != null)
-            {
-                surfaceLine.SetDitchDikeSideAt(collector.Get(entity.DitchDikeSidePointEntity));
-            }
-            if (entity.DitchPolderSidePointEntity != null)
-            {
-                surfaceLine.SetDitchPolderSideAt(collector.Get(entity.DitchPolderSidePointEntity));
+                case CharacteristicPointType.DikeToeAtRiver:
+                    surfaceLine.SetDikeToeAtRiverAt(geometryPoint);
+                    break;
+                case CharacteristicPointType.DikeToeAtPolder:
+                    surfaceLine.SetDikeToeAtPolderAt(geometryPoint);
+                    break;
+                case CharacteristicPointType.DitchDikeSide:
+                    surfaceLine.SetDitchDikeSideAt(geometryPoint);
+                    break;
+                case CharacteristicPointType.BottomDitchDikeSide:
+                    surfaceLine.SetBottomDitchDikeSideAt(geometryPoint);
+                    break;
+                case CharacteristicPointType.BottomDitchPolderSide:
+                    surfaceLine.SetBottomDitchPolderSideAt(geometryPoint);
+                    break;
+                case CharacteristicPointType.DitchPolderSide:
+                    surfaceLine.SetDitchPolderSideAt(geometryPoint);
+                    break;
+                default:
+                    throw new NotImplementedException();
             }
         }
 

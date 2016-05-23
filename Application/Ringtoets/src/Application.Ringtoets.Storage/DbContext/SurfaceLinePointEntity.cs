@@ -38,12 +38,7 @@ namespace Application.Ringtoets.Storage.DbContext
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SurfaceLinePointEntity()
         {
-            this.DitchPolderSidePointParentEntity = new HashSet<SurfaceLineEntity>();
-            this.DitchDikeSidePointParentEntity = new HashSet<SurfaceLineEntity>();
-            this.DikeToeAtRiverPointParentEntity = new HashSet<SurfaceLineEntity>();
-            this.DikeToeAtPolderPointParentEntity = new HashSet<SurfaceLineEntity>();
-            this.BottomDitchPolderSidePointParentEntity = new HashSet<SurfaceLineEntity>();
-            this.BottomDitchDikeSidePointParentEntity = new HashSet<SurfaceLineEntity>();
+            this.CharacteristicPointEntities = new HashSet<CharacteristicPointEntity>();
         }
     
         public long SurfaceLinePointEntityId { get; set; }
@@ -54,17 +49,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public decimal Z { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SurfaceLineEntity> DitchPolderSidePointParentEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SurfaceLineEntity> DitchDikeSidePointParentEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SurfaceLineEntity> DikeToeAtRiverPointParentEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SurfaceLineEntity> DikeToeAtPolderPointParentEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SurfaceLineEntity> BottomDitchPolderSidePointParentEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SurfaceLineEntity> BottomDitchDikeSidePointParentEntity { get; set; }
+        public virtual ICollection<CharacteristicPointEntity> CharacteristicPointEntities { get; set; }
         public virtual SurfaceLineEntity SurfaceLineEntity { get; set; }
     }
 }

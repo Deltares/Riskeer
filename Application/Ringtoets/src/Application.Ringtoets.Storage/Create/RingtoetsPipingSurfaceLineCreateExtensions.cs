@@ -73,32 +73,50 @@ namespace Application.Ringtoets.Storage.Create
             if (surfaceLine.BottomDitchPolderSide != null)
             {
                 SurfaceLinePointEntity characteristicPointEntity = collector.GetSurfaceLinePoint(surfaceLine.BottomDitchPolderSide);
-                entity.BottomDitchPolderSidePointEntity = characteristicPointEntity;
+                characteristicPointEntity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
+                {
+                    CharacteristicPointType = (short)CharacteristicPointType.BottomDitchPolderSide
+                });
             }
             if (surfaceLine.BottomDitchDikeSide != null)
             {
                 SurfaceLinePointEntity characteristicPointEntity = collector.GetSurfaceLinePoint(surfaceLine.BottomDitchDikeSide);
-                entity.BottomDitchDikeSidePointEntity = characteristicPointEntity;
+                characteristicPointEntity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
+                {
+                    CharacteristicPointType = (short)CharacteristicPointType.BottomDitchDikeSide
+                });
             }
             if (surfaceLine.DikeToeAtPolder != null)
             {
                 SurfaceLinePointEntity characteristicPointEntity = collector.GetSurfaceLinePoint(surfaceLine.DikeToeAtPolder);
-                entity.DikeToeAtPolderPointEntity = characteristicPointEntity;
+                characteristicPointEntity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
+                {
+                    CharacteristicPointType = (short)CharacteristicPointType.DikeToeAtPolder
+                });
             }
             if (surfaceLine.DikeToeAtRiver != null)
             {
                 SurfaceLinePointEntity characteristicPointEntity = collector.GetSurfaceLinePoint(surfaceLine.DikeToeAtRiver);
-                entity.DikeToeAtRiverPointEntity = characteristicPointEntity;
+                characteristicPointEntity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
+                {
+                    CharacteristicPointType = (short)CharacteristicPointType.DikeToeAtRiver
+                });
             }
             if (surfaceLine.DitchDikeSide != null)
             {
                 SurfaceLinePointEntity characteristicPointEntity = collector.GetSurfaceLinePoint(surfaceLine.DitchDikeSide);
-                entity.DitchDikeSidePointEntity = characteristicPointEntity;
+                characteristicPointEntity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
+                {
+                    CharacteristicPointType = (short)CharacteristicPointType.DitchDikeSide
+                });
             }
             if (surfaceLine.DitchPolderSide != null)
             {
                 SurfaceLinePointEntity characteristicPointEntity = collector.GetSurfaceLinePoint(surfaceLine.DitchPolderSide);
-                entity.DitchPolderSidePointEntity = characteristicPointEntity;
+                characteristicPointEntity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
+                {
+                    CharacteristicPointType = (short)CharacteristicPointType.DitchPolderSide
+                });
             }
         }
     }

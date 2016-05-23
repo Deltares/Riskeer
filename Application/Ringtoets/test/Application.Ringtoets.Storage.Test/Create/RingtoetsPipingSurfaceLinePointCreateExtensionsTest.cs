@@ -65,12 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             Assert.AreEqual(0, entity.SurfaceLinePointEntityId);
 
-            CollectionAssert.IsEmpty(entity.BottomDitchDikeSidePointParentEntity);
-            CollectionAssert.IsEmpty(entity.BottomDitchPolderSidePointParentEntity);
-            CollectionAssert.IsEmpty(entity.DikeToeAtPolderPointParentEntity);
-            CollectionAssert.IsEmpty(entity.DikeToeAtRiverPointParentEntity);
-            CollectionAssert.IsEmpty(entity.DitchDikeSidePointParentEntity);
-            CollectionAssert.IsEmpty(entity.DitchPolderSidePointParentEntity);
+            CollectionAssert.IsEmpty(entity.CharacteristicPointEntities);
             Assert.IsNull(entity.SurfaceLineEntity);
             Assert.AreEqual(0, entity.SurfaceLineEntityId);
         }

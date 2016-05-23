@@ -269,12 +269,36 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 entity.SurfaceLinePointEntities.Add(pointEntity);
             }
-            entity.BottomDitchDikeSidePointEntity = point2Entity;
-            entity.BottomDitchPolderSidePointEntity = point3Entity;
-            entity.DikeToeAtPolderPointEntity = point4Entity;
-            entity.DikeToeAtRiverPointEntity = point5Entity;
-            entity.DitchDikeSidePointEntity = point6Entity;
-            entity.DitchPolderSidePointEntity = point7Entity;
+            point2Entity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
+            {
+                CharacteristicPointType = (short)CharacteristicPointType.BottomDitchDikeSide,
+                SurfaceLinePointEntity = point2Entity
+            });
+            point3Entity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
+            {
+                CharacteristicPointType = (short)CharacteristicPointType.BottomDitchPolderSide,
+                SurfaceLinePointEntity = point3Entity
+            });
+            point4Entity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
+            {
+                CharacteristicPointType = (short)CharacteristicPointType.DikeToeAtPolder,
+                SurfaceLinePointEntity = point4Entity
+            });
+            point5Entity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
+            {
+                CharacteristicPointType = (short)CharacteristicPointType.DikeToeAtRiver,
+                SurfaceLinePointEntity = point5Entity
+            });
+            point6Entity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
+            {
+                CharacteristicPointType = (short)CharacteristicPointType.DitchDikeSide,
+                SurfaceLinePointEntity = point6Entity
+            });
+            point7Entity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
+            {
+                CharacteristicPointType = (short)CharacteristicPointType.DitchPolderSide,
+                SurfaceLinePointEntity = point7Entity
+            });
 
             // Call
             RingtoetsPipingSurfaceLine surfaceLine = entity.Read(collector);

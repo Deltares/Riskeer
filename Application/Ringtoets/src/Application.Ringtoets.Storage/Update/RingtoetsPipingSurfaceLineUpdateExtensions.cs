@@ -112,50 +112,51 @@ namespace Application.Ringtoets.Storage.Update
 
         private static void UpdateCharacteristicPoints(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity, UpdateConversionCollector collector)
         {
-            UpdateCharacteristicPoint(surfaceLine.BottomDitchDikeSide,
-                                      entity.BottomDitchDikeSidePointEntity,
-                                      pointEntity => entity.BottomDitchDikeSidePointEntity = pointEntity,
-                                      collector);
-            UpdateCharacteristicPoint(surfaceLine.BottomDitchPolderSide,
-                                      entity.BottomDitchPolderSidePointEntity,
-                                      pointEntity => entity.BottomDitchPolderSidePointEntity = pointEntity,
-                                      collector);
-            UpdateCharacteristicPoint(surfaceLine.DikeToeAtPolder,
-                                      entity.DikeToeAtPolderPointEntity,
-                                      pointEntity => entity.DikeToeAtPolderPointEntity = pointEntity,
-                                      collector);
-            UpdateCharacteristicPoint(surfaceLine.DikeToeAtRiver,
-                                      entity.DikeToeAtRiverPointEntity,
-                                      pointEntity => entity.DikeToeAtRiverPointEntity = pointEntity,
-                                      collector);
-            UpdateCharacteristicPoint(surfaceLine.DitchDikeSide,
-                                      entity.DitchDikeSidePointEntity,
-                                      pointEntity => entity.DitchDikeSidePointEntity = pointEntity,
-                                      collector);
-            UpdateCharacteristicPoint(surfaceLine.DitchPolderSide,
-                                      entity.DitchPolderSidePointEntity,
-                                      pointEntity => entity.DitchPolderSidePointEntity = pointEntity,
-                                      collector);
+            CharacteristicPointEntity[] currentCharacteristicPointEntities = entity.SurfaceLinePointEntities
+                                                                                   .SelectMany(pe => pe.CharacteristicPointEntities)
+                                                                                   .ToArray();
+
+            UpdateCharacteristicPoint(surfaceLine.DikeToeAtRiver, CharacteristicPointType.DikeToeAtRiver,
+                                      currentCharacteristicPointEntities, collector);
+            UpdateCharacteristicPoint(surfaceLine.DikeToeAtPolder, CharacteristicPointType.DikeToeAtPolder,
+                                      currentCharacteristicPointEntities, collector);
+            UpdateCharacteristicPoint(surfaceLine.DitchDikeSide, CharacteristicPointType.DitchDikeSide,
+                                      currentCharacteristicPointEntities, collector);
+            UpdateCharacteristicPoint(surfaceLine.BottomDitchDikeSide, CharacteristicPointType.BottomDitchDikeSide,
+                                      currentCharacteristicPointEntities, collector);
+            UpdateCharacteristicPoint(surfaceLine.BottomDitchPolderSide, CharacteristicPointType.BottomDitchPolderSide,
+                                      currentCharacteristicPointEntities, collector);
+            UpdateCharacteristicPoint(surfaceLine.DitchPolderSide, CharacteristicPointType.DitchPolderSide,
+                                      currentCharacteristicPointEntities, collector);
         }
 
-        private static void UpdateCharacteristicPoint(Point3D characteristicPoint, SurfaceLinePointEntity currentCharacteristicPointEntity,
-                                                      Action<SurfaceLinePointEntity> replaceCharacteristicPointEntity,
+        private static void UpdateCharacteristicPoint(Point3D currentCharacteristicPoint, CharacteristicPointType type,
+                                                      CharacteristicPointEntity[] currentCharacteristicPointEntities,
                                                       UpdateConversionCollector collector)
         {
-            if (characteristicPoint == null && currentCharacteristicPointEntity != null)
-            {
-                replaceCharacteristicPointEntity(null);
-            }
-            else if (characteristicPoint != null && IsEntityDifferentFromCurrentCharacteristicPoint(characteristicPoint, currentCharacteristicPointEntity))
-            {
-                replaceCharacteristicPointEntity(collector.GetSurfaceLinePoint(characteristicPoint));
-            }
-        }
+            short typeValue = (short)type;
+            CharacteristicPointEntity characteristicPointEntity = currentCharacteristicPointEntities
+                .FirstOrDefault(cpe => cpe.CharacteristicPointType == typeValue);
 
-        private static bool IsEntityDifferentFromCurrentCharacteristicPoint(Point3D characteristicPoint, SurfaceLinePointEntity currentCharacteristicPointEntity)
-        {
-            return currentCharacteristicPointEntity == null ||
-                   characteristicPoint.StorageId != currentCharacteristicPointEntity.SurfaceLinePointEntityId;
+            if (currentCharacteristicPoint == null && characteristicPointEntity != null)
+            {
+                characteristicPointEntity.SurfaceLinePointEntity = null;
+            }
+            else if (currentCharacteristicPoint != null)
+            {
+                SurfaceLinePointEntity geometryPointEntity = collector.GetSurfaceLinePoint(currentCharacteristicPoint);
+                if (characteristicPointEntity == null)
+                {
+                    geometryPointEntity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
+                    {
+                        CharacteristicPointType = typeValue
+                    });
+                }
+                else if (characteristicPointEntity.SurfaceLinePointEntity != geometryPointEntity)
+                {
+                    characteristicPointEntity.SurfaceLinePointEntity = geometryPointEntity;
+                }
+            }
         }
 
         /// <summary>

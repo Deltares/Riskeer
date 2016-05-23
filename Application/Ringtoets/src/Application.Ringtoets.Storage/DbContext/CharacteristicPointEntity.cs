@@ -33,22 +33,12 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class SurfaceLineEntity
+    public partial class CharacteristicPointEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SurfaceLineEntity()
-        {
-            this.SurfaceLinePointEntities = new HashSet<SurfaceLinePointEntity>();
-        }
+        public long CharacteristicPointEntityId { get; set; }
+        public short CharacteristicPointType { get; set; }
+        public long SurfaceLinePointEntityId { get; set; }
     
-        public long SurfaceLineEntityId { get; set; }
-        public long FailureMechanismEntityId { get; set; }
-        public string Name { get; set; }
-        public decimal ReferenceLineIntersectionX { get; set; }
-        public decimal ReferenceLineIntersectionY { get; set; }
-    
-        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SurfaceLinePointEntity> SurfaceLinePointEntities { get; set; }
+        public virtual SurfaceLinePointEntity SurfaceLinePointEntity { get; set; }
     }
 }

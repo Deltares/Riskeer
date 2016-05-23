@@ -252,40 +252,73 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             // Assert
             Assert.AreEqual(surfaceLine.Points.Length, entity.SurfaceLinePointEntities.Count);
+
+            int dikeToeRiverIndex = GetGeometryPointIndexForCharacteristicPoint(surfaceLine, surfaceLine.DikeToeAtRiver);
+            int dikeToePolderIndex = GetGeometryPointIndexForCharacteristicPoint(surfaceLine, surfaceLine.DikeToeAtPolder);
+            int ditchDikeSideIndex = GetGeometryPointIndexForCharacteristicPoint(surfaceLine, surfaceLine.DitchDikeSide);
+            int bottomDitchDikeSideIndex = GetGeometryPointIndexForCharacteristicPoint(surfaceLine, surfaceLine.BottomDitchDikeSide);
+            int buttomDitchPolderSideIndex = GetGeometryPointIndexForCharacteristicPoint(surfaceLine, surfaceLine.BottomDitchPolderSide);
+            int ditchPolderSide = GetGeometryPointIndexForCharacteristicPoint(surfaceLine, surfaceLine.DitchPolderSide);
+
+            var surfaceLinePointEntities = entity.SurfaceLinePointEntities.OrderBy(pe => pe.Order).ToArray();
             for (int i = 0; i < surfaceLine.Points.Length; i++)
             {
                 Point3D geometryPoint = surfaceLine.Points[i];
-                SurfaceLinePointEntity pointEntity = entity.SurfaceLinePointEntities.ElementAt(i);
+                SurfaceLinePointEntity pointEntity = surfaceLinePointEntities[i];
 
                 Assert.AreEqual(geometryPoint.X, pointEntity.X);
                 Assert.AreEqual(geometryPoint.Y, pointEntity.Y);
                 Assert.AreEqual(geometryPoint.Z, pointEntity.Z);
-            }
 
-            Assert.AreEqual(surfaceLine.BottomDitchDikeSide.X, entity.BottomDitchDikeSidePointEntity.X);
-            Assert.AreEqual(surfaceLine.BottomDitchDikeSide.Y, entity.BottomDitchDikeSidePointEntity.Y);
-            Assert.AreEqual(surfaceLine.BottomDitchDikeSide.Z, entity.BottomDitchDikeSidePointEntity.Z);
-            Assert.AreEqual(GetGeometryPointIndexForCharacteristicPoint(surfaceLine, surfaceLine.BottomDitchDikeSide), entity.BottomDitchDikeSidePointEntity.Order);
-            Assert.AreEqual(surfaceLine.BottomDitchPolderSide.X, entity.BottomDitchPolderSidePointEntity.X);
-            Assert.AreEqual(surfaceLine.BottomDitchPolderSide.Y, entity.BottomDitchPolderSidePointEntity.Y);
-            Assert.AreEqual(surfaceLine.BottomDitchPolderSide.Z, entity.BottomDitchPolderSidePointEntity.Z);
-            Assert.AreEqual(GetGeometryPointIndexForCharacteristicPoint(surfaceLine, surfaceLine.BottomDitchPolderSide), entity.BottomDitchPolderSidePointEntity.Order);
-            Assert.AreEqual(surfaceLine.DikeToeAtPolder.X, entity.DikeToeAtPolderPointEntity.X);
-            Assert.AreEqual(surfaceLine.DikeToeAtPolder.Y, entity.DikeToeAtPolderPointEntity.Y);
-            Assert.AreEqual(surfaceLine.DikeToeAtPolder.Z, entity.DikeToeAtPolderPointEntity.Z);
-            Assert.AreEqual(GetGeometryPointIndexForCharacteristicPoint(surfaceLine, surfaceLine.DikeToeAtPolder), entity.DikeToeAtPolderPointEntity.Order);
-            Assert.AreEqual(surfaceLine.DikeToeAtRiver.X, entity.DikeToeAtRiverPointEntity.X);
-            Assert.AreEqual(surfaceLine.DikeToeAtRiver.Y, entity.DikeToeAtRiverPointEntity.Y);
-            Assert.AreEqual(surfaceLine.DikeToeAtRiver.Z, entity.DikeToeAtRiverPointEntity.Z);
-            Assert.AreEqual(GetGeometryPointIndexForCharacteristicPoint(surfaceLine, surfaceLine.DikeToeAtRiver), entity.DikeToeAtRiverPointEntity.Order);
-            Assert.AreEqual(surfaceLine.DitchDikeSide.X, entity.DitchDikeSidePointEntity.X);
-            Assert.AreEqual(surfaceLine.DitchDikeSide.Y, entity.DitchDikeSidePointEntity.Y);
-            Assert.AreEqual(surfaceLine.DitchDikeSide.Z, entity.DitchDikeSidePointEntity.Z);
-            Assert.AreEqual(GetGeometryPointIndexForCharacteristicPoint(surfaceLine, surfaceLine.DitchDikeSide), entity.DitchDikeSidePointEntity.Order);
-            Assert.AreEqual(surfaceLine.DitchPolderSide.X, entity.DitchPolderSidePointEntity.X);
-            Assert.AreEqual(surfaceLine.DitchPolderSide.Y, entity.DitchPolderSidePointEntity.Y);
-            Assert.AreEqual(surfaceLine.DitchPolderSide.Z, entity.DitchPolderSidePointEntity.Z);
-            Assert.AreEqual(GetGeometryPointIndexForCharacteristicPoint(surfaceLine, surfaceLine.DitchPolderSide), entity.DitchPolderSidePointEntity.Order);
+                if (i == dikeToeRiverIndex)
+                {
+                    Assert.AreEqual(surfaceLine.DikeToeAtRiver.X, pointEntity.X);
+                    Assert.AreEqual(surfaceLine.DikeToeAtRiver.Y, pointEntity.Y);
+                    Assert.AreEqual(surfaceLine.DikeToeAtRiver.Z, pointEntity.Z);
+                    CollectionAssert.Contains(pointEntity.CharacteristicPointEntities.Select(cpe => cpe.CharacteristicPointType),
+                                              (short)CharacteristicPointType.DikeToeAtRiver);
+                }
+                if (i == dikeToePolderIndex)
+                {
+                    Assert.AreEqual(surfaceLine.DikeToeAtPolder.X, pointEntity.X);
+                    Assert.AreEqual(surfaceLine.DikeToeAtPolder.Y, pointEntity.Y);
+                    Assert.AreEqual(surfaceLine.DikeToeAtPolder.Z, pointEntity.Z);
+                    CollectionAssert.Contains(pointEntity.CharacteristicPointEntities.Select(cpe => cpe.CharacteristicPointType),
+                                              (short)CharacteristicPointType.DikeToeAtPolder);
+                }
+                if (i == ditchDikeSideIndex)
+                {
+                    Assert.AreEqual(surfaceLine.DitchDikeSide.X, pointEntity.X);
+                    Assert.AreEqual(surfaceLine.DitchDikeSide.Y, pointEntity.Y);
+                    Assert.AreEqual(surfaceLine.DitchDikeSide.Z, pointEntity.Z);
+                    CollectionAssert.Contains(pointEntity.CharacteristicPointEntities.Select(cpe => cpe.CharacteristicPointType),
+                                              (short)CharacteristicPointType.DitchDikeSide);
+                }
+                if (i == bottomDitchDikeSideIndex)
+                {
+                    Assert.AreEqual(surfaceLine.BottomDitchDikeSide.X, pointEntity.X);
+                    Assert.AreEqual(surfaceLine.BottomDitchDikeSide.Y, pointEntity.Y);
+                    Assert.AreEqual(surfaceLine.BottomDitchDikeSide.Z, pointEntity.Z);
+                    CollectionAssert.Contains(pointEntity.CharacteristicPointEntities.Select(cpe => cpe.CharacteristicPointType),
+                                              (short)CharacteristicPointType.BottomDitchDikeSide);
+                }
+                if (i == buttomDitchPolderSideIndex)
+                {
+                    Assert.AreEqual(surfaceLine.BottomDitchPolderSide.X, pointEntity.X);
+                    Assert.AreEqual(surfaceLine.BottomDitchPolderSide.Y, pointEntity.Y);
+                    Assert.AreEqual(surfaceLine.BottomDitchPolderSide.Z, pointEntity.Z);
+                    CollectionAssert.Contains(pointEntity.CharacteristicPointEntities.Select(cpe => cpe.CharacteristicPointType),
+                                              (short)CharacteristicPointType.BottomDitchPolderSide);
+                }
+                if (i == ditchPolderSide)
+                {
+                    Assert.AreEqual(surfaceLine.DitchPolderSide.X, pointEntity.X);
+                    Assert.AreEqual(surfaceLine.DitchPolderSide.Y, pointEntity.Y);
+                    Assert.AreEqual(surfaceLine.DitchPolderSide.Z, pointEntity.Z);
+                    CollectionAssert.Contains(pointEntity.CharacteristicPointEntities.Select(cpe => cpe.CharacteristicPointType),
+                                              (short)CharacteristicPointType.DitchPolderSide);
+                }
+            }
             mocks.VerifyAll();
         }
 

@@ -18,6 +18,14 @@
           <Property Name="HydraulicDatabaseLocation" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Composition" Type="smallint" Nullable="false" />
         </EntityType>
+        <EntityType Name="CharacteristicPointEntity">
+          <Key>
+            <PropertyRef Name="CharacteristicPointEntityId" />
+          </Key>
+          <Property Name="CharacteristicPointEntityId" Type="integer" Nullable="false" />
+          <Property Name="CharacteristicPointType" Type="smallint" Nullable="false" />
+          <Property Name="SurfaceLinePointEntityId" Type="integer" Nullable="false" />
+        </EntityType>
         <EntityType Name="FailureMechanismEntity">
           <Key>
             <PropertyRef Name="FailureMechanismEntityId" />
@@ -118,12 +126,6 @@
           <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="ReferenceLineIntersectionX" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="ReferenceLineIntersectionY" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-          <Property Name="DitchPolderSidePointEntityId" Type="integer" />
-          <Property Name="BottomDitchPolderSidePointEntityId" Type="integer" />
-          <Property Name="BottomDitchDikeSidePointEntityId" Type="integer" />
-          <Property Name="DitchDikeSidePointEntityId" Type="integer" />
-          <Property Name="DikeToeAtRiverEntityId" Type="integer" />
-          <Property Name="DikeToeAtPolderEntityId" Type="integer" />
         </EntityType>
         <EntityType Name="SurfaceLinePointEntity">
           <Key>
@@ -154,6 +156,18 @@
             </Principal>
             <Dependent Role="AssessmentSectionEntity">
               <PropertyRef Name="ProjectEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CharacteristicPointEntity_0_0">
+          <End Role="SurfaceLinePointEntity" Type="Self.SurfaceLinePointEntity" Multiplicity="1" />
+          <End Role="CharacteristicPointEntity" Type="Self.CharacteristicPointEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurfaceLinePointEntity">
+              <PropertyRef Name="SurfaceLinePointEntityId" />
+            </Principal>
+            <Dependent Role="CharacteristicPointEntity">
+              <PropertyRef Name="SurfaceLinePointEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -277,78 +291,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SurfaceLineEntity_1_0">
-          <End Role="SurfaceLinePointEntity" Type="Self.SurfaceLinePointEntity" Multiplicity="0..1" />
-          <End Role="SurfaceLineEntity" Type="Self.SurfaceLineEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SurfaceLinePointEntity">
-              <PropertyRef Name="SurfaceLinePointEntityId" />
-            </Principal>
-            <Dependent Role="SurfaceLineEntity">
-              <PropertyRef Name="DitchPolderSidePointEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurfaceLineEntity_2_0">
-          <End Role="SurfaceLinePointEntity" Type="Self.SurfaceLinePointEntity" Multiplicity="0..1" />
-          <End Role="SurfaceLineEntity" Type="Self.SurfaceLineEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SurfaceLinePointEntity">
-              <PropertyRef Name="SurfaceLinePointEntityId" />
-            </Principal>
-            <Dependent Role="SurfaceLineEntity">
-              <PropertyRef Name="DitchDikeSidePointEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurfaceLineEntity_3_0">
-          <End Role="SurfaceLinePointEntity" Type="Self.SurfaceLinePointEntity" Multiplicity="0..1" />
-          <End Role="SurfaceLineEntity" Type="Self.SurfaceLineEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SurfaceLinePointEntity">
-              <PropertyRef Name="SurfaceLinePointEntityId" />
-            </Principal>
-            <Dependent Role="SurfaceLineEntity">
-              <PropertyRef Name="DikeToeAtRiverEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurfaceLineEntity_4_0">
-          <End Role="SurfaceLinePointEntity" Type="Self.SurfaceLinePointEntity" Multiplicity="0..1" />
-          <End Role="SurfaceLineEntity" Type="Self.SurfaceLineEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SurfaceLinePointEntity">
-              <PropertyRef Name="SurfaceLinePointEntityId" />
-            </Principal>
-            <Dependent Role="SurfaceLineEntity">
-              <PropertyRef Name="DikeToeAtPolderEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurfaceLineEntity_5_0">
-          <End Role="SurfaceLinePointEntity" Type="Self.SurfaceLinePointEntity" Multiplicity="0..1" />
-          <End Role="SurfaceLineEntity" Type="Self.SurfaceLineEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SurfaceLinePointEntity">
-              <PropertyRef Name="SurfaceLinePointEntityId" />
-            </Principal>
-            <Dependent Role="SurfaceLineEntity">
-              <PropertyRef Name="BottomDitchPolderSidePointEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurfaceLineEntity_6_0">
-          <End Role="SurfaceLinePointEntity" Type="Self.SurfaceLinePointEntity" Multiplicity="0..1" />
-          <End Role="SurfaceLineEntity" Type="Self.SurfaceLineEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SurfaceLinePointEntity">
-              <PropertyRef Name="SurfaceLinePointEntityId" />
-            </Principal>
-            <Dependent Role="SurfaceLineEntity">
-              <PropertyRef Name="BottomDitchDikeSidePointEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SurfaceLinePointEntity_0_0">
           <End Role="SurfaceLineEntity" Type="Self.SurfaceLineEntity" Multiplicity="1" />
           <End Role="SurfaceLinePointEntity" Type="Self.SurfaceLinePointEntity" Multiplicity="*" />
@@ -363,6 +305,7 @@
         </Association>
         <EntityContainer Name="RingtoetsEntitiesModelStoreContainer">
           <EntitySet Name="AssessmentSectionEntity" EntityType="Self.AssessmentSectionEntity" store:Type="Tables" />
+          <EntitySet Name="CharacteristicPointEntity" EntityType="Self.CharacteristicPointEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismEntity" EntityType="Self.FailureMechanismEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismSectionEntity" EntityType="Self.FailureMechanismSectionEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismSectionPointEntity" EntityType="Self.FailureMechanismSectionPointEntity" store:Type="Tables" />
@@ -379,6 +322,10 @@
           <AssociationSet Name="FK_AssessmentSectionEntity_0_0" Association="Self.FK_AssessmentSectionEntity_0_0">
             <End Role="ProjectEntity" EntitySet="ProjectEntity" />
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CharacteristicPointEntity_0_0" Association="Self.FK_CharacteristicPointEntity_0_0">
+            <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntity" />
+            <End Role="CharacteristicPointEntity" EntitySet="CharacteristicPointEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_FailureMechanismEntity_0_0" Association="Self.FK_FailureMechanismEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
@@ -420,30 +367,6 @@
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
             <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntity" />
           </AssociationSet>
-          <AssociationSet Name="FK_SurfaceLineEntity_1_0" Association="Self.FK_SurfaceLineEntity_1_0">
-            <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntity" />
-            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurfaceLineEntity_2_0" Association="Self.FK_SurfaceLineEntity_2_0">
-            <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntity" />
-            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurfaceLineEntity_3_0" Association="Self.FK_SurfaceLineEntity_3_0">
-            <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntity" />
-            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurfaceLineEntity_4_0" Association="Self.FK_SurfaceLineEntity_4_0">
-            <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntity" />
-            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurfaceLineEntity_5_0" Association="Self.FK_SurfaceLineEntity_5_0">
-            <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntity" />
-            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurfaceLineEntity_6_0" Association="Self.FK_SurfaceLineEntity_6_0">
-            <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntity" />
-            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntity" />
-          </AssociationSet>
           <AssociationSet Name="FK_SurfaceLinePointEntity_0_0" Association="Self.FK_SurfaceLinePointEntity_0_0">
             <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntity" />
             <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntity" />
@@ -455,6 +378,7 @@
       <Schema Namespace="RingtoetsEntitiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="RingtoetsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AssessmentSectionEntities" EntityType="RingtoetsEntitiesModel.AssessmentSectionEntity" />
+          <EntitySet Name="CharacteristicPointEntities" EntityType="RingtoetsEntitiesModel.CharacteristicPointEntity" />
           <EntitySet Name="FailureMechanismEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismEntity" />
           <EntitySet Name="FailureMechanismSectionEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismSectionEntity" />
           <EntitySet Name="FailureMechanismSectionPointEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismSectionPointEntity" />
@@ -484,6 +408,10 @@
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
             <End Role="ReferenceLinePointEntity" EntitySet="ReferenceLinePointEntities" />
           </AssociationSet>
+          <AssociationSet Name="FK_CharacteristicPointEntity_0_0" Association="RingtoetsEntitiesModel.FK_CharacteristicPointEntity_0_0">
+            <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntities" />
+            <End Role="CharacteristicPointEntity" EntitySet="CharacteristicPointEntities" />
+          </AssociationSet>
           <AssociationSet Name="FK_FailureMechanismSectionEntity_0_0" Association="RingtoetsEntitiesModel.FK_FailureMechanismSectionEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
@@ -512,30 +440,6 @@
             <End Role="StochasticSoilModelEntity" EntitySet="StochasticSoilModelEntities" />
             <End Role="StochasticSoilProfileEntity" EntitySet="StochasticSoilProfileEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_SurfaceLineEntity_1_0" Association="RingtoetsEntitiesModel.FK_SurfaceLineEntity_1_0">
-            <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntities" />
-            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurfaceLineEntity_2_0" Association="RingtoetsEntitiesModel.FK_SurfaceLineEntity_2_0">
-            <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntities" />
-            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurfaceLineEntity_3_0" Association="RingtoetsEntitiesModel.FK_SurfaceLineEntity_3_0">
-            <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntities" />
-            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurfaceLineEntity_4_0" Association="RingtoetsEntitiesModel.FK_SurfaceLineEntity_4_0">
-            <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntities" />
-            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurfaceLineEntity_5_0" Association="RingtoetsEntitiesModel.FK_SurfaceLineEntity_5_0">
-            <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntities" />
-            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurfaceLineEntity_6_0" Association="RingtoetsEntitiesModel.FK_SurfaceLineEntity_6_0">
-            <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntities" />
-            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
-          </AssociationSet>
           <AssociationSet Name="FK_SurfaceLinePointEntity_0_0" Association="RingtoetsEntitiesModel.FK_SurfaceLinePointEntity_0_0">
             <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
             <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntities" />
@@ -557,6 +461,15 @@
           <NavigationProperty Name="FailureMechanismEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="HydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationEntity" />
           <NavigationProperty Name="ReferenceLinePointEntities" Relationship="RingtoetsEntitiesModel.FK_ReferenceLinePointEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="ReferenceLinePointEntity" />
+        </EntityType>
+        <EntityType Name="CharacteristicPointEntity">
+          <Key>
+            <PropertyRef Name="CharacteristicPointEntityId" />
+          </Key>
+          <Property Name="CharacteristicPointEntityId" Type="Int64" Nullable="false" />
+          <Property Name="CharacteristicPointType" Type="Int16" Nullable="false" />
+          <Property Name="SurfaceLinePointEntityId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="SurfaceLinePointEntity" Relationship="RingtoetsEntitiesModel.FK_CharacteristicPointEntity_0_0" FromRole="CharacteristicPointEntity" ToRole="SurfaceLinePointEntity" />
         </EntityType>
         <EntityType Name="FailureMechanismEntity">
           <Key>
@@ -675,19 +588,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="ReferenceLineIntersectionX" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="ReferenceLineIntersectionY" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="DitchPolderSidePointEntityId" Type="Int64" />
-          <Property Name="BottomDitchPolderSidePointEntityId" Type="Int64" />
-          <Property Name="BottomDitchDikeSidePointEntityId" Type="Int64" />
-          <Property Name="DitchDikeSidePointEntityId" Type="Int64" />
-          <Property Name="DikeToeAtRiverEntityId" Type="Int64" />
-          <Property Name="DikeToeAtPolderEntityId" Type="Int64" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_0_0" FromRole="SurfaceLineEntity" ToRole="FailureMechanismEntity" />
-          <NavigationProperty Name="DitchPolderSidePointEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_1_0" FromRole="SurfaceLineEntity" ToRole="SurfaceLinePointEntity" />
-          <NavigationProperty Name="DitchDikeSidePointEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_2_0" FromRole="SurfaceLineEntity" ToRole="SurfaceLinePointEntity" />
-          <NavigationProperty Name="DikeToeAtRiverPointEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_3_0" FromRole="SurfaceLineEntity" ToRole="SurfaceLinePointEntity" />
-          <NavigationProperty Name="DikeToeAtPolderPointEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_4_0" FromRole="SurfaceLineEntity" ToRole="SurfaceLinePointEntity" />
-          <NavigationProperty Name="BottomDitchPolderSidePointEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_5_0" FromRole="SurfaceLineEntity" ToRole="SurfaceLinePointEntity" />
-          <NavigationProperty Name="BottomDitchDikeSidePointEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_6_0" FromRole="SurfaceLineEntity" ToRole="SurfaceLinePointEntity" />
           <NavigationProperty Name="SurfaceLinePointEntities" Relationship="RingtoetsEntitiesModel.FK_SurfaceLinePointEntity_0_0" FromRole="SurfaceLineEntity" ToRole="SurfaceLinePointEntity" />
         </EntityType>
         <EntityType Name="SurfaceLinePointEntity">
@@ -700,12 +601,7 @@
           <Property Name="Y" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="Z" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <NavigationProperty Name="DitchPolderSidePointParentEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_1_0" FromRole="SurfaceLinePointEntity" ToRole="SurfaceLineEntity" />
-          <NavigationProperty Name="DitchDikeSidePointParentEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_2_0" FromRole="SurfaceLinePointEntity" ToRole="SurfaceLineEntity" />
-          <NavigationProperty Name="DikeToeAtRiverPointParentEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_3_0" FromRole="SurfaceLinePointEntity" ToRole="SurfaceLineEntity" />
-          <NavigationProperty Name="DikeToeAtPolderPointParentEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_4_0" FromRole="SurfaceLinePointEntity" ToRole="SurfaceLineEntity" />
-          <NavigationProperty Name="BottomDitchPolderSidePointParentEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_5_0" FromRole="SurfaceLinePointEntity" ToRole="SurfaceLineEntity" />
-          <NavigationProperty Name="BottomDitchDikeSidePointParentEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_6_0" FromRole="SurfaceLinePointEntity" ToRole="SurfaceLineEntity" />
+          <NavigationProperty Name="CharacteristicPointEntities" Relationship="RingtoetsEntitiesModel.FK_CharacteristicPointEntity_0_0" FromRole="SurfaceLinePointEntity" ToRole="CharacteristicPointEntity" />
           <NavigationProperty Name="SurfaceLineEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLinePointEntity_0_0" FromRole="SurfaceLinePointEntity" ToRole="SurfaceLineEntity" />
         </EntityType>
         <EntityType Name="VersionEntity">
@@ -762,6 +658,18 @@
             </Principal>
             <Dependent Role="ReferenceLinePointEntity">
               <PropertyRef Name="AssessmentSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CharacteristicPointEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.SurfaceLinePointEntity" Role="SurfaceLinePointEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.CharacteristicPointEntity" Role="CharacteristicPointEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurfaceLinePointEntity">
+              <PropertyRef Name="SurfaceLinePointEntityId" />
+            </Principal>
+            <Dependent Role="CharacteristicPointEntity">
+              <PropertyRef Name="SurfaceLinePointEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -849,78 +757,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SurfaceLineEntity_1_0">
-          <End Type="RingtoetsEntitiesModel.SurfaceLinePointEntity" Role="SurfaceLinePointEntity" Multiplicity="0..1" />
-          <End Type="RingtoetsEntitiesModel.SurfaceLineEntity" Role="SurfaceLineEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SurfaceLinePointEntity">
-              <PropertyRef Name="SurfaceLinePointEntityId" />
-            </Principal>
-            <Dependent Role="SurfaceLineEntity">
-              <PropertyRef Name="DitchPolderSidePointEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurfaceLineEntity_2_0">
-          <End Type="RingtoetsEntitiesModel.SurfaceLinePointEntity" Role="SurfaceLinePointEntity" Multiplicity="0..1" />
-          <End Type="RingtoetsEntitiesModel.SurfaceLineEntity" Role="SurfaceLineEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SurfaceLinePointEntity">
-              <PropertyRef Name="SurfaceLinePointEntityId" />
-            </Principal>
-            <Dependent Role="SurfaceLineEntity">
-              <PropertyRef Name="DitchDikeSidePointEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurfaceLineEntity_3_0">
-          <End Type="RingtoetsEntitiesModel.SurfaceLinePointEntity" Role="SurfaceLinePointEntity" Multiplicity="0..1" />
-          <End Type="RingtoetsEntitiesModel.SurfaceLineEntity" Role="SurfaceLineEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SurfaceLinePointEntity">
-              <PropertyRef Name="SurfaceLinePointEntityId" />
-            </Principal>
-            <Dependent Role="SurfaceLineEntity">
-              <PropertyRef Name="DikeToeAtRiverEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurfaceLineEntity_4_0">
-          <End Type="RingtoetsEntitiesModel.SurfaceLinePointEntity" Role="SurfaceLinePointEntity" Multiplicity="0..1" />
-          <End Type="RingtoetsEntitiesModel.SurfaceLineEntity" Role="SurfaceLineEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SurfaceLinePointEntity">
-              <PropertyRef Name="SurfaceLinePointEntityId" />
-            </Principal>
-            <Dependent Role="SurfaceLineEntity">
-              <PropertyRef Name="DikeToeAtPolderEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurfaceLineEntity_5_0">
-          <End Type="RingtoetsEntitiesModel.SurfaceLinePointEntity" Role="SurfaceLinePointEntity" Multiplicity="0..1" />
-          <End Type="RingtoetsEntitiesModel.SurfaceLineEntity" Role="SurfaceLineEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SurfaceLinePointEntity">
-              <PropertyRef Name="SurfaceLinePointEntityId" />
-            </Principal>
-            <Dependent Role="SurfaceLineEntity">
-              <PropertyRef Name="BottomDitchPolderSidePointEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurfaceLineEntity_6_0">
-          <End Type="RingtoetsEntitiesModel.SurfaceLinePointEntity" Role="SurfaceLinePointEntity" Multiplicity="0..1" />
-          <End Type="RingtoetsEntitiesModel.SurfaceLineEntity" Role="SurfaceLineEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SurfaceLinePointEntity">
-              <PropertyRef Name="SurfaceLinePointEntityId" />
-            </Principal>
-            <Dependent Role="SurfaceLineEntity">
-              <PropertyRef Name="BottomDitchDikeSidePointEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SurfaceLinePointEntity_0_0">
           <End Type="RingtoetsEntitiesModel.SurfaceLineEntity" Role="SurfaceLineEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.SurfaceLinePointEntity" Role="SurfaceLinePointEntity" Multiplicity="*" />
@@ -950,6 +786,15 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ProjectEntityId" ColumnName="ProjectEntityId" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CharacteristicPointEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.CharacteristicPointEntity">
+              <MappingFragment StoreEntitySet="CharacteristicPointEntity">
+                <ScalarProperty Name="SurfaceLinePointEntityId" ColumnName="SurfaceLinePointEntityId" />
+                <ScalarProperty Name="CharacteristicPointType" ColumnName="CharacteristicPointType" />
+                <ScalarProperty Name="CharacteristicPointEntityId" ColumnName="CharacteristicPointEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1057,12 +902,6 @@
           <EntitySetMapping Name="SurfaceLineEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.SurfaceLineEntity">
               <MappingFragment StoreEntitySet="SurfaceLineEntity">
-                <ScalarProperty Name="DikeToeAtPolderEntityId" ColumnName="DikeToeAtPolderEntityId" />
-                <ScalarProperty Name="DikeToeAtRiverEntityId" ColumnName="DikeToeAtRiverEntityId" />
-                <ScalarProperty Name="DitchDikeSidePointEntityId" ColumnName="DitchDikeSidePointEntityId" />
-                <ScalarProperty Name="BottomDitchDikeSidePointEntityId" ColumnName="BottomDitchDikeSidePointEntityId" />
-                <ScalarProperty Name="BottomDitchPolderSidePointEntityId" ColumnName="BottomDitchPolderSidePointEntityId" />
-                <ScalarProperty Name="DitchPolderSidePointEntityId" ColumnName="DitchPolderSidePointEntityId" />
                 <ScalarProperty Name="ReferenceLineIntersectionY" ColumnName="ReferenceLineIntersectionY" />
                 <ScalarProperty Name="ReferenceLineIntersectionX" ColumnName="ReferenceLineIntersectionX" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
