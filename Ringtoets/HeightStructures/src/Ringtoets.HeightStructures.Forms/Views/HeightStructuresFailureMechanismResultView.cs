@@ -26,26 +26,22 @@ using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.HeightStructures.Data;
 
-using CoreCommonResources = Core.Common.Base.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
+namespace Ringtoets.HeightStructures.Forms.Views
 {
-    /// <summary>
-    /// The view for the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
-    /// </summary>
-    public partial class GrassCoverErosionInwardsFailureMechanismResultView : FailureMechanismResultView<GrassCoverErosionInwardsFailureMechanismSectionResult>
+    public partial class HeightStructuresFailureMechanismResultView : FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult>
     {
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismResultView"/>.
+        /// Creates a new instance of <see cref="HeightStructuresFailureMechanismResultView"/>.
         /// </summary>
-        public GrassCoverErosionInwardsFailureMechanismResultView()
+        public HeightStructuresFailureMechanismResultView()
         {
             AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
 
@@ -124,9 +120,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             };
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
+        protected override object CreateFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult)
         {
-            return new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult);
+            return new HeightStructuresFailureMechanismSectionResultRow(sectionResult);
         }
     }
 }

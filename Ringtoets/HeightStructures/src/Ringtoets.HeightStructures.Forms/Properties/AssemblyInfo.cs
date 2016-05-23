@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.HeightStructures.Forms")]
 [assembly: AssemblyProduct("Ringtoets.HeightStructures.Forms")]
 [assembly: Guid("59547e5b-3119-41e3-adf7-5f94b6cf0a5b")]
+[assembly: InternalsVisibleTo("Ringtoets.HeightStructures.Forms.Test")]
