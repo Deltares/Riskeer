@@ -126,7 +126,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(requiredProbabilityProperty);
             Assert.IsTrue(requiredProbabilityProperty.IsReadOnly);
             Assert.AreEqual("Grasbekleding erosie kruin en binnentalud", requiredProbabilityProperty.Category);
-            Assert.AreEqual("Faalkanseis [1/year]", requiredProbabilityProperty.DisplayName);
+            Assert.AreEqual("Faalkanseis [1/jaar]", requiredProbabilityProperty.DisplayName);
             Assert.AreEqual("De maximaal toegestane faalkanseis voor het toetsspoor grasbekleding erosie kruin en binnentalud.", requiredProbabilityProperty.Description);
 
             PropertyDescriptor requiredReliabilityProperty = dynamicProperties[requiredReliabilityPropertyIndex];
@@ -140,7 +140,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(probabilityProperty);
             Assert.IsTrue(probabilityProperty.IsReadOnly);
             Assert.AreEqual("Grasbekleding erosie kruin en binnentalud", probabilityProperty.Category);
-            Assert.AreEqual("Faalkans [1/year]", probabilityProperty.DisplayName);
+            Assert.AreEqual("Faalkans [1/jaar]", probabilityProperty.DisplayName);
             Assert.AreEqual("De kans dat het toetsspoor grasbekleding erosie kruin en binnentalud optreedt voor deze berekening.", probabilityProperty.Description);
 
             PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];

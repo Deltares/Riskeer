@@ -308,7 +308,7 @@
     <value>De kans dat het toetsspoor grasbekleding erosie kruin en binnentalud optreedt voor deze berekening.</value>
   </data>
   <data name="GrassCoverErosionInwardsOutput_Probability_Displayname" xml:space="preserve">
-    <value>Faalkans [1/year]</value>
+    <value>Faalkans [1/jaar]</value>
   </data>
   <data name="GrassCoverErosionInwardsOutput_Reliability_Description" xml:space="preserve">
     <value>De betrouwbaarheidsindex van de faalkans voor deze berekening.</value>
@@ -320,7 +320,7 @@
     <value>De maximaal toegestane faalkanseis voor het toetsspoor grasbekleding erosie kruin en binnentalud.</value>
   </data>
   <data name="GrassCoverErosionInwardsOutput_RequiredProbability_Displayname" xml:space="preserve">
-    <value>Faalkanseis [1/year]</value>
+    <value>Faalkanseis [1/jaar]</value>
   </data>
   <data name="GrassCoverErosionInwardsOutput_RequiredReliability_Description" xml:space="preserve">
     <value>De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor grasbekleding erosie kruin en binnentalud.</value>
