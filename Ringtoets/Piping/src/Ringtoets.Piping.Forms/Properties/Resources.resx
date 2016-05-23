@@ -524,7 +524,7 @@
     <value>Grondeigenschappen</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_PipingFactorOfSafety_Description" xml:space="preserve">
-    <value>De veiligheidsfactor voor het toetsspoor piping voor deze berekening.</value>
+    <value>De veiligheidsfactor voor deze berekening.</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_PipingFactorOfSafety_DisplayName" xml:space="preserve">
     <value>Veiligheidsfactor [-]</value>
@@ -548,7 +548,7 @@
     <value>Faalkans [1/jaar]</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_PipingReliability_Description" xml:space="preserve">
-    <value>De betrouwbaarheidsindex van de faalkans van het toetsspoor piping voor deze berekening.</value>
+    <value>De betrouwbaarheidsindex van de faalkans voor deze berekening.</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_PipingReliability_DisplayName" xml:space="preserve">
     <value>Betrouwbaarheidsindex faalkans [-]</value>
@@ -560,7 +560,7 @@
     <value>Faalkanseis [1/jaar]</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_RequiredReliability_Description" xml:space="preserve">
-    <value>De maximaal toegestane betrouwbaarheidsindex voor het toetsspoor piping.</value>
+    <value>De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor piping.</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_RequiredReliability_DisplayName" xml:space="preserve">
     <value>Betrouwbaarheidsindex faalkanseis [-]</value>

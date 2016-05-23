@@ -1168,7 +1168,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De veiligheidsfactor voor het toetsspoor piping voor deze berekening..
+        ///   Looks up a localized string similar to De veiligheidsfactor voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_PipingFactorOfSafety_Description {
             get {
@@ -1204,7 +1204,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De betrouwbaarheidsindex van de faalkans van het toetsspoor piping voor deze berekening..
+        ///   Looks up a localized string similar to De betrouwbaarheidsindex van de faalkans voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_PipingReliability_Description {
             get {
@@ -1240,7 +1240,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De maximaal toegestane betrouwbaarheidsindex voor het toetsspoor piping..
+        ///   Looks up a localized string similar to De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor piping..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_RequiredReliability_Description {
             get {
