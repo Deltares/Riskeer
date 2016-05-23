@@ -209,5 +209,132 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             // Assert
             Assert.AreEqual(expectedCreationScript, creationScript);
         }
+
+        [Test]
+        public void GenerateDataBaseCreationScript_HydraRingConfigurationWithStructuresOvertoppingCalculationCalculation_ReturnsExpectedCreationScript()
+        {
+            // Setup
+            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All);
+            int hydraulicBoundaryLocationId = 700004;
+
+            var hydraRingSection = new HydraRingSection(hydraulicBoundaryLocationId, "700004", 2.2, 3.3);
+            const double gravitationalAcceleration = 9.81;
+            const double modelFactorOvertoppingMean = 0.09;
+            const double modelFactorOvertoppingStandardDeviation = 0.06;
+            const double levelOfCrestOfStructureStandardDeviation = 0.05;
+            const double modelFactorOvertoppingSupercriticalFlowMean = 1.1;
+            const double modelFactorOvertoppingSupercriticalFlowStandardDeviation = 0.03;
+            const double allowableIncreaseOfLevelForStorageStandardDeviation = 0.1;
+            const double modelFactorForStorageVolumeMean = 1.0;
+            const double modelFactorForStorageVolumeStandardDeviation = 0.2;
+            const double storageStructureAreaStandardDeviation = 0.1;
+            const double modelFactorForIncomingFlowVolume = 1;
+            const double flowWidthAtBottomProtectionStandardDeviation = 0.05;
+            const double criticalOvertoppingDischargeMeanStandardDeviation = 0.15;
+            const double widthOfFlowAperturesStandardDeviation = 0.05;
+            const double stormDurationMean = 7.5;
+            const double stormDurationStandardDeviation = 0.25;
+
+            double levelOfCrestOfStructureMean = 1.1;
+            double orientationOfTheNormalOfTheStructure = 2.2;
+            double allowableIncreaseOfLevelForStorageMean = 3.3;
+            double storageStructureAreaMean = 4.4;
+            double flowWidthAtBottomProtectionMean = 5.5;
+            double criticalOvertoppingDischargeMean = 6.6;
+            double failureProbabilityOfStructureGivenErosion = 7.7;
+            double widthOfFlowAperturesMean = 8.8;
+            double deviationOfTheWaveDirection = 9.9;
+
+            hydraRingConfigurationService.AddHydraRingCalculationInput(new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId, hydraRingSection, gravitationalAcceleration,
+                                                                                                                 modelFactorOvertoppingMean, modelFactorOvertoppingStandardDeviation,
+                                                                                                                 levelOfCrestOfStructureMean, levelOfCrestOfStructureStandardDeviation,
+                                                                                                                 orientationOfTheNormalOfTheStructure,
+                                                                                                                 modelFactorOvertoppingSupercriticalFlowMean, modelFactorOvertoppingSupercriticalFlowStandardDeviation,
+                                                                                                                 allowableIncreaseOfLevelForStorageMean, allowableIncreaseOfLevelForStorageStandardDeviation,
+                                                                                                                 modelFactorForStorageVolumeMean, modelFactorForStorageVolumeStandardDeviation,
+                                                                                                                 storageStructureAreaMean, storageStructureAreaStandardDeviation,
+                                                                                                                 modelFactorForIncomingFlowVolume,
+                                                                                                                 flowWidthAtBottomProtectionMean, flowWidthAtBottomProtectionStandardDeviation,
+                                                                                                                 criticalOvertoppingDischargeMean, criticalOvertoppingDischargeMeanStandardDeviation,
+                                                                                                                 failureProbabilityOfStructureGivenErosion,
+                                                                                                                 widthOfFlowAperturesMean, widthOfFlowAperturesStandardDeviation,
+                                                                                                                 deviationOfTheWaveDirection,
+                                                                                                                 stormDurationMean, stormDurationStandardDeviation));
+
+            // Call
+            var creationScript = hydraRingConfigurationService.GenerateDataBaseCreationScript();
+
+            // Assert
+            var expectedCreationScript =
+                "DELETE FROM [HydraulicModels];" + Environment.NewLine +
+                "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [Sections];" + Environment.NewLine +
+                "INSERT INTO [Sections] VALUES (700004, 1, 1, '700004', '700004', 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [DesignTables];" + Environment.NewLine +
+                "INSERT INTO [DesignTables] VALUES (700004, 110, 1, 1, 1, 60, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [Numerics];" + Environment.NewLine +
+                "INSERT INTO [Numerics] VALUES (700004, 110, 1, 1, 421, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 10000, 20000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                "INSERT INTO [Numerics] VALUES (700004, 110, 1, 1, 422, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 10000, 20000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                "INSERT INTO [Numerics] VALUES (700004, 110, 1, 1, 423, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 10000, 20000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [VariableDatas];" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (700004, 110, 1, 1, 58, 9.81, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (700004, 110, 1, 1, 59, 0, 4, 0.09, 0.06, NULL, NULL, 0, 0, 999999);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (700004, 110, 1, 1, 60, 0, 2, 1.1, 0.05, NULL, NULL, 0, 0, 999999);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (700004, 110, 1, 1, 61, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (700004, 110, 1, 1, 62, 0, 2, 1.1, 0.03, NULL, NULL, 0, 0, 999999);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (700004, 110, 1, 1, 94, 0, 4, 3.3, 0.1, NULL, NULL, 0, 0, 999999);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (700004, 110, 1, 1, 95, 0, 4, 1, 0.2, NULL, NULL, 0, 0, 999999);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (700004, 110, 1, 1, 96, 0, 4, 4.4, NULL, NULL, NULL, 1, 0.1, 999999);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (700004, 110, 1, 1, 97, 1, 0, 0, NULL, NULL, NULL, 0, 0, 999999);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (700004, 110, 1, 1, 103, 0, 2, 5.5, 0.05, NULL, NULL, 0, 0, 999999);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (700004, 110, 1, 1, 104, 0, 4, 6.6, NULL, NULL, NULL, 1, 0.15, 999999);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (700004, 110, 1, 1, 105, 7.7, 0, 0, NULL, NULL, NULL, 0, 0, 999999);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (700004, 110, 1, 1, 106, 0, 2, 8.8, 0.05, NULL, NULL, 0, 0, 999999);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (700004, 110, 1, 1, 107, 9.9, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (700004, 110, 1, 1, 108, 0, 4, 7.5, NULL, NULL, NULL, 1, 0.25, 999999);" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
+                "INSERT INTO [SectionFaultTreeModels] VALUES (700004, 110, 1, 1, 4404);" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [Fetches];" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [AreaPoints];" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [PresentationSections];" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [Profiles];" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [ForelandModels];" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [Forelands];" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [ProbabilityAlternatives];" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [SetUpHeights];" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [Swells];" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [WaveReductions];" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [Areas];" + Environment.NewLine +
+                "INSERT INTO [Areas] VALUES (1, '1', 'Nederland');" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [Projects];" + Environment.NewLine +
+                "INSERT INTO [Projects] VALUES (1, 'WTI 2017', 'Ringtoets calculation');" + Environment.NewLine +
+                Environment.NewLine +
+                "DELETE FROM [Breakwaters];" + Environment.NewLine;
+
+            Assert.AreEqual(expectedCreationScript, creationScript);
+        }
     }
 }

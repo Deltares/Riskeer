@@ -65,7 +65,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             double deviationOfTheWaveDirection = 9.9;
 
             // Call
-
             StructuresOvertoppingCalculationInput structuresOvertoppingCalculationInput =
                 new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId, hydraRingSection,
                                                           gravitationalAcceleration,
@@ -86,7 +85,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
 
             // Assert
             const int expectedCalculationTypeId = 1;
-
             Assert.AreEqual(expectedCalculationTypeId, structuresOvertoppingCalculationInput.CalculationTypeId);
             Assert.AreEqual(hydraulicBoundaryLocationId, structuresOvertoppingCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.StructuresOvertopping, structuresOvertoppingCalculationInput.FailureMechanismType);
@@ -98,7 +96,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
         private static void CheckOvertoppingVariables(HydraRingVariable[] expected, HydraRingVariable[] actual)
         {
             Assert.AreEqual(expected.Length, actual.Length);
-            for (int i = 0; i < expected.Length; i++)
+            for (var i = 0; i < expected.Length; i++)
             {
                 Assert.AreEqual(expected[i].Value, actual[i].Value, 1e-6);
                 Assert.AreEqual(expected[i].DeviationType, actual[i].DeviationType);
