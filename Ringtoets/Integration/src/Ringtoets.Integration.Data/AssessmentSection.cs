@@ -70,7 +70,7 @@ namespace Ringtoets.Integration.Data
             FailureMechanismContribution = new FailureMechanismContribution(GetFailureMechanisms(), 30, 30000);
             ChangeComposition(composition);
         }
-        
+
         /// <summary>
         /// Gets the "Dijken en dammen - Piping" failure mechanism.
         /// </summary>

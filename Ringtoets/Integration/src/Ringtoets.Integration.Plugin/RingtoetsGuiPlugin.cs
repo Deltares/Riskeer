@@ -391,6 +391,13 @@ namespace Ringtoets.Integration.Plugin
                 return ReferenceEquals(commentView.Data, calculationContext.WrappedData);
             }
 
+            var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
+            if (failureMechanismContext != null)
+            {
+                return GetCommentableElements(failureMechanismContext.WrappedData)
+                    .Any(commentableElement => ReferenceEquals(commentView.Data, commentableElement));
+            }
+
             var assessmentSection = o as IAssessmentSection;
             if (assessmentSection != null)
             {
