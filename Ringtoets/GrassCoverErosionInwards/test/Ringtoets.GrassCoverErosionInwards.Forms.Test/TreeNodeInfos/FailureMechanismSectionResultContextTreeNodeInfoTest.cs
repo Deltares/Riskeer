@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -27,35 +26,35 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Plugin;
+using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
+namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
     public class FailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private RingtoetsGuiPlugin plugin;
+        private GrassCoverErosionInwardsGuiPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>));
+            plugin = new GrassCoverErosionInwardsGuiPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>), info.TagType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>), info.TagType);
+
+            Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanRename);
@@ -77,8 +76,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            var mechanism = new SimpleFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
+            var mechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var context = new FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
 
             // Call
             var text = info.Text(context);
@@ -107,7 +106,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
             gui.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
-            gui.Expect(g => g.ProjectOpened += null).IgnoreArguments();
 
             menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
@@ -121,25 +119,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             // Assert
             mocks.VerifyAll();
-        }
-    }
-
-    public class SimpleFailureMechanism : FailureMechanismBase, IHasSectionResults<CustomFailureMechanismSectionResult>
-    {
-        public SimpleFailureMechanism()
-            : base("N", "C")
-        {
-            SectionResults = new List<CustomFailureMechanismSectionResult>();
-        }
-
-        public IEnumerable<CustomFailureMechanismSectionResult> SectionResults { get; private set; }
-
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
         }
     }
 }
