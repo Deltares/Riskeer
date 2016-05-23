@@ -19,13 +19,296 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HeightStructures.Data
 {
     /// <summary>
     /// Class that holds all height structures calculation specific input parameters.
     /// </summary>
-    public class HeightStructuresInput : Observable, ICalculationInput {}
+    public class HeightStructuresInput : Observable, ICalculationInput
+    {
+        private readonly NormalDistribution levelOfCrestOfStructure;
+        private readonly GeneralHeightStructuresInput generalInputParameters;
+        private readonly NormalDistribution modelfactorOvertoppingSuperCriticalFlow;
+        private readonly LognormalDistribution allowableIncreaseOfLevelForStorage;
+        private readonly LognormalDistribution storageStructureArea;
+        private readonly LognormalDistribution flowWidthAtBottomProtection;
+        private readonly LognormalDistribution criticalOvertoppingDischarge;
+        private RoundedDouble orientationOfTheNormalOfTheStructure;
+        private RoundedDouble failureProbabilityOfStructureGivenErosion;
+        private readonly NormalDistribution widthOfFlowApertures;
+        private RoundedDouble deviationOfTheWaveDirection;
+        private readonly LognormalDistribution stormDuration;
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="HeightStructuresInput"/> class.
+        /// </summary>
+        /// <param name="generalInputParameters">General grass cover erosion inwards calculation input parameters that apply to each calculation.</param>
+        /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/> is <c>null</c>.</exception>
+        public HeightStructuresInput(GeneralHeightStructuresInput generalInputParameters)
+        {
+            if (generalInputParameters == null)
+            {
+                throw new ArgumentNullException("generalInputParameters");
+            }
+            this.generalInputParameters = generalInputParameters;
+
+            levelOfCrestOfStructure = new NormalDistribution(2)
+            {
+                StandardDeviation = new RoundedDouble(2, 0.05)
+            };
+
+            OrientationOfTheNormalOfTheStructure = new RoundedDouble(2);
+
+            modelfactorOvertoppingSuperCriticalFlow = new NormalDistribution(2)
+            {
+                Mean = new RoundedDouble(2, 1.1),
+                StandardDeviation = new RoundedDouble(2, 0.03)
+            };
+
+            allowableIncreaseOfLevelForStorage = new LognormalDistribution(2)
+            {
+                StandardDeviation = new RoundedDouble(2, 0.1)
+            };
+
+            storageStructureArea = new LognormalDistribution(2)
+            {
+                StandardDeviation = new RoundedDouble(2, 0.1)
+            };
+
+            flowWidthAtBottomProtection = new LognormalDistribution(2)
+            {
+                StandardDeviation = new RoundedDouble(2, 0.05)
+            };
+
+            criticalOvertoppingDischarge = new LognormalDistribution(2)
+            {
+                StandardDeviation = new RoundedDouble(2, 0.15)
+            };
+
+            widthOfFlowApertures = new NormalDistribution(2)
+            {
+                StandardDeviation = new RoundedDouble(2, 0.05)
+            };
+
+            deviationOfTheWaveDirection = new RoundedDouble(2);
+
+            stormDuration = new LognormalDistribution(2)
+            {
+                Mean = new RoundedDouble(2, 7.5), StandardDeviation = new RoundedDouble(2, 0.25)
+            };
+        }
+
+        #region Model Factors
+
+        public NormalDistribution ModelfactorOvertoppingSuperCriticalFlow
+        {
+            get
+            {
+                return modelfactorOvertoppingSuperCriticalFlow;
+            }
+            set
+            {
+                modelfactorOvertoppingSuperCriticalFlow.Mean = value.Mean.ToPrecision(modelfactorOvertoppingSuperCriticalFlow.Mean.NumberOfDecimalPlaces);
+            }
+        }
+
+        #endregion
+
+        #region Hydraulic pressure
+
+        /// <summary>
+        /// Gets or set the hydraulic boundary location from which to use the assessment level.
+        /// </summary>
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
+
+        public RoundedDouble DeviationOfTheWaveDirection
+        {
+            get
+            {
+                return deviationOfTheWaveDirection;
+            }
+            set
+            {
+                deviationOfTheWaveDirection = value.ToPrecision(deviationOfTheWaveDirection.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the storm duration
+        /// </summary>
+        public LognormalDistribution StormDuration
+        {
+            get
+            {
+                return stormDuration;
+            }
+            set
+            {
+                stormDuration.Mean = value.Mean.ToPrecision(stormDuration.Mean.NumberOfDecimalPlaces);
+            }
+        }
+
+        #endregion
+
+        #region Schematisation
+
+        public NormalDistribution LevelOfCrestOfStructure
+        {
+            get
+            {
+                return levelOfCrestOfStructure;
+            }
+            set
+            {
+                levelOfCrestOfStructure.Mean = value.Mean.ToPrecision(levelOfCrestOfStructure.Mean.NumberOfDecimalPlaces);
+                levelOfCrestOfStructure.StandardDeviation = value.StandardDeviation.ToPrecision(levelOfCrestOfStructure.StandardDeviation.NumberOfDecimalPlaces);
+            }
+        }
+
+        public RoundedDouble OrientationOfTheNormalOfTheStructure
+        {
+            get
+            {
+                return orientationOfTheNormalOfTheStructure;
+            }
+            set
+            {
+                orientationOfTheNormalOfTheStructure = value.ToPrecision(orientationOfTheNormalOfTheStructure.NumberOfDecimalPlaces);
+            }
+        }
+
+        public LognormalDistribution AllowableIncreaseOfLevelForStorage
+        {
+            get
+            {
+                return allowableIncreaseOfLevelForStorage;
+            }
+            set
+            {
+                allowableIncreaseOfLevelForStorage.Mean = value.Mean.ToPrecision(allowableIncreaseOfLevelForStorage.Mean.NumberOfDecimalPlaces);
+                allowableIncreaseOfLevelForStorage.StandardDeviation = value.StandardDeviation.ToPrecision(allowableIncreaseOfLevelForStorage.StandardDeviation.NumberOfDecimalPlaces);
+            }
+        }
+
+        public LognormalDistribution StorageStructureArea
+        {
+            get
+            {
+                return storageStructureArea;
+            }
+            set
+            {
+                storageStructureArea.Mean = value.Mean.ToPrecision(storageStructureArea.Mean.NumberOfDecimalPlaces);
+                storageStructureArea.StandardDeviation = value.StandardDeviation.ToPrecision(storageStructureArea.StandardDeviation.NumberOfDecimalPlaces);
+            }
+        }
+
+        public LognormalDistribution FlowWidthAtBottomProtection
+        {
+            get
+            {
+                return flowWidthAtBottomProtection;
+            }
+            set
+            {
+                flowWidthAtBottomProtection.Mean = value.Mean.ToPrecision(flowWidthAtBottomProtection.Mean.NumberOfDecimalPlaces);
+                flowWidthAtBottomProtection.StandardDeviation = value.StandardDeviation.ToPrecision(flowWidthAtBottomProtection.StandardDeviation.NumberOfDecimalPlaces);
+            }
+        }
+
+        public LognormalDistribution CriticalOvertoppingDischarge
+        {
+            get
+            {
+                return criticalOvertoppingDischarge;
+            }
+            set
+            {
+                criticalOvertoppingDischarge.Mean = value.Mean.ToPrecision(criticalOvertoppingDischarge.Mean.NumberOfDecimalPlaces);
+                criticalOvertoppingDischarge.StandardDeviation = value.StandardDeviation.ToPrecision(criticalOvertoppingDischarge.StandardDeviation.NumberOfDecimalPlaces);
+            }
+        }
+
+        public RoundedDouble FailureProbabilityOfStructureGivenErosion
+        {
+            get
+            {
+                return failureProbabilityOfStructureGivenErosion;
+            }
+            set
+            {
+                failureProbabilityOfStructureGivenErosion = value.ToPrecision(failureProbabilityOfStructureGivenErosion.NumberOfDecimalPlaces);
+            }
+        }
+
+        public NormalDistribution WidthOfFlowApertures
+        {
+            get
+            {
+                return widthOfFlowApertures;
+            }
+            set
+            {
+                widthOfFlowApertures.Mean = value.Mean.ToPrecision(widthOfFlowApertures.Mean.NumberOfDecimalPlaces);
+                widthOfFlowApertures.StandardDeviation = value.StandardDeviation.ToPrecision(widthOfFlowApertures.StandardDeviation.NumberOfDecimalPlaces);
+            }
+        }
+
+        #endregion
+
+        #region General input parameters
+
+        /// <summary>
+        /// Gets the gravitational acceleration.
+        /// </summary>
+        public RoundedDouble GravitationalAcceleration
+        {
+            get
+            {
+                return generalInputParameters.GravitationalAcceleration;
+            }
+        }
+
+        /// <summary>
+        /// Gets the model factor overtopping.
+        /// </summary>
+        public LognormalDistribution ModelfactorOvertopping
+        {
+            get
+            {
+                return generalInputParameters.ModelfactorOvertopping;
+            }
+        }
+
+        /// <summary>
+        /// Gets the model factor for storage volume.
+        /// </summary>
+        public LognormalDistribution ModelFactorForStorageVolume
+        {
+            get
+            {
+                return generalInputParameters.ModelFactorForStorageVolume;
+            }
+        }
+
+        /// <summary>
+        /// Gets the model factor for incoming flow volume.
+        /// </summary>
+        public RoundedDouble ModelFactorForIncomingFlowVolume
+        {
+            get
+            {
+                return generalInputParameters.ModelFactorForIncomingFlowVolume;
+            }
+        }
+
+        #endregion
+    }
 }

@@ -80,7 +80,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             var heightStructuresInputContext = new HeightStructuresInputContext(
-                new HeightStructuresInput(),
+                new HeightStructuresInput(new GeneralHeightStructuresInput()),
                 new HeightStructuresCalculation(),
                 new HeightStructuresFailureMechanism(),
                 assessmentSectionMock);
@@ -101,7 +101,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             var heightStructuresInputContext = new HeightStructuresInputContext(
-                new HeightStructuresInput(),
+                new HeightStructuresInput(new GeneralHeightStructuresInput()),
                 new HeightStructuresCalculation(),
                 new HeightStructuresFailureMechanism(),
                 assessmentSectionMock);

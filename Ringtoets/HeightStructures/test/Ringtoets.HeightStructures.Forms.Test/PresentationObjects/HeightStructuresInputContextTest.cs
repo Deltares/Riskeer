@@ -46,18 +46,18 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var inputMock = mocksRepository.StrictMock<HeightStructuresInput>();
+            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
             var calculationMock = mocksRepository.StrictMock<ICalculation>();
             var failureMechanismMock = mocksRepository.StrictMock<HeightStructuresFailureMechanism>();
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             // Call
-            var context = new HeightStructuresInputContext(inputMock, calculationMock, failureMechanismMock, assessmentSectionMock);
+            var context = new HeightStructuresInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<HeightStructuresContext<HeightStructuresInput>>(context);
-            Assert.AreEqual(inputMock, context.WrappedData);
+            Assert.AreEqual(input, context.WrappedData);
             Assert.AreEqual(calculationMock, context.Calculation);
             Assert.AreEqual(failureMechanismMock, context.FailureMechanism);
             Assert.AreEqual(assessmentSectionMock, context.AssessmentSection);
@@ -68,13 +68,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
         public void Constructor_NullCalculation_ThrowsArgumentNullException()
         {
             // Setup
-            var inputMock = mocksRepository.StrictMock<HeightStructuresInput>();
+            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
             var failureMechanismMock = mocksRepository.StrictMock<HeightStructuresFailureMechanism>();
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new HeightStructuresInputContext(inputMock, null, failureMechanismMock, assessmentSectionMock);
+            TestDelegate test = () => new HeightStructuresInputContext(input, null, failureMechanismMock, assessmentSectionMock);
 
             // Assert
             var message = String.Format(Resources.HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,

@@ -35,7 +35,7 @@ namespace Ringtoets.HeightStructures.Data
         /// </summary>
         public HeightStructuresCalculation()
         {
-            InputParameters = new HeightStructuresInput();
+            InputParameters = new HeightStructuresInput(new GeneralHeightStructuresInput());
             Name = Resources.HeightStructuresCalculation_DefaultName;
         }
 
