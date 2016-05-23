@@ -25,7 +25,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {
-    public class GrassCoverErosionInwardsFailureMechanismSectionResultRow
+    internal class GrassCoverErosionInwardsFailureMechanismSectionResultRow
     {
         public GrassCoverErosionInwardsFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
         {

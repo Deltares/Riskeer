@@ -29,7 +29,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
@@ -63,7 +62,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
-                Assert.IsNull(view.FailureMechanism);
             }
         }
 
@@ -140,34 +138,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Assert
                 Assert.IsNull(view.Data);
 
-                Assert.AreEqual(1, dataGridView.RowCount);
-                foreach (DataGridViewCell cell in dataGridView.Rows[0].Cells)
-                {
-                    Assert.IsNull(cell.Value);
-                }
-            }
-        }
-
-        [Test]
-        public void Dispose_FailureMechanismResultViewWithAdditionalPropertiesSet_AdditionalPropertiesSetToNull()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            mocks.ReplayAll();
-            using (var view = new GrassCoverErosionInwardsFailureMechanismResultView
-            {
-                FailureMechanism = failureMechanism
-            })
-            {
-                // Precondition
-                Assert.IsNotNull(view.FailureMechanism);
-
-                // Call
-                view.Dispose();
-
-                // Assert
-                Assert.IsNull(view.FailureMechanism);
+                Assert.AreEqual(0, dataGridView.RowCount);
             }
         }
 

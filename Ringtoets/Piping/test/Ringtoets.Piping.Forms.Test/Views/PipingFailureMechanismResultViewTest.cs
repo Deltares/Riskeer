@@ -65,7 +65,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
-                Assert.IsNull(view.FailureMechanism);
             }
         }
 
@@ -81,16 +80,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual(5, dataGridView.ColumnCount);
                 Assert.IsTrue(dataGridView.Columns[assessmentLayerTwoAIndex].ReadOnly);
 
+                Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
+                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
+
                 foreach (var column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
                 {
                     Assert.AreEqual("This", column.ValueMember);
                     Assert.AreEqual("DisplayName", column.DisplayMember);
-                }
-
-                foreach (var column in dataGridView.Columns.OfType<DataGridViewColumn>())
-                {
-                    Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, column.AutoSizeMode);
-                    Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, column.HeaderCell.Style.Alignment);
                 }
             }
         }
@@ -131,7 +127,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNullAndDataGridViewOneEmtpyRow()
+        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNullAndEmptyGrid()
         {
             // Setup
             var testData = new object();
@@ -145,34 +141,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.IsNull(view.Data);
 
-                Assert.AreEqual(1, dataGridView.RowCount);
-                foreach (DataGridViewCell cell in dataGridView.Rows[0].Cells)
-                {
-                    Assert.IsNull(cell.Value);
-                }
-            }
-        }
-
-        [Test]
-        public void Dispose_FailureMechanismResultViewWithAdditionalPropertiesSet_AdditionalPropertiesSetToNull()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = new PipingFailureMechanism();
-            mocks.ReplayAll();
-            using (var view = new PipingFailureMechanismResultView
-            {
-                FailureMechanism = failureMechanism
-            })
-            {
-                // Precondition
-                Assert.IsNotNull(view.FailureMechanism);
-
-                // Call
-                view.Dispose();
-
-                // Assert
-                Assert.IsNull(view.FailureMechanism);
+                Assert.AreEqual(0, dataGridView.RowCount);
             }
         }
 

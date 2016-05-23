@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.Forms.Views
                 }
                 else
                 {
-                    EnableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                    RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
             } 
         }

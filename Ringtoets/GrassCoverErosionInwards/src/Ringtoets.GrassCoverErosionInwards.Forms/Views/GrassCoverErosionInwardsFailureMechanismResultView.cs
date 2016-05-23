@@ -19,16 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using CoreCommonResources = Core.Common.Base.Properties.Resources;
 
@@ -37,55 +35,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// <summary>
     /// The view for the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
     /// </summary>
-    public partial class GrassCoverErosionInwardsFailureMechanismResultView : UserControl, IView
+    public partial class GrassCoverErosionInwardsFailureMechanismResultView : FailureMechanismResultView<GrassCoverErosionInwardsFailureMechanismSectionResult>
     {
-        private const double tolerance = 1e-6;
-        private readonly Observer failureMechanismObserver;
-        private readonly RecursiveObserver<GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsFailureMechanismSectionResult> failureMechanismSectionResultObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
-
-        private IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> failureMechanismSectionResult;
-        private GrassCoverErosionInwardsFailureMechanism failureMechanism;
-        private DataGridViewTextBoxColumn assessmentLayerTwoA;
-        private DataGridViewTextBoxColumn assessmentLayerTwoB;
-        private DataGridViewTextBoxColumn assessmentLayerThree;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismResultView"/>.
         /// </summary>
         public GrassCoverErosionInwardsFailureMechanismResultView()
         {
-            InitializeComponent();
-            InitializeDataGridView();
+            AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
 
-            failureMechanismObserver = new Observer(UpdataDataGridViewDataSource);
-            failureMechanismSectionResultObserver = new RecursiveObserver<GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsFailureMechanismSectionResult>(RefreshDataGridView, mechanism => mechanism.SectionResults);
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(UpdataDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.GetObservableInput())));
             calculationOutputObserver = new RecursiveObserver<CalculationGroup, ICalculationOutput>(UpdataDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.GetObservableOutput())));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdataDataGridViewDataSource, c => c.Children);
-            Load += OnLoad;
         }
 
-        /// <summary>
-        /// Gets or sets the failure mechanism.
-        /// </summary>
-        public IFailureMechanism FailureMechanism
+        public override IFailureMechanism FailureMechanism
         {
-            get
-            {
-                return failureMechanism;
-            }
             set
             {
-                failureMechanism = value as GrassCoverErosionInwardsFailureMechanism;
+                base.FailureMechanism = value;
 
-                failureMechanismObserver.Observable = failureMechanism;
-                failureMechanismSectionResultObserver.Observable = failureMechanism;
-
-                var calculatableFailureMechanism = failureMechanism as ICalculatableFailureMechanism;
+                var calculatableFailureMechanism = value as ICalculatableFailureMechanism;
                 CalculationGroup observableGroup = calculatableFailureMechanism != null ? calculatableFailureMechanism.CalculationsGroup : null;
 
                 calculationInputObserver.Observable = observableGroup;
@@ -94,76 +69,38 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
         }
 
-        public object Data
-        {
-            get
-            {
-                return failureMechanismSectionResult;
-            }
-            set
-            {
-                failureMechanismSectionResult = value as IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>;
-
-                if (failureMechanismSectionResult != null)
-                {
-                    UpdataDataGridViewDataSource();
-                }
-                else
-                {
-                    dataGridView.DataSource = null;
-                }
-            }
-        }
-
         protected override void Dispose(bool disposing)
         {
-            FailureMechanism = null;
-
-            failureMechanismObserver.Dispose();
-            failureMechanismSectionResultObserver.Dispose();
             calculationInputObserver.Dispose();
             calculationOutputObserver.Dispose();
             calculationGroupObserver.Dispose();
 
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
-        private void OnLoad(object sender, EventArgs e)
+        private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            if (failureMechanismSectionResult != null && failureMechanismSectionResult.Any())
+            if (eventArgs.ColumnIndex > 1)
             {
-                SetRowStyling();
+                if (HasPassedLevelZero(eventArgs.RowIndex))
+                {
+                    DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
+                else
+                {
+                    RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
             }
         }
 
-        private void InitializeDataGridView()
+        protected override IEnumerable<DataGridViewColumn> GetDataGridColumns()
         {
-            dataGridView.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
-            dataGridView.CellValidating += DataGridViewCellValidating;
-            dataGridView.DataError += DataGridViewDataError;
-            dataGridView.GotFocus += DataGridViewGotFocus;
-            dataGridView.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-
-            var sectionName = new DataGridViewTextBoxColumn
+            foreach (var baseColumn in base.GetDataGridColumns())
             {
-                DataPropertyName = "Name",
-                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
-                Name = "column_Name"
-            };
+                yield return baseColumn;
+            }
 
-            var assessmentLayerOne = new DataGridViewCheckBoxColumn
-            {
-                DataPropertyName = "AssessmentLayerOne",
-                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
-                Name = "column_AssessmentLayerOne"
-            };
-
-            assessmentLayerTwoA = new DataGridViewTextBoxColumn
+            yield return new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "AssessmentLayerTwoA",
                 HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
@@ -171,124 +108,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 ReadOnly = true
             };
 
-            assessmentLayerTwoB = new DataGridViewTextBoxColumn
+            yield return new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "AssessmentLayerTwoB",
                 HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b,
                 Name = "column_AssessmentLayerTwoB"
             };
 
-            assessmentLayerThree = new DataGridViewTextBoxColumn
+            yield return new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "AssessmentLayerThree",
                 HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three,
                 Name = "column_AssessmentLayerThree"
             };
-
-            dataGridView.AutoGenerateColumns = false;
-            dataGridView.Columns.AddRange(sectionName, assessmentLayerOne, assessmentLayerTwoA, assessmentLayerTwoB, assessmentLayerThree);
         }
 
-        private void UpdataDataGridViewDataSource()
+        protected override object CreateFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
         {
-            dataGridView.DataSource = failureMechanismSectionResult.Select(sr => new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sr)).ToList();
-            SetRowStyling();
+            return new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult);
         }
-
-        private void RefreshDataGridView()
-        {
-            dataGridView.Refresh();
-            dataGridView.AutoResizeColumns();
-
-            SetRowStyling();
-        }
-
-        private void SetRowStyling()
-        {
-            foreach (DataGridViewRow row in dataGridView.Rows)
-            {
-                var checkboxSelected = (bool) row.Cells[1].Value;
-
-                SetRowEditMode(row, checkboxSelected);
-
-                SetRowStyle(checkboxSelected, row);
-            }
-        }
-
-        private void SetRowEditMode(DataGridViewRow row, bool checkboxSelected)
-        {
-            row.Cells[assessmentLayerTwoB.Index].ReadOnly = checkboxSelected;
-            row.Cells[assessmentLayerThree.Index].ReadOnly = checkboxSelected;
-        }
-
-        private void SetRowStyle(bool checkboxSelected, DataGridViewRow row)
-        {
-            if (checkboxSelected)
-            {
-                SetCellStyle(row.Cells[assessmentLayerTwoA.Index], Color.FromKnownColor(KnownColor.DarkGray), Color.FromKnownColor(KnownColor.GrayText));
-                SetCellStyle(row.Cells[assessmentLayerTwoB.Index], Color.FromKnownColor(KnownColor.DarkGray), Color.FromKnownColor(KnownColor.GrayText));
-                SetCellStyle(row.Cells[assessmentLayerThree.Index], Color.FromKnownColor(KnownColor.DarkGray), Color.FromKnownColor(KnownColor.GrayText));
-            }
-            else
-            {
-                SetCellStyle(row.Cells[assessmentLayerTwoA.Index], Color.FromKnownColor(KnownColor.White), Color.FromKnownColor(KnownColor.ControlText));
-                SetCellStyle(row.Cells[assessmentLayerTwoB.Index], Color.FromKnownColor(KnownColor.White), Color.FromKnownColor(KnownColor.ControlText));
-                SetCellStyle(row.Cells[assessmentLayerThree.Index], Color.FromKnownColor(KnownColor.White), Color.FromKnownColor(KnownColor.ControlText));
-            }
-        }
-
-        private void SetCellStyle(DataGridViewCell cell, Color backgroundColor, Color textColor)
-        {
-            cell.Style.BackColor = backgroundColor;
-            cell.Style.ForeColor = textColor;
-        }
-
-        private void DataGridViewGotFocus(object sender, EventArgs eventArgs)
-        {
-            if (dataGridView.CurrentCell != null)
-            {
-                dataGridView.BeginEdit(true); // Always start editing after setting the focus (otherwise data grid view cell dirty events are no longer fired when using the keyboard...)
-            }
-        }
-
-        #region Nested types
-
-        #endregion
-
-        #region Event handling
-
-        private void DataGridViewCurrentCellDirtyStateChanged(object sender, EventArgs e)
-        {
-            // Ensure checkbox values are directly committed
-            DataGridViewColumn currentColumn = dataGridView.Columns[dataGridView.CurrentCell.ColumnIndex];
-            if (currentColumn is DataGridViewCheckBoxColumn)
-            {
-                dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
-            }
-        }
-
-        private void DataGridViewCellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-            dataGridView.Rows[e.RowIndex].ErrorText = String.Empty;
-
-            var cellEditValue = e.FormattedValue.ToString();
-            if (string.IsNullOrWhiteSpace(cellEditValue))
-            {
-                dataGridView.Rows[e.RowIndex].ErrorText = Resources.DataGridViewCellValidating_Text_may_not_be_empty;
-            }
-        }
-
-        private void DataGridViewDataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            e.ThrowException = false;
-            e.Cancel = true;
-
-            if (string.IsNullOrWhiteSpace(dataGridView.Rows[e.RowIndex].ErrorText) && e.Exception != null)
-            {
-                dataGridView.Rows[e.RowIndex].ErrorText = e.Exception.Message;
-            }
-        }
-
-        #endregion
     }
 }

@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Sets the failure mechanism.
         /// </summary>
-        public IFailureMechanism FailureMechanism
+        public virtual IFailureMechanism FailureMechanism
         {
             set
             {
@@ -127,15 +127,14 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gives the cell at <paramref name="rowIndex"/>, <paramref name="columnIndex"/> an 
-        /// enabled style.
+        /// Restore the initial style of the cell at <paramref name="rowIndex"/>, <paramref name="columnIndex"/>.
         /// </summary>
         /// <param name="rowIndex">The row index of the cell.</param>
         /// <param name="columnIndex">The column index of the cell.</param>
-        protected void EnableCell(int rowIndex, int columnIndex)
+        protected void RestoreCell(int rowIndex, int columnIndex)
         {
             var cell = dataGridView.Rows[rowIndex].Cells[columnIndex];
-            cell.ReadOnly = false;
+            cell.ReadOnly = GetDataGridColumns().ElementAt(columnIndex).ReadOnly;
             SetCellStyle(cell, CellStyle.Enabled);
         }
 
@@ -147,9 +146,14 @@ namespace Ringtoets.Common.Forms.Views
         /// <param name="columnIndex">The column index of the cell.</param>
         protected void DisableCell(int rowIndex, int columnIndex)
         {
-            var cell = dataGridView.Rows[rowIndex].Cells[columnIndex];
+            var cell = GetCell(rowIndex, columnIndex);
             cell.ReadOnly = true;
             SetCellStyle(cell, CellStyle.Disabled);
+        }
+
+        protected DataGridViewCell GetCell(int rowIndex, int columnIndex)
+        {
+            return dataGridView.Rows[rowIndex].Cells[columnIndex];
         }
 
         /// <summary>
@@ -173,6 +177,25 @@ namespace Ringtoets.Common.Forms.Views
                 HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
                 Name = "column_AssessmentLayerOne"
             };
+        }
+
+        /// <summary>
+        /// Updates the data source of the data grid view with the current known failure mechanism section results.
+        /// </summary>
+        protected void UpdataDataGridViewDataSource()
+        {
+            EndEdit();
+            dataGridView.DataSource = failureMechanismSectionResult.Select(CreateFailureMechanismSectionResultRow).ToList();
+        }
+
+        /// <summary>
+        /// Gets data that is visualized on the row a the given <paramref name="rowIndex"/>.
+        /// </summary>
+        /// <param name="rowIndex">The position of the row in the data source.</param>
+        /// <returns>The data bound to the row at index <paramref name="rowIndex"/>.</returns>
+        protected object GetDataAtRow(int rowIndex)
+        {
+            return dataGridView.Rows[rowIndex].DataBoundItem;
         }
 
         /// <summary>
@@ -202,13 +225,6 @@ namespace Ringtoets.Common.Forms.Views
         {
             cell.Style.BackColor = style.BackgroundColor;
             cell.Style.ForeColor = style.TextColor;
-        }
-
-        private void UpdataDataGridViewDataSource()
-        {
-            EndEdit();
-
-            dataGridView.DataSource = failureMechanismSectionResult.Select(sr => CreateFailureMechanismSectionResultRow(sr)).ToList();
         }
 
         private void RefreshDataGridView()
