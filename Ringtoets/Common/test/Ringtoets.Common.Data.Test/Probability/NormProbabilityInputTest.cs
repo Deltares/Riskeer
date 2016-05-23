@@ -34,10 +34,10 @@ namespace Ringtoets.Common.Data.Test.Probability
         public void Constructor_DefaultPropertiesSet()
         {
             // Call
-            NormProbabilityInput inputParameters = new NormProbabilityInput();
+            var normProbabilityInput = new NormProbabilityInput();
 
             // Assert
-            Assert.AreEqual(2, inputParameters.N);
+            Assert.AreEqual(2, normProbabilityInput.N);
         }
 
         [Test]
@@ -47,14 +47,14 @@ namespace Ringtoets.Common.Data.Test.Probability
         public void N_ValueInsideValidRegion_DoesNotThrow(int value)
         {
             // Setup
-            NormProbabilityInput inputParameters = new NormProbabilityInput();
+            var normProbabilityInput = new NormProbabilityInput();
 
             // Call
-            TestDelegate test = () => inputParameters.N = value;
+            TestDelegate test = () => normProbabilityInput.N = value;
 
             // Assert
             Assert.DoesNotThrow(test);
-            Assert.AreEqual(value, inputParameters.N);
+            Assert.AreEqual(value, normProbabilityInput.N);
         }
 
         [Test]
@@ -63,10 +63,10 @@ namespace Ringtoets.Common.Data.Test.Probability
         public void N_ValueOutsideValidRegion_ThrowsArgumentException(int value)
         {
             // Setup
-            NormProbabilityInput inputParameters = new NormProbabilityInput();
+            var normProbabilityInput = new NormProbabilityInput();
 
             // Call
-            TestDelegate test = () => inputParameters.N = value;
+            TestDelegate test = () => normProbabilityInput.N = value;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.N_Value_should_be_in_interval_1_20);
