@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -51,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                      new GeneralNormProbabilityInput());
+                                                                      new NormProbabilityInput());
 
             // Call
             GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, norm, contribution, double.NaN);
@@ -70,7 +71,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                      new GeneralNormProbabilityInput());
+                                                                      new NormProbabilityInput());
 
             // Call
             GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, norm, contribution, double.NaN);
@@ -87,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                      new GeneralNormProbabilityInput());
+                                                                      new NormProbabilityInput());
 
             // Call
             GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, double.NaN, double.NaN, probability);
@@ -104,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                      new GeneralNormProbabilityInput());
+                                                                      new NormProbabilityInput());
 
             // Call
             GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, double.NaN, double.NaN, probability);
@@ -127,7 +128,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                      new GeneralNormProbabilityInput());
+                                                                      new NormProbabilityInput());
 
             // Call
             GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, norm, contribution, probability);

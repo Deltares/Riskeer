@@ -64,7 +64,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             TestDelegate call = () => new HeightStructuresFailureMechanismContext(null, assessmentSection);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("wrappedData", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -78,7 +79,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             TestDelegate call = () => new HeightStructuresFailureMechanismContext(failureMechanism, null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("parent", exception.ParamName);
         }
     }
 }

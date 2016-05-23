@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.HeightStructures.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -43,7 +44,7 @@ namespace Ringtoets.HeightStructures.Data
         {
             sectionResults = new List<CustomFailureMechanismSectionResult>();
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
-            NormProbabilityInput = new GeneralNormProbabilityInput();
+            NormProbabilityInput = new NormProbabilityInput();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -77,7 +78,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets the length-effect parameters.
         /// </summary>
-        public GeneralNormProbabilityInput NormProbabilityInput { get; private set; }
+        public NormProbabilityInput NormProbabilityInput { get; private set; }
 
         public CalculationGroup CalculationsGroup { get; private set; }
     }

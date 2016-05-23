@@ -46,7 +46,6 @@
     <Compile Include="Calculation\ICalculationInput.cs" />
     <Compile Include="Calculation\CalculationGroup.cs" />
     <Compile Include="Calculation\ICalculationOutput.cs" />
-    <Compile Include="Calculation\GeneralNormProbabilityInput.cs" />
     <Compile Include="Contribution\FailureMechanismContribution.cs" />
     <Compile Include="Contribution\FailureMechanismContributionItem.cs" />
     <Compile Include="Contribution\OtherFailureMechanism.cs" />
@@ -72,6 +71,7 @@
     <Compile Include="Probabilistics\NormalDistributionDesignVariable.cs" />
     <Compile Include="Probabilistics\ShiftedLognormalDistribution.cs" />
     <Compile Include="Probabilistics\ShiftedLognormalDistributionDesignVariable.cs" />
+    <Compile Include="Probability\NormProbabilityInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -114,6 +114,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

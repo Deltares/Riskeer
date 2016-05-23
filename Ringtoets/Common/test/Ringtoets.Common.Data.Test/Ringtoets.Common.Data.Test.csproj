@@ -59,7 +59,6 @@
   <ItemGroup>
     <Compile Include="AssessmentSection\ReferenceLineTest.cs" />
     <Compile Include="Calculation\CalculationGroupTest.cs" />
-    <Compile Include="Calculation\GeneralNormProbabilityInputTest.cs" />
     <Compile Include="Contribution\FailureMechanismContributionItemTest.cs" />
     <Compile Include="Contribution\FailureMechanismContributionTest.cs" />
     <Compile Include="Contribution\OtherFailureMechanismTest.cs" />
@@ -73,6 +72,7 @@
     <Compile Include="Probabilistics\NormalDistributionTest.cs" />
     <Compile Include="Probabilistics\ShiftedLognormalDistributionDesignVariableTest.cs" />
     <Compile Include="Probabilistics\ShiftedLognormalDistributionTest.cs" />
+    <Compile Include="Probability\NormProbabilityInputTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

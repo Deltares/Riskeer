@@ -22,19 +22,19 @@
 using System;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.Calculation
+namespace Ringtoets.Common.Data.Probability
 {
     /// <summary>
     /// Model for length effect parameters.
     /// </summary>
-    public class GeneralNormProbabilityInput
+    public class NormProbabilityInput
     {
         private int n;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GeneralNormProbabilityInput"/> class.
+        /// Initializes a new instance of the <see cref="NormProbabilityInput"/> class.
         /// </summary>
-        public GeneralNormProbabilityInput()
+        public NormProbabilityInput()
         {
             N = 2;
         }

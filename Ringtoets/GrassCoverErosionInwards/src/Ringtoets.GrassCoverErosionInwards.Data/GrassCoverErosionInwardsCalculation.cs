@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
@@ -46,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <item><paramref name="normProbabilityInput"/> is <c>null</c>.</item>
         /// </list> </exception>
         public GrassCoverErosionInwardsCalculation(GeneralGrassCoverErosionInwardsInput generalInputParameters,
-                                                   GeneralNormProbabilityInput normProbabilityInput)
+                                                   NormProbabilityInput normProbabilityInput)
         {
             if (generalInputParameters == null)
             {
@@ -70,7 +71,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the length-effect parameters.
         /// </summary>
-        public GeneralNormProbabilityInput NormProbabilityInput { get; private set; }
+        public NormProbabilityInput NormProbabilityInput { get; private set; }
 
         /// <summary>
         /// Gets or sets <see cref="GrassCoverErosionInwardsOutput"/>, which contains the results of a grass cover erosion inwards calculation.

@@ -22,19 +22,19 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.Test.Calculation
+namespace Ringtoets.Common.Data.Test.Probability
 {
     [TestFixture]
-    public class GeneralNormProbabilityInputTest
+    public class NormProbabilityInputTest
     {
         [Test]
         public void Constructor_DefaultPropertiesSet()
         {
             // Call
-            var inputParameters = new GeneralNormProbabilityInput();
+            NormProbabilityInput inputParameters = new NormProbabilityInput();
 
             // Assert
             Assert.AreEqual(2, inputParameters.N);
@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
         public void N_ValueInsideValidRegion_DoesNotThrow(int value)
         {
             // Setup
-            var inputParameters = new GeneralNormProbabilityInput();
+            NormProbabilityInput inputParameters = new NormProbabilityInput();
 
             // Call
             TestDelegate test = () => inputParameters.N = value;
@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
         public void N_ValueOutsideValidRegion_ThrowsArgumentException(int value)
         {
             // Setup
-            var inputParameters = new GeneralNormProbabilityInput();
+            NormProbabilityInput inputParameters = new NormProbabilityInput();
 
             // Call
             TestDelegate test = () => inputParameters.N = value;

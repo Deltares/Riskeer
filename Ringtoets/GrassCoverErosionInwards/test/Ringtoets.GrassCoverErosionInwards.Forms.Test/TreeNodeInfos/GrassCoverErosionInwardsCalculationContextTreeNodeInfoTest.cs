@@ -38,6 +38,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -107,7 +108,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new GeneralNormProbabilityInput());
+            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new NormProbabilityInput());
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
@@ -137,7 +138,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new GeneralNormProbabilityInput())
+            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new NormProbabilityInput())
             {
                 Output = new GrassCoverErosionInwardsOutput(0, 0, 0, 0, 0)
             };
@@ -173,7 +174,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                      new GeneralNormProbabilityInput());
+                                                                      new NormProbabilityInput());
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
             var menuBuilderMock = mocks.Stub<IContextMenuBuilder>();
 
@@ -213,7 +214,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                      new GeneralNormProbabilityInput());
+                                                                      new NormProbabilityInput());
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -261,7 +262,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                      new GeneralNormProbabilityInput());
+                                                                      new NormProbabilityInput());
 
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
             var guiMock = mocks.StrictMock<IGui>();
@@ -301,7 +302,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(null);
 
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                      new GeneralNormProbabilityInput());
+                                                                      new NormProbabilityInput());
 
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
@@ -341,7 +342,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
 
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                      new GeneralNormProbabilityInput());
+                                                                      new NormProbabilityInput());
 
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
@@ -390,7 +391,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                      new GeneralNormProbabilityInput());
+                                                                      new NormProbabilityInput());
 
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
@@ -446,7 +447,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                      new GeneralNormProbabilityInput())
+                                                                      new NormProbabilityInput())
             {
                 Output = new GrassCoverErosionInwardsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN),
                 InputParameters =
@@ -495,7 +496,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var elementToBeRemoved = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                             new GeneralNormProbabilityInput());
+                                                                             new NormProbabilityInput());
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var observerMock = mocks.StrictMock<IObserver>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
@@ -512,7 +513,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             group.Children.Add(elementToBeRemoved);
             group.Children.Add(new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                       new GeneralNormProbabilityInput()));
+                                                                       new NormProbabilityInput()));
             group.Attach(observerMock);
 
             // Precondition
