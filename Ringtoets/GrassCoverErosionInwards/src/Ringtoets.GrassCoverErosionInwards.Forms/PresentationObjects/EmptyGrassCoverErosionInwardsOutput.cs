@@ -19,12 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class represents the placeholder for a <see cref="GrassCoverErosionInwardsOutput"/> for a <see cref="GrassCoverErosionInwardsCalculation"/>
+    /// This class represents the placeholder for a <see cref="ProbabilisticOutput"/> for a <see cref="GrassCoverErosionInwardsCalculation"/>
     /// that has not been calculated yet.
     /// </summary>
     public class EmptyGrassCoverErosionInwardsOutput {}

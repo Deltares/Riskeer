@@ -27,6 +27,7 @@ using Core.Common.Gui.Commands;
 using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -81,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.IsNull(inputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(inputContextProperties.AfterCreate);
 
-                var outputContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(GrassCoverErosionInwardsOutput));
+                var outputContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(ProbabilisticOutput));
                 Assert.AreEqual(typeof(GrassCoverErosionInwardsOutputProperties), outputContextProperties.PropertyObjectType);
                 Assert.IsNull(outputContextProperties.AdditionalDataCheck);
                 Assert.IsNull(outputContextProperties.GetObjectPropertiesData);
@@ -119,7 +120,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsInputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyGrassCoverErosionInwardsOutput)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsOutput)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilisticOutput)));
             }
             mocks.VerifyAll();
         }

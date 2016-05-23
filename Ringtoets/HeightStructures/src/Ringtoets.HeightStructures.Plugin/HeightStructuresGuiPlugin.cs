@@ -95,7 +95,7 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<HeightStructuresOutput>
+            yield return new TreeNodeInfo<ProbabilisticOutput>
             {
                 Text = pipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = pipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,

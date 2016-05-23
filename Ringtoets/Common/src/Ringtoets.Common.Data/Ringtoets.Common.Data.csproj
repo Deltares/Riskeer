@@ -43,6 +43,7 @@
     <Compile Include="AssessmentSection\IAssessmentSection.cs" />
     <Compile Include="AssessmentSection\ReferenceLine.cs" />
     <Compile Include="Calculation\CalculationScenarioStatus.cs" />
+    <Compile Include="Calculation\ProbabilisticOutput.cs" />
     <Compile Include="Calculation\ICalculationInput.cs" />
     <Compile Include="Calculation\CalculationGroup.cs" />
     <Compile Include="Calculation\ICalculationOutput.cs" />

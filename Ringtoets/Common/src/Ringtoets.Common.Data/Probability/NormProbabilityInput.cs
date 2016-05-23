@@ -29,6 +29,7 @@ namespace Ringtoets.Common.Data.Probability
     /// </summary>
     public class NormProbabilityInput
     {
+        private double contribution;
         private int n;
 
         /// <summary>
@@ -37,12 +38,15 @@ namespace Ringtoets.Common.Data.Probability
         public NormProbabilityInput()
         {
             N = 2;
+            Norm = 0;
+            Contribution = double.NaN;
         }
 
         /// <summary>
         /// Gets or sets the 'N' parameter used to factor in the 'length effect'.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="value"/> is not in interval [1-20].</exception>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="value"/> is not in interval 
+        /// [1-20].</exception>
         public int N
         {
             get
@@ -58,5 +62,32 @@ namespace Ringtoets.Common.Data.Probability
                 n = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the contribution of failure mechanism as a percentage (0-100) to the total of the 
+        /// failure probability of the assessment section.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="value"/> is not 
+        /// in interval [1-100].</exception>
+        public double Contribution
+        {
+            get
+            {
+                return contribution;
+            }
+            set
+            {
+                if (value < 0 || value > 100)
+                {
+                    throw new ArgumentOutOfRangeException("value", Resources.Contribution_Value_should_be_in_interval_0_100);
+                }
+                contribution = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the return period to assess for.
+        /// </summary>
+        public int Norm { get; set; }
     }
 }

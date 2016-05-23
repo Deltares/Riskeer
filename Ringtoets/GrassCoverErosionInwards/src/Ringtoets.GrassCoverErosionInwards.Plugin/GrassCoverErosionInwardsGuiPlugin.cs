@@ -65,7 +65,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             yield return new PropertyInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanismContextProperties>();
             yield return new PropertyInfo<GrassCoverErosionInwardsCalculationContext, GrassCoverErosionInwardsCalculationContextProperties>();
             yield return new PropertyInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsInputContextProperties>();
-            yield return new PropertyInfo<GrassCoverErosionInwardsOutput, GrassCoverErosionInwardsOutputProperties>();
+            yield return new PropertyInfo<ProbabilisticOutput, GrassCoverErosionInwardsOutputProperties>();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -124,7 +124,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<GrassCoverErosionInwardsOutput>
+            yield return new TreeNodeInfo<ProbabilisticOutput>
             {
                 Text = pipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = pipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,

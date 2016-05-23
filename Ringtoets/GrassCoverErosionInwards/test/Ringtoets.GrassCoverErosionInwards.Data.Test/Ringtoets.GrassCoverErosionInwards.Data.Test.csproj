@@ -62,7 +62,6 @@
     <Compile Include="GrassCoverErosionInwardsCalculationTest.cs" />
     <Compile Include="GrassCoverErosionInwardsFailureMechanismTest.cs" />
     <Compile Include="GrassCoverErosionInwardsInputTest.cs" />
-    <Compile Include="GrassCoverErosionInwardsOutputTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

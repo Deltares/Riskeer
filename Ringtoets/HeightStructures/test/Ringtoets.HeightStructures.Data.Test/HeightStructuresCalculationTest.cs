@@ -65,7 +65,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             var generalInput = new GeneralHeightStructuresInput();
             var calculation = new HeightStructuresCalculation(generalInput)
             {
-                Output = new HeightStructuresOutput()
+                Output = new TestHeightStructuresOutput()
             };
 
             // Call
@@ -96,7 +96,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             var generalInput = new GeneralHeightStructuresInput();
             var calculation = new HeightStructuresCalculation(generalInput)
             {
-                Output = new HeightStructuresOutput()
+                Output = new TestHeightStructuresOutput()
             };
 
             // Call & Assert
@@ -124,7 +124,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             var generalInput = new GeneralHeightStructuresInput();
             var calculation = new HeightStructuresCalculation(generalInput)
             {
-                Output = new HeightStructuresOutput()
+                Output = new TestHeightStructuresOutput()
             };
 
             // Call
@@ -132,6 +132,11 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             // Assert
             Assert.AreSame(calculation.Output, output);
+        }
+
+        private class TestHeightStructuresOutput : ProbabilisticOutput
+        {
+            public TestHeightStructuresOutput() : base(0, 0, 0, 0, 0) {}
         }
     }
 }

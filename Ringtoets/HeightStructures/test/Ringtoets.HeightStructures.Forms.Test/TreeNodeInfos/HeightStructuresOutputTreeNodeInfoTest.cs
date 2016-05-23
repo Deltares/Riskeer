@@ -26,6 +26,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -44,14 +45,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         {
             mocksRepository = new MockRepository();
             plugin = new HeightStructuresGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresOutput));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilisticOutput));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(HeightStructuresOutput), info.TagType);
+            Assert.AreEqual(typeof(ProbabilisticOutput), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ContextMenuStrip);

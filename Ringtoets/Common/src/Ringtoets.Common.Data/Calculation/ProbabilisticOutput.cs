@@ -21,28 +21,27 @@
 
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data
+namespace Ringtoets.Common.Data.Calculation
 {
     /// <summary>
-    /// This class contains the results of a grass cover erosion inwards calculation.
+    /// This class contains the results of a probabilistic calculation.
     /// </summary>
-    public class GrassCoverErosionInwardsOutput : Observable, ICalculationOutput
+    public class ProbabilisticOutput : Observable, ICalculationOutput
     {
         private RoundedDouble probability;
         private RoundedDouble reliability;
         private RoundedDouble factorOfSafety;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionInwardsOutput"/>.
+        /// Creates a new instance of <see cref="ProbabilisticOutput"/>.
         /// </summary>
         /// <param name="requiredProbability">The required (maximum allowed) probability of failure.</param>
         /// <param name="requiredReliability">The required (maximum allowed) reliability of the failure mechanism.</param>
         /// <param name="probability">The calculated probability of failing.</param>
         /// <param name="reliability">The calculated reliability of the failure mechanism.</param>
         /// <param name="factorOfSafety">The factor of safety for the failure mechanisms.</param>
-        public GrassCoverErosionInwardsOutput(double requiredProbability, double requiredReliability, double probability, double reliability, double factorOfSafety)
+        public ProbabilisticOutput(double requiredProbability, double requiredReliability, double probability, double reliability, double factorOfSafety)
         {
             RequiredProbability = new RoundedDouble(2, requiredProbability);
             RequiredReliability = new RoundedDouble(3, requiredReliability);

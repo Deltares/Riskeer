@@ -21,6 +21,7 @@
 
 using System;
 using MathNet.Numerics.Distributions;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Integration.Data;
@@ -28,7 +29,7 @@ using Ringtoets.Integration.Data;
 namespace Ringtoets.GrassCoverErosionInwards.Service
 {
     /// <summary>
-    /// This class is responsible for calculating the parameters required for <see cref="GrassCoverErosionInwardsOutput"/>.
+    /// This class is responsible for calculating the parameters required for <see cref="ProbabilisticOutput"/>.
     /// </summary>
     public class GrassCoverErosionInwardsOutputCalculationService
     {
@@ -53,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         }
 
         /// <summary>
-        /// Calculates the <see cref="GrassCoverErosionInwardsOutput"/> given the <paramref name="calculation"/>, <paramref name="norm"/>, and <paramref name="reliability"/>.
+        /// Calculates the <see cref="ProbabilisticOutput"/> given the <paramref name="calculation"/>, <paramref name="norm"/>, and <paramref name="reliability"/>.
         /// </summary>
         /// <param name="calculation">The calculation which is used.</param>
         /// <param name="contribution">The amount of contribution as a percentage [0-100] for the <see cref="IFailureMechanism"/> as part of the overall verdict. </param>
@@ -70,11 +71,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             calculator.Calculate();
 
-            calculation.Output = new GrassCoverErosionInwardsOutput(1/calculator.requiredProbability,
-                                                                    calculator.requiredReliability,
-                                                                    1/calculator.probability,
-                                                                    calculator.reliability,
-                                                                    calculator.factorOfSafety);
+            calculation.Output = new ProbabilisticOutput(1/calculator.requiredProbability,
+                                                         calculator.requiredReliability,
+                                                         1/calculator.probability,
+                                                         calculator.reliability,
+                                                         calculator.factorOfSafety);
         }
 
         private void Calculate()

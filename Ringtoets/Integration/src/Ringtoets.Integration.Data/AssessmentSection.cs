@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Data
     {
         private ReferenceLine referenceLine;
 
-        private FailureMechanismContribution contritbution;
+        private FailureMechanismContribution contribution;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AssessmentSection"/> class.
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Data
             StrengthStabilityPointConstruction = new StrengthStabilityPointConstructionFailureMechanism();
             PipingStructure = new PipingStructureFailureMechanism();
             DuneErosion = new DuneErosionFailureMechanism();
-            
+
             FailureMechanismContribution = new FailureMechanismContribution(GetFailureMechanisms(), 30, 30000);
             ChangeComposition(composition);
         }
@@ -154,12 +154,13 @@ namespace Ringtoets.Integration.Data
         {
             get
             {
-                return contritbution;
+                return contribution;
             }
             private set
             {
-                contritbution = value;
+                contribution = value;
                 PipingFailureMechanism.NormProbabilityInput.Norm = value.Norm;
+                HeightStructures.NormProbabilityInput.Norm = value.Norm;
             }
         }
 

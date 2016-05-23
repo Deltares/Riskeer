@@ -27,7 +27,7 @@ using Ringtoets.HeightStructures.Data.Properties;
 namespace Ringtoets.HeightStructures.Data
 {
     /// <summary>
-    /// This class holds the height structures information which can be made visible in the graphical interface of the application.
+    /// This class holds information about a calculation for the <see cref="HeightStructuresFailureMechanism"/>.
     /// </summary>
     public class HeightStructuresCalculation : Observable, ICalculation
     {
@@ -48,9 +48,9 @@ namespace Ringtoets.HeightStructures.Data
         public HeightStructuresInput InputParameters { get; private set; }
 
         /// <summary>
-        /// Gets or sets <see cref="HeightStructuresOutput"/>, which contains the results of a height structures calculation.
+        /// Gets or sets <see cref="ProbabilisticOutput"/>, which contains the results of a height structures calculation.
         /// </summary>
-        public HeightStructuresOutput Output { get; set; }
+        public ProbabilisticOutput Output { get; set; }
 
         public string Name { get; set; }
 

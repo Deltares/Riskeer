@@ -37,7 +37,9 @@ namespace Ringtoets.Common.Data.Test.Probability
             var normProbabilityInput = new NormProbabilityInput();
 
             // Assert
+            Assert.AreEqual(double.NaN, normProbabilityInput.Contribution);
             Assert.AreEqual(2, normProbabilityInput.N);
+            Assert.AreEqual(0, normProbabilityInput.Norm);
         }
 
         [Test]
@@ -60,7 +62,7 @@ namespace Ringtoets.Common.Data.Test.Probability
         [Test]
         [TestCase(0)]
         [TestCase(21)]
-        public void N_ValueOutsideValidRegion_ThrowsArgumentException(int value)
+        public void N_ValueOutsideValidRegion_ThrowsArgumentOutOfRangeException(int value)
         {
             // Setup
             var normProbabilityInput = new NormProbabilityInput();
@@ -69,7 +71,41 @@ namespace Ringtoets.Common.Data.Test.Probability
             TestDelegate test = () => normProbabilityInput.N = value;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.N_Value_should_be_in_interval_1_20);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, 
+                Resources.N_Value_should_be_in_interval_1_20);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(50)]
+        [TestCase(100)]
+        public void Contribution_ValueInsideValidRegion_DoesNotThrow(int value)
+        {
+            // Setup
+            var normProbabilityInput = new NormProbabilityInput();
+
+            // Call
+            TestDelegate test = () => normProbabilityInput.Contribution = value;
+
+            // Assert
+            Assert.DoesNotThrow(test);
+            Assert.AreEqual(value, normProbabilityInput.Contribution);
+        }
+        
+        [Test]
+        [TestCase(-1)]
+        [TestCase(101)]
+        public void Contribution_ValueOutsideValidRegion_ThrowsArgumentOutOfRangeException(int value)
+        {
+            // Setup
+            var normProbabilityInput = new NormProbabilityInput();
+
+            // Call
+            TestDelegate test = () => normProbabilityInput.Contribution = value;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test,
+                Resources.Contribution_Value_should_be_in_interval_0_100);
         }
     }
 }

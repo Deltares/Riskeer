@@ -127,7 +127,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var normProbabilityInput = new NormProbabilityInput();
             var calculation = new GrassCoverErosionInwardsCalculation(generalInput, normProbabilityInput)
             {
-                Output = new TestGrassCoverErosionInwardsOutput()
+                Output = new TestProbabilisticOutput()
             };
 
             // Call
@@ -160,7 +160,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var normProbabilityInput = new NormProbabilityInput();
             var calculation = new GrassCoverErosionInwardsCalculation(generalInput, normProbabilityInput)
             {
-                Output = new TestGrassCoverErosionInwardsOutput()
+                Output = new TestProbabilisticOutput()
             };
 
             // Call & Assert
@@ -207,7 +207,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void GetObservableOutput_Always_ReturnsOutput()
         {
             // Setup
-            var output = new GrassCoverErosionInwardsOutput(2.0, 3.0, 1.4, 50.3, 16.3);
+            var output = new ProbabilisticOutput(2.0, 3.0, 1.4, 50.3, 16.3);
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
             var normProbabilityInput = new NormProbabilityInput();
             var calculation = new GrassCoverErosionInwardsCalculation(generalInput, normProbabilityInput)
@@ -247,9 +247,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(expectedDikeHeight, inputParameters.DikeHeight);
         }
 
-        private class TestGrassCoverErosionInwardsOutput : GrassCoverErosionInwardsOutput
+        private class TestProbabilisticOutput : ProbabilisticOutput
         {
-            public TestGrassCoverErosionInwardsOutput() : base(0, 0, 0, 0, 0) {}
+            public TestProbabilisticOutput() : base(0, 0, 0, 0, 0) {}
         }
     }
 }

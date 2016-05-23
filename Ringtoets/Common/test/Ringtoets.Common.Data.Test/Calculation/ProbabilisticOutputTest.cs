@@ -25,10 +25,10 @@ using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data.Test
+namespace Ringtoets.Common.Data.Test.Calculation
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsOutputTest
+    public class ProbabilisticOutputTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -42,7 +42,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var factorOfSafety = new RoundedDouble(3, random.NextDouble());
 
             // Call
-            var output = new GrassCoverErosionInwardsOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
+            var output = new ProbabilisticOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
 
             // Assert
             Assert.IsInstanceOf<Observable>(output);
@@ -60,7 +60,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var bigRoundedDouble = new RoundedDouble(15, 9.12345678901234567);
-            var output = new GrassCoverErosionInwardsOutput(0.0, 0.0, 0.0, 0.0, bigRoundedDouble);
+            var output = new ProbabilisticOutput(0.0, 0.0, 0.0, 0.0, bigRoundedDouble);
 
             // Call
             output.FactorOfSafety = bigRoundedDouble;
@@ -75,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var bigRoundedDouble = new RoundedDouble(15, 9.12345678901234567);
-            var output = new GrassCoverErosionInwardsOutput(0.0, 0.0, 0.0, bigRoundedDouble, 0.0);
+            var output = new ProbabilisticOutput(0.0, 0.0, 0.0, bigRoundedDouble, 0.0);
 
             // Call
             output.Reliability = bigRoundedDouble;
@@ -90,7 +90,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var bigRoundedDouble = new RoundedDouble(15, 9.12345678901234567);
-            var output = new GrassCoverErosionInwardsOutput(0.0, 0.0, bigRoundedDouble, 0.0, 0.0);
+            var output = new ProbabilisticOutput(0.0, 0.0, bigRoundedDouble, 0.0, 0.0);
 
             // Call
             output.Probability = bigRoundedDouble;

@@ -74,9 +74,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public NormProbabilityInput NormProbabilityInput { get; private set; }
 
         /// <summary>
-        /// Gets or sets <see cref="GrassCoverErosionInwardsOutput"/>, which contains the results of a grass cover erosion inwards calculation.
+        /// Gets or sets <see cref="ProbabilisticOutput"/>, which contains the results of a probabilistic calculation.
         /// </summary>
-        public GrassCoverErosionInwardsOutput Output { get; set; }
+        public ProbabilisticOutput Output { get; set; }
 
         public string Comments { get; set; }
 

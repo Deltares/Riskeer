@@ -56,6 +56,18 @@ namespace Ringtoets.HeightStructures.Data
             }
         }
 
+        public override double Contribution
+        {
+            get
+            {
+                return NormProbabilityInput.Contribution;
+            }
+            set
+            {
+                NormProbabilityInput.Contribution = value;
+            }
+        }
+
         /// <summary>
         /// Gets the length-effect parameters.
         /// </summary>
