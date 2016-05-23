@@ -30,17 +30,17 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// <summary>
     /// Defines a stand alone failure mechanisms objects
     /// </summary>
-    public class MacrostabilityInwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<CustomFailureMechanismSectionResult>
+    public class GrassCoverSlipOffInwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<SimpleFailureMechanismSectionResult>
     {
-        private readonly IList<CustomFailureMechanismSectionResult> sectionResults;
+        private readonly IList<SimpleFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MacrostabilityInwardsFailureMechanism"/> class.
+        /// Initializes a new instance of the <see cref="GrassCoverSlipOffOutwardsFailureMechanism"/> class.
         /// </summary>
-        public MacrostabilityInwardsFailureMechanism()
-            : base(Resources.MacrostabilityInwardFailureMechanism_DisplayName, Resources.MacrostabilityInwardFailureMechanism_Code)
+        public GrassCoverSlipOffInwardsFailureMechanism()
+            : base(Resources.GrassCoverSlipOffInwardsFailureMechanism_DisplayName, Resources.GrassCoverSlipOffInwardsFailureMechanism_Code)
         {
-            sectionResults = new List<CustomFailureMechanismSectionResult>();
+            sectionResults = new List<SimpleFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         {
             base.AddSection(section);
 
-            sectionResults.Add(new CustomFailureMechanismSectionResult(section));
+            sectionResults.Add(new SimpleFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             sectionResults.Clear();
         }
 
-        public IEnumerable<CustomFailureMechanismSectionResult> SectionResults
+        public IEnumerable<SimpleFailureMechanismSectionResult> SectionResults
         {
             get
             {

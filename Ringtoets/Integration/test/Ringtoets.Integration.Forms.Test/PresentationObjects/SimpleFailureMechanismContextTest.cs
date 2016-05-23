@@ -20,25 +20,36 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Common.Data.Contribution;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Integration.Forms.PresentationObjects;
 
-namespace Ringtoets.Common.Data.Test.Contribution
+namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class OtherFailureMechanismTest
+    public class SimpleFailureMechanismContextTest
     {
         [Test]
-        public void Constructor_Always_NameSet()
+        public void Constructor_ExpectedValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism();
+
             // Call
-            var result = new OtherFailureMechanism();
+            var context = new SimpleFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.AreEqual("Overig", result.Name);
-            Assert.AreEqual("-", result.Code);
-            Assert.IsInstanceOf<FailureMechanismBase>(result);
-            CollectionAssert.IsEmpty(result.Calculations);
+            Assert.IsInstanceOf<FailureMechanismContext<IFailureMechanism>>(context);
+            Assert.AreSame(failureMechanism, context.WrappedData);
+            Assert.AreSame(assessmentSection, context.Parent);
+            mocks.VerifyAll();
         }
     }
 }

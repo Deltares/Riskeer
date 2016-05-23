@@ -130,8 +130,10 @@ namespace Ringtoets.Common.Data.Test.Contribution
             // Assert
             Assert.AreEqual(1, result.Distribution.Count());
             FailureMechanismContributionItem otherFailureMechanismItem = result.Distribution.ElementAt(0);
-            Assert.AreEqual(contribution, otherFailureMechanismItem.Contribution);
             AssertFailureProbabilitySpace(contribution, norm, otherFailureMechanismItem.ProbabilitySpace);
+            Assert.AreEqual(Resources.OtherFailureMechanism_DisplayName, otherFailureMechanismItem.Assessment);
+            Assert.AreEqual(Resources.OtherFailureMechanism_Code, otherFailureMechanismItem.AssessmentCode);
+            Assert.AreEqual(contribution, otherFailureMechanismItem.Contribution);
             Assert.IsTrue(otherFailureMechanismItem.IsAlwaysRelevant);
             Assert.IsTrue(otherFailureMechanismItem.IsRelevant);
             Assert.AreEqual(norm, result.Norm);

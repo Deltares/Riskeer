@@ -23,14 +23,14 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Forms.PresentationObjects;
 
 namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class StandAloneFailureMechanismContextTest
+    public class CustomFailureMechanismContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
 
             // Call
             var context = new CustomFailureMechanismContext(failureMechanism, assessmentSection);

@@ -28,13 +28,13 @@ using Ringtoets.Integration.Data.StandAlone;
 namespace Ringtoets.Integration.Data.Test.StandAlone
 {
     [TestFixture]
-    public class WaveImpactAsphaltFailureMechanismTest
+    public class MacrostabilityInwardsFailureMechanismTest
     {
         [Test]
         public void DefaultConstructor_Always_PropertiesSet()
         {
             // Call
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new MacrostabilityInwardsFailureMechanism();
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
         public void AddSection_WithSection_AddedCustomFailureMechanismResult()
         {
             // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new MacrostabilityInwardsFailureMechanism();
             
             // Call
             failureMechanism.AddSection(new FailureMechanismSection("", new[]

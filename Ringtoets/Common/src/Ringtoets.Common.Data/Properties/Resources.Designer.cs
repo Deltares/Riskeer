@@ -288,11 +288,11 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NWOoc.
+        ///   Looks up a localized string similar to -.
         /// </summary>
-        public static string OtherFailureMechanism_DisplayCode {
+        public static string OtherFailureMechanism_Code {
             get {
-                return ResourceManager.GetString("OtherFailureMechanism_DisplayCode", resourceCulture);
+                return ResourceManager.GetString("OtherFailureMechanism_Code", resourceCulture);
             }
         }
         

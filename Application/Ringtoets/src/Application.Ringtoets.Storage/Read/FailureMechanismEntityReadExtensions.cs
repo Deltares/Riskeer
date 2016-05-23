@@ -82,12 +82,12 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to construct a <see cref="MacroStabilityInwardsFailureMechanism"/>.
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to construct a <see cref="MacrostabilityInwardsFailureMechanism"/>.
         /// </summary>
-        /// <returns>A new <see cref="MacroStabilityInwardsFailureMechanism"/>.</returns>
-        internal static MacroStabilityInwardsFailureMechanism ReadAsMacroStabilityInwardsFailureMechanism(this FailureMechanismEntity entity)
+        /// <returns>A new <see cref="MacrostabilityInwardsFailureMechanism"/>.</returns>
+        internal static MacrostabilityInwardsFailureMechanism ReadAsMacroStabilityInwardsFailureMechanism(this FailureMechanismEntity entity)
         {
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism()
+            var failureMechanism = new MacrostabilityInwardsFailureMechanism()
             {
                 StorageId = entity.FailureMechanismEntityId,
                 IsRelevant = entity.IsRelevant == 1

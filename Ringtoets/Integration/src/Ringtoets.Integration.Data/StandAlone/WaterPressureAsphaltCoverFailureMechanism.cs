@@ -30,15 +30,15 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// <summary>
     /// Defines a stand alone failure mechanisms objects
     /// </summary>
-    public class MacrostabilityInwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<CustomFailureMechanismSectionResult>
+    public class WaterPressureAsphaltCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<CustomFailureMechanismSectionResult>
     {
         private readonly IList<CustomFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MacrostabilityInwardsFailureMechanism"/> class.
+        /// Initializes a new instance of the <see cref="WaveImpactAsphaltCoverFailureMechanism"/> class.
         /// </summary>
-        public MacrostabilityInwardsFailureMechanism()
-            : base(Resources.MacrostabilityInwardFailureMechanism_DisplayName, Resources.MacrostabilityInwardFailureMechanism_Code)
+        public WaterPressureAsphaltCoverFailureMechanism()
+            : base(Resources.WaterPressureAsphaltCoverFailureMechanism_DisplayName, Resources.WaterPressureAsphaltCoverFailureMechanism_Code)
         {
             sectionResults = new List<CustomFailureMechanismSectionResult>();
         }

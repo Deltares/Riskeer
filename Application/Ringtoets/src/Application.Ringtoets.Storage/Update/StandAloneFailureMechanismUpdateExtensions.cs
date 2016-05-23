@@ -30,13 +30,13 @@ using Ringtoets.Integration.Data.StandAlone;
 namespace Application.Ringtoets.Storage.Update
 {
     /// <summary>
-    /// Extension methods for <see cref="MacroStabilityInwardsFailureMechanism"/> related to updating a <see cref="FailureMechanismEntity"/>.
+    /// Extension methods for <see cref="MacrostabilityInwardsFailureMechanism"/> related to updating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
     internal static class StandAloneFailureMechanismUpdateExtensions
     {
         /// <summary>
         /// Updates a <see cref="FailureMechanismEntity"/> in the database based on the information of the 
-        /// <see cref="MacroStabilityInwardsFailureMechanism"/>.
+        /// <see cref="MacrostabilityInwardsFailureMechanism"/>.
         /// </summary>
         /// <param name="mechanism">The mechanism to update the database entity for.</param>
         /// <param name="collector">The object keeping track of update operations.</param>

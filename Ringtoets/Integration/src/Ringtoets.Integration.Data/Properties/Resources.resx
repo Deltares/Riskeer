@@ -180,4 +180,40 @@
   <data name="DuneErosionFailureMechanism_Code" xml:space="preserve">
     <value>DA</value>
   </data>
+  <data name="GrassCoverSlipOffInwardsFailureMechanism_Code" xml:space="preserve">
+    <value>GABI</value>
+  </data>
+  <data name="GrassCoverSlipOffInwardsFailureMechanism_DisplayName" xml:space="preserve">
+    <value>Dijken en dammen - Grasbekleding afschuiven binnentalud</value>
+  </data>
+  <data name="MacrostabilityOutwardFailureMechanism_Code" xml:space="preserve">
+    <value>STBU</value>
+  </data>
+  <data name="MacrostabilityOutwardFailureMechanism_DisplayName" xml:space="preserve">
+    <value>Dijken en dammen - Macrostabiliteit buitenwaarts</value>
+  </data>
+  <data name="MicrostabilityFailureMechanism_Code" xml:space="preserve">
+    <value>STMI</value>
+  </data>
+  <data name="MicrostabilityFailureMechanism_DisplayName" xml:space="preserve">
+    <value>Dijken en dammen - Microstabiliteit</value>
+  </data>
+  <data name="StrengthStabilityLengthwiseConstructionFailureMechanism_Code" xml:space="preserve">
+    <value>STKWl</value>
+  </data>
+  <data name="StrengthStabilityLengthwiseConstructionFailureMechanism_DisplayName" xml:space="preserve">
+    <value>Kunstwerken - Sterkte en stabiliteit langsconstructies</value>
+  </data>
+  <data name="TechnicalInnovationFailureMechanismFailureMechanism_Code" xml:space="preserve">
+    <value>INN</value>
+  </data>
+  <data name="TechnicalInnovationFailureMechanismFailureMechanism_DisplayName" xml:space="preserve">
+    <value>Technische innovaties - Technische innovaties</value>
+  </data>
+  <data name="WaterPressureAsphaltCoverFailureMechanism_Code" xml:space="preserve">
+    <value>AWO</value>
+  </data>
+  <data name="WaterPressureAsphaltCoverFailureMechanism_DisplayName" xml:space="preserve">
+    <value>Dijken en dammen - Wateroverdruk bij asfaltbekleding</value>
+  </data>
 </root>

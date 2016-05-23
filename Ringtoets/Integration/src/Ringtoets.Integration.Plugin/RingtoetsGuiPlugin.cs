@@ -53,6 +53,7 @@ using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -455,57 +456,14 @@ namespace Ringtoets.Integration.Plugin
         {
             foreach (IFailureMechanism failureMechanism in nodeData.GetFailureMechanisms())
             {
-                var closingStructureFailureMechanism = failureMechanism as ClosingStructureFailureMechanism;
-                var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;
-                var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
-                var grassCoverSlipOffOutwardsFailureMechanism = failureMechanism as GrassCoverSlipOffOutwardsFailureMechanism;
-                var macroStabilityInwardsFailureMechanism = failureMechanism as MacroStabilityInwardsFailureMechanism;
-                var pipingStructureFailureMechanism = failureMechanism as PipingStructureFailureMechanism;
-                var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
-                var strengthStabilityPointConstructionFailureMechanism = failureMechanism as StrengthStabilityPointConstructionFailureMechanism;
-                var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
-
                 var piping = failureMechanism as PipingFailureMechanism;
                 var grassCoverErosionInwards = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
                 var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
 
-                if (closingStructureFailureMechanism != null)
-                {
-                    yield return new CustomFailureMechanismContext(closingStructureFailureMechanism, nodeData);
-                }
-                else if (duneErosionFailureMechanism != null)
-                {
-                    yield return new SimpleFailureMechanismContext(duneErosionFailureMechanism, nodeData);
-                }
-                else if (grassCoverErosionOutwardsFailureMechanism != null)
-                {
-                    yield return new SimpleFailureMechanismContext(grassCoverErosionOutwardsFailureMechanism, nodeData);
-                }
-                else if (grassCoverSlipOffOutwardsFailureMechanism != null)
-                {
-                    yield return new SimpleFailureMechanismContext(grassCoverSlipOffOutwardsFailureMechanism, nodeData);
-                }
-                else if (macroStabilityInwardsFailureMechanism != null)
-                {
-                    yield return new CustomFailureMechanismContext(macroStabilityInwardsFailureMechanism, nodeData);
-                }
-                else if (pipingStructureFailureMechanism != null)
-                {
-                    yield return new SimpleFailureMechanismContext(pipingStructureFailureMechanism, nodeData);
-                }
-                else if (stabilityStoneCoverFailureMechanism != null)
-                {
-                    yield return new CustomFailureMechanismContext(stabilityStoneCoverFailureMechanism, nodeData);
-                }
-                else if (strengthStabilityPointConstructionFailureMechanism != null)
-                {
-                    yield return new CustomFailureMechanismContext(strengthStabilityPointConstructionFailureMechanism, nodeData);
-                }
-                else if (waveImpactAsphaltCoverFailureMechanism != null)
-                {
-                    yield return new CustomFailureMechanismContext(waveImpactAsphaltCoverFailureMechanism, nodeData);
-                }
-                else if (piping != null)
+                var customFailureMechanism = failureMechanism as IHasSectionResults<CustomFailureMechanismSectionResult>;
+                var simpleFailureMechanism = failureMechanism as IHasSectionResults<SimpleFailureMechanismSectionResult>;
+
+                if (piping != null)
                 {
                     yield return new PipingFailureMechanismContext(piping, nodeData);
                 }
@@ -516,6 +474,14 @@ namespace Ringtoets.Integration.Plugin
                 else if (heightStructuresFailureMechanism != null)
                 {
                     yield return new HeightStructuresFailureMechanismContext(heightStructuresFailureMechanism, nodeData);
+                }
+                else if (customFailureMechanism != null)
+                {
+                    yield return new CustomFailureMechanismContext(customFailureMechanism as IFailureMechanism, nodeData);
+                }
+                else if (simpleFailureMechanism != null)
+                {
+                    yield return new SimpleFailureMechanismContext(simpleFailureMechanism as IFailureMechanism, nodeData);
                 }
                 else
                 {

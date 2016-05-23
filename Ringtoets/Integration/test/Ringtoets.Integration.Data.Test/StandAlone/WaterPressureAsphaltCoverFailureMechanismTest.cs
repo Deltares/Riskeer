@@ -19,44 +19,45 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Gui.PropertyBag;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.PropertyClasses;
 
-namespace Ringtoets.Integration.Forms.Test.PropertyClasses
+namespace Ringtoets.Integration.Data.Test.StandAlone
 {
     [TestFixture]
-    public class StandAloneFailureMechanismContextPropertiesTest
+    public class WaterPressureAsphaltCoverFailureMechanismTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void DefaultConstructor_Always_PropertiesSet()
         {
-            // Setup
-
             // Call
-            var properties = new StandAloneFailureMechanismContextProperties();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<SimpleFailureMechanismContext>>(properties);
+            Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
+            Assert.AreEqual("Dijken en dammen - Wateroverdruk bij asfaltbekleding", failureMechanism.Name);
+            Assert.AreEqual("AWO", failureMechanism.Code);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
 
         [Test]
-        public void Data_SetNewStandAloneFailureMechanismContextInstance_ReturnCorrectPropertyValues()
+        public void AddSection_WithSection_AddedCustomFailureMechanismResult()
         {
             // Setup
-            var failureMechanism = new MacrostabilityInwardsFailureMechanism();
-            var properties = new StandAloneFailureMechanismContextProperties();
-
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
+            
             // Call
-            properties.Data = new SimpleFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>());
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(2, 1)
+            }));
 
             // Assert
-            Assert.AreEqual(failureMechanism.Name, properties.Name);
-            Assert.AreEqual(failureMechanism.Code, properties.Code);
-        } 
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
+            Assert.IsInstanceOf<CustomFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+        }
     }
 }

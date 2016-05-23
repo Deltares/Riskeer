@@ -177,8 +177,8 @@
   <data name="CalculationGroup_Setting_readonly_name_error_message" xml:space="preserve">
     <value>Kan de naam van deze groep niet aanpassen, omdat 'IsNameEditable' op 'false' staat.</value>
   </data>
-  <data name="OtherFailureMechanism_DisplayCode" xml:space="preserve">
-    <value>NWOoc</value>
+  <data name="OtherFailureMechanism_Code" xml:space="preserve">
+    <value>-</value>
   </data>
   <data name="FailureMechanism_Code_Description" xml:space="preserve">
     <value>Het label van het toetsspoor.</value>

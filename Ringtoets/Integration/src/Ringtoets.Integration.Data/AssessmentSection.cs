@@ -56,18 +56,24 @@ namespace Ringtoets.Integration.Data
             PipingFailureMechanism = new PipingFailureMechanism();
             GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
 
-            MacrostabilityInwards = new MacroStabilityInwardsFailureMechanism();
+            MacrostabilityInwards = new MacrostabilityInwardsFailureMechanism();
+            MacrostabilityOutwards = new MacrostabilityOutwardsFailureMechanism();
+            Microstability = new MicrostabilityFailureMechanism();
             StabilityStoneCover = new StabilityStoneCoverFailureMechanism();
             WaveImpactAsphaltCover = new WaveImpactAsphaltCoverFailureMechanism();
+            WaterPressureAsphaltCover = new WaterPressureAsphaltCoverFailureMechanism();
             GrassCoverErosionOutwards = new GrassCoverErosionOutwardsFailureMechanism();
             GrassCoverSlipOffOutwards = new GrassCoverSlipOffOutwardsFailureMechanism();
+            GrassCoverSlipOffInwards = new GrassCoverSlipOffInwardsFailureMechanism();
             HeightStructures = new HeightStructuresFailureMechanism();
             ClosingStructure = new ClosingStructureFailureMechanism();
             StrengthStabilityPointConstruction = new StrengthStabilityPointConstructionFailureMechanism();
+            StrengthStabilityLengthwiseConstruction = new StrengthStabilityLengthwiseConstructionFailureMechanism();
             PipingStructure = new PipingStructureFailureMechanism();
             DuneErosion = new DuneErosionFailureMechanism();
+            TechnicalInnovation = new TechnicalInnovationFailureMechanism();
 
-            FailureMechanismContribution = new FailureMechanismContribution(GetFailureMechanisms(), 30, 30000);
+            FailureMechanismContribution = new FailureMechanismContribution(GetContributingFailureMechanisms(), 30, 30000);
             ChangeComposition(composition);
         }
 
@@ -84,7 +90,17 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets the "Dijken en dammen - Macrostabiliteit binnenwaarts" failure mechanism.
         /// </summary>
-        public MacroStabilityInwardsFailureMechanism MacrostabilityInwards { get; private set; }
+        public MacrostabilityInwardsFailureMechanism MacrostabilityInwards { get; private set; }
+
+        /// <summary>
+        /// Gets the "Dijken en dammen - Macrostabiliteit buitenwaarts" failure mechanism.
+        /// </summary>
+        public MacrostabilityOutwardsFailureMechanism MacrostabilityOutwards { get; private set; }
+
+        /// <summary>
+        /// Gets the "Dijken en dammen - Microstabiliteit" failure mechanism.
+        /// </summary>
+        public MicrostabilityFailureMechanism Microstability { get; private set; }
 
         /// <summary>
         /// Gets the "Dijken en dammen - Stabiliteit steenzetting" failure mechanism.
@@ -97,6 +113,11 @@ namespace Ringtoets.Integration.Data
         public WaveImpactAsphaltCoverFailureMechanism WaveImpactAsphaltCover { get; private set; }
 
         /// <summary>
+        /// Gets the "Dijken en dammen - Wateroverdruk bij asfaltbekleding" failure mechanism.
+        /// </summary>
+        public WaterPressureAsphaltCoverFailureMechanism WaterPressureAsphaltCover { get; private set; }
+
+        /// <summary>
         /// Gets the "Dijken en dammen - Grasbekleding erosie buitentalud" failure mechanism.
         /// </summary>
         public GrassCoverErosionOutwardsFailureMechanism GrassCoverErosionOutwards { get; private set; }
@@ -104,7 +125,12 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets the "Dijken en dammen - Grasbekleding afschuiven buitentalud" failure mechanism.
         /// </summary>
-        public GrassCoverSlipOffOutwardsFailureMechanism GrassCoverSlipOffOutwards { get; set; }
+        public GrassCoverSlipOffOutwardsFailureMechanism GrassCoverSlipOffOutwards { get; private set; }
+
+        /// <summary>
+        /// Gets the "Dijken en dammen - Grasbekleding afschuiven binnentalud" failure mechanism.
+        /// </summary>
+        public GrassCoverSlipOffInwardsFailureMechanism GrassCoverSlipOffInwards { get; private set; }
 
         /// <summary>
         /// Gets the "Kunstwerken - Hoogte kunstwerk" failure mechanism.
@@ -119,7 +145,7 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets the "Kunstwerken - Piping bij kunstwerk" failure mechanism.
         /// </summary>
-        public PipingStructureFailureMechanism PipingStructure { get; set; }
+        public PipingStructureFailureMechanism PipingStructure { get; private set; }
 
         /// <summary>
         /// Gets the "Kunstwerken - Sterkte en stabiliteit puntconstructies" failure mechanism.
@@ -127,9 +153,19 @@ namespace Ringtoets.Integration.Data
         public StrengthStabilityPointConstructionFailureMechanism StrengthStabilityPointConstruction { get; private set; }
 
         /// <summary>
+        /// Gets the "Kunstwerken - Sterkte en stabiliteit langsconstructies" failure mechanism.
+        /// </summary>
+        public StrengthStabilityLengthwiseConstructionFailureMechanism StrengthStabilityLengthwiseConstruction { get; private set; }
+
+        /// <summary>
         /// Gets the "Duinwaterkering - Duinafslag" failure mechanism.
         /// </summary>
         public DuneErosionFailureMechanism DuneErosion { get; private set; }
+
+        /// <summary>
+        /// Gets the "Technische innovaties - Technische innovaties" failure mechanism.
+        /// </summary>
+        public TechnicalInnovationFailureMechanism TechnicalInnovation { get; private set; }
 
         public string Name { get; set; }
 
@@ -173,6 +209,28 @@ namespace Ringtoets.Integration.Data
             yield return PipingFailureMechanism;
             yield return GrassCoverErosionInwards;
             yield return MacrostabilityInwards;
+            yield return MacrostabilityOutwards;
+            yield return Microstability;
+            yield return StabilityStoneCover;
+            yield return WaveImpactAsphaltCover;
+            yield return WaterPressureAsphaltCover;
+            yield return GrassCoverErosionOutwards;
+            yield return GrassCoverSlipOffOutwards;
+            yield return GrassCoverSlipOffInwards;
+            yield return HeightStructures;
+            yield return ClosingStructure;
+            yield return PipingStructure;
+            yield return StrengthStabilityPointConstruction;
+            yield return StrengthStabilityLengthwiseConstruction;
+            yield return DuneErosion;
+            yield return TechnicalInnovation;
+        }
+
+        private IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
+        {
+            yield return PipingFailureMechanism;
+            yield return GrassCoverErosionInwards;
+            yield return MacrostabilityInwards;
             yield return StabilityStoneCover;
             yield return WaveImpactAsphaltCover;
             yield return GrassCoverErosionOutwards;
@@ -183,6 +241,7 @@ namespace Ringtoets.Integration.Data
             yield return StrengthStabilityPointConstruction;
             yield return DuneErosion;
         }
+
 
         public void ChangeComposition(AssessmentSectionComposition newComposition)
         {
@@ -201,7 +260,7 @@ namespace Ringtoets.Integration.Data
                     PipingStructure.Contribution = 2;
                     StrengthStabilityPointConstruction.Contribution = 2;
                     DuneErosion.Contribution = 0;
-                    FailureMechanismContribution.UpdateContributions(GetFailureMechanisms(), 30);
+                    FailureMechanismContribution.UpdateContributions(GetContributingFailureMechanisms(), 30);
                     break;
                 case AssessmentSectionComposition.Dune:
                     PipingFailureMechanism.Contribution = 0;
@@ -216,7 +275,7 @@ namespace Ringtoets.Integration.Data
                     PipingStructure.Contribution = 0;
                     StrengthStabilityPointConstruction.Contribution = 0;
                     DuneErosion.Contribution = 70;
-                    FailureMechanismContribution.UpdateContributions(GetFailureMechanisms(), 30);
+                    FailureMechanismContribution.UpdateContributions(GetContributingFailureMechanisms(), 30);
                     break;
                 case AssessmentSectionComposition.DikeAndDune:
                     PipingFailureMechanism.Contribution = 24;
@@ -231,7 +290,7 @@ namespace Ringtoets.Integration.Data
                     PipingStructure.Contribution = 2;
                     StrengthStabilityPointConstruction.Contribution = 2;
                     DuneErosion.Contribution = 10;
-                    FailureMechanismContribution.UpdateContributions(GetFailureMechanisms(), 20);
+                    FailureMechanismContribution.UpdateContributions(GetContributingFailureMechanisms(), 20);
                     break;
                 default:
                     throw new NotImplementedException();

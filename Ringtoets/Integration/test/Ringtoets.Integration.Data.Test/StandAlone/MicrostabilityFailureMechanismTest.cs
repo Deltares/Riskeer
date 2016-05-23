@@ -28,18 +28,18 @@ using Ringtoets.Integration.Data.StandAlone;
 namespace Ringtoets.Integration.Data.Test.StandAlone
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailureMechanismTest
+    public class MicrostabilityFailureMechanismTest
     {
         [Test]
         public void DefaultConstructor_Always_PropertiesSet()
         {
             // Call
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new MicrostabilityFailureMechanism();
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
-            Assert.AreEqual("Dijken en dammen - Macrostabiliteit binnenwaarts", failureMechanism.Name);
-            Assert.AreEqual("STBI", failureMechanism.Code);
+            Assert.AreEqual("Dijken en dammen - Microstabiliteit", failureMechanism.Name);
+            Assert.AreEqual("STMI", failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
 
@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
         public void AddSection_WithSection_AddedCustomFailureMechanismResult()
         {
             // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new MicrostabilityFailureMechanism();
             
             // Call
             failureMechanism.AddSection(new FailureMechanismSection("", new[]
@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
 
             // Assert
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.IsInstanceOf<CustomFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+            Assert.IsInstanceOf<SimpleFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
         }
     }
 }

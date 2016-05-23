@@ -524,7 +524,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 FailureMechanismEntityId = storageId
             };
-            var model = new MacroStabilityInwardsFailureMechanism();
+            var model = new MacrostabilityInwardsFailureMechanism();
             collector.Create(entity, model);
 
             // Call

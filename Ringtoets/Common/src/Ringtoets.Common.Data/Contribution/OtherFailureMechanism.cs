@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Data.Contribution
         /// <summary>
         /// Creates a new instance of <see cref="OtherFailureMechanism"/>.
         /// </summary>
-        public OtherFailureMechanism() : base(Resources.OtherFailureMechanism_DisplayName, Resources.OtherFailureMechanism_DisplayCode) {}
+        public OtherFailureMechanism() : base(Resources.OtherFailureMechanism_DisplayName, Resources.OtherFailureMechanism_Code) {}
 
         public override IEnumerable<ICalculation> Calculations
         {
