@@ -152,12 +152,14 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreEqual(2, rows.Count);
 
                 var cells = rows[0].Cells;
-                Assert.AreEqual(1, cells.Count);
+                Assert.AreEqual(2, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(false, cells[assessmentLayerOneIndex].FormattedValue);
 
                 cells = rows[1].Cells;
-                Assert.AreEqual(1, cells.Count);
+                Assert.AreEqual(2, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(false, cells[assessmentLayerOneIndex].FormattedValue);
             }
         }
 

@@ -45,11 +45,6 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the state of the assessment layer one.
-        /// </summary>
-        public bool AssessmentLayerOne { get; set; }
-
-        /// <summary>
         /// Gets the value of assessment layer two a.
         /// </summary>
         public RoundedDouble AssessmentLayerTwoA
