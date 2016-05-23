@@ -32,6 +32,9 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 
 namespace Ringtoets.HeightStructures.Forms.Views
 {
+    /// <summary>
+    /// The view for the <see cref="HeightStructuresFailureMechanismSectionResult"/>.
+    /// </summary>
     public partial class HeightStructuresFailureMechanismResultView : FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult>
     {
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;

@@ -22,17 +22,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.HeightStructures.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using HeightStructuresDataResources = Ringtoets.HeightStructures.Data.Properties.Resources;
@@ -45,6 +48,22 @@ namespace Ringtoets.HeightStructures.Plugin
     /// </summary>
     public class HeightStructuresGuiPlugin : GuiPlugin
     {
+        public override IEnumerable<ViewInfo> GetViewInfos()
+        {
+            yield return new ViewInfo<
+               FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>,
+               IEnumerable<HeightStructuresFailureMechanismSectionResult>,
+               HeightStructuresFailureMechanismResultView
+               >
+            {
+                GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                CloseForData = CloseFailureMechanismResultViewForData,
+                GetViewData = context => context.SectionResults,
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+            };
+        }
+
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
             yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<HeightStructuresFailureMechanismContext>(
@@ -108,6 +127,29 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                                  .Build()
             };
         }
+
+        #region HeightStructuresFailureMechanismResultView ViewInfo
+
+        private static bool CloseFailureMechanismResultViewForData(HeightStructuresFailureMechanismResultView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as IFailureMechanism;
+            var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
+            if (assessmentSection != null)
+            {
+                return assessmentSection
+                    .GetFailureMechanisms()
+                    .OfType<HeightStructuresFailureMechanism>()
+                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+            }
+            if (failureMechanismContext != null)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+            return failureMechanism != null && ReferenceEquals(view.Data, ((HeightStructuresFailureMechanism)failureMechanism).SectionResults);
+        }
+
+        #endregion
 
         #region HeightStructuresFailureMechanismContext TreeNodeInfo
 

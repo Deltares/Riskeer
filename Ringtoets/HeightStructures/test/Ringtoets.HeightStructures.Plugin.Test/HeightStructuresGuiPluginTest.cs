@@ -28,9 +28,9 @@ using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.Views;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.HeightStructures.Forms.Views;
 
 namespace Ringtoets.HeightStructures.Plugin.Test
 {
@@ -81,6 +81,35 @@ namespace Ringtoets.HeightStructures.Plugin.Test
             }
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetViewInfo_ReturnsSupportedViewInfos()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationCore = new ApplicationCore();
+
+            var guiStub = mocks.Stub<IGui>();
+            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
+
+            guiStub.Stub(g => g.ApplicationCore).Return(applicationCore);
+
+            mocks.ReplayAll();
+
+            using (var guiPlugin = new HeightStructuresGuiPlugin
+            {
+                Gui = guiStub
+            })
+            {
+                // Call
+                ViewInfo[] viewInfos = guiPlugin.GetViewInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, viewInfos.Length);
+
+                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(HeightStructuresFailureMechanismResultView)));
+            }
         }
     }
 }

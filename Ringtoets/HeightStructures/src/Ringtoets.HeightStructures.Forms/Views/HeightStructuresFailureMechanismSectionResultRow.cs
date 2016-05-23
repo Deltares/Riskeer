@@ -21,15 +21,20 @@
 
 using System;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HeightStructures.Data;
 
 namespace Ringtoets.HeightStructures.Forms.Views
 {
     /// <summary>
-    /// This class represents a row 
+    /// This class represents a row of <see cref="HeightStructuresFailureMechanismSectionResult"/>.
     /// </summary>
     internal class HeightStructuresFailureMechanismSectionResultRow
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="HeightStructuresFailureMechanismSectionResultRow"/>.
+        /// </summary>
+        /// <param name="sectionResult">The <see cref="HeightStructuresFailureMechanismSectionResult"/> this row contains.</param>
         public HeightStructuresFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)
@@ -39,6 +44,9 @@ namespace Ringtoets.HeightStructures.Forms.Views
             SectionResult = sectionResult;
         }
 
+        /// <summary>
+        /// Gets the name of the <see cref="FailureMechanismSection"/> name.
+        /// </summary>
         public string Name
         {
             get
@@ -47,6 +55,9 @@ namespace Ringtoets.HeightStructures.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets or sets the assessment layer one of the <see cref="SectionResult"/>.
+        /// </summary>
         public bool AssessmentLayerOne
         {
             get
@@ -60,6 +71,9 @@ namespace Ringtoets.HeightStructures.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets the assessment layer two a of the <see cref="SectionResult"/>.
+        /// </summary>
         public RoundedDouble AssessmentLayerTwoA
         {
             get
@@ -68,6 +82,9 @@ namespace Ringtoets.HeightStructures.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets or sets the assessment layer two b of the <see cref="SectionResult"/>.
+        /// </summary>
         public RoundedDouble AssessmentLayerTwoB
         {
             get
@@ -80,6 +97,9 @@ namespace Ringtoets.HeightStructures.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets or sets the assessment layer three of the <see cref="SectionResult"/>.
+        /// </summary>
         public RoundedDouble AssessmentLayerThree
         {
             get

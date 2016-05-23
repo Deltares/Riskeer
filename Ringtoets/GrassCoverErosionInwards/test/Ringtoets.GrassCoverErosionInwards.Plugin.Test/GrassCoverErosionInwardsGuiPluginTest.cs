@@ -31,6 +31,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
+using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
 {
@@ -121,6 +122,35 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsOutput)));
             }
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetViewInfo_ReturnsSupportedViewInfos()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationCore = new ApplicationCore();
+
+            var guiStub = mocks.Stub<IGui>();
+            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
+
+            guiStub.Stub(g => g.ApplicationCore).Return(applicationCore);
+
+            mocks.ReplayAll();
+
+            using (var guiPlugin = new GrassCoverErosionInwardsGuiPlugin
+            {
+                Gui = guiStub
+            })
+            {
+                // Call
+                ViewInfo[] viewInfos = guiPlugin.GetViewInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, viewInfos.Length);
+
+                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsFailureMechanismResultView)));
+            }
         }
     }
 }
