@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Data.TestUtil
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
-            sectionResults.Add(new FailureMechanismSectionResult(section));
+            sectionResults.Add(new TestFailureMechanismSectionResult(section));
         }
 
         public IEnumerable<FailureMechanismSectionResult> SectionResults

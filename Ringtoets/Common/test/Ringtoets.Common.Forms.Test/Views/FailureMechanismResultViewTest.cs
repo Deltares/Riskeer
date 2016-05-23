@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 };
 
                 var section = new FailureMechanismSection("test", points);
-                var sectionResult = new FailureMechanismSectionResult(section);
+                var sectionResult = new TestFailureMechanismSectionResult(section);
                 var testData = new List<FailureMechanismSectionResult>
                 {
                     sectionResult

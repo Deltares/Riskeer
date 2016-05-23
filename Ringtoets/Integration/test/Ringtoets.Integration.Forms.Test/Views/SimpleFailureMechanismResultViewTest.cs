@@ -26,7 +26,9 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Integration.Forms.Views;
 
@@ -203,8 +205,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 new Point2D(0, 0)
             });
-            var result1 = new FailureMechanismSectionResult(section1);
-            var result2 = new FailureMechanismSectionResult(section2);
+            var result1 = new TestFailureMechanismSectionResult(section1);
+            var result2 = new TestFailureMechanismSectionResult(section2);
 
             using (var form = new Form())
             {

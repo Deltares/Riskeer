@@ -3,6 +3,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.Common.Forms.Test.PresentationObjects
@@ -80,7 +81,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             };
 
             var section = new FailureMechanismSection("test", points);
-            var sectionResult = new FailureMechanismSectionResult(section);
+            var sectionResult = new TestFailureMechanismSectionResult(section);
             return sectionResult;
         }
     }

@@ -6,7 +6,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
     /// <summary>
     /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public class FailureMechanismSectionResult : Observable
+    public abstract class FailureMechanismSectionResult : Observable
     {
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionResult"/>.
