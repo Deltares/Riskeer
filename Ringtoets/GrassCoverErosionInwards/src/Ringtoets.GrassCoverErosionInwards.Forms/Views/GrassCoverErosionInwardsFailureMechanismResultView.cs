@@ -36,7 +36,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// <summary>
     /// The view for the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
     /// </summary>
-    public partial class GrassCoverErosionInwardsFailureMechanismResultView : FailureMechanismResultView<GrassCoverErosionInwardsFailureMechanismSectionResult>
+    public class GrassCoverErosionInwardsFailureMechanismResultView : FailureMechanismResultView<GrassCoverErosionInwardsFailureMechanismSectionResult>
     {
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
