@@ -35,7 +35,7 @@ using CoreCommonResources = Core.Common.Base.Properties.Resources;
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {
     /// <summary>
-    /// The view for the <see cref="Ringtoets.GrassCoverErosionInwards.Data.GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
+    /// The view for the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
     /// </summary>
     public partial class GrassCoverErosionInwardsFailureMechanismResultView : UserControl, IView
     {
@@ -53,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         private DataGridViewTextBoxColumn assessmentLayerThree;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionFailureMechanismResultView"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismResultView"/>.
         /// </summary>
         public GrassCoverErosionInwardsFailureMechanismResultView()
         {

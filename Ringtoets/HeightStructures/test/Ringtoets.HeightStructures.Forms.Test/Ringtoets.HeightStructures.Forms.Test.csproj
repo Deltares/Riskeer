@@ -57,6 +57,7 @@
     <Compile Include="PresentationObjects\HeightStructuresFailureMechanismContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TreeNodeInfos\EmptyHeightStructuresOutputTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\FailureMechanismResultViewTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresFailureMechanismContextTreeNodeInfoTest.cs" />

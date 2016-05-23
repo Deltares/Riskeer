@@ -41,6 +41,7 @@
     </Compile>
     <Compile Include="HeightStructuresCalculation.cs" />
     <Compile Include="HeightStructuresFailureMechanism.cs" />
+    <Compile Include="HeightStructuresFailureMechanismSectionResult.cs" />
     <Compile Include="HeightStructuresInput.cs" />
     <Compile Include="HeightStructuresOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -32,9 +32,9 @@ namespace Ringtoets.HeightStructures.Data
     /// <summary>
     /// Failure mechanism for Height structures.
     /// </summary>
-    public class HeightStructuresFailureMechanism : FailureMechanismBase, IHasSectionResults<CustomFailureMechanismSectionResult>
+    public class HeightStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<HeightStructuresFailureMechanismSectionResult>
     {
-        private readonly IList<CustomFailureMechanismSectionResult> sectionResults;
+        private readonly IList<HeightStructuresFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresFailureMechanism"/> class.
@@ -42,7 +42,7 @@ namespace Ringtoets.HeightStructures.Data
         public HeightStructuresFailureMechanism()
             : base(Resources.HeightStructuresFailureMechanism_DisplayName, Resources.HeightStructuresFailureMechanism_Code)
         {
-            sectionResults = new List<CustomFailureMechanismSectionResult>();
+            sectionResults = new List<HeightStructuresFailureMechanismSectionResult>();
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
             NormProbabilityInput = new NormProbabilityInput();
         }
@@ -55,11 +55,26 @@ namespace Ringtoets.HeightStructures.Data
             }
         }
 
+        /// <summary>
+        /// Gets the length-effect parameters.
+        /// </summary>
+        public NormProbabilityInput NormProbabilityInput { get; private set; }
+
+        public CalculationGroup CalculationsGroup { get; private set; }
+
+        public IEnumerable<HeightStructuresFailureMechanismSectionResult> SectionResults
+        {
+            get
+            {
+                return sectionResults;
+            }
+        }
+
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
 
-            sectionResults.Add(new CustomFailureMechanismSectionResult(section));
+            sectionResults.Add(new HeightStructuresFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
@@ -67,19 +82,5 @@ namespace Ringtoets.HeightStructures.Data
             base.ClearAllSections();
             sectionResults.Clear();
         }
-
-        public IEnumerable<CustomFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
-        /// <summary>
-        /// Gets the length-effect parameters.
-        /// </summary>
-        public NormProbabilityInput NormProbabilityInput { get; private set; }
-
-        public CalculationGroup CalculationsGroup { get; private set; }
     }
 }

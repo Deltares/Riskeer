@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HeightStructuresCalculationTest.cs" />
+    <Compile Include="HeightStructuresFailureMechanismSectionResultTest.cs" />
     <Compile Include="HeightStructuresFailureMechanismTest.cs" />
     <Compile Include="HeightStructuresInputTest.cs" />
     <Compile Include="HeightStructuresOutputTest.cs" />
