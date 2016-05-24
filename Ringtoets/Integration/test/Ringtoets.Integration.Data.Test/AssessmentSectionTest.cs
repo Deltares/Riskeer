@@ -28,9 +28,6 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Piping.Data;
 using RingtoetsIntegrationResources = Ringtoets.Integration.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Data.Test
@@ -91,7 +88,7 @@ namespace Ringtoets.Integration.Data.Test
                 duneErosionName,
                 otherName
             };
-            
+
             var codes = new[]
             {
                 pipingCode,
@@ -150,6 +147,8 @@ namespace Ringtoets.Integration.Data.Test
 
             Assert.AreEqual(30000.0, section.PipingFailureMechanism.NormProbabilityInput.Norm);
             Assert.AreEqual(double.NaN, section.PipingFailureMechanism.NormProbabilityInput.SectionLength);
+
+            Assert.AreEqual(30000.0, section.HeightStructures.NormProbabilityInput.Norm);
 
             Assert.AreEqual(sum, section.FailureMechanismContribution.Distribution.Sum(d => d.Contribution));
         }
@@ -254,25 +253,6 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(expectedNorm, otherContributionItem.ProbabilitySpace);
         }
 
-        private IFailureMechanism[] GetExpectedContributingFailureMechanisms(AssessmentSection section)
-        {
-            return new IFailureMechanism[]
-            {
-                section.PipingFailureMechanism,
-                section.GrassCoverErosionInwards,
-                section.MacrostabilityInwards,
-                section.StabilityStoneCover,
-                section.WaveImpactAsphaltCover,
-                section.GrassCoverErosionOutwards,
-                section.GrassCoverSlipOffOutwards,
-                section.HeightStructures,
-                section.ClosingStructure,
-                section.PipingStructure,
-                section.StrengthStabilityPointConstruction,
-                section.DuneErosion,
-            };
-        }
-
         [Test]
         [TestCase(AssessmentSectionComposition.Dike)]
         [TestCase(AssessmentSectionComposition.Dune)]
@@ -345,6 +325,25 @@ namespace Ringtoets.Integration.Data.Test
 
             // Assert
             Assert.AreEqual(double.NaN, assessmentSection.PipingFailureMechanism.NormProbabilityInput.SectionLength);
+        }
+
+        private IFailureMechanism[] GetExpectedContributingFailureMechanisms(AssessmentSection section)
+        {
+            return new IFailureMechanism[]
+            {
+                section.PipingFailureMechanism,
+                section.GrassCoverErosionInwards,
+                section.MacrostabilityInwards,
+                section.StabilityStoneCover,
+                section.WaveImpactAsphaltCover,
+                section.GrassCoverErosionOutwards,
+                section.GrassCoverSlipOffOutwards,
+                section.HeightStructures,
+                section.ClosingStructure,
+                section.PipingStructure,
+                section.StrengthStabilityPointConstruction,
+                section.DuneErosion,
+            };
         }
 
         private void AssertExpectedContributions(AssessmentSectionComposition composition, AssessmentSection assessmentSection)

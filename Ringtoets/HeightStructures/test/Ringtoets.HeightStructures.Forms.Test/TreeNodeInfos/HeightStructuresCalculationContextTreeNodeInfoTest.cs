@@ -96,7 +96,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput);
+            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput, failureMechanism.NormProbabilityInput);
             var calculationContext = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
             // Call
@@ -126,7 +126,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput)
+            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput, failureMechanism.NormProbabilityInput)
             {
                 Output = new TestHeightStructuresOutput()
             };
@@ -161,7 +161,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput);
+            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput, failureMechanism.NormProbabilityInput);
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
@@ -200,7 +200,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput);
+            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput, failureMechanism.NormProbabilityInput);
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -236,7 +236,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var elementToBeRemoved = new HeightStructuresCalculation(failureMechanism.GeneralInput);
+            var elementToBeRemoved = new HeightStructuresCalculation(failureMechanism.GeneralInput, failureMechanism.NormProbabilityInput);
             var observerMock = mocks.StrictMock<IObserver>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var calculationContext = new HeightStructuresCalculationContext(elementToBeRemoved,
@@ -251,7 +251,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             group.Children.Add(elementToBeRemoved);
-            group.Children.Add(new HeightStructuresCalculation(failureMechanism.GeneralInput));
+            group.Children.Add(new HeightStructuresCalculation(failureMechanism.GeneralInput, failureMechanism.NormProbabilityInput));
             group.Attach(observerMock);
 
             // Precondition

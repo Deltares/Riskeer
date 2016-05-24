@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.HeightStructures.Data.Test
 {
@@ -100,6 +101,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Setup
             var mocks = new MockRepository();
             var generalInput = new GeneralHeightStructuresInput();
+            var normProbabilityInput = new NormProbabilityInput();
             var failureMechanism = new HeightStructuresFailureMechanism
             {
                 CalculationsGroup =
@@ -107,9 +109,9 @@ namespace Ringtoets.HeightStructures.Data.Test
                     Children =
                     {
                         new CalculationGroup(),
-                        new HeightStructuresCalculation(generalInput),
+                        new HeightStructuresCalculation(generalInput, normProbabilityInput),
                         mocks.StrictMock<ICalculation>(),
-                        new HeightStructuresCalculation(generalInput)
+                        new HeightStructuresCalculation(generalInput, normProbabilityInput)
                     }
                 }
             };

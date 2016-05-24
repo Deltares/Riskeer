@@ -116,7 +116,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var group = new CalculationGroup();
             var childGroup = new CalculationGroup();
-            var childCalculation = new HeightStructuresCalculation(failureMechanism.GeneralInput);
+            var childCalculation = new HeightStructuresCalculation(failureMechanism.GeneralInput,
+                                                                   failureMechanism.NormProbabilityInput);
 
             group.Children.Add(childGroup);
             group.Children.Add(calculationItemMock);
@@ -379,7 +380,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
                                                                        assessmentSectionMock);
-            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput)
+            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput,
+                                                              failureMechanism.NormProbabilityInput)
             {
                 Name = "Nieuwe berekening"
             };
@@ -461,7 +463,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var parentNodeData = new HeightStructuresCalculationGroupContext(parentGroup,
                                                                              failureMechanism,
                                                                              assessmentSectionMock);
-            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput);
+            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput,
+                                                              failureMechanism.NormProbabilityInput);
 
             observerMock.Expect(o => o.UpdateObserver());
 
