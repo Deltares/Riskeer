@@ -81,6 +81,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwardsFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\PersistenceRegistryTest.cs" />
     <Compile Include="Create\FailureMechanismBaseCreateExtensionsTest.cs" />

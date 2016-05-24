@@ -31,6 +31,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -304,6 +305,34 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Call
             TestDelegate test = () => collector.Register(new HydraulicLocationEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullCalculationGroupEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => collector.Register(null, new CalculationGroup());
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullCalculationGroup_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => collector.Register(new CalculationGroupEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -599,6 +628,27 @@ namespace Application.Ringtoets.Storage.Test.Create
                 HydraulicLocationEntityId = storageId
             };
             var model = new HydraulicBoundaryLocation(-1, "name", 0, 0);
+            collector.Register(entity, model);
+
+            // Call
+            collector.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferId_WithCalculationGroupEntityAdded_EqualCalculationGroupEntityIdAndCalculationGroupStorageId()
+        {
+            // Setup
+            var collector = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1, 4000);
+            var entity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = storageId
+            };
+            var model = new CalculationGroup();
             collector.Register(entity, model);
 
             // Call
@@ -905,6 +955,39 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void RemoveUntouched_CalculationGroupEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.Create(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = 1
+            };
+            var persistentEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = 2
+            };
+            dbContext.CalculationGroupEntities.Add(orphanedEntity);
+            dbContext.CalculationGroupEntities.Add(persistentEntity);
+
+            var calculationGroup = new CalculationGroup{ StorageId = persistentEntity.CalculationGroupEntityId };
+
+            var collector = new PersistenceRegistry();
+            collector.Register(persistentEntity, calculationGroup);
+
+            // Call
+            collector.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.CalculationGroupEntities.Count());
+            CollectionAssert.Contains(dbContext.CalculationGroupEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void RemoveUntouched_StochasticSoilModelEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
         {
             // Setup
@@ -1151,6 +1234,5 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         #endregion
-
     }
 }

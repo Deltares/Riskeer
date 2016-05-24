@@ -29,6 +29,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils;
 
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -50,6 +51,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<FailureMechanismEntity, IFailureMechanism> failureMechanisms = new Dictionary<FailureMechanismEntity, IFailureMechanism>(new ReferenceEqualityComparer<FailureMechanismEntity>());
         private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections = new Dictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicLocations = new Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>(new ReferenceEqualityComparer<HydraulicLocationEntity>());
+        private readonly Dictionary<CalculationGroupEntity, CalculationGroup> calculationGroups = new Dictionary<CalculationGroupEntity, CalculationGroup>(new ReferenceEqualityComparer<CalculationGroupEntity>());
         private readonly Dictionary<StochasticSoilModelEntity, StochasticSoilModel> stochasticSoilModels = new Dictionary<StochasticSoilModelEntity, StochasticSoilModel>(new ReferenceEqualityComparer<StochasticSoilModelEntity>());
         private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> stochasticSoilProfiles = new Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile>(new ReferenceEqualityComparer<StochasticSoilProfileEntity>());
         private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles = new Dictionary<SoilProfileEntity, PipingSoilProfile>(new ReferenceEqualityComparer<SoilProfileEntity>());
@@ -72,6 +74,22 @@ namespace Application.Ringtoets.Storage.Create
         public void Register(FailureMechanismSectionEntity entity, FailureMechanismSection model)
         {
             Register(failureMechanismSections, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="CalculationGroupEntity"/> that was registered.</param>
+        /// <param name="model">The <see cref="CalculationGroup"/> which needed to registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(CalculationGroupEntity entity, CalculationGroup model)
+        {
+            Register(calculationGroups, entity, model);
         }
 
         /// <summary>
@@ -327,6 +345,11 @@ namespace Application.Ringtoets.Storage.Create
                 hydraulicLocations[entity].StorageId = entity.HydraulicLocationEntityId;
             }
 
+            foreach (var entity in calculationGroups.Keys)
+            {
+                calculationGroups[entity].StorageId = entity.CalculationGroupEntityId;
+            }
+
             foreach (var entity in stochasticSoilModels.Keys)
             {
                 stochasticSoilModels[entity].StorageId = entity.StochasticSoilModelEntityId;
@@ -401,6 +424,13 @@ namespace Application.Ringtoets.Storage.Create
                 .Where(entity => entity.HydraulicLocationEntityId > 0)
                 .Except(hydraulicLocations.Keys);
             hydraulicLocationEntities.RemoveRange(hydraulicLocationEntitiesToRemove);
+
+            var calculationGroupEntities = dbContext.CalculationGroupEntities;
+            var calculationGroupEntitiesToRemove = calculationGroupEntities
+                .Local
+                .Where(entity => entity.CalculationGroupEntityId > 0)
+                .Except(calculationGroups.Keys);
+            calculationGroupEntities.RemoveRange(calculationGroupEntitiesToRemove);
 
             var stochasticSoilModelEntities = dbContext.StochasticSoilModelEntities;
             var stochasticSoilModelEntitiesToRemove = stochasticSoilModelEntities

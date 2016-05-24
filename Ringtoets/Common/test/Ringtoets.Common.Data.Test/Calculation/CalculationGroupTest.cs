@@ -21,6 +21,8 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Base.Storage;
+
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
@@ -39,9 +41,12 @@ namespace Ringtoets.Common.Data.Test.Calculation
             // Assert
             Assert.IsInstanceOf<ICalculationBase>(group);
             Assert.IsInstanceOf<Observable>(group);
+            Assert.IsInstanceOf<IStorable>(group);
+
             Assert.IsTrue(group.IsNameEditable);
             Assert.AreEqual("Nieuwe map", group.Name);
             CollectionAssert.IsEmpty(group.Children);
+            Assert.AreEqual(0, group.StorageId);
         }
 
         [Test]
