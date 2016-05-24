@@ -125,8 +125,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             yield return new TreeNodeInfo<ProbabilisticOutput>
             {
-                Text = pipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = pipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddExportItem()
                                                                                  .AddSeparator()
@@ -140,8 +140,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static ExceedanceProbabilityCalculationActivity CreateHydraRingTargetProbabilityCalculationActivity(FailureMechanismSection failureMechanismSection,
                                                                                                                     string hlcdDirectory,
-                                                                                                                    GrassCoverErosionInwardsCalculation calculation,
-                                                                                                                    double norm, double contribution)
+                                                                                                                    GrassCoverErosionInwardsCalculation calculation)
         {
             var hydraulicBoundaryLocationId = (int) calculation.InputParameters.HydraulicBoundaryLocation.Id;
             var sectionLength = failureMechanismSection.GetSectionLength();
@@ -168,7 +167,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                 ParseBreakWater(inwardsInput)
                     ),
                 calculation.ClearOutput,
-                output => { ParseHydraRingOutput(calculation, norm, contribution, output); });
+                output => { ParseHydraRingOutput(calculation, output); });
         }
 
         private static HydraRingBreakWater ParseBreakWater(GrassCoverErosionInwardsInput input)
@@ -209,11 +208,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             }
         }
 
-        private static void ParseHydraRingOutput(GrassCoverErosionInwardsCalculation calculation, double norm, double contribution, ExceedanceProbabilityCalculationOutput output)
+        private static void ParseHydraRingOutput(GrassCoverErosionInwardsCalculation calculation, ExceedanceProbabilityCalculationOutput output)
         {
             if (output != null)
             {
-                GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, norm, contribution, output.Beta);
+                GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, output.Beta);
                 calculation.NotifyObservers();
             }
             else
@@ -229,10 +228,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                          .Select(calc => CreateHydraRingTargetProbabilityCalculationActivity(
                                                                              failureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
                                                                              Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
-                                                                             calc,
-                                                                             assessmentSection.FailureMechanismContribution.Norm,
-                                                                             failureMechanism.Contribution
-                                                                                             )).ToList());
+                                                                             calc)).ToList());
         }
 
         private static string AllDataAvailable(IAssessmentSection assessmentSection, GrassCoverErosionInwardsFailureMechanism failureMechanism)
@@ -263,8 +259,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionInwardsFailureMechanismResultView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as IFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
+            var failureMechanism = o as GrassCoverErosionInwardsFailureMechanism;
+            var failureMechanismContext = o as IFailureMechanismContext<GrassCoverErosionInwardsFailureMechanism>;
             if (assessmentSection != null)
             {
                 return assessmentSection
@@ -276,7 +272,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
-            return failureMechanism != null && ReferenceEquals(view.Data, ((GrassCoverErosionInwardsFailureMechanism) failureMechanism).SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
         }
 
         #endregion
@@ -541,9 +537,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             var activity = CreateHydraRingTargetProbabilityCalculationActivity(
                 context.FailureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
                 Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
-                calculation,
-                context.AssessmentSection.FailureMechanismContribution.Norm,
-                context.FailureMechanism.Contribution);
+                calculation);
 
             ActivityProgressDialogRunner.Run(Gui.MainWindow, activity);
         }

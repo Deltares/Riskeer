@@ -22,9 +22,7 @@
 using System;
 using MathNet.Numerics.Distributions;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.Integration.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service
 {
@@ -54,20 +52,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         }
 
         /// <summary>
-        /// Calculates the <see cref="ProbabilisticOutput"/> given the <paramref name="calculation"/>, <paramref name="norm"/>, and <paramref name="reliability"/>.
+        /// Calculates the <see cref="ProbabilisticOutput"/> given the <paramref name="calculation"/>, and <paramref name="reliability"/>.
         /// </summary>
         /// <param name="calculation">The calculation which is used.</param>
-        /// <param name="contribution">The amount of contribution as a percentage [0-100] for the <see cref="IFailureMechanism"/> as part of the overall verdict. </param>
-        /// <param name="norm">The norm which has been defined on the <see cref="AssessmentSection"/>.</param>
         /// <param name="reliability">The reliability result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public static void Calculate(GrassCoverErosionInwardsCalculation calculation, double norm, double contribution, double reliability)
+        public static void Calculate(GrassCoverErosionInwardsCalculation calculation, double reliability)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException("calculation");
             }
-            var calculator = new GrassCoverErosionInwardsOutputCalculationService(norm, contribution, calculation.NormProbabilityInput.N, reliability);
+            var calculator = new GrassCoverErosionInwardsOutputCalculationService(
+                calculation.NormProbabilityInput.Norm,
+                calculation.NormProbabilityInput.Contribution,
+                calculation.NormProbabilityInput.N,
+                reliability);
 
             calculator.Calculate();
 
@@ -89,30 +89,30 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         private void CalculateReliability()
         {
-            requiredProbability = AllowedCrossSectionProbability(contribution, norm, lengthEffectN);
-            probability = AllowedCrossSectionProbability(reliability);
+            requiredProbability = RequiredProbability(contribution, norm, lengthEffectN);
+            probability = ReliabilityToProbability(reliability);
         }
 
         private void CalculateRequiredReliability()
         {
-            requiredReliability = RequiredReliability(requiredProbability);
+            requiredReliability = ProbabilityToReliability(requiredProbability);
         }
 
         #region Sub calculations
 
-        private static double AllowedCrossSectionProbability(double probability, double contribution, double factorN)
+        private static double RequiredProbability(double probability, double contribution, double lengthEffectN)
         {
-            return probability*(1/contribution)/factorN;
+            return probability*(1/contribution)/lengthEffectN;
         }
 
-        private static double AllowedCrossSectionProbability(double grassCoverErosionInwardsCrossSectionProbability)
+        private static double ReliabilityToProbability(double reliability)
         {
-            return new Normal().Density(grassCoverErosionInwardsCrossSectionProbability);
+            return Normal.CDF(0, 1, -reliability);
         }
 
-        private static double RequiredReliability(double allowedCrossSectionProbability)
+        private static double ProbabilityToReliability(double requiredProbability)
         {
-            return new Normal().InverseCumulativeDistribution(1 - allowedCrossSectionProbability);
+            return Normal.InvCDF(0, 1, 1 - requiredProbability);
         }
 
         private static double FactorOfSafety(double reliability, double requiredReliability)

@@ -56,17 +56,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
         }
 
-        public override void AddSection(FailureMechanismSection section)
+        public override double Contribution
         {
-            base.AddSection(section);
-
-            sectionResults.Add(new GrassCoverErosionInwardsFailureMechanismSectionResult(section));
-        }
-
-        public override void ClearAllSections()
-        {
-            base.ClearAllSections();
-            sectionResults.Clear();
+            get
+            {
+                return NormProbabilityInput.Contribution;
+            }
+            set
+            {
+                NormProbabilityInput.Contribution = value;
+            }
         }
 
         /// <summary>
@@ -87,6 +86,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             {
                 return sectionResults;
             }
+        }
+
+        public override void AddSection(FailureMechanismSection section)
+        {
+            base.AddSection(section);
+
+            sectionResults.Add(new GrassCoverErosionInwardsFailureMechanismSectionResult(section));
+        }
+
+        public override void ClearAllSections()
+        {
+            base.ClearAllSections();
+            sectionResults.Clear();
         }
     }
 }

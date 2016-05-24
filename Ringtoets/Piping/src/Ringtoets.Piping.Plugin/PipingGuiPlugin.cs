@@ -32,7 +32,6 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -268,8 +267,8 @@ namespace Ringtoets.Piping.Plugin
         private static bool CloseFailureMechanismResultViewForData(PipingFailureMechanismResultView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as IFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
+            var failureMechanism = o as PipingFailureMechanism;
+            var failureMechanismContext = o as IFailureMechanismContext<PipingFailureMechanism>;
             if (assessmentSection != null)
             {
                 return assessmentSection
@@ -281,7 +280,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
-            return failureMechanism != null && ReferenceEquals(view.Data, ((PipingFailureMechanism) failureMechanism).SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
         }
 
         # endregion

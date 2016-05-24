@@ -28,7 +28,6 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -136,8 +135,8 @@ namespace Ringtoets.HeightStructures.Plugin
         private static bool CloseFailureMechanismResultViewForData(HeightStructuresFailureMechanismResultView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as IFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
+            var failureMechanism = o as HeightStructuresFailureMechanism;
+            var failureMechanismContext = o as IFailureMechanismContext<HeightStructuresFailureMechanism>;
             if (assessmentSection != null)
             {
                 return assessmentSection
@@ -149,7 +148,7 @@ namespace Ringtoets.HeightStructures.Plugin
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
-            return failureMechanism != null && ReferenceEquals(view.Data, ((HeightStructuresFailureMechanism) failureMechanism).SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.Data, (failureMechanism).SectionResults);
         }
 
         #endregion

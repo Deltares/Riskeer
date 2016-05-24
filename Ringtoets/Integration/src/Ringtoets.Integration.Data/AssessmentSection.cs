@@ -195,6 +195,7 @@ namespace Ringtoets.Integration.Data
             private set
             {
                 contribution = value;
+                GrassCoverErosionInwards.NormProbabilityInput.Norm = value.Norm;
                 PipingFailureMechanism.NormProbabilityInput.Norm = value.Norm;
                 HeightStructures.NormProbabilityInput.Norm = value.Norm;
             }
@@ -225,23 +226,6 @@ namespace Ringtoets.Integration.Data
             yield return DuneErosion;
             yield return TechnicalInnovation;
         }
-
-        private IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
-        {
-            yield return PipingFailureMechanism;
-            yield return GrassCoverErosionInwards;
-            yield return MacrostabilityInwards;
-            yield return StabilityStoneCover;
-            yield return WaveImpactAsphaltCover;
-            yield return GrassCoverErosionOutwards;
-            yield return GrassCoverSlipOffOutwards;
-            yield return HeightStructures;
-            yield return ClosingStructure;
-            yield return PipingStructure;
-            yield return StrengthStabilityPointConstruction;
-            yield return DuneErosion;
-        }
-
 
         public void ChangeComposition(AssessmentSectionComposition newComposition)
         {
@@ -296,6 +280,22 @@ namespace Ringtoets.Integration.Data
                     throw new NotImplementedException();
             }
             Composition = newComposition;
+        }
+
+        private IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
+        {
+            yield return PipingFailureMechanism;
+            yield return GrassCoverErosionInwards;
+            yield return MacrostabilityInwards;
+            yield return StabilityStoneCover;
+            yield return WaveImpactAsphaltCover;
+            yield return GrassCoverErosionOutwards;
+            yield return GrassCoverSlipOffOutwards;
+            yield return HeightStructures;
+            yield return ClosingStructure;
+            yield return PipingStructure;
+            yield return StrengthStabilityPointConstruction;
+            yield return DuneErosion;
         }
     }
 }

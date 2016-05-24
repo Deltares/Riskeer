@@ -49,10 +49,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public GrassCoverErosionInwardsCalculation(GeneralGrassCoverErosionInwardsInput generalInputParameters,
                                                    NormProbabilityInput normProbabilityInput)
         {
-            if (generalInputParameters == null)
-            {
-                throw new ArgumentNullException("generalInputParameters");
-            }
             if (normProbabilityInput == null)
             {
                 throw new ArgumentNullException("normProbabilityInput");
