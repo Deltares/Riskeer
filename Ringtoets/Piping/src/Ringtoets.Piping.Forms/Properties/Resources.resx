@@ -310,9 +310,6 @@
   <data name="PipingInput_SurfaceLine_DisplayName" xml:space="preserve">
     <value>Profielschematisatie</value>
   </data>
-  <data name="PipingCalculation_Name_Description" xml:space="preserve">
-    <value>Naam van de piping berekening.</value>
-  </data>
   <data name="PipingCalculation_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>

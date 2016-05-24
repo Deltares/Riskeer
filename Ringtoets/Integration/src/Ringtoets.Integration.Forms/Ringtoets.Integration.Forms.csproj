@@ -48,6 +48,7 @@
     <Compile Include="PresentationObjects\CustomFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\SimpleFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContext.cs" />
+    <Compile Include="PropertyClasses\CalculationContextProperties.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextProperties.cs" />
     <Compile Include="PropertyClasses\StandAloneFailureMechanismContextProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationProperties.cs" />

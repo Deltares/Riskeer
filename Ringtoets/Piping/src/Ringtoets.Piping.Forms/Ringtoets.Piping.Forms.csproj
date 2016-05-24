@@ -76,7 +76,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\PipingFailureMechanismContextProperties.cs" />
-    <Compile Include="PropertyClasses\PipingCalculationContextProperties.cs" />
     <Compile Include="PropertyClasses\PipingInputContextProperties.cs" />
     <Compile Include="PropertyClasses\PipingSemiProbabilisticOutputProperties.cs" />
     <Compile Include="PropertyClasses\StochasticSoilProfileProperties.cs" />

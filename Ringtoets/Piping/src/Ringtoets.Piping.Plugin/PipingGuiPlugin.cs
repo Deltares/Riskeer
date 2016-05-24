@@ -67,7 +67,6 @@ namespace Ringtoets.Piping.Plugin
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<PipingFailureMechanismContext, PipingFailureMechanismContextProperties>();
-            yield return new PropertyInfo<PipingCalculationScenarioContext, PipingCalculationContextProperties>();
             yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>();
             yield return new PropertyInfo<PipingSemiProbabilisticOutput, PipingSemiProbabilisticOutputProperties>();
             yield return new PropertyInfo<RingtoetsPipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>();

@@ -21,17 +21,19 @@
 
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Forms.Properties;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Integration.Forms.Properties;
 
-namespace Ringtoets.Piping.Forms.PropertyClasses
+namespace Ringtoets.Integration.Forms.PropertyClasses
 {
-    [ResourcesDisplayName(typeof(Resources), "PipingCalculationContextProperties_DisplayName")]
-    public class PipingCalculationContextProperties : ObjectProperties<PipingCalculationScenarioContext>
+    [ResourcesDisplayName(typeof(Resources), "CalculationContextProperties_DisplayName")]
+    public class CalculationContextProperties : ObjectProperties<ICalculationContext<ICalculation, IFailureMechanism>>
     {
         [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingCalculation_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingCalculation_Name_Description")]
+        [ResourcesDisplayName(typeof(Resources), "Calculation_Name_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Calculation_Name_Description")]
         public string Name
         {
             get
@@ -41,7 +43,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             set
             {
                 data.WrappedData.Name = value;
-                data.WrappedData.NotifyObservers();
+                data.NotifyObservers();
             }
         }
     }

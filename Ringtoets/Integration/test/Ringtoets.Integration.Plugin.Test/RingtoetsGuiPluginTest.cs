@@ -181,7 +181,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(4, propertyInfos.Length);
+                Assert.AreEqual(5, propertyInfos.Length);
 
                 var assessmentSectionProperties = propertyInfos.Single(pi => pi.DataType == typeof(IAssessmentSection));
                 Assert.AreEqual(typeof(AssessmentSectionProperties), assessmentSectionProperties.PropertyObjectType);
@@ -206,6 +206,12 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsNull(calculationGroupProperties.AdditionalDataCheck);
                 Assert.IsNull(calculationGroupProperties.GetObjectPropertiesData);
                 Assert.IsNull(calculationGroupProperties.AfterCreate);
+
+                var calculationContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(ICalculationContext<ICalculation, IFailureMechanism>));
+                Assert.AreEqual(typeof(CalculationContextProperties), calculationContextProperties.PropertyObjectType);
+                Assert.IsNull(calculationContextProperties.AdditionalDataCheck);
+                Assert.IsNull(calculationContextProperties.GetObjectPropertiesData);
+                Assert.IsNull(calculationContextProperties.AfterCreate);
             }
         }
 

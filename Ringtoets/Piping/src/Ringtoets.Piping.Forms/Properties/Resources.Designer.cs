@@ -513,15 +513,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van de piping berekening..
-        /// </summary>
-        public static string PipingCalculation_Name_Description {
-            get {
-                return ResourceManager.GetString("PipingCalculation_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Naam.
         /// </summary>
         public static string PipingCalculation_Name_DisplayName {

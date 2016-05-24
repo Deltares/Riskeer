@@ -233,4 +233,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="CalculationGroup_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
+  <data name="Calculation_Name_Description" xml:space="preserve">
+    <value>Naam van de berekening.</value>
+  </data>
+  <data name="Calculation_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
 </root>

@@ -107,6 +107,24 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Naam van de berekening..
+        /// </summary>
+        public static string Calculation_Name_Description {
+            get {
+                return ResourceManager.GetString("Calculation_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string Calculation_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("Calculation_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Naam van de berekeningsmap..
         /// </summary>
         public static string CalculationGroup_Name_Description {
