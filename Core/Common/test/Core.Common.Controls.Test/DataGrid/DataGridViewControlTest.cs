@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
@@ -100,10 +101,76 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
                 var columnData = dataGridView.Columns[0];
+                Assert.IsTrue(columnData.GetType() == typeof(DataGridViewTextBoxColumn));
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
                 Assert.AreEqual(readOnly, columnData.ReadOnly);
+            }
+        }
+
+        [Test]
+        public void AddCheckBoxColumn_Always_AddsColumnToDataGridView()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var propertyName = "PropertyName";
+                var headerText = "HeaderText";
+
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                control.AddCheckBoxColumn(propertyName, headerText);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = dataGridView.Columns[0];
+                Assert.IsTrue(columnData.GetType() == typeof(DataGridViewCheckBoxColumn));
+                Assert.AreEqual(propertyName, columnData.DataPropertyName);
+                Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
+                Assert.AreEqual(headerText, columnData.HeaderText);
+            }
+        }
+
+        [Test]
+        public void DataGridViewControl_EditValueDirtyStateChangedEventFired_ValueCommittedCellInEditMode()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                control.AddCheckBoxColumn("Test property", "Test header");
+
+                // Precondition
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                dataGridView.DataSource = new[] { false };
+
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+                dataGridView.BeginEdit(false);
+                gridTester.FireEvent("KeyUp", new KeyEventArgs(Keys.Space));
+
+                // Call
+                gridTester.FireEvent("CurrentCellDirtyStateChanged", EventArgs.Empty);
+
+                // Assert
+                Assert.IsTrue(dataGridViewCell.IsInEditMode);
             }
         }
     }
