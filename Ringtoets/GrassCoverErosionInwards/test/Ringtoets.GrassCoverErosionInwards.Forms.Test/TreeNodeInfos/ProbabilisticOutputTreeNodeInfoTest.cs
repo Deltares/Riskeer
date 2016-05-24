@@ -34,7 +34,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsOutputTreeNodeInfoTest
+    public class ProbabilisticOutputTreeNodeInfoTest
     {
         private MockRepository mocksRepository;
         private GrassCoverErosionInwardsGuiPlugin plugin;

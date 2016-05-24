@@ -27,14 +27,13 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class HeightStructuresOutputTreeNodeInfoTest
+    public class ProbabilisticOutputTreeNodeInfoTest
     {
         private MockRepository mocksRepository;
         private HeightStructuresGuiPlugin plugin;
