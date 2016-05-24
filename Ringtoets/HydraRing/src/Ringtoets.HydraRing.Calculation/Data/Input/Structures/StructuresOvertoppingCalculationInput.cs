@@ -50,7 +50,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly double criticalOvertoppingDischargeVariation;
         private readonly double failureProbabilityOfStructureGivenErosion;
         private readonly double widthOfFlowAperturesMean;
-        private readonly double widthOfFlowAperturesStandardDeviation;
+        private readonly double widthOfFlowAperturesVariation;
         private readonly double deviationOfTheWaveDirection;
         private readonly double stormDurationMean;
         private readonly double stormDurationVariation;
@@ -81,7 +81,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="hydraRingCriticalOvertoppingDischargeVariation">The variation of the critical overtopping discharge to use during the calculation.</param>
         /// <param name="hydraRingFailureProbabilityOfStructureGivenErosion">The failure probability of structure given erosion to use during the calculation.</param>
         /// <param name="hydraRingWidthOfFlowAperturesMean">The mean of the width of flow apertures to use during the calculation.</param>
-        /// <param name="hydraRingWidthOfFlowAperturesStandardDeviation">The standard deviation of the width of flow apertures to use during the calculation.</param>
+        /// <param name="hydraRingWidthOfFlowAperturesVariation">The variation of the width of flow apertures to use during the calculation.</param>
         /// <param name="hydraRingDeviationOfTheWaveDirection">The deviation of the wave direction to use during the calculation.</param>
         /// <param name="hydraRingStormDurationMean">The mean of the storm duration to use during the calculation.</param>
         /// <param name="hydraRingStormDurationVariation">The variation of the storm duration to use during the calculation.</param>
@@ -98,7 +98,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                      double hydraRingFlowWidthAtBottomProtectionMean, double hydraRingFlowWidthAtBottomProtectionStandardDeviation,
                                                      double hydraRingCriticalOvertoppingDischargeMean, double hydraRingCriticalOvertoppingDischargeVariation,
                                                      double hydraRingFailureProbabilityOfStructureGivenErosion,
-                                                     double hydraRingWidthOfFlowAperturesMean, double hydraRingWidthOfFlowAperturesStandardDeviation,
+                                                     double hydraRingWidthOfFlowAperturesMean, double hydraRingWidthOfFlowAperturesVariation,
                                                      double hydraRingDeviationOfTheWaveDirection,
                                                      double hydraRingStormDurationMean, double hydraRingStormDurationVariation
             )
@@ -126,7 +126,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             criticalOvertoppingDischargeVariation = hydraRingCriticalOvertoppingDischargeVariation;
             failureProbabilityOfStructureGivenErosion = hydraRingFailureProbabilityOfStructureGivenErosion;
             widthOfFlowAperturesMean = hydraRingWidthOfFlowAperturesMean;
-            widthOfFlowAperturesStandardDeviation = hydraRingWidthOfFlowAperturesStandardDeviation;
+            widthOfFlowAperturesVariation = hydraRingWidthOfFlowAperturesVariation;
             deviationOfTheWaveDirection = hydraRingDeviationOfTheWaveDirection;
             stormDurationMean = hydraRingStormDurationMean;
             stormDurationVariation = hydraRingStormDurationVariation;
@@ -172,7 +172,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                 yield return new OvertoppingFlowWidthAtBottomProtection(flowWidthAtBottomProtectionMean, flowWidthAtBottomProtectionStandardDeviation);
                 yield return new OvertoppingCriticalOvertoppingDischarge(criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation);
                 yield return new OvertoppingFailureProbabilityOfStructureGivenErosion(failureProbabilityOfStructureGivenErosion);
-                yield return new OvertoppingWidthOfFlowApertures(widthOfFlowAperturesMean, widthOfFlowAperturesStandardDeviation);
+                yield return new OvertoppingWidthOfFlowApertures(widthOfFlowAperturesMean, widthOfFlowAperturesVariation);
                 yield return new OvertoppingDeviationOfTheWaveDirection(deviationOfTheWaveDirection);
                 yield return new OvertoppingStormDuration(stormDurationMean, stormDurationVariation);
             }
@@ -255,7 +255,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private class OvertoppingWidthOfFlowApertures : HydraRingVariable
         {
             public OvertoppingWidthOfFlowApertures(double mean, double standardDeviation) :
-                base(106, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, mean, standardDeviation, double.NaN) {}
+                base(106, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Variation, mean, standardDeviation, double.NaN) {}
         }
 
         private class OvertoppingDeviationOfTheWaveDirection : HydraRingVariable

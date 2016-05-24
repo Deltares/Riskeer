@@ -35,8 +35,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
         {
             // Setup
             const int hydraulicBoundaryLocationId = 1000;
-            const int variableId = 60;
-            HydraRingSection hydraRingSection = new HydraRingSection(variableId, "1000", double.NaN, double.NaN);
+
+            HydraRingSection hydraRingSection = new HydraRingSection(1, "1000", double.NaN, double.NaN);
             const double gravitationalAcceleration = 9.81;
             const double modelFactorOvertoppingMean = 0.09;
             const double modelFactorOvertoppingStandardDeviation = 0.06;
@@ -65,26 +65,26 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double deviationOfTheWaveDirection = 9.9;
 
             // Call
-            StructuresOvertoppingCalculationInput structuresOvertoppingCalculationInput =
-                new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId, hydraRingSection,
-                                                          gravitationalAcceleration,
-                                                          modelFactorOvertoppingMean, modelFactorOvertoppingStandardDeviation,
-                                                          levelOfCrestOfStructureMean, levelOfCrestOfStructureStandardDeviation,
-                                                          orientationOfTheNormalOfTheStructure,
-                                                          modelFactorOvertoppingSupercriticalFlowMean, modelFactorOvertoppingSupercriticalFlowStandardDeviation,
-                                                          allowableIncreaseOfLevelForStorageMean, allowableIncreaseOfLevelForStorageStandardDeviation,
-                                                          modelFactorForStorageVolumeMean, modelFactorForStorageVolumeStandardDeviation,
-                                                          storageStructureAreaMean, storageStructureAreaStandardDeviation,
-                                                          modelFactorForIncomingFlowVolume,
-                                                          flowWidthAtBottomProtectionMean, flowWidthAtBottomProtectionStandardDeviation,
-                                                          criticalOvertoppingDischargeMean, criticalOvertoppingDischargeMeanStandardDeviation,
-                                                          failureProbabilityOfStructureGivenErosion,
-                                                          widthOfFlowAperturesMean, widthOfFlowAperturesStandardDeviation,
-                                                          deviationOfTheWaveDirection,
-                                                          stormDurationMean, stormDurationStandardDeviation);
+            var structuresOvertoppingCalculationInput = new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId, hydraRingSection,
+                                                                                                  gravitationalAcceleration,
+                                                                                                  modelFactorOvertoppingMean, modelFactorOvertoppingStandardDeviation,
+                                                                                                  levelOfCrestOfStructureMean, levelOfCrestOfStructureStandardDeviation,
+                                                                                                  orientationOfTheNormalOfTheStructure,
+                                                                                                  modelFactorOvertoppingSupercriticalFlowMean, modelFactorOvertoppingSupercriticalFlowStandardDeviation,
+                                                                                                  allowableIncreaseOfLevelForStorageMean, allowableIncreaseOfLevelForStorageStandardDeviation,
+                                                                                                  modelFactorForStorageVolumeMean, modelFactorForStorageVolumeStandardDeviation,
+                                                                                                  storageStructureAreaMean, storageStructureAreaStandardDeviation,
+                                                                                                  modelFactorForIncomingFlowVolume,
+                                                                                                  flowWidthAtBottomProtectionMean, flowWidthAtBottomProtectionStandardDeviation,
+                                                                                                  criticalOvertoppingDischargeMean, criticalOvertoppingDischargeMeanStandardDeviation,
+                                                                                                  failureProbabilityOfStructureGivenErosion,
+                                                                                                  widthOfFlowAperturesMean, widthOfFlowAperturesStandardDeviation,
+                                                                                                  deviationOfTheWaveDirection,
+                                                                                                  stormDurationMean, stormDurationStandardDeviation);
 
             // Assert
             const int expectedCalculationTypeId = 1;
+            const int variableId = 60;
             Assert.AreEqual(expectedCalculationTypeId, structuresOvertoppingCalculationInput.CalculationTypeId);
             Assert.AreEqual(hydraulicBoundaryLocationId, structuresOvertoppingCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.StructuresOvertopping, structuresOvertoppingCalculationInput.FailureMechanismType);
@@ -122,7 +122,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             yield return new HydraRingVariableImplementation(103, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 5.5, 0.05, double.NaN);
             yield return new HydraRingVariableImplementation(104, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Variation, 6.6, 0.15, double.NaN);
             yield return new HydraRingVariableImplementation(105, HydraRingDistributionType.Deterministic, 7.7, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-            yield return new HydraRingVariableImplementation(106, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 8.8, 0.05, double.NaN);
+            yield return new HydraRingVariableImplementation(106, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Variation, 8.8, 0.05, double.NaN);
             yield return new HydraRingVariableImplementation(107, HydraRingDistributionType.Deterministic, 9.9, HydraRingDeviationType.Variation, double.NaN, double.NaN, double.NaN);
             yield return new HydraRingVariableImplementation(108, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Variation, 7.5, 0.25, double.NaN);
         }
