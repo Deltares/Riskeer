@@ -27,7 +27,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
-
 using CoreCommonResources = Core.Common.Base.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -79,21 +78,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
-        {
-            if (eventArgs.ColumnIndex > 1)
-            {
-                if (HasPassedLevelZero(eventArgs.RowIndex))
-                {
-                    DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-                else
-                {
-                    RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-            }
-        }
-
         protected override IEnumerable<DataGridViewColumn> GetDataGridColumns()
         {
             foreach (var baseColumn in base.GetDataGridColumns())
@@ -127,6 +111,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         protected override object CreateFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
         {
             return new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult);
+        }
+
+        private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
+        {
+            if (eventArgs.ColumnIndex > 1)
+            {
+                if (HasPassedLevelZero(eventArgs.RowIndex))
+                {
+                    DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
+                else
+                {
+                    RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
+            }
         }
     }
 }

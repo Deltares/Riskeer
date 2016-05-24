@@ -26,7 +26,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Read

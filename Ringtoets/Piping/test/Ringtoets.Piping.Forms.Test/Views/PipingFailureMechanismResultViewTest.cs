@@ -568,24 +568,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             return failureMechanismResultView;
         }
 
-        private class SimpleFailureMechanism : FailureMechanismBase, IHasSectionResults<PipingFailureMechanismSectionResult>
-        {
-            public SimpleFailureMechanism() : base("Stubbed name", "Stubbed code")
-            {
-                SectionResults = new List<PipingFailureMechanismSectionResult>();
-            }
-
-            public IEnumerable<PipingFailureMechanismSectionResult> SectionResults { get; private set; }
-
-            public override IEnumerable<ICalculation> Calculations
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
-        }
-
         private PipingFailureMechanismResultView ShowFailureMechanismResultsView()
         {
             PipingFailureMechanismResultView failureMechanismResultView = new PipingFailureMechanismResultView();

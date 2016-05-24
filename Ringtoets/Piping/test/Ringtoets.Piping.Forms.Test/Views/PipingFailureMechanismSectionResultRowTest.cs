@@ -38,7 +38,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
 {
     public class PipingFailureMechanismSectionResultRowTest
     {
-
         [Test]
         public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
         {

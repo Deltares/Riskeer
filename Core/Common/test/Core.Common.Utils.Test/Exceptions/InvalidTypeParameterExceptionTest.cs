@@ -29,7 +29,6 @@ namespace Core.Common.Utils.Test.Exceptions
     public class InvalidTypeParameterExceptionTest
     {
         [Test]
-        [SetCulture("en-US")]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
@@ -37,7 +36,7 @@ namespace Core.Common.Utils.Test.Exceptions
 
             // Assert
             Assert.IsInstanceOf<Exception>(exception);
-            var expectedMessage = string.Format("Exception of type '{0}' was thrown.", exception.GetType());
+            var expectedMessage = string.Format("Exception of type '{0}' was thrown.", typeof(InvalidTypeParameterException).FullName);
             Assert.AreEqual(expectedMessage, exception.Message);
             CollectionAssert.IsEmpty(exception.Data);
             Assert.IsNull(exception.TypeParamName);

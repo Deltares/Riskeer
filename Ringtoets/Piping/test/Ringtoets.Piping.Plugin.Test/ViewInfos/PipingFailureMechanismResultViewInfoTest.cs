@@ -21,32 +21,34 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Forms.Views;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
+namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailureMechanismResultViewInfoTest
+    public class PipingFailureMechanismResultViewInfoTest
     {
-        private GrassCoverErosionInwardsGuiPlugin plugin;
+        private MockRepository mocks;
+        private PipingGuiPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new GrassCoverErosionInwardsGuiPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GrassCoverErosionInwardsFailureMechanismResultView));
+            mocks = new MockRepository();
+            plugin = new PipingGuiPlugin();
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(PipingFailureMechanismResultView));
         }
 
         [TearDown]
@@ -59,39 +61,39 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>), info.DataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>), info.DataType);
+            Assert.AreEqual(typeof(IEnumerable<PipingFailureMechanismSectionResult>), info.ViewDataType);
+        }
+
+        [Test]
+        public void GetViewData_Always_ReturnsWrappedFailureMechanismResult()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+            var context = new FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
+            mocks.ReplayAll();
+
+            // Call
+            var viewData = info.GetViewData(context);
+
+            // Assert
+            Assert.AreSame(failureMechanism.SectionResults, viewData);
         }
 
         [Test]
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView();
+            var failureMechanism = new PipingFailureMechanism();
+            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
+
+            mocks.ReplayAll();
 
             // Call
-            var viewName = info.GetViewName(view, Enumerable.Empty<GrassCoverErosionInwardsFailureMechanismSectionResult>());
+            var viewName = info.GetViewName(viewMock, failureMechanism.SectionResults);
 
             // Assert
             Assert.AreEqual("Oordeel", viewName);
-        }
-
-        [Test]
-        public void GetViewData_Always_ReturnsSectionResults()
-        {
-            // Setup
-            var sectionResults = new[]
-            {
-                new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSection()),
-            };
-
-            var context = new FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(
-                sectionResults, new GrassCoverErosionInwardsFailureMechanism());
-
-            // Call
-            var viewData = info.GetViewData(context);
-
-            // Assert
-            Assert.AreSame(sectionResults, viewData);
         }
 
         [Test]
@@ -101,7 +103,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var viewType = info.ViewType;
 
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismResultView), viewType);
+            Assert.AreEqual(typeof(PipingFailureMechanismResultView), viewType);
         }
 
         [Test]
@@ -111,123 +113,109 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var dataType = info.DataType;
 
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>),
-                            dataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>), dataType);
         }
 
         [Test]
-        public void ViewDataType_Always_ReturnViewDataType()
+        public void ViewDataType_Always_ReturnsViewDataType()
         {
             // Call
             var viewDataType = info.ViewDataType;
 
             // Assert
-            Assert.AreEqual(typeof(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>), viewDataType);
+            Assert.AreEqual(typeof(IEnumerable<PipingFailureMechanismSectionResult>), viewDataType);
         }
 
         [Test]
-        public void Image_Always_ReturnsFailureMechanismSectionResultIcon()
+        public void Image_Always_ReturnsGenericInputOutputIcon()
         {
             // Call
             var image = info.Image;
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
         }
 
         [Test]
         public void CloseForData_AssessmentSectionRemovedWithoutFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView
-            {
-                Data = failureMechanism.SectionResults
-            };
-
+            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var failureMechanism = new PipingFailureMechanism();
+
+            viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
 
             mocks.ReplayAll();
 
             // Call
-            var closeForData = info.CloseForData(view, assessmentSectionMock);
+            var closeForData = info.CloseForData(viewMock, assessmentSectionMock);
 
             // Assert
             Assert.IsFalse(closeForData);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
+            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanismMock = mocks.Stub<FailureMechanismBase>("N", "C");
+            var failureMechanism = new PipingFailureMechanism();
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView
-            {
-                Data = failureMechanism.SectionResults
-            };
-
+            viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
             {
-                 new GrassCoverErosionInwardsFailureMechanism()
+                failureMechanismMock
             });
 
             mocks.ReplayAll();
 
             // Call
-            var closeForData = info.CloseForData(view, assessmentSectionMock);
+            var closeForData = info.CloseForData(viewMock, assessmentSectionMock);
 
             // Assert
             Assert.IsFalse(closeForData);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
+            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView
-            {
-                Data = failureMechanism.SectionResults
-            };
+            viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new GrassCoverErosionInwardsFailureMechanism(),
+                new TestFailureMechanism(),
                 failureMechanism
             });
 
             mocks.ReplayAll();
 
             // Call
-            var closeForData = info.CloseForData(view, assessmentSectionMock);
+            var closeForData = info.CloseForData(viewMock, assessmentSectionMock);
 
             // Assert
             Assert.IsTrue(closeForData);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
+            var failureMechanism = new PipingFailureMechanism();
+            viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView
-            {
-                Data = failureMechanism.SectionResults
-            };
+            mocks.ReplayAll();
 
             // Call
-            var closeForData = info.CloseForData(view, failureMechanism);
+            var closeForData = info.CloseForData(viewMock, failureMechanism);
 
             // Assert
             Assert.IsTrue(closeForData);
@@ -237,15 +225,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
+            var failureMechanism = new PipingFailureMechanism();
+            viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView
-            {
-                Data = failureMechanism.SectionResults
-            };
+            mocks.ReplayAll();
 
             // Call
-            var closeForData = info.CloseForData(view, new GrassCoverErosionInwardsFailureMechanism());
+            var closeForData = info.CloseForData(viewMock, new PipingFailureMechanism());
 
             // Assert
             Assert.IsFalse(closeForData);
@@ -255,14 +242,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
-
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView
+            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var view = new PipingFailureMechanismResultView
             {
                 Data = failureMechanism.SectionResults
             };
@@ -272,45 +257,43 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsTrue(closeForData);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView
+            var failureMechanism = new PipingFailureMechanism();
+            var view = new PipingFailureMechanismResultView
             {
                 Data = failureMechanism.SectionResults
             };
 
-            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                              assessmentSectionMock);
+            var failureMechanismContext = new PipingFailureMechanismContext(
+                new PipingFailureMechanism(),
+                assessmentSectionMock
+            );
 
             // Call
             var closeForData = info.CloseForData(view, failureMechanismContext);
 
             // Assert
             Assert.IsFalse(closeForData);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AfterCreate_Always_SetsSpecificPropertiesToView()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults,
-                                                                                                                          failureMechanism);
+            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
+            var failureMechanism = new PipingFailureMechanism();
+            var context = new FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
 
-            var mocks = new MockRepository();
-            var viewMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanismResultView>();
             viewMock.Expect(v => v.FailureMechanism = failureMechanism);
+
             mocks.ReplayAll();
 
             // Call
@@ -318,15 +301,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             // Assert
             mocks.VerifyAll();
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("test", new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            });
-        }
+        } 
     }
 }

@@ -25,8 +25,19 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {
+    /// <summary>
+    /// Container of a <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>, which takes care of the
+    /// representation of properties in a grid.
+    /// </summary>
     internal class GrassCoverErosionInwardsFailureMechanismSectionResultRow
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultRow"/>.
+        /// </summary>
+        /// <param name="sectionResult">The <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> that is 
+        /// the source of this row.</param>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="sectionResult"/> is
+        /// <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)
@@ -36,6 +47,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             SectionResult = sectionResult;
         }
 
+        /// <summary>
+        /// Gets the name of the failure mechanism section.
+        /// </summary>
         public string Name
         {
             get
@@ -44,6 +58,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets or sets the value representing whether the section passed the layer 0 assessment.
+        /// </summary>
         public bool AssessmentLayerOne
         {
             get
@@ -57,6 +74,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets the value representing the result of the layer 2a assessment.
+        /// </summary>
         public RoundedDouble AssessmentLayerTwoA
         {
             get
@@ -65,6 +85,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets or sets the value representing the result of the layer 2b assessment.
+        /// </summary>
         public RoundedDouble AssessmentLayerTwoB
         {
             get
@@ -77,6 +100,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets or sets the value representing the result of the layer 3 assessment.
+        /// </summary>
         public RoundedDouble AssessmentLayerThree
         {
             get

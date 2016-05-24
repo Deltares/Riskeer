@@ -20,12 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Properties;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Update
@@ -58,24 +54,12 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("collector");
             }
 
-            var entity = GetSingleFailureMechanism(mechanism, context);
+            var entity = mechanism.GetSingleFailureMechanism(context);
             entity.IsRelevant = Convert.ToByte(mechanism.IsRelevant);
 
             mechanism.UpdateFailureMechanismSections(collector, entity, context);
 
             collector.Register(entity, mechanism);
-        }
-
-        private static FailureMechanismEntity GetSingleFailureMechanism(GrassCoverErosionInwardsFailureMechanism mechanism, IRingtoetsEntities context)
-        {
-            try
-            {
-                return context.FailureMechanismEntities.Single(fme => fme.FailureMechanismEntityId == mechanism.StorageId);
-            }
-            catch (InvalidOperationException exception)
-            {
-                throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(FailureMechanismEntity).Name, mechanism.StorageId), exception);
-            }
         }
     }
 }

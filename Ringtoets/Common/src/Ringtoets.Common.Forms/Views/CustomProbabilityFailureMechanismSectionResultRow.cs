@@ -21,12 +21,24 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.Properties;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Forms.Views
 {
+    /// <summary>
+    /// Container of a <see cref="CustomProbabilityFailureMechanismSectionResult"/>, which takes care of the
+    /// representation of properties in a grid.
+    /// </summary>
     public class CustomProbabilityFailureMechanismSectionResultRow
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomProbabilityFailureMechanismSectionResultRow"/>.
+        /// </summary>
+        /// <param name="sectionResult">The <see cref="CustomProbabilityFailureMechanismSectionResult"/> that is 
+        /// the source of this row.</param>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="sectionResult"/> is
+        /// <c>null</c>.</exception>
         public CustomProbabilityFailureMechanismSectionResultRow(CustomProbabilityFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)
@@ -36,8 +48,9 @@ namespace Ringtoets.Common.Forms.Views
             SectionResult = sectionResult;
         }
 
-        private CustomProbabilityFailureMechanismSectionResult SectionResult { get; set; }
-
+        /// <summary>
+        /// Gets the name of the failure mechanism section.
+        /// </summary>
         public string Name
         {
             get
@@ -46,6 +59,9 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets or sets the value representing whether the section passed the layer 0 assessment.
+        /// </summary>
         public bool AssessmentLayerOne
         {
             get
@@ -59,12 +75,15 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets or sets the value representing the result of the layer 2a assessment.
+        /// </summary>
         public string AssessmentLayerTwoA
         {
             get
             {
-                var d = (RoundedDouble) (1 / SectionResult.AssessmentLayerTwoA);
-                return string.Format(Core.Common.Base.Properties.Resources.ProbabilityPerYearFormat, d);
+                var d = (RoundedDouble) (1/SectionResult.AssessmentLayerTwoA);
+                return string.Format(Resources.ProbabilityPerYearFormat, d);
             }
             set
             {
@@ -72,6 +91,9 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets or sets the value representing the result of the layer 2b assessment.
+        /// </summary>
         public RoundedDouble AssessmentLayerTwoB
         {
             get
@@ -84,6 +106,9 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets or sets the value representing the result of the layer 3 assessment.
+        /// </summary>
         public RoundedDouble AssessmentLayerThree
         {
             get
@@ -95,5 +120,7 @@ namespace Ringtoets.Common.Forms.Views
                 SectionResult.AssessmentLayerThree = value;
             }
         }
+
+        private CustomProbabilityFailureMechanismSectionResult SectionResult { get; set; }
     }
 }

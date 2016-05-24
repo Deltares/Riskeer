@@ -29,6 +29,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
@@ -305,6 +307,70 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Assert
                 Assert.IsTrue(dataGridViewCell.IsInEditMode);
                 Assert.IsTrue(sections[0].AssessmentLayerOne);
+            }
+        }
+
+        [Test]
+        public void FailureMechanismResultView_AssessmentLayerTwoAHasValue_DoesNotShowsErrorTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+
+            mocks.ReplayAll();
+
+            var rowIndex = 0;
+
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var sections = (List<GrassCoverErosionInwardsFailureMechanismSectionResult>)view.Data;
+                sections[0].AssessmentLayerTwoA = (RoundedDouble) 0.2;
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+
+                // Call
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Assert
+                Assert.AreEqual(string.Empty, dataGridViewCell.ErrorText);
+                Assert.AreEqual(string.Format("{0}", (RoundedDouble)0.2), formattedValue);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void FailureMechanismResultView_AssessmentLayerTwoANaN_ShowsErrorTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
+            calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble)1.0);
+            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
+            calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.Failed);
+
+            mocks.ReplayAll();
+
+            var rowIndex = 0;
+
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var sections = (List<GrassCoverErosionInwardsFailureMechanismSectionResult>)view.Data;
+                sections[0].AssessmentLayerTwoA = (RoundedDouble)double.NaN;
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+
+                // Call
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Assert
+                Assert.AreEqual(string.Empty, dataGridViewCell.ErrorText);
+                Assert.AreEqual(string.Format("{0}", double.NaN), formattedValue);
+                mocks.VerifyAll();
             }
         }
 

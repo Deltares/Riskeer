@@ -24,6 +24,9 @@ using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.FailureMechanism
 {
+    /// <summary>
+    /// This class defines the possible outcomes of a simple layer 2a assessment.
+    /// </summary>
     public enum AssessmentLayerTwoAResult
     {
         [ResourcesDisplayName(typeof(Resources), "AssessmentLayerTwoAResult_NotCalculated")]

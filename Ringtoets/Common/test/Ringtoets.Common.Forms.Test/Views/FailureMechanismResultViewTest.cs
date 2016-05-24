@@ -33,7 +33,7 @@ using Ringtoets.Common.Forms.Views;
 namespace Ringtoets.Common.Forms.Test.Views
 {
     [TestFixture]
-    public class PipingFailureMechanismResultViewTest
+    public class FailureMechanismResultViewTest
     {
         private Form testForm;
 

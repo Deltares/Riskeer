@@ -25,8 +25,19 @@ using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Forms.Views
 {
+    /// <summary>
+    /// Container of a <see cref="CustomFailureMechanismSectionResult"/>, which takes care of the
+    /// representation of properties in a grid.
+    /// </summary>
     public class CustomFailureMechanismSectionResultRow
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomFailureMechanismSectionResultRow"/>.
+        /// </summary>
+        /// <param name="sectionResult">The <see cref="CustomFailureMechanismSectionResult"/> that is 
+        /// the source of this row.</param>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="sectionResult"/> is
+        /// <c>null</c>.</exception>
         public CustomFailureMechanismSectionResultRow(CustomFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)
@@ -36,8 +47,9 @@ namespace Ringtoets.Common.Forms.Views
             SectionResult = sectionResult;
         }
 
-        private CustomFailureMechanismSectionResult SectionResult { get; set; }
-
+        /// <summary>
+        /// Gets the name of the failure mechanism section.
+        /// </summary>
         public string Name
         {
             get
@@ -46,6 +58,9 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets or sets the value representing whether the section passed the layer 0 assessment.
+        /// </summary>
         public bool AssessmentLayerOne
         {
             get
@@ -59,6 +74,9 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets or sets the value representing the result of the layer 2a assessment.
+        /// </summary>
         public RoundedDouble AssessmentLayerTwoA
         {
             get
@@ -71,6 +89,9 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets or sets the value representing the result of the layer 2b assessment.
+        /// </summary>
         public RoundedDouble AssessmentLayerTwoB
         {
             get
@@ -83,6 +104,9 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets or sets the value representing the result of the layer 3 assessment.
+        /// </summary>
         public RoundedDouble AssessmentLayerThree
         {
             get
@@ -94,5 +118,7 @@ namespace Ringtoets.Common.Forms.Views
                 SectionResult.AssessmentLayerThree = value;
             }
         }
+
+        private CustomFailureMechanismSectionResult SectionResult { get; set; }
     }
 }

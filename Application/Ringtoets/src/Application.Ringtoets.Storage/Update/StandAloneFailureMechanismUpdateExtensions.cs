@@ -20,25 +20,20 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Properties;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.StandAlone;
 
 namespace Application.Ringtoets.Storage.Update
 {
     /// <summary>
-    /// Extension methods for <see cref="MacrostabilityInwardsFailureMechanism"/> related to updating a <see cref="FailureMechanismEntity"/>.
+    /// Extension methods for <see cref="IFailureMechanism"/> related to updating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
     internal static class StandAloneFailureMechanismUpdateExtensions
     {
         /// <summary>
         /// Updates a <see cref="FailureMechanismEntity"/> in the database based on the information of the 
-        /// <see cref="MacrostabilityInwardsFailureMechanism"/>.
+        /// <see cref="IFailureMechanism"/>.
         /// </summary>
         /// <param name="mechanism">The mechanism to update the database entity for.</param>
         /// <param name="collector">The object keeping track of update operations.</param>
@@ -59,24 +54,12 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("collector");
             }
 
-            var entity = GetSingleFailureMechanism(mechanism, context);
+            var entity = mechanism.GetSingleFailureMechanism(context);
             entity.IsRelevant = Convert.ToByte(mechanism.IsRelevant);
 
             mechanism.UpdateFailureMechanismSections(collector, entity, context);
 
             collector.Register(entity, mechanism);
-        }
-
-        private static FailureMechanismEntity GetSingleFailureMechanism(this IFailureMechanism mechanism, IRingtoetsEntities context)
-        {
-            try
-            {
-                return context.FailureMechanismEntities.Single(fme => fme.FailureMechanismEntityId == mechanism.StorageId);
-            }
-            catch (InvalidOperationException exception)
-            {
-                throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(FailureMechanismEntity).Name, mechanism.StorageId), exception);
-            }
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Core.Common.Utils
     /// obtained for that value.
     /// </summary>
     /// <typeparam name="T">The enum type to wrap.</typeparam>
-   public class EnumDisplayWrapper<T>
+    public class EnumDisplayWrapper<T>
     {
         /// <summary>
         /// Creates a new instance of <see cref="EnumDisplayWrapper{T}"/>.
