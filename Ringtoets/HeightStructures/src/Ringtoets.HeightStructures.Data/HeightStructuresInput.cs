@@ -40,16 +40,16 @@ namespace Ringtoets.HeightStructures.Data
         private readonly LognormalDistribution storageStructureArea;
         private readonly LognormalDistribution flowWidthAtBottomProtection;
         private readonly LognormalDistribution criticalOvertoppingDischarge;
+        private readonly NormalDistribution widthOfFlowApertures;
+        private readonly LognormalDistribution stormDuration;
         private RoundedDouble orientationOfTheNormalOfTheStructure;
         private RoundedDouble failureProbabilityOfStructureGivenErosion;
-        private readonly NormalDistribution widthOfFlowApertures;
         private RoundedDouble deviationOfTheWaveDirection;
-        private readonly LognormalDistribution stormDuration;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresInput"/> class.
         /// </summary>
-        /// <param name="generalInputParameters">General grass cover erosion inwards calculation input parameters that apply to each calculation.</param>
+        /// <param name="generalInputParameters">General height structures calculation input parameters that apply to each calculation.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/> is <c>null</c>.</exception>
         public HeightStructuresInput(GeneralHeightStructuresInput generalInputParameters)
         {
@@ -107,6 +107,9 @@ namespace Ringtoets.HeightStructures.Data
 
         #region Model Factors
 
+        /// <summary>
+        /// Gets or sets the model factor overtopping critical flow.
+        /// </summary>
         public NormalDistribution ModelfactorOvertoppingSuperCriticalFlow
         {
             get
@@ -124,10 +127,13 @@ namespace Ringtoets.HeightStructures.Data
         #region Hydraulic pressure
 
         /// <summary>
-        /// Gets or set the hydraulic boundary location from which to use the assessment level.
+        /// Gets or sets the hydraulic boundary location from which to use the assessment level.
         /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
+        /// <summary>
+        /// Gets or sets the deviation of the wave's direction.
+        /// </summary>
         public RoundedDouble DeviationOfTheWaveDirection
         {
             get
@@ -159,6 +165,9 @@ namespace Ringtoets.HeightStructures.Data
 
         #region Schematisation
 
+        /// <summary>
+        /// Gets or sets the level of crest of the structure.
+        /// </summary>
         public NormalDistribution LevelOfCrestOfStructure
         {
             get
@@ -172,6 +181,9 @@ namespace Ringtoets.HeightStructures.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the orientation of the normal of the structure.
+        /// </summary>
         public RoundedDouble OrientationOfTheNormalOfTheStructure
         {
             get
@@ -184,6 +196,9 @@ namespace Ringtoets.HeightStructures.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the allowable increase of level for the storage.
+        /// </summary>
         public LognormalDistribution AllowableIncreaseOfLevelForStorage
         {
             get
@@ -197,6 +212,9 @@ namespace Ringtoets.HeightStructures.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the storage structure area.
+        /// </summary>
         public LognormalDistribution StorageStructureArea
         {
             get
@@ -210,6 +228,9 @@ namespace Ringtoets.HeightStructures.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the flow width at bottom protection.
+        /// </summary>
         public LognormalDistribution FlowWidthAtBottomProtection
         {
             get
@@ -223,6 +244,9 @@ namespace Ringtoets.HeightStructures.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the critical overtopping discharge.
+        /// </summary>
         public LognormalDistribution CriticalOvertoppingDischarge
         {
             get
@@ -236,6 +260,9 @@ namespace Ringtoets.HeightStructures.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the failure probability of structure given erosion.
+        /// </summary>
         public RoundedDouble FailureProbabilityOfStructureGivenErosion
         {
             get
@@ -248,6 +275,9 @@ namespace Ringtoets.HeightStructures.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the width of flow apertures.
+        /// </summary>
         public NormalDistribution WidthOfFlowApertures
         {
             get

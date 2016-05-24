@@ -86,7 +86,7 @@
     <Compile Include="PropertyClasses\ReadOnlyNormalDistributionPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsOutputTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\EmptyGrassCoverErosionInwardsOutputTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\EmptyProbabilisticOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsFailureMechanismContextTreeNodeInfoTest.cs" />

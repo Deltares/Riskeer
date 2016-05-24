@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HeightStructures.Data.Test
 {
@@ -88,6 +89,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                 Mean = new RoundedDouble(5, random.NextDouble()),
                 StandardDeviation = new RoundedDouble(2, random.NextDouble())
             };
+            var location = new HydraulicBoundaryLocation(0, "test", 0, 0);
 
             var orientationOfTheNormalOfTheStructure = new RoundedDouble(5, random.NextDouble());
             var allowableIncreaseOfLevelForStorage = new LognormalDistribution(2)
@@ -136,6 +138,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             input.WidthOfFlowApertures = widthOfFlowApertures;
             input.DeviationOfTheWaveDirection = deviationOfTheWaveDirection;
             input.StormDuration = stormDuration;
+            input.HydraulicBoundaryLocation = location;
 
             // Assert
             Assert.AreEqual(levelOfCrestOfStructure.Mean, input.LevelOfCrestOfStructure.Mean);
@@ -167,6 +170,8 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             Assert.AreEqual(stormDuration.Mean, input.StormDuration.Mean);
             Assert.AreEqual(defaultStormDuration, input.StormDuration.StandardDeviation);
+
+            Assert.AreEqual(location, input.HydraulicBoundaryLocation);
         }
     }
 }

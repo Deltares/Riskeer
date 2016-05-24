@@ -22,7 +22,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -135,17 +134,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<EmptyGrassCoverErosionInwardsOutput>
-            {
-                Text = emptyOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
-                ForeColor = emptyOutput => Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddExportItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
-            };
+            yield return RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilisticOutputTreeNodeInfo(
+                EmptyProbabilisticOutputContextMenuStrip);
         }
 
         private static ExceedanceProbabilityCalculationActivity CreateHydraRingTargetProbabilityCalculationActivity(FailureMechanismSection failureMechanismSection,
@@ -287,6 +277,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
             return failureMechanism != null && ReferenceEquals(view.Data, ((GrassCoverErosionInwardsFailureMechanism) failureMechanism).SectionResults);
+        }
+
+        #endregion
+
+        #region EmptyProbabilisticOutput TreeNodeInfo
+
+        private ContextMenuStrip EmptyProbabilisticOutputContextMenuStrip(EmptyProbabilisticOutput output, object parentData, TreeViewControl treeViewControl)
+        {
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(output, treeViewControl));
+            return builder.AddExportItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
         #endregion
@@ -495,7 +498,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             }
             else
             {
-                childNodes.Add(new EmptyGrassCoverErosionInwardsOutput());
+                childNodes.Add(new EmptyProbabilisticOutput());
             }
 
             return childNodes.ToArray();

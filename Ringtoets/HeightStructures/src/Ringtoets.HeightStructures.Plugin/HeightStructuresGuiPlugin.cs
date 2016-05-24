@@ -21,7 +21,6 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
@@ -51,10 +50,10 @@ namespace Ringtoets.HeightStructures.Plugin
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
             yield return new ViewInfo<
-               FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>,
-               IEnumerable<HeightStructuresFailureMechanismSectionResult>,
-               HeightStructuresFailureMechanismResultView
-               >
+                FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>,
+                IEnumerable<HeightStructuresFailureMechanismSectionResult>,
+                HeightStructuresFailureMechanismResultView
+                >
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -106,17 +105,8 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<EmptyHeightStructuresOutput>
-            {
-                Text = emptyOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
-                ForeColor = emptyOutput => Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddExportItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
-            };
+            yield return RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilisticOutputTreeNodeInfo(
+                EmptyProbabilisticOutputContextMenuStrip);
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>>
             {
@@ -127,6 +117,19 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                                  .Build()
             };
         }
+
+        #region EmptyProbabilisticOutput TreeNodeInfo
+
+        private ContextMenuStrip EmptyProbabilisticOutputContextMenuStrip(EmptyProbabilisticOutput output, object parentData, TreeViewControl treeViewControl)
+        {
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(output, treeViewControl));
+            return builder.AddExportItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        #endregion
 
         #region HeightStructuresFailureMechanismResultView ViewInfo
 
@@ -146,7 +149,7 @@ namespace Ringtoets.HeightStructures.Plugin
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
-            return failureMechanism != null && ReferenceEquals(view.Data, ((HeightStructuresFailureMechanism)failureMechanism).SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.Data, ((HeightStructuresFailureMechanism) failureMechanism).SectionResults);
         }
 
         #endregion
@@ -335,7 +338,7 @@ namespace Ringtoets.HeightStructures.Plugin
             }
             else
             {
-                childNodes.Add(new EmptyHeightStructuresOutput());
+                childNodes.Add(new EmptyProbabilisticOutput());
             }
 
             return childNodes.ToArray();

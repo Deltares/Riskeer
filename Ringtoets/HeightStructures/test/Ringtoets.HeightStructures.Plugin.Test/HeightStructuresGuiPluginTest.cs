@@ -77,7 +77,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresCalculationContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresInputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilisticOutput)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyHeightStructuresOutput)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyProbabilisticOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>)));
             }
 

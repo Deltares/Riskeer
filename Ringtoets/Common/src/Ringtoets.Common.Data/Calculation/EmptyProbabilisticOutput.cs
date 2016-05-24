@@ -19,13 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.HeightStructures.Data;
-
-namespace Ringtoets.HeightStructures.Forms.PresentationObjects
+namespace Ringtoets.Common.Data.Calculation
 {
     /// <summary>
-    /// This class represents the placeholder for a <see cref="HeightStructuresOutput"/> for a <see cref="HeightStructuresCalculation"/>
+    /// This class represents the placeholder for a <see cref="ProbabilisticOutput"/> for a <see cref="ICalculation"/>
     /// that has not been calculated yet.
     /// </summary>
-    public class EmptyHeightStructuresOutput {}
+    public class EmptyProbabilisticOutput {}
 }

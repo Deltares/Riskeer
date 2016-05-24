@@ -19,22 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.HeightStructures.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class EmptyHeightStructuresOutputTreeNodeInfoTest
+    public class EmptyProbabilisticOutputTreeNodeInfoTest
     {
         private MockRepository mocksRepository;
         private HeightStructuresGuiPlugin plugin;
@@ -45,61 +43,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         {
             mocksRepository = new MockRepository();
             plugin = new HeightStructuresGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptyHeightStructuresOutput));
-        }
-
-        [Test]
-        public void Initialized_Always_ExpectedPropertiesSet()
-        {
-            // Assert
-            Assert.AreEqual(typeof(EmptyHeightStructuresOutput), info.TagType);
-            Assert.IsNotNull(info.Text);
-            Assert.IsNotNull(info.Image);
-            Assert.IsNotNull(info.ForeColor);
-            Assert.IsNotNull(info.ContextMenuStrip);
-            Assert.IsNull(info.EnsureVisibleOnCreate);
-            Assert.IsNull(info.ChildNodeObjects);
-            Assert.IsNull(info.CanRename);
-            Assert.IsNull(info.OnNodeRenamed);
-            Assert.IsNull(info.CanRemove);
-            Assert.IsNull(info.OnNodeRemoved);
-            Assert.IsNull(info.CanCheck);
-            Assert.IsNull(info.IsChecked);
-            Assert.IsNull(info.OnNodeChecked);
-            Assert.IsNull(info.CanDrag);
-            Assert.IsNull(info.CanDrop);
-            Assert.IsNull(info.CanInsert);
-            Assert.IsNull(info.OnDrop);
-        }
-
-        [Test]
-        public void Text_Always_ReturnsFromResource()
-        {
-            // Call
-            var text = info.Text(null);
-
-            // Assert
-            Assert.AreEqual(RingtoetsCommonFormsResources.CalculationOutput_DisplayName, text);
-        }
-
-        [Test]
-        public void Image_Always_ReturnsGeneralOutputIcon()
-        {
-            // Call
-            var image = info.Image(null);
-
-            // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralOutputIcon, image);
-        }
-
-        [Test]
-        public void ForeColor_Always_ReturnsGrayText()
-        {
-            // Call
-            var textColor = info.ForeColor(null);
-
-            // Assert
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), textColor);
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptyProbabilisticOutput));
         }
 
         [Test]

@@ -141,6 +141,33 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             };
         }
 
+        /// <summary>
+        /// Creates a <see cref="TreeNodeInfo"/> object for an empty probabilistic output.
+        /// </summary>
+        /// <param name="contextMenuStrip">The function for obtaining the context menu strip.</param>
+        /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
+        public static TreeNodeInfo<EmptyProbabilisticOutput> CreateEmptyProbabilisticOutputTreeNodeInfo(
+            Func<EmptyProbabilisticOutput, object, TreeViewControl, ContextMenuStrip> contextMenuStrip)
+        {
+            return new TreeNodeInfo<EmptyProbabilisticOutput>
+            {
+                Text = emptyOutput => Resources.CalculationOutput_DisplayName,
+                Image = emptyOutput => Resources.GeneralOutputIcon,
+                ForeColor = emptyOutput => Color.FromKnownColor(KnownColor.GrayText),
+                ContextMenuStrip = contextMenuStrip
+            };
+        }
+
+        #region Helper methods for CreateCalculationContextTreeNodeInfo
+
+        private static bool CalculationContextCanRemove(ICalculationContext<ICalculation, IFailureMechanism> calculationContext, object parentNodeData)
+        {
+            var calculationGroupContext = parentNodeData as ICalculationContext<CalculationGroup, IFailureMechanism>;
+            return calculationGroupContext != null && calculationGroupContext.WrappedData.Children.Contains(calculationContext.WrappedData);
+        }
+
+        #endregion
+
         # region Helper methods for CreateCalculationGroupContextTreeNodeInfo
 
         private static bool IsNestedGroup(object parentData)
@@ -289,15 +316,5 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         # endregion
 
         # endregion
-
-        #region Helper methods for CreateCalculationContextTreeNodeInfo
-
-        private static bool CalculationContextCanRemove(ICalculationContext<ICalculation, IFailureMechanism> calculationContext, object parentNodeData)
-        {
-            var calculationGroupContext = parentNodeData as ICalculationContext<CalculationGroup, IFailureMechanism>;
-            return calculationGroupContext != null && calculationGroupContext.WrappedData.Children.Contains(calculationContext.WrappedData);
-        }
-
-        #endregion
     }
 }
