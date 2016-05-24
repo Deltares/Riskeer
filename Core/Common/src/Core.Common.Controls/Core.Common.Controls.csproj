@@ -82,6 +82,12 @@
     </Compile>
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="DataGrid\DataGridViewComboBoxItemWrapper.cs" />
+    <Compile Include="DataGrid\DataGridViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataGrid\DataGridViewControl.Designer.cs">
+      <DependentUpon>DataGridViewControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\DialogBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +158,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DataGrid\DataGridViewControl.resx">
+      <DependentUpon>DataGridViewControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DialogBase.resx">
       <DependentUpon>DialogBase.cs</DependentUpon>
     </EmbeddedResource>

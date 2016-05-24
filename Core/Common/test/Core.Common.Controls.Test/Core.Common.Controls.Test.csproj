@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataGrid\DataGridViewComboBoxItemWrapperTest.cs" />
+    <Compile Include="DataGrid\DataGridViewControlTest.cs" />
     <Compile Include="Dialogs\DialogBaseTest.cs" />
     <Compile Include="Dialogs\ExceptionDialogTest.cs" />
     <Compile Include="PresentationObjects\WrappedObjectContextBaseTest.cs" />
@@ -62,6 +63,9 @@
     <Compile Include="Views\HtmlPageViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
+      <Link>Copying.Lesser.licenseheader</Link>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
