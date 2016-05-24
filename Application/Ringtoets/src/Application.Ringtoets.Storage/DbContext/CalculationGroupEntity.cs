@@ -45,8 +45,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public long FailureMechanismEntityId { get; set; }
         public Nullable<long> ParentCalculationGroupEntityId { get; set; }
         public string Name { get; set; }
-        public string IsEditable { get; set; }
-        public string Order { get; set; }
+        public byte IsEditable { get; set; }
+        public long Order { get; set; }
     
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
