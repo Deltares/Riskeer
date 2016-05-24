@@ -23,7 +23,9 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
@@ -41,18 +43,33 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new StandAloneFailureMechanismContextProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<SimpleFailureMechanismContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<FailureMechanismContext<IFailureMechanism>>>(properties);
         }
 
         [Test]
-        public void Data_SetNewStandAloneFailureMechanismContextInstance_ReturnCorrectPropertyValues()
+        public void Data_SetNewSimpleFailureMechanismContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var failureMechanism = new MacrostabilityInwardsFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
             var properties = new StandAloneFailureMechanismContextProperties();
 
             // Call
             properties.Data = new SimpleFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>());
+
+            // Assert
+            Assert.AreEqual(failureMechanism.Name, properties.Name);
+            Assert.AreEqual(failureMechanism.Code, properties.Code);
+        } 
+
+        [Test]
+        public void Data_SetNewCustomFailureMechanismContextInstance_ReturnCorrectPropertyValues()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism();
+            var properties = new StandAloneFailureMechanismContextProperties();
+
+            // Call
+            properties.Data = new CustomFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>());
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, properties.Name);

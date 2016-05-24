@@ -194,7 +194,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsNull(hydraulicBoundaryDatabaseProperties.GetObjectPropertiesData);
                 Assert.IsNull(hydraulicBoundaryDatabaseProperties.AfterCreate);
 
-                var standAloneFailureMechanismProperties = propertyInfos.Single(pi => pi.DataType == typeof(SimpleFailureMechanismContext));
+                var standAloneFailureMechanismProperties = propertyInfos.Single(pi => pi.DataType == typeof(FailureMechanismContext<IFailureMechanism>));
                 Assert.AreEqual(typeof(StandAloneFailureMechanismContextProperties), standAloneFailureMechanismProperties.PropertyObjectType);
                 Assert.IsNull(standAloneFailureMechanismProperties.AdditionalDataCheck);
                 Assert.IsNull(standAloneFailureMechanismProperties.GetObjectPropertiesData);
