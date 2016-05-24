@@ -85,7 +85,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test
         }
 
         [Test]
-        public void GetViewInfo_ReturnsSupportedViewInfos()
+        public void GetViewInfos_ReturnsSupportedViewInfos()
         {
             // Setup
             var mocks = new MockRepository();

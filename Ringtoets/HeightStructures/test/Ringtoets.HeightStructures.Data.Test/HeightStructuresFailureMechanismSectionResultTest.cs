@@ -101,7 +101,7 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             RoundedDouble assessmentLayerTwoB = (RoundedDouble)newValue;
 
-            // Call            
+            // Call
             failureMechanismSectionResult.AssessmentLayerTwoB = assessmentLayerTwoB;
 
             // Assert

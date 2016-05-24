@@ -95,8 +95,8 @@ namespace Ringtoets.HeightStructures.Plugin
 
             yield return new TreeNodeInfo<ProbabilisticOutput>
             {
-                Text = pipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = pipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddExportItem()
                                                                                  .AddSeparator()
