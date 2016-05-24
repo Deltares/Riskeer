@@ -21,6 +21,8 @@
 
 using System;
 using System.Linq;
+
+using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
@@ -45,7 +47,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="collector"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this GrassCoverErosionInwardsFailureMechanism mechanism, UpdateConversionCollector collector, IRingtoetsEntities context)
+        internal static void Update(this GrassCoverErosionInwardsFailureMechanism mechanism, CreateConversionCollector collector, IRingtoetsEntities context)
         {
             if (context == null)
             {
@@ -61,7 +63,7 @@ namespace Application.Ringtoets.Storage.Update
 
             mechanism.UpdateFailureMechanismSections(collector, entity, context);
 
-            collector.Update(entity);
+            collector.Create(entity, mechanism);
         }
 
         private static FailureMechanismEntity GetSingleFailureMechanism(GrassCoverErosionInwardsFailureMechanism mechanism, IRingtoetsEntities context)

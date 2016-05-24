@@ -58,6 +58,10 @@ namespace Application.Ringtoets.Storage.Read
             {
                 failureMechanism.StochasticSoilModels.Add(stochasticSoilModelEntity.Read(collector));
             }
+            foreach (SurfaceLineEntity surfaceLineEntity in entity.SurfaceLineEntities)
+            {
+                failureMechanism.SurfaceLines.Add(surfaceLineEntity.Read(collector));
+            }
 
             entity.ReadFailureMechanismSections(failureMechanism);
 

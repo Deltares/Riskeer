@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="collector"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this FailureMechanismSection section, UpdateConversionCollector collector, IRingtoetsEntities context)
+        internal static void Update(this FailureMechanismSection section, CreateConversionCollector collector, IRingtoetsEntities context)
         {
             if (context == null)
             {
@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.Update
 
             UpdateGeometry(section, entity, context);
 
-            collector.Update(entity);
+            collector.Create(entity, section);
         }
 
         private static FailureMechanismSectionEntity GetSingleFailureMechanismSection(FailureMechanismSection section, IRingtoetsEntities context)

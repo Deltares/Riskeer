@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+
+using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.TestUtil;
@@ -42,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var soilProfile = new TestStochasticSoilProfile();
 
             // Call
-            TestDelegate test = () => soilProfile.Update(new UpdateConversionCollector(), null);
+            TestDelegate test = () => soilProfile.Update(new CreateConversionCollector(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -80,7 +82,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
                 {
-                    soilProfile.Update(new UpdateConversionCollector(), ringtoetsEntities);
+                    soilProfile.Update(new CreateConversionCollector(), ringtoetsEntities);
                 }
             };
 
@@ -112,7 +114,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             });
 
             // Call
-            TestDelegate test = () => soilProfile.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            TestDelegate test = () => soilProfile.Update(new CreateConversionCollector(), ringtoetsEntities);
 
             // Assert
             var expectedMessage = String.Format("Het object 'StochasticSoilProfileEntity' met id '{0}' is niet gevonden.", storageId);
@@ -147,7 +149,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.StochasticSoilProfileEntities.Add(soilProfileEntity);
 
             // Call
-            soilProfile.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            soilProfile.Update(new CreateConversionCollector(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(newProbability, soilProfileEntity.Probability);
@@ -188,7 +190,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.SoilProfileEntities.Add(soilProfileEntity);
 
             // Call
-            soilProfile.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            soilProfile.Update(new CreateConversionCollector(), ringtoetsEntities);
 
             // Assert
             Assert.AreSame(soilProfileEntity, stochasticSoilProfileEntity.SoilProfileEntity);

@@ -101,6 +101,14 @@
       <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
+      <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
+      <Name>Ringtoets.Piping.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
+      <Project>{14c6f716-64e2-4bc4-a1ef-05865fcefa4c}</Project>
+      <Name>Ringtoets.Piping.Primitives</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Application.Ringtoets.Storage\Application.Ringtoets.Storage.csproj">
       <Project>{50963F12-448C-41BA-A62C-CDB0AB8D21E0}</Project>
       <Name>Application.Ringtoets.Storage</Name>

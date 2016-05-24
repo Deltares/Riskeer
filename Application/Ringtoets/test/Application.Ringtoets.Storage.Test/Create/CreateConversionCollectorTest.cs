@@ -423,9 +423,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var collector = new CreateConversionCollector();
+            SurfaceLinePointEntity entity = null;
 
             // Call
-            TestDelegate call = () => collector.Create(null, new Point3D(1.1, 2.2, 3.3));
+            TestDelegate call = () => collector.Create(entity, new Point3D(1.1, 2.2, 3.3));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -651,6 +652,27 @@ namespace Application.Ringtoets.Storage.Test.Create
                 SoilLayerEntityId = storageId
             };
             var model = new PipingSoilLayer(0);
+            collector.Create(entity, model);
+
+            // Call
+            collector.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferId_WithSurfaceLineEntityAdded_EqualSurfaceLineEntityIdAndRingtoetsPipingSurfaceLineStorageId()
+        {
+            // Setup
+            var collector = new CreateConversionCollector();
+
+            long storageId = new Random(21).Next(1, 4000);
+            var entity = new SurfaceLineEntity
+            {
+                SurfaceLineEntityId = storageId
+            };
+            var model = new RingtoetsPipingSurfaceLine();
             collector.Create(entity, model);
 
             // Call

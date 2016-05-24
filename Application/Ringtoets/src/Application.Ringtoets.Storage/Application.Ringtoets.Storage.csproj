@@ -163,7 +163,6 @@
     <Compile Include="Update\FailureMechanismSectionUpdateExtensions.cs" />
     <Compile Include="Update\HydraulicBoundaryLocationUpdateExtensions.cs" />
     <Compile Include="Update\IStorableExtensions.cs" />
-    <Compile Include="Update\UpdateConversionCollector.cs" />
     <Compile Include="Update\PipingFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\PipingSoilLayerUpdateExtensions.cs" />
     <Compile Include="Update\PipingSoilProfileUpdateExtensions.cs" />

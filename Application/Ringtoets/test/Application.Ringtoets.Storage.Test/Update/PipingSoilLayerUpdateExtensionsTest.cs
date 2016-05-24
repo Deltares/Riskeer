@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+
+using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.TestUtil;
@@ -40,7 +42,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var pipingSoilLayer = new PipingSoilLayer(0.5);
 
             // Call
-            TestDelegate test = () => pipingSoilLayer.Update(new UpdateConversionCollector(), null);
+            TestDelegate test = () => pipingSoilLayer.Update(new CreateConversionCollector(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -78,7 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
                 {
-                    pipingSoilLayer.Update(new UpdateConversionCollector(), ringtoetsEntities);
+                    pipingSoilLayer.Update(new CreateConversionCollector(), ringtoetsEntities);
                 }
             };
 
@@ -111,7 +113,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             });
 
             // Call
-            TestDelegate test = () => pipingSoilLayer.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            TestDelegate test = () => pipingSoilLayer.Update(new CreateConversionCollector(), ringtoetsEntities);
 
             // Assert
             var expectedMessage = String.Format("Het object 'SoilLayerEntity' met id '{0}' is niet gevonden.", storageId);
@@ -148,7 +150,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.SoilLayerEntities.Add(soilLayerEntity);
 
             // Call
-            pipingSoilLayer.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            pipingSoilLayer.Update(new CreateConversionCollector(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(Convert.ToDouble(newTop), Convert.ToDouble(soilLayerEntity.Top), 1e-6);

@@ -71,11 +71,48 @@ namespace Application.Ringtoets.Storage.TestUtil
                                         }
                                     }
                                 }
+                            },
+                            SurfaceLines =
+                            {
+                                GetSurfaceLine()
                             }
                         }
                     }
                 }
             };
+        }
+
+        private static RingtoetsPipingSurfaceLine GetSurfaceLine()
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Surfaceline",
+                ReferenceLineIntersectionWorldPoint = new Point2D(4.0, 6.0)
+            };
+
+            var geometryPoints = new[]
+            {
+                new Point3D(6.0, 6.0, -2.3),
+                new Point3D(5.8, 6.0, -2.3), // Dike toe at river
+                new Point3D(5.6, 6.0, 3.4),
+                new Point3D(4.2, 6.0, 3.5),
+                new Point3D(4.0, 6.0, 0.5), // Dike toe at polder
+                new Point3D(3.8, 6.0, 0.5), // Ditch dike side
+                new Point3D(3.6, 6.0, 0.2), // Bottom ditch dike side
+                new Point3D(3.4, 6.0, 0.25), // Bottom ditch polder side
+                new Point3D(3.2, 6.0, 0.5), // Ditch polder side
+                new Point3D(3.0, 6.0, 0.5),
+            };
+            surfaceLine.SetGeometry(geometryPoints);
+
+            surfaceLine.SetDikeToeAtRiverAt(geometryPoints[1]);
+            surfaceLine.SetDikeToeAtPolderAt(geometryPoints[4]);
+            surfaceLine.SetDitchDikeSideAt(geometryPoints[5]);
+            surfaceLine.SetBottomDitchDikeSideAt(geometryPoints[6]);
+            surfaceLine.SetBottomDitchPolderSideAt(geometryPoints[7]);
+            surfaceLine.SetDitchPolderSideAt(geometryPoints[8]);
+
+            return surfaceLine;
         }
 
         private static ReferenceLine GetReferenceLine()

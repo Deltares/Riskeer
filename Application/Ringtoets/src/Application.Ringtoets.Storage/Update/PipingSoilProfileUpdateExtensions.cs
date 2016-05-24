@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="collector"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this PipingSoilProfile profile, UpdateConversionCollector collector, IRingtoetsEntities context)
+        internal static void Update(this PipingSoilProfile profile, CreateConversionCollector collector, IRingtoetsEntities context)
         {
             if (context == null)
             {
@@ -73,7 +73,7 @@ namespace Application.Ringtoets.Storage.Update
                 }
             }
 
-            collector.Update(entity);
+            collector.Create(entity, profile);
         }
 
         private static SoilProfileEntity GetSinglePipingSoilProfile(PipingSoilProfile profile, IRingtoetsEntities context)

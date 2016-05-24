@@ -27,6 +27,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Read
 {
@@ -105,6 +106,10 @@ namespace Application.Ringtoets.Storage.Read
                 foreach (var failureMechanismSection in failureMechanism.Sections)
                 {
                     pipingFailureMechanism.AddSection(failureMechanismSection);
+                }
+                foreach (RingtoetsPipingSurfaceLine surfaceLine in failureMechanism.SurfaceLines)
+                {
+                    pipingFailureMechanism.SurfaceLines.Add(surfaceLine);
                 }
             }
         }

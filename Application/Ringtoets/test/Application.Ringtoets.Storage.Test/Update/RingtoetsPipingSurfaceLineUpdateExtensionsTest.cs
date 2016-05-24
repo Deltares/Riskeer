@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         public void Update_RingtoetsEntitiesIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var collector = new UpdateConversionCollector();
+            var collector = new CreateConversionCollector();
 
             RingtoetsPipingSurfaceLine surfaceLine = CreateSavedSurfaceLineWithData();
 
@@ -84,7 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var context = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
 
-            var collector = new UpdateConversionCollector();
+            var collector = new CreateConversionCollector();
 
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
@@ -121,7 +121,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
             context.SurfaceLineEntities.Add(entity);
 
-            var collector = new UpdateConversionCollector();
+            var collector = new CreateConversionCollector();
 
             // Call
             surfaceLine.Update(collector, context);
@@ -158,7 +158,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             // Precondition
             CollectionAssert.IsEmpty(context.SurfaceLinePointEntities);
 
-            var collector = new UpdateConversionCollector();
+            var collector = new CreateConversionCollector();
 
             // Call
             surfaceLine.Update(collector, context);
@@ -209,7 +209,7 @@ namespace Application.Ringtoets.Storage.Test.Update
                 context.SurfaceLinePointEntities.Add(pointEntity);
             }
 
-            var updateCollector = new UpdateConversionCollector();
+            var updateCollector = new CreateConversionCollector();
 
             // Call
             surfaceLine.Update(updateCollector, context);
@@ -245,7 +245,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
             context.SurfaceLineEntities.Add(entity);
 
-            var collector = new UpdateConversionCollector();
+            var collector = new CreateConversionCollector();
 
             // Call
             surfaceLine.Update(collector, context);

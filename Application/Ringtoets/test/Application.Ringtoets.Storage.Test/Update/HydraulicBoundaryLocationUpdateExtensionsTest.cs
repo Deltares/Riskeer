@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+
+using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.TestUtil;
@@ -40,7 +42,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             // Call
-            TestDelegate test = () => hydraulicBoundaryLocation.Update(new UpdateConversionCollector(), null);
+            TestDelegate test = () => hydraulicBoundaryLocation.Update(new CreateConversionCollector(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -78,7 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
                 {
-                    hydraulicBoundaryLocation.Update(new UpdateConversionCollector(), ringtoetsEntities);
+                    hydraulicBoundaryLocation.Update(new CreateConversionCollector(), ringtoetsEntities);
                 }
             };
 
@@ -109,7 +111,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             });
 
             // Call
-            TestDelegate test = () => section.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            TestDelegate test = () => section.Update(new CreateConversionCollector(), ringtoetsEntities);
 
             // Assert
             var expectedMessage = String.Format("Het object 'HydraulicLocationEntity' met id '{0}' is niet gevonden.", storageId);
@@ -153,7 +155,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.HydraulicLocationEntities.Add(hydraulicLocationEntity);
 
             // Call
-            hydraulicBoundaryLocation.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            hydraulicBoundaryLocation.Update(new CreateConversionCollector(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(newName, hydraulicLocationEntity.Name);

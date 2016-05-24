@@ -20,12 +20,14 @@
 // All rights reserved.
 
 using System;
+
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Create
 {
@@ -104,6 +106,50 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(2, entity.FailureMechanismSectionEntities.Count);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Create_WithSurfaceLines_ReturnFailureMechanismEntityWithSurfaceLineEntities(bool isRelevant)
+        {
+            // Setup
+            var random = new Random();
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SurfaceLines.Add(CreateSurfaceLine(random));
+
+            var collector = new CreateConversionCollector();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(collector);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreEqual(failureMechanism.SurfaceLines.Count, entity.SurfaceLineEntities.Count);
+        }
+
+        private RingtoetsPipingSurfaceLine CreateSurfaceLine(Random random)
+        {
+            
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.Name = "A";
+            surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(random.NextDouble(), random.NextDouble());
+
+            var geometryPoints = new Point3D[10];
+            for (int i = 0; i < 10; i++)
+            {
+                geometryPoints[i] = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
+            }
+            surfaceLine.SetGeometry(geometryPoints);
+
+            surfaceLine.SetBottomDitchDikeSideAt(geometryPoints[1]);
+            surfaceLine.SetBottomDitchPolderSideAt(geometryPoints[2]);
+            surfaceLine.SetDikeToeAtPolderAt(geometryPoints[3]);
+            surfaceLine.SetDikeToeAtRiverAt(geometryPoints[4]);
+            surfaceLine.SetDitchDikeSideAt(geometryPoints[5]);
+            surfaceLine.SetDitchPolderSideAt(geometryPoints[7]);
+
+            return surfaceLine;
         }
     }
 }

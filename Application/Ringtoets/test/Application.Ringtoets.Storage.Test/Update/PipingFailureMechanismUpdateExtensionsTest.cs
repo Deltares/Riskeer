@@ -21,6 +21,8 @@
 
 using System;
 using System.Linq;
+
+using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.TestUtil;
@@ -30,6 +32,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Update
 {
@@ -43,7 +46,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.Update(new UpdateConversionCollector(), null);
+            TestDelegate test = () => failureMechanism.Update(new CreateConversionCollector(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -81,7 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
                 {
-                    failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
+                    failureMechanism.Update(new CreateConversionCollector(), ringtoetsEntities);
                 }
             };
 
@@ -112,7 +115,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             });
 
             // Call
-            TestDelegate test = () => failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            TestDelegate test = () => failureMechanism.Update(new CreateConversionCollector(), ringtoetsEntities);
 
             // Assert
             var expectedMessage = String.Format("Het object 'FailureMechanismEntity' met id '{0}' is niet gevonden.", storageId);
@@ -146,7 +149,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
 
             // Call
-            failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            failureMechanism.Update(new CreateConversionCollector(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(Convert.ToByte(true), failureMechanismEntity.IsRelevant);
@@ -182,7 +185,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
 
             // Call
-            failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            failureMechanism.Update(new CreateConversionCollector(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(1, failureMechanismEntity.StochasticSoilModelEntities.Count);
@@ -228,10 +231,91 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.StochasticSoilModelEntities.Add(stochasticSoilModelEntity);
 
             // Call
-            failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            failureMechanism.Update(new CreateConversionCollector(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(1, failureMechanismEntity.StochasticSoilModelEntities.Count);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ContextWithNewSurfaceLine_SurfaceLineEntitiesUpdated()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism
+            {
+                StorageId = 1,
+                IsRelevant = true
+            };
+            failureMechanism.SurfaceLines.Add(new RingtoetsPipingSurfaceLine
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(1.1, 2.2)
+            });
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = 1,
+                IsRelevant = Convert.ToByte(false)
+            };
+            ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            // Call
+            failureMechanism.Update(new CreateConversionCollector(), ringtoetsEntities);
+
+            // Assert
+            Assert.AreEqual(1, failureMechanismEntity.SurfaceLineEntities.Count);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ContextWithUpdatedSurfaceLineEntity_NoNewSurfaceLineEntitiesAdded()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
+            mocks.ReplayAll();
+
+            const long surfaceLineId = 23;
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                StorageId = surfaceLineId,
+                ReferenceLineIntersectionWorldPoint = new Point2D(45.67, 34.46)
+            };
+
+            const long failureMechanismId = 1;
+            var failureMechanism = new PipingFailureMechanism
+            {
+                StorageId = failureMechanismId,
+            };
+            failureMechanism.SurfaceLines.Add(surfaceLine);
+
+            var surfaceLineEntity = new SurfaceLineEntity
+            {
+                SurfaceLineEntityId = surfaceLineId
+            };
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = failureMechanismId,
+                SurfaceLineEntities = 
+                {
+                    surfaceLineEntity
+                }
+            };
+
+            ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.SurfaceLineEntities.Add(surfaceLineEntity);
+
+            // Call
+            failureMechanism.Update(new CreateConversionCollector(), ringtoetsEntities);
+
+            // Assert
+            Assert.AreEqual(1, failureMechanismEntity.SurfaceLineEntities.Count);
 
             mocks.VerifyAll();
         }
@@ -259,7 +343,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
 
             // Call
-            failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            failureMechanism.Update(new CreateConversionCollector(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);
@@ -303,7 +387,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismSectionEntities.Add(failureMechanismSectionEntity);
 
             // Call
-            failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            failureMechanism.Update(new CreateConversionCollector(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);

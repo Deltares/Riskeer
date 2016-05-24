@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="collector"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this AssessmentSection section, UpdateConversionCollector collector, IRingtoetsEntities context)
+        internal static void Update(this AssessmentSection section, CreateConversionCollector collector, IRingtoetsEntities context)
         {
             if (context == null)
             {
@@ -70,10 +70,10 @@ namespace Application.Ringtoets.Storage.Update
             UpdateReferenceLine(section, entity, context);
             UpdateStandAloneFailureMechanisms(section, collector, context);
 
-            collector.Update(entity);
+            collector.Create(entity, section);
         }
 
-        private static void UpdateStandAloneFailureMechanisms(AssessmentSection section, UpdateConversionCollector collector, IRingtoetsEntities context)
+        private static void UpdateStandAloneFailureMechanisms(AssessmentSection section, CreateConversionCollector collector, IRingtoetsEntities context)
         {
             section.MacrostabilityInwards.Update(collector, context);
             section.StabilityStoneCover.Update(collector, context);
@@ -99,12 +99,12 @@ namespace Application.Ringtoets.Storage.Update
             }
         }
 
-        private static void UpdatePipingFailureMechanism(AssessmentSection section, UpdateConversionCollector collector, IRingtoetsEntities context)
+        private static void UpdatePipingFailureMechanism(AssessmentSection section, CreateConversionCollector collector, IRingtoetsEntities context)
         {
             section.PipingFailureMechanism.Update(collector, context);
         }
 
-        private static void UpdateGrassCoverErosionInwardsFailureMechanism(AssessmentSection section, UpdateConversionCollector collector, IRingtoetsEntities context)
+        private static void UpdateGrassCoverErosionInwardsFailureMechanism(AssessmentSection section, CreateConversionCollector collector, IRingtoetsEntities context)
         {
             section.GrassCoverErosionInwards.Update(collector, context);
         }
@@ -130,7 +130,7 @@ namespace Application.Ringtoets.Storage.Update
             }
         }
 
-        private static void UpdateHydraulicDatabase(AssessmentSection section, AssessmentSectionEntity entity, UpdateConversionCollector collector, IRingtoetsEntities context)
+        private static void UpdateHydraulicDatabase(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector, IRingtoetsEntities context)
         {
             if (section.HydraulicBoundaryDatabase != null)
             {

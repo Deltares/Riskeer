@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Create
 {
@@ -51,6 +52,7 @@ namespace Application.Ringtoets.Storage.Create
             };
 
             AddEntitiesForStochasticSoilModels(mechanism, collector, entity);
+            AddEntitiesForSurfaceLines(mechanism, collector, entity);
             mechanism.AddEntitiesForFailureMechanismSections(collector, entity);
 
             collector.Create(entity, mechanism);
@@ -62,6 +64,14 @@ namespace Application.Ringtoets.Storage.Create
             foreach (var stochasticSoilModel in mechanism.StochasticSoilModels)
             {
                 entity.StochasticSoilModelEntities.Add(stochasticSoilModel.Create(collector));
+            }
+        }
+
+        private static void AddEntitiesForSurfaceLines(PipingFailureMechanism mechanism, CreateConversionCollector collector, FailureMechanismEntity entity)
+        {
+            foreach (RingtoetsPipingSurfaceLine surfaceLine in mechanism.SurfaceLines)
+            {
+                entity.SurfaceLineEntities.Add(surfaceLine.Create(collector));
             }
         }
     }

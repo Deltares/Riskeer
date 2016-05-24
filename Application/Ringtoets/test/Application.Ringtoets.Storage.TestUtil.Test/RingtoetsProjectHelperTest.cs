@@ -21,9 +21,13 @@
 
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+
 using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.TestUtil.Test
 {
@@ -46,6 +50,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             double locationX = 152.3;
             double locationY = 2938.5;
             double designWaterLevel = 12.4;
+
             // Call
             Project project = RingtoetsProjectHelper.GetFullTestProject();
 
@@ -68,6 +73,47 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(locationX, hydraulicBoundaryLocation.Location.X);
             Assert.AreEqual(locationY, hydraulicBoundaryLocation.Location.Y);
             Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel);
+
+            PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
+            Assert.AreEqual(1, pipingFailureMechanism.StochasticSoilModels.Count);
+            StochasticSoilModel soilModel = pipingFailureMechanism.StochasticSoilModels[0];
+            Assert.AreEqual(-1, soilModel.Id);
+            Assert.AreEqual("modelName", soilModel.Name);
+            Assert.AreEqual("modelSegmentName", soilModel.SegmentName);
+            Assert.AreEqual(2, soilModel.StochasticSoilProfiles.Count);
+            StochasticSoilProfile stochasticSoilProfile1 = soilModel.StochasticSoilProfiles[0];
+            Assert.AreEqual(0.2, stochasticSoilProfile1.Probability);
+            Assert.AreEqual(SoilProfileType.SoilProfile1D, stochasticSoilProfile1.SoilProfileType);
+            Assert.AreEqual(-1, stochasticSoilProfile1.SoilProfileId);
+            StochasticSoilProfile stochasticSoilProfile2 = soilModel.StochasticSoilProfiles[1];
+            Assert.AreEqual(0.8, stochasticSoilProfile2.Probability);
+            Assert.AreEqual(SoilProfileType.SoilProfile1D, stochasticSoilProfile2.SoilProfileType);
+            Assert.AreEqual(-1, stochasticSoilProfile2.SoilProfileId);
+
+            Assert.AreEqual(1, pipingFailureMechanism.SurfaceLines.Count);
+            RingtoetsPipingSurfaceLine surfaceLine = pipingFailureMechanism.SurfaceLines.First();
+            Assert.AreEqual("Surfaceline", surfaceLine.Name);
+            Assert.AreEqual(new Point2D(4.0, 6.0), surfaceLine.ReferenceLineIntersectionWorldPoint);
+            var geometryPoints = new[]
+            {
+                new Point3D(6.0, 6.0, -2.3),
+                new Point3D(5.8, 6.0, -2.3),
+                new Point3D(5.6, 6.0, 3.4),
+                new Point3D(4.2, 6.0, 3.5),
+                new Point3D(4.0, 6.0, 0.5),
+                new Point3D(3.8, 6.0, 0.5),
+                new Point3D(3.6, 6.0, 0.2),
+                new Point3D(3.4, 6.0, 0.25),
+                new Point3D(3.2, 6.0, 0.5),
+                new Point3D(3.0, 6.0, 0.5)
+            };
+            CollectionAssert.AreEqual(geometryPoints, surfaceLine.Points);
+            Assert.AreSame(surfaceLine.Points[1], surfaceLine.DikeToeAtRiver);
+            Assert.AreSame(surfaceLine.Points[4], surfaceLine.DikeToeAtPolder);
+            Assert.AreSame(surfaceLine.Points[5], surfaceLine.DitchDikeSide);
+            Assert.AreSame(surfaceLine.Points[6], surfaceLine.BottomDitchDikeSide);
+            Assert.AreSame(surfaceLine.Points[7], surfaceLine.BottomDitchPolderSide);
+            Assert.AreSame(surfaceLine.Points[8], surfaceLine.DitchPolderSide);
         }
     }
 }

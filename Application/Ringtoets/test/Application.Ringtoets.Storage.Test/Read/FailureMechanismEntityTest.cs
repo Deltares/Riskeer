@@ -90,6 +90,27 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
+        public void ReadAsPipingFailureMechanism_WithSurfaceLines_ReturnsNewPipingFailureMechanismWithSurfaceLinesSet()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                SurfaceLineEntities =
+                {
+                    new SurfaceLineEntity(),
+                    new SurfaceLineEntity()
+                }
+            };
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var failureMechanism = entity.ReadAsPipingFailureMechanism(collector);
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.SurfaceLines.Count);
+        }
+
+        [Test]
         public void ReadAsPipingFailureMechanism_WithSectionsSet_ReturnsNewPipingFailureMechanismWithFailureMechanismSectionsSet()
         {
             // Setup

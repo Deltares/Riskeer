@@ -50,7 +50,9 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> stochasticSoilProfiles = new Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile>(new ReferenceEqualityComparer<StochasticSoilProfileEntity>());
         private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles = new Dictionary<SoilProfileEntity, PipingSoilProfile>(new ReferenceEqualityComparer<SoilProfileEntity>());
         private readonly Dictionary<SoilLayerEntity, PipingSoilLayer> soilLayers = new Dictionary<SoilLayerEntity, PipingSoilLayer>(new ReferenceEqualityComparer<SoilLayerEntity>());
+        private readonly Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine> surfaceLines = new Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine>(new ReferenceEqualityComparer<SurfaceLineEntity>());
         private readonly Dictionary<SurfaceLinePointEntity, Point3D> surfaceLinePoints = new Dictionary<SurfaceLinePointEntity, Point3D>(new ReferenceEqualityComparer<SurfaceLinePointEntity>());
+        private readonly Dictionary<CharacteristicPointEntity, Point3D> characteristicPoints = new Dictionary<CharacteristicPointEntity, Point3D>(new ReferenceEqualityComparer<CharacteristicPointEntity>());
 
         /// <summary>
         /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/> that
@@ -223,6 +225,20 @@ namespace Application.Ringtoets.Storage.Create
         }
 
         /// <summary>
+        /// Obtains the <see cref="SurfaceLineEntity"/> which was created for the given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="SurfaceLineEntity"/> that was constructed.</param>
+        /// <param name="model">The <see cref="RingtoetsPipingSurfaceLine"/> corresponding
+        /// the newly create database entity.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create operation has been registered for 
+        /// <paramref name="model"/>.</exception>
+        internal void Create(SurfaceLineEntity entity, RingtoetsPipingSurfaceLine model)
+        {
+            Create(surfaceLines, entity, model);
+        }
+
+        /// <summary>
         /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
         /// that was constructed with the information.
         /// </summary>
@@ -245,7 +261,6 @@ namespace Application.Ringtoets.Storage.Create
         /// </summary>
         /// <param name="model">The surfaceline geometry <see cref="Point3D"/> for which
         /// a create operation has been registered.</param>
-        /// <returns>The constructed <see cref="PipingSoilProfile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no create operation
         /// has been registered for <paramref name="model"/>.</exception>
@@ -254,6 +269,21 @@ namespace Application.Ringtoets.Storage.Create
         internal SurfaceLinePointEntity GetSurfaceLinePoint(Point3D model)
         {
             return Get(surfaceLinePoints, model);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="CharacteristicPointEntity"/> which was created for the
+        /// given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="CharacteristicPointEntity"/> that was constructed.</param>
+        /// <param name="model">The surfaceline geometry <see cref="Point3D"/> that is marked
+        /// as being a characteristic points and for which a create operation has been registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create operation
+        /// has been registered for <paramref name="model"/>.</exception>
+        internal void Create(CharacteristicPointEntity entity, Point3D model)
+        {
+            Create(characteristicPoints, entity, model);
         }
 
         /// <summary>
@@ -306,10 +336,109 @@ namespace Application.Ringtoets.Storage.Create
                 soilLayers[entity].StorageId = entity.SoilLayerEntityId;
             }
 
+            foreach (var entity in surfaceLines.Keys)
+            {
+                surfaceLines[entity].StorageId = entity.SurfaceLineEntityId;
+            }
+
             foreach (var entity in surfaceLinePoints.Keys)
             {
                 surfaceLinePoints[entity].StorageId = entity.SurfaceLinePointEntityId;
             }
+
+            // CharacteristicPoints do not really have a 'identity' within the object-model.
+            // As such, no need to copy StorageId. This is already covered by surfaceLinePoints.
+        }
+
+        /// <summary>
+        /// Removes all the entities for which no update operation was registered from the <paramref name="dbContext"/>.
+        /// </summary>
+        /// <param name="dbContext">The <see cref="IRingtoetsEntities"/> from which to remove the entities.</param>
+        internal void RemoveUntouched(IRingtoetsEntities dbContext)
+        {
+            var projectEntities = dbContext.ProjectEntities;
+            var projectEntitiesToRemove = projectEntities
+                .Local
+                .Where(entity => entity.ProjectEntityId > 0)
+                .Except(projects.Keys);
+            projectEntities.RemoveRange(projectEntitiesToRemove);
+
+            var assessmentSectionEntities = dbContext.AssessmentSectionEntities;
+            var assessmentSectionEntitiesToRemove = assessmentSectionEntities
+                .Local
+                .Where(entity => entity.AssessmentSectionEntityId > 0)
+                .Except(assessmentSections.Keys);
+            assessmentSectionEntities.RemoveRange(assessmentSectionEntitiesToRemove);
+
+            var failureMechanismEntities = dbContext.FailureMechanismEntities;
+            var failureMechanismEntitiesToRemove = failureMechanismEntities
+                .Local
+                .Where(entity => entity.FailureMechanismEntityId > 0)
+                .Except(failureMechanisms.Keys);
+            failureMechanismEntities.RemoveRange(failureMechanismEntitiesToRemove);
+
+            var failureMechanismSectionEntities = dbContext.FailureMechanismSectionEntities;
+            var failureMechanismSectionEntitiesToRemove = failureMechanismSectionEntities
+                .Local
+                .Where(entity => entity.FailureMechanismSectionEntityId > 0)
+                .Except(failureMechanismSections.Keys);
+            failureMechanismSectionEntities.RemoveRange(failureMechanismSectionEntitiesToRemove);
+
+            var hydraulicLocationEntities = dbContext.HydraulicLocationEntities;
+            var hydraulicLocationEntitiesToRemove = hydraulicLocationEntities
+                .Local
+                .Where(entity => entity.HydraulicLocationEntityId > 0)
+                .Except(hydraulicLocations.Keys);
+            hydraulicLocationEntities.RemoveRange(hydraulicLocationEntitiesToRemove);
+
+            var stochasticSoilModelEntities = dbContext.StochasticSoilModelEntities;
+            var stochasticSoilModelEntitiesToRemove = stochasticSoilModelEntities
+                .Local
+                .Where(entity => entity.StochasticSoilModelEntityId > 0)
+                .Except(stochasticSoilModels.Keys);
+            stochasticSoilModelEntities.RemoveRange(stochasticSoilModelEntitiesToRemove);
+
+            var stochasticSoilProfileEntities = dbContext.StochasticSoilProfileEntities;
+            var stochasticSoilProfileEntitiesToRemove = stochasticSoilProfileEntities
+                .Local
+                .Where(entity => entity.StochasticSoilProfileEntityId > 0)
+                .Except(stochasticSoilProfiles.Keys);
+            stochasticSoilProfileEntities.RemoveRange(stochasticSoilProfileEntitiesToRemove);
+
+            var soilProfileEntities = dbContext.SoilProfileEntities;
+            var soilProfileEntitiesToRemove = soilProfileEntities
+                .Local
+                .Where(entity => entity.SoilProfileEntityId > 0)
+                .Except(soilProfiles.Keys);
+            soilProfileEntities.RemoveRange(soilProfileEntitiesToRemove);
+
+            var soilLayerEntities = dbContext.SoilLayerEntities;
+            var soilLayerEntitiesToRemove = soilLayerEntities
+                .Local
+                .Where(entity => entity.SoilLayerEntityId > 0)
+                .Except(soilLayers.Keys);
+            soilLayerEntities.RemoveRange(soilLayerEntitiesToRemove);
+
+            var surfaceLineEntities = dbContext.SurfaceLineEntities;
+            var surfaceLineEntitiesToRemove = surfaceLineEntities
+                .Local
+                .Where(entity => entity.SurfaceLineEntityId > 0)
+                .Except(surfaceLines.Keys);
+            surfaceLineEntities.RemoveRange(surfaceLineEntitiesToRemove);
+
+            var surfaceLinePointEntities = dbContext.SurfaceLinePointEntities;
+            var surfaceLinePointEntitiesToRemove = surfaceLinePointEntities
+                .Local
+                .Where(entity => entity.SurfaceLinePointEntityId > 0)
+                .Except(surfaceLinePoints.Keys);
+            surfaceLinePointEntities.RemoveRange(surfaceLinePointEntitiesToRemove);
+
+            var characteristicPointEntities = dbContext.CharacteristicPointEntities;
+            var characteristicPointEntitiesToRemove = characteristicPointEntities
+                .Local
+                .Where(entity => entity.CharacteristicPointEntityId > 0)
+                .Except(characteristicPoints.Keys);
+            characteristicPointEntities.RemoveRange(characteristicPointEntitiesToRemove);
         }
 
         private bool ContainsValue<T, U>(Dictionary<T, U> collection, U model)

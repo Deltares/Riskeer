@@ -51,10 +51,14 @@ namespace Application.Ringtoets.Storage.Create
 
             var entity = new SurfaceLineEntity
             {
-                Name = surfaceLine.Name
+                Name = surfaceLine.Name,
+                ReferenceLineIntersectionX = Convert.ToDecimal(surfaceLine.ReferenceLineIntersectionWorldPoint.X),
+                ReferenceLineIntersectionY = Convert.ToDecimal(surfaceLine.ReferenceLineIntersectionWorldPoint.Y)
             };
             CreateSurfaceLinePointEntities(surfaceLine, collector, entity);
             CreateCharacteristicPointEntities(surfaceLine, collector, entity);
+
+            collector.Create(entity, surfaceLine);
 
             return entity;
         }

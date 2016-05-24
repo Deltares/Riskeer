@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+
+using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.TestUtil;
@@ -42,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var project = new Project();
 
             // Call
-            TestDelegate test = () => project.Update(new UpdateConversionCollector(), null);
+            TestDelegate test = () => project.Update(new CreateConversionCollector(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -80,7 +82,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
                 {
-                    project.Update(new UpdateConversionCollector(), ringtoetsEntities);
+                    project.Update(new CreateConversionCollector(), ringtoetsEntities);
                 }
             };
 
@@ -109,7 +111,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             });
 
             // Call
-            TestDelegate test = () => project.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            TestDelegate test = () => project.Update(new CreateConversionCollector(), ringtoetsEntities);
 
             // Assert
             var expectedMessage = String.Format("Het object 'ProjectEntity' met id '{0}' is niet gevonden.", storageId);
@@ -144,7 +146,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             });
 
             // Call
-            TestDelegate test = () => project.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            TestDelegate test = () => project.Update(new CreateConversionCollector(), ringtoetsEntities);
 
             // Assert
             var expectedMessage = String.Format("Het object 'ProjectEntity' met id '{0}' is niet gevonden.", storageId);
@@ -183,7 +185,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.ProjectEntities.Add(entity);
 
             // Call
-            project.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            project.Update(new CreateConversionCollector(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(newDescription, entity.Description);
@@ -216,7 +218,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.ProjectEntities.Add(entity);
 
             // Call
-            project.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            project.Update(new CreateConversionCollector(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(1, entity.AssessmentSectionEntities.Count);
@@ -313,7 +315,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             });
 
             // Call
-            project.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            project.Update(new CreateConversionCollector(), ringtoetsEntities);
 
             // Assert
             CollectionAssert.AreEqual(new[]

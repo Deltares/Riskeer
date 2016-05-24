@@ -56,7 +56,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             var collector = new CreateConversionCollector();
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
-                Name = "Test"
+                Name = "Test",
+                ReferenceLineIntersectionWorldPoint = new Point2D(1235.439, 49308.346)
             };
 
             // Call
@@ -64,6 +65,8 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreEqual(surfaceLine.Name, entity.Name);
+            Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
+            Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
 
             Assert.AreEqual(0, entity.SurfaceLineEntityId);
             Assert.AreEqual(0, entity.FailureMechanismEntityId);
@@ -84,7 +87,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             };
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
-                Name = "Test"
+                Name = "Test",
+                ReferenceLineIntersectionWorldPoint = new Point2D(1.1, 2.2)
             };
             surfaceLine.SetGeometry(geometry);
 
@@ -93,6 +97,8 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreEqual(surfaceLine.Name, entity.Name);
+            Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
+            Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
 
             Assert.AreEqual(geometry.Length, entity.SurfaceLinePointEntities.Count);
             SurfaceLinePointEntity[] pointEntities = entity.SurfaceLinePointEntities.ToArray();
@@ -130,7 +136,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             };
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
-                Name = "Test"
+                Name = "Test",
+                ReferenceLineIntersectionWorldPoint = new Point2D(3.3, 4.4)
             };
             surfaceLine.SetGeometry(geometry);
             const int bottomDitchDikeIndex = 1;
@@ -151,6 +158,8 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreEqual(surfaceLine.Name, entity.Name);
+            Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
+            Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
 
             Assert.AreEqual(geometry.Length, entity.SurfaceLinePointEntities.Count);
             SurfaceLinePointEntity[] pointEntities = entity.SurfaceLinePointEntities.ToArray();
@@ -192,6 +201,26 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(0, entity.SurfaceLineEntityId);
             Assert.AreEqual(0, entity.FailureMechanismEntityId);
             Assert.IsNull(entity.FailureMechanismEntity);
+        }
+
+        [Test]
+        public void Create_SurfaceLine_RegisterNewEntityToCreateConversionCollector()
+        {
+            // Setup
+            var collector = new CreateConversionCollector();
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
+            };
+
+            // Call
+            SurfaceLineEntity entity = surfaceLine.Create(collector);
+
+            // Assert
+            const long entityId = 125673543;
+            entity.SurfaceLineEntityId = entityId;
+            collector.TransferIds();
+            Assert.AreEqual(entityId, surfaceLine.StorageId);
         }
     }
 }

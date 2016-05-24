@@ -134,7 +134,7 @@ namespace Application.Ringtoets.Storage
             {
                 try
                 {
-                    var updateCollector = new UpdateConversionCollector();
+                    var updateCollector = new CreateConversionCollector();
                     project.Update(updateCollector, dbContext);
                     updateCollector.RemoveUntouched(dbContext);
                     var changes = dbContext.SaveChanges();
@@ -215,7 +215,7 @@ namespace Application.Ringtoets.Storage
             {
                 try
                 {
-                    var updateConversionCollector = new UpdateConversionCollector();
+                    var updateConversionCollector = new CreateConversionCollector();
                     project.Update(updateConversionCollector, dbContext);
                     updateConversionCollector.RemoveUntouched(dbContext);
 

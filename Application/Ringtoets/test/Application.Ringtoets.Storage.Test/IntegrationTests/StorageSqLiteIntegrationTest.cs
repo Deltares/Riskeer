@@ -24,6 +24,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Application.Ringtoets.Storage.TestUtil;
+
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Gui;
@@ -44,7 +46,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
         private readonly string tempRingtoetsFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles"), "tempProjectFile.rtd");
 
-        [TestFixtureTearDown]
         [TearDown]
         public void TearDownTempRingtoetsFile()
         {
@@ -95,6 +96,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                 AssertHydraulicBoundaryDatabase(firstProjectAssessmentSection[i], secondProjectAssessmentSection[i]);
                 AssertReferenceLine(firstProjectAssessmentSection[i], secondProjectAssessmentSection[i]);
+
+                AssertPipingFailureMechanism(firstProjectAssessmentSection[i].PipingFailureMechanism, secondProjectAssessmentSection[i].PipingFailureMechanism);
             }
         }
 
@@ -121,10 +124,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreNotSame(fullProject, loadedProject);
             Assert.AreEqual(fullProject.Items.Count, loadedProject.Items.Count);
 
-            var assessmentSection = loadedProject.Items.OfType<AssessmentSection>().FirstOrDefault();
-            Assert.IsNotNull(assessmentSection);
-            AssertHydraulicBoundaryDatabase(fullProject.Items.OfType<AssessmentSection>().FirstOrDefault(), assessmentSection);
-            AssertReferenceLine(fullProject.Items.OfType<AssessmentSection>().FirstOrDefault(), assessmentSection);
+            var actualAssessmentSection = loadedProject.Items.OfType<AssessmentSection>().FirstOrDefault();
+            Assert.IsNotNull(actualAssessmentSection);
+            AssessmentSection expectedAssessmentSection = fullProject.Items.OfType<AssessmentSection>().FirstOrDefault();
+            AssertHydraulicBoundaryDatabase(expectedAssessmentSection, actualAssessmentSection);
+            AssertReferenceLine(expectedAssessmentSection, actualAssessmentSection);
+            AssertPipingFailureMechanism(expectedAssessmentSection.PipingFailureMechanism, actualAssessmentSection.PipingFailureMechanism);
         }
 
         [Test]
@@ -157,11 +162,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual(expectedProjectName, gui.Project.Name);
                 Assert.AreEqual(expectedProjectDescritpion, gui.Project.Description);
 
-                var assessmentSection = gui.Project.Items.OfType<AssessmentSection>().FirstOrDefault();
-                Assert.IsNotNull(assessmentSection);
-                AssertHydraulicBoundaryDatabase(fullProject.Items.OfType<AssessmentSection>().FirstOrDefault(), assessmentSection);
-                AssertReferenceLine(fullProject.Items.OfType<AssessmentSection>().FirstOrDefault(), assessmentSection);
-                AssertStochasticSoilModels(fullProject.Items.OfType<AssessmentSection>().FirstOrDefault(), assessmentSection);
+                var actualAssessmentSection = gui.Project.Items.OfType<AssessmentSection>().FirstOrDefault();
+                Assert.IsNotNull(actualAssessmentSection);
+                AssessmentSection expectedAssessmentSection = fullProject.Items.OfType<AssessmentSection>().FirstOrDefault();
+                AssertHydraulicBoundaryDatabase(expectedAssessmentSection, actualAssessmentSection);
+                AssertReferenceLine(expectedAssessmentSection, actualAssessmentSection);
+                AssertPipingFailureMechanism(expectedAssessmentSection.PipingFailureMechanism, actualAssessmentSection.PipingFailureMechanism);
             }
 
             // TearDown
@@ -258,12 +264,17 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertStochasticSoilModels(AssessmentSection expectedProject, AssessmentSection project)
+        private void AssertPipingFailureMechanism(PipingFailureMechanism expectedPipingFailureMechanism, PipingFailureMechanism actualPipingFailureMechanism)
         {
-            var expectedModels = expectedProject.PipingFailureMechanism.StochasticSoilModels;
-            var actualModels = project.PipingFailureMechanism.StochasticSoilModels;
+            AssertStochasticSoilModels(expectedPipingFailureMechanism.StochasticSoilModels, actualPipingFailureMechanism.StochasticSoilModels);
+            AssertSurfaceLines(expectedPipingFailureMechanism.SurfaceLines, actualPipingFailureMechanism.SurfaceLines);
+        }
 
+        private void AssertStochasticSoilModels(ObservableList<StochasticSoilModel> expectedModels, ObservableList<StochasticSoilModel> actualModels)
+        {
+            // Precondition:
             Assert.Less(0, actualModels.Count);
+
             Assert.AreEqual(expectedModels.Count, actualModels.Count);
             
             for (int i = 0; i < expectedModels.Count; i++)
@@ -309,6 +320,35 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual(expectedLayer.Top, actualLayer.Top);
                 Assert.AreEqual(expectedLayer.IsAquifer, actualLayer.IsAquifer);
             }
+        }
+
+        private void AssertSurfaceLines(ICollection<RingtoetsPipingSurfaceLine> expectedSurfaceLines, ICollection<RingtoetsPipingSurfaceLine> actualSurfaceLines)
+        {
+            // Precondition:
+            Assert.Greater(expectedSurfaceLines.Count, 0);
+
+            Assert.AreEqual(expectedSurfaceLines.Count, actualSurfaceLines.Count);
+            for (int i = 0; i < expectedSurfaceLines.Count; i++)
+            {
+                RingtoetsPipingSurfaceLine expectedSurfaceLine = expectedSurfaceLines.ElementAt(i);
+                RingtoetsPipingSurfaceLine actualSurfaceLine = expectedSurfaceLines.ElementAt(i);
+                AssertSurfaceLine(expectedSurfaceLine, actualSurfaceLine);
+            }
+        }
+
+        private void AssertSurfaceLine(RingtoetsPipingSurfaceLine expectedSurfaceLine, RingtoetsPipingSurfaceLine actualSurfaceLine)
+        {
+            Assert.AreEqual(expectedSurfaceLine.Name, actualSurfaceLine.Name);
+            Assert.AreEqual(expectedSurfaceLine.ReferenceLineIntersectionWorldPoint, actualSurfaceLine.ReferenceLineIntersectionWorldPoint);
+
+            CollectionAssert.AreEqual(expectedSurfaceLine.Points, actualSurfaceLine.Points);
+
+            Assert.AreEqual(expectedSurfaceLine.BottomDitchDikeSide, actualSurfaceLine.BottomDitchDikeSide);
+            Assert.AreEqual(expectedSurfaceLine.BottomDitchPolderSide, actualSurfaceLine.BottomDitchPolderSide);
+            Assert.AreEqual(expectedSurfaceLine.DikeToeAtPolder, actualSurfaceLine.DikeToeAtPolder);
+            Assert.AreEqual(expectedSurfaceLine.DikeToeAtRiver, actualSurfaceLine.DikeToeAtRiver);
+            Assert.AreEqual(expectedSurfaceLine.DitchDikeSide, actualSurfaceLine.DitchDikeSide);
+            Assert.AreEqual(expectedSurfaceLine.DitchPolderSide, actualSurfaceLine.DitchPolderSide);
         }
 
         private void TearDownTempRingtoetsFile(string filePath)

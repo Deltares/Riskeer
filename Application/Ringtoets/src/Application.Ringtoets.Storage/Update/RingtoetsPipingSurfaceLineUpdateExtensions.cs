@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Update
         /// </list></exception>
         /// <exception cref="EntryPointNotFoundException">When no <see cref="SurfaceLineEntity"/>
         /// can be found in <paramref name="context"/> that matches <paramref name="surfaceLine"/>.</exception>
-        internal static void Update(this RingtoetsPipingSurfaceLine surfaceLine, UpdateConversionCollector collector, IRingtoetsEntities context)
+        internal static void Update(this RingtoetsPipingSurfaceLine surfaceLine, CreateConversionCollector collector, IRingtoetsEntities context)
         {
             if (collector == null)
             {
@@ -72,14 +72,24 @@ namespace Application.Ringtoets.Storage.Update
 
             UpdateGeometry(surfaceLine, entity, context, collector);
             UpdateCharacteristicPoints(surfaceLine, entity, collector);
+
+            collector.Create(entity, surfaceLine);
         }
 
-        private static void UpdateGeometry(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity, IRingtoetsEntities context, UpdateConversionCollector collector)
+        private static void UpdateGeometry(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity, IRingtoetsEntities context, CreateConversionCollector collector)
         {
             if (HasGeometryChanges(surfaceLine, entity))
             {
                 context.SurfaceLinePointEntities.RemoveRange(entity.SurfaceLinePointEntities);
                 UpdateGeometryPoints(surfaceLine, entity, collector);
+            }
+            else
+            {
+                var orderedPointEntities = context.SurfaceLinePointEntities.OrderBy(pe => pe.Order).ToArray();
+                for (int i = 0; i < surfaceLine.Points.Length; i++)
+                {
+                    collector.Create(orderedPointEntities[i], surfaceLine.Points[i]);
+                }
             }
         }
 
@@ -101,7 +111,7 @@ namespace Application.Ringtoets.Storage.Update
             return false;
         }
 
-        private static void UpdateGeometryPoints(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity, UpdateConversionCollector collector)
+        private static void UpdateGeometryPoints(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity, CreateConversionCollector collector)
         {
             int order = 0;
             foreach (Point3D geometryPoint in surfaceLine.Points)
@@ -110,7 +120,7 @@ namespace Application.Ringtoets.Storage.Update
             }
         }
 
-        private static void UpdateCharacteristicPoints(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity, UpdateConversionCollector collector)
+        private static void UpdateCharacteristicPoints(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity, CreateConversionCollector collector)
         {
             CharacteristicPointEntity[] currentCharacteristicPointEntities = entity.SurfaceLinePointEntities
                                                                                    .SelectMany(pe => pe.CharacteristicPointEntities)
@@ -132,7 +142,7 @@ namespace Application.Ringtoets.Storage.Update
 
         private static void UpdateCharacteristicPoint(Point3D currentCharacteristicPoint, CharacteristicPointType type,
                                                       CharacteristicPointEntity[] currentCharacteristicPointEntities,
-                                                      UpdateConversionCollector collector)
+                                                      CreateConversionCollector collector)
         {
             short typeValue = (short)type;
             CharacteristicPointEntity characteristicPointEntity = currentCharacteristicPointEntities
@@ -155,6 +165,7 @@ namespace Application.Ringtoets.Storage.Update
                 else if (characteristicPointEntity.SurfaceLinePointEntity != geometryPointEntity)
                 {
                     characteristicPointEntity.SurfaceLinePointEntity = geometryPointEntity;
+                    collector.Create(characteristicPointEntity, currentCharacteristicPoint);
                 }
             }
         }

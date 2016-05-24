@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Update
 {
@@ -46,7 +47,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="collector"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this PipingFailureMechanism mechanism, UpdateConversionCollector collector, IRingtoetsEntities context)
+        internal static void Update(this PipingFailureMechanism mechanism, CreateConversionCollector collector, IRingtoetsEntities context)
         {
             if (context == null)
             {
@@ -61,12 +62,13 @@ namespace Application.Ringtoets.Storage.Update
             entity.IsRelevant = Convert.ToByte(mechanism.IsRelevant);
 
             UpdateSoilModels(mechanism, collector, context, entity);
+            UpdateSurfaceLines(mechanism, collector, context, entity);
             mechanism.UpdateFailureMechanismSections(collector, entity, context);
 
-            collector.Update(entity);
+            collector.Create(entity, mechanism);
         }
 
-        private static void UpdateSoilModels(PipingFailureMechanism mechanism, UpdateConversionCollector collector, IRingtoetsEntities context, FailureMechanismEntity entity)
+        private static void UpdateSoilModels(PipingFailureMechanism mechanism, CreateConversionCollector collector, IRingtoetsEntities context, FailureMechanismEntity entity)
         {
             foreach (var stochasticSoilModel in mechanism.StochasticSoilModels)
             {
@@ -77,6 +79,21 @@ namespace Application.Ringtoets.Storage.Update
                 else
                 {
                     stochasticSoilModel.Update(collector, context);
+                }
+            }
+        }
+
+        private static void UpdateSurfaceLines(PipingFailureMechanism failureMechanism, CreateConversionCollector collector, IRingtoetsEntities context, FailureMechanismEntity entity)
+        {
+            foreach (RingtoetsPipingSurfaceLine surfaceLine in failureMechanism.SurfaceLines)
+            {
+                if (surfaceLine.IsNew())
+                {
+                    entity.SurfaceLineEntities.Add(surfaceLine.Create(collector));
+                }
+                else
+                {
+                    surfaceLine.Update(collector, context);
                 }
             }
         }
