@@ -107,6 +107,33 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Naam van de berekeningsmap..
+        /// </summary>
+        public static string CalculationGroup_Name_Description {
+            get {
+                return ResourceManager.GetString("CalculationGroup_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string CalculationGroup_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationGroup_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekeningsmap.
+        /// </summary>
+        public static string CalculationGroupContextProperties_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationGroupContextProperties_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De uitvoer van alle afhankelijke berekeningen is verwijderd..
         /// </summary>
         public static string Calculations_Deleted {

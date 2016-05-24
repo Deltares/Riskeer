@@ -37,6 +37,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
@@ -180,7 +181,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(3, propertyInfos.Length);
+                Assert.AreEqual(4, propertyInfos.Length);
 
                 var assessmentSectionProperties = propertyInfos.Single(pi => pi.DataType == typeof(IAssessmentSection));
                 Assert.AreEqual(typeof(AssessmentSectionProperties), assessmentSectionProperties.PropertyObjectType);
@@ -199,6 +200,12 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsNull(standAloneFailureMechanismProperties.AdditionalDataCheck);
                 Assert.IsNull(standAloneFailureMechanismProperties.GetObjectPropertiesData);
                 Assert.IsNull(standAloneFailureMechanismProperties.AfterCreate);
+
+                var calculationGroupProperties = propertyInfos.Single(pi => pi.DataType == typeof(ICalculationContext<CalculationGroup, IFailureMechanism>));
+                Assert.AreEqual(typeof(CalculationGroupContextProperties), calculationGroupProperties.PropertyObjectType);
+                Assert.IsNull(calculationGroupProperties.AdditionalDataCheck);
+                Assert.IsNull(calculationGroupProperties.GetObjectPropertiesData);
+                Assert.IsNull(calculationGroupProperties.AfterCreate);
             }
         }
 

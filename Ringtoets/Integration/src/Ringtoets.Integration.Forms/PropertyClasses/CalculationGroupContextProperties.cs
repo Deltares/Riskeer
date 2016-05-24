@@ -23,21 +23,22 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Forms.Properties;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Integration.Forms.Properties;
 
-namespace Ringtoets.Piping.Forms.PropertyClasses
+namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// Object properties class for <see cref="CalculationGroup"/>
+    /// Object properties class for <see cref="CalculationGroup"/>.
     /// </summary>
-    [ResourcesDisplayName(typeof(Resources), "PipingCalculationGroupContextProperties_DisplayName")]
-    public class PipingCalculationGroupContextProperties : ObjectProperties<PipingCalculationGroupContext>
+    [ResourcesDisplayName(typeof(Resources), "CalculationGroupContextProperties_DisplayName")]
+    public class CalculationGroupContextProperties : ObjectProperties<ICalculationContext<CalculationGroup, IFailureMechanism>>
     {
         [DynamicReadOnly]
         [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingCalculationGroup_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingCalculationGroup_Name_Description")]
+        [ResourcesDisplayName(typeof(Resources), "CalculationGroup_Name_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "CalculationGroup_Name_Description")]
         public string Name
         {
             get

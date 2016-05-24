@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(8, propertyInfos.Length);
+                Assert.AreEqual(7, propertyInfos.Length);
 
                 var pipingFailureMechanismContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingFailureMechanismContext));
                 Assert.AreEqual(typeof(PipingFailureMechanismContextProperties), pipingFailureMechanismContextProperties.PropertyObjectType);
@@ -82,12 +82,6 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.IsNull(pipingCalculationContextProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingCalculationContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingCalculationContextProperties.AfterCreate);
-
-                var pipingCalculationGroupProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingCalculationGroupContext));
-                Assert.AreEqual(typeof(PipingCalculationGroupContextProperties), pipingCalculationGroupProperties.PropertyObjectType);
-                Assert.IsNull(pipingCalculationGroupProperties.AdditionalDataCheck);
-                Assert.IsNull(pipingCalculationGroupProperties.GetObjectPropertiesData);
-                Assert.IsNull(pipingCalculationGroupProperties.AfterCreate);
 
                 var pipingInputContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingInputContext));
                 Assert.AreEqual(typeof(PipingInputContextProperties), pipingInputContextProperties.PropertyObjectType);

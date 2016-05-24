@@ -587,38 +587,11 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van de berekeningsmap..
-        /// </summary>
-        public static string PipingCalculationGroup_Name_Description {
-            get {
-                return ResourceManager.GetString("PipingCalculationGroup_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string PipingCalculationGroup_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingCalculationGroup_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Valideer alle berekeningen binnen deze berekeningsmap..
         /// </summary>
         public static string PipingCalculationGroup_Validate_All_ToolTip {
             get {
                 return ResourceManager.GetString("PipingCalculationGroup_Validate_All_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekeningsmap.
-        /// </summary>
-        public static string PipingCalculationGroupContextProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingCalculationGroupContextProperties_DisplayName", resourceCulture);
             }
         }
         

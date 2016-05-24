@@ -68,7 +68,6 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new PropertyInfo<PipingFailureMechanismContext, PipingFailureMechanismContextProperties>();
             yield return new PropertyInfo<PipingCalculationScenarioContext, PipingCalculationContextProperties>();
-            yield return new PropertyInfo<PipingCalculationGroupContext, PipingCalculationGroupContextProperties>();
             yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>();
             yield return new PropertyInfo<PipingSemiProbabilisticOutput, PipingSemiProbabilisticOutputProperties>();
             yield return new PropertyInfo<RingtoetsPipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>();
