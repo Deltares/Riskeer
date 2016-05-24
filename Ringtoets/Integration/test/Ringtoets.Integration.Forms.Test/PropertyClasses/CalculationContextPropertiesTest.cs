@@ -80,7 +80,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var calculation = new TestCalculation();
             var testCalculationContext = new TestCalculationContext(calculation, failureMechanismMock);
 
-            testCalculationContext.Attach(projectObserver);
+            calculation.Attach(projectObserver);
 
             var properties = new CalculationContextProperties
             {
@@ -108,7 +108,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var calculation = new TestCalculation();
             var testCalculationContext = new TestCalculationContext(calculation, failureMechanismMock);
 
-            testCalculationContext.Attach(projectObserver);
+            calculation.Attach(projectObserver);
 
             var properties = new CalculationContextProperties
             {

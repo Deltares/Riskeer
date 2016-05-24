@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             set
             {
                 data.WrappedData.Name = value;
-                data.NotifyObservers();
+                data.WrappedData.NotifyObservers();
             }
         }
 
