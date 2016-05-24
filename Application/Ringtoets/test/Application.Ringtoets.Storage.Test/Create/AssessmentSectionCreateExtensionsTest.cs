@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 Name = testName
             };
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             var entity = assessmentSection.Create(collector);
@@ -116,7 +116,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     new HydraulicBoundaryLocation(-1, "name", 1, 2)
                 }
             };
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             var entity = assessmentSection.Create(collector);
@@ -139,7 +139,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 new Point2D(2,3),
                 new Point2D(5,3)
             });
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             var entity = assessmentSection.Create(collector);

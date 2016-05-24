@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            var entity = failureMechanism.Create(new CreateConversionCollector());
+            var entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.IsEmpty(entity.FailureMechanismSectionEntities);
@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             failureMechanism.AddSection(new FailureMechanismSection("", new [] { new Point2D(0,0) }));
 
             // Call
-            var entity = failureMechanism.Create(new CreateConversionCollector());
+            var entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);

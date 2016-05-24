@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static FailureMechanismEntity Create(this PipingFailureMechanism mechanism, CreateConversionCollector collector)
+        internal static FailureMechanismEntity Create(this PipingFailureMechanism mechanism, PersistenceRegistry collector)
         {
             if (collector == null)
             {
@@ -55,11 +55,11 @@ namespace Application.Ringtoets.Storage.Create
             AddEntitiesForSurfaceLines(mechanism, collector, entity);
             mechanism.AddEntitiesForFailureMechanismSections(collector, entity);
 
-            collector.Create(entity, mechanism);
+            collector.Register(entity, mechanism);
             return entity;
         }
 
-        private static void AddEntitiesForStochasticSoilModels(PipingFailureMechanism mechanism, CreateConversionCollector collector, FailureMechanismEntity entity)
+        private static void AddEntitiesForStochasticSoilModels(PipingFailureMechanism mechanism, PersistenceRegistry collector, FailureMechanismEntity entity)
         {
             foreach (var stochasticSoilModel in mechanism.StochasticSoilModels)
             {
@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Create
             }
         }
 
-        private static void AddEntitiesForSurfaceLines(PipingFailureMechanism mechanism, CreateConversionCollector collector, FailureMechanismEntity entity)
+        private static void AddEntitiesForSurfaceLines(PipingFailureMechanism mechanism, PersistenceRegistry collector, FailureMechanismEntity entity)
         {
             foreach (RingtoetsPipingSurfaceLine surfaceLine in mechanism.SurfaceLines)
             {

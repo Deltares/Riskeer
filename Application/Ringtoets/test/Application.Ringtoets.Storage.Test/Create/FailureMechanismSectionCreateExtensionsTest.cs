@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             string testName = "testName";
             var geometryPoints = new[] { new Point2D(0, 0), new Point2D(0, 0) };
             var failureMechanismSection = new FailureMechanismSection(testName, geometryPoints);
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             var entity = failureMechanismSection.Create(collector);

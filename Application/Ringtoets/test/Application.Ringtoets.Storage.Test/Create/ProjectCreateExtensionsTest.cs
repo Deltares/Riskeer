@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 Description = testdescription
             };
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             var entity = project.Create(collector);
@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     new AssessmentSection(AssessmentSectionComposition.Dike)
                 }
             };
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             var entity = project.Create(collector);

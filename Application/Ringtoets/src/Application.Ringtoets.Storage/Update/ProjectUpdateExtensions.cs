@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="collector"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this Project project, CreateConversionCollector collector, IRingtoetsEntities context)
+        internal static void Update(this Project project, PersistenceRegistry collector, IRingtoetsEntities context)
         {
             if (context == null)
             {
@@ -73,7 +73,7 @@ namespace Application.Ringtoets.Storage.Update
                 }
             }
 
-            collector.Create(entity, project);
+            collector.Register(entity, project);
         }
 
         private static ProjectEntity ReadSingleProject(Project project, IRingtoetsEntities context)

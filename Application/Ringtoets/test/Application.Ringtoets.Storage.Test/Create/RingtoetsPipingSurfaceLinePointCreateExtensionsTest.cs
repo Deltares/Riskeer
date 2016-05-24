@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void CreateSurfaceLinePoint_ValidArguments_CreateSurfaceLinePointEntity()
         {
             // Setup
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
             var geometryPoint = new Point3D(2.3, 4.5, 6.7);
 
             // Call
@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void CreateSurfaceLinePoint_ValidArguments_NewEntityIsRegisteredToCreateConversionCollector()
         {
             // Setup
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
             var geometryPoint = new Point3D(2.3, 4.5, 6.7);
 
             // Call

@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var section = new TestFailureMechanismSection();
 
             // Call
-            TestDelegate test = () => section.Update(new CreateConversionCollector(), null);
+            TestDelegate test = () => section.Update(new PersistenceRegistry(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -82,7 +82,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
                 {
-                    section.Update(new CreateConversionCollector(), ringtoetsEntities);
+                    section.Update(new PersistenceRegistry(), ringtoetsEntities);
                 }
             };
 
@@ -113,7 +113,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             });
 
             // Call
-            TestDelegate test = () => section.Update(new CreateConversionCollector(), ringtoetsEntities);
+            TestDelegate test = () => section.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             var expectedMessage = String.Format("Het object 'FailureMechanismSectionEntity' met id '{0}' is niet gevonden.", storageId);
@@ -148,7 +148,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismSectionEntities.Add(entity);
 
             // Call
-            section.Update(new CreateConversionCollector(), ringtoetsEntities);
+            section.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionPointEntities.Count);
@@ -191,7 +191,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismSectionPointEntities.Add(pointEntity);
 
             // Call
-            section.Update(new CreateConversionCollector(), ringtoetsEntities);
+            section.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(0, ringtoetsEntities.ReferenceLinePointEntities.Count());

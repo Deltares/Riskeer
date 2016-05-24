@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.Update(new CreateConversionCollector(), null);
+            TestDelegate test = () => failureMechanism.Update(new PersistenceRegistry(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -83,7 +83,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
                 {
-                    failureMechanism.Update(new CreateConversionCollector(), ringtoetsEntities);
+                    failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
                 }
             };
 
@@ -114,7 +114,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             });
 
             // Call
-            TestDelegate test = () => failureMechanism.Update(new CreateConversionCollector(), ringtoetsEntities);
+            TestDelegate test = () => failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             var expectedMessage = String.Format("Het object 'FailureMechanismEntity' met id '{0}' is niet gevonden.", storageId);
@@ -148,7 +148,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
 
             // Call
-            failureMechanism.Update(new CreateConversionCollector(), ringtoetsEntities);
+            failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(Convert.ToByte(true), failureMechanismEntity.IsRelevant);
@@ -182,7 +182,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
 
             // Call
-            failureMechanism.Update(new CreateConversionCollector(), ringtoetsEntities);
+            failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);
@@ -229,7 +229,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismSectionEntities.Add(failureMechanismSectionEntity);
 
             // Call
-            failureMechanism.Update(new CreateConversionCollector(), ringtoetsEntities);
+            failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);

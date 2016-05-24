@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="collector"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this PipingFailureMechanism mechanism, CreateConversionCollector collector, IRingtoetsEntities context)
+        internal static void Update(this PipingFailureMechanism mechanism, PersistenceRegistry collector, IRingtoetsEntities context)
         {
             if (context == null)
             {
@@ -65,10 +65,10 @@ namespace Application.Ringtoets.Storage.Update
             UpdateSurfaceLines(mechanism, collector, context, entity);
             mechanism.UpdateFailureMechanismSections(collector, entity, context);
 
-            collector.Create(entity, mechanism);
+            collector.Register(entity, mechanism);
         }
 
-        private static void UpdateSoilModels(PipingFailureMechanism mechanism, CreateConversionCollector collector, IRingtoetsEntities context, FailureMechanismEntity entity)
+        private static void UpdateSoilModels(PipingFailureMechanism mechanism, PersistenceRegistry collector, IRingtoetsEntities context, FailureMechanismEntity entity)
         {
             foreach (var stochasticSoilModel in mechanism.StochasticSoilModels)
             {
@@ -83,7 +83,7 @@ namespace Application.Ringtoets.Storage.Update
             }
         }
 
-        private static void UpdateSurfaceLines(PipingFailureMechanism failureMechanism, CreateConversionCollector collector, IRingtoetsEntities context, FailureMechanismEntity entity)
+        private static void UpdateSurfaceLines(PipingFailureMechanism failureMechanism, PersistenceRegistry collector, IRingtoetsEntities context, FailureMechanismEntity entity)
         {
             foreach (RingtoetsPipingSurfaceLine surfaceLine in failureMechanism.SurfaceLines)
             {

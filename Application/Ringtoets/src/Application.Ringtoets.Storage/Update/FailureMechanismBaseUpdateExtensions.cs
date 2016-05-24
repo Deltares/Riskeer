@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list>
         /// </exception>
-        internal static void UpdateFailureMechanismSections(this IFailureMechanism mechanism, CreateConversionCollector collector, FailureMechanismEntity entity, IRingtoetsEntities context)
+        internal static void UpdateFailureMechanismSections(this IFailureMechanism mechanism, PersistenceRegistry collector, FailureMechanismEntity entity, IRingtoetsEntities context)
         {
             if (collector == null)
             {

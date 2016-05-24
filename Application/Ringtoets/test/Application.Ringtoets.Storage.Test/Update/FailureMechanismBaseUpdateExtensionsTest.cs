@@ -68,7 +68,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
                 {
-                    failureMechanism.UpdateFailureMechanismSections(new CreateConversionCollector(), null, ringtoetsEntities);
+                    failureMechanism.UpdateFailureMechanismSections(new PersistenceRegistry(), null, ringtoetsEntities);
                 }
             };
 
@@ -84,7 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.UpdateFailureMechanismSections(new CreateConversionCollector(), new FailureMechanismEntity(), null);
+            TestDelegate test = () => failureMechanism.UpdateFailureMechanismSections(new PersistenceRegistry(), new FailureMechanismEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -114,7 +114,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
 
             // Call
-            failureMechanism.UpdateFailureMechanismSections(new CreateConversionCollector(), failureMechanismEntity, ringtoetsEntities);
+            failureMechanism.UpdateFailureMechanismSections(new PersistenceRegistry(), failureMechanismEntity, ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);
@@ -158,7 +158,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismSectionEntities.Add(failureMechanismSectionEntity);
 
             // Call
-            failureMechanism.UpdateFailureMechanismSections(new CreateConversionCollector(), failureMechanismEntity, ringtoetsEntities);
+            failureMechanism.UpdateFailureMechanismSections(new PersistenceRegistry(), failureMechanismEntity, ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);

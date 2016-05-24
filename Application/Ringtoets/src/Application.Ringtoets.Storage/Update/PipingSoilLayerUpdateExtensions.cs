@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="collector"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this PipingSoilLayer layer, CreateConversionCollector collector, IRingtoetsEntities context)
+        internal static void Update(this PipingSoilLayer layer, PersistenceRegistry collector, IRingtoetsEntities context)
         {
             if (context == null)
             {
@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Update
             entity.IsAquifer = Convert.ToByte(layer.IsAquifer);
             entity.Top = Convert.ToDecimal(layer.Top);
 
-            collector.Create(entity, layer);
+            collector.Register(entity, layer);
         }
 
         private static SoilLayerEntity GetSingleSoilLayer(PipingSoilLayer layer, IRingtoetsEntities context)

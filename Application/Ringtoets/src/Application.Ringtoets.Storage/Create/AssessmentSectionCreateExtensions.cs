@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="AssessmentSectionEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static AssessmentSectionEntity Create(this AssessmentSection section, CreateConversionCollector collector)
+        internal static AssessmentSectionEntity Create(this AssessmentSection section, PersistenceRegistry collector)
         {
             if (collector == null)
             {
@@ -56,16 +56,16 @@ namespace Application.Ringtoets.Storage.Create
             AddEntityForReferenceLine(section, entity);
             AddEntitiesForAddStandAloneFailureMechanisms(section, entity, collector);
 
-            collector.Create(entity, section);
+            collector.Register(entity, section);
             return entity;
         }
 
-        private static void AddEntityForGrassCoverErosionInwardsFailureMechanism(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector)
+        private static void AddEntityForGrassCoverErosionInwardsFailureMechanism(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry collector)
         {
             entity.FailureMechanismEntities.Add(section.GrassCoverErosionInwards.Create(collector));
         }
 
-        private static void AddEntitiesForAddStandAloneFailureMechanisms(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector)
+        private static void AddEntitiesForAddStandAloneFailureMechanisms(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry collector)
         {
             entity.FailureMechanismEntities.Add(section.MacrostabilityInwards.Create(FailureMechanismType.MacrostabilityInwards, collector));
             entity.FailureMechanismEntities.Add(section.MacrostabilityOutwards.Create(FailureMechanismType.MacrostabilityOutwards, collector));
@@ -85,7 +85,7 @@ namespace Application.Ringtoets.Storage.Create
             entity.FailureMechanismEntities.Add(section.TechnicalInnovation.Create(FailureMechanismType.TechnicalInnovations, collector));
         }
 
-        private static void AddEntityForPipingFailureMechanism(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector)
+        private static void AddEntityForPipingFailureMechanism(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry collector)
         {
             entity.FailureMechanismEntities.Add(section.PipingFailureMechanism.Create(collector));
         }
@@ -102,7 +102,7 @@ namespace Application.Ringtoets.Storage.Create
             }
         }
 
-        private static void AddEntityForHydraulicDatabase(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector)
+        private static void AddEntityForHydraulicDatabase(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry collector)
         {
             if (section.HydraulicBoundaryDatabase != null)
             {

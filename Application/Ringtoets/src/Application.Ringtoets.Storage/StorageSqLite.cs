@@ -82,7 +82,7 @@ namespace Application.Ringtoets.Storage
             {
                 try
                 {
-                    var collector = new CreateConversionCollector();
+                    var collector = new PersistenceRegistry();
                     dbContext.ProjectEntities.Add(project.Create(collector));
                     var changes = dbContext.SaveChanges();
                     collector.TransferIds();
@@ -134,7 +134,7 @@ namespace Application.Ringtoets.Storage
             {
                 try
                 {
-                    var updateCollector = new CreateConversionCollector();
+                    var updateCollector = new PersistenceRegistry();
                     project.Update(updateCollector, dbContext);
                     updateCollector.RemoveUntouched(dbContext);
                     var changes = dbContext.SaveChanges();
@@ -215,7 +215,7 @@ namespace Application.Ringtoets.Storage
             {
                 try
                 {
-                    var updateConversionCollector = new CreateConversionCollector();
+                    var updateConversionCollector = new PersistenceRegistry();
                     project.Update(updateConversionCollector, dbContext);
                     updateConversionCollector.RemoveUntouched(dbContext);
 

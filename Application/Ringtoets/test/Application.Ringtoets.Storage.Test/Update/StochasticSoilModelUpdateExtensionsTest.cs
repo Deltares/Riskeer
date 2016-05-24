@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var soilModel = new TestStochasticSoilModel();
 
             // Call
-            TestDelegate test = () => soilModel.Update(new CreateConversionCollector(), null);
+            TestDelegate test = () => soilModel.Update(new PersistenceRegistry(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -83,7 +83,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
                 {
-                    soilModel.Update(new CreateConversionCollector(), ringtoetsEntities);
+                    soilModel.Update(new PersistenceRegistry(), ringtoetsEntities);
                 }
             };
 
@@ -116,7 +116,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             });
 
             // Call
-            TestDelegate test = () => soilModel.Update(new CreateConversionCollector(), ringtoetsEntities);
+            TestDelegate test = () => soilModel.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             var expectedMessage = String.Format("Het object 'StochasticSoilModelEntity' met id '{0}' is niet gevonden.", storageId);
@@ -152,7 +152,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.StochasticSoilModelEntities.Add(modelEntity);
 
             // Call
-            soilModel.Update(new CreateConversionCollector(), ringtoetsEntities);
+            soilModel.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(newName, modelEntity.Name);
@@ -190,7 +190,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.StochasticSoilModelEntities.Add(soilModelEntity);
 
             // Call
-            soilModel.Update(new CreateConversionCollector(), ringtoetsEntities);
+            soilModel.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(1, soilModelEntity.StochasticSoilProfileEntities.Count);
@@ -237,7 +237,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.StochasticSoilProfileEntities.Add(soilProfileEntity);
 
             // Call
-            soilModel.Update(new CreateConversionCollector(), ringtoetsEntities);
+            soilModel.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             CollectionAssert.AreEqual(new [] {soilProfileEntity}, soilModelEntity.StochasticSoilProfileEntities);

@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             // Call
-            TestDelegate test = () => hydraulicBoundaryLocation.Update(new CreateConversionCollector(), null);
+            TestDelegate test = () => hydraulicBoundaryLocation.Update(new PersistenceRegistry(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
                 {
-                    hydraulicBoundaryLocation.Update(new CreateConversionCollector(), ringtoetsEntities);
+                    hydraulicBoundaryLocation.Update(new PersistenceRegistry(), ringtoetsEntities);
                 }
             };
 
@@ -111,7 +111,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             });
 
             // Call
-            TestDelegate test = () => section.Update(new CreateConversionCollector(), ringtoetsEntities);
+            TestDelegate test = () => section.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             var expectedMessage = String.Format("Het object 'HydraulicLocationEntity' met id '{0}' is niet gevonden.", storageId);
@@ -155,7 +155,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.HydraulicLocationEntities.Add(hydraulicLocationEntity);
 
             // Call
-            hydraulicBoundaryLocation.Update(new CreateConversionCollector(), ringtoetsEntities);
+            hydraulicBoundaryLocation.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(newName, hydraulicLocationEntity.Name);

@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 IsRelevant = isRelevant
             };
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             var entity = failureMechanism.Create(collector);
@@ -79,7 +79,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(-1, "name", "segmentName"));
             failureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(-1, "name2", "segmentName2"));
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             var entity = failureMechanism.Create(collector);
@@ -98,7 +98,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new [] { new Point2D(0,0) }));
             failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new [] { new Point2D(0, 0) }));
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             var entity = failureMechanism.Create(collector);
@@ -118,7 +118,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.SurfaceLines.Add(CreateSurfaceLine(random));
 
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(collector);

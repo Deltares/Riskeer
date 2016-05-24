@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="collector"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this HydraulicBoundaryLocation location, CreateConversionCollector collector, IRingtoetsEntities context)
+        internal static void Update(this HydraulicBoundaryLocation location, PersistenceRegistry collector, IRingtoetsEntities context)
         {
             if (context == null)
             {
@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Update
             entity.LocationY = Convert.ToDecimal(location.Location.Y);
             entity.DesignWaterLevel = double.IsNaN(location.DesignWaterLevel) ? (double?) null : Convert.ToDouble(location.DesignWaterLevel);
 
-            collector.Create(entity, location);
+            collector.Register(entity, location);
         }
 
         private static HydraulicLocationEntity GetSingleHydraulicBoundaryLocation(HydraulicBoundaryLocation location, IRingtoetsEntities context)

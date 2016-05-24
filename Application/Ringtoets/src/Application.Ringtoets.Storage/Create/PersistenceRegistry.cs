@@ -22,10 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Application.Ringtoets.Storage.DbContext;
+
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils;
+
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -35,11 +38,12 @@ using Ringtoets.Piping.Primitives;
 namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
-    /// This class can be used to keep track of create operations on a database. This information can be used to reuse previously created
-    /// objects. When all operations have been performed, then the collected information can be used to transfer the ids assigned to 
-    /// the created database instances back to the data model.
+    /// This class can be used to keep track of create and update operations on a database.
+    /// This information can be used to reuse objects. When all operations have been performed,
+    /// then the collected information can be used to transfer the ids assigned to the created
+    /// database instances back to the data model or to clean up orphans.
     /// </summary>
-    internal class CreateConversionCollector
+    internal class PersistenceRegistry
     {
         private readonly Dictionary<ProjectEntity, Project> projects = new Dictionary<ProjectEntity, Project>(new ReferenceEqualityComparer<ProjectEntity>());
         private readonly Dictionary<AssessmentSectionEntity, AssessmentSection> assessmentSections = new Dictionary<AssessmentSectionEntity, AssessmentSection>(new ReferenceEqualityComparer<AssessmentSectionEntity>());
@@ -55,151 +59,152 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<CharacteristicPointEntity, Point3D> characteristicPoints = new Dictionary<CharacteristicPointEntity, Point3D>(new ReferenceEqualityComparer<CharacteristicPointEntity>());
 
         /// <summary>
-        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/> that
-        /// was constructed with the information.
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismSectionEntity"/> that was constructed.</param>
-        /// <param name="model">The new <see cref="FailureMechanismSection"/> which needed to be created.</param>
+        /// <param name="entity">The <see cref="FailureMechanismSectionEntity"/> that was registered.</param>
+        /// <param name="model">The <see cref="FailureMechanismSection"/> which needed to registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Create(FailureMechanismSectionEntity entity, FailureMechanismSection model)
+        public void Register(FailureMechanismSectionEntity entity, FailureMechanismSection model)
         {
-            Create(failureMechanismSections, entity, model);
+            Register(failureMechanismSections, entity, model);
         }
 
         /// <summary>
-        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/> that
-        /// was constructed with the information.
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="ProjectEntity"/> that was constructed.</param>
-        /// <param name="model">The new <see cref="Project"/> which needed to be created.</param>
+        /// <param name="entity">The <see cref="ProjectEntity"/> that was registered.</param>
+        /// <param name="model">The <see cref="Project"/> which needed to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        internal void Create(ProjectEntity entity, Project model)
+        internal void Register(ProjectEntity entity, Project model)
         {
-            Create(projects, entity, model);
+            Register(projects, entity, model);
         }
 
         /// <summary>
-        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/> that
-        /// was constructed with the information.
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="AssessmentSectionEntity"/> that was constructed.</param>
-        /// <param name="model">The new <see cref="AssessmentSection"/> which needed to be created.</param>
+        /// <param name="entity">The <see cref="AssessmentSectionEntity"/> that was registered.</param>
+        /// <param name="model">The <see cref="AssessmentSection"/> which needed to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        internal void Create(AssessmentSectionEntity entity, AssessmentSection model)
+        internal void Register(AssessmentSectionEntity entity, AssessmentSection model)
         {
-            Create(assessmentSections, entity, model);
+            Register(assessmentSections, entity, model);
         }
 
         /// <summary>
-        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/> that
-        /// was constructed with the information.
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="HydraulicLocationEntity"/> that was constructed.</param>
-        /// <param name="model">The new <see cref="HydraulicBoundaryLocation"/> which needed to be created.</param>
+        /// <param name="entity">The <see cref="HydraulicLocationEntity"/> that was registered.</param>
+        /// <param name="model">The <see cref="HydraulicBoundaryLocation"/> which needed to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        internal void Create(HydraulicLocationEntity entity, HydraulicBoundaryLocation model)
+        internal void Register(HydraulicLocationEntity entity, HydraulicBoundaryLocation model)
         {
-            Create(hydraulicLocations, entity, model);
+            Register(hydraulicLocations, entity, model);
         }
 
         /// <summary>
-        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/> that
-        /// was constructed with the information.
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> that was constructed.</param>
-        /// <param name="model">The new <see cref="IFailureMechanism"/> which needed to be created.</param>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> that was registered.</param>
+        /// <param name="model">The <see cref="IFailureMechanism"/> which needed to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        internal void Create(FailureMechanismEntity entity, IFailureMechanism model)
+        internal void Register(FailureMechanismEntity entity, IFailureMechanism model)
         {
-            Create(failureMechanisms, entity, model);
+            Register(failureMechanisms, entity, model);
         }
 
         /// <summary>
-        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/> that
-        /// was constructed with the information.
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> that was constructed.</param>
-        /// <param name="model">The new <see cref="StochasticSoilModel"/> which needed to be created.</param>
+        /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> that was registered.</param>
+        /// <param name="model">The <see cref="StochasticSoilModel"/> which needed to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        internal void Create(StochasticSoilModelEntity entity, StochasticSoilModel model)
+        internal void Register(StochasticSoilModelEntity entity, StochasticSoilModel model)
         {
-            Create(stochasticSoilModels, entity, model);
+            Register(stochasticSoilModels, entity, model);
         }
 
         /// <summary>
-        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/> that
-        /// was constructed with the information.
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="StochasticSoilProfileEntity"/> that was constructed.</param>
-        /// <param name="model">The new <see cref="StochasticSoilProfile"/> which needed to be created.</param>
+        /// <param name="entity">The <see cref="StochasticSoilProfileEntity"/> that was registered.</param>
+        /// <param name="model">The <see cref="StochasticSoilProfile"/> which needed to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        internal void Create(StochasticSoilProfileEntity entity, StochasticSoilProfile model)
+        internal void Register(StochasticSoilProfileEntity entity, StochasticSoilProfile model)
         {
-            Create(stochasticSoilProfiles, entity, model);
+            Register(stochasticSoilProfiles, entity, model);
         }
 
         /// <summary>
-        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/> that
-        /// was constructed with the information.
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="SoilProfileEntity"/> that was constructed.</param>
-        /// <param name="model">The new <see cref="PipingSoilProfile"/> which needed to be created.</param>
+        /// <param name="entity">The <see cref="SoilProfileEntity"/> that was registered.</param>
+        /// <param name="model">The <see cref="PipingSoilProfile"/> which needed to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        internal void Create(SoilProfileEntity entity, PipingSoilProfile model)
+        internal void Register(SoilProfileEntity entity, PipingSoilProfile model)
         {
-            Create(soilProfiles, entity, model);
+            Register(soilProfiles, entity, model);
         }
 
         /// <summary>
-        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/> that
-        /// was constructed with the information.
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="SoilLayerEntity"/> that was constructed.</param>
-        /// <param name="model">The new <see cref="PipingSoilLayer"/> which needed to be created.</param>
+        /// <param name="entity">The <see cref="SoilLayerEntity"/> that was registered.</param>
+        /// <param name="model">The <see cref="PipingSoilLayer"/> which needed to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        internal void Create(SoilLayerEntity entity, PipingSoilLayer model)
+        internal void Register(SoilLayerEntity entity, PipingSoilLayer model)
         {
-            Create(soilLayers, entity, model);
+            Register(soilLayers, entity, model);
         }
 
         /// <summary>
-        /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
+        /// Checks whether a create or update operations has been registered for the given
+        /// <paramref name="model"/>.
         /// </summary>
         /// <param name="model">The <see cref="SoilProfileEntity"/> to check for.</param>
         /// <returns><c>true</c> if the <see cref="model"/> was created before, <c>false</c> otherwise.</returns>
@@ -210,80 +215,86 @@ namespace Application.Ringtoets.Storage.Create
         }
 
         /// <summary>
-        /// Obtains the <see cref="SoilProfileEntity"/> which was created for the given <paramref name="model"/>.
+        /// Obtains the <see cref="SoilProfileEntity"/> which was registered for the given
+        /// <paramref name="model"/>.
         /// </summary>
-        /// <param name="model">The <see cref="SoilProfileEntity"/> for which a read operation has been registerd.</param>
+        /// <param name="model">The <see cref="SoilProfileEntity"/> for which a read operation has been registered.</param>
         /// <returns>The constructed <see cref="PipingSoilProfile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no create operation has been registered for 
-        /// <paramref name="model"/>.</exception>
-        /// <remarks>Use <see cref="Contains"/> to find out whether a create operation has been registered for
-        /// <paramref name="model"/>.</remarks>
+        /// <exception cref="InvalidOperationException">Thrown when no create operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains"/> to find out whether a create operation has
+        /// been registered for <paramref name="model"/>.</remarks>
         internal SoilProfileEntity Get(PipingSoilProfile model)
         {
             return Get(soilProfiles, model);
         }
 
         /// <summary>
-        /// Obtains the <see cref="SurfaceLineEntity"/> which was created for the given <paramref name="model"/>.
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="SurfaceLineEntity"/> that was constructed.</param>
-        /// <param name="model">The <see cref="RingtoetsPipingSurfaceLine"/> corresponding
-        /// the newly create database entity.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no create operation has been registered for 
-        /// <paramref name="model"/>.</exception>
-        internal void Create(SurfaceLineEntity entity, RingtoetsPipingSurfaceLine model)
-        {
-            Create(surfaceLines, entity, model);
-        }
-
-        /// <summary>
-        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
-        /// that was constructed with the information.
-        /// </summary>
-        /// <param name="entity">The <see cref="SurfaceLinePointEntity"/> that was constructed.</param>
-        /// <param name="model">The surfaceline geometry <see cref="Point3D"/> corresponding
-        /// the newly create database entity.</param>
+        /// <param name="entity">The <see cref="SurfaceLineEntity"/> that was registered.</param>
+        /// <param name="model">The <see cref="RingtoetsPipingSurfaceLine"/> which needed 
+        /// to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        internal void Create(SurfaceLinePointEntity entity, Point3D model)
+        internal void Register(SurfaceLineEntity entity, RingtoetsPipingSurfaceLine model)
         {
-            Create(surfaceLinePoints, entity, model);
+            Register(surfaceLines, entity, model);
         }
 
         /// <summary>
-        /// Obtains the <see cref="SurfaceLinePointEntity"/> which was created for the
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="SurfaceLinePointEntity"/> that was registered.</param>
+        /// <param name="model">The surfaceline geometry <see cref="Point3D"/> corresponding
+        /// the registered database entity.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        internal void Register(SurfaceLinePointEntity entity, Point3D model)
+        {
+            Register(surfaceLinePoints, entity, model);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="SurfaceLinePointEntity"/> which was registered for the
         /// given <paramref name="model"/>.
         /// </summary>
         /// <param name="model">The surfaceline geometry <see cref="Point3D"/> for which
-        /// a create operation has been registered.</param>
+        /// a create or update operation has been registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no create operation
         /// has been registered for <paramref name="model"/>.</exception>
-        /// <remarks>Use <see cref="Contains"/> to find out whether a create operation has
-        /// been registered for <paramref name="model"/>.</remarks>
+        /// <remarks>Use <see cref="Contains"/> to find out whether a create or update
+        /// operation has been registered for <paramref name="model"/>.</remarks>
         internal SurfaceLinePointEntity GetSurfaceLinePoint(Point3D model)
         {
             return Get(surfaceLinePoints, model);
         }
 
         /// <summary>
-        /// Obtains the <see cref="CharacteristicPointEntity"/> which was created for the
-        /// given <paramref name="model"/>.
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="CharacteristicPointEntity"/> that was constructed.</param>
-        /// <param name="model">The surfaceline geometry <see cref="Point3D"/> that is marked
-        /// as being a characteristic points and for which a create operation has been registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no create operation
-        /// has been registered for <paramref name="model"/>.</exception>
-        internal void Create(CharacteristicPointEntity entity, Point3D model)
+        /// <param name="entity">The <see cref="CharacteristicPointEntity"/> that was registered.</param>
+        /// <param name="model">The surfaceline geometry <see cref="Point3D"/> corresponding
+        /// to the characteristic point data being registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        internal void Register(CharacteristicPointEntity entity, Point3D model)
         {
-            Create(characteristicPoints, entity, model);
+            Register(characteristicPoints, entity, model);
         }
 
         /// <summary>
@@ -451,7 +462,7 @@ namespace Application.Ringtoets.Storage.Create
             return collection.ContainsValue(model);
         }
 
-        private void Create<T, U>(Dictionary<T, U> collection, T entity, U model)
+        private void Register<T, U>(Dictionary<T, U> collection, T entity, U model)
         {
             if (entity == null)
             {

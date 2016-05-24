@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         public void Update_RingtoetsEntitiesIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             RingtoetsPipingSurfaceLine surfaceLine = CreateSavedSurfaceLineWithData();
 
@@ -84,7 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var context = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
 
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
@@ -121,7 +121,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
             context.SurfaceLineEntities.Add(entity);
 
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             surfaceLine.Update(collector, context);
@@ -158,7 +158,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             // Precondition
             CollectionAssert.IsEmpty(context.SurfaceLinePointEntities);
 
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             surfaceLine.Update(collector, context);
@@ -196,7 +196,7 @@ namespace Application.Ringtoets.Storage.Test.Update
                 SurfaceLineEntityId = surfaceLine.StorageId
             };
             context.SurfaceLineEntities.Add(entity);
-            var createCollector = new CreateConversionCollector();
+            var createCollector = new PersistenceRegistry();
             for (int i = 0; i < surfaceLine.Points.Length; i++)
             {
                 var geometryPoint = surfaceLine.Points[i];
@@ -209,7 +209,7 @@ namespace Application.Ringtoets.Storage.Test.Update
                 context.SurfaceLinePointEntities.Add(pointEntity);
             }
 
-            var updateCollector = new CreateConversionCollector();
+            var updateCollector = new PersistenceRegistry();
 
             // Call
             surfaceLine.Update(updateCollector, context);
@@ -245,7 +245,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
             context.SurfaceLineEntities.Add(entity);
 
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             surfaceLine.Update(collector, context);

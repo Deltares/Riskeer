@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_SurfaceLineWithoutGeometry_ReturnSurfaceLineEntityWithoutAddingPointEntities()
         {
             // Setup
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = "Test",
@@ -78,7 +78,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_SurfaceLineWithGeometryWithoutCharacteristicPoints_ReturnSurfaceLineEntityWithPointEntities()
         {
             // Setup
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
             var geometry = new[]
             {
                 new Point3D(1.1, 2.2, 3.3),
@@ -122,7 +122,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_SurfaceLineWithAllData_ReturnSurfaceLineEntityWithPointEntitiesAndCharactersisticPointReferences()
         {
             // Setup
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
             var geometry = new[]
             {
                 new Point3D(1.1, 2.2, 3.3),
@@ -207,7 +207,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_SurfaceLine_RegisterNewEntityToCreateConversionCollector()
         {
             // Setup
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)

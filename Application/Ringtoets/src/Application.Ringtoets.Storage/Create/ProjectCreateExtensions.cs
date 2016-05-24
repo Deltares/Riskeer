@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="ProjectEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static ProjectEntity Create(this Project project, CreateConversionCollector collector)
+        internal static ProjectEntity Create(this Project project, PersistenceRegistry collector)
         {
             if (collector == null)
             {
@@ -53,11 +53,11 @@ namespace Application.Ringtoets.Storage.Create
 
             AddEntitiesForAssessmentSections(project, entity, collector);
 
-            collector.Create(entity, project);
+            collector.Register(entity, project);
             return entity;
         }
 
-        private static void AddEntitiesForAssessmentSections(Project project, ProjectEntity entity, CreateConversionCollector collector)
+        private static void AddEntitiesForAssessmentSections(Project project, ProjectEntity entity, PersistenceRegistry collector)
         {
             foreach (var result in project.Items.OfType<AssessmentSection>())
             {

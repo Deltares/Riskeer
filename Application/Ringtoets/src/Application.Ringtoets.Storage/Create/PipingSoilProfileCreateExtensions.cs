@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <returns>A new <see cref="SoilProfileEntity"/> or one from the <paramref name="collector"/> if it
         /// was created for the <see cref="profile"/> earlier.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static SoilProfileEntity Create(this PipingSoilProfile profile, CreateConversionCollector collector)
+        internal static SoilProfileEntity Create(this PipingSoilProfile profile, PersistenceRegistry collector)
         {
             if (collector == null)
             {
@@ -57,11 +57,11 @@ namespace Application.Ringtoets.Storage.Create
 
             AddEntitiesForPipingSoilLayers(profile, collector, entity);
 
-            collector.Create(entity, profile);
+            collector.Register(entity, profile);
             return entity;
         }
 
-        private static void AddEntitiesForPipingSoilLayers(PipingSoilProfile profile, CreateConversionCollector collector, SoilProfileEntity entity)
+        private static void AddEntitiesForPipingSoilLayers(PipingSoilProfile profile, PersistenceRegistry collector, SoilProfileEntity entity)
         {
             foreach (var pipingSoilLayer in profile.Layers)
             {

@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="SoilLayerEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static SoilLayerEntity Create(this PipingSoilLayer layer, CreateConversionCollector collector)
+        internal static SoilLayerEntity Create(this PipingSoilLayer layer, PersistenceRegistry collector)
         {
             if (collector == null)
             {
@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Create
                 Top = Convert.ToDecimal(layer.Top)
             };
 
-            collector.Create(entity, layer);
+            collector.Register(entity, layer);
             return entity;
         }
     }

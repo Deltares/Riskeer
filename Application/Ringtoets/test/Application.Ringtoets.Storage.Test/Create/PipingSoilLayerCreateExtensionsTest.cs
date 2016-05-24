@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 IsAquifer = isAquifer
             };
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             var entity = soilLayer.Create(collector);

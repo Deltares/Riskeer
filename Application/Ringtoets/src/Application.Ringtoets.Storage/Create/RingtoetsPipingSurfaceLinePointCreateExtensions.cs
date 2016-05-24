@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <returns>A new <see cref="SurfaceLinePointEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         internal static SurfaceLinePointEntity CreateSurfaceLinePoint(this Point3D geometryPoint,
-                                                                      CreateConversionCollector collector,
+                                                                      PersistenceRegistry collector,
                                                                       int order)
         {
             if (collector == null)
@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Create
                 Order = order
             };
 
-            collector.Create(entity, geometryPoint);
+            collector.Register(entity, geometryPoint);
 
             return entity;
         }

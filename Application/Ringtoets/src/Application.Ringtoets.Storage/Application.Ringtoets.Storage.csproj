@@ -60,7 +60,7 @@
     <Compile Include="Create\FailureMechanismSectionCreateExtensions.cs" />
     <Compile Include="Create\PipingFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCreateExtensions.cs" />
-    <Compile Include="Create\CreateConversionCollector.cs" />
+    <Compile Include="Create\PersistenceRegistry.cs" />
     <Compile Include="Create\ProjectCreateExtensions.cs" />
     <Compile Include="Create\Point2DCreateExtensions.cs" />
     <Compile Include="Create\PipingSoilLayerCreateExtensions.cs" />

@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="StochasticSoilModelEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static StochasticSoilModelEntity Create(this StochasticSoilModel model, CreateConversionCollector collector)
+        internal static StochasticSoilModelEntity Create(this StochasticSoilModel model, PersistenceRegistry collector)
         {
             if (collector == null)
             {
@@ -52,11 +52,11 @@ namespace Application.Ringtoets.Storage.Create
 
             AddEntitiesForStochasticSoilProfiles(model, collector, entity);
 
-            collector.Create(entity, model);
+            collector.Register(entity, model);
             return entity;
         }
 
-        private static void AddEntitiesForStochasticSoilProfiles(StochasticSoilModel model, CreateConversionCollector collector, StochasticSoilModelEntity entity)
+        private static void AddEntitiesForStochasticSoilProfiles(StochasticSoilModel model, PersistenceRegistry collector, StochasticSoilModelEntity entity)
         {
             foreach (var stochasticSoilProfile in model.StochasticSoilProfiles)
             {

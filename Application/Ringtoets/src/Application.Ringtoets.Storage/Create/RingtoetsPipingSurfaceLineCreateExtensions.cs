@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>a new <see cref="AssessmentSectionEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static SurfaceLineEntity Create(this RingtoetsPipingSurfaceLine surfaceLine, CreateConversionCollector collector)
+        internal static SurfaceLineEntity Create(this RingtoetsPipingSurfaceLine surfaceLine, PersistenceRegistry collector)
         {
             if (collector == null)
             {
@@ -58,12 +58,12 @@ namespace Application.Ringtoets.Storage.Create
             CreateSurfaceLinePointEntities(surfaceLine, collector, entity);
             CreateCharacteristicPointEntities(surfaceLine, collector, entity);
 
-            collector.Create(entity, surfaceLine);
+            collector.Register(entity, surfaceLine);
 
             return entity;
         }
 
-        private static void CreateSurfaceLinePointEntities(RingtoetsPipingSurfaceLine surfaceLine, CreateConversionCollector collector, SurfaceLineEntity entity)
+        private static void CreateSurfaceLinePointEntities(RingtoetsPipingSurfaceLine surfaceLine, PersistenceRegistry collector, SurfaceLineEntity entity)
         {
             int order = 0;
             foreach (Point3D point3D in surfaceLine.Points)
@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage.Create
             }
         }
 
-        private static void CreateCharacteristicPointEntities(RingtoetsPipingSurfaceLine surfaceLine, CreateConversionCollector collector, SurfaceLineEntity entity)
+        private static void CreateCharacteristicPointEntities(RingtoetsPipingSurfaceLine surfaceLine, PersistenceRegistry collector, SurfaceLineEntity entity)
         {
             if (surfaceLine.BottomDitchPolderSide != null)
             {

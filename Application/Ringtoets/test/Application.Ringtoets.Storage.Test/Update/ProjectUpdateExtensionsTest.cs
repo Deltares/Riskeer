@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var project = new Project();
 
             // Call
-            TestDelegate test = () => project.Update(new CreateConversionCollector(), null);
+            TestDelegate test = () => project.Update(new PersistenceRegistry(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -82,7 +82,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
                 {
-                    project.Update(new CreateConversionCollector(), ringtoetsEntities);
+                    project.Update(new PersistenceRegistry(), ringtoetsEntities);
                 }
             };
 
@@ -111,7 +111,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             });
 
             // Call
-            TestDelegate test = () => project.Update(new CreateConversionCollector(), ringtoetsEntities);
+            TestDelegate test = () => project.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             var expectedMessage = String.Format("Het object 'ProjectEntity' met id '{0}' is niet gevonden.", storageId);
@@ -146,7 +146,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             });
 
             // Call
-            TestDelegate test = () => project.Update(new CreateConversionCollector(), ringtoetsEntities);
+            TestDelegate test = () => project.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             var expectedMessage = String.Format("Het object 'ProjectEntity' met id '{0}' is niet gevonden.", storageId);
@@ -185,7 +185,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.ProjectEntities.Add(entity);
 
             // Call
-            project.Update(new CreateConversionCollector(), ringtoetsEntities);
+            project.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(newDescription, entity.Description);
@@ -218,7 +218,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.ProjectEntities.Add(entity);
 
             // Call
-            project.Update(new CreateConversionCollector(), ringtoetsEntities);
+            project.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(1, entity.AssessmentSectionEntities.Count);
@@ -315,7 +315,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             });
 
             // Call
-            project.Update(new CreateConversionCollector(), ringtoetsEntities);
+            project.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             CollectionAssert.AreEqual(new[]

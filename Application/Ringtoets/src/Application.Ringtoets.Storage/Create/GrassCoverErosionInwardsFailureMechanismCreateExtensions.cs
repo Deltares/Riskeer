@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static FailureMechanismEntity Create(this GrassCoverErosionInwardsFailureMechanism mechanism, CreateConversionCollector collector)
+        internal static FailureMechanismEntity Create(this GrassCoverErosionInwardsFailureMechanism mechanism, PersistenceRegistry collector)
         {
             if (collector == null)
             {
@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Create
 
             mechanism.AddEntitiesForFailureMechanismSections(collector, entity);
 
-            collector.Create(entity, mechanism);
+            collector.Register(entity, mechanism);
             return entity;
         }
     }

@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var coordinateY = random.NextDouble();
             var id = random.Next(0,150);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, testName, coordinateX, coordinateY);
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             var entity = hydraulicBoundaryLocation.Create(collector);
@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 DesignWaterLevel = waterLevel
             };
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             var entity = hydraulicBoundaryLocation.Create(collector);

@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 SoilProfile = new TestPipingSoilProfile()
             };
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             var entity = stochasticSoilProfile.Create(collector);
@@ -76,7 +76,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 SoilProfile = testPipingSoilProfile
             };
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             var firstEntity = firstStochasticSoilProfile.Create(collector);

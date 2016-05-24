@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismSectionEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static FailureMechanismSectionEntity Create(this FailureMechanismSection section, CreateConversionCollector collector)
+        internal static FailureMechanismSectionEntity Create(this FailureMechanismSection section, PersistenceRegistry collector)
         {
             if (collector == null)
             {
@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Create
 
             AddEntitiesForFailureMechanismSectionPoints(section, failureMechanismSectionEntity);
 
-            collector.Create(failureMechanismSectionEntity, section);
+            collector.Register(failureMechanismSectionEntity, section);
 
             return failureMechanismSectionEntity;
         }

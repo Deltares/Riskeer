@@ -82,7 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Create\GrassCoverErosionInwardsFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\CreateConversionCollectorTest.cs" />
+    <Compile Include="Create\PersistenceRegistryTest.cs" />
     <Compile Include="Create\FailureMechanismBaseCreateExtensionsTest.cs" />
     <Compile Include="Create\RingtoetsPipingSurfaceLineCreateExtensionsTest.cs" />
     <Compile Include="Create\RingtoetsPipingSurfaceLinePointCreateExtensionsTest.cs" />

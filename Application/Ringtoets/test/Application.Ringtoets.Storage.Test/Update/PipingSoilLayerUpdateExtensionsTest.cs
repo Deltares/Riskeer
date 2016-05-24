@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var pipingSoilLayer = new PipingSoilLayer(0.5);
 
             // Call
-            TestDelegate test = () => pipingSoilLayer.Update(new CreateConversionCollector(), null);
+            TestDelegate test = () => pipingSoilLayer.Update(new PersistenceRegistry(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
                 {
-                    pipingSoilLayer.Update(new CreateConversionCollector(), ringtoetsEntities);
+                    pipingSoilLayer.Update(new PersistenceRegistry(), ringtoetsEntities);
                 }
             };
 
@@ -113,7 +113,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             });
 
             // Call
-            TestDelegate test = () => pipingSoilLayer.Update(new CreateConversionCollector(), ringtoetsEntities);
+            TestDelegate test = () => pipingSoilLayer.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             var expectedMessage = String.Format("Het object 'SoilLayerEntity' met id '{0}' is niet gevonden.", storageId);
@@ -150,7 +150,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.SoilLayerEntities.Add(soilLayerEntity);
 
             // Call
-            pipingSoilLayer.Update(new CreateConversionCollector(), ringtoetsEntities);
+            pipingSoilLayer.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(Convert.ToDouble(newTop), Convert.ToDouble(soilLayerEntity.Top), 1e-6);

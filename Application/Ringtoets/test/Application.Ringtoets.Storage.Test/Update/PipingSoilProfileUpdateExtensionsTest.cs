@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var soilProfile = new TestPipingSoilProfile();
 
             // Call
-            TestDelegate test = () => soilProfile.Update(new CreateConversionCollector(), null);
+            TestDelegate test = () => soilProfile.Update(new PersistenceRegistry(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -82,7 +82,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
                 {
-                    soilProfile.Update(new CreateConversionCollector(), ringtoetsEntities);
+                    soilProfile.Update(new PersistenceRegistry(), ringtoetsEntities);
                 }
             };
 
@@ -119,7 +119,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             });
 
             // Call
-            TestDelegate test = () => soilProfile.Update(new CreateConversionCollector(), ringtoetsEntities);
+            TestDelegate test = () => soilProfile.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             var expectedMessage = String.Format("Het object 'SoilProfileEntity' met id '{0}' is niet gevonden.", storageId);
@@ -159,7 +159,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.SoilProfileEntities.Add(profileEntity);
 
             // Call
-            soilProfile.Update(new CreateConversionCollector(), ringtoetsEntities);
+            soilProfile.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(newName, profileEntity.Name);
@@ -207,7 +207,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.SoilLayerEntities.Add(soilLayerEntity);
 
             // Call
-            soilProfile.Update(new CreateConversionCollector(), ringtoetsEntities);
+            soilProfile.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             CollectionAssert.AreEqual(new [] { soilLayerEntity }, profileEntity.SoilLayerEntities);

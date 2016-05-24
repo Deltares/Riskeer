@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="collector"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this StochasticSoilModel model, CreateConversionCollector collector, IRingtoetsEntities context)
+        internal static void Update(this StochasticSoilModel model, PersistenceRegistry collector, IRingtoetsEntities context)
         {
             if (context == null)
             {
@@ -73,7 +73,7 @@ namespace Application.Ringtoets.Storage.Update
                 }
             }
 
-            collector.Create(entity, model);
+            collector.Register(entity, model);
         }
 
         private static StochasticSoilModelEntity GetSingleStochasticSoilModel(StochasticSoilModel model, IRingtoetsEntities context)

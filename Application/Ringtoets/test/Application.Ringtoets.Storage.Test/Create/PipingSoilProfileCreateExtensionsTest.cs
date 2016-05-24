@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 new PipingSoilLayer(bottom + 2) 
             };
             var soilProfile = new PipingSoilProfile(testName, bottom, layers, SoilProfileType.SoilProfile1D, -1);
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             // Call
             var entity = soilProfile.Create(collector);
@@ -73,7 +73,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var soilProfile = new TestPipingSoilProfile();
-            var collector = new CreateConversionCollector();
+            var collector = new PersistenceRegistry();
 
             var firstEntity = soilProfile.Create(collector);
 
