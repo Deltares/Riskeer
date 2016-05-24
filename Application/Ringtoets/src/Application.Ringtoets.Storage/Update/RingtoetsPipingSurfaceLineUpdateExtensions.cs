@@ -81,6 +81,10 @@ namespace Application.Ringtoets.Storage.Update
             if (HasGeometryChanges(surfaceLine, entity))
             {
                 context.SurfaceLinePointEntities.RemoveRange(entity.SurfaceLinePointEntities);
+                foreach (SurfaceLinePointEntity pointEntity in entity.SurfaceLinePointEntities.ToArray())
+                {
+                    entity.SurfaceLinePointEntities.Remove(pointEntity);
+                }
                 UpdateGeometryPoints(surfaceLine, entity, collector);
             }
             else

@@ -173,6 +173,39 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Read_WithFailureMechanismWithSurfaceLinesSet_ReturnsNewAssessmentSectionWithSurfaceLinesInPipingFailureMechanism(bool isRelevant)
+        {
+            // Setup
+            var entity = new AssessmentSectionEntity();
+            var entityId = new Random(21).Next(1, 502);
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = entityId,
+                FailureMechanismType = (int)FailureMechanismType.Piping,
+                IsRelevant = Convert.ToByte(isRelevant),
+                SurfaceLineEntities =
+                {
+                    new SurfaceLineEntity(),
+                    new SurfaceLineEntity()
+                }
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var section = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(2, section.PipingFailureMechanism.SurfaceLines.Count);
+            Assert.AreEqual(entityId, section.PipingFailureMechanism.StorageId);
+            Assert.AreEqual(isRelevant, section.PipingFailureMechanism.IsRelevant);
+        }
+
+        [Test]
         public void Read_WithPipingFailureMechanismWithFailureMechanismSectionsSet_ReturnsNewAssessmentSectionWithFailureMechanismSectionsInPipingFailureMechanism()
         {
             // Setup
