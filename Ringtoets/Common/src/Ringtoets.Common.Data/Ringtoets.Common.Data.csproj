@@ -53,6 +53,7 @@
     <Compile Include="Contribution\OtherFailureMechanism.cs" />
     <Compile Include="FailureMechanism\AssessmentLayerTwoAResult.cs" />
     <Compile Include="FailureMechanism\CustomFailureMechanismSectionResult.cs" />
+    <Compile Include="FailureMechanism\CustomProbabilityFailureMechanismSectionResult.cs" />
     <Compile Include="FailureMechanism\FailureMechanismSectionResult.cs" />
     <Compile Include="FailureMechanism\ICalculatableFailureMechanism.cs" />
     <Compile Include="FailureMechanism\FailureMechanismBase.cs" />

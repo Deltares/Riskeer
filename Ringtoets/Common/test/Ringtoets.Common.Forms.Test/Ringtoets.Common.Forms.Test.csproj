@@ -71,6 +71,7 @@
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuItemFactoryTest.cs" />
     <Compile Include="UITypeEditors\SelectionEditorTest.cs" />
     <Compile Include="Views\CommentViewTest.cs" />
+    <Compile Include="Views\CustomProbabilityFailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\CustomFailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\FailureMechanismResultViewTest.cs">
       <SubType>UserControl</SubType>

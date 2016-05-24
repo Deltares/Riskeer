@@ -70,6 +70,7 @@
     <Compile Include="RingtoetsRibbonTest.cs" />
     <Compile Include="ViewInfos\CommentViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssessmentSectionViewInfoTest.cs" />
+    <Compile Include="ViewInfos\CustomProbabilityFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\CustomFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\FailureMechanismContributionViewInfoTest.cs" />
     <Compile Include="ViewInfos\SimpleFailureMechanismResultViewInfoTest.cs" />

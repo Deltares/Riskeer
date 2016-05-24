@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MapDataFactoryTest.cs" />
+    <Compile Include="PresentationObjects\CustomProbabilityFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\SimpleFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
     <Compile Include="PresentationObjects\CustomFailureMechanismContextTest.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="PropertyClasses\AssessmentSectionPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\ReferenceLineContextTreeNodeInfoTest.cs" />
     <Compile Include="Views\AssessmentSectionViewTest.cs" />
+    <Compile Include="Views\CustomProbabilityFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\CustomFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\FailureMechanismContributionViewTest.cs" />
     <Compile Include="Views\SimpleFailureMechanismResultViewTest.cs" />

@@ -30,9 +30,9 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// <summary>
     /// Defines a stand alone failure mechanisms objects
     /// </summary>
-    public class MacrostabilityOutwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<CustomFailureMechanismSectionResult>
+    public class MacrostabilityOutwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<CustomProbabilityFailureMechanismSectionResult>
     {
-        private readonly IList<CustomFailureMechanismSectionResult> sectionResults;
+        private readonly IList<CustomProbabilityFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MacrostabilityInwardsFailureMechanism"/> class.
@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public MacrostabilityOutwardsFailureMechanism()
             : base(Resources.MacrostabilityOutwardFailureMechanism_DisplayName, Resources.MacrostabilityOutwardFailureMechanism_Code)
         {
-            sectionResults = new List<CustomFailureMechanismSectionResult>();
+            sectionResults = new List<CustomProbabilityFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         {
             base.AddSection(section);
 
-            sectionResults.Add(new CustomFailureMechanismSectionResult(section));
+            sectionResults.Add(new CustomProbabilityFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             sectionResults.Clear();
         }
 
-        public IEnumerable<CustomFailureMechanismSectionResult> SectionResults
+        public IEnumerable<CustomProbabilityFailureMechanismSectionResult> SectionResults
         {
             get
             {

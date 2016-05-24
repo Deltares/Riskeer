@@ -133,6 +133,16 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde voor de faalkans moet in het bereik [0,1] liggen..
+        /// </summary>
+        public static string CustomProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1 {
+            get {
+                return ResourceManager.GetString("CustomProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to" +
+                        "_be_between_0_and_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen..
         /// </summary>
         public static string DesignVariable_GetDesignValue_Distribution_must_be_set {

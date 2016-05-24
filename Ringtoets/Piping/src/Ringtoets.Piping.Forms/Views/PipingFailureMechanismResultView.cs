@@ -30,6 +30,8 @@ using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 
+using CoreCommonResources = Core.Common.Base.Properties.Resources;
+
 namespace Ringtoets.Piping.Forms.Views
 {
     /// <summary>

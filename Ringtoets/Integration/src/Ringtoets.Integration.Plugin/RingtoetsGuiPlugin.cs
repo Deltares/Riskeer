@@ -152,6 +152,15 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
 
+            yield return new ViewInfo<FailureMechanismSectionResultContext<CustomProbabilityFailureMechanismSectionResult>, IEnumerable<CustomProbabilityFailureMechanismSectionResult>, CustomProbabilityFailureMechanismResultView>
+            {
+                GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                CloseForData = CloseCustomFailureMechanismResultViewForData,
+                GetViewData = context => context.SectionResults,
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+            };
+
             yield return new ViewInfo<CommentContext<ICommentable>, ICommentable, CommentView>
             {
                 GetViewName = (v, o) => Resources.Comment_DisplayName,
@@ -268,6 +277,15 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .Build()
             };
 
+            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<CustomProbabilityFailureMechanismSectionResult>>
+            {
+                Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .Build()
+            };
+
             yield return new TreeNodeInfo<CommentContext<ICommentable>>
             {
                 Text = comment => Resources.Comment_DisplayName,
@@ -324,30 +342,27 @@ namespace Ringtoets.Integration.Plugin
 
         private static bool CloseSimpleFailureMechanismResultViewForData(SimpleFailureMechanismResultView view, object o)
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as IFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
             var data = view.Data;
-            if (assessmentSection != null)
-            {
-                return assessmentSection
-                    .GetFailureMechanisms()
-                    .OfType<IHasSectionResults<FailureMechanismSectionResult>>()
-                    .Any(fm => ReferenceEquals(data, fm.SectionResults));
-            }
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-            return failureMechanism != null && ReferenceEquals(data, ((IHasSectionResults<FailureMechanismSectionResult>)failureMechanism).SectionResults);
+            return CloseFailureMechanismResultViewForData(o, data);
         }
 
         private static bool CloseCustomFailureMechanismResultViewForData(CustomFailureMechanismResultView view, object o)
         {
+            var data = view.Data;
+            return CloseFailureMechanismResultViewForData(o, data);
+        }
+
+        private static bool CloseCustomFailureMechanismResultViewForData(CustomProbabilityFailureMechanismResultView view, object o)
+        {
+            var data = view.Data;
+            return CloseFailureMechanismResultViewForData(o, data);
+        }
+
+        private static bool CloseFailureMechanismResultViewForData(object o, object data)
+        {
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as IFailureMechanism;
             var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
-            var data = view.Data;
             if (assessmentSection != null)
             {
                 return assessmentSection
@@ -359,7 +374,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
-            return failureMechanism != null && ReferenceEquals(data, ((IHasSectionResults<FailureMechanismSectionResult>)failureMechanism).SectionResults);
+            return failureMechanism != null && ReferenceEquals(data, ((IHasSectionResults<FailureMechanismSectionResult>) failureMechanism).SectionResults);
         }
 
         #endregion
@@ -461,6 +476,7 @@ namespace Ringtoets.Integration.Plugin
                 var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
 
                 var customFailureMechanism = failureMechanism as IHasSectionResults<CustomFailureMechanismSectionResult>;
+                var customProbabilityFailureMechanism = failureMechanism as IHasSectionResults<CustomProbabilityFailureMechanismSectionResult>;
                 var simpleFailureMechanism = failureMechanism as IHasSectionResults<SimpleFailureMechanismSectionResult>;
 
                 if (piping != null)
@@ -478,6 +494,10 @@ namespace Ringtoets.Integration.Plugin
                 else if (customFailureMechanism != null)
                 {
                     yield return new CustomFailureMechanismContext(customFailureMechanism as IFailureMechanism, nodeData);
+                }
+                else if (customProbabilityFailureMechanism != null)
+                {
+                    yield return new CustomProbabilityFailureMechanismContext(customProbabilityFailureMechanism as IFailureMechanism, nodeData);
                 }
                 else if (simpleFailureMechanism != null)
                 {
@@ -560,6 +580,7 @@ namespace Ringtoets.Integration.Plugin
         {
             var simple = nodeData as IHasSectionResults<SimpleFailureMechanismSectionResult>;
             var custom = nodeData as IHasSectionResults<CustomFailureMechanismSectionResult>;
+            var customProbability = nodeData as IHasSectionResults<CustomProbabilityFailureMechanismSectionResult>;
             var failureMechanismSectionResultContexts = new object[1];
             if (simple != null)
             {
@@ -570,6 +591,11 @@ namespace Ringtoets.Integration.Plugin
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>(custom.SectionResults, nodeData);
+            }
+            if (customProbability != null)
+            {
+                failureMechanismSectionResultContexts[0] =
+                    new FailureMechanismSectionResultContext<CustomProbabilityFailureMechanismSectionResult>(customProbability.SectionResults, nodeData);
             }
             return failureMechanismSectionResultContexts;
         }
