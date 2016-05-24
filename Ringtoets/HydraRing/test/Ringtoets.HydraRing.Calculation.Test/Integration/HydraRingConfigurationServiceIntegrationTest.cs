@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
+using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Services;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Integration
@@ -235,15 +236,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             const double stormDurationMean = 7.5;
             const double stormDurationStandardDeviation = 0.25;
 
-            double levelOfCrestOfStructureMean = 1.1;
-            double orientationOfTheNormalOfTheStructure = 2.2;
-            double allowableIncreaseOfLevelForStorageMean = 3.3;
-            double storageStructureAreaMean = 4.4;
-            double flowWidthAtBottomProtectionMean = 5.5;
-            double criticalOvertoppingDischargeMean = 6.6;
-            double failureProbabilityOfStructureGivenErosion = 7.7;
-            double widthOfFlowAperturesMean = 8.8;
-            double deviationOfTheWaveDirection = 9.9;
+            const double levelOfCrestOfStructureMean = 1.1;
+            const double orientationOfTheNormalOfTheStructure = 2.2;
+            const double allowableIncreaseOfLevelForStorageMean = 3.3;
+            const double storageStructureAreaMean = 4.4;
+            const double flowWidthAtBottomProtectionMean = 5.5;
+            const double criticalOvertoppingDischargeMean = 6.6;
+            const double failureProbabilityOfStructureGivenErosion = 7.7;
+            const double widthOfFlowAperturesMean = 8.8;
+            const double deviationOfTheWaveDirection = 9.9;
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId, hydraRingSection, gravitationalAcceleration,
                                                                                                                  modelFactorOvertoppingMean, modelFactorOvertoppingStandardDeviation,

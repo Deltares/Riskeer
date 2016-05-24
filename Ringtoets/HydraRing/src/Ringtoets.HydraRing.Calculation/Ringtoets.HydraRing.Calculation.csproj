@@ -57,7 +57,7 @@
     <Compile Include="Data\Input\ExceedanceProbabilityCalculationInput.cs" />
     <Compile Include="Data\Input\Overtopping\OvertoppingCalculationInput.cs" />
     <Compile Include="Data\Input\Overtopping\OvertoppingVariableCriticalOvertopping.cs" />
-    <Compile Include="Data\Input\Overtopping\StructuresOvertoppingCalculationInput.cs" />
+    <Compile Include="Data\Input\Structures\StructuresOvertoppingCalculationInput.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationAlphaOutput.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutput.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputBase.cs" />

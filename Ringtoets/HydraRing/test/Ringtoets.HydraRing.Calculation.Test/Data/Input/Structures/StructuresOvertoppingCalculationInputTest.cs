@@ -23,9 +23,9 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
+using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
+namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
 {
     [TestFixture]
     public class StructuresOvertoppingCalculationInputTest
@@ -34,7 +34,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            int hydraulicBoundaryLocationId = 1000;
+            const int hydraulicBoundaryLocationId = 1000;
             const int variableId = 60;
             HydraRingSection hydraRingSection = new HydraRingSection(variableId, "1000", double.NaN, double.NaN);
             const double gravitationalAcceleration = 9.81;
@@ -54,15 +54,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             const double stormDurationMean = 7.5;
             const double stormDurationStandardDeviation = 0.25;
 
-            double levelOfCrestOfStructureMean = 1.1;
-            double orientationOfTheNormalOfTheStructure = 2.2;
-            double allowableIncreaseOfLevelForStorageMean = 3.3;
-            double storageStructureAreaMean = 4.4;
-            double flowWidthAtBottomProtectionMean = 5.5;
-            double criticalOvertoppingDischargeMean = 6.6;
-            double failureProbabilityOfStructureGivenErosion = 7.7;
-            double widthOfFlowAperturesMean = 8.8;
-            double deviationOfTheWaveDirection = 9.9;
+            const double levelOfCrestOfStructureMean = 1.1;
+            const double orientationOfTheNormalOfTheStructure = 2.2;
+            const double allowableIncreaseOfLevelForStorageMean = 3.3;
+            const double storageStructureAreaMean = 4.4;
+            const double flowWidthAtBottomProtectionMean = 5.5;
+            const double criticalOvertoppingDischargeMean = 6.6;
+            const double failureProbabilityOfStructureGivenErosion = 7.7;
+            const double widthOfFlowAperturesMean = 8.8;
+            const double deviationOfTheWaveDirection = 9.9;
 
             // Call
             StructuresOvertoppingCalculationInput structuresOvertoppingCalculationInput =
