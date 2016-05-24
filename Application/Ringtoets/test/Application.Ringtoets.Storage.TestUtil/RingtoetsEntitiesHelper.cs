@@ -29,6 +29,11 @@ namespace Application.Ringtoets.Storage.TestUtil
 {
     public static class RingtoetsEntitiesHelper
     {
+        /// <summary>
+        /// Creates a <see cref="IRingtoetsEntities"/> stub using the given mock repository.
+        /// </summary>
+        /// <param name="mockRepository">The mock repository.</param>
+        /// <returns>A stubbed <see cref="IRingtoetsEntities"/> implementation.</returns>
         public static IRingtoetsEntities Create(MockRepository mockRepository)
         {
             DbSet<ProjectEntity> projectsSet = CreateEmptyTestDbSet<ProjectEntity>();
@@ -38,6 +43,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             DbSet<FailureMechanismSectionPointEntity> failureMechanismSectionPointsSet = CreateEmptyTestDbSet<FailureMechanismSectionPointEntity>();
             DbSet<AssessmentSectionEntity> assessmentSectionsSet = CreateEmptyTestDbSet<AssessmentSectionEntity>();
             DbSet<ReferenceLinePointEntity> referenceLinesSet = CreateEmptyTestDbSet<ReferenceLinePointEntity>();
+            DbSet<CalculationGroupEntity> calculationGroupsSet = CreateEmptyTestDbSet<CalculationGroupEntity>();
             DbSet<StochasticSoilModelEntity> stochasticSoilModelsSet = CreateEmptyTestDbSet<StochasticSoilModelEntity>();
             DbSet<StochasticSoilProfileEntity> stochasticSoilProfilesSet = CreateEmptyTestDbSet<StochasticSoilProfileEntity>();
             DbSet<SoilProfileEntity> soilProfilesSet = CreateEmptyTestDbSet<SoilProfileEntity>();
@@ -54,6 +60,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             ringtoetsEntities.Stub(r => r.FailureMechanismSectionPointEntities).Return(failureMechanismSectionPointsSet);
             ringtoetsEntities.Stub(r => r.AssessmentSectionEntities).Return(assessmentSectionsSet);
             ringtoetsEntities.Stub(r => r.ReferenceLinePointEntities).Return(referenceLinesSet);
+            ringtoetsEntities.Stub(r => r.CalculationGroupEntities).Return(calculationGroupsSet);
             ringtoetsEntities.Stub(r => r.StochasticSoilModelEntities).Return(stochasticSoilModelsSet);
             ringtoetsEntities.Stub(r => r.StochasticSoilProfileEntities).Return(stochasticSoilProfilesSet);
             ringtoetsEntities.Stub(r => r.SoilProfileEntities).Return(soilProfilesSet);

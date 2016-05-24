@@ -53,6 +53,7 @@ namespace Application.Ringtoets.Storage.DbContext
         }
     
         public virtual DbSet<AssessmentSectionEntity> AssessmentSectionEntities { get; set; }
+        public virtual DbSet<CalculationGroupEntity> CalculationGroupEntities { get; set; }
         public virtual DbSet<CharacteristicPointEntity> CharacteristicPointEntities { get; set; }
         public virtual DbSet<FailureMechanismEntity> FailureMechanismEntities { get; set; }
         public virtual DbSet<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }

@@ -33,30 +33,24 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class FailureMechanismEntity
+    public partial class CalculationGroupEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public FailureMechanismEntity()
+        public CalculationGroupEntity()
         {
-            this.CalculationGroupEntities = new HashSet<CalculationGroupEntity>();
-            this.FailureMechanismSectionEntities = new HashSet<FailureMechanismSectionEntity>();
-            this.StochasticSoilModelEntities = new HashSet<StochasticSoilModelEntity>();
-            this.SurfaceLineEntities = new HashSet<SurfaceLineEntity>();
+            this.CalculationGroupEntity1 = new HashSet<CalculationGroupEntity>();
         }
     
+        public long CalculationGroupEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
-        public long AssessmentSectionEntityId { get; set; }
-        public short FailureMechanismType { get; set; }
-        public byte IsRelevant { get; set; }
+        public Nullable<long> ParentCalculationGroupEntityId { get; set; }
+        public string Name { get; set; }
+        public string IsEditable { get; set; }
+        public string Order { get; set; }
     
-        public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
+        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CalculationGroupEntity> CalculationGroupEntities { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StochasticSoilModelEntity> StochasticSoilModelEntities { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SurfaceLineEntity> SurfaceLineEntities { get; set; }
+        public virtual ICollection<CalculationGroupEntity> CalculationGroupEntity1 { get; set; }
+        public virtual CalculationGroupEntity CalculationGroupEntity2 { get; set; }
     }
 }

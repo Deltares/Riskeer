@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Branch_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Clean_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -17,6 +17,17 @@
           <Property Name="HydraulicDatabaseVersion" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="HydraulicDatabaseLocation" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Composition" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CalculationGroupEntity">
+          <Key>
+            <PropertyRef Name="CalculationGroupEntityId" />
+          </Key>
+          <Property Name="CalculationGroupEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
+          <Property Name="ParentCalculationGroupEntityId" Type="integer" />
+          <Property Name="Name" Type="varchar" MaxLength="255" />
+          <Property Name="IsEditable" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Order" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="CharacteristicPointEntity">
           <Key>
@@ -156,6 +167,30 @@
             </Principal>
             <Dependent Role="AssessmentSectionEntity">
               <PropertyRef Name="ProjectEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalculationGroupEntity_0_0">
+          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
+          <End Role="CalculationGroupEntity" Type="Self.CalculationGroupEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="CalculationGroupEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalculationGroupEntity_1_0">
+          <End Role="CalculationGroupEntity" Type="Self.CalculationGroupEntity" Multiplicity="0..1" />
+          <End Role="CalculationGroupEntity1" Type="Self.CalculationGroupEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationGroupEntity">
+              <PropertyRef Name="CalculationGroupEntityId" />
+            </Principal>
+            <Dependent Role="CalculationGroupEntity1">
+              <PropertyRef Name="ParentCalculationGroupEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -305,6 +340,7 @@
         </Association>
         <EntityContainer Name="RingtoetsEntitiesModelStoreContainer">
           <EntitySet Name="AssessmentSectionEntity" EntityType="Self.AssessmentSectionEntity" store:Type="Tables" />
+          <EntitySet Name="CalculationGroupEntity" EntityType="Self.CalculationGroupEntity" store:Type="Tables" />
           <EntitySet Name="CharacteristicPointEntity" EntityType="Self.CharacteristicPointEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismEntity" EntityType="Self.FailureMechanismEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismSectionEntity" EntityType="Self.FailureMechanismSectionEntity" store:Type="Tables" />
@@ -322,6 +358,14 @@
           <AssociationSet Name="FK_AssessmentSectionEntity_0_0" Association="Self.FK_AssessmentSectionEntity_0_0">
             <End Role="ProjectEntity" EntitySet="ProjectEntity" />
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalculationGroupEntity_0_0" Association="Self.FK_CalculationGroupEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
+            <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalculationGroupEntity_1_0" Association="Self.FK_CalculationGroupEntity_1_0">
+            <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntity" />
+            <End Role="CalculationGroupEntity1" EntitySet="CalculationGroupEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_CharacteristicPointEntity_0_0" Association="Self.FK_CharacteristicPointEntity_0_0">
             <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntity" />
@@ -378,6 +422,7 @@
       <Schema Namespace="RingtoetsEntitiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="RingtoetsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AssessmentSectionEntities" EntityType="RingtoetsEntitiesModel.AssessmentSectionEntity" />
+          <EntitySet Name="CalculationGroupEntities" EntityType="RingtoetsEntitiesModel.CalculationGroupEntity" />
           <EntitySet Name="CharacteristicPointEntities" EntityType="RingtoetsEntitiesModel.CharacteristicPointEntity" />
           <EntitySet Name="FailureMechanismEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismEntity" />
           <EntitySet Name="FailureMechanismSectionEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismSectionEntity" />
@@ -407,6 +452,14 @@
           <AssociationSet Name="FK_ReferenceLinePointEntity_0_0" Association="RingtoetsEntitiesModel.FK_ReferenceLinePointEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
             <End Role="ReferenceLinePointEntity" EntitySet="ReferenceLinePointEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalculationGroupEntity_0_0" Association="RingtoetsEntitiesModel.FK_CalculationGroupEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
+            <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalculationGroupEntity_1_0" Association="RingtoetsEntitiesModel.FK_CalculationGroupEntity_1_0">
+            <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntities" />
+            <End Role="CalculationGroupEntity1" EntitySet="CalculationGroupEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_CharacteristicPointEntity_0_0" Association="RingtoetsEntitiesModel.FK_CharacteristicPointEntity_0_0">
             <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntities" />
@@ -462,6 +515,20 @@
           <NavigationProperty Name="HydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationEntity" />
           <NavigationProperty Name="ReferenceLinePointEntities" Relationship="RingtoetsEntitiesModel.FK_ReferenceLinePointEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="ReferenceLinePointEntity" />
         </EntityType>
+        <EntityType Name="CalculationGroupEntity">
+          <Key>
+            <PropertyRef Name="CalculationGroupEntityId" />
+          </Key>
+          <Property Name="CalculationGroupEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="ParentCalculationGroupEntityId" Type="Int64" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IsEditable" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Order" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_CalculationGroupEntity_0_0" FromRole="CalculationGroupEntity" ToRole="FailureMechanismEntity" />
+          <NavigationProperty Name="CalculationGroupEntity1" Relationship="RingtoetsEntitiesModel.FK_CalculationGroupEntity_1_0" FromRole="CalculationGroupEntity" ToRole="CalculationGroupEntity1" />
+          <NavigationProperty Name="CalculationGroupEntity2" Relationship="RingtoetsEntitiesModel.FK_CalculationGroupEntity_1_0" FromRole="CalculationGroupEntity1" ToRole="CalculationGroupEntity" />
+        </EntityType>
         <EntityType Name="CharacteristicPointEntity">
           <Key>
             <PropertyRef Name="CharacteristicPointEntityId" />
@@ -480,6 +547,7 @@
           <Property Name="FailureMechanismType" Type="Int16" Nullable="false" />
           <Property Name="IsRelevant" Type="Byte" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="FailureMechanismEntity" ToRole="AssessmentSectionEntity" />
+          <NavigationProperty Name="CalculationGroupEntities" Relationship="RingtoetsEntitiesModel.FK_CalculationGroupEntity_0_0" FromRole="FailureMechanismEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="FailureMechanismSectionEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismSectionEntity_0_0" FromRole="FailureMechanismEntity" ToRole="FailureMechanismSectionEntity" />
           <NavigationProperty Name="StochasticSoilModelEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilModelEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StochasticSoilModelEntity" />
           <NavigationProperty Name="SurfaceLineEntities" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_0_0" FromRole="FailureMechanismEntity" ToRole="SurfaceLineEntity" />
@@ -661,6 +729,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CalculationGroupEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.CalculationGroupEntity" Role="CalculationGroupEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="CalculationGroupEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalculationGroupEntity_1_0">
+          <End Type="RingtoetsEntitiesModel.CalculationGroupEntity" Role="CalculationGroupEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.CalculationGroupEntity" Role="CalculationGroupEntity1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationGroupEntity">
+              <PropertyRef Name="CalculationGroupEntityId" />
+            </Principal>
+            <Dependent Role="CalculationGroupEntity1">
+              <PropertyRef Name="ParentCalculationGroupEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CharacteristicPointEntity_0_0">
           <End Type="RingtoetsEntitiesModel.SurfaceLinePointEntity" Role="SurfaceLinePointEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.CharacteristicPointEntity" Role="CharacteristicPointEntity" Multiplicity="*" />
@@ -786,6 +878,18 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ProjectEntityId" ColumnName="ProjectEntityId" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CalculationGroupEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.CalculationGroupEntity">
+              <MappingFragment StoreEntitySet="CalculationGroupEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="IsEditable" ColumnName="IsEditable" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ParentCalculationGroupEntityId" ColumnName="ParentCalculationGroupEntityId" />
+                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+                <ScalarProperty Name="CalculationGroupEntityId" ColumnName="CalculationGroupEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
