@@ -134,15 +134,21 @@ namespace Application.Ringtoets.Storage.Read
         private static void ReadStandAloneFailureMechanisms(this AssessmentSectionEntity entity, AssessmentSection assessmentSection)
         {
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.MacrostabilityInwards, assessmentSection.MacrostabilityInwards);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.MacrostabilityOutwards, assessmentSection.MacrostabilityOutwards);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.Microstability, assessmentSection.Microstability);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.StabilityStoneRevetment, assessmentSection.StabilityStoneCover);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.WaveImpactOnAsphaltRevetment, assessmentSection.WaveImpactAsphaltCover);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.WaterOverpressureAsphaltRevetment, assessmentSection.WaterPressureAsphaltCover);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentErosionOutwards, assessmentSection.GrassCoverErosionOutwards);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentSlidingOutwards, assessmentSection.GrassCoverSlipOffOutwards);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentSlidingInwards, assessmentSection.GrassCoverSlipOffInwards);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.StructureHeight, assessmentSection.HeightStructures);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.ReliabilityClosingOfStructure, assessmentSection.ClosingStructure);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.PipingAtStructure, assessmentSection.PipingStructure);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.StrengthAndStabilityPointConstruction, assessmentSection.StrengthStabilityPointConstruction);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.StrengthAndStabilityParallelConstruction, assessmentSection.StrengthStabilityLengthwiseConstruction);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.DuneErosion, assessmentSection.DuneErosion);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.TechnicalInnovations, assessmentSection.TechnicalInnovation);
         }
 
         private static void ReadStandAloneFailureMechanism(this AssessmentSectionEntity entity, FailureMechanismType failureMechanismType, IFailureMechanism standAloneFailureMechanism)

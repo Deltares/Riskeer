@@ -107,7 +107,7 @@ namespace Application.Ringtoets.Storage.DbContext
         GrassRevetmentSlidingInwards = 16,
 
         /// <summary>
-        /// Sterkte en stabiliteit langsconstructires - STKWl
+        /// Sterkte en stabiliteit langsconstructies - STKWl
         /// </summary>
         StrengthAndStabilityParallelConstruction = 17,
 

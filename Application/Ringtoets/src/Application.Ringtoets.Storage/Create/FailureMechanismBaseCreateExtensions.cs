@@ -22,7 +22,6 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.StandAlone;
 
 namespace Application.Ringtoets.Storage.Create
 {

@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
@@ -42,7 +44,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// <returns>A new complete instance of <see cref="Project"/>.</returns>
         public static Project GetFullTestProject()
         {
-            return new Project
+            var fullTestProject = new Project
             {
                 Name = "tempProjectFile",
                 Description = "description",
@@ -80,6 +82,45 @@ namespace Application.Ringtoets.Storage.TestUtil
                     }
                 }
             };
+
+            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().PipingFailureMechanism);
+            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().GrassCoverErosionInwards);
+            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().MacrostabilityInwards);
+            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().MacrostabilityOutwards);
+            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().Microstability);
+            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().StabilityStoneCover);
+            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().WaveImpactAsphaltCover);
+            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().WaterPressureAsphaltCover);
+            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().GrassCoverErosionOutwards);
+            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().GrassCoverSlipOffOutwards);
+            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().GrassCoverSlipOffInwards);
+            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().HeightStructures);
+            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().ClosingStructure);
+            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().StrengthStabilityPointConstruction);
+            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().StrengthStabilityLengthwiseConstruction);
+            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().PipingStructure);
+            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().DuneErosion);
+            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().TechnicalInnovation);
+            return fullTestProject;
+        }
+
+        private static void AddSections(IFailureMechanism failureMechanism)
+        {
+            failureMechanism.AddSection(new FailureMechanismSection("section 1", new[]
+            {
+                new Point2D(0, 2),
+                new Point2D(2, 3)
+            }));
+            failureMechanism.AddSection(new FailureMechanismSection("section 2", new[]
+            {
+                new Point2D(2, 3),
+                new Point2D(4, 5)
+            }));
+            failureMechanism.AddSection(new FailureMechanismSection("section 3", new[]
+            {
+                new Point2D(4, 5),
+                new Point2D(2, 3)
+            }));
         }
 
         private static RingtoetsPipingSurfaceLine GetSurfaceLine()

@@ -25,6 +25,8 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Integration.Data.StandAlone;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
@@ -226,70 +228,36 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var entity = new AssessmentSectionEntity();
             var macrostabilityInwardsEntityId = 2;
-            var overtoppingEntityId = 3;
+            var macrostabilityOutwardsEntityId = 3;
+            var microstabilityEntityId = 4;
+            var structureHeightEntityId = 5;
             var closingEntityId = 16;
-            var failingOfConstructionEntityId = 22;
+            var failingOfConstructionPointEntityId = 22;
+            var failingOfConstructionLengthwiseEntityId = 23;
             var stoneRevetmentEntityId = 36;
-            var asphaltRevetmentEntityId = 77;
-            var grassRevetmentEntityId = 133;
+            var waveImpactEntityId = 77;
+            var waterPressureEntityId = 78;
+            var grassCoverErosionOutwardsEntityId = 133;
+            var grassCoverSlipoffOutwardsEntityId = 134;
+            var grassCoverSlipoffInwardsEntityId = 135;
             var duneErosionEntityId = 256;
+            var technicalInnovationsEntityId = 257;
 
-            entity.FailureMechanismEntities.Add(new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = macrostabilityInwardsEntityId,
-                FailureMechanismType = (short) FailureMechanismType.MacrostabilityInwards,
-                IsRelevant = Convert.ToByte(isRelevant),
-                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
-            });
-            entity.FailureMechanismEntities.Add(new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = overtoppingEntityId,
-                FailureMechanismType = (short) FailureMechanismType.StructureHeight,
-                IsRelevant = Convert.ToByte(isRelevant),
-                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
-            });
-            entity.FailureMechanismEntities.Add(new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = closingEntityId,
-                FailureMechanismType = (short) FailureMechanismType.ReliabilityClosingOfStructure,
-                IsRelevant = Convert.ToByte(isRelevant),
-                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
-            });
-            entity.FailureMechanismEntities.Add(new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = failingOfConstructionEntityId,
-                FailureMechanismType = (short) FailureMechanismType.StrengthAndStabilityPointConstruction,
-                IsRelevant = Convert.ToByte(isRelevant),
-                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
-            });
-            entity.FailureMechanismEntities.Add(new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = stoneRevetmentEntityId,
-                FailureMechanismType = (short) FailureMechanismType.StabilityStoneRevetment,
-                IsRelevant = Convert.ToByte(isRelevant),
-                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
-            });
-            entity.FailureMechanismEntities.Add(new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = asphaltRevetmentEntityId,
-                FailureMechanismType = (short) FailureMechanismType.WaveImpactOnAsphaltRevetment,
-                IsRelevant = Convert.ToByte(isRelevant),
-                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
-            });
-            entity.FailureMechanismEntities.Add(new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = grassRevetmentEntityId,
-                FailureMechanismType = (short) FailureMechanismType.GrassRevetmentErosionOutwards,
-                IsRelevant = Convert.ToByte(isRelevant),
-                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
-            });
-            entity.FailureMechanismEntities.Add(new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = duneErosionEntityId,
-                FailureMechanismType = (short) FailureMechanismType.DuneErosion,
-                IsRelevant = Convert.ToByte(isRelevant),
-                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
-            });
+            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, macrostabilityInwardsEntityId, FailureMechanismType.MacrostabilityInwards));
+            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, macrostabilityOutwardsEntityId, FailureMechanismType.MacrostabilityOutwards));
+            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, microstabilityEntityId, FailureMechanismType.Microstability));
+            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, structureHeightEntityId, FailureMechanismType.StructureHeight));
+            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, closingEntityId, FailureMechanismType.ReliabilityClosingOfStructure));
+            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, failingOfConstructionPointEntityId, FailureMechanismType.StrengthAndStabilityPointConstruction));
+            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, failingOfConstructionLengthwiseEntityId, FailureMechanismType.StrengthAndStabilityParallelConstruction));
+            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, stoneRevetmentEntityId, FailureMechanismType.StabilityStoneRevetment));
+            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, waveImpactEntityId, FailureMechanismType.WaveImpactOnAsphaltRevetment));
+            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, waterPressureEntityId, FailureMechanismType.WaterOverpressureAsphaltRevetment));
+            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, grassCoverErosionOutwardsEntityId, FailureMechanismType.GrassRevetmentErosionOutwards));
+            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, grassCoverSlipoffOutwardsEntityId, FailureMechanismType.GrassRevetmentSlidingOutwards));
+            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, grassCoverSlipoffInwardsEntityId, FailureMechanismType.GrassRevetmentSlidingInwards));
+            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, duneErosionEntityId, FailureMechanismType.DuneErosion));
+            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, technicalInnovationsEntityId, FailureMechanismType.TechnicalInnovations));
 
             var collector = new ReadConversionCollector();
 
@@ -297,37 +265,39 @@ namespace Application.Ringtoets.Storage.Test.Read
             var section = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(macrostabilityInwardsEntityId, section.MacrostabilityInwards.StorageId);
-            Assert.AreEqual(isRelevant, section.MacrostabilityInwards.IsRelevant);
-            Assert.AreEqual(2, section.MacrostabilityInwards.Sections.Count());
+            AssertFailureMechanismEqual(isRelevant, macrostabilityInwardsEntityId, 2, section.MacrostabilityInwards);
+            AssertFailureMechanismEqual(isRelevant, macrostabilityOutwardsEntityId, 2, section.MacrostabilityOutwards);
+            AssertFailureMechanismEqual(isRelevant, microstabilityEntityId, 2, section.Microstability);
+            AssertFailureMechanismEqual(isRelevant, structureHeightEntityId, 2, section.HeightStructures);
+            AssertFailureMechanismEqual(isRelevant, closingEntityId, 2, section.ClosingStructure);
+            AssertFailureMechanismEqual(isRelevant, failingOfConstructionPointEntityId, 2, section.StrengthStabilityPointConstruction);
+            AssertFailureMechanismEqual(isRelevant, failingOfConstructionLengthwiseEntityId, 2, section.StrengthStabilityLengthwiseConstruction);
+            AssertFailureMechanismEqual(isRelevant, stoneRevetmentEntityId, 2, section.StabilityStoneCover);
+            AssertFailureMechanismEqual(isRelevant, waveImpactEntityId, 2, section.WaveImpactAsphaltCover);
+            AssertFailureMechanismEqual(isRelevant, waterPressureEntityId, 2, section.WaterPressureAsphaltCover);
+            AssertFailureMechanismEqual(isRelevant, grassCoverErosionOutwardsEntityId, 2, section.GrassCoverErosionOutwards);
+            AssertFailureMechanismEqual(isRelevant, grassCoverSlipoffOutwardsEntityId, 2, section.GrassCoverSlipOffOutwards);
+            AssertFailureMechanismEqual(isRelevant, grassCoverSlipoffInwardsEntityId, 2, section.GrassCoverSlipOffInwards);
+            AssertFailureMechanismEqual(isRelevant, duneErosionEntityId, 2, section.DuneErosion);
+            AssertFailureMechanismEqual(isRelevant, technicalInnovationsEntityId, 2, section.TechnicalInnovation);
+        }
 
-            Assert.AreEqual(overtoppingEntityId, section.HeightStructures.StorageId);
-            Assert.AreEqual(isRelevant, section.HeightStructures.IsRelevant);
-            Assert.AreEqual(2, section.HeightStructures.Sections.Count());
+        private static FailureMechanismEntity CreateFailureMechanismEntity(bool isRelevant, int entityId, FailureMechanismType failureMechanismType)
+        {
+            return new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = entityId,
+                FailureMechanismType = (short) failureMechanismType,
+                IsRelevant = Convert.ToByte(isRelevant),
+                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
+            };
+        }
 
-            Assert.AreEqual(closingEntityId, section.ClosingStructure.StorageId);
-            Assert.AreEqual(isRelevant, section.ClosingStructure.IsRelevant);
-            Assert.AreEqual(2, section.ClosingStructure.Sections.Count());
-
-            Assert.AreEqual(failingOfConstructionEntityId, section.StrengthStabilityPointConstruction.StorageId);
-            Assert.AreEqual(isRelevant, section.StrengthStabilityPointConstruction.IsRelevant);
-            Assert.AreEqual(2, section.StrengthStabilityPointConstruction.Sections.Count());
-
-            Assert.AreEqual(stoneRevetmentEntityId, section.StabilityStoneCover.StorageId);
-            Assert.AreEqual(isRelevant, section.StabilityStoneCover.IsRelevant);
-            Assert.AreEqual(2, section.StabilityStoneCover.Sections.Count());
-
-            Assert.AreEqual(asphaltRevetmentEntityId, section.WaveImpactAsphaltCover.StorageId);
-            Assert.AreEqual(isRelevant, section.WaveImpactAsphaltCover.IsRelevant);
-            Assert.AreEqual(2, section.WaveImpactAsphaltCover.Sections.Count());
-
-            Assert.AreEqual(grassRevetmentEntityId, section.GrassCoverErosionOutwards.StorageId);
-            Assert.AreEqual(isRelevant, section.GrassCoverErosionOutwards.IsRelevant);
-            Assert.AreEqual(2, section.GrassCoverErosionOutwards.Sections.Count());
-
-            Assert.AreEqual(duneErosionEntityId, section.DuneErosion.StorageId);
-            Assert.AreEqual(isRelevant, section.DuneErosion.IsRelevant);
-            Assert.AreEqual(2, section.DuneErosion.Sections.Count());
+        private static void AssertFailureMechanismEqual(bool isRelevant, int entityId, int sectionCount, IFailureMechanism failureMechanism)
+        {
+            Assert.AreEqual(entityId, failureMechanism.StorageId);
+            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(sectionCount, failureMechanism.Sections.Count());
         }
 
         private static FailureMechanismSectionEntity[] CreateFailureMechanismSectionEntities()

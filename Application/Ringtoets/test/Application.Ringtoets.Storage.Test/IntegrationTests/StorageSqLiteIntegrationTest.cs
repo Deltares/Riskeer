@@ -34,6 +34,7 @@ using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
@@ -83,22 +84,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
 
             // Assert
-            Assert.IsInstanceOf<Project>(firstProject);
-            Assert.IsInstanceOf<Project>(secondProject);
-
-            var firstProjectAssessmentSection = firstProject.Items.OfType<AssessmentSection>().ToList();
-            var secondProjectAssessmentSection = secondProject.Items.OfType<AssessmentSection>().ToList();
-            Assert.AreEqual(firstProjectAssessmentSection.Count, secondProjectAssessmentSection.Count);
-            for (var i = 0; i < firstProjectAssessmentSection.Count; i++)
-            {
-                Assert.AreEqual(firstProjectAssessmentSection[i].StorageId, secondProjectAssessmentSection[i].StorageId);
-                Assert.AreEqual(firstProjectAssessmentSection[i].Name, secondProjectAssessmentSection[i].Name);
-
-                AssertHydraulicBoundaryDatabase(firstProjectAssessmentSection[i], secondProjectAssessmentSection[i]);
-                AssertReferenceLine(firstProjectAssessmentSection[i], secondProjectAssessmentSection[i]);
-
-                AssertPipingFailureMechanism(firstProjectAssessmentSection[i].PipingFailureMechanism, secondProjectAssessmentSection[i].PipingFailureMechanism);
-            }
+            AssertProjectsAreEqual(firstProject, secondProject);
         }
 
         [Test]
@@ -120,16 +106,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Project loadedProject = storage.LoadProject(tempRingtoetsFile);
 
             // Assert
-            Assert.IsInstanceOf<Project>(loadedProject);
-            Assert.AreNotSame(fullProject, loadedProject);
-            Assert.AreEqual(fullProject.Items.Count, loadedProject.Items.Count);
-
-            var actualAssessmentSection = loadedProject.Items.OfType<AssessmentSection>().FirstOrDefault();
-            Assert.IsNotNull(actualAssessmentSection);
-            AssessmentSection expectedAssessmentSection = fullProject.Items.OfType<AssessmentSection>().FirstOrDefault();
-            AssertHydraulicBoundaryDatabase(expectedAssessmentSection, actualAssessmentSection);
-            AssertReferenceLine(expectedAssessmentSection, actualAssessmentSection);
-            AssertPipingFailureMechanism(expectedAssessmentSection.PipingFailureMechanism, actualAssessmentSection.PipingFailureMechanism);
+            AssertProjectsAreEqual(fullProject, loadedProject);
         }
 
         [Test]
@@ -140,7 +117,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             var projectStore = new StorageSqLite();
             Project fullProject = RingtoetsProjectHelper.GetFullTestProject();
             var expectedProjectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
-            var expectedProjectDescritpion = fullProject.Description;
+            var expectedProjectDescription = fullProject.Description;
 
             // Precondition
             SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, fullProject);
@@ -160,14 +137,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual(tempRingtoetsFile, gui.ProjectFilePath);
                 Assert.NotNull(gui.Project);
                 Assert.AreEqual(expectedProjectName, gui.Project.Name);
-                Assert.AreEqual(expectedProjectDescritpion, gui.Project.Description);
+                Assert.AreEqual(expectedProjectDescription, gui.Project.Description);
 
-                var actualAssessmentSection = gui.Project.Items.OfType<AssessmentSection>().FirstOrDefault();
-                Assert.IsNotNull(actualAssessmentSection);
-                AssessmentSection expectedAssessmentSection = fullProject.Items.OfType<AssessmentSection>().FirstOrDefault();
-                AssertHydraulicBoundaryDatabase(expectedAssessmentSection, actualAssessmentSection);
-                AssertReferenceLine(expectedAssessmentSection, actualAssessmentSection);
-                AssertPipingFailureMechanism(expectedAssessmentSection.PipingFailureMechanism, actualAssessmentSection.PipingFailureMechanism);
+                AssertProjectsAreEqual(gui.Project, fullProject);
             }
 
             // TearDown
@@ -233,6 +205,55 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
+        private void AssertProjectsAreEqual(Project firstProject, Project secondProject)
+        {
+            Assert.IsInstanceOf<Project>(firstProject);
+            Assert.IsInstanceOf<Project>(secondProject);
+            Assert.AreNotSame(firstProject, secondProject);
+
+            var firstProjectAssessmentSection = firstProject.Items.OfType<AssessmentSection>().ToList();
+            var secondProjectAssessmentSection = secondProject.Items.OfType<AssessmentSection>().ToList();
+            Assert.AreEqual(firstProjectAssessmentSection.Count, secondProjectAssessmentSection.Count);
+            for (var i = 0; i < firstProjectAssessmentSection.Count; i++)
+            {
+                Assert.AreEqual(firstProjectAssessmentSection[i].StorageId, secondProjectAssessmentSection[i].StorageId);
+                Assert.AreEqual(firstProjectAssessmentSection[i].Name, secondProjectAssessmentSection[i].Name);
+
+                AssertHydraulicBoundaryDatabase(firstProjectAssessmentSection[i], secondProjectAssessmentSection[i]);
+                AssertReferenceLine(firstProjectAssessmentSection[i], secondProjectAssessmentSection[i]);
+                AssertPipingFailureMechanism(firstProjectAssessmentSection[i].PipingFailureMechanism, secondProjectAssessmentSection[i].PipingFailureMechanism);
+
+                var firstProjectFailureMechanisms = firstProjectAssessmentSection[i].GetFailureMechanisms().ToArray();
+                var secondProjectFailureMechanisms = secondProjectAssessmentSection[i].GetFailureMechanisms().ToArray();
+                for (var fmi = 0; fmi < firstProjectFailureMechanisms.Length; fmi++)
+                {
+                    AssertFailureMechanism(firstProjectFailureMechanisms[fmi], secondProjectFailureMechanisms[fmi]);
+                }
+            }
+        }
+
+        private void AssertFailureMechanism(IFailureMechanism firstProjectFailureMechanism, IFailureMechanism secondProjectFailureMechanism)
+        {
+            Assert.AreEqual(firstProjectFailureMechanism.Name, secondProjectFailureMechanism.Name);
+            Assert.AreEqual(firstProjectFailureMechanism.Code, secondProjectFailureMechanism.Code);
+            Assert.AreEqual(firstProjectFailureMechanism.IsRelevant, secondProjectFailureMechanism.IsRelevant);
+            AssertFailureMechanismSections(firstProjectFailureMechanism.Sections, secondProjectFailureMechanism.Sections);
+        }
+
+        private void AssertFailureMechanismSections(IEnumerable<FailureMechanismSection> firstProjectSections, IEnumerable<FailureMechanismSection> secondProjectSections)
+        {
+            var firstProjectSectionsArray = firstProjectSections.ToArray();
+            var secondProjectSectionsArray = secondProjectSections.ToArray();
+
+            Assert.AreEqual(firstProjectSectionsArray.Length, secondProjectSectionsArray.Length);
+
+            for (var i = 0; i < firstProjectSectionsArray.Length; i++)
+            {
+                Assert.AreEqual(firstProjectSectionsArray[i].Name, secondProjectSectionsArray[i].Name);
+                Assert.AreEqual(firstProjectSectionsArray[i].Points, secondProjectSectionsArray[i].Points);
+            }
+        }
+
         private static void AssertHydraulicBoundaryDatabase(IAssessmentSection expectedProject, IAssessmentSection project)
         {
             Assert.IsNotNull(expectedProject.HydraulicBoundaryDatabase);
@@ -249,7 +270,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual(expectedProject.HydraulicBoundaryDatabase.Locations[i].Location, project.HydraulicBoundaryDatabase.Locations[i].Location);
             }
         }
-
 
         private static void AssertReferenceLine(IAssessmentSection expectedProject, IAssessmentSection project)
         {

@@ -68,15 +68,21 @@ namespace Application.Ringtoets.Storage.Create
         private static void AddEntitiesForAddStandAloneFailureMechanisms(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector)
         {
             entity.FailureMechanismEntities.Add(section.MacrostabilityInwards.Create(FailureMechanismType.MacrostabilityInwards, collector));
+            entity.FailureMechanismEntities.Add(section.MacrostabilityOutwards.Create(FailureMechanismType.MacrostabilityOutwards, collector));
+            entity.FailureMechanismEntities.Add(section.Microstability.Create(FailureMechanismType.Microstability, collector));
             entity.FailureMechanismEntities.Add(section.StabilityStoneCover.Create(FailureMechanismType.StabilityStoneRevetment, collector));
             entity.FailureMechanismEntities.Add(section.WaveImpactAsphaltCover.Create(FailureMechanismType.WaveImpactOnAsphaltRevetment, collector));
+            entity.FailureMechanismEntities.Add(section.WaterPressureAsphaltCover.Create(FailureMechanismType.WaterOverpressureAsphaltRevetment, collector));
             entity.FailureMechanismEntities.Add(section.GrassCoverErosionOutwards.Create(FailureMechanismType.GrassRevetmentErosionOutwards, collector));
             entity.FailureMechanismEntities.Add(section.GrassCoverSlipOffOutwards.Create(FailureMechanismType.GrassRevetmentSlidingOutwards, collector));
+            entity.FailureMechanismEntities.Add(section.GrassCoverSlipOffInwards.Create(FailureMechanismType.GrassRevetmentSlidingInwards, collector));
             entity.FailureMechanismEntities.Add(section.HeightStructures.Create(FailureMechanismType.StructureHeight, collector));
             entity.FailureMechanismEntities.Add(section.ClosingStructure.Create(FailureMechanismType.ReliabilityClosingOfStructure, collector));
             entity.FailureMechanismEntities.Add(section.PipingStructure.Create(FailureMechanismType.PipingAtStructure, collector));
             entity.FailureMechanismEntities.Add(section.StrengthStabilityPointConstruction.Create(FailureMechanismType.StrengthAndStabilityPointConstruction, collector));
+            entity.FailureMechanismEntities.Add(section.StrengthStabilityLengthwiseConstruction.Create(FailureMechanismType.StrengthAndStabilityParallelConstruction, collector));
             entity.FailureMechanismEntities.Add(section.DuneErosion.Create(FailureMechanismType.DuneErosion, collector));
+            entity.FailureMechanismEntities.Add(section.TechnicalInnovation.Create(FailureMechanismType.TechnicalInnovations, collector));
         }
 
         private static void AddEntityForPipingFailureMechanism(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector)

@@ -32,6 +32,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
@@ -40,6 +41,8 @@ namespace Application.Ringtoets.Storage.Test.Update
     [TestFixture]
     public class AssessmentSectionUpdateExtensionsTest
     {
+        private int totalAmountOfFailureMechanismsInAssessmentSection = 18;
+
         [Test]
         public void Update_WithoutContext_ThrowsArgumentNullException()
         {
@@ -430,98 +433,66 @@ namespace Application.Ringtoets.Storage.Test.Update
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
 
             mocks.ReplayAll();
-
             var section = InitializeCreatedDikeAssessmentSection();
             section.StorageId = 1;
-            section.MacrostabilityInwards.StorageId = 1;
-            section.MacrostabilityInwards.Contribution = 0.5;
-            section.MacrostabilityInwards.IsRelevant = true;
-            section.HeightStructures.StorageId = 2;
-            section.HeightStructures.Contribution = 0.5;
-            section.HeightStructures.IsRelevant = true;
-            section.ClosingStructure.StorageId = 3;
-            section.ClosingStructure.Contribution = 0.5;
-            section.ClosingStructure.IsRelevant = true;
-            section.StrengthStabilityPointConstruction.StorageId = 4;
-            section.StrengthStabilityPointConstruction.Contribution = 0.5;
-            section.StrengthStabilityPointConstruction.IsRelevant = true;
-            section.StabilityStoneCover.StorageId = 5;
-            section.StabilityStoneCover.Contribution = 0.5;
-            section.StabilityStoneCover.IsRelevant = true;
-            section.WaveImpactAsphaltCover.StorageId = 6;
-            section.WaveImpactAsphaltCover.Contribution = 0.5;
-            section.WaveImpactAsphaltCover.IsRelevant = true;
-            section.GrassCoverErosionOutwards.StorageId = 7;
-            section.GrassCoverErosionOutwards.Contribution = 0.5;
-            section.GrassCoverErosionOutwards.IsRelevant = true;
-            section.DuneErosion.StorageId = 8;
-            section.DuneErosion.Contribution = 0.5;
-            section.DuneErosion.IsRelevant = true;
 
-            var macrostabilityInwardsEntity = new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = 1,
-                IsRelevant = Convert.ToByte(false)
-            };
-            var overtoppingEntity = new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = 2,
-                IsRelevant = Convert.ToByte(false)
-            };
-            var closingEntity = new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = 3,
-                IsRelevant = Convert.ToByte(false)
-            };
-            var failingOfConstructionEntity = new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = 4,
-                IsRelevant = Convert.ToByte(false)
-            };
-            var stoneRevetmentEntity = new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = 5,
-                IsRelevant = Convert.ToByte(false)
-            };
-            var asphaltRevetmentEntity = new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = 6,
-                IsRelevant = Convert.ToByte(false)
-            };
-            var grassRevetmentEntity = new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = 7,
-                IsRelevant = Convert.ToByte(false)
-            };
-            var duneErosionEntity = new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = 8,
-                IsRelevant = Convert.ToByte(false)
-            };
+            int id = 1;
+            var macrostabilityInwardsEntity = InitializeModelAndCreateEntity(section.MacrostabilityInwards, id++);
+            var macrostabilityOutwardsEntity = InitializeModelAndCreateEntity(section.MacrostabilityOutwards, id++);
+            var microstabilityEntity = InitializeModelAndCreateEntity(section.Microstability, id++);
+            var stabilityStoneCoverEntity = InitializeModelAndCreateEntity(section.StabilityStoneCover, id++);
+            var waveImpactAsphaltCoverEntity = InitializeModelAndCreateEntity(section.WaveImpactAsphaltCover, id++);
+            var waterPressureAsphaltCoverEntity = InitializeModelAndCreateEntity(section.WaterPressureAsphaltCover, id++);
+            var grassCoverErosionOutwardsEntity = InitializeModelAndCreateEntity(section.GrassCoverErosionOutwards, id++);
+            var grassCoverSlipOffOutwardsEntity = InitializeModelAndCreateEntity(section.GrassCoverSlipOffOutwards, id++);
+            var grassCoverSlipOffInwardsEntity = InitializeModelAndCreateEntity(section.GrassCoverSlipOffInwards, id++);
+            var heightStructuresEntity = InitializeModelAndCreateEntity(section.HeightStructures, id++);
+            var closingStructuresEntity = InitializeModelAndCreateEntity(section.ClosingStructure, id++);
+            var strengthStabilityPointConstructionEntity = InitializeModelAndCreateEntity(section.StrengthStabilityPointConstruction, id++);
+            var strengthStabilityLengthwiseConstructionEntity = InitializeModelAndCreateEntity(section.StrengthStabilityLengthwiseConstruction, id++);
+            var duneErosionEntity = InitializeModelAndCreateEntity(section.DuneErosion, id++);
+            var technicalInnovationEntity = InitializeModelAndCreateEntity(section.TechnicalInnovation, id++);
+
             var entity = new AssessmentSectionEntity
             {
                 AssessmentSectionEntityId = 1,
                 FailureMechanismEntities =
                 {
                     macrostabilityInwardsEntity,
-                    overtoppingEntity,
-                    closingEntity,
-                    failingOfConstructionEntity,
-                    stoneRevetmentEntity,
-                    asphaltRevetmentEntity,
-                    grassRevetmentEntity,
-                    duneErosionEntity
+                    macrostabilityOutwardsEntity,
+                    microstabilityEntity,
+                    stabilityStoneCoverEntity,
+                    waveImpactAsphaltCoverEntity,
+                    waterPressureAsphaltCoverEntity,
+                    grassCoverErosionOutwardsEntity,
+                    grassCoverSlipOffOutwardsEntity,
+                    grassCoverSlipOffInwardsEntity,
+                    heightStructuresEntity,
+                    closingStructuresEntity,
+                    strengthStabilityPointConstructionEntity,
+                    strengthStabilityLengthwiseConstructionEntity,
+                    duneErosionEntity,
+                    technicalInnovationEntity
                 }
             };
             ringtoetsEntities.AssessmentSectionEntities.Add(entity);
+
             ringtoetsEntities.FailureMechanismEntities.Add(macrostabilityInwardsEntity);
-            ringtoetsEntities.FailureMechanismEntities.Add(overtoppingEntity);
-            ringtoetsEntities.FailureMechanismEntities.Add(closingEntity);
-            ringtoetsEntities.FailureMechanismEntities.Add(failingOfConstructionEntity);
-            ringtoetsEntities.FailureMechanismEntities.Add(stoneRevetmentEntity);
-            ringtoetsEntities.FailureMechanismEntities.Add(asphaltRevetmentEntity);
-            ringtoetsEntities.FailureMechanismEntities.Add(grassRevetmentEntity);
+            ringtoetsEntities.FailureMechanismEntities.Add(macrostabilityOutwardsEntity);
+            ringtoetsEntities.FailureMechanismEntities.Add(microstabilityEntity);
+            ringtoetsEntities.FailureMechanismEntities.Add(stabilityStoneCoverEntity);
+            ringtoetsEntities.FailureMechanismEntities.Add(waveImpactAsphaltCoverEntity);
+            ringtoetsEntities.FailureMechanismEntities.Add(waterPressureAsphaltCoverEntity);
+            ringtoetsEntities.FailureMechanismEntities.Add(grassCoverErosionOutwardsEntity);
+            ringtoetsEntities.FailureMechanismEntities.Add(grassCoverSlipOffOutwardsEntity);
+            ringtoetsEntities.FailureMechanismEntities.Add(grassCoverSlipOffInwardsEntity);
+            ringtoetsEntities.FailureMechanismEntities.Add(heightStructuresEntity);
+            ringtoetsEntities.FailureMechanismEntities.Add(closingStructuresEntity);
+            ringtoetsEntities.FailureMechanismEntities.Add(strengthStabilityPointConstructionEntity);
+            ringtoetsEntities.FailureMechanismEntities.Add(strengthStabilityLengthwiseConstructionEntity);
             ringtoetsEntities.FailureMechanismEntities.Add(duneErosionEntity);
+            ringtoetsEntities.FailureMechanismEntities.Add(technicalInnovationEntity);
+
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
             // Call
@@ -531,70 +502,115 @@ namespace Application.Ringtoets.Storage.Test.Update
             CollectionAssert.AreEqual(new[]
             {
                 macrostabilityInwardsEntity,
-                overtoppingEntity,
-                closingEntity,
-                failingOfConstructionEntity,
-                stoneRevetmentEntity,
-                asphaltRevetmentEntity,
-                grassRevetmentEntity,
-                duneErosionEntity
+                macrostabilityOutwardsEntity,
+                microstabilityEntity,
+                stabilityStoneCoverEntity,
+                waveImpactAsphaltCoverEntity,
+                waterPressureAsphaltCoverEntity,
+                grassCoverErosionOutwardsEntity,
+                grassCoverSlipOffOutwardsEntity,
+                grassCoverSlipOffInwardsEntity,
+                heightStructuresEntity,
+                closingStructuresEntity,
+                strengthStabilityPointConstructionEntity,
+                strengthStabilityLengthwiseConstructionEntity,
+                duneErosionEntity,
+                technicalInnovationEntity
             }, entity.FailureMechanismEntities);
 
             mocks.VerifyAll();
         }
 
+        private FailureMechanismEntity InitializeModelAndCreateEntity(IFailureMechanism failureMechanism, long id)
+        {
+            failureMechanism.StorageId = id;
+            failureMechanism.IsRelevant = true;
+            failureMechanism.Contribution = new Random(21).NextDouble();
+
+            return new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = id,
+                IsRelevant = Convert.ToByte(false)
+            };
+        }
+
         private AssessmentSection InitializeCreatedDikeAssessmentSection(AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
+            var failureMechanismId = 1;
             return new AssessmentSection(composition)
             {
                 StorageId = 1,
                 PipingFailureMechanism =
                 {
-                    StorageId = 1
+                    StorageId = failureMechanismId++
                 },
                 GrassCoverErosionInwards =
                 {
-                    StorageId = 2
+                    StorageId = failureMechanismId++
                 },
                 MacrostabilityInwards =
                 {
-                    StorageId = 3
+                    StorageId = failureMechanismId++
+                },
+                MacrostabilityOutwards = 
+                {
+                    StorageId = failureMechanismId++
+                },
+                Microstability = 
+                {
+                    StorageId = failureMechanismId++
                 },
                 HeightStructures =
                 {
-                    StorageId = 4
+                    StorageId = failureMechanismId++
                 },
                 ClosingStructure =
                 {
-                    StorageId = 5
+                    StorageId = failureMechanismId++
                 },
                 StrengthStabilityPointConstruction =
                 {
-                    StorageId = 6
+                    StorageId = failureMechanismId++
+                },
+                StrengthStabilityLengthwiseConstruction = 
+                {
+                    StorageId = failureMechanismId++
                 },
                 StabilityStoneCover =
                 {
-                    StorageId = 7
+                    StorageId = failureMechanismId++
                 },
                 WaveImpactAsphaltCover =
                 {
-                    StorageId = 8
+                    StorageId = failureMechanismId++
+                },
+                WaterPressureAsphaltCover = 
+                {
+                    StorageId = failureMechanismId++
                 },
                 GrassCoverErosionOutwards =
                 {
-                    StorageId = 9
+                    StorageId = failureMechanismId++
                 },
                 GrassCoverSlipOffOutwards =
                 {
-                    StorageId = 10
+                    StorageId = failureMechanismId++
+                },
+                GrassCoverSlipOffInwards = 
+                {
+                    StorageId = failureMechanismId++
                 },
                 PipingStructure =
                 {
-                    StorageId = 11
+                    StorageId = failureMechanismId++
                 },
                 DuneErosion =
                 {
-                    StorageId = 12
+                    StorageId = failureMechanismId++
+                },
+                TechnicalInnovation = 
+                {
+                    StorageId = failureMechanismId++
                 }
             };
         }
@@ -609,7 +625,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             }
 
             var count = failureMechanismEntities.Count();
-            for (var i = 1; i <= 12 - count; i++)
+            for (var i = 1; i <= totalAmountOfFailureMechanismsInAssessmentSection - count; i++)
             {
                 failureMechanismEntities.Add(new FailureMechanismEntity
                 {
