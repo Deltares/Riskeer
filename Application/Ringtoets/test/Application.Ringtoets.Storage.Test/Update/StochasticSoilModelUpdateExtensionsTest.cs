@@ -98,7 +98,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         {
             // Setup
             MockRepository mocks = new MockRepository();
-            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
+            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
 
             mocks.ReplayAll();
 
@@ -131,7 +131,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         {
             // Setup
             MockRepository mocks = new MockRepository();
-            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
+            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
 
             mocks.ReplayAll();
 
@@ -166,7 +166,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         {
             // Setup
             MockRepository mocks = new MockRepository();
-            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
+            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
 
             mocks.ReplayAll();
             
@@ -203,7 +203,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         {
             // Setup
             MockRepository mocks = new MockRepository();
-            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
+            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
 
             mocks.ReplayAll();
 

@@ -34,7 +34,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// </summary>
         /// <param name="mockRepository">The mock repository.</param>
         /// <returns>A stubbed <see cref="IRingtoetsEntities"/> implementation.</returns>
-        public static IRingtoetsEntities Create(MockRepository mockRepository)
+        public static IRingtoetsEntities CreateStub(MockRepository mockRepository)
         {
             DbSet<ProjectEntity> projectsSet = CreateEmptyTestDbSet<ProjectEntity>();
             DbSet<HydraulicLocationEntity> hydraylicLocationsSet = CreateEmptyTestDbSet<HydraulicLocationEntity>();

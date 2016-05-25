@@ -98,6 +98,7 @@
     <Compile Include="Create\StochasticSoilModelCreateExtensionsTest.cs" />
     <Compile Include="Create\StochasticSoilProfileCreateExtensionsTest.cs" />
     <Compile Include="Read\AssessmentSectionEntityTest.cs" />
+    <Compile Include="Read\CalculationGroupEntityReadExtentionsTest.cs" />
     <Compile Include="Read\FailureMechanismEntityTest.cs" />
     <Compile Include="Read\FailureMechanismSectionEntityTest.cs" />
     <Compile Include="Read\FailureMechanismSectionPointEntityTest.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="SqLiteConnectionStringBuilderTest.cs" />
     <Compile Include="StorageSqLiteTest.cs" />
     <Compile Include="Update\AssessmentSectionUpdateExtensionsTest.cs" />
+    <Compile Include="Update\CalculationGroupUpdateExtensionsTest.cs" />
     <Compile Include="Update\GrassCoverErosionInwardsFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\FailureMechanismBaseUpdateExtensionsTest.cs" />
     <Compile Include="Update\FailureMechanismSectionUpdateExtensionsTest.cs" />

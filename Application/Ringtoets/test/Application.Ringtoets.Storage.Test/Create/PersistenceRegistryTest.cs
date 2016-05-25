@@ -793,7 +793,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var mocks = new MockRepository();
-            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.Create(mocks);
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             var orphanedEntity = new ProjectEntity
@@ -826,7 +826,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var mocks = new MockRepository();
-            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.Create(mocks);
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             var orphanedEntity = new AssessmentSectionEntity
@@ -859,7 +859,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var mocks = new MockRepository();
-            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.Create(mocks);
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
             var failureMechanismStub = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
@@ -893,7 +893,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var mocks = new MockRepository();
-            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.Create(mocks);
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             var orphanedEntity = new FailureMechanismSectionEntity
@@ -926,7 +926,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var mocks = new MockRepository();
-            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.Create(mocks);
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             var orphanedEntity = new HydraulicLocationEntity
@@ -959,7 +959,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var mocks = new MockRepository();
-            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.Create(mocks);
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             var orphanedEntity = new CalculationGroupEntity
@@ -992,7 +992,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var mocks = new MockRepository();
-            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.Create(mocks);
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             var orphanedEntity = new StochasticSoilModelEntity
@@ -1025,7 +1025,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var mocks = new MockRepository();
-            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.Create(mocks);
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             var orphanedEntity = new StochasticSoilProfileEntity
@@ -1058,7 +1058,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var mocks = new MockRepository();
-            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.Create(mocks);
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             var orphanedEntity = new SoilProfileEntity
@@ -1094,7 +1094,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var mocks = new MockRepository();
-            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.Create(mocks);
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             var orphanedEntity = new SoilLayerEntity
@@ -1130,7 +1130,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var mocks = new MockRepository();
-            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.Create(mocks);
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             var orphanedEntity = new SurfaceLineEntity
@@ -1166,7 +1166,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var mocks = new MockRepository();
-            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.Create(mocks);
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             var orphanedEntity = new SurfaceLinePointEntity
@@ -1202,7 +1202,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var mocks = new MockRepository();
-            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.Create(mocks);
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             var orphanedEntity = new CharacteristicPointEntity

@@ -117,6 +117,7 @@
     <Compile Include="DbContext\VersionEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Read\CalculationGroupEntityReadExtentions.cs" />
     <Compile Include="Read\FailureMechanismEntityReadExtensions.cs" />
     <Compile Include="Read\FailureMechanismSectionEntityReadExtensions.cs" />
     <Compile Include="Read\FailureMechanismSectionPointEntityReadExtensions.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="SqLiteConnectionStringBuilder.cs" />
     <Compile Include="StorageSqLite.cs" />
     <Compile Include="Update\AssessmentSectionUpdateExtensions.cs" />
+    <Compile Include="Update\CalculationGroupUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverErosionInwardsFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\FailureMechanismBaseUpdateExtensions.cs" />
     <Compile Include="Update\RingtoetsPipingSurfaceLineUpdateExtensions.cs" />

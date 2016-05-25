@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         {
             // Setup
             var mocks = new MockRepository();
-            IRingtoetsEntities context = RingtoetsEntitiesHelper.Create(mocks);
+            IRingtoetsEntities context = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             RingtoetsPipingSurfaceLine surfaceLine = CreateSavedSurfaceLineWithData();
@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         {
             // Setup
             var mocks = new MockRepository();
-            var context = RingtoetsEntitiesHelper.Create(mocks);
+            var context = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             var collector = new PersistenceRegistry();
@@ -107,7 +107,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         {
             // Setup
             var mocks = new MockRepository();
-            var context = RingtoetsEntitiesHelper.Create(mocks);
+            var context = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             RingtoetsPipingSurfaceLine surfaceLine = CreateSavedSurfaceLineWithoutGeometry();
@@ -141,7 +141,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         {
             // Setup
             var mocks = new MockRepository();
-            var context = RingtoetsEntitiesHelper.Create(mocks);
+            var context = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             RingtoetsPipingSurfaceLine surfaceLine = CreateSavedSurfaceLineWithGeometry();
@@ -186,7 +186,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         {
             // Setup
             var mocks = new MockRepository();
-            var context = RingtoetsEntitiesHelper.Create(mocks);
+            var context = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             RingtoetsPipingSurfaceLine surfaceLine = CreateSavedSurfaceLineWithGeometry();
@@ -252,7 +252,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         {
             // Setup
             var mocks = new MockRepository();
-            var context = RingtoetsEntitiesHelper.Create(mocks);
+            var context = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             RingtoetsPipingSurfaceLine surfaceLine = CreateSavedSurfaceLineWithGeometry();
@@ -300,7 +300,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         {
             // Setup
             var mocks = new MockRepository();
-            var context = RingtoetsEntitiesHelper.Create(mocks);
+            var context = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             RingtoetsPipingSurfaceLine surfaceLine = CreateSavedSurfaceLineWithData();
@@ -399,7 +399,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         {
             // Setup
             var mocks = new MockRepository();
-            var context = RingtoetsEntitiesHelper.Create(mocks);
+            var context = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             RingtoetsPipingSurfaceLine surfaceLine = CreateSavedSurfaceLineWithGeometry();
@@ -451,7 +451,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         {
             // Setup
             var mocks = new MockRepository();
-            var context = RingtoetsEntitiesHelper.Create(mocks);
+            var context = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             RingtoetsPipingSurfaceLine surfaceLine = CreateSavedSurfaceLineWithData();
