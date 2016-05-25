@@ -138,7 +138,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 EmptyProbabilisticOutputContextMenuStrip);
         }
 
-        private static ExceedanceProbabilityCalculationActivity CreateHydraRingTargetProbabilityCalculationActivity(FailureMechanismSection failureMechanismSection,
+        private static ExceedanceProbabilityCalculationActivity CreateHydraRingExceedenceProbabilityCalculationActivity(FailureMechanismSection failureMechanismSection,
                                                                                                                     string hlcdDirectory,
                                                                                                                     GrassCoverErosionInwardsCalculation calculation)
         {
@@ -225,7 +225,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             // TODO: Remove "Where" filter when validation is implemented
             ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations.Where(calc => calc.InputParameters.HydraulicBoundaryLocation != null)
-                                                                         .Select(calc => CreateHydraRingTargetProbabilityCalculationActivity(
+                                                                         .Select(calc => CreateHydraRingExceedenceProbabilityCalculationActivity(
                                                                              failureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
                                                                              Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
                                                                              calc)).ToList());
@@ -506,7 +506,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             GrassCoverErosionInwardsCalculation calculation = context.WrappedData;
 
-            return builder.AddPerformCalculationItem(calculation, context, PerformCalculation, EnablePerformCalculation)
+            return builder.AddPerformCalculationItem(calculation, context, Calculate, EnablePerformCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
                           .AddRenameItem()
@@ -527,14 +527,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             return AllDataAvailable(context.AssessmentSection, context.FailureMechanism);
         }
 
-        private void PerformCalculation(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationContext context)
+        private void Calculate(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationContext context)
         {
             // TODO: Remove null-check when validation is implemented
             if (calculation.InputParameters.HydraulicBoundaryLocation == null)
             {
                 return;
             }
-            var activity = CreateHydraRingTargetProbabilityCalculationActivity(
+            var activity = CreateHydraRingExceedenceProbabilityCalculationActivity(
                 context.FailureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
                 Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
                 calculation);

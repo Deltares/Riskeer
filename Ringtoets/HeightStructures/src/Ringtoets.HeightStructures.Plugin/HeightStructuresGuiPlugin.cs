@@ -21,9 +21,11 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -127,7 +129,7 @@ namespace Ringtoets.HeightStructures.Plugin
             };
         }
 
-        private static ExceedanceProbabilityCalculationActivity CreateHydraRingTargetProbabilityCalculationActivity(FailureMechanismSection failureMechanismSection,
+        private static ExceedanceProbabilityCalculationActivity CreateHydraRingExceedenceProbabilityCalculationActivity(FailureMechanismSection failureMechanismSection,
                                                                                                             string hlcdDirectory,
                                                                                                             HeightStructuresCalculation calculation)
         {
@@ -160,6 +162,16 @@ namespace Ringtoets.HeightStructures.Plugin
                                                           inputParameters.StormDuration.Mean, inputParameters.StormDuration.StandardDeviation),
                 calculation.ClearOutput,
                 output => { });
+        }
+
+        private void CalculateAll(HeightStructuresFailureMechanism failureMechanism, IEnumerable<HeightStructuresCalculation> calculations, IAssessmentSection assessmentSection)
+        {
+            // TODO: Remove "Where" filter when validation is implemented
+            ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations.Where(calc => calc.InputParameters.HydraulicBoundaryLocation != null)
+                                                                         .Select(calc => CreateHydraRingExceedenceProbabilityCalculationActivity(
+                                                                             failureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of structure with reference line
+                                                                             Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                             calc)).ToList());
         }
 
         #region EmptyProbabilisticOutput TreeNodeInfo
@@ -244,7 +256,7 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddSeparator()
                           .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddPerformAllCalculationsInFailureMechanismItem(context, failureMechanismContext => { }, failureMechanismContext => "")
+                          .AddPerformAllCalculationsInFailureMechanismItem(context, CalculateAll, failureMechanismContext => "")
                           .AddClearAllCalculationOutputInFailureMechanismItem(context.WrappedData)
                           .AddSeparator()
                           .AddImportItem()
@@ -271,6 +283,11 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
                           .Build();
+        }
+
+        private void CalculateAll(HeightStructuresFailureMechanismContext context)
+        {
+            CalculateAll(context.WrappedData, context.WrappedData.Calculations.OfType<HeightStructuresCalculation>(), context.Parent);
         }
 
         #endregion
@@ -322,7 +339,7 @@ namespace Ringtoets.HeightStructures.Plugin
             builder.AddCreateCalculationGroupItem(group)
                    .AddCreateCalculationItem(context, AddCalculation)
                    .AddSeparator()
-                   .AddPerformAllCalculationsInGroupItem(group, context, (calculationGroup, groupContext) => { }, groupContext => "")
+                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, groupContext => "")
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddSeparator();
 
@@ -361,6 +378,11 @@ namespace Ringtoets.HeightStructures.Plugin
             context.WrappedData.NotifyObservers();
         }
 
+        private void CalculateAll(CalculationGroup group, HeightStructuresCalculationGroupContext context)
+        {
+            CalculateAll(context.FailureMechanism, group.GetCalculations().OfType<HeightStructuresCalculation>(), context.AssessmentSection);
+        }
+
         #endregion
 
         #region HeightStructuresCalculationContext TreeNodeInfo
@@ -394,7 +416,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
             HeightStructuresCalculation calculation = context.WrappedData;
 
-            return builder.AddPerformCalculationItem(calculation, context, (calc, calcContext) => { }, calcContext => "")
+            return builder.AddPerformCalculationItem(calculation, context, Calculate, calcContext => "")
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
                           .AddRenameItem()
@@ -418,6 +440,21 @@ namespace Ringtoets.HeightStructures.Plugin
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
                 calculationGroupContext.NotifyObservers();
             }
+        }
+
+        private void Calculate(HeightStructuresCalculation calculation, HeightStructuresCalculationContext context)
+        {
+            // TODO: Remove null-check when validation is implemented
+            if (calculation.InputParameters.HydraulicBoundaryLocation == null)
+            {
+                return;
+            }
+            var activity = CreateHydraRingExceedenceProbabilityCalculationActivity(
+                context.FailureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
+                Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
+                calculation);
+
+            ActivityProgressDialogRunner.Run(Gui.MainWindow, activity);
         }
 
         #endregion
