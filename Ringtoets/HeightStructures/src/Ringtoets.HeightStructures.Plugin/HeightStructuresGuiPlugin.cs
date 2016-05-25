@@ -28,12 +28,16 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.Views;
+using Ringtoets.HydraRing.Calculation.Activities;
+using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using HeightStructuresDataResources = Ringtoets.HeightStructures.Data.Properties.Resources;
@@ -115,6 +119,41 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                                  .AddOpenItem()
                                                                                  .Build()
             };
+        }
+
+        private static ExceedanceProbabilityCalculationActivity CreateHydraRingTargetProbabilityCalculationActivity(FailureMechanismSection failureMechanismSection,
+                                                                                                            string hlcdDirectory,
+                                                                                                            HeightStructuresCalculation calculation)
+        {
+            var hydraulicBoundaryLocationId = (int) calculation.InputParameters.HydraulicBoundaryLocation.Id;
+            var sectionLength = failureMechanismSection.GetSectionLength();
+            var inputParameters = calculation.InputParameters;
+
+            return HydraRingActivityFactory.Create(
+                calculation.Name,
+                hlcdDirectory,
+                failureMechanismSection.Name, // TODO: Provide name of reference line instead
+                HydraRingTimeIntegrationSchemeType.FBC,
+                HydraRingUncertaintiesType.All,
+                new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId,
+                                                          new HydraRingSection(1, failureMechanismSection.Name, sectionLength, inputParameters.OrientationOfTheNormalOfTheStructure),
+                                                          inputParameters.GravitationalAcceleration,
+                                                          inputParameters.ModelfactorOvertopping.Mean, inputParameters.ModelfactorOvertopping.StandardDeviation,
+                                                          inputParameters.LevelOfCrestOfStructure.Mean, inputParameters.LevelOfCrestOfStructure.StandardDeviation,
+                                                          inputParameters.OrientationOfTheNormalOfTheStructure,
+                                                          inputParameters.ModelfactorOvertoppingSuperCriticalFlow.Mean, inputParameters.ModelfactorOvertoppingSuperCriticalFlow.StandardDeviation,
+                                                          inputParameters.AllowableIncreaseOfLevelForStorage.Mean, inputParameters.AllowableIncreaseOfLevelForStorage.StandardDeviation,
+                                                          inputParameters.ModelFactorForStorageVolume.Mean, inputParameters.ModelFactorForStorageVolume.StandardDeviation,
+                                                          inputParameters.StorageStructureArea.Mean, inputParameters.StorageStructureArea.StandardDeviation,
+                                                          inputParameters.ModelFactorForIncomingFlowVolume,
+                                                          inputParameters.FlowWidthAtBottomProtection.Mean, inputParameters.FlowWidthAtBottomProtection.StandardDeviation,
+                                                          inputParameters.CriticalOvertoppingDischarge.Mean, inputParameters.CriticalOvertoppingDischarge.StandardDeviation,
+                                                          inputParameters.FailureProbabilityOfStructureGivenErosion,
+                                                          inputParameters.WidthOfFlowApertures.Mean, inputParameters.WidthOfFlowApertures.StandardDeviation,
+                                                          inputParameters.DeviationOfTheWaveDirection,
+                                                          inputParameters.StormDuration.Mean, inputParameters.StormDuration.StandardDeviation),
+                calculation.ClearOutput,
+                output => { });
         }
 
         #region EmptyProbabilisticOutput TreeNodeInfo

@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Data
         /// Gets the general semi-probabilistic calculation input parameters that apply to each calculation 
         /// in a semi-probabilistic assessment.
         /// </summary>
-        public NormProbabilityPipingInput NormProbabilityInput { get; set; }
+        public NormProbabilityPipingInput NormProbabilityInput { get; private set; }
 
         public CalculationGroup CalculationsGroup { get; private set; }
 
