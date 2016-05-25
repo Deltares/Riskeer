@@ -172,7 +172,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
 
         private IEnumerable<HydraRingVariable> GetHydraRingVariables()
         {
-            // DikeHeight
+            // Dike height
             yield return new HydraRingVariable(1, HydraRingDistributionType.Deterministic, dikeHeight,
                                                HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
 
