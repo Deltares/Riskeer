@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -31,6 +30,7 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 
 using CoreCommonResources = Core.Common.Base.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
 {
@@ -51,8 +51,8 @@ namespace Ringtoets.Piping.Forms.Views
         /// </summary>
         public PipingFailureMechanismResultView()
         {
-            AddCellFormattingHandler(ShowAssementLayerTwoAErrors);
-            AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+            DataGridViewControl.AddCellFormattingHandler(ShowAssementLayerTwoAErrors);
+            DataGridViewControl.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(UpdataDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.GetObservableInput())));
@@ -84,34 +84,13 @@ namespace Ringtoets.Piping.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override IEnumerable<DataGridViewColumn> GetDataGridColumns()
+        protected override void AddDataGridColumns()
         {
-            foreach (var baseColumn in base.GetDataGridColumns())
-            {
-                yield return baseColumn;
-            }
+            base.AddDataGridColumns();
 
-            yield return new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "AssessmentLayerTwoA",
-                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
-                Name = "column_AssessmentLayerTwoA",
-                ReadOnly = true
-            };
-
-            yield return new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "AssessmentLayerTwoB",
-                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b,
-                Name = "column_AssessmentLayerTwoB"
-            };
-
-            yield return new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "AssessmentLayerThree",
-                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three,
-                Name = "column_AssessmentLayerThree"
-            };
+            DataGridViewControl.AddTextBoxColumn("AssessmentLayerTwoA", RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, true);
+            DataGridViewControl.AddTextBoxColumn("AssessmentLayerTwoB", RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b);
+            DataGridViewControl.AddTextBoxColumn("AssessmentLayerThree", RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 
         protected override object CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)
@@ -125,20 +104,20 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (eventArgs.ColumnIndex > 1)
             {
-                if (HasPassedLevelZero(eventArgs.RowIndex))
+                if (HasPassedLevelOne(eventArgs.RowIndex))
                 {
-                    DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
                 else
                 {
-                    RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex, eventArgs.ColumnIndex == assessmentLayerTwoAIndex);
                 }
             }
         }
         
         private void ShowAssementLayerTwoAErrors(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            var currentDataGridViewCell = GetCell(e.RowIndex, e.ColumnIndex);
+            var currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
 
             PipingFailureMechanismSectionResultRow resultRow = (PipingFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
 

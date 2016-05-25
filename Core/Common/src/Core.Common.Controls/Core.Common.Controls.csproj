@@ -81,6 +81,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="DataGrid\CellStyle.cs" />
     <Compile Include="DataGrid\DataGridViewComboBoxItemWrapper.cs" />
     <Compile Include="DataGrid\DataGridViewControl.cs">
       <SubType>UserControl</SubType>

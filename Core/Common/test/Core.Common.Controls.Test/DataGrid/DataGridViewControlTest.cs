@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
@@ -61,7 +62,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 // Assert
                 Assert.AreEqual(0, dataGridView.ColumnCount);
-                Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader, dataGridView.AutoSizeColumnsMode);
+                Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
                 Assert.AreEqual(DataGridViewEditMode.EditOnEnter, dataGridView.EditMode);
                 Assert.AreEqual(DataGridViewColumnHeadersHeightSizeMode.AutoSize, dataGridView.ColumnHeadersHeightSizeMode);
@@ -70,6 +71,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.IsFalse(dataGridView.AllowUserToResizeRows);
                 Assert.IsFalse(dataGridView.AllowUserToAddRows);
                 Assert.IsFalse(dataGridView.AllowUserToDeleteRows);
+                Assert.IsFalse(dataGridView.AutoGenerateColumns);
                 Assert.IsTrue(dataGridView.StandardTab);
             }
         }
@@ -167,8 +169,331 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
-                Assert.AreEqual("This", columnData.ValueMember);
+                Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
+            }
+        }
+
+        [Test]
+        public void SetDataSource_Always_SetsDataSourceOnDataGridView()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                control.AddCheckBoxColumn("Test property", "Test header");
+
+                var dataSource = new[]
+                {
+                    false
+                };
+
+                // Call
+                control.SetDataSource(dataSource);
+
+                // Assert
+                Assert.AreEqual(dataSource, dataGridView.DataSource);
+            }
+        }
+
+        [Test]
+        public void EndEdit_CurrentCellInEditMode_EndEditAndSetCurrentCellToNull()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                // Make sure the cell is not in edit mode when setting the current cell.
+                dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+                dataGridView.BeginEdit(false);
+
+                // Precondition
+                Assert.IsTrue(dataGridView.IsCurrentCellInEditMode);
+
+                // Call
+                control.EndEdit();
+
+                // Assert
+                Assert.IsFalse(dataGridView.IsCurrentCellInEditMode);
+                Assert.IsNull(dataGridView.CurrentCell);
+            }
+        }
+
+        [Test]
+        public void GetRowFromIndex_RowDoesExist_ReturnsRow()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+
+                // Call
+                DataGridViewRow row = control.GetRowFromIndex(0);
+
+                // Assert
+                Assert.IsNotNull(row);
+            }
+        }
+
+        [Test]
+        public void GetRowFromIndex_RowDoesNotExist_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+
+                // Call
+                TestDelegate call = () => control.GetRowFromIndex(5);
+
+                // Assert
+                Assert.Throws<ArgumentOutOfRangeException>(call);
+            }
+        }
+
+        [Test]
+        public void GetCell_RowAndCellDoesExist_ReturnsCell()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+
+                // Call
+                DataGridViewCell cell = control.GetCell(0, 0);
+
+                // Assert
+                Assert.IsNotNull(cell);
+            }
+        }
+
+        [Test]
+        public void GetCell_RowDoesNotExist_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+
+                // Call
+                TestDelegate call = () => control.GetCell(5, 0);
+
+                // Assert
+                Assert.Throws<ArgumentOutOfRangeException>(call);
+            }
+        }
+
+        [Test]
+        public void GetCell_CellDoesNotExist_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+
+                // Call
+                TestDelegate call = () => control.GetCell(0, 5);
+
+                // Assert
+                Assert.Throws<ArgumentOutOfRangeException>(call);
+            }
+        }
+
+        [Test]
+        public void DisableCell_Always_DisablesCell()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+
+                // Call
+                control.DisableCell(0, 0);
+
+                // Assert
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                Assert.IsTrue(dataGridViewCell.ReadOnly);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), dataGridViewCell.Style.BackColor);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), dataGridViewCell.Style.ForeColor);
+            }
+        }
+
+        [Test]
+        public void RestoreCell_ReadOnlyFalse_SetsCellStyleToEnabledWithReadOnlyFalse()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+
+                control.DisableCell(0, 0);
+
+                // Precondition
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                Assert.IsTrue(dataGridViewCell.ReadOnly);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), dataGridViewCell.Style.BackColor);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), dataGridViewCell.Style.ForeColor);
+
+                // Call
+                control.RestoreCell(0, 0, false);
+
+                // Assert
+                Assert.IsFalse(dataGridViewCell.ReadOnly);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.White), dataGridViewCell.Style.BackColor);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataGridViewCell.Style.ForeColor);
+            }
+        }
+
+        [Test]
+        public void RestoreCell_ReadOnlyTrue_SetsCellStyleToEnabledWithReadOnlyTrue()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+
+                control.DisableCell(0, 0);
+
+                // Precondition
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                Assert.IsTrue(dataGridViewCell.ReadOnly);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), dataGridViewCell.Style.BackColor);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), dataGridViewCell.Style.ForeColor);
+
+                // Call
+                control.RestoreCell(0, 0, true);
+
+                // Assert
+                Assert.IsTrue(dataGridViewCell.ReadOnly);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.White), dataGridViewCell.Style.BackColor);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataGridViewCell.Style.ForeColor);
+            }
+        }
+
+        #region Event handling
+
+        [Test]
+        public void AddCellFormattingHandler_Always_AddsEventHandler()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+
+                int counter = 0;
+
+                control.AddCellFormattingHandler((sender, args) => counter++);
+
+                // Precondition
+                Assert.AreEqual(0, counter);
+
+                // Call
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Assert
+                Assert.AreEqual(1, counter);
             }
         }
 
@@ -302,5 +627,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(string.Empty, dataGridViewCell.OwningRow.ErrorText);
             }
         }
+
+        #endregion
     }
 }

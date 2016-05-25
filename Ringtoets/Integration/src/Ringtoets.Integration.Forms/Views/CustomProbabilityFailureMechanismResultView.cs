@@ -19,11 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Windows.Forms;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -38,51 +37,31 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         public CustomProbabilityFailureMechanismResultView()
         {
-            AddCellFormattingHandler(OnCellFormatting);
+            DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
             if (eventArgs.ColumnIndex > 1)
             {
-                if (HasPassedLevelZero(eventArgs.RowIndex))
+                if (HasPassedLevelOne(eventArgs.RowIndex))
                 {
-                    DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
                 else
                 {
-                    RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
             } 
         }
 
-        protected override IEnumerable<DataGridViewColumn> GetDataGridColumns()
+        protected override void AddDataGridColumns()
         {
-            foreach (var baseColumn in base.GetDataGridColumns())
-            {
-                yield return baseColumn;
-            }
+            base.AddDataGridColumns();
 
-            yield return new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "AssessmentLayerTwoA",
-                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
-                Name = "column_AssessmentLayerTwoA"
-            };
-
-            yield return new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "AssessmentLayerTwoB",
-                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b,
-                Name = "column_AssessmentLayerTwoB"
-            };
-
-            yield return new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "AssessmentLayerThree",
-                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three,
-                Name = "column_AssessmentLayerThree"
-            };
+            DataGridViewControl.AddTextBoxColumn("AssessmentLayerTwoA", RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);
+            DataGridViewControl.AddTextBoxColumn("AssessmentLayerTwoB", RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b);
+            DataGridViewControl.AddTextBoxColumn("AssessmentLayerThree", RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 
         protected override object CreateFailureMechanismSectionResultRow(CustomProbabilityFailureMechanismSectionResult sectionResult)

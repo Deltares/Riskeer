@@ -19,12 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
@@ -38,9 +37,9 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public abstract partial class FailureMechanismResultView<T> : UserControl, IView where T : FailureMechanismSectionResult
     {
+        private const int assessmentLayerOneColumnIndex = 1;
         private readonly IList<Observer> failureMechanismSectionResultObservers;
         private readonly Observer failureMechanismObserver;
-        private const int assessmentLayerOneColumnIndex = 1;
 
         private IEnumerable<T> failureMechanismSectionResult;
         private IFailureMechanism failureMechanism;
@@ -85,10 +84,12 @@ namespace Ringtoets.Common.Forms.Views
                 }
                 else
                 {
-                    dataGridView.DataSource = null;
+                    DataGridViewControl.SetDataSource(null);
                 }
             }
         }
+
+        protected DataGridViewControl DataGridViewControl { get; private set; }
 
         protected override void Dispose(bool disposing)
         {
@@ -108,53 +109,13 @@ namespace Ringtoets.Common.Forms.Views
 
         /// <summary>
         /// Finds out whether the assessment section which is represented by the row at index 
-        /// <paramref name="rowIndex"/> has passed the level 0 assessment.
+        /// <paramref name="rowIndex"/> has passed the level 1 assessment.
         /// </summary>
         /// <param name="rowIndex">The index of the row which has a section attached.</param>
-        /// <returns><c>false</c> if assessment level 0 has passed, <c>true</c> otherwise.</returns>
-        protected bool HasPassedLevelZero(int rowIndex)
+        /// <returns><c>false</c> if assessment level 1 has passed, <c>true</c> otherwise.</returns>
+        protected bool HasPassedLevelOne(int rowIndex)
         {
-            var row = dataGridView.Rows[rowIndex];
-            return (bool) row.Cells[assessmentLayerOneColumnIndex].Value;
-        }
-
-        /// <summary>
-        /// Add a handler for the <see cref="DataGridView.CellFormatting"/> event.
-        /// </summary>
-        /// <param name="handler">The handler to add.</param>
-        protected void AddCellFormattingHandler(DataGridViewCellFormattingEventHandler handler)
-        {
-            dataGridView.CellFormatting += handler;
-        }
-
-        /// <summary>
-        /// Restore the initial style of the cell at <paramref name="rowIndex"/>, <paramref name="columnIndex"/>.
-        /// </summary>
-        /// <param name="rowIndex">The row index of the cell.</param>
-        /// <param name="columnIndex">The column index of the cell.</param>
-        protected void RestoreCell(int rowIndex, int columnIndex)
-        {
-            var cell = dataGridView.Rows[rowIndex].Cells[columnIndex];
-            cell.ReadOnly = GetDataGridColumns().ElementAt(columnIndex).ReadOnly;
-            SetCellStyle(cell, CellStyle.Enabled);
-        }
-
-        /// <summary>
-        /// Gives the cell at <paramref name="rowIndex"/>, <paramref name="columnIndex"/> a
-        /// disabled style.
-        /// </summary>
-        /// <param name="rowIndex">The row index of the cell.</param>
-        /// <param name="columnIndex">The column index of the cell.</param>
-        protected void DisableCell(int rowIndex, int columnIndex)
-        {
-            var cell = GetCell(rowIndex, columnIndex);
-            cell.ReadOnly = true;
-            SetCellStyle(cell, CellStyle.Disabled);
-        }
-
-        protected DataGridViewCell GetCell(int rowIndex, int columnIndex)
-        {
-            return dataGridView.Rows[rowIndex].Cells[columnIndex];
+            return (bool) DataGridViewControl.GetCell(rowIndex, assessmentLayerOneColumnIndex).Value;
         }
 
         /// <summary>
@@ -162,22 +123,10 @@ namespace Ringtoets.Common.Forms.Views
         /// <see cref="FailureMechanismResultView{T}"/>.
         /// </summary>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="DataGridViewColumn"/>.</returns>
-        protected virtual IEnumerable<DataGridViewColumn> GetDataGridColumns()
+        protected virtual void AddDataGridColumns()
         {
-            yield return new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "Name",
-                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
-                Name = "column_Name",
-                ReadOnly = true
-            };
-
-            yield return new DataGridViewCheckBoxColumn
-            {
-                DataPropertyName = "AssessmentLayerOne",
-                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
-                Name = "column_AssessmentLayerOne"
-            };
+            DataGridViewControl.AddTextBoxColumn("Name", Resources.FailureMechanismResultView_InitializeDataGridView_Section_name, true);
+            DataGridViewControl.AddCheckBoxColumn("AssessmentLayerOne", Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
         }
 
         /// <summary>
@@ -185,8 +134,8 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected void UpdataDataGridViewDataSource()
         {
-            EndEdit();
-            dataGridView.DataSource = failureMechanismSectionResult.Select(CreateFailureMechanismSectionResultRow).ToList();
+            DataGridViewControl.EndEdit();
+            DataGridViewControl.SetDataSource(failureMechanismSectionResult.Select(CreateFailureMechanismSectionResultRow).ToList());
         }
 
         /// <summary>
@@ -196,7 +145,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <returns>The data bound to the row at index <paramref name="rowIndex"/>.</returns>
         protected object GetDataAtRow(int rowIndex)
         {
-            return dataGridView.Rows[rowIndex].DataBoundItem;
+            return DataGridViewControl.GetRowFromIndex(rowIndex).DataBoundItem;
         }
 
         /// <summary>
@@ -222,23 +171,11 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
-        private void SetCellStyle(DataGridViewCell cell, CellStyle style)
-        {
-            cell.Style.BackColor = style.BackgroundColor;
-            cell.Style.ForeColor = style.TextColor;
-        }
-
-        private void RefreshDataGridView()
-        {
-            dataGridView.Refresh();
-            dataGridView.AutoResizeColumns();
-        }
-
         private void AddSectionResultObservers()
         {
             foreach (var sectionResult in failureMechanismSectionResult)
             {
-                failureMechanismSectionResultObservers.Add(new Observer(RefreshDataGridView)
+                failureMechanismSectionResultObservers.Add(new Observer(DataGridViewControl.RefreshDataGridView)
                 {
                     Observable = sectionResult
                 });
@@ -256,81 +193,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void InitializeDataGridView()
         {
-            dataGridView.GotFocus += DataGridViewGotFocus;
-            dataGridView.AutoGenerateColumns = false;
-            dataGridView.Columns.AddRange(GetDataGridColumns().ToArray());
+            AddDataGridColumns();
         }
-
-        private void EndEdit()
-        {
-            if (dataGridView.IsCurrentCellInEditMode)
-            {
-                dataGridView.CancelEdit();
-                dataGridView.EndEdit();
-                dataGridView.CurrentCell = null;
-            }
-        }
-
-        private class CellStyle
-        {
-            public static readonly CellStyle Enabled = new CellStyle
-            {
-                TextColor = Color.FromKnownColor(KnownColor.ControlText),
-                BackgroundColor = Color.FromKnownColor(KnownColor.White)
-            };
-
-            public static readonly CellStyle Disabled = new CellStyle
-            {
-                TextColor = Color.FromKnownColor(KnownColor.GrayText),
-                BackgroundColor = Color.FromKnownColor(KnownColor.DarkGray)
-            };
-
-            public Color TextColor { get; private set; }
-            public Color BackgroundColor { get; private set; }
-        }
-
-        #region Event handling
-
-        private void DataGridViewCurrentCellDirtyStateChanged(object sender, EventArgs e)
-        {
-            // Ensure checkbox values are directly committed
-            DataGridViewColumn currentColumn = dataGridView.Columns[dataGridView.CurrentCell.ColumnIndex];
-            if (currentColumn is DataGridViewCheckBoxColumn)
-            {
-                dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
-            }
-        }
-
-        private void DataGridViewCellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-            dataGridView.Rows[e.RowIndex].ErrorText = String.Empty;
-
-            var cellEditValue = e.FormattedValue.ToString();
-            if (string.IsNullOrWhiteSpace(cellEditValue))
-            {
-                dataGridView.Rows[e.RowIndex].ErrorText = CoreCommonControlsResources.DataGridViewCellValidating_Text_may_not_be_empty;
-            }
-        }
-
-        private void DataGridViewDataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            e.ThrowException = false;
-            e.Cancel = true;
-
-            if (string.IsNullOrWhiteSpace(dataGridView.Rows[e.RowIndex].ErrorText) && e.Exception != null)
-            {
-                dataGridView.Rows[e.RowIndex].ErrorText = e.Exception.Message;
-            }
-        }
-
-        private void DataGridViewGotFocus(object sender, EventArgs eventArgs)
-        {
-            if (dataGridView.CurrentCell != null)
-            {
-                dataGridView.BeginEdit(true); // Always start editing after setting the focus (otherwise data grid view cell dirty events are no longer fired when using the keyboard...)
-            }
-        }
-
-        #endregion
     }
 }
