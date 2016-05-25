@@ -177,7 +177,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(2, inputParameters.WidthOfFlowApertures.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(18, inputParameters.WidthOfFlowApertures.Mean.Value);
             Assert.AreEqual(2, inputParameters.DeviationOfTheWaveDirection.NumberOfDecimalPlaces);
-            Assert.AreEqual(1, inputParameters.DeviationOfTheWaveDirection.Value);
+            Assert.AreEqual(0.0, inputParameters.DeviationOfTheWaveDirection.Value);
             Assert.AreEqual(2, inputParameters.FailureProbabilityOfStructureGivenErosion.NumberOfDecimalPlaces);
             Assert.AreEqual(1, inputParameters.FailureProbabilityOfStructureGivenErosion.Value);
         }
