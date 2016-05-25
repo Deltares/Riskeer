@@ -29,6 +29,7 @@ using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
 using CoreCommonResources = Core.Common.Base.Properties.Resources;
+using CoreCommonControlsResources = Core.Common.Controls.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -307,7 +308,7 @@ namespace Ringtoets.Common.Forms.Views
             var cellEditValue = e.FormattedValue.ToString();
             if (string.IsNullOrWhiteSpace(cellEditValue))
             {
-                dataGridView.Rows[e.RowIndex].ErrorText = Resources.DataGridViewCellValidating_Text_may_not_be_empty;
+                dataGridView.Rows[e.RowIndex].ErrorText = CoreCommonControlsResources.DataGridViewCellValidating_Text_may_not_be_empty;
             }
         }
 

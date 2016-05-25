@@ -205,5 +205,102 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.IsTrue((bool)dataGridViewCell.FormattedValue);
             }
         }
+
+        [Test]
+        public void DataGridView_GotFocusCurrentCellSet_CellInEditMode()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+                
+                // Make sure the cell is not in edit mode when setting the current cell.
+                dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+
+                // Precondition
+                Assert.IsFalse(dataGridView.IsCurrentCellInEditMode);
+
+                // Call
+                gridTester.FireEvent("GotFocus", EventArgs.Empty);
+
+                // Assert
+                Assert.IsTrue(dataGridView.IsCurrentCellInEditMode);
+            }
+        }
+
+        [Test]
+        public void DataGridView_GotFocusCurrentCellNull_CellNotInEditMode()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                // Make sure the cell is not in edit mode when setting the current cell.
+                dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+                dataGridView.CurrentCell = null;
+
+                // Precondition
+                Assert.IsFalse(dataGridView.IsCurrentCellInEditMode);
+
+                // Call
+                gridTester.FireEvent("GotFocus", EventArgs.Empty);
+
+                // Assert
+                Assert.IsFalse(dataGridView.IsCurrentCellInEditMode);
+            }
+        }
+
+        [Test]
+        public void DataGridView_CellValidatingValueValid_DoesNotShowErrorToolTip()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                // Make sure the cell is not in edit mode when setting the current cell.
+                dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "Test value" };
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+                dataGridView.BeginEdit(false);
+
+                // Call
+                dataGridViewCell.Value = "New value";
+
+                // Assert
+                Assert.AreEqual(string.Empty, dataGridViewCell.OwningRow.ErrorText);
+            }
+        }
     }
 }

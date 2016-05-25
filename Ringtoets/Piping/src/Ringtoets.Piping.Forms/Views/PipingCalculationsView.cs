@@ -39,6 +39,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using CoreCommonControlsResources = Core.Common.Controls.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
 {
@@ -764,7 +765,7 @@ namespace Ringtoets.Piping.Forms.Views
             var cellEditValue = e.FormattedValue.ToString();
             if (string.IsNullOrWhiteSpace(cellEditValue))
             {
-                dataGridView.Rows[e.RowIndex].ErrorText = RingtoetsCommonFormsResources.DataGridViewCellValidating_Text_may_not_be_empty;
+                dataGridView.Rows[e.RowIndex].ErrorText = CoreCommonControlsResources.DataGridViewCellValidating_Text_may_not_be_empty;
             }
         }
 

@@ -21,6 +21,7 @@
 
 using System;
 using System.Windows.Forms;
+using Core.Common.Controls.Properties;
 
 namespace Core.Common.Controls.DataGrid
 {
@@ -96,18 +97,51 @@ namespace Core.Common.Controls.DataGrid
 
         private void SubscribeEvents()
         {
-            dataGridView.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
+            dataGridView.CurrentCellDirtyStateChanged += DataGridViewOnCurrentCellDirtyStateChanged;
+            dataGridView.GotFocus += DataGridViewOnGotFocus;
+            dataGridView.CellValidating += DataGridViewOnCellValidating;
+            dataGridView.DataError += DataGridViewOnDataError;
         }
 
         #region Event handling
 
-        private void DataGridViewCurrentCellDirtyStateChanged(object sender, EventArgs e)
+        private void DataGridViewOnCurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
             // Ensure checkbox values are directly committed
             DataGridViewColumn currentColumn = dataGridView.Columns[dataGridView.CurrentCell.ColumnIndex];
             if (currentColumn is DataGridViewCheckBoxColumn || currentColumn is DataGridViewComboBoxColumn)
             {
                 dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
+        private void DataGridViewOnGotFocus(object sender, EventArgs e)
+        {
+            if (dataGridView.CurrentCell != null)
+            {
+                dataGridView.BeginEdit(true); // Always start editing after setting the focus (otherwise data grid view cell dirty events are no longer fired when using the keyboard...)
+            }
+        }
+
+        private void DataGridViewOnCellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            dataGridView.Rows[e.RowIndex].ErrorText = String.Empty;
+
+            var cellEditValue = e.FormattedValue.ToString();
+            if (string.IsNullOrWhiteSpace(cellEditValue))
+            {
+                dataGridView.Rows[e.RowIndex].ErrorText = Resources.DataGridViewCellValidating_Text_may_not_be_empty;
+            }
+        }
+
+        private void DataGridViewOnDataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            e.ThrowException = false;
+            e.Cancel = true;
+
+            if (string.IsNullOrWhiteSpace(dataGridView.Rows[e.RowIndex].ErrorText) && e.Exception != null)
+            {
+                dataGridView.Rows[e.RowIndex].ErrorText = e.Exception.Message;
             }
         }
 
