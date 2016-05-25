@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         }
 
         /// <summary>
-        /// Calculates the <see cref="ProbabilisticOutput"/> given the <paramref name="calculation"/>, and <paramref name="reliability"/>.
+        /// Calculates the <see cref="ProbabilisticOutput"/> given the <paramref name="calculation"/> and <paramref name="reliability"/>.
         /// </summary>
         /// <param name="calculation">The calculation which is used.</param>
         /// <param name="reliability">The reliability result.</param>
@@ -80,14 +80,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         private void Calculate()
         {
-            CalculateReliability();
+            CalculateProbability();
 
             CalculateRequiredReliability();
 
             factorOfSafety = FactorOfSafety(reliability, requiredReliability);
         }
 
-        private void CalculateReliability()
+        private void CalculateProbability()
         {
             requiredProbability = RequiredProbability(contribution, norm, lengthEffectN);
             probability = ReliabilityToProbability(reliability);
@@ -100,9 +100,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         #region Sub calculations
 
-        private static double RequiredProbability(double probability, double contribution, double lengthEffectN)
+        private static double RequiredProbability(double contribution, double norm, double lengthEffectN)
         {
-            return probability*(1/contribution)/lengthEffectN;
+            return contribution*(1/norm)/lengthEffectN;
         }
 
         private static double ReliabilityToProbability(double reliability)
@@ -110,9 +110,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             return Normal.CDF(0, 1, -reliability);
         }
 
-        private static double ProbabilityToReliability(double requiredProbability)
+        private static double ProbabilityToReliability(double probability)
         {
-            return Normal.InvCDF(0, 1, 1 - requiredProbability);
+            return Normal.InvCDF(0, 1, 1 - probability);
         }
 
         private static double FactorOfSafety(double reliability, double requiredReliability)

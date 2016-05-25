@@ -124,5 +124,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsTrue(calculations.All(c => c is GrassCoverErosionInwardsCalculation));
             mocks.VerifyAll();
         }
+
+        [Test]
+        public void Contribution_Always_UpdatesNormProbabilityInputContribution()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            const double newContribution = 12;
+
+            // Call
+            failureMechanism.Contribution = newContribution;
+
+            // Assert
+            Assert.AreEqual(newContribution, failureMechanism.NormProbabilityInput.Contribution);
+            Assert.AreEqual(newContribution, failureMechanism.Contribution);
+        }
     }
 }

@@ -148,7 +148,7 @@ namespace Ringtoets.HeightStructures.Plugin
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
-            return failureMechanism != null && ReferenceEquals(view.Data, (failureMechanism).SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
         }
 
         #endregion

@@ -42,10 +42,6 @@ namespace Ringtoets.Piping.Data
         /// <paramref name="normProbabilityInputParameters"/> is <c>null</c>.</exception>
         public PipingCalculation(GeneralPipingInput generalInputParameters, NormProbabilityPipingInput normProbabilityInputParameters)
         {
-            if (generalInputParameters == null)
-            {
-                throw new ArgumentNullException("generalInputParameters");
-            }
             if (normProbabilityInputParameters == null)
             {
                 throw new ArgumentNullException("normProbabilityInputParameters");
