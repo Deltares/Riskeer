@@ -59,17 +59,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
+            Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismResultView), info.ViewType);
             Assert.AreEqual(typeof(FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>), info.DataType);
+            Assert.AreEqual(typeof(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>), info.ViewDataType);
         }
 
         [Test]
         public void GetViewName_Always_ReturnsViewName()
         {
-            // Setup
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView();
-
             // Call
-            var viewName = info.GetViewName(view, Enumerable.Empty<GrassCoverErosionInwardsFailureMechanismSectionResult>());
+            var viewName = info.GetViewName(null, null);
 
             // Assert
             Assert.AreEqual("Oordeel", viewName);
@@ -92,37 +91,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreSame(sectionResults, viewData);
-        }
-
-        [Test]
-        public void ViewType_Always_ReturnsViewType()
-        {
-            // Call
-            var viewType = info.ViewType;
-
-            // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismResultView), viewType);
-        }
-
-        [Test]
-        public void DataType_Always_ReturnsDataType()
-        {
-            // Call
-            var dataType = info.DataType;
-
-            // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>),
-                            dataType);
-        }
-
-        [Test]
-        public void ViewDataType_Always_ReturnViewDataType()
-        {
-            // Call
-            var viewDataType = info.ViewDataType;
-
-            // Assert
-            Assert.AreEqual(typeof(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>), viewDataType);
         }
 
         [Test]
@@ -234,7 +202,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -276,7 +244,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();

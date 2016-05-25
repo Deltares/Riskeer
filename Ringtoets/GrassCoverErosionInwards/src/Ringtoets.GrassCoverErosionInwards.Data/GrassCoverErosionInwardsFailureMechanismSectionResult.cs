@@ -31,6 +31,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanismSectionResult : FailureMechanismSectionResult
     {
+        private readonly RoundedDouble assessmentLayerTwoA;
+
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
         /// </summary>
@@ -42,7 +44,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the value of assessment layer two a.
         /// </summary>
-        public RoundedDouble AssessmentLayerTwoA { get; set; }
+        public RoundedDouble AssessmentLayerTwoA
+        {
+            get
+            {
+                return assessmentLayerTwoA;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the value of assessment layer two b.

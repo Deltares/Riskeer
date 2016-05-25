@@ -30,6 +30,7 @@ using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.Views;
 
@@ -59,8 +60,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             using (var view = new HeightStructuresFailureMechanismResultView())
             {
                 // Assert
-                Assert.IsInstanceOf<UserControl>(view);
-                Assert.IsInstanceOf<IView>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult>>(view);
                 Assert.IsNull(view.Data);
             }
         }
@@ -124,7 +124,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNullAndDataGridViewOneEmtpyRow()
+        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNullAndDataGridViewEmtpy()
         {
             // Setup
             var testData = new object();
@@ -182,6 +182,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             {
                 var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
+                // Call
                 dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = checkBoxSelected;
 
                 // Assert

@@ -36,7 +36,7 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class FailureMechanismResultViewTreeNodeInfoTest
+    public class FailureMechanismResultContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private HeightStructuresGuiPlugin plugin;

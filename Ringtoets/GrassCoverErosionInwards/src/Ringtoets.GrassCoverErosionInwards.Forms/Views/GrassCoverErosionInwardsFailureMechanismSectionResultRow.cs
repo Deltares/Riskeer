@@ -31,6 +31,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// </summary>
     internal class GrassCoverErosionInwardsFailureMechanismSectionResultRow
     {
+        private readonly GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult;
+
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultRow"/>.
         /// </summary>
@@ -44,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             {
                 throw new ArgumentNullException("sectionResult");
             }
-            SectionResult = sectionResult;
+            this.sectionResult = sectionResult;
         }
 
         /// <summary>
@@ -54,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             get
             {
-                return SectionResult.Section.Name;
+                return sectionResult.Section.Name;
             }
         }
 
@@ -65,12 +67,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             get
             {
-                return SectionResult.AssessmentLayerOne;
+                return sectionResult.AssessmentLayerOne;
             }
             set
             {
-                SectionResult.AssessmentLayerOne = value;
-                SectionResult.NotifyObservers();
+                sectionResult.AssessmentLayerOne = value;
+                sectionResult.NotifyObservers();
             }
         }
 
@@ -81,7 +83,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             get
             {
-                return SectionResult.AssessmentLayerTwoA;
+                return sectionResult.AssessmentLayerTwoA;
             }
         }
 
@@ -92,11 +94,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             get
             {
-                return SectionResult.AssessmentLayerTwoB;
+                return sectionResult.AssessmentLayerTwoB;
             }
             set
             {
-                SectionResult.AssessmentLayerTwoB = value;
+                sectionResult.AssessmentLayerTwoB = value;
             }
         }
 
@@ -107,14 +109,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             get
             {
-                return SectionResult.AssessmentLayerThree;
+                return sectionResult.AssessmentLayerThree;
             }
             set
             {
-                SectionResult.AssessmentLayerThree = value;
+                sectionResult.AssessmentLayerThree = value;
             }
         }
-
-        private GrassCoverErosionInwardsFailureMechanismSectionResult SectionResult { get; set; }
     }
 }

@@ -43,6 +43,9 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
             Assert.AreSame(section, sectionResult.Section);
             Assert.IsFalse(sectionResult.AssessmentLayerOne);
+            Assert.AreEqual(0, sectionResult.AssessmentLayerTwoA.Value);
+            Assert.AreEqual(0, sectionResult.AssessmentLayerTwoB.Value);
+            Assert.AreEqual(0, sectionResult.AssessmentLayerThree.Value);
         }
 
         [Test]
@@ -70,24 +73,6 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             // Assert
             Assert.AreEqual(newValue, failureMechanismSectionResult.AssessmentLayerOne);
-        }
-
-        [Test]
-        [TestCase(2.3)]
-        [TestCase(24.6)]
-        public void AssessmentLayerTwoA_Always_ReturnsSetValue(double newValue)
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
-
-            RoundedDouble assessmentLayerTwoA = (RoundedDouble)newValue;
-
-            // Call
-            failureMechanismSectionResult.AssessmentLayerTwoA = assessmentLayerTwoA;
-
-            // Assert
-            Assert.AreEqual(assessmentLayerTwoA, failureMechanismSectionResult.AssessmentLayerTwoA);
         }
 
         [Test]

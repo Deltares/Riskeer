@@ -58,9 +58,6 @@
     <Compile Include="Views\HeightStructuresFailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\HeightStructuresFailureMechanismResultView.Designer.cs">
-      <DependentUpon>HeightStructuresFailureMechanismResultView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\HeightStructuresFailureMechanismSectionResultRow.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -114,9 +111,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\HeightStructuresFailureMechanismResultView.resx">
-      <DependentUpon>HeightStructuresFailureMechanismResultView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

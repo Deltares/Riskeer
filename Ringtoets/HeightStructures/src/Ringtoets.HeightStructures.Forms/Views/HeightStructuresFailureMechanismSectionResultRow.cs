@@ -31,6 +31,8 @@ namespace Ringtoets.HeightStructures.Forms.Views
     /// </summary>
     internal class HeightStructuresFailureMechanismSectionResultRow
     {
+        private readonly HeightStructuresFailureMechanismSectionResult sectionResult;
+
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismSectionResultRow"/>.
         /// </summary>
@@ -41,17 +43,17 @@ namespace Ringtoets.HeightStructures.Forms.Views
             {
                 throw new ArgumentNullException("sectionResult");
             }
-            SectionResult = sectionResult;
+            this.sectionResult = sectionResult;
         }
 
         /// <summary>
-        /// Gets the name of the <see cref="FailureMechanismSection"/> name.
+        /// Gets the name of the <see cref="FailureMechanismSection"/>.
         /// </summary>
         public string Name
         {
             get
             {
-                return SectionResult.Section.Name;
+                return sectionResult.Section.Name;
             }
         }
 
@@ -62,12 +64,12 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             get
             {
-                return SectionResult.AssessmentLayerOne;
+                return sectionResult.AssessmentLayerOne;
             }
             set
             {
-                SectionResult.AssessmentLayerOne = value;
-                SectionResult.NotifyObservers();
+                sectionResult.AssessmentLayerOne = value;
+                sectionResult.NotifyObservers();
             }
         }
 
@@ -78,7 +80,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             get
             {
-                return SectionResult.AssessmentLayerTwoA;
+                return sectionResult.AssessmentLayerTwoA;
             }
         }
 
@@ -89,11 +91,11 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             get
             {
-                return SectionResult.AssessmentLayerTwoB;
+                return sectionResult.AssessmentLayerTwoB;
             }
             set
             {
-                SectionResult.AssessmentLayerTwoB = value;
+                sectionResult.AssessmentLayerTwoB = value;
             }
         }
 
@@ -104,14 +106,12 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             get
             {
-                return SectionResult.AssessmentLayerThree;
+                return sectionResult.AssessmentLayerThree;
             }
             set
             {
-                SectionResult.AssessmentLayerThree = value;
+                sectionResult.AssessmentLayerThree = value;
             }
         }
-
-        private HeightStructuresFailureMechanismSectionResult SectionResult { get; set; }
     }
 }
