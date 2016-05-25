@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
@@ -234,17 +233,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(2, inputParameters.Orientation.NumberOfDecimalPlaces);
             Assert.AreEqual(5.5, inputParameters.Orientation.Value);
 
-            // CriticalFlowRate
-            Assert.IsNotNull(inputParameters.CriticalFlowRate);
-
             // Dike and Foreshore
             Assert.IsTrue(inputParameters.ForeshoreGeometry.Any());
             Assert.IsTrue(inputParameters.DikeGeometry.Any());
             Assert.IsTrue(inputParameters.UseForeshore);
 
             // Dike height
-            var expectedDikeHeight = new RoundedDouble(inputParameters.DikeHeight.NumberOfDecimalPlaces, 10);
-            Assert.AreEqual(expectedDikeHeight, inputParameters.DikeHeight);
+            Assert.AreEqual(2, inputParameters.DikeHeight.NumberOfDecimalPlaces);
+            Assert.AreEqual(10, inputParameters.DikeHeight.Value);
         }
 
         private class TestProbabilisticOutput : ProbabilisticOutput

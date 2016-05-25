@@ -57,6 +57,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             CollectionAssert.IsEmpty(input.DikeGeometry);
             Assert.IsNull(input.HydraulicBoundaryLocation);
 
+            var criticalFlowRate = new LognormalDistribution(4)
+            {
+                Mean = new RoundedDouble(4, 0.004),
+                StandardDeviation = new RoundedDouble(4, 0.0006)
+            };
+            Assert.AreEqual(criticalFlowRate.Mean, input.CriticalFlowRate.Mean);
+            Assert.AreEqual(criticalFlowRate.StandardDeviation, input.CriticalFlowRate.StandardDeviation);
+
             Assert.AreEqual(generalInput.FbFactor, input.FbFactor);
             Assert.AreEqual(generalInput.FnFactor, input.FnFactor);
             Assert.AreEqual(generalInput.FshallowModelFactor, input.FshallowModelFactor);

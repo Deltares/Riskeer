@@ -114,14 +114,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             InputParameters.UseBreakWater = true;
 
             // Orientation
-            InputParameters.Orientation = new RoundedDouble(RoundedDouble.MaximumNumberOfDecimalPlaces, 5.5);
-
-            // CriticalFlowRate
-            InputParameters.CriticalFlowRate = new LognormalDistribution(4)
-            {
-                Mean = new RoundedDouble(4, 0.004),
-                StandardDeviation = new RoundedDouble(4, 0.0006)
-            };
+            InputParameters.Orientation = new RoundedDouble(InputParameters.Orientation.NumberOfDecimalPlaces, 5.5);
 
             // Dike and Foreshore
             var dikeSections = new[]

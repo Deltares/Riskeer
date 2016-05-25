@@ -58,7 +58,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             BreakWater = new BreakWater(BreakWaterType.Caisson, 0);
             criticalFlowRate = new LognormalDistribution(4)
             {
-                Mean = new RoundedDouble(4, 0.004), StandardDeviation = new RoundedDouble(4, 0.0006)
+                Mean = new RoundedDouble(4, 0.004),
+                StandardDeviation = new RoundedDouble(4, 0.0006)
             };
             DikeGeometry = Enumerable.Empty<RoughnessProfileSection>();
             ForeshoreGeometry = Enumerable.Empty<ProfileSection>();
