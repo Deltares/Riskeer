@@ -34,6 +34,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.HeightStructures.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Forms.Views;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -50,6 +51,11 @@ namespace Ringtoets.HeightStructures.Plugin
     /// </summary>
     public class HeightStructuresGuiPlugin : GuiPlugin
     {
+        public override IEnumerable<PropertyInfo> GetPropertyInfos()
+        {
+            yield return new PropertyInfo<HeightStructuresFailureMechanismContext, HeightStructuresFailureMechanismContextProperties>();
+        }
+
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
             yield return new ViewInfo<
@@ -138,7 +144,7 @@ namespace Ringtoets.HeightStructures.Plugin
                 new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId,
                                                           new HydraRingSection(1, failureMechanismSection.Name, sectionLength, inputParameters.OrientationOfTheNormalOfTheStructure),
                                                           inputParameters.GravitationalAcceleration,
-                                                          inputParameters.ModelfactorOvertopping.Mean, inputParameters.ModelfactorOvertopping.StandardDeviation,
+                                                          inputParameters.ModelfactorOvertoppingFlow.Mean, inputParameters.ModelfactorOvertoppingFlow.StandardDeviation,
                                                           inputParameters.LevelOfCrestOfStructure.Mean, inputParameters.LevelOfCrestOfStructure.StandardDeviation,
                                                           inputParameters.OrientationOfTheNormalOfTheStructure,
                                                           inputParameters.ModelfactorOvertoppingSuperCriticalFlow.Mean, inputParameters.ModelfactorOvertoppingSuperCriticalFlow.StandardDeviation,

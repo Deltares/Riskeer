@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.HeightStructures.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Forms.Views;
 
 namespace Ringtoets.HeightStructures.Plugin.Test
@@ -46,6 +47,30 @@ namespace Ringtoets.HeightStructures.Plugin.Test
             {
                 // Assert
                 Assert.IsInstanceOf<GuiPlugin>(heightStructuresGuiPlugin);
+            }
+        }
+
+        [Test]
+        public void GetPropertyInfos_ReturnsSupportedPropertyClasses()
+        {
+            // setup
+            using (var guiPlugin = new HeightStructuresGuiPlugin())
+            {
+                // call
+                var mocks = new MockRepository();
+                mocks.ReplayAll();
+
+                PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
+
+                // assert
+                Assert.AreEqual(1, propertyInfos.Length);
+                var failureMechanismContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(HeightStructuresFailureMechanismContext));
+                Assert.AreEqual(typeof(HeightStructuresFailureMechanismContextProperties), failureMechanismContextProperties.PropertyObjectType);
+                Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
+                Assert.IsNull(failureMechanismContextProperties.GetObjectPropertiesData);
+                Assert.IsNull(failureMechanismContextProperties.AfterCreate);
+
+                mocks.VerifyAll();
             }
         }
 

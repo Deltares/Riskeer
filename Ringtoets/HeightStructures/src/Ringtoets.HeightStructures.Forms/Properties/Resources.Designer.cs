@@ -71,6 +71,24 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lengte-effect parameters.
+        /// </summary>
+        public static string Categories_LengthEffect {
+            get {
+                return ResourceManager.GetString("Categories_LengthEffect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modelfactoren.
+        /// </summary>
+        public static string Categories_ModelSettings {
+            get {
+                return ResourceManager.GetString("Categories_ModelSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} mag niet &apos;null&apos; zijn..
         /// </summary>
         public static string HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null {
@@ -113,6 +131,84 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         public static string HeightStructuresInputContext_NodeDisplayName {
             get {
                 return ResourceManager.GetString("HeightStructuresInputContext_NodeDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De valversnelling die gebruikt wordt in de berekening..
+        /// </summary>
+        public static string HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_Description {
+            get {
+                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_Descriptio" +
+                        "n", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valversnelling.
+        /// </summary>
+        public static string HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_DisplayName {
+            get {
+                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_DisplayNam" +
+                        "e", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het kombergend oppervlak die gebruikt wordt in de berekening..
+        /// </summary>
+        public static string HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_Description {
+            get {
+                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_Descript" +
+                        "ion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kombergend oppervlak.
+        /// </summary>
+        public static string HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_DisplayName {
+            get {
+                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_DisplayN" +
+                        "ame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het modelfactor overslagdebiet die gebruikt wordt in de berekening..
+        /// </summary>
+        public static string HeightStructuresInputFailureMechanismContext_ModelfactorOvertoppingFlow_Description {
+            get {
+                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_ModelfactorOvertoppingFlow_Descripti" +
+                        "on", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modelfactor overslagdebiet.
+        /// </summary>
+        public static string HeightStructuresInputFailureMechanismContext_ModelfactorOvertoppingFlow_DisplayName {
+            get {
+                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_ModelfactorOvertoppingFlow_DisplayNa" +
+                        "me", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt voor het lengte effect in de berekening..
+        /// </summary>
+        public static string HeightStructuresInputFailureMechanismContext_N_Description {
+            get {
+                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_N_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N.
+        /// </summary>
+        public static string HeightStructuresInputFailureMechanismContext_N_DisplayName {
+            get {
+                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_N_DisplayName", resourceCulture);
             }
         }
     }

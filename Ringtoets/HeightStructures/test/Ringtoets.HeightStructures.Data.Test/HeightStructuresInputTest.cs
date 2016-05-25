@@ -58,7 +58,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.IsNull(input.HydraulicBoundaryLocation);
 
             Assert.AreEqual(generalInput.GravitationalAcceleration, input.GravitationalAcceleration);
-            Assert.AreEqual(generalInput.ModelfactorOvertopping, input.ModelfactorOvertopping);
+            Assert.AreEqual(generalInput.ModelfactorOvertoppingFlow, input.ModelfactorOvertoppingFlow);
             Assert.AreEqual(generalInput.ModelFactorForStorageVolume, input.ModelFactorForStorageVolume);
             Assert.AreEqual(generalInput.ModelFactorForIncomingFlowVolume, input.ModelFactorForIncomingFlowVolume);
 

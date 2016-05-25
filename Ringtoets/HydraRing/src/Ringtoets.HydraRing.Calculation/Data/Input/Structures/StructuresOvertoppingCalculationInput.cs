@@ -30,8 +30,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
     {
         private readonly HydraRingSection section;
         private readonly double gravitationalAcceleration;
-        private readonly double modelFactorOvertoppingMean;
-        private readonly double modelFactorOvertoppingStandardDeviation;
+        private readonly double modelFactorOvertoppingFlowMean;
+        private readonly double modelFactorOvertoppingFlowStandardDeviation;
         private readonly double levelOfCrestOfStructureMean;
         private readonly double levelOfCrestOfStructureStandardDeviation;
         private readonly double structureNormalOrientation;
@@ -61,8 +61,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
         /// <param name="hydraRingSection">The section to use during the calculation.</param>
         /// <param name="hydraRingGravitationalAcceleration">The gravitational acceleration to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorOvertoppingMean">The mean of the model factor overtopping to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorOvertoppingStandardDeviation">The standard deviation of the model factor overtopping to use during the calculation.</param>
+        /// <param name="hydraRingModelFactorOvertoppingFlowMean">The mean of the model factor overtopping flow to use during the calculation.</param>
+        /// <param name="hydraRingModelFactorOvertoppingFlowStandardDeviation">The standard deviation of the model factor overtopping flow to use during the calculation.</param>
         /// <param name="hydraRingLevelOfCrestOfStructureMean">The mean of the level of the crest of the structure to use during the calculation.</param>
         /// <param name="hydraRingLevelOfCrestOfStructureStandardDeviation">The standard deviation of the level of the crest of the structure to use during the calculation.</param>
         /// <param name="hydraRingStructureNormalOrientation">The orientation of the normal of the structure to use during the calculation.</param>
@@ -87,7 +87,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="hydraRingStormDurationVariation">The variation of the storm duration to use during the calculation.</param>
         public StructuresOvertoppingCalculationInput(int hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
                                                      double hydraRingGravitationalAcceleration,
-                                                     double hydraRingModelFactorOvertoppingMean, double hydraRingModelFactorOvertoppingStandardDeviation,
+                                                     double hydraRingModelFactorOvertoppingFlowMean, double hydraRingModelFactorOvertoppingFlowStandardDeviation,
                                                      double hydraRingLevelOfCrestOfStructureMean, double hydraRingLevelOfCrestOfStructureStandardDeviation,
                                                      double hydraRingStructureNormalOrientation,
                                                      double hydraRingModelFactorOvertoppingSupercriticalFlowMean, double hydraRingModelFactorOvertoppingSupercriticalFlowStandardDeviation,
@@ -106,8 +106,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         {
             section = hydraRingSection;
             gravitationalAcceleration = hydraRingGravitationalAcceleration;
-            modelFactorOvertoppingMean = hydraRingModelFactorOvertoppingMean;
-            modelFactorOvertoppingStandardDeviation = hydraRingModelFactorOvertoppingStandardDeviation;
+            modelFactorOvertoppingFlowMean = hydraRingModelFactorOvertoppingFlowMean;
+            modelFactorOvertoppingFlowStandardDeviation = hydraRingModelFactorOvertoppingFlowStandardDeviation;
             levelOfCrestOfStructureMean = hydraRingLevelOfCrestOfStructureMean;
             levelOfCrestOfStructureStandardDeviation = hydraRingLevelOfCrestOfStructureStandardDeviation;
             structureNormalOrientation = hydraRingStructureNormalOrientation;
@@ -170,10 +170,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             yield return new HydraRingVariable(58, HydraRingDistributionType.Deterministic, gravitationalAcceleration,
                                                HydraRingDeviationType.Variation, double.NaN, double.NaN, double.NaN);
 
-            // Model factor overtopping
+            // Model factor overtopping flow
             yield return new HydraRingVariable(59, HydraRingDistributionType.LogNormal, double.NaN,
-                                               HydraRingDeviationType.Standard, modelFactorOvertoppingMean,
-                                               modelFactorOvertoppingStandardDeviation, double.NaN);
+                                               HydraRingDeviationType.Standard, modelFactorOvertoppingFlowMean,
+                                               modelFactorOvertoppingFlowStandardDeviation, double.NaN);
 
             // Level of crest of structure
             yield return new HydraRingVariable(60, HydraRingDistributionType.Normal, double.NaN,

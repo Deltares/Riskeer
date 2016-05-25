@@ -612,6 +612,78 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De gemiddelde waarde van de lognormale verdeling..
+        /// </summary>
+        public static string LognormalDistribution_Mean_Description {
+            get {
+                return ResourceManager.GetString("LognormalDistribution_Mean_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De standaardafwijking van de lognormale verdeling..
+        /// </summary>
+        public static string LogNormalDistribution_StandardDeviation_Description {
+            get {
+                return ResourceManager.GetString("LogNormalDistribution_StandardDeviation_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het soort kansverdeling waarin deze parameter gedefinieerd wordt..
+        /// </summary>
+        public static string NormalDistribution_DestributionType_Description {
+            get {
+                return ResourceManager.GetString("NormalDistribution_DestributionType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type verdeling.
+        /// </summary>
+        public static string NormalDistribution_DestributionType_DisplayName {
+            get {
+                return ResourceManager.GetString("NormalDistribution_DestributionType_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De gemiddelde waarde van de normale verdeling..
+        /// </summary>
+        public static string NormalDistribution_Mean_Description {
+            get {
+                return ResourceManager.GetString("NormalDistribution_Mean_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verwachtingswaarde.
+        /// </summary>
+        public static string NormalDistribution_Mean_DisplayName {
+            get {
+                return ResourceManager.GetString("NormalDistribution_Mean_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De standaardafwijking van de normale verdeling..
+        /// </summary>
+        public static string NormalDistribution_StandardDeviation_Description {
+            get {
+                return ResourceManager.GetString("NormalDistribution_StandardDeviation_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standaardafwijking.
+        /// </summary>
+        public static string NormalDistribution_StandardDeviation_DisplayName {
+            get {
+                return ResourceManager.GetString("NormalDistribution_StandardDeviation_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap OutputFolderIcon {

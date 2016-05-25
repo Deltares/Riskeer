@@ -27,9 +27,9 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
-using Ringtoets.GrassCoverErosionInwards.Forms.TypeConverters;
 using Ringtoets.GrassCoverErosionInwards.Forms.UITypeEditors;
 using Ringtoets.HydraRing.Data;
 

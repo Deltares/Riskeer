@@ -68,7 +68,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="PropertyClasses\DistributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\BreakWaterPropertiesTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionInwardsCalculationContextTest.cs" />
@@ -82,8 +81,6 @@
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsCalculationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsOutputPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\LogNormalDistributionPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\ReadOnlyNormalDistributionPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ProbabilisticOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyProbabilisticOutputTreeNodeInfoTest.cs" />

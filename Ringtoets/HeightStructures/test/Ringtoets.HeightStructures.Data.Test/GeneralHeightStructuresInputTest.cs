@@ -42,8 +42,8 @@ namespace Ringtoets.HeightStructures.Data.Test
                 Mean = new RoundedDouble(3, 0.09),
                 StandardDeviation = new RoundedDouble(3, 0.06)
             };
-            Assert.AreEqual(modelfactorOvertopping.Mean, inputParameters.ModelfactorOvertopping.Mean, 1e-6);
-            Assert.AreEqual(modelfactorOvertopping.StandardDeviation, inputParameters.ModelfactorOvertopping.StandardDeviation, 1e-6);
+            Assert.AreEqual(modelfactorOvertopping.Mean, inputParameters.ModelfactorOvertoppingFlow.Mean, 1e-6);
+            Assert.AreEqual(modelfactorOvertopping.StandardDeviation, inputParameters.ModelfactorOvertoppingFlow.StandardDeviation, 1e-6);
 
             var modelFactorForStorageVolume = new NormalDistribution(2)
             {

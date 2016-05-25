@@ -20,42 +20,58 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
+namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// A read-only <see cref="ObjectProperties{T}"/> implementation for <see cref="NormalDistribution"/>
+    /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="LognormalDistribution"/>
     /// properties.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class ReadOnlyNormalDistributionProperties : DistributionProperties
+    public class LogNormalDistributionProperties : DistributionProperties
     {
+        public LogNormalDistributionProperties(IObservable observerable)
+        {
+            Observerable = observerable;
+        }
+
         public override string DistributionType
         {
             get
             {
-                return "Normale verdeling";
+                return "Lognormaal";
             }
         }
 
-        [ReadOnly(true)]
+        [ResourcesDescription(typeof(Resources), "LognormalDistribution_Mean_Description")]
         public override RoundedDouble Mean
         {
             get
             {
                 return base.Mean;
             }
+            set
+            {
+                base.Mean = value;
+            }
         }
 
-        [ReadOnly(true)]
+        [ResourcesDescription(typeof(Resources), "LogNormalDistribution_StandardDeviation_Description")]
         public override RoundedDouble StandardDeviation
         {
             get
             {
                 return base.StandardDeviation;
+            }
+            set
+            {
+                base.StandardDeviation = value;
             }
         }
     }

@@ -307,13 +307,13 @@ namespace Ringtoets.HeightStructures.Data
         }
 
         /// <summary>
-        /// Gets the model factor overtopping.
+        /// Gets the model factor overtopping flow.
         /// </summary>
-        public LognormalDistribution ModelfactorOvertopping
+        public LognormalDistribution ModelfactorOvertoppingFlow
         {
             get
             {
-                return generalInputParameters.ModelfactorOvertopping;
+                return generalInputParameters.ModelfactorOvertoppingFlow;
             }
         }
 

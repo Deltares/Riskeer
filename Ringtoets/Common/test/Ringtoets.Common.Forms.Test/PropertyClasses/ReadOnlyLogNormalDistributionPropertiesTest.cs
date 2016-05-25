@@ -23,52 +23,37 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
+using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
+namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class LogNormalDistributionPropertiesTest
+    public class ReadOnlyLogNormalDistributionPropertiesTest
     {
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
-
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var observerable = mockRepository.StrictMock<IObservable>();
-            mockRepository.ReplayAll();
-
             // Call
-            var properties = new LogNormalDistributionProperties(observerable);
+            var properties = new ReadOnlyLogNormalDistributionProperties();
 
             // Assert
-            Assert.IsInstanceOf<DistributionProperties>(properties);
+            Assert.IsInstanceOf<LogNormalDistributionProperties>(properties);
             Assert.IsNull(properties.Data);
             Assert.AreEqual("Lognormaal", properties.DistributionType);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void PropertyAttributes_ReturnExpectedValues()
         {
-            // Setup
-            var observerable = mockRepository.StrictMock<IObservable>();
-            mockRepository.ReplayAll();
-
             // Call
-            var properties = new LogNormalDistributionProperties(observerable);
+            var properties = new ReadOnlyLogNormalDistributionProperties
+            {
+                Data = new LognormalDistribution(1)
+            };
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
@@ -80,6 +65,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var meanAttributes = Attribute.GetCustomAttributes(properties.GetType().GetProperty("Mean"));
             Assert.IsNotNull(meanAttributes);
+            AssertAttributesOfType<ReadOnlyAttribute, bool>(meanAttributes, true, attribute => attribute.IsReadOnly);
             AssertAttributesOfType<ResourcesDisplayNameAttribute, string>(meanAttributes, "Verwachtingswaarde",
                                                                           attribute => attribute.DisplayName);
             AssertAttributesOfType<ResourcesDescriptionAttribute, string>(meanAttributes,
@@ -88,13 +74,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var standardAttributes = Attribute.GetCustomAttributes(properties.GetType().GetProperty("StandardDeviation"));
             Assert.IsNotNull(standardAttributes);
+            AssertAttributesOfType<ReadOnlyAttribute, bool>(standardAttributes, true, attribute => attribute.IsReadOnly);
             AssertAttributesOfType<ResourcesDisplayNameAttribute, string>(standardAttributes, "Standaardafwijking",
                                                                           attribute => attribute.DisplayName);
             AssertAttributesOfType<ResourcesDescriptionAttribute, string>(standardAttributes,
                                                                           "De standaardafwijking van de lognormale verdeling.",
                                                                           attribute => attribute.Description);
-
-            mockRepository.VerifyAll();
         }
 
         private static void AssertAttributesOfType<T, TR>(IEnumerable<Attribute> attributes, TR expectedValue,

@@ -27,9 +27,9 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
+namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class DistributionPropertiesTest

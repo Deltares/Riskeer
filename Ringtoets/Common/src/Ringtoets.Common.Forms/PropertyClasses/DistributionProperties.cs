@@ -26,9 +26,9 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
+using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
+namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// Property for probabilistic distribution.
