@@ -10,6 +10,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
@@ -65,6 +66,7 @@ namespace Demo.Ringtoets.Commands
             InitializeDemoFailureMechanismSections(demoAssessmentSection);
             InitializeDemoPipingData(demoAssessmentSection);
             InitializeGrassCoverErosionInwardsData(demoAssessmentSection);
+            InitializeHeightStructuresData(demoAssessmentSection);
             return demoAssessmentSection;
         }
 
@@ -147,6 +149,16 @@ namespace Demo.Ringtoets.Commands
             GrassCoverErosionInwardsFailureMechanism failureMechanism = demoAssessmentSection.GrassCoverErosionInwards;
 
             var calculation = new GrassCoverErosionInwardsCalculation(failureMechanism.GeneralInput, failureMechanism.NormProbabilityInput);
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+            calculation.InputParameters.NotifyObservers();
+        }
+
+        private void InitializeHeightStructuresData(AssessmentSection demoAssessmentSection)
+        {
+            HeightStructuresFailureMechanism failureMechanism = demoAssessmentSection.HeightStructures;
+
+            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput, failureMechanism.NormProbabilityInput);
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();

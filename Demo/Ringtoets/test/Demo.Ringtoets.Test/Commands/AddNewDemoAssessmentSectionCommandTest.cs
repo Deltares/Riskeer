@@ -12,6 +12,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
@@ -97,6 +98,14 @@ namespace Demo.Ringtoets.Test.Commands
                                                                                                            .OfType<GrassCoverErosionInwardsCalculation>()
                                                                                                            .First();
             AssertExpectedGrassCoverErosionInwardsInput(grassCoverErosionInwardsCalculation.InputParameters);
+
+            Assert.AreEqual(1, demoAssessmentSection.HeightStructures.CalculationsGroup.Children.Count);
+            HeightStructuresCalculation heightStructuresCalculation = demoAssessmentSection.HeightStructures
+                                                                                           .CalculationsGroup.GetCalculations()
+                                                                                           .OfType<HeightStructuresCalculation>()
+                                                                                           .First();
+            AssertExpectedHeightStructuresInput(heightStructuresCalculation.InputParameters);
+
             foreach (var failureMechanism in demoAssessmentSection.GetFailureMechanisms())
             {
                 Assert.AreEqual(283, failureMechanism.Sections.Count());
@@ -235,6 +244,11 @@ namespace Demo.Ringtoets.Test.Commands
         }
 
         private static void AssertExpectedGrassCoverErosionInwardsInput(GrassCoverErosionInwardsInput inputParameters)
+        {
+            Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
+        }
+
+        private static void AssertExpectedHeightStructuresInput(HeightStructuresInput inputParameters)
         {
             Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
         }

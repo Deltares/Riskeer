@@ -120,6 +120,10 @@
       <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+      <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
+      <Name>Ringtoets.HeightStructures.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>
