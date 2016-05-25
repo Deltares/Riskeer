@@ -81,8 +81,8 @@ namespace Ringtoets.Common.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="value"/> is not in the range [0,1]</item>
-        /// <item><paramref name="value"/> doesn't represent a value which can be parsed to a double value</item>
+        /// <item><paramref name="value"/> is not in the range [0,1].</item>
+        /// <item><paramref name="value"/> doesn't represent a value which can be parsed to a double value.</item>
         /// </list>
         /// </exception>
         public string AssessmentLayerTwoA

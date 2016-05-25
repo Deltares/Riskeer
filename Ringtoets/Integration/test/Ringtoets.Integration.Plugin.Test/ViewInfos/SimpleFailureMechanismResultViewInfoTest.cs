@@ -250,7 +250,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewMock = mocks.StrictMock<SimpleFailureMechanismResultView>();
-            var failureMechanismContext = mocks.StrictMultiMock<IFailureMechanismContext<IFailureMechanism>>();
+            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
             var failureMechanism = new Simple();
             viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
             failureMechanismContext.Expect(fm => fm.WrappedData).Return(failureMechanism);

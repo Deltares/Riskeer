@@ -24,9 +24,8 @@ using Core.Common.Base.Data;
 namespace Ringtoets.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// Class which represents results of different layers (1, 2a, 2b, 3) of results of the 
-    /// <see cref="FailureMechanismSection"/>. The result for a layer 2a assessment is an arbitrary 
-    /// numeric value.
+    /// Class which represents results of different layers (1, 2a, 2b, 3) of a <see cref="FailureMechanismSection"/>.
+    /// The result for a layer 2a assessment is an arbitrary numeric value.
     /// </summary>
     public class NumericFailureMechanismSectionResult: FailureMechanismSectionResult
     {

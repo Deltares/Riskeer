@@ -26,9 +26,8 @@ using Ringtoets.Common.Data.Properties;
 namespace Ringtoets.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// Class which represents results of different layers (1, 2a, 2b, 3) of results of the 
-    /// <see cref="FailureMechanismSection"/>. The result for a layer 2a assessment is an arbitrary 
-    /// probability.
+    /// Class which represents results of different layers (1, 2a, 2b, 3) of a <see cref="FailureMechanismSection"/>.
+    /// The result for a layer 2a assessment is an arbitrary probability.
     /// </summary>
     public class ArbitraryProbabilityFailureMechanismSectionResult : FailureMechanismSectionResult
     {
@@ -41,7 +40,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         public ArbitraryProbabilityFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
 
         /// <summary>
-        /// Gets the value of assessment layer two a.
+        /// Gets the probability value of assessment layer two a.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
         public RoundedDouble AssessmentLayerTwoA
