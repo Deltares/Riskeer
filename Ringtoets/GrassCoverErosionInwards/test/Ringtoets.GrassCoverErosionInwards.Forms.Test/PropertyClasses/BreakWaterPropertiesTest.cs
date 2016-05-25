@@ -20,17 +20,15 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using System.Globalization;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
@@ -77,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.IsFalse(properties.UseBreakWater);
             Assert.AreEqual(BreakWaterType.Caisson, properties.BreakWaterType);
-            Assert.AreEqual("0", properties.BreakWaterHeight);
+            Assert.AreEqual(0.0, properties.BreakWaterHeight.Value);
             mockRepository.VerifyAll();
         }
 
@@ -101,11 +99,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 Data = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock)
             };
 
-            const double newBreakWaterHeight = 9;
+            RoundedDouble newBreakWaterHeight = new RoundedDouble(2, 9);
             const BreakWaterType newBreakWaterType = BreakWaterType.Wall;
 
             // Call
-            properties.BreakWaterHeight = newBreakWaterHeight.ToString(CultureInfo.InvariantCulture);
+            properties.BreakWaterHeight = newBreakWaterHeight;
             properties.BreakWaterType = newBreakWaterType;
             properties.UseBreakWater = false;
 

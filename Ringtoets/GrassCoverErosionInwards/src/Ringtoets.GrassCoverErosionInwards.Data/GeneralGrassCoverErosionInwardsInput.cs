@@ -37,24 +37,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             CriticalOvertoppingModelFactor = 1.0;
             FbFactor = new NormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, 4.75),
-                StandardDeviation = new RoundedDouble(2, 0.5)
+                Mean = (RoundedDouble) 4.75,
+                StandardDeviation = (RoundedDouble) 0.5
             };
             FnFactor = new NormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, 2.6),
-                StandardDeviation = new RoundedDouble(2, 0.35)
+                Mean = (RoundedDouble) 2.6,
+                StandardDeviation = (RoundedDouble) 0.35
             };
             OvertoppingModelFactor = 1.0;
             FrunupModelFactor = new NormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, 1),
-                StandardDeviation = new RoundedDouble(2, 0.07)
+                Mean = (RoundedDouble) 1,
+                StandardDeviation = (RoundedDouble) 0.07
             };
             FshallowModelFactor = new NormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, 0.92),
-                StandardDeviation = new RoundedDouble(2, 0.24)
+                Mean = (RoundedDouble) 0.92,
+                StandardDeviation = (RoundedDouble) 0.24
             };
         }
 

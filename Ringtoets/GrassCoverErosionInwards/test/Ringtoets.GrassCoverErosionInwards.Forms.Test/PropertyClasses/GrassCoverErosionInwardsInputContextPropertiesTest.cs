@@ -20,14 +20,12 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -84,8 +82,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(dikeGeometryProperties.Coordinates, properties.DikeGeometry.Coordinates);
             Assert.AreEqual(dikeGeometryProperties.Roughness, properties.DikeGeometry.Roughness);
 
-            var dikeHeight = new RoundedDouble(2).Value.ToString(CultureInfo.InvariantCulture);
-            Assert.AreEqual(dikeHeight, properties.DikeHeight);
+            Assert.AreEqual(2, properties.DikeHeight.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.00, properties.DikeHeight.Value);
 
             var foreshoreProperties = new ForeshoreProperties
             {
@@ -94,8 +92,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(foreshoreProperties.UseForeshore, properties.Foreshore.UseForeshore);
             Assert.AreEqual(foreshoreProperties.NumberOfCoordinates, properties.Foreshore.NumberOfCoordinates);
 
-            var orientation = new RoundedDouble(2).Value.ToString(CultureInfo.InvariantCulture);
-            Assert.AreEqual(orientation, properties.Orientation);
+            Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.00, properties.Orientation.Value);
 
             var breakWaterProperties = new BreakWaterProperties
             {
@@ -137,8 +135,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var newOrientation = new RoundedDouble(2, 5);
 
             // Call
-            properties.DikeHeight = newDikeHeight.ToString();
-            properties.Orientation = newOrientation.Value.ToString(CultureInfo.InvariantCulture);
+            properties.DikeHeight = newDikeHeight;
+            properties.Orientation = newOrientation;
             properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             // Assert

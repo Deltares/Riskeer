@@ -225,7 +225,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // BreakWater
             Assert.IsNotNull(inputParameters.BreakWater);
-            Assert.AreEqual(10, inputParameters.BreakWater.Height);
+            Assert.AreEqual(10.0, inputParameters.BreakWater.Height.Value);
             Assert.AreEqual(BreakWaterType.Dam, inputParameters.BreakWater.Type);
             Assert.IsTrue(inputParameters.UseBreakWater);
 

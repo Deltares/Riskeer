@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
-using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -67,15 +66,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "DikeHeight_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DikeHeight_Description")]
-        public string DikeHeight
+        public RoundedDouble DikeHeight
         {
             get
             {
-                return new RoundedDouble(2, data.WrappedData.DikeHeight).Value.ToString(CultureInfo.InvariantCulture);
+                return data.WrappedData.DikeHeight;
             }
             set
             {
-                data.WrappedData.DikeHeight = new RoundedDouble(2, double.Parse(value));
+                data.WrappedData.DikeHeight = value;
                 data.WrappedData.NotifyObservers();
             }
         }
@@ -99,15 +98,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "Orientation_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Orientation_Description")]
-        public string Orientation
+        public RoundedDouble Orientation
         {
             get
             {
-                return new RoundedDouble(2, data.WrappedData.Orientation).Value.ToString(CultureInfo.InvariantCulture);
+                return data.WrappedData.Orientation;
             }
             set
             {
-                data.WrappedData.Orientation = new RoundedDouble(2, double.Parse(value));
+                data.WrappedData.Orientation = value;
                 data.WrappedData.NotifyObservers();
             }
         }

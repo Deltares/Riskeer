@@ -61,56 +61,54 @@ namespace Ringtoets.HeightStructures.Data
 
             levelOfCrestOfStructure = new NormalDistribution(2)
             {
-                Mean = new RoundedDouble(2),
-                StandardDeviation = new RoundedDouble(2, 0.05)
+                StandardDeviation = (RoundedDouble) 0.05
             };
 
             orientationOfTheNormalOfTheStructure = new RoundedDouble(2);
 
             modelFactorOvertoppingSuperCriticalFlow = new NormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, 1.1),
-                StandardDeviation = new RoundedDouble(2, 0.03)
+                Mean = (RoundedDouble) 1.1,
+                StandardDeviation = (RoundedDouble) 0.03
             };
 
             allowableIncreaseOfLevelForStorage = new LognormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, double.NaN),
-                StandardDeviation = new RoundedDouble(2, 0.1)
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.1
             };
 
             storageStructureArea = new LognormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, double.NaN),
-                StandardDeviation = new RoundedDouble(2, 0.1)
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.1
             };
 
             flowWidthAtBottomProtection = new LognormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, double.NaN),
-                StandardDeviation = new RoundedDouble(2, 0.05)
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.05
             };
 
             criticalOvertoppingDischarge = new LognormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, double.NaN),
-                StandardDeviation = new RoundedDouble(2, 0.15)
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.15
             };
 
             failureProbabilityOfStructureGivenErosion = new RoundedDouble(2);
 
             widthOfFlowApertures = new NormalDistribution(2)
             {
-                Mean = new RoundedDouble(2),
-                StandardDeviation = new RoundedDouble(2, 0.05)
+                StandardDeviation = (RoundedDouble) 0.05
             };
 
             deviationOfTheWaveDirection = new RoundedDouble(2);
 
             stormDuration = new LognormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, 7.5),
-                StandardDeviation = new RoundedDouble(2, 0.25)
+                Mean = (RoundedDouble) 7.5,
+                StandardDeviation = (RoundedDouble) 0.25
             };
         }
 
@@ -127,7 +125,7 @@ namespace Ringtoets.HeightStructures.Data
             }
             set
             {
-                modelFactorOvertoppingSuperCriticalFlow.Mean = value.Mean.ToPrecision(modelFactorOvertoppingSuperCriticalFlow.Mean.NumberOfDecimalPlaces);
+                modelFactorOvertoppingSuperCriticalFlow.Mean = value.Mean;
             }
         }
 
@@ -166,7 +164,7 @@ namespace Ringtoets.HeightStructures.Data
             }
             set
             {
-                stormDuration.Mean = value.Mean.ToPrecision(stormDuration.Mean.NumberOfDecimalPlaces);
+                stormDuration.Mean = value.Mean;
             }
         }
 
@@ -185,8 +183,8 @@ namespace Ringtoets.HeightStructures.Data
             }
             set
             {
-                levelOfCrestOfStructure.Mean = value.Mean.ToPrecision(levelOfCrestOfStructure.Mean.NumberOfDecimalPlaces);
-                levelOfCrestOfStructure.StandardDeviation = value.StandardDeviation.ToPrecision(levelOfCrestOfStructure.StandardDeviation.NumberOfDecimalPlaces);
+                levelOfCrestOfStructure.Mean = value.Mean;
+                levelOfCrestOfStructure.StandardDeviation = value.StandardDeviation;
             }
         }
 
@@ -216,8 +214,8 @@ namespace Ringtoets.HeightStructures.Data
             }
             set
             {
-                allowableIncreaseOfLevelForStorage.Mean = value.Mean.ToPrecision(allowableIncreaseOfLevelForStorage.Mean.NumberOfDecimalPlaces);
-                allowableIncreaseOfLevelForStorage.StandardDeviation = value.StandardDeviation.ToPrecision(allowableIncreaseOfLevelForStorage.StandardDeviation.NumberOfDecimalPlaces);
+                allowableIncreaseOfLevelForStorage.Mean = value.Mean;
+                allowableIncreaseOfLevelForStorage.StandardDeviation = value.StandardDeviation;
             }
         }
 
@@ -232,8 +230,8 @@ namespace Ringtoets.HeightStructures.Data
             }
             set
             {
-                storageStructureArea.Mean = value.Mean.ToPrecision(storageStructureArea.Mean.NumberOfDecimalPlaces);
-                storageStructureArea.StandardDeviation = value.StandardDeviation.ToPrecision(storageStructureArea.StandardDeviation.NumberOfDecimalPlaces);
+                storageStructureArea.Mean = value.Mean;
+                storageStructureArea.StandardDeviation = value.StandardDeviation;
             }
         }
 
@@ -248,8 +246,8 @@ namespace Ringtoets.HeightStructures.Data
             }
             set
             {
-                flowWidthAtBottomProtection.Mean = value.Mean.ToPrecision(flowWidthAtBottomProtection.Mean.NumberOfDecimalPlaces);
-                flowWidthAtBottomProtection.StandardDeviation = value.StandardDeviation.ToPrecision(flowWidthAtBottomProtection.StandardDeviation.NumberOfDecimalPlaces);
+                flowWidthAtBottomProtection.Mean = value.Mean;
+                flowWidthAtBottomProtection.StandardDeviation = value.StandardDeviation;
             }
         }
 
@@ -264,8 +262,8 @@ namespace Ringtoets.HeightStructures.Data
             }
             set
             {
-                criticalOvertoppingDischarge.Mean = value.Mean.ToPrecision(criticalOvertoppingDischarge.Mean.NumberOfDecimalPlaces);
-                criticalOvertoppingDischarge.StandardDeviation = value.StandardDeviation.ToPrecision(criticalOvertoppingDischarge.StandardDeviation.NumberOfDecimalPlaces);
+                criticalOvertoppingDischarge.Mean = value.Mean;
+                criticalOvertoppingDischarge.StandardDeviation = value.StandardDeviation;
             }
         }
 
@@ -280,7 +278,8 @@ namespace Ringtoets.HeightStructures.Data
             }
             set
             {
-                failureProbabilityOfStructureGivenErosion = value.ToPrecision(failureProbabilityOfStructureGivenErosion.NumberOfDecimalPlaces);
+                failureProbabilityOfStructureGivenErosion = value.ToPrecision(
+                    failureProbabilityOfStructureGivenErosion.NumberOfDecimalPlaces);
             }
         }
 
@@ -295,8 +294,8 @@ namespace Ringtoets.HeightStructures.Data
             }
             set
             {
-                widthOfFlowApertures.Mean = value.Mean.ToPrecision(widthOfFlowApertures.Mean.NumberOfDecimalPlaces);
-                widthOfFlowApertures.StandardDeviation = value.StandardDeviation.ToPrecision(widthOfFlowApertures.StandardDeviation.NumberOfDecimalPlaces);
+                widthOfFlowApertures.Mean = value.Mean;
+                widthOfFlowApertures.StandardDeviation = value.StandardDeviation;
             }
         }
 

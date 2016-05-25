@@ -38,14 +38,14 @@ namespace Ringtoets.HeightStructures.Data
 
             ModelFactorOvertoppingFlow = new LognormalDistribution(3)
             {
-                Mean = new RoundedDouble(3, 0.09),
-                StandardDeviation = new RoundedDouble(3, 0.06)
+                Mean = (RoundedDouble) 0.09,
+                StandardDeviation = (RoundedDouble) 0.06
             };
 
             ModelFactorForStorageVolume = new LognormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, 1),
-                StandardDeviation = new RoundedDouble(2, 0.2)
+                Mean = (RoundedDouble) 1,
+                StandardDeviation = (RoundedDouble) 0.2
             };
 
             ModelFactorForIncomingFlowVolume = new RoundedDouble(2, 1);

@@ -24,7 +24,6 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 
@@ -110,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             // BreakWater
             InputParameters.BreakWater.Type = BreakWaterType.Dam;
-            InputParameters.BreakWater.Height = 10;
+            InputParameters.BreakWater.Height = (RoundedDouble) 10;
             InputParameters.UseBreakWater = true;
 
             // Orientation

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
 using NUnit.Framework;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
@@ -31,14 +32,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             BreakWaterType type = BreakWaterType.Caisson;
-            double height = 100.1;
+            const double height = 100.1;
 
             // Call
             BreakWater breakWater = new BreakWater(type, height);
 
             // Assert
             Assert.AreEqual(type, breakWater.Type);
-            Assert.AreEqual(height, breakWater.Height);
+            Assert.AreEqual(height, breakWater.Height, 1e-6);
+            Assert.AreEqual(2, breakWater.Height.NumberOfDecimalPlaces);
         }
 
         [Test]
@@ -48,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             BreakWaterType type = BreakWaterType.Caisson;
-            double height = 100.1;
+            const double height = 100.1;
             BreakWater breakWater = new BreakWater(type, height);
 
             // Call
@@ -63,14 +65,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             BreakWaterType type = BreakWaterType.Caisson;
-            double height = 100.1;
+            const double height = 100.10;
             BreakWater breakWater = new BreakWater(type, height);
 
             // Call
-            breakWater.Height = 10;
+            breakWater.Height = (RoundedDouble) 10.00;
 
             // Assert
-            Assert.AreEqual(10, breakWater.Height);
+            Assert.AreEqual(10.0, breakWater.Height.Value);
         }
     }
 }

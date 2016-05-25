@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -74,15 +73,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [PropertyOrder(3)]
         [ResourcesDisplayName(typeof(Resources), "BreakWaterHeight_DisplayName")]
         [ResourcesDescription(typeof(Resources), "BreakWaterHeight_Description")]
-        public string BreakWaterHeight
+        public RoundedDouble BreakWaterHeight
         {
             get
             {
-                return new RoundedDouble(2, data.WrappedData.BreakWater.Height).Value.ToString(CultureInfo.CurrentCulture);
+                return data.WrappedData.BreakWater.Height;
             }
             set
             {
-                data.WrappedData.BreakWater.Height = new RoundedDouble(2, double.Parse(value)).Value;
+                data.WrappedData.BreakWater.Height = value;
                 data.WrappedData.NotifyObservers();
             }
         }

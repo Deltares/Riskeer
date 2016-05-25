@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
+
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
     /// <summary>
@@ -26,6 +28,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// </summary>
     public class BreakWater
     {
+        private RoundedDouble height;
+
         /// <summary>
         /// Creates a new instance of <see cref="BreakWater"/>.
         /// </summary>
@@ -34,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public BreakWater(BreakWaterType type, double height)
         {
             Type = type;
-            Height = height;
+            this.height = new RoundedDouble(2, height);
         }
 
         /// <summary>
@@ -45,6 +49,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets or sets the height.
         /// </summary>
-        public double Height { get; set; }
+        public RoundedDouble Height
+        {
+            get
+            {
+                return height;
+            }
+            set
+            {
+                height = value.ToPrecision(height.NumberOfDecimalPlaces);
+            }
+        }
     }
 }
