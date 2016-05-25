@@ -22,9 +22,9 @@
 namespace Ringtoets.HydraRing.Calculation.Data
 {
     /// <summary>
-    /// Container for Hydra-Ring variable related data.
+    /// Class for Hydra-Ring variable related data.
     /// </summary>
-    public abstract class HydraRingVariable
+    public class HydraRingVariable
     {
         private readonly int variableId;
         private readonly HydraRingDistributionType distributionType;
@@ -44,7 +44,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
         /// <param name="mean">The mean value in case the variable is random.</param>
         /// <param name="variability">The variability in case the variable is random.</param>
         /// <param name="shift">The shift in case the variable is random.</param>
-        protected HydraRingVariable(int variableId, HydraRingDistributionType distributionType, double value, HydraRingDeviationType deviationType, double mean, double variability, double shift)
+        public HydraRingVariable(int variableId, HydraRingDistributionType distributionType, double value, HydraRingDeviationType deviationType, double mean, double variability, double shift)
         {
             this.variableId = variableId;
             this.distributionType = distributionType;

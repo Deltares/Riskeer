@@ -68,13 +68,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         {
             get
             {
-                yield return new AssessmentLevelVariable();
+                // Assessment level
+                yield return new HydraRingVariable(26, HydraRingDistributionType.Deterministic, 0,
+                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
             }
-        }
-
-        private class AssessmentLevelVariable : HydraRingVariable
-        {
-            public AssessmentLevelVariable() : base(26, HydraRingDistributionType.Deterministic, 0, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN) {}
         }
     }
 }

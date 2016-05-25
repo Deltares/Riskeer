@@ -160,116 +160,81 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         {
             get
             {
-                yield return new OvertoppingGravitationalAcceleration(gravitationalAcceleration);
-                yield return new OvertoppingModelFactorOvertopping(modelFactorOvertoppingMean, modelFactorOvertoppingStandardDeviation);
-                yield return new OvertoppingLevelOfCrestOfStructure(levelOfCrestOfStructureMean, levelOfCrestOfStructureStandardDeviation);
-                yield return new OvertoppingOrientationOfTheNormalOfTheStructure(structureNormalOrientation);
-                yield return new OvertoppingModelFactorOvertoppingSupercriticalFlow(modelFactorOvertoppingSupercriticalFlowMean, modelFactorOvertoppingSupercriticalFlowStandardDeviation);
-                yield return new OvertoppingAllowableIncreaseOfLevelForStorage(allowableIncreaseOfLevelForStorageMean, allowableIncreaseOfLevelForStorageStandardDeviation);
-                yield return new OvertoppingModelFactorForStorageVolume(modelFactorForStorageVolumeMean, modelFactorForStorageVolumeStandardDeviation);
-                yield return new OvertoppingStorageStructureArea(storageStructureAreaMean, storageStructureAreaVariation);
-                yield return new OvertoppingModelFactorForIncomingFlowVolume(modelFactorForIncomingFlowVolume);
-                yield return new OvertoppingFlowWidthAtBottomProtection(flowWidthAtBottomProtectionMean, flowWidthAtBottomProtectionStandardDeviation);
-                yield return new OvertoppingCriticalOvertoppingDischarge(criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation);
-                yield return new OvertoppingFailureProbabilityOfStructureGivenErosion(failureProbabilityOfStructureGivenErosion);
-                yield return new OvertoppingWidthOfFlowApertures(widthOfFlowAperturesMean, widthOfFlowAperturesVariation);
-                yield return new OvertoppingDeviationOfTheWaveDirection(deviationOfTheWaveDirection);
-                yield return new OvertoppingStormDuration(stormDurationMean, stormDurationVariation);
+                return GetHydraRingVariables();
             }
         }
 
-        #region Overtopping Variables
-
-        private class OvertoppingGravitationalAcceleration : HydraRingVariable
+        private IEnumerable<HydraRingVariable> GetHydraRingVariables()
         {
-            public OvertoppingGravitationalAcceleration(double acceleration) :
-                base(58, HydraRingDistributionType.Deterministic, acceleration, HydraRingDeviationType.Variation, double.NaN, double.NaN, double.NaN) {}
-        }
+            // Gravitational acceleration
+            yield return new HydraRingVariable(58, HydraRingDistributionType.Deterministic, gravitationalAcceleration,
+                                               HydraRingDeviationType.Variation, double.NaN, double.NaN, double.NaN);
 
-        private class OvertoppingModelFactorOvertopping : HydraRingVariable
-        {
-            public OvertoppingModelFactorOvertopping(double mean, double standardDeviation) :
-                base(59, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Standard, mean, standardDeviation, double.NaN) {}
-        }
+            // Model factor overtopping
+            yield return new HydraRingVariable(59, HydraRingDistributionType.LogNormal, double.NaN,
+                                               HydraRingDeviationType.Standard, modelFactorOvertoppingMean,
+                                               modelFactorOvertoppingStandardDeviation, double.NaN);
 
-        private class OvertoppingLevelOfCrestOfStructure : HydraRingVariable
-        {
-            public OvertoppingLevelOfCrestOfStructure(double mean, double standardDeviation) :
-                base(60, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, mean, standardDeviation, double.NaN) {}
-        }
+            // Level of crest of structure
+            yield return new HydraRingVariable(60, HydraRingDistributionType.Normal, double.NaN,
+                                               HydraRingDeviationType.Standard, levelOfCrestOfStructureMean,
+                                               levelOfCrestOfStructureStandardDeviation, double.NaN);
 
-        private class OvertoppingOrientationOfTheNormalOfTheStructure : HydraRingVariable
-        {
-            public OvertoppingOrientationOfTheNormalOfTheStructure(double orientation) :
-                base(61, HydraRingDistributionType.Deterministic, orientation, HydraRingDeviationType.Variation, double.NaN, double.NaN, double.NaN) {}
-        }
+            // Orientation of the normal of the structure
+            yield return new HydraRingVariable(61, HydraRingDistributionType.Deterministic, structureNormalOrientation,
+                                               HydraRingDeviationType.Variation, double.NaN, double.NaN, double.NaN);
 
-        private class OvertoppingModelFactorOvertoppingSupercriticalFlow : HydraRingVariable
-        {
-            public OvertoppingModelFactorOvertoppingSupercriticalFlow(double mean, double standardDeviation) :
-                base(62, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, mean, standardDeviation, double.NaN) {}
-        }
+            // Model factor overtopping supercritical flow
+            yield return new HydraRingVariable(62, HydraRingDistributionType.Normal, double.NaN,
+                                               HydraRingDeviationType.Standard, modelFactorOvertoppingSupercriticalFlowMean,
+                                               modelFactorOvertoppingSupercriticalFlowStandardDeviation, double.NaN);
 
-        private class OvertoppingAllowableIncreaseOfLevelForStorage : HydraRingVariable
-        {
-            public OvertoppingAllowableIncreaseOfLevelForStorage(double mean, double standardDeviation) :
-                base(94, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Standard, mean, standardDeviation, double.NaN) {}
-        }
+            // Allowable increase of level for storage
+            yield return new HydraRingVariable(94, HydraRingDistributionType.LogNormal, double.NaN,
+                                               HydraRingDeviationType.Standard, allowableIncreaseOfLevelForStorageMean,
+                                               allowableIncreaseOfLevelForStorageStandardDeviation, double.NaN);
 
-        private class OvertoppingModelFactorForStorageVolume : HydraRingVariable
-        {
-            public OvertoppingModelFactorForStorageVolume(double mean, double standardDeviation) :
-                base(95, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Standard, mean, standardDeviation, double.NaN) {}
-        }
+            // Model factor for storage volume
+            yield return new HydraRingVariable(95, HydraRingDistributionType.LogNormal, double.NaN,
+                                               HydraRingDeviationType.Standard, modelFactorForStorageVolumeMean,
+                                               modelFactorForStorageVolumeStandardDeviation, double.NaN);
 
-        private class OvertoppingStorageStructureArea : HydraRingVariable
-        {
-            public OvertoppingStorageStructureArea(double mean, double variation) :
-                base(96, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Variation, mean, variation, double.NaN) {}
-        }
+            // Storage structure area
+            yield return new HydraRingVariable(96, HydraRingDistributionType.LogNormal, double.NaN,
+                                               HydraRingDeviationType.Variation, storageStructureAreaMean,
+                                               storageStructureAreaVariation, double.NaN);
 
-        private class OvertoppingModelFactorForIncomingFlowVolume : HydraRingVariable
-        {
-            public OvertoppingModelFactorForIncomingFlowVolume(double modelFactor) :
-                base(97, HydraRingDistributionType.Deterministic, modelFactor, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN) {}
-        }
+            // Model factor for incoming flow volume
+            yield return new HydraRingVariable(97, HydraRingDistributionType.Deterministic, modelFactorForIncomingFlowVolume,
+                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
 
-        private class OvertoppingFlowWidthAtBottomProtection : HydraRingVariable
-        {
-            public OvertoppingFlowWidthAtBottomProtection(double mean, double standardDeviation) :
-                base(103, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, mean, standardDeviation, double.NaN) {}
-        }
+            // Flow width at bottom protection
+            yield return new HydraRingVariable(103, HydraRingDistributionType.Normal, double.NaN,
+                                               HydraRingDeviationType.Standard, flowWidthAtBottomProtectionMean,
+                                               flowWidthAtBottomProtectionStandardDeviation, double.NaN);
 
-        private class OvertoppingCriticalOvertoppingDischarge : HydraRingVariable
-        {
-            public OvertoppingCriticalOvertoppingDischarge(double mean, double variation) :
-                base(104, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Variation, mean, variation, double.NaN) {}
-        }
+            // Critical overtopping discharge
+            yield return new HydraRingVariable(104, HydraRingDistributionType.LogNormal, double.NaN,
+                                               HydraRingDeviationType.Variation, criticalOvertoppingDischargeMean,
+                                               criticalOvertoppingDischargeVariation, double.NaN);
 
-        private class OvertoppingFailureProbabilityOfStructureGivenErosion : HydraRingVariable
-        {
-            public OvertoppingFailureProbabilityOfStructureGivenErosion(double failureProbability) :
-                base(105, HydraRingDistributionType.Deterministic, failureProbability, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN) {}
-        }
+            // Failure probability of structure given erosion
+            yield return new HydraRingVariable(105, HydraRingDistributionType.Deterministic, failureProbabilityOfStructureGivenErosion,
+                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
 
-        private class OvertoppingWidthOfFlowApertures : HydraRingVariable
-        {
-            public OvertoppingWidthOfFlowApertures(double mean, double standardDeviation) :
-                base(106, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Variation, mean, standardDeviation, double.NaN) {}
-        }
+            // Width of flow apertures
+            yield return new HydraRingVariable(106, HydraRingDistributionType.Normal, double.NaN,
+                                               HydraRingDeviationType.Variation, widthOfFlowAperturesMean,
+                                               widthOfFlowAperturesVariation, double.NaN);
 
-        private class OvertoppingDeviationOfTheWaveDirection : HydraRingVariable
-        {
-            public OvertoppingDeviationOfTheWaveDirection(double deviation) :
-                base(107, HydraRingDistributionType.Deterministic, deviation, HydraRingDeviationType.Variation, double.NaN, double.NaN, double.NaN) {}
-        }
+            // Deviation of the wave direction
+            yield return new HydraRingVariable(107, HydraRingDistributionType.Deterministic, deviationOfTheWaveDirection,
+                                               HydraRingDeviationType.Variation, double.NaN, double.NaN, double.NaN);
 
-        private class OvertoppingStormDuration : HydraRingVariable
-        {
-            public OvertoppingStormDuration(double mean, double variation) :
-                base(108, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Variation, mean, variation, double.NaN) {}
+            // Storm duration
+            yield return new HydraRingVariable(108, HydraRingDistributionType.LogNormal, double.NaN,
+                                               HydraRingDeviationType.Variation, stormDurationMean,
+                                               stormDurationVariation, double.NaN);
         }
-
-        #endregion
     }
 }

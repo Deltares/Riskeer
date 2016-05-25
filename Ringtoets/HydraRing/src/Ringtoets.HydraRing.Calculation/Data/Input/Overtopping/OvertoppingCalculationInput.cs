@@ -153,14 +153,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
         {
             get
             {
-                yield return new OvertoppingVariableDikeHeight(dikeHeight);
-                yield return new OvertoppingVariableModelFactorCriticalOvertopping(modelFactorCriticalOvertopping);
-                yield return new OvertoppingVariableFactorFb(factorFbMean, factorFbStandardDeviation);
-                yield return new OvertoppingVariableFactorFn(factorFnMean, factorFnStandardDeviation);
-                yield return new OvertoppingVariableModelFactorOvertopping(modelFactorOvertopping);
-                yield return new OvertoppingVariableCriticalOvertopping(criticalOvertoppingMean, criticalOvertoppingStandardDeviation);
-                yield return new OvertoppingVariableModelFactorFrunup(modelFactorFrunupMean, modelFactorFrunupStandardDeviation);
-                yield return new OvertoppingVariableExponentModelFactorShallow(exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation);
+                return GetHydraRingVariables();
             }
         }
 
@@ -177,43 +170,44 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
             }
         }
 
-        #region Overtopping Variables
-
-        private class OvertoppingVariableDikeHeight : HydraRingVariable
+        private IEnumerable<HydraRingVariable> GetHydraRingVariables()
         {
-            public OvertoppingVariableDikeHeight(double dikeHeight) : base(1, HydraRingDistributionType.Deterministic, dikeHeight, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN) {}
-        }
+            // DikeHeight
+            yield return new HydraRingVariable(1, HydraRingDistributionType.Deterministic, dikeHeight,
+                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
 
-        private class OvertoppingVariableModelFactorCriticalOvertopping : HydraRingVariable
-        {
-            public OvertoppingVariableModelFactorCriticalOvertopping(double modelFactorCriticalOvertoppingValue) : base(8, HydraRingDistributionType.Deterministic, modelFactorCriticalOvertoppingValue, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN) {}
-        }
+            // Model factor critical overtopping
+            yield return new HydraRingVariable(8, HydraRingDistributionType.Deterministic, modelFactorCriticalOvertopping,
+                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
 
-        private class OvertoppingVariableFactorFb : HydraRingVariable
-        {
-            public OvertoppingVariableFactorFb(double mean, double standardDeviation) : base(10, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, mean, standardDeviation, double.NaN) {}
-        }
+            // Factor Fb
+            yield return new HydraRingVariable(10, HydraRingDistributionType.Normal, double.NaN,
+                                               HydraRingDeviationType.Standard, factorFbMean, factorFbStandardDeviation,
+                                               double.NaN);
 
-        private class OvertoppingVariableFactorFn : HydraRingVariable
-        {
-            public OvertoppingVariableFactorFn(double mean, double standardDeviation) : base(11, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, mean, standardDeviation, double.NaN) {}
-        }
+            // Factor Fn
+            yield return new HydraRingVariable(11, HydraRingDistributionType.Normal, double.NaN,
+                                               HydraRingDeviationType.Standard, factorFnMean, factorFnStandardDeviation,
+                                               double.NaN);
 
-        private class OvertoppingVariableModelFactorOvertopping : HydraRingVariable
-        {
-            public OvertoppingVariableModelFactorOvertopping(double modelFactorOvertoppingValue) : base(12, HydraRingDistributionType.Deterministic, modelFactorOvertoppingValue, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN) {}
-        }
+            // Model factor overtopping
+            yield return new HydraRingVariable(12, HydraRingDistributionType.Deterministic, modelFactorOvertopping,
+                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
 
-        private class OvertoppingVariableModelFactorFrunup : HydraRingVariable
-        {
-            public OvertoppingVariableModelFactorFrunup(double mean, double standardDeviation) : base(120, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Variation, mean, standardDeviation, double.NaN) {}
-        }
+            // Critical overtopping
+            yield return new HydraRingVariable(17, HydraRingDistributionType.LogNormal, double.NaN,
+                                               HydraRingDeviationType.Standard, criticalOvertoppingMean,
+                                               criticalOvertoppingStandardDeviation, double.NaN);
 
-        private class OvertoppingVariableExponentModelFactorShallow : HydraRingVariable
-        {
-            public OvertoppingVariableExponentModelFactorShallow(double mean, double standardDeviation) : base(123, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, mean, standardDeviation, double.NaN) {}
-        }
+            // Model factor Frunup
+            yield return new HydraRingVariable(120, HydraRingDistributionType.Normal, double.NaN,
+                                               HydraRingDeviationType.Variation, modelFactorFrunupMean,
+                                               modelFactorFrunupStandardDeviation, double.NaN);
 
-        #endregion
+            // Exponent model factor shallow
+            yield return new HydraRingVariable(123, HydraRingDistributionType.Normal, double.NaN,
+                                               HydraRingDeviationType.Standard, exponentModelFactorShallowMean,
+                                               exponentModelFactorShallowStandardDeviation, double.NaN);
+        }
     }
 }

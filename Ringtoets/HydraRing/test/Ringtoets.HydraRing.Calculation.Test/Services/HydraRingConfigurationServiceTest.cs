@@ -304,12 +304,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             {
                 get
                 {
-                    yield return new HydraRingVariableImplementation(26, HydraRingDistributionType.Deterministic, 2.2, HydraRingDeviationType.Standard, 3.3, 4.4, 5.5);
-                    yield return new HydraRingVariableImplementation(26, HydraRingDistributionType.Deterministic, 22.2, HydraRingDeviationType.Variation, 33.3, 44.4, 55.5);
-                    yield return new HydraRingVariableImplementation(26, HydraRingDistributionType.Normal, 222.2, HydraRingDeviationType.Standard, 333.3, 444.4, 555.5);
-                    yield return new HydraRingVariableImplementation(26, HydraRingDistributionType.Normal, 2222.2, HydraRingDeviationType.Variation, 3333.3, 4444.4, 5555.5);
-                    yield return new HydraRingVariableImplementation(26, HydraRingDistributionType.LogNormal, 22222.2, HydraRingDeviationType.Standard, 33333.3, 44444.4, 55555.5);
-                    yield return new HydraRingVariableImplementation(26, HydraRingDistributionType.LogNormal, 222222.2, HydraRingDeviationType.Variation, 333333.3, 444444.4, 555555.5);
+                    yield return new HydraRingVariable(26, HydraRingDistributionType.Deterministic, 2.2, HydraRingDeviationType.Standard, 3.3, 4.4, 5.5);
+                    yield return new HydraRingVariable(26, HydraRingDistributionType.Deterministic, 22.2, HydraRingDeviationType.Variation, 33.3, 44.4, 55.5);
+                    yield return new HydraRingVariable(26, HydraRingDistributionType.Normal, 222.2, HydraRingDeviationType.Standard, 333.3, 444.4, 555.5);
+                    yield return new HydraRingVariable(26, HydraRingDistributionType.Normal, 2222.2, HydraRingDeviationType.Variation, 3333.3, 4444.4, 5555.5);
+                    yield return new HydraRingVariable(26, HydraRingDistributionType.LogNormal, 22222.2, HydraRingDeviationType.Standard, 33333.3, 44444.4, 55555.5);
+                    yield return new HydraRingVariable(26, HydraRingDistributionType.LogNormal, 222222.2, HydraRingDeviationType.Variation, 333333.3, 444444.4, 555555.5);
                 }
             }
 
@@ -351,12 +351,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             {
                 return 1234;
             }
-        }
-
-        private class HydraRingVariableImplementation : HydraRingVariable
-        {
-            public HydraRingVariableImplementation(int variableId, HydraRingDistributionType distributionType, double value, HydraRingDeviationType deviationType, double mean, double variability, double shift)
-                : base(variableId, distributionType, value, deviationType, mean, variability, shift) {}
         }
 
         private class HydraRingProfilePointDerivative : HydraRingProfilePoint
