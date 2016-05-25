@@ -31,7 +31,7 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class StochasticSoilProfileCreateExtensionsTest
     {
         [Test]
-        public void Create_WithoutCollector_ThrowsArgumentNullException()
+        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
             var stochasticSoilProfile = new StochasticSoilProfile(40, SoilProfileType.SoilProfile1D, -1);
@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("collector", parameterName);
+            Assert.AreEqual("registry", parameterName);
         }
 
         [Test]
@@ -53,10 +53,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 SoilProfile = new TestPipingSoilProfile()
             };
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            var entity = stochasticSoilProfile.Create(collector);
+            var entity = stochasticSoilProfile.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -76,11 +76,11 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 SoilProfile = testPipingSoilProfile
             };
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            var firstEntity = firstStochasticSoilProfile.Create(collector);
-            var secondEntity = secondStochasticSoilProfile.Create(collector);
+            var firstEntity = firstStochasticSoilProfile.Create(registry);
+            var secondEntity = secondStochasticSoilProfile.Create(registry);
 
             // Assert
             Assert.AreSame(firstEntity.SoilProfileEntity, secondEntity.SoilProfileEntity);

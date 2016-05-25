@@ -34,14 +34,14 @@ namespace Application.Ringtoets.Storage.Create
         /// Creates a <see cref="FailureMechanismSectionEntity"/> based on the information of the <see cref="FailureMechanismSection"/>.
         /// </summary>
         /// <param name="section">The section to create a database entity for.</param>
-        /// <param name="collector">The object keeping track of create operations.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismSectionEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static FailureMechanismSectionEntity Create(this FailureMechanismSection section, PersistenceRegistry collector)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static FailureMechanismSectionEntity Create(this FailureMechanismSection section, PersistenceRegistry registry)
         {
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Create
 
             AddEntitiesForFailureMechanismSectionPoints(section, failureMechanismSectionEntity);
 
-            collector.Register(failureMechanismSectionEntity, section);
+            registry.Register(failureMechanismSectionEntity, section);
 
             return failureMechanismSectionEntity;
         }

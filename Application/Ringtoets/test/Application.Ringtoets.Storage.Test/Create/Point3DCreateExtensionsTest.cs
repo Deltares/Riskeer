@@ -31,31 +31,31 @@ using NUnit.Framework;
 namespace Application.Ringtoets.Storage.Test.Create
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLinePointCreateExtensionsTest
+    public class Point3DCreateExtensionsTest
     {
         [Test]
-        public void CreateSurfaceLinePoint_NoCollector_ThrowArgumentNullException()
+        public void CreateSurfaceLinePointEntity_NoCollector_ThrowArgumentNullException()
         {
             // Setup
             var geometryPoint = new Point3D(1.1, 2.2, 3.3);
 
             // Call
-            TestDelegate call = () => geometryPoint.CreateSurfaceLinePoint(null, 0);
+            TestDelegate call = () => geometryPoint.CreateSurfaceLinePointEntity(null, 0);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
         }
 
         [Test]
-        public void CreateSurfaceLinePoint_ValidArguments_CreateSurfaceLinePointEntity()
+        public void CreateSurfaceLinePointEntity_ValidArguments_CreateSurfaceLinePointEntity()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
             var geometryPoint = new Point3D(2.3, 4.5, 6.7);
 
             // Call
             const int expectedOrder = 3;
-            SurfaceLinePointEntity entity = geometryPoint.CreateSurfaceLinePoint(collector, expectedOrder);
+            SurfaceLinePointEntity entity = geometryPoint.CreateSurfaceLinePointEntity(registry, expectedOrder);
 
             // Assert
             Assert.AreEqual(geometryPoint.X, entity.X);
@@ -71,18 +71,18 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateSurfaceLinePoint_ValidArguments_NewEntityIsRegisteredToCreateConversionCollector()
+        public void CreateSurfaceLinePointEntity_ValidArguments_NewEntityIsRegisteredToPersistenceRegistry()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
             var geometryPoint = new Point3D(2.3, 4.5, 6.7);
 
             // Call
             const int expectedOrder = 3;
-            SurfaceLinePointEntity entity = geometryPoint.CreateSurfaceLinePoint(collector, expectedOrder);
+            SurfaceLinePointEntity entity = geometryPoint.CreateSurfaceLinePointEntity(registry, expectedOrder);
 
             // Assert
-            SurfaceLinePointEntity retrievedEntity = collector.GetSurfaceLinePoint(geometryPoint);
+            SurfaceLinePointEntity retrievedEntity = registry.GetSurfaceLinePoint(geometryPoint);
             Assert.AreSame(entity, retrievedEntity);
         }
     }

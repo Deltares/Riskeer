@@ -42,52 +42,52 @@ namespace Application.Ringtoets.Storage.Update
         /// <see cref="AssessmentSection"/>.
         /// </summary>
         /// <param name="section">The section to update the database entity for.</param>
-        /// <param name="collector">The object keeping track of update operations.</param>
+        /// <param name="registry">The object keeping track of update operations.</param>
         /// <param name="context">The context to obtain the existing entity from.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="collector"/> is <c>null</c></item>
+        /// <item><paramref name="registry"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this AssessmentSection section, PersistenceRegistry collector, IRingtoetsEntities context)
+        internal static void Update(this AssessmentSection section, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
             {
                 throw new ArgumentNullException("context");
             }
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
 
-            var entity = GetSingleAssessmentSection(section, context);
+            AssessmentSectionEntity entity = GetCorrespondingAssessmentSectionEntity(section, context);
             entity.Name = section.Name;
             entity.Composition = (short) section.Composition;
 
-            UpdatePipingFailureMechanism(section, collector, context);
-            UpdateGrassCoverErosionInwardsFailureMechanism(section, collector, context);
-            UpdateHydraulicDatabase(section, entity, collector, context);
+            UpdatePipingFailureMechanism(section, registry, context);
+            UpdateGrassCoverErosionInwardsFailureMechanism(section, registry, context);
+            UpdateHydraulicDatabase(section, entity, registry, context);
             UpdateReferenceLine(section, entity, context);
-            UpdateStandAloneFailureMechanisms(section, collector, context);
+            UpdateStandAloneFailureMechanisms(section, registry, context);
 
-            collector.Register(entity, section);
+            registry.Register(entity, section);
         }
 
-        private static void UpdateStandAloneFailureMechanisms(AssessmentSection section, PersistenceRegistry collector, IRingtoetsEntities context)
+        private static void UpdateStandAloneFailureMechanisms(AssessmentSection section, PersistenceRegistry registry, IRingtoetsEntities context)
         {
-            section.MacrostabilityInwards.Update(collector, context);
-            section.StabilityStoneCover.Update(collector, context);
-            section.WaveImpactAsphaltCover.Update(collector, context);
-            section.GrassCoverErosionOutwards.Update(collector, context);
-            section.GrassCoverSlipOffOutwards.Update(collector, context);
-            section.HeightStructures.Update(collector, context);
-            section.ClosingStructure.Update(collector, context);
-            section.PipingStructure.Update(collector, context);
-            section.StrengthStabilityPointConstruction.Update(collector, context);
-            section.DuneErosion.Update(collector, context);
+            section.MacrostabilityInwards.Update(registry, context);
+            section.StabilityStoneCover.Update(registry, context);
+            section.WaveImpactAsphaltCover.Update(registry, context);
+            section.GrassCoverErosionOutwards.Update(registry, context);
+            section.GrassCoverSlipOffOutwards.Update(registry, context);
+            section.HeightStructures.Update(registry, context);
+            section.ClosingStructure.Update(registry, context);
+            section.PipingStructure.Update(registry, context);
+            section.StrengthStabilityPointConstruction.Update(registry, context);
+            section.DuneErosion.Update(registry, context);
         }
 
-        private static AssessmentSectionEntity GetSingleAssessmentSection(AssessmentSection section, IRingtoetsEntities context)
+        private static AssessmentSectionEntity GetCorrespondingAssessmentSectionEntity(AssessmentSection section, IRingtoetsEntities context)
         {
             try
             {
@@ -99,14 +99,14 @@ namespace Application.Ringtoets.Storage.Update
             }
         }
 
-        private static void UpdatePipingFailureMechanism(AssessmentSection section, PersistenceRegistry collector, IRingtoetsEntities context)
+        private static void UpdatePipingFailureMechanism(AssessmentSection section, PersistenceRegistry registry, IRingtoetsEntities context)
         {
-            section.PipingFailureMechanism.Update(collector, context);
+            section.PipingFailureMechanism.Update(registry, context);
         }
 
-        private static void UpdateGrassCoverErosionInwardsFailureMechanism(AssessmentSection section, PersistenceRegistry collector, IRingtoetsEntities context)
+        private static void UpdateGrassCoverErosionInwardsFailureMechanism(AssessmentSection section, PersistenceRegistry registry, IRingtoetsEntities context)
         {
-            section.GrassCoverErosionInwards.Update(collector, context);
+            section.GrassCoverErosionInwards.Update(registry, context);
         }
 
         private static void UpdateReferenceLine(AssessmentSection section, AssessmentSectionEntity entity, IRingtoetsEntities context)
@@ -130,7 +130,7 @@ namespace Application.Ringtoets.Storage.Update
             }
         }
 
-        private static void UpdateHydraulicDatabase(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry collector, IRingtoetsEntities context)
+        private static void UpdateHydraulicDatabase(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (section.HydraulicBoundaryDatabase != null)
             {
@@ -141,11 +141,11 @@ namespace Application.Ringtoets.Storage.Update
                 {
                     if (hydraulicBoundaryLocation.IsNew())
                     {
-                        entity.HydraulicLocationEntities.Add(hydraulicBoundaryLocation.Create(collector));
+                        entity.HydraulicLocationEntities.Add(hydraulicBoundaryLocation.Create(registry));
                     }
                     else
                     {
-                        hydraulicBoundaryLocation.Update(collector, context);
+                        hydraulicBoundaryLocation.Update(registry, context);
                     }
                 }
             }

@@ -40,43 +40,43 @@ namespace Application.Ringtoets.Storage.Update
         /// <see cref="Project"/>.
         /// </summary>
         /// <param name="project">The project to update the database entity for.</param>
-        /// <param name="collector">The object keeping track of update operations.</param>
+        /// <param name="registry">The object keeping track of update operations.</param>
         /// <param name="context">The context to obtain the existing entity from.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="collector"/> is <c>null</c></item>
+        /// <item><paramref name="registry"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this Project project, PersistenceRegistry collector, IRingtoetsEntities context)
+        internal static void Update(this Project project, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
             {
                 throw new ArgumentNullException("context");
             }
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
 
-            var entity = ReadSingleProject(project, context);
+            ProjectEntity entity = GetCorrespondingProjectEntity(project, context);
             entity.Description = project.Description;
 
             foreach (var result in project.Items.OfType<AssessmentSection>())
             {
                 if (result.IsNew())
                 {
-                    entity.AssessmentSectionEntities.Add(result.Create(collector));
+                    entity.AssessmentSectionEntities.Add(result.Create(registry));
                 }
                 else
                 {
-                    result.Update(collector, context);
+                    result.Update(registry, context);
                 }
             }
 
-            collector.Register(entity, project);
+            registry.Register(entity, project);
         }
 
-        private static ProjectEntity ReadSingleProject(Project project, IRingtoetsEntities context)
+        private static ProjectEntity GetCorrespondingProjectEntity(Project project, IRingtoetsEntities context)
         {
             try
             {

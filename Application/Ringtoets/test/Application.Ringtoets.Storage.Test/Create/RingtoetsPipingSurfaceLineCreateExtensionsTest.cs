@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Application.Ringtoets.Storage.Create;
@@ -37,7 +38,7 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class RingtoetsPipingSurfaceLineCreateExtensionsTest
     {
         [Test]
-        public void Create_CreateConversionCollectorIsNull_ThrowArgumentNullException()
+        public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
@@ -53,7 +54,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_SurfaceLineWithoutGeometry_ReturnSurfaceLineEntityWithoutAddingPointEntities()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = "Test",
@@ -61,7 +62,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             };
 
             // Call
-            SurfaceLineEntity entity = surfaceLine.Create(collector);
+            SurfaceLineEntity entity = surfaceLine.Create(registry);
 
             // Assert
             Assert.AreEqual(surfaceLine.Name, entity.Name);
@@ -78,7 +79,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_SurfaceLineWithGeometryWithoutCharacteristicPoints_ReturnSurfaceLineEntityWithPointEntities()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
             var geometry = new[]
             {
                 new Point3D(1.1, 2.2, 3.3),
@@ -93,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             surfaceLine.SetGeometry(geometry);
 
             // Call
-            SurfaceLineEntity entity = surfaceLine.Create(collector);
+            SurfaceLineEntity entity = surfaceLine.Create(registry);
 
             // Assert
             Assert.AreEqual(surfaceLine.Name, entity.Name);
@@ -122,7 +123,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_SurfaceLineWithAllData_ReturnSurfaceLineEntityWithPointEntitiesAndCharactersisticPointReferences()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
             var geometry = new[]
             {
                 new Point3D(1.1, 2.2, 3.3),
@@ -154,7 +155,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             surfaceLine.SetDitchPolderSideAt(geometry[ditchPolderIndex]);
 
             // Call
-            SurfaceLineEntity entity = surfaceLine.Create(collector);
+            SurfaceLineEntity entity = surfaceLine.Create(registry);
 
             // Assert
             Assert.AreEqual(surfaceLine.Name, entity.Name);
@@ -204,22 +205,82 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_SurfaceLine_RegisterNewEntityToCreateConversionCollector()
+        public void Create_SurfaceLineWithCharacteristicPointsOnSameGeometryPoint_ReturnSurfaceLineEntityWithPointEntitiesAndCharactersisticPointReferences()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
+            var geometry = new[]
+            {
+                new Point3D(1.1, 2.2, 3.3)
+            };
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Test",
+                ReferenceLineIntersectionWorldPoint = new Point2D(3.3, 4.4)
+            };
+            surfaceLine.SetGeometry(geometry);
+            surfaceLine.SetBottomDitchDikeSideAt(geometry[0]);
+            surfaceLine.SetBottomDitchPolderSideAt(geometry[0]);
+            surfaceLine.SetDikeToeAtPolderAt(geometry[0]);
+            surfaceLine.SetDikeToeAtRiverAt(geometry[0]);
+            surfaceLine.SetDitchDikeSideAt(geometry[0]);
+            surfaceLine.SetDitchPolderSideAt(geometry[0]);
+
+            // Call
+            SurfaceLineEntity entity = surfaceLine.Create(registry);
+
+            // Assert
+            Assert.AreEqual(surfaceLine.Name, entity.Name);
+            Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
+            Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
+
+            Assert.AreEqual(geometry.Length, entity.SurfaceLinePointEntities.Count);
+            SurfaceLinePointEntity[] pointEntities = entity.SurfaceLinePointEntities.ToArray();
+            for (int i = 0; i < geometry.Length; i++)
+            {
+                SurfaceLinePointEntity pointEntity = pointEntities[i];
+                Assert.AreEqual(i, pointEntity.Order);
+
+                Point3D expectedMatchingGeometryPoint = geometry[i];
+                Assert.AreEqual(expectedMatchingGeometryPoint.X, pointEntity.X);
+                Assert.AreEqual(expectedMatchingGeometryPoint.Y, pointEntity.Y);
+                Assert.AreEqual(expectedMatchingGeometryPoint.Z, pointEntity.Z);
+            }
+
+            SurfaceLinePointEntity characteristicGeometryPointEntity = pointEntities[0];
+            Assert.AreEqual(6, characteristicGeometryPointEntity.CharacteristicPointEntities.Count);
+            short[] characteristicPointTypeValues = characteristicGeometryPointEntity.CharacteristicPointEntities
+                                                                                     .Select(cpe => cpe.CharacteristicPointType)
+                                                                                     .ToArray();
+            CollectionAssert.Contains(characteristicPointTypeValues, (short)CharacteristicPointType.DikeToeAtRiver);
+            CollectionAssert.Contains(characteristicPointTypeValues, (short)CharacteristicPointType.DikeToeAtPolder);
+            CollectionAssert.Contains(characteristicPointTypeValues, (short)CharacteristicPointType.DitchDikeSide);
+            CollectionAssert.Contains(characteristicPointTypeValues, (short)CharacteristicPointType.BottomDitchDikeSide);
+            CollectionAssert.Contains(characteristicPointTypeValues, (short)CharacteristicPointType.BottomDitchPolderSide);
+            CollectionAssert.Contains(characteristicPointTypeValues, (short)CharacteristicPointType.DitchPolderSide);
+
+            Assert.AreEqual(0, entity.SurfaceLineEntityId);
+            Assert.AreEqual(0, entity.FailureMechanismEntityId);
+            Assert.IsNull(entity.FailureMechanismEntity);
+        }
+
+        [Test]
+        public void Create_SurfaceLine_RegisterNewEntityToPersistenceRegistry()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
             };
 
             // Call
-            SurfaceLineEntity entity = surfaceLine.Create(collector);
+            SurfaceLineEntity entity = surfaceLine.Create(registry);
 
             // Assert
             const long entityId = 125673543;
             entity.SurfaceLineEntityId = entityId;
-            collector.TransferIds();
+            registry.TransferIds();
             Assert.AreEqual(entityId, surfaceLine.StorageId);
         }
     }

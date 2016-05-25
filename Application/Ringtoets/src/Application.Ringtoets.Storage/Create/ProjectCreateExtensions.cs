@@ -36,14 +36,14 @@ namespace Application.Ringtoets.Storage.Create
         /// Creates a <see cref="ProjectEntity"/> based on the information of the <see cref="Project"/>.
         /// </summary>
         /// <param name="project">The project to create a database entity for.</param>
-        /// <param name="collector">The object keeping track of create operations.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="ProjectEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static ProjectEntity Create(this Project project, PersistenceRegistry collector)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static ProjectEntity Create(this Project project, PersistenceRegistry registry)
         {
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
 
             var entity = new ProjectEntity
@@ -51,17 +51,17 @@ namespace Application.Ringtoets.Storage.Create
                 Description = project.Description
             };
 
-            AddEntitiesForAssessmentSections(project, entity, collector);
+            AddEntitiesForAssessmentSections(project, entity, registry);
 
-            collector.Register(entity, project);
+            registry.Register(entity, project);
             return entity;
         }
 
-        private static void AddEntitiesForAssessmentSections(Project project, ProjectEntity entity, PersistenceRegistry collector)
+        private static void AddEntitiesForAssessmentSections(Project project, ProjectEntity entity, PersistenceRegistry registry)
         {
             foreach (var result in project.Items.OfType<AssessmentSection>())
             {
-                entity.AssessmentSectionEntities.Add(result.Create(collector));
+                entity.AssessmentSectionEntities.Add(result.Create(registry));
             }
         }
     }

@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("collector", paramName);
+            Assert.AreEqual("registry", paramName);
         }
 
         [Test]

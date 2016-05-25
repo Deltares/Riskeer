@@ -35,14 +35,14 @@ namespace Application.Ringtoets.Storage.Create
         /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="PipingFailureMechanism"/>.
         /// </summary>
         /// <param name="mechanism">The failure mechanism to create a database entity for.</param>
-        /// <param name="collector">The object keeping track of create operations.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static FailureMechanismEntity Create(this PipingFailureMechanism mechanism, PersistenceRegistry collector)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static FailureMechanismEntity Create(this PipingFailureMechanism mechanism, PersistenceRegistry registry)
         {
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
 
             var entity = new FailureMechanismEntity
@@ -51,27 +51,27 @@ namespace Application.Ringtoets.Storage.Create
                 IsRelevant = Convert.ToByte(mechanism.IsRelevant)
             };
 
-            AddEntitiesForStochasticSoilModels(mechanism, collector, entity);
-            AddEntitiesForSurfaceLines(mechanism, collector, entity);
-            mechanism.AddEntitiesForFailureMechanismSections(collector, entity);
+            AddEntitiesForStochasticSoilModels(mechanism, registry, entity);
+            AddEntitiesForSurfaceLines(mechanism, registry, entity);
+            mechanism.AddEntitiesForFailureMechanismSections(registry, entity);
 
-            collector.Register(entity, mechanism);
+            registry.Register(entity, mechanism);
             return entity;
         }
 
-        private static void AddEntitiesForStochasticSoilModels(PipingFailureMechanism mechanism, PersistenceRegistry collector, FailureMechanismEntity entity)
+        private static void AddEntitiesForStochasticSoilModels(PipingFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)
         {
             foreach (var stochasticSoilModel in mechanism.StochasticSoilModels)
             {
-                entity.StochasticSoilModelEntities.Add(stochasticSoilModel.Create(collector));
+                entity.StochasticSoilModelEntities.Add(stochasticSoilModel.Create(registry));
             }
         }
 
-        private static void AddEntitiesForSurfaceLines(PipingFailureMechanism mechanism, PersistenceRegistry collector, FailureMechanismEntity entity)
+        private static void AddEntitiesForSurfaceLines(PipingFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)
         {
             foreach (RingtoetsPipingSurfaceLine surfaceLine in mechanism.SurfaceLines)
             {
-                entity.SurfaceLineEntities.Add(surfaceLine.Create(collector));
+                entity.SurfaceLineEntities.Add(surfaceLine.Create(registry));
             }
         }
     }

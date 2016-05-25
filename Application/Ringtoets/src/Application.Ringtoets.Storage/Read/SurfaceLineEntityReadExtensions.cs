@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 
 using Application.Ringtoets.Storage.DbContext;
 
@@ -34,7 +35,7 @@ namespace Application.Ringtoets.Storage.Read
     /// This class defines extension methods for read operations for an <see cref="RingtoetsPipingSurfaceLine"/>
     /// based on the <see cref="SurfaceLineEntity"/>.
     /// </summary>
-    internal static class RingtoetsPipingSurfaceLineReadExtensions
+    internal static class SurfaceLineEntityReadExtensions
     {
         /// <summary>
         /// Read the <see cref="SurfaceLineEntity"/> and use the information to construct
@@ -60,27 +61,37 @@ namespace Application.Ringtoets.Storage.Read
                     Convert.ToDouble(entity.ReferenceLineIntersectionY))
             };
 
-            entity.ReadSurfaceLineGeometry(surfaceLine, collector);
-            entity.ReadCharacteristicPoints(surfaceLine, collector);
+            entity.ReadSurfaceLineGeometryAndCharacteristicPoints(surfaceLine, collector);
 
             return surfaceLine;
         }
 
-        private static void ReadCharacteristicPoints(this SurfaceLineEntity entity, RingtoetsPipingSurfaceLine surfaceLine, ReadConversionCollector collector)
+        private static void ReadSurfaceLineGeometryAndCharacteristicPoints(this SurfaceLineEntity entity, RingtoetsPipingSurfaceLine surfaceLine, ReadConversionCollector collector)
         {
+            var geometryPoints = new Point3D[entity.SurfaceLinePointEntities.Count];
+            var characteristicPoints = new Dictionary<CharacteristicPointType, Point3D>();
+
             foreach (SurfaceLinePointEntity pointEntity in entity.SurfaceLinePointEntities)
             {
+                var geometryPoint = pointEntity.Read(collector);
+                geometryPoints[pointEntity.Order] = geometryPoint;
+
                 foreach (CharacteristicPointEntity characteristicPointEntity in pointEntity.CharacteristicPointEntities)
                 {
-                    SetCharacteristicPoint(surfaceLine, characteristicPointEntity, collector);
+                    characteristicPoints[(CharacteristicPointType)characteristicPointEntity.CharacteristicPointType] = geometryPoint;
                 }
+            }
+
+            surfaceLine.SetGeometry(geometryPoints);
+            foreach (KeyValuePair<CharacteristicPointType, Point3D> keyValuePair in characteristicPoints)
+            {
+                SetCharacteristicPoint(surfaceLine, keyValuePair.Key, keyValuePair.Value);
             }
         }
 
-        private static void SetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine, CharacteristicPointEntity characteristicPointEntity, ReadConversionCollector collector)
+        private static void SetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine, CharacteristicPointType type, Point3D geometryPoint)
         {
-            Point3D geometryPoint = collector.Get(characteristicPointEntity.SurfaceLinePointEntity);
-            switch ((CharacteristicPointType)characteristicPointEntity.CharacteristicPointType)
+            switch (type)
             {
                 case CharacteristicPointType.DikeToeAtRiver:
                     surfaceLine.SetDikeToeAtRiverAt(geometryPoint);
@@ -103,17 +114,6 @@ namespace Application.Ringtoets.Storage.Read
                 default:
                     throw new NotImplementedException();
             }
-        }
-
-        private static void ReadSurfaceLineGeometry(this SurfaceLineEntity entity, RingtoetsPipingSurfaceLine surfaceLine, ReadConversionCollector collector)
-        {
-            var geometryPoints = new Point3D[entity.SurfaceLinePointEntities.Count];
-            foreach (SurfaceLinePointEntity pointEntity in entity.SurfaceLinePointEntities)
-            {
-                var geometryPoint = pointEntity.Read(collector);
-                geometryPoints[pointEntity.Order] = geometryPoint;
-            }
-            surfaceLine.SetGeometry(geometryPoints);
         }
     }
 }

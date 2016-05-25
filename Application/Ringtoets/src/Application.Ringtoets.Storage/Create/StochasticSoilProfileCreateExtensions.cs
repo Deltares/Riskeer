@@ -34,18 +34,18 @@ namespace Application.Ringtoets.Storage.Create
         /// Creates a <see cref="StochasticSoilProfileEntity"/> based on the information of the <see cref="StochasticSoilProfile"/>.
         /// </summary>
         /// <param name="profile">The profile to create a database entity for.</param>
-        /// <param name="collector">The object keeping track of create operations.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="StochasticSoilProfileEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static StochasticSoilProfileEntity Create(this StochasticSoilProfile profile, PersistenceRegistry collector)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static StochasticSoilProfileEntity Create(this StochasticSoilProfile profile, PersistenceRegistry registry)
         {
             var entity = new StochasticSoilProfileEntity
             {
                 Probability = Convert.ToDecimal(profile.Probability),
-                SoilProfileEntity = profile.SoilProfile.Create(collector)
+                SoilProfileEntity = profile.SoilProfile.Create(registry)
             };
 
-            collector.Register(entity, profile);
+            registry.Register(entity, profile);
             return entity;
         }
     }

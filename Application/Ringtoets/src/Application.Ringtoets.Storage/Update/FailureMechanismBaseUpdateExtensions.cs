@@ -39,21 +39,21 @@ namespace Application.Ringtoets.Storage.Update
         /// based on the sections defined on the <see cref="FailureMechanismBase"/>.
         /// </summary>
         /// <param name="mechanism">The failure mechanism to update the database failure mechanism section entities for.</param>
-        /// <param name="collector">The object keeping track of update operations.</param>
+        /// <param name="registry">The object keeping track of update operations.</param>
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> for which to update the assessment section entities.</param>
         /// <param name="context">The context to obtain the existing entities from.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="collector"/> is <c>null</c></item>
+        /// <item><paramref name="registry"/> is <c>null</c></item>
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list>
         /// </exception>
-        internal static void UpdateFailureMechanismSections(this IFailureMechanism mechanism, PersistenceRegistry collector, FailureMechanismEntity entity, IRingtoetsEntities context)
+        internal static void UpdateFailureMechanismSections(this IFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity, IRingtoetsEntities context)
         {
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
             if (entity == null)
             {
@@ -68,11 +68,11 @@ namespace Application.Ringtoets.Storage.Update
             {
                 if (failureMechanismSection.IsNew())
                 {
-                    entity.FailureMechanismSectionEntities.Add(failureMechanismSection.Create(collector));
+                    entity.FailureMechanismSectionEntities.Add(failureMechanismSection.Create(registry));
                 }
                 else
                 {
-                    failureMechanismSection.Update(collector, context);
+                    failureMechanismSection.Update(registry, context);
                 }
             }
         }
@@ -88,7 +88,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item>the <see cref="FailureMechanismEntity"/> couldn't be found in the <paramref name="context"/></item>
         /// <item>more than one <see cref="FailureMechanismEntity"/> was found in the <paramref name="context"/></item>
         /// </list></exception>
-        internal static FailureMechanismEntity GetSingleFailureMechanism(this IFailureMechanism mechanism, IRingtoetsEntities context)
+        internal static FailureMechanismEntity GetCorrespondingFailureMechanismEntity(this IFailureMechanism mechanism, IRingtoetsEntities context)
         {
             try
             {

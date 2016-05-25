@@ -36,30 +36,30 @@ namespace Application.Ringtoets.Storage.Update
         /// <see cref="IFailureMechanism"/>.
         /// </summary>
         /// <param name="mechanism">The mechanism to update the database entity for.</param>
-        /// <param name="collector">The object keeping track of update operations.</param>
+        /// <param name="registry">The object keeping track of update operations.</param>
         /// <param name="context">The context to obtain the existing entity from.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="collector"/> is <c>null</c></item>
+        /// <item><paramref name="registry"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this IFailureMechanism mechanism, PersistenceRegistry collector, IRingtoetsEntities context)
+        internal static void Update(this IFailureMechanism mechanism, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
             {
                 throw new ArgumentNullException("context");
             }
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
 
-            var entity = mechanism.GetSingleFailureMechanism(context);
+            FailureMechanismEntity entity = mechanism.GetCorrespondingFailureMechanismEntity(context);
             entity.IsRelevant = Convert.ToByte(mechanism.IsRelevant);
 
-            mechanism.UpdateFailureMechanismSections(collector, entity, context);
+            mechanism.UpdateFailureMechanismSections(registry, entity, context);
 
-            collector.Register(entity, mechanism);
+            registry.Register(entity, mechanism);
         }
     }
 }

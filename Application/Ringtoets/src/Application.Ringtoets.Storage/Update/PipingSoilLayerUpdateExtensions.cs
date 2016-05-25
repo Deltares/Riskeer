@@ -40,33 +40,33 @@ namespace Application.Ringtoets.Storage.Update
         /// <see cref="PipingSoilLayer"/>.
         /// </summary>
         /// <param name="layer">The layer to update the database entity for.</param>
-        /// <param name="collector">The object keeping track of update operations.</param>
+        /// <param name="registry">The object keeping track of update operations.</param>
         /// <param name="context">The context to obtain the existing entity from.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="collector"/> is <c>null</c></item>
+        /// <item><paramref name="registry"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this PipingSoilLayer layer, PersistenceRegistry collector, IRingtoetsEntities context)
+        internal static void Update(this PipingSoilLayer layer, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
             {
                 throw new ArgumentNullException("context");
             }
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
 
-            var entity = GetSingleSoilLayer(layer, context);
+            SoilLayerEntity entity = GetCorrespondingSoilLayerEntity(layer, context);
 
             entity.IsAquifer = Convert.ToByte(layer.IsAquifer);
             entity.Top = Convert.ToDecimal(layer.Top);
 
-            collector.Register(entity, layer);
+            registry.Register(entity, layer);
         }
 
-        private static SoilLayerEntity GetSingleSoilLayer(PipingSoilLayer layer, IRingtoetsEntities context)
+        private static SoilLayerEntity GetCorrespondingSoilLayerEntity(PipingSoilLayer layer, IRingtoetsEntities context)
         {
             try
             {

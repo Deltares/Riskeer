@@ -38,33 +38,33 @@ namespace Application.Ringtoets.Storage.Update
         /// <see cref="FailureMechanismSection"/>.
         /// </summary>
         /// <param name="section">The section to update the database entity for.</param>
-        /// <param name="collector">The object keeping track of update operations.</param>
+        /// <param name="registry">The object keeping track of update operations.</param>
         /// <param name="context">The context to obtain the existing entity from.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="collector"/> is <c>null</c></item>
+        /// <item><paramref name="registry"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this FailureMechanismSection section, PersistenceRegistry collector, IRingtoetsEntities context)
+        internal static void Update(this FailureMechanismSection section, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
             {
                 throw new ArgumentNullException("context");
             }
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
 
-            var entity = GetSingleFailureMechanismSection(section, context);
+            FailureMechanismSectionEntity entity = GetCorrespondingFailureMechanismSectionEntity(section, context);
             entity.Name = section.Name;
 
             UpdateGeometry(section, entity, context);
 
-            collector.Register(entity, section);
+            registry.Register(entity, section);
         }
 
-        private static FailureMechanismSectionEntity GetSingleFailureMechanismSection(FailureMechanismSection section, IRingtoetsEntities context)
+        private static FailureMechanismSectionEntity GetCorrespondingFailureMechanismSectionEntity(FailureMechanismSection section, IRingtoetsEntities context)
         {
             try
             {

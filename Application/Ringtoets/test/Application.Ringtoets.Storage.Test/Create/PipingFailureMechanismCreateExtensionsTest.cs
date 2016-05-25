@@ -35,7 +35,7 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class PipingFailureMechanismCreateExtensionsTest
     {
         [Test]
-        public void Create_WithoutCollector_ThrowsArgumentNullException()
+        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("collector", parameterName);
+            Assert.AreEqual("registry", parameterName);
         }
 
         [Test]
@@ -58,10 +58,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 IsRelevant = isRelevant
             };
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanism.Create(collector);
+            var entity = failureMechanism.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -79,10 +79,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(-1, "name", "segmentName"));
             failureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(-1, "name2", "segmentName2"));
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanism.Create(collector);
+            var entity = failureMechanism.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -98,10 +98,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new [] { new Point2D(0,0) }));
             failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new [] { new Point2D(0, 0) }));
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanism.Create(collector);
+            var entity = failureMechanism.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -118,10 +118,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.SurfaceLines.Add(CreateSurfaceLine(random));
 
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            FailureMechanismEntity entity = failureMechanism.Create(collector);
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);

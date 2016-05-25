@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("collector", parameterName);
+            Assert.AreEqual("registry", parameterName);
         }
 
         [Test]
@@ -63,10 +63,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 Name = testName
             };
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            var entity = assessmentSection.Create(collector);
+            var entity = assessmentSection.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -116,10 +116,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                     new HydraulicBoundaryLocation(-1, "name", 1, 2)
                 }
             };
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            var entity = assessmentSection.Create(collector);
+            var entity = assessmentSection.Create(registry);
 
             // Assert
             Assert.AreEqual(testFilePath, entity.HydraulicDatabaseLocation);
@@ -139,10 +139,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                 new Point2D(2,3),
                 new Point2D(5,3)
             });
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            var entity = assessmentSection.Create(collector);
+            var entity = assessmentSection.Create(registry);
 
             // Assert
             Assert.AreEqual(3, entity.ReferenceLinePointEntities.Count);

@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("collector", parameterName);
+            Assert.AreEqual("registry", parameterName);
         }
 
         [Test]
@@ -53,10 +53,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             var coordinateY = random.NextDouble();
             var id = random.Next(0,150);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, testName, coordinateX, coordinateY);
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            var entity = hydraulicBoundaryLocation.Create(collector);
+            var entity = hydraulicBoundaryLocation.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -77,10 +77,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 DesignWaterLevel = waterLevel
             };
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            var entity = hydraulicBoundaryLocation.Create(collector);
+            var entity = hydraulicBoundaryLocation.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);

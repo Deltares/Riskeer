@@ -59,7 +59,7 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("context");
             }
 
-            var entity = GetCorrespondingCalculationGroupEntity(calculationGroup, context);
+            CalculationGroupEntity entity = GetCorrespondingCalculationGroupEntity(calculationGroup, context);
             if (calculationGroup.IsNameEditable)
             {
                 entity.Name = calculationGroup.Name;

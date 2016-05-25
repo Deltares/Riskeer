@@ -50,10 +50,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Contains_WithoutModel_ArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => collector.Contains(null);
+            TestDelegate test = () => registry.Contains(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -64,12 +64,12 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Contains_SoilProfileAdded_True()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
             var profile = new TestPipingSoilProfile();
-            collector.Register(new SoilProfileEntity(), profile);
+            registry.Register(new SoilProfileEntity(), profile);
 
             // Call
-            var result = collector.Contains(profile);
+            var result = registry.Contains(profile);
 
             // Assert
             Assert.IsTrue(result);
@@ -79,11 +79,11 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Contains_NoSoilProfileAdded_False()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
             var profile = new TestPipingSoilProfile();
 
             // Call
-            var result = collector.Contains(profile);
+            var result = registry.Contains(profile);
 
             // Assert
             Assert.IsFalse(result);
@@ -93,12 +93,12 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Contains_OtherSoilProfileAdded_False()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
             var profile = new TestPipingSoilProfile();
-            collector.Register(new SoilProfileEntity(), new TestPipingSoilProfile());
+            registry.Register(new SoilProfileEntity(), new TestPipingSoilProfile());
 
             // Call
-            var result = collector.Contains(profile);
+            var result = registry.Contains(profile);
 
             // Assert
             Assert.IsFalse(result);
@@ -108,10 +108,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Get_WithoutModel_ArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => collector.Get(null);
+            TestDelegate test = () => registry.Get(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -122,13 +122,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Get_SoilProfileAdded_ReturnsEntity()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
             var profile = new TestPipingSoilProfile();
             var entity = new SoilProfileEntity();
-            collector.Register(entity, profile);
+            registry.Register(entity, profile);
 
             // Call
-            var result = collector.Get(profile);
+            var result = registry.Get(profile);
 
             // Assert
             Assert.AreSame(entity, result);
@@ -138,11 +138,11 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Get_NoSoilProfileAdded_ThrowsInvalidOperationException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
             var profile = new TestPipingSoilProfile();
 
             // Call
-            TestDelegate test = () => collector.Get(profile);
+            TestDelegate test = () => registry.Get(profile);
 
             // Assert
             Assert.Throws<InvalidOperationException>(test);
@@ -152,12 +152,12 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Get_OtherSoilProfileAdded_ThrowsInvalidOperationException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
             var profile = new TestPipingSoilProfile();
-            collector.Register(new SoilProfileEntity(), new TestPipingSoilProfile());
+            registry.Register(new SoilProfileEntity(), new TestPipingSoilProfile());
 
             // Call
-            TestDelegate test = () => collector.Get(profile);
+            TestDelegate test = () => registry.Get(profile);
 
             // Assert
             Assert.Throws<InvalidOperationException>(test);
@@ -170,11 +170,11 @@ namespace Application.Ringtoets.Storage.Test.Create
             var surfaceLineGeometryPoint = new Point3D(1.1, 2.2, 3.3);
             var initializedEntity = new SurfaceLinePointEntity();
 
-            var collector = new PersistenceRegistry();
-            collector.Register(initializedEntity, surfaceLineGeometryPoint);
+            var registry = new PersistenceRegistry();
+            registry.Register(initializedEntity, surfaceLineGeometryPoint);
 
             // Call
-            SurfaceLinePointEntity retrievedEntity = collector.GetSurfaceLinePoint(surfaceLineGeometryPoint);
+            SurfaceLinePointEntity retrievedEntity = registry.GetSurfaceLinePoint(surfaceLineGeometryPoint);
 
             // Assert
             Assert.AreSame(initializedEntity, retrievedEntity);
@@ -187,10 +187,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullProjectEntity_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => collector.Register(null, new Project());
+            TestDelegate test = () => registry.Register(null, new Project());
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -201,10 +201,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullProject_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => collector.Register(new ProjectEntity(), null);
+            TestDelegate test = () => registry.Register(new ProjectEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -215,10 +215,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullAssessmentSectionEntity_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
             
             // Call
-            TestDelegate test = () => collector.Register(null, new AssessmentSection(AssessmentSectionComposition.Dike));
+            TestDelegate test = () => registry.Register(null, new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -229,10 +229,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullAssessmentSection_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
             
             // Call
-            TestDelegate test = () => collector.Register(new AssessmentSectionEntity(), null);
+            TestDelegate test = () => registry.Register(new AssessmentSectionEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -245,10 +245,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var mocks = new MockRepository();
             var model = mocks.StrictMock<IFailureMechanism>();
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
             
             // Call
-            TestDelegate test = () => collector.Register(null, model);
+            TestDelegate test = () => registry.Register(null, model);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -259,10 +259,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullFailureMechanismBase_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
             
             // Call
-            TestDelegate test = () => collector.Register(new FailureMechanismEntity(), null);
+            TestDelegate test = () => registry.Register(new FailureMechanismEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -273,10 +273,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullFailureMechanismSection_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
             
             // Call
-            TestDelegate test = () => collector.Register(new FailureMechanismSectionEntity(), null);
+            TestDelegate test = () => registry.Register(new FailureMechanismSectionEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -287,10 +287,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullHydraulicLocationEntity_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => collector.Register(null, new HydraulicBoundaryLocation(-1, "name", 0, 0));
+            TestDelegate test = () => registry.Register(null, new HydraulicBoundaryLocation(-1, "name", 0, 0));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -301,10 +301,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullHydraulicBoundaryLocation_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => collector.Register(new HydraulicLocationEntity(), null);
+            TestDelegate test = () => registry.Register(new HydraulicLocationEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -315,10 +315,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullCalculationGroupEntity_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => collector.Register(null, new CalculationGroup());
+            TestDelegate test = () => registry.Register(null, new CalculationGroup());
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -329,10 +329,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullCalculationGroup_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => collector.Register(new CalculationGroupEntity(), null);
+            TestDelegate test = () => registry.Register(new CalculationGroupEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -343,10 +343,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullStochasticSoilModelEntity_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => collector.Register(null, new TestStochasticSoilModel());
+            TestDelegate test = () => registry.Register(null, new TestStochasticSoilModel());
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -357,10 +357,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullStochasticSoilModel_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => collector.Register(new StochasticSoilModelEntity(), null);
+            TestDelegate test = () => registry.Register(new StochasticSoilModelEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -371,10 +371,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullStochasticSoilProfileEntity_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => collector.Register(null, new StochasticSoilProfile(1, SoilProfileType.SoilProfile1D, -1));
+            TestDelegate test = () => registry.Register(null, new StochasticSoilProfile(1, SoilProfileType.SoilProfile1D, -1));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -385,10 +385,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullStochasticSoilProfile_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => collector.Register(new StochasticSoilProfileEntity(), null);
+            TestDelegate test = () => registry.Register(new StochasticSoilProfileEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -399,10 +399,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullSoilProfileEntity_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => collector.Register(null, new PipingSoilProfile("name", 0, new [] { new PipingSoilLayer(1) }, SoilProfileType.SoilProfile1D, -1));
+            TestDelegate test = () => registry.Register(null, new PipingSoilProfile("name", 0, new [] { new PipingSoilLayer(1) }, SoilProfileType.SoilProfile1D, -1));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -413,10 +413,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullPipingSoilProfile_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => collector.Register(new SoilProfileEntity(), null);
+            TestDelegate test = () => registry.Register(new SoilProfileEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -427,10 +427,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullSoilLayerEntity_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => collector.Register(null, new PipingSoilLayer(0));
+            TestDelegate test = () => registry.Register(null, new PipingSoilLayer(0));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -441,10 +441,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullPipingSoilLayer_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => collector.Register(new SoilLayerEntity(), null);
+            TestDelegate test = () => registry.Register(new SoilLayerEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -455,10 +455,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullSurfaceLinePointEntity_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate call = () => collector.Register((SurfaceLinePointEntity)null, new Point3D(1.1, 2.2, 3.3));
+            TestDelegate call = () => registry.Register((SurfaceLinePointEntity)null, new Point3D(1.1, 2.2, 3.3));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -469,10 +469,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullSurfaceLinePoint_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate call = () => collector.Register(new SurfaceLinePointEntity(), null);
+            TestDelegate call = () => registry.Register(new SurfaceLinePointEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -483,10 +483,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullCharacteristicPointEntity_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate call = () => collector.Register((CharacteristicPointEntity)null, new Point3D(1.1, 2.2, 3.3));
+            TestDelegate call = () => registry.Register((CharacteristicPointEntity)null, new Point3D(1.1, 2.2, 3.3));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -497,10 +497,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Register_WithNullPoint3DForCharacteristicPoint_ThrowsArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate call = () => collector.Register(new CharacteristicPointEntity(), null);
+            TestDelegate call = () => registry.Register(new CharacteristicPointEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -515,7 +515,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void TransferId_WithProjectEntityAdded_EqualProjectEntityIdAndProjectStorageId()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1,4000);
             var entity = new ProjectEntity
@@ -523,10 +523,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                 ProjectEntityId = storageId
             };
             var model = new Project();
-            collector.Register(entity, model);
+            registry.Register(entity, model);
 
             // Call
-            collector.TransferIds();
+            registry.TransferIds();
 
             // Assert
             Assert.AreEqual(storageId, model.StorageId);
@@ -536,7 +536,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void TransferId_WithAssessmentSectionEntityAdded_EqualAssessmentSectionEntityIdAndAssessmentSectionStorageId()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1,4000);
             var entity = new AssessmentSectionEntity
@@ -544,10 +544,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                 AssessmentSectionEntityId = storageId
             };
             var model = new AssessmentSection(AssessmentSectionComposition.Dike);
-            collector.Register(entity, model);
+            registry.Register(entity, model);
 
             // Call
-            collector.TransferIds();
+            registry.TransferIds();
 
             // Assert
             Assert.AreEqual(storageId, model.StorageId);
@@ -557,7 +557,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void TransferId_WithFailureMechanismEntityAddedWithPipingFailureMechanism_EqualFailureMechanismEntityIdAndPipingFailureMechanismStorageId()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1,4000);
             var entity = new FailureMechanismEntity
@@ -565,10 +565,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                 FailureMechanismEntityId = storageId
             };
             var model = new PipingFailureMechanism();
-            collector.Register(entity, model);
+            registry.Register(entity, model);
 
             // Call
-            collector.TransferIds();
+            registry.TransferIds();
 
             // Assert
             Assert.AreEqual(storageId, model.StorageId);
@@ -578,7 +578,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void TransferId_WithFailureMechanismEntityAddedWithStandAloneFailureMechanism_EqualFailureMechanismEntityIdAndStandAloneFailureMechanismStorageId()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1,4000);
             var entity = new FailureMechanismEntity
@@ -586,10 +586,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                 FailureMechanismEntityId = storageId
             };
             var model = new MacrostabilityInwardsFailureMechanism();
-            collector.Register(entity, model);
+            registry.Register(entity, model);
 
             // Call
-            collector.TransferIds();
+            registry.TransferIds();
 
             // Assert
             Assert.AreEqual(storageId, model.StorageId);
@@ -599,7 +599,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void TransferId_WithFailureMechanismSectionEntityAddedWithFailureMechanismSection_EqualFailureMechanismSectionEntityIdAndFailureMechanismSectionStorageId()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1,4000);
             var entity = new FailureMechanismSectionEntity
@@ -607,10 +607,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                 FailureMechanismSectionEntityId = storageId
             };
             var model = new FailureMechanismSection("name", new [] { new Point2D(0,0) });
-            collector.Register(entity, model);
+            registry.Register(entity, model);
 
             // Call
-            collector.TransferIds();
+            registry.TransferIds();
 
             // Assert
             Assert.AreEqual(storageId, model.StorageId);
@@ -620,7 +620,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void TransferId_WithHydraulicLocationEntityAdded_EqualHydraulicLocationEntityIdAndHydraulicBoundaryLocationStorageId()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1,4000);
             var entity = new HydraulicLocationEntity
@@ -628,10 +628,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                 HydraulicLocationEntityId = storageId
             };
             var model = new HydraulicBoundaryLocation(-1, "name", 0, 0);
-            collector.Register(entity, model);
+            registry.Register(entity, model);
 
             // Call
-            collector.TransferIds();
+            registry.TransferIds();
 
             // Assert
             Assert.AreEqual(storageId, model.StorageId);
@@ -641,7 +641,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void TransferId_WithCalculationGroupEntityAdded_EqualCalculationGroupEntityIdAndCalculationGroupStorageId()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1, 4000);
             var entity = new CalculationGroupEntity
@@ -649,10 +649,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                 CalculationGroupEntityId = storageId
             };
             var model = new CalculationGroup();
-            collector.Register(entity, model);
+            registry.Register(entity, model);
 
             // Call
-            collector.TransferIds();
+            registry.TransferIds();
 
             // Assert
             Assert.AreEqual(storageId, model.StorageId);
@@ -662,7 +662,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void TransferId_WithStochasticSoilModelEntityAdded_EqualStochasticSoilModelEntityIdAndStochasticSoilModelStorageId()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1,4000);
             var entity = new StochasticSoilModelEntity
@@ -670,10 +670,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                 StochasticSoilModelEntityId = storageId
             };
             var model = new StochasticSoilModel(-1, "name", "name");
-            collector.Register(entity, model);
+            registry.Register(entity, model);
 
             // Call
-            collector.TransferIds();
+            registry.TransferIds();
 
             // Assert
             Assert.AreEqual(storageId, model.StorageId);
@@ -683,7 +683,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void TransferId_WithStochasticSoilProfileEntityAdded_EqualStochasticSoilProfileEntityIdAndStochasticSoilProfileStorageId()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1,4000);
             var entity = new StochasticSoilProfileEntity
@@ -691,10 +691,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                 StochasticSoilProfileEntityId = storageId
             };
             var model = new StochasticSoilProfile(1, SoilProfileType.SoilProfile1D, -1);
-            collector.Register(entity, model);
+            registry.Register(entity, model);
 
             // Call
-            collector.TransferIds();
+            registry.TransferIds();
 
             // Assert
             Assert.AreEqual(storageId, model.StorageId);
@@ -704,7 +704,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void TransferId_WithSoilProfileEntityAdded_EqualSoilProfileEntityIdAndPipingSoilProfileStorageId()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1,4000);
             var entity = new SoilProfileEntity
@@ -712,10 +712,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                 SoilProfileEntityId = storageId
             };
             var model = new PipingSoilProfile("name", 0, new [] { new PipingSoilLayer(1) }, SoilProfileType.SoilProfile1D, -1);
-            collector.Register(entity, model);
+            registry.Register(entity, model);
 
             // Call
-            collector.TransferIds();
+            registry.TransferIds();
 
             // Assert
             Assert.AreEqual(storageId, model.StorageId);
@@ -725,7 +725,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void TransferId_WithSoilLayerEntityAdded_EqualSoilLayerEntityIdAndPipingSoilLayerStorageId()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1,4000);
             var entity = new SoilLayerEntity
@@ -733,10 +733,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                 SoilLayerEntityId = storageId
             };
             var model = new PipingSoilLayer(0);
-            collector.Register(entity, model);
+            registry.Register(entity, model);
 
             // Call
-            collector.TransferIds();
+            registry.TransferIds();
 
             // Assert
             Assert.AreEqual(storageId, model.StorageId);
@@ -746,7 +746,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void TransferId_WithSurfaceLineEntityAdded_EqualSurfaceLineEntityIdAndRingtoetsPipingSurfaceLineStorageId()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1, 4000);
             var entity = new SurfaceLineEntity
@@ -754,10 +754,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                 SurfaceLineEntityId = storageId
             };
             var model = new RingtoetsPipingSurfaceLine();
-            collector.Register(entity, model);
+            registry.Register(entity, model);
 
             // Call
-            collector.TransferIds();
+            registry.TransferIds();
 
             // Assert
             Assert.AreEqual(storageId, model.StorageId);
@@ -767,7 +767,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void TransferId_WithSurfaceLinePointEntityAdded_EqualSurfaceLinePointEntityIdAndPoint3DStorageId()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1, 4000);
             var entity = new SurfaceLinePointEntity
@@ -775,10 +775,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                 SurfaceLinePointEntityId = storageId
             };
             var model = new Point3D(1.1, 2.2, 3.3);
-            collector.Register(entity, model);
+            registry.Register(entity, model);
 
             // Call
-            collector.TransferIds();
+            registry.TransferIds();
 
             // Assert
             Assert.AreEqual(storageId, model.StorageId);
@@ -809,11 +809,11 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var project = new Project { StorageId = persistentEntity.ProjectEntityId };
 
-            var collector = new PersistenceRegistry();
-            collector.Register(persistentEntity, project);
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, project);
 
             // Call
-            collector.RemoveUntouched(dbContext);
+            registry.RemoveUntouched(dbContext);
 
             // Assert
             Assert.AreEqual(1, dbContext.ProjectEntities.Count());
@@ -842,11 +842,11 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike){ StorageId = persistentEntity.AssessmentSectionEntityId };
 
-            var collector = new PersistenceRegistry();
-            collector.Register(persistentEntity, assessmentSection);
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, assessmentSection);
 
             // Call
-            collector.RemoveUntouched(dbContext);
+            registry.RemoveUntouched(dbContext);
 
             // Assert
             Assert.AreEqual(1, dbContext.AssessmentSectionEntities.Count());
@@ -876,11 +876,11 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             failureMechanismStub.StorageId = persistentEntity.FailureMechanismEntityId;
 
-            var collector = new PersistenceRegistry();
-            collector.Register(persistentEntity, failureMechanismStub);
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, failureMechanismStub);
 
             // Call
-            collector.RemoveUntouched(dbContext);
+            registry.RemoveUntouched(dbContext);
 
             // Assert
             Assert.AreEqual(1, dbContext.FailureMechanismEntities.Count());
@@ -909,11 +909,11 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var section = new FailureMechanismSection("A", new[]{new Point2D(1, 2) }){ StorageId = persistentEntity.FailureMechanismSectionEntityId };
 
-            var collector = new PersistenceRegistry();
-            collector.Register(persistentEntity, section);
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, section);
 
             // Call
-            collector.RemoveUntouched(dbContext);
+            registry.RemoveUntouched(dbContext);
 
             // Assert
             Assert.AreEqual(1, dbContext.FailureMechanismSectionEntities.Count());
@@ -942,11 +942,11 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var boundaryLocation = new HydraulicBoundaryLocation(123, "A", 1, 2){ StorageId = persistentEntity.HydraulicLocationEntityId };
 
-            var collector = new PersistenceRegistry();
-            collector.Register(persistentEntity, boundaryLocation);
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, boundaryLocation);
 
             // Call
-            collector.RemoveUntouched(dbContext);
+            registry.RemoveUntouched(dbContext);
 
             // Assert
             Assert.AreEqual(1, dbContext.HydraulicLocationEntities.Count());
@@ -975,11 +975,11 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var calculationGroup = new CalculationGroup{ StorageId = persistentEntity.CalculationGroupEntityId };
 
-            var collector = new PersistenceRegistry();
-            collector.Register(persistentEntity, calculationGroup);
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, calculationGroup);
 
             // Call
-            collector.RemoveUntouched(dbContext);
+            registry.RemoveUntouched(dbContext);
 
             // Assert
             Assert.AreEqual(1, dbContext.CalculationGroupEntities.Count());
@@ -1008,11 +1008,11 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var soilModel = new StochasticSoilModel(123, "A", "B"){ StorageId = persistentEntity.StochasticSoilModelEntityId };
 
-            var collector = new PersistenceRegistry();
-            collector.Register(persistentEntity, soilModel);
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, soilModel);
 
             // Call
-            collector.RemoveUntouched(dbContext);
+            registry.RemoveUntouched(dbContext);
 
             // Assert
             Assert.AreEqual(1, dbContext.StochasticSoilModelEntities.Count());
@@ -1041,11 +1041,11 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var stochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 123){ StorageId = persistentEntity.StochasticSoilProfileEntityId };
 
-            var collector = new PersistenceRegistry();
-            collector.Register(persistentEntity, stochasticSoilProfile);
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, stochasticSoilProfile);
 
             // Call
-            collector.RemoveUntouched(dbContext);
+            registry.RemoveUntouched(dbContext);
 
             // Assert
             Assert.AreEqual(1, dbContext.StochasticSoilProfileEntities.Count());
@@ -1077,11 +1077,11 @@ namespace Application.Ringtoets.Storage.Test.Create
                 StorageId = persistentEntity.SoilProfileEntityId
             };
 
-            var collector = new PersistenceRegistry();
-            collector.Register(persistentEntity, soilProfile);
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, soilProfile);
 
             // Call
-            collector.RemoveUntouched(dbContext);
+            registry.RemoveUntouched(dbContext);
 
             // Assert
             Assert.AreEqual(1, dbContext.SoilProfileEntities.Count());
@@ -1113,11 +1113,11 @@ namespace Application.Ringtoets.Storage.Test.Create
                 StorageId = persistentEntity.SoilLayerEntityId
             };
 
-            var collector = new PersistenceRegistry();
-            collector.Register(persistentEntity, soilLayer);
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, soilLayer);
 
             // Call
-            collector.RemoveUntouched(dbContext);
+            registry.RemoveUntouched(dbContext);
 
             // Assert
             Assert.AreEqual(1, dbContext.SoilLayerEntities.Count());
@@ -1149,11 +1149,11 @@ namespace Application.Ringtoets.Storage.Test.Create
                 StorageId = persistentEntity.SurfaceLineEntityId
             };
 
-            var collector = new PersistenceRegistry();
-            collector.Register(persistentEntity, surfaceLine);
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, surfaceLine);
 
             // Call
-            collector.RemoveUntouched(dbContext);
+            registry.RemoveUntouched(dbContext);
 
             // Assert
             Assert.AreEqual(1, dbContext.SurfaceLineEntities.Count());
@@ -1185,11 +1185,11 @@ namespace Application.Ringtoets.Storage.Test.Create
                 StorageId = persistentEntity.SurfaceLinePointEntityId
             };
 
-            var collector = new PersistenceRegistry();
-            collector.Register(persistentEntity, geometryPoint);
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, geometryPoint);
 
             // Call
-            collector.RemoveUntouched(dbContext);
+            registry.RemoveUntouched(dbContext);
 
             // Assert
             Assert.AreEqual(1, dbContext.SurfaceLinePointEntities.Count());
@@ -1221,11 +1221,11 @@ namespace Application.Ringtoets.Storage.Test.Create
                 StorageId = 394624 // Note: ID only has to match a SurfaceLinePointEntity's id!
             };
 
-            var collector = new PersistenceRegistry();
-            collector.Register(persistentEntity, geometryPoint);
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, geometryPoint);
 
             // Call
-            collector.RemoveUntouched(dbContext);
+            registry.RemoveUntouched(dbContext);
 
             // Assert
             Assert.AreEqual(1, dbContext.CharacteristicPointEntities.Count());

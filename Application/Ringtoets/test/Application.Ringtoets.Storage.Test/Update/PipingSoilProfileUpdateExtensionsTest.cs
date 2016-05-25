@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_WithoutCollector_ArgumentNullException()
+        public void Update_WithoutPersistenceRegistry_ArgumentNullException()
         {
             // Setup
             var soilProfile = new TestPipingSoilProfile();
@@ -68,7 +68,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("collector", paramName);
+            Assert.AreEqual("registry", paramName);
         }
 
         [Test]

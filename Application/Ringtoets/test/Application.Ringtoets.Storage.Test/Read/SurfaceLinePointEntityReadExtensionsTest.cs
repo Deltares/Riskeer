@@ -31,7 +31,7 @@ using NUnit.Framework;
 namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLinePointReadExtensionsTest
+    public class SurfaceLinePointEntityReadExtensionsTest
     {
         [Test]
         public void Read_ReadConversionCollectorIsNull_ThrowArgumentNullException()

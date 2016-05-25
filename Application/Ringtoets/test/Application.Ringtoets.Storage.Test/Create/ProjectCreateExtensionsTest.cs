@@ -32,7 +32,7 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class ProjectCreateExtensionsTest
     {
         [Test]
-        public void Create_WithoutCollector_ThrowsArgumentNullException()
+        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
             var project = new Project();
@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("collector", parameterName);
+            Assert.AreEqual("registry", parameterName);
         }
 
         [Test]
@@ -54,10 +54,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 Description = testdescription
             };
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            var entity = project.Create(collector);
+            var entity = project.Create(registry);
 
             // Assert
             Assert.NotNull(entity);
@@ -75,10 +75,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                     new AssessmentSection(AssessmentSectionComposition.Dike)
                 }
             };
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            var entity = project.Create(collector);
+            var entity = project.Create(registry);
 
             // Assert
             Assert.AreEqual(1, entity.AssessmentSectionEntities.Count);

@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class StochasticSoilModelCreateExtensionsTest
     {
         [Test]
-        public void Create_WithoutCollector_ThrowsArgumentNullException()
+        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
             var stochasticSoilModel = new TestStochasticSoilModel();
@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("collector", parameterName);
+            Assert.AreEqual("registry", parameterName);
         }
 
         [Test]
@@ -53,10 +53,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             string testName = "testName";
             string testSegmentName = "testSegmentName";
             var stochasticSoilModel = new StochasticSoilModel(-1, testName, testSegmentName);
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            var entity = stochasticSoilModel.Create(collector);
+            var entity = stochasticSoilModel.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -78,10 +78,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 SoilProfile = new TestPipingSoilProfile()
             });
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            var entity = stochasticSoilModel.Create(collector);
+            var entity = stochasticSoilModel.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);

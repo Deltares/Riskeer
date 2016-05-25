@@ -44,20 +44,20 @@ namespace Application.Ringtoets.Storage.Update
         /// of the <see cref="RingtoetsPipingSurfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The piping surfaceline to update the database entity for.</param>
-        /// <param name="collector">The object keeping track of update operations.</param>
+        /// <param name="registry">The object keeping track of update operations.</param>
         /// <param name="context">The context to obtain the existing entity from.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="collector"/> is <c>null</c></item>
+        /// <item><paramref name="registry"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
         /// <exception cref="EntryPointNotFoundException">When no <see cref="SurfaceLineEntity"/>
         /// can be found in <paramref name="context"/> that matches <paramref name="surfaceLine"/>.</exception>
-        internal static void Update(this RingtoetsPipingSurfaceLine surfaceLine, PersistenceRegistry collector, IRingtoetsEntities context)
+        internal static void Update(this RingtoetsPipingSurfaceLine surfaceLine, PersistenceRegistry registry, IRingtoetsEntities context)
         {
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
             if (context == null)
             {
@@ -70,29 +70,28 @@ namespace Application.Ringtoets.Storage.Update
             entity.ReferenceLineIntersectionX = Convert.ToDecimal(surfaceLine.ReferenceLineIntersectionWorldPoint.X);
             entity.ReferenceLineIntersectionY = Convert.ToDecimal(surfaceLine.ReferenceLineIntersectionWorldPoint.Y);
 
-            UpdateGeometry(surfaceLine, entity, context, collector);
-            UpdateCharacteristicPoints(surfaceLine, entity, collector);
+            UpdateGeometry(surfaceLine, entity, registry);
+            UpdateCharacteristicPoints(surfaceLine, entity, registry);
 
-            collector.Register(entity, surfaceLine);
+            registry.Register(entity, surfaceLine);
         }
 
-        private static void UpdateGeometry(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity, IRingtoetsEntities context, PersistenceRegistry collector)
+        private static void UpdateGeometry(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity, PersistenceRegistry registry)
         {
             if (HasGeometryChanges(surfaceLine, entity))
             {
-                context.SurfaceLinePointEntities.RemoveRange(entity.SurfaceLinePointEntities);
                 foreach (SurfaceLinePointEntity pointEntity in entity.SurfaceLinePointEntities.ToArray())
                 {
                     entity.SurfaceLinePointEntities.Remove(pointEntity);
                 }
-                UpdateGeometryPoints(surfaceLine, entity, collector);
+                UpdateGeometryPoints(surfaceLine, entity, registry);
             }
             else
             {
-                var orderedPointEntities = context.SurfaceLinePointEntities.OrderBy(pe => pe.Order).ToArray();
+                var orderedPointEntities = entity.SurfaceLinePointEntities.OrderBy(pe => pe.Order).ToArray();
                 for (int i = 0; i < surfaceLine.Points.Length; i++)
                 {
-                    collector.Register(orderedPointEntities[i], surfaceLine.Points[i]);
+                    registry.Register(orderedPointEntities[i], surfaceLine.Points[i]);
                 }
             }
         }
@@ -115,38 +114,38 @@ namespace Application.Ringtoets.Storage.Update
             return false;
         }
 
-        private static void UpdateGeometryPoints(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity, PersistenceRegistry collector)
+        private static void UpdateGeometryPoints(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity, PersistenceRegistry registry)
         {
             int order = 0;
             foreach (Point3D geometryPoint in surfaceLine.Points)
             {
-                entity.SurfaceLinePointEntities.Add(geometryPoint.CreateSurfaceLinePoint(collector, order++));
+                entity.SurfaceLinePointEntities.Add(geometryPoint.CreateSurfaceLinePointEntity(registry, order++));
             }
         }
 
-        private static void UpdateCharacteristicPoints(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity, PersistenceRegistry collector)
+        private static void UpdateCharacteristicPoints(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity, PersistenceRegistry registry)
         {
             CharacteristicPointEntity[] currentCharacteristicPointEntities = entity.SurfaceLinePointEntities
                                                                                    .SelectMany(pe => pe.CharacteristicPointEntities)
                                                                                    .ToArray();
 
             UpdateCharacteristicPoint(surfaceLine.DikeToeAtRiver, CharacteristicPointType.DikeToeAtRiver,
-                                      currentCharacteristicPointEntities, collector);
+                                      currentCharacteristicPointEntities, registry);
             UpdateCharacteristicPoint(surfaceLine.DikeToeAtPolder, CharacteristicPointType.DikeToeAtPolder,
-                                      currentCharacteristicPointEntities, collector);
+                                      currentCharacteristicPointEntities, registry);
             UpdateCharacteristicPoint(surfaceLine.DitchDikeSide, CharacteristicPointType.DitchDikeSide,
-                                      currentCharacteristicPointEntities, collector);
+                                      currentCharacteristicPointEntities, registry);
             UpdateCharacteristicPoint(surfaceLine.BottomDitchDikeSide, CharacteristicPointType.BottomDitchDikeSide,
-                                      currentCharacteristicPointEntities, collector);
+                                      currentCharacteristicPointEntities, registry);
             UpdateCharacteristicPoint(surfaceLine.BottomDitchPolderSide, CharacteristicPointType.BottomDitchPolderSide,
-                                      currentCharacteristicPointEntities, collector);
+                                      currentCharacteristicPointEntities, registry);
             UpdateCharacteristicPoint(surfaceLine.DitchPolderSide, CharacteristicPointType.DitchPolderSide,
-                                      currentCharacteristicPointEntities, collector);
+                                      currentCharacteristicPointEntities, registry);
         }
 
         private static void UpdateCharacteristicPoint(Point3D currentCharacteristicPoint, CharacteristicPointType type,
                                                       CharacteristicPointEntity[] currentCharacteristicPointEntities,
-                                                      PersistenceRegistry collector)
+                                                      PersistenceRegistry registry)
         {
             short typeValue = (short)type;
             CharacteristicPointEntity characteristicPointEntity = currentCharacteristicPointEntities
@@ -158,7 +157,7 @@ namespace Application.Ringtoets.Storage.Update
             }
             else if (currentCharacteristicPoint != null)
             {
-                SurfaceLinePointEntity geometryPointEntity = collector.GetSurfaceLinePoint(currentCharacteristicPoint);
+                SurfaceLinePointEntity geometryPointEntity = registry.GetSurfaceLinePoint(currentCharacteristicPoint);
                 if (characteristicPointEntity == null)
                 {
                     geometryPointEntity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
@@ -169,7 +168,7 @@ namespace Application.Ringtoets.Storage.Update
                 else if (characteristicPointEntity.SurfaceLinePointEntity != geometryPointEntity)
                 {
                     characteristicPointEntity.SurfaceLinePointEntity = geometryPointEntity;
-                    collector.Register(characteristicPointEntity, currentCharacteristicPoint);
+                    registry.Register(characteristicPointEntity, currentCharacteristicPoint);
                 }
             }
         }

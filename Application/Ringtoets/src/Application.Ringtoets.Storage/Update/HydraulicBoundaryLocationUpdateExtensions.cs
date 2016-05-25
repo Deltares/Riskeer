@@ -40,34 +40,34 @@ namespace Application.Ringtoets.Storage.Update
         /// <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         /// <param name="location">The location to update the database entity for.</param>
-        /// <param name="collector">The object keeping track of update operations.</param>
+        /// <param name="registry">The object keeping track of update operations.</param>
         /// <param name="context">The context to obtain the existing entity from.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="collector"/> is <c>null</c></item>
+        /// <item><paramref name="registry"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this HydraulicBoundaryLocation location, PersistenceRegistry collector, IRingtoetsEntities context)
+        internal static void Update(this HydraulicBoundaryLocation location, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
             {
                 throw new ArgumentNullException("context");
             }
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
 
-            var entity = GetSingleHydraulicBoundaryLocation(location, context);
+            HydraulicLocationEntity entity = GetCorrespondingHydraulicBoundaryLocationEntity(location, context);
             entity.Name = location.Name;
             entity.LocationX = Convert.ToDecimal(location.Location.X);
             entity.LocationY = Convert.ToDecimal(location.Location.Y);
             entity.DesignWaterLevel = double.IsNaN(location.DesignWaterLevel) ? (double?) null : Convert.ToDouble(location.DesignWaterLevel);
 
-            collector.Register(entity, location);
+            registry.Register(entity, location);
         }
 
-        private static HydraulicLocationEntity GetSingleHydraulicBoundaryLocation(HydraulicBoundaryLocation location, IRingtoetsEntities context)
+        private static HydraulicLocationEntity GetCorrespondingHydraulicBoundaryLocationEntity(HydraulicBoundaryLocation location, IRingtoetsEntities context)
         {
             try
             {

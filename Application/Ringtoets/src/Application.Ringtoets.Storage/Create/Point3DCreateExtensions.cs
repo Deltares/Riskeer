@@ -33,23 +33,23 @@ namespace Application.Ringtoets.Storage.Create
     /// Extensions methods for <see cref="RingtoetsPipingSurfaceLine.Points"/> related to
     /// creating an <see cref="SurfaceLinePointEntity"/>.
     /// </summary>
-    internal static class RingtoetsPipingSurfaceLinePointCreateExtensions
+    internal static class Point3DCreateExtensions
     {
         /// <summary>
-        /// Creates the surface line point.
+        /// Creates a <see cref="SurfaceLinePointEntity"/> based on the information of the <see cref="Point3D"/>.
         /// </summary>
         /// <param name="geometryPoint">The geometry point to create a database entity for.</param>
-        /// <param name="collector">The object keeping track of create operations.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
         /// <param name="order">The index in <see cref="RingtoetsPipingSurfaceLine.Points"/>.</param>
         /// <returns>A new <see cref="SurfaceLinePointEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static SurfaceLinePointEntity CreateSurfaceLinePoint(this Point3D geometryPoint,
-                                                                      PersistenceRegistry collector,
-                                                                      int order)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static SurfaceLinePointEntity CreateSurfaceLinePointEntity(this Point3D geometryPoint,
+                                                                            PersistenceRegistry registry,
+                                                                            int order)
         {
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
 
             var entity = new SurfaceLinePointEntity
@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Create
                 Order = order
             };
 
-            collector.Register(entity, geometryPoint);
+            registry.Register(entity, geometryPoint);
 
             return entity;
         }

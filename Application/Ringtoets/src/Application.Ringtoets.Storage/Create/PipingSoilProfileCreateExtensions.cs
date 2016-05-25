@@ -34,20 +34,20 @@ namespace Application.Ringtoets.Storage.Create
         /// Creates a <see cref="SoilProfileEntity"/> based on the information of the <see cref="PipingSoilProfile"/>.
         /// </summary>
         /// <param name="profile">The profile to create a database entity for.</param>
-        /// <param name="collector">The object keeping track of create operations.</param>
-        /// <returns>A new <see cref="SoilProfileEntity"/> or one from the <paramref name="collector"/> if it
+        /// <param name="registry">The object keeping track of create operations.</param>
+        /// <returns>A new <see cref="SoilProfileEntity"/> or one from the <paramref name="registry"/> if it
         /// was created for the <see cref="profile"/> earlier.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static SoilProfileEntity Create(this PipingSoilProfile profile, PersistenceRegistry collector)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static SoilProfileEntity Create(this PipingSoilProfile profile, PersistenceRegistry registry)
         {
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
 
-            if (collector.Contains(profile))
+            if (registry.Contains(profile))
             {
-                return collector.Get(profile);
+                return registry.Get(profile);
             }
             var entity = new SoilProfileEntity
             {
@@ -55,17 +55,17 @@ namespace Application.Ringtoets.Storage.Create
                 Bottom = Convert.ToDecimal(profile.Bottom)
             };
 
-            AddEntitiesForPipingSoilLayers(profile, collector, entity);
+            AddEntitiesForPipingSoilLayers(profile, registry, entity);
 
-            collector.Register(entity, profile);
+            registry.Register(entity, profile);
             return entity;
         }
 
-        private static void AddEntitiesForPipingSoilLayers(PipingSoilProfile profile, PersistenceRegistry collector, SoilProfileEntity entity)
+        private static void AddEntitiesForPipingSoilLayers(PipingSoilProfile profile, PersistenceRegistry registry, SoilProfileEntity entity)
         {
             foreach (var pipingSoilLayer in profile.Layers)
             {
-                entity.SoilLayerEntities.Add(pipingSoilLayer.Create(collector));
+                entity.SoilLayerEntities.Add(pipingSoilLayer.Create(registry));
             }
         }
     }

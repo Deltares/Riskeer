@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_WithoutCollector_ThrowsArgumentNullException()
+        public void Update_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("collector", paramName);
+            Assert.AreEqual("registry", paramName);
         }
 
         [Test]

@@ -29,10 +29,10 @@ namespace Application.Ringtoets.Storage.Update
     internal static class IStorableExtensions
     {
         /// <summary>
-        /// Checks whether the <see cref="IStorable"/> is concidered new from the database's perspective.
+        /// Checks whether the <see cref="IStorable"/> is considered new from the database's perspective.
         /// </summary>
         /// <param name="storable">The <see cref="IStorable"/> to check for.</param>
-        /// <returns><c>true</c> if the <paramref name="storable"/> is concidered new, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the <paramref name="storable"/> is considered new, <c>false</c> otherwise.</returns>
         internal static bool IsNew(this IStorable storable)
         {
             return storable.StorageId <= 0;

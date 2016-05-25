@@ -57,7 +57,7 @@
     <Compile Include="Create\GrassCoverErosionInwardsFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\FailureMechanismBaseCreateExtensions.cs" />
     <Compile Include="Create\RingtoetsPipingSurfaceLineCreateExtensions.cs" />
-    <Compile Include="Create\RingtoetsPipingSurfaceLinePointCreateExtensions.cs" />
+    <Compile Include="Create\Point3DCreateExtensions.cs" />
     <Compile Include="Create\FailureMechanismSectionCreateExtensions.cs" />
     <Compile Include="Create\PipingFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCreateExtensions.cs" />
@@ -124,8 +124,8 @@
     <Compile Include="Read\HydraulicLocationEntityReadExtensions.cs" />
     <Compile Include="Read\ReadConversionCollector.cs" />
     <Compile Include="Read\ReferenceLinePointEntityReadExtensions.cs" />
-    <Compile Include="Read\RingtoetsPipingSurfaceLinePointReadExtensions.cs" />
-    <Compile Include="Read\RingtoetsPipingSurfaceLineReadExtensions.cs" />
+    <Compile Include="Read\SurfaceLinePointEntityReadExtensions.cs" />
+    <Compile Include="Read\SurfaceLineEntityReadExtensions.cs" />
     <Compile Include="Read\SoilLayerEntityReadExtensions.cs" />
     <Compile Include="Read\SoilProfileEntityReadExtensions.cs" />
     <Compile Include="Read\StochasticSoilModelEntityReadExtensions.cs" />

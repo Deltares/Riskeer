@@ -34,7 +34,7 @@ using Ringtoets.Piping.Primitives;
 namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLineReadExtensionsTest
+    public class SurfaceLineEntityReadExtensionsTest
     {
         [Test]
         public void Read_ReadConversionCollectorIsNull_ThrowArgumentNullException()
@@ -88,7 +88,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_SurfaceLineEntityWithGeometryPointEntitiesButNoCharacteristicPoitns_ReturnSurfaceLineGeometry()
+        public void Read_SurfaceLineEntityWithGeometryPointEntitiesButNoCharacteristicPoints_ReturnSurfaceLineGeometry()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -172,7 +172,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_SurfaceLineEntityWithGeometryPointEntitiesAndCharacteristicPoitns_ReturnFullSurfaceLine()
+        public void Read_SurfaceLineEntityWithGeometryPointEntitiesAndCharacteristicPoints_ReturnFullSurfaceLine()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -328,6 +328,100 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreSame(geometry[4], surfaceLine.DikeToeAtRiver);
             Assert.AreSame(geometry[5], surfaceLine.DitchDikeSide);
             Assert.AreSame(geometry[6], surfaceLine.DitchPolderSide);
+        }
+
+        [Test]
+        public void Read_SurfaceLineEntityWithGeometryPointEntityMarkedForAllCharacteristicPoints_ReturnFullSurfaceLineWithCharacteristicPointsToOneGeometryPoint()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            const long id = 489357;
+            const string name = "Better name.";
+            const decimal intersectionX = 3.4m;
+            const decimal intersectionY = 7.5m;
+
+            var surfaceLinePointEntity1 = new SurfaceLinePointEntity
+            {
+                X = 1.0m,
+                Y = 2.0m,
+                Z = 3.0m,
+                Order = 0,
+                SurfaceLinePointEntityId = 1,
+                CharacteristicPointEntities =
+                {
+                    new CharacteristicPointEntity
+                    {
+                        CharacteristicPointType = (short)CharacteristicPointType.BottomDitchDikeSide
+                    },
+                    new CharacteristicPointEntity
+                    {
+                        CharacteristicPointType = (short)CharacteristicPointType.BottomDitchPolderSide
+                    },
+                    new CharacteristicPointEntity
+                    {
+                        CharacteristicPointType = (short)CharacteristicPointType.DikeToeAtPolder
+                    },
+                    new CharacteristicPointEntity
+                    {
+                        CharacteristicPointType = (short)CharacteristicPointType.DikeToeAtPolder
+                    },
+                    new CharacteristicPointEntity
+                    {
+                        CharacteristicPointType = (short)CharacteristicPointType.DikeToeAtRiver
+                    },
+                    new CharacteristicPointEntity
+                    {
+                        CharacteristicPointType = (short)CharacteristicPointType.DitchDikeSide
+                    },
+                    new CharacteristicPointEntity
+                    {
+                        CharacteristicPointType = (short)CharacteristicPointType.DitchPolderSide
+                    }
+                }
+            };
+            foreach (CharacteristicPointEntity characteristicPointEntity in surfaceLinePointEntity1.CharacteristicPointEntities)
+            {
+                characteristicPointEntity.SurfaceLinePointEntity = surfaceLinePointEntity1;
+            }
+            var surfaceLinePointEntity2 = new SurfaceLinePointEntity
+            {
+                X = 5.0m,
+                Y = 6.0m,
+                Z = 7.0m,
+                Order = 1,
+                SurfaceLinePointEntityId = 2
+            };
+
+            var entity = new SurfaceLineEntity
+            {
+                SurfaceLineEntityId = id,
+                Name = name,
+                ReferenceLineIntersectionX = intersectionX,
+                ReferenceLineIntersectionY = intersectionY
+            };
+            entity.SurfaceLinePointEntities.Add(surfaceLinePointEntity1);
+            entity.SurfaceLinePointEntities.Add(surfaceLinePointEntity2);
+
+            // Call
+            RingtoetsPipingSurfaceLine surfaceLine = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(id, surfaceLine.StorageId);
+            Assert.AreEqual(name, surfaceLine.Name);
+            Assert.AreEqual(intersectionX, surfaceLine.ReferenceLineIntersectionWorldPoint.X);
+            Assert.AreEqual(intersectionY, surfaceLine.ReferenceLineIntersectionWorldPoint.Y);
+
+            Point3D[] geometry = surfaceLine.Points.ToArray();
+            Assert.AreEqual(2, geometry.Length);
+            Point3D geometryPoint = geometry[0];
+
+            Assert.AreSame(geometryPoint, surfaceLine.BottomDitchDikeSide);
+            Assert.AreSame(geometryPoint, surfaceLine.BottomDitchPolderSide);
+            Assert.AreSame(geometryPoint, surfaceLine.DikeToeAtPolder);
+            Assert.AreSame(geometryPoint, surfaceLine.DikeToeAtRiver);
+            Assert.AreSame(geometryPoint, surfaceLine.DitchDikeSide);
+            Assert.AreSame(geometryPoint, surfaceLine.DitchPolderSide);
         }
     }
 }

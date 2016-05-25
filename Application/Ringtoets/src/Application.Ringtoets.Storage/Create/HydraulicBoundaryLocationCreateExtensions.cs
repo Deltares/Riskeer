@@ -34,14 +34,14 @@ namespace Application.Ringtoets.Storage.Create
         /// Creates a <see cref="HydraulicLocationEntity"/> based on the information of the <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         /// <param name="location">The location to create a database entity for.</param>
-        /// <param name="collector">The object keeping track of create operations.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="HydraulicLocationEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static HydraulicLocationEntity Create(this HydraulicBoundaryLocation location, PersistenceRegistry collector)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static HydraulicLocationEntity Create(this HydraulicBoundaryLocation location, PersistenceRegistry registry)
         {
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
 
             var entity = new HydraulicLocationEntity
@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Create
                 DesignWaterLevel = double.IsNaN(location.DesignWaterLevel) ? (double?) null : Convert.ToDouble(location.DesignWaterLevel)
             };
 
-            collector.Register(entity, location);
+            registry.Register(entity, location);
             return entity;
         }
     }

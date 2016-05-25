@@ -30,7 +30,7 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class PipingSoilLayerCreateExtensionsTest
     {
         [Test]
-        public void Create_WithoutCollector_ThrowsArgumentNullException()
+        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
             var soilLayer = new PipingSoilLayer(new Random(21).NextDouble());
@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("collector", parameterName);
+            Assert.AreEqual("registry", parameterName);
         }
 
         [Test]
@@ -54,10 +54,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 IsAquifer = isAquifer
             };
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            var entity = soilLayer.Create(collector);
+            var entity = soilLayer.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);

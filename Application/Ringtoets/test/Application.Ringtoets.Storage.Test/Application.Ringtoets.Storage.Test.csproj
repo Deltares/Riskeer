@@ -86,7 +86,7 @@
     <Compile Include="Create\PersistenceRegistryTest.cs" />
     <Compile Include="Create\FailureMechanismBaseCreateExtensionsTest.cs" />
     <Compile Include="Create\RingtoetsPipingSurfaceLineCreateExtensionsTest.cs" />
-    <Compile Include="Create\RingtoetsPipingSurfaceLinePointCreateExtensionsTest.cs" />
+    <Compile Include="Create\Point3DCreateExtensionsTest.cs" />
     <Compile Include="Create\AssessmentSectionCreateExtensionsTest.cs" />
     <Compile Include="Create\FailureMechanismSectionCreateExtensionsTest.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCreateExtensionsTest.cs" />
@@ -106,8 +106,8 @@
     <Compile Include="Read\ProjectEntityTest.cs" />
     <Compile Include="Read\ReadConversionCollectorTest.cs" />
     <Compile Include="Read\ReferenceLinePointEntityTest.cs" />
-    <Compile Include="Read\RingtoetsPipingSurfaceLinePointReadExtensionsTest.cs" />
-    <Compile Include="Read\RingtoetsPipingSurfaceLineReadExtensionsTest.cs" />
+    <Compile Include="Read\SurfaceLinePointEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\SurfaceLineEntityReadExtensionsTest.cs" />
     <Compile Include="Read\SoilLayerEntityTest.cs" />
     <Compile Include="Read\SoilProfileEntityTest.cs" />
     <Compile Include="Read\StochasticSoilModelEntityTest.cs" />

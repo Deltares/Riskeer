@@ -37,60 +37,60 @@ namespace Application.Ringtoets.Storage.Update
         /// <see cref="PipingFailureMechanism"/>.
         /// </summary>
         /// <param name="mechanism">The mechanism to update the database entity for.</param>
-        /// <param name="collector">The object keeping track of update operations.</param>
+        /// <param name="registry">The object keeping track of update operations.</param>
         /// <param name="context">The context to obtain the existing entity from.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="collector"/> is <c>null</c></item>
+        /// <item><paramref name="registry"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this PipingFailureMechanism mechanism, PersistenceRegistry collector, IRingtoetsEntities context)
+        internal static void Update(this PipingFailureMechanism mechanism, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
             {
                 throw new ArgumentNullException("context");
             }
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
 
-            var entity = mechanism.GetSingleFailureMechanism(context);
+            FailureMechanismEntity entity = mechanism.GetCorrespondingFailureMechanismEntity(context);
             entity.IsRelevant = Convert.ToByte(mechanism.IsRelevant);
 
-            UpdateSoilModels(mechanism, collector, context, entity);
-            UpdateSurfaceLines(mechanism, collector, context, entity);
-            mechanism.UpdateFailureMechanismSections(collector, entity, context);
+            UpdateSoilModels(mechanism, registry, context, entity);
+            UpdateSurfaceLines(mechanism, registry, context, entity);
+            mechanism.UpdateFailureMechanismSections(registry, entity, context);
 
-            collector.Register(entity, mechanism);
+            registry.Register(entity, mechanism);
         }
 
-        private static void UpdateSoilModels(PipingFailureMechanism mechanism, PersistenceRegistry collector, IRingtoetsEntities context, FailureMechanismEntity entity)
+        private static void UpdateSoilModels(PipingFailureMechanism mechanism, PersistenceRegistry registry, IRingtoetsEntities context, FailureMechanismEntity entity)
         {
             foreach (var stochasticSoilModel in mechanism.StochasticSoilModels)
             {
                 if (stochasticSoilModel.IsNew())
                 {
-                    entity.StochasticSoilModelEntities.Add(stochasticSoilModel.Create(collector));
+                    entity.StochasticSoilModelEntities.Add(stochasticSoilModel.Create(registry));
                 }
                 else
                 {
-                    stochasticSoilModel.Update(collector, context);
+                    stochasticSoilModel.Update(registry, context);
                 }
             }
         }
 
-        private static void UpdateSurfaceLines(PipingFailureMechanism failureMechanism, PersistenceRegistry collector, IRingtoetsEntities context, FailureMechanismEntity entity)
+        private static void UpdateSurfaceLines(PipingFailureMechanism failureMechanism, PersistenceRegistry registry, IRingtoetsEntities context, FailureMechanismEntity entity)
         {
             foreach (RingtoetsPipingSurfaceLine surfaceLine in failureMechanism.SurfaceLines)
             {
                 if (surfaceLine.IsNew())
                 {
-                    entity.SurfaceLineEntities.Add(surfaceLine.Create(collector));
+                    entity.SurfaceLineEntities.Add(surfaceLine.Create(registry));
                 }
                 else
                 {
-                    surfaceLine.Update(collector, context);
+                    surfaceLine.Update(registry, context);
                 }
             }
         }

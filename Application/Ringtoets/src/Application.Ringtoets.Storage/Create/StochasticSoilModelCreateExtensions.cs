@@ -34,14 +34,14 @@ namespace Application.Ringtoets.Storage.Create
         /// Creates a <see cref="StochasticSoilModelEntity"/> based on the information of the <see cref="StochasticSoilModel"/>.
         /// </summary>
         /// <param name="model">The model to create a database entity for.</param>
-        /// <param name="collector">The object keeping track of create operations.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="StochasticSoilModelEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static StochasticSoilModelEntity Create(this StochasticSoilModel model, PersistenceRegistry collector)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static StochasticSoilModelEntity Create(this StochasticSoilModel model, PersistenceRegistry registry)
         {
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
 
             var entity = new StochasticSoilModelEntity
@@ -50,17 +50,17 @@ namespace Application.Ringtoets.Storage.Create
                 SegmentName = model.SegmentName
             };
 
-            AddEntitiesForStochasticSoilProfiles(model, collector, entity);
+            AddEntitiesForStochasticSoilProfiles(model, registry, entity);
 
-            collector.Register(entity, model);
+            registry.Register(entity, model);
             return entity;
         }
 
-        private static void AddEntitiesForStochasticSoilProfiles(StochasticSoilModel model, PersistenceRegistry collector, StochasticSoilModelEntity entity)
+        private static void AddEntitiesForStochasticSoilProfiles(StochasticSoilModel model, PersistenceRegistry registry, StochasticSoilModelEntity entity)
         {
             foreach (var stochasticSoilProfile in model.StochasticSoilProfiles)
             {
-                entity.StochasticSoilProfileEntities.Add(stochasticSoilProfile.Create(collector));
+                entity.StochasticSoilProfileEntities.Add(stochasticSoilProfile.Create(registry));
             }
         }
     }

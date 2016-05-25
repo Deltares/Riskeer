@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Test.Update
     public class RingtoetsPipingSurfaceLineUpdateExtensionsTest
     {
         [Test]
-        public void Update_UpdateConversionCollectorIsNull_ThrowArgumentNullException()
+        public void Update_PersistenceRegistryIsNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            Assert.AreEqual("registry", paramName);
             mocks.VerifyAll();
         }
 
@@ -64,12 +64,12 @@ namespace Application.Ringtoets.Storage.Test.Update
         public void Update_RingtoetsEntitiesIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             RingtoetsPipingSurfaceLine surfaceLine = CreateSavedSurfaceLineWithData();
 
             // Call
-            TestDelegate call = () => surfaceLine.Update(collector, null);
+            TestDelegate call = () => surfaceLine.Update(registry, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -84,7 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var context = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
@@ -93,7 +93,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             Assert.AreEqual(unsavedObjectId, surfaceLine.StorageId);
 
             // Call
-            TestDelegate call = () => surfaceLine.Update(collector, context);
+            TestDelegate call = () => surfaceLine.Update(registry, context);
 
             // Assert
             var expectedMessage = String.Format("Het object 'SurfaceLineEntity' met id '{0}' is niet gevonden.", unsavedObjectId);
@@ -121,10 +121,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
             context.SurfaceLineEntities.Add(entity);
 
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            surfaceLine.Update(collector, context);
+            surfaceLine.Update(registry, context);
 
             // Assert
             Assert.AreEqual(surfaceLine.Name, entity.Name);
@@ -158,10 +158,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             // Precondition
             CollectionAssert.IsEmpty(context.SurfaceLinePointEntities);
 
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            surfaceLine.Update(collector, context);
+            surfaceLine.Update(registry, context);
 
             // Assert
             Assert.AreEqual(surfaceLine.Name, entity.Name);
@@ -224,10 +224,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             context.SurfaceLinePointEntities.Add(pointEntity1);
             context.SurfaceLinePointEntities.Add(pointEntity2);
 
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            surfaceLine.Update(collector, context);
+            surfaceLine.Update(registry, context);
 
             // Assert
             Assert.AreEqual(surfaceLine.Name, entity.Name);
@@ -266,7 +266,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             for (int i = 0; i < surfaceLine.Points.Length; i++)
             {
                 var geometryPoint = surfaceLine.Points[i];
-                SurfaceLinePointEntity pointEntity = geometryPoint.CreateSurfaceLinePoint(createCollector, i);
+                SurfaceLinePointEntity pointEntity = geometryPoint.CreateSurfaceLinePointEntity(createCollector, i);
 
                 geometryPoint.StorageId = i + 1;
                 pointEntity.SurfaceLinePointEntityId = geometryPoint.StorageId;
@@ -275,10 +275,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 context.SurfaceLinePointEntities.Add(pointEntity);
             }
 
-            var updateCollector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            surfaceLine.Update(updateCollector, context);
+            surfaceLine.Update(registry, context);
 
             // Assert
             Assert.AreEqual(surfaceLine.Points.Length, entity.SurfaceLinePointEntities.Count);
@@ -311,10 +311,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
             context.SurfaceLineEntities.Add(entity);
 
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            surfaceLine.Update(collector, context);
+            surfaceLine.Update(registry, context);
 
             // Assert
             Assert.AreEqual(surfaceLine.Points.Length, entity.SurfaceLinePointEntities.Count);
@@ -435,10 +435,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             context.SurfaceLineEntities.Add(entity);
             context.CharacteristicPointEntities.Add(characteristicPointEntity);
 
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            surfaceLine.Update(collector, context);
+            surfaceLine.Update(registry, context);
 
             // Assert
             Assert.IsNull(characteristicPointEntity.SurfaceLinePointEntity);
@@ -467,7 +467,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             }).ToArray();
 
             SurfaceLinePointEntity originalGeometryPointMarkedCharacteristic = surfaceLinePointEntities[1];
-            var characteristicPointEntities = CreateCharacteristicPointEntities(surfaceLine, originalGeometryPointMarkedCharacteristic);
+            var characteristicPointEntities = CreateCharacteristicPointEntities(originalGeometryPointMarkedCharacteristic);
 
             var entity = new SurfaceLineEntity
             {
@@ -485,10 +485,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             }
             context.SurfaceLineEntities.Add(entity);
 
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            surfaceLine.Update(collector, context);
+            surfaceLine.Update(registry, context);
 
             // Assert
             foreach (CharacteristicPointEntity characteristicPointEntity in characteristicPointEntities)
@@ -498,7 +498,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             mocks.VerifyAll();
         }
 
-        private CharacteristicPointEntity[] CreateCharacteristicPointEntities(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLinePointEntity pointEntity)
+        private CharacteristicPointEntity[] CreateCharacteristicPointEntities(SurfaceLinePointEntity pointEntity)
         {
             var characteristicPointEntities = new CharacteristicPointEntity[6];
 

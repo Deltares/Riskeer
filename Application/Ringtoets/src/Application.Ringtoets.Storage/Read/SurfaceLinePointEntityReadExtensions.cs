@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.Read
     /// This class defines extension methods for read operations for <see cref="Point3D"/>
     /// for <see cref="RingtoetsPipingSurfaceLine.Points"/>based on the <see cref="SurfaceLinePointEntity"/>.
     /// </summary>
-    internal static class RingtoetsPipingSurfaceLinePointReadExtensions
+    internal static class SurfaceLinePointEntityReadExtensions
     {
         /// <summary>
         /// Read the <see cref="SurfaceLinePointEntity"/> and use the information to construct

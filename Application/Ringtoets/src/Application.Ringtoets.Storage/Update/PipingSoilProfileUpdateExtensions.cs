@@ -39,25 +39,25 @@ namespace Application.Ringtoets.Storage.Update
         /// <see cref="PipingSoilProfile"/>.
         /// </summary>
         /// <param name="profile">The profile to update the database entity for.</param>
-        /// <param name="collector">The object keeping track of update operations.</param>
+        /// <param name="registry">The object keeping track of update operations.</param>
         /// <param name="context">The context to obtain the existing entity from.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="collector"/> is <c>null</c></item>
+        /// <item><paramref name="registry"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this PipingSoilProfile profile, PersistenceRegistry collector, IRingtoetsEntities context)
+        internal static void Update(this PipingSoilProfile profile, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
             {
                 throw new ArgumentNullException("context");
             }
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
 
-            var entity = GetSinglePipingSoilProfile(profile, context);
+            SoilProfileEntity entity = GetCorrespondingPipingSoilProfileEntity(profile, context);
             entity.Name = profile.Name;
             entity.Bottom = Convert.ToDecimal(profile.Bottom);
 
@@ -65,18 +65,18 @@ namespace Application.Ringtoets.Storage.Update
             {
                 if (pipingSoilLayer.IsNew())
                 {
-                    entity.SoilLayerEntities.Add(pipingSoilLayer.Create(collector));
+                    entity.SoilLayerEntities.Add(pipingSoilLayer.Create(registry));
                 }
                 else
                 {
-                    pipingSoilLayer.Update(collector, context);
+                    pipingSoilLayer.Update(registry, context);
                 }
             }
 
-            collector.Register(entity, profile);
+            registry.Register(entity, profile);
         }
 
-        private static SoilProfileEntity GetSinglePipingSoilProfile(PipingSoilProfile profile, IRingtoetsEntities context)
+        private static SoilProfileEntity GetCorrespondingPipingSoilProfileEntity(PipingSoilProfile profile, IRingtoetsEntities context)
         {
             try
             {

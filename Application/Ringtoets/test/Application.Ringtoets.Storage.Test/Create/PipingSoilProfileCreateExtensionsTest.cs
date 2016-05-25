@@ -31,7 +31,7 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class PipingSoilProfileCreateExtensionsTest
     {
         [Test]
-        public void Create_WithoutCollector_ThrowsArgumentNullException()
+        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
             var soilProfile = new TestPipingSoilProfile();
@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("collector", parameterName);
+            Assert.AreEqual("registry", parameterName);
         }
 
         [Test]
@@ -56,10 +56,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                 new PipingSoilLayer(bottom + 2) 
             };
             var soilProfile = new PipingSoilProfile(testName, bottom, layers, SoilProfileType.SoilProfile1D, -1);
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            var entity = soilProfile.Create(collector);
+            var entity = soilProfile.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -73,12 +73,12 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var soilProfile = new TestPipingSoilProfile();
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
-            var firstEntity = soilProfile.Create(collector);
+            var firstEntity = soilProfile.Create(registry);
 
             // Call
-            var secondEntity = soilProfile.Create(collector);
+            var secondEntity = soilProfile.Create(registry);
 
             // Assert
             Assert.AreSame(firstEntity, secondEntity);

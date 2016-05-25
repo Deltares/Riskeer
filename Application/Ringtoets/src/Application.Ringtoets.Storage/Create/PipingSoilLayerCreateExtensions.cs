@@ -34,14 +34,14 @@ namespace Application.Ringtoets.Storage.Create
         /// Creates a <see cref="SoilLayerEntity"/> based on the information of the <see cref="PipingSoilLayer"/>.
         /// </summary>
         /// <param name="layer">The layer to create a database entity for.</param>
-        /// <param name="collector">The object keeping track of create operations.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="SoilLayerEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static SoilLayerEntity Create(this PipingSoilLayer layer, PersistenceRegistry collector)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static SoilLayerEntity Create(this PipingSoilLayer layer, PersistenceRegistry registry)
         {
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
 
             var entity = new SoilLayerEntity
@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Create
                 Top = Convert.ToDecimal(layer.Top)
             };
 
-            collector.Register(entity, layer);
+            registry.Register(entity, layer);
             return entity;
         }
     }

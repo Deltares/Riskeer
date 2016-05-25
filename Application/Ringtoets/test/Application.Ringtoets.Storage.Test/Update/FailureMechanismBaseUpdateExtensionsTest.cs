@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.Test.Update
     public class FailureMechanismBaseUpdateExtensionsTest
     {
         [Test]
-        public void UpdateFailureMechanismSections_WithoutCollector_ThrowsArgumentNullException()
+        public void UpdateFailureMechanismSections_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("collector", paramName);
+            Assert.AreEqual("registry", paramName);
         }
 
         [Test]
@@ -177,7 +177,7 @@ namespace Application.Ringtoets.Storage.Test.Update
                 IFailureMechanism failureMechanism = new TestFailureMechanism();
 
                 // Call
-                TestDelegate test = () => failureMechanism.GetSingleFailureMechanism(ringtoetsEntities);
+                TestDelegate test = () => failureMechanism.GetCorrespondingFailureMechanismEntity(ringtoetsEntities);
                 
                 // Assert
                 Assert.Throws<EntityNotFoundException>(test);
@@ -206,7 +206,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
 
             // Call
-            TestDelegate test = () => failureMechanism.GetSingleFailureMechanism(ringtoetsEntities);
+            TestDelegate test = () => failureMechanism.GetCorrespondingFailureMechanismEntity(ringtoetsEntities);
 
             // Assert
             Assert.Throws<EntityNotFoundException>(test);
@@ -235,7 +235,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
 
             // Call
-            FailureMechanismEntity entity = failureMechanism.GetSingleFailureMechanism(ringtoetsEntities);
+            FailureMechanismEntity entity = failureMechanism.GetCorrespondingFailureMechanismEntity(ringtoetsEntities);
                 
             // Assert
             Assert.AreSame(expectedEntity, entity);

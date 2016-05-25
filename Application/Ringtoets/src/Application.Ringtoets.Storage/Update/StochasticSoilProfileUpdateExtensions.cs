@@ -39,40 +39,40 @@ namespace Application.Ringtoets.Storage.Update
         /// <see cref="StochasticSoilProfile"/>.
         /// </summary>
         /// <param name="profile">The profile to update the database entity for.</param>
-        /// <param name="collector">The object keeping track of update operations.</param>
+        /// <param name="registry">The object keeping track of update operations.</param>
         /// <param name="context">The context to obtain the existing entity from.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="collector"/> is <c>null</c></item>
+        /// <item><paramref name="registry"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this StochasticSoilProfile profile, PersistenceRegistry collector, IRingtoetsEntities context)
+        internal static void Update(this StochasticSoilProfile profile, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
             {
                 throw new ArgumentNullException("context");
             }
-            if (collector == null)
+            if (registry == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException("registry");
             }
 
-            var entity = GetSingleStochasticSoilProfile(profile, context);
+            StochasticSoilProfileEntity entity = GetCorrespondingStochasticSoilProfileEntity(profile, context);
             entity.Probability = Convert.ToDecimal(profile.Probability);
 
             if (profile.SoilProfile.IsNew())
             {
-                entity.SoilProfileEntity = profile.SoilProfile.Create(collector);
+                entity.SoilProfileEntity = profile.SoilProfile.Create(registry);
             }
             else
             {
-                profile.SoilProfile.Update(collector, context);
+                profile.SoilProfile.Update(registry, context);
             }
 
-            collector.Register(entity, profile);
+            registry.Register(entity, profile);
         }
 
-        private static StochasticSoilProfileEntity GetSingleStochasticSoilProfile(StochasticSoilProfile profile, IRingtoetsEntities context)
+        private static StochasticSoilProfileEntity GetCorrespondingStochasticSoilProfileEntity(StochasticSoilProfile profile, IRingtoetsEntities context)
         {
             try
             {

@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("collector", parameterName);
+            Assert.AreEqual("registry", parameterName);
         }
 
         [Test]
@@ -51,10 +51,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             string testName = "testName";
             var geometryPoints = new[] { new Point2D(0, 0), new Point2D(0, 0) };
             var failureMechanismSection = new FailureMechanismSection(testName, geometryPoints);
-            var collector = new PersistenceRegistry();
+            var registry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanismSection.Create(collector);
+            var entity = failureMechanismSection.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
