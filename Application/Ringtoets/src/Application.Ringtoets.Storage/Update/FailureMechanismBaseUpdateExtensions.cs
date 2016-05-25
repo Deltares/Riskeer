@@ -77,6 +77,17 @@ namespace Application.Ringtoets.Storage.Update
             }
         }
 
+        /// <summary>
+        /// Gets the <see cref="FailureMechanismEntity"/> based on the <see cref="IFailureMechanism"/>.
+        /// </summary>
+        /// <param name="mechanism">The failure mechanism corresponding with the failure mechanism entity.</param>
+        /// <param name="context">The context to obtain the existing entity from.</param>
+        /// <returns>The stored <see cref="FailureMechanismEntity"/>.</returns>
+        /// <exception cref="EntityNotFoundException">Thrown when either:
+        /// <list type="bullet">
+        /// <item>the <see cref="FailureMechanismEntity"/> couldn't be found in the <paramref name="context"/></item>
+        /// <item>more than one <see cref="FailureMechanismEntity"/> was found in the <paramref name="context"/></item>
+        /// </list></exception>
         internal static FailureMechanismEntity GetSingleFailureMechanism(this IFailureMechanism mechanism, IRingtoetsEntities context)
         {
             try

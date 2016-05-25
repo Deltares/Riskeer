@@ -24,6 +24,7 @@ using System.Linq;
 
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.Update;
 using Core.Common.Base.Geometry;
@@ -165,6 +166,81 @@ namespace Application.Ringtoets.Storage.Test.Update
             Assert.AreEqual(testName, failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(0).Name);
 
             mocks.VerifyAll();
-        } 
+        }
+
+        [Test]
+        public void GetSingleFailureMechanism_ContextWithoutFailureMechanismEntityForId_ThrowsEntityNotFoundException()
+        {
+            // Setup
+            using (RingtoetsEntities ringtoetsEntities = new RingtoetsEntities())
+            {
+                IFailureMechanism failureMechanism = new TestFailureMechanism();
+
+                // Call
+                TestDelegate test = () => failureMechanism.GetSingleFailureMechanism(ringtoetsEntities);
+                
+                // Assert
+                Assert.Throws<EntityNotFoundException>(test);
+            }
+        }
+
+        [Test]
+        public void GetSingleFailureMechanism_ContextWithMultipleFailureMechanismEntityForId_ThrowsEntityNotFoundException()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
+            mocks.ReplayAll();
+
+            long testId = new Random(21).Next();
+            var expectedEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = testId
+            };
+
+            ringtoetsEntities.FailureMechanismEntities.Add(expectedEntity);
+            ringtoetsEntities.FailureMechanismEntities.Add(expectedEntity);
+            IFailureMechanism failureMechanism = new TestFailureMechanism
+            {
+                StorageId = testId
+            };
+
+            // Call
+            TestDelegate test = () => failureMechanism.GetSingleFailureMechanism(ringtoetsEntities);
+
+            // Assert
+            Assert.Throws<EntityNotFoundException>(test);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetSingleFailureMechanism_ContextWithFailureMechanismEntityForId_ReturnsEntityFromContext()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
+            mocks.ReplayAll();
+
+            long testId = new Random(21).Next();
+            var expectedEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = testId
+            };
+
+            ringtoetsEntities.FailureMechanismEntities.Add(expectedEntity);
+            IFailureMechanism failureMechanism = new TestFailureMechanism
+            {
+                StorageId = testId
+            };
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.GetSingleFailureMechanism(ringtoetsEntities);
+                
+            // Assert
+            Assert.AreSame(expectedEntity, entity);
+
+            mocks.VerifyAll();
+        }
     }
 }
