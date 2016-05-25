@@ -177,9 +177,9 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het modelfactor overslagdebiet die gebruikt wordt in de berekening..
         /// </summary>
-        public static string HeightStructuresInputFailureMechanismContext_ModelfactorOvertoppingFlow_Description {
+        public static string HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Description {
             get {
-                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_ModelfactorOvertoppingFlow_Descripti" +
+                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Descripti" +
                         "on", resourceCulture);
             }
         }
@@ -187,9 +187,9 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Modelfactor overslagdebiet.
         /// </summary>
-        public static string HeightStructuresInputFailureMechanismContext_ModelfactorOvertoppingFlow_DisplayName {
+        public static string HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayName {
             get {
-                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_ModelfactorOvertoppingFlow_DisplayNa" +
+                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayNa" +
                         "me", resourceCulture);
             }
         }

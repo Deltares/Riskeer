@@ -58,13 +58,13 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.IsNull(input.HydraulicBoundaryLocation);
 
             Assert.AreEqual(generalInput.GravitationalAcceleration, input.GravitationalAcceleration);
-            Assert.AreEqual(generalInput.ModelfactorOvertoppingFlow, input.ModelfactorOvertoppingFlow);
+            Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow, input.ModelFactorOvertoppingFlow);
             Assert.AreEqual(generalInput.ModelFactorForStorageVolume, input.ModelFactorForStorageVolume);
             Assert.AreEqual(generalInput.ModelFactorForIncomingFlowVolume, input.ModelFactorForIncomingFlowVolume);
 
             Assert.AreEqual(0.05, input.LevelOfCrestOfStructure.StandardDeviation, input.LevelOfCrestOfStructure.StandardDeviation.GetAccuracy());
-            Assert.AreEqual(1.1, input.ModelfactorOvertoppingSuperCriticalFlow.Mean, input.ModelfactorOvertoppingSuperCriticalFlow.Mean.GetAccuracy());
-            Assert.AreEqual(0.03, input.ModelfactorOvertoppingSuperCriticalFlow.StandardDeviation, input.ModelfactorOvertoppingSuperCriticalFlow.StandardDeviation.GetAccuracy());
+            Assert.AreEqual(1.1, input.ModelFactorOvertoppingSuperCriticalFlow.Mean, input.ModelFactorOvertoppingSuperCriticalFlow.Mean.GetAccuracy());
+            Assert.AreEqual(0.03, input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation, input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation.GetAccuracy());
             Assert.AreEqual(0.1, input.AllowableIncreaseOfLevelForStorage.StandardDeviation, input.AllowableIncreaseOfLevelForStorage.StandardDeviation.GetAccuracy());
             Assert.AreEqual(0.1, input.StorageStructureArea.StandardDeviation, input.StorageStructureArea.StandardDeviation.GetAccuracy());
             Assert.AreEqual(0.05, input.FlowWidthAtBottomProtection.StandardDeviation, input.FlowWidthAtBottomProtection.StandardDeviation.GetAccuracy());
@@ -83,8 +83,8 @@ namespace Ringtoets.HeightStructures.Data.Test
             var random = new Random(22);
 
             NormalDistribution levelOfCrestOfStructure = new NormalDistribution(2);
-            RoundedDouble defaultModelfactorOvertoppingSupercriticalFlowStandardDeviation = input.ModelfactorOvertoppingSuperCriticalFlow.StandardDeviation;
-            NormalDistribution modelfactorOvertoppingSupercriticalFlow = new NormalDistribution(2)
+            RoundedDouble defaultModelFactorOvertoppingSupercriticalFlowStandardDeviation = input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation;
+            NormalDistribution modelFactorOvertoppingSupercriticalFlow = new NormalDistribution(2)
             {
                 Mean = new RoundedDouble(5, random.NextDouble()),
                 StandardDeviation = new RoundedDouble(2, random.NextDouble())
@@ -129,7 +129,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Call
             input.LevelOfCrestOfStructure = levelOfCrestOfStructure;
             input.OrientationOfTheNormalOfTheStructure = orientationOfTheNormalOfTheStructure;
-            input.ModelfactorOvertoppingSuperCriticalFlow = modelfactorOvertoppingSupercriticalFlow;
+            input.ModelFactorOvertoppingSuperCriticalFlow = modelFactorOvertoppingSupercriticalFlow;
             input.AllowableIncreaseOfLevelForStorage = allowableIncreaseOfLevelForStorage;
             input.StorageStructureArea = storageStructureArea;
             input.FlowWidthAtBottomProtection = flowWidthAtBottomProtection;
@@ -144,8 +144,8 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(levelOfCrestOfStructure.Mean, input.LevelOfCrestOfStructure.Mean);
             Assert.AreEqual(levelOfCrestOfStructure.StandardDeviation, input.LevelOfCrestOfStructure.StandardDeviation);
 
-            Assert.AreEqual(modelfactorOvertoppingSupercriticalFlow.Mean, input.ModelfactorOvertoppingSuperCriticalFlow.Mean);
-            Assert.AreEqual(defaultModelfactorOvertoppingSupercriticalFlowStandardDeviation, input.ModelfactorOvertoppingSuperCriticalFlow.StandardDeviation);
+            Assert.AreEqual(modelFactorOvertoppingSupercriticalFlow.Mean, input.ModelFactorOvertoppingSuperCriticalFlow.Mean);
+            Assert.AreEqual(defaultModelFactorOvertoppingSupercriticalFlowStandardDeviation, input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation);
 
             Assert.AreEqual(orientationOfTheNormalOfTheStructure, input.OrientationOfTheNormalOfTheStructure, input.OrientationOfTheNormalOfTheStructure.GetAccuracy());
 

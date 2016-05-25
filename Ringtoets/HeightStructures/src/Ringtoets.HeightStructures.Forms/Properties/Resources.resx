@@ -154,10 +154,10 @@
   <data name="HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_DisplayName" xml:space="preserve">
     <value>Kombergend oppervlak</value>
   </data>
-  <data name="HeightStructuresInputFailureMechanismContext_ModelfactorOvertoppingFlow_Description" xml:space="preserve">
+  <data name="HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Description" xml:space="preserve">
     <value>Het modelfactor overslagdebiet die gebruikt wordt in de berekening.</value>
   </data>
-  <data name="HeightStructuresInputFailureMechanismContext_ModelfactorOvertoppingFlow_DisplayName" xml:space="preserve">
+  <data name="HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayName" xml:space="preserve">
     <value>Modelfactor overslagdebiet</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_N_Description" xml:space="preserve">

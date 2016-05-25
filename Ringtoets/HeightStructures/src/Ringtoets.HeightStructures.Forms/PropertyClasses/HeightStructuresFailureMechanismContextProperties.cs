@@ -107,15 +107,15 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(modelfactorOvertoppingFlowPropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "HeightStructuresInputFailureMechanismContext_ModelfactorOvertoppingFlow_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HeightStructuresInputFailureMechanismContext_ModelfactorOvertoppingFlow_Description")]
-        public ReadOnlyLogNormalDistributionProperties ModelfactorOvertoppingFlow
+        [ResourcesDisplayName(typeof(Resources), "HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Description")]
+        public ReadOnlyLogNormalDistributionProperties ModelFactorOvertoppingFlow
         {
             get
             {
                 return new ReadOnlyLogNormalDistributionProperties
                 {
-                    Data = data.WrappedData.GeneralInput.ModelfactorOvertoppingFlow
+                    Data = data.WrappedData.GeneralInput.ModelFactorOvertoppingFlow
                 };
             }
         }
@@ -130,7 +130,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             {
                 return new ReadOnlyLogNormalDistributionProperties
                 {
-                    Data =  data.WrappedData.GeneralInput.ModelFactorForStorageVolume
+                    Data = data.WrappedData.GeneralInput.ModelFactorForStorageVolume
                 };
             }
         }

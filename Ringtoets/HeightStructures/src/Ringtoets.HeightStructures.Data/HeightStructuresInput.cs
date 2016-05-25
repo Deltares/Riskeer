@@ -35,7 +35,7 @@ namespace Ringtoets.HeightStructures.Data
     {
         private readonly NormalDistribution levelOfCrestOfStructure;
         private readonly GeneralHeightStructuresInput generalInputParameters;
-        private readonly NormalDistribution modelfactorOvertoppingSuperCriticalFlow;
+        private readonly NormalDistribution modelFactorOvertoppingSuperCriticalFlow;
         private readonly LognormalDistribution allowableIncreaseOfLevelForStorage;
         private readonly LognormalDistribution storageStructureArea;
         private readonly LognormalDistribution flowWidthAtBottomProtection;
@@ -66,7 +66,7 @@ namespace Ringtoets.HeightStructures.Data
 
             OrientationOfTheNormalOfTheStructure = new RoundedDouble(2);
 
-            modelfactorOvertoppingSuperCriticalFlow = new NormalDistribution(2)
+            modelFactorOvertoppingSuperCriticalFlow = new NormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, 1.1),
                 StandardDeviation = new RoundedDouble(2, 0.03)
@@ -110,15 +110,15 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets or sets the model factor overtopping critical flow.
         /// </summary>
-        public NormalDistribution ModelfactorOvertoppingSuperCriticalFlow
+        public NormalDistribution ModelFactorOvertoppingSuperCriticalFlow
         {
             get
             {
-                return modelfactorOvertoppingSuperCriticalFlow;
+                return modelFactorOvertoppingSuperCriticalFlow;
             }
             set
             {
-                modelfactorOvertoppingSuperCriticalFlow.Mean = value.Mean.ToPrecision(modelfactorOvertoppingSuperCriticalFlow.Mean.NumberOfDecimalPlaces);
+                modelFactorOvertoppingSuperCriticalFlow.Mean = value.Mean.ToPrecision(modelFactorOvertoppingSuperCriticalFlow.Mean.NumberOfDecimalPlaces);
             }
         }
 
@@ -309,11 +309,11 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets the model factor overtopping flow.
         /// </summary>
-        public LognormalDistribution ModelfactorOvertoppingFlow
+        public LognormalDistribution ModelFactorOvertoppingFlow
         {
             get
             {
-                return generalInputParameters.ModelfactorOvertoppingFlow;
+                return generalInputParameters.ModelFactorOvertoppingFlow;
             }
         }
 

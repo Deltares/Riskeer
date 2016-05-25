@@ -74,8 +74,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.LengthEffect);
 
             var generalInput = failureMechanism.GeneralInput;
-            Assert.AreEqual(generalInput.ModelfactorOvertoppingFlow.Mean, properties.ModelfactorOvertoppingFlow.Mean);
-            Assert.AreEqual(generalInput.ModelfactorOvertoppingFlow.StandardDeviation, properties.ModelfactorOvertoppingFlow.StandardDeviation);
+            Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow.Mean, properties.ModelFactorOvertoppingFlow.Mean);
+            Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow.StandardDeviation, properties.ModelFactorOvertoppingFlow.StandardDeviation);
 
             Assert.AreEqual(generalInput.ModelFactorForStorageVolume.Mean, properties.ModelFactorForStorageVolume.Mean);
             Assert.AreEqual(generalInput.ModelFactorForStorageVolume.StandardDeviation, properties.ModelFactorForStorageVolume.StandardDeviation);
