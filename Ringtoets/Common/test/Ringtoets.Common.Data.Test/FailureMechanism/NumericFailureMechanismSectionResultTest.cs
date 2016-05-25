@@ -27,13 +27,13 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.Common.Data.Test.FailureMechanism
 {
     [TestFixture]
-    public class CustomFailureMechanismSectionResultTest
+    public class NumericFailureMechanismSectionResultTest
     {
         [Test]
         public void Constructor_WithoutSection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new CustomFailureMechanismSectionResult(null);
+            TestDelegate test = () => new NumericFailureMechanismSectionResult(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
 
             // Call
-            var result = new CustomFailureMechanismSectionResult(section);
+            var result = new NumericFailureMechanismSectionResult(section);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);

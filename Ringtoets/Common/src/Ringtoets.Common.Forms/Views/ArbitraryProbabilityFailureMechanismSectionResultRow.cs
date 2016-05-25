@@ -21,24 +21,25 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.Properties;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// Container of a <see cref="CustomFailureMechanismSectionResult"/>, which takes care of the
+    /// Container of a <see cref="ArbitraryProbabilityFailureMechanismSectionResult"/>, which takes care of the
     /// representation of properties in a grid.
     /// </summary>
-    public class CustomFailureMechanismSectionResultRow
+    public class ArbitraryProbabilityFailureMechanismSectionResultRow
     {
         /// <summary>
-        /// Creates a new instance of <see cref="CustomFailureMechanismSectionResultRow"/>.
+        /// Creates a new instance of <see cref="ArbitraryProbabilityFailureMechanismSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="CustomFailureMechanismSectionResult"/> that is 
+        /// <param name="sectionResult">The <see cref="ArbitraryProbabilityFailureMechanismSectionResult"/> that is 
         /// the source of this row.</param>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="sectionResult"/> is
         /// <c>null</c>.</exception>
-        public CustomFailureMechanismSectionResultRow(CustomFailureMechanismSectionResult sectionResult)
+        public ArbitraryProbabilityFailureMechanismSectionResultRow(ArbitraryProbabilityFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)
             {
@@ -77,15 +78,38 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets or sets the value representing the result of the layer 2a assessment.
         /// </summary>
-        public RoundedDouble AssessmentLayerTwoA
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="value"/> is not in the range [0,1]</item>
+        /// <item><paramref name="value"/> doesn't represent a value which can be parsed to a double value</item>
+        /// </list>
+        /// </exception>
+        public string AssessmentLayerTwoA
         {
             get
             {
-                return SectionResult.AssessmentLayerTwoA;
+                var d = (RoundedDouble) (1/SectionResult.AssessmentLayerTwoA);
+                return string.Format(Resources.ProbabilityPerYearFormat, d);
             }
             set
             {
-                SectionResult.AssessmentLayerTwoA = value;
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value",Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_cannot_be_null);
+                }
+                try
+                {
+                    SectionResult.AssessmentLayerTwoA = (RoundedDouble) double.Parse(value);
+                }
+                catch (OverflowException)
+                {
+                    throw new ArgumentException(Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_too_large);
+                }
+                catch (FormatException)
+                {
+                    throw new ArgumentException(Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Could_not_parse_string_to_double_value);
+                }
             }
         }
 
@@ -119,6 +143,6 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
-        private CustomFailureMechanismSectionResult SectionResult { get; set; }
+        private ArbitraryProbabilityFailureMechanismSectionResult SectionResult { get; set; }
     }
 }

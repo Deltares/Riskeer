@@ -23,21 +23,24 @@ using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
+using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
+
 namespace Ringtoets.Common.Forms.Test.Views
 {
     [TestFixture]
-    public class CustomProbabilityFailureMechanismSectionResultRowTest
+    public class ArbitraryProbabilityFailureMechanismSectionResultRowTest
     {
         [Test]
         public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new CustomProbabilityFailureMechanismSectionResultRow(null);
+            TestDelegate test = () => new ArbitraryProbabilityFailureMechanismSectionResultRow(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -49,15 +52,25 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var section = CreateSection();
-            var result = new CustomProbabilityFailureMechanismSectionResult(section);
+            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
 
             // Call
-            var row = new CustomProbabilityFailureMechanismSectionResultRow(result);
+            var row = new ArbitraryProbabilityFailureMechanismSectionResultRow(result);
 
             // Assert
             Assert.AreEqual(section.Name, row.Name);
             Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
-            Assert.AreEqual(string.Format(Core.Common.Base.Properties.Resources.ProbabilityPerYearFormat, (RoundedDouble) (1 / result.AssessmentLayerTwoA)), row.AssessmentLayerTwoA);
+
+            var expected2AValue = (RoundedDouble) (1 / result.AssessmentLayerTwoA);
+            var expected2AValueString = string.Format(
+                CoreCommonBaseResources.ProbabilityPerYearFormat, 
+                expected2AValue
+            );
+            Assert.AreEqual(
+                expected2AValueString, 
+                row.AssessmentLayerTwoA
+            );
+
             Assert.AreEqual(result.AssessmentLayerTwoB, row.AssessmentLayerTwoB);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
         }
@@ -69,8 +82,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var section = CreateSection();
-            var result = new CustomProbabilityFailureMechanismSectionResult(section);
-            var row = new CustomProbabilityFailureMechanismSectionResultRow(result);
+            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
+            var row = new ArbitraryProbabilityFailureMechanismSectionResultRow(result);
 
             int counter = 0;
             using (new Observer(() => counter++)
@@ -97,15 +110,15 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var newValue = (RoundedDouble) value;
             var section = CreateSection();
-            var result = new CustomProbabilityFailureMechanismSectionResult(section);
-            var row = new CustomProbabilityFailureMechanismSectionResultRow(result);
+            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
+            var row = new ArbitraryProbabilityFailureMechanismSectionResultRow(result);
 
             // Call
             row.AssessmentLayerTwoA = newValue.ToString();
 
             // Assert
-            var expected = string.Format(Core.Common.Base.Properties.Resources.ProbabilityPerYearFormat, newValue);
-            var actual = string.Format(Core.Common.Base.Properties.Resources.ProbabilityPerYearFormat, result.AssessmentLayerTwoA);
+            var expected = string.Format(CoreCommonBaseResources.ProbabilityPerYearFormat, newValue);
+            var actual = string.Format(CoreCommonBaseResources.ProbabilityPerYearFormat, result.AssessmentLayerTwoA);
             Assert.AreEqual(expected, actual);
         }
 
@@ -114,13 +127,13 @@ namespace Ringtoets.Common.Forms.Test.Views
         [TestCase(-1e-6)]
         [TestCase(1 + 1e-6)]
         [TestCase(12)]
-        public void AssessmentLayerTwoA_ForInvalidValues_ThrowsException(double value)
+        public void AssessmentLayerTwoA_ForInvalidValues_ThrowsArgumentException(double value)
         {
             // Setup
             var newValue = (RoundedDouble)value;
             var section = CreateSection();
-            var result = new CustomProbabilityFailureMechanismSectionResult(section);
-            var row = new CustomProbabilityFailureMechanismSectionResultRow(result);
+            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
+            var row = new ArbitraryProbabilityFailureMechanismSectionResultRow(result);
 
             // Call
             TestDelegate test = () => row.AssessmentLayerTwoA = newValue.ToString();
@@ -128,9 +141,68 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Assert
             var message = Assert.Throws<ArgumentException>(test).Message;
             Assert.AreEqual(
-                Data.Properties.Resources.CustomProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1,
+                Data.Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1,
                 message
             );
+        }
+
+        [Test]
+        [TestCase(double.MaxValue + 1)]
+        [TestCase(double.MinValue - 1)]
+        public void AssessmentLayerTwoA_ForTooLargeValues_ThrowsArgumentException(double value)
+        {
+            // Setup
+            var newValue = (RoundedDouble)value;
+            var section = CreateSection();
+            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
+            var row = new ArbitraryProbabilityFailureMechanismSectionResultRow(result);
+
+            // Call
+            TestDelegate test = () => row.AssessmentLayerTwoA = newValue.ToString();
+
+            // Assert
+            var message = Assert.Throws<ArgumentException>(test).Message;
+            Assert.AreEqual(
+                Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_too_large,
+                message
+            );
+        }
+
+        [Test]
+        [TestCase("many")]
+        [TestCase("")]
+        public void AssessmentLayerTwoA_ForNonNumericValues_ThrowsArgumentException(string value)
+        {
+            // Setup
+            var section = CreateSection();
+            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
+            var row = new ArbitraryProbabilityFailureMechanismSectionResultRow(result);
+
+            // Call
+            TestDelegate test = () => row.AssessmentLayerTwoA = value;
+
+            // Assert
+            var message = Assert.Throws<ArgumentException>(test).Message;
+            Assert.AreEqual(
+                Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Could_not_parse_string_to_double_value,
+                message
+            );
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_ForNullValue_ThrowsArgumentException()
+        {
+            // Setup
+            var section = CreateSection();
+            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
+            var row = new ArbitraryProbabilityFailureMechanismSectionResultRow(result);
+
+            // Call
+            TestDelegate test = () => row.AssessmentLayerTwoA = (string) null;
+
+            // Assert
+            var expectedMessage = Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_cannot_be_null;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]
@@ -140,8 +212,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             var random = new Random(21);
             var newValue = random.NextDouble();
             var section = CreateSection();
-            var result = new CustomProbabilityFailureMechanismSectionResult(section);
-            var row = new CustomProbabilityFailureMechanismSectionResultRow(result);
+            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
+            var row = new ArbitraryProbabilityFailureMechanismSectionResultRow(result);
 
             // Call
             row.AssessmentLayerTwoB = (RoundedDouble)newValue;
@@ -157,8 +229,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             var random = new Random(21);
             var newValue = random.NextDouble();
             var section = CreateSection();
-            var result = new CustomProbabilityFailureMechanismSectionResult(section);
-            var row = new CustomProbabilityFailureMechanismSectionResultRow(result);
+            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
+            var row = new ArbitraryProbabilityFailureMechanismSectionResultRow(result);
 
             // Call
             row.AssessmentLayerThree = (RoundedDouble)newValue;

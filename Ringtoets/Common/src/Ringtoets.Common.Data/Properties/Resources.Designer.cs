@@ -61,6 +61,16 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde voor de faalkans moet in het bereik [0,1] liggen..
+        /// </summary>
+        public static string ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1 {
+            get {
+                return ResourceManager.GetString("ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs" +
+                        "_to_be_between_0_and_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Onvoldoende.
         /// </summary>
         public static string AssessmentLayerTwoAResult_Failed {
@@ -129,16 +139,6 @@ namespace Ringtoets.Common.Data.Properties {
         public static string Contribution_Value_should_be_in_interval_0_100 {
             get {
                 return ResourceManager.GetString("Contribution_Value_should_be_in_interval_0_100", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de faalkans moet in het bereik [0,1] liggen..
-        /// </summary>
-        public static string CustomProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1 {
-            get {
-                return ResourceManager.GetString("CustomProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to" +
-                        "_be_between_0_and_1", resourceCulture);
             }
         }
         

@@ -180,7 +180,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanisms[0], pipingFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, pipingFailureMechanismContext.Parent);
 
-                var macroStabilityFailureMechanismContext = (CustomProbabilityFailureMechanismContext)objects[5];
+                var macroStabilityFailureMechanismContext = (ArbitraryProbabilityFailureMechanismContext)objects[5];
                 Assert.AreSame(failureMechanisms[1], macroStabilityFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, macroStabilityFailureMechanismContext.Parent);
 
@@ -188,7 +188,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanisms[2], grassCoverErosionOutwardsFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, grassCoverErosionOutwardsFailureMechanismContext.Parent);
 
-                var waterPressureAsphaltCoverFailureMechanismContext = (CustomFailureMechanismContext)objects[7];
+                var waterPressureAsphaltCoverFailureMechanismContext = (NumericFailureMechanismContext)objects[7];
                 Assert.AreSame(failureMechanisms[3], waterPressureAsphaltCoverFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, waterPressureAsphaltCoverFailureMechanismContext.Parent);
             }

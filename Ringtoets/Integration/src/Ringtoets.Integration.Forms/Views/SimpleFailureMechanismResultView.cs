@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Utils;
+using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -69,13 +70,20 @@ namespace Ringtoets.Integration.Forms.Views
                                            .ToList();
 
             DataGridViewControl.AddComboBoxColumn(
-                "AssessmentLayerTwoA",
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, 
+                TypeUtils.GetMemberName<NumericFailureMechanismSectionResult>(sr => sr.AssessmentLayerTwoA), 
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
                 dataSource,
-                o => o.Value,
-                o => o.DisplayName);
-            DataGridViewControl.AddTextBoxColumn("AssessmentLayerTwoB", RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b);
-            DataGridViewControl.AddTextBoxColumn("AssessmentLayerThree", RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+                edw => edw.Value,
+                edw => edw.DisplayName
+            );
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<NumericFailureMechanismSectionResult>(sr => sr.AssessmentLayerTwoB), 
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b
+            );
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<NumericFailureMechanismSectionResult>(sr => sr.AssessmentLayerThree), 
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three
+            );
         }
 
         protected override object CreateFailureMechanismSectionResultRow(SimpleFailureMechanismSectionResult sectionResult)

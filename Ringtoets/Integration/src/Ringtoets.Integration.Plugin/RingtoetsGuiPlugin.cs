@@ -134,7 +134,10 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsFormsResources.Map
             };
 
-            yield return new ViewInfo<FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>, IEnumerable<SimpleFailureMechanismSectionResult>, SimpleFailureMechanismResultView>
+            yield return new ViewInfo<
+                FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>, 
+                IEnumerable<SimpleFailureMechanismSectionResult>, 
+                SimpleFailureMechanismResultView>
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -143,20 +146,26 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
 
-            yield return new ViewInfo<FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>, IEnumerable<CustomFailureMechanismSectionResult>, CustomFailureMechanismResultView>
+            yield return new ViewInfo<
+                FailureMechanismSectionResultContext<NumericFailureMechanismSectionResult>, 
+                IEnumerable<NumericFailureMechanismSectionResult>, 
+                NumericFailureMechanismResultView>
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseCustomFailureMechanismResultViewForData,
+                CloseForData = CloseNumericFailureMechanismResultViewForData,
                 GetViewData = context => context.SectionResults,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
 
-            yield return new ViewInfo<FailureMechanismSectionResultContext<CustomProbabilityFailureMechanismSectionResult>, IEnumerable<CustomProbabilityFailureMechanismSectionResult>, CustomProbabilityFailureMechanismResultView>
+            yield return new ViewInfo<
+                FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>, 
+                IEnumerable<ArbitraryProbabilityFailureMechanismSectionResult>, 
+                ArbitraryProbabilityFailureMechanismResultView>
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseCustomFailureMechanismResultViewForData,
+                CloseForData = CloseArbitraryProbabilityFailureMechanismResultViewForData,
                 GetViewData = context => context.SectionResults,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
@@ -268,7 +277,7 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<NumericFailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -277,7 +286,7 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<CustomProbabilityFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -346,13 +355,13 @@ namespace Ringtoets.Integration.Plugin
             return CloseFailureMechanismResultViewForData(o, data);
         }
 
-        private static bool CloseCustomFailureMechanismResultViewForData(CustomFailureMechanismResultView view, object o)
+        private static bool CloseNumericFailureMechanismResultViewForData(NumericFailureMechanismResultView view, object o)
         {
             var data = view.Data;
             return CloseFailureMechanismResultViewForData(o, data);
         }
 
-        private static bool CloseCustomFailureMechanismResultViewForData(CustomProbabilityFailureMechanismResultView view, object o)
+        private static bool CloseArbitraryProbabilityFailureMechanismResultViewForData(ArbitraryProbabilityFailureMechanismResultView view, object o)
         {
             var data = view.Data;
             return CloseFailureMechanismResultViewForData(o, data);
@@ -363,6 +372,7 @@ namespace Ringtoets.Integration.Plugin
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as IFailureMechanism;
             var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
+
             if (assessmentSection != null)
             {
                 return assessmentSection
@@ -374,7 +384,12 @@ namespace Ringtoets.Integration.Plugin
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
-            return failureMechanism != null && ReferenceEquals(data, ((IHasSectionResults<FailureMechanismSectionResult>) failureMechanism).SectionResults);
+
+            var failureMechanismWithSectionResults = failureMechanism as IHasSectionResults<FailureMechanismSectionResult>;
+
+            return failureMechanism != null 
+                && failureMechanismWithSectionResults != null
+                && ReferenceEquals(data, failureMechanismWithSectionResults.SectionResults);
         }
 
         #endregion
@@ -475,8 +490,8 @@ namespace Ringtoets.Integration.Plugin
                 var grassCoverErosionInwards = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
                 var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
 
-                var customFailureMechanism = failureMechanism as IHasSectionResults<CustomFailureMechanismSectionResult>;
-                var customProbabilityFailureMechanism = failureMechanism as IHasSectionResults<CustomProbabilityFailureMechanismSectionResult>;
+                var numericFailureMechanism = failureMechanism as IHasSectionResults<NumericFailureMechanismSectionResult>;
+                var probabilityFailureMechanism = failureMechanism as IHasSectionResults<ArbitraryProbabilityFailureMechanismSectionResult>;
                 var simpleFailureMechanism = failureMechanism as IHasSectionResults<SimpleFailureMechanismSectionResult>;
 
                 if (piping != null)
@@ -491,13 +506,13 @@ namespace Ringtoets.Integration.Plugin
                 {
                     yield return new HeightStructuresFailureMechanismContext(heightStructuresFailureMechanism, nodeData);
                 }
-                else if (customFailureMechanism != null)
+                else if (numericFailureMechanism != null)
                 {
-                    yield return new CustomFailureMechanismContext(customFailureMechanism as IFailureMechanism, nodeData);
+                    yield return new NumericFailureMechanismContext(numericFailureMechanism as IFailureMechanism, nodeData);
                 }
-                else if (customProbabilityFailureMechanism != null)
+                else if (probabilityFailureMechanism != null)
                 {
-                    yield return new CustomProbabilityFailureMechanismContext(customProbabilityFailureMechanism as IFailureMechanism, nodeData);
+                    yield return new ArbitraryProbabilityFailureMechanismContext(probabilityFailureMechanism as IFailureMechanism, nodeData);
                 }
                 else if (simpleFailureMechanism != null)
                 {
@@ -579,8 +594,8 @@ namespace Ringtoets.Integration.Plugin
         private IList GetOutputs(IFailureMechanism nodeData)
         {
             var simple = nodeData as IHasSectionResults<SimpleFailureMechanismSectionResult>;
-            var custom = nodeData as IHasSectionResults<CustomFailureMechanismSectionResult>;
-            var customProbability = nodeData as IHasSectionResults<CustomProbabilityFailureMechanismSectionResult>;
+            var custom = nodeData as IHasSectionResults<NumericFailureMechanismSectionResult>;
+            var arbitraryProbability = nodeData as IHasSectionResults<ArbitraryProbabilityFailureMechanismSectionResult>;
             var failureMechanismSectionResultContexts = new object[1];
             if (simple != null)
             {
@@ -590,12 +605,12 @@ namespace Ringtoets.Integration.Plugin
             if (custom != null)
             {
                 failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>(custom.SectionResults, nodeData);
+                    new FailureMechanismSectionResultContext<NumericFailureMechanismSectionResult>(custom.SectionResults, nodeData);
             }
-            if (customProbability != null)
+            if (arbitraryProbability != null)
             {
                 failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<CustomProbabilityFailureMechanismSectionResult>(customProbability.SectionResults, nodeData);
+                    new FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>(arbitraryProbability.SectionResults, nodeData);
             }
             return failureMechanismSectionResultContexts;
         }

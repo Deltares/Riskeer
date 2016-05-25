@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         public void Constructor_WithoutSection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new CustomProbabilityFailureMechanismSectionResult(null);
+            TestDelegate test = () => new ArbitraryProbabilityFailureMechanismSectionResult(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
 
             // Call
-            var result = new CustomProbabilityFailureMechanismSectionResult(section);
+            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         {
             // Setup
             var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
-            var result = new CustomProbabilityFailureMechanismSectionResult(section);
+            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
 
             // Call
             TestDelegate test = () => result.AssessmentLayerTwoA = (RoundedDouble)a;
@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             // Assert
             var message = Assert.Throws<ArgumentException>(test).Message;
             Assert.AreEqual(
-                Properties.Resources.CustomProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1, 
+                Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1, 
                 message
             );
         }
@@ -91,7 +91,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         {
             // Setup
             var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
-            var result = new CustomProbabilityFailureMechanismSectionResult(section);
+            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
 
             var assessmentLayerTwoAValue = (RoundedDouble)a;
 

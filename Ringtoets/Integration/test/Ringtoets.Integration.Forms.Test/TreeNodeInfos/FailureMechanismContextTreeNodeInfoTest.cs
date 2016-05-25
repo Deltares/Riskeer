@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism("name", "code");
-            var failureMechanismContext = new CustomFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new NumericFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var plugin = new RingtoetsGuiPlugin())
             {
@@ -130,7 +130,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 var failureMechanism = new TestFailureMechanism("C", "C");
-                var context = new CustomFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new NumericFailureMechanismContext(failureMechanism, assessmentSection);
 
                 // Call
                 var textColor = info.ForeColor(context);
@@ -193,9 +193,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 var info = GetInfo(plugin);
 
-                var failureMechanism = mocks.StrictMultiMock<IHasSectionResults<CustomFailureMechanismSectionResult>>(typeof(IFailureMechanism));
+                var failureMechanism = mocks.StrictMultiMock<IHasSectionResults<NumericFailureMechanismSectionResult>>(typeof(IFailureMechanism));
                 failureMechanism.Expect(fm => ((IFailureMechanism) fm).IsRelevant).Return(true);
-                failureMechanism.Expect(fm => fm.SectionResults).Return(new List<CustomFailureMechanismSectionResult>()).Repeat.Any();
+                failureMechanism.Expect(fm => fm.SectionResults).Return(new List<NumericFailureMechanismSectionResult>()).Repeat.Any();
                 var failureMechanismContext = mocks.Stub<FailureMechanismContext<IFailureMechanism>>(failureMechanism, assessmentSection);
 
                 mocks.ReplayAll();
@@ -204,7 +204,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
                 var outputFolder = (CategoryTreeFolder)children[1];
 
-                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>) outputFolder.Contents[0];
+                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<NumericFailureMechanismSectionResult>) outputFolder.Contents[0];
                 Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
                 Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
             }
@@ -258,7 +258,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     new Point2D(1, 2),
                     new Point2D(5, 6)
                 }));
-                var failureMechanismContext = new CustomFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new NumericFailureMechanismContext(failureMechanism, assessmentSection);
 
                 // Call
                 object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -279,7 +279,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 var failureMechanism = new TestFailureMechanism("A", "C");
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new CustomFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new NumericFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var gui = mocks.StrictMock<IGui>();
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
@@ -326,7 +326,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     IsRelevant = false
                 };
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new CustomFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new NumericFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var gui = mocks.StrictMock<IGui>();
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
@@ -365,7 +365,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var failureMechanism = new TestFailureMechanism("A", "C");
-                var context = new CustomFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new NumericFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -410,7 +410,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             failureMechanism.Attach(failureMechanismObserver);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new CustomFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new NumericFailureMechanismContext(failureMechanism, assessmentSection);
 
             var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
@@ -457,7 +457,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             failureMechanism.Attach(failureMechanismObserver);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new CustomFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new NumericFailureMechanismContext(failureMechanism, assessmentSection);
 
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();

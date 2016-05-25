@@ -22,6 +22,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
@@ -82,10 +83,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         protected override void AddDataGridColumns()
         {
             base.AddDataGridColumns();
-
-            DataGridViewControl.AddTextBoxColumn("AssessmentLayerTwoA", RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, true);
-            DataGridViewControl.AddTextBoxColumn("AssessmentLayerTwoB", RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b);
-            DataGridViewControl.AddTextBoxColumn("AssessmentLayerThree", RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+            
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<NumericFailureMechanismSectionResult>(sr => sr.AssessmentLayerTwoA), 
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, 
+                true
+            );
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<NumericFailureMechanismSectionResult>(sr => sr.AssessmentLayerTwoB), 
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b
+            );
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<NumericFailureMechanismSectionResult>(sr => sr.AssessmentLayerThree), 
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three
+            );
         }
 
         protected override object CreateFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)

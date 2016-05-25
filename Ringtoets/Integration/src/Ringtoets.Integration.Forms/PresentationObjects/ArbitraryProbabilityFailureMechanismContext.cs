@@ -28,9 +28,9 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
     /// This class is a presentation object for an instance of <see cref="IFailureMechanism"/>,
-    /// which has <see cref="CustomProbabilityFailureMechanismSectionResult"/>.
+    /// which has <see cref="ArbitraryProbabilityFailureMechanismSectionResult"/>.
     /// </summary>
-    public class CustomProbabilityFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
+    public class ArbitraryProbabilityFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="IFailureMechanism"/> class.
@@ -38,7 +38,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism" />.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedFailureMechanism"/> or <paramref name="parent"/> are <c>null</c>.</exception>
-        public CustomProbabilityFailureMechanismContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
+        public ArbitraryProbabilityFailureMechanismContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
             base(wrappedFailureMechanism, parent)
         {
             

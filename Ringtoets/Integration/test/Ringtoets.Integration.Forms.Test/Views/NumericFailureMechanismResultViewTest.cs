@@ -34,15 +34,15 @@ using Ringtoets.Integration.Forms.Views;
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class CustomProbabilityFailureMechanismResultViewTest
+    public class NumericFailureMechanismResultViewTest
     {
         [Test]
-        public void GivenFormWithCustomProbabilityFailureMechanismResultView_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithNumericFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
             using (var form = new Form())
             {
-                using (var view = new CustomProbabilityFailureMechanismResultView())
+                using (var view = new NumericFailureMechanismResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithCustomProbabilityFailureMechanismResultView_WhenDataSourceWithCustomProbabilityFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void GivenFormWithNumericFailureMechanismResultView_WhenDataSourceWithNumericFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -81,14 +81,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 new Point2D(0, 0)
             });
             Random random = new Random(21);
-            var result1 = new CustomProbabilityFailureMechanismSectionResult(section1)
+            var result1 = new NumericFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = true,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerTwoB = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
-            var result2 = new CustomProbabilityFailureMechanismSectionResult(section2)
+            var result2 = new NumericFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = false,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
@@ -98,7 +98,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var form = new Form())
             {
-                using (var view = new CustomProbabilityFailureMechanismResultView())
+                using (var view = new NumericFailureMechanismResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -119,7 +119,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     Assert.AreEqual(5, cells.Count);
                     Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                     Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                    Assert.AreEqual(string.Format(Core.Common.Base.Properties.Resources.ProbabilityPerYearFormat, (RoundedDouble)(1/result1.AssessmentLayerTwoA)), cells[assessmentLayerTwoAIndex].FormattedValue);
+                    Assert.AreEqual(string.Format("{0}", result1.AssessmentLayerTwoA), cells[assessmentLayerTwoAIndex].FormattedValue);
                     Assert.AreEqual(string.Format("{0}", result1.AssessmentLayerTwoB), cells[assessmentLayerTwoBIndex].FormattedValue);
                     Assert.AreEqual(string.Format("{0}", result1.AssessmentLayerThree), cells[assessmentLayerThreeIndex].FormattedValue);
 
@@ -131,7 +131,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     Assert.AreEqual(5, cells.Count);
                     Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
                     Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                    Assert.AreEqual(string.Format(Core.Common.Base.Properties.Resources.ProbabilityPerYearFormat, (RoundedDouble)(1 / result2.AssessmentLayerTwoA)), cells[assessmentLayerTwoAIndex].FormattedValue);
+                    Assert.AreEqual(string.Format("{0}", result2.AssessmentLayerTwoA), cells[assessmentLayerTwoAIndex].FormattedValue);
                     Assert.AreEqual(string.Format("{0}", result2.AssessmentLayerTwoB), cells[assessmentLayerTwoBIndex].FormattedValue);
                     Assert.AreEqual(string.Format("{0}", result2.AssessmentLayerThree), cells[assessmentLayerThreeIndex].FormattedValue);
 
@@ -151,7 +151,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 new Point2D(0, 0)
             });
             Random random = new Random(21);
-            var result = new CustomProbabilityFailureMechanismSectionResult(section)
+            var result = new NumericFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = false,
                 AssessmentLayerTwoA = (RoundedDouble)random.NextDouble(),
@@ -160,7 +160,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             };
             using (var form = new Form())
             {
-                using (var view = new CustomProbabilityFailureMechanismResultView())
+                using (var view = new NumericFailureMechanismResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -190,7 +190,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithCustomProbabilityFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
+        public void GivenFormWithNumericFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -206,7 +206,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var form = new Form())
             {
-                using (var view = new CustomProbabilityFailureMechanismResultView())
+                using (var view = new NumericFailureMechanismResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();

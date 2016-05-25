@@ -31,13 +31,13 @@ using Ringtoets.Common.Forms.Views;
 namespace Ringtoets.Common.Forms.Test.Views
 {
     [TestFixture]
-    public class CustomFailureMechanismSectionResultRowTest
+    public class NumericFailureMechanismSectionResultRowTest
     {
         [Test]
         public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new CustomFailureMechanismSectionResultRow(null);
+            TestDelegate test = () => new NumericFailureMechanismSectionResultRow(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -49,10 +49,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var section = CreateSection();
-            var result = new CustomFailureMechanismSectionResult(section);
+            var result = new NumericFailureMechanismSectionResult(section);
 
             // Call
-            var row = new CustomFailureMechanismSectionResultRow(result);
+            var row = new NumericFailureMechanismSectionResultRow(result);
 
             // Assert
             Assert.AreEqual(section.Name, row.Name);
@@ -69,8 +69,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var section = CreateSection();
-            var result = new CustomFailureMechanismSectionResult(section);
-            var row = new CustomFailureMechanismSectionResultRow(result);
+            var result = new NumericFailureMechanismSectionResult(section);
+            var row = new NumericFailureMechanismSectionResultRow(result);
 
             int counter = 0;
             using (new Observer(() => counter++)
@@ -94,8 +94,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             var random = new Random(21);
             var newValue = random.NextDouble();
             var section = CreateSection();
-            var result = new CustomFailureMechanismSectionResult(section);
-            var row = new CustomFailureMechanismSectionResultRow(result);
+            var result = new NumericFailureMechanismSectionResult(section);
+            var row = new NumericFailureMechanismSectionResultRow(result);
 
             // Call
             row.AssessmentLayerTwoA = (RoundedDouble)newValue;
@@ -111,8 +111,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             var random = new Random(21);
             var newValue = random.NextDouble();
             var section = CreateSection();
-            var result = new CustomFailureMechanismSectionResult(section);
-            var row = new CustomFailureMechanismSectionResultRow(result);
+            var result = new NumericFailureMechanismSectionResult(section);
+            var row = new NumericFailureMechanismSectionResultRow(result);
 
             // Call
             row.AssessmentLayerTwoB = (RoundedDouble)newValue;
@@ -128,8 +128,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             var random = new Random(21);
             var newValue = random.NextDouble();
             var section = CreateSection();
-            var result = new CustomFailureMechanismSectionResult(section);
-            var row = new CustomFailureMechanismSectionResultRow(result);
+            var result = new NumericFailureMechanismSectionResult(section);
+            var row = new NumericFailureMechanismSectionResultRow(result);
 
             // Call
             row.AssessmentLayerThree = (RoundedDouble)newValue;

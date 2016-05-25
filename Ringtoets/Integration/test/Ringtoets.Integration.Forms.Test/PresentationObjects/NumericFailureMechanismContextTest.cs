@@ -19,29 +19,37 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Integration.Forms.PresentationObjects;
 
-namespace Ringtoets.Integration.Forms.PresentationObjects
+namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 {
-    /// <summary>
-    /// This class is a presentation object for an instance of <see cref="IFailureMechanism"/>,
-    /// which has <see cref="CustomFailureMechanismSectionResult"/>.
-    /// </summary>
-    public class CustomFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
+    [TestFixture]
+    public class NumericFailureMechanismContextTest
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IFailureMechanism"/> class.
-        /// </summary>
-        /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
-        /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism" />.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedFailureMechanism"/> or <paramref name="parent"/> are <c>null</c>.</exception>
-        public CustomFailureMechanismContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
-            base(wrappedFailureMechanism, parent)
+        [Test]
+        public void Constructor_ExpectedValues()
         {
-            
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism();
+
+            // Call
+            var context = new NumericFailureMechanismContext(failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismContext<IFailureMechanism>>(context);
+            Assert.AreSame(failureMechanism, context.WrappedData);
+            Assert.AreSame(assessmentSection, context.Parent);
+            mocks.VerifyAll();
         }
     }
 }

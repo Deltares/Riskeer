@@ -328,6 +328,15 @@
   <data name="GeneralOutputIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\table.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Could_not_parse_string_to_double_value" xml:space="preserve">
+    <value>De waarde voor toetslaag 2a kon niet geïnterpreteerd worden als een getal.</value>
+  </data>
+  <data name="ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_too_large" xml:space="preserve">
+    <value>De waarde voor toetslaag 2a is te groot of te klein.</value>
+  </data>
+  <data name="ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_cannot_be_null" xml:space="preserve">
+    <value>De waarde voor toetslaag 2a moet ingevuld zijn.</value>
+  </data>
   <data name="LognormalDistribution_Mean_Description" xml:space="preserve">
     <value>De gemiddelde waarde van de lognormale verdeling.</value>
   </data>

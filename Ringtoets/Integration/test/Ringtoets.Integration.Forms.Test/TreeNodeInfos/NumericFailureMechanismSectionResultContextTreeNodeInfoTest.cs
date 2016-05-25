@@ -36,7 +36,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class CustomFailureMechanismSectionResultContextTreeNodeInfoTest
+    public class NumericFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private RingtoetsGuiPlugin plugin;
@@ -47,14 +47,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<NumericFailureMechanismSectionResult>));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>), info.TagType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<NumericFailureMechanismSectionResult>), info.TagType);
 
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.ForeColor);
@@ -78,8 +78,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            var mechanism = new CustomFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
+            var mechanism = new NumericFailureMechanism();
+            var context = new FailureMechanismSectionResultContext<NumericFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
 
             // Call
             var text = info.Text(context);
@@ -123,23 +123,23 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Assert
             mocks.VerifyAll();
         }
-    }
 
-    public class CustomFailureMechanism : FailureMechanismBase, IHasSectionResults<CustomFailureMechanismSectionResult>
-    {
-        public CustomFailureMechanism()
-            : base("N", "C")
+        class NumericFailureMechanism : FailureMechanismBase, IHasSectionResults<NumericFailureMechanismSectionResult>
         {
-            SectionResults = new List<CustomFailureMechanismSectionResult>();
-        }
-
-        public IEnumerable<CustomFailureMechanismSectionResult> SectionResults { get; private set; }
-
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
+            public NumericFailureMechanism()
+                : base("N", "C")
             {
-                throw new System.NotImplementedException();
+                SectionResults = new List<NumericFailureMechanismSectionResult>();
+            }
+
+            public IEnumerable<NumericFailureMechanismSectionResult> SectionResults { get; private set; }
+
+            public override IEnumerable<ICalculation> Calculations
+            {
+                get
+                {
+                    throw new System.NotImplementedException();
+                }
             }
         }
     }

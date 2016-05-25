@@ -37,7 +37,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class CustomProbabilityFailureMechanismResultViewInfoTest
+    public class ArbitraryProbabilityFailureMechanismResultViewInfoTest
     {
         private MockRepository mocks;
         private RingtoetsGuiPlugin plugin;
@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(CustomProbabilityFailureMechanismResultView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ArbitraryProbabilityFailureMechanismResultView));
         }
 
         [TearDown]
@@ -61,8 +61,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<CustomProbabilityFailureMechanismSectionResult>), info.DataType);
-            Assert.AreEqual(typeof(IEnumerable<CustomProbabilityFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>), info.DataType);
+            Assert.AreEqual(typeof(IEnumerable<ArbitraryProbabilityFailureMechanismSectionResult>), info.ViewDataType);
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new Simple();
-            var context = new FailureMechanismSectionResultContext<CustomProbabilityFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
+            var context = new FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
             mocks.ReplayAll();
 
             // Call
@@ -85,7 +85,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new Simple();
-            var viewMock = mocks.StrictMock<CustomProbabilityFailureMechanismResultView>();
+            var viewMock = mocks.StrictMock<ArbitraryProbabilityFailureMechanismResultView>();
 
             mocks.ReplayAll();
 
@@ -103,7 +103,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewType = info.ViewType;
 
             // Assert
-            Assert.AreEqual(typeof(CustomProbabilityFailureMechanismResultView), viewType);
+            Assert.AreEqual(typeof(ArbitraryProbabilityFailureMechanismResultView), viewType);
         }
 
         [Test]
@@ -113,7 +113,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var dataType = info.DataType;
 
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<CustomProbabilityFailureMechanismSectionResult>), dataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>), dataType);
         }
 
         [Test]
@@ -123,7 +123,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewDataType = info.ViewDataType;
 
             // Assert
-            Assert.AreEqual(typeof(IEnumerable<CustomProbabilityFailureMechanismSectionResult>), viewDataType);
+            Assert.AreEqual(typeof(IEnumerable<ArbitraryProbabilityFailureMechanismSectionResult>), viewDataType);
         }
 
         [Test]
@@ -140,7 +140,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_AssessmentSectionRemovedWithoutFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var viewMock = mocks.StrictMock<CustomProbabilityFailureMechanismResultView>();
+            var viewMock = mocks.StrictMock<ArbitraryProbabilityFailureMechanismResultView>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var failureMechanism = new Simple();
 
@@ -160,7 +160,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var viewMock = mocks.StrictMock<CustomProbabilityFailureMechanismResultView>();
+            var viewMock = mocks.StrictMock<ArbitraryProbabilityFailureMechanismResultView>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mocks.Stub<FailureMechanismBase>("N", "C");
             var failureMechanism = new Simple();
@@ -184,7 +184,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var viewMock = mocks.StrictMock<CustomProbabilityFailureMechanismResultView>();
+            var viewMock = mocks.StrictMock<ArbitraryProbabilityFailureMechanismResultView>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var failureMechanism = new Simple();
 
@@ -208,7 +208,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var viewMock = mocks.StrictMock<CustomProbabilityFailureMechanismResultView>();
+            var viewMock = mocks.StrictMock<ArbitraryProbabilityFailureMechanismResultView>();
             var failureMechanism = new Simple();
             viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
 
@@ -225,7 +225,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var viewMock = mocks.StrictMock<CustomProbabilityFailureMechanismResultView>();
+            var viewMock = mocks.StrictMock<ArbitraryProbabilityFailureMechanismResultView>();
             var failureMechanism = new Simple();
             viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
 
@@ -242,7 +242,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var viewMock = mocks.StrictMock<CustomProbabilityFailureMechanismResultView>();
+            var viewMock = mocks.StrictMock<ArbitraryProbabilityFailureMechanismResultView>();
             var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
             var failureMechanism = new Simple();
             viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
@@ -261,7 +261,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var viewMock = mocks.StrictMock<CustomProbabilityFailureMechanismResultView>();
+            var viewMock = mocks.StrictMock<ArbitraryProbabilityFailureMechanismResultView>();
             var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
             var failureMechanism = new Simple();
             viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
@@ -280,9 +280,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void AfterCreate_Always_SetsSpecificPropertiesToView()
         {
             // Setup
-            var viewMock = mocks.StrictMock<CustomProbabilityFailureMechanismResultView>();
+            var viewMock = mocks.StrictMock<ArbitraryProbabilityFailureMechanismResultView>();
             var failureMechanism = new Simple();
-            var context = new FailureMechanismSectionResultContext<CustomProbabilityFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
+            var context = new FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
 
             viewMock.Expect(v => v.FailureMechanism = failureMechanism);
 
@@ -295,14 +295,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.VerifyAll();
         }
 
-        private class Simple : FailureMechanismBase, IHasSectionResults<CustomProbabilityFailureMechanismSectionResult>
+        private class Simple : FailureMechanismBase, IHasSectionResults<ArbitraryProbabilityFailureMechanismSectionResult>
         {
             public Simple() : base("simple failure mechanism", "simple code")
             {
-                SectionResults = new List<CustomProbabilityFailureMechanismSectionResult>();
+                SectionResults = new List<ArbitraryProbabilityFailureMechanismSectionResult>();
             }
 
-            public IEnumerable<CustomProbabilityFailureMechanismSectionResult> SectionResults { get; private set; }
+            public IEnumerable<ArbitraryProbabilityFailureMechanismSectionResult> SectionResults { get; private set; }
 
             public override IEnumerable<ICalculation> Calculations
             {

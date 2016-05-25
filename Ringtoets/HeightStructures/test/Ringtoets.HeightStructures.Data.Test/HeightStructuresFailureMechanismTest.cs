@@ -52,7 +52,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void AddSection_WithSection_AddedCustomFailureMechanismResult()
+        public void AddSection_WithSection_AddedHeightStructuresFailureMechanismResult()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();

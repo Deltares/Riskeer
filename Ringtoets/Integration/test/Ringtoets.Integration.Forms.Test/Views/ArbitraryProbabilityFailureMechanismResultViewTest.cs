@@ -26,24 +26,24 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Integration.Forms.Views;
 
+using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class CustomFailureMechanismResultViewTest
+    public class ArbitraryProbabilityFailureMechanismResultViewTest
     {
         [Test]
-        public void GivenFormWithCustomFailureMechanismResultView_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithArbitraryProbabilityFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
             using (var form = new Form())
             {
-                using (var view = new CustomFailureMechanismResultView())
+                using (var view = new ArbitraryProbabilityFailureMechanismResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -58,10 +58,22 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerTwoBIndex]);
                     Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
-                    Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one, dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
-                    Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
-                    Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b, dataGridView.Columns[assessmentLayerTwoBIndex].HeaderText);
-                    Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three, dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
+                    Assert.AreEqual(
+                        Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one, 
+                        dataGridView.Columns[assessmentLayerOneIndex].HeaderText
+                    );
+                    Assert.AreEqual(
+                        Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, 
+                        dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText
+                    );
+                    Assert.AreEqual(
+                        Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b, 
+                        dataGridView.Columns[assessmentLayerTwoBIndex].HeaderText
+                    );
+                    Assert.AreEqual(
+                        Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three, 
+                        dataGridView.Columns[assessmentLayerThreeIndex].HeaderText
+                    );
 
                     Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                     Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
@@ -70,7 +82,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithCustomFailureMechanismResultView_WhenDataSourceWithCustomFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void GivenFormWithArbitraryProbabilityFailureMechanismResultView_WhenDataSourceWithArbitraryProbabilityFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -82,14 +94,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 new Point2D(0, 0)
             });
             Random random = new Random(21);
-            var result1 = new CustomFailureMechanismSectionResult(section1)
+            var result1 = new ArbitraryProbabilityFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = true,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerTwoB = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
-            var result2 = new CustomFailureMechanismSectionResult(section2)
+            var result2 = new ArbitraryProbabilityFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = false,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
@@ -99,7 +111,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var form = new Form())
             {
-                using (var view = new CustomFailureMechanismResultView())
+                using (var view = new ArbitraryProbabilityFailureMechanismResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -120,7 +132,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     Assert.AreEqual(5, cells.Count);
                     Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                     Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                    Assert.AreEqual(string.Format("{0}", result1.AssessmentLayerTwoA), cells[assessmentLayerTwoAIndex].FormattedValue);
+                    var expectedAssessmentLayer2AValue1 = (RoundedDouble) (1/result1.AssessmentLayerTwoA);
+                    var expectedAssessmentLayer2AString1 = string.Format(
+                        CoreCommonBaseResources.ProbabilityPerYearFormat, 
+                        expectedAssessmentLayer2AValue1
+                    );
+                    Assert.AreEqual(expectedAssessmentLayer2AString1, cells[assessmentLayerTwoAIndex].FormattedValue);
                     Assert.AreEqual(string.Format("{0}", result1.AssessmentLayerTwoB), cells[assessmentLayerTwoBIndex].FormattedValue);
                     Assert.AreEqual(string.Format("{0}", result1.AssessmentLayerThree), cells[assessmentLayerThreeIndex].FormattedValue);
 
@@ -132,7 +149,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     Assert.AreEqual(5, cells.Count);
                     Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
                     Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                    Assert.AreEqual(string.Format("{0}", result2.AssessmentLayerTwoA), cells[assessmentLayerTwoAIndex].FormattedValue);
+                    var expectedAssessmentLayer2AValue2 = (RoundedDouble)(1 / result2.AssessmentLayerTwoA);
+                    var expectedAssessmentLayer2AString2 = string.Format(
+                        CoreCommonBaseResources.ProbabilityPerYearFormat,
+                        expectedAssessmentLayer2AValue2
+                    );
+                    Assert.AreEqual(expectedAssessmentLayer2AString2, cells[assessmentLayerTwoAIndex].FormattedValue);
                     Assert.AreEqual(string.Format("{0}", result2.AssessmentLayerTwoB), cells[assessmentLayerTwoBIndex].FormattedValue);
                     Assert.AreEqual(string.Format("{0}", result2.AssessmentLayerThree), cells[assessmentLayerThreeIndex].FormattedValue);
 
@@ -152,7 +174,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 new Point2D(0, 0)
             });
             Random random = new Random(21);
-            var result = new CustomFailureMechanismSectionResult(section)
+            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = false,
                 AssessmentLayerTwoA = (RoundedDouble)random.NextDouble(),
@@ -161,7 +183,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             };
             using (var form = new Form())
             {
-                using (var view = new CustomFailureMechanismResultView())
+                using (var view = new ArbitraryProbabilityFailureMechanismResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -191,7 +213,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithCustomFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
+        public void GivenFormWithArbitraryProbabilityFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -207,7 +229,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var form = new Form())
             {
-                using (var view = new CustomFailureMechanismResultView())
+                using (var view = new ArbitraryProbabilityFailureMechanismResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();

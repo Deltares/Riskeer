@@ -30,9 +30,9 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// <summary>
     /// Defines a stand alone failure mechanisms objects
     /// </summary>
-    public class ClosingStructureFailureMechanism : FailureMechanismBase, IHasSectionResults<CustomProbabilityFailureMechanismSectionResult>
+    public class ClosingStructureFailureMechanism : FailureMechanismBase, IHasSectionResults<ArbitraryProbabilityFailureMechanismSectionResult>
     {
-        private readonly List<CustomProbabilityFailureMechanismSectionResult> sectionResults;
+        private readonly List<ArbitraryProbabilityFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClosingStructureFailureMechanism"/> class.
@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public ClosingStructureFailureMechanism()
             : base(Resources.ClosingStructureFailureMechanism_DisplayName, Resources.ClosingStructureFailureMechanism_Code)
         {
-            sectionResults = new List<CustomProbabilityFailureMechanismSectionResult>();
+            sectionResults = new List<ArbitraryProbabilityFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         {
             base.AddSection(section);
 
-            sectionResults.Add(new CustomProbabilityFailureMechanismSectionResult(section));
+            sectionResults.Add(new ArbitraryProbabilityFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             sectionResults.Clear();
         }
 
-        public IEnumerable<CustomProbabilityFailureMechanismSectionResult> SectionResults
+        public IEnumerable<ArbitraryProbabilityFailureMechanismSectionResult> SectionResults
         {
             get
             {

@@ -59,15 +59,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MapDataFactoryTest.cs" />
-    <Compile Include="PresentationObjects\CustomProbabilityFailureMechanismContextTest.cs" />
+    <Compile Include="PresentationObjects\ArbitraryProbabilityFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\SimpleFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
-    <Compile Include="PresentationObjects\CustomFailureMechanismContextTest.cs" />
+    <Compile Include="PresentationObjects\NumericFailureMechanismContextTest.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\CalculationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAloneFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
+    <Compile Include="TreeNodeInfos\ArbitraryProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\AssessmentSectionTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CommentContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CategoryTreeFolderTreeNodeInfoTest.cs" />
@@ -76,13 +77,13 @@
     <Compile Include="TreeNodeInfos\FailureMechanismContributionContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismSectionsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HydraulicBoundaryDatabaseContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\CustomFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\NumericFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\AssessmentSectionPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\ReferenceLineContextTreeNodeInfoTest.cs" />
     <Compile Include="Views\AssessmentSectionViewTest.cs" />
-    <Compile Include="Views\CustomProbabilityFailureMechanismResultViewTest.cs" />
-    <Compile Include="Views\CustomFailureMechanismResultViewTest.cs" />
+    <Compile Include="Views\ArbitraryProbabilityFailureMechanismResultViewTest.cs" />
+    <Compile Include="Views\NumericFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\FailureMechanismContributionViewTest.cs" />
     <Compile Include="Views\SimpleFailureMechanismResultViewTest.cs" />
   </ItemGroup>

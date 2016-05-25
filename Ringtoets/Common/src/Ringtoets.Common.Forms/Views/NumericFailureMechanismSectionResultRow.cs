@@ -21,25 +21,24 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Properties;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// Container of a <see cref="CustomProbabilityFailureMechanismSectionResult"/>, which takes care of the
+    /// Container of a <see cref="NumericFailureMechanismSectionResult"/>, which takes care of the
     /// representation of properties in a grid.
     /// </summary>
-    public class CustomProbabilityFailureMechanismSectionResultRow
+    public class NumericFailureMechanismSectionResultRow
     {
         /// <summary>
-        /// Creates a new instance of <see cref="CustomProbabilityFailureMechanismSectionResultRow"/>.
+        /// Creates a new instance of <see cref="NumericFailureMechanismSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="CustomProbabilityFailureMechanismSectionResult"/> that is 
+        /// <param name="sectionResult">The <see cref="NumericFailureMechanismSectionResult"/> that is 
         /// the source of this row.</param>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="sectionResult"/> is
         /// <c>null</c>.</exception>
-        public CustomProbabilityFailureMechanismSectionResultRow(CustomProbabilityFailureMechanismSectionResult sectionResult)
+        public NumericFailureMechanismSectionResultRow(NumericFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)
             {
@@ -78,16 +77,15 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets or sets the value representing the result of the layer 2a assessment.
         /// </summary>
-        public string AssessmentLayerTwoA
+        public RoundedDouble AssessmentLayerTwoA
         {
             get
             {
-                var d = (RoundedDouble) (1/SectionResult.AssessmentLayerTwoA);
-                return string.Format(Resources.ProbabilityPerYearFormat, d);
+                return SectionResult.AssessmentLayerTwoA;
             }
             set
             {
-                SectionResult.AssessmentLayerTwoA = (RoundedDouble) double.Parse(value);
+                SectionResult.AssessmentLayerTwoA = value;
             }
         }
 
@@ -121,6 +119,6 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
-        private CustomProbabilityFailureMechanismSectionResult SectionResult { get; set; }
+        private NumericFailureMechanismSectionResult SectionResult { get; set; }
     }
 }

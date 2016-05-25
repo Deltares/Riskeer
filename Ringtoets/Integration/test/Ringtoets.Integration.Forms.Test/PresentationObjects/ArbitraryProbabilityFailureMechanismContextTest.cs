@@ -30,7 +30,7 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class CustomFailureMechanismContextTest
+    public class ArbitraryProbabilityFailureMechanismContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            var context = new CustomFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new ArbitraryProbabilityFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<IFailureMechanism>>(context);

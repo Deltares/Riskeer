@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
         }
 
         [Test]
-        public void AddSection_WithSection_AddedCustomFailureMechanismResult()
+        public void AddSection_WithSection_AddedArbitraryProbabilityFailureMechanismResult()
         {
             // Setup
             var failureMechanism = new MacrostabilityInwardsFailureMechanism();
@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
 
             // Assert
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.IsInstanceOf<CustomProbabilityFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+            Assert.IsInstanceOf<ArbitraryProbabilityFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
         }
     }
 }

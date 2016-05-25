@@ -235,15 +235,15 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.AreEqual(typeof(AssessmentSectionView), mapViewInfo.ViewType);
                 TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.Map, mapViewInfo.Image);
 
-                var resultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>));
-                Assert.AreEqual(typeof(IEnumerable<CustomFailureMechanismSectionResult>), resultViewInfo.ViewDataType);
-                Assert.AreEqual(typeof(CustomFailureMechanismResultView), resultViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, resultViewInfo.Image);
+                var numericResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<NumericFailureMechanismSectionResult>));
+                Assert.AreEqual(typeof(IEnumerable<NumericFailureMechanismSectionResult>), numericResultViewInfo.ViewDataType);
+                Assert.AreEqual(typeof(NumericFailureMechanismResultView), numericResultViewInfo.ViewType);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, numericResultViewInfo.Image);
 
-                var customProbabilityresultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<CustomProbabilityFailureMechanismSectionResult>));
-                Assert.AreEqual(typeof(IEnumerable<CustomProbabilityFailureMechanismSectionResult>), customProbabilityresultViewInfo.ViewDataType);
-                Assert.AreEqual(typeof(CustomProbabilityFailureMechanismResultView), customProbabilityresultViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, customProbabilityresultViewInfo.Image);
+                var arbitraryProbabilityResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>));
+                Assert.AreEqual(typeof(IEnumerable<ArbitraryProbabilityFailureMechanismSectionResult>), arbitraryProbabilityResultViewInfo.ViewDataType);
+                Assert.AreEqual(typeof(ArbitraryProbabilityFailureMechanismResultView), arbitraryProbabilityResultViewInfo.ViewType);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, arbitraryProbabilityResultViewInfo.Image);
 
                 var simpleResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>));
                 Assert.AreEqual(typeof(IEnumerable<SimpleFailureMechanismSectionResult>), simpleResultViewInfo.ViewDataType);
@@ -287,8 +287,8 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismContributionContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicBoundaryDatabaseContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<CustomProbabilityFailureMechanismSectionResult>)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<NumericFailureMechanismSectionResult>)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CommentContext<ICommentable>)));
             }
             mocks.VerifyAll();

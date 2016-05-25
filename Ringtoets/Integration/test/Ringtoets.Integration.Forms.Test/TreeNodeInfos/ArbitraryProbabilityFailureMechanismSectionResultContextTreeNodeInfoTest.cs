@@ -1,24 +1,3 @@
-﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
-//
-// This file is part of Ringtoets.
-//
-// Ringtoets is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
-//
-// All names, logos, and references to "Deltares" are registered trademarks of
-// Stichting Deltares and remain full property of Stichting Deltares at all times.
-// All rights reserved.
-
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
@@ -30,13 +9,13 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Integration.Plugin;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class SimpleFailureMechanismSectionResultContextTreeNodeInfoTest
+    public class ArbitraryProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private RingtoetsGuiPlugin plugin;
@@ -47,14 +26,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>), info.TagType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>), info.TagType);
 
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.ForeColor);
@@ -78,8 +57,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            var mechanism = new SimpleFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
+            var mechanism = new ArbitraryProbabilityFailureMechanism();
+            var context = new FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
 
             // Call
             var text = info.Text(context);
@@ -96,7 +75,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
+            TestHelper.AssertImagesAreEqual(Resources.GenericInputOutputIcon, image);
         }
 
         [Test]
@@ -123,16 +102,16 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Assert
             mocks.VerifyAll();
         }
-        
-        class SimpleFailureMechanism : FailureMechanismBase, IHasSectionResults<SimpleFailureMechanismSectionResult>
+
+        class ArbitraryProbabilityFailureMechanism : FailureMechanismBase, IHasSectionResults<ArbitraryProbabilityFailureMechanismSectionResult>
         {
-            public SimpleFailureMechanism()
+            public ArbitraryProbabilityFailureMechanism()
                 : base("N", "C")
             {
-                SectionResults = new List<SimpleFailureMechanismSectionResult>();
+                SectionResults = new List<ArbitraryProbabilityFailureMechanismSectionResult>();
             }
 
-            public IEnumerable<SimpleFailureMechanismSectionResult> SectionResults { get; private set; }
+            public IEnumerable<ArbitraryProbabilityFailureMechanismSectionResult> SectionResults { get; private set; }
 
             public override IEnumerable<ICalculation> Calculations
             {

@@ -30,9 +30,9 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// <summary>
     /// Defines a stand alone failure mechanisms objects
     /// </summary>
-    public class StrengthStabilityLengthwiseConstructionFailureMechanism : FailureMechanismBase, IHasSectionResults<CustomFailureMechanismSectionResult>
+    public class StrengthStabilityLengthwiseConstructionFailureMechanism : FailureMechanismBase, IHasSectionResults<NumericFailureMechanismSectionResult>
     {
-        private readonly IList<CustomFailureMechanismSectionResult> sectionResults;
+        private readonly IList<NumericFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StrengthStabilityPointConstructionFailureMechanism"/> class.
@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public StrengthStabilityLengthwiseConstructionFailureMechanism()
             : base(Resources.StrengthStabilityLengthwiseConstructionFailureMechanism_DisplayName, Resources.StrengthStabilityLengthwiseConstructionFailureMechanism_Code)
         {
-            sectionResults = new List<CustomFailureMechanismSectionResult>();
+            sectionResults = new List<NumericFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         {
             base.AddSection(section);
 
-            sectionResults.Add(new CustomFailureMechanismSectionResult(section));
+            sectionResults.Add(new NumericFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             sectionResults.Clear();
         }
 
-        public IEnumerable<CustomFailureMechanismSectionResult> SectionResults
+        public IEnumerable<NumericFailureMechanismSectionResult> SectionResults
         {
             get
             {
