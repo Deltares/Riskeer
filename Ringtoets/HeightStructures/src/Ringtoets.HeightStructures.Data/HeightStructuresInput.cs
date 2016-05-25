@@ -61,10 +61,11 @@ namespace Ringtoets.HeightStructures.Data
 
             levelOfCrestOfStructure = new NormalDistribution(2)
             {
+                Mean = new RoundedDouble(2),
                 StandardDeviation = new RoundedDouble(2, 0.05)
             };
 
-            OrientationOfTheNormalOfTheStructure = new RoundedDouble(2);
+            orientationOfTheNormalOfTheStructure = new RoundedDouble(2);
 
             modelFactorOvertoppingSuperCriticalFlow = new NormalDistribution(2)
             {
@@ -74,26 +75,33 @@ namespace Ringtoets.HeightStructures.Data
 
             allowableIncreaseOfLevelForStorage = new LognormalDistribution(2)
             {
+                Mean = new RoundedDouble(2, double.NaN),
                 StandardDeviation = new RoundedDouble(2, 0.1)
             };
 
             storageStructureArea = new LognormalDistribution(2)
             {
+                Mean = new RoundedDouble(2, double.NaN),
                 StandardDeviation = new RoundedDouble(2, 0.1)
             };
 
             flowWidthAtBottomProtection = new LognormalDistribution(2)
             {
+                Mean = new RoundedDouble(2, double.NaN),
                 StandardDeviation = new RoundedDouble(2, 0.05)
             };
 
             criticalOvertoppingDischarge = new LognormalDistribution(2)
             {
+                Mean = new RoundedDouble(2, double.NaN),
                 StandardDeviation = new RoundedDouble(2, 0.15)
             };
 
+            failureProbabilityOfStructureGivenErosion = new RoundedDouble(2);
+
             widthOfFlowApertures = new NormalDistribution(2)
             {
+                Mean = new RoundedDouble(2),
                 StandardDeviation = new RoundedDouble(2, 0.05)
             };
 
@@ -101,7 +109,8 @@ namespace Ringtoets.HeightStructures.Data
 
             stormDuration = new LognormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, 7.5), StandardDeviation = new RoundedDouble(2, 0.25)
+                Mean = new RoundedDouble(2, 7.5),
+                StandardDeviation = new RoundedDouble(2, 0.25)
             };
         }
 

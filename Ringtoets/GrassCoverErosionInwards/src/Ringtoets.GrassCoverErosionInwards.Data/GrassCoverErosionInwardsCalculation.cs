@@ -114,7 +114,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             InputParameters.UseBreakWater = true;
 
             // Orientation
-            InputParameters.Orientation = new RoundedDouble(InputParameters.Orientation.NumberOfDecimalPlaces, 5.5);
+            InputParameters.Orientation = (RoundedDouble) 5.5;
 
             // Dike and Foreshore
             var dikeSections = new[]
@@ -130,7 +130,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             InputParameters.UseForeshore = true;
 
             // Dike height
-            InputParameters.DikeHeight = new RoundedDouble(InputParameters.DikeHeight.NumberOfDecimalPlaces, 10);
+            InputParameters.DikeHeight = (RoundedDouble) 10;
         }
     }
 }

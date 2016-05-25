@@ -75,23 +75,23 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             // Setup
             var hlcdDirectory = "Invalid HLCD directory";
             var hydraRingCalculationService = new HydraRingCalculationService();
-            var incorrectStationId = 999;
-            var hydraRingSection = new HydraRingSection(incorrectStationId, "999", 0.0, 0.0);
+            var incorrectSectionId = 999;
+            var hydraRingSection = new HydraRingSection(incorrectSectionId, "999", 0.0, 0.0);
 
             var mockRepository = new MockRepository();
             var hydraRingBreakWaterMock = mockRepository.StrictMock<HydraRingBreakWater>(0, 1.1);
-            var overtoppingCalculationInput = new OvertoppingCalculationInput(incorrectStationId, hydraRingSection,
+            var overtoppingCalculationInput = new OvertoppingCalculationInput(incorrectSectionId, hydraRingSection,
                                                                               1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
                                                                               new List<HydraRingRoughnessProfilePoint>(),
                                                                               new List<HydraRingForelandPoint>(),
                                                                               hydraRingBreakWaterMock);
-            var outputFolder = Path.Combine(Path.GetTempPath(), "" + incorrectStationId);
+            var outputFolder = Path.Combine(Path.GetTempPath(), "" + incorrectSectionId);
             var outputFiles = new[]
             {
-                Path.Combine(outputFolder, incorrectStationId + ".ini"),
-                Path.Combine(outputFolder, incorrectStationId + ".sql"),
+                Path.Combine(outputFolder, incorrectSectionId + ".ini"),
+                Path.Combine(outputFolder, incorrectSectionId + ".sql"),
                 Path.Combine(outputFolder, "temp.sqlite"),
-                Path.Combine(outputFolder, incorrectStationId + ".log")
+                Path.Combine(outputFolder, incorrectSectionId + ".log")
             };
 
             using (new FileDisposeHelper(outputFiles))

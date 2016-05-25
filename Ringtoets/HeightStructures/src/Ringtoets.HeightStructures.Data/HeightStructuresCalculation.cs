@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.HeightStructures.Data.Properties;
@@ -51,6 +52,7 @@ namespace Ringtoets.HeightStructures.Data
             InputParameters = new HeightStructuresInput(generalInputParameters);
             NormProbabilityInput = normProbabilityInput;
             Name = Resources.HeightStructuresCalculation_DefaultName;
+            AddDemoInput();
         }
 
         /// <summary>
@@ -95,6 +97,19 @@ namespace Ringtoets.HeightStructures.Data
         public ICalculationOutput GetObservableOutput()
         {
             return Output;
+        }
+
+        private void AddDemoInput()
+        {
+            InputParameters.LevelOfCrestOfStructure.Mean = (RoundedDouble) 3.5;
+            InputParameters.OrientationOfTheNormalOfTheStructure = (RoundedDouble) 115;
+            InputParameters.AllowableIncreaseOfLevelForStorage.Mean = (RoundedDouble) 1.0;
+            InputParameters.StorageStructureArea.Mean = (RoundedDouble) 1000000;
+            InputParameters.FlowWidthAtBottomProtection.Mean = (RoundedDouble) 18;
+            InputParameters.CriticalOvertoppingDischarge.Mean = (RoundedDouble) 1;
+            InputParameters.WidthOfFlowApertures.Mean = (RoundedDouble) 18;
+            InputParameters.DeviationOfTheWaveDirection = (RoundedDouble) 0;
+            InputParameters.FailureProbabilityOfStructureGivenErosion = (RoundedDouble) 1;
         }
     }
 }

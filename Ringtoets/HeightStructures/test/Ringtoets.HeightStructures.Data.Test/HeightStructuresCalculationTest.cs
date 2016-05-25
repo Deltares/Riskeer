@@ -76,6 +76,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(normProbabilityInput, calculation.NormProbabilityInput);
             Assert.IsNull(calculation.Comments);
             Assert.IsFalse(calculation.HasOutput);
+            AssertDemoInput(calculation.InputParameters);
         }
 
         [Test]
@@ -157,6 +158,28 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             // Assert
             Assert.AreSame(calculation.Output, output);
+        }
+
+        private void AssertDemoInput(HeightStructuresInput inputParameters)
+        {
+            Assert.AreEqual(2, inputParameters.LevelOfCrestOfStructure.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(3.5, inputParameters.LevelOfCrestOfStructure.Mean.Value);
+            Assert.AreEqual(2, inputParameters.OrientationOfTheNormalOfTheStructure.NumberOfDecimalPlaces);
+            Assert.AreEqual(115, inputParameters.OrientationOfTheNormalOfTheStructure.Value);
+            Assert.AreEqual(2, inputParameters.AllowableIncreaseOfLevelForStorage.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.0, inputParameters.AllowableIncreaseOfLevelForStorage.Mean.Value);
+            Assert.AreEqual(2, inputParameters.StorageStructureArea.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(1000000, inputParameters.StorageStructureArea.Mean.Value);
+            Assert.AreEqual(2, inputParameters.FlowWidthAtBottomProtection.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(18, inputParameters.FlowWidthAtBottomProtection.Mean.Value);
+            Assert.AreEqual(2, inputParameters.CriticalOvertoppingDischarge.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(1, inputParameters.CriticalOvertoppingDischarge.Mean.Value);
+            Assert.AreEqual(2, inputParameters.WidthOfFlowApertures.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(18, inputParameters.WidthOfFlowApertures.Mean.Value);
+            Assert.AreEqual(2, inputParameters.DeviationOfTheWaveDirection.NumberOfDecimalPlaces);
+            Assert.AreEqual(1, inputParameters.DeviationOfTheWaveDirection.Value);
+            Assert.AreEqual(2, inputParameters.FailureProbabilityOfStructureGivenErosion.NumberOfDecimalPlaces);
+            Assert.AreEqual(1, inputParameters.FailureProbabilityOfStructureGivenErosion.Value);
         }
 
         private class TestHeightStructuresOutput : ProbabilisticOutput
