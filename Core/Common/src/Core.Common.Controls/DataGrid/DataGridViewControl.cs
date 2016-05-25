@@ -39,11 +39,6 @@ namespace Core.Common.Controls.DataGrid
             SubscribeEvents();
         }
 
-        private void SubscribeEvents()
-        {
-            dataGridView.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
-        }
-
         /// <summary>
         /// Adds a new <see cref="DataGridViewTextBoxColumn"/> to the <see cref="DataGridView"/> with the given data.
         /// </summary>
@@ -80,13 +75,37 @@ namespace Core.Common.Controls.DataGrid
             });
         }
 
+        /// <summary>
+        /// Adds a new <see cref="DataGridViewComboBoxColumn"/> to the <see cref="DataGridView"/> with the given data.
+        /// </summary>
+        /// <param name="dataPropertyName">The <see cref="DataGridViewColumn.DataPropertyName"/> of the column.</param>
+        /// <param name="headerText">The <see cref="DataGridViewColumn.HeaderText"/> of the column.</param>
+        /// <remarks><paramref name="dataPropertyName"/> is also used to create the <see cref="DataGridViewColumn.Name"/>.
+        /// The format is "column_<paramref name="dataPropertyName"/>.</remarks>
+        public void AddComboBoxColumn(string dataPropertyName, string headerText)
+        {
+            dataGridView.Columns.Add(new DataGridViewComboBoxColumn
+            {
+                DataPropertyName = dataPropertyName,
+                HeaderText = headerText,
+                Name = string.Format("column_{0}", dataPropertyName),
+                ValueMember = "This",
+                DisplayMember = "DisplayName"
+            });
+        }
+
+        private void SubscribeEvents()
+        {
+            dataGridView.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
+        }
+
         #region Event handling
 
         private void DataGridViewCurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
             // Ensure checkbox values are directly committed
             DataGridViewColumn currentColumn = dataGridView.Columns[dataGridView.CurrentCell.ColumnIndex];
-            if (currentColumn is DataGridViewCheckBoxColumn)
+            if (currentColumn is DataGridViewCheckBoxColumn || currentColumn is DataGridViewComboBoxColumn)
             {
                 dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
             }

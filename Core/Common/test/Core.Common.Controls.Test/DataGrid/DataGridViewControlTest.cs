@@ -100,8 +100,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
-                var columnData = dataGridView.Columns[0];
-                Assert.IsTrue(columnData.GetType() == typeof(DataGridViewTextBoxColumn));
+                DataGridViewTextBoxColumn columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
@@ -133,8 +132,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
-                var columnData = dataGridView.Columns[0];
-                Assert.IsTrue(columnData.GetType() == typeof(DataGridViewCheckBoxColumn));
+                DataGridViewCheckBoxColumn columnData = (DataGridViewCheckBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
@@ -142,7 +140,40 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void DataGridViewControl_EditValueDirtyStateChangedEventFired_ValueCommittedCellInEditMode()
+        public void AddComboBoxColumn_Always_AddsColumnToDataGridView()
+        {
+            using (var form = new Form())
+            {
+                var propertyName = "PropertyName";
+                var headerText = "HeaderText";
+
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                control.AddComboBoxColumn(propertyName, headerText);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                DataGridViewComboBoxColumn columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
+
+                Assert.AreEqual(propertyName, columnData.DataPropertyName);
+                Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
+                Assert.AreEqual(headerText, columnData.HeaderText);
+                Assert.AreEqual("This", columnData.ValueMember);
+                Assert.AreEqual("DisplayName", columnData.DisplayMember);
+            }
+        }
+
+        [Test]
+        public void DataGridViewControlCheckBoxColumn_EditValueDirtyStateChangedEventFired_ValueCommittedCellInEditMode()
         {
             // Setup
             using (var form = new Form())
@@ -171,6 +202,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 // Assert
                 Assert.IsTrue(dataGridViewCell.IsInEditMode);
+                Assert.IsTrue((bool)dataGridViewCell.FormattedValue);
             }
         }
     }
