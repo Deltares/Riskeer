@@ -20,15 +20,15 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
@@ -75,6 +75,46 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             CollectionAssert.IsEmpty(properties.Coordinates);
             CollectionAssert.IsEmpty(properties.Roughness);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Data_SetInputContextInstanceWithData_ReturnCorrectPropertyValues()
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            mockRepository.ReplayAll();
+
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput, new NormProbabilityInput());
+            calculation.InputParameters.SetDikeGeometry(new[]
+            {
+                new RoughnessProfileSection(new Point2D(0, 0), new Point2D(1, 1), 2)
+            });
+            var properties = new DikeGeometryProperties();
+
+            // Call
+            properties.Data = new GrassCoverErosionInwardsInputContext(calculation.InputParameters, calculation, failureMechanismMock, assessmentSectionMock);
+
+            // Assert
+            var expectedCoordinates = new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            };
+            Assert.AreEqual(expectedCoordinates.Length, properties.Coordinates.Length);
+            for (var i = 0; i < expectedCoordinates.Length; i++)
+            {
+                Assert.AreEqual(expectedCoordinates[i].X, properties.Coordinates[i].X);
+                Assert.AreEqual(expectedCoordinates[i].Y, properties.Coordinates[i].Y);
+            }
+            CollectionAssert.AreEqual(expectedCoordinates, properties.Coordinates);
+            var expectedRoughness = new[]
+            {
+                new RoundedDouble(2, 2)
+            };
+            CollectionAssert.AreEqual(expectedRoughness, properties.Roughness);
             mockRepository.VerifyAll();
         }
 
