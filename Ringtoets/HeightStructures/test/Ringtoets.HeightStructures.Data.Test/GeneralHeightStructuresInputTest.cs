@@ -35,7 +35,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             var inputParameters = new GeneralHeightStructuresInput();
 
             // Assert
-            Assert.AreEqual(9.87, inputParameters.GravitationalAcceleration, 1e-6);
+            Assert.AreEqual(9.81, inputParameters.GravitationalAcceleration, 1e-6);
 
             var modelfactorOvertopping = new NormalDistribution(3)
             {

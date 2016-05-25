@@ -34,7 +34,7 @@ namespace Ringtoets.HeightStructures.Data
         /// </summary>
         public GeneralHeightStructuresInput()
         {
-            GravitationalAcceleration = new RoundedDouble(2, 9.87);
+            GravitationalAcceleration = new RoundedDouble(2, 9.81);
 
             ModelFactorOvertoppingFlow = new LognormalDistribution(3)
             {
