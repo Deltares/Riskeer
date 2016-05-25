@@ -508,15 +508,15 @@ namespace Ringtoets.Integration.Plugin
                 }
                 else if (numericFailureMechanism != null)
                 {
-                    yield return new NumericFailureMechanismContext(numericFailureMechanism as IFailureMechanism, nodeData);
+                    yield return new NumericFailureMechanismContext(failureMechanism, nodeData);
                 }
                 else if (probabilityFailureMechanism != null)
                 {
-                    yield return new ArbitraryProbabilityFailureMechanismContext(probabilityFailureMechanism as IFailureMechanism, nodeData);
+                    yield return new ArbitraryProbabilityFailureMechanismContext(failureMechanism, nodeData);
                 }
                 else if (simpleFailureMechanism != null)
                 {
-                    yield return new SimpleFailureMechanismContext(simpleFailureMechanism as IFailureMechanism, nodeData);
+                    yield return new SimpleFailureMechanismContext(failureMechanism, nodeData);
                 }
                 else
                 {

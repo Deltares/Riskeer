@@ -28,7 +28,8 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.Integration.Data.StandAlone
 {
     /// <summary>
-    /// Defines a stand alone failure mechanisms objects
+    /// Model containing input and output needed to perform different levels of the
+    /// Stability of Stone Cover failure mechanism.
     /// </summary>
     public class StabilityStoneCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<NumericFailureMechanismSectionResult>
     {

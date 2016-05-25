@@ -36,8 +36,202 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Application.Ringtoets.Storage.Test.Update
 {
     [TestFixture]
-    public class FailureMechanismBaseUpdateExtensionsTest
+    public class IFailureMechanismUpdateExtensionsTest
     {
+        [Test]
+        public void Update_WithoutContext_ArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism();
+
+            // Call
+            TestDelegate test = () => failureMechanism.Update(new PersistenceRegistry(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("context", paramName);
+        }
+
+        [Test]
+        public void Update_WithoutPersistenceRegistry_ArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism();
+
+            // Call
+            TestDelegate test = () =>
+            {
+                using (var ringtoetsEntities = new RingtoetsEntities())
+                {
+                    failureMechanism.Update(null, ringtoetsEntities);
+                }
+            };
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("registry", paramName);
+        }
+
+        [Test]
+        public void Update_ContextWithNoFailureMechanism_EntityNotFoundException()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism();
+
+            // Call
+            TestDelegate test = () =>
+            {
+                using (var ringtoetsEntities = new RingtoetsEntities())
+                {
+                    failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
+                }
+            };
+
+            // Assert
+            var expectedMessage = String.Format("Het object 'FailureMechanismEntity' met id '{0}' is niet gevonden.", 0);
+            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void Update_ContextWithNoFailureMechanismWithId_EntityNotFoundException()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+
+            mocks.ReplayAll();
+
+            var storageId = 1;
+            var failureMechanism = new TestFailureMechanism()
+            {
+                StorageId = storageId
+            };
+
+            ringtoetsEntities.FailureMechanismEntities.Add(new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = 2
+            });
+
+            // Call
+            TestDelegate test = () => failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
+
+            // Assert
+            var expectedMessage = String.Format("Het object 'FailureMechanismEntity' met id '{0}' is niet gevonden.", storageId);
+            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ContextWithFailureMechanism_PropertiesUpdated()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism()
+            {
+                StorageId = 1,
+                IsRelevant = true
+            };
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = 1,
+                IsRelevant = Convert.ToByte(false)
+            };
+
+            ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            // Call
+            failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
+
+            // Assert
+            Assert.AreEqual(Convert.ToByte(true), failureMechanismEntity.IsRelevant);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ContextWithNewFailureMechanismSections_FailureMechanismSectionsAdded()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism()
+            {
+                StorageId = 1
+            };
+            failureMechanism.AddSection(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = 1,
+            };
+
+            ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            // Call
+            failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
+
+            // Assert
+            Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ContextWithUpdatedFailureMechanismSections_NoNewFailureMechanismSectionsAdded()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism()
+            {
+                StorageId = 1
+            };
+            var testName = "testName";
+            failureMechanism.AddSection(new FailureMechanismSection(testName, new[] { new Point2D(0, 0) })
+            {
+                StorageId = 1
+            });
+
+            var failureMechanismSectionEntity = new FailureMechanismSectionEntity
+            {
+                FailureMechanismSectionEntityId = 1,
+            };
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = 1,
+                FailureMechanismSectionEntities = 
+                {
+                    failureMechanismSectionEntity
+                }
+            };
+
+            ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.FailureMechanismSectionEntities.Add(failureMechanismSectionEntity);
+
+            // Call
+            failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
+
+            // Assert
+            Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);
+            Assert.AreEqual(testName, failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(0).Name);
+
+            mocks.VerifyAll();
+        } 
+
         [Test]
         public void UpdateFailureMechanismSections_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
@@ -93,7 +287,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNewFailureMechanismSections_FailureMechanismSectionsAdded()
+        public void UpdateFailureMechanismSections_ContextWithNewFailureMechanismSections_FailureMechanismSectionsAdded()
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -124,7 +318,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithUpdatedFailureMechanismSections_NoNewFailureMechanismSectionsAdded()
+        public void UpdateFailureMechanismSections_ContextWithUpdatedFailureMechanismSections_NoNewFailureMechanismSectionsAdded()
         {
             // Setup
             MockRepository mocks = new MockRepository();

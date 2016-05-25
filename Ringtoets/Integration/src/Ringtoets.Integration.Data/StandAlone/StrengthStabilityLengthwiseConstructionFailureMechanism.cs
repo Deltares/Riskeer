@@ -28,14 +28,15 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.Integration.Data.StandAlone
 {
     /// <summary>
-    /// Defines a stand alone failure mechanisms objects
+    /// Model containing input and output needed to perform different levels of the
+    /// Strength and Stability of Lengthwise Constructions failure mechanism.
     /// </summary>
     public class StrengthStabilityLengthwiseConstructionFailureMechanism : FailureMechanismBase, IHasSectionResults<NumericFailureMechanismSectionResult>
     {
         private readonly IList<NumericFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StrengthStabilityPointConstructionFailureMechanism"/> class.
+        /// Initializes a new instance of the <see cref="StrengthStabilityLengthwiseConstructionFailureMechanism"/> class.
         /// </summary>
         public StrengthStabilityLengthwiseConstructionFailureMechanism()
             : base(Resources.StrengthStabilityLengthwiseConstructionFailureMechanism_DisplayName, Resources.StrengthStabilityLengthwiseConstructionFailureMechanism_Code)

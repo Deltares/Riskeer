@@ -84,7 +84,7 @@
     <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwardsFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\PersistenceRegistryTest.cs" />
-    <Compile Include="Create\FailureMechanismBaseCreateExtensionsTest.cs" />
+    <Compile Include="Create\IFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\RingtoetsPipingSurfaceLineCreateExtensionsTest.cs" />
     <Compile Include="Create\Point3DCreateExtensionsTest.cs" />
     <Compile Include="Create\AssessmentSectionCreateExtensionsTest.cs" />
@@ -121,7 +121,7 @@
     <Compile Include="Update\AssessmentSectionUpdateExtensionsTest.cs" />
     <Compile Include="Update\CalculationGroupUpdateExtensionsTest.cs" />
     <Compile Include="Update\GrassCoverErosionInwardsFailureMechanismUpdateExtensionsTest.cs" />
-    <Compile Include="Update\FailureMechanismBaseUpdateExtensionsTest.cs" />
+    <Compile Include="Update\IFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\FailureMechanismSectionUpdateExtensionsTest.cs" />
     <Compile Include="Update\HydraulicBoundaryLocationUpdateExtensionsTest.cs" />
     <Compile Include="Update\IStorableExtensionsTest.cs" />
@@ -130,7 +130,6 @@
     <Compile Include="Update\PipingSoilProfileUpdateExtensionsTest.cs" />
     <Compile Include="Update\ProjectUpdateExtensionsTest.cs" />
     <Compile Include="Update\RingtoetsPipingSurfaceLineUpdateExtensionsTest.cs" />
-    <Compile Include="Update\StandAloneFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\StochasticSoilModelUpdateExtensionsTest.cs" />
     <Compile Include="Update\StochasticSoilProfileUpdateExtensionsTest.cs" />
   </ItemGroup>

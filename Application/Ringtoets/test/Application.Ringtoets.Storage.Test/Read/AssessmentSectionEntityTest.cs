@@ -325,11 +325,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
         }
 
-        private static void AssertFailureMechanismEqual(bool isRelevant, int entityId, int sectionCount, IFailureMechanism failureMechanism)
+        private static void AssertFailureMechanismEqual(bool expectedIsRelevant, int expectedEntityId, int expectedSectionCount, IFailureMechanism failureMechanism)
         {
-            Assert.AreEqual(entityId, failureMechanism.StorageId);
-            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
-            Assert.AreEqual(sectionCount, failureMechanism.Sections.Count());
+            Assert.AreEqual(expectedEntityId, failureMechanism.StorageId);
+            Assert.AreEqual(expectedIsRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(expectedSectionCount, failureMechanism.Sections.Count());
         }
 
         private static FailureMechanismSectionEntity[] CreateFailureMechanismSectionEntities()

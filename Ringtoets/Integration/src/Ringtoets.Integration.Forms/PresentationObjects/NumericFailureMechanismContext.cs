@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
     public class NumericFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="IFailureMechanism"/> class.
+        /// Initializes a new instance of the <see cref="NumericFailureMechanismContext"/> class.
         /// </summary>
         /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism" />.</param>

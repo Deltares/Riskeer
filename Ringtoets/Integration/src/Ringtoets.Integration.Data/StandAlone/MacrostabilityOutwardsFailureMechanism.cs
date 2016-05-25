@@ -28,14 +28,15 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.Integration.Data.StandAlone
 {
     /// <summary>
-    /// Defines a stand alone failure mechanisms objects
+    /// Model containing input and output needed to perform different levels of the
+    /// Macrostability Outwards failure mechanism.
     /// </summary>
     public class MacrostabilityOutwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<ArbitraryProbabilityFailureMechanismSectionResult>
     {
         private readonly IList<ArbitraryProbabilityFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MacrostabilityInwardsFailureMechanism"/> class.
+        /// Initializes a new instance of the <see cref="MacrostabilityOutwardsFailureMechanism"/> class.
         /// </summary>
         public MacrostabilityOutwardsFailureMechanism()
             : base(Resources.MacrostabilityOutwardFailureMechanism_DisplayName, Resources.MacrostabilityOutwardFailureMechanism_Code)

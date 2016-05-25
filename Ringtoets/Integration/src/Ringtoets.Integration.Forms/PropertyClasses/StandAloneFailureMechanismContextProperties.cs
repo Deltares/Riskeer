@@ -33,7 +33,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class StandAloneFailureMechanismContextProperties : ObjectProperties<FailureMechanismContext<IFailureMechanism>>
     {
-
         #region General
 
         [PropertyOrder(1)]

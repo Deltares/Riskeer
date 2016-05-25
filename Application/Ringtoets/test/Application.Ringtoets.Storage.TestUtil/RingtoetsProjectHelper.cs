@@ -83,24 +83,25 @@ namespace Application.Ringtoets.Storage.TestUtil
                 }
             };
 
-            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().PipingFailureMechanism);
-            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().GrassCoverErosionInwards);
-            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().MacrostabilityInwards);
-            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().MacrostabilityOutwards);
-            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().Microstability);
-            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().StabilityStoneCover);
-            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().WaveImpactAsphaltCover);
-            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().WaterPressureAsphaltCover);
-            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().GrassCoverErosionOutwards);
-            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().GrassCoverSlipOffOutwards);
-            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().GrassCoverSlipOffInwards);
-            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().HeightStructures);
-            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().ClosingStructure);
-            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().StrengthStabilityPointConstruction);
-            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().StrengthStabilityLengthwiseConstruction);
-            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().PipingStructure);
-            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().DuneErosion);
-            AddSections(fullTestProject.Items.OfType<AssessmentSection>().First().TechnicalInnovation);
+            var assessmentSection = fullTestProject.Items.OfType<AssessmentSection>().First();
+            AddSections(assessmentSection.PipingFailureMechanism);
+            AddSections(assessmentSection.GrassCoverErosionInwards);
+            AddSections(assessmentSection.MacrostabilityInwards);
+            AddSections(assessmentSection.MacrostabilityOutwards);
+            AddSections(assessmentSection.Microstability);
+            AddSections(assessmentSection.StabilityStoneCover);
+            AddSections(assessmentSection.WaveImpactAsphaltCover);
+            AddSections(assessmentSection.WaterPressureAsphaltCover);
+            AddSections(assessmentSection.GrassCoverErosionOutwards);
+            AddSections(assessmentSection.GrassCoverSlipOffOutwards);
+            AddSections(assessmentSection.GrassCoverSlipOffInwards);
+            AddSections(assessmentSection.HeightStructures);
+            AddSections(assessmentSection.ClosingStructure);
+            AddSections(assessmentSection.StrengthStabilityPointConstruction);
+            AddSections(assessmentSection.StrengthStabilityLengthwiseConstruction);
+            AddSections(assessmentSection.PipingStructure);
+            AddSections(assessmentSection.DuneErosion);
+            AddSections(assessmentSection.TechnicalInnovation);
             return fullTestProject;
         }
 

@@ -28,14 +28,15 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.Integration.Data.StandAlone
 {
     /// <summary>
-    /// Defines a stand alone failure mechanisms objects
+    /// Model containing input and output needed to perform different levels of the
+    /// Microstability failure mechanism.
     /// </summary>
     public class MicrostabilityFailureMechanism : FailureMechanismBase, IHasSectionResults<SimpleFailureMechanismSectionResult>
     {
         private readonly IList<SimpleFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MacrostabilityInwardsFailureMechanism"/> class.
+        /// Initializes a new instance of the <see cref="MicrostabilityFailureMechanism"/> class.
         /// </summary>
         public MicrostabilityFailureMechanism()
             : base(Resources.MicrostabilityFailureMechanism_DisplayName, Resources.MicrostabilityFailureMechanism_Code)

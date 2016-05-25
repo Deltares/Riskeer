@@ -32,8 +32,39 @@ namespace Application.Ringtoets.Storage.Update
     /// <summary>
     /// Extension methods for <see cref="FailureMechanismBase"/> related to updating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
-    internal static class FailureMechanismBaseUpdateExtensions
+    internal static class IFailureMechanismUpdateExtensions
     {
+        /// <summary>
+        /// Updates a <see cref="FailureMechanismEntity"/> in the database based on the information of the 
+        /// <see cref="IFailureMechanism"/>.
+        /// </summary>
+        /// <param name="mechanism">The mechanism to update the database entity for.</param>
+        /// <param name="registry">The object keeping track of update operations.</param>
+        /// <param name="context">The context to obtain the existing entity from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="registry"/> is <c>null</c></item>
+        /// <item><paramref name="context"/> is <c>null</c></item>
+        /// </list></exception>
+        internal static void Update(this IFailureMechanism mechanism, PersistenceRegistry registry, IRingtoetsEntities context)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException("context");
+            }
+            if (registry == null)
+            {
+                throw new ArgumentNullException("registry");
+            }
+
+            FailureMechanismEntity entity = mechanism.GetCorrespondingFailureMechanismEntity(context);
+            entity.IsRelevant = Convert.ToByte(mechanism.IsRelevant);
+
+            mechanism.UpdateFailureMechanismSections(registry, entity, context);
+
+            registry.Register(entity, mechanism);
+        }
+
         /// <summary>
         /// Updates <see cref="FailureMechanismSectionEntity"/> instances of a <see cref="FailureMechanismEntity"/>
         /// based on the sections defined on the <see cref="FailureMechanismBase"/>.

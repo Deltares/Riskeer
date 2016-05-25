@@ -35,6 +35,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
@@ -205,80 +206,84 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertProjectsAreEqual(Project firstProject, Project secondProject)
+        private void AssertProjectsAreEqual(Project expectedProject, Project actualProject)
         {
-            Assert.IsInstanceOf<Project>(firstProject);
-            Assert.IsInstanceOf<Project>(secondProject);
-            Assert.AreNotSame(firstProject, secondProject);
+            Assert.NotNull(expectedProject);
+            Assert.NotNull(actualProject);
+            Assert.AreNotSame(expectedProject, actualProject);
 
-            var firstProjectAssessmentSection = firstProject.Items.OfType<AssessmentSection>().ToList();
-            var secondProjectAssessmentSection = secondProject.Items.OfType<AssessmentSection>().ToList();
-            Assert.AreEqual(firstProjectAssessmentSection.Count, secondProjectAssessmentSection.Count);
-            for (var i = 0; i < firstProjectAssessmentSection.Count; i++)
+            var expectedProjectAssessmentSection = expectedProject.Items.OfType<AssessmentSection>().ToArray();
+            var actualProjectAssessmentSection = actualProject.Items.OfType<AssessmentSection>().ToArray();
+            Assert.AreEqual(expectedProjectAssessmentSection.Length, actualProjectAssessmentSection.Length);
+            for (var i = 0; i < expectedProjectAssessmentSection.Length; i++)
             {
-                Assert.AreEqual(firstProjectAssessmentSection[i].StorageId, secondProjectAssessmentSection[i].StorageId);
-                Assert.AreEqual(firstProjectAssessmentSection[i].Name, secondProjectAssessmentSection[i].Name);
+                Assert.AreEqual(expectedProjectAssessmentSection[i].StorageId, actualProjectAssessmentSection[i].StorageId);
+                Assert.AreEqual(expectedProjectAssessmentSection[i].Name, actualProjectAssessmentSection[i].Name);
 
-                AssertHydraulicBoundaryDatabase(firstProjectAssessmentSection[i], secondProjectAssessmentSection[i]);
-                AssertReferenceLine(firstProjectAssessmentSection[i], secondProjectAssessmentSection[i]);
-                AssertPipingFailureMechanism(firstProjectAssessmentSection[i].PipingFailureMechanism, secondProjectAssessmentSection[i].PipingFailureMechanism);
+                IAssessmentSection expectedAssessmentSection = expectedProjectAssessmentSection[i];
+                IAssessmentSection actualAssessmentSection = actualProjectAssessmentSection[i];
+                AssertHydraulicBoundaryDatabase(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);
+                IAssessmentSection expectedProject1 = expectedProjectAssessmentSection[i];
+                IAssessmentSection actualProject1 = actualProjectAssessmentSection[i];
+                AssertReferenceLine(expectedProject1.ReferenceLine, actualProject1.ReferenceLine);
+                AssertPipingFailureMechanism(expectedProjectAssessmentSection[i].PipingFailureMechanism, actualProjectAssessmentSection[i].PipingFailureMechanism);
 
-                var firstProjectFailureMechanisms = firstProjectAssessmentSection[i].GetFailureMechanisms().ToArray();
-                var secondProjectFailureMechanisms = secondProjectAssessmentSection[i].GetFailureMechanisms().ToArray();
-                for (var fmi = 0; fmi < firstProjectFailureMechanisms.Length; fmi++)
+                var expectedProjectFailureMechanisms = expectedProjectAssessmentSection[i].GetFailureMechanisms().ToArray();
+                var actualProjectFailureMechanisms = actualProjectAssessmentSection[i].GetFailureMechanisms().ToArray();
+                for (var fmi = 0; fmi < expectedProjectFailureMechanisms.Length; fmi++)
                 {
-                    AssertFailureMechanism(firstProjectFailureMechanisms[fmi], secondProjectFailureMechanisms[fmi]);
+                    AssertFailureMechanism(expectedProjectFailureMechanisms[fmi], actualProjectFailureMechanisms[fmi]);
                 }
             }
         }
 
-        private void AssertFailureMechanism(IFailureMechanism firstProjectFailureMechanism, IFailureMechanism secondProjectFailureMechanism)
+        private void AssertFailureMechanism(IFailureMechanism expectedFailureMechanism, IFailureMechanism actualFailureMechanism)
         {
-            Assert.AreEqual(firstProjectFailureMechanism.Name, secondProjectFailureMechanism.Name);
-            Assert.AreEqual(firstProjectFailureMechanism.Code, secondProjectFailureMechanism.Code);
-            Assert.AreEqual(firstProjectFailureMechanism.IsRelevant, secondProjectFailureMechanism.IsRelevant);
-            AssertFailureMechanismSections(firstProjectFailureMechanism.Sections, secondProjectFailureMechanism.Sections);
+            Assert.AreEqual(expectedFailureMechanism.Name, actualFailureMechanism.Name);
+            Assert.AreEqual(expectedFailureMechanism.Code, actualFailureMechanism.Code);
+            Assert.AreEqual(expectedFailureMechanism.IsRelevant, actualFailureMechanism.IsRelevant);
+            AssertFailureMechanismSections(expectedFailureMechanism.Sections, actualFailureMechanism.Sections);
         }
 
-        private void AssertFailureMechanismSections(IEnumerable<FailureMechanismSection> firstProjectSections, IEnumerable<FailureMechanismSection> secondProjectSections)
+        private void AssertFailureMechanismSections(IEnumerable<FailureMechanismSection> expectedSections, IEnumerable<FailureMechanismSection> actualSections)
         {
-            var firstProjectSectionsArray = firstProjectSections.ToArray();
-            var secondProjectSectionsArray = secondProjectSections.ToArray();
+            var expectedSectionsArray = expectedSections.ToArray();
+            var actualSectionsArray = actualSections.ToArray();
 
-            Assert.AreEqual(firstProjectSectionsArray.Length, secondProjectSectionsArray.Length);
+            Assert.AreEqual(expectedSectionsArray.Length, actualSectionsArray.Length);
 
-            for (var i = 0; i < firstProjectSectionsArray.Length; i++)
+            for (var i = 0; i < expectedSectionsArray.Length; i++)
             {
-                Assert.AreEqual(firstProjectSectionsArray[i].Name, secondProjectSectionsArray[i].Name);
-                Assert.AreEqual(firstProjectSectionsArray[i].Points, secondProjectSectionsArray[i].Points);
+                Assert.AreEqual(expectedSectionsArray[i].Name, actualSectionsArray[i].Name);
+                Assert.AreEqual(expectedSectionsArray[i].Points, actualSectionsArray[i].Points);
             }
         }
 
-        private static void AssertHydraulicBoundaryDatabase(IAssessmentSection expectedProject, IAssessmentSection project)
+        private static void AssertHydraulicBoundaryDatabase(HydraulicBoundaryDatabase expectedBoundaryDatabase, HydraulicBoundaryDatabase actualBoundaryDatabase)
         {
-            Assert.IsNotNull(expectedProject.HydraulicBoundaryDatabase);
-            Assert.AreEqual(expectedProject.HydraulicBoundaryDatabase.Version, project.HydraulicBoundaryDatabase.Version);
-            Assert.AreEqual(expectedProject.HydraulicBoundaryDatabase.FilePath, project.HydraulicBoundaryDatabase.FilePath);
-            Assert.AreEqual(expectedProject.HydraulicBoundaryDatabase.Locations.Count, project.HydraulicBoundaryDatabase.Locations.Count);
+            Assert.IsNotNull(expectedBoundaryDatabase);
+            Assert.AreEqual(expectedBoundaryDatabase.Version, actualBoundaryDatabase.Version);
+            Assert.AreEqual(expectedBoundaryDatabase.FilePath, actualBoundaryDatabase.FilePath);
+            Assert.AreEqual(expectedBoundaryDatabase.Locations.Count, actualBoundaryDatabase.Locations.Count);
 
-            for (int i = 0; i < expectedProject.HydraulicBoundaryDatabase.Locations.Count; i++)
+            for (int i = 0; i < expectedBoundaryDatabase.Locations.Count; i++)
             {
-                Assert.AreEqual(expectedProject.HydraulicBoundaryDatabase.Locations[i].Id, project.HydraulicBoundaryDatabase.Locations[i].Id);
-                Assert.AreEqual(expectedProject.HydraulicBoundaryDatabase.Locations[i].Name, project.HydraulicBoundaryDatabase.Locations[i].Name);
-                Assert.AreEqual(expectedProject.HydraulicBoundaryDatabase.Locations[i].DesignWaterLevel, project.HydraulicBoundaryDatabase.Locations[i].DesignWaterLevel);
-                Assert.AreEqual(expectedProject.HydraulicBoundaryDatabase.Locations[i].StorageId, project.HydraulicBoundaryDatabase.Locations[i].StorageId);
-                Assert.AreEqual(expectedProject.HydraulicBoundaryDatabase.Locations[i].Location, project.HydraulicBoundaryDatabase.Locations[i].Location);
+                Assert.AreEqual(expectedBoundaryDatabase.Locations[i].Id, actualBoundaryDatabase.Locations[i].Id);
+                Assert.AreEqual(expectedBoundaryDatabase.Locations[i].Name, actualBoundaryDatabase.Locations[i].Name);
+                Assert.AreEqual(expectedBoundaryDatabase.Locations[i].DesignWaterLevel, actualBoundaryDatabase.Locations[i].DesignWaterLevel);
+                Assert.AreEqual(expectedBoundaryDatabase.Locations[i].StorageId, actualBoundaryDatabase.Locations[i].StorageId);
+                Assert.AreEqual(expectedBoundaryDatabase.Locations[i].Location, actualBoundaryDatabase.Locations[i].Location);
             }
         }
 
-        private static void AssertReferenceLine(IAssessmentSection expectedProject, IAssessmentSection project)
+        private static void AssertReferenceLine(ReferenceLine expectedReferenceLine, ReferenceLine actualReferenceLine)
         {
-            Assert.IsNotNull(expectedProject.ReferenceLine);
+            Assert.IsNotNull(expectedReferenceLine);
 
-            for (int i = 0; i < expectedProject.ReferenceLine.Points.Count(); i++)
+            for (int i = 0; i < expectedReferenceLine.Points.Count(); i++)
             {
-                var expectedPoint = expectedProject.ReferenceLine.Points.ElementAt(i);
-                var resultingPoint = project.ReferenceLine.Points.ElementAt(i);
+                var expectedPoint = expectedReferenceLine.Points.ElementAt(i);
+                var resultingPoint = actualReferenceLine.Points.ElementAt(i);
                 Assert.AreEqual(expectedPoint.X, resultingPoint.X);
                 Assert.AreEqual(expectedPoint.Y, resultingPoint.Y);
             }
