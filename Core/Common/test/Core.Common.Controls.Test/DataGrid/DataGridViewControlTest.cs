@@ -159,7 +159,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                control.AddComboBoxColumn(propertyName, headerText);
+                control.AddComboBoxColumn<object>(propertyName, headerText, null, null, null);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
@@ -169,8 +169,6 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
-                Assert.AreEqual("Value", columnData.ValueMember);
-                Assert.AreEqual("DisplayName", columnData.DisplayMember);
             }
         }
 

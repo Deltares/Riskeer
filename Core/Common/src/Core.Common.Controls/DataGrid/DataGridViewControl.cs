@@ -21,8 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Windows.Forms;
 using Core.Common.Controls.Properties;
+using Core.Common.Utils.Reflection;
 
 namespace Core.Common.Controls.DataGrid
 {
@@ -82,20 +84,36 @@ namespace Core.Common.Controls.DataGrid
         /// </summary>
         /// <param name="dataPropertyName">The <see cref="DataGridViewColumn.DataPropertyName"/> of the column.</param>
         /// <param name="headerText">The <see cref="DataGridViewColumn.HeaderText"/> of the column.</param>
-        /// <param name="dataSource"></param>
+        /// <param name="dataSource">The datasource that is set on the column.</param>
+        /// <param name="valueMember">The <see cref="Func{TResult}"/> to get the value member.</param>
+        /// <param name="displayMember">The <see cref="Func{TResult}"/> to get the display member.</param>
         /// <remarks><paramref name="dataPropertyName"/> is also used to create the <see cref="DataGridViewColumn.Name"/>.
         /// The format is "column_<paramref name="dataPropertyName"/>.</remarks>
-        public void AddComboBoxColumn(string dataPropertyName, string headerText, List<object> dataSource = null)
+        public void AddComboBoxColumn<T>(string dataPropertyName, string headerText, List<T> dataSource, Expression<Func<T,object>> valueMember, Expression<Func<T,object>> displayMember)
         {
-            dataGridView.Columns.Add(new DataGridViewComboBoxColumn
+            var dataGridViewComboBoxColumn = new DataGridViewComboBoxColumn
             {
                 DataPropertyName = dataPropertyName,
                 HeaderText = headerText,
-                Name = string.Format("column_{0}", dataPropertyName),
-                ValueMember = "Value",
-                DisplayMember = "DisplayName",
-                DataSource = dataSource
-            });
+                Name = string.Format("column_{0}", dataPropertyName)
+            };
+
+            if (dataSource != null)
+            {
+                dataGridViewComboBoxColumn.DataSource = dataSource;
+            }
+            
+            if (valueMember != null)
+            {
+                dataGridViewComboBoxColumn.ValueMember = TypeUtils.GetMemberName(valueMember);
+            }
+            
+            if (displayMember != null)
+            {
+                dataGridViewComboBoxColumn.DisplayMember = TypeUtils.GetMemberName(displayMember);
+            }
+
+            dataGridView.Columns.Add(dataGridViewComboBoxColumn);
         }
 
         /// <summary>

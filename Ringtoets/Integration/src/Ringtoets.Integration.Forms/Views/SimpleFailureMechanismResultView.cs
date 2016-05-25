@@ -66,10 +66,14 @@ namespace Ringtoets.Integration.Forms.Views
             var dataSource = Enum.GetValues(typeof(AssessmentLayerTwoAResult))
                                            .OfType<AssessmentLayerTwoAResult>()
                                            .Select(el => new EnumDisplayWrapper<AssessmentLayerTwoAResult>(el))
-                                           .Cast<object>()
                                            .ToList();
 
-            DataGridViewControl.AddComboBoxColumn("AssessmentLayerTwoA", RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, dataSource);
+            DataGridViewControl.AddComboBoxColumn(
+                "AssessmentLayerTwoA",
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, 
+                dataSource,
+                o => o.Value,
+                o => o.DisplayName);
             DataGridViewControl.AddTextBoxColumn("AssessmentLayerTwoB", RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b);
             DataGridViewControl.AddTextBoxColumn("AssessmentLayerThree", RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
