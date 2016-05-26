@@ -20,9 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
+using Core.Common.Utils;
+using Core.Common.Utils.Attributes;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 
@@ -142,7 +146,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void AddComboBoxColumn_Always_AddsColumnToDataGridView()
+        public void AddComboBoxColumn_DataSourceValueMemberAndDisplayMemberNull_AddsColumnToDataGridViewWithoutDataSourceValueMemberAndDisplayMember()
         {
             using (var form = new Form())
             {
@@ -169,6 +173,48 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
+                Assert.IsNull(columnData.DataSource);
+                Assert.AreEqual(string.Empty, columnData.ValueMember);
+                Assert.AreEqual(string.Empty, columnData.DisplayMember);
+            }
+        }
+
+        [Test]
+        public void AddComboBoxColumn_DataSourceValueMemberAndDisplayMemberSet_AddsColumnToDataGridViewWithDataSourceValueMemberAndDisplayMember()
+        {
+            using (var form = new Form())
+            {
+                var propertyName = "PropertyName";
+                var headerText = "HeaderText";
+
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                List<EnumDisplayWrapper<TestEnum>> dataSource = Enum.GetValues(typeof(TestEnum))
+                                           .OfType<TestEnum>()
+                                           .Select(el => new EnumDisplayWrapper<TestEnum>(el))
+                                           .ToList();
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                control.AddComboBoxColumn(propertyName, headerText, dataSource, ds => ds.Value, ds => ds.DisplayName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                DataGridViewComboBoxColumn columnData = (DataGridViewComboBoxColumn)dataGridView.Columns[0];
+
+                Assert.AreEqual(propertyName, columnData.DataPropertyName);
+                Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
+                Assert.AreEqual(headerText, columnData.HeaderText);
+                Assert.AreSame(dataSource, columnData.DataSource);
+                Assert.AreEqual("Value", columnData.ValueMember);
+                Assert.AreEqual("DisplayName", columnData.DisplayMember);
             }
         }
 
@@ -627,5 +673,13 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         #endregion
+
+        enum TestEnum
+        {
+            NoDisplayName,
+
+            [ResourcesDisplayName(typeof(Resources), "DataGridViewControlTest_DisplayNameValueDisplayName")]
+            DisplayName
+        }
     }
 }
