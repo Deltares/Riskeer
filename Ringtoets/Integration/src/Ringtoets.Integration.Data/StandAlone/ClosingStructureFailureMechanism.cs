@@ -29,7 +29,7 @@ namespace Ringtoets.Integration.Data.StandAlone
 {
     /// <summary>
     /// Model containing input and output needed to perform different levels of the
-    /// Closing Structure Inwards failure mechanism.
+    /// Closing Structure failure mechanism.
     /// </summary>
     public class ClosingStructureFailureMechanism : FailureMechanismBase, IHasSectionResults<ArbitraryProbabilityFailureMechanismSectionResult>
     {

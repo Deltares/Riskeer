@@ -27,6 +27,7 @@ using Application.Ringtoets.Storage.TestUtil;
 
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Base.Plugin;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
@@ -212,24 +213,23 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.NotNull(actualProject);
             Assert.AreNotSame(expectedProject, actualProject);
 
-            var expectedProjectAssessmentSection = expectedProject.Items.OfType<AssessmentSection>().ToArray();
-            var actualProjectAssessmentSection = actualProject.Items.OfType<AssessmentSection>().ToArray();
-            Assert.AreEqual(expectedProjectAssessmentSection.Length, actualProjectAssessmentSection.Length);
-            for (var i = 0; i < expectedProjectAssessmentSection.Length; i++)
+            AssessmentSection[] expectedProjectAssessmentSections = expectedProject.Items.OfType<AssessmentSection>().ToArray();
+            AssessmentSection[] actualProjectAssessmentSections = actualProject.Items.OfType<AssessmentSection>().ToArray();
+            Assert.AreEqual(expectedProjectAssessmentSections.Length, actualProjectAssessmentSections.Length);
+            for (var i = 0; i < expectedProjectAssessmentSections.Length; i++)
             {
-                Assert.AreEqual(expectedProjectAssessmentSection[i].StorageId, actualProjectAssessmentSection[i].StorageId);
-                Assert.AreEqual(expectedProjectAssessmentSection[i].Name, actualProjectAssessmentSection[i].Name);
+                AssessmentSection expectedAssessmentSection = expectedProjectAssessmentSections[i];
+                AssessmentSection actualAssessmentSection = actualProjectAssessmentSections[i];
 
-                IAssessmentSection expectedAssessmentSection = expectedProjectAssessmentSection[i];
-                IAssessmentSection actualAssessmentSection = actualProjectAssessmentSection[i];
+                Assert.AreEqual(expectedAssessmentSection.StorageId, actualAssessmentSection.StorageId);
+                Assert.AreEqual(expectedAssessmentSection.Name, actualAssessmentSection.Name);
+                
                 AssertHydraulicBoundaryDatabase(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);
-                IAssessmentSection expectedProject1 = expectedProjectAssessmentSection[i];
-                IAssessmentSection actualProject1 = actualProjectAssessmentSection[i];
-                AssertReferenceLine(expectedProject1.ReferenceLine, actualProject1.ReferenceLine);
-                AssertPipingFailureMechanism(expectedProjectAssessmentSection[i].PipingFailureMechanism, actualProjectAssessmentSection[i].PipingFailureMechanism);
+                AssertReferenceLine(expectedAssessmentSection.ReferenceLine, actualAssessmentSection.ReferenceLine);
+                AssertPipingFailureMechanism(expectedAssessmentSection.PipingFailureMechanism, actualAssessmentSection.PipingFailureMechanism);
 
-                var expectedProjectFailureMechanisms = expectedProjectAssessmentSection[i].GetFailureMechanisms().ToArray();
-                var actualProjectFailureMechanisms = actualProjectAssessmentSection[i].GetFailureMechanisms().ToArray();
+                IFailureMechanism[] expectedProjectFailureMechanisms = expectedAssessmentSection.GetFailureMechanisms().ToArray();
+                IFailureMechanism[] actualProjectFailureMechanisms = actualAssessmentSection.GetFailureMechanisms().ToArray();
                 for (var fmi = 0; fmi < expectedProjectFailureMechanisms.Length; fmi++)
                 {
                     AssertFailureMechanism(expectedProjectFailureMechanisms[fmi], actualProjectFailureMechanisms[fmi]);
@@ -254,8 +254,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             for (var i = 0; i < expectedSectionsArray.Length; i++)
             {
-                Assert.AreEqual(expectedSectionsArray[i].Name, actualSectionsArray[i].Name);
-                Assert.AreEqual(expectedSectionsArray[i].Points, actualSectionsArray[i].Points);
+                FailureMechanismSection expectedSection = expectedSectionsArray[i];
+                FailureMechanismSection actualSection = actualSectionsArray[i];
+
+                Assert.AreEqual(expectedSection.Name, actualSection.Name);
+                CollectionAssert.AreEqual(expectedSection.Points, actualSection.Points);
             }
         }
 
@@ -268,11 +271,14 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             for (int i = 0; i < expectedBoundaryDatabase.Locations.Count; i++)
             {
-                Assert.AreEqual(expectedBoundaryDatabase.Locations[i].Id, actualBoundaryDatabase.Locations[i].Id);
-                Assert.AreEqual(expectedBoundaryDatabase.Locations[i].Name, actualBoundaryDatabase.Locations[i].Name);
-                Assert.AreEqual(expectedBoundaryDatabase.Locations[i].DesignWaterLevel, actualBoundaryDatabase.Locations[i].DesignWaterLevel);
-                Assert.AreEqual(expectedBoundaryDatabase.Locations[i].StorageId, actualBoundaryDatabase.Locations[i].StorageId);
-                Assert.AreEqual(expectedBoundaryDatabase.Locations[i].Location, actualBoundaryDatabase.Locations[i].Location);
+                HydraulicBoundaryLocation expectedBoundaryLocation = expectedBoundaryDatabase.Locations[i];
+                HydraulicBoundaryLocation actualBoundaryLocation = actualBoundaryDatabase.Locations[i];
+
+                Assert.AreEqual(expectedBoundaryLocation.Id, actualBoundaryLocation.Id);
+                Assert.AreEqual(expectedBoundaryLocation.Name, actualBoundaryLocation.Name);
+                Assert.AreEqual(expectedBoundaryLocation.DesignWaterLevel, actualBoundaryLocation.DesignWaterLevel);
+                Assert.AreEqual(expectedBoundaryLocation.StorageId, actualBoundaryLocation.StorageId);
+                Assert.AreEqual(expectedBoundaryLocation.Location, actualBoundaryLocation.Location);
             }
         }
 
@@ -280,13 +286,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             Assert.IsNotNull(expectedReferenceLine);
 
-            for (int i = 0; i < expectedReferenceLine.Points.Count(); i++)
-            {
-                var expectedPoint = expectedReferenceLine.Points.ElementAt(i);
-                var resultingPoint = actualReferenceLine.Points.ElementAt(i);
-                Assert.AreEqual(expectedPoint.X, resultingPoint.X);
-                Assert.AreEqual(expectedPoint.Y, resultingPoint.Y);
-            }
+            CollectionAssert.AreEqual(expectedReferenceLine.Points, actualReferenceLine.Points);
         }
 
         private void AssertPipingFailureMechanism(PipingFailureMechanism expectedPipingFailureMechanism, PipingFailureMechanism actualPipingFailureMechanism)
@@ -304,8 +304,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             
             for (int i = 0; i < expectedModels.Count; i++)
             {
-                var expectedModel = expectedModels.ElementAt(i);
-                var actualModel = actualModels.ElementAt(i);
+                StochasticSoilModel expectedModel = expectedModels[i];
+                StochasticSoilModel actualModel = actualModels[i];
 
                 Assert.AreEqual(expectedModel.Name, actualModel.Name);
                 Assert.AreEqual(expectedModel.SegmentName, actualModel.SegmentName);
@@ -320,8 +320,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             for (int i = 0; i < expectedStochasticSoilProfiles.Count; i++)
             {
-                var expectedProfile = expectedStochasticSoilProfiles.ElementAt(i);
-                var actualProfile = actualStochasticSoilProfiles.ElementAt(i);
+                StochasticSoilProfile expectedProfile = expectedStochasticSoilProfiles[i];
+                StochasticSoilProfile actualProfile = actualStochasticSoilProfiles[i];
 
                 Assert.AreEqual(expectedProfile.Probability, actualProfile.Probability);
                 Assert.AreEqual(expectedProfile.SoilProfile.Bottom, actualProfile.SoilProfile.Bottom);
@@ -332,15 +332,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private void AssertSoilLayers(IEnumerable<PipingSoilLayer> expectedLayers, IEnumerable<PipingSoilLayer> actualLayers)
         {
-            var actualLayerArray = actualLayers.ToArray();
-            var expectedLayerArray = expectedLayers.ToArray();
+            PipingSoilLayer[] actualLayerArray = actualLayers.ToArray();
+            PipingSoilLayer[] expectedLayerArray = expectedLayers.ToArray();
             Assert.Less(0, actualLayerArray.Length);
             Assert.AreEqual(expectedLayerArray.Length, actualLayerArray.Length);
 
             for (int i = 0; i < expectedLayerArray.Length; i++)
             {
-                var expectedLayer = actualLayerArray[i];
-                var actualLayer = expectedLayerArray[i];
+                PipingSoilLayer expectedLayer = actualLayerArray[i];
+                PipingSoilLayer actualLayer = expectedLayerArray[i];
 
                 Assert.AreEqual(expectedLayer.Top, actualLayer.Top);
                 Assert.AreEqual(expectedLayer.IsAquifer, actualLayer.IsAquifer);
@@ -357,6 +357,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 RingtoetsPipingSurfaceLine expectedSurfaceLine = expectedSurfaceLines.ElementAt(i);
                 RingtoetsPipingSurfaceLine actualSurfaceLine = expectedSurfaceLines.ElementAt(i);
+
                 AssertSurfaceLine(expectedSurfaceLine, actualSurfaceLine);
             }
         }

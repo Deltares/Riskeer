@@ -44,46 +44,47 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// <returns>A new complete instance of <see cref="Project"/>.</returns>
         public static Project GetFullTestProject()
         {
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                Name = "assessmentSection",
+                HydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase(),
+                ReferenceLine = GetReferenceLine(),
+                PipingFailureMechanism =
+                {
+                    StochasticSoilModels =
+                    {
+                        new StochasticSoilModel(-1, "modelName", "modelSegmentName")
+                        {
+                            StochasticSoilProfiles =
+                            {
+                                new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, -1)
+                                {
+                                    SoilProfile = new TestPipingSoilProfile()
+                                },
+                                new StochasticSoilProfile(0.8, SoilProfileType.SoilProfile1D, -1)
+                                {
+                                    SoilProfile = new TestPipingSoilProfile()
+                                }
+                            }
+                        }
+                    },
+                    SurfaceLines =
+                    {
+                        GetSurfaceLine()
+                    }
+                }
+            };
+
             var fullTestProject = new Project
             {
                 Name = "tempProjectFile",
                 Description = "description",
                 Items =
                 {
-                    new AssessmentSection(AssessmentSectionComposition.Dike)
-                    {
-                        Name = "assessmentSection",
-                        HydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase(),
-                        ReferenceLine = GetReferenceLine(),
-                        PipingFailureMechanism =
-                        {
-                            StochasticSoilModels =
-                            {
-                                new StochasticSoilModel(-1, "modelName", "modelSegmentName")
-                                {
-                                    StochasticSoilProfiles =
-                                    {
-                                        new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, -1)
-                                        {
-                                            SoilProfile = new TestPipingSoilProfile()
-                                        },
-                                        new StochasticSoilProfile(0.8, SoilProfileType.SoilProfile1D, -1)
-                                        {
-                                            SoilProfile = new TestPipingSoilProfile()
-                                        }
-                                    }
-                                }
-                            },
-                            SurfaceLines =
-                            {
-                                GetSurfaceLine()
-                            }
-                        }
-                    }
+                    assessmentSection
                 }
             };
 
-            var assessmentSection = fullTestProject.Items.OfType<AssessmentSection>().First();
             AddSections(assessmentSection.PipingFailureMechanism);
             AddSections(assessmentSection.GrassCoverErosionInwards);
             AddSections(assessmentSection.MacrostabilityInwards);
@@ -102,6 +103,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddSections(assessmentSection.PipingStructure);
             AddSections(assessmentSection.DuneErosion);
             AddSections(assessmentSection.TechnicalInnovation);
+
             return fullTestProject;
         }
 
