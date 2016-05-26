@@ -276,13 +276,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
-
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0,
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
                                                           RingtoetsCommonFormsResources.Calculate,
                                                           Resources.GrassCoverErosionInwardsGuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
                                                           RingtoetsCommonFormsResources.CalculateIcon,
                                                           false);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -316,13 +316,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
-
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0,
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
                                                           RingtoetsCommonFormsResources.Calculate,
                                                           Resources.GrassCoverErosionInwardsGuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
                                                           RingtoetsCommonFormsResources.CalculateIcon,
                                                           false);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -356,14 +356,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
-
-            ToolStripItem contextMenuItem = contextMenu.Items[0];
+            ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateIndex];
 
             Assert.AreEqual(RingtoetsCommonFormsResources.Calculate, contextMenuItem.Text);
             StringAssert.Contains(String.Format(RingtoetsCommonFormsResources.GuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateIcon, contextMenuItem.Image);
             Assert.IsFalse(contextMenuItem.Enabled);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -405,12 +405,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
-
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0,
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
                                                           RingtoetsCommonFormsResources.Calculate,
                                                           RingtoetsCommonFormsResources.Calculate_ToolTip,
                                                           RingtoetsCommonFormsResources.CalculateIcon);
+
+            mocks.VerifyAll();
         }
 
         [Test]

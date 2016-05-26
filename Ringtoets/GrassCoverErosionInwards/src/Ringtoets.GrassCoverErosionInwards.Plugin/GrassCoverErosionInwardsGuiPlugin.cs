@@ -243,9 +243,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 return Resources.GrassCoverErosionInwardsGuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
             }
 
-            string selectedFile = assessmentSection.HydraulicBoundaryDatabase.FilePath;
-            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(selectedFile);
-
+            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
             if (!string.IsNullOrEmpty(validationProblem))
             {
                 return string.Format(RingtoetsCommonFormsResources.GuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_, validationProblem);

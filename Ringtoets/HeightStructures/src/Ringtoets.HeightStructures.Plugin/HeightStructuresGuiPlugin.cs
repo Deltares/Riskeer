@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -42,6 +43,7 @@ using Ringtoets.HeightStructures.Plugin.Properties;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
+using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -164,7 +166,7 @@ namespace Ringtoets.HeightStructures.Plugin
                                                           inputParameters.DeviationOfTheWaveDirection,
                                                           inputParameters.StormDuration.Mean, inputParameters.StormDuration.StandardDeviation),
                 calculation.ClearOutput,
-                output => { });
+                output => { ParseHydraRingOutput(calculation, output); });
         }
 
         private void CalculateAll(HeightStructuresFailureMechanism failureMechanism, IEnumerable<HeightStructuresCalculation> calculations, IAssessmentSection assessmentSection)
@@ -189,15 +191,25 @@ namespace Ringtoets.HeightStructures.Plugin
                 return Resources.HeightStructuresGuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
             }
 
-            string selectedFile = assessmentSection.HydraulicBoundaryDatabase.FilePath;
-            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(selectedFile);
-
+            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
             if (!string.IsNullOrEmpty(validationProblem))
             {
                 return string.Format(RingtoetsCommonFormsResources.GuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_, validationProblem);
             }
 
             return null;
+        }
+
+        private static void ParseHydraRingOutput(HeightStructuresCalculation calculation, ExceedanceProbabilityCalculationOutput output)
+        {
+            if (output != null)
+            {
+                calculation.NotifyObservers();
+            }
+            else
+            {
+                throw new InvalidOperationException(Resources.HeightStructuresGuiPlugin_Error_during_overtopping_calculation);
+            }
         }
 
         #region EmptyProbabilisticOutput TreeNodeInfo

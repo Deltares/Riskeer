@@ -79,5 +79,14 @@ namespace Ringtoets.HeightStructures.Plugin.Properties {
                         "d", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de berekening..
+        /// </summary>
+        internal static string HeightStructuresGuiPlugin_Error_during_overtopping_calculation {
+            get {
+                return ResourceManager.GetString("HeightStructuresGuiPlugin_Error_during_overtopping_calculation", resourceCulture);
+            }
+        }
     }
 }

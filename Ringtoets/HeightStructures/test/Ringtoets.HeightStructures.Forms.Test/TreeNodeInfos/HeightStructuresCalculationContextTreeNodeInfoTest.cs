@@ -19,30 +19,43 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Plugin;
+using Ringtoets.HeightStructures.Plugin.Properties;
+using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Data;
 using HeightStructuresFormsResources = Ringtoets.HeightStructures.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class HeightStructuresCalculationContextTreeNodeInfoTest
+    public class HeightStructuresCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
+
         private MockRepository mocks;
         private HeightStructuresGuiPlugin plugin;
         private TreeNodeInfo info;
@@ -218,14 +231,251 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateIndex,
                                                           RingtoetsCommonFormsResources.Calculate,
-                                                          RingtoetsCommonFormsResources.Calculate_ToolTip,
-                                                          RingtoetsCommonFormsResources.CalculateIcon);
+                                                          Resources.HeightStructuresGuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                          RingtoetsCommonFormsResources.CalculateIcon,
+                                                          false);
 
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIndex,
                                                           RingtoetsCommonFormsResources.Clear_output,
                                                           RingtoetsCommonFormsResources.ClearOutput_No_output_to_clear,
                                                           RingtoetsCommonFormsResources.ClearIcon,
                                                           false);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_NoFailureMechanismSections_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
+        {
+            // Setup
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var calculation = new HeightStructuresCalculation(new GeneralHeightStructuresInput(),
+                                                              new NormProbabilityInput());
+
+            var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
+            var guiMock = mocks.StrictMock<IGui>();
+            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+
+            mocks.ReplayAll();
+
+            plugin.Gui = guiMock;
+
+            // Call
+            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
+                                                          RingtoetsCommonFormsResources.Calculate,
+                                                          Resources.HeightStructuresGuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                          RingtoetsCommonFormsResources.CalculateIcon,
+                                                          false);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
+        {
+            // Setup
+            var guiMock = mocks.StrictMock<IGui>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
+
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(null);
+
+            var calculation = new HeightStructuresCalculation(new GeneralHeightStructuresInput(),
+                                                              new NormProbabilityInput());
+
+            var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
+
+            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+
+            mocks.ReplayAll();
+
+            plugin.Gui = guiMock;
+
+            // Call
+            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
+                                                          RingtoetsCommonFormsResources.Calculate,
+                                                          Resources.HeightStructuresGuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                          RingtoetsCommonFormsResources.CalculateIcon,
+                                                          false);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismSetHydraulicBoundaryDatabaseNotValid_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
+        {
+            // Setup
+            var guiMock = mocks.StrictMock<IGui>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
+
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+
+            var calculation = new HeightStructuresCalculation(new GeneralHeightStructuresInput(),
+                                                              new NormProbabilityInput());
+
+            var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
+
+            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+
+            mocks.ReplayAll();
+
+            plugin.Gui = guiMock;
+
+            // Call
+            ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+
+            // Assert
+            ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateIndex];
+
+            Assert.AreEqual(RingtoetsCommonFormsResources.Calculate, contextMenuItem.Text);
+            StringAssert.Contains(String.Format(RingtoetsCommonFormsResources.GuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateIcon, contextMenuItem.Image);
+            Assert.IsFalse(contextMenuItem.Enabled);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismSectionsAndHydraulicBoundaryDatabaseSet_ContextMenuItemPerformCalculationEnabled()
+        {
+            // Setup
+            var guiMock = mocks.StrictMock<IGui>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "1.0"
+            };
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
+
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
+            var calculation = new HeightStructuresCalculation(new GeneralHeightStructuresInput(),
+                                                              new NormProbabilityInput());
+
+            var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
+
+            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+
+            mocks.ReplayAll();
+
+            plugin.Gui = guiMock;
+
+            // Call
+            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
+                                                          RingtoetsCommonFormsResources.Calculate,
+                                                          RingtoetsCommonFormsResources.Calculate_ToolTip,
+                                                          RingtoetsCommonFormsResources.CalculateIcon);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationWithNonExistingFilePath_WhenCalculatingFromContextMenu_ThenOutputClearedLogMessagesAddedObserversNotNotified()
+        {
+            // Given
+            var gui = mocks.DynamicMock<IGui>();
+            var mainWindow = mocks.DynamicMock<IMainWindow>();
+            var observerMock = mocks.StrictMock<IObserver>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var calculateContextMenuItemIndex = 0;
+
+            var section = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            });
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(section);
+
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.0, 1.1);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "random"
+            };
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+            };
+            var calculation = new HeightStructuresCalculation(new GeneralHeightStructuresInput(),
+                                                              new NormProbabilityInput())
+            {
+                Output = new ProbabilisticOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN),
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            var calculationContext = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+
+            gui.Expect(g => g.Get(calculationContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            gui.Expect(g => g.MainWindow).Return(mainWindow);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            calculation.Attach(observerMock);
+
+            var contextMenuAdapter = info.ContextMenuStrip(calculationContext, null, treeViewControlMock);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
+
+            // When
+            Action action = () => { contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick(); };
+
+            // Then
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                var msgs = messages.GetEnumerator();
+                Assert.IsTrue(msgs.MoveNext());
+                StringAssert.StartsWith("Er is een fout opgetreden tijdens de berekening.", msgs.Current);
+            });
+
+            Assert.IsNull(calculation.Output);
 
             mocks.VerifyAll();
         }
