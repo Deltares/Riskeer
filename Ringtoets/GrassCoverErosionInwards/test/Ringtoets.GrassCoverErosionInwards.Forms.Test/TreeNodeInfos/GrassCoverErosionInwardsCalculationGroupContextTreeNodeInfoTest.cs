@@ -334,13 +334,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoFailureMechanismSections_ReturnContextMenuDisabledAndTooltipSet()
+        public void ContextMenuStrip_NoFailureMechanismSections_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
-            var group = new CalculationGroup()
+            var group = new CalculationGroup
             {
                 Children =
                 {
@@ -369,7 +369,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
 
             // Assert
-            TestHelper.AssertContextMenuStripContainsItem(menu, 5,
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndexRootGroup,
                                                           RingtoetsFormsResources.Calculate_all,
                                                           Resources.GrassCoverErosionInwardsGuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
                                                           RingtoetsFormsResources.CalculateAllIcon,
@@ -378,10 +378,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemDisabledAndTooltipSet()
+        public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
-            var group = new CalculationGroup()
+            var group = new CalculationGroup
             {
                 Children =
                 {
@@ -394,8 +394,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(
-                new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new NormProbabilityInput()));
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(
+                new GeneralGrassCoverErosionInwardsInput(),
+                new NormProbabilityInput()));
 
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(null);
@@ -421,20 +422,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
-
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 5,
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuClearAllIndexRootGroup,
                                                           RingtoetsFormsResources.Calculate_all,
                                                           Resources.GrassCoverErosionInwardsGuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
                                                           RingtoetsFormsResources.CalculateAllIcon,
                                                           false);
+
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismSetHydraulicBoundaryDatabaseNotValid_ContextMenuItemDisabledAndTooltipSet()
+        public void ContextMenuStrip_FailureMechanismSectionsSetHydraulicBoundaryDatabaseNotValid_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
-            var group = new CalculationGroup()
+            var group = new CalculationGroup
             {
                 Children =
                 {
@@ -447,8 +448,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(
-                new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new NormProbabilityInput()));
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(
+                new GeneralGrassCoverErosionInwardsInput(),
+                new NormProbabilityInput()));
 
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
@@ -474,21 +476,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
-
-            ToolStripItem contextMenuItem = contextMenu.Items[5];
+            ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearAllIndexRootGroup];
 
             Assert.AreEqual(RingtoetsFormsResources.Calculate_all, contextMenuItem.Text);
             StringAssert.Contains(string.Format(RingtoetsFormsResources.GuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, contextMenuItem.Image);
             Assert.IsFalse(contextMenuItem.Enabled);
+
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsAndHydraulicDatabaseSet_ReturnContextMenuWithCalculateAllEnabled()
+        public void ContextMenuStrip_FailureMechanismSectionsAndHydraulicDatabaseSet_ContextMenuItemCalculateAllEnabled()
         {
             // Setup
-            var group = new CalculationGroup()
+            var group = new CalculationGroup
             {
                 Children =
                 {
@@ -509,8 +511,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(
-                new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new NormProbabilityInput()));
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(
+                new GeneralGrassCoverErosionInwardsInput(),
+                new NormProbabilityInput()));
 
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
@@ -536,7 +539,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
 
             // Assert
-            TestHelper.AssertContextMenuStripContainsItem(menu, 5,
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndexRootGroup,
                                                           RingtoetsFormsResources.Calculate_all,
                                                           RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip,
                                                           RingtoetsFormsResources.CalculateIcon);
