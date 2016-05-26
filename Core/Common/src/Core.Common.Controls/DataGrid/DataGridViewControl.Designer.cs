@@ -30,7 +30,7 @@ namespace Core.Common.Controls.DataGrid
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridView = new Core.Common.Controls.DataGrid.DoubleBufferedDataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,6 +66,7 @@ namespace Core.Common.Controls.DataGrid
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView;
+        private DoubleBufferedDataGridView dataGridView;
+
     }
 }
