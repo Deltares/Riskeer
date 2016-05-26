@@ -147,29 +147,29 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.IsNotNull(gravitationalAccelerationProperty);
             Assert.IsTrue(gravitationalAccelerationProperty.IsReadOnly);
             Assert.AreEqual("Algemeen", gravitationalAccelerationProperty.Category);
-            Assert.AreEqual("Valversnelling", gravitationalAccelerationProperty.DisplayName);
+            Assert.AreEqual("Valversnelling [m/s²]", gravitationalAccelerationProperty.DisplayName);
             Assert.AreEqual("De valversnelling die gebruikt wordt in de berekening.", gravitationalAccelerationProperty.Description);
 
             PropertyDescriptor lengthEffectProperty = dynamicProperties[lengthEffectPropertyIndex];
             Assert.IsNotNull(lengthEffectProperty);
             Assert.IsFalse(lengthEffectProperty.IsReadOnly);
             Assert.AreEqual("Lengte-effect parameters", lengthEffectProperty.Category);
-            Assert.AreEqual("N", lengthEffectProperty.DisplayName);
+            Assert.AreEqual("N [-]", lengthEffectProperty.DisplayName);
             Assert.AreEqual("De parameter 'N' die gebruikt wordt voor het lengte effect in de berekening.", lengthEffectProperty.Description);
 
             PropertyDescriptor modelfactorOvertoppingFlowProperty = dynamicProperties[modelfactorOvertoppingFlowPropertyIndex];
             Assert.IsNotNull(modelfactorOvertoppingFlowProperty);
             Assert.IsTrue(modelfactorOvertoppingFlowProperty.IsReadOnly);
             Assert.AreEqual("Modelfactoren", modelfactorOvertoppingFlowProperty.Category);
-            Assert.AreEqual("Modelfactor overslagdebiet", modelfactorOvertoppingFlowProperty.DisplayName);
+            Assert.AreEqual("Modelfactor overslagdebiet [-]", modelfactorOvertoppingFlowProperty.DisplayName);
             Assert.AreEqual("Het modelfactor overslagdebiet die gebruikt wordt in de berekening.", modelfactorOvertoppingFlowProperty.Description);
 
             PropertyDescriptor modelFactorForStorageVolumeProperty = dynamicProperties[modelFactorForStorageVolumePropertyIndex];
             Assert.IsNotNull(modelFactorForStorageVolumeProperty);
             Assert.IsTrue(modelFactorForStorageVolumeProperty.IsReadOnly);
             Assert.AreEqual("Modelfactoren", modelFactorForStorageVolumeProperty.Category);
-            Assert.AreEqual("Kombergend oppervlak", modelFactorForStorageVolumeProperty.DisplayName);
-            Assert.AreEqual("Het kombergend oppervlak die gebruikt wordt in de berekening.", modelFactorForStorageVolumeProperty.Description);
+            Assert.AreEqual("Modelfactor kombergingsvolume [-]", modelFactorForStorageVolumeProperty.DisplayName);
+            Assert.AreEqual("Het modelfactor kombergingsvolume dat gebruikt wordt in de berekening.", modelFactorForStorageVolumeProperty.Description);
         }
 
         private const int namePropertyIndex = 0;

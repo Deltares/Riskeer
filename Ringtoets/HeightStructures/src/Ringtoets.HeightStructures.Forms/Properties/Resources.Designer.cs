@@ -235,7 +235,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valversnelling.
+        ///   Looks up a localized string similar to Valversnelling [m/s²].
         /// </summary>
         public static string HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_DisplayName {
             get {
@@ -245,7 +245,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het kombergend oppervlak die gebruikt wordt in de berekening..
+        ///   Looks up a localized string similar to Het modelfactor kombergingsvolume dat gebruikt wordt in de berekening..
         /// </summary>
         public static string HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_Description {
             get {
@@ -255,7 +255,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kombergend oppervlak.
+        ///   Looks up a localized string similar to Modelfactor kombergingsvolume [-].
         /// </summary>
         public static string HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_DisplayName {
             get {
@@ -275,7 +275,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modelfactor overslagdebiet.
+        ///   Looks up a localized string similar to Modelfactor overslagdebiet [-].
         /// </summary>
         public static string HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayName {
             get {
@@ -294,7 +294,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to N.
+        ///   Looks up a localized string similar to N [-].
         /// </summary>
         public static string HeightStructuresInputFailureMechanismContext_N_DisplayName {
             get {

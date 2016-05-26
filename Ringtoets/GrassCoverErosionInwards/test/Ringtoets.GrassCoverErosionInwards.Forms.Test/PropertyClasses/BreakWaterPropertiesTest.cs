@@ -154,7 +154,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptor breakWaterHeightProperty = dynamicProperties[2];
             Assert.IsNotNull(breakWaterHeightProperty);
             Assert.IsFalse(breakWaterHeightProperty.IsReadOnly);
-            Assert.AreEqual("Hoogte", breakWaterHeightProperty.DisplayName);
+            Assert.AreEqual("Hoogte [m+NAP]", breakWaterHeightProperty.DisplayName);
             Assert.AreEqual("De hoogte van de havendam [m+NAP].", breakWaterHeightProperty.Description);
             mockRepository.VerifyAll();
         }

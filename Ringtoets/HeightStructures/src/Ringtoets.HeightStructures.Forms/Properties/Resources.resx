@@ -146,25 +146,25 @@
     <value>De valversnelling die gebruikt wordt in de berekening.</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_DisplayName" xml:space="preserve">
-    <value>Valversnelling</value>
+    <value>Valversnelling [m/s²]</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_Description" xml:space="preserve">
-    <value>Het kombergend oppervlak die gebruikt wordt in de berekening.</value>
+    <value>Het modelfactor kombergingsvolume dat gebruikt wordt in de berekening.</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_DisplayName" xml:space="preserve">
-    <value>Kombergend oppervlak</value>
+    <value>Modelfactor kombergingsvolume [-]</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Description" xml:space="preserve">
     <value>Het modelfactor overslagdebiet die gebruikt wordt in de berekening.</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayName" xml:space="preserve">
-    <value>Modelfactor overslagdebiet</value>
+    <value>Modelfactor overslagdebiet [-]</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_N_Description" xml:space="preserve">
     <value>De parameter 'N' die gebruikt wordt voor het lengte effect in de berekening.</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_N_DisplayName" xml:space="preserve">
-    <value>N</value>
+    <value>N [-]</value>
   </data>
   <data name="Categories_Schematisation" xml:space="preserve">
     <value>Schematisatie</value>

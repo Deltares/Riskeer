@@ -137,7 +137,7 @@
     <value>De parameter 'N' die gebruikt wordt voor het lengte effect in de berekening.</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_N_DisplayName" xml:space="preserve">
-    <value>N</value>
+    <value>N [-]</value>
   </data>
   <data name="GrassCoverErosionInwardsInputContext_DataDescription_GrassCoverErosionInwardsInputCalculationItem" xml:space="preserve">
     <value>De berekening</value>
@@ -158,7 +158,7 @@
     <value>De hoogte van de havendam [m+NAP].</value>
   </data>
   <data name="BreakWaterHeight_DisplayName" xml:space="preserve">
-    <value>Hoogte</value>
+    <value>Hoogte [m+NAP]</value>
   </data>
   <data name="BreakWaterProperties_Description" xml:space="preserve">
     <value>Eigenschappen van de havendam.</value>

@@ -151,7 +151,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(lengthEffectProperty);
             Assert.IsFalse(lengthEffectProperty.IsReadOnly);
             Assert.AreEqual("Lengte-effect parameters", lengthEffectProperty.Category);
-            Assert.AreEqual("N", lengthEffectProperty.DisplayName);
+            Assert.AreEqual("N [-]", lengthEffectProperty.DisplayName);
             Assert.AreEqual("De parameter 'N' die gebruikt wordt voor het lengte effect in de berekening.", lengthEffectProperty.Description);
 
             PropertyDescriptor frunupModelFactorProperty = dynamicProperties[frunupModelFactorPropertyIndex];
