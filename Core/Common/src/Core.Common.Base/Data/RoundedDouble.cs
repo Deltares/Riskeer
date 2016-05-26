@@ -112,7 +112,7 @@ namespace Core.Common.Base.Data
         }
 
         /// <summary>
-        /// Converts this value to another <see cref="RoundedDouble"/> but with the givenTo the precision
+        /// Converts this value to another <see cref="RoundedDouble"/> but with the given
         /// number of decimal places instead.
         /// </summary>
         /// <param name="newNumberOfDecimalPlaces">The new number of decimal places.</param>
