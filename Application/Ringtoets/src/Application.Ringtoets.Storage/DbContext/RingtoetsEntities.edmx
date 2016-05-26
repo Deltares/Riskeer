@@ -23,7 +23,6 @@
             <PropertyRef Name="CalculationGroupEntityId" />
           </Key>
           <Property Name="CalculationGroupEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
           <Property Name="ParentCalculationGroupEntityId" Type="integer" />
           <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="IsEditable" Type="tinyint" Nullable="false" />
@@ -45,6 +44,7 @@
           <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="FailureMechanismType" Type="smallint" Nullable="false" />
           <Property Name="IsRelevant" Type="tinyint" Nullable="false" />
+          <Property Name="CalculationGroupEntityId" Type="integer" />
         </EntityType>
         <EntityType Name="FailureMechanismSectionEntity">
           <Key>
@@ -172,13 +172,13 @@
         </Association>
         <Association Name="FK_CalculationGroupEntity_0_0">
           <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
-          <End Role="CalculationGroupEntity" Type="Self.CalculationGroupEntity" Multiplicity="*" />
+          <End Role="CalculationGroupEntity" Type="Self.CalculationGroupEntity" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="FailureMechanismEntity">
               <PropertyRef Name="FailureMechanismEntityId" />
             </Principal>
             <Dependent Role="CalculationGroupEntity">
-              <PropertyRef Name="FailureMechanismEntityId" />
+              <PropertyRef Name="CalculationGroupEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -520,7 +520,6 @@
             <PropertyRef Name="CalculationGroupEntityId" />
           </Key>
           <Property Name="CalculationGroupEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
           <Property Name="ParentCalculationGroupEntityId" Type="Int64" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="IsEditable" Type="Byte" Nullable="false" />
@@ -546,8 +545,9 @@
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="FailureMechanismType" Type="Int16" Nullable="false" />
           <Property Name="IsRelevant" Type="Byte" Nullable="false" />
+          <Property Name="CalculationGroupEntityId" Type="Int64" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="FailureMechanismEntity" ToRole="AssessmentSectionEntity" />
-          <NavigationProperty Name="CalculationGroupEntities" Relationship="RingtoetsEntitiesModel.FK_CalculationGroupEntity_0_0" FromRole="FailureMechanismEntity" ToRole="CalculationGroupEntity" />
+          <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_CalculationGroupEntity_0_0" FromRole="FailureMechanismEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="FailureMechanismSectionEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismSectionEntity_0_0" FromRole="FailureMechanismEntity" ToRole="FailureMechanismSectionEntity" />
           <NavigationProperty Name="StochasticSoilModelEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilModelEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StochasticSoilModelEntity" />
           <NavigationProperty Name="SurfaceLineEntities" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_0_0" FromRole="FailureMechanismEntity" ToRole="SurfaceLineEntity" />
@@ -731,13 +731,13 @@
         </Association>
         <Association Name="FK_CalculationGroupEntity_0_0">
           <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.CalculationGroupEntity" Role="CalculationGroupEntity" Multiplicity="*" />
+          <End Type="RingtoetsEntitiesModel.CalculationGroupEntity" Role="CalculationGroupEntity" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="FailureMechanismEntity">
               <PropertyRef Name="FailureMechanismEntityId" />
             </Principal>
             <Dependent Role="CalculationGroupEntity">
-              <PropertyRef Name="FailureMechanismEntityId" />
+              <PropertyRef Name="CalculationGroupEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -888,7 +888,6 @@
                 <ScalarProperty Name="IsEditable" ColumnName="IsEditable" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ParentCalculationGroupEntityId" ColumnName="ParentCalculationGroupEntityId" />
-                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="CalculationGroupEntityId" ColumnName="CalculationGroupEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -905,6 +904,7 @@
           <EntitySetMapping Name="FailureMechanismEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.FailureMechanismEntity">
               <MappingFragment StoreEntitySet="FailureMechanismEntity">
+                <ScalarProperty Name="CalculationGroupEntityId" ColumnName="CalculationGroupEntityId" />
                 <ScalarProperty Name="IsRelevant" ColumnName="IsRelevant" />
                 <ScalarProperty Name="FailureMechanismType" ColumnName="FailureMechanismType" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />

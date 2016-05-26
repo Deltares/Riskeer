@@ -42,7 +42,6 @@ namespace Application.Ringtoets.Storage.DbContext
         }
     
         public long CalculationGroupEntityId { get; set; }
-        public long FailureMechanismEntityId { get; set; }
         public Nullable<long> ParentCalculationGroupEntityId { get; set; }
         public string Name { get; set; }
         public byte IsEditable { get; set; }

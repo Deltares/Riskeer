@@ -38,7 +38,6 @@ namespace Application.Ringtoets.Storage.DbContext
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public FailureMechanismEntity()
         {
-            this.CalculationGroupEntities = new HashSet<CalculationGroupEntity>();
             this.FailureMechanismSectionEntities = new HashSet<FailureMechanismSectionEntity>();
             this.StochasticSoilModelEntities = new HashSet<StochasticSoilModelEntity>();
             this.SurfaceLineEntities = new HashSet<SurfaceLineEntity>();
@@ -48,10 +47,10 @@ namespace Application.Ringtoets.Storage.DbContext
         public long AssessmentSectionEntityId { get; set; }
         public short FailureMechanismType { get; set; }
         public byte IsRelevant { get; set; }
+        public Nullable<long> CalculationGroupEntityId { get; set; }
     
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CalculationGroupEntity> CalculationGroupEntities { get; set; }
+        public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
