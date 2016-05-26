@@ -67,8 +67,8 @@
     <Compile Include="PresentationObjects\ReferenceLineContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\DistributionPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\LogNormalDistributionPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\ReadOnlyLogNormalDistributionPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\LognormalDistributionPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\ReadOnlyLognormalDistributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ReadOnlyNormalDistributionPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilderTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactoryTest.cs" />

@@ -132,9 +132,6 @@
   <data name="IDistribution_InverseCDF_Probability_must_be_in_range" xml:space="preserve">
     <value>Kans moet in het bereik van [0, 1] opgegeven worden.</value>
   </data>
-  <data name="LognormalDistribution_Mean_must_be_greater_equal_to_zero" xml:space="preserve">
-    <value>Gemiddelde moet groter zijn dan 0.</value>
-  </data>
   <data name="RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l" xml:space="preserve">
     <value>Kan geen hoogte bepalen op het punt L={0}, omdat de profielschematisatie verticaal loopt op dat punt.</value>
   </data>

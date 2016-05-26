@@ -103,13 +103,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             };
-            Assert.AreEqual(expectedCoordinates.Length, properties.Coordinates.Length);
-            for (var i = 0; i < expectedCoordinates.Length; i++)
-            {
-                Assert.AreEqual(expectedCoordinates[i].X, properties.Coordinates[i].X);
-                Assert.AreEqual(expectedCoordinates[i].Y, properties.Coordinates[i].Y);
-            }
             CollectionAssert.AreEqual(expectedCoordinates, properties.Coordinates);
+
             var expectedRoughness = new[]
             {
                 new RoundedDouble(2, 2)

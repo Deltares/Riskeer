@@ -25,6 +25,8 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Core.Common.Utils.Reflection;
+
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -32,16 +34,16 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class ReadOnlyLogNormalDistributionPropertiesTest
+    public class ReadOnlyLognormalDistributionPropertiesTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var properties = new ReadOnlyLogNormalDistributionProperties();
+            var properties = new ReadOnlyLognormalDistributionProperties();
 
             // Assert
-            Assert.IsInstanceOf<LogNormalDistributionProperties>(properties);
+            Assert.IsInstanceOf<LognormalDistributionProperties>(properties);
             Assert.IsNull(properties.Data);
             Assert.AreEqual("Lognormaal", properties.DistributionType);
         }
@@ -50,7 +52,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Call
-            var properties = new ReadOnlyLogNormalDistributionProperties
+            var properties = new ReadOnlyLognormalDistributionProperties
             {
                 Data = new LognormalDistribution(1)
             };
@@ -63,7 +65,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             Assert.AreEqual(4, dynamicProperties.Count);
 
-            var meanAttributes = Attribute.GetCustomAttributes(properties.GetType().GetProperty("Mean"));
+            string meanPropertyName = TypeUtils.GetMemberName<LognormalDistribution>(d => d.Mean);
+            var meanAttributes = Attribute.GetCustomAttributes(properties.GetType().GetProperty(meanPropertyName));
             Assert.IsNotNull(meanAttributes);
             AssertAttributesOfType<ReadOnlyAttribute, bool>(meanAttributes, true, attribute => attribute.IsReadOnly);
             AssertAttributesOfType<ResourcesDisplayNameAttribute, string>(meanAttributes, "Verwachtingswaarde",
@@ -72,7 +75,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                           "De gemiddelde waarde van de lognormale verdeling.",
                                                                           attribute => attribute.Description);
 
-            var standardAttributes = Attribute.GetCustomAttributes(properties.GetType().GetProperty("StandardDeviation"));
+            string standardDeviationPropertyName = TypeUtils.GetMemberName<LognormalDistribution>(d => d.StandardDeviation);
+            var standardAttributes = Attribute.GetCustomAttributes(properties.GetType().GetProperty(standardDeviationPropertyName));
             Assert.IsNotNull(standardAttributes);
             AssertAttributesOfType<ReadOnlyAttribute, bool>(standardAttributes, true, attribute => attribute.IsReadOnly);
             AssertAttributesOfType<ResourcesDisplayNameAttribute, string>(standardAttributes, "Standaardafwijking",

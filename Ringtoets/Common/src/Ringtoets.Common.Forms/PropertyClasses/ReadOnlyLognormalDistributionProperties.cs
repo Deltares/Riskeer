@@ -20,26 +20,22 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="LognormalDistribution"/>
+    /// A read-only <see cref="ObjectProperties{T}"/> implementation for <see cref="LognormalDistribution"/>
     /// properties.
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class LogNormalDistributionProperties : DistributionProperties
+    public class ReadOnlyLognormalDistributionProperties : LognormalDistributionProperties
     {
-        public LogNormalDistributionProperties(IObservable observerable)
-        {
-            Observerable = observerable;
-        }
+        /// <summary>
+        /// Creates a new instance of the <see cref="ReadOnlyLognormalDistributionProperties"/> class.
+        /// </summary>
+        public ReadOnlyLognormalDistributionProperties() : base(null) {}
 
         public override string DistributionType
         {
@@ -49,29 +45,21 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [ResourcesDescription(typeof(Resources), "LognormalDistribution_Mean_Description")]
+        [ReadOnly(true)]
         public override RoundedDouble Mean
         {
             get
             {
                 return base.Mean;
             }
-            set
-            {
-                base.Mean = value;
-            }
         }
 
-        [ResourcesDescription(typeof(Resources), "LogNormalDistribution_StandardDeviation_Description")]
+        [ReadOnly(true)]
         public override RoundedDouble StandardDeviation
         {
             get
             {
                 return base.StandardDeviation;
-            }
-            set
-            {
-                base.StandardDeviation = value;
             }
         }
     }
