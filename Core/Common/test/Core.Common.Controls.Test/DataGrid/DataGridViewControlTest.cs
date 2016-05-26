@@ -81,6 +81,69 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
+        public void IsCurrentCellInEditMode_CurrentCellInEditMode_ReturnsTrue()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                // Make sure the cell is not in edit mode when setting the current cell.
+                dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+                dataGridView.BeginEdit(false);
+
+                // Call
+                bool editMode = control.IsCurrentCellInEditMode;
+
+                // Assert
+                Assert.IsTrue(editMode);
+            }
+        }
+
+        [Test]
+        public void IsCurrentCellInEditMode_CurrentCellNotInEditMode_ReturnsFalse()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                // Make sure the cell is not in edit mode when setting the current cell.
+                dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+
+                // Call
+                bool editMode = control.IsCurrentCellInEditMode;
+
+                // Assert
+                Assert.IsFalse(editMode);
+            }
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void AddTextBoxColumn_Always_AddsColumnToDataGridView(bool readOnly)
@@ -283,6 +346,31 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
+        public void GetRows_Always_ReturnsAllDataGridViewRows()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "Row 1", "Row 2" };
+
+                // Call
+                DataGridViewRowCollection rows = control.GetRows();
+
+                // Assert
+                Assert.AreEqual(2, rows.Count);
+            }
+        }
+
+        [Test]
         public void GetRowFromIndex_RowDoesExist_ReturnsRow()
         {
             // Setup
@@ -329,6 +417,59 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 // Assert
                 Assert.Throws<ArgumentOutOfRangeException>(call);
+            }
+        }
+
+        [Test]
+        public void GetCurrentRow_CurrentCellSet_ReturnsRow()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+
+                // Call
+                DataGridViewRow row = control.GetCurrentRow();
+
+                // Assert
+                Assert.IsNotNull(row);
+            }
+        }
+
+        [Test]
+        public void GetCurrentRow_CurrentCellNotSet_ReturnsNull()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+                dataGridView.CurrentCell = null;
+
+                // Call
+                DataGridViewRow row = control.GetCurrentRow();
+
+                // Assert
+                Assert.IsNull(row);
             }
         }
 
@@ -401,6 +542,60 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 // Call
                 TestDelegate call = () => control.GetCell(0, 5);
+
+                // Assert
+                Assert.Throws<ArgumentOutOfRangeException>(call);
+            }
+        }
+
+        [Test]
+        public void GetColumnFromIndex_ColumnDoesExist_ReturnsColumn()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                var dataPropertyName = "Test property";
+                var testHeader = "Test header";
+                control.AddTextBoxColumn(dataPropertyName, testHeader);
+
+                dataGridView.DataSource = new[] { "" };
+
+                // Call
+                DataGridViewColumn column = control.GetColumnFromIndex(0);
+
+                // Assert
+                Assert.IsNotNull(column);
+                Assert.AreEqual(dataPropertyName, column.DataPropertyName);
+                Assert.AreEqual(testHeader, column.HeaderText);
+            }
+        }
+
+        [Test]
+        public void GetColumnFromIndex_ColumnDoesNotExist_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+
+                // Call
+                TestDelegate call = () => control.GetColumnFromIndex(5);
 
                 // Assert
                 Assert.Throws<ArgumentOutOfRangeException>(call);
@@ -535,6 +730,40 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 // Call
                 var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Assert
+                Assert.AreEqual(1, counter);
+            }
+        }
+
+        [Test]
+        public void AddCellClickHandler_Always_AddsEventHandler()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new DataGridViewControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+
+                int counter = 0;
+
+                control.AddCellClickHandler((sender, args) => counter++);
+
+                // Precondition
+                Assert.AreEqual(0, counter);
+
+                // Call
+                gridTester.FireEvent("CellClick", new DataGridViewCellEventArgs(0, 0));
 
                 // Assert
                 Assert.AreEqual(1, counter);

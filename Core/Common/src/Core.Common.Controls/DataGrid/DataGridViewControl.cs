@@ -44,6 +44,18 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
+        /// Returns <c>true</c> when the <see cref="DataGridView.CurrentCell"/> is in edit mode.
+        /// <c>False</c> otherwise.
+        /// </summary>
+        public bool IsCurrentCellInEditMode 
+        {
+            get
+            {
+                return dataGridView.IsCurrentCellInEditMode;
+            }
+        }
+
+        /// <summary>
         /// Adds a new <see cref="DataGridViewTextBoxColumn"/> to the <see cref="DataGridView"/> with the given data.
         /// </summary>
         /// <param name="dataPropertyName">The <see cref="DataGridViewColumn.DataPropertyName"/> of the column.</param>
@@ -135,6 +147,14 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
+        /// Adjusts the width of all columns to fit the contents of all their cells, including the header cells.
+        /// </summary>
+        public void AutoResizeColumns()
+        {
+            dataGridView.AutoResizeColumns();
+        }
+
+        /// <summary>
         /// Ends the editing when the current cell is in edit mode.
         /// Sets the current cell to <c>null</c>.
         /// </summary>
@@ -149,6 +169,15 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
+        /// Gets all the rows of the <see cref="DataGridView"/>.
+        /// </summary>
+        /// <returns>A <see cref="DataGridViewRowCollection"/> with all the rows of the <see cref="DataGridView"/>.</returns>
+        public DataGridViewRowCollection GetRows()
+        {
+            return dataGridView.Rows;
+        }
+
+        /// <summary>
         /// Gets the <see cref="DataGridViewRow"/> on the given index.
         /// </summary>
         /// <param name="rowIndex">The index of the row.</param>
@@ -157,6 +186,16 @@ namespace Core.Common.Controls.DataGrid
         public DataGridViewRow GetRowFromIndex(int rowIndex)
         {
             return dataGridView.Rows[rowIndex];
+        }
+
+        /// <summary>
+        /// Gets the row containing the current cell.
+        /// </summary>
+        /// <returns>The <see cref="DataGridViewRow"/> that represents the row containing the current cell, 
+        /// or <c>null</c> if there is no current cell.</returns>
+        public DataGridViewRow GetCurrentRow()
+        {
+            return dataGridView.CurrentRow;
         }
 
         /// <summary>
@@ -169,6 +208,17 @@ namespace Core.Common.Controls.DataGrid
         public DataGridViewCell GetCell(int rowIndex, int columnIndex)
         {
             return GetRowFromIndex(rowIndex).Cells[columnIndex];
+        }
+
+        /// <summary>
+        /// Gets the <see cref="DataGridViewColumn"/> on the given index.
+        /// </summary>
+        /// <param name="columnIndex">The index of the column.</param>
+        /// <returns>A <see cref="DataGridViewColumn"/>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the index of the column does not exist.</exception>
+        public DataGridViewColumn GetColumnFromIndex(int columnIndex)
+        {
+            return dataGridView.Columns[columnIndex];
         }
 
         #region Styling
@@ -216,6 +266,15 @@ namespace Core.Common.Controls.DataGrid
         public void AddCellFormattingHandler(DataGridViewCellFormattingEventHandler handler)
         {
             dataGridView.CellFormatting += handler;
+        }
+
+        /// <summary>
+        /// Add a handler for the <see cref="DataGridView.CellClick"/> event.
+        /// </summary>
+        /// <param name="handler">The handler to add.</param>
+        public void AddCellClickHandler(DataGridViewCellEventHandler handler)
+        {
+            dataGridView.CellClick += handler;
         }
 
         private void SubscribeEvents()

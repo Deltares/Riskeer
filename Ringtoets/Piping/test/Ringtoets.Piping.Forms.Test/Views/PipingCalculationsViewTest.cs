@@ -98,12 +98,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual("DisplayName", column.DisplayMember);
             }
 
-            foreach (var column in dataGridView.Columns.OfType<DataGridViewColumn>())
-            {
-                Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, column.AutoSizeMode);
-                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, column.HeaderCell.Style.Alignment);
-            }
-
             var soilProfilesCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[stochasticSoilProfilesColumnIndex];
             var soilProfilesComboboxItems = soilProfilesCombobox.Items;
             Assert.AreEqual(0, soilProfilesComboboxItems.Count); // Row dependend
@@ -137,35 +131,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.DoesNotThrow(testDelegate);
-        }
-
-        [Test]
-        public void Dispose_PipingCalculationViewWithAdditionalPropertiesSet_AdditionalPropertiesSetToNull()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var pipingFailureMechanism = mocks.StrictMock<PipingFailureMechanism>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            mocks.ReplayAll();
-
-            using (var pipingCalculationsView = new PipingCalculationsView
-            {
-                PipingFailureMechanism = pipingFailureMechanism,
-                AssessmentSection = assessmentSection,
-            })
-            {
-                // Precondition
-                Assert.IsNotNull(pipingCalculationsView.PipingFailureMechanism);
-                Assert.IsNotNull(pipingCalculationsView.AssessmentSection);
-
-                // Call
-                pipingCalculationsView.Dispose();
-
-                // Assert
-                Assert.IsNull(pipingCalculationsView.PipingFailureMechanism);
-                Assert.IsNull(pipingCalculationsView.AssessmentSection);
-            }
         }
 
         [Test]

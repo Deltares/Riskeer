@@ -23,10 +23,10 @@
             this.labelFailureMechanismSections = new System.Windows.Forms.Label();
             this.tableLayoutPanelDataGrid = new System.Windows.Forms.TableLayoutPanel();
             this.labelCalculations = new System.Windows.Forms.Label();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonGenerateScenarios = new System.Windows.Forms.Button();
             this.buttonNavigateToSelectedCalculation = new System.Windows.Forms.Button();
+            this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.tableLayoutPanelUserControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -34,7 +34,6 @@
             this.splitContainer.SuspendLayout();
             this.tableLayoutPanelListBox.SuspendLayout();
             this.tableLayoutPanelDataGrid.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,26 +80,13 @@
             // 
             resources.ApplyResources(this.tableLayoutPanelDataGrid, "tableLayoutPanelDataGrid");
             this.tableLayoutPanelDataGrid.Controls.Add(this.labelCalculations, 0, 0);
-            this.tableLayoutPanelDataGrid.Controls.Add(this.dataGridView, 0, 1);
+            this.tableLayoutPanelDataGrid.Controls.Add(this.dataGridViewControl, 0, 1);
             this.tableLayoutPanelDataGrid.Name = "tableLayoutPanelDataGrid";
             // 
             // labelCalculations
             // 
             resources.ApplyResources(this.labelCalculations, "labelCalculations");
             this.labelCalculations.Name = "labelCalculations";
-            // 
-            // dataGridView
-            // 
-            this.dataGridView.AllowUserToAddRows = false;
-            this.dataGridView.AllowUserToDeleteRows = false;
-            this.dataGridView.AllowUserToResizeColumns = false;
-            this.dataGridView.AllowUserToResizeRows = false;
-            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            resources.ApplyResources(this.dataGridView, "dataGridView");
-            this.dataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             // 
             // tableLayoutPanel1
             // 
@@ -122,6 +108,11 @@
             this.buttonNavigateToSelectedCalculation.Name = "buttonNavigateToSelectedCalculation";
             this.buttonNavigateToSelectedCalculation.UseVisualStyleBackColor = true;
             // 
+            // dataGridViewControl
+            // 
+            resources.ApplyResources(this.dataGridViewControl, "dataGridViewControl");
+            this.dataGridViewControl.Name = "dataGridViewControl";
+            // 
             // PipingCalculationsView
             // 
             resources.ApplyResources(this, "$this");
@@ -137,7 +128,6 @@
             this.tableLayoutPanelListBox.PerformLayout();
             this.tableLayoutPanelDataGrid.ResumeLayout(false);
             this.tableLayoutPanelDataGrid.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -152,9 +142,9 @@
         private System.Windows.Forms.Label labelFailureMechanismSections;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelDataGrid;
         private System.Windows.Forms.Label labelCalculations;
-        private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button buttonGenerateScenarios;
         private System.Windows.Forms.Button buttonNavigateToSelectedCalculation;
+        private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
     }
 }

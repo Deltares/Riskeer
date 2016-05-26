@@ -169,7 +169,7 @@
     <value>3, 0</value>
   </data>
   <data name="labelFailureMechanismSections.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 13</value>
+    <value>26, 13</value>
   </data>
   <data name="labelFailureMechanismSections.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -264,31 +264,28 @@
   <data name="&gt;&gt;labelCalculations.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="dataGridView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="dataGridViewControl.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="dataGridView.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 20</value>
+  <data name="dataGridViewControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 23</value>
   </data>
-  <data name="dataGridView.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 0, 3, 0</value>
+  <data name="dataGridViewControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>537, 496</value>
   </data>
-  <data name="dataGridView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>537, 502</value>
-  </data>
-  <data name="dataGridView.TabIndex" type="System.Int32, mscorlib">
+  <data name="dataGridViewControl.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;dataGridView.Name" xml:space="preserve">
-    <value>dataGridView</value>
+  <data name="&gt;&gt;dataGridViewControl.Name" xml:space="preserve">
+    <value>dataGridViewControl</value>
   </data>
-  <data name="&gt;&gt;dataGridView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;dataGridViewControl.Type" xml:space="preserve">
+    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=0.5.0.3232, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;dataGridView.Parent" xml:space="preserve">
+  <data name="&gt;&gt;dataGridViewControl.Parent" xml:space="preserve">
     <value>tableLayoutPanelDataGrid</value>
   </data>
-  <data name="&gt;&gt;dataGridView.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;dataGridViewControl.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="tableLayoutPanelDataGrid.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -319,7 +316,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanelDataGrid.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="labelCalculations" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="dataGridView" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Absolute,20,Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="labelCalculations" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewControl" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Absolute,20,Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="&gt;&gt;splitContainer.Panel2.Name" xml:space="preserve">
     <value>splitContainer.Panel2</value>
@@ -483,9 +480,9 @@
   <data name="tableLayoutPanelUserControl.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="splitContainer" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel1" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,100,Absolute,32" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="$this.Localizable" type="System.Boolean, mscorlib">
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
-  </data>
+  </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>
