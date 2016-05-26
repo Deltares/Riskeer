@@ -93,6 +93,7 @@
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilModelSelectionEditor.cs" />
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilProfileSelectionEditor.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSurfaceLineSelectionEditor.cs" />
+    <Compile Include="Views\PipingCalculationRow.cs" />
     <Compile Include="Views\PipingCalculationsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
