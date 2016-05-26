@@ -37,8 +37,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
         [Test]
         public void ConvertToInteger_ForAllValues_ReturnsExpectedInteger()
         {
-            Assert.AreEqual(0, (int) HydraRingDeviationType.Standard);
-            Assert.AreEqual(1, (int) HydraRingDeviationType.Variation);
+            Assert.AreEqual(1, (int) HydraRingDeviationType.Standard);
+            Assert.AreEqual(0, (int) HydraRingDeviationType.Variation);
         }
     }
 }

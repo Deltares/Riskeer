@@ -29,7 +29,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
     /// </remarks>
     public enum HydraRingDeviationType
     {
-        Standard = 0,
-        Variation = 1
+        Standard = 1,
+        Variation = 0
     }
 }
