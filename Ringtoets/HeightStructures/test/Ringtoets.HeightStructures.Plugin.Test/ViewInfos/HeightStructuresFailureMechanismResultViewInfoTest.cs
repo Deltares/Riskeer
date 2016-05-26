@@ -60,7 +60,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(HeightStructuresFailureMechanismResultView), info.ViewType);
             Assert.AreEqual(typeof(FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>), info.DataType);
             Assert.AreEqual(typeof(IEnumerable<HeightStructuresFailureMechanismSectionResult>), info.ViewDataType);
         }

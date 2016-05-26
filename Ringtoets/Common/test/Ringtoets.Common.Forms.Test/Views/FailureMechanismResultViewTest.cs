@@ -121,7 +121,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNullAndDataGridViewOneEmtpyRow()
+        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNullAndDataGridViewEmtpy()
         {
             // Setup
             var testData = new object();

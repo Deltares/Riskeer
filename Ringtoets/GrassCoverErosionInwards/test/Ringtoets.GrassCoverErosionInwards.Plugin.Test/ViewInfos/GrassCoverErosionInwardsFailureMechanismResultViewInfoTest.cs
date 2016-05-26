@@ -59,7 +59,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismResultView), info.ViewType);
             Assert.AreEqual(typeof(FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>), info.DataType);
             Assert.AreEqual(typeof(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>), info.ViewDataType);
         }
