@@ -55,6 +55,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\HeightStructuresFailureMechanismContextProperties.cs" />
+    <Compile Include="PropertyClasses\HeightStructuresInputContextProperties.cs" />
+    <Compile Include="UITypeEditors\HeightStructuresInputContextHydraulicBoundaryLocationEditor.cs" />
     <Compile Include="Views\HeightStructuresFailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -94,6 +96,11 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4D840673-3812-4338-A352-84854E32B8A0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
+      <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
+      <Name>Ringtoets.HydraRing.Data</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
       <Project>{1c0017d8-35b5-4ca0-8fc7-a83f46dbdc99}</Project>

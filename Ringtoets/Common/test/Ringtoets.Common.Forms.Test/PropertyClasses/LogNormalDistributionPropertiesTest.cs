@@ -35,7 +35,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class LognormalDistributionPropertiesTest
+    public class LogNormalDistributionPropertiesTest
     {
         private MockRepository mockRepository;
 
@@ -49,11 +49,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var observerable = mockRepository.StrictMock<IObservable>();
+            var observerableMock = mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new LognormalDistributionProperties(observerable);
+            var properties = new LogNormalDistributionProperties(observerableMock);
 
             // Assert
             Assert.IsInstanceOf<DistributionProperties>(properties);
@@ -66,11 +66,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            var observerable = mockRepository.StrictMock<IObservable>();
+            var observerableMock = mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new LognormalDistributionProperties(observerable);
+            var properties = new LogNormalDistributionProperties(observerableMock);
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
@@ -99,11 +99,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
+
         [Test]
         public void SetProperties_MeanWithoutObserverable_ThrowsArgumentException()
         {
             // Setup
-            var properties = new LognormalDistributionProperties(null)
+            var properties = new LogNormalDistributionProperties(null)
             {
                 Data = new LognormalDistribution(2),
             };
@@ -119,7 +120,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void SetProperties_StandardDeviationWithoutObserverable_ThrowsArgumentException()
         {
             // Setup
-            var properties = new LognormalDistributionProperties(null)
+            var properties = new LogNormalDistributionProperties(null)
             {
                 Data = new LognormalDistribution(2)
             };
@@ -131,13 +132,15 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.Throws<ArgumentException>(test);
         }
 
+
+
         [Test]
         public void SetProperties_MeanWithObserverable_ValueSetNotifyObservers()
         {
             // Setup
             var observerableMock = mockRepository.StrictMock<IObservable>();
             observerableMock.Expect(o => o.NotifyObservers()).Repeat.Once();
-            var properties = new LognormalDistributionProperties(observerableMock)
+            var properties = new LogNormalDistributionProperties(observerableMock)
             {
                 Data = new LognormalDistribution(3)
             };
@@ -158,7 +161,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var observerableMock = mockRepository.StrictMock<IObservable>();
             observerableMock.Expect(o => o.NotifyObservers()).Repeat.Once();
-            var properties = new LognormalDistributionProperties(observerableMock)
+            var properties = new LogNormalDistributionProperties(observerableMock)
             {
                 Data = new LognormalDistribution(3)
             };

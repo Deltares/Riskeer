@@ -60,6 +60,7 @@
     <Compile Include="PresentationObjects\HeightStructuresFailureMechanismContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\HeightStructuresFailureMechanismContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\HeightStructuresInputContextPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyProbabilisticOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresCalculationContextTreeNodeInfoTest.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="PresentationObjects\HeightStructuresInputContextTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ProbabilisticOutputTreeNodeInfoTest.cs" />
+    <Compile Include="UITypeEditors\HeightStructuresInputContextHydraulicBoundaryLocationEditorTest.cs" />
     <Compile Include="Views\HeightStructuresFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\HeightStructuresFailureMechanismSectionResultRowTest.cs" />
   </ItemGroup>
@@ -114,6 +116,10 @@
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
       <Name>Ringtoets.Common.Data.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
+      <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
+      <Name>Ringtoets.HydraRing.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
       <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
       <Name>Ringtoets.HeightStructures.Data</Name>
@@ -127,6 +133,7 @@
       <Name>Ringtoets.HeightStructures.Plugin</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

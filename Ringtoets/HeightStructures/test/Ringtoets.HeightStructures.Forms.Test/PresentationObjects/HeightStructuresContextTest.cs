@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Core.Common.TestUtil;
@@ -28,6 +29,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
 {
@@ -94,6 +96,29 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het traject mag niet 'null' zijn.");
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void AvailableHydraulicBoundaryLocations_HydraulicBoundaryDatabaseSet_ReturnsAllHydraulicBoundaryLocations()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 1.1, 2.2));
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase).Repeat.Twice();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var target = new ObservableObject();
+            var context = new SimpleHeightStructuresContext<ObservableObject>(target, failureMechanism, assessmentSectionMock);
+
+            // Call
+            var availableHydraulicBoundaryLocations = context.AvailableHydraulicBoundaryLocations;
+
+            // Assert
+            Assert.AreEqual(1, availableHydraulicBoundaryLocations.Count());
+            Assert.AreEqual(hydraulicBoundaryDatabase.Locations, availableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
         }
 

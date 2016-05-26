@@ -20,36 +20,33 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using Core.Common.Base.Data;
+using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Ringtoets.Common.Data.Probabilistics;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// A read-only <see cref="ObjectProperties{T}"/> implementation for <see cref="NormalDistribution"/>
+    /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="NormalDistribution"/>
     /// properties.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class ReadOnlyNormalDistributionProperties : NormalDistributionProperties
+    public class NormalDistributionProperties : DistributionProperties
     {
-        public ReadOnlyNormalDistributionProperties() : base(null) {}
-
-        [ReadOnly(true)]
-        public override RoundedDouble Mean
+        /// <summary>
+        /// Creates a new instance of <see cref="NormalDistributionProperties"/>.
+        /// </summary>
+        /// <param name="observerable">Object to observe to notify upon change.</param>
+        public NormalDistributionProperties(IObservable observerable)
         {
-            get
-            {
-                return base.Mean;
-            }
+            Observerable = observerable;
         }
 
-        [ReadOnly(true)]
-        public override RoundedDouble StandardDeviation
+        public override string DistributionType
         {
             get
             {
-                return base.StandardDeviation;
+                return "Normale verdeling";
             }
         }
     }

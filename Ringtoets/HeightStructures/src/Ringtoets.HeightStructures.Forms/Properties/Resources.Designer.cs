@@ -61,12 +61,39 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De toegestane peilverhoging komberging dat gebruikt wordt tijdens de berekening..
+        /// </summary>
+        public static string AllowableIncreaseOfLevelForStorage_Description {
+            get {
+                return ResourceManager.GetString("AllowableIncreaseOfLevelForStorage_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toegestane peilverhoging komberging [m].
+        /// </summary>
+        public static string AllowableIncreaseOfLevelForStorage_DisplayName {
+            get {
+                return ResourceManager.GetString("AllowableIncreaseOfLevelForStorage_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap CalculationIcon {
             get {
                 object obj = ResourceManager.GetObject("CalculationIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hydraulische gegevens.
+        /// </summary>
+        public static string Categories_HydraulicData {
+            get {
+                return ResourceManager.GetString("Categories_HydraulicData", resourceCulture);
             }
         }
         
@@ -85,6 +112,69 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         public static string Categories_ModelSettings {
             get {
                 return ResourceManager.GetString("Categories_ModelSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schematisatie.
+        /// </summary>
+        public static string Categories_Schematisation {
+            get {
+                return ResourceManager.GetString("Categories_Schematisation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het kritieke overslagdebiet per strekkende meter..
+        /// </summary>
+        public static string CriticalOvertoppingDischarge_Description {
+            get {
+                return ResourceManager.GetString("CriticalOvertoppingDischarge_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kritiek overslagdebiet [m³/s/m].
+        /// </summary>
+        public static string CriticalOvertoppingDischarge_DisplayName {
+            get {
+                return ResourceManager.GetString("CriticalOvertoppingDischarge_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De faalkans kunstwerk gegeven erosie bodem..
+        /// </summary>
+        public static string FailureProbabilityOfStructureGivenErosion_Description {
+            get {
+                return ResourceManager.GetString("FailureProbabilityOfStructureGivenErosion_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalkans kunstwerk gegeven erosie bodem [-].
+        /// </summary>
+        public static string FailureProbabilityOfStructureGivenErosion_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureProbabilityOfStructureGivenErosion_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De stroomvoerende breedte bij bodembescherming die gebruikt wordt tijdens de berekening..
+        /// </summary>
+        public static string FlowWidthAtBottomProtection_Description {
+            get {
+                return ResourceManager.GetString("FlowWidthAtBottomProtection_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stroomvoerende breedte bij bodembescherming [m].
+        /// </summary>
+        public static string FlowWidthAtBottomProtection_DisplayName {
+            get {
+                return ResourceManager.GetString("FlowWidthAtBottomProtection_DisplayName", resourceCulture);
             }
         }
         
@@ -209,6 +299,132 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         public static string HeightStructuresInputFailureMechanismContext_N_DisplayName {
             get {
                 return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_N_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden die gebruikt wordt tijdens de berekening..
+        /// </summary>
+        public static string HydraulicBoundaryLocation_Description {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocation_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locatie met hydraulische randvoorwaarden.
+        /// </summary>
+        public static string HydraulicBoundaryLocation_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocation_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kerende hoogte van het kunstwerk dat gebruikt wordt tijdens de berekening..
+        /// </summary>
+        public static string LevelOfCrestOfStructure_Description {
+            get {
+                return ResourceManager.GetString("LevelOfCrestOfStructure_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kerende hoogte [m].
+        /// </summary>
+        public static string LevelOfCrestOfStructure_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelOfCrestOfStructure_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het modelfactor overloopdebiet volkomen overlaat dat gebruikt wordt tijdens de berekening..
+        /// </summary>
+        public static string ModelFactorOvertoppingSuperCriticalFlow_Description {
+            get {
+                return ResourceManager.GetString("ModelFactorOvertoppingSuperCriticalFlow_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modelfactor overloopdebiet volkomen overlaat [-].
+        /// </summary>
+        public static string ModelFactorOvertoppingSuperCriticalFlow_DisplayName {
+            get {
+                return ResourceManager.GetString("ModelFactorOvertoppingSuperCriticalFlow_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oriëntatie van het kunstwerk..
+        /// </summary>
+        public static string OrientationOfTheNormalOfTheStructure_Description {
+            get {
+                return ResourceManager.GetString("OrientationOfTheNormalOfTheStructure_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oriëntatie [º].
+        /// </summary>
+        public static string OrientationOfTheNormalOfTheStructure_DisplayName {
+            get {
+                return ResourceManager.GetString("OrientationOfTheNormalOfTheStructure_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het kombergend oppervlak dat gebruikt wordt tijdens de berekening..
+        /// </summary>
+        public static string StorageStructureArea_Description {
+            get {
+                return ResourceManager.GetString("StorageStructureArea_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kombergend oppervlak [m²].
+        /// </summary>
+        public static string StorageStructureArea_DisplayName {
+            get {
+                return ResourceManager.GetString("StorageStructureArea_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De duur van de storm dat gebruikt wordt tijdens de berekening..
+        /// </summary>
+        public static string StormDuration_Description {
+            get {
+                return ResourceManager.GetString("StormDuration_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stormduur [uren].
+        /// </summary>
+        public static string StormDuration_DisplayName {
+            get {
+                return ResourceManager.GetString("StormDuration_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De breedte van de kruin van het kunstwerk die gebruikt wordt tijdens de berekening..
+        /// </summary>
+        public static string WidthOfFlowApertures_Description {
+            get {
+                return ResourceManager.GetString("WidthOfFlowApertures_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Breedte van de kruin van het kunstwerk [m].
+        /// </summary>
+        public static string WidthOfFlowApertures_DisplayName {
+            get {
+                return ResourceManager.GetString("WidthOfFlowApertures_DisplayName", resourceCulture);
             }
         }
     }

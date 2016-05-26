@@ -34,9 +34,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// properties.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class LognormalDistributionProperties : DistributionProperties
+    public class LogNormalDistributionProperties : DistributionProperties
     {
-        public LognormalDistributionProperties(IObservable observerable)
+        /// <summary>
+        /// Creates a new instance of <see cref="LogNormalDistributionProperties"/>.
+        /// </summary>
+        /// <param name="observerable">Object to observe to notify upon change.</param>
+        public LogNormalDistributionProperties(IObservable observerable)
         {
             Observerable = observerable;
         }

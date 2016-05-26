@@ -63,12 +63,18 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(1, propertyInfos.Length);
+                Assert.AreEqual(2, propertyInfos.Length);
                 var failureMechanismContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(HeightStructuresFailureMechanismContext));
                 Assert.AreEqual(typeof(HeightStructuresFailureMechanismContextProperties), failureMechanismContextProperties.PropertyObjectType);
                 Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
                 Assert.IsNull(failureMechanismContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(failureMechanismContextProperties.AfterCreate);
+
+                var heightStructuresInputContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(HeightStructuresInputContext));
+                Assert.AreEqual(typeof(HeightStructuresInputContextProperties), heightStructuresInputContextProperties.PropertyObjectType);
+                Assert.IsNull(heightStructuresInputContextProperties.AdditionalDataCheck);
+                Assert.IsNull(heightStructuresInputContextProperties.GetObjectPropertiesData);
+                Assert.IsNull(heightStructuresInputContextProperties.AfterCreate);
 
                 mocks.VerifyAll();
             }

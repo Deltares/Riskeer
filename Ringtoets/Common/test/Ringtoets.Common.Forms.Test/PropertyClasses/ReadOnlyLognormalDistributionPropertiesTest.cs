@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new ReadOnlyLognormalDistributionProperties();
 
             // Assert
-            Assert.IsInstanceOf<LognormalDistributionProperties>(properties);
+            Assert.IsInstanceOf<LogNormalDistributionProperties>(properties);
             Assert.IsNull(properties.Data);
             Assert.AreEqual("Lognormaal", properties.DistributionType);
         }

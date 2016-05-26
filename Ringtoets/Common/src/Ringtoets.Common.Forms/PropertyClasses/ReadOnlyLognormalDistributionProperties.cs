@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// A read-only <see cref="ObjectProperties{T}"/> implementation for <see cref="LognormalDistribution"/>
     /// properties.
     /// </summary>
-    public class ReadOnlyLognormalDistributionProperties : LognormalDistributionProperties
+    public class ReadOnlyLognormalDistributionProperties : LogNormalDistributionProperties
     {
         /// <summary>
         /// Creates a new instance of the <see cref="ReadOnlyLognormalDistributionProperties"/> class.

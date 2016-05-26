@@ -62,8 +62,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\DistributionProperties.cs" />
-    <Compile Include="PropertyClasses\LognormalDistributionProperties.cs" />
-    <Compile Include="PropertyClasses\ReadOnlyLognormalDistributionProperties.cs" />
+    <Compile Include="PropertyClasses\LogNormalDistributionProperties.cs" />
+    <Compile Include="PropertyClasses\NormalDistributionProperties.cs" />
+    <Compile Include="PropertyClasses\ReadOnlyLogNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\ReadOnlyNormalDistributionProperties.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilder.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactory.cs" />

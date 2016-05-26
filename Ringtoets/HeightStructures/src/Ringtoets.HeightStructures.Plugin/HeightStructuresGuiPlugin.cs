@@ -56,6 +56,7 @@ namespace Ringtoets.HeightStructures.Plugin
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<HeightStructuresFailureMechanismContext, HeightStructuresFailureMechanismContextProperties>();
+            yield return new PropertyInfo<HeightStructuresInputContext, HeightStructuresInputContextProperties>();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -130,8 +131,8 @@ namespace Ringtoets.HeightStructures.Plugin
         }
 
         private static ExceedanceProbabilityCalculationActivity CreateHydraRingExceedenceProbabilityCalculationActivity(FailureMechanismSection failureMechanismSection,
-                                                                                                            string hlcdDirectory,
-                                                                                                            HeightStructuresCalculation calculation)
+                                                                                                                        string hlcdDirectory,
+                                                                                                                        HeightStructuresCalculation calculation)
         {
             var hydraulicBoundaryLocationId = (int) calculation.InputParameters.HydraulicBoundaryLocation.Id;
             var sectionLength = failureMechanismSection.GetSectionLength();

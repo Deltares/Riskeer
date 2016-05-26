@@ -27,16 +27,16 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
-using Ringtoets.GrassCoverErosionInwards.Forms.UITypeEditors;
+using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.HeightStructures.Forms.PropertyClasses;
+using Ringtoets.HeightStructures.Forms.UITypeEditors;
 using Ringtoets.HydraRing.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
+namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditorTest
+    public class HeightStructuresInputContextHydraulicBoundaryLocationEditorTest
     {
         private MockRepository mockRepository;
 
@@ -53,24 +53,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation());
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var grassCoverErosionInwardsInput = new GrassCoverErosionInwardsInput(failureMechanism.GeneralInput);
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var heightStructuresInput = new HeightStructuresInput(failureMechanism.GeneralInput);
             var calculationMock = mockRepository.StrictMock<ICalculation>();
             
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase)
                                  .Return(hydraulicBoundaryDatabase)
                                  .Repeat.AtLeastOnce();
-            var inputContext = new GrassCoverErosionInwardsInputContext(grassCoverErosionInwardsInput,
+            var inputContext = new HeightStructuresInputContext(heightStructuresInput,
                                                                         calculationMock,
                                                                         failureMechanism,
                                                                         assessmentSectionMock);
 
-            var properties = new GrassCoverErosionInwardsInputContextProperties
+            var properties = new HeightStructuresInputContextProperties
             {
                 Data = inputContext
             };
-            var editor = new GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditor();
+            var editor = new HeightStructuresInputContextHydraulicBoundaryLocationEditor();
             var propertyBag = new DynamicPropertyBag(properties);
 
             var serviceProviderMock = mockRepository.StrictMock<IServiceProvider>();
@@ -100,27 +100,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var grassCoverErosionInwardsInput = new GrassCoverErosionInwardsInput(failureMechanism.GeneralInput)
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var heightStructuresInput = new HeightStructuresInput(failureMechanism.GeneralInput)
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation
             };
-            var calculationMock = mockRepository.StrictMock<ICalculation>();
+
             
+            var calculationMock = mockRepository.StrictMock<ICalculation>();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase)
                                  .Return(hydraulicBoundaryDatabase)
                                  .Repeat.AtLeastOnce();
-            var inputContext = new GrassCoverErosionInwardsInputContext(grassCoverErosionInwardsInput,
+            var inputContext = new HeightStructuresInputContext(heightStructuresInput,
                                                                         calculationMock,
                                                                         failureMechanism,
                                                                         assessmentSectionMock);
 
-            var properties = new GrassCoverErosionInwardsInputContextProperties
+            var properties = new HeightStructuresInputContextProperties
             {
                 Data = inputContext
             };
-            var editor = new GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditor();
+            var editor = new HeightStructuresInputContextHydraulicBoundaryLocationEditor();
             var propertyBag = new DynamicPropertyBag(properties);
 
             var serviceProviderMock = mockRepository.StrictMock<IServiceProvider>();
@@ -145,7 +146,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
 
         private class TestHydraulicBoundaryLocation : HydraulicBoundaryLocation
         {
-            public TestHydraulicBoundaryLocation() : base(0, string.Empty, 0, 0) {}
+            public TestHydraulicBoundaryLocation() : base(0, string.Empty, 0, 0) { }
         }
     }
 }
