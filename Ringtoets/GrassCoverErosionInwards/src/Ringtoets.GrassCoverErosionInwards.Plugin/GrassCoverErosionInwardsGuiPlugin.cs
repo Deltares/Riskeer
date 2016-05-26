@@ -349,11 +349,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
-        private static string EnablePerformAllCalculationsInFailureMechanism(GrassCoverErosionInwardsFailureMechanismContext context)
-        {
-            return AllDataAvailable(context.Parent, context.WrappedData);
-        }
-
         private void RemoveAllViewsForItem(GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
@@ -368,6 +363,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
                           .Build();
+        }
+
+        private static string EnablePerformAllCalculationsInFailureMechanism(GrassCoverErosionInwardsFailureMechanismContext context)
+        {
+            return AllDataAvailable(context.Parent, context.WrappedData);
         }
 
         private void CalculateAll(GrassCoverErosionInwardsFailureMechanismContext context)
@@ -445,11 +445,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
-        private static string EnablePerformAllCalculationsInGroup(GrassCoverErosionInwardsCalculationGroupContext context)
-        {
-            return AllDataAvailable(context.AssessmentSection, context.FailureMechanism);
-        }
-
         private static void CalculationGroupContextOnNodeRemoved(GrassCoverErosionInwardsCalculationGroupContext context, object parentNodeData)
         {
             var parentGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) parentNodeData;
@@ -466,6 +461,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
             context.WrappedData.Children.Add(calculation);
             context.WrappedData.NotifyObservers();
+        }
+
+        private static string EnablePerformAllCalculationsInGroup(GrassCoverErosionInwardsCalculationGroupContext context)
+        {
+            return AllDataAvailable(context.AssessmentSection, context.FailureMechanism);
         }
 
         private void CalculateAll(CalculationGroup group, GrassCoverErosionInwardsCalculationGroupContext context)

@@ -38,9 +38,11 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Forms.Views;
+using Ringtoets.HeightStructures.Plugin.Properties;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
+using Ringtoets.HydraRing.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using HeightStructuresDataResources = Ringtoets.HeightStructures.Data.Properties.Resources;
@@ -175,6 +177,29 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                              calc)).ToList());
         }
 
+        private static string AllDataAvailable(IAssessmentSection assessmentSection, HeightStructuresFailureMechanism failureMechanism)
+        {
+            if (!failureMechanism.Sections.Any())
+            {
+                return Resources.HeightStructuresGuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported;
+            }
+
+            if (assessmentSection.HydraulicBoundaryDatabase == null)
+            {
+                return Resources.HeightStructuresGuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
+            }
+
+            string selectedFile = assessmentSection.HydraulicBoundaryDatabase.FilePath;
+            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(selectedFile);
+
+            if (!string.IsNullOrEmpty(validationProblem))
+            {
+                return string.Format(RingtoetsCommonFormsResources.GuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_, validationProblem);
+            }
+
+            return null;
+        }
+
         #region EmptyProbabilisticOutput TreeNodeInfo
 
         private ContextMenuStrip EmptyProbabilisticOutputContextMenuStrip(EmptyProbabilisticOutput output, object parentData, TreeViewControl treeViewControl)
@@ -257,7 +282,7 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddSeparator()
                           .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddPerformAllCalculationsInFailureMechanismItem(context, CalculateAll, failureMechanismContext => "")
+                          .AddPerformAllCalculationsInFailureMechanismItem(context, CalculateAll, EnablePerformAllCalculationsInFailureMechanism)
                           .AddClearAllCalculationOutputInFailureMechanismItem(context.WrappedData)
                           .AddSeparator()
                           .AddImportItem()
@@ -284,6 +309,11 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
                           .Build();
+        }
+
+        private static string EnablePerformAllCalculationsInFailureMechanism(HeightStructuresFailureMechanismContext context)
+        {
+            return AllDataAvailable(context.Parent, context.WrappedData);
         }
 
         private void CalculateAll(HeightStructuresFailureMechanismContext context)
@@ -340,7 +370,7 @@ namespace Ringtoets.HeightStructures.Plugin
             builder.AddCreateCalculationGroupItem(group)
                    .AddCreateCalculationItem(context, AddCalculation)
                    .AddSeparator()
-                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, groupContext => "")
+                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, EnablePerformAllCalculationsInGroup)
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddSeparator();
 
@@ -377,6 +407,11 @@ namespace Ringtoets.HeightStructures.Plugin
             };
             context.WrappedData.Children.Add(calculation);
             context.WrappedData.NotifyObservers();
+        }
+
+        private static string EnablePerformAllCalculationsInGroup(HeightStructuresCalculationGroupContext context)
+        {
+            return AllDataAvailable(context.AssessmentSection, context.FailureMechanism);
         }
 
         private void CalculateAll(CalculationGroup group, HeightStructuresCalculationGroupContext context)
@@ -417,7 +452,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
             HeightStructuresCalculation calculation = context.WrappedData;
 
-            return builder.AddPerformCalculationItem(calculation, context, Calculate, calcContext => "")
+            return builder.AddPerformCalculationItem(calculation, context, Calculate, EnablePerformCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
                           .AddRenameItem()
@@ -433,14 +468,9 @@ namespace Ringtoets.HeightStructures.Plugin
                           .Build();
         }
 
-        private void CalculationContextOnNodeRemoved(HeightStructuresCalculationContext context, object parentData)
+        private static string EnablePerformCalculation(HeightStructuresCalculationContext context)
         {
-            var calculationGroupContext = parentData as HeightStructuresCalculationGroupContext;
-            if (calculationGroupContext != null)
-            {
-                calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                calculationGroupContext.NotifyObservers();
-            }
+            return AllDataAvailable(context.AssessmentSection, context.FailureMechanism);
         }
 
         private void Calculate(HeightStructuresCalculation calculation, HeightStructuresCalculationContext context)
@@ -456,6 +486,16 @@ namespace Ringtoets.HeightStructures.Plugin
                 calculation);
 
             ActivityProgressDialogRunner.Run(Gui.MainWindow, activity);
+        }
+
+        private void CalculationContextOnNodeRemoved(HeightStructuresCalculationContext context, object parentData)
+        {
+            var calculationGroupContext = parentData as HeightStructuresCalculationGroupContext;
+            if (calculationGroupContext != null)
+            {
+                calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
+                calculationGroupContext.NotifyObservers();
+            }
         }
 
         #endregion
