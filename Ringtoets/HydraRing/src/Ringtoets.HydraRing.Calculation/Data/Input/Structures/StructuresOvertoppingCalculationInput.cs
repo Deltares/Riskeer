@@ -219,8 +219,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                criticalOvertoppingDischargeVariation, double.NaN);
 
             // Failure probability of structure given erosion
-            yield return new HydraRingVariable(105, HydraRingDistributionType.Deterministic, failureProbabilityOfStructureGivenErosion,
-                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            yield return new HydraRingVariable(105, HydraRingDistributionType.Normal, double.NaN,
+                                               HydraRingDeviationType.Standard, failureProbabilityOfStructureGivenErosion, 0, double.NaN);
 
             // Width of flow apertures
             yield return new HydraRingVariable(106, HydraRingDistributionType.Normal, double.NaN,
