@@ -27,7 +27,7 @@ using Ringtoets.Piping.Data.Properties;
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// This class holds the information which can be made visible in the graphical interface of the application.
+    /// This class holds information about a calculation for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
     public class PipingCalculation : Observable, ICalculation
     {

@@ -30,7 +30,7 @@ using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
     /// <summary>
-    /// This class holds the grass cover erosion inwards information which can be made visible in the graphical interface of the application.
+    /// This class holds information about a calculation for the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
     /// </summary>
     public class GrassCoverErosionInwardsCalculation : Observable, ICalculation
     {
