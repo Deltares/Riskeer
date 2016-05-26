@@ -37,7 +37,10 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// Creates a new instance of <see cref="NumericFailureMechanismSectionResult"/>
         /// </summary>
         /// <param name="section">The section for which to add the result.</param>
-        public ArbitraryProbabilityFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
+        public ArbitraryProbabilityFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        {
+            AssessmentLayerTwoA = (RoundedDouble) 1.0;
+        }
 
         /// <summary>
         /// Gets the probability value of assessment layer two a.
