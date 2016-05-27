@@ -252,7 +252,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var calculation = new HeightStructuresCalculation(new GeneralHeightStructuresInput(),
-                                                              new NormProbabilityInput());
+                                                              new ProbabilityAssessmentInput());
 
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
             var guiMock = mocks.StrictMock<IGui>();
@@ -292,7 +292,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(null);
 
             var calculation = new HeightStructuresCalculation(new GeneralHeightStructuresInput(),
-                                                              new NormProbabilityInput());
+                                                              new ProbabilityAssessmentInput());
 
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
@@ -332,7 +332,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
 
             var calculation = new HeightStructuresCalculation(new GeneralHeightStructuresInput(),
-                                                              new NormProbabilityInput());
+                                                              new ProbabilityAssessmentInput());
 
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
@@ -381,7 +381,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var calculation = new HeightStructuresCalculation(new GeneralHeightStructuresInput(),
-                                                              new NormProbabilityInput());
+                                                              new ProbabilityAssessmentInput());
 
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
@@ -437,7 +437,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
             var calculation = new HeightStructuresCalculation(new GeneralHeightStructuresInput(),
-                                                              new NormProbabilityInput())
+                                                              new ProbabilityAssessmentInput())
             {
                 Output = new ProbabilisticOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN),
                 InputParameters =

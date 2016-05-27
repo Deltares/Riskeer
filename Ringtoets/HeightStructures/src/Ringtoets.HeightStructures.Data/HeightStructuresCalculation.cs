@@ -43,7 +43,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <item><paramref name="generalInputParameters"/> is <c>null</c>.</item>
         /// <item><paramref name="normProbabilityInput"/> is <c>null</c>.</item>
         /// </list> </exception>
-        public HeightStructuresCalculation(GeneralHeightStructuresInput generalInputParameters, NormProbabilityInput normProbabilityInput)
+        public HeightStructuresCalculation(GeneralHeightStructuresInput generalInputParameters, ProbabilityAssessmentInput normProbabilityInput)
         {
             if (normProbabilityInput == null)
             {
@@ -63,7 +63,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets the length-effect parameters.
         /// </summary>
-        public NormProbabilityInput NormProbabilityInput { get; private set; }
+        public ProbabilityAssessmentInput NormProbabilityInput { get; private set; }
 
         /// <summary>
         /// Gets or sets <see cref="ProbabilisticOutput"/>, which contains the results of a height structures calculation.

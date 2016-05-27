@@ -28,18 +28,18 @@ using Ringtoets.Common.Data.Properties;
 namespace Ringtoets.Common.Data.Test.Probability
 {
     [TestFixture]
-    public class NormProbabilityInputTest
+    public class ProbabilityAssessmentInputTest
     {
         [Test]
         public void Constructor_DefaultPropertiesSet()
         {
             // Call
-            var normProbabilityInput = new NormProbabilityInput();
+            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
 
             // Assert
-            Assert.AreEqual(double.NaN, normProbabilityInput.Contribution);
-            Assert.AreEqual(2, normProbabilityInput.N);
-            Assert.AreEqual(0, normProbabilityInput.Norm);
+            Assert.AreEqual(double.NaN, probabilityAssessmentInput.Contribution);
+            Assert.AreEqual(2, probabilityAssessmentInput.N);
+            Assert.AreEqual(0, probabilityAssessmentInput.Norm);
         }
 
         [Test]
@@ -49,14 +49,14 @@ namespace Ringtoets.Common.Data.Test.Probability
         public void N_ValueInsideValidRegion_DoesNotThrow(int value)
         {
             // Setup
-            var normProbabilityInput = new NormProbabilityInput();
+            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
 
             // Call
-            TestDelegate test = () => normProbabilityInput.N = value;
+            TestDelegate test = () => probabilityAssessmentInput.N = value;
 
             // Assert
             Assert.DoesNotThrow(test);
-            Assert.AreEqual(value, normProbabilityInput.N);
+            Assert.AreEqual(value, probabilityAssessmentInput.N);
         }
 
         [Test]
@@ -65,10 +65,10 @@ namespace Ringtoets.Common.Data.Test.Probability
         public void N_ValueOutsideValidRegion_ThrowsArgumentOutOfRangeException(int value)
         {
             // Setup
-            var normProbabilityInput = new NormProbabilityInput();
+            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
 
             // Call
-            TestDelegate test = () => normProbabilityInput.N = value;
+            TestDelegate test = () => probabilityAssessmentInput.N = value;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, 
@@ -82,14 +82,14 @@ namespace Ringtoets.Common.Data.Test.Probability
         public void Contribution_ValueInsideValidRegion_DoesNotThrow(int value)
         {
             // Setup
-            var normProbabilityInput = new NormProbabilityInput();
+            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
 
             // Call
-            TestDelegate test = () => normProbabilityInput.Contribution = value;
+            TestDelegate test = () => probabilityAssessmentInput.Contribution = value;
 
             // Assert
             Assert.DoesNotThrow(test);
-            Assert.AreEqual(value, normProbabilityInput.Contribution);
+            Assert.AreEqual(value, probabilityAssessmentInput.Contribution);
         }
         
         [Test]
@@ -98,10 +98,10 @@ namespace Ringtoets.Common.Data.Test.Probability
         public void Contribution_ValueOutsideValidRegion_ThrowsArgumentOutOfRangeException(int value)
         {
             // Setup
-            var normProbabilityInput = new NormProbabilityInput();
+            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
 
             // Call
-            TestDelegate test = () => normProbabilityInput.Contribution = value;
+            TestDelegate test = () => probabilityAssessmentInput.Contribution = value;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test,

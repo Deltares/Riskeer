@@ -46,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode, failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             Assert.IsInstanceOf<GeneralGrassCoverErosionInwardsInput>(failureMechanism.GeneralInput);
-            Assert.IsInstanceOf<NormProbabilityInput>(failureMechanism.NormProbabilityInput);
+            Assert.IsInstanceOf<ProbabilityAssessmentInput>(failureMechanism.NormProbabilityInput);
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
             Assert.IsEmpty(failureMechanism.CalculationsGroup.Children);
         }
@@ -107,9 +107,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                     Children =
                     {
                         new CalculationGroup(),
-                        new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new NormProbabilityInput()),
+                        new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new ProbabilityAssessmentInput()),
                         mocks.StrictMock<ICalculation>(),
-                        new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new NormProbabilityInput())
+                        new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new ProbabilityAssessmentInput())
                     }
                 }
             };

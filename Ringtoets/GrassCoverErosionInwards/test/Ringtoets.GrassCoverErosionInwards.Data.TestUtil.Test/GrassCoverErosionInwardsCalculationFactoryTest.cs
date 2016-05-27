@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.HydraRing.Data;
@@ -41,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
 
             // Assert
             var emptyCalculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                           new NormProbabilityInput());
+                                                                           new ProbabilityAssessmentInput());
             AssertGrassCoverErosionInwardsCalculationAreEqual(emptyCalculation, calculation);
         }
 
@@ -58,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
             };
 
             var validCalculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                           new NormProbabilityInput())
+                                                                           new ProbabilityAssessmentInput())
             {
                 InputParameters =
                 {

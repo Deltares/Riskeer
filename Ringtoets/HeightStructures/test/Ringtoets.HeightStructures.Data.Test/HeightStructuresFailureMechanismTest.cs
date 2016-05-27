@@ -101,7 +101,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Setup
             var mocks = new MockRepository();
             var generalInput = new GeneralHeightStructuresInput();
-            var normProbabilityInput = new NormProbabilityInput();
+            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
             var failureMechanism = new HeightStructuresFailureMechanism
             {
                 CalculationsGroup =
@@ -109,9 +109,9 @@ namespace Ringtoets.HeightStructures.Data.Test
                     Children =
                     {
                         new CalculationGroup(),
-                        new HeightStructuresCalculation(generalInput, normProbabilityInput),
+                        new HeightStructuresCalculation(generalInput, probabilityAssessmentInput),
                         mocks.StrictMock<ICalculation>(),
-                        new HeightStructuresCalculation(generalInput, normProbabilityInput)
+                        new HeightStructuresCalculation(generalInput, probabilityAssessmentInput)
                     }
                 }
             };

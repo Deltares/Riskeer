@@ -55,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                      new NormProbabilityInput())
+                                                                      new ProbabilityAssessmentInput())
             {
                 NormProbabilityInput =
                 {
@@ -86,7 +86,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                      new NormProbabilityInput())
+                                                                      new ProbabilityAssessmentInput())
             {
                 NormProbabilityInput =
                 {
@@ -111,7 +111,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                      new NormProbabilityInput());
+                                                                      new ProbabilityAssessmentInput());
 
             // Call
             GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, reliability);
@@ -128,7 +128,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                      new NormProbabilityInput());
+                                                                      new ProbabilityAssessmentInput());
 
             // Call
             GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, reliability);
@@ -151,7 +151,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
-                                                                      new NormProbabilityInput())
+                                                                      new ProbabilityAssessmentInput())
             {
                 NormProbabilityInput =
                 {

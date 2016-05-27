@@ -22,7 +22,6 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -47,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             // Setup
             var calculationMock = mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(
                 new GeneralGrassCoverErosionInwardsInput(),
-                new NormProbabilityInput());
+                new ProbabilityAssessmentInput());
             var failureMechanismMock = mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             mocksRepository.ReplayAll();

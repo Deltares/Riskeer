@@ -63,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput, new NormProbabilityInput());
+            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput, new ProbabilityAssessmentInput());
             mockRepository.ReplayAll();
 
             var input = new GrassCoverErosionInwardsInput(generalInput);
@@ -87,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var calculation = new GrassCoverErosionInwardsCalculation(generalInput, new NormProbabilityInput());
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput, new ProbabilityAssessmentInput());
             calculation.InputParameters.SetDikeGeometry(new[]
             {
                 new RoughnessProfileSection(new Point2D(0, 0), new Point2D(1, 1), 2)
@@ -120,7 +120,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput, new NormProbabilityInput());
+            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput, new ProbabilityAssessmentInput());
             mockRepository.ReplayAll();
 
             var input = new GrassCoverErosionInwardsInput(generalInput);

@@ -34,10 +34,10 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void Constructor_NullGeneralInput_ThrowsArgumentNullException()
         {
             // Setup
-            var normProbabilityInput = new NormProbabilityInput();
+            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
 
             // Call
-            TestDelegate test = () => new HeightStructuresCalculation(null, normProbabilityInput);
+            TestDelegate test = () => new HeightStructuresCalculation(null, probabilityAssessmentInput);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -45,7 +45,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void Constructor_NullNormProbabilityInput_ThrowsArgumentNullException()
+        public void Constructor_NullProbabilityAssessmentInput_ThrowsArgumentNullException()
         {
             // Setup
             var generalInput = new GeneralHeightStructuresInput();
@@ -63,17 +63,17 @@ namespace Ringtoets.HeightStructures.Data.Test
         {
             // Setup
             var generalInput = new GeneralHeightStructuresInput();
-            var normProbabilityInput = new NormProbabilityInput();
+            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
 
             // Call
-            var calculation = new HeightStructuresCalculation(generalInput, normProbabilityInput);
+            var calculation = new HeightStructuresCalculation(generalInput, probabilityAssessmentInput);
 
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
             Assert.IsInstanceOf<Observable>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
-            Assert.AreEqual(normProbabilityInput, calculation.NormProbabilityInput);
+            Assert.AreEqual(probabilityAssessmentInput, calculation.NormProbabilityInput);
             Assert.IsNull(calculation.Comments);
             Assert.IsFalse(calculation.HasOutput);
             AssertDemoInput(calculation.InputParameters);
@@ -84,8 +84,8 @@ namespace Ringtoets.HeightStructures.Data.Test
         {
             // Setup
             var generalInput = new GeneralHeightStructuresInput();
-            var normProbabilityInput = new NormProbabilityInput();
-            var calculation = new HeightStructuresCalculation(generalInput, normProbabilityInput)
+            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
+            var calculation = new HeightStructuresCalculation(generalInput, probabilityAssessmentInput)
             {
                 Output = new TestHeightStructuresOutput()
             };
@@ -102,8 +102,8 @@ namespace Ringtoets.HeightStructures.Data.Test
         {
             // Setup
             var generalInput = new GeneralHeightStructuresInput();
-            var normProbabilityInput = new NormProbabilityInput();
-            var calculation = new HeightStructuresCalculation(generalInput, normProbabilityInput)
+            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
+            var calculation = new HeightStructuresCalculation(generalInput, probabilityAssessmentInput)
             {
                 Output = null
             };
@@ -117,8 +117,8 @@ namespace Ringtoets.HeightStructures.Data.Test
         {
             // Setup
             var generalInput = new GeneralHeightStructuresInput();
-            var normProbabilityInput = new NormProbabilityInput();
-            var calculation = new HeightStructuresCalculation(generalInput, normProbabilityInput)
+            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
+            var calculation = new HeightStructuresCalculation(generalInput, probabilityAssessmentInput)
             {
                 Output = new TestHeightStructuresOutput()
             };
@@ -132,8 +132,8 @@ namespace Ringtoets.HeightStructures.Data.Test
         {
             // Setup
             var generalInput = new GeneralHeightStructuresInput();
-            var normProbabilityInput = new NormProbabilityInput();
-            var calculation = new HeightStructuresCalculation(generalInput, normProbabilityInput);
+            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
+            var calculation = new HeightStructuresCalculation(generalInput, probabilityAssessmentInput);
 
             // Call
             ICalculationInput input = calculation.GetObservableInput();
@@ -147,8 +147,8 @@ namespace Ringtoets.HeightStructures.Data.Test
         {
             // Setup
             var generalInput = new GeneralHeightStructuresInput();
-            var normProbabilityInput = new NormProbabilityInput();
-            var calculation = new HeightStructuresCalculation(generalInput, normProbabilityInput)
+            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
+            var calculation = new HeightStructuresCalculation(generalInput, probabilityAssessmentInput)
             {
                 Output = new TestHeightStructuresOutput()
             };

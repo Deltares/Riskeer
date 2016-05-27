@@ -25,17 +25,17 @@ using Ringtoets.Common.Data.Properties;
 namespace Ringtoets.Common.Data.Probability
 {
     /// <summary>
-    /// Model for length effect parameters.
+    /// Class that holds all probability assessment calculation specific input parameters.
     /// </summary>
-    public class NormProbabilityInput
+    public class ProbabilityAssessmentInput
     {
         private double contribution;
         private int n;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NormProbabilityInput"/> class.
+        /// Initializes a new instance of the <see cref="ProbabilityAssessmentInput"/> class.
         /// </summary>
-        public NormProbabilityInput()
+        public ProbabilityAssessmentInput()
         {
             N = 2;
             Norm = 0;

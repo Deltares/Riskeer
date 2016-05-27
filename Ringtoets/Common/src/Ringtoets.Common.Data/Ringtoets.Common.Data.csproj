@@ -74,7 +74,7 @@
     <Compile Include="Probabilistics\NormalDistributionDesignVariable.cs" />
     <Compile Include="Probabilistics\ShiftedLogNormalDistribution.cs" />
     <Compile Include="Probabilistics\ShiftedLogNormalDistributionDesignVariable.cs" />
-    <Compile Include="Probability\NormProbabilityInput.cs" />
+    <Compile Include="Probability\ProbabilityAssessmentInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

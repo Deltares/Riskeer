@@ -46,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <item><paramref name="normProbabilityInput"/> is <c>null</c>.</item>
         /// </list> </exception>
         public GrassCoverErosionInwardsCalculation(GeneralGrassCoverErosionInwardsInput generalInputParameters,
-                                                   NormProbabilityInput normProbabilityInput)
+                                                   ProbabilityAssessmentInput normProbabilityInput)
         {
             if (normProbabilityInput == null)
             {
@@ -66,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the length-effect parameters.
         /// </summary>
-        public NormProbabilityInput NormProbabilityInput { get; private set; }
+        public ProbabilityAssessmentInput NormProbabilityInput { get; private set; }
 
         /// <summary>
         /// Gets or sets <see cref="ProbabilisticOutput"/>, which contains the results of a probabilistic calculation.
