@@ -39,6 +39,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public CalculationGroupEntity()
         {
             this.CalculationGroupEntity1 = new HashSet<CalculationGroupEntity>();
+            this.FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
         }
     
         public long CalculationGroupEntityId { get; set; }
@@ -47,9 +48,10 @@ namespace Application.Ringtoets.Storage.DbContext
         public byte IsEditable { get; set; }
         public long Order { get; set; }
     
-        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CalculationGroupEntity> CalculationGroupEntity1 { get; set; }
         public virtual CalculationGroupEntity CalculationGroupEntity2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FailureMechanismEntity> FailureMechanismEntities { get; set; }
     }
 }

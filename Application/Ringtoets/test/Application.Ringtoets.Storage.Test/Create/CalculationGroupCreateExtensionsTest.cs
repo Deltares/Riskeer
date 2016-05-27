@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(order, entity.Order);
 
             CollectionAssert.IsEmpty(entity.CalculationGroupEntity1);
-            Assert.IsNull(entity.FailureMechanismEntity);
+            CollectionAssert.IsEmpty(entity.FailureMechanismEntities);
             Assert.IsNull(entity.ParentCalculationGroupEntityId);
         }
 
