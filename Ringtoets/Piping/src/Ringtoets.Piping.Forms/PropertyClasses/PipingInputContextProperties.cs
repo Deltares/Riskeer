@@ -44,11 +44,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     {
         #region Model Settings
 
-        [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
+        [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_DampingFactorExit_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_DampingFactorExit_Description")]
-        public DesignVariable<LognormalDistribution> DampingFactorExit
+        public DesignVariable<LogNormalDistribution> DampingFactorExit
         {
             get
             {
@@ -255,11 +255,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
+        [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_SeepageLength_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_SeepageLength_Description")]
-        public DesignVariable<LognormalDistribution> SeepageLength
+        public DesignVariable<LogNormalDistribution> SeepageLength
         {
             get
             {
@@ -267,11 +267,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
+        [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_ThicknessCoverageLayer_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_ThicknessCoverageLayer_Description")]
-        public DesignVariable<LognormalDistribution> ThicknessCoverageLayer
+        public DesignVariable<LogNormalDistribution> ThicknessCoverageLayer
         {
             get
             {
@@ -279,11 +279,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
+        [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_ThicknessAquiferLayer_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_ThicknessAquiferLayer_Description")]
-        public DesignVariable<LognormalDistribution> ThicknessAquiferLayer
+        public DesignVariable<LogNormalDistribution> ThicknessAquiferLayer
         {
             get
             {
@@ -295,11 +295,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #region Soil Properties
 
-        [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
+        [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_SoilProperties")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_DarcyPermeability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_DarcyPermeability_Description")]
-        public DesignVariable<LognormalDistribution> DarcyPermeability
+        public DesignVariable<LogNormalDistribution> DarcyPermeability
         {
             get
             {
@@ -312,11 +312,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
+        [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_SoilProperties")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_Diameter70_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_Diameter70_Description")]
-        public DesignVariable<LognormalDistribution> Diameter70
+        public DesignVariable<LogNormalDistribution> Diameter70
         {
             get
             {
@@ -329,11 +329,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [TypeConverter(typeof(ShiftedLognormalDistributionDesignVariableTypeConverter))]
+        [TypeConverter(typeof(ShiftedLogNormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_SoilProperties")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_SaturatedVolumicWeightOfCoverageLayer_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description")]
-        public DesignVariable<ShiftedLognormalDistribution> SaturatedVolumicWeightOfCoverageLayer
+        public DesignVariable<ShiftedLogNormalDistribution> SaturatedVolumicWeightOfCoverageLayer
         {
             get
             {

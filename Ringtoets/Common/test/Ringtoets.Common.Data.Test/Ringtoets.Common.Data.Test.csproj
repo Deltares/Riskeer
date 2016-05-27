@@ -71,12 +71,12 @@
     <Compile Include="Calculation\CalculationGroupExtensionsTest.cs" />
     <Compile Include="FailureMechanism\SimpleFailureMechanismSectionResultTest.cs" />
     <Compile Include="Probabilistics\DesignVariableTest.cs" />
-    <Compile Include="Probabilistics\LognormalDistributionDesignVariableTest.cs" />
-    <Compile Include="Probabilistics\LognormalDistributionTest.cs" />
+    <Compile Include="Probabilistics\LogNormalDistributionDesignVariableTest.cs" />
+    <Compile Include="Probabilistics\LogNormalDistributionTest.cs" />
     <Compile Include="Probabilistics\NormalDistributionDesignVariableTest.cs" />
     <Compile Include="Probabilistics\NormalDistributionTest.cs" />
-    <Compile Include="Probabilistics\ShiftedLognormalDistributionDesignVariableTest.cs" />
-    <Compile Include="Probabilistics\ShiftedLognormalDistributionTest.cs" />
+    <Compile Include="Probabilistics\ShiftedLogNormalDistributionDesignVariableTest.cs" />
+    <Compile Include="Probabilistics\ShiftedLogNormalDistributionTest.cs" />
     <Compile Include="Probability\NormProbabilityInputTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

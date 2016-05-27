@@ -40,10 +40,10 @@ namespace Ringtoets.Piping.Data
     {
         private readonly GeneralPipingInput generalInputParameters;
         private readonly NormalDistribution phreaticLevelExit;
-        private readonly LognormalDistribution dampingFactorExit;
-        private readonly ShiftedLognormalDistribution saturatedVolumicWeightOfCoverageLayer;
-        private readonly LognormalDistribution darcyPermeability;
-        private readonly LognormalDistribution diameter70;
+        private readonly LogNormalDistribution dampingFactorExit;
+        private readonly ShiftedLogNormalDistribution saturatedVolumicWeightOfCoverageLayer;
+        private readonly LogNormalDistribution darcyPermeability;
+        private readonly LogNormalDistribution diameter70;
         private RoundedDouble exitPointL;
         private RoundedDouble entryPointL;
         private RingtoetsPipingSurfaceLine surfaceLine;
@@ -68,19 +68,19 @@ namespace Ringtoets.Piping.Data
             entryPointL = new RoundedDouble(2, double.NaN);
 
             phreaticLevelExit = new NormalDistribution(3);
-            dampingFactorExit = new LognormalDistribution(3)
+            dampingFactorExit = new LogNormalDistribution(3)
             {
                 Mean = (RoundedDouble) 0.7,
                 StandardDeviation = (RoundedDouble) 0.0
             };
-            saturatedVolumicWeightOfCoverageLayer = new ShiftedLognormalDistribution(2)
+            saturatedVolumicWeightOfCoverageLayer = new ShiftedLogNormalDistribution(2)
             {
                 Shift = (RoundedDouble) 10,
                 Mean = (RoundedDouble) 17.5,
                 StandardDeviation = (RoundedDouble) 0
             };
-            diameter70 = new LognormalDistribution(2);
-            darcyPermeability = new LognormalDistribution(3);
+            diameter70 = new LogNormalDistribution(2);
+            darcyPermeability = new LogNormalDistribution(3);
         }
 
         /// <summary>
@@ -373,7 +373,7 @@ namespace Ringtoets.Piping.Data
         /// Gets or sets the horizontal distance between entry and exit point.
         /// [m]
         /// </summary>
-        public LognormalDistribution SeepageLength
+        public LogNormalDistribution SeepageLength
         {
             get
             {
@@ -385,7 +385,7 @@ namespace Ringtoets.Piping.Data
         /// Gets or sets the sieve size through which 70% fraction of the grains of the top part of the aquifer passes.
         /// [m]
         /// </summary>
-        public LognormalDistribution Diameter70
+        public LogNormalDistribution Diameter70
         {
             get
             {
@@ -402,7 +402,7 @@ namespace Ringtoets.Piping.Data
         /// Gets or sets the Darcy-speed with which water flows through the aquifer layer.
         /// [m/s]
         /// </summary>
-        public LognormalDistribution DarcyPermeability
+        public LogNormalDistribution DarcyPermeability
         {
             get
             {
@@ -419,7 +419,7 @@ namespace Ringtoets.Piping.Data
         /// Gets or sets the thickness of the aquifer layer.
         /// [m]
         /// </summary>
-        public LognormalDistribution ThicknessAquiferLayer
+        public LogNormalDistribution ThicknessAquiferLayer
         {
             get
             {
@@ -431,7 +431,7 @@ namespace Ringtoets.Piping.Data
         /// Gets or sets the total thickness of the coverage layer at the exit point.
         /// [m]
         /// </summary>
-        public LognormalDistribution ThicknessCoverageLayer
+        public LogNormalDistribution ThicknessCoverageLayer
         {
             get
             {
@@ -442,7 +442,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets or sets the damping factor at the exit point.
         /// </summary>
-        public LognormalDistribution DampingFactorExit
+        public LogNormalDistribution DampingFactorExit
         {
             get
             {
@@ -458,7 +458,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets or sets the volumic weight of the saturated coverage layer.
         /// </summary>
-        public ShiftedLognormalDistribution SaturatedVolumicWeightOfCoverageLayer
+        public ShiftedLogNormalDistribution SaturatedVolumicWeightOfCoverageLayer
         {
             get
             {

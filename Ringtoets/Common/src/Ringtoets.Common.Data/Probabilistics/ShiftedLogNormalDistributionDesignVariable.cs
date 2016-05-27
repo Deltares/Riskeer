@@ -24,24 +24,24 @@ using Core.Common.Base.Data;
 namespace Ringtoets.Common.Data.Probabilistics
 {
     /// <summary>
-    /// This class defines a design variable for a shifted lognormal distribution.
+    /// This class defines a design variable for a shifted log-normal distribution.
     /// </summary>
-    public class ShiftedLognormalDistributionDesignVariable : DesignVariable<ShiftedLognormalDistribution>
+    public class ShiftedLogNormalDistributionDesignVariable : DesignVariable<ShiftedLogNormalDistribution>
     {
-        private readonly ShiftedLognormalDistribution distribution;
+        private readonly ShiftedLogNormalDistribution distribution;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ShiftedLognormalDistributionDesignVariable"/> class.
+        /// Initializes a new instance of the <see cref="ShiftedLogNormalDistributionDesignVariable"/> class.
         /// </summary>
-        /// <param name="distribution">A shifted lognormal distribution.</param>
-        public ShiftedLognormalDistributionDesignVariable(ShiftedLognormalDistribution distribution) : base(distribution)
+        /// <param name="distribution">A shifted log-normal distribution.</param>
+        public ShiftedLogNormalDistributionDesignVariable(ShiftedLogNormalDistribution distribution) : base(distribution)
         {
             this.distribution = distribution;
         }
 
         public override RoundedDouble GetDesignValue()
         {
-            return new LognormalDistributionDesignVariable(Distribution)
+            return new LogNormalDistributionDesignVariable(Distribution)
             {
                 Percentile = Percentile
             }.GetDesignValue() + distribution.Shift;

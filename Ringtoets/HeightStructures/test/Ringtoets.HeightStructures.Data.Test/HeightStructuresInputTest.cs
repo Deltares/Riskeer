@@ -62,116 +62,253 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(generalInput.ModelFactorForStorageVolume, input.ModelFactorForStorageVolume);
             Assert.AreEqual(generalInput.ModelFactorForIncomingFlowVolume, input.ModelFactorForIncomingFlowVolume);
 
-            Assert.AreEqual(0.05, input.LevelOfCrestOfStructure.StandardDeviation, input.LevelOfCrestOfStructure.StandardDeviation.GetAccuracy());
-            Assert.AreEqual(1.1, input.ModelFactorOvertoppingSuperCriticalFlow.Mean, input.ModelFactorOvertoppingSuperCriticalFlow.Mean.GetAccuracy());
-            Assert.AreEqual(0.03, input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation, input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation.GetAccuracy());
-            Assert.AreEqual(0.1, input.AllowableIncreaseOfLevelForStorage.StandardDeviation, input.AllowableIncreaseOfLevelForStorage.StandardDeviation.GetAccuracy());
-            Assert.AreEqual(0.1, input.StorageStructureArea.StandardDeviation, input.StorageStructureArea.StandardDeviation.GetAccuracy());
-            Assert.AreEqual(0.05, input.FlowWidthAtBottomProtection.StandardDeviation, input.FlowWidthAtBottomProtection.StandardDeviation.GetAccuracy());
-            Assert.AreEqual(0.15, input.CriticalOvertoppingDischarge.StandardDeviation, input.CriticalOvertoppingDischarge.StandardDeviation.GetAccuracy());
-            Assert.AreEqual(0.05, input.WidthOfFlowApertures.StandardDeviation, input.WidthOfFlowApertures.StandardDeviation.GetAccuracy());
-            Assert.AreEqual(7.5, input.StormDuration.Mean, input.StormDuration.Mean.GetAccuracy());
-            Assert.AreEqual(0.25, input.StormDuration.StandardDeviation, input.StormDuration.StandardDeviation.GetAccuracy());
+            AssertAreEqual(0.05, input.LevelOfCrestOfStructure.StandardDeviation);
+            AssertAreEqual(1.1, input.ModelFactorOvertoppingSuperCriticalFlow.Mean);
+            AssertAreEqual(0.03, input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation);
+            AssertAreEqual(0.1, input.AllowableIncreaseOfLevelForStorage.StandardDeviation);
+            AssertAreEqual(0.1, input.StorageStructureArea.StandardDeviation);
+            AssertAreEqual(0.05, input.FlowWidthAtBottomProtection.StandardDeviation);
+            AssertAreEqual(0.15, input.CriticalOvertoppingDischarge.StandardDeviation);
+            AssertAreEqual(0.05, input.WidthOfFlowApertures.StandardDeviation);
+            AssertAreEqual(7.5, input.StormDuration.Mean);
+            AssertAreEqual(0.25, input.StormDuration.StandardDeviation);
         }
 
         [Test]
-        public void Properties_ExpectedValues()
+        public void Properties_ModelFactorOvertoppingSuperCriticalFlow_ExpectedValues()
         {
             // Setup
-            var generalInput = new GeneralHeightStructuresInput();
-            var input = new HeightStructuresInput(generalInput);
+            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
             var random = new Random(22);
 
-            NormalDistribution levelOfCrestOfStructure = new NormalDistribution(2);
             RoundedDouble defaultModelFactorOvertoppingSupercriticalFlowStandardDeviation = input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation;
-            NormalDistribution modelFactorOvertoppingSupercriticalFlow = new NormalDistribution(2)
+            NormalDistribution modelFactorOvertoppingSuperCriticalFlow = new NormalDistribution(5)
             {
-                Mean = new RoundedDouble(5, random.NextDouble()),
-                StandardDeviation = new RoundedDouble(2, random.NextDouble())
+                Mean = (RoundedDouble) random.NextDouble(),
+                StandardDeviation = (RoundedDouble) random.NextDouble()
             };
+
+            // Call
+            input.ModelFactorOvertoppingSuperCriticalFlow = modelFactorOvertoppingSuperCriticalFlow;
+
+            // Assert
+            AssertAreEqual(modelFactorOvertoppingSuperCriticalFlow.Mean, input.ModelFactorOvertoppingSuperCriticalFlow.Mean);
+            AssertAreEqual(defaultModelFactorOvertoppingSupercriticalFlowStandardDeviation, input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation);
+        }
+
+        [Test]
+        public void Properties_HydraulicBoundaryLocation_ExpectedValues()
+        {
+            // Setup
+            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
             var location = new HydraulicBoundaryLocation(0, "test", 0, 0);
 
-            var orientationOfTheNormalOfTheStructure = new RoundedDouble(5, random.NextDouble());
-            var allowableIncreaseOfLevelForStorage = new LognormalDistribution(2)
+            // Call
+            input.HydraulicBoundaryLocation = location;
+
+            // Assert
+            Assert.AreEqual(location, input.HydraulicBoundaryLocation);
+        }
+
+        [Test]
+        public void Properties_DeviationOfTheWaveDirection_ExpectedValues()
+        {
+            // Setup
+            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var random = new Random(22);
+
+            RoundedDouble deviationOfTheWaveDirection = new RoundedDouble(5, random.NextDouble());
+
+            // Call
+            input.DeviationOfTheWaveDirection = deviationOfTheWaveDirection;
+
+            // Assert
+            AssertAreEqual(deviationOfTheWaveDirection, input.DeviationOfTheWaveDirection);
+        }
+
+        [Test]
+        public void Properties_StormDuration_ExpectedValues()
+        {
+            // Setup
+            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var random = new Random(22);
+
+            RoundedDouble defaultStormDurationStandardDeviation = input.StormDuration.StandardDeviation;
+            LogNormalDistribution stormDuration = new LogNormalDistribution(5)
             {
-                Mean = new RoundedDouble(2, random.NextDouble()),
-                StandardDeviation = new RoundedDouble(2, random.NextDouble())
+                Mean = (RoundedDouble) random.NextDouble(),
+                StandardDeviation = (RoundedDouble) random.NextDouble()
             };
-            var storageStructureArea = new LognormalDistribution(2)
+
+            // Call
+            input.StormDuration = stormDuration;
+
+            // Assert
+            AssertAreEqual(stormDuration.Mean, input.StormDuration.Mean);
+            AssertAreEqual(defaultStormDurationStandardDeviation, input.StormDuration.StandardDeviation);
+        }
+
+        [Test]
+        public void Properties_LevelOfCrestOfStructure_ExpectedValues()
+        {
+            // Setup
+            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var random = new Random(22);
+
+            NormalDistribution levelOfCrestOfStructure = new NormalDistribution(5)
             {
-                Mean = new RoundedDouble(2, random.NextDouble()),
-                StandardDeviation = new RoundedDouble(2, random.NextDouble())
-            };
-            var flowWidthAtBottomProtection = new LognormalDistribution(2)
-            {
-                Mean = new RoundedDouble(2, random.NextDouble()),
-                StandardDeviation = new RoundedDouble(2, random.NextDouble())
-            };
-            var criticalOvertoppingDischarge = new LognormalDistribution(2)
-            {
-                Mean = new RoundedDouble(2, random.NextDouble()),
-                StandardDeviation = new RoundedDouble(2, random.NextDouble())
-            };
-            var failureProbabilityOfStructureGivenErosion = new RoundedDouble(5, random.NextDouble());
-            var widthOfFlowApertures = new NormalDistribution(2)
-            {
-                Mean = new RoundedDouble(2, random.NextDouble()),
-                StandardDeviation = new RoundedDouble(2, random.NextDouble())
-            };
-            var deviationOfTheWaveDirection = new RoundedDouble(5, random.NextDouble());
-            RoundedDouble defaultStormDuration = input.StormDuration.StandardDeviation;
-            var stormDuration = new LognormalDistribution(2)
-            {
-                Mean = new RoundedDouble(2, random.NextDouble()),
-                StandardDeviation = new RoundedDouble(2, random.NextDouble())
+                Mean = (RoundedDouble) random.NextDouble(),
+                StandardDeviation = (RoundedDouble) random.NextDouble()
             };
 
             // Call
             input.LevelOfCrestOfStructure = levelOfCrestOfStructure;
-            input.OrientationOfTheNormalOfTheStructure = orientationOfTheNormalOfTheStructure;
-            input.ModelFactorOvertoppingSuperCriticalFlow = modelFactorOvertoppingSupercriticalFlow;
-            input.AllowableIncreaseOfLevelForStorage = allowableIncreaseOfLevelForStorage;
-            input.StorageStructureArea = storageStructureArea;
-            input.FlowWidthAtBottomProtection = flowWidthAtBottomProtection;
-            input.CriticalOvertoppingDischarge = criticalOvertoppingDischarge;
-            input.FailureProbabilityOfStructureGivenErosion = failureProbabilityOfStructureGivenErosion;
-            input.WidthOfFlowApertures = widthOfFlowApertures;
-            input.DeviationOfTheWaveDirection = deviationOfTheWaveDirection;
-            input.StormDuration = stormDuration;
-            input.HydraulicBoundaryLocation = location;
 
             // Assert
-            Assert.AreEqual(levelOfCrestOfStructure.Mean, input.LevelOfCrestOfStructure.Mean);
-            Assert.AreEqual(levelOfCrestOfStructure.StandardDeviation, input.LevelOfCrestOfStructure.StandardDeviation);
+            AssertAreEqual(levelOfCrestOfStructure.Mean, input.LevelOfCrestOfStructure.Mean);
+            AssertAreEqual(levelOfCrestOfStructure.StandardDeviation, input.LevelOfCrestOfStructure.StandardDeviation);
+        }
 
-            Assert.AreEqual(modelFactorOvertoppingSupercriticalFlow.Mean, input.ModelFactorOvertoppingSuperCriticalFlow.Mean);
-            Assert.AreEqual(defaultModelFactorOvertoppingSupercriticalFlowStandardDeviation, input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation);
+        [Test]
+        public void Properties_OrientationOfTheNormalOfTheStructure_ExpectedValues()
+        {
+            // Setup
+            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var random = new Random(22);
 
-            Assert.AreEqual(orientationOfTheNormalOfTheStructure, input.OrientationOfTheNormalOfTheStructure, input.OrientationOfTheNormalOfTheStructure.GetAccuracy());
+            RoundedDouble orientationOfTheNormalOfTheStructure = new RoundedDouble(5, random.NextDouble());
 
-            Assert.AreEqual(allowableIncreaseOfLevelForStorage.Mean, input.AllowableIncreaseOfLevelForStorage.Mean);
-            Assert.AreEqual(allowableIncreaseOfLevelForStorage.StandardDeviation, input.AllowableIncreaseOfLevelForStorage.StandardDeviation);
+            // Call
+            input.OrientationOfTheNormalOfTheStructure = orientationOfTheNormalOfTheStructure;
 
-            Assert.AreEqual(storageStructureArea.Mean, input.StorageStructureArea.Mean);
-            Assert.AreEqual(storageStructureArea.StandardDeviation, input.StorageStructureArea.StandardDeviation);
+            // Assert
+            AssertAreEqual(orientationOfTheNormalOfTheStructure, input.OrientationOfTheNormalOfTheStructure);
+        }
 
-            Assert.AreEqual(flowWidthAtBottomProtection.Mean, input.FlowWidthAtBottomProtection.Mean);
-            Assert.AreEqual(flowWidthAtBottomProtection.StandardDeviation, input.FlowWidthAtBottomProtection.StandardDeviation);
+        [Test]
+        public void Properties_AllowableIncreaseOfLevelForStorage_ExpectedValues()
+        {
+            // Setup
+            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var random = new Random(22);
 
-            Assert.AreEqual(criticalOvertoppingDischarge.Mean, input.CriticalOvertoppingDischarge.Mean);
-            Assert.AreEqual(criticalOvertoppingDischarge.StandardDeviation, input.CriticalOvertoppingDischarge.StandardDeviation);
+            LogNormalDistribution allowableIncreaseOfLevelForStorage = new LogNormalDistribution(5)
+            {
+                Mean = (RoundedDouble) random.NextDouble(),
+                StandardDeviation = (RoundedDouble) random.NextDouble()
+            };
 
-            Assert.AreEqual(failureProbabilityOfStructureGivenErosion, input.FailureProbabilityOfStructureGivenErosion, input.FailureProbabilityOfStructureGivenErosion.GetAccuracy());
+            // Call
+            input.AllowableIncreaseOfLevelForStorage = allowableIncreaseOfLevelForStorage;
 
-            Assert.AreEqual(widthOfFlowApertures.Mean, input.WidthOfFlowApertures.Mean);
-            Assert.AreEqual(widthOfFlowApertures.StandardDeviation, input.WidthOfFlowApertures.StandardDeviation);
+            // Assert
+            AssertAreEqual(allowableIncreaseOfLevelForStorage.Mean, input.AllowableIncreaseOfLevelForStorage.Mean);
+            AssertAreEqual(allowableIncreaseOfLevelForStorage.StandardDeviation, input.AllowableIncreaseOfLevelForStorage.StandardDeviation);
+        }
 
-            Assert.AreEqual(deviationOfTheWaveDirection, input.DeviationOfTheWaveDirection, input.DeviationOfTheWaveDirection.GetAccuracy());
+        [Test]
+        public void Properties_StorageStructureArea_ExpectedValues()
+        {
+            // Setup
+            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var random = new Random(22);
 
-            Assert.AreEqual(stormDuration.Mean, input.StormDuration.Mean);
-            Assert.AreEqual(defaultStormDuration, input.StormDuration.StandardDeviation);
+            LogNormalDistribution storageStructureArea = new LogNormalDistribution(5)
+            {
+                Mean = (RoundedDouble) random.NextDouble(),
+                StandardDeviation = (RoundedDouble) random.NextDouble()
+            };
 
-            Assert.AreEqual(location, input.HydraulicBoundaryLocation);
+            // Call
+            input.StorageStructureArea = storageStructureArea;
+
+            // Assert
+            AssertAreEqual(storageStructureArea.Mean, input.StorageStructureArea.Mean);
+            AssertAreEqual(storageStructureArea.StandardDeviation, input.StorageStructureArea.StandardDeviation);
+        }
+
+        [Test]
+        public void Properties_FlowWidthAtBottomProtection_ExpectedValues()
+        {
+            // Setup
+            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var random = new Random(22);
+
+            LogNormalDistribution flowWidthAtBottomProtection = new LogNormalDistribution(5)
+            {
+                Mean = (RoundedDouble) random.NextDouble(),
+                StandardDeviation = (RoundedDouble) random.NextDouble()
+            };
+
+            // Call
+            input.FlowWidthAtBottomProtection = flowWidthAtBottomProtection;
+
+            // Assert
+            AssertAreEqual(flowWidthAtBottomProtection.Mean, input.FlowWidthAtBottomProtection.Mean);
+            AssertAreEqual(flowWidthAtBottomProtection.StandardDeviation, input.FlowWidthAtBottomProtection.StandardDeviation);
+        }
+
+        [Test]
+        public void Properties_CriticalOvertoppingDischarge_ExpectedValues()
+        {
+            // Setup
+            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var random = new Random(22);
+
+            LogNormalDistribution criticalOvertoppingDischarge = new LogNormalDistribution(5)
+            {
+                Mean = (RoundedDouble) random.NextDouble(),
+                StandardDeviation = (RoundedDouble) random.NextDouble()
+            };
+
+            // Call
+            input.CriticalOvertoppingDischarge = criticalOvertoppingDischarge;
+
+            // Assert
+            AssertAreEqual(criticalOvertoppingDischarge.Mean, input.CriticalOvertoppingDischarge.Mean);
+            AssertAreEqual(criticalOvertoppingDischarge.StandardDeviation, input.CriticalOvertoppingDischarge.StandardDeviation);
+        }
+
+        [Test]
+        public void Properties_FailureProbabilityOfStructureGivenErosion_ExpectedValues()
+        {
+            // Setup
+            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var random = new Random(22);
+
+            RoundedDouble failureProbabilityOfStructureGivenErosion = new RoundedDouble(5, random.NextDouble());
+
+            // Call
+            input.FailureProbabilityOfStructureGivenErosion = failureProbabilityOfStructureGivenErosion;
+
+            // Assert
+            AssertAreEqual(failureProbabilityOfStructureGivenErosion, input.FailureProbabilityOfStructureGivenErosion);
+        }
+
+        [Test]
+        public void Properties_WidthOfFlowApertures_ExpectedValues()
+        {
+            // Setup
+            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var random = new Random(22);
+
+            NormalDistribution widthOfFlowApertures = new NormalDistribution(5)
+            {
+                Mean = (RoundedDouble) random.NextDouble(),
+                StandardDeviation = (RoundedDouble) random.NextDouble()
+            };
+
+            // Call
+            input.WidthOfFlowApertures = widthOfFlowApertures;
+
+            // Assert
+            AssertAreEqual(widthOfFlowApertures.Mean, input.WidthOfFlowApertures.Mean);
+            AssertAreEqual(widthOfFlowApertures.StandardDeviation, input.WidthOfFlowApertures.StandardDeviation);
+        }
+
+        private static void AssertAreEqual(double expectedValue, RoundedDouble actualValue)
+        {
+            Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
         }
     }
 }

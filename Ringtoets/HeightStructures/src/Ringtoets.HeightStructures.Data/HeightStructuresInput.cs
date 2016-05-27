@@ -36,12 +36,12 @@ namespace Ringtoets.HeightStructures.Data
         private readonly NormalDistribution levelOfCrestOfStructure;
         private readonly GeneralHeightStructuresInput generalInputParameters;
         private readonly NormalDistribution modelFactorOvertoppingSuperCriticalFlow;
-        private readonly LognormalDistribution allowableIncreaseOfLevelForStorage;
-        private readonly LognormalDistribution storageStructureArea;
-        private readonly LognormalDistribution flowWidthAtBottomProtection;
-        private readonly LognormalDistribution criticalOvertoppingDischarge;
+        private readonly LogNormalDistribution allowableIncreaseOfLevelForStorage;
+        private readonly LogNormalDistribution storageStructureArea;
+        private readonly LogNormalDistribution flowWidthAtBottomProtection;
+        private readonly LogNormalDistribution criticalOvertoppingDischarge;
         private readonly NormalDistribution widthOfFlowApertures;
-        private readonly LognormalDistribution stormDuration;
+        private readonly LogNormalDistribution stormDuration;
         private RoundedDouble orientationOfTheNormalOfTheStructure;
         private RoundedDouble failureProbabilityOfStructureGivenErosion;
         private RoundedDouble deviationOfTheWaveDirection;
@@ -72,25 +72,25 @@ namespace Ringtoets.HeightStructures.Data
                 StandardDeviation = (RoundedDouble) 0.03
             };
 
-            allowableIncreaseOfLevelForStorage = new LognormalDistribution(2)
+            allowableIncreaseOfLevelForStorage = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) double.NaN,
                 StandardDeviation = (RoundedDouble) 0.1
             };
 
-            storageStructureArea = new LognormalDistribution(2)
+            storageStructureArea = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) double.NaN,
                 StandardDeviation = (RoundedDouble) 0.1
             };
 
-            flowWidthAtBottomProtection = new LognormalDistribution(2)
+            flowWidthAtBottomProtection = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) double.NaN,
                 StandardDeviation = (RoundedDouble) 0.05
             };
 
-            criticalOvertoppingDischarge = new LognormalDistribution(2)
+            criticalOvertoppingDischarge = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) double.NaN,
                 StandardDeviation = (RoundedDouble) 0.15
@@ -105,7 +105,7 @@ namespace Ringtoets.HeightStructures.Data
 
             deviationOfTheWaveDirection = new RoundedDouble(2);
 
-            stormDuration = new LognormalDistribution(2)
+            stormDuration = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 7.5,
                 StandardDeviation = (RoundedDouble) 0.25
@@ -156,7 +156,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets or sets the storm duration
         /// </summary>
-        public LognormalDistribution StormDuration
+        public LogNormalDistribution StormDuration
         {
             get
             {
@@ -206,7 +206,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets or sets the allowable increase of level for the storage.
         /// </summary>
-        public LognormalDistribution AllowableIncreaseOfLevelForStorage
+        public LogNormalDistribution AllowableIncreaseOfLevelForStorage
         {
             get
             {
@@ -222,7 +222,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets or sets the storage structure area.
         /// </summary>
-        public LognormalDistribution StorageStructureArea
+        public LogNormalDistribution StorageStructureArea
         {
             get
             {
@@ -238,7 +238,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets or sets the flow width at bottom protection.
         /// </summary>
-        public LognormalDistribution FlowWidthAtBottomProtection
+        public LogNormalDistribution FlowWidthAtBottomProtection
         {
             get
             {
@@ -254,7 +254,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets or sets the critical overtopping discharge.
         /// </summary>
-        public LognormalDistribution CriticalOvertoppingDischarge
+        public LogNormalDistribution CriticalOvertoppingDischarge
         {
             get
             {
@@ -317,7 +317,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets the model factor overtopping flow.
         /// </summary>
-        public LognormalDistribution ModelFactorOvertoppingFlow
+        public LogNormalDistribution ModelFactorOvertoppingFlow
         {
             get
             {
@@ -328,7 +328,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets the model factor for storage volume.
         /// </summary>
-        public LognormalDistribution ModelFactorForStorageVolume
+        public LogNormalDistribution ModelFactorForStorageVolume
         {
             get
             {

@@ -28,20 +28,20 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// <summary>
     /// Class representing a log-normal distribution.
     /// </summary>
-    public class LognormalDistribution : IDistribution
+    public class LogNormalDistribution : IDistribution
     {
         private RoundedDouble standardDeviation;
         private RoundedDouble mean;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LognormalDistribution"/> class,
+        /// Initializes a new instance of the <see cref="LogNormalDistribution"/> class,
         /// initialized as the standard log-normal distribution (mu=0, sigma=1).
         /// </summary>
         /// <param name="numberOfDecimalPlaces">The number of decimal places.</param>
         /// <exception cref="System.ArgumentOutOfRangeException">
         /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [1, <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>].
         /// </exception>
-        public LognormalDistribution(int numberOfDecimalPlaces)
+        public LogNormalDistribution(int numberOfDecimalPlaces)
         {
             if (numberOfDecimalPlaces == 0)
             {

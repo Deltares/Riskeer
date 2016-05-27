@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             CollectionAssert.IsEmpty(input.DikeGeometry);
             Assert.IsNull(input.HydraulicBoundaryLocation);
 
-            var criticalFlowRate = new LognormalDistribution(4)
+            var criticalFlowRate = new LogNormalDistribution(4)
             {
                 Mean = new RoundedDouble(4, 0.004),
                 StandardDeviation = new RoundedDouble(4, 0.0006)
@@ -80,7 +80,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
             var input = new GrassCoverErosionInwardsInput(generalInput);
             var orientation = new RoundedDouble(2, 1.18);
-            var logNormal = new LognormalDistribution(2);
+            var logNormal = new LogNormalDistribution(2);
             const bool useForeshore = true;
             var breakWater = new BreakWater(BreakWaterType.Caisson, 2.2);
             const bool useBreakWater = true;

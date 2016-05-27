@@ -81,11 +81,11 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the seepage length.
         /// </summary>
-        public LognormalDistribution SeepageLength
+        public LogNormalDistribution SeepageLength
         {
             get
             {
-                LognormalDistribution seepageLength = new LognormalDistribution(2);
+                LogNormalDistribution seepageLength = new LogNormalDistribution(2);
                 double seepageLengthMean = input.ExitPointL - input.EntryPointL;
                 if (seepageLengthMean > 0)
                 {
@@ -105,11 +105,11 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the thickness coverage layer.
         /// </summary>
-        public LognormalDistribution ThicknessCoverageLayer
+        public LogNormalDistribution ThicknessCoverageLayer
         {
             get
             {
-                LognormalDistribution thicknessCoverageLayer = new LognormalDistribution(2)
+                LogNormalDistribution thicknessCoverageLayer = new LogNormalDistribution(2)
                 {
                     StandardDeviation = (RoundedDouble) 0.5
                 };
@@ -129,11 +129,11 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// gets the thickness aquifer layer.
         /// </summary>
-        public LognormalDistribution ThicknessAquiferLayer
+        public LogNormalDistribution ThicknessAquiferLayer
         {
             get
             {
-                LognormalDistribution thicknessAquiferLayer = new LognormalDistribution(2)
+                LogNormalDistribution thicknessAquiferLayer = new LogNormalDistribution(2)
                 {
                     StandardDeviation = (RoundedDouble) 0.5
                 };
@@ -157,7 +157,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        private static void TrySetThicknessAquiferLayerMean(LognormalDistribution thicknessAquiferLayer, double thicknessTopAquiferLayer)
+        private static void TrySetThicknessAquiferLayerMean(LogNormalDistribution thicknessAquiferLayer, double thicknessTopAquiferLayer)
         {
             if (thicknessTopAquiferLayer > 0)
             {
@@ -186,7 +186,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        private void TrySetThicknessCoverageLayer(LognormalDistribution thicknessCoverageLayer)
+        private void TrySetThicknessCoverageLayer(LogNormalDistribution thicknessCoverageLayer)
         {
             try
             {

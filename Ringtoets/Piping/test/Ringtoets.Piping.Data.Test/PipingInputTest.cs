@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(1, inputParameters.PhreaticLevelExit.StandardDeviation.Value);
             Assert.AreEqual(3, inputParameters.PhreaticLevelExit.StandardDeviation.NumberOfDecimalPlaces);
 
-            Assert.IsInstanceOf<LognormalDistribution>(inputParameters.DampingFactorExit);
+            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.DampingFactorExit);
             Assert.AreEqual(0.7, inputParameters.DampingFactorExit.Mean.Value);
             Assert.AreEqual(3, inputParameters.DampingFactorExit.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, inputParameters.DampingFactorExit.StandardDeviation,
@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Data.Test
             double defaultLogNormalMean = Math.Exp(-0.5);
             double defaultLogNormalStandardDev = Math.Sqrt((Math.Exp(1) - 1)*Math.Exp(1));
 
-            Assert.IsInstanceOf<LognormalDistribution>(inputParameters.Diameter70);
+            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.Diameter70);
             Assert.AreEqual(defaultLogNormalMean, inputParameters.Diameter70.Mean,
                             GetErrorTolerance(inputParameters.Diameter70.Mean));
             Assert.AreEqual(2, inputParameters.Diameter70.Mean.NumberOfDecimalPlaces);
@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.Data.Test
                             GetErrorTolerance(inputParameters.Diameter70.StandardDeviation));
             Assert.AreEqual(2, inputParameters.Diameter70.StandardDeviation.NumberOfDecimalPlaces);
 
-            Assert.IsInstanceOf<LognormalDistribution>(inputParameters.DarcyPermeability);
+            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.DarcyPermeability);
             Assert.AreEqual(defaultLogNormalMean, inputParameters.DarcyPermeability.Mean,
                             GetErrorTolerance(inputParameters.DarcyPermeability.Mean));
             Assert.AreEqual(3, inputParameters.DarcyPermeability.Mean.NumberOfDecimalPlaces);
@@ -103,25 +103,25 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(generalInputParameters.BeddingAngle, inputParameters.BeddingAngle);
             Assert.AreEqual(generalInputParameters.MeanDiameter70, inputParameters.MeanDiameter70);
 
-            Assert.IsInstanceOf<LognormalDistribution>(inputParameters.ThicknessCoverageLayer);
+            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.ThicknessCoverageLayer);
             Assert.IsNaN(inputParameters.ThicknessCoverageLayer.Mean);
             Assert.AreEqual(2, inputParameters.ThicknessCoverageLayer.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(0.5, inputParameters.ThicknessCoverageLayer.StandardDeviation.Value);
             Assert.AreEqual(2, inputParameters.ThicknessCoverageLayer.StandardDeviation.NumberOfDecimalPlaces);
 
-            Assert.IsInstanceOf<ShiftedLognormalDistribution>(inputParameters.SaturatedVolumicWeightOfCoverageLayer);
+            Assert.IsInstanceOf<ShiftedLogNormalDistribution>(inputParameters.SaturatedVolumicWeightOfCoverageLayer);
             Assert.AreEqual(17.5, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean.Value);
             Assert.AreEqual(2, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(0, inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation.Value);
             Assert.AreEqual(2, inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation.NumberOfDecimalPlaces);
 
-            Assert.IsInstanceOf<LognormalDistribution>(inputParameters.ThicknessAquiferLayer);
+            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.ThicknessAquiferLayer);
             Assert.IsNaN(inputParameters.ThicknessAquiferLayer.Mean);
             Assert.AreEqual(2, inputParameters.ThicknessAquiferLayer.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(0.5, inputParameters.ThicknessAquiferLayer.StandardDeviation.Value);
             Assert.AreEqual(2, inputParameters.ThicknessAquiferLayer.StandardDeviation.NumberOfDecimalPlaces);
 
-            Assert.IsInstanceOf<LognormalDistribution>(inputParameters.SeepageLength);
+            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.SeepageLength);
             Assert.IsNaN(inputParameters.SeepageLength.Mean);
             Assert.AreEqual(2, inputParameters.SeepageLength.Mean.NumberOfDecimalPlaces);
             Assert.IsNaN(inputParameters.SeepageLength.StandardDeviation);
@@ -268,9 +268,9 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var inputs = new PipingInput(new GeneralPipingInput());
-            LognormalDistribution originalDampingFactorExit = inputs.DampingFactorExit;
+            LogNormalDistribution originalDampingFactorExit = inputs.DampingFactorExit;
 
-            var newValue = new LognormalDistribution(5)
+            var newValue = new LogNormalDistribution(5)
             {
                 Mean = (RoundedDouble) 4.56789,
                 StandardDeviation = (RoundedDouble) 1.23456
@@ -293,9 +293,9 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var inputs = new PipingInput(new GeneralPipingInput());
-            ShiftedLognormalDistribution originalSaturatedVolumicWeightOfCoverageLayer = inputs.SaturatedVolumicWeightOfCoverageLayer;
+            ShiftedLogNormalDistribution originalSaturatedVolumicWeightOfCoverageLayer = inputs.SaturatedVolumicWeightOfCoverageLayer;
 
-            var newValue = new ShiftedLognormalDistribution(5)
+            var newValue = new ShiftedLogNormalDistribution(5)
             {
                 Mean = (RoundedDouble) 1.11111,
                 StandardDeviation = (RoundedDouble) 2.22222,
@@ -321,9 +321,9 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var inputs = new PipingInput(new GeneralPipingInput());
-            LognormalDistribution originalDiameter70 = inputs.Diameter70;
+            LogNormalDistribution originalDiameter70 = inputs.Diameter70;
 
-            var newValue = new LognormalDistribution(5)
+            var newValue = new LogNormalDistribution(5)
             {
                 Mean = (RoundedDouble) 8.8888,
                 StandardDeviation = (RoundedDouble) 9.14363
@@ -346,9 +346,9 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var inputs = new PipingInput(new GeneralPipingInput());
-            LognormalDistribution originalDarcyPermeability = inputs.DarcyPermeability;
+            LogNormalDistribution originalDarcyPermeability = inputs.DarcyPermeability;
 
-            var newValue = new LognormalDistribution(5)
+            var newValue = new LogNormalDistribution(5)
             {
                 Mean = (RoundedDouble) 1.93753,
                 StandardDeviation = (RoundedDouble) 859.49028
@@ -474,7 +474,7 @@ namespace Ringtoets.Piping.Data.Test
             input.SurfaceLine = null;
 
             // Call
-            LognormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
+            LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
 
             // Assert
             Assert.IsNaN(thicknessAquiferLayer.Mean);
@@ -488,7 +488,7 @@ namespace Ringtoets.Piping.Data.Test
             input.SurfaceLine = null;
 
             // Call
-            LognormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
+            LogNormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
 
             // Assert
             Assert.IsNaN(thicknessCoverageLayer.Mean);
@@ -503,7 +503,7 @@ namespace Ringtoets.Piping.Data.Test
             var input = PipingCalculationFactory.CreateInputWithSingleAquiferLayerAboveSurfaceLine(deltaAboveSurfaceLine);
 
             // Call
-            LognormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
+            LogNormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
 
             // Assert
             Assert.IsNaN(thicknessCoverageLayer.Mean);
@@ -518,7 +518,7 @@ namespace Ringtoets.Piping.Data.Test
             var input = PipingCalculationFactory.CreateInputWithSingleAquiferLayerAboveSurfaceLine(deltaAboveSurfaceLine);
 
             // Call
-            LognormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
+            LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
 
             // Assert
             Assert.IsNaN(thicknessAquiferLayer.Mean);
@@ -532,7 +532,7 @@ namespace Ringtoets.Piping.Data.Test
             var input = PipingCalculationFactory.CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out expectedThickness);
 
             // Call
-            LognormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
+            LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
 
             // Assert
             Assert.AreEqual(expectedThickness, thicknessAquiferLayer.Mean, 1e-6);
@@ -546,7 +546,7 @@ namespace Ringtoets.Piping.Data.Test
             input.ExitPointL = (RoundedDouble) double.NaN;
 
             // Call
-            LognormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
+            LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
 
             // Assert
             Assert.IsNaN(thicknessAquiferLayer.Mean);
@@ -560,7 +560,7 @@ namespace Ringtoets.Piping.Data.Test
             input.ExitPointL = (RoundedDouble) 3.0;
 
             // Call
-            LognormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
+            LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
 
             // Assert
             Assert.IsNaN(thicknessAquiferLayer.Mean);
@@ -574,7 +574,7 @@ namespace Ringtoets.Piping.Data.Test
             input.ExitPointL = (RoundedDouble) 3.0;
 
             // Call
-            LognormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
+            LogNormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
 
             // Assert
             Assert.IsNaN(thicknessCoverageLayer.Mean);
@@ -590,7 +590,7 @@ namespace Ringtoets.Piping.Data.Test
             input.StochasticSoilProfile = null;
 
             // Call
-            LognormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
+            LogNormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
 
             // Assert
             Assert.IsNaN(thicknessCoverageLayer.Mean);
@@ -613,7 +613,7 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            LognormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
+            LogNormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
 
             // Assert
             Assert.IsNaN(thicknessCoverageLayer.Mean);
@@ -636,7 +636,7 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            LognormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
+            LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
 
             // Assert
             Assert.IsNaN(thicknessAquiferLayer.Mean);
@@ -705,7 +705,7 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            LognormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
+            LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
 
             // Assert
             Assert.IsNaN(thicknessAquiferLayer.Mean);
@@ -732,7 +732,7 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            LognormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
+            LogNormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
 
             // Assert
             Assert.IsNaN(thicknessCoverageLayer.Mean);

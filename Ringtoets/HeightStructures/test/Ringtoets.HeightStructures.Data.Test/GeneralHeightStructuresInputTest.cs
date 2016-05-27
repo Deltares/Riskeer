@@ -42,16 +42,16 @@ namespace Ringtoets.HeightStructures.Data.Test
                 Mean = new RoundedDouble(3, 0.09),
                 StandardDeviation = new RoundedDouble(3, 0.06)
             };
-            Assert.AreEqual(modelfactorOvertopping.Mean, inputParameters.ModelFactorOvertoppingFlow.Mean, 1e-6);
-            Assert.AreEqual(modelfactorOvertopping.StandardDeviation, inputParameters.ModelFactorOvertoppingFlow.StandardDeviation, 1e-6);
+            Assert.AreEqual(modelfactorOvertopping.Mean, inputParameters.ModelFactorOvertoppingFlow.Mean);
+            Assert.AreEqual(modelfactorOvertopping.StandardDeviation, inputParameters.ModelFactorOvertoppingFlow.StandardDeviation);
 
             var modelFactorForStorageVolume = new NormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, 1.00),
                 StandardDeviation = new RoundedDouble(2, 0.20)
             };
-            Assert.AreEqual(modelFactorForStorageVolume.Mean, inputParameters.ModelFactorForStorageVolume.Mean, 1e-6);
-            Assert.AreEqual(modelFactorForStorageVolume.StandardDeviation, inputParameters.ModelFactorForStorageVolume.StandardDeviation, 1e-6);
+            Assert.AreEqual(modelFactorForStorageVolume.Mean, inputParameters.ModelFactorForStorageVolume.Mean);
+            Assert.AreEqual(modelFactorForStorageVolume.StandardDeviation, inputParameters.ModelFactorForStorageVolume.StandardDeviation);
 
             Assert.AreEqual(1, inputParameters.ModelFactorForIncomingFlowVolume, 1e-6);
         }

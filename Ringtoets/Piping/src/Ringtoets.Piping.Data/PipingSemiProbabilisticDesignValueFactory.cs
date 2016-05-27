@@ -36,17 +36,17 @@ namespace Ringtoets.Piping.Data
             };
         }
 
-        private static DesignVariable<LognormalDistribution> CreateDesignVariable(LognormalDistribution distribution, double percentile)
+        private static DesignVariable<LogNormalDistribution> CreateDesignVariable(LogNormalDistribution distribution, double percentile)
         {
-            return new LognormalDistributionDesignVariable(distribution)
+            return new LogNormalDistributionDesignVariable(distribution)
             {
                 Percentile = percentile
             };
         }
 
-        private static DesignVariable<ShiftedLognormalDistribution> CreateDesignVariable(ShiftedLognormalDistribution distribution, double percentile)
+        private static DesignVariable<ShiftedLogNormalDistribution> CreateDesignVariable(ShiftedLogNormalDistribution distribution, double percentile)
         {
-            return new ShiftedLognormalDistributionDesignVariable(distribution)
+            return new ShiftedLogNormalDistributionDesignVariable(distribution)
             {
                 Percentile = percentile
             };
@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Creates the design variable for <see cref="PipingInput.SaturatedVolumicWeightOfCoverageLayer"/>.
         /// </summary>
-        public static DesignVariable<ShiftedLognormalDistribution> GetSaturatedVolumicWeightOfCoverageLayer(PipingInput parameters)
+        public static DesignVariable<ShiftedLogNormalDistribution> GetSaturatedVolumicWeightOfCoverageLayer(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.SaturatedVolumicWeightOfCoverageLayer, 0.05);
         }
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Creates the design variable for <see cref="PipingInput.ThicknessCoverageLayer"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetThicknessCoverageLayer(PipingInput parameters)
+        public static DesignVariable<LogNormalDistribution> GetThicknessCoverageLayer(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.ThicknessCoverageLayer, 0.05);
         }
@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Creates the design variable for <see cref="PipingInput.DampingFactorExit"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetDampingFactorExit(PipingInput parameters)
+        public static DesignVariable<LogNormalDistribution> GetDampingFactorExit(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.DampingFactorExit, 0.95);
         }
@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Creates the design variable for <see cref="PipingInput.SeepageLength"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetSeepageLength(PipingInput parameters)
+        public static DesignVariable<LogNormalDistribution> GetSeepageLength(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.SeepageLength, 0.05);
         }
@@ -101,7 +101,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Creates the design variable for <see cref="PipingInput.Diameter70"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetDiameter70(PipingInput parameters)
+        public static DesignVariable<LogNormalDistribution> GetDiameter70(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.Diameter70, 0.05);
         }
@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Creates the design variable for <see cref="PipingInput.DarcyPermeability"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetDarcyPermeability(PipingInput parameters)
+        public static DesignVariable<LogNormalDistribution> GetDarcyPermeability(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.DarcyPermeability, 0.95);
         }
@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Creates the design variable for <see cref="PipingInput.ThicknessAquiferLayer"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetThicknessAquiferLayer(PipingInput parameters)
+        public static DesignVariable<LogNormalDistribution> GetThicknessAquiferLayer(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.ThicknessAquiferLayer, 0.95);
         }

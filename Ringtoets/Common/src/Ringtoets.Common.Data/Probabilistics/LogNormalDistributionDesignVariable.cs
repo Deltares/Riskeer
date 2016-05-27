@@ -25,20 +25,20 @@ using Core.Common.Base.Data;
 namespace Ringtoets.Common.Data.Probabilistics
 {
     /// <summary>
-    /// This class defines a design variable for a lognormal distribution.
+    /// This class defines a design variable for a log-normal distribution.
     /// </summary>
-    public class LognormalDistributionDesignVariable : DesignVariable<LognormalDistribution>
+    public class LogNormalDistributionDesignVariable : DesignVariable<LogNormalDistribution>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="LognormalDistributionDesignVariable"/> class.
+        /// Initializes a new instance of the <see cref="LogNormalDistributionDesignVariable"/> class.
         /// </summary>
-        /// <param name="distribution">A lognormal distribution.</param>
-        public LognormalDistributionDesignVariable(LognormalDistribution distribution) : base(distribution) {}
+        /// <param name="distribution">A log-normal distribution.</param>
+        public LogNormalDistributionDesignVariable(LogNormalDistribution distribution) : base(distribution) {}
 
         public override RoundedDouble GetDesignValue()
         {
             RoundedDouble normalSpaceDesignValue = DetermineDesignValueInNormalDistributionSpace();
-            return ProjectFromNormalToLognormalSpace(normalSpaceDesignValue);
+            return ProjectFromNormalToLogNormalSpace(normalSpaceDesignValue);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Data.Probabilistics
                                         new RoundedDouble(Distribution.StandardDeviation.NumberOfDecimalPlaces, sigmaNormal));
         }
 
-        private static RoundedDouble ProjectFromNormalToLognormalSpace(RoundedDouble normalSpaceDesignValue)
+        private static RoundedDouble ProjectFromNormalToLogNormalSpace(RoundedDouble normalSpaceDesignValue)
         {
             return new RoundedDouble(normalSpaceDesignValue.NumberOfDecimalPlaces, Math.Exp(normalSpaceDesignValue));
         }

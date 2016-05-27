@@ -30,7 +30,7 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="LognormalDistribution"/>
+    /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="LogNormalDistribution"/>
     /// properties.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]

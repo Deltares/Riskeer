@@ -72,8 +72,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             yield return new ViewInfo<
                 FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>,
                 IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>,
-                GrassCoverErosionInwardsFailureMechanismResultView
-                >
+                GrassCoverErosionInwardsFailureMechanismResultView>
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,

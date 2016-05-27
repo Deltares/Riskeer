@@ -83,7 +83,10 @@ namespace Ringtoets.Piping.Plugin
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant
             };
 
-            yield return new ViewInfo<FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>, IEnumerable<PipingFailureMechanismSectionResult>, PipingFailureMechanismResultView>
+            yield return new ViewInfo<
+                FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>, 
+                IEnumerable<PipingFailureMechanismSectionResult>, 
+                PipingFailureMechanismResultView>
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,

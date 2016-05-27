@@ -106,7 +106,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var properties = new LogNormalDistributionProperties(null)
             {
-                Data = new LognormalDistribution(2),
+                Data = new LogNormalDistribution(2),
             };
 
             // Call
@@ -122,7 +122,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var properties = new LogNormalDistributionProperties(null)
             {
-                Data = new LognormalDistribution(2)
+                Data = new LogNormalDistribution(2)
             };
 
             // Call
@@ -142,7 +142,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             observerableMock.Expect(o => o.NotifyObservers()).Repeat.Once();
             var properties = new LogNormalDistributionProperties(observerableMock)
             {
-                Data = new LognormalDistribution(3)
+                Data = new LogNormalDistribution(3)
             };
             mockRepository.ReplayAll();
             RoundedDouble newMeanValue = new RoundedDouble(3, 20);
@@ -163,7 +163,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             observerableMock.Expect(o => o.NotifyObservers()).Repeat.Once();
             var properties = new LogNormalDistributionProperties(observerableMock)
             {
-                Data = new LognormalDistribution(3)
+                Data = new LogNormalDistribution(3)
             };
             mockRepository.ReplayAll();
             RoundedDouble newStandardDeviationValue = new RoundedDouble(3, 20);

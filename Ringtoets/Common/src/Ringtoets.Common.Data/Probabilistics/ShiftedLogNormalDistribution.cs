@@ -24,22 +24,22 @@ using Core.Common.Base.Data;
 namespace Ringtoets.Common.Data.Probabilistics
 {
     /// <summary>
-    /// Class represents a specialized case of <see cref="LognormalDistribution"/> that has
+    /// Class represents a specialized case of <see cref="LogNormalDistribution"/> that has
     /// been shifted along the X-axis.
     /// </summary>
-    public class ShiftedLognormalDistribution : LognormalDistribution
+    public class ShiftedLogNormalDistribution : LogNormalDistribution
     {
         private RoundedDouble shift;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ShiftedLognormalDistribution"/> class,
+        /// Initializes a new instance of the <see cref="ShiftedLogNormalDistribution"/> class,
         /// initialized as the standard log-normal distribution (mu=0, sigma=1).
         /// </summary>
         /// <param name="numberOfDecimalPlaces">The number of decimal places.</param>
         /// <exception cref="System.ArgumentOutOfRangeException">
         /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>].
         /// </exception>
-        public ShiftedLognormalDistribution(int numberOfDecimalPlaces) : base(numberOfDecimalPlaces)
+        public ShiftedLogNormalDistribution(int numberOfDecimalPlaces) : base(numberOfDecimalPlaces)
         {
             shift = new RoundedDouble(numberOfDecimalPlaces);
         }

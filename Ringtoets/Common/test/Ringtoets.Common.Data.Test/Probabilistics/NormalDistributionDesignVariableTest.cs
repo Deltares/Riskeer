@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
     public class NormalDistributionDesignVariableTest
     {
         [Test]
-        public void ParameterdConstructor_ValidLognormalDistribution_ExpectedValues()
+        public void ParameterdConstructor_ValidLogNormalDistribution_ExpectedValues()
         {
             // Setup
             var normalDistribution = new NormalDistribution(3);

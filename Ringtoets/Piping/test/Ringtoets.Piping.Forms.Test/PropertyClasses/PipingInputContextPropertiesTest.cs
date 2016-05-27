@@ -192,11 +192,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             double assessmentLevel = random.NextDouble();
 
-            var dampingFactorExit = new LognormalDistribution(3);
+            var dampingFactorExit = new LogNormalDistribution(3);
             var phreaticLevelExit = new NormalDistribution(2);
-            var diameter70 = new LognormalDistribution(2);
-            var darcyPermeability = new LognormalDistribution(3);
-            var saturatedVolumicWeightOfCoverageLoayer = new ShiftedLognormalDistribution(2);
+            var diameter70 = new LogNormalDistribution(2);
+            var darcyPermeability = new LogNormalDistribution(3);
+            var saturatedVolumicWeightOfCoverageLoayer = new ShiftedLogNormalDistribution(2);
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
             StochasticSoilModel stochasticSoilModel1 = ValidStochasticSoilModel(0.0, 4.0);
@@ -218,11 +218,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               },
                                               failureMechanism,
                                               assessmentSectionMock),
-                DampingFactorExit = new LognormalDistributionDesignVariable(dampingFactorExit),
+                DampingFactorExit = new LogNormalDistributionDesignVariable(dampingFactorExit),
                 PhreaticLevelExit = new NormalDistributionDesignVariable(phreaticLevelExit),
-                Diameter70 = new LognormalDistributionDesignVariable(diameter70),
-                DarcyPermeability = new LognormalDistributionDesignVariable(darcyPermeability),
-                SaturatedVolumicWeightOfCoverageLayer = new ShiftedLognormalDistributionDesignVariable(saturatedVolumicWeightOfCoverageLoayer),
+                Diameter70 = new LogNormalDistributionDesignVariable(diameter70),
+                DarcyPermeability = new LogNormalDistributionDesignVariable(darcyPermeability),
+                SaturatedVolumicWeightOfCoverageLayer = new ShiftedLogNormalDistributionDesignVariable(saturatedVolumicWeightOfCoverageLoayer),
                 SurfaceLine = surfaceLine,
                 StochasticSoilModel = stochasticSoilModel2,
                 StochasticSoilProfile = stochasticSoilProfile2,

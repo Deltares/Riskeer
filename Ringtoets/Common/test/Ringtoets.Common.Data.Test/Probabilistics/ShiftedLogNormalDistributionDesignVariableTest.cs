@@ -27,24 +27,24 @@ using Ringtoets.Common.Data.Probabilistics;
 namespace Ringtoets.Common.Data.Test.Probabilistics
 {
     [TestFixture]
-    public class ShiftedLognormalDistributionDesignVariableTest
+    public class ShiftedLogNormalDistributionDesignVariableTest
     {
         [Test]
-        public void ParameterdConstructor_ValidLognormalDistribution_ExpectedValues()
+        public void ParameterdConstructor_ValidLogNormalDistribution_ExpectedValues()
         {
             // Setup
-            var shiftedLognormalDistribution = new ShiftedLognormalDistribution(1);
+            var shiftedLogNormalDistribution = new ShiftedLogNormalDistribution(1);
 
             // Call
-            var designValue = new ShiftedLognormalDistributionDesignVariable(shiftedLognormalDistribution);
+            var designValue = new ShiftedLogNormalDistributionDesignVariable(shiftedLogNormalDistribution);
 
             // Assert
-            Assert.AreSame(shiftedLognormalDistribution, designValue.Distribution);
+            Assert.AreSame(shiftedLogNormalDistribution, designValue.Distribution);
             Assert.AreEqual(0.5, designValue.Percentile);
         }
 
         /// <summary>
-        /// Tests the <see cref="ShiftedLognormalDistributionDesignVariable.GetDesignValue"/>
+        /// Tests the <see cref="ShiftedLogNormalDistributionDesignVariable.GetDesignValue"/>
         /// against the values calculated with the excel sheet in WTI-33 (timestamp: 27-11-2015 10:27).
         /// </summary>
         /// <param name="expectedValue">MEAN.</param>
@@ -62,20 +62,20 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         [TestCase(75, 1.2345, 10, 0.95, 86.8381)]
         [TestCase(123.45, 70, 10, 0.95, 147.6756)]
         [TestCase(1.2345, 70, 10, 0.95, 14.54127084)]
-        public void GetDesignVariable_ValidShiftedLognormalDistribution_ReturnExpectedValue(
+        public void GetDesignVariable_ValidShiftedLogNormalDistribution_ReturnExpectedValue(
             double expectedValue, double variance, double shift, double percentile,
             double expectedResult)
         {
             // Setup
             const int numberOfDecimalPlaces = 4;
-            var shiftedLognormalDistribution = new ShiftedLognormalDistribution(numberOfDecimalPlaces)
+            var shiftedLogNormalDistribution = new ShiftedLogNormalDistribution(numberOfDecimalPlaces)
             {
                 Mean = (RoundedDouble) expectedValue,
                 StandardDeviation = (RoundedDouble) Math.Sqrt(variance),
                 Shift = (RoundedDouble) shift
             };
 
-            var designVariable = new ShiftedLognormalDistributionDesignVariable(shiftedLognormalDistribution)
+            var designVariable = new ShiftedLogNormalDistributionDesignVariable(shiftedLogNormalDistribution)
             {
                 Percentile = percentile
             };
@@ -96,19 +96,19 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         [TestCase(75, 1.2345, 0.95)]
         [TestCase(123.45, 70, 0.95)]
         [TestCase(1.2345, 70, 0.95)]
-        public void GetDesignVariable_ShiftIsZero_ReturnIdenticalValueAsLognormalDistributionDesignVariable(
+        public void GetDesignVariable_ShiftIsZero_ReturnIdenticalValueAsLogNormalDistributionDesignVariable(
             double expectedValue, double variance, double percentile)
         {
             // Setup
             const int numberOfDecimalPlaces = 6;
-            var shiftedLognormalDistribution = new ShiftedLognormalDistribution(numberOfDecimalPlaces)
+            var shiftedLogNormalDistribution = new ShiftedLogNormalDistribution(numberOfDecimalPlaces)
             {
                 Mean = (RoundedDouble) expectedValue,
                 StandardDeviation = (RoundedDouble) Math.Sqrt(variance),
                 Shift = (RoundedDouble) 0.0
             };
 
-            var designVariable = new ShiftedLognormalDistributionDesignVariable(shiftedLognormalDistribution)
+            var designVariable = new ShiftedLogNormalDistributionDesignVariable(shiftedLogNormalDistribution)
             {
                 Percentile = percentile
             };
@@ -117,7 +117,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             RoundedDouble result = designVariable.GetDesignValue();
 
             // Assert
-            RoundedDouble expectedResult = new LognormalDistributionDesignVariable(shiftedLognormalDistribution)
+            RoundedDouble expectedResult = new LogNormalDistributionDesignVariable(shiftedLogNormalDistribution)
             {
                 Percentile = percentile
             }.GetDesignValue();

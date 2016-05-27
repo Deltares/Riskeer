@@ -36,13 +36,13 @@ namespace Ringtoets.HeightStructures.Data
         {
             GravitationalAcceleration = new RoundedDouble(2, 9.81);
 
-            ModelFactorOvertoppingFlow = new LognormalDistribution(3)
+            ModelFactorOvertoppingFlow = new LogNormalDistribution(3)
             {
                 Mean = (RoundedDouble) 0.09,
                 StandardDeviation = (RoundedDouble) 0.06
             };
 
-            ModelFactorForStorageVolume = new LognormalDistribution(2)
+            ModelFactorForStorageVolume = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1,
                 StandardDeviation = (RoundedDouble) 0.2
@@ -59,12 +59,12 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets the model factor overtopping flow.
         /// </summary>
-        public LognormalDistribution ModelFactorOvertoppingFlow { get; private set; }
+        public LogNormalDistribution ModelFactorOvertoppingFlow { get; private set; }
 
         /// <summary>
         /// Gets the model factor for storage volume.
         /// </summary>
-        public LognormalDistribution ModelFactorForStorageVolume { get; private set; }
+        public LogNormalDistribution ModelFactorForStorageVolume { get; private set; }
 
         /// <summary>
         /// Gets the model factor for incoming flow volume.

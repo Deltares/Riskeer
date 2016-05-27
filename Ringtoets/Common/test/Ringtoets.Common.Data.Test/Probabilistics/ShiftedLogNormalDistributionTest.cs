@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Probabilistics;
 namespace Ringtoets.Common.Data.Test.Probabilistics
 {
     [TestFixture]
-    public class ShiftedLognormalDistributionTest
+    public class ShiftedLogNormalDistributionTest
     {
         [Test]
         [TestCase(1)]
@@ -35,10 +35,10 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         public void DefaultConstructor_ExpectedValues(int numberOfDecimalPlaces)
         {
             // Call
-            var distribution = new ShiftedLognormalDistribution(numberOfDecimalPlaces);
+            var distribution = new ShiftedLogNormalDistribution(numberOfDecimalPlaces);
 
             // Assert
-            Assert.IsInstanceOf<LognormalDistribution>(distribution);
+            Assert.IsInstanceOf<LogNormalDistribution>(distribution);
             Assert.IsInstanceOf<RoundedDouble>(distribution.Shift);
             Assert.AreEqual(numberOfDecimalPlaces, distribution.Shift.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, distribution.Shift.Value);
@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         public void Mean_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(int numberOfDecimalPlaces, double expectedStandardDeviation)
         {
             // Setup
-            var distribution = new ShiftedLognormalDistribution(numberOfDecimalPlaces);
+            var distribution = new ShiftedLogNormalDistribution(numberOfDecimalPlaces);
 
             // Call
             distribution.Shift = new RoundedDouble(4, 5.6473);

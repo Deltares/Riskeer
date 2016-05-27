@@ -27,15 +27,15 @@ using Ringtoets.Common.Data.Probabilistics;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// A read-only <see cref="ObjectProperties{T}"/> implementation for <see cref="LognormalDistribution"/>
+    /// A read-only <see cref="ObjectProperties{T}"/> implementation for <see cref="LogNormalDistribution"/>
     /// properties.
     /// </summary>
-    public class ReadOnlyLognormalDistributionProperties : LogNormalDistributionProperties
+    public class ReadOnlyLogNormalDistributionProperties : LogNormalDistributionProperties
     {
         /// <summary>
-        /// Creates a new instance of the <see cref="ReadOnlyLognormalDistributionProperties"/> class.
+        /// Creates a new instance of the <see cref="ReadOnlyLogNormalDistributionProperties"/> class.
         /// </summary>
-        public ReadOnlyLognormalDistributionProperties() : base(null) {}
+        public ReadOnlyLogNormalDistributionProperties() : base(null) {}
 
         public override string DistributionType
         {

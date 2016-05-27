@@ -35,7 +35,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// </summary>
     public class GrassCoverErosionInwardsInput : Observable, ICalculationInput
     {
-        private readonly LognormalDistribution criticalFlowRate;
+        private readonly LogNormalDistribution criticalFlowRate;
         private readonly GeneralGrassCoverErosionInwardsInput generalInputParameters;
         private RoundedDouble orientation;
         private RoundedDouble dikeHeight;
@@ -56,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             orientation = new RoundedDouble(2);
             dikeHeight = new RoundedDouble(2);
             BreakWater = new BreakWater(BreakWaterType.Caisson, 0);
-            criticalFlowRate = new LognormalDistribution(4)
+            criticalFlowRate = new LogNormalDistribution(4)
             {
                 Mean = (RoundedDouble) 0.004,
                 StandardDeviation = (RoundedDouble) 0.0006
@@ -93,7 +93,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets or sets the dike's critical flow rate.
         /// </summary>
-        public LognormalDistribution CriticalFlowRate
+        public LogNormalDistribution CriticalFlowRate
         {
             get
             {

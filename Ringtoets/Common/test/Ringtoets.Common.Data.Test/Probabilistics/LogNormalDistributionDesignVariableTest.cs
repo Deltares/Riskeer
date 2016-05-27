@@ -27,24 +27,24 @@ using Ringtoets.Common.Data.Probabilistics;
 namespace Ringtoets.Common.Data.Test.Probabilistics
 {
     [TestFixture]
-    public class LognormalDistributionDesignVariableTest
+    public class LogNormalDistributionDesignVariableTest
     {
         [Test]
-        public void ParameterdConstructor_ValidLognormalDistribution_ExpectedValues()
+        public void ParameterdConstructor_ValidLogNormalDistribution_ExpectedValues()
         {
             // Setup
-            var lognormalDistribution = new LognormalDistribution(2);
+            var logNormalDistribution = new LogNormalDistribution(2);
 
             // Call
-            var designValue = new LognormalDistributionDesignVariable(lognormalDistribution);
+            var designValue = new LogNormalDistributionDesignVariable(logNormalDistribution);
 
             // Assert
-            Assert.AreSame(lognormalDistribution, designValue.Distribution);
+            Assert.AreSame(logNormalDistribution, designValue.Distribution);
             Assert.AreEqual(0.5, designValue.Percentile);
         }
 
         /// <summary>
-        /// Tests the <see cref="LognormalDistributionDesignVariable.GetDesignValue"/>
+        /// Tests the <see cref="LogNormalDistributionDesignVariable.GetDesignValue"/>
         /// against the values calculated with the excel sheet in WTI-33 (timestamp: 27-11-2015 10:27).
         /// </summary>
         /// <param name="expectedValue">MEAN.</param>
@@ -59,19 +59,19 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         [TestCase(75, 1.2345, 0.95, 76.8381)]
         [TestCase(123.45, 70, 0.95, 137.6756)]
         [TestCase(1.2345, 70, 0.95, 4.5413)]
-        public void GetDesignVariable_ValidLognormalDistribution_ReturnExpectedValue(
+        public void GetDesignVariable_ValidLogNormalDistribution_ReturnExpectedValue(
             double expectedValue, double variance, double percentile,
             double expectedResult)
         {
             // Setup
             const int numberOfDecimalPlaces = 4;
-            var lognormalDistribution = new LognormalDistribution(numberOfDecimalPlaces)
+            var logNormalDistribution = new LogNormalDistribution(numberOfDecimalPlaces)
             {
                 Mean = (RoundedDouble)expectedValue,
                 StandardDeviation = (RoundedDouble)Math.Sqrt(variance)
             };
 
-            var designVariable = new LognormalDistributionDesignVariable(lognormalDistribution)
+            var designVariable = new LogNormalDistributionDesignVariable(logNormalDistribution)
             {
                 Percentile = percentile
             };

@@ -63,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
                 InputParameters =
                 {
                     Orientation = (RoundedDouble) 1.0,
-                    CriticalFlowRate = new LognormalDistribution(1),
+                    CriticalFlowRate = new LogNormalDistribution(1),
                     DikeHeight = (RoundedDouble) 1.0,
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     UseBreakWater = false,

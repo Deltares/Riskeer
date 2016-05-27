@@ -68,12 +68,12 @@
     <Compile Include="Calculation\ICalculationBase.cs" />
     <Compile Include="Probabilistics\DesignVariable.cs" />
     <Compile Include="Probabilistics\IDistribution.cs" />
-    <Compile Include="Probabilistics\LognormalDistribution.cs" />
-    <Compile Include="Probabilistics\LognormalDistributionDesignVariable.cs" />
+    <Compile Include="Probabilistics\LogNormalDistribution.cs" />
+    <Compile Include="Probabilistics\LogNormalDistributionDesignVariable.cs" />
     <Compile Include="Probabilistics\NormalDistribution.cs" />
     <Compile Include="Probabilistics\NormalDistributionDesignVariable.cs" />
-    <Compile Include="Probabilistics\ShiftedLognormalDistribution.cs" />
-    <Compile Include="Probabilistics\ShiftedLognormalDistributionDesignVariable.cs" />
+    <Compile Include="Probabilistics\ShiftedLogNormalDistribution.cs" />
+    <Compile Include="Probabilistics\ShiftedLogNormalDistributionDesignVariable.cs" />
     <Compile Include="Probability\NormProbabilityInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

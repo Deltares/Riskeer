@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Probabilistics;
 namespace Ringtoets.Common.Data.Test.Probabilistics
 {
     [TestFixture]
-    public class LognormalDistributionTest
+    public class LogNormalDistributionTest
     {
         [Test]
         [TestCase(1)]
@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         public void DefaultConstructor_ExpectedValues(int numberOfDecimalPlaces)
         {
             // Call
-            var distribution = new LognormalDistribution(numberOfDecimalPlaces);
+            var distribution = new LogNormalDistribution(numberOfDecimalPlaces);
 
             // Assert
             Assert.IsInstanceOf<IDistribution>(distribution);
@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             // Setup
 
             // Call
-            TestDelegate call = () => new LognormalDistribution(0);
+            TestDelegate call = () => new LogNormalDistribution(0);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "Value must be in range [1, 15].");
@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         public void Mean_SettingToLessThanOrEqualTo0_ThrowArgumentOutOfRangeException(double newMean)
         {
             // Setup
-            var distribution = new LognormalDistribution(2);
+            var distribution = new LogNormalDistribution(2);
 
             // Call
             TestDelegate call = () => distribution.Mean = (RoundedDouble)newMean;
@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             const int numberOfDecimalPlaces = 4;
-            var distribution = new LognormalDistribution(numberOfDecimalPlaces);
+            var distribution = new LogNormalDistribution(numberOfDecimalPlaces);
 
             // Call
             distribution.Mean = (RoundedDouble)newMean;
@@ -102,7 +102,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         public void Mean_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(int numberOfDecimalPlaces, double expectedStandardDeviation)
         {
             // Setup
-            var distribution = new LognormalDistribution(numberOfDecimalPlaces);
+            var distribution = new LogNormalDistribution(numberOfDecimalPlaces);
 
             // Call
             distribution.Mean = new RoundedDouble(4, 1.2345);
@@ -118,7 +118,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         public void StandardDeviation_SettingToLessThan0_ThrowArgumentOutOfRangeException(double newStd)
         {
             // Setup
-            var distribution = new LognormalDistribution(4);
+            var distribution = new LogNormalDistribution(4);
 
             // Call
             TestDelegate call = () => distribution.StandardDeviation = (RoundedDouble)newStd;
@@ -137,7 +137,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         public void StandardDeviation_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(int numberOfDecimalPlaces, double expectedStandardDeviation)
         {
             // Setup
-            var distribution = new LognormalDistribution(numberOfDecimalPlaces);
+            var distribution = new LogNormalDistribution(numberOfDecimalPlaces);
 
             // Call
             distribution.StandardDeviation = new RoundedDouble(3, 5.678);

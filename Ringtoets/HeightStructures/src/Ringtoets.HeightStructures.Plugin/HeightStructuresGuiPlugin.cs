@@ -68,8 +68,7 @@ namespace Ringtoets.HeightStructures.Plugin
             yield return new ViewInfo<
                 FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>,
                 IEnumerable<HeightStructuresFailureMechanismSectionResult>,
-                HeightStructuresFailureMechanismResultView
-                >
+                HeightStructuresFailureMechanismResultView>
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,

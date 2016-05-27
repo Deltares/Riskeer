@@ -19,13 +19,13 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Forms.Test.TypeConverters
 {
     [TestFixture]
-    public class LognormalDistributionDesignVariableTypeConverterTest
+    public class LogNormalDistributionDesignVariableTypeConverterTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var converter = new LognormalDistributionDesignVariableTypeConverter();
+            var converter = new LogNormalDistributionDesignVariableTypeConverter();
 
             // Assert
             Assert.IsInstanceOf<TypeConverter>(converter);
@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void CanConvertTo_DestinationTypeIsString_ReturnTrue()
         {
             // Setup
-            var converter = new LognormalDistributionDesignVariableTypeConverter();
+            var converter = new LogNormalDistributionDesignVariableTypeConverter();
 
             // Call
             var canConvert = converter.CanConvertTo(typeof(string));
@@ -45,17 +45,17 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         }
 
         [Test]
-        public void ConvertTo_DestinationTypeIsString_ReturnLognormalDistributionSpecs()
+        public void ConvertTo_DestinationTypeIsString_ReturnLogNormalDistributionSpecs()
         {
             // Setup
-            var distribution = new LognormalDistribution(1)
+            var distribution = new LogNormalDistribution(1)
             {
                 Mean = (RoundedDouble)1.1,
                 StandardDeviation = (RoundedDouble)2.2
             };
-            var designVariable = new LognormalDistributionDesignVariable(distribution);
+            var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
-            var converter = new LognormalDistributionDesignVariableTypeConverter();
+            var converter = new LogNormalDistributionDesignVariableTypeConverter();
 
             // Call
             var result = converter.ConvertTo(designVariable, typeof(string));
@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void GetPropertiesSupported_Always_ReturnTrue()
         {
             // Setup
-            var converter = new LognormalDistributionDesignVariableTypeConverter();
+            var converter = new LogNormalDistributionDesignVariableTypeConverter();
 
             // Call
             var hasSubProperties = converter.GetPropertiesSupported();
@@ -83,9 +83,9 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void GetProperties_Always_ReturnMeanAndStandardDeviation()
         {
             // Setup
-            var distribution = new LognormalDistribution(2);
-            var designVariable = new LognormalDistributionDesignVariable(distribution);
-            var converter = new LognormalDistributionDesignVariableTypeConverter();
+            var distribution = new LogNormalDistribution(2);
+            var designVariable = new LogNormalDistributionDesignVariable(distribution);
+            var converter = new LogNormalDistributionDesignVariableTypeConverter();
 
             // Call
             var properties = converter.GetProperties(designVariable);
@@ -129,9 +129,9 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void GetProperties_TypeConverterPropertyDecoratedWithReadOnlyAttribute_ReturnMeanAndStandardDeviationAsReadOnly()
         {
             // Setup
-            var distribution = new LognormalDistribution(2);
-            var designVariable = new LognormalDistributionDesignVariable(distribution);
-            var converter = new LognormalDistributionDesignVariableTypeConverter();
+            var distribution = new LogNormalDistribution(2);
+            var designVariable = new LogNormalDistributionDesignVariable(distribution);
+            var converter = new LogNormalDistributionDesignVariableTypeConverter();
 
             var classWithDecoratedProperty = new ClassWithReadOnlyDesignVariable();
             PropertyDescriptor propertyWithReadonlyAttributeDescriptor = TypeDescriptor.GetProperties(classWithDecoratedProperty)[0];
@@ -221,8 +221,8 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             inputParameters.Attach(observer);
 
-            DesignVariable<LognormalDistribution> dampingFactorExit = inputParameterContextProperties.DampingFactorExit;
-            var properties = new LognormalDistributionDesignVariableTypeConverter().GetProperties(typeDescriptorContextMock, dampingFactorExit);
+            DesignVariable<LogNormalDistribution> dampingFactorExit = inputParameterContextProperties.DampingFactorExit;
+            var properties = new LogNormalDistributionDesignVariableTypeConverter().GetProperties(typeDescriptorContextMock, dampingFactorExit);
 
             // Precondition
             Assert.IsNotNull(properties);
@@ -250,11 +250,11 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         {
             public ClassWithReadOnlyDesignVariable()
             {
-                Property = new LognormalDistributionDesignVariable(new LognormalDistribution(3));
+                Property = new LogNormalDistributionDesignVariable(new LogNormalDistribution(3));
             }
 
             [ReadOnly(true)]
-            public DesignVariable<LognormalDistribution> Property { get; set; }
+            public DesignVariable<LogNormalDistribution> Property { get; set; }
         }
     }
 }
