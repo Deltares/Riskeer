@@ -28,8 +28,10 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -41,6 +43,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
 using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Data;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using GrassCoverErosionInwardsFormResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
@@ -48,7 +51,7 @@ using GrassCoverErosionInwardsFormResources = Ringtoets.GrassCoverErosionInwards
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsCalculationGroupContextTreeNodeInfoTest
+    public class GrassCoverErosionInwardsCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
 
@@ -543,6 +546,79 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                           RingtoetsFormsResources.Calculate_all,
                                                           RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip,
                                                           RingtoetsFormsResources.CalculateIcon);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnCalculateAllItem_ScheduleAllChildCalculations()
+        {
+            // Setup
+            var mainWindowStub = mocks.Stub<IMainWindow>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0)
+            }));
+
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new NormProbabilityInput())
+            {
+                Name = "A",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
+                }
+            });
+
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new NormProbabilityInput())
+            {
+                Name = "B",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
+                }
+            });
+
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryDatabaseStub = mocks.Stub<HydraulicBoundaryDatabase>();
+            hydraulicBoundaryDatabaseStub.FilePath = validFilePath;
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
+
+            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                           failureMechanism,
+                                                                           assessmentSection);
+
+            guiMock.Expect(g => g.Get(groupContext, treeViewControlMock)).Return(menuBuilder);
+            guiMock.Expect(g => g.MainWindow).Return(mainWindowStub);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = guiMock;
+            var contextMenu = info.ContextMenuStrip(groupContext, null, treeViewControlMock);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
+
+            // Call
+            TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndexRootGroup].PerformClick(), messages =>
+            {
+                var messageList = messages.ToList();
+
+                // Assert
+                Assert.AreEqual(4, messageList.Count);
+                Assert.AreEqual("Er is een fout opgetreden tijdens de berekening.", messageList[0]);
+                Assert.AreEqual("Uitvoeren van 'A' is mislukt.", messageList[1]);
+                Assert.AreEqual("Er is een fout opgetreden tijdens de berekening.", messageList[2]);
+                Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[3]);
+            });
+
             mocks.VerifyAll();
         }
 
