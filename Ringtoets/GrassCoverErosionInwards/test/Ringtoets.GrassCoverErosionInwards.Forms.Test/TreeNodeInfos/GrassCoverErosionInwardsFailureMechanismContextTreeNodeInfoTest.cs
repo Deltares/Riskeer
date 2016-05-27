@@ -39,7 +39,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
 using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
@@ -549,13 +548,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             });
             failureMechanism.AddSection(section);
 
-            var validCalculation = GrassCoverErosionInwardsCalculationFactory.CreateCalculationWithValidInput();
-            validCalculation.Name = "A";
-            var invalidCalculation = GrassCoverErosionInwardsCalculationFactory.CreateCalculationWithInvalidData();
-            invalidCalculation.Name = "B";
-
-            failureMechanism.CalculationsGroup.Children.Add(validCalculation);
-            failureMechanism.CalculationsGroup.Children.Add(invalidCalculation);
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new NormProbabilityInput())
+            {
+                Name = "A",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
+                }
+            });
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new NormProbabilityInput())
+            {
+                Name = "B",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
+                }
+            });
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
@@ -579,9 +587,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             };
 
             // Call
-            contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
+            TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick(), messages =>
+            {
+                var messageList = messages.ToList();
 
-            // Assert
+                // Assert
+                Assert.AreEqual(4, messageList.Count);
+                Assert.AreEqual("Er is een fout opgetreden tijdens de berekening.", messageList[0]);
+                Assert.AreEqual("Uitvoeren van 'A' is mislukt.", messageList[1]);
+                Assert.AreEqual("Er is een fout opgetreden tijdens de berekening.", messageList[2]);
+                Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[3]);
+            });
+
             mocksRepository.VerifyAll();
         }
 
