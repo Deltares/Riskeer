@@ -129,8 +129,13 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void ShowAssementLayerTwoAErrors(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            if (e.ColumnIndex <= 0)
+            {
+                return;
+            }
+            
             var currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
-
+            
             PipingFailureMechanismSectionResultRow resultRow = (PipingFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
 
             if (resultRow != null && e.ColumnIndex == assessmentLayerTwoAIndex)
