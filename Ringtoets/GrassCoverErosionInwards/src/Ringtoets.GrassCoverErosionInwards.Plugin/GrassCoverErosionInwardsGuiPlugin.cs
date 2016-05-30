@@ -36,12 +36,12 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
-using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
@@ -212,7 +212,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             if (output != null)
             {
-                GrassCoverErosionInwardsOutputCalculationService.Calculate(calculation, output.Beta);
+                calculation.Output = ProbabilityAssessmentService.Calculate(calculation.ProbabilityAssessmentInput, output.Beta);
                 calculation.NotifyObservers();
             }
             else
