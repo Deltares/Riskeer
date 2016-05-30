@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Data.Probability
         }
 
         /// <summary>
-        /// Gets or sets the contribution of failure mechanism as a percentage (0-100) to the total of the 
+        /// Gets or sets the contribution of the failure mechanism as a percentage (0-100) to the total of the 
         /// failure probability of the assessment section.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="value"/> is not 
