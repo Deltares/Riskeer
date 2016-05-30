@@ -71,52 +71,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                Assert.AreEqual(2, dataGridView.ColumnCount);
-
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
-                Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Section_name, dataGridView.Columns[nameColumnIndex].HeaderText);
-                Assert.IsTrue(dataGridView.Columns[nameColumnIndex].ReadOnly);
-
-                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
-                Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one, dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
-
-                Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
-                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
-            }
-        }
-
-        [Test]
-        public void Data_DataAlreadySetNewDataSet_DataSetAndDataGridViewUpdated()
-        {
-            // Setup
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                var points = new[]
-                {
-                    new Point2D(1, 2),
-                    new Point2D(3, 4)
-                };
-
-                var section = new FailureMechanismSection("test", points);
-                var sectionResult = new TestFailureMechanismSectionResult(section);
-                var testData = new List<FailureMechanismSectionResult>
-                {
-                    sectionResult
-                };
-
-                // Precondition
-                Assert.AreEqual(2, dataGridView.RowCount);
-
-                // Call
-                view.Data = testData;
-
-                // Assert
-                Assert.AreSame(testData, view.Data);
-
-                Assert.AreEqual(testData.Count, dataGridView.RowCount);
-                Assert.AreEqual(sectionResult.Section.Name, dataGridView.Rows[0].Cells[0].Value);
+                Assert.AreEqual(0, dataGridView.ColumnCount);
             }
         }
 
@@ -136,30 +91,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.IsNull(view.Data);
 
                 Assert.AreEqual(0, dataGridView.RowCount);
-            }
-        }
-
-        [Test]
-        public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
-        {
-            // Setup & Call
-            using (ShowFullyConfiguredFailureMechanismResultsView())
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Assert
-                var rows = dataGridView.Rows;
-                Assert.AreEqual(2, rows.Count);
-
-                var cells = rows[0].Cells;
-                Assert.AreEqual(2, cells.Count);
-                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(false, cells[assessmentLayerOneIndex].FormattedValue);
-
-                cells = rows[1].Cells;
-                Assert.AreEqual(2, cells.Count);
-                Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(false, cells[assessmentLayerOneIndex].FormattedValue);
             }
         }
 
@@ -200,6 +131,9 @@ namespace Ringtoets.Common.Forms.Test.Views
     }
 
     public class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult> {
+        protected override void AddDataGridColumns()
+        {
+        }
 
         protected override object CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
         {

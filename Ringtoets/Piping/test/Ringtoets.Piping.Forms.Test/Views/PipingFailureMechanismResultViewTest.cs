@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                Assert.AreEqual(5, dataGridView.ColumnCount);
+                Assert.AreEqual(4, dataGridView.ColumnCount);
                 Assert.IsTrue(dataGridView.Columns[assessmentLayerTwoAIndex].ReadOnly);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
@@ -158,19 +158,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual(2, rows.Count);
 
                 var cells = rows[0].Cells;
-                Assert.AreEqual(5, cells.Count);
+                Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
-                Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoBIndex].FormattedValue);
                 Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerThreeIndex].FormattedValue);
 
                 cells = rows[1].Cells;
-                Assert.AreEqual(5, cells.Count);
+                Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
                 Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
-                Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoBIndex].FormattedValue);
                 Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerThreeIndex].FormattedValue);
             }
         }
@@ -191,21 +189,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var rows = dataGridView.Rows;
 
                 var cells = rows[0].Cells;
-                Assert.AreEqual(5, cells.Count);
+                Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 var cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
-                var cellAssessmentLayerTwoB = cells[assessmentLayerTwoBIndex];
                 var cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
 
                 Assert.AreEqual(checkBoxSelected, (bool) cells[assessmentLayerOneIndex].FormattedValue);
                 Assert.AreEqual("-", cellAssessmentLayerTwoA.FormattedValue);
-                Assert.AreEqual(string.Format("{0}", 0), cellAssessmentLayerTwoB.FormattedValue);
                 Assert.AreEqual(string.Format("{0}", 0), cellAssessmentLayerThree.FormattedValue);
 
                 var cellAssessmentLayerTwoABackColor = cellAssessmentLayerTwoA.Style.BackColor;
                 var cellAssessmentLayerTwoAForeColor = cellAssessmentLayerTwoA.Style.ForeColor;
-                var cellAssessmentLayerTwoBBackColor = cellAssessmentLayerTwoB.Style.BackColor;
-                var cellAssessmentLayerTwoBForeColor = cellAssessmentLayerTwoB.Style.ForeColor;
                 var cellAssessmentLayerThreeBackColor = cellAssessmentLayerThree.Style.BackColor;
                 var cellAssessmentLayerThreeForeColor = cellAssessmentLayerThree.Style.ForeColor;
 
@@ -213,8 +207,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 {
                     Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cellAssessmentLayerTwoABackColor);
                     Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cellAssessmentLayerTwoAForeColor);
-                    Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cellAssessmentLayerTwoBBackColor);
-                    Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cellAssessmentLayerTwoBForeColor);
                     Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cellAssessmentLayerThreeBackColor);
                     Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cellAssessmentLayerThreeForeColor);
                 }
@@ -222,21 +214,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 {
                     Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cellAssessmentLayerTwoABackColor);
                     Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cellAssessmentLayerTwoAForeColor);
-                    Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cellAssessmentLayerTwoBBackColor);
-                    Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cellAssessmentLayerTwoBForeColor);
                     Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cellAssessmentLayerThreeBackColor);
                     Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cellAssessmentLayerThreeForeColor);
                 }
 
-                Assert.AreEqual(checkBoxSelected, cellAssessmentLayerTwoB.ReadOnly);
                 Assert.AreEqual(checkBoxSelected, cellAssessmentLayerThree.ReadOnly);
             }
         }
 
         [Test]
-        [TestCase("test", assessmentLayerTwoBIndex)]
         [TestCase("test", assessmentLayerThreeIndex)]
-        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", assessmentLayerTwoBIndex)]
         [TestCase(";/[].,~!@#$%^&*()_-+={}|?", assessmentLayerThreeIndex)]
         public void FailureMechanismResultView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
         {
@@ -254,10 +241,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase("1", assessmentLayerTwoBIndex, "AssessmentLayerTwoB")]
-        [TestCase("1e-6", assessmentLayerTwoBIndex, "AssessmentLayerTwoB")]
-        [TestCase("1e+6", assessmentLayerTwoBIndex, "AssessmentLayerTwoB")]
-        [TestCase("14.3", assessmentLayerTwoBIndex, "AssessmentLayerTwoB")]
         [TestCase("1", assessmentLayerThreeIndex, "AssessmentLayerThree")]
         [TestCase("1e-6", assessmentLayerThreeIndex, "AssessmentLayerThree")]
         [TestCase("1e+6", assessmentLayerThreeIndex, "AssessmentLayerThree")]
@@ -542,8 +525,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private const int nameColumnIndex = 0;
         private const int assessmentLayerOneIndex = 1;
         private const int assessmentLayerTwoAIndex = 2;
-        private const int assessmentLayerTwoBIndex = 3;
-        private const int assessmentLayerThreeIndex = 4;
+        private const int assessmentLayerThreeIndex = 3;
 
         private PipingFailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView()
         {

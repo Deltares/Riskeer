@@ -62,26 +62,27 @@ namespace Ringtoets.Integration.Forms.Views
 
         protected override void AddDataGridColumns()
         {
-            base.AddDataGridColumns();
-
-            var dataSource = Enum.GetValues(typeof(AssessmentLayerTwoAResult))
+            var twoAResultDataSource = Enum.GetValues(typeof(AssessmentLayerTwoAResult))
                                            .OfType<AssessmentLayerTwoAResult>()
                                            .Select(el => new EnumDisplayWrapper<AssessmentLayerTwoAResult>(el))
                                            .ToList();
-
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<SimpleFailureMechanismSectionResultRow>(sr => sr.Name),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
+                true
+                );
+            DataGridViewControl.AddCheckBoxColumn(
+                TypeUtils.GetMemberName<SimpleFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerOne),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one
+                );
             DataGridViewControl.AddComboBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA), 
+                TypeUtils.GetMemberName<SimpleFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA), 
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
-                dataSource, 
+                twoAResultDataSource, 
                 TypeUtils.GetMemberName((Expression<Func<EnumDisplayWrapper<AssessmentLayerTwoAResult>, object>>) (edw => edw.Value)),
                 TypeUtils.GetMemberName((Expression<Func<EnumDisplayWrapper<AssessmentLayerTwoAResult>, object>>) (edw => edw.DisplayName)));
-            
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoB), 
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b
-            );
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree), 
+                TypeUtils.GetMemberName<SimpleFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree), 
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three
             );
         }

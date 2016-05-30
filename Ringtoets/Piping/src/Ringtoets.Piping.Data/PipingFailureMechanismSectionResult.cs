@@ -60,11 +60,6 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the value of assessment layer two b.
-        /// </summary>
-        public RoundedDouble AssessmentLayerTwoB { get; set; }
-
-        /// <summary>
         /// Gets or sets the value of assessment layer three.
         /// </summary>
         public RoundedDouble AssessmentLayerThree { get; set; }

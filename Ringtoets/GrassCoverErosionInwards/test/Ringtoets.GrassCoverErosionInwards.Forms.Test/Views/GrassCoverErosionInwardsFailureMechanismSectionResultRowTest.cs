@@ -59,7 +59,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual(section.Name, row.Name);
             Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
-            Assert.AreEqual(result.AssessmentLayerTwoB, row.AssessmentLayerTwoB);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
         }
 
@@ -86,23 +85,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual(1, counter);
                 Assert.AreEqual(newValue, result.AssessmentLayerOne);
             }
-        }
-
-        [Test]
-        public void AssessmentLayerTwoB_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            var random = new Random(21);
-            var newValue = random.NextDouble();
-            var section = CreateSection();
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
-            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerTwoB = (RoundedDouble)newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerTwoB, row.AssessmentLayerTwoB.GetAccuracy());
         }
 
         [Test]

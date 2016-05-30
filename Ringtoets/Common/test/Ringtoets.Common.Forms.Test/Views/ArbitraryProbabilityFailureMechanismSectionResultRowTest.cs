@@ -71,7 +71,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                 row.AssessmentLayerTwoA
             );
 
-            Assert.AreEqual(result.AssessmentLayerTwoB, row.AssessmentLayerTwoB);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
         }
 
@@ -203,23 +202,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Assert
             var expectedMessage = Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_cannot_be_null;
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void AssessmentLayerTwoB_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            var random = new Random(21);
-            var newValue = random.NextDouble();
-            var section = CreateSection();
-            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
-            var row = new ArbitraryProbabilityFailureMechanismSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerTwoB = (RoundedDouble)newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerTwoB, row.AssessmentLayerTwoB.GetAccuracy());
         }
 
         [Test]

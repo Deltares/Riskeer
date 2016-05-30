@@ -88,21 +88,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the value representing the result of the layer 2b assessment.
-        /// </summary>
-        public RoundedDouble AssessmentLayerTwoB
-        {
-            get
-            {
-                return sectionResult.AssessmentLayerTwoB;
-            }
-            set
-            {
-                sectionResult.AssessmentLayerTwoB = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the value representing the result of the layer 3 assessment.
         /// </summary>
         public RoundedDouble AssessmentLayerThree

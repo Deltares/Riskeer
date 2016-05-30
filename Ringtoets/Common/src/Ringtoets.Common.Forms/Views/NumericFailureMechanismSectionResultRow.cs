@@ -90,21 +90,6 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the value representing the result of the layer 2b assessment.
-        /// </summary>
-        public RoundedDouble AssessmentLayerTwoB
-        {
-            get
-            {
-                return SectionResult.AssessmentLayerTwoB;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerTwoB = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the value representing the result of the layer 3 assessment.
         /// </summary>
         public RoundedDouble AssessmentLayerThree

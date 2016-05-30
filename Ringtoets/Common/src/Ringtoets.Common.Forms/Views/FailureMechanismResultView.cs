@@ -123,11 +123,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <see cref="FailureMechanismResultView{T}"/>.
         /// </summary>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="DataGridViewColumn"/>.</returns>
-        protected virtual void AddDataGridColumns()
-        {
-            DataGridViewControl.AddTextBoxColumn("Name", Resources.FailureMechanismResultView_InitializeDataGridView_Section_name, true);
-            DataGridViewControl.AddCheckBoxColumn("AssessmentLayerOne", Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
-        }
+        protected abstract void AddDataGridColumns(); 
 
         /// <summary>
         /// Updates the data source of the data grid view with the current known failure mechanism section results.

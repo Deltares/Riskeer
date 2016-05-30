@@ -62,7 +62,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.AreEqual(section.Name, row.Name);
             Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
-            Assert.AreEqual(result.AssessmentLayerTwoB, row.AssessmentLayerTwoB);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
         }
 
@@ -189,23 +188,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var expected = string.Format(CommonBaseResources.ProbabilityPerYearFormat, result.AssessmentLayerTwoA);
             Assert.AreEqual(expected, assessmentLayerTwoA);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssessmentLayerTwoB_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            var random = new Random(21);
-            var newValue = random.NextDouble();
-            var section = CreateSection();
-            var result = new PipingFailureMechanismSectionResult(section);
-            var row = new PipingFailureMechanismSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerTwoB = (RoundedDouble) newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerTwoB, row.AssessmentLayerTwoB.GetAccuracy());
         }
 
         [Test]

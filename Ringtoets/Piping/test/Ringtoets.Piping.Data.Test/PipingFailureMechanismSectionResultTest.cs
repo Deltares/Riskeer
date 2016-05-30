@@ -46,7 +46,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreSame(section, sectionResult.Section);
             Assert.IsFalse(sectionResult.AssessmentLayerOne);
             Assert.AreEqual((RoundedDouble) 0, sectionResult.AssessmentLayerTwoA);
-            Assert.AreEqual((RoundedDouble) 0, sectionResult.AssessmentLayerTwoB);
             Assert.AreEqual((RoundedDouble) 0, sectionResult.AssessmentLayerThree);
             CollectionAssert.IsEmpty(sectionResult.CalculationScenarios);
         }
@@ -244,21 +243,6 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual((RoundedDouble) 0.8, totalContribution);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssessmentLayerTwoB_Always_ReturnsSetValue()
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
-            var assessmentLayerTwoBValue = (RoundedDouble) 3.0;
-
-            // Call
-            failureMechanismSectionResult.AssessmentLayerTwoB = assessmentLayerTwoBValue;
-
-            // Assert
-            Assert.AreEqual(assessmentLayerTwoBValue, failureMechanismSectionResult.AssessmentLayerTwoB);
         }
 
         [Test]

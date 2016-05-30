@@ -84,19 +84,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         protected override void AddDataGridColumns()
         {
-            base.AddDataGridColumns();
-
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                TypeUtils.GetMemberName<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(sr => sr.Name), 
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name, 
+                true
+                );
+            DataGridViewControl.AddCheckBoxColumn(
+                TypeUtils.GetMemberName<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerOne), 
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one
+                );
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
                 true
                 );
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoB),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b
-                );
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
+                TypeUtils.GetMemberName<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three
                 );
         }

@@ -86,21 +86,6 @@ namespace Ringtoets.HeightStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the assessment layer two b of the <see cref="SectionResult"/>.
-        /// </summary>
-        public RoundedDouble AssessmentLayerTwoB
-        {
-            get
-            {
-                return sectionResult.AssessmentLayerTwoB;
-            }
-            set
-            {
-                sectionResult.AssessmentLayerTwoB = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the assessment layer three of the <see cref="SectionResult"/>.
         /// </summary>
         public RoundedDouble AssessmentLayerThree
