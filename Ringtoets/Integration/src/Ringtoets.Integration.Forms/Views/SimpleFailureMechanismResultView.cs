@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Windows.Forms;
 using Core.Common.Utils;
 using Core.Common.Utils.Reflection;
@@ -70,18 +71,18 @@ namespace Ringtoets.Integration.Forms.Views
                                            .ToList();
 
             DataGridViewControl.AddComboBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResult>(sr => sr.AssessmentLayerTwoA), 
+                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA), 
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
-                dataSource,
-                edw => edw.Value,
-                edw => edw.DisplayName
-            );
+                dataSource, 
+                TypeUtils.GetMemberName((Expression<Func<EnumDisplayWrapper<AssessmentLayerTwoAResult>, object>>) (edw => edw.Value)),
+                TypeUtils.GetMemberName((Expression<Func<EnumDisplayWrapper<AssessmentLayerTwoAResult>, object>>) (edw => edw.DisplayName)));
+            
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResult>(sr => sr.AssessmentLayerTwoB), 
+                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoB), 
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b
             );
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResult>(sr => sr.AssessmentLayerThree), 
+                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree), 
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three
             );
         }

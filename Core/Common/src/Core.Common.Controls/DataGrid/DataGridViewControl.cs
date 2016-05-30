@@ -21,10 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Windows.Forms;
 using Core.Common.Controls.Properties;
-using Core.Common.Utils.Reflection;
 
 namespace Core.Common.Controls.DataGrid
 {
@@ -60,7 +58,7 @@ namespace Core.Common.Controls.DataGrid
         /// </summary>
         /// <param name="dataPropertyName">The <see cref="DataGridViewColumn.DataPropertyName"/> of the column.</param>
         /// <param name="headerText">The <see cref="DataGridViewColumn.HeaderText"/> of the column.</param>
-        /// <param name="readOnly">Indicates wether the column is read-only or not.</param>
+        /// <param name="readOnly">Indicates whether the column is read-only or not.</param>
         /// <remarks><paramref name="dataPropertyName"/> is also used to create the <see cref="DataGridViewColumn.Name"/>.
         /// The format is "column_<paramref name="dataPropertyName"/>.</remarks>
         public void AddTextBoxColumn(string dataPropertyName, string headerText, bool readOnly = false)
@@ -97,11 +95,11 @@ namespace Core.Common.Controls.DataGrid
         /// <param name="dataPropertyName">The <see cref="DataGridViewColumn.DataPropertyName"/> of the column.</param>
         /// <param name="headerText">The <see cref="DataGridViewColumn.HeaderText"/> of the column.</param>
         /// <param name="dataSource">The datasource that is set on the column.</param>
-        /// <param name="valueMember">The <see cref="Func{TResult}"/> to get the value member.</param>
-        /// <param name="displayMember">The <see cref="Func{TResult}"/> to get the display member.</param>
+        /// <param name="valueMember"></param>
+        /// <param name="displayMember"></param>
         /// <remarks><paramref name="dataPropertyName"/> is also used to create the <see cref="DataGridViewColumn.Name"/>.
         /// The format is "column_<paramref name="dataPropertyName"/>.</remarks>
-        public void AddComboBoxColumn<T>(string dataPropertyName, string headerText, List<T> dataSource, Expression<Func<T,object>> valueMember, Expression<Func<T,object>> displayMember)
+        public void AddComboBoxColumn<T>(string dataPropertyName, string headerText, List<T> dataSource, string valueMember, string displayMember)
         {
             var dataGridViewComboBoxColumn = new DataGridViewComboBoxColumn
             {
@@ -114,15 +112,15 @@ namespace Core.Common.Controls.DataGrid
             {
                 dataGridViewComboBoxColumn.DataSource = dataSource;
             }
-            
+
             if (valueMember != null)
             {
-                dataGridViewComboBoxColumn.ValueMember = TypeUtils.GetMemberName(valueMember);
+                dataGridViewComboBoxColumn.ValueMember = valueMember;
             }
-            
+
             if (displayMember != null)
             {
-                dataGridViewComboBoxColumn.DisplayMember = TypeUtils.GetMemberName(displayMember);
+                dataGridViewComboBoxColumn.DisplayMember = displayMember;
             }
 
             dataGridView.Columns.Add(dataGridViewComboBoxColumn);
@@ -143,7 +141,7 @@ namespace Core.Common.Controls.DataGrid
         public void RefreshDataGridView()
         {
             dataGridView.Refresh();
-            dataGridView.AutoResizeColumns();
+            AutoResizeColumns();
         }
 
         /// <summary>
@@ -160,7 +158,7 @@ namespace Core.Common.Controls.DataGrid
         /// </summary>
         public void EndEdit()
         {
-            if (dataGridView.IsCurrentCellInEditMode)
+            if (IsCurrentCellInEditMode)
             {
                 dataGridView.CancelEdit();
                 dataGridView.EndEdit();
@@ -269,6 +267,15 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
+        /// Remove a handler from the <see cref="DataGridView.CellFormatting"/> event.
+        /// </summary>
+        /// <param name="handler">The handler to remove.</param>
+        public void RemoveCellFormattingHandler(DataGridViewCellFormattingEventHandler handler)
+        {
+            dataGridView.CellFormatting -= handler;
+        }
+
+        /// <summary>
         /// Add a handler for the <see cref="DataGridView.CellClick"/> event.
         /// </summary>
         /// <param name="handler">The handler to add.</param>
@@ -277,12 +284,28 @@ namespace Core.Common.Controls.DataGrid
             dataGridView.CellClick += handler;
         }
 
+        /// <summary>
+        /// Remove a handler from the <see cref="DataGridView.CellClick"/> event.
+        /// </summary>
+        /// <param name="handler">The handler to remove.</param>
+        public void RemoveCellClickHandler(DataGridViewCellEventHandler handler)
+        {
+            dataGridView.CellClick -= handler;
+        }
+
         private void SubscribeEvents()
         {
+            dataGridView.ColumnAdded += DataGridViewOnColumnAdded;
             dataGridView.CurrentCellDirtyStateChanged += DataGridViewOnCurrentCellDirtyStateChanged;
             dataGridView.GotFocus += DataGridViewOnGotFocus;
             dataGridView.CellValidating += DataGridViewOnCellValidating;
             dataGridView.DataError += DataGridViewOnDataError;
+        }
+
+        private void DataGridViewOnColumnAdded(object sender, DataGridViewColumnEventArgs e)
+        {
+            e.Column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            e.Column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 
         private void DataGridViewOnCurrentCellDirtyStateChanged(object sender, EventArgs e)

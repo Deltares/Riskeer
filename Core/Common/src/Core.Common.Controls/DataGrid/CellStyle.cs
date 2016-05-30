@@ -46,7 +46,14 @@ namespace Core.Common.Controls.DataGrid
             BackgroundColor = Color.FromKnownColor(KnownColor.DarkGray)
         };
 
+        /// <summary>
+        /// Gets and sets the color of the text.
+        /// </summary>
         public Color TextColor { get; private set; }
+
+        /// <summary>
+        /// Gets and sets the color of the background.
+        /// </summary>
         public Color BackgroundColor { get; private set; }
     }
 }

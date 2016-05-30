@@ -22,11 +22,11 @@
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.HeightStructures.Data;
-
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.Views
@@ -40,7 +40,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
-        private int assessmentLayerTwoAIndex = 2;
+        private readonly int assessmentLayerTwoAIndex = 2;
 
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismResultView"/>.
@@ -72,11 +72,33 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
+            DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+
             calculationInputObserver.Dispose();
             calculationOutputObserver.Dispose();
             calculationGroupObserver.Dispose();
 
             base.Dispose(disposing);
+        }
+
+        protected override void AddDataGridColumns()
+        {
+            base.AddDataGridColumns();
+
+            DataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HeightStructuresFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                                                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, 
+                                                 true);
+
+            DataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HeightStructuresFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoB),
+                                                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b);
+
+            DataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HeightStructuresFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
+                                                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+        }
+
+        protected override object CreateFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult)
+        {
+            return new HeightStructuresFailureMechanismSectionResultRow(sectionResult);
         }
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
@@ -92,20 +114,6 @@ namespace Ringtoets.HeightStructures.Forms.Views
                     DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex, eventArgs.ColumnIndex == assessmentLayerTwoAIndex);
                 }
             }
-        }
-
-        protected override void AddDataGridColumns()
-        {
-            base.AddDataGridColumns();
-
-            DataGridViewControl.AddTextBoxColumn("AssessmentLayerTwoA", RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, true);
-            DataGridViewControl.AddTextBoxColumn("AssessmentLayerTwoB", RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b);
-            DataGridViewControl.AddTextBoxColumn("AssessmentLayerThree", RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
-        }
-
-        protected override object CreateFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult)
-        {
-            return new HeightStructuresFailureMechanismSectionResultRow(sectionResult);
         }
     }
 }

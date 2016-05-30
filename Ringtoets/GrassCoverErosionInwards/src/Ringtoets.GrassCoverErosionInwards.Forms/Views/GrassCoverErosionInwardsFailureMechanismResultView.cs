@@ -41,7 +41,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
-        private int assessmentLayerTwoAIndex = 2;
+        private readonly int assessmentLayerTwoAIndex = 2;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismResultView"/>.
@@ -73,6 +73,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
+            DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+
             calculationInputObserver.Dispose();
             calculationOutputObserver.Dispose();
             calculationGroupObserver.Dispose();
@@ -83,20 +85,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         protected override void AddDataGridColumns()
         {
             base.AddDataGridColumns();
-            
+
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResult>(sr => sr.AssessmentLayerTwoA), 
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, 
+                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
                 true
-            );
+                );
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResult>(sr => sr.AssessmentLayerTwoB), 
+                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoB),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b
-            );
+                );
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResult>(sr => sr.AssessmentLayerThree), 
+                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three
-            );
+                );
         }
 
         protected override object CreateFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)

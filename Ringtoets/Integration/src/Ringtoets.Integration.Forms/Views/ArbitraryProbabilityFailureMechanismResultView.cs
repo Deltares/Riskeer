@@ -41,6 +41,29 @@ namespace Ringtoets.Integration.Forms.Views
             DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
         }
 
+        protected override void AddDataGridColumns()
+        {
+            base.AddDataGridColumns();
+
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a
+                );
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoB),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b
+                );
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three
+                );
+        }
+
+        protected override object CreateFailureMechanismSectionResultRow(ArbitraryProbabilityFailureMechanismSectionResult sectionResult)
+        {
+            return new ArbitraryProbabilityFailureMechanismSectionResultRow(sectionResult);
+        }
+
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
             if (eventArgs.ColumnIndex > 1)
@@ -53,30 +76,7 @@ namespace Ringtoets.Integration.Forms.Views
                 {
                     DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
-            } 
-        }
-
-        protected override void AddDataGridColumns()
-        {
-            base.AddDataGridColumns();
-
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResult>(sr => sr.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a
-            );
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResult>(sr => sr.AssessmentLayerTwoB),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b
-            );
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResult>(sr => sr.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three
-            );
-        }
-
-        protected override object CreateFailureMechanismSectionResultRow(ArbitraryProbabilityFailureMechanismSectionResult sectionResult)
-        {
-            return new ArbitraryProbabilityFailureMechanismSectionResultRow(sectionResult);
+            }
         }
     }
 }

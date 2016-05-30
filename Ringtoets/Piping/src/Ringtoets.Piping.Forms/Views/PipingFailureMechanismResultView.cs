@@ -26,10 +26,8 @@ using Core.Common.Base;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
-
 using CoreCommonResources = Core.Common.Base.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -45,7 +43,7 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
-        private int assessmentLayerTwoAIndex = 2;
+        private readonly int assessmentLayerTwoAIndex = 2;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismResultView"/>.
@@ -78,6 +76,9 @@ namespace Ringtoets.Piping.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
+            DataGridViewControl.RemoveCellFormattingHandler(ShowAssementLayerTwoAErrors);
+            DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+
             calculationInputObserver.Dispose();
             calculationOutputObserver.Dispose();
             calculationGroupObserver.Dispose();
@@ -90,25 +91,25 @@ namespace Ringtoets.Piping.Forms.Views
             base.AddDataGridColumns();
 
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResult>(sr => sr.AssessmentLayerTwoA),
+                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
                 true
-            );
+                );
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResult>(sr => sr.AssessmentLayerTwoB),
+                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoB),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b
-            );
+                );
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResult>(sr => sr.AssessmentLayerThree),
+                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three
-            );
+                );
         }
 
         protected override object CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)
         {
             return new PipingFailureMechanismSectionResultRow(sectionResult);
         }
-        
+
         #region Event handling
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
@@ -125,7 +126,7 @@ namespace Ringtoets.Piping.Forms.Views
                 }
             }
         }
-        
+
         private void ShowAssementLayerTwoAErrors(object sender, DataGridViewCellFormattingEventArgs e)
         {
             var currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
@@ -147,7 +148,7 @@ namespace Ringtoets.Piping.Forms.Views
 
                 if (Math.Abs(rowObject.TotalContribution - 1.0) > tolerance)
                 {
-                    currentDataGridViewCell.ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
+                    currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
                     return;
                 }
 
@@ -155,13 +156,13 @@ namespace Ringtoets.Piping.Forms.Views
 
                 if (calculationScenarioStatus == CalculationScenarioStatus.NotCalculated)
                 {
-                    currentDataGridViewCell.ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_are_executed;
+                    currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_are_executed;
                     return;
                 }
 
                 if (calculationScenarioStatus == CalculationScenarioStatus.Failed)
                 {
-                    currentDataGridViewCell.ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_valid_output;
+                    currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_valid_output;
                     return;
                 }
 

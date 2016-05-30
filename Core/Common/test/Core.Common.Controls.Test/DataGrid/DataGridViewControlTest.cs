@@ -23,10 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
+using Core.Common.Utils.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 
@@ -56,9 +59,9 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
                 // Call
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
@@ -85,13 +88,12 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
-            {
-                var control = new DataGridViewControl();
+            using (var control = new DataGridViewControl())
+            {                
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 // Make sure the cell is not in edit mode when setting the current cell.
                 dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
@@ -117,13 +119,12 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 // Make sure the cell is not in edit mode when setting the current cell.
                 dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
@@ -150,11 +151,11 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
                 var propertyName = "PropertyName";
                 var headerText = "HeaderText";
-
-                var control = new DataGridViewControl();
+                
                 form.Controls.Add(control);
                 form.Show();
 
@@ -174,6 +175,8 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
                 Assert.AreEqual(readOnly, columnData.ReadOnly);
+                Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, columnData.AutoSizeMode);
+                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
             }
         }
 
@@ -182,11 +185,11 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
                 var propertyName = "PropertyName";
                 var headerText = "HeaderText";
 
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
@@ -205,6 +208,8 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
+                Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, columnData.AutoSizeMode);
+                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
             }
         }
 
@@ -212,11 +217,11 @@ namespace Core.Common.Controls.Test.DataGrid
         public void AddComboBoxColumn_DataSourceValueMemberAndDisplayMemberNull_AddsColumnToDataGridViewWithoutDataSourceValueMemberAndDisplayMember()
         {
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
                 var propertyName = "PropertyName";
                 var headerText = "HeaderText";
 
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
@@ -239,6 +244,8 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.IsNull(columnData.DataSource);
                 Assert.AreEqual(string.Empty, columnData.ValueMember);
                 Assert.AreEqual(string.Empty, columnData.DisplayMember);
+                Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, columnData.AutoSizeMode);
+                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
             }
         }
 
@@ -246,11 +253,11 @@ namespace Core.Common.Controls.Test.DataGrid
         public void AddComboBoxColumn_DataSourceValueMemberAndDisplayMemberSet_AddsColumnToDataGridViewWithDataSourceValueMemberAndDisplayMember()
         {
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
                 var propertyName = "PropertyName";
                 var headerText = "HeaderText";
 
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
@@ -265,7 +272,12 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                control.AddComboBoxColumn(propertyName, headerText, dataSource, ds => ds.Value, ds => ds.DisplayName);
+                control.AddComboBoxColumn(
+                    propertyName, 
+                    headerText, 
+                    dataSource, 
+                    TypeUtils.GetMemberName((Expression<Func<EnumDisplayWrapper<TestEnum>, object>>) (ds => ds.Value)), 
+                    TypeUtils.GetMemberName((Expression<Func<EnumDisplayWrapper<TestEnum>, object>>) (ds => ds.DisplayName)));
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
@@ -278,6 +290,8 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreSame(dataSource, columnData.DataSource);
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
+                Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, columnData.AutoSizeMode);
+                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
             }
         }
 
@@ -286,13 +300,12 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 control.AddCheckBoxColumn("Test property", "Test header");
 
@@ -310,17 +323,170 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
+        public void RefreshDataGridView_AddLongerText_IncreasesColumnWidth()
+        {
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                var dataSource = new[]
+                {
+                    "Test"
+                };
+
+                dataGridView.DataSource = dataSource;
+
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+
+                var initialWidth = dataGridViewCell.OwningColumn.Width;
+                dataGridViewCell.Value = "This is a long text.";
+
+                // Call
+                control.RefreshDataGridView();
+
+                // Assert
+                var longTextWidth = dataGridViewCell.OwningColumn.Width;
+                Assert.Greater(longTextWidth, initialWidth);
+            }
+        }
+
+        [Test]
+        public void RefreshDataGridView_AddShorterText_DecreasesColumnWidth()
+        {
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                var dataSource = new[]
+                {
+                    "Test"
+                };
+
+                dataGridView.DataSource = dataSource;
+
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+
+                var initialWidth = dataGridViewCell.OwningColumn.Width;
+                dataGridViewCell.Value = "This is a long text.";
+
+                control.RefreshDataGridView();
+
+                // Precondition
+                var longTextWidth = dataGridViewCell.OwningColumn.Width;
+                Assert.Greater(longTextWidth, initialWidth);
+
+                dataGridViewCell.Value = string.Empty;
+
+                // Call
+                control.RefreshDataGridView();
+
+                // Assert
+                Assert.Less(dataGridViewCell.OwningColumn.Width, longTextWidth);
+            }
+        }
+
+        [Test]
+        public void AutoResizeColumns_AddLongerText_IncreasesColumnWidth()
+        {
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                var dataSource = new[]
+                {
+                    "Test"
+                };
+
+                dataGridView.DataSource = dataSource;
+
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+
+                var initialWidth = dataGridViewCell.OwningColumn.Width;
+                dataGridViewCell.Value = "This is a long text.";
+
+                // Call
+                control.AutoResizeColumns();
+                
+                // Assert
+                var longTextWidth = dataGridViewCell.OwningColumn.Width;
+                Assert.Greater(longTextWidth, initialWidth);
+            }
+        }
+        
+         [Test]
+        public void AutoResizeColumns_AddShorterText_DecreasesColumnWidth()
+        {
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                var dataSource = new[]
+                {
+                    "Test"
+                };
+
+                dataGridView.DataSource = dataSource;
+
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+
+                var initialWidth = dataGridViewCell.OwningColumn.Width;
+                dataGridViewCell.Value = "This is a long text.";
+
+                control.AutoResizeColumns();
+                
+                // Precondition
+                var longTextWidth = dataGridViewCell.OwningColumn.Width;
+                Assert.Greater(longTextWidth, initialWidth);
+
+                dataGridViewCell.Value = string.Empty;
+                
+                // Call
+                control.AutoResizeColumns();
+
+                // Assert
+                Assert.Less(dataGridViewCell.OwningColumn.Width, longTextWidth); 
+            }
+        }
+
+        [Test]
         public void EndEdit_CurrentCellInEditMode_EndEditAndSetCurrentCellToNull()
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 // Make sure the cell is not in edit mode when setting the current cell.
                 dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
@@ -350,13 +516,12 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 control.AddTextBoxColumn("Test property", "Test header");
 
@@ -375,13 +540,12 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 control.AddTextBoxColumn("Test property", "Test header");
 
@@ -400,13 +564,12 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 control.AddTextBoxColumn("Test property", "Test header");
 
@@ -425,13 +588,12 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 control.AddTextBoxColumn("Test property", "Test header");
 
@@ -452,13 +614,12 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 control.AddTextBoxColumn("Test property", "Test header");
 
@@ -478,13 +639,12 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 control.AddTextBoxColumn("Test property", "Test header");
 
@@ -503,13 +663,12 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 control.AddTextBoxColumn("Test property", "Test header");
 
@@ -528,13 +687,12 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 control.AddTextBoxColumn("Test property", "Test header");
 
@@ -553,13 +711,12 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 var dataPropertyName = "Test property";
                 var testHeader = "Test header";
@@ -582,13 +739,12 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 control.AddTextBoxColumn("Test property", "Test header");
 
@@ -607,13 +763,12 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 control.AddTextBoxColumn("Test property", "Test header");
 
@@ -635,13 +790,12 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 control.AddTextBoxColumn("Test property", "Test header");
 
@@ -656,7 +810,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), dataGridViewCell.Style.ForeColor);
 
                 // Call
-                control.RestoreCell(0, 0, false);
+                control.RestoreCell(0, 0);
 
                 // Assert
                 Assert.IsFalse(dataGridViewCell.ReadOnly);
@@ -670,13 +824,12 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 control.AddTextBoxColumn("Test property", "Test header");
 
@@ -707,13 +860,12 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 control.AddTextBoxColumn("Test property", "Test header");
 
@@ -737,12 +889,50 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
+        public void RemoveCellFormattingHandler_Always_RemovesEventHandler()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+
+                int counter = 0;
+
+                DataGridViewCellFormattingEventHandler dataGridViewCellFormattingEventHandler = (sender, args) => counter++;
+
+                control.AddCellFormattingHandler(dataGridViewCellFormattingEventHandler);
+
+                // Precondition
+                Assert.AreEqual(0, counter);
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                Assert.AreEqual(1, counter);
+
+                // Call
+                control.RemoveCellFormattingHandler(dataGridViewCellFormattingEventHandler);
+
+                // Assert
+                var formattedValue2 = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                Assert.AreEqual(1, counter);
+            }
+        }
+
+        [Test]
         public void AddCellClickHandler_Always_AddsEventHandler()
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
@@ -771,12 +961,50 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
+        public void RemoveCellClickHandler_Always_RemovesEventHandler()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[] { "" };
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+
+                int counter = 0;
+
+                DataGridViewCellEventHandler dataGridViewCellEventHandler = (sender, args) => counter++;
+
+                control.AddCellClickHandler(dataGridViewCellEventHandler);
+
+                // Precondition
+                Assert.AreEqual(0, counter);
+                gridTester.FireEvent("CellClick", new DataGridViewCellEventArgs(0, 0));
+                Assert.AreEqual(1, counter);
+
+                // Call
+                control.RemoveCellClickHandler(dataGridViewCellEventHandler);
+
+                // Assert
+                Assert.AreEqual(1, counter);
+            }
+        }
+
+        [Test]
         public void DataGridViewControlCheckBoxColumn_EditValueDirtyStateChangedEventFired_ValueCommittedCellInEditMode()
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
@@ -809,8 +1037,8 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
@@ -843,8 +1071,8 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
@@ -875,13 +1103,12 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             using (var form = new Form())
+            using (var control = new DataGridViewControl())
             {
-                var control = new DataGridViewControl();
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 // Make sure the cell is not in edit mode when setting the current cell.
                 dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
@@ -901,14 +1128,59 @@ namespace Core.Common.Controls.Test.DataGrid
             }
         }
 
+        [Test]
+        public void DataGridView_ErrorWhenCommitingValue_DoesShowErrorToolTip()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                control.AddTextBoxColumn("TestRoundedDouble", "Test header");
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                dataGridView.DataSource = new[] { new TestDataGridViewRow(new RoundedDouble(0, 25)) };
+
+                // Call
+                dataGridView.Rows[0].Cells[0].Value = "test";
+
+                // Assert
+                Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
+            }
+        }
+
         #endregion
 
-        enum TestEnum
+        private enum TestEnum
         {
             NoDisplayName,
 
             [ResourcesDisplayName(typeof(Resources), "DataGridViewControlTest_DisplayNameValueDisplayName")]
             DisplayName
+        }
+
+        private class TestDataGridViewRow
+        {
+            private RoundedDouble testRoundedDouble;
+
+            public TestDataGridViewRow(RoundedDouble testRoundedDouble)
+            {
+                TestRoundedDouble = testRoundedDouble;
+            }
+
+            public RoundedDouble TestRoundedDouble
+            {
+                get
+                {
+                    return testRoundedDouble;
+                }
+                set
+                {
+                    testRoundedDouble = value;
+                }
+            }
         }
     }
 }

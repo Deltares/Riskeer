@@ -22,12 +22,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Selection;
+using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -46,6 +48,9 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     public partial class PipingCalculationsView : UserControl, IView
     {
+        private const int stochasticSoilModelColumnIndex = 3;
+        private const int stochasticSoilProfileColumnIndex = 4;
+        private const int hydraulicBoundaryLocationColumnIndex = 6;
         private readonly Observer assessmentSectionObserver;
         private readonly RecursiveObserver<CalculationGroup, PipingInput> pipingInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> pipingCalculationGroupObserver;
@@ -55,10 +60,6 @@ namespace Ringtoets.Piping.Forms.Views
         private IAssessmentSection assessmentSection;
         private CalculationGroup calculationGroup;
         private PipingFailureMechanism pipingFailureMechanism;
-
-        private const int stochasticSoilModelColumnIndex = 3;
-        private const int stochasticSoilProfileColumnIndex = 4;
-        private const int hydraulicBoundaryLocationColumnIndex = 6;
 
         private bool updatingDataSource;
 
@@ -174,41 +175,45 @@ namespace Ringtoets.Piping.Forms.Views
         {
             dataGridViewControl.AddCellClickHandler(DataGridViewOnCellClick);
 
-            dataGridViewControl.AddCheckBoxColumn("IsRelevant", Resources.PipingCalculationsView_InitializeDataGridView_In_final_rating);
-            dataGridViewControl.AddTextBoxColumn("Contribution", Resources.PipingCalculationsView_InitializeDataGridView_Contribution);
-            dataGridViewControl.AddTextBoxColumn("Name", Resources.PipingCalculation_Name_DisplayName);
+            dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<PipingCalculationRow>(row => row.IsRelevant), Resources.PipingCalculationsView_InitializeDataGridView_In_final_rating);
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<PipingCalculationRow>(row => row.Contribution), Resources.PipingCalculationsView_InitializeDataGridView_Contribution);
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<PipingCalculationRow>(row => row.Name), Resources.PipingCalculation_Name_DisplayName);
 
-            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<StochasticSoilModel>>("StochasticSoilModel", 
-                                                                                                        Resources.PipingInput_StochasticSoilModel_DisplayName, 
-                                                                                                        null, 
-                                                                                                        wrapper => wrapper.This, 
-                                                                                                        wrapper => wrapper.DisplayName);
-
-            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<StochasticSoilProfile>>("StochasticSoilProfile",
-                                                                                                        Resources.PipingInput_StochasticSoilProfile_DisplayName,
+            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<StochasticSoilModel>>(TypeUtils.GetMemberName<PipingCalculationRow>(row => row.StochasticSoilModel),
+                                                                                                        Resources.PipingInput_StochasticSoilModel_DisplayName,
                                                                                                         null,
-                                                                                                        wrapper => wrapper.This,
-                                                                                                        wrapper => wrapper.DisplayName);
+                                                                                                        TypeUtils.GetMemberName((Expression<Func<DataGridViewComboBoxItemWrapper<StochasticSoilModel>, object>>) (wrapper => wrapper.This)),
+                                                                                                        TypeUtils.GetMemberName((Expression<Func<DataGridViewComboBoxItemWrapper<StochasticSoilModel>, object>>) (wrapper => wrapper.DisplayName)));
 
-            dataGridViewControl.AddTextBoxColumn("StochasticSoilProfileProbability", Resources.PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability);
+            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<StochasticSoilProfile>>(TypeUtils.GetMemberName<PipingCalculationRow>(row => row.StochasticSoilProfile),
+                                                                                                          Resources.PipingInput_StochasticSoilProfile_DisplayName,
+                                                                                                          null,
+                                                                                                          TypeUtils.GetMemberName((Expression<Func<DataGridViewComboBoxItemWrapper<StochasticSoilProfile>, object>>) (wrapper => wrapper.This)),
+                                                                                                          TypeUtils.GetMemberName((Expression<Func<DataGridViewComboBoxItemWrapper<StochasticSoilProfile>, object>>) (wrapper => wrapper.DisplayName)));
 
-            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>>("HydraulicBoundaryLocation",
-                                                                                                        Resources.PipingInput_HydraulicBoundaryLocation_DisplayName,
-                                                                                                        null,
-                                                                                                        wrapper => wrapper.This,
-                                                                                                        wrapper => wrapper.DisplayName);
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<PipingCalculationRow>(row => row.StochasticSoilProfileProbability),
+                                                 Resources.PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability);
+
+            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>>(TypeUtils.GetMemberName<PipingCalculationRow>(row => row.HydraulicBoundaryLocation),
+                                                                                                              Resources.PipingInput_HydraulicBoundaryLocation_DisplayName,
+                                                                                                              null,
+                                                                                                              TypeUtils.GetMemberName((Expression<Func<DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>, object>>) (wrapper => wrapper.This)),
+                                                                                                              TypeUtils.GetMemberName((Expression<Func<DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>, object>>) (wrapper => wrapper.DisplayName)));
 
             var dampingFactorExitHeader = Resources.PipingInput_DampingFactorExit_DisplayName;
             dampingFactorExitHeader = char.ToLowerInvariant(dampingFactorExitHeader[0]) + dampingFactorExitHeader.Substring(1);
 
-            dataGridViewControl.AddTextBoxColumn("DampingFactorExitMean", string.Format("{0} {1}", Resources.Probabilistics_Mean_Symbol, dampingFactorExitHeader));
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<PipingCalculationRow>(row => row.DampingFactorExitMean),
+                                                 string.Format("{0} {1}", Resources.Probabilistics_Mean_Symbol, dampingFactorExitHeader));
 
             var phreaticLevelExitHeader = Resources.PipingInput_PhreaticLevelExit_DisplayName;
             phreaticLevelExitHeader = char.ToLowerInvariant(phreaticLevelExitHeader[0]) + phreaticLevelExitHeader.Substring(1);
 
-            dataGridViewControl.AddTextBoxColumn("PhreaticLevelExitMean", string.Format("{0} {1}", Resources.Probabilistics_Mean_Symbol, phreaticLevelExitHeader));
-            dataGridViewControl.AddTextBoxColumn("EntryPointL", Resources.PipingInput_EntryPointL_DisplayName);
-            dataGridViewControl.AddTextBoxColumn("ExitPointL", Resources.PipingInput_ExitPointL_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<PipingCalculationRow>(row => row.PhreaticLevelExitMean),
+                                                 string.Format("{0} {1}", Resources.Probabilistics_Mean_Symbol, phreaticLevelExitHeader));
+
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<PipingCalculationRow>(pcs => pcs.EntryPointL), Resources.PipingInput_EntryPointL_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<PipingCalculationRow>(pcs => pcs.ExitPointL), Resources.PipingInput_ExitPointL_DisplayName);
 
             UpdateHydraulicBoundaryLocationsColumn();
             UpdateStochasticSoilModelColumn();
@@ -309,6 +314,33 @@ namespace Ringtoets.Piping.Forms.Views
             objectCollection.AddRange(comboBoxItems);
         }
 
+        #region Nested types
+
+        /// <summary>
+        /// This class makes it easier to temporarily disable automatic resizing of a column,
+        /// for example when it's data is being changed or you are replacing the list items
+        /// available in a combo-box for that column.
+        /// </summary>
+        private class SuspendDataGridViewColumnResizes : IDisposable
+        {
+            private readonly DataGridViewColumn column;
+            private readonly DataGridViewAutoSizeColumnMode originalValue;
+
+            public SuspendDataGridViewColumnResizes(DataGridViewColumn columnToSuspend)
+            {
+                column = columnToSuspend;
+                originalValue = columnToSuspend.AutoSizeMode;
+                columnToSuspend.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            }
+
+            public void Dispose()
+            {
+                column.AutoSizeMode = originalValue;
+            }
+        }
+
+        #endregion
+
         #region Data sources
 
         private void UpdateDataGridViewDataSource()
@@ -343,8 +375,8 @@ namespace Ringtoets.Piping.Forms.Views
             PrefillComboBoxListItemsAtColumnLevel();
 
             var dataSource = pipingCalculations.OfType<PipingCalculationScenario>()
-                                                        .Select(pc => new PipingCalculationRow(pc))
-                                                        .ToList();
+                                               .Select(pc => new PipingCalculationRow(pc))
+                                               .ToList();
             dataGridViewControl.SetDataSource(dataSource);
 
             UpdateStochasticSoilModelColumn();
@@ -421,8 +453,8 @@ namespace Ringtoets.Piping.Forms.Views
         private void PrefillComboBoxListItemsAtColumnLevel()
         {
             DataGridViewComboBoxColumn stochasticSoilModelColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(stochasticSoilModelColumnIndex);
-            DataGridViewComboBoxColumn stochasticSoilProfileColumn = (DataGridViewComboBoxColumn)dataGridViewControl.GetColumnFromIndex(stochasticSoilProfileColumnIndex);
-            DataGridViewComboBoxColumn hydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn)dataGridViewControl.GetColumnFromIndex(hydraulicBoundaryLocationColumnIndex);
+            DataGridViewComboBoxColumn stochasticSoilProfileColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(stochasticSoilProfileColumnIndex);
+            DataGridViewComboBoxColumn hydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(hydraulicBoundaryLocationColumnIndex);
 
             // Need to prefill for all possible data in order to guarantee 'combo box' columns
             // do not generate errors when their cell value is not present in the list of available
@@ -454,33 +486,6 @@ namespace Ringtoets.Piping.Forms.Views
                                                                           .SelectMany(ssm => ssm.StochasticSoilProfiles)
                                                                           .Distinct()
                                                                           .ToArray() : null;
-        }
-
-        #endregion
-
-        #region Nested types
-
-        /// <summary>
-        /// This class makes it easier to temporarily disable automatic resizing of a column,
-        /// for example when it's data is being changed or you are replacing the list items
-        /// available in a combo-box for that column.
-        /// </summary>
-        private class SuspendDataGridViewColumnResizes : IDisposable
-        {
-            private readonly DataGridViewColumn column;
-            private readonly DataGridViewAutoSizeColumnMode originalValue;
-
-            public SuspendDataGridViewColumnResizes(DataGridViewColumn columnToSuspend)
-            {
-                column = columnToSuspend;
-                originalValue = columnToSuspend.AutoSizeMode;
-                columnToSuspend.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            }
-
-            public void Dispose()
-            {
-                column.AutoSizeMode = originalValue;
-            }
         }
 
         #endregion
@@ -561,7 +566,7 @@ namespace Ringtoets.Piping.Forms.Views
             var currentRow = dataGridViewControl.GetCurrentRow();
 
             var pipingCalculationRow = currentRow != null
-                                           ? (PipingCalculationRow)currentRow.DataBoundItem
+                                           ? (PipingCalculationRow) currentRow.DataBoundItem
                                            : null;
 
             PipingInputContext selection = null;
