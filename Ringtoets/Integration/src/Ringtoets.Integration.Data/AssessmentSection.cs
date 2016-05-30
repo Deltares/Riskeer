@@ -182,7 +182,7 @@ namespace Ringtoets.Integration.Data
             set
             {
                 referenceLine = value;
-                PipingFailureMechanism.NormProbabilityInput.SectionLength = value == null ? double.NaN : Math2D.Length(value.Points);
+                PipingFailureMechanism.PipingProbabilityAssessmentInput.SectionLength = value == null ? double.NaN : Math2D.Length(value.Points);
             }
         }
 
@@ -196,7 +196,7 @@ namespace Ringtoets.Integration.Data
             {
                 contribution = value;
                 GrassCoverErosionInwards.NormProbabilityInput.Norm = value.Norm;
-                PipingFailureMechanism.NormProbabilityInput.Norm = value.Norm;
+                PipingFailureMechanism.PipingProbabilityAssessmentInput.Norm = value.Norm;
                 HeightStructures.NormProbabilityInput.Norm = value.Norm;
             }
         }

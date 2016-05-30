@@ -588,7 +588,7 @@ namespace Ringtoets.Piping.Plugin
 
         private static void AddCalculationScenario(PipingCalculationGroupContext nodeData)
         {
-            var calculation = new PipingCalculationScenario(nodeData.FailureMechanism.GeneralInput, nodeData.FailureMechanism.NormProbabilityInput)
+            var calculation = new PipingCalculationScenario(nodeData.FailureMechanism.GeneralInput, nodeData.FailureMechanism.PipingProbabilityAssessmentInput)
             {
                 Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
             };
@@ -621,7 +621,7 @@ namespace Ringtoets.Piping.Plugin
             var view = new PipingSurfaceLineSelectionDialog(Gui.MainWindow, nodeData.AvailablePipingSurfaceLines);
             view.ShowDialog();
 
-            GeneratePipingCalculations(nodeData.WrappedData, view.SelectedSurfaceLines, nodeData.AvailableStochasticSoilModels, nodeData.FailureMechanism.GeneralInput, nodeData.FailureMechanism.NormProbabilityInput);
+            GeneratePipingCalculations(nodeData.WrappedData, view.SelectedSurfaceLines, nodeData.AvailableStochasticSoilModels, nodeData.FailureMechanism.GeneralInput, nodeData.FailureMechanism.PipingProbabilityAssessmentInput);
 
             nodeData.NotifyObservers();
 
@@ -629,9 +629,9 @@ namespace Ringtoets.Piping.Plugin
             nodeData.FailureMechanism.NotifyObservers();
         }
 
-        private void GeneratePipingCalculations(CalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, PipingProbabilityAssessmentInput normProbabilityInput)
+        private void GeneratePipingCalculations(CalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput)
         {
-            foreach (var group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput, normProbabilityInput))
+            foreach (var group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput, pipingProbabilityAssessmentInput))
             {
                 target.Children.Add(group);
             }

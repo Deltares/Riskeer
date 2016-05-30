@@ -198,7 +198,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.NormProbabilityInput.A;
+                return data.WrappedData.PipingProbabilityAssessmentInput.A;
             }
         }
 
@@ -210,7 +210,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.NormProbabilityInput.B;
+                return data.WrappedData.PipingProbabilityAssessmentInput.B;
             }
         }
 

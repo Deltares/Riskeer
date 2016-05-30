@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Service
         {
             ValidateOutputOnCalculation(calculation);
 
-            PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput = calculation.NormProbabilityParameters;
+            PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput = calculation.PipingProbabilityAssessmentInput;
             PipingOutput pipingOutput = calculation.Output;
 
             var calculator = new PipingSemiProbabilisticCalculationService(

@@ -36,26 +36,26 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="generalInputParameters">General piping calculation parameters that
         /// are the same across all piping calculations.</param>
-        /// <param name="normProbabilityInputParameters">General semi-probabilistic parameters that 
-        /// are used in a semi-probabilistic piping assessment.</param>
+        /// <param name="pipingProbabilityAssessmentInput">General input that influences the
+        /// probability estimate for a piping assessment.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/> or 
-        /// <paramref name="normProbabilityInputParameters"/> is <c>null</c>.</exception>
-        public PipingCalculation(GeneralPipingInput generalInputParameters, PipingProbabilityAssessmentInput normProbabilityInputParameters)
+        /// <paramref name="pipingProbabilityAssessmentInput"/> is <c>null</c>.</exception>
+        public PipingCalculation(GeneralPipingInput generalInputParameters, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput)
         {
-            if (normProbabilityInputParameters == null)
+            if (pipingProbabilityAssessmentInput == null)
             {
-                throw new ArgumentNullException("normProbabilityInputParameters");
+                throw new ArgumentNullException("pipingProbabilityAssessmentInput");
             }
             Name = Resources.PipingCalculation_DefaultName;
 
             InputParameters = new PipingInput(generalInputParameters);
-            NormProbabilityParameters = normProbabilityInputParameters;
+            PipingProbabilityAssessmentInput = pipingProbabilityAssessmentInput;
         }
 
         /// <summary>
-        /// Gets the parameters required to perform a semi-probabilistic assessment.
+        /// Gets the piping probability assessment input.
         /// </summary>
-        public PipingProbabilityAssessmentInput NormProbabilityParameters { get; private set; }
+        public PipingProbabilityAssessmentInput PipingProbabilityAssessmentInput { get; private set; }
 
         /// <summary>
         /// Gets the input parameters to perform a piping calculation with.

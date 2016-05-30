@@ -402,7 +402,7 @@ namespace Ringtoets.Piping.Forms.Test
 
             // Assert
             var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("normProbabilityInput", parameter);
+            Assert.AreEqual("pipingProbabilityAssessmentInput", parameter);
         }
 
         [Test]
@@ -1061,14 +1061,14 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             GeneralPipingInput generalInput = new GeneralPipingInput();
-            PipingProbabilityAssessmentInput normProbabilityInput = new PipingProbabilityAssessmentInput();
+            PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
 
             // Call
             IEnumerable<ICalculationBase> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 surfaceLines,
                 availableSoilModels,
                 generalInput,
-                normProbabilityInput).ToArray();
+                pipingProbabilityAssessmentInput).ToArray();
 
             // Assert
             var group = result.First(sl => sl.Name == surfaceLine.Name) as CalculationGroup;
@@ -1079,8 +1079,8 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.AreEqual(string.Format("{0} {1}", surfaceLine.Name, soilProfile1.Name), calculationInput1.Name);
             Assert.AreEqual(string.Format("{0} {1}", surfaceLine.Name, soilProfile2.Name), calculationInput2.Name);
 
-            Assert.AreSame(normProbabilityInput, calculationInput1.NormProbabilityParameters);
-            Assert.AreSame(normProbabilityInput, calculationInput2.NormProbabilityParameters);
+            Assert.AreSame(pipingProbabilityAssessmentInput, calculationInput1.PipingProbabilityAssessmentInput);
+            Assert.AreSame(pipingProbabilityAssessmentInput, calculationInput2.PipingProbabilityAssessmentInput);
 
             CompareGeneralInputToInput(generalInput, calculationInput1);
             CompareGeneralInputToInput(generalInput, calculationInput2);

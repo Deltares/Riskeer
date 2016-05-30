@@ -35,11 +35,12 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="generalInputParameters">General piping calculation parameters that
         /// are the same across all piping calculations.</param>
-        /// <param name="normProbabilityInputParameters">Parameters which influence the probability estimate for a piping assessment.</param>
+        /// <param name="pipingProbabilityAssessmentInput">General input that influences the
+        /// probability estimate for a piping assessment.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/> or 
-        /// <paramref name="normProbabilityInputParameters"/> is <c>null</c>.</exception>
-        public PipingCalculationScenario(GeneralPipingInput generalInputParameters, PipingProbabilityAssessmentInput normProbabilityInputParameters)
-            : base(generalInputParameters, normProbabilityInputParameters)
+        /// <paramref name="pipingProbabilityAssessmentInput"/> is <c>null</c>.</exception>
+        public PipingCalculationScenario(GeneralPipingInput generalInputParameters, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput)
+            : base(generalInputParameters, pipingProbabilityAssessmentInput)
         {
             IsRelevant = true;
             Contribution = (RoundedDouble) 1.0;

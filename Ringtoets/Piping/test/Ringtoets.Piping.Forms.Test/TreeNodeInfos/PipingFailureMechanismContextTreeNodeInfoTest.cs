@@ -284,7 +284,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var failureMechanism = new PipingFailureMechanism();
-            var pipingCalculation = new PipingCalculationScenario(failureMechanism.GeneralInput, failureMechanism.NormProbabilityInput)
+            var pipingCalculation = new PipingCalculationScenario(failureMechanism.GeneralInput, failureMechanism.PipingProbabilityAssessmentInput)
             {
                 Output = new TestPipingOutput()
             };

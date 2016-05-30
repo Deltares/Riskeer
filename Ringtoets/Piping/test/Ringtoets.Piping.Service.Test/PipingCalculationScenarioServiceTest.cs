@@ -278,7 +278,7 @@ namespace Ringtoets.Piping.Service.Test
                 failureMechanism.SurfaceLines,
                 failureMechanism.StochasticSoilModels,
                 failureMechanism.GeneralInput,
-                failureMechanism.NormProbabilityInput);
+                failureMechanism.PipingProbabilityAssessmentInput);
 
             foreach (var item in calculationsStructure)
             {

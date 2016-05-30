@@ -220,7 +220,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void Contribution_Always_UpdatesNormProbabilityInputContribution()
+        public void Contribution_Always_UpdatesPipingProbabilityAssessmentInputContribution()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -230,7 +230,7 @@ namespace Ringtoets.Piping.Data.Test
             failureMechanism.Contribution = newContribution;
 
             // Assert
-            Assert.AreEqual(newContribution, failureMechanism.NormProbabilityInput.Contribution);
+            Assert.AreEqual(newContribution, failureMechanism.PipingProbabilityAssessmentInput.Contribution);
             Assert.AreEqual(newContribution, failureMechanism.Contribution);
         }
     }
