@@ -21,88 +21,55 @@
 
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.Common.Data.Calculation
+namespace Ringtoets.Common.Data.Probability
 {
     /// <summary>
-    /// This class contains the results of a probabilistic calculation.
+    /// This class contains the results of a probabilistic assessment calculation.
     /// </summary>
     public class ProbabilisticOutput : Observable, ICalculationOutput
     {
-        private RoundedDouble probability;
-        private RoundedDouble reliability;
-        private RoundedDouble factorOfSafety;
-
         /// <summary>
         /// Creates a new instance of <see cref="ProbabilisticOutput"/>.
         /// </summary>
         /// <param name="requiredProbability">The required (maximum allowed) probability of failure.</param>
         /// <param name="requiredReliability">The required (maximum allowed) reliability of the failure mechanism.</param>
-        /// <param name="probability">The calculated probability of failing.</param>
-        /// <param name="reliability">The calculated reliability of the failure mechanism.</param>
-        /// <param name="factorOfSafety">The factor of safety for the failure mechanisms.</param>
+        /// <param name="probability">The probability of failure.</param>
+        /// <param name="reliability">The reliability of the failure mechanism.</param>
+        /// <param name="factorOfSafety">The factor of safety of the failure mechanism.</param>
         public ProbabilisticOutput(double requiredProbability, double requiredReliability, double probability, double reliability, double factorOfSafety)
         {
             RequiredProbability = new RoundedDouble(2, requiredProbability);
             RequiredReliability = new RoundedDouble(3, requiredReliability);
-            this.probability = new RoundedDouble(2, probability);
-            this.reliability = new RoundedDouble(3, reliability);
-            this.factorOfSafety = new RoundedDouble(3, factorOfSafety);
+            Probability = new RoundedDouble(2, probability);
+            Reliability = new RoundedDouble(3, reliability);
+            FactorOfSafety = new RoundedDouble(3, factorOfSafety);
         }
 
         /// <summary>
-        /// Gets the required probability of the failure mechanism.
+        /// Gets the required (maximum allowed) probability of failure.
         /// </summary>
         public RoundedDouble RequiredProbability { get; private set; }
 
         /// <summary>
-        /// Get the required reliability of the failure mechanism.
+        /// Get the required (maximum allowed) reliability of the failure mechanism.
         /// </summary>
         public RoundedDouble RequiredReliability { get; private set; }
 
         /// <summary>
-        /// Gets the factor of safety of the failure mechanism.
+        /// Gets the probability of failure.
         /// </summary>
-        public RoundedDouble FactorOfSafety
-        {
-            get
-            {
-                return factorOfSafety;
-            }
-            set
-            {
-                factorOfSafety = value.ToPrecision(factorOfSafety.NumberOfDecimalPlaces);
-            }
-        }
+        public RoundedDouble Probability { get; private set; }
 
         /// <summary>
         /// Gets the reliability of the failure mechanism.
         /// </summary>
-        public RoundedDouble Reliability
-        {
-            get
-            {
-                return reliability;
-            }
-            set
-            {
-                reliability = value.ToPrecision(reliability.NumberOfDecimalPlaces);
-            }
-        }
+        public RoundedDouble Reliability { get; private set; }
 
         /// <summary>
-        /// Gets the probability of failing.
+        /// Gets the factor of safety of the failure mechanism.
         /// </summary>
-        public RoundedDouble Probability
-        {
-            get
-            {
-                return probability;
-            }
-            set
-            {
-                probability = value.ToPrecision(probability.NumberOfDecimalPlaces);
-            }
-        }
+        public RoundedDouble FactorOfSafety { get; private set; }
     }
 }

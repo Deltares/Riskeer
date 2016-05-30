@@ -24,6 +24,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses

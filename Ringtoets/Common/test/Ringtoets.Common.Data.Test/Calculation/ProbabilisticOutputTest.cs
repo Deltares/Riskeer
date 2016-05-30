@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.Common.Data.Test.Calculation
 {
@@ -53,51 +54,6 @@ namespace Ringtoets.Common.Data.Test.Calculation
             Assert.AreEqual(probability, output.Probability);
             Assert.AreEqual(reliability, output.Reliability);
             Assert.AreEqual(factorOfSafety, output.FactorOfSafety);
-        }
-
-        [Test]
-        public void FactorOfSafety_BigRoundedDouble_ReturnsExpectedValues()
-        {
-            // Setup
-            var bigRoundedDouble = new RoundedDouble(15, 9.12345678901234567);
-            var output = new ProbabilisticOutput(0.0, 0.0, 0.0, 0.0, bigRoundedDouble);
-
-            // Call
-            output.FactorOfSafety = bigRoundedDouble;
-
-            // Assert
-            var expectedRoundedDouble = new RoundedDouble(3, bigRoundedDouble);
-            Assert.AreEqual(expectedRoundedDouble, output.FactorOfSafety);
-        }
-
-        [Test]
-        public void Reliability_BigRoundedDouble_ReturnsExpectedValues()
-        {
-            // Setup
-            var bigRoundedDouble = new RoundedDouble(15, 9.12345678901234567);
-            var output = new ProbabilisticOutput(0.0, 0.0, 0.0, bigRoundedDouble, 0.0);
-
-            // Call
-            output.Reliability = bigRoundedDouble;
-
-            // Assert
-            var expectedRoundedDouble = new RoundedDouble(3, bigRoundedDouble);
-            Assert.AreEqual(expectedRoundedDouble, output.Reliability);
-        }
-
-        [Test]
-        public void Probability_BigRoundedDouble_ReturnsExpectedValues()
-        {
-            // Setup
-            var bigRoundedDouble = new RoundedDouble(15, 9.12345678901234567);
-            var output = new ProbabilisticOutput(0.0, 0.0, bigRoundedDouble, 0.0, 0.0);
-
-            // Call
-            output.Probability = bigRoundedDouble;
-
-            // Assert
-            var expectedRoundedDouble = new RoundedDouble(2, bigRoundedDouble);
-            Assert.AreEqual(expectedRoundedDouble, output.Probability);
         }
     }
 }
