@@ -45,14 +45,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         {
             mocksRepository = new MockRepository();
             plugin = new HeightStructuresGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityOutput));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityAssessmentOutput));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ProbabilityOutput), info.TagType);
+            Assert.AreEqual(typeof(ProbabilityAssessmentOutput), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ContextMenuStrip);

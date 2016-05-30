@@ -69,9 +69,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public ProbabilityAssessmentInput ProbabilityAssessmentInput { get; private set; }
 
         /// <summary>
-        /// Gets or sets <see cref="ProbabilityOutput"/>, which contains the results of a probabilistic calculation.
+        /// Gets or sets <see cref="ProbabilityAssessmentOutput"/>, which contains the results of a probabilistic calculation.
         /// </summary>
-        public ProbabilityOutput Output { get; set; }
+        public ProbabilityAssessmentOutput Output { get; set; }
 
         public string Comments { get; set; }
 

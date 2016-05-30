@@ -182,7 +182,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(1, inputParameters.FailureProbabilityOfStructureGivenErosion.Value);
         }
 
-        private class TestHeightStructuresOutput : ProbabilityOutput
+        private class TestHeightStructuresOutput : ProbabilityAssessmentOutput
         {
             public TestHeightStructuresOutput() : base(0, 0, 0, 0, 0) {}
         }

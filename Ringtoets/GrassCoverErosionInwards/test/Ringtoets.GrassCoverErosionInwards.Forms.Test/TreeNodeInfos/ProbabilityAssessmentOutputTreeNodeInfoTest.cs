@@ -34,7 +34,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class ProbabilityOutputTreeNodeInfoTest
+    public class ProbabilityAssessmentOutputTreeNodeInfoTest
     {
         private MockRepository mocksRepository;
         private GrassCoverErosionInwardsGuiPlugin plugin;
@@ -45,14 +45,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         {
             mocksRepository = new MockRepository();
             plugin = new GrassCoverErosionInwardsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityOutput));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityAssessmentOutput));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ProbabilityOutput), info.TagType);
+            Assert.AreEqual(typeof(ProbabilityAssessmentOutput), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ContextMenuStrip);

@@ -27,7 +27,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 namespace Ringtoets.GrassCoverErosionInwards.Service
 {
     /// <summary>
-    /// This class is responsible for calculating the parameters required for <see cref="ProbabilityOutput"/>.
+    /// This class is responsible for calculating the parameters required for <see cref="ProbabilityAssessmentOutput"/>.
     /// </summary>
     public class GrassCoverErosionInwardsOutputCalculationService
     {
@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         }
 
         /// <summary>
-        /// Calculates the <see cref="ProbabilityOutput"/> given the <paramref name="calculation"/> and <paramref name="reliability"/>.
+        /// Calculates the <see cref="ProbabilityAssessmentOutput"/> given the <paramref name="calculation"/> and <paramref name="reliability"/>.
         /// </summary>
         /// <param name="calculation">The calculation which is used.</param>
         /// <param name="reliability">The reliability result.</param>
@@ -71,11 +71,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             calculator.Calculate();
 
-            calculation.Output = new ProbabilityOutput(1/calculator.requiredProbability,
-                                                       calculator.requiredReliability,
-                                                       1/calculator.probability,
-                                                       calculator.reliability,
-                                                       calculator.factorOfSafety);
+            calculation.Output = new ProbabilityAssessmentOutput(1/calculator.requiredProbability,
+                                                                 calculator.requiredReliability,
+                                                                 1/calculator.probability,
+                                                                 calculator.reliability,
+                                                                 calculator.factorOfSafety);
         }
 
         private void Calculate()

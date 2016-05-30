@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.Calculation;
 namespace Ringtoets.Common.Data.Probability
 {
     /// <summary>
-    /// This class represents a placeholder of a <see cref="ProbabilityOutput"/> for a <see cref="ICalculation"/>
+    /// This class represents a placeholder of a <see cref="ProbabilityAssessmentOutput"/> for a <see cref="ICalculation"/>
     /// that has not been calculated yet.
     /// </summary>
     public class EmptyProbabilityAssessmentOutput {}

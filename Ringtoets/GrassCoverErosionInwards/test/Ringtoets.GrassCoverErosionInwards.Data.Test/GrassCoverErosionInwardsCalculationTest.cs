@@ -206,7 +206,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void GetObservableOutput_Always_ReturnsOutput()
         {
             // Setup
-            var output = new ProbabilityOutput(2.0, 3.0, 1.4, 50.3, 16.3);
+            var output = new ProbabilityAssessmentOutput(2.0, 3.0, 1.4, 50.3, 16.3);
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
             var probabilityAssessmentInput = new ProbabilityAssessmentInput();
             var calculation = new GrassCoverErosionInwardsCalculation(generalInput, probabilityAssessmentInput)
@@ -243,7 +243,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(10, inputParameters.DikeHeight.Value);
         }
 
-        private class TestGrassCoverErosionInwardsOutput : ProbabilityOutput
+        private class TestGrassCoverErosionInwardsOutput : ProbabilityAssessmentOutput
         {
             public TestGrassCoverErosionInwardsOutput() : base(0, 0, 0, 0, 0) {}
         }

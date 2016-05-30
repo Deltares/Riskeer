@@ -23,16 +23,15 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="ProbabilityOutput"/> for properties panel.
+    /// ViewModel of <see cref="ProbabilityAssessmentOutput"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionInwardsOutputProperties : ObjectProperties<ProbabilityOutput>
+    public class GrassCoverErosionInwardsOutputProperties : ObjectProperties<ProbabilityAssessmentOutput>
     {
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), "Categories_GrassCoverErosionInwards")]

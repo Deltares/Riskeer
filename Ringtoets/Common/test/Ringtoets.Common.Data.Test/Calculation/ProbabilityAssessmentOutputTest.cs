@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.Probability;
 namespace Ringtoets.Common.Data.Test.Calculation
 {
     [TestFixture]
-    public class ProbabilityOutputTest
+    public class ProbabilityAssessmentOutputTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
             var factorOfSafety = new RoundedDouble(3, random.NextDouble());
 
             // Call
-            var output = new ProbabilityOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
+            var output = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
 
             // Assert
             Assert.IsInstanceOf<Observable>(output);
