@@ -85,6 +85,12 @@ namespace Application.Ringtoets.Storage.DbContext
         DbSet<StochasticSoilModelEntity> StochasticSoilModelEntities { get; }
 
         /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="StochasticSoilModelSegmentPointEntity"/>
+        /// containing every entity found in the database.
+        /// </summary>
+        DbSet<StochasticSoilModelSegmentPointEntity> StochasticSoilModelSegmentPointEntities { get; }
+
+        /// <summary>
         /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="StochasticSoilProfileEntity"/> containing
         /// every entity found in the database.
         /// </summary>
