@@ -127,6 +127,7 @@
     <Compile Include="Read\HydraulicLocationEntityReadExtensions.cs" />
     <Compile Include="Read\ReadConversionCollector.cs" />
     <Compile Include="Read\ReferenceLinePointEntityReadExtensions.cs" />
+    <Compile Include="Read\StochasticSoilModelSegmentPointEntityReadExtensions.cs" />
     <Compile Include="Read\SurfaceLinePointEntityReadExtensions.cs" />
     <Compile Include="Read\SurfaceLineEntityReadExtensions.cs" />
     <Compile Include="Read\SoilLayerEntityReadExtensions.cs" />

@@ -65,5 +65,25 @@ namespace Application.Ringtoets.Storage.Create
 
             return entity;
         }
+
+        /// <summary>
+        /// Creates a <see cref="StochasticSoilModelSegmentPointEntity"/> based on the
+        /// information of the <see cref="Point2D"/>.
+        /// </summary>
+        /// <param name="point">The point to create a database entity for.</param>
+        /// <param name="order">A value representing the position of the point in an
+        /// ordered collection.</param>
+        /// <returns>A new <see cref="StochasticSoilModelSegmentPointEntity"/>.</returns>
+        internal static StochasticSoilModelSegmentPointEntity CreateStochasticSoilModelSegmentPointEntity(this Point2D point, int order)
+        {
+            var entity = new StochasticSoilModelSegmentPointEntity
+            {
+                X = Convert.ToDecimal(point.X),
+                Y = Convert.ToDecimal(point.Y),
+                Order = order
+            };
+
+            return entity;
+        }
     }
 }

@@ -106,6 +106,7 @@
     <Compile Include="Read\ProjectEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ReadConversionCollectorTest.cs" />
     <Compile Include="Read\ReferenceLinePointEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\StochasticSoilModelSegmentPointEntityReadExtensionsTest.cs" />
     <Compile Include="Read\SurfaceLinePointEntityReadExtensionsTest.cs" />
     <Compile Include="Read\SurfaceLineEntityReadExtensionsTest.cs" />
     <Compile Include="Read\SoilLayerEntityReadExtensionsTest.cs" />

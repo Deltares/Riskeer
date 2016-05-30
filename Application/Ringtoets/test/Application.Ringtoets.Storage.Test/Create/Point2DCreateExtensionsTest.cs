@@ -21,6 +21,8 @@
 
 using System;
 using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.DbContext;
+
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 
@@ -71,6 +73,31 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(Convert.ToDecimal(x), entity.X);
             Assert.AreEqual(Convert.ToDecimal(y), entity.Y);
             Assert.AreEqual(order, entity.Order);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(100)]
+        [TestCase(Int32.MaxValue)]
+        [TestCase(Int32.MinValue)]
+        public void CreateStochasticSoilModelSegmentPointEntity_Always_NewStochasticSoilModelSegmentPointEntityWithPropertiesSet(int order)
+        {
+            // Setup
+            var random = new Random(21);
+            double x = random.NextDouble();
+            double y = random.NextDouble();
+            var point = new Point2D(x, y);
+
+            // Call
+            StochasticSoilModelSegmentPointEntity entity = point.CreateStochasticSoilModelSegmentPointEntity(order);
+
+            // Assert
+            Assert.AreEqual(Convert.ToDecimal(x), entity.X);
+            Assert.AreEqual(Convert.ToDecimal(y), entity.Y);
+            Assert.AreEqual(order, entity.Order);
+
+            Assert.AreEqual(0, entity.StochasticSoilModelSegmentPointEntityId);
+            Assert.AreEqual(0, entity.StochasticSoilModelEntityId);
         }
     }
 }
