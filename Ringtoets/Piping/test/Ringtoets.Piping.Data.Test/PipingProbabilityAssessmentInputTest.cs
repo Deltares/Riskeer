@@ -26,21 +26,21 @@ using NUnit.Framework;
 namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
-    public class NormProbabilityPipingInputTest
+    public class PipingProbabilityAssessmentInputTest
     {
         [Test]
         public void Constructor_DefaultPropertiesSet()
         {
             // Call
-            var inputParameters = new NormProbabilityPipingInput();
+            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
 
             // Assert
-            Assert.AreEqual(1.0, inputParameters.A);
-            Assert.AreEqual(350.0, inputParameters.B);
+            Assert.AreEqual(1.0, pipingProbabilityAssessmentInput.A);
+            Assert.AreEqual(350.0, pipingProbabilityAssessmentInput.B);
 
-            Assert.IsNaN(inputParameters.SectionLength);
-            Assert.AreEqual(0, inputParameters.Norm);
-            Assert.IsNaN(inputParameters.Contribution);
+            Assert.IsNaN(pipingProbabilityAssessmentInput.SectionLength);
+            Assert.AreEqual(0, pipingProbabilityAssessmentInput.Norm);
+            Assert.IsNaN(pipingProbabilityAssessmentInput.Contribution);
         }
 
         [Test]
@@ -50,13 +50,13 @@ namespace Ringtoets.Piping.Data.Test
         public void Contribution_SetNewValidValue_GetNewValue(double newContributionValue)
         {
             // Setup
-            var inputParameters = new NormProbabilityPipingInput();
+            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
 
             // Call
-            inputParameters.Contribution = newContributionValue;
+            pipingProbabilityAssessmentInput.Contribution = newContributionValue;
 
             // Assert
-            Assert.AreEqual(newContributionValue, inputParameters.Contribution);
+            Assert.AreEqual(newContributionValue, pipingProbabilityAssessmentInput.Contribution);
         }
 
         [Test]
@@ -67,10 +67,10 @@ namespace Ringtoets.Piping.Data.Test
         public void Contribution_SetNewInvalidValue_ThrowArgumentOutOfRangeException(double newContributionValue)
         {
             // Setup
-            var inputParameters = new NormProbabilityPipingInput();
+            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
 
             // Call
-            TestDelegate call = () => inputParameters.Contribution = newContributionValue;
+            TestDelegate call = () => pipingProbabilityAssessmentInput.Contribution = newContributionValue;
 
             // Assert
             const string expectedMessage = "De waarde voor de toegestane bijdrage aan faalkans moet in interval [0,100] liggen.";

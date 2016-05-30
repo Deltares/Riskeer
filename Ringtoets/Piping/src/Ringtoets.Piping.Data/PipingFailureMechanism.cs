@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Data
         public PipingFailureMechanism()
             : base(PipingDataResources.PipingFailureMechanism_DisplayName, PipingDataResources.PipingFailureMechanism_DisplayCode)
         {
-            NormProbabilityInput = new NormProbabilityPipingInput();
+            NormProbabilityInput = new PipingProbabilityAssessmentInput();
             GeneralInput = new GeneralPipingInput();
             SurfaceLines = new List<RingtoetsPipingSurfaceLine>();
             StochasticSoilModels = new ObservableList<StochasticSoilModel>();
@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Data
         /// Gets the general semi-probabilistic calculation input parameters that apply to each calculation 
         /// in a semi-probabilistic assessment.
         /// </summary>
-        public NormProbabilityPipingInput NormProbabilityInput { get; private set; }
+        public PipingProbabilityAssessmentInput NormProbabilityInput { get; private set; }
 
         public CalculationGroup CalculationsGroup { get; private set; }
 

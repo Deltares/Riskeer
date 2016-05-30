@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Data
         /// are used in a semi-probabilistic piping assessment.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/> or 
         /// <paramref name="normProbabilityInputParameters"/> is <c>null</c>.</exception>
-        public PipingCalculation(GeneralPipingInput generalInputParameters, NormProbabilityPipingInput normProbabilityInputParameters)
+        public PipingCalculation(GeneralPipingInput generalInputParameters, PipingProbabilityAssessmentInput normProbabilityInputParameters)
         {
             if (normProbabilityInputParameters == null)
             {
@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the parameters required to perform a semi-probabilistic assessment.
         /// </summary>
-        public NormProbabilityPipingInput NormProbabilityParameters { get; private set; }
+        public PipingProbabilityAssessmentInput NormProbabilityParameters { get; private set; }
 
         /// <summary>
         /// Gets the input parameters to perform a piping calculation with.

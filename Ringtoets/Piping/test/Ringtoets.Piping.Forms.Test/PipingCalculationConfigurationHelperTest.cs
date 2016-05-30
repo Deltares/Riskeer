@@ -353,7 +353,7 @@ namespace Ringtoets.Piping.Forms.Test
                 null,
                 Enumerable.Empty<StochasticSoilModel>(),
                 new GeneralPipingInput(),
-                new NormProbabilityPipingInput());
+                new PipingProbabilityAssessmentInput());
 
             // Assert
             var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -368,7 +368,7 @@ namespace Ringtoets.Piping.Forms.Test
                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                 null,
                 new GeneralPipingInput(),
-                new NormProbabilityPipingInput());
+                new PipingProbabilityAssessmentInput());
 
             // Assert
             var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -383,7 +383,7 @@ namespace Ringtoets.Piping.Forms.Test
                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                 Enumerable.Empty<StochasticSoilModel>(),
                 null,
-                new NormProbabilityPipingInput());
+                new PipingProbabilityAssessmentInput());
 
             // Assert
             var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -442,7 +442,7 @@ namespace Ringtoets.Piping.Forms.Test
                     ringtoetsPipingSurfaceLines,
                     Enumerable.Empty<StochasticSoilModel>(),
                     new GeneralPipingInput(),
-                    new NormProbabilityPipingInput()).ToArray();
+                    new PipingProbabilityAssessmentInput()).ToArray();
             };
 
             // Assert
@@ -515,7 +515,7 @@ namespace Ringtoets.Piping.Forms.Test
                 surfaceLines,
                 availableSoilModels,
                 new GeneralPipingInput(),
-                new NormProbabilityPipingInput()).ToArray();
+                new PipingProbabilityAssessmentInput()).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Count());
@@ -580,7 +580,7 @@ namespace Ringtoets.Piping.Forms.Test
                 result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                     surfaceLines, availableSoilModels,
                     new GeneralPipingInput(),
-                    new NormProbabilityPipingInput()).ToArray();
+                    new PipingProbabilityAssessmentInput()).ToArray();
             };
 
             // Assert
@@ -658,7 +658,7 @@ namespace Ringtoets.Piping.Forms.Test
                     surfaceLines,
                     availableSoilModels,
                     new GeneralPipingInput(),
-                    new NormProbabilityPipingInput()).ToArray();
+                    new PipingProbabilityAssessmentInput()).ToArray();
             };
 
             // Assert
@@ -740,7 +740,7 @@ namespace Ringtoets.Piping.Forms.Test
                 surfaceLines,
                 availableSoilModels,
                 new GeneralPipingInput(),
-                new NormProbabilityPipingInput()).ToArray();
+                new PipingProbabilityAssessmentInput()).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Count());
@@ -849,7 +849,7 @@ namespace Ringtoets.Piping.Forms.Test
                 surfaceLines,
                 availableSoilModels,
                 new GeneralPipingInput(),
-                new NormProbabilityPipingInput()).ToArray();
+                new PipingProbabilityAssessmentInput()).ToArray();
 
             // Assert
             Assert.AreEqual(2, result.Count());
@@ -975,7 +975,7 @@ namespace Ringtoets.Piping.Forms.Test
                     surfaceLines,
                     availableSoilModels,
                     new GeneralPipingInput(),
-                    new NormProbabilityPipingInput()).ToArray();
+                    new PipingProbabilityAssessmentInput()).ToArray();
             };
 
             // Assert
@@ -1061,7 +1061,7 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             GeneralPipingInput generalInput = new GeneralPipingInput();
-            NormProbabilityPipingInput normProbabilityInput = new NormProbabilityPipingInput();
+            PipingProbabilityAssessmentInput normProbabilityInput = new PipingProbabilityAssessmentInput();
 
             // Call
             IEnumerable<ICalculationBase> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
@@ -1156,7 +1156,7 @@ namespace Ringtoets.Piping.Forms.Test
                 surfaceLines,
                 availableSoilModels,
                 new GeneralPipingInput(),
-                new NormProbabilityPipingInput()).ToArray();
+                new PipingProbabilityAssessmentInput()).ToArray();
 
             // Assert
             var group = result.First(sl => sl.Name == surfaceLine.Name) as CalculationGroup;

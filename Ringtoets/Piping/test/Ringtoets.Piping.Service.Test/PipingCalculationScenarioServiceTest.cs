@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.Service.Test
         public void SyncCalculationScenarioWithNewSurfaceLine_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var pipingCalculationScenario = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
+            var pipingCalculationScenario = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
@@ -163,7 +163,7 @@ namespace Ringtoets.Piping.Service.Test
         public void RemoveCalculationScenarioFromSectionResult_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
 
             // Call
             TestDelegate call = () => PipingCalculationScenarioService.RemoveCalculationScenarioFromSectionResult(calculation, null);
@@ -179,7 +179,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             var failureMechanism = GetFailureMechanism();
 
-            var calculationToRemove = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
+            var calculationToRemove = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
 
             var sectionResults = failureMechanism.SectionResults.ToArray();
             var sectionResultScenariosBeforeRemove = sectionResults[0].CalculationScenarios.ToArray();

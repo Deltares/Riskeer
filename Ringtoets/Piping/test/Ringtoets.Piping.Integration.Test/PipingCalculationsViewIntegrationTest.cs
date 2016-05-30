@@ -64,14 +64,14 @@ namespace Ringtoets.Piping.Integration.Test
                 IntegrationTestHelper.ImportSurfaceLines(assessmentSection);
 
                 // Setup some calculations
-                var pipingCalculation1 = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
+                var pipingCalculation1 = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput())
                 {
                     InputParameters =
                     {
                         SurfaceLine = assessmentSection.PipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001")
                     }
                 };
-                var pipingCalculation2 = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
+                var pipingCalculation2 = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput())
                 {
                     InputParameters =
                     {
@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.Integration.Test
                 Assert.AreEqual(2, dataGridView.Rows.Count);
 
                 // Add another, nested calculation without surface line and ensure the data grid view is updated when the surface line is set.
-                var pipingCalculation3 = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
+                var pipingCalculation3 = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
                 nestedPipingCalculationGroup.Children.Add(pipingCalculation3);
                 nestedPipingCalculationGroup.NotifyObservers();
                 Assert.AreEqual(2, dataGridView.Rows.Count);

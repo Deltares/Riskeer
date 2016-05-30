@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Data.Test
         public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineNull_ReturnsFalse()
         {
             // Setup
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
 
             // Call
             var intersects = calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Data.Test
                 new Point2D(10.0, 0.0)
             });
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput())
             {
                 InputParameters =
                 {
@@ -101,7 +101,7 @@ namespace Ringtoets.Piping.Data.Test
                 new Point2D(10.0, 0.0)
             });
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput())
             {
                 InputParameters =
                 {
@@ -139,7 +139,7 @@ namespace Ringtoets.Piping.Data.Test
                 new Point2D(20.0, 0.0)
             });
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput())
             {
                 InputParameters =
                 {

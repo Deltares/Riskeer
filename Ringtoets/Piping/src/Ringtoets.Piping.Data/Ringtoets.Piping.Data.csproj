@@ -67,7 +67,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="NormProbabilityPipingInput.cs" />
+    <Compile Include="PipingProbabilityAssessmentInput.cs" />
     <Compile Include="StochasticSoilModel.cs" />
     <Compile Include="StochasticSoilProfile.cs" />
   </ItemGroup>

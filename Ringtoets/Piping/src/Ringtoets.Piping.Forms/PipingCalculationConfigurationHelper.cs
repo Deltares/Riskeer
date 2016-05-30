@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.Forms
         /// <item><paramref name="generalInput"/> is <c>null</c></item>
         /// <item><paramref name="normProbabilityInput"/> is <c>null</c></item>
         /// </list></exception>
-        public static IEnumerable<ICalculationBase> GenerateCalculationItemsStructure(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, NormProbabilityPipingInput normProbabilityInput)
+        public static IEnumerable<ICalculationBase> GenerateCalculationItemsStructure(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, PipingProbabilityAssessmentInput normProbabilityInput)
         {
             if (surfaceLines == null)
             {
@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Forms
             return soilModelObjectsForCalculation;
         }
 
-        private static CalculationGroup CreateCalculationGroup(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, NormProbabilityPipingInput normProbabilityInput)
+        private static CalculationGroup CreateCalculationGroup(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, PipingProbabilityAssessmentInput normProbabilityInput)
         {
             var calculationGroup = new CalculationGroup(surfaceLine.Name, true);
             var stochasticSoilModels = GetStochasticSoilModelsForSurfaceLine(surfaceLine, soilModels);
@@ -138,7 +138,7 @@ namespace Ringtoets.Piping.Forms
             return calculationGroup;
         }
 
-        private static ICalculationBase CreatePipingCalculation(RingtoetsPipingSurfaceLine surfaceLine, StochasticSoilModel stochasticSoilModel, StochasticSoilProfile stochasticSoilProfile, IEnumerable<ICalculationBase> calculations, GeneralPipingInput generalInput, NormProbabilityPipingInput normProbabilityInput)
+        private static ICalculationBase CreatePipingCalculation(RingtoetsPipingSurfaceLine surfaceLine, StochasticSoilModel stochasticSoilModel, StochasticSoilProfile stochasticSoilProfile, IEnumerable<ICalculationBase> calculations, GeneralPipingInput generalInput, PipingProbabilityAssessmentInput normProbabilityInput)
         {
             var nameBase = string.Format("{0} {1}", surfaceLine.Name, stochasticSoilProfile);
             var name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);

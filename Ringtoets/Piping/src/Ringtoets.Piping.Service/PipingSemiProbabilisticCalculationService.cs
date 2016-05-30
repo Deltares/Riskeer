@@ -70,18 +70,18 @@ namespace Ringtoets.Piping.Service
         {
             ValidateOutputOnCalculation(calculation);
 
-            NormProbabilityPipingInput normProbabilityParameters = calculation.NormProbabilityParameters;
+            PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput = calculation.NormProbabilityParameters;
             PipingOutput pipingOutput = calculation.Output;
 
             var calculator = new PipingSemiProbabilisticCalculationService(
                 pipingOutput.UpliftFactorOfSafety,
                 pipingOutput.HeaveFactorOfSafety,
                 pipingOutput.SellmeijerFactorOfSafety,
-                normProbabilityParameters.Norm,
-                normProbabilityParameters.A,
-                normProbabilityParameters.B,
-                normProbabilityParameters.SectionLength,
-                normProbabilityParameters.Contribution/100);
+                pipingProbabilityAssessmentInput.Norm,
+                pipingProbabilityAssessmentInput.A,
+                pipingProbabilityAssessmentInput.B,
+                pipingProbabilityAssessmentInput.SectionLength,
+                pipingProbabilityAssessmentInput.Contribution/100);
 
             calculator.Calculate();
 

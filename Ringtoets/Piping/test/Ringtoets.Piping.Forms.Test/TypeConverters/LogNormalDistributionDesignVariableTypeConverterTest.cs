@@ -197,7 +197,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
+            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
             var failureMechanism = new PipingFailureMechanism();
 
             var inputParameters = new PipingInput(new GeneralPipingInput());

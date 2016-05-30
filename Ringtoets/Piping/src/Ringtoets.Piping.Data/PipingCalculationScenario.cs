@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Data
         /// <param name="normProbabilityInputParameters">Parameters which influence the probability estimate for a piping assessment.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/> or 
         /// <paramref name="normProbabilityInputParameters"/> is <c>null</c>.</exception>
-        public PipingCalculationScenario(GeneralPipingInput generalInputParameters, NormProbabilityPipingInput normProbabilityInputParameters)
+        public PipingCalculationScenario(GeneralPipingInput generalInputParameters, PipingProbabilityAssessmentInput normProbabilityInputParameters)
             : base(generalInputParameters, normProbabilityInputParameters)
         {
             IsRelevant = true;

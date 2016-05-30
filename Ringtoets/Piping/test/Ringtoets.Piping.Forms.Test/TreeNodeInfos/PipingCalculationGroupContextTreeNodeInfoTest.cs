@@ -105,7 +105,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var calculationItem = mocks.StrictMock<ICalculationBase>();
 
-            var childCalculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
+            var childCalculation = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
 
             var childGroup = new CalculationGroup();
 
@@ -149,7 +149,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
 
-            group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
+            group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput())
             {
                 Output = new TestPipingOutput()
             });
@@ -267,7 +267,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var gui = mocks.StrictMock<IGui>();
             var group = new CalculationGroup();
 
-            group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
+            group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput())
             {
                 Output = new TestPipingOutput()
             });
@@ -602,7 +602,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                    pipingFailureMechanismMock,
                                                                    assessmentSectionMock);
 
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
+            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput())
             {
                 Name = "Nieuwe berekening"
             };
@@ -1194,7 +1194,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var pipingFailureMechanism = GetFailureMechanism();
             var surfaceLines = pipingFailureMechanism.SurfaceLines.ToArray();
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput())
             {
                 InputParameters =
                 {

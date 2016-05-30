@@ -27,14 +27,14 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// This class holds parameters which influence the probability estimate for a piping assessment.
     /// </summary>
-    public class NormProbabilityPipingInput
+    public class PipingProbabilityAssessmentInput
     {
         private double contribution;
 
         /// <summary>
-        /// Creates a new instance of <see cref="NormProbabilityPipingInput"/>.
+        /// Creates a new instance of <see cref="PipingProbabilityAssessmentInput"/>.
         /// </summary>
-        public NormProbabilityPipingInput()
+        public PipingProbabilityAssessmentInput()
         {
             A = 1.0;
             B = 350.0;

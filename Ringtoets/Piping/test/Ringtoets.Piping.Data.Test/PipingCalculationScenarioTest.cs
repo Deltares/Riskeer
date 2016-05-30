@@ -35,14 +35,14 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var generalInputParameters = new GeneralPipingInput();
-            var semiProbabilisticInputParameters = new NormProbabilityPipingInput();
+            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
 
             // Call
-            PipingCalculationScenario scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters);
+            PipingCalculationScenario scenario = new PipingCalculationScenario(generalInputParameters, pipingProbabilityAssessmentInput);
 
             // Assert
             Assert.IsInstanceOf<PipingCalculation>(scenario);
-            Assert.AreSame(semiProbabilisticInputParameters, scenario.NormProbabilityParameters);
+            Assert.AreSame(pipingProbabilityAssessmentInput, scenario.NormProbabilityParameters);
             Assert.IsTrue(scenario.IsRelevant);
             Assert.AreEqual((RoundedDouble) 1.0, scenario.Contribution);
             Assert.AreEqual(CalculationScenarioStatus.NotCalculated, scenario.Status);
@@ -55,9 +55,9 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var generalInputParameters = new GeneralPipingInput();
-            var semiProbabilisticInputParameters = new NormProbabilityPipingInput();
+            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
 
-            var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters);
+            var scenario = new PipingCalculationScenario(generalInputParameters, pipingProbabilityAssessmentInput);
 
             // Call
             scenario.IsRelevant = isRelevant;
@@ -73,9 +73,9 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var generalInputParameters = new GeneralPipingInput();
-            var semiProbabilisticInputParameters = new NormProbabilityPipingInput();
+            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
 
-            var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters);
+            var scenario = new PipingCalculationScenario(generalInputParameters, pipingProbabilityAssessmentInput);
 
             var roundedDouble = (RoundedDouble) newValue;
 
@@ -93,9 +93,9 @@ namespace Ringtoets.Piping.Data.Test
             RoundedDouble expectedProbability = new RoundedDouble(0, 49862180);
 
             var generalInputParameters = new GeneralPipingInput();
-            var semiProbabilisticInputParameters = new NormProbabilityPipingInput();
+            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
 
-            var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters)
+            var scenario = new PipingCalculationScenario(generalInputParameters, pipingProbabilityAssessmentInput)
             {
                 Output = new TestPipingOutput(),
                 SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, expectedProbability, 0, 0)
@@ -113,9 +113,9 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var generalInputParameters = new GeneralPipingInput();
-            var semiProbabilisticInputParameters = new NormProbabilityPipingInput();
+            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
 
-            var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters);
+            var scenario = new PipingCalculationScenario(generalInputParameters, pipingProbabilityAssessmentInput);
 
             // Call
             RoundedDouble probability;
@@ -130,9 +130,9 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var generalInputParameters = new GeneralPipingInput();
-            var semiProbabilisticInputParameters = new NormProbabilityPipingInput();
+            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
 
-            var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters);
+            var scenario = new PipingCalculationScenario(generalInputParameters, pipingProbabilityAssessmentInput);
 
             // Call
             CalculationScenarioStatus status = scenario.Status;
@@ -146,9 +146,9 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var generalInputParameters = new GeneralPipingInput();
-            var semiProbabilisticInputParameters = new NormProbabilityPipingInput();
+            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
 
-            var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters)
+            var scenario = new PipingCalculationScenario(generalInputParameters, pipingProbabilityAssessmentInput)
             {
                 Output = new TestPipingOutput(),
                 SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, double.NaN, 0, 0)
@@ -168,9 +168,9 @@ namespace Ringtoets.Piping.Data.Test
             RoundedDouble expectedProbability = new RoundedDouble(0, 49862180);
 
             var generalInputParameters = new GeneralPipingInput();
-            var semiProbabilisticInputParameters = new NormProbabilityPipingInput();
+            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
 
-            var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters)
+            var scenario = new PipingCalculationScenario(generalInputParameters, pipingProbabilityAssessmentInput)
             {
                 Output = new TestPipingOutput(),
                 SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, expectedProbability, 0, 0)

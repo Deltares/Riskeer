@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
             var surfaceLines = new[]
             {
                 new RingtoetsPipingSurfaceLine()
@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingInputContext(calculation.InputParameters,
                                                  calculation,
@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingInputContext(calculation.InputParameters,
                                                  calculation,
@@ -164,7 +164,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
+            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingInputContext(calculationItem.InputParameters,
                                                  calculationItem,

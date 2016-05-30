@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var failureMechanism = GetFailureMechanismWithSections();
             var stochasticSoilModel = failureMechanism.StochasticSoilModels.First();
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new NormProbabilityPipingInput())
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new PipingProbabilityAssessmentInput())
             {
                 InputParameters =
                 {

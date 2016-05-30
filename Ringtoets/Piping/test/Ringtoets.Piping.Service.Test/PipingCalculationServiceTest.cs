@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new NormProbabilityPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
             calculation.Name = name;
 
             // Call

@@ -629,7 +629,7 @@ namespace Ringtoets.Piping.Plugin
             nodeData.FailureMechanism.NotifyObservers();
         }
 
-        private void GeneratePipingCalculations(CalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, NormProbabilityPipingInput normProbabilityInput)
+        private void GeneratePipingCalculations(CalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, PipingProbabilityAssessmentInput normProbabilityInput)
         {
             foreach (var group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput, normProbabilityInput))
             {
