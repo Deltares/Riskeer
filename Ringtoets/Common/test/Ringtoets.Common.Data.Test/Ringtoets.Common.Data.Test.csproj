@@ -63,13 +63,10 @@
     <Compile Include="Contribution\FailureMechanismContributionItemTest.cs" />
     <Compile Include="Contribution\FailureMechanismContributionTest.cs" />
     <Compile Include="Contribution\OtherFailureMechanismTest.cs" />
-    <Compile Include="FailureMechanism\ArbitraryProbabilityFailureMechanismSectionResultTest.cs" />
-    <Compile Include="FailureMechanism\NumericFailureMechanismSectionResultTest.cs" />
     <Compile Include="FailureMechanism\FailureMechanismBaseTest.cs" />
     <Compile Include="FailureMechanism\FailureMechanismSectionResultTest.cs" />
     <Compile Include="FailureMechanism\FailureMechanismSectionTest.cs" />
     <Compile Include="Calculation\CalculationGroupExtensionsTest.cs" />
-    <Compile Include="FailureMechanism\SimpleFailureMechanismSectionResultTest.cs" />
     <Compile Include="Probabilistics\DesignVariableTest.cs" />
     <Compile Include="Probabilistics\LogNormalDistributionDesignVariableTest.cs" />
     <Compile Include="Probabilistics\LogNormalDistributionTest.cs" />

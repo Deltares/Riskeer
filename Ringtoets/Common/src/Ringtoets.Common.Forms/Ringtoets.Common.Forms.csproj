@@ -76,15 +76,12 @@
     <Compile Include="Views\CommentView.Designer.cs">
       <DependentUpon>CommentView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ArbitraryProbabilityFailureMechanismSectionResultRow.cs" />
-    <Compile Include="Views\NumericFailureMechanismSectionResultRow.cs" />
     <Compile Include="Views\FailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\FailureMechanismResultView.Designer.cs">
       <DependentUpon>FailureMechanismResultView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\SimpleFailureMechanismSectionResultRow.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

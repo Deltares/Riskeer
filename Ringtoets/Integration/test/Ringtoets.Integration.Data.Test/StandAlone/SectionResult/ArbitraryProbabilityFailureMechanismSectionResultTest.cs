@@ -24,8 +24,9 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Integration.Data.StandAlone.SectionResult;
 
-namespace Ringtoets.Common.Data.Test.FailureMechanism
+namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResult
 {
     [TestFixture]
     public class ArbitraryProbabilityFailureMechanismSectionResultTest
@@ -75,7 +76,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             // Assert
             var message = Assert.Throws<ArgumentException>(test).Message;
             Assert.AreEqual(
-                Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1, 
+                Common.Data.Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1, 
                 message
             );
         }

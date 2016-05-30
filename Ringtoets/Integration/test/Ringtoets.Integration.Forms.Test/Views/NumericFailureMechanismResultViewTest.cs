@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views

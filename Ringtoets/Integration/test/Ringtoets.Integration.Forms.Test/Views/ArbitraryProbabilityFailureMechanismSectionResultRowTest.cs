@@ -27,11 +27,11 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Views;
-
+using Ringtoets.Integration.Data.StandAlone.SectionResult;
+using Ringtoets.Integration.Forms.Views;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
-namespace Ringtoets.Common.Forms.Test.Views
+namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
     public class ArbitraryProbabilityFailureMechanismSectionResultRowTest
@@ -140,7 +140,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Assert
             var message = Assert.Throws<ArgumentException>(test).Message;
             Assert.AreEqual(
-                Data.Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1,
+                Common.Data.Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1,
                 message
             );
         }
@@ -162,7 +162,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Assert
             var message = Assert.Throws<ArgumentException>(test).Message;
             Assert.AreEqual(
-                Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_too_large,
+                Common.Forms.Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_too_large,
                 message
             );
         }
@@ -183,7 +183,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Assert
             var message = Assert.Throws<ArgumentException>(test).Message;
             Assert.AreEqual(
-                Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Could_not_parse_string_to_double_value,
+                Common.Forms.Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Could_not_parse_string_to_double_value,
                 message
             );
         }
@@ -200,7 +200,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             TestDelegate test = () => row.AssessmentLayerTwoA = (string) null;
 
             // Assert
-            var expectedMessage = Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_cannot_be_null;
+            var expectedMessage = Common.Forms.Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_cannot_be_null;
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 

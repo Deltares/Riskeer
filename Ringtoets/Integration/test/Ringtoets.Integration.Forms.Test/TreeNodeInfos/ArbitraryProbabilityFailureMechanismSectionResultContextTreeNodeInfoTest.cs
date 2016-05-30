@@ -10,6 +10,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Plugin;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos

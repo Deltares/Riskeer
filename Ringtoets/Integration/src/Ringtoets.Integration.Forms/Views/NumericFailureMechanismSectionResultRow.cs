@@ -22,23 +22,24 @@
 using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Integration.Data.StandAlone.SectionResult;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
-    /// Container of a <see cref="SimpleFailureMechanismSectionResult"/>, which takes care of the
+    /// Container of a <see cref="NumericFailureMechanismSectionResult"/>, which takes care of the
     /// representation of properties in a grid.
     /// </summary>
-    public class SimpleFailureMechanismSectionResultRow
+    public class NumericFailureMechanismSectionResultRow
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SimpleFailureMechanismSectionResultRow"/>.
+        /// Creates a new instance of <see cref="NumericFailureMechanismSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="SimpleFailureMechanismSectionResult"/> that is 
+        /// <param name="sectionResult">The <see cref="NumericFailureMechanismSectionResult"/> that is 
         /// the source of this row.</param>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="sectionResult"/> is
         /// <c>null</c>.</exception>
-        public SimpleFailureMechanismSectionResultRow(SimpleFailureMechanismSectionResult sectionResult)
+        public NumericFailureMechanismSectionResultRow(NumericFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)
             {
@@ -77,7 +78,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets or sets the value representing the result of the layer 2a assessment.
         /// </summary>
-        public AssessmentLayerTwoAResult AssessmentLayerTwoA
+        public RoundedDouble AssessmentLayerTwoA
         {
             get
             {
@@ -104,6 +105,6 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
-        private SimpleFailureMechanismSectionResult SectionResult { get; set; }
+        private NumericFailureMechanismSectionResult SectionResult { get; set; }
     }
 }

@@ -19,48 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Properties;
+using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Data.FailureMechanism
+namespace Ringtoets.Integration.Data.StandAlone.SectionResult
 {
     /// <summary>
     /// Class which represents results of different layers (1, 2a, 2b, 3) of a <see cref="FailureMechanismSection"/>.
-    /// The result for a layer 2a assessment is an arbitrary probability.
+    /// The result for a layer 2a assessment is any of three possible outcomes: 'successful', 
+    /// 'failed' or 'not calculated'.
     /// </summary>
-    public class ArbitraryProbabilityFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class SimpleFailureMechanismSectionResult : FailureMechanismSectionResult
     {
-        private RoundedDouble assessmentLayerTwoA;
-
         /// <summary>
-        /// Creates a new instance of <see cref="NumericFailureMechanismSectionResult"/>
+        /// Creates a new instance of <see cref="SimpleFailureMechanismSectionResult"/>
         /// </summary>
         /// <param name="section">The section for which to add the result.</param>
-        public ArbitraryProbabilityFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
-        {
-            AssessmentLayerTwoA = (RoundedDouble) 1.0;
-        }
+        public SimpleFailureMechanismSectionResult(FailureMechanismSection section) : base(section) { }
 
         /// <summary>
-        /// Gets the probability value of assessment layer two a.
+        /// Gets the value of assessment layer two a.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
-        public RoundedDouble AssessmentLayerTwoA
-        {
-            get
-            {
-                return assessmentLayerTwoA;
-            }
-            set
-            {
-                if (value < 0 || value > 1)
-                {
-                    throw new ArgumentException(Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1);
-                }
-                assessmentLayerTwoA = value;
-            }
-        }
+        public AssessmentLayerTwoAResult AssessmentLayerTwoA { get; set; }
 
         /// <summary>
         /// Gets or sets the value of assessment layer three.

@@ -23,17 +23,18 @@ using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Integration.Data.StandAlone.SectionResult;
 
-namespace Ringtoets.Common.Data.Test.FailureMechanism
+namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResult
 {
     [TestFixture]
-    public class NumericFailureMechanismSectionResultTest
+    public class SimpleFailureMechanismSectionResultTest
     {
         [Test]
         public void Constructor_WithoutSection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new NumericFailureMechanismSectionResult(null);
+            TestDelegate test = () => new SimpleFailureMechanismSectionResult(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -44,16 +45,19 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         public void Constructor_WithSection_ResultCreatedForSection()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
+            var section = new FailureMechanismSection("Section", new[]
+            {
+                new Point2D(0, 0)
+            });
 
             // Call
-            var result = new NumericFailureMechanismSectionResult(section);
+            var result = new SimpleFailureMechanismSectionResult(section);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreSame(section, result.Section);
             Assert.IsFalse(result.AssessmentLayerOne);
-            Assert.AreEqual(0, result.AssessmentLayerTwoA.Value);
+            Assert.AreEqual((AssessmentLayerTwoAResult)0, result.AssessmentLayerTwoA);
             Assert.AreEqual(0, result.AssessmentLayerThree.Value);
         }
     }

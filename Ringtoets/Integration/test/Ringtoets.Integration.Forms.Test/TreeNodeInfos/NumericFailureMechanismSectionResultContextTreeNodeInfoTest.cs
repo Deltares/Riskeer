@@ -30,6 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 

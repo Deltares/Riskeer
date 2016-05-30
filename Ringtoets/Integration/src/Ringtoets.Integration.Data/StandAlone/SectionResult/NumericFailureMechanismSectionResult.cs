@@ -20,26 +20,26 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Data.FailureMechanism
+namespace Ringtoets.Integration.Data.StandAlone.SectionResult
 {
     /// <summary>
     /// Class which represents results of different layers (1, 2a, 2b, 3) of a <see cref="FailureMechanismSection"/>.
-    /// The result for a layer 2a assessment is any of three possible outcomes: 'successful', 
-    /// 'failed' or 'not calculated'.
+    /// The result for a layer 2a assessment is an arbitrary numeric value.
     /// </summary>
-    public class SimpleFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class NumericFailureMechanismSectionResult: FailureMechanismSectionResult
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SimpleFailureMechanismSectionResult"/>
+        /// Creates a new instance of <see cref="NumericFailureMechanismSectionResult"/>
         /// </summary>
         /// <param name="section">The section for which to add the result.</param>
-        public SimpleFailureMechanismSectionResult(FailureMechanismSection section) : base(section) { }
+        public NumericFailureMechanismSectionResult(FailureMechanismSection section) : base(section) { }
 
         /// <summary>
         /// Gets the value of assessment layer two a.
         /// </summary>
-        public AssessmentLayerTwoAResult AssessmentLayerTwoA { get; set; }
+        public RoundedDouble AssessmentLayerTwoA { get; set; }
 
         /// <summary>
         /// Gets or sets the value of assessment layer three.

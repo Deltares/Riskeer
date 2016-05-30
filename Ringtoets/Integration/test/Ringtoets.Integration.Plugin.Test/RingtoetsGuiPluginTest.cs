@@ -43,6 +43,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;

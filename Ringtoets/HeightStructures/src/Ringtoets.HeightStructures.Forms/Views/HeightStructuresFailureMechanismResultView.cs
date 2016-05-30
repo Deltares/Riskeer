@@ -84,12 +84,12 @@ namespace Ringtoets.HeightStructures.Forms.Views
         protected override void AddDataGridColumns()
         {
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.Name),
+                TypeUtils.GetMemberName<HeightStructuresFailureMechanismSectionResultRow>(sr => sr.Name),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true
                 );
             DataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerOne),
+                TypeUtils.GetMemberName<HeightStructuresFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerOne),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one
                 );
             DataGridViewControl.AddTextBoxColumn(

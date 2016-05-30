@@ -37,6 +37,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;

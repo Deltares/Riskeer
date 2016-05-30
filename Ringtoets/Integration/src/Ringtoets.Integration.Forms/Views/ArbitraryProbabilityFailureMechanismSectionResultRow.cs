@@ -23,8 +23,9 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Properties;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Integration.Data.StandAlone.SectionResult;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
     /// Container of a <see cref="ArbitraryProbabilityFailureMechanismSectionResult"/>, which takes care of the
@@ -96,7 +97,7 @@ namespace Ringtoets.Common.Forms.Views
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("value",Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_cannot_be_null);
+                    throw new ArgumentNullException("value",Common.Forms.Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_cannot_be_null);
                 }
                 try
                 {
@@ -104,11 +105,11 @@ namespace Ringtoets.Common.Forms.Views
                 }
                 catch (OverflowException)
                 {
-                    throw new ArgumentException(Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_too_large);
+                    throw new ArgumentException(Common.Forms.Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_too_large);
                 }
                 catch (FormatException)
                 {
-                    throw new ArgumentException(Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Could_not_parse_string_to_double_value);
+                    throw new ArgumentException(Common.Forms.Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Could_not_parse_string_to_double_value);
                 }
             }
         }

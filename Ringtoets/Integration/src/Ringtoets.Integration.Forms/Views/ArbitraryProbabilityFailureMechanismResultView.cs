@@ -23,6 +23,7 @@ using System.Windows.Forms;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views

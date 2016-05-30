@@ -26,18 +26,19 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Views;
+using Ringtoets.Integration.Data.StandAlone.SectionResult;
+using Ringtoets.Integration.Forms.Views;
 
-namespace Ringtoets.Common.Forms.Test.Views
+namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class SimpleFailureMechanismSectionResultRowTest
+    public class NumericFailureMechanismSectionResultRowTest
     {
         [Test]
         public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SimpleFailureMechanismSectionResultRow(null);
+            TestDelegate test = () => new NumericFailureMechanismSectionResultRow(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -49,10 +50,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var section = CreateSection();
-            var result = new SimpleFailureMechanismSectionResult(section);
+            var result = new NumericFailureMechanismSectionResult(section);
 
             // Call
-            var row = new SimpleFailureMechanismSectionResultRow(result);
+            var row = new NumericFailureMechanismSectionResultRow(result);
 
             // Assert
             Assert.AreEqual(section.Name, row.Name);
@@ -68,8 +69,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var section = CreateSection();
-            var result = new SimpleFailureMechanismSectionResult(section);
-            var row = new SimpleFailureMechanismSectionResultRow(result);
+            var result = new NumericFailureMechanismSectionResult(section);
+            var row = new NumericFailureMechanismSectionResultRow(result);
 
             int counter = 0;
             using (new Observer(() => counter++)
@@ -90,16 +91,17 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void AssessmentLayerTwoA_AlwaysOnChange_ResultPropertyChanged()
         {
             // Setup
-            var newValue = AssessmentLayerTwoAResult.Successful;
+            var random = new Random(21);
+            var newValue = random.NextDouble();
             var section = CreateSection();
-            var result = new SimpleFailureMechanismSectionResult(section);
-            var row = new SimpleFailureMechanismSectionResultRow(result);
+            var result = new NumericFailureMechanismSectionResult(section);
+            var row = new NumericFailureMechanismSectionResultRow(result);
 
             // Call
-            row.AssessmentLayerTwoA = newValue;
+            row.AssessmentLayerTwoA = (RoundedDouble)newValue;
 
             // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerTwoA);
+            Assert.AreEqual(newValue, result.AssessmentLayerTwoA, row.AssessmentLayerTwoA.GetAccuracy());
         }
 
         [Test]
@@ -109,8 +111,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             var random = new Random(21);
             var newValue = random.NextDouble();
             var section = CreateSection();
-            var result = new SimpleFailureMechanismSectionResult(section);
-            var row = new SimpleFailureMechanismSectionResultRow(result);
+            var result = new NumericFailureMechanismSectionResult(section);
+            var row = new NumericFailureMechanismSectionResultRow(result);
 
             // Call
             row.AssessmentLayerThree = (RoundedDouble)newValue;
@@ -125,6 +127,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 new Point2D(0, 0)
             });
-        }  
+        } 
     }
 }
