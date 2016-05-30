@@ -32,9 +32,9 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Stability of Stone Cover failure mechanism.
     /// </summary>
-    public class StabilityStoneCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<SimpleFailureMechanismSectionResult>
+    public class StabilityStoneCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<StabilityStoneCoverFailureMechanismSectionResult>
     {
-        private readonly IList<SimpleFailureMechanismSectionResult> sectionResults;
+        private readonly IList<StabilityStoneCoverFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityStoneCoverFailureMechanism"/> class.
@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public StabilityStoneCoverFailureMechanism()
             : base(Resources.StabilityStoneCoverFailureMechanism_DisplayName, Resources.StabilityStoneCoverFailureMechanism_Code)
         {
-            sectionResults = new List<SimpleFailureMechanismSectionResult>();
+            sectionResults = new List<StabilityStoneCoverFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         {
             base.AddSection(section);
 
-            sectionResults.Add(new SimpleFailureMechanismSectionResult(section));
+            sectionResults.Add(new StabilityStoneCoverFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             sectionResults.Clear();
         }
 
-        public IEnumerable<SimpleFailureMechanismSectionResult> SectionResults
+        public IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> SectionResults
         {
             get
             {

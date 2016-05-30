@@ -32,9 +32,9 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Grass Cover Erosion Outwards failure mechanism.
     /// </summary>
-    public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<SimpleFailureMechanismSectionResult>
+    public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<GrassCoverErosionOutwardsFailureMechanismSectionResult>
     {
-        private readonly IList<SimpleFailureMechanismSectionResult> sectionResults;
+        private readonly IList<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> class.
@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public GrassCoverErosionOutwardsFailureMechanism()
             : base(Resources.GrassCoverErosionOutwardsFailureMechanism_DisplayName, Resources.GrassCoverErosionOutwardsFailureMechanism_Code)
         {
-            sectionResults = new List<SimpleFailureMechanismSectionResult>();
+            sectionResults = new List<GrassCoverErosionOutwardsFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         {
             base.AddSection(section);
 
-            sectionResults.Add(new SimpleFailureMechanismSectionResult(section));
+            sectionResults.Add(new GrassCoverErosionOutwardsFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             sectionResults.Clear();
         }
 
-        public IEnumerable<SimpleFailureMechanismSectionResult> SectionResults
+        public IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> SectionResults
         {
             get
             {

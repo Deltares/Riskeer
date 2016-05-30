@@ -32,9 +32,9 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Grass Cover Slip Off Outwards failure mechanism.
     /// </summary>
-    public class GrassCoverSlipOffOutwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<SimpleFailureMechanismSectionResult>
+    public class GrassCoverSlipOffOutwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>
     {
-        private readonly IList<SimpleFailureMechanismSectionResult> sectionResults;
+        private readonly IList<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverSlipOffOutwardsFailureMechanism"/> class.
@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public GrassCoverSlipOffOutwardsFailureMechanism()
             : base(Resources.GrassCoverSlipOffOutwardsFailureMechanism_DisplayName, Resources.GrassCoverSlipOffOutwardsFailureMechanism_Code)
         {
-            sectionResults = new List<SimpleFailureMechanismSectionResult>();
+            sectionResults = new List<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         {
             base.AddSection(section);
 
-            sectionResults.Add(new SimpleFailureMechanismSectionResult(section));
+            sectionResults.Add(new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             sectionResults.Clear();
         }
 
-        public IEnumerable<SimpleFailureMechanismSectionResult> SectionResults
+        public IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> SectionResults
         {
             get
             {

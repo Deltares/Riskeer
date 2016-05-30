@@ -52,7 +52,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreSame(section, result.Section);
-            Assert.IsFalse(result.AssessmentLayerOne);
         }
     }
 }

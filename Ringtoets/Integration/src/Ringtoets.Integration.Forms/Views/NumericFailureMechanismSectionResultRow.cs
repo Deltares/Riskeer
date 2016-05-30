@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
 
 namespace Ringtoets.Integration.Forms.Views

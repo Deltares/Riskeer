@@ -32,9 +32,9 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Grass Cover Slip Off Inwards failure mechanism.
     /// </summary>
-    public class GrassCoverSlipOffInwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<SimpleFailureMechanismSectionResult>
+    public class GrassCoverSlipOffInwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<GrassCoverSlipOffInwardsFailureMechanismSectionResult>
     {
-        private readonly IList<SimpleFailureMechanismSectionResult> sectionResults;
+        private readonly IList<GrassCoverSlipOffInwardsFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverSlipOffInwardsFailureMechanism"/> class.
@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public GrassCoverSlipOffInwardsFailureMechanism()
             : base(Resources.GrassCoverSlipOffInwardsFailureMechanism_DisplayName, Resources.GrassCoverSlipOffInwardsFailureMechanism_Code)
         {
-            sectionResults = new List<SimpleFailureMechanismSectionResult>();
+            sectionResults = new List<GrassCoverSlipOffInwardsFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         {
             base.AddSection(section);
 
-            sectionResults.Add(new SimpleFailureMechanismSectionResult(section));
+            sectionResults.Add(new GrassCoverSlipOffInwardsFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             sectionResults.Clear();
         }
 
-        public IEnumerable<SimpleFailureMechanismSectionResult> SectionResults
+        public IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> SectionResults
         {
             get
             {

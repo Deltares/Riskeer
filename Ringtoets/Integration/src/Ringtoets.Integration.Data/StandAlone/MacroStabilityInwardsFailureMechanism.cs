@@ -32,9 +32,9 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Macrostability Inwards failure mechanism.
     /// </summary>
-    public class MacrostabilityInwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<ArbitraryProbabilityFailureMechanismSectionResult>
+    public class MacrostabilityInwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<MacrostabilityInwardsFailureMechanismSectionResult>
     {
-        private readonly IList<ArbitraryProbabilityFailureMechanismSectionResult> sectionResults;
+        private readonly IList<MacrostabilityInwardsFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MacrostabilityInwardsFailureMechanism"/> class.
@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public MacrostabilityInwardsFailureMechanism()
             : base(Resources.MacrostabilityInwardFailureMechanism_DisplayName, Resources.MacrostabilityInwardFailureMechanism_Code)
         {
-            sectionResults = new List<ArbitraryProbabilityFailureMechanismSectionResult>();
+            sectionResults = new List<MacrostabilityInwardsFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         {
             base.AddSection(section);
 
-            sectionResults.Add(new ArbitraryProbabilityFailureMechanismSectionResult(section));
+            sectionResults.Add(new MacrostabilityInwardsFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             sectionResults.Clear();
         }
 
-        public IEnumerable<ArbitraryProbabilityFailureMechanismSectionResult> SectionResults
+        public IEnumerable<MacrostabilityInwardsFailureMechanismSectionResult> SectionResults
         {
             get
             {

@@ -32,9 +32,9 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Macrostability Outwards failure mechanism.
     /// </summary>
-    public class MacrostabilityOutwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<ArbitraryProbabilityFailureMechanismSectionResult>
+    public class MacrostabilityOutwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<MacrostabilityOutwardsFailureMechanismSectionResult>
     {
-        private readonly IList<ArbitraryProbabilityFailureMechanismSectionResult> sectionResults;
+        private readonly IList<MacrostabilityOutwardsFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MacrostabilityOutwardsFailureMechanism"/> class.
@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public MacrostabilityOutwardsFailureMechanism()
             : base(Resources.MacrostabilityOutwardFailureMechanism_DisplayName, Resources.MacrostabilityOutwardFailureMechanism_Code)
         {
-            sectionResults = new List<ArbitraryProbabilityFailureMechanismSectionResult>();
+            sectionResults = new List<MacrostabilityOutwardsFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         {
             base.AddSection(section);
 
-            sectionResults.Add(new ArbitraryProbabilityFailureMechanismSectionResult(section));
+            sectionResults.Add(new MacrostabilityOutwardsFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             sectionResults.Clear();
         }
 
-        public IEnumerable<ArbitraryProbabilityFailureMechanismSectionResult> SectionResults
+        public IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> SectionResults
         {
             get
             {

@@ -32,9 +32,9 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Closing Structure failure mechanism.
     /// </summary>
-    public class ClosingStructureFailureMechanism : FailureMechanismBase, IHasSectionResults<ArbitraryProbabilityFailureMechanismSectionResult>
+    public class ClosingStructureFailureMechanism : FailureMechanismBase, IHasSectionResults<ClosingStructureFailureMechanismSectionResult>
     {
-        private readonly List<ArbitraryProbabilityFailureMechanismSectionResult> sectionResults;
+        private readonly List<ClosingStructureFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClosingStructureFailureMechanism"/> class.
@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public ClosingStructureFailureMechanism()
             : base(Resources.ClosingStructureFailureMechanism_DisplayName, Resources.ClosingStructureFailureMechanism_Code)
         {
-            sectionResults = new List<ArbitraryProbabilityFailureMechanismSectionResult>();
+            sectionResults = new List<ClosingStructureFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         {
             base.AddSection(section);
 
-            sectionResults.Add(new ArbitraryProbabilityFailureMechanismSectionResult(section));
+            sectionResults.Add(new ClosingStructureFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             sectionResults.Clear();
         }
 
-        public IEnumerable<ArbitraryProbabilityFailureMechanismSectionResult> SectionResults
+        public IEnumerable<ClosingStructureFailureMechanismSectionResult> SectionResults
         {
             get
             {

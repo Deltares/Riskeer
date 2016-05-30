@@ -32,9 +32,9 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Strength and Stability of Point Constructions failure mechanism.
     /// </summary>
-    public class StrengthStabilityPointConstructionFailureMechanism : FailureMechanismBase, IHasSectionResults<ArbitraryProbabilityFailureMechanismSectionResult>
+    public class StrengthStabilityPointConstructionFailureMechanism : FailureMechanismBase, IHasSectionResults<StrengthStabilityPointConstructionFailureMechanismSectionResult>
     {
-        private readonly IList<ArbitraryProbabilityFailureMechanismSectionResult> sectionResults;
+        private readonly IList<StrengthStabilityPointConstructionFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StrengthStabilityPointConstructionFailureMechanism"/> class.
@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public StrengthStabilityPointConstructionFailureMechanism()
             : base(Resources.StrengthStabilityPointConstructionFailureMechanism_DisplayName, Resources.StrengthStabilityPointConstructionFailureMechanism_Code)
         {
-            sectionResults = new List<ArbitraryProbabilityFailureMechanismSectionResult>();
+            sectionResults = new List<StrengthStabilityPointConstructionFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         {
             base.AddSection(section);
 
-            sectionResults.Add(new ArbitraryProbabilityFailureMechanismSectionResult(section));
+            sectionResults.Add(new StrengthStabilityPointConstructionFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             sectionResults.Clear();
         }
 
-        public IEnumerable<ArbitraryProbabilityFailureMechanismSectionResult> SectionResults
+        public IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> SectionResults
         {
             get
             {

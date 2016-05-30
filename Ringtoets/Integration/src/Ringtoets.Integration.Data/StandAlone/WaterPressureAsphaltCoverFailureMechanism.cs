@@ -32,9 +32,9 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Water Pressure on Asphalt failure mechanism.
     /// </summary>
-    public class WaterPressureAsphaltCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<NumericFailureMechanismSectionResult>
+    public class WaterPressureAsphaltCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResult>
     {
-        private readonly IList<NumericFailureMechanismSectionResult> sectionResults;
+        private readonly IList<WaterPressureAsphaltCoverFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WaterPressureAsphaltCoverFailureMechanism"/> class.
@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public WaterPressureAsphaltCoverFailureMechanism()
             : base(Resources.WaterPressureAsphaltCoverFailureMechanism_DisplayName, Resources.WaterPressureAsphaltCoverFailureMechanism_Code)
         {
-            sectionResults = new List<NumericFailureMechanismSectionResult>();
+            sectionResults = new List<WaterPressureAsphaltCoverFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         {
             base.AddSection(section);
 
-            sectionResults.Add(new NumericFailureMechanismSectionResult(section));
+            sectionResults.Add(new WaterPressureAsphaltCoverFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             sectionResults.Clear();
         }
 
-        public IEnumerable<NumericFailureMechanismSectionResult> SectionResults
+        public IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> SectionResults
         {
             get
             {

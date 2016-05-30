@@ -44,11 +44,6 @@ namespace Ringtoets.Common.Data.FailureMechanism
         }
 
         /// <summary>
-        /// Gets or sets the state of the assessment layer one.
-        /// </summary>
-        public bool AssessmentLayerOne { get; set; }
-
-        /// <summary>
         /// Gets the encapsulated <see cref="FailureMechanismSection"/>.
         /// </summary>
         public FailureMechanismSection Section { get; private set; }

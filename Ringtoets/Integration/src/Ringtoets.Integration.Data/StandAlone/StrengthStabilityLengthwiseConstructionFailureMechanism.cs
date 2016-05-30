@@ -32,9 +32,9 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Strength and Stability of Lengthwise Constructions failure mechanism.
     /// </summary>
-    public class StrengthStabilityLengthwiseConstructionFailureMechanism : FailureMechanismBase, IHasSectionResults<NumericFailureMechanismSectionResult>
+    public class StrengthStabilityLengthwiseConstructionFailureMechanism : FailureMechanismBase, IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>
     {
-        private readonly IList<NumericFailureMechanismSectionResult> sectionResults;
+        private readonly IList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StrengthStabilityLengthwiseConstructionFailureMechanism"/> class.
@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public StrengthStabilityLengthwiseConstructionFailureMechanism()
             : base(Resources.StrengthStabilityLengthwiseConstructionFailureMechanism_DisplayName, Resources.StrengthStabilityLengthwiseConstructionFailureMechanism_Code)
         {
-            sectionResults = new List<NumericFailureMechanismSectionResult>();
+            sectionResults = new List<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         {
             base.AddSection(section);
 
-            sectionResults.Add(new NumericFailureMechanismSectionResult(section));
+            sectionResults.Add(new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             sectionResults.Clear();
         }
 
-        public IEnumerable<NumericFailureMechanismSectionResult> SectionResults
+        public IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> SectionResults
         {
             get
             {

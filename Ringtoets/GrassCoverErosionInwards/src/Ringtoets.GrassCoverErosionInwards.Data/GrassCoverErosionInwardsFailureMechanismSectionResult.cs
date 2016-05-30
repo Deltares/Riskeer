@@ -56,5 +56,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets or sets the value of assessment layer three.
         /// </summary>
         public RoundedDouble AssessmentLayerThree { get; set; }
+
+        /// <summary>
+        /// Gets or sets the state of the assessment layer one.
+        /// </summary>
+        public bool AssessmentLayerOne { get; set; }
     }
 }
