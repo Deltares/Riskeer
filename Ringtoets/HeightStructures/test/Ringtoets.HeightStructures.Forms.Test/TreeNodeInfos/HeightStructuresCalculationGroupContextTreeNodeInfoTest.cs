@@ -129,7 +129,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var childGroup = new CalculationGroup();
             var childCalculation = new HeightStructuresCalculation(failureMechanism.GeneralInput,
-                                                                   failureMechanism.NormProbabilityInput);
+                                                                   failureMechanism.ProbabilityAssessmentInput);
 
             group.Children.Add(childGroup);
             group.Children.Add(calculationItemMock);
@@ -679,7 +679,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                                        failureMechanism,
                                                                        assessmentSectionMock);
             var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput,
-                                                              failureMechanism.NormProbabilityInput)
+                                                              failureMechanism.ProbabilityAssessmentInput)
             {
                 Name = "Nieuwe berekening"
             };
@@ -762,7 +762,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                                              failureMechanism,
                                                                              assessmentSectionMock);
             var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput,
-                                                              failureMechanism.NormProbabilityInput);
+                                                              failureMechanism.ProbabilityAssessmentInput);
 
             observerMock.Expect(o => o.UpdateObserver());
 

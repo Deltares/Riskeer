@@ -452,7 +452,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static void AddCalculation(GrassCoverErosionInwardsCalculationGroupContext context)
         {
-            var calculation = new GrassCoverErosionInwardsCalculation(context.FailureMechanism.GeneralInput, context.FailureMechanism.NormProbabilityInput)
+            var calculation = new GrassCoverErosionInwardsCalculation(context.FailureMechanism.GeneralInput, context.FailureMechanism.ProbabilityAssessmentInput)
             {
                 Name = NamingHelper.GetUniqueName(context.WrappedData.Children, GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsCalculation_DefaultName, c => c.Name)
             };

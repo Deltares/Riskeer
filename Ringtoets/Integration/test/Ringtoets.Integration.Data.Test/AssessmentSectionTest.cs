@@ -148,9 +148,9 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(30000.0, section.PipingFailureMechanism.PipingProbabilityAssessmentInput.Norm);
             Assert.AreEqual(double.NaN, section.PipingFailureMechanism.PipingProbabilityAssessmentInput.SectionLength);
 
-            Assert.AreEqual(30000.0, section.HeightStructures.NormProbabilityInput.Norm);
+            Assert.AreEqual(30000.0, section.HeightStructures.ProbabilityAssessmentInput.Norm);
 
-            Assert.AreEqual(30000.0, section.GrassCoverErosionInwards.NormProbabilityInput.Norm);
+            Assert.AreEqual(30000.0, section.GrassCoverErosionInwards.ProbabilityAssessmentInput.Norm);
 
             Assert.AreEqual(sum, section.FailureMechanismContribution.Distribution.Sum(d => d.Contribution));
         }

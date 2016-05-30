@@ -129,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var group = new CalculationGroup();
             var childGroup = new CalculationGroup();
-            var childCalculation = new GrassCoverErosionInwardsCalculation(failureMechanism.GeneralInput, failureMechanism.NormProbabilityInput);
+            var childCalculation = new GrassCoverErosionInwardsCalculation(failureMechanism.GeneralInput, failureMechanism.ProbabilityAssessmentInput);
 
             group.Children.Add(childGroup);
             group.Children.Add(calculationItemMock);

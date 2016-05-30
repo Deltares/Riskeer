@@ -109,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             properties.LengthEffect = newLengthEffect;
 
             // Assert
-            Assert.AreEqual(newLengthEffect, failureMechanism.NormProbabilityInput.N);
+            Assert.AreEqual(newLengthEffect, failureMechanism.ProbabilityAssessmentInput.N);
             mockRepository.VerifyAll();
         }
 

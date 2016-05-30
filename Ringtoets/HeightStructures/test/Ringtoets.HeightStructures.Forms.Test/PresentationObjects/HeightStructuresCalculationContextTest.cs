@@ -44,7 +44,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput, failureMechanism.NormProbabilityInput);
+            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput, failureMechanism.ProbabilityAssessmentInput);
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             mocksRepository.ReplayAll();
 

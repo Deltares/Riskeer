@@ -148,7 +148,7 @@ namespace Demo.Ringtoets.Commands
         {
             GrassCoverErosionInwardsFailureMechanism failureMechanism = demoAssessmentSection.GrassCoverErosionInwards;
 
-            var calculation = new GrassCoverErosionInwardsCalculation(failureMechanism.GeneralInput, failureMechanism.NormProbabilityInput);
+            var calculation = new GrassCoverErosionInwardsCalculation(failureMechanism.GeneralInput, failureMechanism.ProbabilityAssessmentInput);
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();
@@ -158,7 +158,7 @@ namespace Demo.Ringtoets.Commands
         {
             HeightStructuresFailureMechanism failureMechanism = demoAssessmentSection.HeightStructures;
 
-            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput, failureMechanism.NormProbabilityInput);
+            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput, failureMechanism.ProbabilityAssessmentInput);
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();

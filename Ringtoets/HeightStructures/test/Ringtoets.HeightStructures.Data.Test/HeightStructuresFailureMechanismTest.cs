@@ -47,7 +47,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             Assert.IsNotNull(failureMechanism.CalculationsGroup);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
-            Assert.IsNotNull(failureMechanism.NormProbabilityInput);
+            Assert.IsNotNull(failureMechanism.ProbabilityAssessmentInput);
             Assert.IsInstanceOf<GeneralHeightStructuresInput>(failureMechanism.GeneralInput);
         }
 
@@ -128,7 +128,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void Contribution_Always_UpdatesNormProbabilityInputContribution()
+        public void Contribution_Always_UpdatesProbabilityAssessmentInputContribution()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -138,7 +138,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             failureMechanism.Contribution = newContribution;
 
             // Assert
-            Assert.AreEqual(newContribution, failureMechanism.NormProbabilityInput.Contribution);
+            Assert.AreEqual(newContribution, failureMechanism.ProbabilityAssessmentInput.Contribution);
             Assert.AreEqual(newContribution, failureMechanism.Contribution);
         }
     }
