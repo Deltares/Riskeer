@@ -64,9 +64,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 throw new ArgumentNullException("calculation");
             }
             var calculator = new GrassCoverErosionInwardsOutputCalculationService(
-                calculation.NormProbabilityInput.Norm,
-                calculation.NormProbabilityInput.Contribution,
-                calculation.NormProbabilityInput.N,
+                calculation.ProbabilityAssessmentInput.Norm,
+                calculation.ProbabilityAssessmentInput.Contribution,
+                calculation.ProbabilityAssessmentInput.N,
                 reliability);
 
             calculator.Calculate();

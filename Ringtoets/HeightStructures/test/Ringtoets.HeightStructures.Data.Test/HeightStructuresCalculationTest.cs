@@ -55,7 +55,7 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("normProbabilityInput", exception.ParamName);
+            Assert.AreEqual("probabilityAssessmentInput", exception.ParamName);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.IsInstanceOf<Observable>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
-            Assert.AreEqual(probabilityAssessmentInput, calculation.NormProbabilityInput);
+            Assert.AreEqual(probabilityAssessmentInput, calculation.ProbabilityAssessmentInput);
             Assert.IsNull(calculation.Comments);
             Assert.IsFalse(calculation.HasOutput);
             AssertDemoInput(calculation.InputParameters);

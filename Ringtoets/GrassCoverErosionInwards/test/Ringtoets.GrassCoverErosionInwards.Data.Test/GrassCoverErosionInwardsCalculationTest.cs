@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("normProbabilityInput", exception.ParamName);
+            Assert.AreEqual("probabilityAssessmentInput", exception.ParamName);
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments);
             Assert.IsNull(calculation.Output);
-            Assert.AreSame(probabilityAssessmentInput, calculation.NormProbabilityInput);
+            Assert.AreSame(probabilityAssessmentInput, calculation.ProbabilityAssessmentInput);
             AssertDemoInput(calculation.InputParameters);
         }
 

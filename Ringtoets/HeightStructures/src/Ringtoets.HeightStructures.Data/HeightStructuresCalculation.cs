@@ -37,20 +37,20 @@ namespace Ringtoets.HeightStructures.Data
         /// Creates a new instance of <see cref="HeightStructuresCalculation"/>.
         /// </summary>
         /// <param name="generalInputParameters">General height structures calculation input parameters that apply to each calculation.</param>
-        /// <param name="normProbabilityInput">General norm probabilistic parameters that apply to each 
+        /// <param name="probabilityAssessmentInput">General norm probabilistic parameters that apply to each 
         /// calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <list type="bullet">
         /// <item><paramref name="generalInputParameters"/> is <c>null</c>.</item>
-        /// <item><paramref name="normProbabilityInput"/> is <c>null</c>.</item>
+        /// <item><paramref name="probabilityAssessmentInput"/> is <c>null</c>.</item>
         /// </list> </exception>
-        public HeightStructuresCalculation(GeneralHeightStructuresInput generalInputParameters, ProbabilityAssessmentInput normProbabilityInput)
+        public HeightStructuresCalculation(GeneralHeightStructuresInput generalInputParameters, ProbabilityAssessmentInput probabilityAssessmentInput)
         {
-            if (normProbabilityInput == null)
+            if (probabilityAssessmentInput == null)
             {
-                throw new ArgumentNullException("normProbabilityInput");
+                throw new ArgumentNullException("probabilityAssessmentInput");
             }
             InputParameters = new HeightStructuresInput(generalInputParameters);
-            NormProbabilityInput = normProbabilityInput;
+            ProbabilityAssessmentInput = probabilityAssessmentInput;
             Name = Resources.HeightStructuresCalculation_DefaultName;
             AddDemoInput();
         }
@@ -61,9 +61,9 @@ namespace Ringtoets.HeightStructures.Data
         public HeightStructuresInput InputParameters { get; private set; }
 
         /// <summary>
-        /// Gets the length-effect parameters.
+        /// Gets the probability assessment input.
         /// </summary>
-        public ProbabilityAssessmentInput NormProbabilityInput { get; private set; }
+        public ProbabilityAssessmentInput ProbabilityAssessmentInput { get; private set; }
 
         /// <summary>
         /// Gets or sets <see cref="ProbabilisticOutput"/>, which contains the results of a height structures calculation.

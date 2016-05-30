@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
                                                                       new ProbabilityAssessmentInput())
             {
-                NormProbabilityInput =
+                ProbabilityAssessmentInput =
                 {
                     Norm = norm,
                     Contribution = contribution,
@@ -88,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
                                                                       new ProbabilityAssessmentInput())
             {
-                NormProbabilityInput =
+                ProbabilityAssessmentInput =
                 {
                     Norm = norm,
                     Contribution = contribution,
@@ -153,7 +153,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(),
                                                                       new ProbabilityAssessmentInput())
             {
-                NormProbabilityInput =
+                ProbabilityAssessmentInput =
                 {
                     Norm = norm,
                     Contribution = contribution
