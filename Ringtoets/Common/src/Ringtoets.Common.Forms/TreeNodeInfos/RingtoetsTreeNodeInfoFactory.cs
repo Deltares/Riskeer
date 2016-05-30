@@ -143,14 +143,14 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Creates a <see cref="TreeNodeInfo"/> object for an empty probability output.
+        /// Creates a <see cref="TreeNodeInfo"/> object for an empty probability assessment output.
         /// </summary>
         /// <param name="contextMenuStrip">The function for obtaining the context menu strip.</param>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
-        public static TreeNodeInfo<EmptyProbabilityOutput> CreateEmptyProbabilityOutputTreeNodeInfo(
-            Func<EmptyProbabilityOutput, object, TreeViewControl, ContextMenuStrip> contextMenuStrip)
+        public static TreeNodeInfo<EmptyProbabilityAssessmentOutput> CreateEmptyProbabilityAssessmentOutputTreeNodeInfo(
+            Func<EmptyProbabilityAssessmentOutput, object, TreeViewControl, ContextMenuStrip> contextMenuStrip)
         {
-            return new TreeNodeInfo<EmptyProbabilityOutput>
+            return new TreeNodeInfo<EmptyProbabilityAssessmentOutput>
             {
                 Text = emptyOutput => Resources.CalculationOutput_DisplayName,
                 Image = emptyOutput => Resources.GeneralOutputIcon,

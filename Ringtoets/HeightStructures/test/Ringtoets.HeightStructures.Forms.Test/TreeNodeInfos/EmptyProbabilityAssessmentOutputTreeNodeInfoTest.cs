@@ -32,7 +32,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class EmptyProbabilityOutputTreeNodeInfoTest
+    public class EmptyProbabilityAssessmentOutputTreeNodeInfoTest
     {
         private MockRepository mocksRepository;
         private HeightStructuresGuiPlugin plugin;
@@ -43,7 +43,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         {
             mocksRepository = new MockRepository();
             plugin = new HeightStructuresGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptyProbabilityOutput));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptyProbabilityAssessmentOutput));
         }
 
         [Test]

@@ -1066,19 +1066,19 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         # endregion
 
-        #region EmptyProbabilityOutputTreeNodeInfo
+        #region EmptyProbabilityAssessmentOutputTreeNodeInfo
 
         [Test]
-        public void CreateEmptyProbabilityOutputTreeNodeInfo_Always_ExpectedPropertiesSet()
+        public void CreateEmptyProbabilityAssessmentOutputTreeNodeInfo_Always_ExpectedPropertiesSet()
         {
             // Setup
-            Func<EmptyProbabilityOutput, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
+            Func<EmptyProbabilityAssessmentOutput, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
 
             // Call
-            var treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityOutputTreeNodeInfo(contextMenuStrip);
+            var treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityAssessmentOutputTreeNodeInfo(contextMenuStrip);
 
             // Assert
-            Assert.AreEqual(typeof(EmptyProbabilityOutput), treeNodeInfo.TagType);
+            Assert.AreEqual(typeof(EmptyProbabilityAssessmentOutput), treeNodeInfo.TagType);
             Assert.IsNotNull(treeNodeInfo.ContextMenuStrip);
             Assert.IsNotNull(treeNodeInfo.ForeColor);
             Assert.IsNotNull(treeNodeInfo.Image);
@@ -1099,10 +1099,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void TextOfCreateEmptyProbabilityOutputTreeNodeInfo_Always_ReturnsFromResource()
+        public void TextOfCreateEmptyProbabilityAssessmentOutputTreeNodeInfo_Always_ReturnsFromResource()
         {
             // Setup
-            var treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityOutputTreeNodeInfo(null);
+            var treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityAssessmentOutputTreeNodeInfo(null);
 
             // Call
             var text = treeNodeInfo.Text(null);
@@ -1112,10 +1112,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ImageOfCreateEmptyProbabilityOutputTreeNodeInfo_Always_ReturnsGeneralOutputIcon()
+        public void ImageOfCreateEmptyProbabilityAssessmentOutputTreeNodeInfo_Always_ReturnsGeneralOutputIcon()
         {
             // Setup
-            var treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityOutputTreeNodeInfo(null);
+            var treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityAssessmentOutputTreeNodeInfo(null);
 
             // Call
             var image = treeNodeInfo.Image(null);
@@ -1125,10 +1125,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColorOfCreateEmptyProbabilityOutputTreeNodeInfos_Always_ReturnsGrayText()
+        public void ForeColorOfCreateEmptyProbabilityAssessmentOutputTreeNodeInfos_Always_ReturnsGrayText()
         {
             // Setup
-            var treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityOutputTreeNodeInfo(null);
+            var treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityAssessmentOutputTreeNodeInfo(null);
 
             // Call
             var textColor = treeNodeInfo.ForeColor(null);

@@ -83,7 +83,7 @@
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsOutputPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ProbabilityOutputTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\EmptyProbabilityOutputTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\EmptyProbabilityAssessmentOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsFailureMechanismContextTreeNodeInfoTest.cs" />

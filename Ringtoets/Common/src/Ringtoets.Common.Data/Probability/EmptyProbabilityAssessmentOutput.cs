@@ -27,5 +27,5 @@ namespace Ringtoets.Common.Data.Probability
     /// This class represents a placeholder of a <see cref="ProbabilityOutput"/> for a <see cref="ICalculation"/>
     /// that has not been calculated yet.
     /// </summary>
-    public class EmptyProbabilityOutput {}
+    public class EmptyProbabilityAssessmentOutput {}
 }

@@ -65,7 +65,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\HeightStructuresFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HeightStructuresInputContextPropertiesTest.cs" />
-    <Compile Include="TreeNodeInfos\EmptyProbabilityOutputTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\EmptyProbabilityAssessmentOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresCalculationGroupContextTreeNodeInfoTest.cs" />

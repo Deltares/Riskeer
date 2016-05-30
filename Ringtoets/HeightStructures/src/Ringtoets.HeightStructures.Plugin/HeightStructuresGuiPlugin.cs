@@ -121,8 +121,8 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                                  .Build()
             };
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityOutputTreeNodeInfo(
-                EmptyProbabilityOutputContextMenuStrip);
+            yield return RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityAssessmentOutputTreeNodeInfo(
+                EmptyProbabilityAssessmentOutputContextMenuStrip);
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>>
             {
@@ -212,9 +212,9 @@ namespace Ringtoets.HeightStructures.Plugin
             }
         }
 
-        #region EmptyProbabilityOutput TreeNodeInfo
+        #region EmptyProbabilityAssessmentOutput TreeNodeInfo
 
-        private ContextMenuStrip EmptyProbabilityOutputContextMenuStrip(EmptyProbabilityOutput output, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip EmptyProbabilityAssessmentOutputContextMenuStrip(EmptyProbabilityAssessmentOutput output, object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(output, treeViewControl));
             return builder.AddExportItem()
@@ -452,7 +452,7 @@ namespace Ringtoets.HeightStructures.Plugin
             }
             else
             {
-                childNodes.Add(new EmptyProbabilityOutput());
+                childNodes.Add(new EmptyProbabilityAssessmentOutput());
             }
 
             return childNodes.ToArray();
