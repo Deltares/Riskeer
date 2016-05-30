@@ -340,7 +340,7 @@
   <data name="PipingInput_StochasticSoilProfile_DisplayName" xml:space="preserve">
     <value>Ondergrondschematisatie</value>
   </data>
-  <data name="LognormalDistribution_DisplayName" xml:space="preserve">
+  <data name="LogNormalDistribution_DisplayName" xml:space="preserve">
     <value>Lognormale verdeling</value>
   </data>
   <data name="Probabilistics_Mean_Symbol" xml:space="preserve">
@@ -361,19 +361,19 @@
   <data name="Probabilistics_Shift_Symbol" xml:space="preserve">
     <value>Verschuiving</value>
   </data>
-  <data name="ShiftedLognormalDistribution_DisplayName" xml:space="preserve">
+  <data name="ShiftedLogNormalDistribution_DisplayName" xml:space="preserve">
     <value>Verschoven lognormale verdeling</value>
   </data>
   <data name="Probabilistics_Shift_Description" xml:space="preserve">
     <value>De hoeveelheid waarmee de kansverdeling naar rechts (richting van positieve X-as) verschoven is.</value>
   </data>
-  <data name="LognormalDistribution_ShortName" xml:space="preserve">
+  <data name="LogNormalDistribution_ShortName" xml:space="preserve">
     <value>Lognormaal</value>
   </data>
   <data name="NormalDistribution_ShortName" xml:space="preserve">
     <value>Normaal</value>
   </data>
-  <data name="ShiftedLognormalDistribution_ShortName" xml:space="preserve">
+  <data name="ShiftedLogNormalDistribution_ShortName" xml:space="preserve">
     <value>Verschoven lognormaal</value>
   </data>
   <data name="PipingInputIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">

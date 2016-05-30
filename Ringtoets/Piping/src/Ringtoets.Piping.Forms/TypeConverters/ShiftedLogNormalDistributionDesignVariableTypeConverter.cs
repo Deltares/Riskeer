@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         {
             get
             {
-                return Resources.ShiftedLognormalDistribution_DisplayName;
+                return Resources.ShiftedLogNormalDistribution_DisplayName;
             }
         }
 
@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         {
             get
             {
-                return Resources.ShiftedLognormalDistribution_ShortName;
+                return Resources.ShiftedLogNormalDistribution_ShortName;
             }
         }
 

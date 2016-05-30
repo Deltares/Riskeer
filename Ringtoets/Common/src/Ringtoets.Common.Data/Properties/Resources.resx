@@ -165,7 +165,7 @@
   <data name="DesignVariable_Percentile_must_be_in_range" xml:space="preserve">
     <value>Percentiel moet in het bereik van [0, 1] vallen.</value>
   </data>
-  <data name="LognormalDistribution_Mean_must_be_greater_equal_to_zero" xml:space="preserve">
+  <data name="LogNormalDistribution_Mean_must_be_greater_equal_to_zero" xml:space="preserve">
     <value>Gemiddelde moet groter zijn dan 0.</value>
   </data>
   <data name="StandardDeviation_Should_be_greater_than_or_equal_to_zero" xml:space="preserve">

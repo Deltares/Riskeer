@@ -337,7 +337,7 @@
   <data name="ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_cannot_be_null" xml:space="preserve">
     <value>De waarde voor toetslaag 2a moet ingevuld zijn.</value>
   </data>
-  <data name="LognormalDistribution_Mean_Description" xml:space="preserve">
+  <data name="LogNormalDistribution_Mean_Description" xml:space="preserve">
     <value>De gemiddelde waarde van de lognormale verdeling.</value>
   </data>
   <data name="LogNormalDistribution_StandardDeviation_Description" xml:space="preserve">

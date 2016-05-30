@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Data.Probabilistics
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.LognormalDistribution_Mean_must_be_greater_equal_to_zero);
+                    throw new ArgumentOutOfRangeException("value", Resources.LogNormalDistribution_Mean_must_be_greater_equal_to_zero);
                 }
                 mean = value.ToPrecision(mean.NumberOfDecimalPlaces);
             }
