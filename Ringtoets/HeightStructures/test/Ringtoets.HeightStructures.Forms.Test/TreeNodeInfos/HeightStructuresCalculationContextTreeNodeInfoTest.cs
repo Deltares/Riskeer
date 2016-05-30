@@ -160,7 +160,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             Assert.IsNotNull(heightStructuresInputContext);
             Assert.AreSame(calculationContext.WrappedData.InputParameters, heightStructuresInputContext.WrappedData);
 
-            var output = children[2] as ProbabilisticOutput;
+            var output = children[2] as ProbabilityOutput;
             Assert.IsNotNull(output);
 
             mocks.VerifyAll();
@@ -439,7 +439,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var calculation = new HeightStructuresCalculation(new GeneralHeightStructuresInput(),
                                                               new ProbabilityAssessmentInput())
             {
-                Output = new ProbabilisticOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN),
+                Output = new ProbabilityOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN),
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
@@ -521,7 +521,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         private const int contextMenuCalculateIndex = 0;
         private const int contextMenuClearIndex = 1;
 
-        private class TestHeightStructuresOutput : ProbabilisticOutput
+        private class TestHeightStructuresOutput : ProbabilityOutput
         {
             public TestHeightStructuresOutput() : base(0, 0, 0, 0, 0) {}
         }

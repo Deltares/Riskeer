@@ -44,7 +44,7 @@
     <Compile Include="AssessmentSection\ReferenceLine.cs" />
     <Compile Include="Calculation\CalculationScenarioStatus.cs" />
     <Compile Include="Calculation\EmptyProbabilisticOutput.cs" />
-    <Compile Include="Probability\ProbabilisticOutput.cs" />
+    <Compile Include="Probability\ProbabilityOutput.cs" />
     <Compile Include="Calculation\ICalculationInput.cs" />
     <Compile Include="Calculation\CalculationGroup.cs" />
     <Compile Include="Calculation\ICalculationOutput.cs" />

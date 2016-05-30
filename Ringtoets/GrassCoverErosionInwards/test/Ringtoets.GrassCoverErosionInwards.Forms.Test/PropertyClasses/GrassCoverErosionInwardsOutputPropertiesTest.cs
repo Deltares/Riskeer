@@ -24,7 +24,6 @@ using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
@@ -48,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionInwardsOutputProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<ProbabilisticOutput>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<ProbabilityOutput>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -64,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             double reliability = random.NextDouble();
             double factorOfSafety = random.NextDouble();
 
-            var output = new ProbabilisticOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
+            var output = new ProbabilityOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
 
             // Call
             var properties = new GrassCoverErosionInwardsOutputProperties
@@ -92,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             double reliability = random.NextDouble();
             double factorOfSafety = random.NextDouble();
 
-            var output = new ProbabilisticOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
+            var output = new ProbabilityOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
 
             // Call
             var properties = new GrassCoverErosionInwardsOutputProperties
@@ -110,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            var output = new ProbabilisticOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            var output = new ProbabilityOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
 
             // Call
             var properties = new GrassCoverErosionInwardsOutputProperties

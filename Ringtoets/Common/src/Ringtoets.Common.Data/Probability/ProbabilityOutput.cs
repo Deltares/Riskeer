@@ -28,17 +28,17 @@ namespace Ringtoets.Common.Data.Probability
     /// <summary>
     /// This class contains the results of a probabilistic assessment calculation.
     /// </summary>
-    public class ProbabilisticOutput : Observable, ICalculationOutput
+    public class ProbabilityOutput : Observable, ICalculationOutput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ProbabilisticOutput"/>.
+        /// Creates a new instance of <see cref="ProbabilityOutput"/>.
         /// </summary>
         /// <param name="requiredProbability">The required (maximum allowed) probability of failure.</param>
         /// <param name="requiredReliability">The required (maximum allowed) reliability of the failure mechanism.</param>
         /// <param name="probability">The probability of failure.</param>
         /// <param name="reliability">The reliability of the failure mechanism.</param>
         /// <param name="factorOfSafety">The factor of safety of the failure mechanism.</param>
-        public ProbabilisticOutput(double requiredProbability, double requiredReliability, double probability, double reliability, double factorOfSafety)
+        public ProbabilityOutput(double requiredProbability, double requiredReliability, double probability, double reliability, double factorOfSafety)
         {
             RequiredProbability = new RoundedDouble(2, requiredProbability);
             RequiredReliability = new RoundedDouble(3, requiredReliability);

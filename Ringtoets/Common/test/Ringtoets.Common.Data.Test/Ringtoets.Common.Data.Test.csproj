@@ -59,7 +59,7 @@
   <ItemGroup>
     <Compile Include="AssessmentSection\ReferenceLineTest.cs" />
     <Compile Include="Calculation\CalculationGroupTest.cs" />
-    <Compile Include="Calculation\ProbabilisticOutputTest.cs" />
+    <Compile Include="Calculation\ProbabilityOutputTest.cs" />
     <Compile Include="Contribution\FailureMechanismContributionItemTest.cs" />
     <Compile Include="Contribution\FailureMechanismContributionTest.cs" />
     <Compile Include="Contribution\OtherFailureMechanismTest.cs" />

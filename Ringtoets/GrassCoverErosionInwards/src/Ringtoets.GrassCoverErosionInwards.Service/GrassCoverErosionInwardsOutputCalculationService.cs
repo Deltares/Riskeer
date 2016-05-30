@@ -21,14 +21,13 @@
 
 using System;
 using MathNet.Numerics.Distributions;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service
 {
     /// <summary>
-    /// This class is responsible for calculating the parameters required for <see cref="ProbabilisticOutput"/>.
+    /// This class is responsible for calculating the parameters required for <see cref="ProbabilityOutput"/>.
     /// </summary>
     public class GrassCoverErosionInwardsOutputCalculationService
     {
@@ -53,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         }
 
         /// <summary>
-        /// Calculates the <see cref="ProbabilisticOutput"/> given the <paramref name="calculation"/> and <paramref name="reliability"/>.
+        /// Calculates the <see cref="ProbabilityOutput"/> given the <paramref name="calculation"/> and <paramref name="reliability"/>.
         /// </summary>
         /// <param name="calculation">The calculation which is used.</param>
         /// <param name="reliability">The reliability result.</param>
@@ -72,11 +71,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             calculator.Calculate();
 
-            calculation.Output = new ProbabilisticOutput(1/calculator.requiredProbability,
-                                                         calculator.requiredReliability,
-                                                         1/calculator.probability,
-                                                         calculator.reliability,
-                                                         calculator.factorOfSafety);
+            calculation.Output = new ProbabilityOutput(1/calculator.requiredProbability,
+                                                       calculator.requiredReliability,
+                                                       1/calculator.probability,
+                                                       calculator.reliability,
+                                                       calculator.factorOfSafety);
         }
 
         private void Calculate()

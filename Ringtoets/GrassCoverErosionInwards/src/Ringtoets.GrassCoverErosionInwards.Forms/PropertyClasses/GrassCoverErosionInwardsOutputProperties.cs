@@ -30,9 +30,9 @@ using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="ProbabilisticOutput"/> for properties panel.
+    /// ViewModel of <see cref="ProbabilityOutput"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionInwardsOutputProperties : ObjectProperties<ProbabilisticOutput>
+    public class GrassCoverErosionInwardsOutputProperties : ObjectProperties<ProbabilityOutput>
     {
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), "Categories_GrassCoverErosionInwards")]
