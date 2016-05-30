@@ -55,6 +55,8 @@ namespace Application.Ringtoets.Storage.Create
             AddEntitiesForSurfaceLines(mechanism, registry, entity);
             mechanism.AddEntitiesForFailureMechanismSections(registry, entity);
 
+            entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
+
             registry.Register(entity, mechanism);
             return entity;
         }

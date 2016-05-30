@@ -150,6 +150,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 Composition = (short) AssessmentSectionComposition.Dike
             };
             ringtoetsEntities.AssessmentSectionEntities.Add(entity);
+            ringtoetsEntities.CalculationGroupEntities.Add(new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = section.PipingFailureMechanism.CalculationsGroup.StorageId
+            });
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
             // Call
@@ -188,6 +192,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 AssessmentSectionEntityId = 1
             };
             ringtoetsEntities.AssessmentSectionEntities.Add(entity);
+            ringtoetsEntities.CalculationGroupEntities.Add(new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = section.PipingFailureMechanism.CalculationsGroup.StorageId
+            });
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
             // Call
@@ -229,6 +237,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 }
             };
             ringtoetsEntities.AssessmentSectionEntities.Add(entity);
+            ringtoetsEntities.CalculationGroupEntities.Add(new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = section.PipingFailureMechanism.CalculationsGroup.StorageId
+            });
             ringtoetsEntities.ReferenceLinePointEntities.Add(referenceLinePointEntity);
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
@@ -269,6 +281,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 AssessmentSectionEntityId = 1
             };
             ringtoetsEntities.AssessmentSectionEntities.Add(entity);
+            ringtoetsEntities.CalculationGroupEntities.Add(new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = section.PipingFailureMechanism.CalculationsGroup.StorageId
+            });
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
             // Call
@@ -323,6 +339,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 }
             };
             ringtoetsEntities.AssessmentSectionEntities.Add(entity);
+            ringtoetsEntities.CalculationGroupEntities.Add(new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = section.PipingFailureMechanism.CalculationsGroup.StorageId
+            });
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
             ringtoetsEntities.HydraulicLocationEntities.Add(hydraulicLocationEntity);
 
@@ -368,6 +388,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 }
             };
             ringtoetsEntities.AssessmentSectionEntities.Add(entity);
+            ringtoetsEntities.CalculationGroupEntities.Add(new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = section.PipingFailureMechanism.CalculationsGroup.StorageId
+            });
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
@@ -410,6 +434,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 }
             };
             ringtoetsEntities.AssessmentSectionEntities.Add(entity);
+            ringtoetsEntities.CalculationGroupEntities.Add(new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = section.PipingFailureMechanism.CalculationsGroup.StorageId
+            });
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
@@ -476,6 +504,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 }
             };
             ringtoetsEntities.AssessmentSectionEntities.Add(entity);
+            ringtoetsEntities.CalculationGroupEntities.Add(new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = section.PipingFailureMechanism.CalculationsGroup.StorageId
+            });
 
             ringtoetsEntities.FailureMechanismEntities.Add(macrostabilityInwardsEntity);
             ringtoetsEntities.FailureMechanismEntities.Add(macrostabilityOutwardsEntity);
@@ -542,7 +574,11 @@ namespace Application.Ringtoets.Storage.Test.Update
                 StorageId = 1,
                 PipingFailureMechanism =
                 {
-                    StorageId = failureMechanismId++
+                    StorageId = failureMechanismId++,
+                    CalculationsGroup =
+                    {
+                        StorageId = 1
+                    }
                 },
                 GrassCoverErosionInwards =
                 {

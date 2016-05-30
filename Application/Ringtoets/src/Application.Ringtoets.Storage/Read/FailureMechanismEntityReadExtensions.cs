@@ -21,6 +21,8 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Integration.Data.StandAlone;
@@ -65,7 +67,19 @@ namespace Application.Ringtoets.Storage.Read
 
             entity.ReadFailureMechanismSections(failureMechanism);
 
+            ReadRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
+
             return failureMechanism;
+        }
+
+        private static void ReadRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity, CalculationGroup targetRootCalculationGroup, ReadConversionCollector collector)
+        {
+            var rootCalculationGroup = rootCalculationGroupEntity.Read(collector);
+            targetRootCalculationGroup.StorageId = rootCalculationGroup.StorageId;
+            foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
+            {
+                targetRootCalculationGroup.Children.Add(calculationBase);
+            }
         }
 
         /// <summary>

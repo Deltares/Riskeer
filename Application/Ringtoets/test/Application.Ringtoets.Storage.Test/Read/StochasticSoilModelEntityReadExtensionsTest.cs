@@ -27,7 +27,7 @@ using NUnit.Framework;
 namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
-    public class StochasticSoilModelEntityTest
+    public class StochasticSoilModelEntityReadExtensionsTest
     {
         [Test]
         public void Read_WithoutCollector_ThrowsArgumentNullException()

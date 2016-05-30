@@ -27,27 +27,32 @@ using NUnit.Framework;
 namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
-    public class ReferenceLinePointEntityTest
+    public class SoilLayerEntityReadExtensionsTest
     {
         [Test]
-        public void Read_Always_NewPoint()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Read_Always_NewPoint(bool isAquifer)
         {
             // Setup
             var random = new Random(21);
-            double x = random.NextDouble();
-            double y = random.NextDouble();
-            var entity = new ReferenceLinePointEntity
+            var entityId = random.Next(1, 502);
+            double top = random.NextDouble();
+            var entity = new SoilLayerEntity
             {
-                X = Convert.ToDecimal(x),
-                Y = Convert.ToDecimal(y)
+                SoilLayerEntityId = entityId,
+                Top = Convert.ToDecimal(top),
+                IsAquifer = Convert.ToByte(isAquifer)
             };
 
             // Call
-            var point = entity.Read();
+            var layer = entity.Read();
 
             // Assert
-            Assert.AreEqual(x, point.X, 1e-6);
-            Assert.AreEqual(y, point.Y, 1e-6);
-        }    
+            Assert.IsNotNull(layer);
+            Assert.AreEqual(entityId, layer.StorageId);
+            Assert.AreEqual(top, layer.Top, 1e-6);
+            Assert.AreEqual(isAquifer, layer.IsAquifer);
+        }     
     }
 }

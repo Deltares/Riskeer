@@ -234,63 +234,68 @@ namespace Application.Ringtoets.Storage.Test.Update
             var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
+            var section = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                StorageId = 1,
+                PipingFailureMechanism =
+                {
+                    StorageId = 1,
+                    CalculationsGroup =
+                    {
+                        StorageId = 23
+                    }
+                },
+                GrassCoverErosionInwards =
+                {
+                    StorageId = 1
+                },
+                MacrostabilityInwards =
+                {
+                    StorageId = 1
+                },
+                HeightStructures =
+                {
+                    StorageId = 1
+                },
+                ClosingStructure =
+                {
+                    StorageId = 1
+                },
+                StrengthStabilityPointConstruction =
+                {
+                    StorageId = 1
+                },
+                StabilityStoneCover =
+                {
+                    StorageId = 1
+                },
+                WaveImpactAsphaltCover =
+                {
+                    StorageId = 1
+                },
+                GrassCoverErosionOutwards =
+                {
+                    StorageId = 1
+                },
+                GrassCoverSlipOffOutwards =
+                {
+                    StorageId = 1
+                },
+                PipingStructure =
+                {
+                    StorageId = 1
+                },
+                DuneErosion =
+                {
+                    StorageId = 1
+                }
+            };
             var project = new Project
             {
                 StorageId = 1,
                 Items =
                 {
-                    new AssessmentSection(AssessmentSectionComposition.Dike)
-                    {
-                        StorageId = 1,
-                        PipingFailureMechanism =
-                        {
-                            StorageId = 1
-                        },
-                        GrassCoverErosionInwards =
-                        {
-                            StorageId = 1
-                        },
-                        MacrostabilityInwards =
-                        {
-                            StorageId = 1
-                        },
-                        HeightStructures =
-                        {
-                            StorageId = 1
-                        },
-                        ClosingStructure =
-                        {
-                            StorageId = 1
-                        },
-                        StrengthStabilityPointConstruction =
-                        {
-                            StorageId = 1
-                        },
-                        StabilityStoneCover =
-                        {
-                            StorageId = 1
-                        },
-                        WaveImpactAsphaltCover =
-                        {
-                            StorageId = 1
-                        },
-                        GrassCoverErosionOutwards =
-                        {
-                            StorageId = 1
-                        },
-                        GrassCoverSlipOffOutwards =
-                        {
-                            StorageId = 1
-                        },
-                        PipingStructure =
-                        {
-                            StorageId = 1
-                        },
-                        DuneErosion =
-                        {
-                            StorageId = 1
-                        }
-                    }
+                    section
                 }
             };
 
@@ -309,6 +314,10 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             ringtoetsEntities.ProjectEntities.Add(projectEntity);
             ringtoetsEntities.AssessmentSectionEntities.Add(assessmentSectionEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = section.PipingFailureMechanism.CalculationsGroup.StorageId
+            });
             ringtoetsEntities.FailureMechanismEntities.Add(new FailureMechanismEntity
             {
                 FailureMechanismEntityId = 1

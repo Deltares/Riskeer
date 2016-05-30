@@ -35,6 +35,7 @@ using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -293,6 +294,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertStochasticSoilModels(expectedPipingFailureMechanism.StochasticSoilModels, actualPipingFailureMechanism.StochasticSoilModels);
             AssertSurfaceLines(expectedPipingFailureMechanism.SurfaceLines, actualPipingFailureMechanism.SurfaceLines);
+            AssertCalculationGroup(expectedPipingFailureMechanism.CalculationsGroup, actualPipingFailureMechanism.CalculationsGroup);
         }
 
         private void AssertStochasticSoilModels(ObservableList<StochasticSoilModel> expectedModels, ObservableList<StochasticSoilModel> actualModels)
@@ -375,6 +377,27 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedSurfaceLine.DikeToeAtRiver, actualSurfaceLine.DikeToeAtRiver);
             Assert.AreEqual(expectedSurfaceLine.DitchDikeSide, actualSurfaceLine.DitchDikeSide);
             Assert.AreEqual(expectedSurfaceLine.DitchPolderSide, actualSurfaceLine.DitchPolderSide);
+        }
+
+        private void AssertCalculationGroup(CalculationGroup expectedRootCalculationGroup, CalculationGroup actualRootCalculationGroup)
+        {
+            Assert.AreEqual(expectedRootCalculationGroup.Name, actualRootCalculationGroup.Name);
+            Assert.AreEqual(expectedRootCalculationGroup.IsNameEditable, actualRootCalculationGroup.IsNameEditable);
+
+            Assert.AreEqual(expectedRootCalculationGroup.Children.Count, actualRootCalculationGroup.Children.Count);
+            for (int i = 0; i < expectedRootCalculationGroup.Children.Count; i++)
+            {
+                ICalculationBase expectedChild = expectedRootCalculationGroup.Children[i];
+                ICalculationBase actualChild = actualRootCalculationGroup.Children[i];
+
+                Assert.AreEqual(expectedChild.GetType(), actualChild.GetType());
+
+                var expectedChildGroup = expectedChild as CalculationGroup;
+                if (expectedChildGroup != null)
+                {
+                    AssertCalculationGroup(expectedChildGroup, (CalculationGroup)actualChild);
+                }
+            }
         }
 
         private void TearDownTempRingtoetsFile(string filePath)

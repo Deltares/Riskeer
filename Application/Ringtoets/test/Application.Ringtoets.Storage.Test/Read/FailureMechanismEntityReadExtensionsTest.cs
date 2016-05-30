@@ -25,9 +25,12 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
 
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Piping.Data;
+
 namespace Application.Ringtoets.Storage.Test.Read
 {
-    public class FailureMechanismEntityTest
+    public class FailureMechanismEntityReadExtensionsTest
     {
         [Test]
         public void ReadAsPipingFailureMechanism_WithoutCollector_ThrowsArgumentNullException()
@@ -38,7 +41,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Call
             TestDelegate test = () => entity.ReadAsPipingFailureMechanism(null);
 
-            // Assert
+            // Assert 
             var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("collector", parameter);
         }
@@ -54,6 +57,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 FailureMechanismEntityId = entityId,
                 IsRelevant = Convert.ToByte(isRelevant),
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    CalculationGroupEntityId = 2
+                }
             };
             var collector = new ReadConversionCollector();
 
@@ -74,6 +81,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var entity = new FailureMechanismEntity
             {
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    CalculationGroupEntityId = 3
+                },
                 StochasticSoilModelEntities =
                 {
                     new StochasticSoilModelEntity(),
@@ -95,6 +106,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var entity = new FailureMechanismEntity
             {
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    CalculationGroupEntityId = 6
+                },
                 SurfaceLineEntities =
                 {
                     new SurfaceLineEntity(),
@@ -118,6 +133,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = entityId,
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    CalculationGroupEntityId = 1
+                },
                 FailureMechanismSectionEntities =
                 {
                     new FailureMechanismSectionEntity
@@ -137,7 +156,62 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
-        }   
+        }
+
+        [Test]
+        public void ReadAsPipingFailureMechanism_WithCalculationGroup_ReturnsNewPipingFailureMechanismWithCalculationGroupSet()
+        {
+            // Setup
+            var entityId = new Random(1328).Next(1, 502);
+            const int rootGroupId = 5;
+            const int childGroup1Id = 7;
+            const int childGroup2Id = 9;
+
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = entityId,
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    CalculationGroupEntityId = rootGroupId,
+                    IsEditable = 0,
+                    Name = "Berekeningen",
+                    Order = 0,
+                    CalculationGroupEntity1 =
+                    {
+                        new CalculationGroupEntity
+                        {
+                            CalculationGroupEntityId = childGroup1Id,
+                            IsEditable = 1,
+                            Name = "Child1",
+                            Order = 0
+                        },
+                        new CalculationGroupEntity
+                        {
+                            CalculationGroupEntityId = childGroup2Id,
+                            IsEditable = 1,
+                            Name = "Child2",
+                            Order = 1
+                        },
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+
+            // Call
+            PipingFailureMechanism failureMechanism = entity.ReadAsPipingFailureMechanism(collector);
+
+            // Assert
+            Assert.AreEqual(rootGroupId, failureMechanism.CalculationsGroup.StorageId);
+            Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
+
+            ICalculationBase child1 = failureMechanism.CalculationsGroup.Children[0];
+            Assert.AreEqual("Child1", child1.Name);
+            Assert.AreEqual(childGroup1Id, ((CalculationGroup)child1).StorageId);
+
+            ICalculationBase child2 = failureMechanism.CalculationsGroup.Children[1];
+            Assert.AreEqual("Child2", child2.Name);
+            Assert.AreEqual(childGroup2Id, ((CalculationGroup)child2).StorageId);
+        }
 
         [Test]
         [TestCase(true)]

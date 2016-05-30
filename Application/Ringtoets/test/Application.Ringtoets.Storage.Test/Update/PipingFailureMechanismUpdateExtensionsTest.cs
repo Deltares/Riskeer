@@ -30,6 +30,8 @@ using Application.Ringtoets.Storage.Update;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
+
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
@@ -137,16 +139,25 @@ namespace Application.Ringtoets.Storage.Test.Update
             var failureMechanism = new PipingFailureMechanism
             {
                 StorageId = 1,
-                IsRelevant = true
+                IsRelevant = true,
+                CalculationsGroup =
+                {
+                    StorageId = 4
+                }
             };
 
+            var rootCalculationGroup = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = failureMechanism.CalculationsGroup.StorageId
+            };
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = 1,
-                IsRelevant = Convert.ToByte(false)
+                IsRelevant = Convert.ToByte(false),
+                CalculationGroupEntity = rootCalculationGroup
             };
-
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroup);
 
             // Call
             failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
@@ -170,19 +181,29 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 StorageId = 1,
                 IsRelevant = true,
+                CalculationsGroup =
+                {
+                    StorageId = 1
+                },
                 StochasticSoilModels =
                 {
                     new StochasticSoilModel(-1, string.Empty, string.Empty)
                 }
             };
 
+            var rootCalculationGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = failureMechanism.CalculationsGroup.StorageId
+            };
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = 1,
-                IsRelevant = Convert.ToByte(false)
+                FailureMechanismEntityId = failureMechanism.StorageId,
+                IsRelevant = Convert.ToByte(false),
+                CalculationGroupEntity = rootCalculationGroupEntity
             };
 
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
 
             // Call
             failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
@@ -205,6 +226,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             var failureMechanism = new PipingFailureMechanism
             {
                 StorageId = 1,
+                CalculationsGroup =
+                {
+                    StorageId = 4
+                },
                 StochasticSoilModels =
                 {
                     new StochasticSoilModel(-1, string.Empty, string.Empty)
@@ -218,9 +243,14 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 StochasticSoilModelEntityId = 1
             };
+            var rootCalculationGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = failureMechanism.CalculationsGroup.StorageId
+            };
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = 1,
+                CalculationGroupEntity = rootCalculationGroupEntity,
                 StochasticSoilModelEntities =
                 {
                     stochasticSoilModelEntity
@@ -228,6 +258,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
 
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
             ringtoetsEntities.StochasticSoilModelEntities.Add(stochasticSoilModelEntity);
 
             // Call
@@ -250,19 +281,29 @@ namespace Application.Ringtoets.Storage.Test.Update
             var failureMechanism = new PipingFailureMechanism
             {
                 StorageId = 1,
-                IsRelevant = true
+                IsRelevant = true,
+                CalculationsGroup =
+                {
+                    StorageId = 3
+                }
             };
             failureMechanism.SurfaceLines.Add(new RingtoetsPipingSurfaceLine
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(1.1, 2.2)
             });
 
+            var rootCalculationGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = failureMechanism.CalculationsGroup.StorageId
+            };
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = 1,
-                IsRelevant = Convert.ToByte(false)
+                FailureMechanismEntityId = failureMechanism.StorageId,
+                IsRelevant = Convert.ToByte(false),
+                CalculationGroupEntity = rootCalculationGroupEntity
             };
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
 
             // Call
             failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
@@ -292,6 +333,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             var failureMechanism = new PipingFailureMechanism
             {
                 StorageId = failureMechanismId,
+                CalculationsGroup =
+                {
+                    StorageId = 54
+                }
             };
             failureMechanism.SurfaceLines.Add(surfaceLine);
 
@@ -299,9 +344,14 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 SurfaceLineEntityId = surfaceLineId
             };
+            var rootCalculationGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = failureMechanism.CalculationsGroup.StorageId
+            };
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = failureMechanismId,
+                CalculationGroupEntity = rootCalculationGroupEntity,
                 SurfaceLineEntities = 
                 {
                     surfaceLineEntity
@@ -309,6 +359,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
 
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
             ringtoetsEntities.SurfaceLineEntities.Add(surfaceLineEntity);
 
             // Call
@@ -331,16 +382,26 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             var failureMechanism = new PipingFailureMechanism
             {
-                StorageId = 1
+                StorageId = 1,
+                CalculationsGroup =
+                {
+                    StorageId = 1
+                }
             };
             failureMechanism.AddSection(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
 
+            var rootCalculationGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = failureMechanism.CalculationsGroup.StorageId
+            };
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = 1,
+                CalculationGroupEntity = rootCalculationGroupEntity
             };
 
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
 
             // Call
             failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
@@ -362,7 +423,11 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             var failureMechanism = new PipingFailureMechanism
             {
-                StorageId = 1
+                StorageId = 1,
+                CalculationsGroup =
+                {
+                    StorageId = 97
+                }
             };
             var testName = "testName";
             failureMechanism.AddSection(new FailureMechanismSection(testName, new[] { new Point2D(0, 0) })
@@ -374,9 +439,14 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 FailureMechanismSectionEntityId = 1,
             };
+            var rootCalculationGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = failureMechanism.CalculationsGroup.StorageId
+            };
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = 1,
+                CalculationGroupEntity = rootCalculationGroupEntity,
                 FailureMechanismSectionEntities = 
                 {
                     failureMechanismSectionEntity
@@ -384,6 +454,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
 
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
             ringtoetsEntities.FailureMechanismSectionEntities.Add(failureMechanismSectionEntity);
 
             // Call
@@ -394,6 +465,122 @@ namespace Application.Ringtoets.Storage.Test.Update
             Assert.AreEqual(testName, failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(0).Name);
 
             mocks.VerifyAll();
-        } 
+        }
+
+        [Test]
+        public void Update_ContextWithNewCalculationGroup_CalculationGroupEntityAdded()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism
+            {
+                StorageId = 1,
+                CalculationsGroup =
+                {
+                    StorageId = 1
+                }
+            };
+            var newCalculationGroup = new CalculationGroup
+            {
+                Name = "new group"
+            };
+            failureMechanism.CalculationsGroup.Children.Add(newCalculationGroup);
+
+            var rootCalculationGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = failureMechanism.CalculationsGroup.StorageId,
+                Name = "Berekeningen",
+                IsEditable = 0,
+                Order = 0
+            };
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = failureMechanism.StorageId,
+                CalculationGroupEntity = rootCalculationGroupEntity
+            };
+            ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            failureMechanism.Update(registry, ringtoetsEntities);
+
+            // Assert
+            Assert.AreEqual(1, rootCalculationGroupEntity.CalculationGroupEntity1.Count);
+            CalculationGroupEntity newlyAddedGroupEntity = rootCalculationGroupEntity.CalculationGroupEntity1.First();
+            Assert.AreEqual(newCalculationGroup.Name, newlyAddedGroupEntity.Name);
+            Assert.AreEqual(1, newlyAddedGroupEntity.IsEditable);
+            Assert.AreEqual(0, newlyAddedGroupEntity.Order);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ContextWithUnchangedCalculationGroup_NoNewCalculationGroupEntityAdded()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism
+            {
+                StorageId = 1,
+                CalculationsGroup =
+                {
+                    StorageId = 1
+                }
+            };
+            var alreadySavedChildGroup = new CalculationGroup
+            {
+                Name = "saved child group",
+                StorageId = 2
+            };
+            failureMechanism.CalculationsGroup.Children.Add(alreadySavedChildGroup);
+
+            var childGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = alreadySavedChildGroup.StorageId,
+                Name = alreadySavedChildGroup.Name,
+                IsEditable = 1,
+                Order = 0
+            };
+            var rootCalculationGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = failureMechanism.CalculationsGroup.StorageId,
+                Name = "Berekeningen",
+                IsEditable = 0,
+                Order = 0,
+                CalculationGroupEntity1 =
+                {
+                    childGroupEntity
+                }
+            };
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = failureMechanism.StorageId,
+                CalculationGroupEntity = rootCalculationGroupEntity
+            };
+            ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(childGroupEntity);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            failureMechanism.Update(registry, ringtoetsEntities);
+
+            // Assert
+            Assert.AreEqual(1, rootCalculationGroupEntity.CalculationGroupEntity1.Count);
+            CalculationGroupEntity newlyAddedGroupEntity = rootCalculationGroupEntity.CalculationGroupEntity1.First();
+            Assert.AreEqual(alreadySavedChildGroup.Name, newlyAddedGroupEntity.Name);
+            Assert.AreEqual(1, newlyAddedGroupEntity.IsEditable);
+            Assert.AreEqual(0, newlyAddedGroupEntity.Order);
+            Assert.AreEqual(alreadySavedChildGroup.StorageId, newlyAddedGroupEntity.CalculationGroupEntityId);
+            mocks.VerifyAll();
+        }
     }
 }

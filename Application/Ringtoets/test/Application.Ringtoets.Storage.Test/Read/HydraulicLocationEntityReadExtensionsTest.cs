@@ -27,7 +27,7 @@ using NUnit.Framework;
 namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
-    public class HydraulicLocationEntityTest
+    public class HydraulicLocationEntityReadExtensionsTest
     {
         [Test]
         public void Read_Always_ReturnsHydraulicBoundaryLocationWithPropertiesSet()

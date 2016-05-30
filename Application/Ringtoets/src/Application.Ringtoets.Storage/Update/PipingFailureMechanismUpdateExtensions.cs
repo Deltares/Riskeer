@@ -61,6 +61,7 @@ namespace Application.Ringtoets.Storage.Update
             UpdateSoilModels(mechanism, registry, context, entity);
             UpdateSurfaceLines(mechanism, registry, context, entity);
             mechanism.UpdateFailureMechanismSections(registry, entity, context);
+            mechanism.CalculationsGroup.Update(registry, context);
 
             registry.Register(entity, mechanism);
         }

@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -109,6 +110,11 @@ namespace Application.Ringtoets.Storage.Read
                 foreach (RingtoetsPipingSurfaceLine surfaceLine in failureMechanism.SurfaceLines)
                 {
                     pipingFailureMechanism.SurfaceLines.Add(surfaceLine);
+                }
+                pipingFailureMechanism.CalculationsGroup.StorageId = failureMechanism.CalculationsGroup.StorageId;
+                foreach (ICalculationBase calculationBase in failureMechanism.CalculationsGroup.Children)
+                {
+                    pipingFailureMechanism.CalculationsGroup.Children.Add(calculationBase);
                 }
             }
         }

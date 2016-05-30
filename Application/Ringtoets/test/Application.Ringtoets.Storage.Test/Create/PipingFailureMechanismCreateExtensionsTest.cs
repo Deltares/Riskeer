@@ -20,11 +20,16 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+
+using Rhino.Mocks;
+
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
@@ -128,12 +133,46 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(failureMechanism.SurfaceLines.Count, entity.SurfaceLineEntities.Count);
         }
 
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Create_WithCalculationGroup_ReturnFailureMechanismEntityWithCalculationGroupEntities(bool isRelevant)
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup("A", true));
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup("B", true));
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreEqual(failureMechanism.CalculationsGroup.Name, entity.CalculationGroupEntity.Name);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.CalculationsGroup.IsNameEditable), entity.CalculationGroupEntity.IsEditable);
+            Assert.AreEqual(0, entity.CalculationGroupEntity.Order);
+
+            CalculationGroupEntity[] childGroupEntities = entity.CalculationGroupEntity.CalculationGroupEntity1
+                                                                .OrderBy(cge => cge.Order)
+                                                                .ToArray();
+            Assert.AreEqual(2, childGroupEntities.Length);
+            Assert.AreEqual("A", childGroupEntities[0].Name);
+            Assert.AreEqual(1, childGroupEntities[0].IsEditable);
+            Assert.AreEqual(0, childGroupEntities[0].Order);
+            Assert.AreEqual("B", childGroupEntities[1].Name);
+            Assert.AreEqual(1, childGroupEntities[1].IsEditable);
+            Assert.AreEqual(1, childGroupEntities[1].Order);
+        }
+
         private RingtoetsPipingSurfaceLine CreateSurfaceLine(Random random)
         {
-            
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            surfaceLine.Name = "A";
-            surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(random.NextDouble(), random.NextDouble());
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "A",
+                ReferenceLineIntersectionWorldPoint = new Point2D(random.NextDouble(), random.NextDouble())
+            };
 
             var geometryPoints = new Point3D[10];
             for (int i = 0; i < 10; i++)

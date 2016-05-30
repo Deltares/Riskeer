@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -71,6 +71,20 @@ namespace Application.Ringtoets.Storage.TestUtil
                     SurfaceLines =
                     {
                         GetSurfaceLine()
+                    },
+                    CalculationsGroup =
+                    {
+                        //Children =
+                        //        {
+                        //            new CalculationGroup
+                        //            {
+                        //                Name = "A"
+                        //            },
+                        //            new CalculationGroup
+                        //            {
+                        //                Name = "B"
+                        //            }
+                        //        }
                     }
                 }
             };

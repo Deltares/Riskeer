@@ -27,27 +27,32 @@ using NUnit.Framework;
 namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
-    public class FailureMechanismSectionPointEntityTest
+    public class FailureMechanismSectionEntityReadExtensionsTest
     {
         [Test]
         public void Read_Always_NewPoint()
         {
             // Setup
             var random = new Random(21);
-            double x = random.NextDouble();
-            double y = random.NextDouble();
-            var entity = new FailureMechanismSectionPointEntity
+            var entityId = random.Next(1, 502);
+            string name = "testName";
+            var entity = new FailureMechanismSectionEntity
             {
-                X = Convert.ToDecimal(x),
-                Y = Convert.ToDecimal(y)
+                FailureMechanismSectionEntityId = entityId,
+                Name = name,
+                FailureMechanismSectionPointEntities =
+                {
+                    new FailureMechanismSectionPointEntity()
+                }
             };
 
             // Call
-            var point = entity.Read();
+            var section = entity.Read();
 
             // Assert
-            Assert.AreEqual(x, point.X, 1e-6);
-            Assert.AreEqual(y, point.Y, 1e-6);
-        }   
+            Assert.IsNotNull(section);
+            Assert.AreEqual(entityId, section.StorageId);
+            Assert.AreEqual(name, section.Name);
+        } 
     }
 }

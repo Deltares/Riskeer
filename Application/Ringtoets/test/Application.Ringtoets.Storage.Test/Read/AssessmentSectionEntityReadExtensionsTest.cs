@@ -20,17 +20,19 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
-    public class AssessmentSectionEntityTest
+    public class AssessmentSectionEntityReadExtensionsTest
     {
         [Test]
         public void Read_WithoutCollector_ThrowsArgumentNullException()
@@ -151,6 +153,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 FailureMechanismEntityId = entityId,
                 FailureMechanismType = (int) FailureMechanismType.Piping,
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    CalculationGroupEntityId = 1
+                },
                 IsRelevant = Convert.ToByte(isRelevant),
                 StochasticSoilModelEntities =
                 {
@@ -184,6 +190,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 FailureMechanismEntityId = entityId,
                 FailureMechanismType = (int)FailureMechanismType.Piping,
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    CalculationGroupEntityId = 1
+                },
                 IsRelevant = Convert.ToByte(isRelevant),
                 SurfaceLineEntities =
                 {
@@ -205,6 +215,57 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Read_WithPipingFailureMechanismWithCalculationGroupsSet_ReturnsNewAssessmentSectionWithCalculationGroupsInPipingFailureMechanism(bool isRelevant)
+        {
+            // Setup
+            var entity = new AssessmentSectionEntity();
+            var entityId = new Random(21).Next(1, 502);
+
+            const int rootGroupEntityId = 1;
+            const int childGroupEntity1Id = 2;
+            const int childGroupEntity2Id = 3;
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = entityId,
+                FailureMechanismType = (int)FailureMechanismType.Piping,
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    CalculationGroupEntityId = rootGroupEntityId,
+                    CalculationGroupEntity1 =
+                    {
+                        new CalculationGroupEntity
+                        {
+                            CalculationGroupEntityId = childGroupEntity1Id,
+                            Order = 0
+                        },
+                        new CalculationGroupEntity
+                        {
+                            CalculationGroupEntityId = childGroupEntity2Id,
+                            Order = 1
+                        }
+                    }
+                },
+                IsRelevant = Convert.ToByte(isRelevant)
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var section = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(rootGroupEntityId, section.PipingFailureMechanism.CalculationsGroup.StorageId);
+            IList<ICalculationBase> childCalculationGroups = section.PipingFailureMechanism.CalculationsGroup.Children;
+            Assert.AreEqual(2, childCalculationGroups.Count);
+            Assert.AreEqual(childGroupEntity1Id, ((CalculationGroup)childCalculationGroups[0]).StorageId);
+            Assert.AreEqual(childGroupEntity2Id, ((CalculationGroup)childCalculationGroups[1]).StorageId);
+        }
+
+        [Test]
         public void Read_WithPipingFailureMechanismWithFailureMechanismSectionsSet_ReturnsNewAssessmentSectionWithFailureMechanismSectionsInPipingFailureMechanism()
         {
             // Setup
@@ -215,6 +276,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 FailureMechanismEntityId = entityId,
                 FailureMechanismType = (int) FailureMechanismType.Piping,
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    CalculationGroupEntityId = 1
+                },
                 FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
