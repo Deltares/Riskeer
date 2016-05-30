@@ -434,7 +434,7 @@ namespace Core.Common.Controls.Test.DataGrid
             }
         }
         
-         [Test]
+        [Test]
         public void AutoResizeColumns_AddShorterText_DecreasesColumnWidth()
         {
             using (var form = new Form())

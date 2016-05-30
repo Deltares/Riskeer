@@ -95,8 +95,8 @@ namespace Core.Common.Controls.DataGrid
         /// <param name="dataPropertyName">The <see cref="DataGridViewColumn.DataPropertyName"/> of the column.</param>
         /// <param name="headerText">The <see cref="DataGridViewColumn.HeaderText"/> of the column.</param>
         /// <param name="dataSource">The datasource that is set on the column.</param>
-        /// <param name="valueMember"></param>
-        /// <param name="displayMember"></param>
+        /// <param name="valueMember">The <see cref="DataGridViewComboBoxColumn.ValueMember"/> of the column.</param>
+        /// <param name="displayMember">The <see cref="DataGridViewComboBoxColumn.DisplayMember"/> of the column.</param>
         /// <remarks><paramref name="dataPropertyName"/> is also used to create the <see cref="DataGridViewColumn.Name"/>.
         /// The format is "column_<paramref name="dataPropertyName"/>.</remarks>
         public void AddComboBoxColumn<T>(string dataPropertyName, string headerText, List<T> dataSource, string valueMember, string displayMember)

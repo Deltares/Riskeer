@@ -318,7 +318,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         /// <summary>
         /// This class makes it easier to temporarily disable automatic resizing of a column,
-        /// for example when it's data is being changed or you are replacing the list items
+        /// for example when its data is being changed or you are replacing the list items
         /// available in a combo-box for that column.
         /// </summary>
         private class SuspendDataGridViewColumnResizes : IDisposable
