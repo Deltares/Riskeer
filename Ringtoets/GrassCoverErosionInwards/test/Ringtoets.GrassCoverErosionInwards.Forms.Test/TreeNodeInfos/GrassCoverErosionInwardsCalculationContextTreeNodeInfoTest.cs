@@ -126,7 +126,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Assert.IsNotNull(grassCoverErosionInwardsInputContext);
             Assert.AreSame(calculationContext.WrappedData.InputParameters, grassCoverErosionInwardsInputContext.WrappedData);
 
-            var emptyOutput = children[2] as EmptyProbabilisticOutput;
+            var emptyOutput = children[2] as EmptyProbabilityOutput;
             Assert.IsNotNull(emptyOutput);
 
             mocks.VerifyAll();

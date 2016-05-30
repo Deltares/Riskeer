@@ -25,26 +25,25 @@ using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.GrassCoverErosionInwards.Plugin;
-using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
+using Ringtoets.Common.Data.Probability;
+using Ringtoets.HeightStructures.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
+namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class EmptyProbabilisticOutputTreeNodeInfoTest
+    public class EmptyProbabilityOutputTreeNodeInfoTest
     {
         private MockRepository mocksRepository;
-        private GrassCoverErosionInwardsGuiPlugin plugin;
+        private HeightStructuresGuiPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocksRepository = new MockRepository();
-            plugin = new GrassCoverErosionInwardsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptyProbabilisticOutput));
+            plugin = new HeightStructuresGuiPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptyProbabilityOutput));
         }
 
         [Test]

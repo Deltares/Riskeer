@@ -19,13 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.Common.Data.Calculation
+namespace Ringtoets.Common.Data.Probability
 {
     /// <summary>
-    /// This class represents the placeholder for a <see cref="ProbabilityOutput"/> for a <see cref="ICalculation"/>
+    /// This class represents a placeholder of a <see cref="ProbabilityOutput"/> for a <see cref="ICalculation"/>
     /// that has not been calculated yet.
     /// </summary>
-    public class EmptyProbabilisticOutput {}
+    public class EmptyProbabilityOutput {}
 }

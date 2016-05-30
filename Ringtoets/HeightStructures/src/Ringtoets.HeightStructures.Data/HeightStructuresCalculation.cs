@@ -36,8 +36,9 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresCalculation"/>.
         /// </summary>
-        /// <param name="generalInputParameters">General height structures calculation input parameters that apply to each calculation.</param>
-        /// <param name="probabilityAssessmentInput">General norm probabilistic parameters that apply to each 
+        /// <param name="generalInputParameters">General height structures calculation input parameters 
+        /// that apply to each calculation.</param>
+        /// <param name="probabilityAssessmentInput">General probabilistic assessment parameters that apply to each 
         /// calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <list type="bullet">
         /// <item><paramref name="generalInputParameters"/> is <c>null</c>.</item>

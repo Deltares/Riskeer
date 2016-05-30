@@ -134,8 +134,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilisticOutputTreeNodeInfo(
-                EmptyProbabilisticOutputContextMenuStrip);
+            yield return RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityOutputTreeNodeInfo(
+                EmptyProbabilityOutputContextMenuStrip);
         }
 
         private static ExceedanceProbabilityCalculationActivity CreateHydraRingExceedenceProbabilityCalculationActivity(FailureMechanismSection failureMechanismSection,
@@ -275,9 +275,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         #endregion
 
-        #region EmptyProbabilisticOutput TreeNodeInfo
+        #region EmptyProbabilityOutput TreeNodeInfo
 
-        private ContextMenuStrip EmptyProbabilisticOutputContextMenuStrip(EmptyProbabilisticOutput output, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip EmptyProbabilityOutputContextMenuStrip(EmptyProbabilityOutput output, object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(output, treeViewControl));
             return builder.AddExportItem()
@@ -492,7 +492,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             }
             else
             {
-                childNodes.Add(new EmptyProbabilisticOutput());
+                childNodes.Add(new EmptyProbabilityOutput());
             }
 
             return childNodes.ToArray();

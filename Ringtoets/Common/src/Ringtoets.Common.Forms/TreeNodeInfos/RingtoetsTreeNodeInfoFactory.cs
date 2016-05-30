@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -142,14 +143,14 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Creates a <see cref="TreeNodeInfo"/> object for an empty probabilistic output.
+        /// Creates a <see cref="TreeNodeInfo"/> object for an empty probability output.
         /// </summary>
         /// <param name="contextMenuStrip">The function for obtaining the context menu strip.</param>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
-        public static TreeNodeInfo<EmptyProbabilisticOutput> CreateEmptyProbabilisticOutputTreeNodeInfo(
-            Func<EmptyProbabilisticOutput, object, TreeViewControl, ContextMenuStrip> contextMenuStrip)
+        public static TreeNodeInfo<EmptyProbabilityOutput> CreateEmptyProbabilityOutputTreeNodeInfo(
+            Func<EmptyProbabilityOutput, object, TreeViewControl, ContextMenuStrip> contextMenuStrip)
         {
-            return new TreeNodeInfo<EmptyProbabilisticOutput>
+            return new TreeNodeInfo<EmptyProbabilityOutput>
             {
                 Text = emptyOutput => Resources.CalculationOutput_DisplayName,
                 Image = emptyOutput => Resources.GeneralOutputIcon,

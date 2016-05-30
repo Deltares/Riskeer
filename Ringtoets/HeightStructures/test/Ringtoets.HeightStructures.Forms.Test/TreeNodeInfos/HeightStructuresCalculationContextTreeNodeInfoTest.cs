@@ -126,7 +126,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             Assert.IsNotNull(heightStructuresInputContext);
             Assert.AreSame(calculationContext.WrappedData.InputParameters, heightStructuresInputContext.WrappedData);
 
-            var emptyOutput = children[2] as EmptyProbabilisticOutput;
+            var emptyOutput = children[2] as EmptyProbabilityOutput;
             Assert.IsNotNull(emptyOutput);
 
             mocks.VerifyAll();
