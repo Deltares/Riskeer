@@ -56,6 +56,7 @@ using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -164,17 +165,18 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
 
-            yield return new ViewInfo<
-                FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>, 
-                IEnumerable<ArbitraryProbabilityFailureMechanismSectionResult>, 
-                ArbitraryProbabilityFailureMechanismResultView>
-            {
-                GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData,
-                GetViewData = context => context.SectionResults,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
-            };
+            yield return CreateFailureMechanismResultViewInfo<
+                MacrostabilityInwardsFailureMechanismSectionResult,
+                MacrostabilityInwardsResultView>();
+            yield return CreateFailureMechanismResultViewInfo<
+                MacrostabilityOutwardsFailureMechanismSectionResult,
+                MacrostabilityOutwardsResultView>();
+            yield return CreateFailureMechanismResultViewInfo<
+                StrengthStabilityPointConstructionFailureMechanismSectionResult,
+                StrengthStabilityPointConstructionResultView>();
+            yield return CreateFailureMechanismResultViewInfo<
+                ClosingStructureFailureMechanismSectionResult,
+                ClosingStructureResultView>();
 
             yield return new ViewInfo<CommentContext<ICommentable>, ICommentable, CommentView>
             {
@@ -182,6 +184,24 @@ namespace Ringtoets.Integration.Plugin
                 GetViewData = context => context.CommentContainer,
                 Image = RingtoetsCommonFormsResources.EditDocumentIcon,
                 CloseForData = CloseCommentViewForData
+            };
+        }
+
+        private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IEnumerable<TResult>, TView> 
+            CreateFailureMechanismResultViewInfo<TResult,TView>() 
+            where TResult : FailureMechanismSectionResult 
+            where TView : FailureMechanismResultView<TResult> 
+        {
+            return new ViewInfo<
+                FailureMechanismSectionResultContext<TResult>, 
+                IEnumerable<TResult>,
+                TView>
+            {
+                GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                CloseForData = CloseFailureMechanismResultViewForData,
+                GetViewData = context => context.SectionResults,
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
         }
 
@@ -292,19 +312,27 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>>
-            {
-                Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<ClosingStructureFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityInwardsFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityOutwardsFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<StrengthStabilityPointConstructionFailureMechanismSectionResult>();
 
             yield return new TreeNodeInfo<CommentContext<ICommentable>>
             {
                 Text = comment => Resources.Comment_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.EditDocumentIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .Build()
+            };
+        }
+
+        private TreeNodeInfo<FailureMechanismSectionResultContext<T>> CreateFailureMechanismSectionResultTreeNodeInfo<T>() where T : FailureMechanismSectionResult
+        {
+            return new TreeNodeInfo<FailureMechanismSectionResultContext<T>>
+            {
+                Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -480,7 +508,7 @@ namespace Ringtoets.Integration.Plugin
                 var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
 
                 var numericFailureMechanism = failureMechanism as IHasSectionResults<NumericFailureMechanismSectionResult>;
-                var probabilityFailureMechanism = failureMechanism as IHasSectionResults<ArbitraryProbabilityFailureMechanismSectionResult>;
+                var probabilityFailureMechanism = failureMechanism as IHasSectionResults<FailureMechanismSectionResult>;
                 var simpleFailureMechanism = failureMechanism as IHasSectionResults<SimpleFailureMechanismSectionResult>;
 
                 if (piping != null)
@@ -584,7 +612,11 @@ namespace Ringtoets.Integration.Plugin
         {
             var simple = nodeData as IHasSectionResults<SimpleFailureMechanismSectionResult>;
             var custom = nodeData as IHasSectionResults<NumericFailureMechanismSectionResult>;
-            var arbitraryProbability = nodeData as IHasSectionResults<ArbitraryProbabilityFailureMechanismSectionResult>;
+            var closingStructure = nodeData as IHasSectionResults<ClosingStructureFailureMechanismSectionResult>;
+            var macrostabilityInwards = nodeData as IHasSectionResults<MacrostabilityInwardsFailureMechanismSectionResult>;
+            var macrostabilityOutwards = nodeData as IHasSectionResults<MacrostabilityOutwardsFailureMechanismSectionResult>;
+            var strengthStabilityPointConstruction = nodeData as IHasSectionResults<StrengthStabilityPointConstructionFailureMechanismSectionResult>;
+
             var failureMechanismSectionResultContexts = new object[1];
             if (simple != null)
             {
@@ -596,10 +628,25 @@ namespace Ringtoets.Integration.Plugin
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<NumericFailureMechanismSectionResult>(custom.SectionResults, nodeData);
             }
-            if (arbitraryProbability != null)
+            if (closingStructure != null)
             {
                 failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>(arbitraryProbability.SectionResults, nodeData);
+                    new FailureMechanismSectionResultContext<ClosingStructureFailureMechanismSectionResult>(closingStructure.SectionResults, nodeData);
+            }
+            if (macrostabilityInwards != null)
+            {
+                failureMechanismSectionResultContexts[0] =
+                    new FailureMechanismSectionResultContext<MacrostabilityInwardsFailureMechanismSectionResult>(macrostabilityInwards.SectionResults, nodeData);
+            }
+            if (macrostabilityOutwards != null)
+            {
+                failureMechanismSectionResultContexts[0] =
+                    new FailureMechanismSectionResultContext<MacrostabilityOutwardsFailureMechanismSectionResult>(macrostabilityOutwards.SectionResults, nodeData);
+            }
+            if (strengthStabilityPointConstruction != null)
+            {
+                failureMechanismSectionResultContexts[0] =
+                    new FailureMechanismSectionResultContext<StrengthStabilityPointConstructionFailureMechanismSectionResult>(strengthStabilityPointConstruction.SectionResults, nodeData);
             }
             return failureMechanismSectionResultContexts;
         }

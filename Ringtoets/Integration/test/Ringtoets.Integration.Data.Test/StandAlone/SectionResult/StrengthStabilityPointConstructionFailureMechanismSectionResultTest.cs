@@ -29,13 +29,13 @@ using Ringtoets.Integration.Data.StandAlone.SectionResult;
 namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResult
 {
     [TestFixture]
-    public class ArbitraryProbabilityFailureMechanismSectionResultTest
+    public class StrengthStabilityPointConstructionFailureMechanismSectionResultTest
     {
         [Test]
         public void Constructor_WithoutSection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ArbitraryProbabilityFailureMechanismSectionResult(null);
+            TestDelegate test = () => new StrengthStabilityPointConstructionFailureMechanismSectionResult(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResult
             var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
 
             // Call
-            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
+            var result = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResult
         {
             // Setup
             var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
-            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
+            var result = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section);
 
             // Call
             TestDelegate test = () => result.AssessmentLayerTwoA = (RoundedDouble)a;
@@ -91,7 +91,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResult
         {
             // Setup
             var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
-            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
+            var result = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section);
 
             var assessmentLayerTwoAValue = (RoundedDouble)a;
 

@@ -31,16 +31,16 @@ using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Forms.Views.SectionResultRow;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Test.Views
+namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRow
 {
     [TestFixture]
-    public class ArbitraryProbabilityFailureMechanismSectionResultRowTest
+    public class MacrostabilityInwardsSectionResultRowTest
     {
         [Test]
         public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ArbitraryProbabilityFailureMechanismSectionResultRow(null);
+            TestDelegate test = () => new MacrostabilityInwardsSectionResultRow(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -52,10 +52,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var section = CreateSection();
-            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
+            var result = new MacrostabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            var row = new ArbitraryProbabilityFailureMechanismSectionResultRow(result);
+            var row = new MacrostabilityInwardsSectionResultRow(result);
 
             // Assert
             Assert.AreEqual(section.Name, row.Name);
@@ -81,8 +81,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var section = CreateSection();
-            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
-            var row = new ArbitraryProbabilityFailureMechanismSectionResultRow(result);
+            var result = new MacrostabilityInwardsFailureMechanismSectionResult(section);
+            var row = new MacrostabilityInwardsSectionResultRow(result);
 
             int counter = 0;
             using (new Observer(() => counter++)
@@ -109,8 +109,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             var newValue = (RoundedDouble) value;
             var section = CreateSection();
-            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
-            var row = new ArbitraryProbabilityFailureMechanismSectionResultRow(result);
+            var result = new MacrostabilityInwardsFailureMechanismSectionResult(section);
+            var row = new MacrostabilityInwardsSectionResultRow(result);
 
             // Call
             row.AssessmentLayerTwoA = newValue.ToString();
@@ -131,8 +131,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             var newValue = (RoundedDouble)value;
             var section = CreateSection();
-            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
-            var row = new ArbitraryProbabilityFailureMechanismSectionResultRow(result);
+            var result = new MacrostabilityInwardsFailureMechanismSectionResult(section);
+            var row = new MacrostabilityInwardsSectionResultRow(result);
 
             // Call
             TestDelegate test = () => row.AssessmentLayerTwoA = newValue.ToString();
@@ -153,8 +153,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             var newValue = (RoundedDouble)value;
             var section = CreateSection();
-            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
-            var row = new ArbitraryProbabilityFailureMechanismSectionResultRow(result);
+            var result = new MacrostabilityInwardsFailureMechanismSectionResult(section);
+            var row = new MacrostabilityInwardsSectionResultRow(result);
 
             // Call
             TestDelegate test = () => row.AssessmentLayerTwoA = newValue.ToString();
@@ -174,8 +174,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var section = CreateSection();
-            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
-            var row = new ArbitraryProbabilityFailureMechanismSectionResultRow(result);
+            var result = new MacrostabilityInwardsFailureMechanismSectionResult(section);
+            var row = new MacrostabilityInwardsSectionResultRow(result);
 
             // Call
             TestDelegate test = () => row.AssessmentLayerTwoA = value;
@@ -193,8 +193,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var section = CreateSection();
-            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
-            var row = new ArbitraryProbabilityFailureMechanismSectionResultRow(result);
+            var result = new MacrostabilityInwardsFailureMechanismSectionResult(section);
+            var row = new MacrostabilityInwardsSectionResultRow(result);
 
             // Call
             TestDelegate test = () => row.AssessmentLayerTwoA = (string) null;
@@ -211,8 +211,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var random = new Random(21);
             var newValue = random.NextDouble();
             var section = CreateSection();
-            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section);
-            var row = new ArbitraryProbabilityFailureMechanismSectionResultRow(result);
+            var result = new MacrostabilityInwardsFailureMechanismSectionResult(section);
+            var row = new MacrostabilityInwardsSectionResultRow(result);
 
             // Call
             row.AssessmentLayerThree = (RoundedDouble)newValue;

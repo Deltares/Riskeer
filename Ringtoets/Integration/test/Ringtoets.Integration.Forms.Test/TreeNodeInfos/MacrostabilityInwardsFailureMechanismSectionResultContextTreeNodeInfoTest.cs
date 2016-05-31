@@ -10,13 +10,14 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Plugin;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class ArbitraryProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest
+    public class MacrostabilityInwardsFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private RingtoetsGuiPlugin plugin;
@@ -27,14 +28,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<MacrostabilityInwardsFailureMechanismSectionResult>));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>), info.TagType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<MacrostabilityInwardsFailureMechanismSectionResult>), info.TagType);
 
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.ForeColor);
@@ -58,8 +59,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            var mechanism = new ArbitraryProbabilityFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
+            var mechanism = new MacrostabilityInwardsFailureMechanism();
+            var context = new FailureMechanismSectionResultContext<MacrostabilityInwardsFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
 
             // Call
             var text = info.Text(context);
@@ -102,25 +103,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             // Assert
             mocks.VerifyAll();
-        }
-
-        class ArbitraryProbabilityFailureMechanism : FailureMechanismBase, IHasSectionResults<ArbitraryProbabilityFailureMechanismSectionResult>
-        {
-            public ArbitraryProbabilityFailureMechanism()
-                : base("N", "C")
-            {
-                SectionResults = new List<ArbitraryProbabilityFailureMechanismSectionResult>();
-            }
-
-            public IEnumerable<ArbitraryProbabilityFailureMechanismSectionResult> SectionResults { get; private set; }
-
-            public override IEnumerable<ICalculation> Calculations
-            {
-                get
-                {
-                    throw new System.NotImplementedException();
-                }
-            }
         }
     }
 }

@@ -19,12 +19,51 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Integration.Data.StandAlone.SectionResult
 {
-    public class MacrostabilityOutwardsFailureMechanismSectionResult : ArbitraryProbabilityFailureMechanismSectionResult
+    public class MacrostabilityOutwardsFailureMechanismSectionResult : FailureMechanismSectionResult
     {
-        public MacrostabilityOutwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
+        private RoundedDouble assessmentLayerTwoA;
+
+        public MacrostabilityOutwardsFailureMechanismSectionResult(FailureMechanismSection section)
+            : base(section)
+        {
+            AssessmentLayerTwoA = (RoundedDouble)1.0;
+        }
+
+        /// <summary>
+        /// Gets the probability value of assessment layer two a.
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        public RoundedDouble AssessmentLayerTwoA
+        {
+            get
+            {
+                return assessmentLayerTwoA;
+            }
+            set
+            {
+                if (value < 0 || value > 1)
+                {
+                    throw new ArgumentException(Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1);
+                }
+                assessmentLayerTwoA = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of assessment layer three.
+        /// </summary>
+        public RoundedDouble AssessmentLayerThree { get; set; }
+
+        /// <summary>
+        /// Gets or sets the state of the assessment layer one.
+        /// </summary>
+        public bool AssessmentLayerOne { get; set; }
     }
 }

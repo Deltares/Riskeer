@@ -70,7 +70,10 @@
     <Compile Include="RingtoetsRibbonTest.cs" />
     <Compile Include="ViewInfos\CommentViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssessmentSectionViewInfoTest.cs" />
-    <Compile Include="ViewInfos\ArbitraryProbabilityFailureMechanismResultViewInfoTest.cs" />
+    <Compile Include="ViewInfos\ClosingStructureResultViewInfoTest.cs" />
+    <Compile Include="ViewInfos\MacrostabilityInwardsResultViewInfoTest.cs" />
+    <Compile Include="ViewInfos\MacrostabilityOutwardsResultViewInfoTest.cs" />
+    <Compile Include="ViewInfos\StrengthStabilityPointConstructionResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\NumericFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\FailureMechanismContributionViewInfoTest.cs" />
     <Compile Include="ViewInfos\SimpleFailureMechanismResultViewInfoTest.cs" />

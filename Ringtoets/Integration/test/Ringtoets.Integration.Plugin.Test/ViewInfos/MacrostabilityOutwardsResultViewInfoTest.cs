@@ -38,7 +38,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class ArbitraryProbabilityFailureMechanismResultViewInfoTest
+    public class MacrostabilityOutwardsResultViewInfoTest
     {
         private MockRepository mocks;
         private RingtoetsGuiPlugin plugin;
@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ArbitraryProbabilityFailureMechanismResultView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(MacrostabilityOutwardsResultView));
         }
 
         [TearDown]
@@ -62,8 +62,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>), info.DataType);
-            Assert.AreEqual(typeof(IEnumerable<ArbitraryProbabilityFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<MacrostabilityOutwardsFailureMechanismSectionResult>), info.DataType);
+            Assert.AreEqual(typeof(IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult>), info.ViewDataType);
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new Simple();
-            var context = new FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
+            var context = new FailureMechanismSectionResultContext<MacrostabilityOutwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
             mocks.ReplayAll();
 
             // Call
@@ -86,7 +86,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new Simple();
-            var viewMock = mocks.StrictMock<ArbitraryProbabilityFailureMechanismResultView>();
+            var viewMock = mocks.StrictMock<MacrostabilityOutwardsResultView>();
 
             mocks.ReplayAll();
 
@@ -104,7 +104,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewType = info.ViewType;
 
             // Assert
-            Assert.AreEqual(typeof(ArbitraryProbabilityFailureMechanismResultView), viewType);
+            Assert.AreEqual(typeof(MacrostabilityOutwardsResultView), viewType);
         }
 
         [Test]
@@ -114,7 +114,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var dataType = info.DataType;
 
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>), dataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<MacrostabilityOutwardsFailureMechanismSectionResult>), dataType);
         }
 
         [Test]
@@ -124,7 +124,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewDataType = info.ViewDataType;
 
             // Assert
-            Assert.AreEqual(typeof(IEnumerable<ArbitraryProbabilityFailureMechanismSectionResult>), viewDataType);
+            Assert.AreEqual(typeof(IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult>), viewDataType);
         }
 
         [Test]
@@ -145,7 +145,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
-            using (var view = new ArbitraryProbabilityFailureMechanismResultView())
+            using (var view = new MacrostabilityOutwardsResultView())
             {
                 var failureMechanism = new Simple();
                 view.Data = failureMechanism.SectionResults;
@@ -174,7 +174,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new ArbitraryProbabilityFailureMechanismResultView())
+            using (var view = new MacrostabilityOutwardsResultView())
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -201,7 +201,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new ArbitraryProbabilityFailureMechanismResultView())
+            using (var view = new MacrostabilityOutwardsResultView())
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -218,7 +218,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            using (var view = new ArbitraryProbabilityFailureMechanismResultView())
+            using (var view = new MacrostabilityOutwardsResultView())
             {
                 var failureMechanism = new Simple();
                 view.Data = failureMechanism.SectionResults;
@@ -235,7 +235,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            using (var view = new ArbitraryProbabilityFailureMechanismResultView())
+            using (var view = new MacrostabilityOutwardsResultView())
             {
                 var failureMechanism = new Simple();
                 view.Data = failureMechanism.SectionResults;
@@ -258,7 +258,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new ArbitraryProbabilityFailureMechanismResultView())
+            using (var view = new MacrostabilityOutwardsResultView())
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -280,7 +280,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new ArbitraryProbabilityFailureMechanismResultView())
+            using (var view = new MacrostabilityOutwardsResultView())
             {
                 var failureMechanism = new Simple();
                 view.Data = failureMechanism.SectionResults;
@@ -299,8 +299,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new Simple();
-            var view = mocks.StrictMock<ArbitraryProbabilityFailureMechanismResultView>();
-            var context = new FailureMechanismSectionResultContext<ArbitraryProbabilityFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
+            var view = mocks.StrictMock<MacrostabilityOutwardsResultView>();
+            var context = new FailureMechanismSectionResultContext<MacrostabilityOutwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
 
             view.Expect(v => v.FailureMechanism = failureMechanism);
 
@@ -313,14 +313,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.VerifyAll();
         }
 
-        private class Simple : FailureMechanismBase, IHasSectionResults<ArbitraryProbabilityFailureMechanismSectionResult>
+        private class Simple : FailureMechanismBase, IHasSectionResults<MacrostabilityOutwardsFailureMechanismSectionResult>
         {
             public Simple() : base("simple failure mechanism", "simple code")
             {
-                SectionResults = new List<ArbitraryProbabilityFailureMechanismSectionResult>();
+                SectionResults = new List<MacrostabilityOutwardsFailureMechanismSectionResult>();
             }
 
-            public IEnumerable<ArbitraryProbabilityFailureMechanismSectionResult> SectionResults { get; private set; }
+            public IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> SectionResults { get; private set; }
 
             public override IEnumerable<ICalculation> Calculations
             {

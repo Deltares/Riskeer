@@ -73,7 +73,7 @@
     <Compile Include="Views\FailureMechanismContributionView.Designer.cs">
       <DependentUpon>FailureMechanismContributionView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\SectionResultRow\ArbitraryProbabilityFailureMechanismSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\FailureMechanismSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRow\ClosingStructureSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRow\DuneErosionSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRow\GrassCoverErosionOutwardsSectionResultRow.cs" />
@@ -91,9 +91,6 @@
     <Compile Include="Views\SectionResultRow\TechnicalInnovationSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRow\WaterPressureAsphaltCoverSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRow\WaveImpactAsphaltSectionResultRow.cs" />
-    <Compile Include="Views\SectionResultView\ArbitraryProbabilityFailureMechanismResultView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Views\SectionResultView\ClosingStructureResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>

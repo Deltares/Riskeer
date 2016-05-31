@@ -20,28 +20,34 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.AssessmentSection;
+using Core.Common.Base.Data;
+using Core.Common.Base.Properties;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PresentationObjects;
 
-namespace Ringtoets.Integration.Forms.PresentationObjects
+namespace Ringtoets.Integration.Forms.Views.SectionResultRow
 {
     /// <summary>
-    /// This class is a presentation object for an instance of <see cref="IFailureMechanism"/>,
-    /// which has <see cref="FailureMechanismSectionResult"/>.
+    /// Container of a <see cref="FailureMechanismSectionResult"/>, which takes care of the
+    /// representation of properties in a grid.
     /// </summary>
-    public class ArbitraryProbabilityFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
+    public class FailureMechanismSectionResultRow<T> where T : FailureMechanismSectionResult
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="IFailureMechanism"/> class.
+        /// Creates a new instance of <see cref="FailureMechanismSectionResultRow{T}"/>.
         /// </summary>
-        /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
-        /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism" />.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedFailureMechanism"/> or <paramref name="parent"/> are <c>null</c>.</exception>
-        public ArbitraryProbabilityFailureMechanismContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
-            base(wrappedFailureMechanism, parent)
+        /// <param name="sectionResult">The <see cref="FailureMechanismSectionResult"/> that is 
+        /// the source of this row.</param>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="sectionResult"/> is
+        /// <c>null</c>.</exception>
+        public FailureMechanismSectionResultRow(T sectionResult)
         {
-            
+            if (sectionResult == null)
+            {
+                throw new ArgumentNullException("sectionResult");
+            }
+            SectionResult = sectionResult;
         }
+
+        protected T SectionResult { get; private set; }
     }
 }

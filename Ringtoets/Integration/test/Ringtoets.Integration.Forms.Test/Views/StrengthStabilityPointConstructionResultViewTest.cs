@@ -29,13 +29,14 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Forms.Views.SectionResultView;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class ArbitraryProbabilityFailureMechanismResultViewTest
+    public class StrengthStabilityPointConstructionResultViewTest
     {
         [Test]
         public void GivenFormWithArbitraryProbabilityFailureMechanismResultView_ThenExpectedColumnsAreVisible()
@@ -43,7 +44,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Given
             using (var form = new Form())
             {
-                using (var view = new ArbitraryProbabilityFailureMechanismResultView())
+                using (var view = new StrengthStabilityPointConstructionResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -89,13 +90,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 new Point2D(0, 0)
             });
             Random random = new Random(21);
-            var result1 = new ArbitraryProbabilityFailureMechanismSectionResult(section1)
+            var result1 = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = true,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
-            var result2 = new ArbitraryProbabilityFailureMechanismSectionResult(section2)
+            var result2 = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = false,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
@@ -104,7 +105,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var form = new Form())
             {
-                using (var view = new ArbitraryProbabilityFailureMechanismResultView())
+                using (var view = new StrengthStabilityPointConstructionResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -163,7 +164,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 new Point2D(0, 0)
             });
             Random random = new Random(21);
-            var result = new ArbitraryProbabilityFailureMechanismSectionResult(section)
+            var result = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = false,
                 AssessmentLayerTwoA = (RoundedDouble)random.NextDouble(),
@@ -171,7 +172,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             };
             using (var form = new Form())
             {
-                using (var view = new ArbitraryProbabilityFailureMechanismResultView())
+                using (var view = new StrengthStabilityPointConstructionResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -216,7 +217,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var form = new Form())
             {
-                using (var view = new ArbitraryProbabilityFailureMechanismResultView())
+                using (var view = new StrengthStabilityPointConstructionResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();

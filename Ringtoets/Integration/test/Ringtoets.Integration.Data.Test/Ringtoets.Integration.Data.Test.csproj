@@ -56,7 +56,10 @@
     <Compile Include="StandAlone\ClosingStructureFailureMechanismTest.cs" />
     <Compile Include="StandAlone\MacrostabilityOutwardsFailureMechanismTest.cs" />
     <Compile Include="StandAlone\GrassCoverSlipOffInwardsFailureMechanismTest.cs" />
-    <Compile Include="StandAlone\SectionResult\ArbitraryProbabilityFailureMechanismSectionResultTest.cs" />
+    <Compile Include="StandAlone\SectionResult\ClosingStructureFailureMechanismSectionResultTest.cs" />
+    <Compile Include="StandAlone\SectionResult\MacrostabilityOutwardsFailureMechanismSectionResultTest.cs" />
+    <Compile Include="StandAlone\SectionResult\MacrostabilityInwardsFailureMechanismSectionResultTest.cs" />
+    <Compile Include="StandAlone\SectionResult\StrengthStabilityPointConstructionFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResult\NumericFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResult\SimpleFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\StrengthStabilityLengthwiseConstructionFailureMechanismTest.cs" />
