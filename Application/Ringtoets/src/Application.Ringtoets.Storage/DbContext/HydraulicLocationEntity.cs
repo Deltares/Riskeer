@@ -35,6 +35,12 @@ namespace Application.Ringtoets.Storage.DbContext
     
     public partial class HydraulicLocationEntity
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public HydraulicLocationEntity()
+        {
+            this.PipingCalculationEntities = new HashSet<PipingCalculationEntity>();
+        }
+    
         public long HydraulicLocationEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
         public long LocationId { get; set; }
@@ -44,5 +50,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> DesignWaterLevel { get; set; }
     
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }
     }
 }

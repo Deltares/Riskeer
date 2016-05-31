@@ -4,14 +4,15 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Branch_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Clean_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
           </Key>
           <Property Name="AssessmentSectionEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProjectEntityId" Type="integer" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="260" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Norm" Type="int" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
           <Property Name="HydraulicDatabaseVersion" Type="nvarchar" MaxLength="2147483647" />
@@ -24,7 +25,7 @@
           </Key>
           <Property Name="CalculationGroupEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ParentCalculationGroupEntityId" Type="integer" />
-          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="260" />
           <Property Name="IsEditable" Type="tinyint" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
@@ -52,7 +53,7 @@
           </Key>
           <Property Name="FailureMechanismSectionEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
         </EntityType>
         <EntityType Name="FailureMechanismSectionPointEntity">
           <Key>
@@ -75,6 +76,34 @@
           <Property Name="LocationX" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="LocationY" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="DesignWaterLevel" Type="real" />
+        </EntityType>
+        <EntityType Name="PipingCalculationEntity">
+          <Key>
+            <PropertyRef Name="PipingCalculationEntityId" />
+          </Key>
+          <Property Name="PipingCalculationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CalculationGroupEntityId" Type="integer" Nullable="false" />
+          <Property Name="SurfaceLineEntityId" Type="integer" />
+          <Property Name="StochasticSoilProfileEntityId" Type="integer" />
+          <Property Name="HydraulicLocationEntityId" Type="integer" />
+          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="260" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="EntryPointL" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="ExitPointL" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="PhreaticLevelExitMean" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="PhreaticLevelExitStandardDeviation" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="Diameter70Mean" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="Diameter70StandardDeviation" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="DarcyPermeabilityMean" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="DarcyPermeabilityStandardDeviation" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="DampingFactorExitMean" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="DampingFactorExitStandardDeviation" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="SaturatedVolumicWeightOfCoverageLayerMean" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="SaturatedVolumicWeightOfCoverageLayerStandardDeviation" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="SaturatedVolumicWeightOfCoverageLayerShift" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="RelevantForScenario" Type="tinyint" Nullable="false" />
+          <Property Name="ScenarioContribution" Type="decimal" Precision="53" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="ProjectEntity">
           <Key>
@@ -108,7 +137,7 @@
           </Key>
           <Property Name="SoilProfileEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Bottom" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="StochasticSoilModelEntity">
           <Key>
@@ -116,8 +145,8 @@
           </Key>
           <Property Name="StochasticSoilModelEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
-          <Property Name="SegmentName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="SegmentName" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="StochasticSoilModelSegmentPointEntity">
           <Key>
@@ -144,7 +173,7 @@
           </Key>
           <Property Name="SurfaceLineEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="260" />
           <Property Name="ReferenceLineIntersectionX" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="ReferenceLineIntersectionY" Type="decimal" Precision="53" Scale="0" Nullable="false" />
         </EntityType>
@@ -264,6 +293,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PipingCalculationEntity_0_0">
+          <End Role="SurfaceLineEntity" Type="Self.SurfaceLineEntity" Multiplicity="0..1" />
+          <End Role="PipingCalculationEntity" Type="Self.PipingCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurfaceLineEntity">
+              <PropertyRef Name="SurfaceLineEntityId" />
+            </Principal>
+            <Dependent Role="PipingCalculationEntity">
+              <PropertyRef Name="SurfaceLineEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PipingCalculationEntity_1_0">
+          <End Role="StochasticSoilProfileEntity" Type="Self.StochasticSoilProfileEntity" Multiplicity="0..1" />
+          <End Role="PipingCalculationEntity" Type="Self.PipingCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StochasticSoilProfileEntity">
+              <PropertyRef Name="StochasticSoilProfileEntityId" />
+            </Principal>
+            <Dependent Role="PipingCalculationEntity">
+              <PropertyRef Name="StochasticSoilProfileEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PipingCalculationEntity_2_0">
+          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="0..1" />
+          <End Role="PipingCalculationEntity" Type="Self.PipingCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Principal>
+            <Dependent Role="PipingCalculationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PipingCalculationEntity_3_0">
+          <End Role="CalculationGroupEntity" Type="Self.CalculationGroupEntity" Multiplicity="1" />
+          <End Role="PipingCalculationEntity" Type="Self.PipingCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationGroupEntity">
+              <PropertyRef Name="CalculationGroupEntityId" />
+            </Principal>
+            <Dependent Role="PipingCalculationEntity">
+              <PropertyRef Name="CalculationGroupEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ReferenceLinePointEntity_0_0">
           <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="1" />
           <End Role="ReferenceLinePointEntity" Type="Self.ReferenceLinePointEntity" Multiplicity="*" />
@@ -368,6 +445,7 @@
           <EntitySet Name="FailureMechanismSectionEntity" EntityType="Self.FailureMechanismSectionEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismSectionPointEntity" EntityType="Self.FailureMechanismSectionPointEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationEntity" EntityType="Self.HydraulicLocationEntity" store:Type="Tables" />
+          <EntitySet Name="PipingCalculationEntity" EntityType="Self.PipingCalculationEntity" store:Type="Tables" />
           <EntitySet Name="ProjectEntity" EntityType="Self.ProjectEntity" store:Type="Tables" />
           <EntitySet Name="ReferenceLinePointEntity" EntityType="Self.ReferenceLinePointEntity" store:Type="Tables" />
           <EntitySet Name="SoilLayerEntity" EntityType="Self.SoilLayerEntity" store:Type="Tables" />
@@ -409,6 +487,22 @@
           <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="Self.FK_HydraulicLocationEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PipingCalculationEntity_0_0" Association="Self.FK_PipingCalculationEntity_0_0">
+            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntity" />
+            <End Role="PipingCalculationEntity" EntitySet="PipingCalculationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PipingCalculationEntity_1_0" Association="Self.FK_PipingCalculationEntity_1_0">
+            <End Role="StochasticSoilProfileEntity" EntitySet="StochasticSoilProfileEntity" />
+            <End Role="PipingCalculationEntity" EntitySet="PipingCalculationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PipingCalculationEntity_2_0" Association="Self.FK_PipingCalculationEntity_2_0">
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+            <End Role="PipingCalculationEntity" EntitySet="PipingCalculationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PipingCalculationEntity_3_0" Association="Self.FK_PipingCalculationEntity_3_0">
+            <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntity" />
+            <End Role="PipingCalculationEntity" EntitySet="PipingCalculationEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_ReferenceLinePointEntity_0_0" Association="Self.FK_ReferenceLinePointEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
@@ -455,6 +549,7 @@
           <EntitySet Name="FailureMechanismSectionEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismSectionEntity" />
           <EntitySet Name="FailureMechanismSectionPointEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismSectionPointEntity" />
           <EntitySet Name="HydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" />
+          <EntitySet Name="PipingCalculationEntities" EntityType="RingtoetsEntitiesModel.PipingCalculationEntity" />
           <EntitySet Name="ProjectEntities" EntityType="RingtoetsEntitiesModel.ProjectEntity" />
           <EntitySet Name="ReferenceLinePointEntities" EntityType="RingtoetsEntitiesModel.ReferenceLinePointEntity" />
           <EntitySet Name="SoilLayerEntities" EntityType="RingtoetsEntitiesModel.SoilLayerEntity" />
@@ -489,6 +584,10 @@
             <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntities" />
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
           </AssociationSet>
+          <AssociationSet Name="FK_PipingCalculationEntity_3_0" Association="RingtoetsEntitiesModel.FK_PipingCalculationEntity_3_0">
+            <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntities" />
+            <End Role="PipingCalculationEntity" EntitySet="PipingCalculationEntities" />
+          </AssociationSet>
           <AssociationSet Name="FK_CharacteristicPointEntity_0_0" Association="RingtoetsEntitiesModel.FK_CharacteristicPointEntity_0_0">
             <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntities" />
             <End Role="CharacteristicPointEntity" EntitySet="CharacteristicPointEntities" />
@@ -508,6 +607,18 @@
           <AssociationSet Name="FK_FailureMechanismSectionPointEntity_0_0" Association="RingtoetsEntitiesModel.FK_FailureMechanismSectionPointEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
             <End Role="FailureMechanismSectionPointEntity" EntitySet="FailureMechanismSectionPointEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PipingCalculationEntity_2_0" Association="RingtoetsEntitiesModel.FK_PipingCalculationEntity_2_0">
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
+            <End Role="PipingCalculationEntity" EntitySet="PipingCalculationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PipingCalculationEntity_0_0" Association="RingtoetsEntitiesModel.FK_PipingCalculationEntity_0_0">
+            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
+            <End Role="PipingCalculationEntity" EntitySet="PipingCalculationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PipingCalculationEntity_1_0" Association="RingtoetsEntitiesModel.FK_PipingCalculationEntity_1_0">
+            <End Role="StochasticSoilProfileEntity" EntitySet="StochasticSoilProfileEntities" />
+            <End Role="PipingCalculationEntity" EntitySet="PipingCalculationEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_SoilLayerEntity_0_0" Association="RingtoetsEntitiesModel.FK_SoilLayerEntity_0_0">
             <End Role="SoilProfileEntity" EntitySet="SoilProfileEntities" />
@@ -536,7 +647,8 @@
           </Key>
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProjectEntityId" Type="Int64" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Norm" Type="Int32" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="HydraulicDatabaseVersion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
@@ -553,12 +665,13 @@
           </Key>
           <Property Name="CalculationGroupEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ParentCalculationGroupEntityId" Type="Int64" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="IsEditable" Type="Byte" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity1" Relationship="RingtoetsEntitiesModel.FK_CalculationGroupEntity_0_0" FromRole="CalculationGroupEntity" ToRole="CalculationGroupEntity1" />
           <NavigationProperty Name="CalculationGroupEntity2" Relationship="RingtoetsEntitiesModel.FK_CalculationGroupEntity_0_0" FromRole="CalculationGroupEntity1" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="FailureMechanismEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="CalculationGroupEntity" ToRole="FailureMechanismEntity" />
+          <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_3_0" FromRole="CalculationGroupEntity" ToRole="PipingCalculationEntity" />
         </EntityType>
         <EntityType Name="CharacteristicPointEntity">
           <Key>
@@ -590,7 +703,7 @@
           </Key>
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismSectionEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="FailureMechanismSectionPointEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismSectionPointEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="FailureMechanismSectionPointEntity" />
         </EntityType>
@@ -617,6 +730,39 @@
           <Property Name="LocationY" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="DesignWaterLevel" Type="Double" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="AssessmentSectionEntity" />
+          <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_2_0" FromRole="HydraulicLocationEntity" ToRole="PipingCalculationEntity" />
+        </EntityType>
+        <EntityType Name="PipingCalculationEntity">
+          <Key>
+            <PropertyRef Name="PipingCalculationEntityId" />
+          </Key>
+          <Property Name="PipingCalculationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CalculationGroupEntityId" Type="Int64" Nullable="false" />
+          <Property Name="SurfaceLineEntityId" Type="Int64" />
+          <Property Name="StochasticSoilProfileEntityId" Type="Int64" />
+          <Property Name="HydraulicLocationEntityId" Type="Int64" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="EntryPointL" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="ExitPointL" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="PhreaticLevelExitMean" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="PhreaticLevelExitStandardDeviation" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="Diameter70Mean" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="Diameter70StandardDeviation" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="DarcyPermeabilityMean" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="DarcyPermeabilityStandardDeviation" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="DampingFactorExitMean" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="DampingFactorExitStandardDeviation" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="SaturatedVolumicWeightOfCoverageLayerMean" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="SaturatedVolumicWeightOfCoverageLayerStandardDeviation" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="SaturatedVolumicWeightOfCoverageLayerShift" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="RelevantForScenario" Type="Byte" Nullable="false" />
+          <Property Name="ScenarioContribution" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_3_0" FromRole="PipingCalculationEntity" ToRole="CalculationGroupEntity" />
+          <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_2_0" FromRole="PipingCalculationEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="SurfaceLineEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_0_0" FromRole="PipingCalculationEntity" ToRole="SurfaceLineEntity" />
+          <NavigationProperty Name="StochasticSoilProfileEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_1_0" FromRole="PipingCalculationEntity" ToRole="StochasticSoilProfileEntity" />
         </EntityType>
         <EntityType Name="ProjectEntity">
           <Key>
@@ -653,7 +799,7 @@
           </Key>
           <Property Name="SoilProfileEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Bottom" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SoilLayerEntities" Relationship="RingtoetsEntitiesModel.FK_SoilLayerEntity_0_0" FromRole="SoilProfileEntity" ToRole="SoilLayerEntity" />
           <NavigationProperty Name="StochasticSoilProfileEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_1_0" FromRole="SoilProfileEntity" ToRole="StochasticSoilProfileEntity" />
         </EntityType>
@@ -663,8 +809,8 @@
           </Key>
           <Property Name="StochasticSoilModelEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="SegmentName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="SegmentName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilModelEntity_0_0" FromRole="StochasticSoilModelEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="StochasticSoilModelSegmentPointEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilModelSegmentPointEntity_0_0" FromRole="StochasticSoilModelEntity" ToRole="StochasticSoilModelSegmentPointEntity" />
           <NavigationProperty Name="StochasticSoilProfileEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_0_0" FromRole="StochasticSoilModelEntity" ToRole="StochasticSoilProfileEntity" />
@@ -688,6 +834,7 @@
           <Property Name="SoilProfileEntityId" Type="Int64" Nullable="false" />
           <Property Name="StochasticSoilModelEntityId" Type="Int64" Nullable="false" />
           <Property Name="Probability" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_1_0" FromRole="StochasticSoilProfileEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="SoilProfileEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_1_0" FromRole="StochasticSoilProfileEntity" ToRole="SoilProfileEntity" />
           <NavigationProperty Name="StochasticSoilModelEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_0_0" FromRole="StochasticSoilProfileEntity" ToRole="StochasticSoilModelEntity" />
         </EntityType>
@@ -697,10 +844,11 @@
           </Key>
           <Property Name="SurfaceLineEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="ReferenceLineIntersectionX" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="ReferenceLineIntersectionY" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_0_0" FromRole="SurfaceLineEntity" ToRole="FailureMechanismEntity" />
+          <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_0_0" FromRole="SurfaceLineEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="SurfaceLinePointEntities" Relationship="RingtoetsEntitiesModel.FK_SurfaceLinePointEntity_0_0" FromRole="SurfaceLineEntity" ToRole="SurfaceLinePointEntity" />
         </EntityType>
         <EntityType Name="SurfaceLinePointEntity">
@@ -797,6 +945,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PipingCalculationEntity_3_0">
+          <End Type="RingtoetsEntitiesModel.CalculationGroupEntity" Role="CalculationGroupEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.PipingCalculationEntity" Role="PipingCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationGroupEntity">
+              <PropertyRef Name="CalculationGroupEntityId" />
+            </Principal>
+            <Dependent Role="PipingCalculationEntity">
+              <PropertyRef Name="CalculationGroupEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CharacteristicPointEntity_0_0">
           <End Type="RingtoetsEntitiesModel.SurfaceLinePointEntity" Role="SurfaceLinePointEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.CharacteristicPointEntity" Role="CharacteristicPointEntity" Multiplicity="*" />
@@ -854,6 +1014,42 @@
             </Principal>
             <Dependent Role="FailureMechanismSectionPointEntity">
               <PropertyRef Name="FailureMechanismSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PipingCalculationEntity_2_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.PipingCalculationEntity" Role="PipingCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Principal>
+            <Dependent Role="PipingCalculationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PipingCalculationEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.SurfaceLineEntity" Role="SurfaceLineEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.PipingCalculationEntity" Role="PipingCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurfaceLineEntity">
+              <PropertyRef Name="SurfaceLineEntityId" />
+            </Principal>
+            <Dependent Role="PipingCalculationEntity">
+              <PropertyRef Name="SurfaceLineEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PipingCalculationEntity_1_0">
+          <End Type="RingtoetsEntitiesModel.StochasticSoilProfileEntity" Role="StochasticSoilProfileEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.PipingCalculationEntity" Role="PipingCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StochasticSoilProfileEntity">
+              <PropertyRef Name="StochasticSoilProfileEntityId" />
+            </Principal>
+            <Dependent Role="PipingCalculationEntity">
+              <PropertyRef Name="StochasticSoilProfileEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -931,6 +1127,7 @@
                 <ScalarProperty Name="HydraulicDatabaseVersion" ColumnName="HydraulicDatabaseVersion" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Norm" ColumnName="Norm" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ProjectEntityId" ColumnName="ProjectEntityId" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
@@ -998,6 +1195,35 @@
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
                 <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PipingCalculationEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.PipingCalculationEntity">
+              <MappingFragment StoreEntitySet="PipingCalculationEntity">
+                <ScalarProperty Name="ScenarioContribution" ColumnName="ScenarioContribution" />
+                <ScalarProperty Name="RelevantForScenario" ColumnName="RelevantForScenario" />
+                <ScalarProperty Name="SaturatedVolumicWeightOfCoverageLayerShift" ColumnName="SaturatedVolumicWeightOfCoverageLayerShift" />
+                <ScalarProperty Name="SaturatedVolumicWeightOfCoverageLayerStandardDeviation" ColumnName="SaturatedVolumicWeightOfCoverageLayerStandardDeviation" />
+                <ScalarProperty Name="SaturatedVolumicWeightOfCoverageLayerMean" ColumnName="SaturatedVolumicWeightOfCoverageLayerMean" />
+                <ScalarProperty Name="DampingFactorExitStandardDeviation" ColumnName="DampingFactorExitStandardDeviation" />
+                <ScalarProperty Name="DampingFactorExitMean" ColumnName="DampingFactorExitMean" />
+                <ScalarProperty Name="DarcyPermeabilityStandardDeviation" ColumnName="DarcyPermeabilityStandardDeviation" />
+                <ScalarProperty Name="DarcyPermeabilityMean" ColumnName="DarcyPermeabilityMean" />
+                <ScalarProperty Name="Diameter70StandardDeviation" ColumnName="Diameter70StandardDeviation" />
+                <ScalarProperty Name="Diameter70Mean" ColumnName="Diameter70Mean" />
+                <ScalarProperty Name="PhreaticLevelExitStandardDeviation" ColumnName="PhreaticLevelExitStandardDeviation" />
+                <ScalarProperty Name="PhreaticLevelExitMean" ColumnName="PhreaticLevelExitMean" />
+                <ScalarProperty Name="ExitPointL" ColumnName="ExitPointL" />
+                <ScalarProperty Name="EntryPointL" ColumnName="EntryPointL" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
+                <ScalarProperty Name="StochasticSoilProfileEntityId" ColumnName="StochasticSoilProfileEntityId" />
+                <ScalarProperty Name="SurfaceLineEntityId" ColumnName="SurfaceLineEntityId" />
+                <ScalarProperty Name="CalculationGroupEntityId" ColumnName="CalculationGroupEntityId" />
+                <ScalarProperty Name="PipingCalculationEntityId" ColumnName="PipingCalculationEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

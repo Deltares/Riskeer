@@ -35,11 +35,19 @@ namespace Application.Ringtoets.Storage.DbContext
     
     public partial class StochasticSoilProfileEntity
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public StochasticSoilProfileEntity()
+        {
+            this.PipingCalculationEntities = new HashSet<PipingCalculationEntity>();
+        }
+    
         public long StochasticSoilProfileEntityId { get; set; }
         public long SoilProfileEntityId { get; set; }
         public long StochasticSoilModelEntityId { get; set; }
         public decimal Probability { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }
         public virtual SoilProfileEntity SoilProfileEntity { get; set; }
         public virtual StochasticSoilModelEntity StochasticSoilModelEntity { get; set; }
     }

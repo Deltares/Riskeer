@@ -79,6 +79,12 @@ namespace Application.Ringtoets.Storage.DbContext
         DbSet<CalculationGroupEntity> CalculationGroupEntities { get; }
 
         /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="PipingCalculationEntity"/> containing
+        /// every calculation group found in the database.
+        /// </summary>
+        DbSet<PipingCalculationEntity> PipingCalculationEntities { get; }
+
+        /// <summary>
         /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="StochasticSoilModelEntity"/> containing
         /// every entity found in the database.
         /// </summary>

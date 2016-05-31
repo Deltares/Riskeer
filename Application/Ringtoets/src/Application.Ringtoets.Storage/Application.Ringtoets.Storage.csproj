@@ -90,6 +90,9 @@
     <Compile Include="DbContext\HydraulicLocationEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\PipingCalculationEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\ProjectEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>

@@ -46,6 +46,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public long AssessmentSectionEntityId { get; set; }
         public long ProjectEntityId { get; set; }
         public string Name { get; set; }
+        public string Comments { get; set; }
         public int Norm { get; set; }
         public int Order { get; set; }
         public string HydraulicDatabaseVersion { get; set; }
