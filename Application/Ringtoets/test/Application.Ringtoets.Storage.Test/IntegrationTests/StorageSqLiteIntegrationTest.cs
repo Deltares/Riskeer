@@ -144,9 +144,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                 AssertProjectsAreEqual(gui.Project, fullProject);
             }
-
-            // TearDown
-            TearDownTempRingtoetsFile(tempRingtoetsFile);
         }
 
         [Test]
