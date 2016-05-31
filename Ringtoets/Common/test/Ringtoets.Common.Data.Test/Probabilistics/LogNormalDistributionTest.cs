@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             double expectedAccuracy = Math.Pow(10.0, -numberOfDecimalPlaces);
             Assert.AreEqual(Math.Exp(-0.5), distribution.Mean, expectedAccuracy);
             Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(Math.Sqrt((Math.Exp(1) - 1) * Math.Exp(1)), distribution.StandardDeviation, expectedAccuracy);
+            Assert.AreEqual(Math.Sqrt((Math.Exp(1) - 1)*Math.Exp(1)), distribution.StandardDeviation, expectedAccuracy);
             Assert.AreEqual(numberOfDecimalPlaces, distribution.StandardDeviation.NumberOfDecimalPlaces);
         }
 
@@ -69,12 +69,11 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             var distribution = new LogNormalDistribution(2);
 
             // Call
-            TestDelegate call = () => distribution.Mean = (RoundedDouble)newMean;
+            TestDelegate call = () => distribution.Mean = (RoundedDouble) newMean;
 
             // Assert
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
-            var customMessagePart = exception.Message.Split(new[]{Environment.NewLine}, StringSplitOptions.None)[0];
-            Assert.AreEqual("Gemiddelde moet groter zijn dan 0.", customMessagePart);
+            const string expectedMessage = "Gemiddelde moet groter zijn dan 0.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
@@ -87,7 +86,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             var distribution = new LogNormalDistribution(numberOfDecimalPlaces);
 
             // Call
-            distribution.Mean = (RoundedDouble)newMean;
+            distribution.Mean = (RoundedDouble) newMean;
 
             // Assert
             Assert.AreEqual(newMean, distribution.Mean, 1e-4);
@@ -121,12 +120,11 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             var distribution = new LogNormalDistribution(4);
 
             // Call
-            TestDelegate call = () => distribution.StandardDeviation = (RoundedDouble)newStd;
+            TestDelegate call = () => distribution.StandardDeviation = (RoundedDouble) newStd;
 
             // Assert
-            ArgumentException exception = Assert.Throws<ArgumentOutOfRangeException>(call);
-            string customMessagePart = exception.Message.Split(new []{Environment.NewLine}, StringSplitOptions.None)[0];
-            Assert.AreEqual("Standaard afwijking (\u03C3) moet groter zijn dan of gelijk zijn aan 0.", customMessagePart);
+            const string expectedMessage = "Standaard afwijking (\u03C3) moet groter zijn dan of gelijk zijn aan 0.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
@@ -145,6 +143,104 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             // Assert
             Assert.AreEqual(numberOfDecimalPlaces, distribution.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(expectedStandardDeviation, distribution.StandardDeviation.Value);
+        }
+
+        [Test]
+        [TestCase(1, 10, 20, 2.0)]
+        [TestCase(3, 5, 100, 20.000)]
+        public void GetVariationCoefficient_ValidValues_RetunExpectedValues(int numberOfDecimalPlaces, double mean, double standardDeviation,
+                                                                            double expectedVariationCoefficient)
+        {
+            // Setup
+            var distribution = new LogNormalDistribution(numberOfDecimalPlaces)
+            {
+                Mean = new RoundedDouble(numberOfDecimalPlaces, mean),
+                StandardDeviation = new RoundedDouble(numberOfDecimalPlaces, standardDeviation)
+            };
+
+            // Call
+            var variationCoefficient = distribution.GetVariationCoefficient();
+
+            // Assert
+            Assert.AreEqual(numberOfDecimalPlaces, variationCoefficient.NumberOfDecimalPlaces);
+            Assert.AreEqual(expectedVariationCoefficient, variationCoefficient.Value);
+        }
+
+        [Test]
+        public void SetStandardDeviationFromVariationCoefficient_InvalidValues_ThrowArgumentOutOfRangeException()
+        {
+            // Setup
+            const double variationCoefficient = -1;
+            const int numberOfDecimalPlaces = 1;
+            var distribution = new LogNormalDistribution(numberOfDecimalPlaces)
+            {
+                Mean = new RoundedDouble(numberOfDecimalPlaces, 1),
+            };
+
+            // Call
+            TestDelegate call = () => distribution.SetStandardDeviationFromVariationCoefficient(variationCoefficient);
+
+            // Assert
+            const string expectedMessage = "Standaard afwijking (\u03C3) moet groter zijn dan of gelijk zijn aan 0.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(1, 10, 2, 20.0)]
+        [TestCase(3, 5, 20, 100.000)]
+        public void SetStandardDeviationFromVariationCoefficient_ValidValues_SetsStandardDeviation(int numberOfDecimalPlaces, double mean,
+                                                                                                   double variationCoefficient, double expectedStandardDeviation)
+        {
+            // Setup
+            var distribution = new LogNormalDistribution(numberOfDecimalPlaces)
+            {
+                Mean = new RoundedDouble(numberOfDecimalPlaces, mean),
+            };
+
+            // Call
+            distribution.SetStandardDeviationFromVariationCoefficient(variationCoefficient);
+
+            // Assert
+            Assert.AreEqual(expectedStandardDeviation, distribution.StandardDeviation.Value);
+        }
+
+        [Test]
+        [TestCase(-1)]
+        [TestCase(-2)]
+        public void SetMeanFromVariationCoefficient_InvalidValues_ThrowArgumentOutOfRangeException(double variationCoefficient)
+        {
+            // Setup
+            const int numberOfDecimalPlaces = 1;
+            var distribution = new LogNormalDistribution(numberOfDecimalPlaces)
+            {
+                StandardDeviation = new RoundedDouble(numberOfDecimalPlaces, 1),
+            };
+
+            // Call
+            TestDelegate call = () => distribution.SetMeanFromVariationCoefficient(variationCoefficient);
+
+            // Assert
+            const string expectedMessage = "Variatiecoëfficiënt moet groter zijn dan 0.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(1, 20, 2, 10.0)]
+        [TestCase(3, 100, 20, 5.000)]
+        public void SetMeanFromVariationCoefficient_ValidValues_SetsStandardDeviation(int numberOfDecimalPlaces, double standardDeviation,
+                                                                                      double variationCoefficient, double expectedMean)
+        {
+            // Setup
+            var distribution = new LogNormalDistribution(numberOfDecimalPlaces)
+            {
+                StandardDeviation = new RoundedDouble(numberOfDecimalPlaces, standardDeviation),
+            };
+
+            // Call
+            distribution.SetMeanFromVariationCoefficient(variationCoefficient);
+
+            // Assert
+            Assert.AreEqual(expectedMean, distribution.Mean.Value);
         }
     }
 }
