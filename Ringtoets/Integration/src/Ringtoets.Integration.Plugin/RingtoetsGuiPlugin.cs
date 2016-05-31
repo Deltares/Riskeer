@@ -28,6 +28,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
+using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
@@ -59,6 +60,7 @@ using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
+using Ringtoets.Integration.Forms.Views.SectionResultView;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Piping.Data;
@@ -145,7 +147,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseSimpleFailureMechanismResultViewForData,
+                CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.SectionResults,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
@@ -157,7 +159,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseNumericFailureMechanismResultViewForData,
+                CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.SectionResults,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
@@ -169,7 +171,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseArbitraryProbabilityFailureMechanismResultViewForData,
+                CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.SectionResults,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
@@ -353,36 +355,19 @@ namespace Ringtoets.Integration.Plugin
 
         #region FailureMechanismResults ViewInfo
 
-        private static bool CloseSimpleFailureMechanismResultViewForData(SimpleFailureMechanismResultView view, object o)
+        private static bool CloseFailureMechanismResultViewForData<T>(T view, object dataToCloseFor) where T : IView
         {
-            var data = view.Data;
-            return CloseFailureMechanismResultViewForData(o, data);
-        }
-
-        private static bool CloseNumericFailureMechanismResultViewForData(NumericFailureMechanismResultView view, object o)
-        {
-            var data = view.Data;
-            return CloseFailureMechanismResultViewForData(o, data);
-        }
-
-        private static bool CloseArbitraryProbabilityFailureMechanismResultViewForData(ArbitraryProbabilityFailureMechanismResultView view, object o)
-        {
-            var data = view.Data;
-            return CloseFailureMechanismResultViewForData(o, data);
-        }
-
-        private static bool CloseFailureMechanismResultViewForData(object o, object data)
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as IFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
+            var viewData = view.Data;
+            var assessmentSection = dataToCloseFor as IAssessmentSection;
+            var failureMechanism = dataToCloseFor as IFailureMechanism;
+            var failureMechanismContext = dataToCloseFor as IFailureMechanismContext<IFailureMechanism>;
 
             if (assessmentSection != null)
             {
                 return assessmentSection
                     .GetFailureMechanisms()
                     .OfType<IHasSectionResults<FailureMechanismSectionResult>>()
-                    .Any(fm => ReferenceEquals(data, fm.SectionResults));
+                    .Any(fm => ReferenceEquals(viewData, fm.SectionResults));
             }
             if (failureMechanismContext != null)
             {
@@ -393,7 +378,7 @@ namespace Ringtoets.Integration.Plugin
 
             return failureMechanism != null 
                 && failureMechanismWithSectionResults != null
-                && ReferenceEquals(data, failureMechanismWithSectionResults.SectionResults);
+                && ReferenceEquals(viewData, failureMechanismWithSectionResults.SectionResults);
         }
 
         #endregion

@@ -100,6 +100,12 @@ namespace Ringtoets.Piping.Data
             sectionResults.Add(new PipingFailureMechanismSectionResult(section));
         }
 
+        public override void ClearAllSections()
+        {
+            base.ClearAllSections();
+            sectionResults.Clear();
+        }
+
         public IEnumerable<PipingFailureMechanismSectionResult> SectionResults
         {
             get

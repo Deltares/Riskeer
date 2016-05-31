@@ -61,18 +61,11 @@
     </Compile>
     <Compile Include="PropertyClasses\AssessmentSectionProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabaseProperties.cs" />
-    <Compile Include="Views\ArbitraryProbabilityFailureMechanismSectionResultRow.cs" />
     <Compile Include="Views\AssessmentSectionView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\AssessmentSectionView.Designer.cs">
       <DependentUpon>AssessmentSectionView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ArbitraryProbabilityFailureMechanismResultView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\NumericFailureMechanismResultView.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\FailureMechanismContributionView.cs">
       <SubType>UserControl</SubType>
@@ -80,11 +73,78 @@
     <Compile Include="Views\FailureMechanismContributionView.Designer.cs">
       <DependentUpon>FailureMechanismContributionView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\NumericFailureMechanismSectionResultRow.cs" />
-    <Compile Include="Views\SimpleFailureMechanismResultView.cs">
+    <Compile Include="Views\SectionResultRow\ArbitraryProbabilityFailureMechanismSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\ClosingStructureSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\DuneErosionSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\GrassCoverErosionOutwardsSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\GrassCoverSlipOffInwardsSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\GrassCoverSlipOffOutwardsSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\MacrostabilityInwardsSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\MacrostabilityOutwardsSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\MicrostabilitySectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\NumericFailureMechanismSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\PipingStructureSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\SimpleFailureMechanismSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\StabilityStoneCoverSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\StrengthStabilityLengthwiseConstructionSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\StrengthStabilityPointConstructionSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\TechnicalInnovationSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\WaterPressureAsphaltCoverSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\WaveImpactAsphaltSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultView\ArbitraryProbabilityFailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\SimpleFailureMechanismSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultView\ClosingStructureResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultView\DuneErosionResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultView\GrassCoverErosionOutwardsResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultView\GrassCoverSlipOffInwardsResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultView\GrassCoverSlipOffOutwardsResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultView\MacrostabilityInwardsResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultView\MacrostabilityOutwardsResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultView\MicrostabilityResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultView\PipingStructureResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultView\StrengthStabilityLengthwiseConstructionResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultView\StrengthStabilityPointConstructionResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultView\TechnicalInnovationResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultView\WaterPressureAsphaltResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultView\StabilityStoneCoverResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultView\WaveImpactAsphaltResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultView\NumericFailureMechanismResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultView\SimpleFailureMechanismResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

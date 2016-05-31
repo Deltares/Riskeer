@@ -30,8 +30,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
-using Ringtoets.Integration.Forms.Views;
-
+using Ringtoets.Integration.Forms.Views.SectionResultView;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 namespace Ringtoets.Integration.Forms.Test.Views
 {

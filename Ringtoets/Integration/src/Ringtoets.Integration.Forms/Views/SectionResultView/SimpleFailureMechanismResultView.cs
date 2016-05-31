@@ -28,9 +28,10 @@ using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
+using Ringtoets.Integration.Forms.Views.SectionResultRow;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Ringtoets.Integration.Forms.Views.SectionResultView
 {
     /// <summary>
     /// This class defines a view where <see cref="SimpleFailureMechanismSectionResult"/> are displayed in a grid
@@ -44,6 +45,8 @@ namespace Ringtoets.Integration.Forms.Views
         public SimpleFailureMechanismResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
+
+            AddDataGridColumns();
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
@@ -61,7 +64,7 @@ namespace Ringtoets.Integration.Forms.Views
             } 
         }
 
-        protected override void AddDataGridColumns()
+        private void AddDataGridColumns()
         {
             var twoAResultDataSource = Enum.GetValues(typeof(AssessmentLayerTwoAResult))
                                            .OfType<AssessmentLayerTwoAResult>()

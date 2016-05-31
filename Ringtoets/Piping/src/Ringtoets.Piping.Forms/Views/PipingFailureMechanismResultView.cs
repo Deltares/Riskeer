@@ -57,6 +57,8 @@ namespace Ringtoets.Piping.Forms.Views
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(UpdataDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.GetObservableInput())));
             calculationOutputObserver = new RecursiveObserver<CalculationGroup, ICalculationOutput>(UpdataDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.GetObservableOutput())));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdataDataGridViewDataSource, c => c.Children);
+
+            AddDataGridColumns();
         }
 
         public override IFailureMechanism FailureMechanism
@@ -86,7 +88,7 @@ namespace Ringtoets.Piping.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override void AddDataGridColumns()
+        private void AddDataGridColumns()
         {
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingFailureMechanismSectionResultRow>(sr => sr.Name),

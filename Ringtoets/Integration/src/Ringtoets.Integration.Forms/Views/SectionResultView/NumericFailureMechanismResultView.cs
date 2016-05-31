@@ -21,12 +21,12 @@
 
 using System.Windows.Forms;
 using Core.Common.Utils.Reflection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
+using Ringtoets.Integration.Forms.Views.SectionResultRow;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Ringtoets.Integration.Forms.Views.SectionResultView
 {
     /// <summary>
     /// This class defines a view where <see cref="NumericFailureMechanismSectionResult"/> are displayed in a grid
@@ -40,9 +40,11 @@ namespace Ringtoets.Integration.Forms.Views
         public NumericFailureMechanismResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
+
+            AddDataGridColumns();
         }
 
-        protected override void AddDataGridColumns()
+        private void AddDataGridColumns()
         {
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<NumericFailureMechanismSectionResultRow>(sr => sr.Name),

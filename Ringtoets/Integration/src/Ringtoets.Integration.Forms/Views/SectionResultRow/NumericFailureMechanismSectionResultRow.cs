@@ -21,26 +21,24 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Properties;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Ringtoets.Integration.Forms.Views.SectionResultRow
 {
     /// <summary>
-    /// Container of a <see cref="ArbitraryProbabilityFailureMechanismSectionResult"/>, which takes care of the
+    /// Container of a <see cref="NumericFailureMechanismSectionResult"/>, which takes care of the
     /// representation of properties in a grid.
     /// </summary>
-    public class ArbitraryProbabilityFailureMechanismSectionResultRow
+    public class NumericFailureMechanismSectionResultRow
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ArbitraryProbabilityFailureMechanismSectionResultRow"/>.
+        /// Creates a new instance of <see cref="NumericFailureMechanismSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="ArbitraryProbabilityFailureMechanismSectionResult"/> that is 
+        /// <param name="sectionResult">The <see cref="NumericFailureMechanismSectionResult"/> that is 
         /// the source of this row.</param>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="sectionResult"/> is
         /// <c>null</c>.</exception>
-        public ArbitraryProbabilityFailureMechanismSectionResultRow(ArbitraryProbabilityFailureMechanismSectionResult sectionResult)
+        public NumericFailureMechanismSectionResultRow(NumericFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)
             {
@@ -79,38 +77,15 @@ namespace Ringtoets.Integration.Forms.Views
         /// <summary>
         /// Gets or sets the value representing the result of the layer 2a assessment.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="value"/> is not in the range [0,1].</item>
-        /// <item><paramref name="value"/> doesn't represent a value which can be parsed to a double value.</item>
-        /// </list>
-        /// </exception>
-        public string AssessmentLayerTwoA
+        public RoundedDouble AssessmentLayerTwoA
         {
             get
             {
-                var d = (RoundedDouble) (1/SectionResult.AssessmentLayerTwoA);
-                return string.Format(Resources.ProbabilityPerYearFormat, d);
+                return SectionResult.AssessmentLayerTwoA;
             }
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value",Common.Forms.Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_cannot_be_null);
-                }
-                try
-                {
-                    SectionResult.AssessmentLayerTwoA = (RoundedDouble) double.Parse(value);
-                }
-                catch (OverflowException)
-                {
-                    throw new ArgumentException(Common.Forms.Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_too_large);
-                }
-                catch (FormatException)
-                {
-                    throw new ArgumentException(Common.Forms.Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Could_not_parse_string_to_double_value);
-                }
+                SectionResult.AssessmentLayerTwoA = value;
             }
         }
 
@@ -129,6 +104,6 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        private ArbitraryProbabilityFailureMechanismSectionResult SectionResult { get; set; }
+        private NumericFailureMechanismSectionResult SectionResult { get; set; }
     }
 }

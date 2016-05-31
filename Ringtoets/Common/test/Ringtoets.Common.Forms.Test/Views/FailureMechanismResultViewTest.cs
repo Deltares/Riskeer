@@ -131,9 +131,6 @@ namespace Ringtoets.Common.Forms.Test.Views
     }
 
     public class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult> {
-        protected override void AddDataGridColumns()
-        {
-        }
 
         protected override object CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
         {

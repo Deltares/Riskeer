@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -44,12 +45,20 @@ namespace Ringtoets.Common.Forms.Views
         private IFailureMechanism failureMechanism;
 
         /// <summary>
+        /// Creates a display object for <paramref name="sectionResult"/> which is added to the
+        /// <see cref="DataGridView"/> on the <see cref="FailureMechanismResultView{T}"/>.
+        /// </summary>
+        /// <param name="sectionResult">The <typeparamref name="T"/> for which to create a
+        /// display object.</param>
+        /// <returns>A display object which can be added as a row to the <see cref="DataGridView"/>.</returns>
+        protected abstract object CreateFailureMechanismSectionResultRow(T sectionResult);
+
+        /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultView{T}"/>.
         /// </summary>
         protected FailureMechanismResultView()
         {
             InitializeComponent();
-            InitializeDataGridView();
 
             failureMechanismObserver = new Observer(UpdataDataGridViewDataSource);
             failureMechanismSectionResultObservers = new List<Observer>();
@@ -118,17 +127,11 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets all the columns that should be added to the <see cref="DataGridView"/> on the
-        /// <see cref="FailureMechanismResultView{T}"/>.
-        /// </summary>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="DataGridViewColumn"/>.</returns>
-        protected abstract void AddDataGridColumns(); 
-
-        /// <summary>
         /// Updates the data source of the data grid view with the current known failure mechanism section results.
         /// </summary>
         protected void UpdataDataGridViewDataSource()
         {
+            UpdateFailureMechanismSectionResultsObservers();
             DataGridViewControl.EndEdit();
             DataGridViewControl.SetDataSource(failureMechanismSectionResult.Select(CreateFailureMechanismSectionResultRow).ToList());
         }
@@ -143,26 +146,22 @@ namespace Ringtoets.Common.Forms.Views
             return DataGridViewControl.GetRowFromIndex(rowIndex).DataBoundItem;
         }
 
-        /// <summary>
-        /// Creates a display object for <paramref name="sectionResult"/> which is added to the
-        /// <see cref="DataGridView"/> on the <see cref="FailureMechanismResultView{T}"/>.
-        /// </summary>
-        /// <param name="sectionResult">The <typeparamref name="T"/> for which to create a
-        /// display object.</param>
-        /// <returns>A display object which can be added as a row to the <see cref="DataGridView"/>.</returns>
-        protected abstract object CreateFailureMechanismSectionResultRow(T sectionResult);
-
         private IEnumerable<T> FailureMechanismSectionResult
         {
             set
             {
-                ClearSectionResultObservers();
                 failureMechanismSectionResult = value;
 
-                if (failureMechanismSectionResult != null)
-                {
-                    AddSectionResultObservers();
-                }
+                UpdateFailureMechanismSectionResultsObservers();
+            }
+        }
+
+        private void UpdateFailureMechanismSectionResultsObservers()
+        {
+            ClearSectionResultObservers();
+            if (failureMechanismSectionResult != null)
+            {
+                AddSectionResultObservers();
             }
         }
 
@@ -184,11 +183,6 @@ namespace Ringtoets.Common.Forms.Views
                 observer.Dispose();
             }
             failureMechanismSectionResultObservers.Clear();
-        }
-
-        private void InitializeDataGridView()
-        {
-            AddDataGridColumns();
         }
     }
 }
