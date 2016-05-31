@@ -158,7 +158,7 @@ namespace Demo.Ringtoets.Commands
         {
             HeightStructuresFailureMechanism failureMechanism = demoAssessmentSection.HeightStructures;
 
-            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput, failureMechanism.ProbabilityAssessmentInput);
+            var calculation = new HeightStructuresCalculation(failureMechanism.GeneralInput);
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();

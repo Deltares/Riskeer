@@ -36,7 +36,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -378,8 +377,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation(new GeneralHeightStructuresInput(),
-                                                                                            new ProbabilityAssessmentInput()));
+            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation(new GeneralHeightStructuresInput()));
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
 
             var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
@@ -415,8 +413,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation(new GeneralHeightStructuresInput(),
-                                                                                            new ProbabilityAssessmentInput()));
+            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation(new GeneralHeightStructuresInput()));
 
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(null);
@@ -454,8 +451,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation(new GeneralHeightStructuresInput(),
-                                                                                            new ProbabilityAssessmentInput()));
+            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation(new GeneralHeightStructuresInput()));
 
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
@@ -495,8 +491,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation(new GeneralHeightStructuresInput(),
-                                                                                            new ProbabilityAssessmentInput()));
+            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation(new GeneralHeightStructuresInput()));
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
@@ -548,7 +543,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             });
             failureMechanism.AddSection(section);
 
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation(new GeneralHeightStructuresInput(), new ProbabilityAssessmentInput())
+            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation(new GeneralHeightStructuresInput())
             {
                 Name = "A",
                 InputParameters =
@@ -556,7 +551,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
                 }
             });
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation(new GeneralHeightStructuresInput(), new ProbabilityAssessmentInput())
+            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation(new GeneralHeightStructuresInput())
             {
                 Name = "B",
                 InputParameters =

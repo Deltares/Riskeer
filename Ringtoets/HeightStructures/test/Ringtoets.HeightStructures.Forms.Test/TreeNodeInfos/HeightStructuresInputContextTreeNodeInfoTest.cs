@@ -27,7 +27,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Plugin;
@@ -80,11 +79,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         {
             // Setup
             var generalInput = new GeneralHeightStructuresInput();
-            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             var heightStructuresInputContext = new HeightStructuresInputContext(
                 new HeightStructuresInput(new GeneralHeightStructuresInput()),
-                new HeightStructuresCalculation(generalInput, probabilityAssessmentInput),
+                new HeightStructuresCalculation(generalInput),
                 new HeightStructuresFailureMechanism(),
                 assessmentSectionMock);
 
@@ -104,10 +102,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             var generalInput = new GeneralHeightStructuresInput();
-            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
             var heightStructuresInputContext = new HeightStructuresInputContext(
                 new HeightStructuresInput(new GeneralHeightStructuresInput()),
-                new HeightStructuresCalculation(generalInput, probabilityAssessmentInput),
+                new HeightStructuresCalculation(generalInput),
                 new HeightStructuresFailureMechanism(),
                 assessmentSectionMock);
 

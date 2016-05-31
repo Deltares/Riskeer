@@ -38,20 +38,10 @@ namespace Ringtoets.HeightStructures.Data
         /// </summary>
         /// <param name="generalInputParameters">General height structures calculation input parameters 
         /// that apply to each calculation.</param>
-        /// <param name="probabilityAssessmentInput">General probabilistic assessment parameters that apply to each 
-        /// calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <list type="bullet">
-        /// <item><paramref name="generalInputParameters"/> is <c>null</c>.</item>
-        /// <item><paramref name="probabilityAssessmentInput"/> is <c>null</c>.</item>
-        /// </list> </exception>
-        public HeightStructuresCalculation(GeneralHeightStructuresInput generalInputParameters, ProbabilityAssessmentInput probabilityAssessmentInput)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/> is <c>null</c>.</exception>
+        public HeightStructuresCalculation(GeneralHeightStructuresInput generalInputParameters)
         {
-            if (probabilityAssessmentInput == null)
-            {
-                throw new ArgumentNullException("probabilityAssessmentInput");
-            }
             InputParameters = new HeightStructuresInput(generalInputParameters);
-            ProbabilityAssessmentInput = probabilityAssessmentInput;
             Name = Resources.HeightStructuresCalculation_DefaultName;
             AddDemoInput();
         }
@@ -60,11 +50,6 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets the input parameters to perform a height structures calculation with.
         /// </summary>
         public HeightStructuresInput InputParameters { get; private set; }
-
-        /// <summary>
-        /// Gets the probability assessment input.
-        /// </summary>
-        public ProbabilityAssessmentInput ProbabilityAssessmentInput { get; private set; }
 
         /// <summary>
         /// Gets or sets <see cref="ProbabilityAssessmentOutput"/>, which contains the results of a height structures calculation.
