@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
@@ -204,6 +205,7 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             if (output != null)
             {
+                calculation.Output = ProbabilityAssessmentService.Calculate(calculation.ProbabilityAssessmentInput, output.Beta);
                 calculation.NotifyObservers();
             }
             else
