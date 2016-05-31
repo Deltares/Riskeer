@@ -21,6 +21,9 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+
+using Core.Common.Base.Geometry;
+
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Create
@@ -51,6 +54,7 @@ namespace Application.Ringtoets.Storage.Create
             };
 
             AddEntitiesForStochasticSoilProfiles(model, registry, entity);
+            AddEntitiesForGeometryPoints(model, entity);
 
             registry.Register(entity, model);
             return entity;
@@ -61,6 +65,16 @@ namespace Application.Ringtoets.Storage.Create
             foreach (var stochasticSoilProfile in model.StochasticSoilProfiles)
             {
                 entity.StochasticSoilProfileEntities.Add(stochasticSoilProfile.Create(registry));
+            }
+        }
+
+        private static void AddEntitiesForGeometryPoints(StochasticSoilModel model, StochasticSoilModelEntity entity)
+        {
+            for (int i = 0; i < model.Geometry.Count; i++)
+            {
+                Point2D geometryPoint = model.Geometry[i];
+                StochasticSoilModelSegmentPointEntity pointEntity = geometryPoint.CreateStochasticSoilModelSegmentPointEntity(i);
+                entity.StochasticSoilModelSegmentPointEntities.Add(pointEntity);
             }
         }
     }

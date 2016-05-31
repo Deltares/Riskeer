@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
+
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -44,17 +46,26 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// <returns>A new complete instance of <see cref="Project"/>.</returns>
         public static Project GetFullTestProject()
         {
+            ReferenceLine referenceLine = GetReferenceLine();
+            Point2D[] referenceLineGeometryPoints = referenceLine.Points.ToArray();
+
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 Name = "assessmentSection",
                 HydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase(),
-                ReferenceLine = GetReferenceLine(),
+                ReferenceLine = referenceLine,
                 PipingFailureMechanism =
                 {
                     StochasticSoilModels =
                     {
                         new StochasticSoilModel(-1, "modelName", "modelSegmentName")
                         {
+                            Geometry =
+                            {
+                                referenceLineGeometryPoints[1],
+                                referenceLineGeometryPoints[2],
+                                referenceLineGeometryPoints[3]
+                            },
                             StochasticSoilProfiles =
                             {
                                 new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, -1)
@@ -74,17 +85,17 @@ namespace Application.Ringtoets.Storage.TestUtil
                     },
                     CalculationsGroup =
                     {
-                        //Children =
-                        //        {
-                        //            new CalculationGroup
-                        //            {
-                        //                Name = "A"
-                        //            },
-                        //            new CalculationGroup
-                        //            {
-                        //                Name = "B"
-                        //            }
-                        //        }
+                        Children =
+                        {
+                            new CalculationGroup
+                            {
+                                Name = "A"
+                            },
+                            new CalculationGroup
+                            {
+                                Name = "B"
+                            }
+                        }
                     }
                 }
             };

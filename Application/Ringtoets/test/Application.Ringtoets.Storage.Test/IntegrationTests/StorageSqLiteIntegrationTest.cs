@@ -308,8 +308,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                 Assert.AreEqual(expectedModel.Name, actualModel.Name);
                 Assert.AreEqual(expectedModel.SegmentName, actualModel.SegmentName);
+                AssertSegmentPoints(expectedModel.Geometry, actualModel.Geometry);
                 AssertStochasticSoilProfiles(expectedModel.StochasticSoilProfiles, actualModel.StochasticSoilProfiles);
             }
+        }
+
+        private void AssertSegmentPoints(List<Point2D> expectedSoilModelSegmentPoints, List<Point2D> actualSoilModelSegmentPoints)
+        {
+            Assert.Greater(expectedSoilModelSegmentPoints.Count, 0);
+            CollectionAssert.AreEqual(expectedSoilModelSegmentPoints, actualSoilModelSegmentPoints);
         }
 
         private void AssertStochasticSoilProfiles(List<StochasticSoilProfile> expectedStochasticSoilProfiles, List<StochasticSoilProfile> actualStochasticSoilProfiles)

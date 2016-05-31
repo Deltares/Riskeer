@@ -105,6 +105,27 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
-        } 
+        }
+
+        [Test]
+        public void Read_WithCollectorWithStochasticSoilModelSegmentPointEntity_ReturnsNewStochasticSoilModelWithGeometryPoints()
+        {
+            // Setup
+            var entity = new StochasticSoilModelEntity
+            {
+                StochasticSoilModelSegmentPointEntities =
+                {
+                    new StochasticSoilModelSegmentPointEntity(),
+                    new StochasticSoilModelSegmentPointEntity()
+                }
+            };
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var model = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(2, model.Geometry.Count);
+        }
     }
 }

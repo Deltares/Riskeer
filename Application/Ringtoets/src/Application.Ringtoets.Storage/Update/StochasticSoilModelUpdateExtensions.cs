@@ -20,11 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
+
+using Core.Common.Base.Geometry;
+
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Update
@@ -61,6 +65,14 @@ namespace Application.Ringtoets.Storage.Update
             entity.Name = model.Name;
             entity.SegmentName = model.SegmentName;
 
+            UpdateStochasticSoilProfiles(model, entity, registry, context);
+            UpdateSoilModelSegment(model, entity);
+
+            registry.Register(entity, model);
+        }
+
+        private static void UpdateStochasticSoilProfiles(StochasticSoilModel model, StochasticSoilModelEntity entity, PersistenceRegistry registry, IRingtoetsEntities context)
+        {
             foreach (var stochasticSoilProfile in model.StochasticSoilProfiles)
             {
                 if (stochasticSoilProfile.IsNew())
@@ -72,8 +84,44 @@ namespace Application.Ringtoets.Storage.Update
                     stochasticSoilProfile.Update(registry, context);
                 }
             }
+        }
 
-            registry.Register(entity, model);
+        private static void UpdateSoilModelSegment(StochasticSoilModel model, StochasticSoilModelEntity entity)
+        {
+            if (HasChanges(entity.StochasticSoilModelSegmentPointEntities, model.Geometry))
+            {
+                entity.StochasticSoilModelSegmentPointEntities.Clear();
+                UpdateSegmentPoints(model, entity);
+            }
+        }
+
+        private static bool HasChanges(ICollection<StochasticSoilModelSegmentPointEntity> existingPointEntities, List<Point2D> geometry)
+        {
+            StochasticSoilModelSegmentPointEntity[] existingPoints = existingPointEntities.OrderBy(pe => pe.Order).ToArray();
+            if (existingPoints.Length != geometry.Count)
+            {
+                return true;
+            }
+            for (int i = 0; i < existingPoints.Length; i++)
+            {
+                Point2D existingPoint = new Point2D(Convert.ToDouble(existingPoints[i].X),
+                                                    Convert.ToDouble(existingPoints[i].Y));
+                if (!Math2D.AreEqualPoints(existingPoint, geometry[i]))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static void UpdateSegmentPoints(StochasticSoilModel model, StochasticSoilModelEntity entity)
+        {
+            for (int i = 0; i < model.Geometry.Count; i++)
+            {
+                Point2D point = model.Geometry[i];
+                StochasticSoilModelSegmentPointEntity pointEntity = point.CreateStochasticSoilModelSegmentPointEntity(i);
+                entity.StochasticSoilModelSegmentPointEntities.Add(pointEntity);
+            }
         }
 
         private static StochasticSoilModelEntity GetCorrespondingStochasticSoilModelEntity(StochasticSoilModel model, IRingtoetsEntities context)

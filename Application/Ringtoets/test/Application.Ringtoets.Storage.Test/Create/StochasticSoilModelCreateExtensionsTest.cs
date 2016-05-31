@@ -21,6 +21,9 @@
 
 using System;
 using Application.Ringtoets.Storage.Create;
+
+using Core.Common.Base.Geometry;
+
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -86,6 +89,26 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(2, entity.StochasticSoilProfileEntities.Count);
-        }   
+        }
+
+        [Test]
+        public void Create_WithGeometryPoints_ReturnsStochasticSoilModelEntityWithPropertiesAndStochasticSoilModelSegmentPointEntitiesSet()
+        {
+            // Setup
+            var stochasticSoilModel = new StochasticSoilModel(-1, "testName", "testSegmentName");
+            stochasticSoilModel.Geometry.AddRange(new[]
+            {
+                new Point2D(-12.34, 56.78), 
+                new Point2D(91.23, -34.56)
+            });
+            var registry = new PersistenceRegistry();
+
+            // Call
+            var entity = stochasticSoilModel.Create(registry);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreEqual(2, entity.StochasticSoilModelSegmentPointEntities.Count);
+        }
     }
 }

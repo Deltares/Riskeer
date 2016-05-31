@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Piping.Data;
 
@@ -50,6 +52,7 @@ namespace Application.Ringtoets.Storage.Read
                 StorageId = entity.StochasticSoilModelEntityId
             };
             entity.ReadStochasticSoilProfiles(model, collector);
+            entity.ReadSegmentPoints(model);
 
             return model;
         }
@@ -60,6 +63,13 @@ namespace Application.Ringtoets.Storage.Read
             {
                 model.StochasticSoilProfiles.Add(stochasticSoilProfileEntity.Read(collector));
             }
+        }
+
+        private static void ReadSegmentPoints(this StochasticSoilModelEntity entity, StochasticSoilModel model)
+        {
+            model.Geometry.AddRange(entity.StochasticSoilModelSegmentPointEntities
+                                          .OrderBy(pe => pe.Order)
+                                          .Select(pe => pe.Read()));
         }
     }
 }
