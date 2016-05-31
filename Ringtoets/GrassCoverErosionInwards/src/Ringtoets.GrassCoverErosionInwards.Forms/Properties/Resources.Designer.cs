@@ -451,24 +451,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De naam van de berekening voor grasbekleding erosie kruin en binnentalud..
-        /// </summary>
-        public static string GrassCoverErosionInwardsInputCalculation_Name_Description {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsInputCalculation_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string GrassCoverErosionInwardsInputCalculation_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsInputCalculation_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De berekening.
         /// </summary>
         public static string GrassCoverErosionInwardsInputContext_DataDescription_GrassCoverErosionInwardsInputCalculationItem {

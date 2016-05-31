@@ -63,19 +63,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(3, propertyInfos.Length);
+                Assert.AreEqual(2, propertyInfos.Length);
 
                 var failureMechanismContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(GrassCoverErosionInwardsFailureMechanismContext));
                 Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismContextProperties), failureMechanismContextProperties.PropertyObjectType);
                 Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
                 Assert.IsNull(failureMechanismContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(failureMechanismContextProperties.AfterCreate);
-
-                var calculationContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(GrassCoverErosionInwardsCalculationContext));
-                Assert.AreEqual(typeof(GrassCoverErosionInwardsCalculationContextProperties), calculationContextProperties.PropertyObjectType);
-                Assert.IsNull(calculationContextProperties.AdditionalDataCheck);
-                Assert.IsNull(calculationContextProperties.GetObjectPropertiesData);
-                Assert.IsNull(calculationContextProperties.AfterCreate);
 
                 var inputContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(GrassCoverErosionInwardsInputContext));
                 Assert.AreEqual(typeof(GrassCoverErosionInwardsInputContextProperties), inputContextProperties.PropertyObjectType);

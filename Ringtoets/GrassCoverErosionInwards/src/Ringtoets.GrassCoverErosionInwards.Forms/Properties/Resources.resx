@@ -250,12 +250,6 @@
   <data name="GrassCoverErosionInwardsInput_FrunupModelFactor_DisplayName" xml:space="preserve">
     <value>Modelfactor Frunup [-]</value>
   </data>
-  <data name="GrassCoverErosionInwardsInputCalculation_Name_Description" xml:space="preserve">
-    <value>De naam van de berekening voor grasbekleding erosie kruin en binnentalud.</value>
-  </data>
-  <data name="GrassCoverErosionInwardsInputCalculation_Name_DisplayName" xml:space="preserve">
-    <value>Naam</value>
-  </data>
   <data name="NormalDistribution_DestributionType_Description" xml:space="preserve">
     <value>Het soort kansverdeling waarin deze parameter gedefinieerd wordt.</value>
   </data>
