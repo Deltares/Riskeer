@@ -34,7 +34,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
     /// <summary>
     /// The view for the <see cref="HeightStructuresFailureMechanismSectionResult"/>.
     /// </summary>
-    public partial class HeightStructuresFailureMechanismResultView : FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult>
+    public class HeightStructuresFailureMechanismResultView : FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult>
     {
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;

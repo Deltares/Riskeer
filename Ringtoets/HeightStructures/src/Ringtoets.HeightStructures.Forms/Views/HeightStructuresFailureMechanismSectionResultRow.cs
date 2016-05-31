@@ -59,7 +59,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the assessment layer one of the <see cref="SectionResult"/>.
+        /// Gets or sets the assessment layer one of the <see cref="sectionResult"/>.
         /// </summary>
         public bool AssessmentLayerOne
         {
@@ -75,7 +75,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets the assessment layer two a of the <see cref="SectionResult"/>.
+        /// Gets the assessment layer two a of the <see cref="sectionResult"/>.
         /// </summary>
         public RoundedDouble AssessmentLayerTwoA
         {
@@ -86,7 +86,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the assessment layer three of the <see cref="SectionResult"/>.
+        /// Gets or sets the assessment layer three of the <see cref="sectionResult"/>.
         /// </summary>
         public RoundedDouble AssessmentLayerThree
         {

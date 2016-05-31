@@ -56,11 +56,6 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -162,10 +157,6 @@
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionInwards.Plugin\Ringtoets.GrassCoverErosionInwards.Plugin.csproj">
       <Project>{20955E2A-8CEB-46B0-ADC4-A97D4C6BBDF5}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Plugin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.GrassCoverErosionInwards.Data.TestUtil\Ringtoets.GrassCoverErosionInwards.Data.TestUtil.csproj">
-      <Project>{BF753DB5-973B-4ADF-B0F6-9437325C3466}</Project>
-      <Name>Ringtoets.GrassCoverErosionInwards.Data.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
