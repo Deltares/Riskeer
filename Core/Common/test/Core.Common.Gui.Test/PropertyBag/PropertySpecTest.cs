@@ -1,11 +1,30 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.PropertyBag
@@ -43,7 +62,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             Assert.AreEqual(propertyName, propertySpec.Name);
             Assert.AreEqual(propertyInfo.PropertyType.AssemblyQualifiedName, propertySpec.TypeName);
             Assert.AreEqual(1, propertySpec.Attributes.Length);
-            var readOnlyAttribute = (ReadOnlyAttribute)propertySpec.Attributes[0];
+            var readOnlyAttribute = (ReadOnlyAttribute) propertySpec.Attributes[0];
             Assert.IsTrue(readOnlyAttribute.IsReadOnly);
         }
 
@@ -68,7 +87,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         }
 
         [Test]
-        public void ParameteredConstructor_FromPropertyOverridingAttributesFromBaseClass_InheritedAttributesAreIgnored()
+        public void ParameteredConstructor_FromPropertyOverridingAttributesFromBaseClass_InheritedAttributesAreInherited()
         {
             // Setup
             var propertyName = "StringPropertyWithAttributes";
@@ -80,14 +99,15 @@ namespace Core.Common.Gui.Test.PropertyBag
             // Assert
             Assert.AreEqual(propertyName, propertySpec.Name);
             Assert.AreEqual(propertyInfo.PropertyType.AssemblyQualifiedName, propertySpec.TypeName);
-            Assert.AreEqual(1, propertySpec.Attributes.Length);
+            Assert.AreEqual(2, propertySpec.Attributes.Length);
             var browsableAttribute = propertySpec.Attributes.OfType<BrowsableAttribute>().Single();
-            Assert.IsFalse(browsableAttribute.Browsable,
-                "Should have the override value.");
+            Assert.IsFalse(browsableAttribute.Browsable, "Should have the override value.");
+            var readOnlyAttribute = propertySpec.Attributes.OfType<ReadOnlyAttribute>().Single();
+            Assert.IsFalse(readOnlyAttribute.IsReadOnly, "Should have the base value.");
         }
 
         [Test]
-        public void ParameteredConstructor_FromPropertyWithAttributesFromBaseClass_InheritedAttributesAreIgnored()
+        public void ParameteredConstructor_FromPropertyWithAttributesFromBaseClass_InheritedAttributesAreInherited()
         {
             // Setup
             var propertyName = "BoolPropertyWithAttributes";
@@ -102,7 +122,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             Assert.AreEqual(1, propertySpec.Attributes.Length);
             var browsableAttribute = propertySpec.Attributes.OfType<BrowsableAttribute>().Single();
             Assert.IsTrue(browsableAttribute.Browsable,
-                "No override in 'InheritorSettingPropertyToNotBrowsable' for property 'BoolPropertyWithAttributes', so use base class.");
+                          "No override in 'InheritorSettingPropertyToNotBrowsable' for property 'BoolPropertyWithAttributes', so use base class.");
         }
 
         [Test]
@@ -320,7 +340,7 @@ namespace Core.Common.Gui.Test.PropertyBag
 
             // Assert
             Assert.False(hasExpandableObjectTypeConverter,
-                "As we cannot copy the same behavior of a ExpandableObjectConverter with customizations, we should not recognize it as such.");
+                         "As we cannot copy the same behavior of a ExpandableObjectConverter with customizations, we should not recognize it as such.");
         }
 
         [Test]
@@ -340,19 +360,16 @@ namespace Core.Common.Gui.Test.PropertyBag
 
         private class ClassWithProperties
         {
-            public int IntegerProperty { get; set; }
-
             public float this[int index]
             {
                 get
                 {
                     return default(float);
                 }
-                set
-                {
-                    
-                }
+                set {}
             }
+
+            public int IntegerProperty { get; set; }
 
             public double DoublePropertyWithOnlyPublicGet { get; private set; }
 
@@ -397,14 +414,8 @@ namespace Core.Common.Gui.Test.PropertyBag
             public override string StringPropertyWithAttributes { get; set; }
         }
 
-        private class SomeTypeConverter : TypeConverter
-        {
-            
-        }
+        private class SomeTypeConverter : TypeConverter {}
 
-        private class CustomExpandableObjectConverter : ExpandableObjectConverter
-        {
-            
-        }
+        private class CustomExpandableObjectConverter : ExpandableObjectConverter {}
     }
 }

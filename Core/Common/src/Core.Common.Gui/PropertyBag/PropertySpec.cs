@@ -24,7 +24,6 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-
 using log4net;
 
 namespace Core.Common.Gui.PropertyBag
@@ -44,18 +43,18 @@ namespace Core.Common.Gui.PropertyBag
         /// <param name="propertyInfo">The property information.</param>
         /// <exception cref="ArgumentException">When <paramref name="propertyInfo"/> is 
         /// an index property.</exception>
-        public PropertySpec(System.Reflection.PropertyInfo propertyInfo)
+        public PropertySpec(PropertyInfo propertyInfo)
         {
             if (propertyInfo.GetIndexParameters().Length > 0)
             {
-                throw new ArgumentException("Index properties are not allowed.", "propertyInfo");
+                throw new ArgumentException(@"Index properties are not allowed.", "propertyInfo");
             }
 
             this.propertyInfo = propertyInfo;
             Name = propertyInfo.Name;
             TypeName = propertyInfo.PropertyType.AssemblyQualifiedName;
 
-            var attributeList = propertyInfo.GetCustomAttributes(true).OfType<Attribute>().ToList();
+            var attributeList = Attribute.GetCustomAttributes(propertyInfo, true).ToList();
             if (propertyInfo.GetSetMethod() == null)
             {
                 attributeList.Add(new ReadOnlyAttribute(true));
@@ -167,9 +166,9 @@ namespace Core.Common.Gui.PropertyBag
         public bool IsNonCustomExpandableObjectProperty()
         {
             var typeConverterClassName = propertyInfo.GetCustomAttributes(typeof(TypeConverterAttribute), false)
-                                                        .OfType<TypeConverterAttribute>()
-                                                        .Select(tca => tca.ConverterTypeName)
-                                                        .Where(n => !string.IsNullOrEmpty(n));
+                                                     .OfType<TypeConverterAttribute>()
+                                                     .Select(tca => tca.ConverterTypeName)
+                                                     .Where(n => !string.IsNullOrEmpty(n));
             foreach (string typeName in typeConverterClassName)
             {
                 try
