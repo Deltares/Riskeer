@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
@@ -31,24 +30,10 @@ namespace Ringtoets.HeightStructures.Data.Test
     public class HeightStructuresCalculationTest
     {
         [Test]
-        public void Constructor_NullGeneralInput_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new HeightStructuresCalculation(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("generalInputParameters", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_DefaultPropertyValuesAreSet()
         {
-            // Setup
-            var generalInput = new GeneralHeightStructuresInput();
-
             // Call
-            var calculation = new HeightStructuresCalculation(generalInput);
+            var calculation = new HeightStructuresCalculation();
 
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
@@ -64,8 +49,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void ClearOutput_Always_SetsOutputToNull()
         {
             // Setup
-            var generalInput = new GeneralHeightStructuresInput();
-            var calculation = new HeightStructuresCalculation(generalInput)
+            var calculation = new HeightStructuresCalculation
             {
                 Output = new TestHeightStructuresOutput()
             };
@@ -81,8 +65,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void HasOutput_OutputNull_ReturnsFalse()
         {
             // Setup
-            var generalInput = new GeneralHeightStructuresInput();
-            var calculation = new HeightStructuresCalculation(generalInput)
+            var calculation = new HeightStructuresCalculation
             {
                 Output = null
             };
@@ -95,8 +78,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void HasOutput_OutputSet_ReturnsTrue()
         {
             // Setup
-            var generalInput = new GeneralHeightStructuresInput();
-            var calculation = new HeightStructuresCalculation(generalInput)
+            var calculation = new HeightStructuresCalculation
             {
                 Output = new TestHeightStructuresOutput()
             };
@@ -109,8 +91,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void GetObservableInput_Always_ReturnsInputParameters()
         {
             // Setup
-            var generalInput = new GeneralHeightStructuresInput();
-            var calculation = new HeightStructuresCalculation(generalInput);
+            var calculation = new HeightStructuresCalculation();
 
             // Call
             ICalculationInput input = calculation.GetObservableInput();
@@ -123,8 +104,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void GetObservableOutput_Always_ReturnsOutput()
         {
             // Setup
-            var generalInput = new GeneralHeightStructuresInput();
-            var calculation = new HeightStructuresCalculation(generalInput)
+            var calculation = new HeightStructuresCalculation
             {
                 Output = new TestHeightStructuresOutput()
             };

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -36,10 +35,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresCalculation"/>.
         /// </summary>
-        /// <param name="generalInputParameters">General height structures calculation input parameters 
-        /// that apply to each calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/> is <c>null</c>.</exception>
-        public HeightStructuresCalculation(GeneralHeightStructuresInput generalInputParameters)
+        public HeightStructuresCalculation()
         {
             InputParameters = new HeightStructuresInput();
             Name = Resources.HeightStructuresCalculation_DefaultName;

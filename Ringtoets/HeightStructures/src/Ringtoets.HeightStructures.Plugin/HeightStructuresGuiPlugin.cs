@@ -416,7 +416,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private static void AddCalculation(HeightStructuresCalculationGroupContext context)
         {
-            var calculation = new HeightStructuresCalculation(context.FailureMechanism.GeneralInput)
+            var calculation = new HeightStructuresCalculation
             {
                 Name = NamingHelper.GetUniqueName(context.WrappedData.Children, HeightStructuresDataResources.HeightStructuresCalculation_DefaultName, c => c.Name)
             };
