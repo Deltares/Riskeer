@@ -59,7 +59,6 @@
     </Compile>
     <Compile Include="PropertyClasses\BreakWaterProperties.cs" />
     <Compile Include="PropertyClasses\DikeGeometryProperties.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionInwardsOutputProperties.cs" />
     <Compile Include="TypeConverters\EnumTypeConverter.cs" />
     <Compile Include="PropertyClasses\ForeshoreProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsCalculationContextProperties.cs" />

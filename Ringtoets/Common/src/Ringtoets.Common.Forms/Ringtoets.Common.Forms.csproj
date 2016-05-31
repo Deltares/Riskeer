@@ -62,6 +62,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\DistributionProperties.cs" />
+    <Compile Include="PropertyClasses\ProbabilityAssessmentOutputProperties.cs" />
     <Compile Include="PropertyClasses\LogNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\NormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\ReadOnlyLogNormalDistributionProperties.cs" />

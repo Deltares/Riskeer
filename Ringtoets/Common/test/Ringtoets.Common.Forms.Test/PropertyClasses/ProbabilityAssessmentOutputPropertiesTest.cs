@@ -23,28 +23,19 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
+namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsOutputPropertiesTest
+    public class ProbabilityAssessmentOutputPropertiesTest
     {
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
-
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties();
+            var properties = new ProbabilityAssessmentOutputProperties();
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<ProbabilityAssessmentOutput>>(properties);
@@ -66,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var output = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
 
             // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties
+            var properties = new ProbabilityAssessmentOutputProperties
             {
                 Data = output
             };
@@ -94,7 +85,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var output = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
 
             // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties
+            var properties = new ProbabilityAssessmentOutputProperties
             {
                 Data = output
             };
@@ -112,7 +103,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var output = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
 
             // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties
+            var properties = new ProbabilityAssessmentOutputProperties
             {
                 Data = output
             };
@@ -125,39 +116,37 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
             Assert.IsNotNull(requiredProbabilityProperty);
             Assert.IsTrue(requiredProbabilityProperty.IsReadOnly);
-            Assert.AreEqual("Grasbekleding erosie kruin en binnentalud", requiredProbabilityProperty.Category);
+            Assert.AreEqual("Resultaat", requiredProbabilityProperty.Category);
             Assert.AreEqual("Faalkanseis [1/jaar]", requiredProbabilityProperty.DisplayName);
-            Assert.AreEqual("De maximaal toegestane faalkanseis voor het toetsspoor grasbekleding erosie kruin en binnentalud.", requiredProbabilityProperty.Description);
+            Assert.AreEqual("De maximaal toegestane faalkanseis voor het toetsspoor.", requiredProbabilityProperty.Description);
 
             PropertyDescriptor requiredReliabilityProperty = dynamicProperties[requiredReliabilityPropertyIndex];
             Assert.IsNotNull(requiredReliabilityProperty);
             Assert.IsTrue(requiredReliabilityProperty.IsReadOnly);
-            Assert.AreEqual("Grasbekleding erosie kruin en binnentalud", requiredReliabilityProperty.Category);
+            Assert.AreEqual("Resultaat", requiredReliabilityProperty.Category);
             Assert.AreEqual("Betrouwbaarheidsindex faalkanseis [-]", requiredReliabilityProperty.DisplayName);
-            Assert.AreEqual("De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor grasbekleding erosie kruin en binnentalud.", requiredReliabilityProperty.Description);
+            Assert.AreEqual("De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor.", requiredReliabilityProperty.Description);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
             Assert.IsNotNull(probabilityProperty);
             Assert.IsTrue(probabilityProperty.IsReadOnly);
-            Assert.AreEqual("Grasbekleding erosie kruin en binnentalud", probabilityProperty.Category);
+            Assert.AreEqual("Resultaat", probabilityProperty.Category);
             Assert.AreEqual("Faalkans [1/jaar]", probabilityProperty.DisplayName);
-            Assert.AreEqual("De kans dat het toetsspoor grasbekleding erosie kruin en binnentalud optreedt voor deze berekening.", probabilityProperty.Description);
+            Assert.AreEqual("De kans dat het toetsspoor optreedt voor deze berekening.", probabilityProperty.Description);
 
             PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];
             Assert.IsNotNull(reliabilityProperty);
             Assert.IsTrue(reliabilityProperty.IsReadOnly);
-            Assert.AreEqual("Grasbekleding erosie kruin en binnentalud", reliabilityProperty.Category);
+            Assert.AreEqual("Resultaat", reliabilityProperty.Category);
             Assert.AreEqual("Betrouwbaarheidsindex faalkans [-]", reliabilityProperty.DisplayName);
             Assert.AreEqual("De betrouwbaarheidsindex van de faalkans voor deze berekening.", reliabilityProperty.Description);
 
             PropertyDescriptor factorOfSafetyProperty = dynamicProperties[factorOfSafetyPropertyIndex];
             Assert.IsNotNull(factorOfSafetyProperty);
             Assert.IsTrue(factorOfSafetyProperty.IsReadOnly);
-            Assert.AreEqual("Grasbekleding erosie kruin en binnentalud", factorOfSafetyProperty.Category);
+            Assert.AreEqual("Resultaat", factorOfSafetyProperty.Category);
             Assert.AreEqual("Veiligheidsfactor [-]", factorOfSafetyProperty.DisplayName);
             Assert.AreEqual("De veiligheidsfactor voor deze berekening.", factorOfSafetyProperty.Description);
-
-            mockRepository.VerifyAll();
         }
 
         private const int requiredProbabilityPropertyIndex = 0;

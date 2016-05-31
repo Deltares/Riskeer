@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
@@ -63,7 +64,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(4, propertyInfos.Length);
+                Assert.AreEqual(3, propertyInfos.Length);
+
                 var failureMechanismContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(GrassCoverErosionInwardsFailureMechanismContext));
                 Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismContextProperties), failureMechanismContextProperties.PropertyObjectType);
                 Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
@@ -81,12 +83,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.IsNull(inputContextProperties.AdditionalDataCheck);
                 Assert.IsNull(inputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(inputContextProperties.AfterCreate);
-
-                var outputContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(ProbabilityAssessmentOutput));
-                Assert.AreEqual(typeof(GrassCoverErosionInwardsOutputProperties), outputContextProperties.PropertyObjectType);
-                Assert.IsNull(outputContextProperties.AdditionalDataCheck);
-                Assert.IsNull(outputContextProperties.GetObjectPropertiesData);
-                Assert.IsNull(outputContextProperties.AfterCreate);
 
                 mocks.VerifyAll();
             }

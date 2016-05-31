@@ -39,7 +39,9 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -182,7 +184,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(5, propertyInfos.Length);
+                Assert.AreEqual(6, propertyInfos.Length);
 
                 var assessmentSectionProperties = propertyInfos.Single(pi => pi.DataType == typeof(IAssessmentSection));
                 Assert.AreEqual(typeof(AssessmentSectionProperties), assessmentSectionProperties.PropertyObjectType);
@@ -213,6 +215,12 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsNull(calculationContextProperties.AdditionalDataCheck);
                 Assert.IsNull(calculationContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(calculationContextProperties.AfterCreate);
+
+                var outputContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(ProbabilityAssessmentOutput));
+                Assert.AreEqual(typeof(ProbabilityAssessmentOutputProperties), outputContextProperties.PropertyObjectType);
+                Assert.IsNull(outputContextProperties.AdditionalDataCheck);
+                Assert.IsNull(outputContextProperties.GetObjectPropertiesData);
+                Assert.IsNull(outputContextProperties.AfterCreate);
             }
         }
 

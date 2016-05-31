@@ -24,19 +24,20 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
+using Ringtoets.Common.Forms.Properties;
+using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
+namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="ProbabilityAssessmentOutput"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionInwardsOutputProperties : ObjectProperties<ProbabilityAssessmentOutput>
+    public class ProbabilityAssessmentOutputProperties : ObjectProperties<ProbabilityAssessmentOutput>
     {
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(Resources), "Categories_GrassCoverErosionInwards")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsOutput_RequiredProbability_Displayname")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsOutput_RequiredProbability_Description")]
+        [ResourcesCategory(typeof(Resources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(Resources), "ProbabilityAssessmentOutput_RequiredProbability_Displayname")]
+        [ResourcesDescription(typeof(Resources), "ProbabilityAssessmentOutput_RequiredProbability_Description")]
         public string RequiredProbability
         {
             get
@@ -46,9 +47,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(Resources), "Categories_GrassCoverErosionInwards")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsOutput_RequiredReliability_Displayname")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsOutput_RequiredReliability_Description")]
+        [ResourcesCategory(typeof(Resources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(Resources), "ProbabilityAssessmentOutput_RequiredReliability_Displayname")]
+        [ResourcesDescription(typeof(Resources), "ProbabilityAssessmentOutput_RequiredReliability_Description")]
         public RoundedDouble RequiredReliability
         {
             get
@@ -58,9 +59,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(3)]
-        [ResourcesCategory(typeof(Resources), "Categories_GrassCoverErosionInwards")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsOutput_Probability_Displayname")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsOutput_Probability_Description")]
+        [ResourcesCategory(typeof(Resources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(Resources), "ProbabilityAssessmentOutput_Probability_Displayname")]
+        [ResourcesDescription(typeof(Resources), "ProbabilityAssessmentOutput_Probability_Description")]
         public string Probability
         {
             get
@@ -70,9 +71,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(4)]
-        [ResourcesCategory(typeof(Resources), "Categories_GrassCoverErosionInwards")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsOutput_Reliability_Displayname")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsOutput_Reliability_Description")]
+        [ResourcesCategory(typeof(Resources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(Resources), "ProbabilityAssessmentOutput_Reliability_Displayname")]
+        [ResourcesDescription(typeof(Resources), "ProbabilityAssessmentOutput_Reliability_Description")]
         public RoundedDouble Reliability
         {
             get
@@ -82,9 +83,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(5)]
-        [ResourcesCategory(typeof(Resources), "Categories_GrassCoverErosionInwards")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsOutput_FactorOfSafety_Displayname")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsOutput_FactorOfSafety_Description")]
+        [ResourcesCategory(typeof(Resources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(Resources), "ProbabilityAssessmentOutput_FactorOfSafety_Displayname")]
+        [ResourcesDescription(typeof(Resources), "ProbabilityAssessmentOutput_FactorOfSafety_Description")]
         public RoundedDouble FactorOfSafety
         {
             get
@@ -95,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         private static string ToProbabilityFormat(RoundedDouble probability)
         {
-            return string.Format(Core.Common.Base.Properties.Resources.ProbabilityPerYearFormat, probability);
+            return string.Format(CommonBaseResources.ProbabilityPerYearFormat, probability);
         }
     }
 }

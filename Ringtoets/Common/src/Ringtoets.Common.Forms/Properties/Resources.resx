@@ -361,4 +361,37 @@
   <data name="NormalDistribution_StandardDeviation_DisplayName" xml:space="preserve">
     <value>Standaardafwijking</value>
   </data>
+  <data name="Categories_Result" xml:space="preserve">
+    <value>Resultaat</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_FactorOfSafety_Description" xml:space="preserve">
+    <value>De veiligheidsfactor voor deze berekening.</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_FactorOfSafety_Displayname" xml:space="preserve">
+    <value>Veiligheidsfactor [-]</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_Probability_Description" xml:space="preserve">
+    <value>De kans dat het toetsspoor optreedt voor deze berekening.</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_Probability_Displayname" xml:space="preserve">
+    <value>Faalkans [1/jaar]</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_Reliability_Description" xml:space="preserve">
+    <value>De betrouwbaarheidsindex van de faalkans voor deze berekening.</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_Reliability_Displayname" xml:space="preserve">
+    <value>Betrouwbaarheidsindex faalkans [-]</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_RequiredProbability_Description" xml:space="preserve">
+    <value>De maximaal toegestane faalkanseis voor het toetsspoor.</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_RequiredProbability_Displayname" xml:space="preserve">
+    <value>Faalkanseis [1/jaar]</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_RequiredReliability_Description" xml:space="preserve">
+    <value>De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor.</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_RequiredReliability_Displayname" xml:space="preserve">
+    <value>Betrouwbaarheidsindex faalkanseis [-]</value>
+  </data>
 </root>
