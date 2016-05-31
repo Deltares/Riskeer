@@ -76,7 +76,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             properties.Data = inputContext;
 
             // Assert
-            var modelFactorOvertoppingSuperCriticalFlowProperties = new NormalDistributionProperties(null)
+            var modelFactorOvertoppingSuperCriticalFlowProperties = new NormalDistributionProperties
             {
                 Data = input.ModelFactorOvertoppingSuperCriticalFlow
             };
@@ -84,37 +84,37 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             Assert.AreEqual(input.OrientationOfTheNormalOfTheStructure, properties.OrientationOfTheNormalOfTheStructure);
 
-            var levelOfCrestOfStructureProperties = new NormalDistributionProperties(null)
+            var levelOfCrestOfStructureProperties = new NormalDistributionProperties
             {
                 Data = input.LevelOfCrestOfStructure
             };
             AssertDistributionProperties(levelOfCrestOfStructureProperties, properties.LevelOfCrestOfStructure);
 
-            var allowableIncreaseOfLevelForStorageProperties = new LogNormalDistributionProperties(null)
+            var allowableIncreaseOfLevelForStorageProperties = new LogNormalDistributionProperties
             {
                 Data = input.AllowableIncreaseOfLevelForStorage
             };
             AssertDistributionProperties(allowableIncreaseOfLevelForStorageProperties, properties.AllowableIncreaseOfLevelForStorage);
 
-            var storageStructureAreaProperties = new LogNormalDistributionProperties(null)
+            var storageStructureAreaProperties = new LogNormalDistributionProperties
             {
                 Data = input.StorageStructureArea
             };
             AssertDistributionProperties(storageStructureAreaProperties, properties.StorageStructureArea);
 
-            var flowWidthAtBottomProtectionProperties = new LogNormalDistributionProperties(null)
+            var flowWidthAtBottomProtectionProperties = new LogNormalDistributionProperties
             {
                 Data = input.FlowWidthAtBottomProtection
             };
             AssertDistributionProperties(flowWidthAtBottomProtectionProperties, properties.FlowWidthAtBottomProtection);
 
-            var widthOfFlowAperturesProperties = new NormalDistributionProperties(null)
+            var widthOfFlowAperturesProperties = new NormalDistributionProperties
             {
                 Data = input.WidthOfFlowApertures
             };
             AssertDistributionProperties(widthOfFlowAperturesProperties, properties.WidthOfFlowApertures);
 
-            var criticalOvertoppingDischargeProperties = new LogNormalDistributionProperties(null)
+            var criticalOvertoppingDischargeProperties = new LogNormalDistributionProperties
             {
                 Data = input.CriticalOvertoppingDischarge
             };
@@ -126,7 +126,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             Assert.AreEqual(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
 
-            var stormDurationProperties = new LogNormalDistributionProperties(null)
+            var stormDurationProperties = new LogNormalDistributionProperties
             {
                 Data = input.StormDuration
             };

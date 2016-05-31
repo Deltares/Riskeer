@@ -369,6 +369,42 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het soort kansverdeling waarin deze parameter gedefinieerd wordt..
+        /// </summary>
+        public static string Distribution_DestributionType_Description {
+            get {
+                return ResourceManager.GetString("Distribution_DestributionType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type verdeling.
+        /// </summary>
+        public static string Distribution_DestributionType_DisplayName {
+            get {
+                return ResourceManager.GetString("Distribution_DestributionType_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lognormaal.
+        /// </summary>
+        public static string DistributionType_LogNormal {
+            get {
+                return ResourceManager.GetString("DistributionType_LogNormal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normale verdeling.
+        /// </summary>
+        public static string DistributionType_Normal {
+            get {
+                return ResourceManager.GetString("DistributionType_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap EditDocumentIcon {
@@ -665,24 +701,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string LogNormalDistribution_StandardDeviation_Description {
             get {
                 return ResourceManager.GetString("LogNormalDistribution_StandardDeviation_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het soort kansverdeling waarin deze parameter gedefinieerd wordt..
-        /// </summary>
-        public static string NormalDistribution_DestributionType_Description {
-            get {
-                return ResourceManager.GetString("NormalDistribution_DestributionType_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Type verdeling.
-        /// </summary>
-        public static string NormalDistribution_DestributionType_DisplayName {
-            get {
-                return ResourceManager.GetString("NormalDistribution_DestributionType_DisplayName", resourceCulture);
             }
         }
         

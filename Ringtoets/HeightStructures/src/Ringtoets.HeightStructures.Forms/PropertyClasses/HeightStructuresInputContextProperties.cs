@@ -55,6 +55,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         #region Model settings
 
         [PropertyOrder(modelFactorOvertoppingSuperCriticalFlowPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "ModelFactorOvertoppingSuperCriticalFlow_DisplayName")]
         [ResourcesDescription(typeof(Resources), "ModelFactorOvertoppingSuperCriticalFlow_Description")]
@@ -62,7 +63,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties(data.WrappedData)
+                return new NormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.StandardDeviation)
                 {
                     Data = data.WrappedData.ModelFactorOvertoppingSuperCriticalFlow
                 };
@@ -111,6 +112,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(levelOfCrestOfStructurePropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "LevelOfCrestOfStructure_DisplayName")]
         [ResourcesDescription(typeof(Resources), "LevelOfCrestOfStructure_Description")]
@@ -118,7 +120,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties(data.WrappedData)
+                return new NormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
                 {
                     Data = data.WrappedData.LevelOfCrestOfStructure
                 };
@@ -126,6 +128,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(allowableIncreaseOfLevelForStoragePropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "AllowableIncreaseOfLevelForStorage_DisplayName")]
         [ResourcesDescription(typeof(Resources), "AllowableIncreaseOfLevelForStorage_Description")]
@@ -133,7 +136,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties(data.WrappedData)
+                return new LogNormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
                 {
                     Data = data.WrappedData.AllowableIncreaseOfLevelForStorage
                 };
@@ -141,6 +144,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(storageStructureAreaPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "StorageStructureArea_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StorageStructureArea_Description")]
@@ -148,7 +152,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties(data.WrappedData)
+                return new LogNormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
                 {
                     Data = data.WrappedData.StorageStructureArea
                 };
@@ -156,6 +160,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(flowWidthAtBottomProtectionPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "FlowWidthAtBottomProtection_DisplayName")]
         [ResourcesDescription(typeof(Resources), "FlowWidthAtBottomProtection_Description")]
@@ -163,7 +168,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties(data.WrappedData)
+                return new LogNormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
                 {
                     Data = data.WrappedData.FlowWidthAtBottomProtection
                 };
@@ -171,6 +176,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(widthOfFlowAperturesPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "WidthOfFlowApertures_DisplayName")]
         [ResourcesDescription(typeof(Resources), "WidthOfFlowApertures_Description")]
@@ -178,7 +184,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties(data.WrappedData)
+                return new NormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
                 {
                     Data = data.WrappedData.WidthOfFlowApertures
                 };
@@ -186,6 +192,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(criticalOvertoppingDischargePropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "CriticalOvertoppingDischarge_DisplayName")]
         [ResourcesDescription(typeof(Resources), "CriticalOvertoppingDischarge_Description")]
@@ -193,7 +200,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties(data.WrappedData)
+                return new LogNormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
                 {
                     Data = data.WrappedData.CriticalOvertoppingDischarge
                 };
@@ -239,6 +246,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(stormDurationPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "StormDuration_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StormDuration_Description")]
@@ -246,8 +254,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                // TODO make standard deviation read-only
-                return new LogNormalDistributionProperties(data.WrappedData)
+                return new LogNormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.StandardDeviation)
                 {
                     Data = data.WrappedData.StormDuration
                 };

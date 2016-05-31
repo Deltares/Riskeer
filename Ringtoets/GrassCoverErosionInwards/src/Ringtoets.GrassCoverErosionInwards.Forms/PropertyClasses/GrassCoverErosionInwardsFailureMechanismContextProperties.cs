@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
@@ -93,14 +94,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         #region Model settings
 
         [PropertyOrder(frunupModelFactorPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FrunupModelFactor_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FrunupModelFactor_Description")]
-        public ReadOnlyNormalDistributionProperties FrunupModelFactor
+        public NormalDistributionProperties FrunupModelFactor
         {
             get
             {
-                return new ReadOnlyNormalDistributionProperties
+                return new NormalDistributionProperties
                 {
                     Data = data.WrappedData.GeneralInput.FrunupModelFactor
                 };
@@ -108,14 +110,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(fbFactorPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FbFactor_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FbFactor_Description")]
-        public ReadOnlyNormalDistributionProperties FbFactor
+        public NormalDistributionProperties FbFactor
         {
             get
             {
-                return new ReadOnlyNormalDistributionProperties
+                return new NormalDistributionProperties
                 {
                     Data = data.WrappedData.GeneralInput.FbFactor
                 };
@@ -123,14 +126,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(fnFactorPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FnFactor_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FnFactor_Description")]
-        public ReadOnlyNormalDistributionProperties FnFactor
+        public NormalDistributionProperties FnFactor
         {
             get
             {
-                return new ReadOnlyNormalDistributionProperties
+                return new NormalDistributionProperties
                 {
                     Data = data.WrappedData.GeneralInput.FnFactor
                 };
@@ -138,14 +142,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(fshallowModelFactorPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FshallowModelFactor_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FshallowModelFactor_Description")]
-        public ReadOnlyNormalDistributionProperties FshallowModelFactor
+        public NormalDistributionProperties FshallowModelFactor
         {
             get
             {
-                return new ReadOnlyNormalDistributionProperties
+                return new NormalDistributionProperties
                 {
                     Data = data.WrappedData.GeneralInput.FshallowModelFactor
                 };

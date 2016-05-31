@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -106,14 +107,15 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         #region Model settings
 
         [PropertyOrder(modelfactorOvertoppingFlowPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Description")]
-        public ReadOnlyLogNormalDistributionProperties ModelFactorOvertoppingFlow
+        public LogNormalDistributionProperties ModelFactorOvertoppingFlow
         {
             get
             {
-                return new ReadOnlyLogNormalDistributionProperties
+                return new LogNormalDistributionProperties
                 {
                     Data = data.WrappedData.GeneralInput.ModelFactorOvertoppingFlow
                 };
@@ -121,14 +123,15 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(modelFactorForStorageVolumePropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_Description")]
-        public ReadOnlyLogNormalDistributionProperties ModelFactorForStorageVolume
+        public LogNormalDistributionProperties ModelFactorForStorageVolume
         {
             get
             {
-                return new ReadOnlyLogNormalDistributionProperties
+                return new LogNormalDistributionProperties
                 {
                     Data = data.WrappedData.GeneralInput.ModelFactorForStorageVolume
                 };

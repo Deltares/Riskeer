@@ -127,6 +127,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(criticalFlowRatePropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_CriticalValues")]
         [ResourcesDisplayName(typeof(Resources), "CriticalFlowRate_DisplayName")]
         [ResourcesDescription(typeof(Resources), "CriticalFlowRate_Description")]
@@ -134,7 +135,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties(data.WrappedData)
+                return new LogNormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
                 {
                     Data = data.WrappedData.CriticalFlowRate
                 };

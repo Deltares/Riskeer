@@ -24,12 +24,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
@@ -46,14 +44,26 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_WithoutParameters_ExpectedValues()
+        {
+            // Call
+            var properties = new NormalDistributionProperties();
+
+            // Assert
+            Assert.IsInstanceOf<DistributionProperties>(properties);
+            Assert.IsNull(properties.Data);
+            Assert.AreEqual("Normale verdeling", properties.DistributionType);
+        }
+
+        [Test]
+        public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
             var observerableMock = mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new NormalDistributionProperties(observerableMock);
+            var properties = new NormalDistributionProperties(observerableMock, DistributionPropertiesReadOnly.None);
 
             // Assert
             Assert.IsInstanceOf<DistributionProperties>(properties);
@@ -70,11 +80,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new NormalDistributionProperties(observerableMock);
+            var properties = new NormalDistributionProperties(observerableMock, DistributionPropertiesReadOnly.None);
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
+            Assert.IsNotInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
@@ -96,80 +106,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                           "De standaardafwijking van de normale verdeling.",
                                                                           attribute => attribute.Description);
 
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void SetProperties_MeanWithoutObserverable_ThrowsArgumentException()
-        {
-            // Setup
-            var properties = new NormalDistributionProperties(null)
-            {
-                Data = new LogNormalDistribution(2),
-            };
-
-            // Call
-            TestDelegate test = () => properties.Mean = new RoundedDouble(2, 20);
-
-            // Assert
-            Assert.Throws<ArgumentException>(test);
-        }
-
-        [Test]
-        public void SetProperties_StandardDeviationWithoutObserverable_ThrowsArgumentException()
-        {
-            // Setup
-            var properties = new NormalDistributionProperties(null)
-            {
-                Data = new LogNormalDistribution(2)
-            };
-
-            // Call
-            TestDelegate test = () => properties.StandardDeviation = new RoundedDouble(2, 20);
-
-            // Assert
-            Assert.Throws<ArgumentException>(test);
-        }
-
-        [Test]
-        public void SetProperties_MeanWithObserverable_ValueSetNotifyObservers()
-        {
-            // Setup
-            var observerableMock = mockRepository.StrictMock<IObservable>();
-            observerableMock.Expect(o => o.NotifyObservers()).Repeat.Once();
-            var properties = new NormalDistributionProperties(observerableMock)
-            {
-                Data = new LogNormalDistribution(3)
-            };
-            mockRepository.ReplayAll();
-            RoundedDouble newMeanValue = new RoundedDouble(3, 20);
-
-            // Call
-            properties.Mean = newMeanValue;
-
-            // Assert
-            Assert.AreEqual(newMeanValue, properties.Mean);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void SetProperties_StandardDeviationWithObserverable_ValueSetNotifyObservers()
-        {
-            // Setup
-            var observerableMock = mockRepository.StrictMock<IObservable>();
-            observerableMock.Expect(o => o.NotifyObservers()).Repeat.Once();
-            var properties = new NormalDistributionProperties(observerableMock)
-            {
-                Data = new LogNormalDistribution(3)
-            };
-            mockRepository.ReplayAll();
-            RoundedDouble newStandardDeviationValue = new RoundedDouble(3, 20);
-
-            // Call
-            properties.StandardDeviation = newStandardDeviationValue;
-
-            // Assert
-            Assert.AreEqual(newStandardDeviationValue, properties.StandardDeviation);
             mockRepository.VerifyAll();
         }
 

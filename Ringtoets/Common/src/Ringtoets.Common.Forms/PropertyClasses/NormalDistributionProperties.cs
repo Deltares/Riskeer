@@ -19,10 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
@@ -30,23 +30,30 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="NormalDistribution"/>
     /// properties.
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class NormalDistributionProperties : DistributionProperties
     {
+        /// <summary>
+        /// Creates a new read-only instance of <see cref="NormalDistributionProperties"/>.
+        /// </summary>
+        public NormalDistributionProperties() : this(null, DistributionPropertiesReadOnly.All) {}
+
         /// <summary>
         /// Creates a new instance of <see cref="NormalDistributionProperties"/>.
         /// </summary>
         /// <param name="observerable">Object to observe to notify upon change.</param>
-        public NormalDistributionProperties(IObservable observerable)
+        /// <param name="propertiesReadOnly">Sets if <see cref="DistributionProperties.Mean"/> and/or 
+        /// <see cref="DistributionProperties.StandardDeviation"/> should be marked read-only.</param>
+        public NormalDistributionProperties(IObservable observerable, DistributionPropertiesReadOnly propertiesReadOnly) : base(propertiesReadOnly)
         {
             Observerable = observerable;
+            
         }
 
         public override string DistributionType
         {
             get
             {
-                return "Normale verdeling";
+                return Resources.DistributionType_Normal;
             }
         }
     }

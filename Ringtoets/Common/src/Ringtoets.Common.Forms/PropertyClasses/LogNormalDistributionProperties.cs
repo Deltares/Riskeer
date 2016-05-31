@@ -19,9 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
@@ -33,14 +33,21 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="LogNormalDistribution"/>
     /// properties.
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class LogNormalDistributionProperties : DistributionProperties
     {
+        /// <summary>
+        /// Creates a new read-only instance of <see cref="LogNormalDistributionProperties"/>.
+        /// </summary>
+        public LogNormalDistributionProperties() : this(null, DistributionPropertiesReadOnly.All) {}
+
         /// <summary>
         /// Creates a new instance of <see cref="LogNormalDistributionProperties"/>.
         /// </summary>
         /// <param name="observerable">Object to observe to notify upon change.</param>
-        public LogNormalDistributionProperties(IObservable observerable)
+        /// <param name="propertiesReadOnly">Sets if <see cref="DistributionProperties.Mean"/> and/or 
+        /// <see cref="DistributionProperties.StandardDeviation"/> should be marked read-only.</param>
+        public LogNormalDistributionProperties(IObservable observerable, DistributionPropertiesReadOnly propertiesReadOnly)
+            : base(propertiesReadOnly)
         {
             Observerable = observerable;
         }
@@ -49,7 +56,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return "Lognormaal";
+                return Resources.DistributionType_LogNormal;
             }
         }
 
@@ -66,6 +73,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [ResourcesDescription(typeof(Resources), "LogNormalDistribution_StandardDeviation_Description")]
         public override RoundedDouble StandardDeviation
         {

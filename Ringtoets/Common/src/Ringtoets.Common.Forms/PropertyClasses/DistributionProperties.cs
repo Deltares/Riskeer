@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
@@ -33,15 +33,25 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// Property for probabilistic distribution.
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
     public abstract class DistributionProperties : ObjectProperties<IDistribution>
     {
+        private readonly bool isMeanReadOnly;
+        private readonly bool isStandardDeviationReadOnly;
         protected IObservable Observerable;
 
-        [ResourcesDisplayName(typeof(Resources), "NormalDistribution_DestributionType_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "NormalDistribution_DestributionType_Description")]
+        protected DistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly)
+        {
+            isStandardDeviationReadOnly = propertiesReadOnly == DistributionPropertiesReadOnly.All || propertiesReadOnly == DistributionPropertiesReadOnly.StandardDeviation;
+            isMeanReadOnly = propertiesReadOnly == DistributionPropertiesReadOnly.All || propertiesReadOnly == DistributionPropertiesReadOnly.Mean;
+        }
+
+        [PropertyOrder(1)]
+        [ResourcesDisplayName(typeof(Resources), "Distribution_DestributionType_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Distribution_DestributionType_Description")]
         public abstract string DistributionType { get; }
 
+        [PropertyOrder(2)]
+        [DynamicReadOnly]
         [ResourcesDisplayName(typeof(Resources), "NormalDistribution_Mean_DisplayName")]
         [ResourcesDescription(typeof(Resources), "NormalDistribution_Mean_Description")]
         public virtual RoundedDouble Mean
@@ -52,15 +62,21 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
+                if (isMeanReadOnly)
+                {
+                    throw new ArgumentException("Mean is set to be read-only.");
+                }
                 if (Observerable == null)
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("No observerable object set.");
                 }
                 data.Mean = new RoundedDouble(data.StandardDeviation.NumberOfDecimalPlaces, value);
                 Observerable.NotifyObservers();
             }
         }
 
+        [PropertyOrder(3)]
+        [DynamicReadOnly]
         [ResourcesDisplayName(typeof(Resources), "NormalDistribution_StandardDeviation_DisplayName")]
         [ResourcesDescription(typeof(Resources), "NormalDistribution_StandardDeviation_Description")]
         public virtual RoundedDouble StandardDeviation
@@ -71,12 +87,30 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
+                if (isStandardDeviationReadOnly)
+                {
+                    throw new ArgumentException("StandardDeviation is set to be read-only.");
+                }
                 if (Observerable == null)
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("No observerable object set.");
                 }
                 data.StandardDeviation = new RoundedDouble(data.StandardDeviation.NumberOfDecimalPlaces, value);
                 Observerable.NotifyObservers();
+            }
+        }
+
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadOnlyValidationMethod(string propertyName)
+        {
+            switch (propertyName)
+            {
+                case "Mean":
+                    return isMeanReadOnly;
+                case "StandardDeviation":
+                    return isStandardDeviationReadOnly;
+                default:
+                    return false;
             }
         }
 

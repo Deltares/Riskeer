@@ -19,38 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.ComponentModel;
-using Core.Common.Base.Data;
-using Core.Common.Gui.PropertyBag;
-using Ringtoets.Common.Data.Probabilistics;
-
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// A read-only <see cref="ObjectProperties{T}"/> implementation for <see cref="NormalDistribution"/>
-    /// properties.
+    /// All options to mark properties of <see cref="DistributionProperties"/> as read-only.
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class ReadOnlyNormalDistributionProperties : NormalDistributionProperties
+    public enum DistributionPropertiesReadOnly
     {
-        public ReadOnlyNormalDistributionProperties() : base(null) {}
+        /// <summary>
+        /// Mark both <see cref="DistributionProperties.Mean"/> and <see cref="DistributionProperties.StandardDeviation"/> read-only.
+        /// </summary>
+        All,
 
-        [ReadOnly(true)]
-        public override RoundedDouble Mean
-        {
-            get
-            {
-                return base.Mean;
-            }
-        }
+        /// <summary>
+        /// Mark <see cref="DistributionProperties.Mean"/> read-only.
+        /// </summary>
+        Mean,
 
-        [ReadOnly(true)]
-        public override RoundedDouble StandardDeviation
-        {
-            get
-            {
-                return base.StandardDeviation;
-            }
-        }
+        /// <summary>
+        /// Mark<see cref="DistributionProperties.StandardDeviation"/> read-only.
+        /// </summary>
+        StandardDeviation,
+
+        /// <summary>
+        /// Mark both <see cref="DistributionProperties.Mean"/> and <see cref="DistributionProperties.StandardDeviation"/> editable.
+        /// </summary>
+        None
     }
 }
