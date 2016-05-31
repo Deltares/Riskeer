@@ -34,33 +34,15 @@ namespace Ringtoets.HeightStructures.Data.Test
     public class HeightStructuresInputTest
     {
         [Test]
-        public void Constructor_NullGeneralInput_ThrowsArgumentNullException()
-        {
-            // Setup & Call
-            TestDelegate test = () => new HeightStructuresInput(null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
-        }
-
-        [Test]
         public void Constructor_DefaultPropertyValuesAreSet()
         {
-            // Setup
-            var generalInput = new GeneralHeightStructuresInput();
-
             // Call
-            var input = new HeightStructuresInput(generalInput);
+            var input = new HeightStructuresInput();
 
             // Assert
             Assert.IsInstanceOf<Observable>(input);
             Assert.IsInstanceOf<ICalculationInput>(input);
             Assert.IsNull(input.HydraulicBoundaryLocation);
-
-            Assert.AreEqual(generalInput.GravitationalAcceleration, input.GravitationalAcceleration);
-            Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow, input.ModelFactorOvertoppingFlow);
-            Assert.AreEqual(generalInput.ModelFactorForStorageVolume, input.ModelFactorForStorageVolume);
-            Assert.AreEqual(generalInput.ModelFactorForIncomingFlowVolume, input.ModelFactorForIncomingFlowVolume);
 
             AssertAreEqual(0.05, input.LevelOfCrestOfStructure.StandardDeviation);
             AssertAreEqual(1.1, input.ModelFactorOvertoppingSuperCriticalFlow.Mean);
@@ -78,7 +60,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void Properties_ModelFactorOvertoppingSuperCriticalFlow_ExpectedValues()
         {
             // Setup
-            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var input = new HeightStructuresInput();
             var random = new Random(22);
 
             RoundedDouble defaultModelFactorOvertoppingSupercriticalFlowStandardDeviation = input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation;
@@ -100,7 +82,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void Properties_HydraulicBoundaryLocation_ExpectedValues()
         {
             // Setup
-            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var input = new HeightStructuresInput();
             var location = new HydraulicBoundaryLocation(0, "test", 0, 0);
 
             // Call
@@ -114,7 +96,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void Properties_DeviationOfTheWaveDirection_ExpectedValues()
         {
             // Setup
-            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var input = new HeightStructuresInput();
             var random = new Random(22);
 
             RoundedDouble deviationOfTheWaveDirection = new RoundedDouble(5, random.NextDouble());
@@ -130,7 +112,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void Properties_StormDuration_ExpectedValues()
         {
             // Setup
-            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var input = new HeightStructuresInput();
             var random = new Random(22);
 
             RoundedDouble defaultStormDurationStandardDeviation = input.StormDuration.StandardDeviation;
@@ -152,7 +134,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void Properties_LevelOfCrestOfStructure_ExpectedValues()
         {
             // Setup
-            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var input = new HeightStructuresInput();
             var random = new Random(22);
 
             NormalDistribution levelOfCrestOfStructure = new NormalDistribution(5)
@@ -173,7 +155,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void Properties_OrientationOfTheNormalOfTheStructure_ExpectedValues()
         {
             // Setup
-            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var input = new HeightStructuresInput();
             var random = new Random(22);
 
             RoundedDouble orientationOfTheNormalOfTheStructure = new RoundedDouble(5, random.NextDouble());
@@ -189,7 +171,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void Properties_AllowableIncreaseOfLevelForStorage_ExpectedValues()
         {
             // Setup
-            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var input = new HeightStructuresInput();
             var random = new Random(22);
 
             LogNormalDistribution allowableIncreaseOfLevelForStorage = new LogNormalDistribution(5)
@@ -210,7 +192,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void Properties_StorageStructureArea_ExpectedValues()
         {
             // Setup
-            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var input = new HeightStructuresInput();
             var random = new Random(22);
 
             LogNormalDistribution storageStructureArea = new LogNormalDistribution(5)
@@ -231,7 +213,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void Properties_FlowWidthAtBottomProtection_ExpectedValues()
         {
             // Setup
-            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var input = new HeightStructuresInput();
             var random = new Random(22);
 
             LogNormalDistribution flowWidthAtBottomProtection = new LogNormalDistribution(5)
@@ -252,7 +234,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void Properties_CriticalOvertoppingDischarge_ExpectedValues()
         {
             // Setup
-            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var input = new HeightStructuresInput();
             var random = new Random(22);
 
             LogNormalDistribution criticalOvertoppingDischarge = new LogNormalDistribution(5)
@@ -273,7 +255,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void Properties_FailureProbabilityOfStructureGivenErosion_ExpectedValues()
         {
             // Setup
-            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var input = new HeightStructuresInput();
             var random = new Random(22);
 
             RoundedDouble failureProbabilityOfStructureGivenErosion = new RoundedDouble(5, random.NextDouble());
@@ -289,7 +271,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void Properties_WidthOfFlowApertures_ExpectedValues()
         {
             // Setup
-            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var input = new HeightStructuresInput();
             var random = new Random(22);
 
             NormalDistribution widthOfFlowApertures = new NormalDistribution(5)

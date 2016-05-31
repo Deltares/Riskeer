@@ -41,7 +41,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/> is <c>null</c>.</exception>
         public HeightStructuresCalculation(GeneralHeightStructuresInput generalInputParameters)
         {
-            InputParameters = new HeightStructuresInput(generalInputParameters);
+            InputParameters = new HeightStructuresInput();
             Name = Resources.HeightStructuresCalculation_DefaultName;
             AddDemoInput();
         }

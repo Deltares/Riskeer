@@ -46,7 +46,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var input = new HeightStructuresInput();
             var calculationMock = mocksRepository.StrictMock<ICalculation>();
             var failureMechanismMock = mocksRepository.StrictMock<HeightStructuresFailureMechanism>();
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
@@ -68,7 +68,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
         public void Constructor_NullCalculation_ThrowsArgumentNullException()
         {
             // Setup
-            var input = new HeightStructuresInput(new GeneralHeightStructuresInput());
+            var input = new HeightStructuresInput();
             var failureMechanismMock = mocksRepository.StrictMock<HeightStructuresFailureMechanism>();
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             mocksRepository.ReplayAll();

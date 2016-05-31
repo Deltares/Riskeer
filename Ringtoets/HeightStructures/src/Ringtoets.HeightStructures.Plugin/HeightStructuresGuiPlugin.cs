@@ -31,7 +31,6 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -135,13 +134,14 @@ namespace Ringtoets.HeightStructures.Plugin
             };
         }
 
-        private static ExceedanceProbabilityCalculationActivity CreateHydraRingExceedenceProbabilityCalculationActivity(ProbabilityAssessmentInput probabilityAssessmentInput,
-                                                                                                                        FailureMechanismSection failureMechanismSection,
+        private static ExceedanceProbabilityCalculationActivity CreateHydraRingExceedenceProbabilityCalculationActivity(HeightStructuresFailureMechanism failureMechanism,
                                                                                                                         string hlcdDirectory,
                                                                                                                         HeightStructuresCalculation calculation)
         {
             var hydraulicBoundaryLocationId = (int) calculation.InputParameters.HydraulicBoundaryLocation.Id;
+            var failureMechanismSection = failureMechanism.Sections.First(); // TODO: Obtain dike section based on cross section of structure with reference line
             var sectionLength = failureMechanismSection.GetSectionLength();
+            var generalInputParameters = failureMechanism.GeneralInput;
             var inputParameters = calculation.InputParameters;
 
             return HydraRingActivityFactory.Create(
@@ -152,15 +152,15 @@ namespace Ringtoets.HeightStructures.Plugin
                 HydraRingUncertaintiesType.All,
                 new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId,
                                                           new HydraRingSection(1, failureMechanismSection.Name, sectionLength, inputParameters.OrientationOfTheNormalOfTheStructure),
-                                                          inputParameters.GravitationalAcceleration,
-                                                          inputParameters.ModelFactorOvertoppingFlow.Mean, inputParameters.ModelFactorOvertoppingFlow.StandardDeviation,
+                                                          generalInputParameters.GravitationalAcceleration,
+                                                          generalInputParameters.ModelFactorOvertoppingFlow.Mean, generalInputParameters.ModelFactorOvertoppingFlow.StandardDeviation,
                                                           inputParameters.LevelOfCrestOfStructure.Mean, inputParameters.LevelOfCrestOfStructure.StandardDeviation,
                                                           inputParameters.OrientationOfTheNormalOfTheStructure,
                                                           inputParameters.ModelFactorOvertoppingSuperCriticalFlow.Mean, inputParameters.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation,
                                                           inputParameters.AllowableIncreaseOfLevelForStorage.Mean, inputParameters.AllowableIncreaseOfLevelForStorage.StandardDeviation,
-                                                          inputParameters.ModelFactorForStorageVolume.Mean, inputParameters.ModelFactorForStorageVolume.StandardDeviation,
+                                                          generalInputParameters.ModelFactorForStorageVolume.Mean, generalInputParameters.ModelFactorForStorageVolume.StandardDeviation,
                                                           inputParameters.StorageStructureArea.Mean, inputParameters.StorageStructureArea.StandardDeviation,
-                                                          inputParameters.ModelFactorForIncomingFlowVolume,
+                                                          generalInputParameters.ModelFactorForIncomingFlowVolume,
                                                           inputParameters.FlowWidthAtBottomProtection.Mean, inputParameters.FlowWidthAtBottomProtection.StandardDeviation,
                                                           inputParameters.CriticalOvertoppingDischarge.Mean, inputParameters.CriticalOvertoppingDischarge.StandardDeviation,
                                                           inputParameters.FailureProbabilityOfStructureGivenErosion,
@@ -168,7 +168,7 @@ namespace Ringtoets.HeightStructures.Plugin
                                                           inputParameters.DeviationOfTheWaveDirection,
                                                           inputParameters.StormDuration.Mean, inputParameters.StormDuration.StandardDeviation),
                 calculation.ClearOutput,
-                output => { ParseHydraRingOutput(calculation, probabilityAssessmentInput, output); });
+                output => { ParseHydraRingOutput(calculation, failureMechanism.ProbabilityAssessmentInput, output); });
         }
 
         private void CalculateAll(HeightStructuresFailureMechanism failureMechanism, IEnumerable<HeightStructuresCalculation> calculations, IAssessmentSection assessmentSection)
@@ -176,8 +176,7 @@ namespace Ringtoets.HeightStructures.Plugin
             // TODO: Remove "Where" filter when validation is implemented
             ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations.Where(calc => calc.InputParameters.HydraulicBoundaryLocation != null)
                                                                          .Select(calc => CreateHydraRingExceedenceProbabilityCalculationActivity(
-                                                                             failureMechanism.ProbabilityAssessmentInput,
-                                                                             failureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of structure with reference line
+                                                                             failureMechanism,
                                                                              Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
                                                                              calc)).ToList());
         }
@@ -497,8 +496,7 @@ namespace Ringtoets.HeightStructures.Plugin
                 return;
             }
             var activity = CreateHydraRingExceedenceProbabilityCalculationActivity(
-                context.FailureMechanism.ProbabilityAssessmentInput,
-                context.FailureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
+                context.FailureMechanism,
                 Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
                 calculation);
 

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -34,7 +33,6 @@ namespace Ringtoets.HeightStructures.Data
     public class HeightStructuresInput : Observable, ICalculationInput
     {
         private readonly NormalDistribution levelOfCrestOfStructure;
-        private readonly GeneralHeightStructuresInput generalInputParameters;
         private readonly NormalDistribution modelFactorOvertoppingSuperCriticalFlow;
         private readonly LogNormalDistribution allowableIncreaseOfLevelForStorage;
         private readonly LogNormalDistribution storageStructureArea;
@@ -49,16 +47,8 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresInput"/> class.
         /// </summary>
-        /// <param name="generalInputParameters">General height structures calculation input parameters that apply to each calculation.</param>
-        /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/> is <c>null</c>.</exception>
-        public HeightStructuresInput(GeneralHeightStructuresInput generalInputParameters)
+        public HeightStructuresInput()
         {
-            if (generalInputParameters == null)
-            {
-                throw new ArgumentNullException("generalInputParameters");
-            }
-            this.generalInputParameters = generalInputParameters;
-
             levelOfCrestOfStructure = new NormalDistribution(2)
             {
                 StandardDeviation = (RoundedDouble) 0.05
@@ -296,54 +286,6 @@ namespace Ringtoets.HeightStructures.Data
             {
                 widthOfFlowApertures.Mean = value.Mean;
                 widthOfFlowApertures.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        #endregion
-
-        #region General input parameters
-
-        /// <summary>
-        /// Gets the gravitational acceleration.
-        /// </summary>
-        public RoundedDouble GravitationalAcceleration
-        {
-            get
-            {
-                return generalInputParameters.GravitationalAcceleration;
-            }
-        }
-
-        /// <summary>
-        /// Gets the model factor overtopping flow.
-        /// </summary>
-        public LogNormalDistribution ModelFactorOvertoppingFlow
-        {
-            get
-            {
-                return generalInputParameters.ModelFactorOvertoppingFlow;
-            }
-        }
-
-        /// <summary>
-        /// Gets the model factor for storage volume.
-        /// </summary>
-        public LogNormalDistribution ModelFactorForStorageVolume
-        {
-            get
-            {
-                return generalInputParameters.ModelFactorForStorageVolume;
-            }
-        }
-
-        /// <summary>
-        /// Gets the model factor for incoming flow volume.
-        /// </summary>
-        public RoundedDouble ModelFactorForIncomingFlowVolume
-        {
-            get
-            {
-                return generalInputParameters.ModelFactorForIncomingFlowVolume;
             }
         }
 
