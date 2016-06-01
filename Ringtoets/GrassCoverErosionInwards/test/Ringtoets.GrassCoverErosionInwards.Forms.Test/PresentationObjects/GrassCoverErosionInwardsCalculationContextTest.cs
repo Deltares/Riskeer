@@ -44,9 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var calculationMock = mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(
-                new GeneralGrassCoverErosionInwardsInput(),
-                new ProbabilityAssessmentInput());
+            var calculationMock = mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(new ProbabilityAssessmentInput());
             var failureMechanismMock = mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             mocksRepository.ReplayAll();

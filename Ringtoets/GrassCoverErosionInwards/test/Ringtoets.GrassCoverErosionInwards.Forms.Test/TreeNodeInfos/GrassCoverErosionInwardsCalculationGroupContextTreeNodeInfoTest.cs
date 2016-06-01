@@ -129,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var group = new CalculationGroup();
             var childGroup = new CalculationGroup();
-            var childCalculation = new GrassCoverErosionInwardsCalculation(failureMechanism.GeneralInput, failureMechanism.ProbabilityAssessmentInput);
+            var childCalculation = new GrassCoverErosionInwardsCalculation(failureMechanism.ProbabilityAssessmentInput);
 
             group.Children.Add(childGroup);
             group.Children.Add(calculationItemMock);
@@ -347,7 +347,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new ProbabilityAssessmentInput())
+                    new GrassCoverErosionInwardsCalculation(new ProbabilityAssessmentInput())
                 }
             };
 
@@ -388,7 +388,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new ProbabilityAssessmentInput())
+                    new GrassCoverErosionInwardsCalculation(new ProbabilityAssessmentInput())
                 }
             };
 
@@ -397,9 +397,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(
-                new GeneralGrassCoverErosionInwardsInput(),
-                new ProbabilityAssessmentInput()));
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(new ProbabilityAssessmentInput()));
 
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(null);
@@ -442,7 +440,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new ProbabilityAssessmentInput())
+                    new GrassCoverErosionInwardsCalculation(new ProbabilityAssessmentInput())
                 }
             };
 
@@ -451,9 +449,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(
-                new GeneralGrassCoverErosionInwardsInput(),
-                new ProbabilityAssessmentInput()));
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(new ProbabilityAssessmentInput()));
 
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
@@ -497,7 +493,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new ProbabilityAssessmentInput())
+                    new GrassCoverErosionInwardsCalculation(new ProbabilityAssessmentInput())
                 }
             };
 
@@ -514,9 +510,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(
-                new GeneralGrassCoverErosionInwardsInput(),
-                new ProbabilityAssessmentInput()));
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(new ProbabilityAssessmentInput()));
 
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
@@ -564,7 +558,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 new Point2D(0, 0)
             }));
 
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new ProbabilityAssessmentInput())
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(new ProbabilityAssessmentInput())
             {
                 Name = "A",
                 InputParameters =
@@ -573,7 +567,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 }
             });
 
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new ProbabilityAssessmentInput())
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(new ProbabilityAssessmentInput())
             {
                 Name = "B",
                 InputParameters =
@@ -677,7 +671,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                failureMechanism,
                                                                                assessmentSectionMock);
-            var calculationItem = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput(), new ProbabilityAssessmentInput())
+            var calculationItem = new GrassCoverErosionInwardsCalculation(new ProbabilityAssessmentInput())
             {
                 Name = "Nieuwe berekening"
             };
@@ -759,9 +753,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var parentNodeData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
                                                                                      failureMechanism,
                                                                                      assessmentSectionMock);
-            var calculation = new GrassCoverErosionInwardsCalculation(
-                new GeneralGrassCoverErosionInwardsInput(),
-                new ProbabilityAssessmentInput());
+            var calculation = new GrassCoverErosionInwardsCalculation(new ProbabilityAssessmentInput());
 
             observerMock.Expect(o => o.UpdateObserver());
 

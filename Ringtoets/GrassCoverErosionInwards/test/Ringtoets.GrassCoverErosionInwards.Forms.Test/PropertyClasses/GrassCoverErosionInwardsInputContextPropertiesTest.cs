@@ -62,8 +62,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput, new ProbabilityAssessmentInput());
+            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(new ProbabilityAssessmentInput());
             mockRepository.ReplayAll();
 
             var input = new GrassCoverErosionInwardsInput();
@@ -120,8 +119,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput, new ProbabilityAssessmentInput());
+            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(new ProbabilityAssessmentInput());
             mockRepository.ReplayAll();
 
             var input = new GrassCoverErosionInwardsInput();
@@ -152,9 +150,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput, new ProbabilityAssessmentInput());
-            var inputMock = mockRepository.StrictMock<GrassCoverErosionInwardsInput>(generalInput);
+            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(new ProbabilityAssessmentInput());
+            var inputMock = mockRepository.StrictMock<GrassCoverErosionInwardsInput>();
             mockRepository.ReplayAll();
 
             // Call

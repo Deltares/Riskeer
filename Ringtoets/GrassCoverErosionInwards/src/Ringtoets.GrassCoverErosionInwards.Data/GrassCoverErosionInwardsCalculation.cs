@@ -37,16 +37,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculation"/>.
         /// </summary>
-        /// <param name="generalInputParameters">General grass cover erosion inwards calculation input parameters 
-        /// that apply to each calculation.</param>
         /// <param name="probabilityAssessmentInput">General probabilistic assessment parameters that apply to each 
         /// calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <list type="bullet">
-        /// <item><paramref name="generalInputParameters"/> is <c>null</c>.</item>
-        /// <item><paramref name="probabilityAssessmentInput"/> is <c>null</c>.</item>
-        /// </list> </exception>
-        public GrassCoverErosionInwardsCalculation(GeneralGrassCoverErosionInwardsInput generalInputParameters,
-                                                   ProbabilityAssessmentInput probabilityAssessmentInput)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="probabilityAssessmentInput"/> is <c>null</c>.</exception>
+        public GrassCoverErosionInwardsCalculation(ProbabilityAssessmentInput probabilityAssessmentInput)
         {
             if (probabilityAssessmentInput == null)
             {

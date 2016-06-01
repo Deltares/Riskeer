@@ -79,11 +79,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var generalInput = new GeneralGrassCoverErosionInwardsInput();
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             var grassCoverErosionInwardsInputContext = new GrassCoverErosionInwardsInputContext(
-                mocksRepository.StrictMock<GrassCoverErosionInwardsInput>(generalInput),
-                mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput, new ProbabilityAssessmentInput()),
+                mocksRepository.StrictMock<GrassCoverErosionInwardsInput>(),
+                mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(new ProbabilityAssessmentInput()),
                 new GrassCoverErosionInwardsFailureMechanism(),
                 assessmentSectionMock);
 
@@ -101,11 +100,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var generalInput = new GeneralGrassCoverErosionInwardsInput();
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             var grassCoverErosionInwardsInputContext = new GrassCoverErosionInwardsInputContext(
-                mocksRepository.StrictMock<GrassCoverErosionInwardsInput>(generalInput),
-                mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput, new ProbabilityAssessmentInput()),
+                mocksRepository.StrictMock<GrassCoverErosionInwardsInput>(),
+                mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(new ProbabilityAssessmentInput()),
                 new GrassCoverErosionInwardsFailureMechanism(),
                 assessmentSectionMock);
 
