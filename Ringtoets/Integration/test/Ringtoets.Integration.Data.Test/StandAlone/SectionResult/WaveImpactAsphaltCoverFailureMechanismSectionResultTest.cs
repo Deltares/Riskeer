@@ -28,13 +28,13 @@ using Ringtoets.Integration.Data.StandAlone.SectionResult;
 namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResult
 {
     [TestFixture]
-    public class NumericFailureMechanismSectionResultTest
+    public class WaveImpactAsphaltCoverFailureMechanismSectionResultTest
     {
         [Test]
         public void Constructor_WithoutSection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new NumericFailureMechanismSectionResult(null);
+            TestDelegate test = () => new WaveImpactAsphaltCoverFailureMechanismSectionResult(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResult
             var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
 
             // Call
-            var result = new NumericFailureMechanismSectionResult(section);
+            var result = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);

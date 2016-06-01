@@ -29,16 +29,16 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Forms.Views.SectionResultRow;
 
-namespace Ringtoets.Integration.Forms.Test.Views
+namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRow
 {
     [TestFixture]
-    public class NumericFailureMechanismSectionResultRowTest
+    public class WaterPressureAsphaltCoverSectionResultRowTest
     {
         [Test]
         public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new NumericFailureMechanismSectionResultRow(null);
+            TestDelegate test = () => new WaterPressureAsphaltCoverSectionResultRow(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -50,10 +50,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var section = CreateSection();
-            var result = new NumericFailureMechanismSectionResult(section);
+            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section);
 
             // Call
-            var row = new NumericFailureMechanismSectionResultRow(result);
+            var row = new WaterPressureAsphaltCoverSectionResultRow(result);
 
             // Assert
             Assert.AreEqual(section.Name, row.Name);
@@ -69,8 +69,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var section = CreateSection();
-            var result = new NumericFailureMechanismSectionResult(section);
-            var row = new NumericFailureMechanismSectionResultRow(result);
+            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section);
+            var row = new WaterPressureAsphaltCoverSectionResultRow(result);
 
             int counter = 0;
             using (new Observer(() => counter++)
@@ -94,8 +94,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var random = new Random(21);
             var newValue = random.NextDouble();
             var section = CreateSection();
-            var result = new NumericFailureMechanismSectionResult(section);
-            var row = new NumericFailureMechanismSectionResultRow(result);
+            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section);
+            var row = new WaterPressureAsphaltCoverSectionResultRow(result);
 
             // Call
             row.AssessmentLayerTwoA = (RoundedDouble)newValue;
@@ -111,8 +111,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var random = new Random(21);
             var newValue = random.NextDouble();
             var section = CreateSection();
-            var result = new NumericFailureMechanismSectionResult(section);
-            var row = new NumericFailureMechanismSectionResultRow(result);
+            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section);
+            var row = new WaterPressureAsphaltCoverSectionResultRow(result);
 
             // Call
             row.AssessmentLayerThree = (RoundedDouble)newValue;

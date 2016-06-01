@@ -19,46 +19,43 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
+using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
 
-namespace Ringtoets.Integration.Data.Test.StandAlone
+namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResult
 {
     [TestFixture]
-    public class StrengthStabilityLengthwiseConstructionFailureMechanismTest
+    public class WaterPressureAsphaltCoverFailureMechanismSectionResultTest
     {
         [Test]
-        public void DefaultConstructor_Always_PropertiesSet()
+        public void Constructor_WithoutSection_ThrowsArgumentNullException()
         {
             // Call
-            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
+            TestDelegate test = () => new WaterPressureAsphaltCoverFailureMechanismSectionResult(null);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
-            Assert.AreEqual("Kunstwerken - Sterkte en stabiliteit langsconstructies", failureMechanism.Name);
-            Assert.AreEqual("STKWl", failureMechanism.Code);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("section", paramName);
         }
 
         [Test]
-        public void AddSection_WithSection_AddedNumericFailureMechanismResult()
+        public void Constructor_WithSection_ResultCreatedForSection()
         {
             // Setup
-            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
-            
+            var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
+
             // Call
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-            {
-                new Point2D(2, 1)
-            }));
+            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section);
 
             // Assert
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.IsInstanceOf<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+            Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
+            Assert.AreSame(section, result.Section);
+            Assert.IsFalse(result.AssessmentLayerOne);
+            Assert.AreEqual(0, result.AssessmentLayerTwoA.Value);
+            Assert.AreEqual(0, result.AssessmentLayerThree.Value);
         }
     }
 }

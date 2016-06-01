@@ -201,6 +201,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             genericMethod.Invoke(this, null);
         }
 
+        /* Used in ChildNodeObjects_FailureMechanismIsRelevantWithDifferentFailureMechanismSectionResults_OutputNodeAdded(Type) */
         public void ChildNodeObjects_FailureMechanismIsRelevantWithSectionResults_OutputNodeAdded<T>() where T : FailureMechanismSectionResult
         {
              // Setup

@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
-using Core.Common.Base.Properties;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultRow
@@ -30,7 +28,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRow
     /// Container of a <see cref="FailureMechanismSectionResult"/>, which takes care of the
     /// representation of properties in a grid.
     /// </summary>
-    public class FailureMechanismSectionResultRow<T> where T : FailureMechanismSectionResult
+    public abstract class FailureMechanismSectionResultRow<T> where T : FailureMechanismSectionResult
     {
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionResultRow{T}"/>.
@@ -39,7 +37,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRow
         /// the source of this row.</param>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="sectionResult"/> is
         /// <c>null</c>.</exception>
-        public FailureMechanismSectionResultRow(T sectionResult)
+        protected FailureMechanismSectionResultRow(T sectionResult)
         {
             if (sectionResult == null)
             {

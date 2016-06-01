@@ -88,6 +88,8 @@
     <Compile Include="TreeNodeInfos\ReferenceLineContextTreeNodeInfoTest.cs" />
     <Compile Include="Views\MacrostabilityInwardsResultViewTest.cs" />
     <Compile Include="Views\MacrostabilityOutwardsResultViewTest.cs" />
+    <Compile Include="Views\SectionResultRow\WaveImpactAsphaltCoverSectionResultRowTest.cs" />
+    <Compile Include="Views\SectionResultRow\WaterPressureAsphaltCoverSectionResultRowTest.cs" />
     <Compile Include="Views\WaveImpactAsphaltCoverResultViewTest.cs" />
     <Compile Include="Views\WaterPressureAsphaltCoverResultViewTest.cs" />
     <Compile Include="Views\SectionResultRow\ClosingStructureSectionResultRowTest.cs" />
@@ -98,7 +100,7 @@
     <Compile Include="Views\ClosingStructureResultViewTest.cs" />
     <Compile Include="Views\StrengthStabilityLengthwiseConstructionResultViewTest.cs" />
     <Compile Include="Views\FailureMechanismContributionViewTest.cs" />
-    <Compile Include="Views\SectionResultRow\NumericFailureMechanismSectionResultRowTest.cs" />
+    <Compile Include="Views\SectionResultRow\StrengthStabilityLengthwiseConstructionSectionResultRowTest.cs" />
     <Compile Include="Views\SimpleFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\SectionResultRow\SimpleFailureMechanismSectionResultRowTest.cs" />
   </ItemGroup>

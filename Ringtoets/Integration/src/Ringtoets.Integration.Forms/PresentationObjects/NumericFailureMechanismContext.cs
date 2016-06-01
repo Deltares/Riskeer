@@ -23,13 +23,12 @@ using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Data.StandAlone.SectionResult;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
     /// This class is a presentation object for an instance of <see cref="IFailureMechanism"/>,
-    /// which has <see cref="NumericFailureMechanismSectionResult"/>.
+    /// which has <see cref="FailureMechanismSectionResult"/>.
     /// </summary>
     public class NumericFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
     {
