@@ -30,7 +30,6 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// </summary>
     public class LogNormalDistribution : IDistribution
     {
-        private readonly int numberOfDecimalPlaces;
         private RoundedDouble standardDeviation;
         private RoundedDouble mean;
 
@@ -50,7 +49,6 @@ namespace Ringtoets.Common.Data.Probabilistics
                 throw new ArgumentOutOfRangeException("numberOfDecimalPlaces",
                                                       "Value must be in range [1, 15].");
             }
-            this.numberOfDecimalPlaces = numberOfDecimalPlaces;
             // Simplified calculation mean and standard deviation given mu=0 and sigma=1.
             mean = new RoundedDouble(numberOfDecimalPlaces, Math.Exp(-0.5));
             standardDeviation = new RoundedDouble(numberOfDecimalPlaces, Math.Sqrt((Math.Exp(1) - 1)*Math.Exp(1)));
@@ -91,5 +89,5 @@ namespace Ringtoets.Common.Data.Probabilistics
                 standardDeviation = value.ToPrecision(standardDeviation.NumberOfDecimalPlaces);
             }
         }
-     }
+    }
 }
