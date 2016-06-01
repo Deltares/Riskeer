@@ -66,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput, new ProbabilityAssessmentInput());
             mockRepository.ReplayAll();
 
-            var input = new GrassCoverErosionInwardsInput(generalInput);
+            var input = new GrassCoverErosionInwardsInput();
             var properties = new DikeGeometryProperties();
 
             // Call
@@ -123,7 +123,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput, new ProbabilityAssessmentInput());
             mockRepository.ReplayAll();
 
-            var input = new GrassCoverErosionInwardsInput(generalInput);
+            var input = new GrassCoverErosionInwardsInput();
 
             // Call
             var properties = new DikeGeometryProperties

@@ -33,23 +33,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
     public class GrassCoverErosionInwardsInputTest
     {
         [Test]
-        public void Constructor_NullGeneralInput_ThrowsArgumentNullException()
-        {
-            // Setup & Call
-            TestDelegate test = () => new GrassCoverErosionInwardsInput(null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var generalInput = new GeneralGrassCoverErosionInwardsInput();
-
             // Call
-            var input = new GrassCoverErosionInwardsInput(generalInput);
+            var input = new GrassCoverErosionInwardsInput();
 
             // Assert
             Assert.IsInstanceOf<Observable>(input);
@@ -64,21 +51,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             };
             Assert.AreEqual(criticalFlowRate.Mean, input.CriticalFlowRate.Mean);
             Assert.AreEqual(criticalFlowRate.StandardDeviation, input.CriticalFlowRate.StandardDeviation);
-
-            Assert.AreEqual(generalInput.FbFactor, input.FbFactor);
-            Assert.AreEqual(generalInput.FnFactor, input.FnFactor);
-            Assert.AreEqual(generalInput.FshallowModelFactor, input.FshallowModelFactor);
-            Assert.AreEqual(generalInput.FrunupModelFactor, input.FrunupModelFactor);
-            Assert.AreEqual(generalInput.CriticalOvertoppingModelFactor, input.CriticalOvertoppingModelFactor);
-            Assert.AreEqual(generalInput.OvertoppingModelFactor, input.OvertoppingModelFactor);
         }
 
         [Test]
         public void Properties_ExpectedValues()
         {
             // Setup
-            var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var input = new GrassCoverErosionInwardsInput(generalInput);
+            var input = new GrassCoverErosionInwardsInput();
             var orientation = new RoundedDouble(2, 1.18);
             var logNormal = new LogNormalDistribution(2);
             const bool useForeshore = true;
@@ -112,8 +91,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void SetDikeGeometry_NullRoughnessProfileSections_ThrowsArgumentNullException()
         {
             // Setup
-            var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var input = new GrassCoverErosionInwardsInput(generalInput);
+            var input = new GrassCoverErosionInwardsInput();
 
             // Call
             TestDelegate test = () => input.SetDikeGeometry(null);
@@ -126,8 +104,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void SetForeshoreGeometry_NullProfileSections_ThrowsArgumentNullException()
         {
             // Setup
-            var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var input = new GrassCoverErosionInwardsInput(generalInput);
+            var input = new GrassCoverErosionInwardsInput();
 
             // Call
             TestDelegate test = () => input.SetForeshoreGeometry(null);
@@ -140,8 +117,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void SetDikeGeometry_ValidGeometry_ReturnsExpectedValues()
         {
             // Setup
-            var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var input = new GrassCoverErosionInwardsInput(generalInput);
+            var input = new GrassCoverErosionInwardsInput();
             var sections = new[]
             {
                 new RoughnessProfileSection(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4), 1.1),
@@ -159,8 +135,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void SetForeshoreGeometry_ValidGeometry_ReturnsExpectedValues()
         {
             // Setup
-            var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var input = new GrassCoverErosionInwardsInput(generalInput);
+            var input = new GrassCoverErosionInwardsInput();
             var sections = new[]
             {
                 new ProfileSection(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4)),

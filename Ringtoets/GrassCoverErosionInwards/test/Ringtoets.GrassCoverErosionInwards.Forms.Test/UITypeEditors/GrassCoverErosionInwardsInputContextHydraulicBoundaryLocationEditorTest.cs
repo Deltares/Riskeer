@@ -54,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation());
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var grassCoverErosionInwardsInput = new GrassCoverErosionInwardsInput(failureMechanism.GeneralInput);
+            var grassCoverErosionInwardsInput = new GrassCoverErosionInwardsInput();
             var calculationMock = mockRepository.StrictMock<ICalculation>();
             
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
@@ -101,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var grassCoverErosionInwardsInput = new GrassCoverErosionInwardsInput(failureMechanism.GeneralInput)
+            var grassCoverErosionInwardsInput = new GrassCoverErosionInwardsInput()
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation
             };

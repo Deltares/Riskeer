@@ -53,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 throw new ArgumentNullException("probabilityAssessmentInput");
             }
             Name = Resources.GrassCoverErosionInwardsCalculation_DefaultName;
-            InputParameters = new GrassCoverErosionInwardsInput(generalInputParameters);
+            InputParameters = new GrassCoverErosionInwardsInput();
             ProbabilityAssessmentInput = probabilityAssessmentInput;
             AddDemoInput();
         }

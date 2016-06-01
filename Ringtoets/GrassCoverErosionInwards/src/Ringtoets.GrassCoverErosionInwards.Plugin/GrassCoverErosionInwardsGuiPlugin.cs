@@ -31,7 +31,6 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -136,12 +135,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 EmptyProbabilityAssessmentOutputContextMenuStrip);
         }
 
-        private static ExceedanceProbabilityCalculationActivity CreateHydraRingExceedenceProbabilityCalculationActivity(FailureMechanismSection failureMechanismSection,
-                                                                                                                    string hlcdDirectory,
-                                                                                                                    GrassCoverErosionInwardsCalculation calculation)
+        private static ExceedanceProbabilityCalculationActivity CreateHydraRingExceedenceProbabilityCalculationActivity(GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                                                                                        string hlcdDirectory,
+                                                                                                                        GrassCoverErosionInwardsCalculation calculation)
         {
             var hydraulicBoundaryLocationId = (int) calculation.InputParameters.HydraulicBoundaryLocation.Id;
+            var failureMechanismSection = failureMechanism.Sections.First(); // TODO: Pass dike section based on cross section of calculation with reference line
             var sectionLength = failureMechanismSection.GetSectionLength();
+            var generalInput = failureMechanism.GeneralInput;
             var inwardsInput = calculation.InputParameters;
 
             return HydraRingActivityFactory.Create(
@@ -153,13 +154,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 new OvertoppingCalculationInput(hydraulicBoundaryLocationId,
                                                 new HydraRingSection(1, failureMechanismSection.Name, sectionLength, inwardsInput.Orientation),
                                                 inwardsInput.DikeHeight,
-                                                inwardsInput.CriticalOvertoppingModelFactor,
-                                                inwardsInput.FbFactor.Mean, inwardsInput.FbFactor.StandardDeviation,
-                                                inwardsInput.FnFactor.Mean, inwardsInput.FnFactor.StandardDeviation,
-                                                inwardsInput.OvertoppingModelFactor,
+                                                generalInput.CriticalOvertoppingModelFactor,
+                                                generalInput.FbFactor.Mean, generalInput.FbFactor.StandardDeviation,
+                                                generalInput.FnFactor.Mean, generalInput.FnFactor.StandardDeviation,
+                                                generalInput.OvertoppingModelFactor,
                                                 inwardsInput.CriticalFlowRate.Mean, inwardsInput.CriticalFlowRate.StandardDeviation,
-                                                inwardsInput.FrunupModelFactor.Mean, inwardsInput.FrunupModelFactor.StandardDeviation,
-                                                inwardsInput.FshallowModelFactor.Mean, inwardsInput.FshallowModelFactor.StandardDeviation,
+                                                generalInput.FrunupModelFactor.Mean, generalInput.FrunupModelFactor.StandardDeviation,
+                                                generalInput.FshallowModelFactor.Mean, generalInput.FshallowModelFactor.StandardDeviation,
                                                 ParseProfilePoints(inwardsInput.DikeGeometry),
                                                 ParseForeshore(inwardsInput),
                                                 ParseBreakWater(inwardsInput)
@@ -224,7 +225,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             // TODO: Remove "Where" filter when validation is implemented
             ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations.Where(calc => calc.InputParameters.HydraulicBoundaryLocation != null)
                                                                          .Select(calc => CreateHydraRingExceedenceProbabilityCalculationActivity(
-                                                                             failureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
+                                                                             failureMechanism,
                                                                              Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
                                                                              calc)).ToList());
         }
@@ -531,7 +532,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 return;
             }
             var activity = CreateHydraRingExceedenceProbabilityCalculationActivity(
-                context.FailureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
+                context.FailureMechanism,
                 Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
                 calculation);
 
