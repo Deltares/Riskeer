@@ -821,11 +821,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            var generalInputParameters = new GeneralPipingInput();
-            var probabilityAssessmentInput = new PipingProbabilityAssessmentInput();
-
             // Call
-            TestDelegate test = () => registry.Register(null, new PipingCalculationScenario(generalInputParameters, probabilityAssessmentInput));
+            TestDelegate test = () => registry.Register(null, new PipingCalculationScenario(new GeneralPipingInput()));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -1176,7 +1173,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 PipingCalculationEntityId = storageId
             };
-            var model = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
+            var model = new PipingCalculationScenario(new GeneralPipingInput());
             registry.Register(entity, model);
 
             // Call
@@ -1534,7 +1531,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             dbContext.PipingCalculationEntities.Add(orphanedEntity);
             dbContext.PipingCalculationEntities.Add(persistentEntity);
 
-            var calculationGroup = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput())
+            var calculationGroup = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 StorageId = persistentEntity.PipingCalculationEntityId
             };

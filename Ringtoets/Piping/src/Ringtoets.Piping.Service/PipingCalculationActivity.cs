@@ -32,17 +32,21 @@ namespace Ringtoets.Piping.Service
         private readonly int norm;
         private readonly double contribution;
         private readonly PipingCalculation calculation;
+        private readonly PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculationActivity"/> class.
         /// </summary>
         /// <param name="calculation">The piping data used for the calculation.</param>
+        /// <param name="pipingProbabilityAssessmentInput">General input that influences the probability estimate for a piping
+        /// assessment.</param>
         /// <param name="norm">The return period to assess for.</param>
-        /// <param name="contribution">The contribution of piping as a percentage (0-100) to the total of the failure probability of the
-        /// assessment section.</param>
-        public PipingCalculationActivity(PipingCalculation calculation, int norm, double contribution)
+        /// <param name="contribution">The contribution of piping as a percentage (0-100) to the total of the failure probability
+        /// of the assessment section.</param>
+        public PipingCalculationActivity(PipingCalculation calculation, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput, int norm, double contribution)
         {
             this.calculation = calculation;
+            this.pipingProbabilityAssessmentInput = pipingProbabilityAssessmentInput;
             this.norm = norm;
             this.contribution = contribution;
         }
@@ -67,7 +71,7 @@ namespace Ringtoets.Piping.Service
             calculation.ClearOutput();
 
             PipingCalculationService.Calculate(calculation);
-            PipingSemiProbabilisticCalculationService.Calculate(calculation, norm, contribution);
+            PipingSemiProbabilisticCalculationService.Calculate(calculation, pipingProbabilityAssessmentInput, norm, contribution);
         }
 
         protected override void OnCancel()

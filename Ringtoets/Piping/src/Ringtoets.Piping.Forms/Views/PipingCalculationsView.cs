@@ -367,16 +367,15 @@ namespace Ringtoets.Piping.Forms.Views
 
             var lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSection.Points);
             var pipingCalculations = calculationGroup
-                .GetCalculations().OfType<PipingCalculationScenario>()
+                .GetCalculations()
+                .OfType<PipingCalculationScenario>()
                 .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
             updatingDataSource = true;
 
             PrefillComboBoxListItemsAtColumnLevel();
 
-            var dataSource = pipingCalculations.OfType<PipingCalculationScenario>()
-                                               .Select(pc => new PipingCalculationRow(pc))
-                                               .ToList();
+            var dataSource = pipingCalculations.Select(pc => new PipingCalculationRow(pc)).ToList();
             dataGridViewControl.SetDataSource(dataSource);
 
             UpdateStochasticSoilModelColumn();
@@ -519,8 +518,7 @@ namespace Ringtoets.Piping.Forms.Views
             var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 dialog.SelectedSurfaceLines,
                 pipingFailureMechanism.StochasticSoilModels,
-                pipingFailureMechanism.GeneralInput,
-                pipingFailureMechanism.PipingProbabilityAssessmentInput);
+                pipingFailureMechanism.GeneralInput);
             foreach (var item in calculationsStructure)
             {
                 calculationGroup.Children.Add(item);

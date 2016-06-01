@@ -25,7 +25,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new TestStochasticSoilModel()
             };
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             var mocks = new MockRepository();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                 new TestStochasticSoilModel()
             };
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var context = new PipingCalculationScenarioContext(calculation, surfacelines, soilModels, pipingFailureMechanismMock, assessmentSectionMock);
 
             // Call
@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                 new TestStochasticSoilModel()
             };
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var context = new PipingCalculationScenarioContext(calculation, surfacelines, soilModels, pipingFailureMechanismMock, assessmentSectionMock);
 
             context.Attach(observer);
@@ -129,7 +129,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                 new TestStochasticSoilModel()
             };
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var context = new PipingCalculationScenarioContext(calculation, surfacelines, soilModels, pipingFailureMechanismMock, assessmentSectionMock);
 
             calculation.Attach(observer); // Attach to wrapped object

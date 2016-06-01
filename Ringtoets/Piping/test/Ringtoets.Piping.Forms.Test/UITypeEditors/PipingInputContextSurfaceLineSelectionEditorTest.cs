@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
 
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
+            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
             var pipingInput = new PipingInput(new GeneralPipingInput())
@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                 new Point3D(0.0, 0.0, 0.0),
                 new Point3D(1.0, 0.0, 1.0)
             });
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
+            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
             var pipingInput = new PipingInput(new GeneralPipingInput())

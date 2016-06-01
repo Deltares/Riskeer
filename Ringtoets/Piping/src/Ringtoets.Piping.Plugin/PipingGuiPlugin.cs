@@ -390,6 +390,7 @@ namespace Ringtoets.Piping.Plugin
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              GetAllPipingCalculations(failureMechanismContext.WrappedData)
                                                  .Select(calc => new PipingCalculationActivity(calc,
+                                                                                               failureMechanismContext.WrappedData.PipingProbabilityAssessmentInput,
                                                                                                failureMechanismContext.Parent.FailureMechanismContribution.Norm,
                                                                                                failureMechanismContext.WrappedData.Contribution))
                                                  .ToList());
@@ -510,6 +511,7 @@ namespace Ringtoets.Piping.Plugin
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              new PipingCalculationActivity(calculation,
+                                                                           context.FailureMechanism.PipingProbabilityAssessmentInput,
                                                                            context.AssessmentSection.FailureMechanismContribution.Norm,
                                                                            context.FailureMechanism.Contribution));
         }
@@ -596,7 +598,7 @@ namespace Ringtoets.Piping.Plugin
 
         private static void AddCalculationScenario(PipingCalculationGroupContext nodeData)
         {
-            var calculation = new PipingCalculationScenario(nodeData.FailureMechanism.GeneralInput, nodeData.FailureMechanism.PipingProbabilityAssessmentInput)
+            var calculation = new PipingCalculationScenario(nodeData.FailureMechanism.GeneralInput)
             {
                 Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
             };
@@ -629,7 +631,7 @@ namespace Ringtoets.Piping.Plugin
             var view = new PipingSurfaceLineSelectionDialog(Gui.MainWindow, nodeData.AvailablePipingSurfaceLines);
             view.ShowDialog();
 
-            GeneratePipingCalculations(nodeData.WrappedData, view.SelectedSurfaceLines, nodeData.AvailableStochasticSoilModels, nodeData.FailureMechanism.GeneralInput, nodeData.FailureMechanism.PipingProbabilityAssessmentInput);
+            GeneratePipingCalculations(nodeData.WrappedData, view.SelectedSurfaceLines, nodeData.AvailableStochasticSoilModels, nodeData.FailureMechanism.GeneralInput);
 
             nodeData.NotifyObservers();
 
@@ -637,9 +639,9 @@ namespace Ringtoets.Piping.Plugin
             nodeData.FailureMechanism.NotifyObservers();
         }
 
-        private void GeneratePipingCalculations(CalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput)
+        private void GeneratePipingCalculations(CalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput)
         {
-            foreach (var group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput, pipingProbabilityAssessmentInput))
+            foreach (var group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput))
             {
                 target.Children.Add(group);
             }
@@ -667,6 +669,7 @@ namespace Ringtoets.Piping.Plugin
                                              group.GetCalculations()
                                                   .OfType<PipingCalculationScenario>()
                                                   .Select(pc => new PipingCalculationActivity(pc,
+                                                                                              context.FailureMechanism.PipingProbabilityAssessmentInput,
                                                                                               context.AssessmentSection.FailureMechanismContribution.Norm,
                                                                                               context.FailureMechanism.Contribution))
                                                   .ToList());

@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Service.Test
         public void Reliability_DifferentInputs_ReturnsExpectedValue(double reliability, double expectedResult)
         {
             // Call
-            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(double.NaN, double.NaN, double.NaN, reliability);
+            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(int.MinValue, double.NaN, double.NaN, reliability);
 
             // Assert
             Assert.AreEqual(expectedResult, probabilityAssessmentOutput.Reliability, probabilityAssessmentOutput.Reliability.GetAccuracy());
@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Service.Test
         public void Probability_DifferentInputs_ReturnsExpectedValue(double reliability, double expectedResult)
         {
             // Call
-            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(double.NaN, double.NaN, double.NaN, reliability);
+            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(int.MinValue, double.NaN, double.NaN, reliability);
 
             // Assert
             Assert.AreEqual(expectedResult, probabilityAssessmentOutput.Probability, probabilityAssessmentOutput.Probability.GetAccuracy());

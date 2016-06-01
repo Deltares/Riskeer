@@ -44,10 +44,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var generalInputParameters = new GeneralPipingInput();
-            var probabilityAssessmentInput = new PipingProbabilityAssessmentInput();
-            var calculation = new PipingCalculationScenario(generalInputParameters, probabilityAssessmentInput);
-            
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+
             // Call
             TestDelegate call = () => calculation.Create(null, 0);
 
@@ -66,9 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var random = new Random(randomSeed);
 
-            var generalInputParameters = new GeneralPipingInput();
-            var probabilityAssessmentInput = new PipingProbabilityAssessmentInput();
-            var calculation = new PipingCalculationScenario(generalInputParameters, probabilityAssessmentInput)
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 IsRelevant = isRelevant,
                 Contribution = (RoundedDouble)contribution,
@@ -171,9 +167,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
             SurfaceLineEntity surfaceLineEntity = surfaceLine.Create(registry);
 
-            var generalInputParameters = new GeneralPipingInput();
-            var probabilityAssessmentInput = new PipingProbabilityAssessmentInput();
-            var calculation = new PipingCalculationScenario(generalInputParameters, probabilityAssessmentInput)
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -204,9 +198,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var registry = new PersistenceRegistry();
 
-            var generalInputParameters = new GeneralPipingInput();
-            var probabilityAssessmentInput = new PipingProbabilityAssessmentInput();
-            var calculation = new PipingCalculationScenario(generalInputParameters, probabilityAssessmentInput)
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -231,9 +223,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
             HydraulicLocationEntity hydraulicLocationEntity = hydraulicBoundaryLocation.Create(registry);
 
-            var generalInputParameters = new GeneralPipingInput();
-            var probabilityAssessmentInput = new PipingProbabilityAssessmentInput();
-            var calculation = new PipingCalculationScenario(generalInputParameters, probabilityAssessmentInput)
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -253,12 +243,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "a", 1.1, 2.2);
-
             var registry = new PersistenceRegistry();
-
-            var generalInputParameters = new GeneralPipingInput();
-            var probabilityAssessmentInput = new PipingProbabilityAssessmentInput();
-            var calculation = new PipingCalculationScenario(generalInputParameters, probabilityAssessmentInput)
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -290,9 +276,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
             StochasticSoilModelEntity soilModelEntity = soilModel.Create(registry);
 
-            var generalInputParameters = new GeneralPipingInput();
-            var probabilityAssessmentInput = new PipingProbabilityAssessmentInput();
-            var calculation = new PipingCalculationScenario(generalInputParameters, probabilityAssessmentInput)
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -324,10 +308,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             soilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
             var registry = new PersistenceRegistry();
-
-            var generalInputParameters = new GeneralPipingInput();
-            var probabilityAssessmentInput = new PipingProbabilityAssessmentInput();
-            var calculation = new PipingCalculationScenario(generalInputParameters, probabilityAssessmentInput)
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
                 {

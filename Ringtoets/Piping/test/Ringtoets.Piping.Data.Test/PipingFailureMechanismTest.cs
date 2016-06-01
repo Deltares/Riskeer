@@ -161,8 +161,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Calculations_AddPipingCalculation_ItemIsAddedToCollection()
         {
             // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
-
+            var calculation = new PipingCalculation(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
@@ -176,9 +175,9 @@ namespace Ringtoets.Piping.Data.Test
         public void Calculations_RemovePipingCalculation_ItemIsRemovedFromCollection()
         {
             // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
-
+            var calculation = new PipingCalculation(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
+
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             // Call

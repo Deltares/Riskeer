@@ -36,26 +36,13 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="generalInputParameters">General piping calculation parameters that
         /// are the same across all piping calculations.</param>
-        /// <param name="pipingProbabilityAssessmentInput">General input that influences the
-        /// probability estimate for a piping assessment.</param>
-        /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/> or 
-        /// <paramref name="pipingProbabilityAssessmentInput"/> is <c>null</c>.</exception>
-        public PipingCalculation(GeneralPipingInput generalInputParameters, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput)
+        /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/> is <c>null</c>.</exception>
+        public PipingCalculation(GeneralPipingInput generalInputParameters)
         {
-            if (pipingProbabilityAssessmentInput == null)
-            {
-                throw new ArgumentNullException("pipingProbabilityAssessmentInput");
-            }
             Name = Resources.PipingCalculation_DefaultName;
 
             InputParameters = new PipingInput(generalInputParameters);
-            PipingProbabilityAssessmentInput = pipingProbabilityAssessmentInput;
         }
-
-        /// <summary>
-        /// Gets the piping probability assessment input.
-        /// </summary>
-        public PipingProbabilityAssessmentInput PipingProbabilityAssessmentInput { get; private set; }
 
         /// <summary>
         /// Gets the input parameters to perform a piping calculation with.

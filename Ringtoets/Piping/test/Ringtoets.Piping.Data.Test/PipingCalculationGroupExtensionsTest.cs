@@ -66,8 +66,7 @@ namespace Ringtoets.Piping.Data.Test
             var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 failureMechanism.SurfaceLines,
                 failureMechanism.StochasticSoilModels,
-                failureMechanism.GeneralInput,
-                failureMechanism.PipingProbabilityAssessmentInput);
+                failureMechanism.GeneralInput);
 
             foreach (var item in calculationsStructure)
             {
@@ -97,7 +96,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var failureMechanism = GetFailureMechanismWithSections();
             var stochasticSoilModel = failureMechanism.StochasticSoilModels.First();
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new PipingProbabilityAssessmentInput())
+            var calculation = new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -134,8 +133,7 @@ namespace Ringtoets.Piping.Data.Test
             var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 failureMechanism.SurfaceLines,
                 failureMechanism.StochasticSoilModels,
-                failureMechanism.GeneralInput,
-                failureMechanism.PipingProbabilityAssessmentInput);
+                failureMechanism.GeneralInput);
 
             foreach (var item in calculationsStructure)
             {
@@ -161,8 +159,7 @@ namespace Ringtoets.Piping.Data.Test
             var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 failureMechanism.SurfaceLines,
                 failureMechanism.StochasticSoilModels,
-                failureMechanism.GeneralInput,
-                failureMechanism.PipingProbabilityAssessmentInput);
+                failureMechanism.GeneralInput);
 
             foreach (var item in calculationsStructure)
             {

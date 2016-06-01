@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Data.TestUtil
     {
         public static PipingCalculationScenario CreateCalculationWithInvalidData()
         {
-            return new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
+            return new PipingCalculationScenario(new GeneralPipingInput());
         }
 
         public static PipingCalculationScenario CreateCalculationWithValidInput()
@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.Data.TestUtil
             {
                 DesignWaterLevel = (RoundedDouble) 1.0
             };
-            return new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput())
+            return new PipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
                 {

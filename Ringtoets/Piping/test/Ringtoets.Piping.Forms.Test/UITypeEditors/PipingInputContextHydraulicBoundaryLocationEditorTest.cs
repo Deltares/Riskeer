@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
+            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
             var pipingInput = new PipingInput(new GeneralPipingInput())
@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                  .Repeat.AtLeastOnce();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
+            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
             var pipingInput = new PipingInput(new GeneralPipingInput())

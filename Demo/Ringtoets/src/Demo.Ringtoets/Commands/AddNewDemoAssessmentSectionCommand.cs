@@ -124,7 +124,7 @@ namespace Demo.Ringtoets.Commands
                 surfaceLinesImporter.Import(context, Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil"));
             }
 
-            var calculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput, pipingFailureMechanism.PipingProbabilityAssessmentInput);
+            var calculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput);
             pipingFailureMechanism.CalculationsGroup.Children.Add(calculation);
             var originalPhreaticLevelExit = calculation.InputParameters.PhreaticLevelExit;
             calculation.InputParameters.PhreaticLevelExit = new NormalDistribution(originalPhreaticLevelExit.Mean.NumberOfDecimalPlaces)

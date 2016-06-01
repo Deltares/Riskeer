@@ -19,10 +19,10 @@ namespace Ringtoets.Piping.Service.Test
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput());
 
             // Call
-            var activity = new PipingCalculationActivity(calculation, int.MinValue, double.NaN);
+            var activity = new PipingCalculationActivity(calculation, new PipingProbabilityAssessmentInput(), int.MinValue, double.NaN);
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Service.Test
             var invalidPipingCalculation = PipingCalculationFactory.CreateCalculationWithInvalidData();
             invalidPipingCalculation.Output = originalOutput;
 
-            var activity = new PipingCalculationActivity(invalidPipingCalculation, int.MinValue, double.NaN);
+            var activity = new PipingCalculationActivity(invalidPipingCalculation, new PipingProbabilityAssessmentInput(), int.MinValue, double.NaN);
 
             // Call
             Action call = () => activity.Run();
@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Service.Test
             var validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             validPipingCalculation.Output = null;
 
-            var activity = new PipingCalculationActivity(validPipingCalculation, int.MinValue, double.NaN);
+            var activity = new PipingCalculationActivity(validPipingCalculation, new PipingProbabilityAssessmentInput(), int.MinValue, double.NaN);
             activity.Run();
 
             // Call
@@ -99,7 +99,7 @@ namespace Ringtoets.Piping.Service.Test
             validPipingCalculation.Output = null;
             validPipingCalculation.Attach(observerMock);
 
-            var activity = new PipingCalculationActivity(validPipingCalculation, int.MinValue, double.NaN);
+            var activity = new PipingCalculationActivity(validPipingCalculation, new PipingProbabilityAssessmentInput(), int.MinValue, double.NaN);
 
             activity.Run();
 
