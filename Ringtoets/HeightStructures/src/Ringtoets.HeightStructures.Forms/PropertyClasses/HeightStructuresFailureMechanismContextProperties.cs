@@ -53,11 +53,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.ProbabilityAssessmentInput.N;
+                return data.WrappedData.GeneralInput.N;
             }
             set
             {
-                data.WrappedData.ProbabilityAssessmentInput.N = value;
+                data.WrappedData.GeneralInput.N = value;
                 data.WrappedData.NotifyObservers();
             }
         }

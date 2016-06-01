@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.HeightStructures.Data.Properties;
 
 namespace Ringtoets.HeightStructures.Data
 {
@@ -29,11 +31,15 @@ namespace Ringtoets.HeightStructures.Data
     /// </summary>
     public class GeneralHeightStructuresInput
     {
+        private int n;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralHeightStructuresInput"/> class.
         /// </summary>
         public GeneralHeightStructuresInput()
         {
+            n = 2;
+
             GravitationalAcceleration = new RoundedDouble(2, 9.81);
 
             ModelFactorOvertoppingFlow = new LogNormalDistribution(3)
@@ -49,6 +55,27 @@ namespace Ringtoets.HeightStructures.Data
             };
 
             ModelFactorForIncomingFlowVolume = new RoundedDouble(2, 1);
+        }
+
+        /// <summary>
+        /// Gets or sets the 'N' parameter used to factor in the 'length effect'.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="value"/> is not in interval 
+        /// [1-20].</exception>
+        public int N
+        {
+            get
+            {
+                return n;
+            }
+            set
+            {
+                if (value < 1 || value > 20)
+                {
+                    throw new ArgumentOutOfRangeException("value", Resources.N_Value_should_be_in_interval_1_20);
+                }
+                n = value;
+            }
         }
 
         /// <summary>

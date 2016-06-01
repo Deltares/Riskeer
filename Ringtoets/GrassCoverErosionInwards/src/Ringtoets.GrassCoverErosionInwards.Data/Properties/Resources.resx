@@ -135,4 +135,7 @@
   <data name="BreakWaterType_Dam_DisplayName" xml:space="preserve">
     <value>Dam</value>
   </data>
+  <data name="N_Value_should_be_in_interval_1_20" xml:space="preserve">
+    <value>De waarde voor 'N' moet in interval [1,20] liggen.</value>
+  </data>
 </root>

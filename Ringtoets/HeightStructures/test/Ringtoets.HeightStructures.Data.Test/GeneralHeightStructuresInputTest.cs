@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.HeightStructures.Data.Properties;
 
 namespace Ringtoets.HeightStructures.Data.Test
 {
@@ -32,28 +35,61 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void Constructor_ExpectedValues()
         {
             // Call
-            var inputParameters = new GeneralHeightStructuresInput();
+            var generalHeightStructuresInput = new GeneralHeightStructuresInput();
 
             // Assert
-            Assert.AreEqual(9.81, inputParameters.GravitationalAcceleration, 1e-6);
+            Assert.AreEqual(2, generalHeightStructuresInput.N);
+            Assert.AreEqual(9.81, generalHeightStructuresInput.GravitationalAcceleration, 1e-6);
 
             var modelfactorOvertopping = new NormalDistribution(3)
             {
                 Mean = new RoundedDouble(3, 0.09),
                 StandardDeviation = new RoundedDouble(3, 0.06)
             };
-            Assert.AreEqual(modelfactorOvertopping.Mean, inputParameters.ModelFactorOvertoppingFlow.Mean);
-            Assert.AreEqual(modelfactorOvertopping.StandardDeviation, inputParameters.ModelFactorOvertoppingFlow.StandardDeviation);
+            Assert.AreEqual(modelfactorOvertopping.Mean, generalHeightStructuresInput.ModelFactorOvertoppingFlow.Mean);
+            Assert.AreEqual(modelfactorOvertopping.StandardDeviation, generalHeightStructuresInput.ModelFactorOvertoppingFlow.StandardDeviation);
 
             var modelFactorForStorageVolume = new NormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, 1.00),
                 StandardDeviation = new RoundedDouble(2, 0.20)
             };
-            Assert.AreEqual(modelFactorForStorageVolume.Mean, inputParameters.ModelFactorForStorageVolume.Mean);
-            Assert.AreEqual(modelFactorForStorageVolume.StandardDeviation, inputParameters.ModelFactorForStorageVolume.StandardDeviation);
+            Assert.AreEqual(modelFactorForStorageVolume.Mean, generalHeightStructuresInput.ModelFactorForStorageVolume.Mean);
+            Assert.AreEqual(modelFactorForStorageVolume.StandardDeviation, generalHeightStructuresInput.ModelFactorForStorageVolume.StandardDeviation);
 
-            Assert.AreEqual(1, inputParameters.ModelFactorForIncomingFlowVolume, 1e-6);
+            Assert.AreEqual(1, generalHeightStructuresInput.ModelFactorForIncomingFlowVolume, 1e-6);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(10)]
+        [TestCase(20)]
+        public void N_ValueInsideValidRegion_DoesNotThrow(int value)
+        {
+            // Setup
+            var generalHeightStructuresInput = new GeneralHeightStructuresInput();
+
+            // Call
+            TestDelegate test = () => generalHeightStructuresInput.N = value;
+
+            // Assert
+            Assert.DoesNotThrow(test);
+            Assert.AreEqual(value, generalHeightStructuresInput.N);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(21)]
+        public void N_ValueOutsideValidRegion_ThrowsArgumentOutOfRangeException(int value)
+        {
+            // Setup
+            var generalHeightStructuresInput = new GeneralHeightStructuresInput();
+
+            // Call
+            TestDelegate test = () => generalHeightStructuresInput.N = value;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.N_Value_should_be_in_interval_1_20);
         }
     }
 }

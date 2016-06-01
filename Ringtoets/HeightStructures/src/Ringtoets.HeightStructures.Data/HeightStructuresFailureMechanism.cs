@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.HeightStructures.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -44,7 +43,6 @@ namespace Ringtoets.HeightStructures.Data
         {
             sectionResults = new List<HeightStructuresFailureMechanismSectionResult>();
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
-            ProbabilityAssessmentInput = new ProbabilityAssessmentInput();
             GeneralInput = new GeneralHeightStructuresInput();
         }
 
@@ -55,12 +53,6 @@ namespace Ringtoets.HeightStructures.Data
                 return CalculationsGroup.GetCalculations().OfType<HeightStructuresCalculation>();
             }
         }
-
-        /// <summary>
-        /// Gets the general probabilistic assessment input parameters that apply to each calculation 
-        /// in a probabilistic assessment.
-        /// </summary>
-        public ProbabilityAssessmentInput ProbabilityAssessmentInput { get; private set; }
 
         /// <summary>
         /// Gets the height structures calculation input parameters that apply to each calculation.

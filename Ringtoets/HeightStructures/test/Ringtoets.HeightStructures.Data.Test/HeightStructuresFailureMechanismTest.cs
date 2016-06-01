@@ -46,7 +46,6 @@ namespace Ringtoets.HeightStructures.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             Assert.IsNotNull(failureMechanism.CalculationsGroup);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
-            Assert.IsNotNull(failureMechanism.ProbabilityAssessmentInput);
             Assert.IsInstanceOf<GeneralHeightStructuresInput>(failureMechanism.GeneralInput);
         }
 

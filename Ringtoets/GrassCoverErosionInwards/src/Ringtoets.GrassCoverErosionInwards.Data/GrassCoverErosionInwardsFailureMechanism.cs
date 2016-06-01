@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -44,7 +43,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
             GeneralInput = new GeneralGrassCoverErosionInwardsInput();
-            ProbabilityAssessmentInput = new ProbabilityAssessmentInput();
             sectionResults = new List<GrassCoverErosionInwardsFailureMechanismSectionResult>();
         }
 
@@ -60,12 +58,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets the general grass cover erosion inwards calculation input parameters that apply to each calculation.
         /// </summary>
         public GeneralGrassCoverErosionInwardsInput GeneralInput { get; private set; }
-
-        /// <summary>
-        /// Gets the general probabilistic assessment input parameters that apply to each calculation 
-        /// in a probabilistic assessment.
-        /// </summary>
-        public ProbabilityAssessmentInput ProbabilityAssessmentInput { get; private set; }
 
         public CalculationGroup CalculationsGroup { get; private set; }
 

@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
@@ -29,11 +31,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// </summary>
     public class GeneralGrassCoverErosionInwardsInput
     {
+        private int n;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralGrassCoverErosionInwardsInput"/> class.
         /// </summary>
         public GeneralGrassCoverErosionInwardsInput()
         {
+            n = 2;
             CriticalOvertoppingModelFactor = 1.0;
             FbFactor = new NormalDistribution(2)
             {
@@ -57,6 +62,31 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 StandardDeviation = (RoundedDouble) 0.24
             };
         }
+
+        #region Probability assessment
+
+        /// <summary>
+        /// Gets or sets the 'N' parameter used to factor in the 'length effect'.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="value"/> is not in interval 
+        /// [1-20].</exception>
+        public int N
+        {
+            get
+            {
+                return n;
+            }
+            set
+            {
+                if (value < 1 || value > 20)
+                {
+                    throw new ArgumentOutOfRangeException("value", Resources.N_Value_should_be_in_interval_1_20);
+                }
+                n = value;
+            }
+        }
+
+        #endregion
 
         #region Factors
 

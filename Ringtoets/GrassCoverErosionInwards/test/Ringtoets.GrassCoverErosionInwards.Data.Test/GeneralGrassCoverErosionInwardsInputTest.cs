@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -35,6 +38,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var inputParameters = new GeneralGrassCoverErosionInwardsInput();
 
             // Assert
+            Assert.AreEqual(2, inputParameters.N);
+
             var fbFactor = new NormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, 4.75), StandardDeviation = new RoundedDouble(2, 0.5)
@@ -65,6 +70,38 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             Assert.AreEqual(1, inputParameters.CriticalOvertoppingModelFactor);
             Assert.AreEqual(1, inputParameters.OvertoppingModelFactor);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(10)]
+        [TestCase(20)]
+        public void N_ValueInsideValidRegion_DoesNotThrow(int value)
+        {
+            // Setup
+            var generalGrassCoverErosionInwardsInput = new GeneralGrassCoverErosionInwardsInput();
+
+            // Call
+            TestDelegate test = () => generalGrassCoverErosionInwardsInput.N = value;
+
+            // Assert
+            Assert.DoesNotThrow(test);
+            Assert.AreEqual(value, generalGrassCoverErosionInwardsInput.N);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(21)]
+        public void N_ValueOutsideValidRegion_ThrowsArgumentOutOfRangeException(int value)
+        {
+            // Setup
+            var generalGrassCoverErosionInwardsInput = new GeneralGrassCoverErosionInwardsInput();
+
+            // Call
+            TestDelegate test = () => generalGrassCoverErosionInwardsInput.N = value;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.N_Value_should_be_in_interval_1_20);
         }
     }
 }

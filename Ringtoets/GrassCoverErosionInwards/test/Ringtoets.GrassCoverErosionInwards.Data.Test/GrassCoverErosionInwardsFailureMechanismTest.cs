@@ -25,7 +25,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
@@ -46,7 +45,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode, failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             Assert.IsInstanceOf<GeneralGrassCoverErosionInwardsInput>(failureMechanism.GeneralInput);
-            Assert.IsInstanceOf<ProbabilityAssessmentInput>(failureMechanism.ProbabilityAssessmentInput);
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
             Assert.IsEmpty(failureMechanism.CalculationsGroup.Children);
         }

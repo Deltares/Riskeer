@@ -74,7 +74,6 @@
     <Compile Include="Probabilistics\NormalDistributionTest.cs" />
     <Compile Include="Probabilistics\ShiftedLogNormalDistributionDesignVariableTest.cs" />
     <Compile Include="Probabilistics\ShiftedLogNormalDistributionTest.cs" />
-    <Compile Include="Probability\ProbabilityAssessmentInputTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +100,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
