@@ -20,7 +20,10 @@
 // All rights reserved.
 
 using System;
+
 using Core.Common.Base.Data;
+using Core.Common.Base.Storage;
+
 using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Piping.Data
@@ -28,7 +31,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// This class holds the information for a calculation scenario.
     /// </summary>
-    public class PipingCalculationScenario : PipingCalculation, ICalculationScenario
+    public class PipingCalculationScenario : PipingCalculation, ICalculationScenario, IStorable
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationScenario"/> with default values set for some of the parameters.
@@ -43,7 +46,7 @@ namespace Ringtoets.Piping.Data
             : base(generalInputParameters, pipingProbabilityAssessmentInput)
         {
             IsRelevant = true;
-            Contribution = (RoundedDouble) 1.0;
+            Contribution = (RoundedDouble)1.0;
         }
 
         public bool IsRelevant { get; set; }
@@ -75,5 +78,7 @@ namespace Ringtoets.Piping.Data
                 return double.IsNaN(SemiProbabilisticOutput.PipingProbability) ? CalculationScenarioStatus.Failed : CalculationScenarioStatus.Done;
             }
         }
+
+        public long StorageId { get; set; }
     }
 }

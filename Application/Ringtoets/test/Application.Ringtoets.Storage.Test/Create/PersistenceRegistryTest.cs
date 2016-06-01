@@ -46,6 +46,8 @@ namespace Application.Ringtoets.Storage.Test.Create
     [TestFixture]
     public class PersistenceRegistryTest
     {
+        #region Contains methods
+
         [Test]
         public void Contains_WithoutModel_ArgumentNullException()
         {
@@ -53,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => registry.Contains(null);
+            TestDelegate test = () => registry.Contains((PipingSoilProfile)null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -105,13 +107,249 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void Contains_WithoutRingtoetsPipingSurfaceLine_ArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Contains((RingtoetsPipingSurfaceLine)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Contains_RingtoetsPipingSurfaceLineAdded_True()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            registry.Register(new SurfaceLineEntity(), surfaceLine);
+
+            // Call
+            bool result = registry.Contains(surfaceLine);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_NoRingtoetsPipingSurfaceLineAdded_False()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            bool result = registry.Contains(surfaceLine);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_OtherRingtoetsPipingSurfaceLineAdded_False()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            registry.Register(new SurfaceLineEntity(), new RingtoetsPipingSurfaceLine());
+
+            // Call
+            bool result = registry.Contains(surfaceLine);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_WithoutHydraulicBoundaryLocation_ArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Contains((HydraulicBoundaryLocation)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Contains_HydraulicBoundaryLocationAdded_True()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 1, 2);
+            registry.Register(new HydraulicLocationEntity(), hydraulicBoundaryLocation);
+
+            // Call
+            bool result = registry.Contains(hydraulicBoundaryLocation);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_NoHydraulicBoundaryLocationAdded_False()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 1, 2);
+
+            // Call
+            bool result = registry.Contains(hydraulicBoundaryLocation);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_OtherHydraulicBoundaryLocationAdded_False()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 1, 2);
+            registry.Register(new HydraulicLocationEntity(), new HydraulicBoundaryLocation(3, "B", 4, 5));
+
+            // Call
+            bool result = registry.Contains(hydraulicBoundaryLocation);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_WithoutStochasticSoilModel_ArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Contains((StochasticSoilModel)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Contains_StochasticSoilModelAdded_True()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var soilModel = new StochasticSoilModel(1, "A", "1");
+            registry.Register(new StochasticSoilModelEntity(), soilModel);
+
+            // Call
+            bool result = registry.Contains(soilModel);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_NoStochasticSoilModelAdded_False()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var soilModel = new StochasticSoilModel(1, "A", "1");
+
+            // Call
+            bool result = registry.Contains(soilModel);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_OtherStochasticSoilModelAdded_False()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var soilModel = new StochasticSoilModel(1, "A", "B");
+            registry.Register(new StochasticSoilModelEntity(), new StochasticSoilModel(3, "B", "4"));
+
+            // Call
+            bool result = registry.Contains(soilModel);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_WithoutStochasticSoilProfile_ArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Contains((StochasticSoilProfile)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Contains_StochasticSoilProfileAdded_True()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var stochasticSoilProfile = new StochasticSoilProfile(0.4, SoilProfileType.SoilProfile1D, 1);
+            registry.Register(new StochasticSoilProfileEntity(), stochasticSoilProfile);
+
+            // Call
+            bool result = registry.Contains(stochasticSoilProfile);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_NoStochasticSoilProfileAdded_False()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var stochasticSoilProfile = new StochasticSoilProfile(0.4, SoilProfileType.SoilProfile1D, 1);
+
+            // Call
+            bool result = registry.Contains(stochasticSoilProfile);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_OtherStochasticSoilProfileAdded_False()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var stochasticSoilProfile = new StochasticSoilProfile(0.4, SoilProfileType.SoilProfile1D, 1);
+            registry.Register(new StochasticSoilProfileEntity(), new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 3));
+
+            // Call
+            bool result = registry.Contains(stochasticSoilProfile);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        #endregion
+
+        #region Get methods
+
+        [Test]
         public void Get_WithoutModel_ArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => registry.Get(null);
+            TestDelegate test = () => registry.Get((PipingSoilProfile)null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -162,6 +400,244 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.Throws<InvalidOperationException>(test);
         }
+
+        [Test]
+        public void Get_WithouRingtoetsPipingSurfaceLine_ArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Get((RingtoetsPipingSurfaceLine)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Get_RingtoetsPipingSurfaceLineAdded_ReturnsEntity()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var entity = new SurfaceLineEntity();
+            registry.Register(entity, surfaceLine);
+
+            // Call
+            SurfaceLineEntity result = registry.Get(surfaceLine);
+
+            // Assert
+            Assert.AreSame(entity, result);
+        }
+
+        [Test]
+        public void Get_NoRingtoetsPipingSurfaceLineAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            TestDelegate test = () => registry.Get(surfaceLine);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_OtherRingtoetsPipingSurfaceLineAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            registry.Register(new SurfaceLineEntity(), new RingtoetsPipingSurfaceLine());
+
+            // Call
+            TestDelegate test = () => registry.Get(surfaceLine);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_WithouHydraulicBoundaryLocation_ArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Get((HydraulicBoundaryLocation)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Get_HydraulicBoundaryLocationAdded_ReturnsEntity()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(5, "6", 7, 8);
+            var entity = new HydraulicLocationEntity();
+            registry.Register(entity, hydraulicBoundaryLocation);
+
+            // Call
+            HydraulicLocationEntity result = registry.Get(hydraulicBoundaryLocation);
+
+            // Assert
+            Assert.AreSame(entity, result);
+        }
+
+        [Test]
+        public void Get_NoHydraulicBoundaryLocationAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(5, "6", 7, 8);
+
+            // Call
+            TestDelegate test = () => registry.Get(hydraulicBoundaryLocation);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_OtherHydraulicBoundaryLocationAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(5, "6", 7, 8);
+            registry.Register(new HydraulicLocationEntity(), new HydraulicBoundaryLocation(1, "2", 3, 4));
+
+            // Call
+            TestDelegate test = () => registry.Get(hydraulicBoundaryLocation);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_WithouStochasticSoilModelEntity_ArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Get((StochasticSoilModel)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Get_StochasticSoilModelAdded_ReturnsEntity()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var soilModel = new StochasticSoilModel(5, "6", "7");
+            var entity = new StochasticSoilModelEntity();
+            registry.Register(entity, soilModel);
+
+            // Call
+            StochasticSoilModelEntity result = registry.Get(soilModel);
+
+            // Assert
+            Assert.AreSame(entity, result);
+        }
+
+        [Test]
+        public void Get_NoStochasticSoilModelAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var soilModel = new StochasticSoilModel(5, "6", "7");
+
+            // Call
+            TestDelegate test = () => registry.Get(soilModel);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_OtherStochasticSoilModelAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var soilModel = new StochasticSoilModel(5, "6", "7");
+            registry.Register(new StochasticSoilModelEntity(), new StochasticSoilModel(1, "2", "3"));
+
+            // Call
+            TestDelegate test = () => registry.Get(soilModel);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_WithouStochasticSoilProfileEntity_ArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Get((StochasticSoilProfile)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Get_StochasticSoilProfileAdded_ReturnsEntity()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var stochasticSoilProfile = new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1);
+            var entity = new StochasticSoilProfileEntity();
+            registry.Register(entity, stochasticSoilProfile);
+
+            // Call
+            StochasticSoilProfileEntity result = registry.Get(stochasticSoilProfile);
+
+            // Assert
+            Assert.AreSame(entity, result);
+        }
+
+        [Test]
+        public void Get_NoStochasticSoilProfileAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var stochasticSoilProfile = new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1);
+
+            // Call
+            TestDelegate test = () => registry.Get(stochasticSoilProfile);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_OtherStochasticSoilProfileAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var stochasticSoilProfile = new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1);
+            registry.Register(new StochasticSoilProfileEntity(), new StochasticSoilProfile(0.4, SoilProfileType.SoilProfile1D, 2));
+
+            // Call
+            TestDelegate test = () => registry.Get(stochasticSoilProfile);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        #endregion
 
         [Test]
         public void GetSurfaceLinePoint_SurfaceLinePointAdded_ReturnsEntity()
@@ -333,6 +809,37 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Call
             TestDelegate test = () => registry.Register(new CalculationGroupEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullPipingCalculationEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            var generalInputParameters = new GeneralPipingInput();
+            var probabilityAssessmentInput = new PipingProbabilityAssessmentInput();
+
+            // Call
+            TestDelegate test = () => registry.Register(null, new PipingCalculationScenario(generalInputParameters, probabilityAssessmentInput));
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullPipingCalculationScenario_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(new PipingCalculationEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -649,6 +1156,27 @@ namespace Application.Ringtoets.Storage.Test.Create
                 CalculationGroupEntityId = storageId
             };
             var model = new CalculationGroup();
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferId_WithPipingCalculationEntityAdded_EqualPipingCalculationEntityIdAndPipingCalculationScenarioStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1, 4000);
+            var entity = new PipingCalculationEntity
+            {
+                PipingCalculationEntityId = storageId
+            };
+            var model = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput());
             registry.Register(entity, model);
 
             // Call
@@ -984,6 +1512,42 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(1, dbContext.CalculationGroupEntities.Count());
             CollectionAssert.Contains(dbContext.CalculationGroupEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_PipingCalculationEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new PipingCalculationEntity
+            {
+                PipingCalculationEntityId = 1
+            };
+            var persistentEntity = new PipingCalculationEntity
+            {
+                PipingCalculationEntityId = 2
+            };
+            dbContext.PipingCalculationEntities.Add(orphanedEntity);
+            dbContext.PipingCalculationEntities.Add(persistentEntity);
+
+            var calculationGroup = new PipingCalculationScenario(new GeneralPipingInput(), new PipingProbabilityAssessmentInput())
+            {
+                StorageId = persistentEntity.PipingCalculationEntityId
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, calculationGroup);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.PipingCalculationEntities.Count());
+            CollectionAssert.Contains(dbContext.PipingCalculationEntities, persistentEntity);
             mocks.VerifyAll();
         }
 

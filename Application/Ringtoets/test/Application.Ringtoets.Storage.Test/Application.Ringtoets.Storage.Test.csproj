@@ -85,6 +85,7 @@
     <Compile Include="Create\GrassCoverErosionInwardsFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\PersistenceRegistryTest.cs" />
     <Compile Include="Create\IFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\PipingCalculationScenarioCreateExtensionsTest.cs" />
     <Compile Include="Create\RingtoetsPipingSurfaceLineCreateExtensionsTest.cs" />
     <Compile Include="Create\Point3DCreateExtensionsTest.cs" />
     <Compile Include="Create\AssessmentSectionCreateExtensionsTest.cs" />

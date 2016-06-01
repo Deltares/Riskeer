@@ -46,6 +46,10 @@ namespace Application.Ringtoets.Storage.Create
             {
                 throw new ArgumentNullException("registry");
             }
+            if (registry.Contains(model))
+            {
+                return registry.Get(model);
+            }
 
             var entity = new StochasticSoilModelEntity
             {

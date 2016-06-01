@@ -52,6 +52,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections = new Dictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicLocations = new Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>(new ReferenceEqualityComparer<HydraulicLocationEntity>());
         private readonly Dictionary<CalculationGroupEntity, CalculationGroup> calculationGroups = new Dictionary<CalculationGroupEntity, CalculationGroup>(new ReferenceEqualityComparer<CalculationGroupEntity>());
+        private readonly Dictionary<PipingCalculationEntity, PipingCalculationScenario> pipingCalculations = new Dictionary<PipingCalculationEntity, PipingCalculationScenario>(new ReferenceEqualityComparer<PipingCalculationEntity>());
         private readonly Dictionary<StochasticSoilModelEntity, StochasticSoilModel> stochasticSoilModels = new Dictionary<StochasticSoilModelEntity, StochasticSoilModel>(new ReferenceEqualityComparer<StochasticSoilModelEntity>());
         private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> stochasticSoilProfiles = new Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile>(new ReferenceEqualityComparer<StochasticSoilProfileEntity>());
         private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles = new Dictionary<SoilProfileEntity, PipingSoilProfile>(new ReferenceEqualityComparer<SoilProfileEntity>());
@@ -90,6 +91,22 @@ namespace Application.Ringtoets.Storage.Create
         public void Register(CalculationGroupEntity entity, CalculationGroup model)
         {
             Register(calculationGroups, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="PipingCalculationEntity"/> that was registered.</param>
+        /// <param name="model">The <see cref="PipingCalculationScenario"/> which needed to registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(PipingCalculationEntity entity, PipingCalculationScenario model)
+        {
+            Register(pipingCalculations, entity, model);
         }
 
         /// <summary>
@@ -224,12 +241,94 @@ namespace Application.Ringtoets.Storage.Create
         /// Checks whether a create or update operations has been registered for the given
         /// <paramref name="model"/>.
         /// </summary>
-        /// <param name="model">The <see cref="SoilProfileEntity"/> to check for.</param>
+        /// <param name="model">The <see cref="StochasticSoilModel"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="model"/> was created before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        internal bool Contains(StochasticSoilModel model)
+        {
+            return ContainsValue(stochasticSoilModels, model);
+        }
+
+        /// <summary>
+        /// Checks whether a create or update operations has been registered for the given
+        /// <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="StochasticSoilProfile"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="model"/> was created before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        internal bool Contains(StochasticSoilProfile model)
+        {
+            return ContainsValue(stochasticSoilProfiles, model);
+        }
+
+        /// <summary>
+        /// Checks whether a create or update operations has been registered for the given
+        /// <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="PipingSoilProfile"/> to check for.</param>
         /// <returns><c>true</c> if the <see cref="model"/> was created before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         internal bool Contains(PipingSoilProfile model)
         {
             return ContainsValue(soilProfiles, model);
+        }
+
+        /// <summary>
+        /// Checks whether a create or update operations has been registered for the given
+        /// <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="HydraulicBoundaryLocation"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="model"/> was created before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        internal bool Contains(HydraulicBoundaryLocation model)
+        {
+            return ContainsValue(hydraulicLocations, model);
+        }
+
+        /// <summary>
+        /// Checks whether a create or update operations has been registered for the given
+        /// <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="RingtoetsPipingSurfaceLine"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="model"/> was created before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        internal bool Contains(RingtoetsPipingSurfaceLine model)
+        {
+            return ContainsValue(surfaceLines, model);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="StochasticSoilModelEntity"/> which was registered for
+        /// the given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="StochasticSoilModel"/> for which a read/update
+        /// operation has been registered.</param>
+        /// <returns>The created <see cref="StochasticSoilModelEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(StochasticSoilModel)"/> to find out whether
+        /// a create operation has been registered for <paramref name="model"/>.</remarks>
+        internal StochasticSoilModelEntity Get(StochasticSoilModel model)
+        {
+            return Get(stochasticSoilModels, model);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="StochasticSoilProfileEntity"/> which was registered for
+        /// the given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="StochasticSoilProfile"/> for which a read/update
+        /// operation has been registered.</param>
+        /// <returns>The created <see cref="StochasticSoilProfileEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(StochasticSoilProfile)"/> to find out whether
+        /// a create operation has been registered for <paramref name="model"/>.</remarks>
+        internal StochasticSoilProfileEntity Get(StochasticSoilProfile model)
+        {
+            return Get(stochasticSoilProfiles, model);
         }
 
         /// <summary>
@@ -241,11 +340,45 @@ namespace Application.Ringtoets.Storage.Create
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no create operation 
         /// has been registered for <paramref name="model"/>.</exception>
-        /// <remarks>Use <see cref="Contains"/> to find out whether a create operation has
+        /// <remarks>Use <see cref="Contains(PipingSoilProfile)"/> to find out whether a create operation has
         /// been registered for <paramref name="model"/>.</remarks>
         internal SoilProfileEntity Get(PipingSoilProfile model)
         {
             return Get(soilProfiles, model);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="SurfaceLineEntity"/> which was registered for the given
+        /// <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="RingtoetsPipingSurfaceLine"/> for which a
+        /// read/update operation has been registered.</param>
+        /// <returns>The constructed <see cref="SurfaceLineEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create/update operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(RingtoetsPipingSurfaceLine)"/> to find out
+        /// whether a create/update operation has been registered for <paramref name="model"/>.</remarks>
+        internal SurfaceLineEntity Get(RingtoetsPipingSurfaceLine model)
+        {
+            return Get(surfaceLines, model);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="HydraulicLocationEntity"/> which was registered for the
+        /// given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="HydraulicBoundaryLocation"/> for which a
+        /// read/update operation has been registered.</param>
+        /// <returns>The constructed <see cref="HydraulicLocationEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create/update operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(RingtoetsPipingSurfaceLine)"/> to find out
+        /// whether a create/update operation has been registered for <paramref name="model"/>.</remarks>
+        internal HydraulicLocationEntity Get(HydraulicBoundaryLocation model)
+        {
+            return Get(hydraulicLocations, model);
         }
 
         /// <summary>
@@ -291,8 +424,6 @@ namespace Application.Ringtoets.Storage.Create
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no create operation
         /// has been registered for <paramref name="model"/>.</exception>
-        /// <remarks>Use <see cref="Contains"/> to find out whether a create or update
-        /// operation has been registered for <paramref name="model"/>.</remarks>
         internal SurfaceLinePointEntity GetSurfaceLinePoint(Point3D model)
         {
             return Get(surfaceLinePoints, model);
@@ -348,6 +479,11 @@ namespace Application.Ringtoets.Storage.Create
             foreach (var entity in calculationGroups.Keys)
             {
                 calculationGroups[entity].StorageId = entity.CalculationGroupEntityId;
+            }
+
+            foreach (var entity in pipingCalculations.Keys)
+            {
+                pipingCalculations[entity].StorageId = entity.PipingCalculationEntityId;
             }
 
             foreach (var entity in stochasticSoilModels.Keys)
@@ -431,6 +567,13 @@ namespace Application.Ringtoets.Storage.Create
                 .Where(entity => entity.CalculationGroupEntityId > 0)
                 .Except(calculationGroups.Keys);
             calculationGroupEntities.RemoveRange(calculationGroupEntitiesToRemove);
+
+            var pipingCalculationEntities = dbContext.PipingCalculationEntities;
+            var pipingCalculationEntitiesToRemove = pipingCalculationEntities
+                .Local
+                .Where(entity => entity.PipingCalculationEntityId > 0)
+                .Except(pipingCalculations.Keys);
+            pipingCalculationEntities.RemoveRange(pipingCalculationEntitiesToRemove);
 
             var stochasticSoilModelEntities = dbContext.StochasticSoilModelEntities;
             var stochasticSoilModelEntitiesToRemove = stochasticSoilModelEntities

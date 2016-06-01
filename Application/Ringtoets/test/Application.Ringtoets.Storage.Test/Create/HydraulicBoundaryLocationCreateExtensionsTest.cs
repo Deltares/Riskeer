@@ -21,6 +21,8 @@
 
 using System;
 using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.DbContext;
+
 using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
 
@@ -30,7 +32,7 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class HydraulicBoundaryLocationCreateExtensionsTest
     {
         [Test]
-        public void Create_WithoutCollector_ThrowsArgumentNullException()
+        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", 2, 3);
@@ -44,7 +46,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_WithCollector_ReturnsHydraulicBoundaryLocationEntityWithPropertiesSet()
+        public void Create_WithPersistenceRegistry_ReturnsHydraulicBoundaryLocationEntityWithPropertiesSet()
         {
             // Setup
             var testName = "testName";
@@ -68,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_WithCollectorAndDesignWaterLevel_ReturnsHydraulicBoundaryLocationEntityWithDesignWaterLevelSet()
+        public void Create_WithPersistenceRegistryAndDesignWaterLevel_ReturnsHydraulicBoundaryLocationEntityWithDesignWaterLevelSet()
         {
             // Setup
             var random = new Random(21);
@@ -85,6 +87,22 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(Convert.ToDecimal(waterLevel), entity.DesignWaterLevel);
+        }
+
+        [Test]
+        public void Create_HydraulicBoundaryLocationSavedMultipleTimes_ReturnSameEntity()
+        {
+            // Setup
+            var hydraulicBoundaryLocations = new HydraulicBoundaryLocation(1, "A", 1.1, 2.2);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            HydraulicLocationEntity entity1 = hydraulicBoundaryLocations.Create(registry);
+            HydraulicLocationEntity entity2 = hydraulicBoundaryLocations.Create(registry);
+
+            // Assert
+            Assert.AreSame(entity1, entity2);
         }
     }
 }

@@ -56,6 +56,7 @@
     <Compile Include="Create\CalculationGroupCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionInwardsFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\IFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\PipingCalculationScenarioCreateExtensions.cs" />
     <Compile Include="Create\RingtoetsPipingSurfaceLineCreateExtensions.cs" />
     <Compile Include="Create\Point3DCreateExtensions.cs" />
     <Compile Include="Create\FailureMechanismSectionCreateExtensions.cs" />

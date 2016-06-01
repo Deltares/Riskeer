@@ -21,6 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.DbContext;
 
 using Core.Common.Base.Geometry;
 
@@ -109,6 +110,22 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(2, entity.StochasticSoilModelSegmentPointEntities.Count);
+        }
+
+        [Test]
+        public void Create_SameModelCreatedMultipleTimes_ReturnSameEntity()
+        {
+            // Setup
+            var soilModel = new StochasticSoilModel(1, "A", "B");
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            StochasticSoilModelEntity entity1 = soilModel.Create(registry);
+            StochasticSoilModelEntity entity2 = soilModel.Create(registry);
+
+            // Assert
+            Assert.AreSame(entity1, entity2);
         }
     }
 }

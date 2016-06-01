@@ -21,6 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.Storage;
+
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -42,6 +44,8 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsInstanceOf<PipingCalculation>(scenario);
+            Assert.IsInstanceOf<ICalculationScenario>(scenario);
+            Assert.IsInstanceOf<IStorable>(scenario);
             Assert.AreSame(pipingProbabilityAssessmentInput, scenario.PipingProbabilityAssessmentInput);
             Assert.IsTrue(scenario.IsRelevant);
             Assert.AreEqual((RoundedDouble) 1.0, scenario.Contribution);

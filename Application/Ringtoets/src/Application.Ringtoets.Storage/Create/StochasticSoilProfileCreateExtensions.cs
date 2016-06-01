@@ -44,6 +44,10 @@ namespace Application.Ringtoets.Storage.Create
                 Probability = Convert.ToDecimal(profile.Probability),
                 SoilProfileEntity = profile.SoilProfile.Create(registry)
             };
+            if (registry.Contains(profile))
+            {
+                return registry.Get(profile);
+            }
 
             registry.Register(entity, profile);
             return entity;

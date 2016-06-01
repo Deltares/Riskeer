@@ -274,13 +274,29 @@ namespace Application.Ringtoets.Storage.Test.Create
             };
 
             // Call
-            SurfaceLineEntity entity = surfaceLine.Create(registry);
+            surfaceLine.Create(registry);
 
             // Assert
-            const long entityId = 125673543;
-            entity.SurfaceLineEntityId = entityId;
-            registry.TransferIds();
-            Assert.AreEqual(entityId, surfaceLine.StorageId);
+            Assert.IsTrue(registry.Contains(surfaceLine));
+        }
+
+        [Test]
+        public void Create_CreatingEntityForSameSurfaceLine_ReturnSamenEntity()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(1.1, 2.2)
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            SurfaceLineEntity entity1 = surfaceLine.Create(registry);
+            SurfaceLineEntity entity2 = surfaceLine.Create(registry);
+
+            // Assert
+            Assert.AreSame(entity1, entity2);
         }
     }
 }

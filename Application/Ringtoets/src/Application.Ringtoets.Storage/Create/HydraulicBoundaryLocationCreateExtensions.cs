@@ -43,6 +43,10 @@ namespace Application.Ringtoets.Storage.Create
             {
                 throw new ArgumentNullException("registry");
             }
+            if (registry.Contains(location))
+            {
+                return registry.Get(location);
+            }
 
             var entity = new HydraulicLocationEntity
             {

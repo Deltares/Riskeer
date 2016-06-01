@@ -48,6 +48,10 @@ namespace Application.Ringtoets.Storage.Create
             {
                 throw new ArgumentNullException("registry");
             }
+            if (registry.Contains(surfaceLine))
+            {
+                return registry.Get(surfaceLine);
+            }
 
             var entity = new SurfaceLineEntity
             {
