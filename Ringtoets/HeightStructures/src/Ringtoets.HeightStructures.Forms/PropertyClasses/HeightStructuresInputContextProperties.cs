@@ -148,11 +148,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "StorageStructureArea_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StorageStructureArea_Description")]
-        public LogNormalDistributionProperties StorageStructureArea
+        public LogNormalDistributionVariationProperties StorageStructureArea
         {
             get
             {
-                return new LogNormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
+                return new LogNormalDistributionVariationProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
                 {
                     Data = data.WrappedData.StorageStructureArea
                 };
@@ -196,11 +196,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "CriticalOvertoppingDischarge_DisplayName")]
         [ResourcesDescription(typeof(Resources), "CriticalOvertoppingDischarge_Description")]
-        public LogNormalDistributionProperties CriticalOvertoppingDischarge
+        public LogNormalDistributionVariationProperties CriticalOvertoppingDischarge
         {
             get
             {
-                return new LogNormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
+                return new LogNormalDistributionVariationProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
                 {
                     Data = data.WrappedData.CriticalOvertoppingDischarge
                 };
@@ -250,11 +250,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "StormDuration_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StormDuration_Description")]
-        public LogNormalDistributionProperties StormDuration
+        public LogNormalDistributionVariationProperties StormDuration
         {
             get
             {
-                return new LogNormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.StandardDeviation)
+                return new LogNormalDistributionVariationProperties(data.WrappedData, DistributionPropertiesReadOnly.VariationCoefficient)
                 {
                     Data = data.WrappedData.StormDuration
                 };

@@ -73,7 +73,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [DynamicReadOnly]
         [ResourcesDescription(typeof(Resources), "LogNormalDistribution_StandardDeviation_Description")]
         public override RoundedDouble StandardDeviation
         {

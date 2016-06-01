@@ -387,6 +387,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Variatiecoëfficiënt.
+        /// </summary>
+        public static string Distribution_VariationCoefficient_DisplayName {
+            get {
+                return ResourceManager.GetString("Distribution_VariationCoefficient_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lognormaal.
         /// </summary>
         public static string DistributionType_LogNormal {
@@ -705,6 +714,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De variatiecoëfficiënt van de lognormale verdeling..
+        /// </summary>
+        public static string LogNormalDistribution_VariationCoefficient_Description {
+            get {
+                return ResourceManager.GetString("LogNormalDistribution_VariationCoefficient_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De gemiddelde waarde van de normale verdeling..
         /// </summary>
         public static string NormalDistribution_Mean_Description {
@@ -737,6 +755,15 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string NormalDistribution_StandardDeviation_DisplayName {
             get {
                 return ResourceManager.GetString("NormalDistribution_StandardDeviation_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De variatiecoëfficiënt van de normale verdeling..
+        /// </summary>
+        public static string NormalDistribution_VariationCoefficient_Description {
+            get {
+                return ResourceManager.GetString("NormalDistribution_VariationCoefficient_Description", resourceCulture);
             }
         }
         

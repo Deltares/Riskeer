@@ -42,6 +42,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         StandardDeviation,
 
         /// <summary>
+        /// Mark variation coefficient read-only.
+        /// </summary>
+        VariationCoefficient,
+
+        /// <summary>
         /// Mark both <see cref="DistributionProperties.Mean"/> and <see cref="DistributionProperties.StandardDeviation"/> editable.
         /// </summary>
         None

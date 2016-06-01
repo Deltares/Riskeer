@@ -400,4 +400,13 @@
   <data name="DistributionType_Normal" xml:space="preserve">
     <value>Normale verdeling</value>
   </data>
+  <data name="LogNormalDistribution_VariationCoefficient_Description" xml:space="preserve">
+    <value>De variatiecoëfficiënt van de lognormale verdeling.</value>
+  </data>
+  <data name="Distribution_VariationCoefficient_DisplayName" xml:space="preserve">
+    <value>Variatiecoëfficiënt</value>
+  </data>
+  <data name="NormalDistribution_VariationCoefficient_Description" xml:space="preserve">
+    <value>De variatiecoëfficiënt van de normale verdeling.</value>
+  </data>
 </root>

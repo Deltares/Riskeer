@@ -43,6 +43,7 @@
     <Compile Include="AssessmentSection\IAssessmentSection.cs" />
     <Compile Include="AssessmentSection\ReferenceLine.cs" />
     <Compile Include="Calculation\CalculationScenarioStatus.cs" />
+    <Compile Include="Probabilistics\IDistributionVariationCoefficient.cs" />
     <Compile Include="Probability\EmptyProbabilityAssessmentOutput.cs" />
     <Compile Include="Probability\ProbabilityAssessmentOutput.cs" />
     <Compile Include="Calculation\ICalculationInput.cs" />

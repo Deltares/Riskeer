@@ -35,6 +35,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// </summary>
     public abstract class DistributionProperties : ObjectProperties<IDistribution>
     {
+        protected readonly bool IsVariationCoefficientReadOnly;
         private readonly bool isMeanReadOnly;
         private readonly bool isStandardDeviationReadOnly;
         protected IObservable Observerable;
@@ -43,6 +44,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             isStandardDeviationReadOnly = propertiesReadOnly == DistributionPropertiesReadOnly.All || propertiesReadOnly == DistributionPropertiesReadOnly.StandardDeviation;
             isMeanReadOnly = propertiesReadOnly == DistributionPropertiesReadOnly.All || propertiesReadOnly == DistributionPropertiesReadOnly.Mean;
+            IsVariationCoefficientReadOnly = propertiesReadOnly == DistributionPropertiesReadOnly.All || propertiesReadOnly == DistributionPropertiesReadOnly.VariationCoefficient;
         }
 
         [PropertyOrder(1)]
@@ -109,6 +111,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     return isMeanReadOnly;
                 case "StandardDeviation":
                     return isStandardDeviationReadOnly;
+                case "VariationCoefficient":
+                    return IsVariationCoefficientReadOnly;
                 default:
                     return false;
             }

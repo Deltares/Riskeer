@@ -91,37 +91,5 @@ namespace Ringtoets.Common.Data.Probabilistics
                 standardDeviation = value.ToPrecision(standardDeviation.NumberOfDecimalPlaces);
             }
         }
-
-        /// <summary>
-        /// Gets the variation coefficient (<see cref="StandardDeviation"/> / <see cref="Mean"/>) of the distribution.
-        /// </summary>
-        /// <returns>The variation coefficient.</returns>
-        public RoundedDouble GetVariationCoefficient()
-        {
-            return new RoundedDouble(numberOfDecimalPlaces, StandardDeviation/Mean);
-        }
-
-        /// <summary>
-        /// Sets the <see cref="StandardDeviation"/> of the distribution (<paramref name="variationCoefficient"/> * <see cref="Mean"/>).
-        /// </summary>
-        /// <param name="variationCoefficient">The variation coefficient.</param>
-        public void SetStandardDeviationFromVariationCoefficient(double variationCoefficient)
-        {
-            StandardDeviation = (RoundedDouble) variationCoefficient*Mean;
-        }
-
-        /// <summary>
-        /// Sets the <see cref="Mean"/> of the distribution (<see cref="StandardDeviation"/> / <paramref name="variationCoefficient"/>).
-        /// </summary>
-        /// <param name="variationCoefficient">The variation coefficient.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="variationCoefficient"/> is less than or equal to 0.</exception>
-        public void SetMeanFromVariationCoefficient(double variationCoefficient)
-        {
-            if (variationCoefficient <= 0)
-            {
-                throw new ArgumentOutOfRangeException("variationCoefficient", Resources.VariationCoefficient_Should_be_greater_than_zero);
-            }
-            Mean = (RoundedDouble) (StandardDeviation/variationCoefficient);
-        }
-    }
+     }
 }

@@ -67,6 +67,8 @@
     <Compile Include="PresentationObjects\ReferenceLineContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\DistributionPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\LogNormalDistributionVariationPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\NormalDistributionVariationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ProbabilityAssessmentOutputPropertiesTest.cs" />
     <Compile Include="PropertyClasses\LogNormalDistributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\NormalDistributionPropertiesTest.cs" />

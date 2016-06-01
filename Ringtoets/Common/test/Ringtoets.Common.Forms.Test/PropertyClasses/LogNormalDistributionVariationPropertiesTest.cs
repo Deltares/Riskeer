@@ -34,7 +34,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class DistributionPropertiesTest
+    public class LogNormalDistributionVariationPropertiesTest
     {
         private MockRepository mockRepository;
 
@@ -45,72 +45,90 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void Constructor_WithoutParameters_ExpectedValues()
+        {
+            // Call
+            var properties = new LogNormalDistributionVariationProperties();
+
+            // Assert
+            Assert.IsInstanceOf<ObjectProperties<IDistribution>>(properties);
+            Assert.IsNull(properties.Data);
+            Assert.AreEqual("Variatiecoëfficiënt", properties.ToString());
+            Assert.AreEqual("Lognormaal", properties.DistributionType);
+        }
+
+        [Test]
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Call
-            var properties = new SimpleDistributionProperties(DistributionPropertiesReadOnly.None);
+            var observerableMock = mockRepository.StrictMock<IObservable>();
+            mockRepository.ReplayAll();
+            var properties = new LogNormalDistributionVariationProperties(observerableMock, DistributionPropertiesReadOnly.None);
 
             // Assert
-            Assert.IsInstanceOf<DistributionProperties>(properties);
             Assert.IsNull(properties.Data);
-            Assert.AreEqual("Standaardafwijking", properties.ToString());
-            Assert.AreEqual("SimpleDestributionType", properties.DistributionType);
+            Assert.AreEqual("Variatiecoëfficiënt", properties.ToString());
+            Assert.AreEqual("Lognormaal", properties.DistributionType);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         [TestCase(DistributionPropertiesReadOnly.All, true, true)]
         [TestCase(DistributionPropertiesReadOnly.Mean, true, false)]
         [TestCase(DistributionPropertiesReadOnly.None, false, false)]
-        [TestCase(DistributionPropertiesReadOnly.StandardDeviation, false, true)]
-        [TestCase(DistributionPropertiesReadOnly.VariationCoefficient, false, false)]
-        public void DynamicReadOnlyValidationMethod_VariousReadOnlySet_ExpectedValues(DistributionPropertiesReadOnly propertiesReadOnly, bool expectMeanReadOnly, bool expectStandardDeviationReadOnly)
+        [TestCase(DistributionPropertiesReadOnly.StandardDeviation, false, false)]
+        [TestCase(DistributionPropertiesReadOnly.VariationCoefficient, false, true)]
+        public void DynamicReadOnlyValidationMethod_VariousReadOnlySet_ExpectedValues(DistributionPropertiesReadOnly propertiesReadOnly, bool expectMeanReadOnly, bool expectVariarionCoefficient)
         {
             // Setup
-            var properties = new SimpleDistributionProperties(propertiesReadOnly);
+            var observerableMock = mockRepository.StrictMock<IObservable>();
+            mockRepository.ReplayAll();
+            var properties = new LogNormalDistributionVariationProperties(observerableMock, propertiesReadOnly);
 
             // Call
             var meanIsReadOnly = properties.DynamicReadOnlyValidationMethod("Mean");
-            var standardDeviationIsReadOnly = properties.DynamicReadOnlyValidationMethod("StandardDeviation");
+            var variarionCoefficientIsReadOnly = properties.DynamicReadOnlyValidationMethod("VariationCoefficient");
             var doesNotExist = properties.DynamicReadOnlyValidationMethod("DoesNotExist");
 
             // Assert
-            Assert.AreEqual(expectStandardDeviationReadOnly, standardDeviationIsReadOnly);
+            Assert.AreEqual(expectVariarionCoefficient, variarionCoefficientIsReadOnly);
             Assert.AreEqual(expectMeanReadOnly, meanIsReadOnly);
             Assert.IsFalse(doesNotExist);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Data_SetNewDistributionContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var distribution = new SimpleDistribution
-            {
-                Mean = new RoundedDouble(1, 1.1),
-                StandardDeviation = new RoundedDouble(2, 2.2)
-            };
-            var propertiesReadOnly = DistributionPropertiesReadOnly.None;
+            var observerableMock = mockRepository.StrictMock<IObservable>();
+            mockRepository.ReplayAll();
 
-            var properties = new SimpleDistributionProperties(propertiesReadOnly);
+            var properties = new LogNormalDistributionVariationProperties(observerableMock, DistributionPropertiesReadOnly.None);
+            var distribution = new LogNormalDistribution(2);
 
             // Call
             properties.Data = distribution;
 
             // Assert
             Assert.AreEqual(distribution.Mean, properties.Mean);
-            Assert.AreEqual(distribution.StandardDeviation, properties.StandardDeviation);
-            var expectedToString = string.Format("{0} ({1} = {2})", distribution.Mean, Resources.NormalDistribution_StandardDeviation_DisplayName, distribution.StandardDeviation);
+            Assert.AreEqual(distribution.GetVariationCoefficient(), properties.VariationCoefficient);
+            var expectedToString = string.Format("{0} ({1} = {2})", distribution.Mean, Resources.Distribution_VariationCoefficient_DisplayName,
+                                                 distribution.GetVariationCoefficient());
             Assert.AreEqual(expectedToString, properties.ToString());
+            mockRepository.VerifyAll();
         }
 
         [Test]
         [TestCase(DistributionPropertiesReadOnly.None)]
         [TestCase(DistributionPropertiesReadOnly.StandardDeviation)]
+        [TestCase(DistributionPropertiesReadOnly.VariationCoefficient)]
         public void SetProperties_EditableMeanWithoutObserverable_ThrowsArgumentException(DistributionPropertiesReadOnly propertiesReadOnly)
         {
             // Setup
-            var properties = new SimpleDistributionProperties(propertiesReadOnly)
+            var properties = new LogNormalDistributionVariationProperties(null, propertiesReadOnly)
             {
-                Data = new SimpleDistribution()
+                Data = new LogNormalDistribution(2)
             };
 
             // Call
@@ -126,9 +144,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void SetProperties_ReadOnlyMeanWithObserverable_ThrowsArgumentException(DistributionPropertiesReadOnly propertiesReadOnly)
         {
             // Setup
-            var properties = new SimpleDistributionProperties(propertiesReadOnly)
+            var observerableMock = mockRepository.StrictMock<IObservable>();
+            mockRepository.ReplayAll();
+
+            var properties = new LogNormalDistributionVariationProperties(observerableMock, propertiesReadOnly)
             {
-                Data = new SimpleDistribution()
+                Data = new LogNormalDistribution(2)
             };
 
             // Call
@@ -136,6 +157,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Mean is set to be read-only.");
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -143,10 +165,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var observerableMock = mockRepository.StrictMock<IObservable>();
-            observerableMock.Expect(o => o.NotifyObservers()).Repeat.Once();
-            var properties = new SimpleObserverableDistributionProperties(observerableMock, DistributionPropertiesReadOnly.None)
+            observerableMock.Expect(o => o.NotifyObservers()).Repeat.Twice();
+            var properties = new LogNormalDistributionVariationProperties(observerableMock, DistributionPropertiesReadOnly.None)
             {
-                Data = new SimpleDistribution()
+                Data = new LogNormalDistribution(2)
             };
             mockRepository.ReplayAll();
             RoundedDouble newMeanValue = new RoundedDouble(3, 20);
@@ -162,16 +184,16 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [Test]
         [TestCase(DistributionPropertiesReadOnly.None)]
         [TestCase(DistributionPropertiesReadOnly.Mean)]
-        public void SetProperties_EditableStandardDeviationWithoutObserverable_ThrowsArgumentException(DistributionPropertiesReadOnly propertiesReadOnly)
+        public void SetProperties_EditableVariationCoefficientWithoutObserverable_ThrowsArgumentException(DistributionPropertiesReadOnly propertiesReadOnly)
         {
             // Setup
-            var properties = new SimpleDistributionProperties(propertiesReadOnly)
+            var properties = new LogNormalDistributionVariationProperties(null, propertiesReadOnly)
             {
-                Data = new SimpleDistribution()
+                Data = new LogNormalDistribution(2)
             };
 
             // Call
-            TestDelegate test = () => properties.StandardDeviation = new RoundedDouble(2, 20);
+            TestDelegate test = () => properties.VariationCoefficient = new RoundedDouble(2, 20);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "No observerable object set.");
@@ -179,40 +201,40 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
         [Test]
         [TestCase(DistributionPropertiesReadOnly.All)]
-        [TestCase(DistributionPropertiesReadOnly.StandardDeviation)]
-        public void SetProperties_ReadOnlyStandardDeviationWithoutObserverable_ThrowsArgumentException(DistributionPropertiesReadOnly propertiesReadOnly)
+        [TestCase(DistributionPropertiesReadOnly.VariationCoefficient)]
+        public void SetProperties_ReadOnlyVariationCoefficientWithoutObserverable_ThrowsArgumentException(DistributionPropertiesReadOnly propertiesReadOnly)
         {
             // Setup
-            var properties = new SimpleDistributionProperties(propertiesReadOnly)
+            var properties = new LogNormalDistributionVariationProperties(null, propertiesReadOnly)
             {
-                Data = new SimpleDistribution()
+                Data = new LogNormalDistribution(2)
             };
 
             // Call
-            TestDelegate test = () => properties.StandardDeviation = new RoundedDouble(2, 20);
+            TestDelegate test = () => properties.VariationCoefficient = new RoundedDouble(2, 20);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "StandardDeviation is set to be read-only.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Variation coefficient is set to be read-only.");
         }
 
         [Test]
-        public void SetProperties_StandardDeviationWithObserverable_ValueSetNotifyObservers()
+        public void SetProperties_VariationCoefficientWithObserverable_ValueSetNotifyObservers()
         {
             // Setup
             var observerableMock = mockRepository.StrictMock<IObservable>();
             observerableMock.Expect(o => o.NotifyObservers()).Repeat.Once();
-            var properties = new SimpleObserverableDistributionProperties(observerableMock, DistributionPropertiesReadOnly.None)
+            var properties = new LogNormalDistributionVariationProperties(observerableMock, DistributionPropertiesReadOnly.None)
             {
-                Data = new SimpleDistribution()
+                Data = new LogNormalDistribution(2)
             };
             mockRepository.ReplayAll();
-            RoundedDouble newStandardDeviationValue = new RoundedDouble(3, 20);
+            RoundedDouble newVariationCoefficientValue = new RoundedDouble(2, 20);
 
             // Call
-            properties.StandardDeviation = newStandardDeviationValue;
+            properties.VariationCoefficient = newVariationCoefficientValue;
 
             // Assert
-            Assert.AreEqual(newStandardDeviationValue, properties.StandardDeviation);
+            Assert.AreEqual(newVariationCoefficientValue, properties.VariationCoefficient);
             mockRepository.VerifyAll();
         }
 
@@ -220,13 +242,17 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [TestCase(DistributionPropertiesReadOnly.All, true, true)]
         [TestCase(DistributionPropertiesReadOnly.Mean, true, false)]
         [TestCase(DistributionPropertiesReadOnly.None, false, false)]
-        [TestCase(DistributionPropertiesReadOnly.StandardDeviation, false, true)]
-        public void PropertyAttributes_ReturnExpectedValues(DistributionPropertiesReadOnly propertiesReadOnly, bool expectMeanReadOnly, bool expectStandardDeviationReadOnly)
+        [TestCase(DistributionPropertiesReadOnly.VariationCoefficient, false, true)]
+        public void PropertyAttributes_ReturnExpectedValues(DistributionPropertiesReadOnly propertiesReadOnly, bool expectMeanReadOnly, bool expectVariationCoefficientReadOnly)
         {
+            // Setup
+            var observerableMock = mockRepository.StrictMock<IObservable>();
+            mockRepository.ReplayAll();
+
             // Call
-            var properties = new SimpleDistributionProperties(propertiesReadOnly)
+            var properties = new LogNormalDistributionVariationProperties(observerableMock, propertiesReadOnly)
             {
-                Data = new SimpleDistribution()
+                Data = new LogNormalDistribution(2)
             };
 
             // Assert
@@ -234,8 +260,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.IsNotInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(4, dynamicProperties.Count);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
+            {
+                new BrowsableAttribute(true)
+            });
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             PropertyDescriptor distributionTypeProperty = dynamicProperties[0];
             Assert.IsNotNull(distributionTypeProperty);
@@ -247,50 +276,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.IsNotNull(meanProperty);
             Assert.AreEqual(expectMeanReadOnly, meanProperty.IsReadOnly);
             Assert.AreEqual("Verwachtingswaarde", meanProperty.DisplayName);
-            Assert.AreEqual("De gemiddelde waarde van de normale verdeling.", meanProperty.Description);
+            Assert.AreEqual("De gemiddelde waarde van de lognormale verdeling.", meanProperty.Description);
 
-            PropertyDescriptor standardDeviationProperty = dynamicProperties[2];
-            Assert.IsNotNull(standardDeviationProperty);
-            Assert.AreEqual(expectStandardDeviationReadOnly, standardDeviationProperty.IsReadOnly);
-            Assert.AreEqual("Standaardafwijking", standardDeviationProperty.DisplayName);
-            Assert.AreEqual("De standaardafwijking van de normale verdeling.", standardDeviationProperty.Description);
-        }
-
-        private class SimpleDistributionProperties : DistributionProperties
-        {
-            public SimpleDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly)
-                : base(propertiesReadOnly) {}
-
-            public override string DistributionType
-            {
-                get
-                {
-                    return "SimpleDestributionType";
-                }
-            }
-        }
-
-        private class SimpleObserverableDistributionProperties : DistributionProperties
-        {
-            public SimpleObserverableDistributionProperties(IObservable observerable, DistributionPropertiesReadOnly propertiesReadOnly)
-                : base(propertiesReadOnly)
-            {
-                Observerable = observerable;
-            }
-
-            public override string DistributionType
-            {
-                get
-                {
-                    return "SimpleDestributionType";
-                }
-            }
-        }
-
-        private class SimpleDistribution : IDistribution
-        {
-            public RoundedDouble Mean { get; set; }
-            public RoundedDouble StandardDeviation { get; set; }
+            PropertyDescriptor variationCoefficientProperty = dynamicProperties[2];
+            Assert.IsNotNull(variationCoefficientProperty);
+            Assert.AreEqual(expectVariationCoefficientReadOnly, variationCoefficientProperty.IsReadOnly);
+            Assert.AreEqual("Variatiecoëfficiënt", variationCoefficientProperty.DisplayName);
+            Assert.AreEqual("De variatiecoëfficiënt van de lognormale verdeling.", variationCoefficientProperty.Description);
+            mockRepository.VerifyAll();
         }
     }
 }

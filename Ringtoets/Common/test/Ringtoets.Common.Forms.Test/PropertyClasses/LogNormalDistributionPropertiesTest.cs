@@ -69,7 +69,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new LogNormalDistributionProperties(observerableMock, DistributionPropertiesReadOnly.None);
 
             // Assert
-            Assert.IsInstanceOf<DistributionProperties>(properties);
             Assert.IsNull(properties.Data);
             Assert.AreEqual("Lognormaal", properties.DistributionType);
             mockRepository.VerifyAll();

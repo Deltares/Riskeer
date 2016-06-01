@@ -70,9 +70,9 @@ namespace Ringtoets.HeightStructures.Data
 
             storageStructureArea = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN,
-                StandardDeviation = (RoundedDouble) 0.1
+                Mean = (RoundedDouble) 1.0
             };
+            storageStructureArea.SetStandardDeviationFromVariationCoefficient(0.1);
 
             flowWidthAtBottomProtection = new LogNormalDistribution(2)
             {
@@ -82,9 +82,9 @@ namespace Ringtoets.HeightStructures.Data
 
             criticalOvertoppingDischarge = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN,
-                StandardDeviation = (RoundedDouble) 0.15
+                Mean = (RoundedDouble) 1.0
             };
+            criticalOvertoppingDischarge.SetStandardDeviationFromVariationCoefficient(0.15);
 
             failureProbabilityOfStructureGivenErosion = new RoundedDouble(2);
 
@@ -97,9 +97,9 @@ namespace Ringtoets.HeightStructures.Data
 
             stormDuration = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) 7.5,
-                StandardDeviation = (RoundedDouble) 0.25
+                Mean = (RoundedDouble) 7.5
             };
+            stormDuration.SetStandardDeviationFromVariationCoefficient(0.25);
         }
 
         #region Model Factors

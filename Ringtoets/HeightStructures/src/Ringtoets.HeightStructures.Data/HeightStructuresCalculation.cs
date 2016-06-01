@@ -86,7 +86,6 @@ namespace Ringtoets.HeightStructures.Data
             InputParameters.LevelOfCrestOfStructure.Mean = (RoundedDouble) 3.5;
             InputParameters.OrientationOfTheNormalOfTheStructure = (RoundedDouble) 115;
             InputParameters.AllowableIncreaseOfLevelForStorage.Mean = (RoundedDouble) 1.0;
-            InputParameters.StorageStructureArea.Mean = (RoundedDouble) 1000000;
             InputParameters.FlowWidthAtBottomProtection.Mean = (RoundedDouble) 18;
             InputParameters.CriticalOvertoppingDischarge.Mean = (RoundedDouble) 1;
             InputParameters.WidthOfFlowApertures.Mean = (RoundedDouble) 18;

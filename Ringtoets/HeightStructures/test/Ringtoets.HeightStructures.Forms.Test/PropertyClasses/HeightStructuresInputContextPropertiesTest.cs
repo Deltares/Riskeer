@@ -96,7 +96,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             };
             AssertDistributionProperties(allowableIncreaseOfLevelForStorageProperties, properties.AllowableIncreaseOfLevelForStorage);
 
-            var storageStructureAreaProperties = new LogNormalDistributionProperties
+            var storageStructureAreaProperties = new LogNormalDistributionVariationProperties
             {
                 Data = input.StorageStructureArea
             };
@@ -108,13 +108,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             };
             AssertDistributionProperties(flowWidthAtBottomProtectionProperties, properties.FlowWidthAtBottomProtection);
 
-            var widthOfFlowAperturesProperties = new NormalDistributionProperties
+            var widthOfFlowAperturesProperties = new NormalDistributionVariationProperties
             {
                 Data = input.WidthOfFlowApertures
             };
             AssertDistributionProperties(widthOfFlowAperturesProperties, properties.WidthOfFlowApertures);
 
-            var criticalOvertoppingDischargeProperties = new LogNormalDistributionProperties
+            var criticalOvertoppingDischargeProperties = new LogNormalDistributionVariationProperties
             {
                 Data = input.CriticalOvertoppingDischarge
             };
@@ -126,7 +126,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             Assert.AreEqual(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
 
-            var stormDurationProperties = new LogNormalDistributionProperties
+            var stormDurationProperties = new LogNormalDistributionVariationProperties
             {
                 Data = input.StormDuration
             };
@@ -268,6 +268,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         private static void AssertDistributionProperties(DistributionProperties expected, DistributionProperties actual)
         {
             Assert.AreEqual(expected.DistributionType, actual.DistributionType);
+            Assert.AreEqual(expected.Data, actual.Data);
+        }
+
+        private static void AssertDistributionProperties(LogNormalDistributionVariationProperties expected, LogNormalDistributionVariationProperties actual)
+        {
             Assert.AreEqual(expected.Data, actual.Data);
         }
 

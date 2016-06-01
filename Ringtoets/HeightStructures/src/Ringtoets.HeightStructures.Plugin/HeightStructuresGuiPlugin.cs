@@ -31,6 +31,7 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -161,14 +162,14 @@ namespace Ringtoets.HeightStructures.Plugin
                                                           inputParameters.ModelFactorOvertoppingSuperCriticalFlow.Mean, inputParameters.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation,
                                                           inputParameters.AllowableIncreaseOfLevelForStorage.Mean, inputParameters.AllowableIncreaseOfLevelForStorage.StandardDeviation,
                                                           generalInputParameters.ModelFactorForStorageVolume.Mean, generalInputParameters.ModelFactorForStorageVolume.StandardDeviation,
-                                                          inputParameters.StorageStructureArea.Mean, inputParameters.StorageStructureArea.StandardDeviation,
+                                                          inputParameters.StorageStructureArea.Mean, inputParameters.StorageStructureArea.GetVariationCoefficient(),
                                                           generalInputParameters.ModelFactorForIncomingFlowVolume,
                                                           inputParameters.FlowWidthAtBottomProtection.Mean, inputParameters.FlowWidthAtBottomProtection.StandardDeviation,
-                                                          inputParameters.CriticalOvertoppingDischarge.Mean, inputParameters.CriticalOvertoppingDischarge.StandardDeviation,
+                                                          inputParameters.CriticalOvertoppingDischarge.Mean, inputParameters.CriticalOvertoppingDischarge.GetVariationCoefficient(),
                                                           inputParameters.FailureProbabilityOfStructureGivenErosion,
-                                                          inputParameters.WidthOfFlowApertures.Mean, inputParameters.WidthOfFlowApertures.StandardDeviation,
+                                                          inputParameters.WidthOfFlowApertures.Mean, inputParameters.WidthOfFlowApertures.GetVariationCoefficient(),
                                                           inputParameters.DeviationOfTheWaveDirection,
-                                                          inputParameters.StormDuration.Mean, inputParameters.StormDuration.StandardDeviation),
+                                                          inputParameters.StormDuration.Mean, inputParameters.StormDuration.GetVariationCoefficient()),
                 calculation.ClearOutput,
                 output => { ParseHydraRingOutput(calculation, failureMechanism, assessmentSection, output); });
         }
