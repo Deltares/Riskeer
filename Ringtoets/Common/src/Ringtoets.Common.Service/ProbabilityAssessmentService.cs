@@ -37,9 +37,10 @@ namespace Ringtoets.Common.Service
         /// to the total of the failure probability of the assessment section.</param>
         /// <param name="lengthEffectN">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <param name="reliability">The reliability to use for the calculation.</param>
+        /// <returns>The calculated <see cref="ProbabilityAssessmentOutput"/>.</returns>
         public static ProbabilityAssessmentOutput Calculate(int norm, double contribution, double lengthEffectN, double reliability)
         {
-            var requiredProbability = RequiredProbability(contribution / 100.0, norm, lengthEffectN);
+            var requiredProbability = RequiredProbability(contribution/100.0, norm, lengthEffectN);
             var probability = ReliabilityToProbability(reliability);
             var requiredReliability = ProbabilityToReliability(requiredProbability);
             var factorOfSafety = FactorOfSafety(reliability, requiredReliability);
