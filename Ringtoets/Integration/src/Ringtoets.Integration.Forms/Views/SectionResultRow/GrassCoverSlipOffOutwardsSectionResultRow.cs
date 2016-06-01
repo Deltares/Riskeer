@@ -19,14 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultRow
 {
+    /// <summary>
+    /// Class for displaying <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/> as a row in a grid.
+    /// </summary>
     public class GrassCoverSlipOffOutwardsSectionResultRow : FailureMechanismSectionResultRow<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverSlipOffOutwardsSectionResultRow"/>.
+        /// </summary>
+        /// <param name="sectionResult">The <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/> to wrap
+        /// so that it can be displayed as a row.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
         public GrassCoverSlipOffOutwardsSectionResultRow(GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult) : base(sectionResult) { }
 
         /// <summary>

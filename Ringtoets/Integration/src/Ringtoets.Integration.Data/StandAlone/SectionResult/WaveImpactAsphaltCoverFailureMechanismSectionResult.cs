@@ -19,13 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Integration.Data.StandAlone.SectionResult
 {
+    /// <summary>
+    /// This class holds information about the result of a calculation on section level for the
+    /// Wave Impact on Asphalt failure mechanism.
+    /// </summary>
     public class WaveImpactAsphaltCoverFailureMechanismSectionResult : FailureMechanismSectionResult
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
+        /// </summary>
+        /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
+        /// <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/> will hold the result.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
 
         /// <summary>

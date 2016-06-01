@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Windows.Forms;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
@@ -28,8 +27,14 @@ using Ringtoets.Integration.Forms.Views.SectionResultRow;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultView
 {
+    /// <summary>
+    /// The view for a collection of <see cref="StrengthStabilityPointConstructionFailureMechanismSectionResult"/>.
+    /// </summary>
     public class StrengthStabilityPointConstructionResultView : FailureMechanismResultView<StrengthStabilityPointConstructionFailureMechanismSectionResult>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="StrengthStabilityPointConstructionResultView"/>.
+        /// </summary>
         public StrengthStabilityPointConstructionResultView()
         {
             AddDataGridColumns();

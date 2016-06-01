@@ -24,8 +24,18 @@ using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Integration.Data.StandAlone.SectionResult
 {
+    /// <summary>
+    /// This class holds information about the result of a calculation on section level for the
+    /// Dune Erosion failure mechanism.
+    /// </summary>
     public class DuneErosionFailureMechanismSectionResult : FailureMechanismSectionResult
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="DuneErosionFailureMechanismSectionResult"/>.
+        /// </summary>
+        /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
+        /// <see cref="DuneErosionFailureMechanismSectionResult"/> will hold the result.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public DuneErosionFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
 
         /// <summary>

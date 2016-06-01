@@ -33,8 +33,14 @@ using Ringtoets.Integration.Forms.Views.SectionResultRow;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultView
 {
+    /// <summary>
+    /// The view for a collection of <see cref="MicrostabilityFailureMechanismSectionResult"/>.
+    /// </summary>
     public class MicrostabilityResultView : FailureMechanismResultView<MicrostabilityFailureMechanismSectionResult>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="MicrostabilityResultView"/>.
+        /// </summary>
         public MicrostabilityResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);

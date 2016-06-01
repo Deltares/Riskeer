@@ -24,8 +24,18 @@ using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Integration.Data.StandAlone.SectionResult
 {
+    /// <summary>
+    /// This class holds information about the result of a calculation on section level for the
+    /// Grass Cover Erosion Outwards failure mechanism.
+    /// </summary>
     public class GrassCoverErosionOutwardsFailureMechanismSectionResult : FailureMechanismSectionResult
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/>.
+        /// </summary>
+        /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
+        /// <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> will hold the result.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
 
         /// <summary>

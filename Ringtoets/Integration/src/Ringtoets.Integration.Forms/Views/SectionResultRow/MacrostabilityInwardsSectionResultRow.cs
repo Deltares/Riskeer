@@ -26,8 +26,17 @@ using Ringtoets.Integration.Data.StandAlone.SectionResult;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultRow
 {
+    /// <summary>
+    /// Class for displaying <see cref="MacrostabilityInwardsFailureMechanismSectionResult"/> as a row in a grid.
+    /// </summary>
     public class MacrostabilityInwardsSectionResultRow : FailureMechanismSectionResultRow<MacrostabilityInwardsFailureMechanismSectionResult>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="MacrostabilityInwardsSectionResultRow"/>.
+        /// </summary>
+        /// <param name="sectionResult">The <see cref="MacrostabilityInwardsFailureMechanismSectionResult"/> to wrap
+        /// so that it can be displayed as a row.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
         public MacrostabilityInwardsSectionResultRow(MacrostabilityInwardsFailureMechanismSectionResult sectionResult) : base(sectionResult) { }
 
         /// <summary>

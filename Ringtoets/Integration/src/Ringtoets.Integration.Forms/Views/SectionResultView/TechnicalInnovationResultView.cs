@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Windows.Forms;
 using Core.Common.Utils;
 using Core.Common.Utils.Reflection;
@@ -33,8 +32,14 @@ using Ringtoets.Integration.Forms.Views.SectionResultRow;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultView
 {
+    /// <summary>
+    /// The view for a collection of <see cref="TechnicalInnovationFailureMechanismSectionResult"/>.
+    /// </summary>
     public class TechnicalInnovationResultView : FailureMechanismResultView<TechnicalInnovationFailureMechanismSectionResult>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="TechnicalInnovationResultView"/>.
+        /// </summary>
         public TechnicalInnovationResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);

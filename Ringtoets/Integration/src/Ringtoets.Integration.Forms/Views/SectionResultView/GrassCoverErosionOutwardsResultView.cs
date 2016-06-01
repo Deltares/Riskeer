@@ -33,8 +33,14 @@ using Ringtoets.Integration.Forms.Views.SectionResultRow;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultView
 {
+    /// <summary>
+    /// The view for a collection of <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/>.
+    /// </summary>
     public class GrassCoverErosionOutwardsResultView : FailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanismSectionResult>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsResultView"/>.
+        /// </summary>
         public GrassCoverErosionOutwardsResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);

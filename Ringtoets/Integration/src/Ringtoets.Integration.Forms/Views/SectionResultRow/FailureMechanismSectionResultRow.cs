@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.Integration.Forms.Views.SectionResultRow
 {
     /// <summary>
-    /// Container of a <see cref="FailureMechanismSectionResult"/>, which takes care of the
+    /// Base class for a wrapper of a <see cref="FailureMechanismSectionResult"/>, which takes care of the
     /// representation of properties in a grid.
     /// </summary>
     public abstract class FailureMechanismSectionResultRow<T> where T : FailureMechanismSectionResult
@@ -46,6 +46,9 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRow
             SectionResult = sectionResult;
         }
 
+        /// <summary>
+        /// Gets the <see cref="FailureMechanismSectionResult"/> that is the source of this row.
+        /// </summary>
         protected T SectionResult { get; private set; }
     }
 }

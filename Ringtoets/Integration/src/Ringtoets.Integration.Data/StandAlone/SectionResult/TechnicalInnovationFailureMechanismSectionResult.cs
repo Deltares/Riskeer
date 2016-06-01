@@ -19,13 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Integration.Data.StandAlone.SectionResult
 {
+    /// <summary>
+    /// This class holds information about the result of a calculation on section level for the
+    /// Technical Innovations failure mechanism.
+    /// </summary>
     public class TechnicalInnovationFailureMechanismSectionResult : FailureMechanismSectionResult
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="TechnicalInnovationFailureMechanismSectionResult"/>.
+        /// </summary>
+        /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
+        /// <see cref="TechnicalInnovationFailureMechanismSectionResult"/> will hold the result.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public TechnicalInnovationFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
 
         /// <summary>

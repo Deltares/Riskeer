@@ -28,8 +28,14 @@ using Ringtoets.Integration.Forms.Views.SectionResultRow;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultView
 {
+    /// <summary>
+    /// The view for a collection of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
+    /// </summary>
     public class WaveImpactAsphaltCoverResultView : FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanismSectionResult>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverResultView"/>.
+        /// </summary>
         public WaveImpactAsphaltCoverResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);

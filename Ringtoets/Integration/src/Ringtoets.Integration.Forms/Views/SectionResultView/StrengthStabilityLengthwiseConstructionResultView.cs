@@ -28,8 +28,14 @@ using Ringtoets.Integration.Forms.Views.SectionResultRow;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultView
 {
+    /// <summary>
+    /// The view for a collection of <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.
+    /// </summary>
     public class StrengthStabilityLengthwiseConstructionResultView : FailureMechanismResultView<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="StrengthStabilityLengthwiseConstructionResultView"/>.
+        /// </summary>
         public StrengthStabilityLengthwiseConstructionResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);

@@ -33,8 +33,14 @@ using Ringtoets.Integration.Forms.Views.SectionResultRow;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultView
 {
+    /// <summary>
+    /// The view for a collection of <see cref="PipingStructureFailureMechanismSectionResult"/>.
+    /// </summary>
     public class PipingStructureResultView : FailureMechanismResultView<PipingStructureFailureMechanismSectionResult>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingStructureResultView"/>.
+        /// </summary>
         public PipingStructureResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);

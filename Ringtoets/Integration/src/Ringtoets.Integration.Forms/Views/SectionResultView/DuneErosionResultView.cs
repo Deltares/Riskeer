@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Windows.Forms;
 using Core.Common.Utils;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -33,8 +32,14 @@ using Ringtoets.Integration.Forms.Views.SectionResultRow;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultView
 {
+    /// <summary>
+    /// The view for a collection of <see cref="DuneErosionFailureMechanismSectionResult"/>.
+    /// </summary>
     public class DuneErosionResultView : FailureMechanismResultView<DuneErosionFailureMechanismSectionResult>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="DuneErosionResultView"/>.
+        /// </summary>
         public DuneErosionResultView()
         {
             AddDataGridColumns();

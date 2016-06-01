@@ -26,13 +26,24 @@ using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Integration.Data.StandAlone.SectionResult
 {
+    /// <summary>
+    /// This class holds information about the result of a calculation on section level for the
+    /// Closing Structure failure mechanism.
+    /// </summary>
     public class ClosingStructureFailureMechanismSectionResult : FailureMechanismSectionResult
     {
         private RoundedDouble assessmentLayerTwoA;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ClosingStructureFailureMechanismSectionResult"/>.
+        /// </summary>
+        /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
+        /// <see cref="ClosingStructureFailureMechanismSectionResult"/> will hold the result.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public ClosingStructureFailureMechanismSectionResult(FailureMechanismSection section)
             : base(section)
         {
-            AssessmentLayerTwoA = (RoundedDouble)1.0;
+            AssessmentLayerTwoA = (RoundedDouble) 1.0;
         }
 
         /// <summary>

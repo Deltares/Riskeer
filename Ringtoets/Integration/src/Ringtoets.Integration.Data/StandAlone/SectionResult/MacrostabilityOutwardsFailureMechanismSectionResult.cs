@@ -26,10 +26,20 @@ using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Integration.Data.StandAlone.SectionResult
 {
+    /// <summary>
+    /// This class holds information about the result of a calculation on section level for the
+    /// Macrostability Outwards failure mechanism.
+    /// </summary>
     public class MacrostabilityOutwardsFailureMechanismSectionResult : FailureMechanismSectionResult
     {
         private RoundedDouble assessmentLayerTwoA;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="MacrostabilityOutwardsFailureMechanismSectionResult"/>.
+        /// </summary>
+        /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
+        /// <see cref="MacrostabilityOutwardsFailureMechanismSectionResult"/> will hold the result.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public MacrostabilityOutwardsFailureMechanismSectionResult(FailureMechanismSection section)
             : base(section)
         {
