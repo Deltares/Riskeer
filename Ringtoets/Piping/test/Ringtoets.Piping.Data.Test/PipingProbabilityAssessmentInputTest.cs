@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Ringtoets.Piping.Data.Test
@@ -39,42 +37,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(350.0, pipingProbabilityAssessmentInput.B);
 
             Assert.IsNaN(pipingProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(0, pipingProbabilityAssessmentInput.Norm);
-            Assert.IsNaN(pipingProbabilityAssessmentInput.Contribution);
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(45.67)]
-        [TestCase(100)]
-        public void Contribution_SetNewValidValue_GetNewValue(double newContributionValue)
-        {
-            // Setup
-            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
-
-            // Call
-            pipingProbabilityAssessmentInput.Contribution = newContributionValue;
-
-            // Assert
-            Assert.AreEqual(newContributionValue, pipingProbabilityAssessmentInput.Contribution);
-        }
-
-        [Test]
-        [TestCase(-1e-6)]
-        [TestCase(-123.545)]
-        [TestCase(100 + 1e-6)]
-        [TestCase(5678.9)]
-        public void Contribution_SetNewInvalidValue_ThrowArgumentOutOfRangeException(double newContributionValue)
-        {
-            // Setup
-            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
-
-            // Call
-            TestDelegate call = () => pipingProbabilityAssessmentInput.Contribution = newContributionValue;
-
-            // Assert
-            const string expectedMessage = "De waarde voor de toegestane bijdrage aan faalkans moet in interval [0,100] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
     }
 }

@@ -37,6 +37,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -743,6 +744,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                    Enumerable.Empty<StochasticSoilModel>(),
                                                                    pipingFailureMechanismMock,
                                                                    assessmentSectionMock);
+
+            pipingFailureMechanismMock.Stub(fm => fm.Contribution).Return(0.24);
+            assessmentSectionMock.Stub(s => s.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 20000));
 
             gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
             gui.Expect(g => g.MainWindow).Return(mainWindow);

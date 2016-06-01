@@ -29,15 +29,22 @@ namespace Ringtoets.Piping.Service
     /// </summary>
     public class PipingCalculationActivity : Activity
     {
+        private readonly int norm;
+        private readonly double contribution;
         private readonly PipingCalculation calculation;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculationActivity"/> class.
         /// </summary>
         /// <param name="calculation">The piping data used for the calculation.</param>
-        public PipingCalculationActivity(PipingCalculation calculation)
+        /// <param name="norm">The return period to assess for.</param>
+        /// <param name="contribution">The contribution of piping as a percentage (0-100) to the total of the failure probability of the
+        /// assessment section.</param>
+        public PipingCalculationActivity(PipingCalculation calculation, int norm, double contribution)
         {
             this.calculation = calculation;
+            this.norm = norm;
+            this.contribution = contribution;
         }
 
         public override string Name
@@ -60,7 +67,7 @@ namespace Ringtoets.Piping.Service
             calculation.ClearOutput();
 
             PipingCalculationService.Calculate(calculation);
-            PipingSemiProbabilisticCalculationService.Calculate(calculation);
+            PipingSemiProbabilisticCalculationService.Calculate(calculation, norm, contribution);
         }
 
         protected override void OnCancel()

@@ -65,8 +65,11 @@ namespace Ringtoets.Piping.Service
         /// </summary>
         /// <param name="calculation">The calculation which is used as input for the semi-probabilistic assessment. If the semi-
         /// probabilistic calculation is successful, <see cref="PipingCalculation.SemiProbabilisticOutput"/> is set.</param>
+        /// <param name="norm">The return period to assess for.</param>
+        /// <param name="contribution">The contribution of piping as a percentage (0-100) to the total of the failure probability of the
+        /// assessment section.</param>
         /// <exception cref="ArgumentException">Thrown when calculation has no output from a piping calculation.</exception>
-        public static void Calculate(PipingCalculation calculation)
+        public static void Calculate(PipingCalculation calculation, int norm, double contribution)
         {
             ValidateOutputOnCalculation(calculation);
 
@@ -77,11 +80,11 @@ namespace Ringtoets.Piping.Service
                 pipingOutput.UpliftFactorOfSafety,
                 pipingOutput.HeaveFactorOfSafety,
                 pipingOutput.SellmeijerFactorOfSafety,
-                pipingProbabilityAssessmentInput.Norm,
+                norm,
                 pipingProbabilityAssessmentInput.A,
                 pipingProbabilityAssessmentInput.B,
                 pipingProbabilityAssessmentInput.SectionLength,
-                pipingProbabilityAssessmentInput.Contribution/100);
+                contribution/100);
 
             calculator.Calculate();
 

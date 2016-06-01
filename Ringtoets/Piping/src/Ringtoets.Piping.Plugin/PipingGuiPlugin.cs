@@ -387,7 +387,12 @@ namespace Ringtoets.Piping.Plugin
 
         private void CalculateAll(PipingFailureMechanismContext failureMechanismContext)
         {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow, GetAllPipingCalculations(failureMechanismContext.WrappedData).Select(calc => new PipingCalculationActivity(calc)).ToList());
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             GetAllPipingCalculations(failureMechanismContext.WrappedData)
+                                                 .Select(calc => new PipingCalculationActivity(calc,
+                                                                                               failureMechanismContext.Parent.FailureMechanismContribution.Norm,
+                                                                                               failureMechanismContext.WrappedData.Contribution))
+                                                 .ToList());
         }
 
         private object[] FailureMechanismEnabledChildNodeObjects(PipingFailureMechanismContext pipingFailureMechanismContext)
@@ -503,7 +508,10 @@ namespace Ringtoets.Piping.Plugin
 
         private void PerformCalculation(PipingCalculation calculation, PipingCalculationScenarioContext context)
         {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow, new PipingCalculationActivity(calculation));
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             new PipingCalculationActivity(calculation,
+                                                                           context.AssessmentSection.FailureMechanismContribution.Norm,
+                                                                           context.FailureMechanism.Contribution));
         }
 
         # endregion
@@ -655,7 +663,13 @@ namespace Ringtoets.Piping.Plugin
 
         private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
         {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow, group.GetCalculations().OfType<PipingCalculationScenario>().Select(pc => new PipingCalculationActivity(pc)).ToList());
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             group.GetCalculations()
+                                                  .OfType<PipingCalculationScenario>()
+                                                  .Select(pc => new PipingCalculationActivity(pc,
+                                                                                              context.AssessmentSection.FailureMechanismContribution.Norm,
+                                                                                              context.FailureMechanism.Contribution))
+                                                  .ToList());
         }
 
         private static void ValidateAll(CalculationGroup group)

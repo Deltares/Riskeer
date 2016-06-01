@@ -42,8 +42,6 @@ namespace Ringtoets.Integration.Data
     {
         private ReferenceLine referenceLine;
 
-        private FailureMechanismContribution contribution;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="AssessmentSection"/> class.
         /// </summary>
@@ -186,18 +184,7 @@ namespace Ringtoets.Integration.Data
             }
         }
 
-        public FailureMechanismContribution FailureMechanismContribution
-        {
-            get
-            {
-                return contribution;
-            }
-            private set
-            {
-                contribution = value;
-                PipingFailureMechanism.PipingProbabilityAssessmentInput.Norm = value.Norm;
-            }
-        }
+        public FailureMechanismContribution FailureMechanismContribution { get; private set; }
 
         public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
 

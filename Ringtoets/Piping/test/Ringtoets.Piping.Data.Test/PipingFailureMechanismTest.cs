@@ -218,20 +218,5 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             CollectionAssert.DoesNotContain(failureMechanism.CalculationsGroup.Children, folder);
         }
-
-        [Test]
-        public void Contribution_Always_UpdatesPipingProbabilityAssessmentInputContribution()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            const double newContribution = 12;
-
-            // Call
-            failureMechanism.Contribution = newContribution;
-
-            // Assert
-            Assert.AreEqual(newContribution, failureMechanism.PipingProbabilityAssessmentInput.Contribution);
-            Assert.AreEqual(newContribution, failureMechanism.Contribution);
-        }
     }
 }
