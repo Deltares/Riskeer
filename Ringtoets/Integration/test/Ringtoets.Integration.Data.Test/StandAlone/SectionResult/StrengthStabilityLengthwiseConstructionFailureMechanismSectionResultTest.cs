@@ -54,7 +54,6 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResult
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreSame(section, result.Section);
             Assert.IsFalse(result.AssessmentLayerOne);
-            Assert.AreEqual(0, result.AssessmentLayerTwoA.Value);
             Assert.AreEqual(0, result.AssessmentLayerThree.Value);
         }
     }

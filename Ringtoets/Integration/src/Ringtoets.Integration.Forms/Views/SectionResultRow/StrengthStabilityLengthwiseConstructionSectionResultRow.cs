@@ -56,21 +56,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRow
         }
 
         /// <summary>
-        /// Gets or sets the value representing the result of the layer 2a assessment.
-        /// </summary>
-        public RoundedDouble AssessmentLayerTwoA
-        {
-            get
-            {
-                return SectionResult.AssessmentLayerTwoA;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerTwoA = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the value representing the result of the layer 3 assessment.
         /// </summary>
         public RoundedDouble AssessmentLayerThree

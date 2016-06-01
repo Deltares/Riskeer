@@ -72,12 +72,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultView
                 TypeUtils.GetMemberName<TechnicalInnovationSectionResultRow>(sr => sr.AssessmentLayerOne),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one
                 );
-            DataGridViewControl.AddComboBoxColumn(
-                TypeUtils.GetMemberName<TechnicalInnovationSectionResultRow>(sr => sr.AssessmentLayerTwoA), 
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
-                twoAResultDataSource, 
-                TypeUtils.GetMemberName((Expression<Func<EnumDisplayWrapper<AssessmentLayerTwoAResult>, object>>) (edw => edw.Value)),
-                TypeUtils.GetMemberName((Expression<Func<EnumDisplayWrapper<AssessmentLayerTwoAResult>, object>>) (edw => edw.DisplayName)));
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<TechnicalInnovationSectionResultRow>(sr => sr.AssessmentLayerThree), 
                 Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three

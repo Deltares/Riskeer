@@ -58,7 +58,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRow
             // Assert
             Assert.AreEqual(section.Name, row.Name);
             Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
-            Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
         }
 
@@ -85,23 +84,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRow
                 Assert.AreEqual(1, counter);
                 Assert.AreEqual(newValue, result.AssessmentLayerOne);
             }
-        }
-
-        [Test]
-        public void AssessmentLayerTwoA_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            var random = new Random(21);
-            var newValue = random.NextDouble();
-            var section = CreateSection();
-            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section);
-            var row = new WaterPressureAsphaltCoverSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerTwoA = (RoundedDouble)newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerTwoA, row.AssessmentLayerTwoA.GetAccuracy());
         }
 
         [Test]
