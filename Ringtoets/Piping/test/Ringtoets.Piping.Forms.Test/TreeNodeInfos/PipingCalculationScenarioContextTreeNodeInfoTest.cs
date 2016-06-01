@@ -429,7 +429,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             observer.Expect(o => o.UpdateObserver());
 
-            pipingFailureMechanismMock.Stub(fm => fm.Contribution).Return(0.24);
             assessmentSectionMock.Stub(s => s.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 20000));
             gui.Expect(cmp => cmp.Get(pipingCalculationContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
             gui.Expect(g => g.MainWindow).Return(mainWindow);
@@ -532,7 +531,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                                 pipingFailureMechanismMock,
                                                                                 assessmentSectionMock);
 
-            pipingFailureMechanismMock.Stub(fm => fm.Contribution).Return(0.24);
             assessmentSectionMock.Stub(s => s.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 20000));
             gui.Expect(g => g.Get(pipingCalculationContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
             gui.Expect(g => g.MainWindow).Return(mainWindow);

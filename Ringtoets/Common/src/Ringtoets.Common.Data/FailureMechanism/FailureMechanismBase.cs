@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
             IsRelevant = true;
         }
 
-        public virtual double Contribution
+        public double Contribution
         {
             get
             {
