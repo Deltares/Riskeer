@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using MathNet.Numerics.Distributions;
 using Ringtoets.Common.Data.Probability;
 
@@ -31,19 +30,16 @@ namespace Ringtoets.Common.Service
     public static class ProbabilityAssessmentService
     {
         /// <summary>
-        /// Calculates the <see cref="ProbabilityAssessmentOutput"/> given <paramref name="probabilityAssessmentInput"/> and <paramref name="reliability"/>.
+        /// Calculates <see cref="ProbabilityAssessmentOutput"/> based on the provided parameters.
         /// </summary>
-        /// <param name="probabilityAssessmentInput">The probability assesment input to use for the calculation.</param>
+        /// <param name="norm">The return period to assess for.</param>
+        /// <param name="contribution">The contribution of the failure mechanism as a percentage (0-100)
+        /// to the total of the failure probability of the assessment section.</param>
+        /// <param name="lengthEffectN">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <param name="reliability">The reliability to use for the calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="probabilityAssessmentInput"/> is <c>null</c>.</exception>
-        public static ProbabilityAssessmentOutput Calculate(ProbabilityAssessmentInput probabilityAssessmentInput, double reliability)
+        public static ProbabilityAssessmentOutput Calculate(double norm, double contribution, double lengthEffectN, double reliability)
         {
-            if (probabilityAssessmentInput == null)
-            {
-                throw new ArgumentNullException("probabilityAssessmentInput");
-            }
-
-            var requiredProbability = RequiredProbability(probabilityAssessmentInput.Contribution / 100.0, probabilityAssessmentInput.Norm, probabilityAssessmentInput.N);
+            var requiredProbability = RequiredProbability(contribution / 100.0, norm, lengthEffectN);
             var probability = ReliabilityToProbability(reliability);
             var requiredReliability = ProbabilityToReliability(requiredProbability);
             var factorOfSafety = FactorOfSafety(reliability, requiredReliability);

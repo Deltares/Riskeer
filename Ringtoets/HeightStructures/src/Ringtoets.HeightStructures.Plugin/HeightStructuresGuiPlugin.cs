@@ -206,7 +206,7 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             if (output != null)
             {
-                calculation.Output = ProbabilityAssessmentService.Calculate(probabilityAssessmentInput, output.Beta);
+                calculation.Output = ProbabilityAssessmentService.Calculate(probabilityAssessmentInput.Norm, probabilityAssessmentInput.Contribution, probabilityAssessmentInput.N, output.Beta);
                 calculation.NotifyObservers();
             }
             else

@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Service.Test
@@ -29,17 +27,6 @@ namespace Ringtoets.Common.Service.Test
     [TestFixture]
     public class ProbabilityAssessmentServiceTest
     {
-        [Test]
-        public void Calculate_NullProbabilityAssessmentInput_ThrowsArgumentNullException()
-        {
-            //Call
-            TestDelegate test = () => ProbabilityAssessmentService.Calculate(null, double.NaN);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("probabilityAssessmentInput", exception.ParamName);
-        }
-
         [Test]
         [TestCase(30000, 100, 2, 60000)]
         [TestCase(30000, 100, 1, 30000)]
@@ -51,16 +38,8 @@ namespace Ringtoets.Common.Service.Test
         [TestCase(20000, 24, 1, 83333.33)]
         public void RequiredProbability_DifferentInputs_ReturnsExpectedValue(int norm, double contribution, int lengthEffectN, double expectedResult)
         {
-            // Setup
-            var input = new ProbabilityAssessmentInput
-            {
-                Norm = norm,
-                Contribution = contribution,
-                N = lengthEffectN
-            };
-
             // Call
-            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(input, double.NaN);
+            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(norm, contribution, lengthEffectN, double.NaN);
 
             // Assert
             Assert.AreEqual(expectedResult, probabilityAssessmentOutput.RequiredProbability, probabilityAssessmentOutput.RequiredProbability.GetAccuracy());
@@ -77,16 +56,8 @@ namespace Ringtoets.Common.Service.Test
         [TestCase(20000, 24, 1, 4.2240038)]
         public void RequiredReliability_DifferentInputs_ReturnsExpectedValue(int norm, double contribution, int lengthEffectN, double expectedResult)
         {
-            // Setup
-            var input = new ProbabilityAssessmentInput
-            {
-                Norm = norm,
-                Contribution = contribution,
-                N = lengthEffectN
-            };
-
             // Call
-            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(input, double.NaN);
+            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(norm, contribution, lengthEffectN, double.NaN);
 
             // Assert
             Assert.AreEqual(expectedResult, probabilityAssessmentOutput.RequiredReliability, probabilityAssessmentOutput.RequiredReliability.GetAccuracy());
@@ -97,11 +68,8 @@ namespace Ringtoets.Common.Service.Test
         [TestCase(789.123, 789.123)]
         public void Reliability_DifferentInputs_ReturnsExpectedValue(double reliability, double expectedResult)
         {
-            // Setup
-            var input = new ProbabilityAssessmentInput();
-
             // Call
-            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(input, reliability);
+            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(double.NaN, double.NaN, double.NaN, reliability);
 
             // Assert
             Assert.AreEqual(expectedResult, probabilityAssessmentOutput.Reliability, probabilityAssessmentOutput.Reliability.GetAccuracy());
@@ -112,11 +80,8 @@ namespace Ringtoets.Common.Service.Test
         [TestCase(5, 3488555.78723)]
         public void Probability_DifferentInputs_ReturnsExpectedValue(double reliability, double expectedResult)
         {
-            // Setup
-            var input = new ProbabilityAssessmentInput();
-
             // Call
-            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(input, reliability);
+            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(double.NaN, double.NaN, double.NaN, reliability);
 
             // Assert
             Assert.AreEqual(expectedResult, probabilityAssessmentOutput.Probability, probabilityAssessmentOutput.Probability.GetAccuracy());
@@ -133,16 +98,8 @@ namespace Ringtoets.Common.Service.Test
         [TestCase(20000, 24, 2, 4.149409984, 0.947875892)]
         public void FactorOfSafety_DifferentInputs_ReturnsExpectedValue(int norm, double contribution, int lengthEffectN, double reliability, double expectedResult)
         {
-            // Setup
-            var input = new ProbabilityAssessmentInput
-            {
-                Norm = norm,
-                Contribution = contribution,
-                N = lengthEffectN
-            };
-
             // Call
-            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(input, reliability);
+            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(norm, contribution, lengthEffectN, reliability);
 
             // Assert
             Assert.AreEqual(expectedResult, probabilityAssessmentOutput.FactorOfSafety, probabilityAssessmentOutput.FactorOfSafety.GetAccuracy());
