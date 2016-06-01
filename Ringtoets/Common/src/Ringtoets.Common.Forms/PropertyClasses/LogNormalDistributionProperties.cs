@@ -21,7 +21,6 @@
 
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
