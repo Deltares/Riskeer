@@ -37,24 +37,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultView
     {
         public StabilityStoneCoverResultView()
         {
-            DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
-
             AddDataGridColumns();
-        }
-
-        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
-        {
-            if (eventArgs.ColumnIndex > 1)
-            {
-                if (HasPassedLevelOne(eventArgs.RowIndex))
-                {
-                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-                else
-                {
-                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-            } 
         }
 
         private void AddDataGridColumns()
@@ -67,10 +50,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultView
                 TypeUtils.GetMemberName<StabilityStoneCoverSectionResultRow>(sr => sr.Name),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true
-                );
-            DataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<StabilityStoneCoverSectionResultRow>(sr => sr.AssessmentLayerOne),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one
                 );
             DataGridViewControl.AddComboBoxColumn(
                 TypeUtils.GetMemberName<StabilityStoneCoverSectionResultRow>(sr => sr.AssessmentLayerTwoA), 

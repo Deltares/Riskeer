@@ -41,22 +41,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRow
         }
 
         /// <summary>
-        /// Gets or sets the value representing whether the section passed the layer 0 assessment.
-        /// </summary>
-        public bool AssessmentLayerOne
-        {
-            get
-            {
-                return SectionResult.AssessmentLayerOne;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerOne = value;
-                SectionResult.NotifyObservers();
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the value representing the result of the layer 2a assessment.
         /// </summary>
         public AssessmentLayerTwoAResult AssessmentLayerTwoA

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -57,34 +56,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRow
 
             // Assert
             Assert.AreEqual(section.Name, row.Name);
-            Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AssessmentLayerOne_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged(bool newValue)
-        {
-            // Setup
-            var section = CreateSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
-            var row = new DuneErosionSectionResultRow(result);
-
-            int counter = 0;
-            using (new Observer(() => counter++)
-            {
-                Observable = result
-            })
-            {
-                // Call
-                row.AssessmentLayerOne = newValue;
-
-                // Assert
-                Assert.AreEqual(1, counter);
-                Assert.AreEqual(newValue, result.AssessmentLayerOne);
-            }
         }
 
         [Test]

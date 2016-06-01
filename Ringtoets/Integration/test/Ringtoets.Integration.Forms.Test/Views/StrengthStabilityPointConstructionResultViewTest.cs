@@ -32,30 +32,30 @@ using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Forms.Views.SectionResultView;
 
+using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
+
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class StabilityStoneCoverResultViewTest
+    public class StrengthStabilityPointConstructionResultViewTest
     {
         [Test]
-        public void GivenFormWithStabilityStoneCoverFailureMechanismResultView_WhenAlways_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithStrengthStabilityPointConstructionFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
-            // Setup
+            // Given
             using (var form = new Form())
             {
-                using (var view = new StabilityStoneCoverResultView())
+                using (var view = new StrengthStabilityPointConstructionResultView())
                 {
                     form.Controls.Add(view);
-                    // Call
-
                     form.Show();
 
-                    // Assert
+                    // Then
                     var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                     Assert.AreEqual(3, dataGridView.ColumnCount);
 
-                    Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
+                    Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
                     Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
                     Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithStabilityStoneCoverFailureMechanismResultView_WhenDataSourceWithStabilityStoneCoverFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void GivenFormWithStrengthStabilityPointConstructionFailureMechanismResultView_WhenDataSourceWithStrengthStabilityPointConstructionFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -80,20 +80,20 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 new Point2D(0, 0)
             });
             Random random = new Random(21);
-            var result1 = new StabilityStoneCoverFailureMechanismSectionResult(section1)
+            var result1 = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section1)
             {
-                AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
+                AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
-            var result2 = new StabilityStoneCoverFailureMechanismSectionResult(section2)
+            var result2 = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section2)
             {
-                AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
+                AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
 
             using (var form = new Form())
             {
-                using (var view = new StabilityStoneCoverResultView())
+                using (var view = new StrengthStabilityPointConstructionResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -106,28 +106,37 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     };
 
                     // Then
-                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
+                    var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
                     var rows = dataGridView.Rows;
                     Assert.AreEqual(2, rows.Count);
 
                     var cells = rows[0].Cells;
                     Assert.AreEqual(3, cells.Count);
                     Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                    Assert.AreEqual(result1.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
+                    var expectedAssessmentLayer2AValue1 = (RoundedDouble)(1 / result1.AssessmentLayerTwoA);
+                    var expectedAssessmentLayer2AString1 = string.Format(
+                        CoreCommonBaseResources.ProbabilityPerYearFormat,
+                        expectedAssessmentLayer2AValue1
+                    );
+                    Assert.AreEqual(expectedAssessmentLayer2AString1, cells[assessmentLayerTwoAIndex].FormattedValue);
                     Assert.AreEqual(string.Format("{0}", result1.AssessmentLayerThree), cells[assessmentLayerThreeIndex].FormattedValue);
 
                     cells = rows[1].Cells;
                     Assert.AreEqual(3, cells.Count);
                     Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                    Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
+                    var expectedAssessmentLayer2AValue2 = (RoundedDouble)(1 / result2.AssessmentLayerTwoA);
+                    var expectedAssessmentLayer2AString2 = string.Format(
+                        CoreCommonBaseResources.ProbabilityPerYearFormat,
+                        expectedAssessmentLayer2AValue2
+                    );
+                    Assert.AreEqual(expectedAssessmentLayer2AString2, cells[assessmentLayerTwoAIndex].FormattedValue);
                     Assert.AreEqual(string.Format("{0}", result2.AssessmentLayerThree), cells[assessmentLayerThreeIndex].FormattedValue);
                 }
             }
         }
 
         [Test]
-        public void GivenFormWithStabilityStoneCoverFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
+        public void GivenFormWithStrengthStabilityPointConstructionFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -143,7 +152,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var form = new Form())
             {
-                using (var view = new StabilityStoneCoverResultView())
+                using (var view = new StrengthStabilityPointConstructionResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();

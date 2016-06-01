@@ -32,8 +32,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultView
     {
         public StrengthStabilityPointConstructionResultView()
         {
-            DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
-
             AddDataGridColumns();
         }
 
@@ -43,10 +41,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultView
                 TypeUtils.GetMemberName<StrengthStabilityPointConstructionSectionResultRow>(sr => sr.Name),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true
-                );
-            DataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<StrengthStabilityPointConstructionSectionResultRow>(sr => sr.AssessmentLayerOne),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one
                 );
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<StrengthStabilityPointConstructionSectionResultRow>(sr => sr.AssessmentLayerTwoA),
@@ -61,21 +55,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultView
         protected override object CreateFailureMechanismSectionResultRow(StrengthStabilityPointConstructionFailureMechanismSectionResult sectionResult)
         {
             return new StrengthStabilityPointConstructionSectionResultRow(sectionResult);
-        }
-
-        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
-        {
-            if (eventArgs.ColumnIndex > 1)
-            {
-                if (HasPassedLevelOne(eventArgs.RowIndex))
-                {
-                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-                else
-                {
-                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-            }
         }
     }
 }

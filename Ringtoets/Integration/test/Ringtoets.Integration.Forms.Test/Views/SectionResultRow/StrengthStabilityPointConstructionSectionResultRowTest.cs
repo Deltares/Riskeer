@@ -59,7 +59,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRow
 
             // Assert
             Assert.AreEqual(section.Name, row.Name);
-            Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
 
             var expected2AValue = (RoundedDouble) (1 / result.AssessmentLayerTwoA);
             var expected2AValueString = string.Format(
@@ -72,31 +71,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRow
             );
 
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AssessmentLayerOne_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged(bool newValue)
-        {
-            // Setup
-            var section = CreateSection();
-            var result = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section);
-            var row = new StrengthStabilityPointConstructionSectionResultRow(result);
-
-            int counter = 0;
-            using (new Observer(() => counter++)
-            {
-                Observable = result
-            })
-            {
-                // Call
-                row.AssessmentLayerOne = newValue;
-
-                // Assert
-                Assert.AreEqual(1, counter);
-                Assert.AreEqual(newValue, result.AssessmentLayerOne);
-            }
         }
 
         [Test]

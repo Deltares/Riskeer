@@ -53,13 +53,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     // Assert
                     var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                    Assert.AreEqual(4, dataGridView.ColumnCount);
+                    Assert.AreEqual(3, dataGridView.ColumnCount);
 
-                    Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
                     Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
                     Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
-                    Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one, dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
                     Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
                     Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three, dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
@@ -84,13 +82,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Random random = new Random(21);
             var result1 = new DuneErosionFailureMechanismSectionResult(section1)
             {
-                AssessmentLayerOne = true,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
             var result2 = new DuneErosionFailureMechanismSectionResult(section2)
             {
-                AssessmentLayerOne = false,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
@@ -116,69 +112,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     Assert.AreEqual(2, rows.Count);
 
                     var cells = rows[0].Cells;
-                    Assert.AreEqual(4, cells.Count);
+                    Assert.AreEqual(3, cells.Count);
                     Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                    Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
                     Assert.AreEqual(result1.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                     Assert.AreEqual(string.Format("{0}", result1.AssessmentLayerThree), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                    AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                    AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
-
                     cells = rows[1].Cells;
-                    Assert.AreEqual(4, cells.Count);
+                    Assert.AreEqual(3, cells.Count);
                     Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                    Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
                     Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                     Assert.AreEqual(string.Format("{0}", result2.AssessmentLayerThree), cells[assessmentLayerThreeIndex].FormattedValue);
-
-                    AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
-                    AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
-                }
-            }
-        }
-
-        [Test]
-        public void GivenFormWithDuneErosionFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled()
-        {
-            // Given
-            var section = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0, 0)
-            });
-            Random random = new Random(21);
-            var result = new DuneErosionFailureMechanismSectionResult(section)
-            {
-                AssessmentLayerOne = false,
-                AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
-            };
-            using (var form = new Form())
-            {
-                using (var view = new DuneErosionResultView())
-                {
-                    form.Controls.Add(view);
-                    form.Show();
-
-                    view.Data = new[]
-                    {
-                        result
-                    };
-
-                    // When
-                    result.AssessmentLayerOne = true;
-                    result.NotifyObservers();
-
-                    // Then
-                    var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-                    var rows = dataGridView.Rows;
-                    Assert.AreEqual(1, rows.Count);
-
-                    var cells = rows[0].Cells;
-                    Assert.AreEqual(4, cells.Count);
-
-                    AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                    AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
                 }
             }
         }
@@ -221,22 +164,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         private const int nameColumnIndex = 0;
-        private const int assessmentLayerOneIndex = 1;
-        private const int assessmentLayerTwoAIndex = 2;
-        private const int assessmentLayerThreeIndex = 3;
-
-        private void AssertCellIsDisabled(DataGridViewCell dataGridViewCell)
-        {
-            Assert.AreEqual(true, dataGridViewCell.ReadOnly);
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), dataGridViewCell.Style.ForeColor);
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), dataGridViewCell.Style.BackColor);
-        }
-
-        private void AssertCellIsEnabled(DataGridViewCell dataGridViewCell)
-        {
-            Assert.AreEqual(false, dataGridViewCell.ReadOnly);
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataGridViewCell.Style.ForeColor);
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.White), dataGridViewCell.Style.BackColor);
-        }
+        private const int assessmentLayerTwoAIndex = 1;
+        private const int assessmentLayerThreeIndex = 2;
     }
 }
