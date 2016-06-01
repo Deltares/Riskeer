@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Forms.Views.SectionResultView;
 using Ringtoets.Piping.Data;
@@ -71,7 +72,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedFailureMechanismResult()
         {
             // Setup
-            var failureMechanism = new Simple();
+            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
             var context = new FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
             mocks.ReplayAll();
 
@@ -86,7 +87,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var failureMechanism = new Simple();
+            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
             using(var view = new StrengthStabilityLengthwiseConstructionResultView())
             {
                 // Call
@@ -148,7 +149,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             using (var view = new StrengthStabilityLengthwiseConstructionResultView())
             {
-                var failureMechanism = new Simple();
+                var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
@@ -174,7 +175,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             using (var view = new StrengthStabilityLengthwiseConstructionResultView())
             {
-                var failureMechanism = new Simple();
+                var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
@@ -190,7 +191,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new Simple();
+            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
 
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
                 {
@@ -219,7 +220,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             using (var view = new StrengthStabilityLengthwiseConstructionResultView())
             {
-                var failureMechanism = new Simple();
+                var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
@@ -236,11 +237,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             using (var view = new StrengthStabilityLengthwiseConstructionResultView())
             {
-                var failureMechanism = new Simple();
+                var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
                 
                 // Call
-                var closeForData = info.CloseForData(view, new Simple());
+                var closeForData = info.CloseForData(view, new StrengthStabilityLengthwiseConstructionFailureMechanism());
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -252,7 +253,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            var failureMechanism = new Simple();
+            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
             failureMechanismContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
 
             mocks.ReplayAll();
@@ -275,13 +276,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failureMechanismContext.Expect(fm => fm.WrappedData).Return(new Simple());
+            failureMechanismContext.Expect(fm => fm.WrappedData).Return(new StrengthStabilityLengthwiseConstructionFailureMechanism());
 
             mocks.ReplayAll();
 
             using (var view = new StrengthStabilityLengthwiseConstructionResultView())
             {
-                var failureMechanism = new Simple();
+                var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
@@ -298,7 +299,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewMock = mocks.StrictMock<StrengthStabilityLengthwiseConstructionResultView>();
-            var failureMechanism = new Simple();
+            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
             var context = new FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
 
             viewMock.Expect(v => v.FailureMechanism = failureMechanism);
@@ -310,24 +311,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Assert
             mocks.VerifyAll();
-        }
-
-        private class Simple : FailureMechanismBase, IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>
-        {
-            public Simple() : base("simple failure mechanism", "simple code")
-            {
-                SectionResults = new List<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
-            }
-
-            public IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> SectionResults { get; private set; }
-
-            public override IEnumerable<ICalculation> Calculations
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
         }
     }
 }

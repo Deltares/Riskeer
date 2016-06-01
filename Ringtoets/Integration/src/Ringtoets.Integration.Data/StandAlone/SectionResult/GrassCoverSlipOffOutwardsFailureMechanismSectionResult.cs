@@ -19,12 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Integration.Data.StandAlone.SectionResult
 {
-    public class GrassCoverSlipOffOutwardsFailureMechanismSectionResult : SimpleFailureMechanismSectionResult
+    public class GrassCoverSlipOffOutwardsFailureMechanismSectionResult : FailureMechanismSectionResult
     {
         public GrassCoverSlipOffOutwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
+
+        /// <summary>
+        /// Gets the value of assessment layer two a.
+        /// </summary>
+        public AssessmentLayerTwoAResult AssessmentLayerTwoA { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value of assessment layer three.
+        /// </summary>
+        public RoundedDouble AssessmentLayerThree { get; set; }
+
+        /// <summary>
+        /// Gets or sets the state of the assessment layer one.
+        /// </summary>
+        public bool AssessmentLayerOne { get; set; }
     }
 }

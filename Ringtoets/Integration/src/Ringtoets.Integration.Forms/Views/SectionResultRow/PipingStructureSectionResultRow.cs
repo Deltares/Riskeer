@@ -19,12 +19,71 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultRow
 {
-    public class PipingStructureSectionResultRow : SimpleFailureMechanismSectionResultRow
+    public class PipingStructureSectionResultRow : FailureMechanismSectionResultRow<PipingStructureFailureMechanismSectionResult>
     {
-        public PipingStructureSectionResultRow(SimpleFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+        public PipingStructureSectionResultRow(PipingStructureFailureMechanismSectionResult sectionResult) : base(sectionResult) { }
+
+        /// <summary>
+        /// Gets the name of the failure mechanism section.
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return SectionResult.Section.Name;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value representing whether the section passed the layer 0 assessment.
+        /// </summary>
+        public bool AssessmentLayerOne
+        {
+            get
+            {
+                return SectionResult.AssessmentLayerOne;
+            }
+            set
+            {
+                SectionResult.AssessmentLayerOne = value;
+                SectionResult.NotifyObservers();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value representing the result of the layer 2a assessment.
+        /// </summary>
+        public AssessmentLayerTwoAResult AssessmentLayerTwoA
+        {
+            get
+            {
+                return SectionResult.AssessmentLayerTwoA;
+            }
+            set
+            {
+                SectionResult.AssessmentLayerTwoA = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value representing the result of the layer 3 assessment.
+        /// </summary>
+        public RoundedDouble AssessmentLayerThree
+        {
+            get
+            {
+                return SectionResult.AssessmentLayerThree;
+            }
+            set
+            {
+                SectionResult.AssessmentLayerThree = value;
+            }
+        }
     }
 }

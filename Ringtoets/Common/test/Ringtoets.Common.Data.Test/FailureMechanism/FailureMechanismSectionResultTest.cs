@@ -29,7 +29,6 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
     [TestFixture]
     public class FailureMechanismSectionResultTest
     {
-
         [Test]
         public void Constructor_WithoutSection_ThrowsArgumentNullException()
         {

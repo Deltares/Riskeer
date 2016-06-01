@@ -186,6 +186,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        [TestCase(typeof(DuneErosionFailureMechanismSectionResult))]
+        [TestCase(typeof(GrassCoverErosionOutwardsFailureMechanismSectionResult))]
+        [TestCase(typeof(GrassCoverSlipOffInwardsFailureMechanismSectionResult))]
+        [TestCase(typeof(GrassCoverSlipOffOutwardsFailureMechanismSectionResult))]
+        [TestCase(typeof(MicrostabilityFailureMechanismSectionResult))]
+        [TestCase(typeof(PipingStructureFailureMechanismSectionResult))]
+        [TestCase(typeof(StabilityStoneCoverFailureMechanismSectionResult))]
+        [TestCase(typeof(TechnicalInnovationFailureMechanismSectionResult))]
         [TestCase(typeof(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult))]
         [TestCase(typeof(WaterPressureAsphaltCoverFailureMechanismSectionResult))]
         [TestCase(typeof(WaveImpactAsphaltCoverFailureMechanismSectionResult))]
@@ -225,36 +233,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var outputFolder = (CategoryTreeFolder)children[1];
 
                 var failureMechanismResultsContext = (FailureMechanismSectionResultContext<T>)outputFolder.Contents[0];
-                Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
-                Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
-            }
-        }
-
-        [Test]
-        public void ChildNodeObjects_FailureMechanismIsRelevantWithSimpleSectionResults_OutputNodeAdded()
-        {
-
-             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            using (var plugin = new RingtoetsGuiPlugin())
-            {
-                var info = GetInfo(plugin);
-
-                var failureMechanism = mocks.StrictMultiMock<IHasSectionResults<SimpleFailureMechanismSectionResult>>(typeof(IFailureMechanism));
-                failureMechanism.Expect(fm => ((IFailureMechanism)fm).IsRelevant).Return(true);
-                failureMechanism.Expect(fm => fm.SectionResults).Return(new List<SimpleFailureMechanismSectionResult>()).Repeat.Any();
-                var failureMechanismContext = mocks.Stub<FailureMechanismContext<IFailureMechanism>>(failureMechanism, assessmentSection);
-
-                mocks.ReplayAll();
-
-                // Call
-                object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
-
-                // Assert
-                var outputFolder = (CategoryTreeFolder)children[1];
-
-                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>) outputFolder.Contents[0];
                 Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
                 Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
             }

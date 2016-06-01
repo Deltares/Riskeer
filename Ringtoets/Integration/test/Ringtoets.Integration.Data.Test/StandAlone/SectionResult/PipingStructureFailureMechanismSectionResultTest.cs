@@ -28,13 +28,13 @@ using Ringtoets.Integration.Data.StandAlone.SectionResult;
 namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResult
 {
     [TestFixture]
-    public class SimpleFailureMechanismSectionResultTest
+    public class PipingStructureFailureMechanismSectionResultTest
     {
         [Test]
         public void Constructor_WithoutSection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SimpleFailureMechanismSectionResult(null);
+            TestDelegate test = () => new PipingStructureFailureMechanismSectionResult(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResult
             });
 
             // Call
-            var result = new SimpleFailureMechanismSectionResult(section);
+            var result = new PipingStructureFailureMechanismSectionResult(section);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);

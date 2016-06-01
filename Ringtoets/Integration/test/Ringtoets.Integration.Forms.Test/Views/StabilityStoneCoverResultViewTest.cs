@@ -35,15 +35,15 @@ using Ringtoets.Integration.Forms.Views.SectionResultView;
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class SimpleFailureMechanismResultViewTest
+    public class StabilityStoneCoverResultViewTest
     {
         [Test]
-        public void GivenFormWithSimpleFailureMechanismResultView_WhenAlways_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithStabilityStoneCoverFailureMechanismResultView_WhenAlways_ThenExpectedColumnsAreVisible()
         {
             // Setup
             using (var form = new Form())
             {
-                using (var view = new SimpleFailureMechanismResultView())
+                using (var view = new StabilityStoneCoverResultView())
                 {
                     form.Controls.Add(view);
                     // Call
@@ -70,7 +70,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithSimpleFailureMechanismResultView_WhenDataSourceWithSimpleFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void GivenFormWithStabilityStoneCoverFailureMechanismResultView_WhenDataSourceWithStabilityStoneCoverFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -82,13 +82,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 new Point2D(0, 0)
             });
             Random random = new Random(21);
-            var result1 = new SimpleFailureMechanismSectionResult(section1)
+            var result1 = new StabilityStoneCoverFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = true,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
-            var result2 = new SimpleFailureMechanismSectionResult(section2)
+            var result2 = new StabilityStoneCoverFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = false,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var form = new Form())
             {
-                using (var view = new SimpleFailureMechanismResultView())
+                using (var view = new StabilityStoneCoverResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -139,7 +139,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithSimpleFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled()
+        public void GivenFormWithStabilityStoneCoverFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled()
         {
             // Given
             var section = new FailureMechanismSection("Section 1", new[]
@@ -147,7 +147,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 new Point2D(0, 0)
             });
             Random random = new Random(21);
-            var result = new SimpleFailureMechanismSectionResult(section)
+            var result = new StabilityStoneCoverFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = false,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
@@ -155,7 +155,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             };
             using (var form = new Form())
             {
-                using (var view = new SimpleFailureMechanismResultView())
+                using (var view = new StabilityStoneCoverResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -184,7 +184,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithSimpleFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
+        public void GivenFormWithStabilityStoneCoverFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -200,7 +200,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var form = new Form())
             {
-                using (var view = new SimpleFailureMechanismResultView())
+                using (var view = new StabilityStoneCoverResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();

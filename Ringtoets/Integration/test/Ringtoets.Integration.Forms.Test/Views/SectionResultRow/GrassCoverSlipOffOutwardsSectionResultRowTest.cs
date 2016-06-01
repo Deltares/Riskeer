@@ -29,16 +29,16 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Forms.Views.SectionResultRow;
 
-namespace Ringtoets.Integration.Forms.Test.Views
+namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRow
 {
     [TestFixture]
-    public class SimpleFailureMechanismSectionResultRowTest
+    public class GrassCoverSlipOffOutwardsSectionResultRowTest
     {
         [Test]
         public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SimpleFailureMechanismSectionResultRow(null);
+            TestDelegate test = () => new GrassCoverSlipOffOutwardsSectionResultRow(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -50,10 +50,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var section = CreateSection();
-            var result = new SimpleFailureMechanismSectionResult(section);
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
 
             // Call
-            var row = new SimpleFailureMechanismSectionResultRow(result);
+            var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);
 
             // Assert
             Assert.AreEqual(section.Name, row.Name);
@@ -69,8 +69,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var section = CreateSection();
-            var result = new SimpleFailureMechanismSectionResult(section);
-            var row = new SimpleFailureMechanismSectionResultRow(result);
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+            var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);
 
             int counter = 0;
             using (new Observer(() => counter++)
@@ -93,8 +93,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             var newValue = AssessmentLayerTwoAResult.Successful;
             var section = CreateSection();
-            var result = new SimpleFailureMechanismSectionResult(section);
-            var row = new SimpleFailureMechanismSectionResultRow(result);
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+            var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);
 
             // Call
             row.AssessmentLayerTwoA = newValue;
@@ -110,8 +110,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var random = new Random(21);
             var newValue = random.NextDouble();
             var section = CreateSection();
-            var result = new SimpleFailureMechanismSectionResult(section);
-            var row = new SimpleFailureMechanismSectionResultRow(result);
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+            var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);
 
             // Call
             row.AssessmentLayerThree = (RoundedDouble)newValue;

@@ -83,7 +83,6 @@
     <Compile Include="Views\SectionResultRow\MacrostabilityOutwardsSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRow\MicrostabilitySectionResultRow.cs" />
     <Compile Include="Views\SectionResultRow\PipingStructureSectionResultRow.cs" />
-    <Compile Include="Views\SectionResultRow\SimpleFailureMechanismSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRow\StabilityStoneCoverSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRow\StrengthStabilityLengthwiseConstructionSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRow\StrengthStabilityPointConstructionSectionResultRow.cs" />
@@ -133,9 +132,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\SectionResultView\WaveImpactAsphaltCoverResultView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\SectionResultView\SimpleFailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

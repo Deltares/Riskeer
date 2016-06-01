@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Forms.Views.SectionResultView;
 using Ringtoets.Piping.Data;
@@ -70,7 +71,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedFailureMechanismResult()
         {
             // Setup
-            var failureMechanism = new Simple();
+            var failureMechanism = new MacrostabilityInwardsFailureMechanism();
             var context = new FailureMechanismSectionResultContext<MacrostabilityInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
             mocks.ReplayAll();
 
@@ -85,7 +86,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var failureMechanism = new Simple();
+            var failureMechanism = new MacrostabilityInwardsFailureMechanism();
             var viewMock = mocks.StrictMock<MacrostabilityInwardsResultView>();
 
             mocks.ReplayAll();
@@ -147,7 +148,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             using (var view = new MacrostabilityInwardsResultView())
             {
-                var failureMechanism = new Simple();
+                var failureMechanism = new MacrostabilityInwardsFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
@@ -165,7 +166,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mocks.Stub<FailureMechanismBase>("N", "C");
-            var failureMechanism = new Simple();
+            var failureMechanism = new MacrostabilityInwardsFailureMechanism();
 
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
             {
@@ -191,7 +192,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new Simple();
+            var failureMechanism = new MacrostabilityInwardsFailureMechanism();
 
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
@@ -220,7 +221,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             using (var view = new MacrostabilityInwardsResultView())
             {
-                var failureMechanism = new Simple();
+                var failureMechanism = new MacrostabilityInwardsFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
@@ -237,11 +238,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             using (var view = new MacrostabilityInwardsResultView())
             {
-                var failureMechanism = new Simple();
+                var failureMechanism = new MacrostabilityInwardsFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
-                var closeForData = info.CloseForData(view, new Simple());
+                var closeForData = info.CloseForData(view, new MacrostabilityInwardsFailureMechanism());
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -253,7 +254,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            var failureMechanism = new Simple();
+            var failureMechanism = new MacrostabilityInwardsFailureMechanism();
             failureMechanismContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
 
             mocks.ReplayAll();
@@ -276,13 +277,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failureMechanismContext.Expect(fm => fm.WrappedData).Return(new Simple());
+            failureMechanismContext.Expect(fm => fm.WrappedData).Return(new MacrostabilityInwardsFailureMechanism());
 
             mocks.ReplayAll();
 
             using (var view = new MacrostabilityInwardsResultView())
             {
-                var failureMechanism = new Simple();
+                var failureMechanism = new MacrostabilityInwardsFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
@@ -298,7 +299,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void AfterCreate_Always_SetsSpecificPropertiesToView()
         {
             // Setup
-            var failureMechanism = new Simple();
+            var failureMechanism = new MacrostabilityInwardsFailureMechanism();
             var view = mocks.StrictMock<MacrostabilityInwardsResultView>();
             var context = new FailureMechanismSectionResultContext<MacrostabilityInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
 
@@ -311,24 +312,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Assert
             mocks.VerifyAll();
-        }
-
-        private class Simple : FailureMechanismBase, IHasSectionResults<MacrostabilityInwardsFailureMechanismSectionResult>
-        {
-            public Simple() : base("simple failure mechanism", "simple code")
-            {
-                SectionResults = new List<MacrostabilityInwardsFailureMechanismSectionResult>();
-            }
-
-            public IEnumerable<MacrostabilityInwardsFailureMechanismSectionResult> SectionResults { get; private set; }
-
-            public override IEnumerable<ICalculation> Calculations
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
         }
     }
 }

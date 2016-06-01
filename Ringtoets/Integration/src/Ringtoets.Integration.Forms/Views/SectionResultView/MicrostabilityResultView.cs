@@ -19,16 +19,74 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Windows.Forms;
+using Core.Common.Utils;
+using Core.Common.Utils.Reflection;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Forms.Views.SectionResultRow;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultView
 {
-    public class MicrostabilityResultView : SimpleFailureMechanismResultView
+    public class MicrostabilityResultView : FailureMechanismResultView<MicrostabilityFailureMechanismSectionResult>
     {
-        protected override object CreateFailureMechanismSectionResultRow(SimpleFailureMechanismSectionResult sectionResult)
+        public MicrostabilityResultView()
         {
-            return new SimpleFailureMechanismSectionResultRow(sectionResult);
+            DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
+
+            AddDataGridColumns();
+        }
+
+        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
+        {
+            if (eventArgs.ColumnIndex > 1)
+            {
+                if (HasPassedLevelOne(eventArgs.RowIndex))
+                {
+                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
+                else
+                {
+                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
+            } 
+        }
+
+        private void AddDataGridColumns()
+        {
+            var twoAResultDataSource = Enum.GetValues(typeof(AssessmentLayerTwoAResult))
+                                           .OfType<AssessmentLayerTwoAResult>()
+                                           .Select(el => new EnumDisplayWrapper<AssessmentLayerTwoAResult>(el))
+                                           .ToList();
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<MicrostabilitySectionResultRow>(sr => sr.Name),
+                Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
+                true
+                );
+            DataGridViewControl.AddCheckBoxColumn(
+                TypeUtils.GetMemberName<MicrostabilitySectionResultRow>(sr => sr.AssessmentLayerOne),
+                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one
+                );
+            DataGridViewControl.AddComboBoxColumn(
+                TypeUtils.GetMemberName<MicrostabilitySectionResultRow>(sr => sr.AssessmentLayerTwoA), 
+                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
+                twoAResultDataSource, 
+                TypeUtils.GetMemberName((Expression<Func<EnumDisplayWrapper<AssessmentLayerTwoAResult>, object>>) (edw => edw.Value)),
+                TypeUtils.GetMemberName((Expression<Func<EnumDisplayWrapper<AssessmentLayerTwoAResult>, object>>) (edw => edw.DisplayName)));
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<MicrostabilitySectionResultRow>(sr => sr.AssessmentLayerThree), 
+                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three
+                );
+        }
+
+        protected override object CreateFailureMechanismSectionResultRow(MicrostabilityFailureMechanismSectionResult sectionResult)
+        {
+            return new MicrostabilitySectionResultRow(sectionResult);
         }
     }
 }

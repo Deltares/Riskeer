@@ -52,7 +52,6 @@
     <Compile Include="StandAlone\SectionResult\MacrostabilityOutwardsFailureMechanismSectionResult.cs" />
     <Compile Include="StandAlone\SectionResult\MicrostabilityFailureMechanismSectionResult.cs" />
     <Compile Include="StandAlone\SectionResult\PipingStructureFailureMechanismSectionResult.cs" />
-    <Compile Include="StandAlone\SectionResult\SimpleFailureMechanismSectionResult.cs" />
     <Compile Include="StandAlone\SectionResult\StabilityStoneCoverFailureMechanismSectionResult.cs" />
     <Compile Include="StandAlone\SectionResult\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult.cs" />
     <Compile Include="StandAlone\SectionResult\StrengthStabilityPointConstructionFailureMechanismSectionResult.cs" />

@@ -71,6 +71,13 @@
     <Compile Include="ViewInfos\CommentViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssessmentSectionViewInfoTest.cs" />
     <Compile Include="ViewInfos\ClosingStructureResultViewInfoTest.cs" />
+    <Compile Include="ViewInfos\TechnicalInnovationResultViewInfoTest.cs" />
+    <Compile Include="ViewInfos\MicrostabilityResultViewInfoTest.cs" />
+    <Compile Include="ViewInfos\PipingStructureResultViewInfoTest.cs" />
+    <Compile Include="ViewInfos\StabilityStoneCoverResultViewInfoTest.cs" />
+    <Compile Include="ViewInfos\GrassCoverSlipOffOutwardsResultViewInfoTest.cs" />
+    <Compile Include="ViewInfos\GrassCoverSlipOffInwardsResultViewInfoTest.cs" />
+    <Compile Include="ViewInfos\GrassCoverErosionOutwardsResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\WaterPressureAsphaltCoverResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\WaveImpactAsphaltCoverResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacrostabilityInwardsResultViewInfoTest.cs" />
@@ -78,7 +85,7 @@
     <Compile Include="ViewInfos\StrengthStabilityPointConstructionResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\StrengthStabilityLengthwiseConstructionResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\FailureMechanismContributionViewInfoTest.cs" />
-    <Compile Include="ViewInfos\SimpleFailureMechanismResultViewInfoTest.cs" />
+    <Compile Include="ViewInfos\DuneErosionResultViewInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

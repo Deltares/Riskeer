@@ -141,18 +141,30 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsFormsResources.Map
             };
 
-            yield return new ViewInfo<
-                FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>, 
-                IEnumerable<SimpleFailureMechanismSectionResult>, 
-                SimpleFailureMechanismResultView>
-            {
-                GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData,
-                GetViewData = context => context.SectionResults,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
-            };
-
+            yield return CreateFailureMechanismResultViewInfo<
+                DuneErosionFailureMechanismSectionResult,
+                DuneErosionResultView>();
+            yield return CreateFailureMechanismResultViewInfo<
+                GrassCoverErosionOutwardsFailureMechanismSectionResult,
+                GrassCoverErosionOutwardsResultView>();
+            yield return CreateFailureMechanismResultViewInfo<
+                GrassCoverSlipOffInwardsFailureMechanismSectionResult,
+                GrassCoverSlipOffInwardsResultView>();
+            yield return CreateFailureMechanismResultViewInfo<
+                GrassCoverSlipOffOutwardsFailureMechanismSectionResult,
+                GrassCoverSlipOffOutwardsResultView>();
+            yield return CreateFailureMechanismResultViewInfo<
+                MicrostabilityFailureMechanismSectionResult,
+                MicrostabilityResultView>();
+            yield return CreateFailureMechanismResultViewInfo<
+                StabilityStoneCoverFailureMechanismSectionResult,
+                StabilityStoneCoverResultView>();
+            yield return CreateFailureMechanismResultViewInfo<
+                PipingStructureFailureMechanismSectionResult,
+                PipingStructureResultView>();
+            yield return CreateFailureMechanismResultViewInfo<
+                TechnicalInnovationFailureMechanismSectionResult,
+                TechnicalInnovationResultView>();
             yield return CreateFailureMechanismResultViewInfo<
                 StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
                 StrengthStabilityLengthwiseConstructionResultView>();
@@ -291,15 +303,14 @@ namespace Ringtoets.Integration.Plugin
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
             };
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>>
-            {
-                Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
-
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<DuneErosionFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverErosionOutwardsFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<MicrostabilityFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<PipingStructureFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<StabilityStoneCoverFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<TechnicalInnovationFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaveImpactAsphaltCoverFailureMechanismSectionResult>();
@@ -498,7 +509,14 @@ namespace Ringtoets.Integration.Plugin
                 var grassCoverErosionInwards = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
                 var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
 
-                var simpleFailureMechanism = failureMechanism as IHasSectionResults<SimpleFailureMechanismSectionResult>;
+                var duneErosion = failureMechanism as IHasSectionResults<DuneErosionFailureMechanismSectionResult>;
+                var grassCoverErosionOutwards = failureMechanism as IHasSectionResults<GrassCoverErosionOutwardsFailureMechanismSectionResult>;
+                var grassCoverSlipOffInwards = failureMechanism as IHasSectionResults<GrassCoverSlipOffInwardsFailureMechanismSectionResult>;
+                var grassCoverSlipOffOutwards = failureMechanism as IHasSectionResults<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>;
+                var microstability = failureMechanism as IHasSectionResults<MicrostabilityFailureMechanismSectionResult>;
+                var pipingStructure = failureMechanism as IHasSectionResults<PipingStructureFailureMechanismSectionResult>;
+                var stabilityStoneCover = failureMechanism as IHasSectionResults<StabilityStoneCoverFailureMechanismSectionResult>;
+                var technicalInnovation = failureMechanism as IHasSectionResults<TechnicalInnovationFailureMechanismSectionResult>;
 
                 var strengthStabilityLengthwiseConstruction = failureMechanism as IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>;
                 var waterPressureAsphaltCover = failureMechanism as IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResult>;
@@ -521,7 +539,35 @@ namespace Ringtoets.Integration.Plugin
                 {
                     yield return new HeightStructuresFailureMechanismContext(heightStructuresFailureMechanism, nodeData);
                 }
-                else if (simpleFailureMechanism != null)
+                else if (duneErosion != null)
+                {
+                    yield return new SimpleFailureMechanismContext(failureMechanism, nodeData);
+                }
+                else if (grassCoverErosionOutwards != null)
+                {
+                    yield return new SimpleFailureMechanismContext(failureMechanism, nodeData);
+                }
+                else if (grassCoverSlipOffInwards != null)
+                {
+                    yield return new SimpleFailureMechanismContext(failureMechanism, nodeData);
+                }
+                else if (grassCoverSlipOffOutwards != null)
+                {
+                    yield return new SimpleFailureMechanismContext(failureMechanism, nodeData);
+                }
+                else if (microstability != null)
+                {
+                    yield return new SimpleFailureMechanismContext(failureMechanism, nodeData);
+                }
+                else if (pipingStructure != null)
+                {
+                    yield return new SimpleFailureMechanismContext(failureMechanism, nodeData);
+                }
+                else if (stabilityStoneCover != null)
+                {
+                    yield return new SimpleFailureMechanismContext(failureMechanism, nodeData);
+                }
+                else if (technicalInnovation != null)
                 {
                     yield return new SimpleFailureMechanismContext(failureMechanism, nodeData);
                 }
@@ -628,7 +674,14 @@ namespace Ringtoets.Integration.Plugin
 
         private IList GetOutputs(IFailureMechanism nodeData)
         {
-            var simple = nodeData as IHasSectionResults<SimpleFailureMechanismSectionResult>;
+            var duneErosion = nodeData as IHasSectionResults<DuneErosionFailureMechanismSectionResult>;
+            var grassCoverErosionOutwards = nodeData as IHasSectionResults<GrassCoverErosionOutwardsFailureMechanismSectionResult>;
+            var grassCoverSlipOffInwards = nodeData as IHasSectionResults<GrassCoverSlipOffInwardsFailureMechanismSectionResult>;
+            var grassCoverSlipOffOutwards = nodeData as IHasSectionResults<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>;
+            var microstability = nodeData as IHasSectionResults<MicrostabilityFailureMechanismSectionResult>;
+            var pipingStructure = nodeData as IHasSectionResults<PipingStructureFailureMechanismSectionResult>;
+            var stabilityStoneCover = nodeData as IHasSectionResults<StabilityStoneCoverFailureMechanismSectionResult>;
+            var technicalInnovation = nodeData as IHasSectionResults<TechnicalInnovationFailureMechanismSectionResult>;
             var strengthStabilityLengthwiseConstruction = nodeData as IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>;
             var waterPressureAsphaltCover = nodeData as IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResult>;
             var waveImpactAsphaltCover = nodeData as IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResult>;
@@ -638,10 +691,45 @@ namespace Ringtoets.Integration.Plugin
             var strengthStabilityPointConstruction = nodeData as IHasSectionResults<StrengthStabilityPointConstructionFailureMechanismSectionResult>;
 
             var failureMechanismSectionResultContexts = new object[1];
-            if (simple != null)
+            if (duneErosion != null)
             {
                 failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>(simple.SectionResults, nodeData);
+                    new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>(duneErosion.SectionResults, nodeData);
+            }
+            if (grassCoverErosionOutwards != null)
+            {
+                failureMechanismSectionResultContexts[0] =
+                    new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>(grassCoverErosionOutwards.SectionResults, nodeData);
+            }
+            if (grassCoverSlipOffInwards != null)
+            {
+                failureMechanismSectionResultContexts[0] =
+                    new FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>(grassCoverSlipOffInwards.SectionResults, nodeData);
+            }
+            if (grassCoverSlipOffOutwards != null)
+            {
+                failureMechanismSectionResultContexts[0] =
+                    new FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(grassCoverSlipOffOutwards.SectionResults, nodeData);
+            }
+            if (microstability != null)
+            {
+                failureMechanismSectionResultContexts[0] =
+                    new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>(microstability.SectionResults, nodeData);
+            }
+            if (pipingStructure != null)
+            {
+                failureMechanismSectionResultContexts[0] =
+                    new FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(pipingStructure.SectionResults, nodeData);
+            }
+            if (stabilityStoneCover != null)
+            {
+                failureMechanismSectionResultContexts[0] =
+                    new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(stabilityStoneCover.SectionResults, nodeData);
+            }
+            if (technicalInnovation != null)
+            {
+                failureMechanismSectionResultContexts[0] =
+                    new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>(technicalInnovation.SectionResults, nodeData);
             }
             if (strengthStabilityLengthwiseConstruction != null)
             {
