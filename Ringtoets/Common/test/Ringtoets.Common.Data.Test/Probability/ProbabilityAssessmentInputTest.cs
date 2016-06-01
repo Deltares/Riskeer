@@ -39,7 +39,6 @@ namespace Ringtoets.Common.Data.Test.Probability
             // Assert
             Assert.AreEqual(double.NaN, probabilityAssessmentInput.Contribution);
             Assert.AreEqual(2, probabilityAssessmentInput.N);
-            Assert.AreEqual(0, probabilityAssessmentInput.Norm);
         }
 
         [Test]

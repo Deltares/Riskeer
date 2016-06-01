@@ -135,9 +135,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 EmptyProbabilityAssessmentOutputContextMenuStrip);
         }
 
-        private static ExceedanceProbabilityCalculationActivity CreateHydraRingExceedenceProbabilityCalculationActivity(GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                                                                                        string hlcdDirectory,
-                                                                                                                        GrassCoverErosionInwardsCalculation calculation)
+        private static ExceedanceProbabilityCalculationActivity CreateHydraRingExceedenceProbabilityCalculationActivity(
+            string hlcdDirectory,
+            GrassCoverErosionInwardsCalculation calculation,
+            GrassCoverErosionInwardsFailureMechanism failureMechanism,
+            IAssessmentSection assessmentSection)
         {
             var hydraulicBoundaryLocationId = (int) calculation.InputParameters.HydraulicBoundaryLocation.Id;
             var failureMechanismSection = failureMechanism.Sections.First(); // TODO: Pass dike section based on cross section of calculation with reference line
@@ -166,7 +168,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                 ParseBreakWater(inwardsInput)
                     ),
                 calculation.ClearOutput,
-                output => { ParseHydraRingOutput(calculation, failureMechanism.ProbabilityAssessmentInput, output); });
+                output => { ParseHydraRingOutput(calculation, failureMechanism, assessmentSection, output); });
         }
 
         private static HydraRingBreakWater ParseBreakWater(GrassCoverErosionInwardsInput input)
@@ -207,11 +209,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             }
         }
 
-        private static void ParseHydraRingOutput(GrassCoverErosionInwardsCalculation calculation, ProbabilityAssessmentInput probabilityAssessmentInput, ExceedanceProbabilityCalculationOutput output)
+        private static void ParseHydraRingOutput(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection, ExceedanceProbabilityCalculationOutput output)
         {
             if (output != null)
             {
-                calculation.Output = ProbabilityAssessmentService.Calculate(probabilityAssessmentInput.Norm, probabilityAssessmentInput.Contribution, probabilityAssessmentInput.N, output.Beta);
+                calculation.Output = ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm, failureMechanism.ProbabilityAssessmentInput.Contribution, failureMechanism.ProbabilityAssessmentInput.N, output.Beta);
                 calculation.NotifyObservers();
             }
             else
@@ -225,9 +227,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             // TODO: Remove "Where" filter when validation is implemented
             ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations.Where(calc => calc.InputParameters.HydraulicBoundaryLocation != null)
                                                                          .Select(calc => CreateHydraRingExceedenceProbabilityCalculationActivity(
-                                                                             failureMechanism,
                                                                              Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
-                                                                             calc)).ToList());
+                                                                             calc,
+                                                                             failureMechanism,
+                                                                             assessmentSection
+                                                                             )).ToList());
         }
 
         private static string AllDataAvailable(IAssessmentSection assessmentSection, GrassCoverErosionInwardsFailureMechanism failureMechanism)
@@ -532,9 +536,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 return;
             }
             var activity = CreateHydraRingExceedenceProbabilityCalculationActivity(
-                context.FailureMechanism,
                 Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
-                calculation);
+                calculation,
+                context.FailureMechanism,
+                context.AssessmentSection);
 
             ActivityProgressDialogRunner.Run(Gui.MainWindow, activity);
         }

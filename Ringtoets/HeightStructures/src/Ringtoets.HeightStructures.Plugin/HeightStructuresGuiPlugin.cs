@@ -134,9 +134,11 @@ namespace Ringtoets.HeightStructures.Plugin
             };
         }
 
-        private static ExceedanceProbabilityCalculationActivity CreateHydraRingExceedenceProbabilityCalculationActivity(HeightStructuresFailureMechanism failureMechanism,
-                                                                                                                        string hlcdDirectory,
-                                                                                                                        HeightStructuresCalculation calculation)
+        private static ExceedanceProbabilityCalculationActivity CreateHydraRingExceedenceProbabilityCalculationActivity(
+            string hlcdDirectory,
+            HeightStructuresCalculation calculation,
+            HeightStructuresFailureMechanism failureMechanism,
+            IAssessmentSection assessmentSection)
         {
             var hydraulicBoundaryLocationId = (int) calculation.InputParameters.HydraulicBoundaryLocation.Id;
             var failureMechanismSection = failureMechanism.Sections.First(); // TODO: Obtain dike section based on cross section of structure with reference line
@@ -168,7 +170,7 @@ namespace Ringtoets.HeightStructures.Plugin
                                                           inputParameters.DeviationOfTheWaveDirection,
                                                           inputParameters.StormDuration.Mean, inputParameters.StormDuration.StandardDeviation),
                 calculation.ClearOutput,
-                output => { ParseHydraRingOutput(calculation, failureMechanism.ProbabilityAssessmentInput, output); });
+                output => { ParseHydraRingOutput(calculation, failureMechanism, assessmentSection, output); });
         }
 
         private void CalculateAll(HeightStructuresFailureMechanism failureMechanism, IEnumerable<HeightStructuresCalculation> calculations, IAssessmentSection assessmentSection)
@@ -176,9 +178,11 @@ namespace Ringtoets.HeightStructures.Plugin
             // TODO: Remove "Where" filter when validation is implemented
             ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations.Where(calc => calc.InputParameters.HydraulicBoundaryLocation != null)
                                                                          .Select(calc => CreateHydraRingExceedenceProbabilityCalculationActivity(
-                                                                             failureMechanism,
                                                                              Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
-                                                                             calc)).ToList());
+                                                                             calc,
+                                                                             failureMechanism,
+                                                                             assessmentSection
+                                                                             )).ToList());
         }
 
         private static string AllDataAvailable(IAssessmentSection assessmentSection, HeightStructuresFailureMechanism failureMechanism)
@@ -202,11 +206,11 @@ namespace Ringtoets.HeightStructures.Plugin
             return null;
         }
 
-        private static void ParseHydraRingOutput(HeightStructuresCalculation calculation, ProbabilityAssessmentInput probabilityAssessmentInput, ExceedanceProbabilityCalculationOutput output)
+        private static void ParseHydraRingOutput(HeightStructuresCalculation calculation, HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection, ExceedanceProbabilityCalculationOutput output)
         {
             if (output != null)
             {
-                calculation.Output = ProbabilityAssessmentService.Calculate(probabilityAssessmentInput.Norm, probabilityAssessmentInput.Contribution, probabilityAssessmentInput.N, output.Beta);
+                calculation.Output = ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm, failureMechanism.ProbabilityAssessmentInput.Contribution, failureMechanism.ProbabilityAssessmentInput.N, output.Beta);
                 calculation.NotifyObservers();
             }
             else
@@ -496,9 +500,10 @@ namespace Ringtoets.HeightStructures.Plugin
                 return;
             }
             var activity = CreateHydraRingExceedenceProbabilityCalculationActivity(
-                context.FailureMechanism,
                 Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
-                calculation);
+                calculation,
+                context.FailureMechanism,
+                context.AssessmentSection);
 
             ActivityProgressDialogRunner.Run(Gui.MainWindow, activity);
         }

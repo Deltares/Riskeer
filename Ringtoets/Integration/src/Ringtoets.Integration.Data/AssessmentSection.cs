@@ -195,9 +195,7 @@ namespace Ringtoets.Integration.Data
             private set
             {
                 contribution = value;
-                GrassCoverErosionInwards.ProbabilityAssessmentInput.Norm = value.Norm;
                 PipingFailureMechanism.PipingProbabilityAssessmentInput.Norm = value.Norm;
-                HeightStructures.ProbabilityAssessmentInput.Norm = value.Norm;
             }
         }
 

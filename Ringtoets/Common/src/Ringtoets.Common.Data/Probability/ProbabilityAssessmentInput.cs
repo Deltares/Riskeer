@@ -38,7 +38,6 @@ namespace Ringtoets.Common.Data.Probability
         public ProbabilityAssessmentInput()
         {
             N = 2;
-            Norm = 0;
             Contribution = double.NaN;
         }
 
@@ -84,10 +83,5 @@ namespace Ringtoets.Common.Data.Probability
                 contribution = value;
             }
         }
-
-        /// <summary>
-        /// Gets or sets the return period to assess for.
-        /// </summary>
-        public int Norm { get; set; }
     }
 }
