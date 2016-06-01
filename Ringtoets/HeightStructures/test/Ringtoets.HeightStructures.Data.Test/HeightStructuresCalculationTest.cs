@@ -125,7 +125,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(2, inputParameters.AllowableIncreaseOfLevelForStorage.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, inputParameters.AllowableIncreaseOfLevelForStorage.Mean.Value);
             Assert.AreEqual(2, inputParameters.StorageStructureArea.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(1000000, inputParameters.StorageStructureArea.Mean.Value);
+            Assert.AreEqual(1.0, inputParameters.StorageStructureArea.Mean.Value);
             Assert.AreEqual(2, inputParameters.FlowWidthAtBottomProtection.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(18, inputParameters.FlowWidthAtBottomProtection.Mean.Value);
             Assert.AreEqual(2, inputParameters.CriticalOvertoppingDischarge.Mean.NumberOfDecimalPlaces);

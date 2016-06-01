@@ -48,12 +48,12 @@ namespace Ringtoets.HeightStructures.Data.Test
             AssertAreEqual(1.1, input.ModelFactorOvertoppingSuperCriticalFlow.Mean);
             AssertAreEqual(0.03, input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation);
             AssertAreEqual(0.1, input.AllowableIncreaseOfLevelForStorage.StandardDeviation);
-            AssertAreEqual(0.1, input.StorageStructureArea.StandardDeviation);
+            AssertAreEqual(0.1, input.StorageStructureArea.GetVariationCoefficient());
             AssertAreEqual(0.05, input.FlowWidthAtBottomProtection.StandardDeviation);
-            AssertAreEqual(0.15, input.CriticalOvertoppingDischarge.StandardDeviation);
+            AssertAreEqual(0.15, input.CriticalOvertoppingDischarge.GetVariationCoefficient());
             AssertAreEqual(0.05, input.WidthOfFlowApertures.StandardDeviation);
             AssertAreEqual(7.5, input.StormDuration.Mean);
-            AssertAreEqual(0.25, input.StormDuration.StandardDeviation);
+            AssertAreEqual(0.25, input.StormDuration.GetVariationCoefficient());
         }
 
         [Test]
