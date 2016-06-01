@@ -7,9 +7,9 @@ using Ringtoets.Integration.Forms.Views.SectionResultRow;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultView
 {
-    public class StrengthStabilityLengthwiseConstructionResultView : FailureMechanismResultView<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>
+    public class WaveImpactAsphaltCoverResultView : FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanismSectionResult>
     {
-        public StrengthStabilityLengthwiseConstructionResultView()
+        public WaveImpactAsphaltCoverResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
 
@@ -37,9 +37,9 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultView
                 );
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult)
+        protected override object CreateFailureMechanismSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)
         {
-            return new StrengthStabilityLengthwiseConstructionSectionResultRow(sectionResult);
+            return new WaveImpactAsphaltCoverSectionResultRow(sectionResult);
         }
 
         protected override void Dispose(bool disposing)

@@ -90,7 +90,7 @@
     <Compile Include="Views\SectionResultRow\StrengthStabilityPointConstructionSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRow\TechnicalInnovationSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRow\WaterPressureAsphaltCoverSectionResultRow.cs" />
-    <Compile Include="Views\SectionResultRow\WaveImpactAsphaltSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRow\WaveImpactAsphaltCoverSectionResultRow.cs" />
     <Compile Include="Views\SectionResultView\ClosingStructureResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -127,16 +127,13 @@
     <Compile Include="Views\SectionResultView\TechnicalInnovationResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\SectionResultView\WaterPressureAsphaltResultView.cs">
+    <Compile Include="Views\SectionResultView\WaterPressureAsphaltCoverResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\SectionResultView\StabilityStoneCoverResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\SectionResultView\WaveImpactAsphaltResultView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\SectionResultView\NumericFailureMechanismResultView.cs">
+    <Compile Include="Views\SectionResultView\WaveImpactAsphaltCoverResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\SectionResultView\SimpleFailureMechanismResultView.cs">

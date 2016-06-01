@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
@@ -184,9 +186,23 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsRelevantWithCustomSectinoResults_OutputNodeAdded()
+        [TestCase(typeof(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult))]
+        [TestCase(typeof(WaterPressureAsphaltCoverFailureMechanismSectionResult))]
+        [TestCase(typeof(WaveImpactAsphaltCoverFailureMechanismSectionResult))]
+        [TestCase(typeof(ClosingStructureFailureMechanismSectionResult))]
+        [TestCase(typeof(MacrostabilityInwardsFailureMechanismSectionResult))]
+        [TestCase(typeof(MacrostabilityOutwardsFailureMechanismSectionResult))]
+        [TestCase(typeof(StrengthStabilityPointConstructionFailureMechanismSectionResult))]
+        public void ChildNodeObjects_FailureMechanismIsRelevantWithDifferentFailureMechanismSectionResults_OutputNodeAdded(Type t)
         {
+            // Delegate actual test
+            MethodInfo method = GetType().GetMethod("ChildNodeObjects_FailureMechanismIsRelevantWithSectionResults_OutputNodeAdded");
+            MethodInfo genericMethod = method.MakeGenericMethod(t);
+            genericMethod.Invoke(this, null);
+        }
 
+        public void ChildNodeObjects_FailureMechanismIsRelevantWithSectionResults_OutputNodeAdded<T>() where T : FailureMechanismSectionResult
+        {
              // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
@@ -194,25 +210,27 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 var info = GetInfo(plugin);
 
-                var failureMechanism = mocks.StrictMultiMock<IHasSectionResults<NumericFailureMechanismSectionResult>>(typeof(IFailureMechanism));
+                var failureMechanism = mocks.StrictMultiMock<IHasSectionResults<T>>(typeof(IFailureMechanism));
                 failureMechanism.Expect(fm => ((IFailureMechanism) fm).IsRelevant).Return(true);
-                failureMechanism.Expect(fm => fm.SectionResults).Return(new List<NumericFailureMechanismSectionResult>()).Repeat.Any();
+                failureMechanism.Expect(fm => fm.SectionResults).Return(new List<T>()).Repeat.Any();
                 var failureMechanismContext = mocks.Stub<FailureMechanismContext<IFailureMechanism>>(failureMechanism, assessmentSection);
 
                 mocks.ReplayAll();
 
                 // Call
                 object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+
+                // Assert
                 var outputFolder = (CategoryTreeFolder)children[1];
 
-                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<NumericFailureMechanismSectionResult>) outputFolder.Contents[0];
+                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<T>)outputFolder.Contents[0];
                 Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
                 Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
             }
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsRelevantWithSimpleSectinoResults_OutputNodeAdded()
+        public void ChildNodeObjects_FailureMechanismIsRelevantWithSimpleSectionResults_OutputNodeAdded()
         {
 
              // Setup
@@ -231,6 +249,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 // Call
                 object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+
+                // Assert
                 var outputFolder = (CategoryTreeFolder)children[1];
 
                 var failureMechanismResultsContext = (FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>) outputFolder.Contents[0];

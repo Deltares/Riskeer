@@ -72,6 +72,8 @@
     <Compile Include="TreeNodeInfos\AssessmentSectionTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CommentContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CategoryTreeFolderTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\WaterPressureAsphaltCoverFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\MacrostabilityOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\MacrostabilityInwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StrengthStabilityPointwiseConstructionFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
@@ -80,17 +82,21 @@
     <Compile Include="TreeNodeInfos\FailureMechanismContributionContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismSectionsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HydraulicBoundaryDatabaseContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\NumericFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\AssessmentSectionPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\ReferenceLineContextTreeNodeInfoTest.cs" />
+    <Compile Include="Views\MacrostabilityInwardsResultViewTest.cs" />
+    <Compile Include="Views\MacrostabilityOutwardsResultViewTest.cs" />
+    <Compile Include="Views\WaveImpactAsphaltCoverResultViewTest.cs" />
+    <Compile Include="Views\WaterPressureAsphaltCoverResultViewTest.cs" />
     <Compile Include="Views\SectionResultRow\ClosingStructureSectionResultRowTest.cs" />
     <Compile Include="Views\AssessmentSectionViewTest.cs" />
     <Compile Include="Views\SectionResultRow\MacrostabilityInwardsSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultRow\MacrostabilityOutwardsSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultRow\StrengthStabilityPointConstructionSectionResultRowTest.cs" />
-    <Compile Include="Views\StrengthStabilityPointConstructionResultViewTest.cs" />
-    <Compile Include="Views\NumericFailureMechanismResultViewTest.cs" />
+    <Compile Include="Views\ClosingStructureResultViewTest.cs" />
+    <Compile Include="Views\StrengthStabilityLengthwiseConstructionResultViewTest.cs" />
     <Compile Include="Views\FailureMechanismContributionViewTest.cs" />
     <Compile Include="Views\SectionResultRow\NumericFailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\SimpleFailureMechanismResultViewTest.cs" />
@@ -148,6 +154,22 @@
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
       <Name>Ringtoets.Common.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
+      <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Forms\Ringtoets.GrassCoverErosionInwards.Forms.csproj">
+      <Project>{C540E627-B95B-4CC0-A1B6-A0BDF74936C7}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+      <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
+      <Name>Ringtoets.HeightStructures.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Forms\Ringtoets.HeightStructures.Forms.csproj">
+      <Project>{F0BCF06A-3D01-4D65-A249-E2A14AEC6EFD}</Project>
+      <Name>Ringtoets.HeightStructures.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
       <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -27,9 +26,8 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -37,7 +35,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class NumericFailureMechanismSectionResultContextTreeNodeInfoTest
+    public class WaveImpactAsphaltCoverFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private RingtoetsGuiPlugin plugin;
@@ -48,14 +46,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<NumericFailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<NumericFailureMechanismSectionResult>), info.TagType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>), info.TagType);
 
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.ForeColor);
@@ -79,8 +77,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            var mechanism = new NumericFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<NumericFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
+            var mechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var context = new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
 
             // Call
             var text = info.Text(context);
@@ -123,25 +121,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             // Assert
             mocks.VerifyAll();
-        }
-
-        class NumericFailureMechanism : FailureMechanismBase, IHasSectionResults<NumericFailureMechanismSectionResult>
-        {
-            public NumericFailureMechanism()
-                : base("N", "C")
-            {
-                SectionResults = new List<NumericFailureMechanismSectionResult>();
-            }
-
-            public IEnumerable<NumericFailureMechanismSectionResult> SectionResults { get; private set; }
-
-            public override IEnumerable<ICalculation> Calculations
-            {
-                get
-                {
-                    throw new System.NotImplementedException();
-                }
-            }
         }
     }
 }

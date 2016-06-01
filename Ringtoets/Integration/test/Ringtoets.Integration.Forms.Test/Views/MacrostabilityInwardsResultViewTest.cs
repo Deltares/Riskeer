@@ -29,22 +29,21 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Forms.Views.SectionResultView;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class StrengthStabilityPointConstructionResultViewTest
+    public class MacrostabilityInwardsResultViewTest
     {
         [Test]
-        public void GivenFormWithArbitraryProbabilityFailureMechanismResultView_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithMacrostabilityInwardsFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
             using (var form = new Form())
             {
-                using (var view = new StrengthStabilityPointConstructionResultView())
+                using (var view = new MacrostabilityInwardsResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -78,7 +77,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithArbitraryProbabilityFailureMechanismResultView_WhenDataSourceWithArbitraryProbabilityFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void GivenFormWithMacrostabilityInwardsFailureMechanismResultView_WhenDataSourceWithMacrostabilityInwardsFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -90,13 +89,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 new Point2D(0, 0)
             });
             Random random = new Random(21);
-            var result1 = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section1)
+            var result1 = new MacrostabilityInwardsFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = true,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
-            var result2 = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section2)
+            var result2 = new MacrostabilityInwardsFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = false,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
@@ -105,7 +104,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var form = new Form())
             {
-                using (var view = new StrengthStabilityPointConstructionResultView())
+                using (var view = new MacrostabilityInwardsResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -156,7 +155,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithSimpleFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled()
+        public void GivenFormWithMacrostabilityInwardsFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled()
         {
             // Given
             var section = new FailureMechanismSection("Section 1", new[]
@@ -164,7 +163,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 new Point2D(0, 0)
             });
             Random random = new Random(21);
-            var result = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section)
+            var result = new MacrostabilityInwardsFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = false,
                 AssessmentLayerTwoA = (RoundedDouble)random.NextDouble(),
@@ -172,7 +171,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             };
             using (var form = new Form())
             {
-                using (var view = new StrengthStabilityPointConstructionResultView())
+                using (var view = new MacrostabilityInwardsResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -201,7 +200,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithArbitraryProbabilityFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
+        public void GivenFormWithMacrostabilityInwardsFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -217,7 +216,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var form = new Form())
             {
-                using (var view = new StrengthStabilityPointConstructionResultView())
+                using (var view = new MacrostabilityInwardsResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();

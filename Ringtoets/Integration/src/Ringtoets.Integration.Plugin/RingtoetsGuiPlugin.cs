@@ -153,18 +153,15 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
 
-            yield return new ViewInfo<
-                FailureMechanismSectionResultContext<NumericFailureMechanismSectionResult>, 
-                IEnumerable<NumericFailureMechanismSectionResult>, 
-                NumericFailureMechanismResultView>
-            {
-                GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData,
-                GetViewData = context => context.SectionResults,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
-            };
-
+            yield return CreateFailureMechanismResultViewInfo<
+                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
+                StrengthStabilityLengthwiseConstructionResultView>();
+            yield return CreateFailureMechanismResultViewInfo<
+                WaterPressureAsphaltCoverFailureMechanismSectionResult,
+                WaterPressureAsphaltCoverResultView>();
+            yield return CreateFailureMechanismResultViewInfo<
+                WaveImpactAsphaltCoverFailureMechanismSectionResult,
+                WaveImpactAsphaltCoverResultView>();
             yield return CreateFailureMechanismResultViewInfo<
                 MacrostabilityInwardsFailureMechanismSectionResult,
                 MacrostabilityInwardsResultView>();
@@ -303,15 +300,9 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<NumericFailureMechanismSectionResult>>
-            {
-                Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
-
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaveImpactAsphaltCoverFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<ClosingStructureFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityInwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityOutwardsFailureMechanismSectionResult>();
@@ -507,9 +498,16 @@ namespace Ringtoets.Integration.Plugin
                 var grassCoverErosionInwards = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
                 var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
 
-                var numericFailureMechanism = failureMechanism as IHasSectionResults<NumericFailureMechanismSectionResult>;
-                var probabilityFailureMechanism = failureMechanism as IHasSectionResults<FailureMechanismSectionResult>;
                 var simpleFailureMechanism = failureMechanism as IHasSectionResults<SimpleFailureMechanismSectionResult>;
+
+                var strengthStabilityLengthwiseConstruction = failureMechanism as IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>;
+                var waterPressureAsphaltCover = failureMechanism as IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResult>;
+                var waveImpactAsphaltCover = failureMechanism as IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResult>;
+
+                var closingStructure = failureMechanism as IHasSectionResults<ClosingStructureFailureMechanismSectionResult>;
+                var macrostabilityInwards = failureMechanism as IHasSectionResults<MacrostabilityInwardsFailureMechanismSectionResult>;
+                var macrostabilityOutwards = failureMechanism as IHasSectionResults<MacrostabilityOutwardsFailureMechanismSectionResult>;
+                var strengthStabilityPointConstruction = failureMechanism as IHasSectionResults<StrengthStabilityPointConstructionFailureMechanismSectionResult>;
 
                 if (piping != null)
                 {
@@ -523,17 +521,37 @@ namespace Ringtoets.Integration.Plugin
                 {
                     yield return new HeightStructuresFailureMechanismContext(heightStructuresFailureMechanism, nodeData);
                 }
-                else if (numericFailureMechanism != null)
-                {
-                    yield return new NumericFailureMechanismContext(failureMechanism, nodeData);
-                }
-                else if (probabilityFailureMechanism != null)
-                {
-                    yield return new ArbitraryProbabilityFailureMechanismContext(failureMechanism, nodeData);
-                }
                 else if (simpleFailureMechanism != null)
                 {
                     yield return new SimpleFailureMechanismContext(failureMechanism, nodeData);
+                }
+                else if (strengthStabilityLengthwiseConstruction != null)
+                {
+                    yield return new NumericFailureMechanismContext(failureMechanism, nodeData);
+                }
+                else if (waterPressureAsphaltCover != null)
+                {
+                    yield return new NumericFailureMechanismContext(failureMechanism, nodeData);
+                }
+                else if (waveImpactAsphaltCover != null)
+                {
+                    yield return new NumericFailureMechanismContext(failureMechanism, nodeData);
+                }
+                else if (closingStructure != null)
+                {
+                    yield return new ArbitraryProbabilityFailureMechanismContext(failureMechanism, nodeData);
+                }
+                else if (macrostabilityInwards != null)
+                {
+                    yield return new ArbitraryProbabilityFailureMechanismContext(failureMechanism, nodeData);
+                }
+                else if (macrostabilityOutwards != null)
+                {
+                    yield return new ArbitraryProbabilityFailureMechanismContext(failureMechanism, nodeData);
+                }
+                else if (strengthStabilityPointConstruction != null)
+                {
+                    yield return new ArbitraryProbabilityFailureMechanismContext(failureMechanism, nodeData);
                 }
                 else
                 {
@@ -611,7 +629,9 @@ namespace Ringtoets.Integration.Plugin
         private IList GetOutputs(IFailureMechanism nodeData)
         {
             var simple = nodeData as IHasSectionResults<SimpleFailureMechanismSectionResult>;
-            var custom = nodeData as IHasSectionResults<NumericFailureMechanismSectionResult>;
+            var strengthStabilityLengthwiseConstruction = nodeData as IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>;
+            var waterPressureAsphaltCover = nodeData as IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResult>;
+            var waveImpactAsphaltCover = nodeData as IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResult>;
             var closingStructure = nodeData as IHasSectionResults<ClosingStructureFailureMechanismSectionResult>;
             var macrostabilityInwards = nodeData as IHasSectionResults<MacrostabilityInwardsFailureMechanismSectionResult>;
             var macrostabilityOutwards = nodeData as IHasSectionResults<MacrostabilityOutwardsFailureMechanismSectionResult>;
@@ -623,10 +643,20 @@ namespace Ringtoets.Integration.Plugin
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>(simple.SectionResults, nodeData);
             }
-            if (custom != null)
+            if (strengthStabilityLengthwiseConstruction != null)
             {
                 failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<NumericFailureMechanismSectionResult>(custom.SectionResults, nodeData);
+                    new FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(strengthStabilityLengthwiseConstruction.SectionResults, nodeData);
+            }
+            if (waterPressureAsphaltCover != null)
+            {
+                failureMechanismSectionResultContexts[0] =
+                    new FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>(waterPressureAsphaltCover.SectionResults, nodeData);
+            }
+            if (waveImpactAsphaltCover != null)
+            {
+                failureMechanismSectionResultContexts[0] =
+                    new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(waveImpactAsphaltCover.SectionResults, nodeData);
             }
             if (closingStructure != null)
             {

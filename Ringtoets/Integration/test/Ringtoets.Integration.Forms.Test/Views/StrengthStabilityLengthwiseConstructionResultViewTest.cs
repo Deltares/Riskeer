@@ -35,15 +35,15 @@ using Ringtoets.Integration.Forms.Views.SectionResultView;
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class NumericFailureMechanismResultViewTest
+    public class StrengthStabilityLengthwiseConstructionResultViewTest
     {
         [Test]
-        public void GivenFormWithNumericFailureMechanismResultView_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithStrengthStabilityLengthwiseConstructionResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
             using (var form = new Form())
             {
-                using (var view = new NumericFailureMechanismResultView())
+                using (var view = new StrengthStabilityLengthwiseConstructionResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithNumericFailureMechanismResultView_WhenDataSourceWithNumericFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void GivenFormWithStrengthStabilityLengthwiseConstructionResultView_WhenDataSourceWithStrengthStabilityLengthwiseConstructionFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -80,13 +80,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 new Point2D(0, 0)
             });
             Random random = new Random(21);
-            var result1 = new NumericFailureMechanismSectionResult(section1)
+            var result1 = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = true,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
-            var result2 = new NumericFailureMechanismSectionResult(section2)
+            var result2 = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = false,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var form = new Form())
             {
-                using (var view = new NumericFailureMechanismResultView())
+                using (var view = new StrengthStabilityLengthwiseConstructionResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -136,7 +136,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithSimpleFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled()
+        public void GivenFormWithStrengthStabilityLengthwiseConstructionFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled()
         {
             // Given
             var section = new FailureMechanismSection("Section 1", new[]
@@ -144,7 +144,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 new Point2D(0, 0)
             });
             Random random = new Random(21);
-            var result = new NumericFailureMechanismSectionResult(section)
+            var result = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = false,
                 AssessmentLayerTwoA = (RoundedDouble)random.NextDouble(),
@@ -152,7 +152,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             };
             using (var form = new Form())
             {
-                using (var view = new NumericFailureMechanismResultView())
+                using (var view = new StrengthStabilityLengthwiseConstructionResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -181,7 +181,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithNumericFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
+        public void GivenFormWithStrengthStabilityLengthwiseConstructionResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -197,7 +197,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var form = new Form())
             {
-                using (var view = new NumericFailureMechanismResultView())
+                using (var view = new StrengthStabilityLengthwiseConstructionResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
