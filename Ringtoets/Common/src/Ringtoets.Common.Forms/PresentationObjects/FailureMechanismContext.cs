@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// <summary>
     /// This class is a presentation object for a <see cref="IFailureMechanism"/> instance.
     /// </summary>
-    public abstract class FailureMechanismContext<T> : WrappedObjectContextBase<T>, IFailureMechanismContext<T> where T : IFailureMechanism
+    public class FailureMechanismContext<T> : WrappedObjectContextBase<T>, IFailureMechanismContext<T> where T : IFailureMechanism
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismContext{T}"/> class.
@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedFailureMechanism"/> or <paramref name="parent"/> are <c>null</c>.</exception>
-        protected FailureMechanismContext(T wrappedFailureMechanism, IAssessmentSection parent) : base(wrappedFailureMechanism)
+        public FailureMechanismContext(T wrappedFailureMechanism, IAssessmentSection parent) : base(wrappedFailureMechanism)
         {
             AssertInputsAreNotNull(parent);
 

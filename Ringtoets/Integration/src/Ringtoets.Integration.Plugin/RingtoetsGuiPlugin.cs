@@ -56,6 +56,7 @@ using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -508,23 +509,23 @@ namespace Ringtoets.Integration.Plugin
                 var grassCoverErosionInwards = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
                 var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
 
-                var duneErosion = failureMechanism as IHasSectionResults<DuneErosionFailureMechanismSectionResult>;
-                var grassCoverErosionOutwards = failureMechanism as IHasSectionResults<GrassCoverErosionOutwardsFailureMechanismSectionResult>;
-                var grassCoverSlipOffInwards = failureMechanism as IHasSectionResults<GrassCoverSlipOffInwardsFailureMechanismSectionResult>;
-                var grassCoverSlipOffOutwards = failureMechanism as IHasSectionResults<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>;
-                var microstability = failureMechanism as IHasSectionResults<MicrostabilityFailureMechanismSectionResult>;
-                var pipingStructure = failureMechanism as IHasSectionResults<PipingStructureFailureMechanismSectionResult>;
-                var stabilityStoneCover = failureMechanism as IHasSectionResults<StabilityStoneCoverFailureMechanismSectionResult>;
-                var technicalInnovation = failureMechanism as IHasSectionResults<TechnicalInnovationFailureMechanismSectionResult>;
+                var duneErosion = failureMechanism as DuneErosionFailureMechanism;
+                var grassCoverErosionOutwards = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
+                var grassCoverSlipOffInwards = failureMechanism as GrassCoverSlipOffInwardsFailureMechanism;
+                var grassCoverSlipOffOutwards = failureMechanism as GrassCoverSlipOffOutwardsFailureMechanism;
+                var microstability = failureMechanism as MicrostabilityFailureMechanism;
+                var pipingStructure = failureMechanism as PipingStructureFailureMechanism;
+                var stabilityStoneCover = failureMechanism as StabilityStoneCoverFailureMechanism;
+                var technicalInnovation = failureMechanism as TechnicalInnovationFailureMechanism;
 
-                var strengthStabilityLengthwiseConstruction = failureMechanism as IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>;
-                var waterPressureAsphaltCover = failureMechanism as IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResult>;
-                var waveImpactAsphaltCover = failureMechanism as IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResult>;
+                var strengthStabilityLengthwiseConstruction = failureMechanism as StrengthStabilityLengthwiseConstructionFailureMechanism;
+                var waterPressureAsphaltCover = failureMechanism as WaterPressureAsphaltCoverFailureMechanism;
+                var waveImpactAsphaltCover = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
 
-                var closingStructure = failureMechanism as IHasSectionResults<ClosingStructureFailureMechanismSectionResult>;
-                var macrostabilityInwards = failureMechanism as IHasSectionResults<MacrostabilityInwardsFailureMechanismSectionResult>;
-                var macrostabilityOutwards = failureMechanism as IHasSectionResults<MacrostabilityOutwardsFailureMechanismSectionResult>;
-                var strengthStabilityPointConstruction = failureMechanism as IHasSectionResults<StrengthStabilityPointConstructionFailureMechanismSectionResult>;
+                var closingStructure = failureMechanism as ClosingStructureFailureMechanism;
+                var macrostabilityInwards = failureMechanism as MacrostabilityInwardsFailureMechanism;
+                var macrostabilityOutwards = failureMechanism as MacrostabilityOutwardsFailureMechanism;
+                var strengthStabilityPointConstruction = failureMechanism as StrengthStabilityPointConstructionFailureMechanism;
 
                 if (piping != null)
                 {
@@ -540,63 +541,63 @@ namespace Ringtoets.Integration.Plugin
                 }
                 else if (duneErosion != null)
                 {
-                    yield return new SimpleFailureMechanismContext(failureMechanism, nodeData);
+                    yield return new FailureMechanismContext<IFailureMechanism>(duneErosion, nodeData);
                 }
                 else if (grassCoverErosionOutwards != null)
                 {
-                    yield return new SimpleFailureMechanismContext(failureMechanism, nodeData);
+                    yield return new FailureMechanismContext<IFailureMechanism>(grassCoverErosionOutwards, nodeData);
                 }
                 else if (grassCoverSlipOffInwards != null)
                 {
-                    yield return new SimpleFailureMechanismContext(failureMechanism, nodeData);
+                    yield return new FailureMechanismContext<IFailureMechanism>(grassCoverSlipOffInwards, nodeData);
                 }
                 else if (grassCoverSlipOffOutwards != null)
                 {
-                    yield return new SimpleFailureMechanismContext(failureMechanism, nodeData);
+                    yield return new FailureMechanismContext<IFailureMechanism>(grassCoverSlipOffOutwards, nodeData);
                 }
                 else if (microstability != null)
                 {
-                    yield return new SimpleFailureMechanismContext(failureMechanism, nodeData);
+                    yield return new FailureMechanismContext<IFailureMechanism>(microstability, nodeData);
                 }
                 else if (pipingStructure != null)
                 {
-                    yield return new SimpleFailureMechanismContext(failureMechanism, nodeData);
+                    yield return new FailureMechanismContext<IFailureMechanism>(pipingStructure, nodeData);
                 }
                 else if (stabilityStoneCover != null)
                 {
-                    yield return new SimpleFailureMechanismContext(failureMechanism, nodeData);
+                    yield return new FailureMechanismContext<IFailureMechanism>(stabilityStoneCover, nodeData);
                 }
                 else if (technicalInnovation != null)
                 {
-                    yield return new SimpleFailureMechanismContext(failureMechanism, nodeData);
+                    yield return new FailureMechanismContext<IFailureMechanism>(technicalInnovation, nodeData);
                 }
                 else if (strengthStabilityLengthwiseConstruction != null)
                 {
-                    yield return new NumericFailureMechanismContext(failureMechanism, nodeData);
+                    yield return new FailureMechanismContext<IFailureMechanism>(strengthStabilityLengthwiseConstruction, nodeData);
                 }
                 else if (waterPressureAsphaltCover != null)
                 {
-                    yield return new NumericFailureMechanismContext(failureMechanism, nodeData);
+                    yield return new FailureMechanismContext<IFailureMechanism>(waterPressureAsphaltCover, nodeData);
                 }
                 else if (waveImpactAsphaltCover != null)
                 {
-                    yield return new NumericFailureMechanismContext(failureMechanism, nodeData);
+                    yield return new FailureMechanismContext<IFailureMechanism>(waveImpactAsphaltCover, nodeData);
                 }
                 else if (closingStructure != null)
                 {
-                    yield return new ArbitraryProbabilityFailureMechanismContext(failureMechanism, nodeData);
+                    yield return new FailureMechanismContext<IFailureMechanism>(closingStructure, nodeData);
                 }
                 else if (macrostabilityInwards != null)
                 {
-                    yield return new ArbitraryProbabilityFailureMechanismContext(failureMechanism, nodeData);
+                    yield return new FailureMechanismContext<IFailureMechanism>(macrostabilityInwards, nodeData);
                 }
                 else if (macrostabilityOutwards != null)
                 {
-                    yield return new ArbitraryProbabilityFailureMechanismContext(failureMechanism, nodeData);
+                    yield return new FailureMechanismContext<IFailureMechanism>(macrostabilityOutwards, nodeData);
                 }
                 else if (strengthStabilityPointConstruction != null)
                 {
-                    yield return new ArbitraryProbabilityFailureMechanismContext(failureMechanism, nodeData);
+                    yield return new FailureMechanismContext<IFailureMechanism>(strengthStabilityPointConstruction, nodeData);
                 }
                 else
                 {

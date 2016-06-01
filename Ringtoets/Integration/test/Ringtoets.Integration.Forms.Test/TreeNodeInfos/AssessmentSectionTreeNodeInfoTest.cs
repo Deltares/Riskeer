@@ -148,8 +148,20 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 new PipingFailureMechanism(),
                 new GrassCoverErosionInwardsFailureMechanism(),
                 new HeightStructuresFailureMechanism(),
+
+                new DuneErosionFailureMechanism(), 
                 new GrassCoverErosionOutwardsFailureMechanism(),
+                new GrassCoverSlipOffInwardsFailureMechanism(), 
+                new GrassCoverSlipOffOutwardsFailureMechanism(), 
+                new MicrostabilityFailureMechanism(), 
+                new PipingStructureFailureMechanism(),
+                new StabilityStoneCoverFailureMechanism(), 
+                new TechnicalInnovationFailureMechanism(), 
+
+                new StrengthStabilityLengthwiseConstructionFailureMechanism(),
                 new WaterPressureAsphaltCoverFailureMechanism(),
+                new WaveImpactAsphaltCoverFailureMechanism(), 
+
                 new ClosingStructureFailureMechanism(), 
                 new MacrostabilityInwardsFailureMechanism(), 
                 new MacrostabilityOutwardsFailureMechanism(), 
@@ -169,7 +181,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var objects = info.ChildNodeObjects(assessmentSection).ToArray();
 
                 // Assert
-                Assert.AreEqual(13, objects.Length);
+                Assert.AreEqual(22, objects.Length);
                 var referenceLineContext = (ReferenceLineContext) objects[0];
                 Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
                 Assert.AreSame(assessmentSection, referenceLineContext.Parent);
@@ -197,28 +209,52 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanisms[2], heightStructuresFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, heightStructuresFailureMechanismContext.Parent);
 
-                var simpleFailureMechanismContext = (SimpleFailureMechanismContext)objects[7];
-                Assert.AreSame(failureMechanisms[3], simpleFailureMechanismContext.WrappedData);
-                Assert.AreSame(assessmentSection, simpleFailureMechanismContext.Parent);
+                var duneErosionFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)objects[7];
+                Assert.AreSame(failureMechanisms[3], duneErosionFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, duneErosionFailureMechanismContext.Parent);
+                var grassCoverErosionOutwardsFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)objects[8];
+                Assert.AreSame(failureMechanisms[4], grassCoverErosionOutwardsFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, grassCoverErosionOutwardsFailureMechanismContext.Parent);
+                var grassCoverSlipOffInwardsFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)objects[9];
+                Assert.AreSame(failureMechanisms[5], grassCoverSlipOffInwardsFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, grassCoverSlipOffInwardsFailureMechanismContext.Parent);
+                var grassCoverSlipOffOutwardsFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)objects[10];
+                Assert.AreSame(failureMechanisms[6], grassCoverSlipOffOutwardsFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, grassCoverSlipOffOutwardsFailureMechanismContext.Parent);
+                var microstabilityFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)objects[11];
+                Assert.AreSame(failureMechanisms[7], microstabilityFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, microstabilityFailureMechanismContext.Parent);
+                var pipingStructureFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)objects[12];
+                Assert.AreSame(failureMechanisms[8], pipingStructureFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, pipingStructureFailureMechanismContext.Parent);
+                var stabilityStoneCoverFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)objects[13];
+                Assert.AreSame(failureMechanisms[9], stabilityStoneCoverFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, stabilityStoneCoverFailureMechanismContext.Parent);
+                var technicalInnovationFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)objects[14];
+                Assert.AreSame(failureMechanisms[10], technicalInnovationFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, technicalInnovationFailureMechanismContext.Parent);
 
-                var numericFailureMechanismContext = (NumericFailureMechanismContext)objects[8];
-                Assert.AreSame(failureMechanisms[4], numericFailureMechanismContext.WrappedData);
-                Assert.AreSame(assessmentSection, numericFailureMechanismContext.Parent);
+                var strengthStabilityLengthwiseConstructionFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)objects[15];
+                Assert.AreSame(failureMechanisms[11], strengthStabilityLengthwiseConstructionFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, strengthStabilityLengthwiseConstructionFailureMechanismContext.Parent);
+                var waterPressureAsphaltCoverFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)objects[16];
+                Assert.AreSame(failureMechanisms[12], waterPressureAsphaltCoverFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, waterPressureAsphaltCoverFailureMechanismContext.Parent);
+                var waveImpactAsphaltCoverFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)objects[17];
+                Assert.AreSame(failureMechanisms[13], waveImpactAsphaltCoverFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, waveImpactAsphaltCoverFailureMechanismContext.Parent);
 
-                var closingStructureFailureMechnaismContext = (ArbitraryProbabilityFailureMechanismContext)objects[9];
-                Assert.AreSame(failureMechanisms[5], closingStructureFailureMechnaismContext.WrappedData);
+                var closingStructureFailureMechnaismContext = (FailureMechanismContext<IFailureMechanism>)objects[18];
+                Assert.AreSame(failureMechanisms[14], closingStructureFailureMechnaismContext.WrappedData);
                 Assert.AreSame(assessmentSection, closingStructureFailureMechnaismContext.Parent);
-
-                var macrostabilityInwardsFailureMechanismContext = (ArbitraryProbabilityFailureMechanismContext)objects[10];
-                Assert.AreSame(failureMechanisms[6], macrostabilityInwardsFailureMechanismContext.WrappedData);
+                var macrostabilityInwardsFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)objects[19];
+                Assert.AreSame(failureMechanisms[15], macrostabilityInwardsFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, macrostabilityInwardsFailureMechanismContext.Parent);
-
-                var macrostabilityOutwardsFailureMechanismContext = (ArbitraryProbabilityFailureMechanismContext)objects[11];
-                Assert.AreSame(failureMechanisms[7], macrostabilityOutwardsFailureMechanismContext.WrappedData);
+                var macrostabilityOutwardsFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)objects[20];
+                Assert.AreSame(failureMechanisms[16], macrostabilityOutwardsFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, macrostabilityOutwardsFailureMechanismContext.Parent);
-
-                var strengthStabilityPointConstructionFailureMechanismContext = (ArbitraryProbabilityFailureMechanismContext)objects[12];
-                Assert.AreSame(failureMechanisms[8], strengthStabilityPointConstructionFailureMechanismContext.WrappedData);
+                var strengthStabilityPointConstructionFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)objects[21];
+                Assert.AreSame(failureMechanisms[17], strengthStabilityPointConstructionFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, strengthStabilityPointConstructionFailureMechanismContext.Parent);
             }
             mocks.VerifyAll();

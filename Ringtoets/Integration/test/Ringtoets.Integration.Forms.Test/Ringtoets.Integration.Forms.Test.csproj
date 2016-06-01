@@ -59,10 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MapDataFactoryTest.cs" />
-    <Compile Include="PresentationObjects\ArbitraryProbabilityFailureMechanismContextTest.cs" />
-    <Compile Include="PresentationObjects\SimpleFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
-    <Compile Include="PresentationObjects\NumericFailureMechanismContextTest.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\CalculationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAloneFailureMechanismContextPropertiesTest.cs" />

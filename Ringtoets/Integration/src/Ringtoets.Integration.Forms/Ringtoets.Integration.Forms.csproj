@@ -45,9 +45,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="MapDataFactory.cs" />
-    <Compile Include="PresentationObjects\ArbitraryProbabilityFailureMechanismContext.cs" />
-    <Compile Include="PresentationObjects\NumericFailureMechanismContext.cs" />
-    <Compile Include="PresentationObjects\SimpleFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContext.cs" />
     <Compile Include="PropertyClasses\CalculationContextProperties.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextProperties.cs" />

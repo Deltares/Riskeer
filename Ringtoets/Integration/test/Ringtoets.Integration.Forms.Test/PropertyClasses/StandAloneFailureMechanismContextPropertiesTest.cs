@@ -26,7 +26,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
@@ -54,22 +53,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new StandAloneFailureMechanismContextProperties();
 
             // Call
-            properties.Data = new SimpleFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>());
-
-            // Assert
-            Assert.AreEqual(failureMechanism.Name, properties.Name);
-            Assert.AreEqual(failureMechanism.Code, properties.Code);
-        } 
-
-        [Test]
-        public void Data_SetNewNumericFailureMechanismContextInstance_ReturnCorrectPropertyValues()
-        {
-            // Setup
-            var failureMechanism = new TestFailureMechanism();
-            var properties = new StandAloneFailureMechanismContextProperties();
-
-            // Call
-            properties.Data = new NumericFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>());
+            properties.Data = new FailureMechanismContext<IFailureMechanism>(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>());
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, properties.Name);

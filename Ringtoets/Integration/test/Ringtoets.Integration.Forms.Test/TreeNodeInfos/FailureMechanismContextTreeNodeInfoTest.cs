@@ -40,7 +40,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.StandAlone.SectionResult;
-using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -91,7 +90,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism("name", "code");
-            var failureMechanismContext = new NumericFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
             using (var plugin = new RingtoetsGuiPlugin())
             {
@@ -133,7 +132,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 var failureMechanism = new TestFailureMechanism("C", "C");
-                var context = new NumericFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
                 // Call
                 var textColor = info.ForeColor(context);
@@ -258,7 +257,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     new Point2D(1, 2),
                     new Point2D(5, 6)
                 }));
-                var failureMechanismContext = new NumericFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
                 // Call
                 object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -279,7 +278,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 var failureMechanism = new TestFailureMechanism("A", "C");
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new NumericFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
                 var gui = mocks.StrictMock<IGui>();
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
@@ -326,7 +325,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     IsRelevant = false
                 };
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new NumericFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
                 var gui = mocks.StrictMock<IGui>();
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
@@ -365,7 +364,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var failureMechanism = new TestFailureMechanism("A", "C");
-                var context = new NumericFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -410,7 +409,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             failureMechanism.Attach(failureMechanismObserver);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new NumericFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
             var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
@@ -457,7 +456,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             failureMechanism.Attach(failureMechanismObserver);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new NumericFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
