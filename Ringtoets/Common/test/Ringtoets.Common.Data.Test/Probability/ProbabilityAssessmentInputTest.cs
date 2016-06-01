@@ -37,7 +37,6 @@ namespace Ringtoets.Common.Data.Test.Probability
             var probabilityAssessmentInput = new ProbabilityAssessmentInput();
 
             // Assert
-            Assert.AreEqual(double.NaN, probabilityAssessmentInput.Contribution);
             Assert.AreEqual(2, probabilityAssessmentInput.N);
         }
 
@@ -72,39 +71,6 @@ namespace Ringtoets.Common.Data.Test.Probability
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, 
                 Resources.N_Value_should_be_in_interval_1_20);
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(50)]
-        [TestCase(100)]
-        public void Contribution_ValueInsideValidRegion_DoesNotThrow(int value)
-        {
-            // Setup
-            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
-
-            // Call
-            TestDelegate test = () => probabilityAssessmentInput.Contribution = value;
-
-            // Assert
-            Assert.DoesNotThrow(test);
-            Assert.AreEqual(value, probabilityAssessmentInput.Contribution);
-        }
-        
-        [Test]
-        [TestCase(-1)]
-        [TestCase(101)]
-        public void Contribution_ValueOutsideValidRegion_ThrowsArgumentOutOfRangeException(int value)
-        {
-            // Setup
-            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
-
-            // Call
-            TestDelegate test = () => probabilityAssessmentInput.Contribution = value;
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test,
-                Resources.Contribution_Value_should_be_in_interval_0_100);
         }
     }
 }

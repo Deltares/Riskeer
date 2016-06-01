@@ -123,20 +123,5 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.IsTrue(calculations.All(c => c is HeightStructuresCalculation));
             mocks.VerifyAll();
         }
-
-        [Test]
-        public void Contribution_Always_UpdatesProbabilityAssessmentInputContribution()
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            const double newContribution = 12;
-
-            // Call
-            failureMechanism.Contribution = newContribution;
-
-            // Assert
-            Assert.AreEqual(newContribution, failureMechanism.ProbabilityAssessmentInput.Contribution);
-            Assert.AreEqual(newContribution, failureMechanism.Contribution);
-        }
     }
 }

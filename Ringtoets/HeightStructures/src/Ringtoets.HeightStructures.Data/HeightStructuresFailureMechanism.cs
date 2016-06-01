@@ -56,18 +56,6 @@ namespace Ringtoets.HeightStructures.Data
             }
         }
 
-        public override double Contribution
-        {
-            get
-            {
-                return ProbabilityAssessmentInput.Contribution;
-            }
-            set
-            {
-                ProbabilityAssessmentInput.Contribution = value;
-            }
-        }
-
         /// <summary>
         /// Gets the general probabilistic assessment input parameters that apply to each calculation 
         /// in a probabilistic assessment.

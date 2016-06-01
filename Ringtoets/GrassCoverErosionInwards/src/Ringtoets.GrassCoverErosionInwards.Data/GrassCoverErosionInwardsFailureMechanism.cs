@@ -56,18 +56,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
         }
 
-        public override double Contribution
-        {
-            get
-            {
-                return ProbabilityAssessmentInput.Contribution;
-            }
-            set
-            {
-                ProbabilityAssessmentInput.Contribution = value;
-            }
-        }
-
         /// <summary>
         /// Gets the general grass cover erosion inwards calculation input parameters that apply to each calculation.
         /// </summary>

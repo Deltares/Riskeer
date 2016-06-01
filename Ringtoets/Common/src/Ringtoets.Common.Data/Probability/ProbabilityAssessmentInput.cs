@@ -29,7 +29,6 @@ namespace Ringtoets.Common.Data.Probability
     /// </summary>
     public class ProbabilityAssessmentInput
     {
-        private double contribution;
         private int n;
 
         /// <summary>
@@ -38,7 +37,6 @@ namespace Ringtoets.Common.Data.Probability
         public ProbabilityAssessmentInput()
         {
             N = 2;
-            Contribution = double.NaN;
         }
 
         /// <summary>
@@ -59,28 +57,6 @@ namespace Ringtoets.Common.Data.Probability
                     throw new ArgumentOutOfRangeException("value", Resources.N_Value_should_be_in_interval_1_20);
                 }
                 n = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the contribution of the failure mechanism as a percentage (0-100) to the total of the 
-        /// failure probability of the assessment section.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="value"/> is not 
-        /// in interval [1-100].</exception>
-        public double Contribution
-        {
-            get
-            {
-                return contribution;
-            }
-            set
-            {
-                if (value < 0 || value > 100)
-                {
-                    throw new ArgumentOutOfRangeException("value", Resources.Contribution_Value_should_be_in_interval_0_100);
-                }
-                contribution = value;
             }
         }
     }
