@@ -166,7 +166,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                 ParseBreakWater(inwardsInput)
                     ),
                 calculation.ClearOutput,
-                output => { ParseHydraRingOutput(calculation, output); });
+                output => { ParseHydraRingOutput(calculation, failureMechanism.ProbabilityAssessmentInput, output); });
         }
 
         private static HydraRingBreakWater ParseBreakWater(GrassCoverErosionInwardsInput input)
@@ -207,11 +207,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             }
         }
 
-        private static void ParseHydraRingOutput(GrassCoverErosionInwardsCalculation calculation, ExceedanceProbabilityCalculationOutput output)
+        private static void ParseHydraRingOutput(GrassCoverErosionInwardsCalculation calculation, ProbabilityAssessmentInput probabilityAssessmentInput, ExceedanceProbabilityCalculationOutput output)
         {
             if (output != null)
             {
-                calculation.Output = ProbabilityAssessmentService.Calculate(calculation.ProbabilityAssessmentInput, output.Beta);
+                calculation.Output = ProbabilityAssessmentService.Calculate(probabilityAssessmentInput, output.Beta);
                 calculation.NotifyObservers();
             }
             else
@@ -452,7 +452,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static void AddCalculation(GrassCoverErosionInwardsCalculationGroupContext context)
         {
-            var calculation = new GrassCoverErosionInwardsCalculation(context.FailureMechanism.ProbabilityAssessmentInput)
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = NamingHelper.GetUniqueName(context.WrappedData.Children, GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsCalculation_DefaultName, c => c.Name)
             };

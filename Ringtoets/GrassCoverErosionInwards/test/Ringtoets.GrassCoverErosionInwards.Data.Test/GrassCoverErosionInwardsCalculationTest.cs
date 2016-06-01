@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
@@ -33,24 +32,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
     public class GrassCoverErosionInwardsCalculationTest
     {
         [Test]
-        public void Constructor_NullProbabilityAssessmentInput_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsCalculation(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("probabilityAssessmentInput", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_DefaultPropertyValuesAreSet()
         {
-            // Setup
-            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
-
             // Call
-            var calculation = new GrassCoverErosionInwardsCalculation(probabilityAssessmentInput);
+            var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
@@ -60,7 +45,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments);
             Assert.IsNull(calculation.Output);
-            Assert.AreSame(probabilityAssessmentInput, calculation.ProbabilityAssessmentInput);
             AssertDemoInput(calculation.InputParameters);
         }
 
@@ -71,8 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Properties_Name_ReturnsExpectedValues(string name)
         {
             // Setup
-            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
-            var calculation = new GrassCoverErosionInwardsCalculation(probabilityAssessmentInput);
+            var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
             calculation.Name = name;
@@ -88,8 +71,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Property_Comments_ReturnsExpectedValues(string comments)
         {
             // Setup
-            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
-            var calculation = new GrassCoverErosionInwardsCalculation(probabilityAssessmentInput);
+            var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
             calculation.Comments = comments;
@@ -102,8 +84,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void ClearOutput_Always_SetsOutputToNull()
         {
             // Setup
-            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
-            var calculation = new GrassCoverErosionInwardsCalculation(probabilityAssessmentInput)
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -119,8 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void HasOutput_OutputNull_ReturnsFalse()
         {
             // Setup
-            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
-            var calculation = new GrassCoverErosionInwardsCalculation(probabilityAssessmentInput)
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = null
             };
@@ -133,8 +113,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void HasOutput_OutputSet_ReturnsTrue()
         {
             // Setup
-            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
-            var calculation = new GrassCoverErosionInwardsCalculation(probabilityAssessmentInput)
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -147,8 +126,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void ClearHydraulicBoundaryLocation_Always_SetHydraulicBoundaryLocationToNull()
         {
             // Setup
-            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
-            var calculation = new GrassCoverErosionInwardsCalculation(probabilityAssessmentInput);
+            var calculation = new GrassCoverErosionInwardsCalculation();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1.0, 2.0);
             calculation.InputParameters.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
@@ -166,8 +144,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void GetObservableInput_Always_ReturnsInputParameters()
         {
             // Setup
-            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
-            var calculation = new GrassCoverErosionInwardsCalculation(probabilityAssessmentInput);
+            var calculation = new GrassCoverErosionInwardsCalculation();
             var inputParameters = calculation.InputParameters;
 
             // Call
@@ -182,8 +159,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var output = new ProbabilityAssessmentOutput(2.0, 3.0, 1.4, 50.3, 16.3);
-            var probabilityAssessmentInput = new ProbabilityAssessmentInput();
-            var calculation = new GrassCoverErosionInwardsCalculation(probabilityAssessmentInput)
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = output
             };

@@ -148,7 +148,7 @@ namespace Demo.Ringtoets.Commands
         {
             GrassCoverErosionInwardsFailureMechanism failureMechanism = demoAssessmentSection.GrassCoverErosionInwards;
 
-            var calculation = new GrassCoverErosionInwardsCalculation(failureMechanism.ProbabilityAssessmentInput);
+            var calculation = new GrassCoverErosionInwardsCalculation();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();

@@ -107,9 +107,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                     Children =
                     {
                         new CalculationGroup(),
-                        new GrassCoverErosionInwardsCalculation(new ProbabilityAssessmentInput()),
+                        new GrassCoverErosionInwardsCalculation(),
                         mocks.StrictMock<ICalculation>(),
-                        new GrassCoverErosionInwardsCalculation(new ProbabilityAssessmentInput())
+                        new GrassCoverErosionInwardsCalculation()
                     }
                 }
             };

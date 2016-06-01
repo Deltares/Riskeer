@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -37,18 +36,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculation"/>.
         /// </summary>
-        /// <param name="probabilityAssessmentInput">General probabilistic assessment parameters that apply to each 
-        /// calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="probabilityAssessmentInput"/> is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsCalculation(ProbabilityAssessmentInput probabilityAssessmentInput)
+        public GrassCoverErosionInwardsCalculation()
         {
-            if (probabilityAssessmentInput == null)
-            {
-                throw new ArgumentNullException("probabilityAssessmentInput");
-            }
             Name = Resources.GrassCoverErosionInwardsCalculation_DefaultName;
             InputParameters = new GrassCoverErosionInwardsInput();
-            ProbabilityAssessmentInput = probabilityAssessmentInput;
             AddDemoInput();
         }
 
@@ -56,11 +47,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets the input parameters to perform a grass cover erosion inwards calculation with.
         /// </summary>
         public GrassCoverErosionInwardsInput InputParameters { get; private set; }
-
-        /// <summary>
-        /// Gets the probability assessment input.
-        /// </summary>
-        public ProbabilityAssessmentInput ProbabilityAssessmentInput { get; private set; }
 
         /// <summary>
         /// Gets or sets <see cref="ProbabilityAssessmentOutput"/>, which contains the results of a probabilistic calculation.
