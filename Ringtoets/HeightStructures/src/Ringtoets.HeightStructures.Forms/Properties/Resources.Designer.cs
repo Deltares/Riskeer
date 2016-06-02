@@ -61,7 +61,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De toegestane peilverhoging komberging dat gebruikt wordt tijdens de berekening..
+        ///   Looks up a localized string similar to De toegestane peilverhoging op het kombergend oppervlak die gebruikt wordt tijdens de berekening..
         /// </summary>
         public static string AllowableIncreaseOfLevelForStorage_Description {
             get {
@@ -143,7 +143,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De faalkans kunstwerk gegeven erosie bodem..
+        ///   Looks up a localized string similar to De faalkans van het kunstwerk gegeven de erosie in de bodem..
         /// </summary>
         public static string FailureProbabilityOfStructureGivenErosion_Description {
             get {
@@ -321,7 +321,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kerende hoogte van het kunstwerk dat gebruikt wordt tijdens de berekening..
+        ///   Looks up a localized string similar to De kerende hoogte van het kunstwerk dat gebruikt wordt tijdens de berekening..
         /// </summary>
         public static string LevelOfCrestOfStructure_Description {
             get {
@@ -339,7 +339,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het modelfactor overloopdebiet volkomen overlaat dat gebruikt wordt tijdens de berekening..
+        ///   Looks up a localized string similar to Het modelfactor van overloopdebiet bij superkritische stroming dat gebruikt wordt tijdens de berekening..
         /// </summary>
         public static string ModelFactorOvertoppingSuperCriticalFlow_Description {
             get {
@@ -348,7 +348,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modelfactor overloopdebiet volkomen overlaat [-].
+        ///   Looks up a localized string similar to Modelfactor van overloopdebiet bij superkritische stroming [-].
         /// </summary>
         public static string ModelFactorOvertoppingSuperCriticalFlow_DisplayName {
             get {

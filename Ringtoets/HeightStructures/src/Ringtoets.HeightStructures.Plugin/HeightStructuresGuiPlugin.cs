@@ -153,28 +153,31 @@ namespace Ringtoets.HeightStructures.Plugin
                 failureMechanismSection.Name, // TODO: Provide name of reference line instead
                 HydraRingTimeIntegrationSchemeType.FBC,
                 HydraRingUncertaintiesType.All,
-                new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId,
-                                                          new HydraRingSection(1, failureMechanismSection.Name, sectionLength, inputParameters.OrientationOfTheNormalOfTheStructure),
-                                                          generalInputParameters.GravitationalAcceleration,
-                                                          generalInputParameters.ModelFactorOvertoppingFlow.Mean, generalInputParameters.ModelFactorOvertoppingFlow.StandardDeviation,
-                                                          inputParameters.LevelOfCrestOfStructure.Mean, inputParameters.LevelOfCrestOfStructure.StandardDeviation,
-                                                          inputParameters.OrientationOfTheNormalOfTheStructure,
-                                                          inputParameters.ModelFactorOvertoppingSuperCriticalFlow.Mean, inputParameters.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation,
-                                                          inputParameters.AllowableIncreaseOfLevelForStorage.Mean, inputParameters.AllowableIncreaseOfLevelForStorage.StandardDeviation,
-                                                          generalInputParameters.ModelFactorForStorageVolume.Mean, generalInputParameters.ModelFactorForStorageVolume.StandardDeviation,
-                                                          inputParameters.StorageStructureArea.Mean, inputParameters.StorageStructureArea.GetVariationCoefficient(),
-                                                          generalInputParameters.ModelFactorForIncomingFlowVolume,
-                                                          inputParameters.FlowWidthAtBottomProtection.Mean, inputParameters.FlowWidthAtBottomProtection.StandardDeviation,
-                                                          inputParameters.CriticalOvertoppingDischarge.Mean, inputParameters.CriticalOvertoppingDischarge.GetVariationCoefficient(),
-                                                          inputParameters.FailureProbabilityOfStructureGivenErosion,
-                                                          inputParameters.WidthOfFlowApertures.Mean, inputParameters.WidthOfFlowApertures.GetVariationCoefficient(),
-                                                          inputParameters.DeviationOfTheWaveDirection,
-                                                          inputParameters.StormDuration.Mean, inputParameters.StormDuration.GetVariationCoefficient()),
+                new StructuresOvertoppingCalculationInput(
+                    hydraulicBoundaryLocationId,
+                    new HydraRingSection(1, failureMechanismSection.Name, sectionLength, inputParameters.OrientationOfTheNormalOfTheStructure),
+                    generalInputParameters.GravitationalAcceleration,
+                    generalInputParameters.ModelFactorOvertoppingFlow.Mean, generalInputParameters.ModelFactorOvertoppingFlow.StandardDeviation,
+                    inputParameters.LevelOfCrestOfStructure.Mean, inputParameters.LevelOfCrestOfStructure.StandardDeviation,
+                    inputParameters.OrientationOfTheNormalOfTheStructure,
+                    inputParameters.ModelFactorOvertoppingSuperCriticalFlow.Mean, inputParameters.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation,
+                    inputParameters.AllowableIncreaseOfLevelForStorage.Mean, inputParameters.AllowableIncreaseOfLevelForStorage.StandardDeviation,
+                    generalInputParameters.ModelFactorForStorageVolume.Mean, generalInputParameters.ModelFactorForStorageVolume.StandardDeviation,
+                    inputParameters.StorageStructureArea.Mean, inputParameters.StorageStructureArea.GetVariationCoefficient(),
+                    generalInputParameters.ModelFactorForIncomingFlowVolume,
+                    inputParameters.FlowWidthAtBottomProtection.Mean, inputParameters.FlowWidthAtBottomProtection.StandardDeviation,
+                    inputParameters.CriticalOvertoppingDischarge.Mean, inputParameters.CriticalOvertoppingDischarge.GetVariationCoefficient(),
+                    inputParameters.FailureProbabilityOfStructureGivenErosion,
+                    inputParameters.WidthOfFlowApertures.Mean, inputParameters.WidthOfFlowApertures.GetVariationCoefficient(),
+                    inputParameters.DeviationOfTheWaveDirection,
+                    inputParameters.StormDuration.Mean, inputParameters.StormDuration.GetVariationCoefficient()),
                 calculation.ClearOutput,
                 output => { ParseHydraRingOutput(calculation, failureMechanism, assessmentSection, output); });
         }
 
-        private void CalculateAll(HeightStructuresFailureMechanism failureMechanism, IEnumerable<HeightStructuresCalculation> calculations, IAssessmentSection assessmentSection)
+        private void CalculateAll(HeightStructuresFailureMechanism failureMechanism,
+                                  IEnumerable<HeightStructuresCalculation> calculations,
+                                  IAssessmentSection assessmentSection)
         {
             // TODO: Remove "Where" filter when validation is implemented
             ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations.Where(calc => calc.InputParameters.HydraulicBoundaryLocation != null)
@@ -183,7 +186,7 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                              calc,
                                                                              failureMechanism,
                                                                              assessmentSection
-                                                                             )).ToList());
+                                                                                             )).ToList());
         }
 
         private static string AllDataAvailable(IAssessmentSection assessmentSection, HeightStructuresFailureMechanism failureMechanism)
@@ -201,17 +204,24 @@ namespace Ringtoets.HeightStructures.Plugin
             var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
             if (!string.IsNullOrEmpty(validationProblem))
             {
-                return string.Format(RingtoetsCommonFormsResources.GuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_, validationProblem);
+                return string.Format(RingtoetsCommonFormsResources.GuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_,
+                                     validationProblem);
             }
 
             return null;
         }
 
-        private static void ParseHydraRingOutput(HeightStructuresCalculation calculation, HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection, ExceedanceProbabilityCalculationOutput output)
+        private static void ParseHydraRingOutput(HeightStructuresCalculation calculation,
+                                                 HeightStructuresFailureMechanism failureMechanism,
+                                                 IAssessmentSection assessmentSection,
+                                                 ExceedanceProbabilityCalculationOutput output)
         {
             if (output != null)
             {
-                calculation.Output = ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm, failureMechanism.Contribution, failureMechanism.GeneralInput.N, output.Beta);
+                calculation.Output = ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm,
+                                                                            failureMechanism.Contribution,
+                                                                            failureMechanism.GeneralInput.N,
+                                                                            output.Beta);
                 calculation.NotifyObservers();
             }
             else

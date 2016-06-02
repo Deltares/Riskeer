@@ -170,7 +170,7 @@
     <value>Schematisatie</value>
   </data>
   <data name="AllowableIncreaseOfLevelForStorage_Description" xml:space="preserve">
-    <value>De toegestane peilverhoging komberging dat gebruikt wordt tijdens de berekening.</value>
+    <value>De toegestane peilverhoging op het kombergend oppervlak die gebruikt wordt tijdens de berekening.</value>
   </data>
   <data name="AllowableIncreaseOfLevelForStorage_DisplayName" xml:space="preserve">
     <value>Toegestane peilverhoging komberging [m]</value>
@@ -185,7 +185,7 @@
     <value>Kritiek overslagdebiet [m³/s/m]</value>
   </data>
   <data name="FailureProbabilityOfStructureGivenErosion_Description" xml:space="preserve">
-    <value>De faalkans kunstwerk gegeven erosie bodem.</value>
+    <value>De faalkans van het kunstwerk gegeven de erosie in de bodem.</value>
   </data>
   <data name="FailureProbabilityOfStructureGivenErosion_DisplayName" xml:space="preserve">
     <value>Faalkans kunstwerk gegeven erosie bodem [-]</value>
@@ -203,16 +203,16 @@
     <value>Locatie met hydraulische randvoorwaarden</value>
   </data>
   <data name="LevelOfCrestOfStructure_Description" xml:space="preserve">
-    <value>Kerende hoogte van het kunstwerk dat gebruikt wordt tijdens de berekening.</value>
+    <value>De kerende hoogte van het kunstwerk dat gebruikt wordt tijdens de berekening.</value>
   </data>
   <data name="LevelOfCrestOfStructure_DisplayName" xml:space="preserve">
     <value>Kerende hoogte [m]</value>
   </data>
   <data name="ModelFactorOvertoppingSuperCriticalFlow_Description" xml:space="preserve">
-    <value>Het modelfactor overloopdebiet volkomen overlaat dat gebruikt wordt tijdens de berekening.</value>
+    <value>Het modelfactor van overloopdebiet bij superkritische stroming dat gebruikt wordt tijdens de berekening.</value>
   </data>
   <data name="ModelFactorOvertoppingSuperCriticalFlow_DisplayName" xml:space="preserve">
-    <value>Modelfactor overloopdebiet volkomen overlaat [-]</value>
+    <value>Modelfactor van overloopdebiet bij superkritische stroming [-]</value>
   </data>
   <data name="OrientationOfTheNormalOfTheStructure_Description" xml:space="preserve">
     <value>Oriëntatie van het kunstwerk.</value>

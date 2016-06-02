@@ -27,6 +27,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.Properties;
 using Ringtoets.HeightStructures.Forms.UITypeEditors;
@@ -73,8 +74,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         #endregion
 
         /// <summary>
-        /// Returns the available hydraulic boundary locations.
-        /// </summary>
+        /// Returns the available hydraulic boundary locations in order for the user to select one to 
+        /// set <see cref="HeightStructuresInput.HydraulicBoundaryLocation"/>. </summary>
         /// <returns>The available hydraulic boundary locations.</returns>
         public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
         {
