@@ -59,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(target, failureMechanismMock, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<WrappedObjectContextBase<ObservableObject>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableObject>>(context);
             Assert.AreSame(target, context.WrappedData);
             Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
             Assert.AreSame(failureMechanismMock, context.FailureMechanism);

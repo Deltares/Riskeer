@@ -35,7 +35,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
     /// Presentation object representing all required height structures input knowledge to configure and create
     /// related objects. It'll delegate observable behavior to the wrapped data object.
     /// </summary>
-    public abstract class HeightStructuresContext<T> : WrappedObjectContextBase<T> where T : IObservable
+    public abstract class HeightStructuresContext<T> : ObservableWrappedObjectContextBase<T> where T : IObservable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="HeightStructuresContext{T}"/> class.

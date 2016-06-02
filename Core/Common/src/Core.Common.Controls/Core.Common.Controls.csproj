@@ -110,7 +110,7 @@
     <Compile Include="Forms\DoubleBufferedTreeView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PresentationObjects\WrappedObjectContextBase.cs" />
+    <Compile Include="PresentationObjects\ObservableWrappedObjectContextBase.cs" />
     <Compile Include="TextEditor\RichTextBoxControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

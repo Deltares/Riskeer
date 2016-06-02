@@ -35,7 +35,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
     /// Presentation object representing all required grass cover erosion inwards input knowledge to configure and create
     /// related objects. It'll delegate observable behavior to the wrapped data object.
     /// </summary>
-    public abstract class GrassCoverErosionInwardsContext<T> : WrappedObjectContextBase<T> where T : IObservable
+    public abstract class GrassCoverErosionInwardsContext<T> : ObservableWrappedObjectContextBase<T> where T : IObservable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsContext{T}"/> class.

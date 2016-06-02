@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     /// Presentation object representing all required piping knowledge to configure and create
     /// piping related objects. It'll delegate observable behavior to the wrapped data object.
     /// </summary>
-    public abstract class PipingContext<T> : WrappedObjectContextBase<T> where T : IObservable
+    public abstract class PipingContext<T> : ObservableWrappedObjectContextBase<T> where T : IObservable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingContext{T}"/> class.

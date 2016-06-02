@@ -31,14 +31,14 @@ namespace Core.Common.Controls.PresentationObjects
     /// for the UI layer of the application.
     /// </summary>
     /// <typeparam name="T">The object type of the wrapped instance.</typeparam>
-    public abstract class WrappedObjectContextBase<T> : IObservable, IEquatable<WrappedObjectContextBase<T>> where T : IObservable
+    public abstract class ObservableWrappedObjectContextBase<T> : IObservable, IEquatable<ObservableWrappedObjectContextBase<T>> where T : IObservable
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="WrappedObjectContextBase{T}"/> class.
+        /// Initializes a new instance of the <see cref="ObservableWrappedObjectContextBase{T}"/> class.
         /// </summary>
         /// <param name="wrappedData">The wrapped data.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="wrappedData"/> is <c>null</c>.</exception>
-        protected WrappedObjectContextBase(T wrappedData)
+        protected ObservableWrappedObjectContextBase(T wrappedData)
         {
             if (wrappedData == null)
             {
@@ -54,7 +54,7 @@ namespace Core.Common.Controls.PresentationObjects
 
         #region Equality members
 
-        public bool Equals(WrappedObjectContextBase<T> other)
+        public bool Equals(ObservableWrappedObjectContextBase<T> other)
         {
             if (ReferenceEquals(null, other))
             {
@@ -77,7 +77,7 @@ namespace Core.Common.Controls.PresentationObjects
             {
                 return true;
             }
-            return Equals(obj as WrappedObjectContextBase<T>);
+            return Equals(obj as ObservableWrappedObjectContextBase<T>);
         }
 
         public override int GetHashCode()

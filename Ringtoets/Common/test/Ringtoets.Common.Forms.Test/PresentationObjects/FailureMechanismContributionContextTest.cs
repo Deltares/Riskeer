@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var context = new FailureMechanismContributionContext(contribution, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<IEquatable<WrappedObjectContextBase<FailureMechanismContribution>>>(context);
+            Assert.IsInstanceOf<IEquatable<ObservableWrappedObjectContextBase<FailureMechanismContribution>>>(context);
             Assert.IsInstanceOf<IObservable>(context);
             Assert.AreSame(contribution, context.WrappedData);
             Assert.AreSame(assessmentSection, context.Parent);

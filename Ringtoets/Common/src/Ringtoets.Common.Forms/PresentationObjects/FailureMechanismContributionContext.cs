@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// <summary>
     /// This class is a presentation object for a <see cref="FailureMechanismContribution"/> instance.
     /// </summary>
-    public sealed class FailureMechanismContributionContext : WrappedObjectContextBase<FailureMechanismContribution>
+    public sealed class FailureMechanismContributionContext : ObservableWrappedObjectContextBase<FailureMechanismContribution>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismContributionContext"/> class.
@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the assessment section to which <see cref="WrappedObjectContextBase{T}.WrappedData"/> belongs to.
+        /// Gets the assessment section to which <see cref="ObservableWrappedObjectContextBase{T}.WrappedData"/> belongs to.
         /// </summary>
         public IAssessmentSection Parent { get; private set; }
 

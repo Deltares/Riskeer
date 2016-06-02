@@ -32,7 +32,7 @@ using Rhino.Mocks;
 namespace Core.Common.Controls.Test.PresentationObjects
 {
     [TestFixture]
-    public class WrappedObjectContextBaseTest
+    public class ObservableWrappedObjectContextBaseTest
     {
         [Test]
         public void Constructor_ValidWrappedObjectInstance_ExpectedValues()
@@ -43,11 +43,11 @@ namespace Core.Common.Controls.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            var context = new SimpleWrappedObjectContext<IObservable>(sourceObject);
+            var context = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(context);
-            Assert.IsInstanceOf<IEquatable<WrappedObjectContextBase<IObservable>>>(context);
+            Assert.IsInstanceOf<IEquatable<ObservableWrappedObjectContextBase<IObservable>>>(context);
             Assert.AreSame(sourceObject, context.WrappedData);
 
             mocks.VerifyAll();
@@ -57,7 +57,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
         public void Constructor_InputArgumentIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SimpleWrappedObjectContext<IObservable>(null);
+            TestDelegate call = () => new SimpleObservableWrappedObjectContext<IObservable>(null);
 
             // Assert
             const string expectedMessage = "Wrapped data of context cannot be null.";
@@ -72,7 +72,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
             var sourceObject = mocks.Stub<IObservable>();
             mocks.ReplayAll();
 
-            var context = new SimpleWrappedObjectContext<IObservable>(sourceObject);
+            var context = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject);
 
             // Call
             var isEqual = context.Equals(null);
@@ -91,8 +91,8 @@ namespace Core.Common.Controls.Test.PresentationObjects
             var sourceObject = mocks.Stub<IObservable>();
             mocks.ReplayAll();
 
-            var context1 = new SimpleWrappedObjectContext<IObservable>(sourceObject);
-            var context2 = new SimpleWrappedObjectContext<ObservableList<object>>(new ObservableList<object>());
+            var context1 = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject);
+            var context2 = new SimpleObservableWrappedObjectContext<ObservableList<object>>(new ObservableList<object>());
 
             // Call
             var isEqual1 = context1.Equals(context2);
@@ -117,8 +117,8 @@ namespace Core.Common.Controls.Test.PresentationObjects
             // Precondition:
             Assert.IsFalse(sourceObject1.Equals(sourceObject2));
 
-            var context1 = new SimpleWrappedObjectContext<IObservable>(sourceObject1);
-            object context2 = new SimpleWrappedObjectContext<IObservable>(sourceObject2);
+            var context1 = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject1);
+            object context2 = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject2);
 
             // Call
             var isEqual1 = context1.Equals(context2);
@@ -137,7 +137,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
             var sourceObject = mocks.Stub<IObservable>();
             mocks.ReplayAll();
 
-            var context = new SimpleWrappedObjectContext<IObservable>(sourceObject);
+            var context = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject);
 
             // Call
             var isEqual = context.Equals(context);
@@ -156,8 +156,8 @@ namespace Core.Common.Controls.Test.PresentationObjects
             var sourceObject = mocks.Stub<IObservable>();
             mocks.ReplayAll();
 
-            var context1 = new SimpleWrappedObjectContext<IObservable>(sourceObject);
-            object context2 = new SimpleWrappedObjectContext<IObservable>(sourceObject);
+            var context1 = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject);
+            object context2 = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject);
 
             // Call
             var isEqual1 = context1.Equals(context2);
@@ -178,8 +178,8 @@ namespace Core.Common.Controls.Test.PresentationObjects
             var sourceObject1 = new SimpleObservable(sourceObject);
             var sourceObject2 = new SimpleObservable(sourceObject);
 
-            var context1 = new SimpleWrappedObjectContext<IObservable>(sourceObject1);
-            object context2 = new SimpleWrappedObjectContext<IObservable>(sourceObject2);
+            var context1 = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject1);
+            object context2 = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject2);
 
             // Precondition:
             Assert.AreEqual(context1, context2);
@@ -204,7 +204,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
             var equalitySource = new object();
             var sourceObject = new SimpleObservable(equalitySource);
 
-            var context = new SimpleWrappedObjectContext<IObservable>(sourceObject);
+            var context = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject);
             context.Attach(observer);
 
             // Call
@@ -225,7 +225,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
             var equalitySource = new object();
             var sourceObject = new SimpleObservable(equalitySource);
 
-            var context = new SimpleWrappedObjectContext<IObservable>(sourceObject);
+            var context = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject);
             context.Attach(observer);
             context.Detach(observer);
 
@@ -249,7 +249,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
             var sourceObject = new SimpleObservable(equalitySource);
             sourceObject.Attach(observer);
             
-            var context = new SimpleWrappedObjectContext<IObservable>(sourceObject);
+            var context = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject);
             
             // Call
             context.NotifyObservers();
@@ -270,7 +270,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
             var equalitySource = new object();
             var sourceObject = new SimpleObservable(equalitySource);
 
-            var context = new SimpleWrappedObjectContext<IObservable>(sourceObject);
+            var context = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject);
             context.Attach(observer);
 
             // Call
@@ -280,9 +280,9 @@ namespace Core.Common.Controls.Test.PresentationObjects
             mocks.VerifyAll(); // Expect call UpdateObserver on 'observer'
         }
 
-        private class SimpleWrappedObjectContext<T> : WrappedObjectContextBase<T> where T : IObservable
+        private class SimpleObservableWrappedObjectContext<T> : ObservableWrappedObjectContextBase<T> where T : IObservable
         {
-            public SimpleWrappedObjectContext(T wrappedData) : base(wrappedData) {}
+            public SimpleObservableWrappedObjectContext(T wrappedData) : base(wrappedData) {}
         }
 
         private class SimpleObservable : Observable, IEquatable<SimpleObservable>
