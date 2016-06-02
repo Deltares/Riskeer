@@ -20,13 +20,9 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
-using Core.Common.TestUtil;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
 
 namespace Core.Common.Controls.Test.PresentationObjects
@@ -47,149 +43,10 @@ namespace Core.Common.Controls.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<IObservable>(context);
-            Assert.IsInstanceOf<IEquatable<ObservableWrappedObjectContextBase<IObservable>>>(context);
+            Assert.IsInstanceOf<WrappedObjectContextBase<IObservable>>(context);
             Assert.AreSame(sourceObject, context.WrappedData);
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_InputArgumentIsNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new SimpleObservableWrappedObjectContext<IObservable>(null);
-
-            // Assert
-            const string expectedMessage = "Wrapped data of context cannot be null.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
-        }
-
-        [Test]
-        public void Equals_ToNull_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var sourceObject = mocks.Stub<IObservable>();
-            mocks.ReplayAll();
-
-            var context = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject);
-
-            // Call
-            var isEqual = context.Equals(null);
-
-            // Assert
-            Assert.IsFalse(isEqual);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToOtherValueType_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var sourceObject = mocks.Stub<IObservable>();
-            mocks.ReplayAll();
-
-            var context1 = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject);
-            var context2 = new SimpleObservableWrappedObjectContext<ObservableList<object>>(new ObservableList<object>());
-
-            // Call
-            var isEqual1 = context1.Equals(context2);
-            var isEqual2 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsFalse(isEqual1);
-            Assert.IsFalse(isEqual2);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToOtherValueOfSameType_ReturnFalse()
-        {
-            // Setup
-            var sourceObj1 = new object();
-            var sourceObj2 = new object();
-            var sourceObject1 = new SimpleObservable(sourceObj1);
-            var sourceObject2 = new SimpleObservable(sourceObj2);
-
-            // Precondition:
-            Assert.IsFalse(sourceObject1.Equals(sourceObject2));
-
-            var context1 = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject1);
-            object context2 = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject2);
-
-            // Call
-            var isEqual1 = context1.Equals(context2);
-            var isEqual2 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsFalse(isEqual1);
-            Assert.IsFalse(isEqual2);
-        }
-
-        [Test]
-        public void Equals_ToItself_ReturnTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var sourceObject = mocks.Stub<IObservable>();
-            mocks.ReplayAll();
-
-            var context = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject);
-
-            // Call
-            var isEqual = context.Equals(context);
-
-            // Assert
-            Assert.IsTrue(isEqual);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToOtherEqualInstance_ReturnTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var sourceObject = mocks.Stub<IObservable>();
-            mocks.ReplayAll();
-
-            var context1 = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject);
-            object context2 = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject);
-
-            // Call
-            var isEqual1 = context1.Equals(context2);
-            var isEqual2 = context1.Equals(context2);
-
-            // Assert
-            Assert.IsTrue(isEqual1);
-            Assert.IsTrue(isEqual2);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetHashCode_EqualObjects_ReturnSameHashCode()
-        {
-            // Setup
-            var sourceObject = new object();
-            var sourceObject1 = new SimpleObservable(sourceObject);
-            var sourceObject2 = new SimpleObservable(sourceObject);
-
-            var context1 = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject1);
-            object context2 = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject2);
-
-            // Precondition:
-            Assert.AreEqual(context1, context2);
-
-            // Call
-            var hashCode1 = context1.GetHashCode();
-            var hashCode2 = context2.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCode1, hashCode2);
         }
 
         [Test]
@@ -248,9 +105,9 @@ namespace Core.Common.Controls.Test.PresentationObjects
             var equalitySource = new object();
             var sourceObject = new SimpleObservable(equalitySource);
             sourceObject.Attach(observer);
-            
+
             var context = new SimpleObservableWrappedObjectContext<IObservable>(sourceObject);
-            
+
             // Call
             context.NotifyObservers();
 
@@ -288,24 +145,25 @@ namespace Core.Common.Controls.Test.PresentationObjects
         private class SimpleObservable : Observable, IEquatable<SimpleObservable>
         {
             private readonly object source;
+
             public SimpleObservable(object equalitySource)
             {
                 source = equalitySource;
             }
 
-            public bool Equals(SimpleObservable other)
-            {
-                return source.Equals(other.source);
-            }
-
             public override bool Equals(object obj)
             {
-                return Equals((SimpleObservable)obj);
+                return Equals((SimpleObservable) obj);
             }
 
             public override int GetHashCode()
             {
                 return source.GetHashCode();
+            }
+
+            public bool Equals(SimpleObservable other)
+            {
+                return source.Equals(other.source);
             }
         }
     }

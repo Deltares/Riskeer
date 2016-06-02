@@ -60,6 +60,7 @@
     <Compile Include="Dialogs\DialogBaseTest.cs" />
     <Compile Include="Dialogs\ExceptionDialogTest.cs" />
     <Compile Include="PresentationObjects\ObservableWrappedObjectContextBaseTest.cs" />
+    <Compile Include="PresentationObjects\WrappedObjectContextBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
