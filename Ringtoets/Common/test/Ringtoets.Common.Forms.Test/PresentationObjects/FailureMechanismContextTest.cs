@@ -20,10 +20,9 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -46,6 +45,8 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var context = new SimpleFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Assert
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IFailureMechanism>>(context);
+            Assert.IsInstanceOf<IFailureMechanismContext<IFailureMechanism>>(context);
             Assert.AreSame(assessmentSection, context.Parent);
             Assert.AreSame(failureMechanism, context.WrappedData);
             mocks.VerifyAll();
@@ -212,7 +213,6 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             Assert.AreEqual(contextHashCode, otherContextHashCode);
             mocks.VerifyAll();
         }
-				
 
         private class SimpleFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
         {

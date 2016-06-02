@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -63,6 +64,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<IObservable>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableObject>>(context);
             Assert.AreSame(surfaceLines, context.AvailablePipingSurfaceLines,
                            "It is vital that the iterator should be identical to the collection, in order to stay in sync when items are added or removed.");
             Assert.AreSame(soilModels, context.AvailableStochasticSoilModels,
