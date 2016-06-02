@@ -85,7 +85,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to construct a <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
         /// </summary>
-        /// <returns>A new <see cref="PipingFailureMechanism"/>.</returns>
+        /// <returns>A new <see cref="GrassCoverErosionInwardsFailureMechanism"/>.</returns>
         internal static GrassCoverErosionInwardsFailureMechanism ReadAsGrassCoverErosionInwardsFailureMechanism(this FailureMechanismEntity entity)
         {
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism

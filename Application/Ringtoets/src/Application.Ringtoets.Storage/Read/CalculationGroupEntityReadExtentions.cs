@@ -25,7 +25,6 @@ using System.Collections;
 using Application.Ringtoets.Storage.DbContext;
 
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Read
 {
@@ -42,7 +41,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="entity">The <see cref="CalculationGroupEntity"/> to create 
         /// <see cref="CalculationGroup"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="AssessmentSection"/>.</returns>
+        /// <returns>A new <see cref="CalculationGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         internal static CalculationGroup Read(this CalculationGroupEntity entity, ReadConversionCollector collector)
         {

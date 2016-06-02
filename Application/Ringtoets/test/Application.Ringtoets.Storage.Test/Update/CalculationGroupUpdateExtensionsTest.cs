@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_GroupHasntBeenSaved_ThrowEntityNotFoundException()
+        public void Update_GroupHasNotBeenSaved_ThrowEntityNotFoundException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -136,6 +136,39 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
+        public void Update_GroupWithReadonlyNameWithoutChildren_NoChangedToEntity()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            CalculationGroup calculationGroup = CreateCalculationGroupWithoutChildren(false);
+
+            byte originalIsEditableValue = Convert.ToByte(calculationGroup.IsNameEditable);
+            var groupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = calculationGroup.StorageId,
+                IsEditable = originalIsEditableValue,
+                Name = calculationGroup.Name
+            };
+            ringtoetsEntities.CalculationGroupEntities.Add(groupEntity);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            calculationGroup.Update(registry, ringtoetsEntities);
+
+            // Assert
+            Assert.AreEqual(calculationGroup.Name, groupEntity.Name);
+            Assert.AreEqual(originalIsEditableValue, groupEntity.IsEditable);
+
+            CollectionAssert.IsEmpty(groupEntity.CalculationGroupEntity1,
+                "No changes to the children expected.");
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Update_ChildGroupsReordered_EntitiesUpdated()
         {
             // Setup
@@ -145,13 +178,13 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             CalculationGroup calculationGroup = CreateCalculationGroupWith2ChildGroups();
 
-            var childGroup1 = new CalculationGroupEntity
+            var childGroupEntity1 = new CalculationGroupEntity
             {
                 CalculationGroupEntityId = ((CalculationGroup)calculationGroup.Children[0]).StorageId,
                 Name = "A",
                 Order = 1
             };
-            var childGroup2 = new CalculationGroupEntity
+            var childGroupEntity2 = new CalculationGroupEntity
             {
                 CalculationGroupEntityId = ((CalculationGroup)calculationGroup.Children[1]).StorageId,
                 Name = "A",
@@ -164,13 +197,13 @@ namespace Application.Ringtoets.Storage.Test.Update
                 Name = "<original name>",
                 CalculationGroupEntity1 =
                 {
-                    childGroup1,
-                    childGroup2
+                    childGroupEntity1,
+                    childGroupEntity2
                 }
             };
             ringtoetsEntities.CalculationGroupEntities.Add(groupEntity);
-            ringtoetsEntities.CalculationGroupEntities.Add(childGroup1);
-            ringtoetsEntities.CalculationGroupEntities.Add(childGroup2);
+            ringtoetsEntities.CalculationGroupEntities.Add(childGroupEntity1);
+            ringtoetsEntities.CalculationGroupEntities.Add(childGroupEntity2);
 
             var registry = new PersistenceRegistry();
 
@@ -178,10 +211,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             calculationGroup.Update(registry, ringtoetsEntities);
 
             // Assert
-            Assert.AreEqual(0, childGroup1.Order);
-            Assert.AreEqual(calculationGroup.Children[0].Name, childGroup1.Name);
-            Assert.AreEqual(1, childGroup2.Order);
-            Assert.AreEqual(calculationGroup.Children[1].Name, childGroup2.Name);
+            Assert.AreEqual(0, childGroupEntity1.Order);
+            Assert.AreEqual(calculationGroup.Children[0].Name, childGroupEntity1.Name);
+            Assert.AreEqual(1, childGroupEntity2.Order);
+            Assert.AreEqual(calculationGroup.Children[1].Name, childGroupEntity2.Name);
             mocks.VerifyAll();
         }
 
@@ -195,8 +228,8 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             CalculationGroup calculationGroup = CreateCalculationGroupWith2ChildGroups();
             
-            var childGroup1 = CreateExpectedEmptyGroupEntity((CalculationGroup)calculationGroup.Children[0], 0);
-            var childGroup2 = CreateExpectedEmptyGroupEntity((CalculationGroup)calculationGroup.Children[1], 1);
+            CalculationGroupEntity childGroupEntity1 = CreateExpectedEmptyGroupEntity((CalculationGroup)calculationGroup.Children[0], 0);
+            CalculationGroupEntity childGroupEntity2 = CreateExpectedEmptyGroupEntity((CalculationGroup)calculationGroup.Children[1], 1);
             var groupEntity = new CalculationGroupEntity
             {
                 CalculationGroupEntityId = calculationGroup.StorageId,
@@ -204,13 +237,13 @@ namespace Application.Ringtoets.Storage.Test.Update
                 Name = "<original name>",
                 CalculationGroupEntity1 =
                 {
-                    childGroup1,
-                    childGroup2
+                    childGroupEntity1,
+                    childGroupEntity2
                 }
             };
             ringtoetsEntities.CalculationGroupEntities.Add(groupEntity);
-            ringtoetsEntities.CalculationGroupEntities.Add(childGroup1);
-            ringtoetsEntities.CalculationGroupEntities.Add(childGroup2);
+            ringtoetsEntities.CalculationGroupEntities.Add(childGroupEntity1);
+            ringtoetsEntities.CalculationGroupEntities.Add(childGroupEntity2);
 
             var insertedGroup = new CalculationGroup("<newly inserted group>", false);
             const int insertedIndex = 1;
@@ -226,23 +259,23 @@ namespace Application.Ringtoets.Storage.Test.Update
                                                                             .OrderBy(cge => cge.Order)
                                                                             .ToArray();
             Assert.AreEqual(3, updatedChildGroupEntities.Length);
-            Assert.AreSame(childGroup1, updatedChildGroupEntities[0]);
-            Assert.AreEqual(0, childGroup1.Order);
-            Assert.AreEqual(calculationGroup.Children[0].Name, childGroup1.Name);
+            Assert.AreSame(childGroupEntity1, updatedChildGroupEntities[0]);
+            Assert.AreEqual(0, childGroupEntity1.Order);
+            Assert.AreEqual(calculationGroup.Children[0].Name, childGroupEntity1.Name);
 
             var newGroupEntity = updatedChildGroupEntities[insertedIndex];
             Assert.AreEqual(insertedIndex, newGroupEntity.Order);
             Assert.AreEqual(insertedGroup.Name, newGroupEntity.Name);
             Assert.AreEqual(0, newGroupEntity.IsEditable);
 
-            Assert.AreSame(childGroup2, updatedChildGroupEntities[2]);
-            Assert.AreEqual(2, childGroup2.Order);
-            Assert.AreEqual(calculationGroup.Children[2].Name, childGroup2.Name);
+            Assert.AreSame(childGroupEntity2, updatedChildGroupEntities[2]);
+            Assert.AreEqual(2, childGroupEntity2.Order);
+            Assert.AreEqual(calculationGroup.Children[2].Name, childGroupEntity2.Name);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Update_ChildGroupAdded_RootEntitiyUpdatedAndNewEntityCreated()
+        public void Update_ChildGroupAdded_RootEntityUpdatedAndNewEntityCreated()
         {
             // Setup
             var mocks = new MockRepository();
@@ -251,7 +284,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             CalculationGroup calculationGroup = CreateCalculationGroupWithoutChildren(true);
 
-            var rootGroupEntity = CreateExpectedEmptyGroupEntity(calculationGroup, 0);
+            CalculationGroupEntity rootGroupEntity = CreateExpectedEmptyGroupEntity(calculationGroup, 0);
             ringtoetsEntities.CalculationGroupEntities.Add(rootGroupEntity);
 
             var newGroup = new CalculationGroup("<newly added group>", false);
@@ -282,7 +315,6 @@ namespace Application.Ringtoets.Storage.Test.Update
             IRingtoetsEntities ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
-
             var draggedGroup = new CalculationGroup("<Dragged group>", false)
             {
                 StorageId = 876
@@ -290,15 +322,15 @@ namespace Application.Ringtoets.Storage.Test.Update
             CalculationGroup calculationGroup = CreateCalculationGroupWith2ChildGroups();
             ((CalculationGroup)calculationGroup.Children[0]).Children.Add(draggedGroup);
 
-            var childGroup1Entity = CreateExpectedEmptyGroupEntity((CalculationGroup)calculationGroup.Children[0], 0);
-            var childGroup2Entity = CreateExpectedEmptyGroupEntity((CalculationGroup)calculationGroup.Children[1], 1);
-            var fillerGroupEntity = CreateExpectedEmptyGroupEntity(new CalculationGroup(), 0);
+            CalculationGroupEntity childGroup1Entity = CreateExpectedEmptyGroupEntity((CalculationGroup)calculationGroup.Children[0], 0);
+            CalculationGroupEntity childGroup2Entity = CreateExpectedEmptyGroupEntity((CalculationGroup)calculationGroup.Children[1], 1);
+            CalculationGroupEntity fillerGroupEntity = CreateExpectedEmptyGroupEntity(new CalculationGroup(), 0);
             childGroup2Entity.CalculationGroupEntity1.Add(fillerGroupEntity);
-            var draggedGroupEntity = CreateExpectedEmptyGroupEntity(draggedGroup, 1);
+            CalculationGroupEntity draggedGroupEntity = CreateExpectedEmptyGroupEntity(draggedGroup, 1);
             childGroup2Entity.CalculationGroupEntity1.Add(draggedGroupEntity);
             draggedGroupEntity.CalculationGroupEntity2 = childGroup2Entity;
 
-            var rootGroupEntity = CreateExpectedEmptyGroupEntity(calculationGroup, 0);
+            CalculationGroupEntity rootGroupEntity = CreateExpectedEmptyGroupEntity(calculationGroup, 0);
             rootGroupEntity.CalculationGroupEntity1.Add(childGroup1Entity);
             rootGroupEntity.CalculationGroupEntity1.Add(childGroup2Entity);
 

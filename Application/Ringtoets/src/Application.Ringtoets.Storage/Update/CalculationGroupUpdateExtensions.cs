@@ -60,10 +60,8 @@ namespace Application.Ringtoets.Storage.Update
             }
 
             CalculationGroupEntity entity = GetCorrespondingCalculationGroupEntity(calculationGroup, context);
-            if (calculationGroup.IsNameEditable)
-            {
-                entity.Name = calculationGroup.Name;
-            }
+            entity.Name = calculationGroup.Name;
+
             UpdateChildren(entity, calculationGroup, registry, context);
 
             registry.Register(entity, calculationGroup);

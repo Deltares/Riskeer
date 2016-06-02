@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="entity">The <see cref="SurfaceLineEntity"/> to create
         /// <see cref="RingtoetsPipingSurfaceLine"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="AssessmentSection"/>.</returns>
+        /// <returns>A new <see cref="RingtoetsPipingSurfaceLine"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         internal static RingtoetsPipingSurfaceLine Read(this SurfaceLineEntity entity, ReadConversionCollector collector)
         {

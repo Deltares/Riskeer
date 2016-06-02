@@ -36,10 +36,11 @@ namespace Application.Ringtoets.Storage.Read
     internal static class StochasticSoilModelSegmentPointEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="StochasticSoilModelEntity"/> and use the information to construct a <see cref="StochasticSoilModel"/>.
+        /// Reads the <see cref="StochasticSoilModelSegmentPointEntity"/> and use the information
+        /// to construct a <see cref="Point2D"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> to create <see cref="StochasticSoilModel"/> for.</param>
-        /// <returns>A new <see cref="StochasticSoilModel"/>.</returns>
+        /// <param name="entity">The <see cref="StochasticSoilModelSegmentPointEntity"/> to create <see cref="Point2D"/> for.</param>
+        /// <returns>A new <see cref="Point2D"/>.</returns>
         internal static Point2D Read(this StochasticSoilModelSegmentPointEntity entity)
         {
             return new Point2D(Convert.ToDouble(entity.X),

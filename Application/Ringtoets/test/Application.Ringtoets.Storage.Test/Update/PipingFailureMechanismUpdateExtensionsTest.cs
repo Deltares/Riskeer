@@ -152,7 +152,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = 1,
+                FailureMechanismEntityId = failureMechanism.StorageId,
                 IsRelevant = Convert.ToByte(false),
                 CalculationGroupEntity = rootCalculationGroup
             };
@@ -223,6 +223,10 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
+            var stochasticSoilModel = new StochasticSoilModel(-1, string.Empty, string.Empty)
+            {
+                StorageId = 1
+            };
             var failureMechanism = new PipingFailureMechanism
             {
                 StorageId = 1,
@@ -232,16 +236,13 @@ namespace Application.Ringtoets.Storage.Test.Update
                 },
                 StochasticSoilModels =
                 {
-                    new StochasticSoilModel(-1, string.Empty, string.Empty)
-                    {
-                        StorageId = 1
-                    }
+                    stochasticSoilModel
                 }
             };
 
             var stochasticSoilModelEntity = new StochasticSoilModelEntity
             {
-                StochasticSoilModelEntityId = 1
+                StochasticSoilModelEntityId = stochasticSoilModel.StorageId
             };
             var rootCalculationGroupEntity = new CalculationGroupEntity
             {
@@ -249,7 +250,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = 1,
+                FailureMechanismEntityId = failureMechanism.StorageId,
                 CalculationGroupEntity = rootCalculationGroupEntity,
                 StochasticSoilModelEntities =
                 {
@@ -322,17 +323,15 @@ namespace Application.Ringtoets.Storage.Test.Update
             var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
-            const long surfaceLineId = 23;
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
-                StorageId = surfaceLineId,
+                StorageId = 23,
                 ReferenceLineIntersectionWorldPoint = new Point2D(45.67, 34.46)
             };
 
-            const long failureMechanismId = 1;
             var failureMechanism = new PipingFailureMechanism
             {
-                StorageId = failureMechanismId,
+                StorageId = 1,
                 CalculationsGroup =
                 {
                     StorageId = 54
@@ -342,7 +341,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             var surfaceLineEntity = new SurfaceLineEntity
             {
-                SurfaceLineEntityId = surfaceLineId
+                SurfaceLineEntityId = surfaceLine.StorageId
             };
             var rootCalculationGroupEntity = new CalculationGroupEntity
             {
@@ -350,7 +349,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = failureMechanismId,
+                FailureMechanismEntityId = failureMechanism.StorageId,
                 CalculationGroupEntity = rootCalculationGroupEntity,
                 SurfaceLineEntities = 
                 {
@@ -396,7 +395,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = 1,
+                FailureMechanismEntityId = failureMechanism.StorageId,
                 CalculationGroupEntity = rootCalculationGroupEntity
             };
 
@@ -430,14 +429,15 @@ namespace Application.Ringtoets.Storage.Test.Update
                 }
             };
             var testName = "testName";
-            failureMechanism.AddSection(new FailureMechanismSection(testName, new[] { new Point2D(0, 0) })
+            var failureMechanismSection = new FailureMechanismSection(testName, new[] { new Point2D(0, 0) })
             {
                 StorageId = 1
-            });
+            };
+            failureMechanism.AddSection(failureMechanismSection);
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
-                FailureMechanismSectionEntityId = 1,
+                FailureMechanismSectionEntityId = failureMechanismSection.StorageId,
             };
             var rootCalculationGroupEntity = new CalculationGroupEntity
             {
@@ -445,7 +445,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = 1,
+                FailureMechanismEntityId = failureMechanism.StorageId,
                 CalculationGroupEntity = rootCalculationGroupEntity,
                 FailureMechanismSectionEntities = 
                 {
@@ -575,11 +575,11 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             // Assert
             Assert.AreEqual(1, rootCalculationGroupEntity.CalculationGroupEntity1.Count);
-            CalculationGroupEntity newlyAddedGroupEntity = rootCalculationGroupEntity.CalculationGroupEntity1.First();
-            Assert.AreEqual(alreadySavedChildGroup.Name, newlyAddedGroupEntity.Name);
-            Assert.AreEqual(1, newlyAddedGroupEntity.IsEditable);
-            Assert.AreEqual(0, newlyAddedGroupEntity.Order);
-            Assert.AreEqual(alreadySavedChildGroup.StorageId, newlyAddedGroupEntity.CalculationGroupEntityId);
+            CalculationGroupEntity retainedCalculationGroupEntity = rootCalculationGroupEntity.CalculationGroupEntity1.First();
+            Assert.AreEqual(alreadySavedChildGroup.Name, retainedCalculationGroupEntity.Name);
+            Assert.AreEqual(1, retainedCalculationGroupEntity.IsEditable);
+            Assert.AreEqual(0, retainedCalculationGroupEntity.Order);
+            Assert.AreEqual(alreadySavedChildGroup.StorageId, retainedCalculationGroupEntity.CalculationGroupEntityId);
             mocks.VerifyAll();
         }
     }

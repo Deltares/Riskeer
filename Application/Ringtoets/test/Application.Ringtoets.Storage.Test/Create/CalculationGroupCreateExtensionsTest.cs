@@ -64,8 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreEqual(name, entity.Name);
-            byte expectedIsEditableValue = isNameEditable ? (byte)1 : (byte)0;
-            Assert.AreEqual(expectedIsEditableValue, entity.IsEditable);
+            Assert.AreEqual(Convert.ToByte(isNameEditable), entity.IsEditable);
             Assert.AreEqual(order, entity.Order);
 
             CollectionAssert.IsEmpty(entity.CalculationGroupEntity1);

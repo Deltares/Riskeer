@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Create
             var entity = new CalculationGroupEntity
             {
                 Name = group.Name,
-                IsEditable = group.IsNameEditable ? (byte)1 : (byte)0,
+                IsEditable = Convert.ToByte(group.IsNameEditable),
                 Order = order
             };
             CreateChildElements(group, entity, registry);
