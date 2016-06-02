@@ -596,7 +596,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In eindbeoordeling.
+        ///   Looks up a localized string similar to In oordeel.
         /// </summary>
         public static string PipingCalculationsView_InitializeDataGridView_In_final_rating {
             get {

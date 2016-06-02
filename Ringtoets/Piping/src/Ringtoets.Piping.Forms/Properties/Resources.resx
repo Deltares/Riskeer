@@ -659,7 +659,7 @@
     <value>Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.</value>
   </data>
   <data name="PipingCalculationsView_InitializeDataGridView_In_final_rating" xml:space="preserve">
-    <value>In eindbeoordeling</value>
+    <value>In oordeel</value>
   </data>
   <data name="PipingCalculationsView_InitializeDataGridView_Contribution" xml:space="preserve">
     <value>Bijdrage [%]</value>
