@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.Service
 
             CalculateRequiredReliability();
 
-            pipingFactorOfSafety = requiredReliability/pipingReliability;
+            pipingFactorOfSafety = pipingReliability/requiredReliability;
         }
 
         /// <summary>

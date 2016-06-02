@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Service.Test
             var calculatorResult = new PipingOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
             var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput
             {
-                SectionLength = assessmentSectionLength,
+                SectionLength = assessmentSectionLength
             };
             var calculation = AsPipingCalculation(calculatorResult);
 
@@ -146,12 +146,12 @@ namespace Ringtoets.Piping.Service.Test
             double fosUplift = 1.2;
             double fosHeave = 0.6;
             double fosSellmeijer = 0.9;
-            double expectedResult = 1.134713444;
+            double expectedResult = 0.881;
 
             var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
             var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput
             {
-                SectionLength = assessmentSectionLength,
+                SectionLength = assessmentSectionLength
             };
             var calculation = AsPipingCalculation(calculatorResult);
 
@@ -178,7 +178,7 @@ namespace Ringtoets.Piping.Service.Test
             var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
             var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput
             {
-                SectionLength = assessmentSectionLength,
+                SectionLength = assessmentSectionLength
             };
             var calculation = AsPipingCalculation(calculatorResult);
 
@@ -188,7 +188,7 @@ namespace Ringtoets.Piping.Service.Test
             RoundedDouble result = calculation.SemiProbabilisticOutput.PipingFactorOfSafety;
 
             // Assert
-            Assert.AreEqual(calculation.SemiProbabilisticOutput.RequiredReliability/calculation.SemiProbabilisticOutput.PipingReliability, result, result.GetAccuracy());
+            Assert.AreEqual(calculation.SemiProbabilisticOutput.PipingReliability/calculation.SemiProbabilisticOutput.RequiredReliability, result, result.GetAccuracy());
         }
 
         [Test]
@@ -210,7 +210,7 @@ namespace Ringtoets.Piping.Service.Test
 
             // Assert
             RoundedDouble result = pipingCalculation.SemiProbabilisticOutput.PipingFactorOfSafety;
-            Assert.AreEqual(1.134713444, result, result.GetAccuracy());
+            Assert.AreEqual(0.881, result, result.GetAccuracy());
         }
 
         [Test]
