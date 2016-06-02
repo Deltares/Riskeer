@@ -32,6 +32,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
+using Ringtoets.HydraRing.Data;
 using CoreCommonBasePropertiesResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
@@ -140,10 +141,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var observerMock = mockRepository.StrictMock<IObserver>();
-            const int numberProperties = 2;
+            const int numberProperties = 3;
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1);
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             var calculationMock = mockRepository.StrictMock<ICalculation>();
+
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -157,16 +160,18 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             };
 
             var random = new Random(100);
-            var newModelFactorOvertoppingSuperCriticalFlowMean = new RoundedDouble(2, random.NextDouble());
             var newOrientationOfTheNormalOfTheStructure = new RoundedDouble(2, random.NextDouble());
+            var newFailureProbabilityOfStructureGivenErosion = "100";
 
             // Call
-            properties.ModelFactorOvertoppingSuperCriticalFlow.Mean = newModelFactorOvertoppingSuperCriticalFlowMean;
             properties.OrientationOfTheNormalOfTheStructure = newOrientationOfTheNormalOfTheStructure;
+            properties.FailureProbabilityOfStructureGivenErosion = newFailureProbabilityOfStructureGivenErosion;
+            properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             // Assert
-            Assert.AreEqual(newModelFactorOvertoppingSuperCriticalFlowMean, properties.ModelFactorOvertoppingSuperCriticalFlow.Mean);
             Assert.AreEqual(newOrientationOfTheNormalOfTheStructure, properties.OrientationOfTheNormalOfTheStructure);
+            Assert.AreEqual(string.Format("1/{0}", newFailureProbabilityOfStructureGivenErosion), properties.FailureProbabilityOfStructureGivenErosion);
+            Assert.AreSame(hydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
             mockRepository.VerifyAll();
         }
 

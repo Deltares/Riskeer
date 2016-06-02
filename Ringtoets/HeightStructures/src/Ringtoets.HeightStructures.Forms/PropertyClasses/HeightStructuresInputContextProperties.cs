@@ -220,6 +220,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             set
             {
                 data.WrappedData.FailureProbabilityOfStructureGivenErosion = (RoundedDouble) FromProbabilityFormat(value);
+                data.WrappedData.NotifyObservers();
             }
         }
 

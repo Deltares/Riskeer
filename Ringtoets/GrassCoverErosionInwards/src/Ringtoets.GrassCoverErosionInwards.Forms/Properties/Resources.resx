@@ -250,35 +250,11 @@
   <data name="GrassCoverErosionInwardsInput_FrunupModelFactor_DisplayName" xml:space="preserve">
     <value>Modelfactor Frunup [-]</value>
   </data>
-  <data name="NormalDistribution_DestributionType_Description" xml:space="preserve">
-    <value>Het soort kansverdeling waarin deze parameter gedefinieerd wordt.</value>
-  </data>
-  <data name="NormalDistribution_DestributionType_DisplayName" xml:space="preserve">
-    <value>Type verdeling</value>
-  </data>
-  <data name="NormalDistribution_Mean_Description" xml:space="preserve">
-    <value>De gemiddelde waarde van de normale verdeling.</value>
-  </data>
-  <data name="NormalDistribution_Mean_DisplayName" xml:space="preserve">
-    <value>Verwachtingswaarde</value>
-  </data>
-  <data name="NormalDistribution_StandardDeviation_Description" xml:space="preserve">
-    <value>De standaardafwijking van de normale verdeling.</value>
-  </data>
-  <data name="NormalDistribution_StandardDeviation_DisplayName" xml:space="preserve">
-    <value>Standaardafwijking</value>
-  </data>
   <data name="CriticalFlowRate_Description" xml:space="preserve">
     <value>Kritisch overslagdebiet per strekkende meter.</value>
   </data>
   <data name="CriticalFlowRate_DisplayName" xml:space="preserve">
     <value>Kritisch overslagdebiet [m³/s/m]</value>
-  </data>
-  <data name="LogNormalDistribution_Mean_Description" xml:space="preserve">
-    <value>De gemiddelde waarde van de lognormale verdeling.</value>
-  </data>
-  <data name="LogNormalDistribution_StandardDeviation_Description" xml:space="preserve">
-    <value>De standaardafwijking van de lognormale verdeling.</value>
   </data>
   <data name="Categories_HydraulicData" xml:space="preserve">
     <value>Hydraulische gegevens</value>
