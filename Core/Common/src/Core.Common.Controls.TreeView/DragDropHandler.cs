@@ -60,9 +60,9 @@ namespace Core.Common.Controls.TreeView
         {
             RemovePlaceHolder(treeView);
 
-            var point = treeView.PointToClient(new Point(e.X, e.Y));
+            Point point = treeView.PointToClient(new Point(e.X, e.Y));
             TreeNode nodeOver = treeView.GetNodeAt(point);
-            var draggedNode = GetDraggedNodeData(e);
+            TreeNode draggedNode = GetDraggedNodeData(e);
 
             if (nodeOver == null)
             {
@@ -105,9 +105,9 @@ namespace Core.Common.Controls.TreeView
 
             lastDragOverPoint = new Point(e.X, e.Y);
 
-            var point = treeView.PointToClient(lastDragOverPoint);
+            Point point = treeView.PointToClient(lastDragOverPoint);
             TreeNode nodeOver = treeView.GetNodeAt(point);
-            var draggedNode = GetDraggedNodeData(e);
+            TreeNode draggedNode = GetDraggedNodeData(e);
 
             if (draggedNode == null || nodeOver == null  || nodeOver == draggedNode || IsDropTargetChildOfDraggedNode(nodeOver, draggedNode))
             {
@@ -126,7 +126,7 @@ namespace Core.Common.Controls.TreeView
             }
 
             TreeNodeInfo treeNodeInfo = getTreeNodeInfoForData(nodeDropTarget.Tag);
-            var canDrop = treeNodeInfo.CanDrop != null && treeNodeInfo.CanDrop(draggedNode.Tag, nodeDropTarget.Tag);
+            bool canDrop = treeNodeInfo.CanDrop != null && treeNodeInfo.CanDrop(draggedNode.Tag, nodeDropTarget.Tag);
 
             e.Effect = canDrop ? DragDropEffects.Move : DragDropEffects.None;
 
@@ -173,7 +173,7 @@ namespace Core.Common.Controls.TreeView
             var draggedNode = (TreeNode) e.Item;
             treeView.SelectedNode = draggedNode;
             TreeNodeInfo treeNodeInfo = getTreeNodeInfoForData(draggedNode.Tag);
-            var parentTag = draggedNode.Parent != null ? draggedNode.Parent.Tag : null;
+            object parentTag = draggedNode.Parent != null ? draggedNode.Parent.Tag : null;
 
             if (treeNodeInfo.CanDrag == null || !treeNodeInfo.CanDrag(draggedNode.Tag, parentTag))
             {
@@ -182,7 +182,6 @@ namespace Core.Common.Controls.TreeView
 
             // Provide the drag drop operation with a data object containing the dragged tree node
             var dataObject = new DataObject();
-
             dataObject.SetData(typeof(TreeNode), draggedNode);
 
             treeView.DoDragDrop(dataObject, DragDropEffects.Move);
@@ -344,7 +343,7 @@ namespace Core.Common.Controls.TreeView
 
         private static void DrawPlaceHolder(TreeNode node, PlaceholderLocation location, Graphics graphics)
         {
-            var rightTriangle = MakePlaceHoldeTriangle(node, AnchorStyles.Right, location);
+            Point[] rightTriangle = MakePlaceHoldeTriangle(node, AnchorStyles.Right, location);
 
             graphics.FillPolygon(Brushes.Black, rightTriangle);
 
@@ -353,10 +352,10 @@ namespace Core.Common.Controls.TreeView
                 return;
             }
 
-            var leftTriangle = MakePlaceHoldeTriangle(node, AnchorStyles.Left, location);
+            Point[] leftTriangle = MakePlaceHoldeTriangle(node, AnchorStyles.Left, location);
             graphics.FillPolygon(Brushes.Black, leftTriangle);
 
-            var yLine = location == PlaceholderLocation.Top
+            int yLine = location == PlaceholderLocation.Top
                             ? node.Bounds.Top
                             : node.Bounds.Bottom;
 
