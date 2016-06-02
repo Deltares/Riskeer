@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public long FailureMechanismSectionEntityId { get; set; }
         public decimal X { get; set; }
         public decimal Y { get; set; }
-        public long Order { get; set; }
+        public int Order { get; set; }
     
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }

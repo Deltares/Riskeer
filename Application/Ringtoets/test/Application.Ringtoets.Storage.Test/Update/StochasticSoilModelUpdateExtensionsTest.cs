@@ -428,10 +428,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             soilModel.Update(registry, context);
 
             // Assert
-            StochasticSoilModelSegmentPointEntity[] segmentPointEntites = context.StochasticSoilModelSegmentPointEntities.ToArray();
-            CollectionAssert.Contains(segmentPointEntites, originalPointEntity1);
-            CollectionAssert.Contains(segmentPointEntites, originalPointEntity2);
-            Assert.AreEqual(2, segmentPointEntites.Length);
+            StochasticSoilModelSegmentPointEntity[] segmentPointEntities = context.StochasticSoilModelSegmentPointEntities.ToArray();
+            CollectionAssert.Contains(segmentPointEntities, originalPointEntity1);
+            CollectionAssert.Contains(segmentPointEntities, originalPointEntity2);
+            Assert.AreEqual(2, segmentPointEntities.Length);
 
             mocks.VerifyAll();
         }
