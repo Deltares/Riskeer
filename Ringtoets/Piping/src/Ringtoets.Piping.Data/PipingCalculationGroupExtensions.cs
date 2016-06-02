@@ -22,7 +22,6 @@
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Piping.Data
 {
@@ -32,7 +31,7 @@ namespace Ringtoets.Piping.Data
     public static class PipingCalculationGroupExtensions
     {
         /// <summary>
-        /// Adds <see cref="PipingCalculationScenario"/> to <see cref="FailureMechanismBase.SectionResults"/>.
+        /// Adds <see cref="PipingCalculationScenario"/> to <see cref="PipingFailureMechanism.SectionResults"/>.
         /// </summary>
         /// <param name="pipingCalculationGroup">The group containing the calculations.</param>
         /// <param name="pipingFailureMechanism">The failure mechanism containing the section results.</param>

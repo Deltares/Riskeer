@@ -60,7 +60,6 @@
     <Compile Include="PipingSurfaceLineSelectionDialog.Designer.cs">
       <DependentUpon>PipingSurfaceLineSelectionDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="PresentationObjects\EmptyPipingCalculationReport.cs" />
     <Compile Include="PresentationObjects\EmptyPipingOutput.cs" />
     <Compile Include="PresentationObjects\PipingCalculationScenarioContext.cs" />
     <Compile Include="PresentationObjects\PipingCalculationGroupContext.cs" />
@@ -236,7 +235,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\blue-document-list.png" />
-    <None Include="Resources\control-record.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shovel.png" />

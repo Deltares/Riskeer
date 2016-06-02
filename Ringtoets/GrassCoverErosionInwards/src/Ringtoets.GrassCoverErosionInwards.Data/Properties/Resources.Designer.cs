@@ -115,7 +115,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor &apos;N&apos; moet in interval [1,20] liggen..
+        ///   Looks up a localized string similar to De waarde voor &apos;N&apos; moet in interval [1, 20] liggen..
         /// </summary>
         public static string N_Value_should_be_in_interval_1_20 {
             get {

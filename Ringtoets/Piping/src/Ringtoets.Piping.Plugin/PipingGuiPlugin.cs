@@ -84,8 +84,8 @@ namespace Ringtoets.Piping.Plugin
             };
 
             yield return new ViewInfo<
-                FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>, 
-                IEnumerable<PipingFailureMechanismSectionResult>, 
+                FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>,
+                IEnumerable<PipingFailureMechanismSectionResult>,
                 PipingFailureMechanismResultView>
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
@@ -227,20 +227,6 @@ namespace Ringtoets.Piping.Plugin
                 Image = emptyPipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ForeColor = emptyPipingOutput => Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddExportItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
-            };
-
-            yield return new TreeNodeInfo<EmptyPipingCalculationReport>
-            {
-                Text = emptyPipingCalculationReport => PipingDataResources.CalculationReport_DisplayName,
-                Image = emptyPipingCalculationReport => PipingFormsResources.PipingCalculationReportIcon,
-                ForeColor = emptyPipingCalculationReport => Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
                                                                                  .AddExportItem()
                                                                                  .AddSeparator()
                                                                                  .AddPropertiesItem()
@@ -482,12 +468,10 @@ namespace Ringtoets.Piping.Plugin
             if (pipingCalculationScenarioContext.WrappedData.HasOutput)
             {
                 childNodes.Add(pipingCalculationScenarioContext.WrappedData.SemiProbabilisticOutput);
-                childNodes.Add(new EmptyPipingCalculationReport());
             }
             else
             {
                 childNodes.Add(new EmptyPipingOutput());
-                childNodes.Add(new EmptyPipingCalculationReport());
             }
 
             return childNodes.ToArray();

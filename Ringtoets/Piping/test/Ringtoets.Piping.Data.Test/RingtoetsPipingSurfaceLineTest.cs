@@ -281,7 +281,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.GetZAtL(l);
 
             // Assert
-            var expectedMessage = string.Format("Kan geen hoogte bepalen. L moet in het bereik van [{0}, {1}] liggen.",
+            var expectedMessage = string.Format("Kan geen hoogte bepalen. L moet in het bereik [{0}, {1}] liggen.",
                                                 0, 3.1);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
@@ -360,7 +360,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                testPoint, Resources.CharacteristicPoint_DitchPolderSide);
+                                        testPoint, Resources.CharacteristicPoint_DitchPolderSide);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
@@ -409,7 +409,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                testPoint, Resources.CharacteristicPoint_BottomDitchPolderSide);
+                                        testPoint, Resources.CharacteristicPoint_BottomDitchPolderSide);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
@@ -458,7 +458,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                testPoint, Resources.CharacteristicPoint_BottomDitchDikeSide);
+                                        testPoint, Resources.CharacteristicPoint_BottomDitchDikeSide);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
@@ -507,7 +507,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                testPoint, Resources.CharacteristicPoint_DitchDikeSide);
+                                        testPoint, Resources.CharacteristicPoint_DitchDikeSide);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
@@ -556,7 +556,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                testPoint, Resources.CharacteristicPoint_DikeToeAtRiver);
+                                        testPoint, Resources.CharacteristicPoint_DikeToeAtRiver);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
@@ -605,7 +605,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                testPoint, Resources.CharacteristicPoint_DikeToeAtPolder);
+                                        testPoint, Resources.CharacteristicPoint_DikeToeAtPolder);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 

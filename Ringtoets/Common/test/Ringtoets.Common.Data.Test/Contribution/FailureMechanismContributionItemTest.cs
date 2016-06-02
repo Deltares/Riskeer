@@ -20,13 +20,9 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -50,10 +46,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             var norm = new Random(21).Next(1, int.MaxValue);
 
             // Call
-            TestDelegate test = () =>
-            {
-                new FailureMechanismContributionItem(null, norm);
-            };
+            TestDelegate test = () => { new FailureMechanismContributionItem(null, norm); };
 
             // Assert
             const string expectedMessage = "Kan geen bijdrage element maken zonder een toetsspoor.";
@@ -134,12 +127,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
         public void ProbabilitySpace_DifferentContributionAndNorm_ReturnsExpectedValue(double contribution, int norm, double expectedResult)
         {
             // Setup
-            string name = "SomeName";
-
             var failureMechanism = mockRepository.StrictMock<IFailureMechanism>();
-
             failureMechanism.Expect(fm => fm.Contribution).Return(contribution);
-
             mockRepository.ReplayAll();
 
             var contributionItem = new FailureMechanismContributionItem(failureMechanism, norm);
@@ -200,7 +189,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             failureMechanism.Stub(fm => fm.Name).Return("A");
             failureMechanism.Expect(fm => fm.NotifyObservers());
             mockRepository.ReplayAll();
-            
+
             var contributionItem = new FailureMechanismContributionItem(failureMechanism, 30000);
 
             // Call

@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de faalkans moet in het bereik [0,1] liggen..
+        ///   Looks up a localized string similar to De waarde voor de faalkans moet in het bereik [0, 1] liggen..
         /// </summary>
         public static string ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1 {
             get {
@@ -134,7 +134,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de toegestane bijdrage aan faalkans moet in interval [0,100] liggen..
+        ///   Looks up a localized string similar to De waarde voor de toegestane bijdrage aan faalkans moet in interval [0, 100] liggen..
         /// </summary>
         public static string Contribution_Value_should_be_in_interval_0_100 {
             get {
@@ -152,7 +152,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Percentiel moet in het bereik van [0, 1] vallen..
+        ///   Looks up a localized string similar to Percentiel moet in het bereik [0, 1] vallen..
         /// </summary>
         public static string DesignVariable_Percentile_must_be_in_range {
             get {
@@ -285,15 +285,6 @@ namespace Ringtoets.Common.Data.Properties {
         public static string LogNormalDistribution_Mean_must_be_greater_than_zero {
             get {
                 return ResourceManager.GetString("LogNormalDistribution_Mean_must_be_greater_than_zero", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De waarde voor &apos;N&apos; moet in interval [1,20] liggen..
-        /// </summary>
-        public static string N_Value_should_be_in_interval_1_20 {
-            get {
-                return ResourceManager.GetString("N_Value_should_be_in_interval_1_20", resourceCulture);
             }
         }
         

@@ -118,7 +118,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var children = info.ChildNodeObjects(pipingCalculationContext).ToArray();
 
             // Assert
-            Assert.AreEqual(4, children.Length);
+            Assert.AreEqual(3, children.Length);
             var commentContext = children[0] as CommentContext<ICommentable>;
             Assert.IsNotNull(commentContext);
             Assert.AreSame(pipingCalculationContext.WrappedData, commentContext.CommentContainer);
@@ -128,7 +128,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);
             Assert.AreSame(pipingCalculationContext.WrappedData.SemiProbabilisticOutput, children[2]);
-            Assert.IsInstanceOf<EmptyPipingCalculationReport>(children[3]);
         }
 
         [Test]
@@ -152,7 +151,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var children = info.ChildNodeObjects(pipingCalculationContext).ToArray();
 
             // Assert
-            Assert.AreEqual(4, children.Length);
+            Assert.AreEqual(3, children.Length);
             var commentContext = children[0] as CommentContext<ICommentable>;
             Assert.IsNotNull(commentContext);
             Assert.AreSame(pipingCalculationContext.WrappedData, commentContext.CommentContainer);
@@ -163,7 +162,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);
 
             Assert.IsInstanceOf<EmptyPipingOutput>(children[2]);
-            Assert.IsInstanceOf<EmptyPipingCalculationReport>(children[3]);
         }
 
         [Test]

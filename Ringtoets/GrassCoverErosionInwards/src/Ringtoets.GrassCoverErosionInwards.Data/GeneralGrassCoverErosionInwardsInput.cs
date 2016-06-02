@@ -69,7 +69,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets or sets the 'N' parameter used to factor in the 'length effect'.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="value"/> is not in interval 
-        /// [1-20].</exception>
+        /// [1, 20].</exception>
         public int N
         {
             get
