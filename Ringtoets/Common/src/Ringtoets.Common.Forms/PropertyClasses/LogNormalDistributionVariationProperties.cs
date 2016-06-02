@@ -33,9 +33,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="LogNormalDistribution"/>
-    /// properties that display variation coefficient.
+    /// properties that displays variation coefficient.
     /// </summary>
-    public class LogNormalDistributionVariationProperties : LogNormalDistributionProperties
+    public class LogNormalDistributionVariationProperties : LogNormalDistributionProperties, IDistributionVariationCoefficient
     {
         /// <summary>
         /// Creates a new read-only instance of <see cref="LogNormalDistributionVariationProperties"/>.
@@ -45,9 +45,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="LogNormalDistributionVariationProperties"/>.
         /// </summary>
-        /// <param name="observerable">Object to observe to notify upon change.</param>
+        /// <param name="observerable">Object to notify upon change.</param>
         /// <param name="propertiesReadOnly">Sets if <see cref="DistributionProperties.Mean"/> and/or 
-        /// <see cref="DistributionProperties.StandardDeviation"/> should be marked read-only.</param>
+        /// <see cref="LogNormalDistributionVariationProperties.VariationCoefficient"/> should be marked read-only.</param>
         public LogNormalDistributionVariationProperties(IObservable observerable, DistributionPropertiesReadOnly propertiesReadOnly)
             : base(observerable, propertiesReadOnly) {}
 
@@ -60,7 +60,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             set
             {
                 var variationCoefficient = data.GetVariationCoefficient();
-                base.Mean = value;
+
+                SetMean(value);
                 if (!double.IsInfinity(variationCoefficient))
                 {
                     data.SetStandardDeviationFromVariationCoefficient(variationCoefficient);

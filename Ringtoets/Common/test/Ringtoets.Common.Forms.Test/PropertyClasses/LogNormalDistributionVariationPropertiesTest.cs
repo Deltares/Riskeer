@@ -25,6 +25,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Probabilistics;
@@ -78,16 +79,21 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [TestCase(DistributionPropertiesReadOnly.None, false, false)]
         [TestCase(DistributionPropertiesReadOnly.StandardDeviation, false, false)]
         [TestCase(DistributionPropertiesReadOnly.VariationCoefficient, false, true)]
-        public void DynamicReadOnlyValidationMethod_VariousReadOnlySet_ExpectedValues(DistributionPropertiesReadOnly propertiesReadOnly, bool expectMeanReadOnly, bool expectVariarionCoefficient)
+        public void DynamicReadOnlyValidationMethod_VariousReadOnlySet_ExpectedValues(DistributionPropertiesReadOnly propertiesReadOnly,
+                                                                                      bool expectMeanReadOnly,
+                                                                                      bool expectVariarionCoefficient)
         {
             // Setup
             var observerableMock = mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
             var properties = new LogNormalDistributionVariationProperties(observerableMock, propertiesReadOnly);
 
+            var meanPropertyName = TypeUtils.GetMemberName<LogNormalDistributionVariationProperties>(lndvp => lndvp.Mean);
+            var variationCoefficientPropertyName = TypeUtils.GetMemberName<LogNormalDistributionVariationProperties>(lndvp => lndvp.VariationCoefficient);
+
             // Call
-            var meanIsReadOnly = properties.DynamicReadOnlyValidationMethod("Mean");
-            var variarionCoefficientIsReadOnly = properties.DynamicReadOnlyValidationMethod("VariationCoefficient");
+            var meanIsReadOnly = properties.DynamicReadOnlyValidationMethod(meanPropertyName);
+            var variarionCoefficientIsReadOnly = properties.DynamicReadOnlyValidationMethod(variationCoefficientPropertyName);
             var doesNotExist = properties.DynamicReadOnlyValidationMethod("DoesNotExist");
 
             // Assert
@@ -165,7 +171,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var observerableMock = mockRepository.StrictMock<IObservable>();
-            observerableMock.Expect(o => o.NotifyObservers()).Repeat.Twice();
+            observerableMock.Expect(o => o.NotifyObservers()).Repeat.Once();
             var properties = new LogNormalDistributionVariationProperties(observerableMock, DistributionPropertiesReadOnly.None)
             {
                 Data = new LogNormalDistribution(2)
@@ -267,19 +273,16 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(3, dynamicProperties.Count);
 
             PropertyDescriptor distributionTypeProperty = dynamicProperties[0];
-            Assert.IsNotNull(distributionTypeProperty);
             Assert.IsTrue(distributionTypeProperty.IsReadOnly);
             Assert.AreEqual("Type verdeling", distributionTypeProperty.DisplayName);
             Assert.AreEqual("Het soort kansverdeling waarin deze parameter gedefinieerd wordt.", distributionTypeProperty.Description);
 
             PropertyDescriptor meanProperty = dynamicProperties[1];
-            Assert.IsNotNull(meanProperty);
             Assert.AreEqual(expectMeanReadOnly, meanProperty.IsReadOnly);
             Assert.AreEqual("Verwachtingswaarde", meanProperty.DisplayName);
             Assert.AreEqual("De gemiddelde waarde van de lognormale verdeling.", meanProperty.Description);
 
             PropertyDescriptor variationCoefficientProperty = dynamicProperties[2];
-            Assert.IsNotNull(variationCoefficientProperty);
             Assert.AreEqual(expectVariationCoefficientReadOnly, variationCoefficientProperty.IsReadOnly);
             Assert.AreEqual("Variatiecoëfficiënt", variationCoefficientProperty.DisplayName);
             Assert.AreEqual("De variatiecoëfficiënt van de lognormale verdeling.", variationCoefficientProperty.Description);

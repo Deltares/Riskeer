@@ -234,23 +234,23 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.IsNotInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(4, dynamicProperties.Count);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
+            {
+                new BrowsableAttribute(true)
+            });
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             PropertyDescriptor distributionTypeProperty = dynamicProperties[0];
-            Assert.IsNotNull(distributionTypeProperty);
             Assert.IsTrue(distributionTypeProperty.IsReadOnly);
             Assert.AreEqual("Type verdeling", distributionTypeProperty.DisplayName);
             Assert.AreEqual("Het soort kansverdeling waarin deze parameter gedefinieerd wordt.", distributionTypeProperty.Description);
 
             PropertyDescriptor meanProperty = dynamicProperties[1];
-            Assert.IsNotNull(meanProperty);
             Assert.AreEqual(expectMeanReadOnly, meanProperty.IsReadOnly);
             Assert.AreEqual("Verwachtingswaarde", meanProperty.DisplayName);
             Assert.AreEqual("De gemiddelde waarde van de normale verdeling.", meanProperty.Description);
 
             PropertyDescriptor standardDeviationProperty = dynamicProperties[2];
-            Assert.IsNotNull(standardDeviationProperty);
             Assert.AreEqual(expectStandardDeviationReadOnly, standardDeviationProperty.IsReadOnly);
             Assert.AreEqual("Standaardafwijking", standardDeviationProperty.DisplayName);
             Assert.AreEqual("De standaardafwijking van de normale verdeling.", standardDeviationProperty.Description);

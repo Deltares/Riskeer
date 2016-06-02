@@ -38,6 +38,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     {
         private static string meanDisplayName;
         private static string standardDeviationDisplayName;
+        private static string variationCoefficientDisplayName;
         protected readonly bool IsVariationCoefficientReadOnly;
         private readonly bool isMeanReadOnly;
         private readonly bool isStandardDeviationReadOnly;
@@ -49,8 +50,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             isMeanReadOnly = propertiesReadOnly == DistributionPropertiesReadOnly.All || propertiesReadOnly == DistributionPropertiesReadOnly.Mean;
             IsVariationCoefficientReadOnly = propertiesReadOnly == DistributionPropertiesReadOnly.All || propertiesReadOnly == DistributionPropertiesReadOnly.VariationCoefficient;
 
-            meanDisplayName = TypeUtils.GetMemberName<DistributionProperties>(rd => rd.Mean);
-            standardDeviationDisplayName = TypeUtils.GetMemberName<DistributionProperties>(rd => rd.StandardDeviation);
+            meanDisplayName = TypeUtils.GetMemberName<IDistribution>(rd => rd.Mean);
+            standardDeviationDisplayName = TypeUtils.GetMemberName<IDistribution>(rd => rd.StandardDeviation);
+            variationCoefficientDisplayName = TypeUtils.GetMemberName<IDistributionVariationCoefficient>(rd => rd.VariationCoefficient);
         }
 
         [PropertyOrder(1)]
@@ -70,15 +72,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                if (isMeanReadOnly)
-                {
-                    throw new ArgumentException("Mean is set to be read-only.");
-                }
-                if (Observerable == null)
-                {
-                    throw new ArgumentException("No observerable object set.");
-                }
-                data.Mean = value;
+                SetMean(value);
                 Observerable.NotifyObservers();
             }
         }
@@ -119,7 +113,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 return isStandardDeviationReadOnly;
             }
-            if (propertyName == "VariationCoefficient")
+            if (propertyName == variationCoefficientDisplayName)
             {
                 return IsVariationCoefficientReadOnly;
             }
@@ -130,6 +124,27 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             return data == null ? Resources.NormalDistribution_StandardDeviation_DisplayName :
                        string.Format("{0} ({1} = {2})", Mean, Resources.NormalDistribution_StandardDeviation_DisplayName, StandardDeviation);
+        }
+
+        /// <summary>
+        /// Sets <paramref name="value"/> to <see cref="Mean"/>.
+        /// </summary>
+        /// <param name="value">The new value for <see cref="Mean"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <list type="bullet">
+        /// <item><see cref="Mean"/> is set to be read-only.</item>
+        /// <item>No observerable object is set.</item>
+        /// </list> </exception>
+        protected void SetMean(RoundedDouble value)
+        {
+            if (isMeanReadOnly)
+            {
+                throw new ArgumentException("Mean is set to be read-only.");
+            }
+            if (Observerable == null)
+            {
+                throw new ArgumentException("No observerable object set.");
+            }
+            data.Mean = value;
         }
     }
 }

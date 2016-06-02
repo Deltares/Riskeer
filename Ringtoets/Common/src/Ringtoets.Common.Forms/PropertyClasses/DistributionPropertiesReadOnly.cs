@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.Common.Data.Probabilistics;
+
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
@@ -47,7 +49,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         VariationCoefficient,
 
         /// <summary>
-        /// Mark both <see cref="DistributionProperties.Mean"/> and <see cref="DistributionProperties.StandardDeviation"/> editable.
+        /// Mark <see cref="DistributionProperties.Mean"/>, <see cref="DistributionProperties.StandardDeviation"/>, 
+        /// and <see cref="IDistributionVariationCoefficient.VariationCoefficient"/> editable.
         /// </summary>
         None
     }

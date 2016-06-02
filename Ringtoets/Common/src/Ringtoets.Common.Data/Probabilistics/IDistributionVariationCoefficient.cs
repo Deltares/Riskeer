@@ -19,53 +19,19 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Probabilistics
 {
     /// <summary>
-    /// Extension for <see cref="IDistribution"/> to support variation coefficient.
+    /// This object represents a probabilistic distribution that uses <see cref="VariationCoefficient"/>, 
+    /// rather than <see cref="IDistribution.StandardDeviation"/>.
     /// </summary>
-    public static class IDistributionExtensions
+    public interface IDistributionVariationCoefficient : IDistribution
     {
         /// <summary>
-        /// Gets the variation coefficient (<see cref="IDistribution.StandardDeviation"/> / <see cref="IDistribution.Mean"/>) of the distribution.
+        /// Gets or sets the variation coefficient of the distribution.
         /// </summary>
-        /// <param name="distribution">The distribution.</param>
-        /// <returns>The variation coefficient.</returns>
-        public static RoundedDouble GetVariationCoefficient(this IDistribution distribution)
-        {
-            return new RoundedDouble(distribution.Mean.NumberOfDecimalPlaces, (distribution.Mean == 0) ?
-                                                                                  double.PositiveInfinity :
-                                                                                  distribution.StandardDeviation/distribution.Mean);
-        }
-
-        /// <summary>
-        /// Sets the <see cref="IDistribution.StandardDeviation"/> of the distribution (<paramref name="variationCoefficient"/> * <see cref="IDistribution.Mean"/>).
-        /// </summary>
-        /// <param name="distribution">The distribution.</param>
-        /// <param name="variationCoefficient">The variation coefficient.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Standard deviation is less than 0.</exception>
-        public static void SetStandardDeviationFromVariationCoefficient(this IDistribution distribution, double variationCoefficient)
-        {
-            distribution.StandardDeviation = (RoundedDouble) variationCoefficient*distribution.Mean;
-        }
-
-        /// <summary>
-        /// Sets the <see cref="IDistribution.Mean"/> of the distribution (<see cref="IDistribution.StandardDeviation"/> / <paramref name="variationCoefficient"/>).
-        /// </summary>
-        /// <param name="distribution">The distribution.</param>
-        /// <param name="variationCoefficient">The variation coefficient.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="variationCoefficient"/> is less than or equal to 0.</exception>
-        public static void SetMeanFromVariationCoefficient(this IDistribution distribution, double variationCoefficient)
-        {
-            if (variationCoefficient <= 0)
-            {
-                throw new ArgumentOutOfRangeException("variationCoefficient", Resources.VariationCoefficient_Should_be_greater_than_zero);
-            }
-            distribution.Mean = (RoundedDouble) (distribution.StandardDeviation/variationCoefficient);
-        }
+        RoundedDouble VariationCoefficient { get; set; }
     }
 }

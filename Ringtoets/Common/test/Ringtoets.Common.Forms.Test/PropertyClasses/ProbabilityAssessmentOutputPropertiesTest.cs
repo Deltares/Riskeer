@@ -110,39 +110,37 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(6, dynamicProperties.Count);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
+            {
+                new BrowsableAttribute(true)
+            });
+            Assert.AreEqual(5, dynamicProperties.Count);
 
             PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
-            Assert.IsNotNull(requiredProbabilityProperty);
             Assert.IsTrue(requiredProbabilityProperty.IsReadOnly);
             Assert.AreEqual("Resultaat", requiredProbabilityProperty.Category);
             Assert.AreEqual("Faalkanseis [1/jaar]", requiredProbabilityProperty.DisplayName);
             Assert.AreEqual("De maximaal toegestane faalkanseis voor het toetsspoor.", requiredProbabilityProperty.Description);
 
             PropertyDescriptor requiredReliabilityProperty = dynamicProperties[requiredReliabilityPropertyIndex];
-            Assert.IsNotNull(requiredReliabilityProperty);
             Assert.IsTrue(requiredReliabilityProperty.IsReadOnly);
             Assert.AreEqual("Resultaat", requiredReliabilityProperty.Category);
             Assert.AreEqual("Betrouwbaarheidsindex faalkanseis [-]", requiredReliabilityProperty.DisplayName);
             Assert.AreEqual("De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor.", requiredReliabilityProperty.Description);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
-            Assert.IsNotNull(probabilityProperty);
             Assert.IsTrue(probabilityProperty.IsReadOnly);
             Assert.AreEqual("Resultaat", probabilityProperty.Category);
             Assert.AreEqual("Faalkans [1/jaar]", probabilityProperty.DisplayName);
             Assert.AreEqual("De kans dat het toetsspoor optreedt voor deze berekening.", probabilityProperty.Description);
 
             PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];
-            Assert.IsNotNull(reliabilityProperty);
             Assert.IsTrue(reliabilityProperty.IsReadOnly);
             Assert.AreEqual("Resultaat", reliabilityProperty.Category);
             Assert.AreEqual("Betrouwbaarheidsindex faalkans [-]", reliabilityProperty.DisplayName);
             Assert.AreEqual("De betrouwbaarheidsindex van de faalkans voor deze berekening.", reliabilityProperty.Description);
 
             PropertyDescriptor factorOfSafetyProperty = dynamicProperties[factorOfSafetyPropertyIndex];
-            Assert.IsNotNull(factorOfSafetyProperty);
             Assert.IsTrue(factorOfSafetyProperty.IsReadOnly);
             Assert.AreEqual("Resultaat", factorOfSafetyProperty.Category);
             Assert.AreEqual("Veiligheidsfactor [-]", factorOfSafetyProperty.DisplayName);

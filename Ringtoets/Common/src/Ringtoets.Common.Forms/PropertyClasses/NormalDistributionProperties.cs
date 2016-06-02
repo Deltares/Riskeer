@@ -40,13 +40,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="NormalDistributionProperties"/>.
         /// </summary>
-        /// <param name="observerable">Object to observe to notify upon change.</param>
+        /// <param name="observerable">Object to notify upon change.</param>
         /// <param name="propertiesReadOnly">Sets if <see cref="DistributionProperties.Mean"/> and/or 
         /// <see cref="DistributionProperties.StandardDeviation"/> should be marked read-only.</param>
         public NormalDistributionProperties(IObservable observerable, DistributionPropertiesReadOnly propertiesReadOnly) : base(propertiesReadOnly)
         {
             Observerable = observerable;
-            
         }
 
         public override string DistributionType

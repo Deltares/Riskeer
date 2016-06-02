@@ -33,9 +33,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="NormalDistribution"/>
-    /// properties that display variation coefficient.
+    /// properties that displays variation coefficient.
     /// </summary>
-    public class NormalDistributionVariationProperties : NormalDistributionProperties
+    public class NormalDistributionVariationProperties : NormalDistributionProperties, IDistributionVariationCoefficient
     {
         /// <summary>
         /// Creates a new read-only instance of <see cref="NormalDistributionVariationProperties"/>.
@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="NormalDistributionVariationProperties"/>.
         /// </summary>
-        /// <param name="observerable">Object to observe to notify upon change.</param>
+        /// <param name="observerable">Object to notify upon change.</param>
         /// <param name="propertiesReadOnly">Sets if <see cref="DistributionProperties.Mean"/> and/or 
         /// <see cref="DistributionProperties.StandardDeviation"/> should be marked read-only.</param>
         public NormalDistributionVariationProperties(IObservable observerable, DistributionPropertiesReadOnly propertiesReadOnly)

@@ -26,6 +26,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -83,40 +84,49 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new NormalDistributionProperties(observerableMock, DistributionPropertiesReadOnly.None);
 
             // Assert
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            Assert.IsNotInstanceOf<ExpandableObjectConverter>(classTypeConverter);
-
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(4, dynamicProperties.Count);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
+            {
+                new BrowsableAttribute(true)
+            });
+            Assert.AreEqual(3, dynamicProperties.Count);
 
-            var meanAttributes = Attribute.GetCustomAttributes(properties.GetType().GetProperty("Mean"));
-            Assert.IsNotNull(meanAttributes);
-            AssertAttributesOfType<ResourcesDisplayNameAttribute, string>(meanAttributes, "Verwachtingswaarde",
-                                                                          attribute => attribute.DisplayName);
-            AssertAttributesOfType<ResourcesDescriptionAttribute, string>(meanAttributes,
-                                                                          "De gemiddelde waarde van de normale verdeling.",
-                                                                          attribute => attribute.Description);
+            var distributionTypePropertyName = TypeUtils.GetMemberName<NormalDistributionProperties>(ndp => ndp.DistributionType);
+            var distributionTypeAttributes = Attribute.GetCustomAttributes(properties.GetType().GetProperty(distributionTypePropertyName));
+            AssertAttributeProperty<ResourcesDisplayNameAttribute, string>(distributionTypeAttributes, "Type verdeling",
+                                                                           attribute => attribute.DisplayName);
+            AssertAttributeProperty<ResourcesDescriptionAttribute, string>(distributionTypeAttributes,
+                                                                           "Het soort kansverdeling waarin deze parameter gedefinieerd wordt.",
+                                                                           attribute => attribute.Description);
 
-            var standardAttributes = Attribute.GetCustomAttributes(properties.GetType().GetProperty("StandardDeviation"));
-            Assert.IsNotNull(standardAttributes);
-            AssertAttributesOfType<ResourcesDisplayNameAttribute, string>(standardAttributes, "Standaardafwijking",
-                                                                          attribute => attribute.DisplayName);
-            AssertAttributesOfType<ResourcesDescriptionAttribute, string>(standardAttributes,
-                                                                          "De standaardafwijking van de normale verdeling.",
-                                                                          attribute => attribute.Description);
+            var meanPropertyName = TypeUtils.GetMemberName<NormalDistributionProperties>(ndp => ndp.Mean);
+            var meanAttributes = Attribute.GetCustomAttributes(properties.GetType().GetProperty(meanPropertyName));
+            AssertAttributeProperty<ResourcesDisplayNameAttribute, string>(meanAttributes, "Verwachtingswaarde",
+                                                                           attribute => attribute.DisplayName);
+            AssertAttributeProperty<ResourcesDescriptionAttribute, string>(meanAttributes,
+                                                                           "De gemiddelde waarde van de normale verdeling.",
+                                                                           attribute => attribute.Description);
 
+            var standardDeviationPropertyName = TypeUtils.GetMemberName<NormalDistributionProperties>(ndp => ndp.StandardDeviation);
+            var standardAttributes = Attribute.GetCustomAttributes(properties.GetType().GetProperty(standardDeviationPropertyName));
+            AssertAttributeProperty<ResourcesDisplayNameAttribute, string>(standardAttributes, "Standaardafwijking",
+                                                                           attribute => attribute.DisplayName);
+            AssertAttributeProperty<ResourcesDescriptionAttribute, string>(standardAttributes,
+                                                                           "De standaardafwijking van de normale verdeling.",
+                                                                           attribute => attribute.Description);
             mockRepository.VerifyAll();
         }
 
-        private static void AssertAttributesOfType<T, TR>(IEnumerable<Attribute> attributes, TR expectedValue,
-                                                          Func<T, TR> action)
+        private static void AssertAttributeProperty<TAttributeType, TAttributePropertyValueType>(
+            IEnumerable<Attribute> attributes,
+            TAttributePropertyValueType expectedValue,
+            Func<TAttributeType, TAttributePropertyValueType> getAttributePropertyValue)
         {
-            var meanDisplayNameAttribute = attributes.OfType<T>();
-            Assert.IsNotNull(meanDisplayNameAttribute);
-            var e = meanDisplayNameAttribute.FirstOrDefault();
-            Assert.IsNotNull(e);
-            Assert.AreEqual(expectedValue, action(e));
+            var attributesOfTypeTAttributeType = attributes.OfType<TAttributeType>();
+            Assert.IsNotNull(attributesOfTypeTAttributeType);
+            var attribute = attributesOfTypeTAttributeType.FirstOrDefault();
+            Assert.IsNotNull(attribute, string.Format("Attribute type '{0} not found in {1}'", typeof(TAttributeType), attributes));
+            Assert.AreEqual(expectedValue, getAttributePropertyValue(attribute));
         }
     }
 }
