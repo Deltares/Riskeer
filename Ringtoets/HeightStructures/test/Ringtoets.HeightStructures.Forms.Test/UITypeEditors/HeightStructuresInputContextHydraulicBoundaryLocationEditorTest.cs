@@ -56,15 +56,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
             var failureMechanism = new HeightStructuresFailureMechanism();
             var heightStructuresInput = new HeightStructuresInput();
             var calculationMock = mockRepository.StrictMock<ICalculation>();
-            
+
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase)
                                  .Return(hydraulicBoundaryDatabase)
                                  .Repeat.AtLeastOnce();
             var inputContext = new HeightStructuresInputContext(heightStructuresInput,
-                                                                        calculationMock,
-                                                                        failureMechanism,
-                                                                        assessmentSectionMock);
+                                                                calculationMock,
+                                                                failureMechanism,
+                                                                assessmentSectionMock);
 
             var properties = new HeightStructuresInputContextProperties
             {
@@ -75,10 +75,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
 
             var serviceProviderMock = mockRepository.StrictMock<IServiceProvider>();
             var serviceMock = mockRepository.StrictMock<IWindowsFormsEditorService>();
-            var descriptorContextMock = mockRepository.StrictMock<ITypeDescriptorContext>();
+            var descriptorContextMock = mockRepository.Stub<ITypeDescriptorContext>();
             serviceProviderMock.Expect(p => p.GetService(null)).IgnoreArguments().Return(serviceMock);
             serviceMock.Expect(s => s.DropDownControl(null)).IgnoreArguments();
-            descriptorContextMock.Expect(c => c.Instance).Return(propertyBag).Repeat.Twice();
+            descriptorContextMock.Expect(c => c.Instance).Return(propertyBag).Repeat.Any();
             mockRepository.ReplayAll();
 
             var someValue = new object();
@@ -112,9 +112,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
                                  .Return(hydraulicBoundaryDatabase)
                                  .Repeat.AtLeastOnce();
             var inputContext = new HeightStructuresInputContext(heightStructuresInput,
-                                                                        calculationMock,
-                                                                        failureMechanism,
-                                                                        assessmentSectionMock);
+                                                                calculationMock,
+                                                                failureMechanism,
+                                                                assessmentSectionMock);
 
             var properties = new HeightStructuresInputContextProperties
             {
@@ -145,7 +145,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
 
         private class TestHydraulicBoundaryLocation : HydraulicBoundaryLocation
         {
-            public TestHydraulicBoundaryLocation() : base(0, string.Empty, 0, 0) { }
+            public TestHydraulicBoundaryLocation() : base(0, string.Empty, 0, 0) {}
         }
     }
 }

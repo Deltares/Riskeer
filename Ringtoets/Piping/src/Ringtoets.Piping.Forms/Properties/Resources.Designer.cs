@@ -223,7 +223,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rolweerstandshoek [º].
+        ///   Looks up a localized string similar to Rolweerstandshoek [°].
         /// </summary>
         public static string GeneralPipingInput_BeddingAngle_DisplayName {
             get {
@@ -358,7 +358,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kinematische viscositeit van water bij 10º Celsius..
+        ///   Looks up a localized string similar to Kinematische viscositeit van water bij 10° C..
         /// </summary>
         public static string GeneralPipingInput_WaterKinematicViscosity_Description {
             get {
@@ -367,7 +367,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kinematische viscositeit van water bij 10º Celsius [m²/s].
+        ///   Looks up a localized string similar to Kinematische viscositeit van water bij 10° C [m²/s].
         /// </summary>
         public static string GeneralPipingInput_WaterKinematicViscosity_DisplayName {
             get {

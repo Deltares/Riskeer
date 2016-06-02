@@ -105,8 +105,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 1.1, 2.2));
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase).Repeat.Twice();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();

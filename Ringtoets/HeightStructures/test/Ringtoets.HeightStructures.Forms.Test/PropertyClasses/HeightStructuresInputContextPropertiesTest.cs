@@ -199,70 +199,59 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(12, dynamicProperties.Count);
 
             PropertyDescriptor orientationOfTheNormalOfTheStructureProperty = dynamicProperties[orientationOfTheNormalOfTheStructurePropertyIndex];
-            Assert.IsNotNull(orientationOfTheNormalOfTheStructureProperty);
             Assert.IsFalse(orientationOfTheNormalOfTheStructureProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", orientationOfTheNormalOfTheStructureProperty.Category);
-            Assert.AreEqual("Oriëntatie [º]", orientationOfTheNormalOfTheStructureProperty.DisplayName);
+            Assert.AreEqual("Oriëntatie [°]", orientationOfTheNormalOfTheStructureProperty.DisplayName);
             Assert.AreEqual("Oriëntatie van het kunstwerk.", orientationOfTheNormalOfTheStructureProperty.Description);
 
             PropertyDescriptor levelOfCrestOfStructureProperty = dynamicProperties[levelOfCrestOfStructurePropertyIndex];
-            Assert.IsNotNull(levelOfCrestOfStructureProperty);
             Assert.AreEqual("Schematisatie", levelOfCrestOfStructureProperty.Category);
             Assert.AreEqual("Kerende hoogte [m]", levelOfCrestOfStructureProperty.DisplayName);
             Assert.AreEqual("Kerende hoogte van het kunstwerk dat gebruikt wordt tijdens de berekening.", levelOfCrestOfStructureProperty.Description);
 
             PropertyDescriptor allowableIncreaseOfLevelForStorageProperty = dynamicProperties[allowableIncreaseOfLevelForStoragePropertyIndex];
-            Assert.IsNotNull(allowableIncreaseOfLevelForStorageProperty);
             Assert.AreEqual("Schematisatie", allowableIncreaseOfLevelForStorageProperty.Category);
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", allowableIncreaseOfLevelForStorageProperty.DisplayName);
             Assert.AreEqual("De toegestane peilverhoging komberging dat gebruikt wordt tijdens de berekening.", allowableIncreaseOfLevelForStorageProperty.Description);
 
             PropertyDescriptor storageStructureAreaProperty = dynamicProperties[storageStructureAreaPropertyIndex];
-            Assert.IsNotNull(storageStructureAreaProperty);
             Assert.AreEqual("Schematisatie", storageStructureAreaProperty.Category);
             Assert.AreEqual("Kombergend oppervlak [m²]", storageStructureAreaProperty.DisplayName);
             Assert.AreEqual("Het kombergend oppervlak dat gebruikt wordt tijdens de berekening.", storageStructureAreaProperty.Description);
 
             PropertyDescriptor flowWidthAtBottomProtectionProperty = dynamicProperties[flowWidthAtBottomProtectionPropertyIndex];
-            Assert.IsNotNull(flowWidthAtBottomProtectionProperty);
             Assert.AreEqual("Schematisatie", flowWidthAtBottomProtectionProperty.Category);
             Assert.AreEqual("Stroomvoerende breedte bij bodembescherming [m]", flowWidthAtBottomProtectionProperty.DisplayName);
             Assert.AreEqual("De stroomvoerende breedte bij bodembescherming die gebruikt wordt tijdens de berekening.", flowWidthAtBottomProtectionProperty.Description);
 
             PropertyDescriptor widthOfFlowAperturesProperty = dynamicProperties[widthOfFlowAperturesPropertyIndex];
-            Assert.IsNotNull(widthOfFlowAperturesProperty);
             Assert.AreEqual("Schematisatie", widthOfFlowAperturesProperty.Category);
             Assert.AreEqual("Breedte van de kruin van het kunstwerk [m]", widthOfFlowAperturesProperty.DisplayName);
             Assert.AreEqual("De breedte van de kruin van het kunstwerk die gebruikt wordt tijdens de berekening.", widthOfFlowAperturesProperty.Description);
 
             PropertyDescriptor criticalOvertoppingDischargeProperty = dynamicProperties[criticalOvertoppingDischargePropertyIndex];
-            Assert.IsNotNull(criticalOvertoppingDischargeProperty);
             Assert.AreEqual("Schematisatie", criticalOvertoppingDischargeProperty.Category);
             Assert.AreEqual("Kritiek overslagdebiet [m³/s/m]", criticalOvertoppingDischargeProperty.DisplayName);
             Assert.AreEqual("Het kritieke overslagdebiet per strekkende meter.", criticalOvertoppingDischargeProperty.Description);
 
             PropertyDescriptor failureProbabilityOfStructureGivenErosionProperty = dynamicProperties[failureProbabilityOfStructureGivenErosionPropertyIndex];
-            Assert.IsNotNull(failureProbabilityOfStructureGivenErosionProperty);
             Assert.IsFalse(failureProbabilityOfStructureGivenErosionProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", failureProbabilityOfStructureGivenErosionProperty.Category);
             Assert.AreEqual("Faalkans kunstwerk gegeven erosie bodem [-]", failureProbabilityOfStructureGivenErosionProperty.DisplayName);
             Assert.AreEqual("De faalkans kunstwerk gegeven erosie bodem.", failureProbabilityOfStructureGivenErosionProperty.Description);
 
             PropertyDescriptor modelFactorOvertoppingSuperCriticalFlowProperty = dynamicProperties[modelFactorOvertoppingSuperCriticalFlowPropertyIndex];
-            Assert.IsNotNull(modelFactorOvertoppingSuperCriticalFlowProperty);
             Assert.AreEqual("Modelfactoren", modelFactorOvertoppingSuperCriticalFlowProperty.Category);
             Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", modelFactorOvertoppingSuperCriticalFlowProperty.DisplayName);
             Assert.AreEqual("Het modelfactor overloopdebiet volkomen overlaat dat gebruikt wordt tijdens de berekening.", modelFactorOvertoppingSuperCriticalFlowProperty.Description);
 
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[hydraulicBoundaryLocationPropertyIndex];
-            Assert.IsNotNull(modelFactorOvertoppingSuperCriticalFlowProperty);
             Assert.IsFalse(hydraulicBoundaryLocationProperty.IsReadOnly);
             Assert.AreEqual("Hydraulische gegevens", hydraulicBoundaryLocationProperty.Category);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", hydraulicBoundaryLocationProperty.DisplayName);
             Assert.AreEqual("De locatie met hydraulische randvoorwaarden die gebruikt wordt tijdens de berekening.", hydraulicBoundaryLocationProperty.Description);
 
             PropertyDescriptor stormDurationProperty = dynamicProperties[stormDurationPropertyIndex];
-            Assert.IsNotNull(stormDurationProperty);
             Assert.AreEqual("Hydraulische gegevens", stormDurationProperty.Category);
             Assert.AreEqual("Stormduur [uren]", stormDurationProperty.DisplayName);
             Assert.AreEqual("De duur van de storm dat gebruikt wordt tijdens de berekening.", stormDurationProperty.Description);

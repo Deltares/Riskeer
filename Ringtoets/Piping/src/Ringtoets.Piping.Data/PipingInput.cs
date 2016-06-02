@@ -268,7 +268,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the kinematic viscosity of water at 10 degrees Celsius.
+        /// Gets the kinematic viscosity of water at 10 °C.
         /// [m²/s]
         /// </summary>
         public double WaterKinematicViscosity

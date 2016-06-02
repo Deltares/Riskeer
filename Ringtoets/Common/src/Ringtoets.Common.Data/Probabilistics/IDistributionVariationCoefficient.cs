@@ -28,7 +28,7 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// <summary>
     /// Extension for <see cref="IDistribution"/> to support variation coefficient.
     /// </summary>
-    public static class IDistributionVariationCoefficient
+    public static class IDistributionExtensions
     {
         /// <summary>
         /// Gets the variation coefficient (<see cref="IDistribution.StandardDeviation"/> / <see cref="IDistribution.Mean"/>) of the distribution.
@@ -37,8 +37,8 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// <returns>The variation coefficient.</returns>
         public static RoundedDouble GetVariationCoefficient(this IDistribution distribution)
         {
-            return new RoundedDouble(distribution.Mean.NumberOfDecimalPlaces, (distribution.Mean <= 0) ?
-                                                                                  double.NegativeInfinity :
+            return new RoundedDouble(distribution.Mean.NumberOfDecimalPlaces, (distribution.Mean == 0) ?
+                                                                                  double.PositiveInfinity :
                                                                                   distribution.StandardDeviation/distribution.Mean);
         }
 
@@ -47,6 +47,7 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// </summary>
         /// <param name="distribution">The distribution.</param>
         /// <param name="variationCoefficient">The variation coefficient.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Standard deviation is less than 0.</exception>
         public static void SetStandardDeviationFromVariationCoefficient(this IDistribution distribution, double variationCoefficient)
         {
             distribution.StandardDeviation = (RoundedDouble) variationCoefficient*distribution.Mean;

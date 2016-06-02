@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Data
             MeanDiameter70 = 2.08e-4;
             SellmeijerReductionFactor = 0.3;
         }
-        
+
         #region General parameters (used by multiple calculations)
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.Data
         public double BeddingAngle { get; private set; }
 
         /// <summary>
-        /// Gets the kinematic viscosity of water at 10 degrees Celsius.
+        /// Gets the kinematic viscosity of water at 10 °C.
         /// [m²/s]
         /// </summary>
         public double WaterKinematicViscosity { get; private set; }

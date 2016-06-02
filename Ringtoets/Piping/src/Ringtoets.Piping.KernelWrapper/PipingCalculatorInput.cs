@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.KernelWrapper
         /// <param name="whitesDragCoefficient">The White's drag coefficient.</param>
         /// <param name="diameter70">The sieve size through which 70% fraction of the grains of the top part of the aquifer passes. [m]</param>
         /// <param name="darcyPermeability">The Darcy-speed with which water flows through the aquifer layer. [m/s]</param>
-        /// <param name="waterKinematicViscosity">The kinematic viscosity of water at 10 degrees Celsius. [m²/s]</param>
+        /// <param name="waterKinematicViscosity">The kinematic viscosity of water at 10 °C. [m²/s]</param>
         /// <param name="gravity">The gravitational acceleration. [m/s²]</param>
         /// <param name="thicknessAquiferLayer">The thickness of the aquifer layer. [m]</param>
         /// <param name="meanDiameter70">The mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit. [m]</param>
@@ -286,7 +286,7 @@ namespace Ringtoets.Piping.KernelWrapper
         }
 
         /// <summary>
-        /// Gets the kinematic viscosity of water at 10 degrees Celsius.
+        /// Gets the kinematic viscosity of water at 10 °C.
         /// [m²/s]
         /// </summary>
         public double WaterKinematicViscosity

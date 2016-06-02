@@ -366,7 +366,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oriëntatie [º].
+        ///   Looks up a localized string similar to Oriëntatie [°].
         /// </summary>
         public static string OrientationOfTheNormalOfTheStructure_DisplayName {
             get {

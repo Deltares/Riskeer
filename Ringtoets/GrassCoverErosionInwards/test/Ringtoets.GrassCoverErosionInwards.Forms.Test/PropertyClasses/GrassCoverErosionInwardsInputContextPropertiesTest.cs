@@ -189,7 +189,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(orientationProperty);
             Assert.IsFalse(orientationProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", orientationProperty.Category);
-            Assert.AreEqual("Oriëntatie [º]", orientationProperty.DisplayName);
+            Assert.AreEqual("Oriëntatie [°]", orientationProperty.DisplayName);
             Assert.AreEqual("Oriëntatie van de dijk.", orientationProperty.Description);
 
             PropertyDescriptor breakWaterProperty = dynamicProperties[breakWaterPropertyIndex];

@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         Mean,
 
         /// <summary>
-        /// Mark<see cref="DistributionProperties.StandardDeviation"/> read-only.
+        /// Mark <see cref="DistributionProperties.StandardDeviation"/> read-only.
         /// </summary>
         StandardDeviation,
 

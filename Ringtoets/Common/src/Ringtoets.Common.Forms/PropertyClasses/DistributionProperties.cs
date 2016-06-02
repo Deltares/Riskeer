@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.Properties;
 
@@ -35,6 +36,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// </summary>
     public abstract class DistributionProperties : ObjectProperties<IDistribution>
     {
+        private static string meanDisplayName;
+        private static string standardDeviationDisplayName;
         protected readonly bool IsVariationCoefficientReadOnly;
         private readonly bool isMeanReadOnly;
         private readonly bool isStandardDeviationReadOnly;
@@ -45,6 +48,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             isStandardDeviationReadOnly = propertiesReadOnly == DistributionPropertiesReadOnly.All || propertiesReadOnly == DistributionPropertiesReadOnly.StandardDeviation;
             isMeanReadOnly = propertiesReadOnly == DistributionPropertiesReadOnly.All || propertiesReadOnly == DistributionPropertiesReadOnly.Mean;
             IsVariationCoefficientReadOnly = propertiesReadOnly == DistributionPropertiesReadOnly.All || propertiesReadOnly == DistributionPropertiesReadOnly.VariationCoefficient;
+
+            meanDisplayName = TypeUtils.GetMemberName<DistributionProperties>(rd => rd.Mean);
+            standardDeviationDisplayName = TypeUtils.GetMemberName<DistributionProperties>(rd => rd.StandardDeviation);
         }
 
         [PropertyOrder(1)]
@@ -72,7 +78,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 {
                     throw new ArgumentException("No observerable object set.");
                 }
-                data.Mean = new RoundedDouble(data.StandardDeviation.NumberOfDecimalPlaces, value);
+                data.Mean = value;
                 Observerable.NotifyObservers();
             }
         }
@@ -97,7 +103,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 {
                     throw new ArgumentException("No observerable object set.");
                 }
-                data.StandardDeviation = new RoundedDouble(data.StandardDeviation.NumberOfDecimalPlaces, value);
+                data.StandardDeviation = value;
                 Observerable.NotifyObservers();
             }
         }
@@ -105,17 +111,19 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            switch (propertyName)
+            if (propertyName == meanDisplayName)
             {
-                case "Mean":
-                    return isMeanReadOnly;
-                case "StandardDeviation":
-                    return isStandardDeviationReadOnly;
-                case "VariationCoefficient":
-                    return IsVariationCoefficientReadOnly;
-                default:
-                    return false;
+                return isMeanReadOnly;
             }
+            if (propertyName == standardDeviationDisplayName)
+            {
+                return isStandardDeviationReadOnly;
+            }
+            if (propertyName == "VariationCoefficient")
+            {
+                return IsVariationCoefficientReadOnly;
+            }
+            return false;
         }
 
         public override string ToString()

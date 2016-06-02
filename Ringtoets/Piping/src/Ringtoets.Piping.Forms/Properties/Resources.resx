@@ -127,7 +127,7 @@
     <value>Hoek in het krachtenevenwicht die aangeeft hoeveel weerstand de korrels bieden tegen rollen; ook beddingshoek genoemd.</value>
   </data>
   <data name="GeneralPipingInput_BeddingAngle_DisplayName" xml:space="preserve">
-    <value>Rolweerstandshoek [º]</value>
+    <value>Rolweerstandshoek [°]</value>
   </data>
   <data name="GeneralPipingInput_CriticalHeaveGradient_Description" xml:space="preserve">
     <value>Kritiek verhang met betrekking tot heave.</value>
@@ -223,10 +223,10 @@
     <value>Modelfactor opbarsten [-]</value>
   </data>
   <data name="GeneralPipingInput_WaterKinematicViscosity_Description" xml:space="preserve">
-    <value>Kinematische viscositeit van water bij 10º Celsius.</value>
+    <value>Kinematische viscositeit van water bij 10° C.</value>
   </data>
   <data name="GeneralPipingInput_WaterKinematicViscosity_DisplayName" xml:space="preserve">
-    <value>Kinematische viscositeit van water bij 10º Celsius [m²/s]</value>
+    <value>Kinematische viscositeit van water bij 10° C [m²/s]</value>
   </data>
   <data name="GeneralPipingInput_WaterVolumetricWeight_Description" xml:space="preserve">
     <value>Volumiek gewicht van water.</value>

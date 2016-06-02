@@ -224,7 +224,7 @@
     <value>Oriëntatie van de dijk.</value>
   </data>
   <data name="Orientation_DisplayName" xml:space="preserve">
-    <value>Oriëntatie [º]</value>
+    <value>Oriëntatie [°]</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_FbFactor_Description" xml:space="preserve">
     <value>De parameter 'Fb' die gebruikt wordt in de berekening.</value>

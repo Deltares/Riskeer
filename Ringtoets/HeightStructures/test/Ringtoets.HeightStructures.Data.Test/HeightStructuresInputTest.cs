@@ -66,7 +66,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             RoundedDouble defaultModelFactorOvertoppingSupercriticalFlowStandardDeviation = input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation;
             NormalDistribution modelFactorOvertoppingSuperCriticalFlow = new NormalDistribution(5)
             {
-                Mean = (RoundedDouble) random.NextDouble(),
+                Mean = (RoundedDouble) (0.01 + random.NextDouble()),
                 StandardDeviation = (RoundedDouble) random.NextDouble()
             };
 
@@ -118,7 +118,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             RoundedDouble defaultStormDurationStandardDeviation = input.StormDuration.StandardDeviation;
             LogNormalDistribution stormDuration = new LogNormalDistribution(5)
             {
-                Mean = (RoundedDouble) random.NextDouble(),
+                Mean = (RoundedDouble) (0.01 + random.NextDouble()),
                 StandardDeviation = (RoundedDouble) random.NextDouble()
             };
 
@@ -176,7 +176,7 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             LogNormalDistribution allowableIncreaseOfLevelForStorage = new LogNormalDistribution(5)
             {
-                Mean = (RoundedDouble) random.NextDouble(),
+                Mean = (RoundedDouble) (0.01 + random.NextDouble()),
                 StandardDeviation = (RoundedDouble) random.NextDouble()
             };
 
@@ -197,7 +197,7 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             LogNormalDistribution storageStructureArea = new LogNormalDistribution(5)
             {
-                Mean = (RoundedDouble) random.NextDouble(),
+                Mean = (RoundedDouble) (0.01 + random.NextDouble()),
                 StandardDeviation = (RoundedDouble) random.NextDouble()
             };
 
@@ -218,7 +218,7 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             LogNormalDistribution flowWidthAtBottomProtection = new LogNormalDistribution(5)
             {
-                Mean = (RoundedDouble) random.NextDouble(),
+                Mean = (RoundedDouble) (0.01 + random.NextDouble()),
                 StandardDeviation = (RoundedDouble) random.NextDouble()
             };
 
@@ -239,7 +239,7 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             LogNormalDistribution criticalOvertoppingDischarge = new LogNormalDistribution(5)
             {
-                Mean = (RoundedDouble) random.NextDouble(),
+                Mean = (RoundedDouble) (0.01 + random.NextDouble()),
                 StandardDeviation = (RoundedDouble) random.NextDouble()
             };
 

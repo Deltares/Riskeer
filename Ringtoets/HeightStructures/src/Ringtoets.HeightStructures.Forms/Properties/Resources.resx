@@ -218,7 +218,7 @@
     <value>Oriëntatie van het kunstwerk.</value>
   </data>
   <data name="OrientationOfTheNormalOfTheStructure_DisplayName" xml:space="preserve">
-    <value>Oriëntatie [º]</value>
+    <value>Oriëntatie [°]</value>
   </data>
   <data name="StorageStructureArea_Description" xml:space="preserve">
     <value>Het kombergend oppervlak dat gebruikt wordt tijdens de berekening.</value>
