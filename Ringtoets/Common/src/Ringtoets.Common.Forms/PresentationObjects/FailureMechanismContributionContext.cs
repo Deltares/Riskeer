@@ -35,11 +35,11 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismContributionContext"/> class.
         /// </summary>
-        /// <param name="contribution">The contribution.</param>
-        /// <param name="contributionOwner">The parent of <paramref name="contribution"/>.</param>
+        /// <param name="wrappedContribution">The contribution to wrap.</param>
+        /// <param name="contributionOwner">The parent of <paramref name="wrappedContribution"/>.</param>
         /// <exception cref="ArgumentNullException">When any input argument is null.</exception>
-        public FailureMechanismContributionContext(FailureMechanismContribution contribution, IAssessmentSection contributionOwner)
-            : base(contribution)
+        public FailureMechanismContributionContext(FailureMechanismContribution wrappedContribution, IAssessmentSection contributionOwner)
+            : base(wrappedContribution)
         {
             AssertInputsAreNotNull(contributionOwner);
 

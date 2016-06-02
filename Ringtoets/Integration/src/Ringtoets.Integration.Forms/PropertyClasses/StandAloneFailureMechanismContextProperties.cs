@@ -24,12 +24,11 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.PresentationObjects;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="SimpleFailureMechanismContext"/> properties panel.
+    /// ViewModel of <see cref="FailureMechanismContext{T}"/> properties panel.
     /// </summary>
     public class StandAloneFailureMechanismContextProperties : ObjectProperties<FailureMechanismContext<IFailureMechanism>>
     {

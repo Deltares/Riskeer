@@ -53,22 +53,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructor_FailureMechanismIsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsFailureMechanismContext(null, assessmentSection);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(call);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
         {
             // Setup

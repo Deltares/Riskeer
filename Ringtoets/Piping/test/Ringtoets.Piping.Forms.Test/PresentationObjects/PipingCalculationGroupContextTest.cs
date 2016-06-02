@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Core.Common.Base;
+﻿using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -46,86 +45,6 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             Assert.AreSame(soilModels, groupContext.AvailableStochasticSoilModels);
             Assert.AreSame(pipingFailureMechanismMock, groupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, groupContext.AssessmentSection);
-        }
-
-        [Test]
-        public void Attach_Observer_ObserverAttachedToCalculationGroup()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionMock = new MockRepository().StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var calculationGroup = new CalculationGroup();
-
-            var context = new PipingCalculationGroupContext(calculationGroup,
-                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                            Enumerable.Empty<StochasticSoilModel>(),
-                                                            pipingFailureMechanismMock, assessmentSectionMock);
-
-            // Call
-            context.Attach(observer);
-
-            // Assert
-            calculationGroup.NotifyObservers(); // Notification on wrapped object
-            mocks.VerifyAll(); // Expected UpdateObserver call
-        }
-
-        [Test]
-        public void Detach_Observer_ObserverDetachedFromCalculationGroup()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionMock = new MockRepository().StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var calculationGroup = new CalculationGroup();
-
-            var context = new PipingCalculationGroupContext(calculationGroup,
-                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                            Enumerable.Empty<StochasticSoilModel>(),
-                                                            pipingFailureMechanismMock, assessmentSectionMock);
-
-            context.Attach(observer);
-
-            // Call
-            context.Detach(observer);
-
-            // Assert
-            calculationGroup.NotifyObservers(); // Notification on wrapped object
-            mocks.VerifyAll(); // Expected no UpdateObserver call
-        }
-
-        [Test]
-        public void NotifyObservers_ObserverAttachedToPipingCalculationGroup_NotificationCorrectlyPropagated()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionMock = new MockRepository().StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var calculationGroup = new CalculationGroup();
-
-            var context = new PipingCalculationGroupContext(calculationGroup,
-                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                            Enumerable.Empty<StochasticSoilModel>(),
-                                                            pipingFailureMechanismMock, assessmentSectionMock);
-
-            calculationGroup.Attach(observer); // Attach to wrapped object
-
-            // Call
-            context.NotifyObservers(); // Notification on context
-
-            // Assert
-            mocks.VerifyAll();
         }
     }
 }

@@ -153,7 +153,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreSame(assessmentSection, stochasticSoilModelContext.AssessmentSection);
 
             var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[3];
-            Assert.AreSame(pipingFailureMechanism, commentContext.CommentContainer);
+            Assert.AreSame(pipingFailureMechanism, commentContext.WrappedData);
 
             var calculationsFolder = (PipingCalculationGroupContext) children[1];
             Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
@@ -168,7 +168,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>)outputsFolder.Contents[0];
             Assert.AreSame(pipingFailureMechanism, failureMechanismResultsContext.FailureMechanism);
-            Assert.AreSame(pipingFailureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
+            Assert.AreSame(pipingFailureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
             mocks.VerifyAll();
         }
 
@@ -195,7 +195,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, children.Length);
             var commentContext = (CommentContext<ICommentable>) children[0];
-            Assert.AreSame(pipingFailureMechanism, commentContext.CommentContainer);
+            Assert.AreSame(pipingFailureMechanism, commentContext.WrappedData);
             mocks.VerifyAll();
         }
 

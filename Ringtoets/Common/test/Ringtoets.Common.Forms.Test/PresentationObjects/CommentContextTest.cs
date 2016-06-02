@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
@@ -42,20 +42,10 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var context = new CommentContext<ICommentable>(commentMock);
 
             // Assert
-            Assert.AreSame(commentMock, context.CommentContainer);
+            Assert.IsInstanceOf<WrappedObjectContextBase<ICommentable>>(context);
+            Assert.AreSame(commentMock, context.WrappedData);
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_CommentContainerNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new CommentContext<ICommentable>(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("commentContainer", exception.ParamName);
         }
     }
 }

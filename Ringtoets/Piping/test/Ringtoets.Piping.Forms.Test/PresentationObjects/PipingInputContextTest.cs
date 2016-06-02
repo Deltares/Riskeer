@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -96,89 +94,6 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "De berekening mag niet 'null' zijn.");
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Attach_Observer_ObserverAttachedToPipingInput()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingInputContext(calculation.InputParameters,
-                                                 calculation,
-                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                 Enumerable.Empty<StochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSectionMock);
-
-            // Call
-            context.Attach(observer);
-
-            // Assert
-            calculation.InputParameters.NotifyObservers(); // Notification on wrapped object
-            mocks.VerifyAll(); // Expected UpdateObserver call
-        }
-
-        [Test]
-        public void Detach_Observer_ObserverDetachedFromPipingInput()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingInputContext(calculation.InputParameters,
-                                                 calculation,
-                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                 Enumerable.Empty<StochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSectionMock);
-
-            context.Attach(observer);
-
-            // Call
-            context.Detach(observer);
-
-            // Assert
-            calculation.InputParameters.NotifyObservers(); // Notification on wrapped object
-            mocks.VerifyAll(); // Expected no UpdateObserver call
-        }
-
-        [Test]
-        public void NotifyObservers_ObserverAttachedToPipingInput_NotificationCorrectlyPropagated()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingInputContext(calculationItem.InputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                 Enumerable.Empty<StochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSectionMock);
-
-            calculationItem.InputParameters.Attach(observer); // Attach to wrapped object
-
-            // Call
-            context.NotifyObservers(); // Notification on context
-
-            // Assert
             mocks.VerifyAll();
         }
     }

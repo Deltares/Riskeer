@@ -53,23 +53,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructor_FailureMechanismIsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new HeightStructuresFailureMechanismContext(null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("wrappedData", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_AssessmentSectionIsNull_ThrowArgumentNullException()
         {
             // Setup

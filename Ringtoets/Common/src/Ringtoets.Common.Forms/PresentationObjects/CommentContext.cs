@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data;
 
 namespace Ringtoets.Common.Forms.PresentationObjects
@@ -27,25 +28,13 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// <summary>
     /// This class is a presentation object for the comment of <see cref="T"/>.
     /// </summary>
-    public class CommentContext<T> where T : ICommentable
+    public class CommentContext<T> : WrappedObjectContextBase<T> where T : ICommentable
     {
         /// <summary>
         /// Creates a new instance of <see cref="CommentContext{T}"/>.
         /// </summary>
-        /// <param name="commentContainer">The container to wrap.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="commentContainer"/> is <c>null</c>.</exception>
-        public CommentContext(T commentContainer)
-        {
-            if (commentContainer == null)
-            {
-                throw new ArgumentNullException("commentContainer");
-            }
-            CommentContainer = commentContainer;
-        }
-
-        /// <summary>
-        /// Gets the wrapped comment container.
-        /// </summary>
-        public T CommentContainer { get; private set; }
+        /// <param name="wrappedCommentable">The commentable item to wrap.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedCommentable"/> is <c>null</c>.</exception>
+        public CommentContext(T wrappedCommentable) : base(wrappedCommentable) {}
     }
 }

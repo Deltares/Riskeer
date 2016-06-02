@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -38,41 +40,20 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
-            var sectionResult = CreateFailureMechanismSectionResult();
+            var failureMechanismSectionResults = new[]
+            {
+                CreateFailureMechanismSectionResult()
+            };
 
             mocks.ReplayAll();
 
             // Call
-            var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(new []
-            {
-                sectionResult
-            }, failureMechanismMock);
+            var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(failureMechanismSectionResults, failureMechanismMock);
 
             // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                sectionResult
-            }, context.SectionResults);
+            Assert.IsInstanceOf<WrappedObjectContextBase<IEnumerable<FailureMechanismSectionResult>>>(context);
+            Assert.AreSame(failureMechanismSectionResults, context.WrappedData);
             Assert.AreSame(failureMechanismMock, context.FailureMechanism);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismSectionResultListNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(null, failureMechanismMock);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("sectionResults", exception.ParamName);
             mocks.VerifyAll();
         }
 

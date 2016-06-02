@@ -175,7 +175,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 var commentContext = (CommentContext<ICommentable>) inputFolder.Contents[1];
                 Assert.IsNotNull(commentContext);
-                Assert.AreSame(failureMechanism, commentContext.CommentContainer);
+                Assert.AreSame(failureMechanism, commentContext.WrappedData);
 
                 var outputFolder = (CategoryTreeFolder) children[1];
                 Assert.AreEqual("Uitvoer", outputFolder.Name);
@@ -233,7 +233,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 var failureMechanismResultsContext = (FailureMechanismSectionResultContext<T>)outputFolder.Contents[0];
                 Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
-                Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
+                Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
             }
         }
 
@@ -265,7 +265,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(1, children.Length);
                 var commentContext = (CommentContext<ICommentable>) children[0];
-                Assert.AreSame(failureMechanism, commentContext.CommentContainer);
+                Assert.AreSame(failureMechanism, commentContext.WrappedData);
             }
             mocks.VerifyAll();
         }

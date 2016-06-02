@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Forms.PresentationObjects
@@ -28,32 +29,24 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// <summary>
     /// This class is a presentation object for a collection of <see cref="FailureMechanismSectionResult"/>.
     /// </summary>
-    public class FailureMechanismSectionResultContext<T> where T : FailureMechanismSectionResult
+    public class FailureMechanismSectionResultContext<T> : WrappedObjectContextBase<IEnumerable<T>> where T : FailureMechanismSectionResult
     {
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionResultContext{T}"/>.
         /// </summary>
-        /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <typeparamref name="T"/> to wrap.</param>
-        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> <paramref name="sectionResults"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResults"/> or <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public FailureMechanismSectionResultContext(IEnumerable<T> sectionResults, IFailureMechanism failureMechanism)
+        /// <param name="wrappedSectionResults">The <see cref="IEnumerable{T}"/> of <typeparamref name="T"/> to wrap.</param>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the <paramref name="wrappedSectionResults"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedSectionResults"/> or <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public FailureMechanismSectionResultContext(IEnumerable<T> wrappedSectionResults, IFailureMechanism failureMechanism)
+            : base(wrappedSectionResults)
         {
-            if (sectionResults == null)
-            {
-                throw new ArgumentNullException("sectionResults");
-            }
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException("failureMechanism");
             }
-            SectionResults = sectionResults;
+
             FailureMechanism = failureMechanism;
         }
-
-        /// <summary>
-        /// Gets the wrapped <see cref="IEnumerable{T}"/> of <typeparamref name="T"/>.
-        /// </summary>
-        public IEnumerable<T> SectionResults { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="IFailureMechanism"/>.

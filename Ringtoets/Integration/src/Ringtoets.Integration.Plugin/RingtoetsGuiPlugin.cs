@@ -190,7 +190,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new ViewInfo<CommentContext<ICommentable>, ICommentable, CommentView>
             {
                 GetViewName = (v, o) => Resources.Comment_DisplayName,
-                GetViewData = context => context.CommentContainer,
+                GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.EditDocumentIcon,
                 CloseForData = CloseCommentViewForData
             };
@@ -209,7 +209,7 @@ namespace Ringtoets.Integration.Plugin
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
-                GetViewData = context => context.SectionResults,
+                GetViewData = context => context.WrappedData,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
         }

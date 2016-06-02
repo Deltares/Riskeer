@@ -116,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSectionMock, failureMechanismSectionsContext.ParentAssessmentSection);
             var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[1];
-            Assert.AreSame(failureMechanism, commentContext.CommentContainer);
+            Assert.AreSame(failureMechanism, commentContext.WrappedData);
 
             var calculationsFolder = (GrassCoverErosionInwardsCalculationGroupContext) children[1];
             Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
@@ -128,7 +128,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>) outputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
-            Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
+            Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
             mocksRepository.VerifyAll();
         }
@@ -152,7 +152,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, children.Length);
             var commentContext = (CommentContext<ICommentable>) children[0];
-            Assert.AreSame(failureMechanism, commentContext.CommentContainer);
+            Assert.AreSame(failureMechanism, commentContext.WrappedData);
 
             mocksRepository.VerifyAll();
         }
