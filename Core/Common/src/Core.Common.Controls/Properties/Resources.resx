@@ -124,7 +124,4 @@
   <data name="DataGridViewComboBoxItemWrapper_DisplayName_None" xml:space="preserve">
     <value>&lt;geen&gt;</value>
   </data>
-  <data name="DataGridViewCellValidating_Text_may_not_be_empty" xml:space="preserve">
-    <value>De tekst mag niet leeg zijn.</value>
-  </data>
 </root>

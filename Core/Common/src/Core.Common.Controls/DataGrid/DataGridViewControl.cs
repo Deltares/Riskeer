@@ -68,7 +68,11 @@ namespace Core.Common.Controls.DataGrid
                 DataPropertyName = dataPropertyName,
                 HeaderText = headerText,
                 Name = string.Format("column_{0}", dataPropertyName),
-                ReadOnly = readOnly
+                ReadOnly = readOnly,
+                DefaultCellStyle =
+                {                    
+                    DataSourceNullValue = string.Empty
+                }
             });
         }
 
@@ -328,13 +332,7 @@ namespace Core.Common.Controls.DataGrid
 
         private void DataGridViewOnCellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
-            dataGridView.Rows[e.RowIndex].ErrorText = String.Empty;
-
-            var cellEditValue = e.FormattedValue.ToString();
-            if (string.IsNullOrWhiteSpace(cellEditValue))
-            {
-                dataGridView.Rows[e.RowIndex].ErrorText = Resources.DataGridViewCellValidating_Text_may_not_be_empty;
-            }
+            dataGridView.Rows[e.RowIndex].ErrorText = string.Empty;
         }
 
         private void DataGridViewOnDataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -342,7 +340,7 @@ namespace Core.Common.Controls.DataGrid
             e.ThrowException = false;
             e.Cancel = true;
 
-            if (string.IsNullOrWhiteSpace(dataGridView.Rows[e.RowIndex].ErrorText) && e.Exception != null)
+            if (e.Exception != null)
             {
                 dataGridView.Rows[e.RowIndex].ErrorText = e.Exception.Message;
             }

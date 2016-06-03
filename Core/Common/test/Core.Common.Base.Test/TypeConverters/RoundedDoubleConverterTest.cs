@@ -83,6 +83,22 @@ namespace Core.Common.Base.Test.TypeConverters
         }
 
         [Test]
+        public void ConvertFrom_TextIsEmpty_ThrowNotSupportedException()
+        {
+            // Setup
+            string text = string.Empty;
+
+            var converter = new RoundedDoubleConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);
+
+            // Assert
+            string message = Assert.Throws<NotSupportedException>(call).Message;
+            Assert.AreEqual("De tekst mag niet leeg zijn.", message);
+        }
+
+        [Test]
         public void ConvertFrom_TextTooLongToStoreInDouble_ThrowNotSupportedException()
         {
             // Setup

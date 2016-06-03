@@ -54,6 +54,12 @@ namespace Core.Common.Base.TypeConverters
                 }
                 catch (FormatException exception)
                 {
+                    if (string.IsNullOrWhiteSpace(text))
+                    {
+                        throw new NotSupportedException(Resources.RoundedDoubleConverter_ConvertFrom_String_cannot_be_empty,
+                                                       exception);
+                    }
+                    
                     throw new NotSupportedException(Resources.RoundedDoubleConverter_ConvertFrom_String_must_represent_number,
                                                     exception);
                 }
