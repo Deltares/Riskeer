@@ -46,6 +46,10 @@ namespace Application.Ringtoets.Storage.Read
             {
                 throw new ArgumentNullException("collector");
             }
+            if (collector.Contains(entity))
+            {
+                return collector.Get(entity);
+            }
 
             var model = new StochasticSoilModel(-1, entity.Name, entity.SegmentName)
             {
@@ -53,6 +57,8 @@ namespace Application.Ringtoets.Storage.Read
             };
             entity.ReadStochasticSoilProfiles(model, collector);
             entity.ReadSegmentPoints(model);
+
+            collector.Read(entity, model);
 
             return model;
         }

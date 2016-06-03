@@ -59,7 +59,7 @@ namespace Application.Ringtoets.Storage.Read
 
             entity.ReadPipingFailureMechanism(assessmentSection, collector);
             entity.ReadGrassCoverErosionInwardsFailureMechanism(assessmentSection);
-            entity.ReadHydraulicDatabase(assessmentSection);
+            entity.ReadHydraulicDatabase(assessmentSection, collector);
             entity.ReadReferenceLine(assessmentSection);
             entity.ReadStandAloneFailureMechanisms(assessmentSection);
 
@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-        private static void ReadHydraulicDatabase(this AssessmentSectionEntity entity, IAssessmentSection assessmentSection)
+        private static void ReadHydraulicDatabase(this AssessmentSectionEntity entity, IAssessmentSection assessmentSection, ReadConversionCollector collector)
         {
             if (entity.HydraulicDatabaseLocation != null)
             {
@@ -87,7 +87,7 @@ namespace Application.Ringtoets.Storage.Read
 
                 foreach (var hydraulicLocationEntity in entity.HydraulicLocationEntities)
                 {
-                    assessmentSection.HydraulicBoundaryDatabase.Locations.Add(hydraulicLocationEntity.Read());
+                    assessmentSection.HydraulicBoundaryDatabase.Locations.Add(hydraulicLocationEntity.Read(collector));
                 }
             }
         }

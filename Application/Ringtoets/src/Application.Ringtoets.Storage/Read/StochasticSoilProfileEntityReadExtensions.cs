@@ -45,12 +45,18 @@ namespace Application.Ringtoets.Storage.Read
             {
                 throw new ArgumentNullException("collector");
             }
+            if (collector.Contains(entity))
+            {
+                return collector.Get(entity);
+            }
 
             var profile = new StochasticSoilProfile(Convert.ToDouble(entity.Probability), SoilProfileType.SoilProfile1D, -1)
             {
                 StorageId = entity.StochasticSoilProfileEntityId
             };
             entity.ReadSoilProfile(profile, collector);
+
+            collector.Read(entity, profile);
 
             return profile;
         }

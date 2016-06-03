@@ -24,6 +24,8 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
 
+using Ringtoets.Piping.Data;
+
 namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
@@ -105,6 +107,31 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.AreNotSame(firstProfile, secondProfile);
             Assert.AreSame(firstProfile.SoilProfile, secondProfile.SoilProfile);
+        }
+
+        [Test]
+        public void Read_SameStochasticSoilProfileEntityMultipleTimes_ReturnSameStochasticSoilProfile()
+        {
+            // Setup
+            var entity = new StochasticSoilProfileEntity
+            {
+                SoilProfileEntity = new SoilProfileEntity
+                {
+                    SoilLayerEntities =
+                    {
+                        new SoilLayerEntity()
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            StochasticSoilProfile profile1 = entity.Read(collector);
+            StochasticSoilProfile profile2 = entity.Read(collector);
+
+            // Assert
+            Assert.AreSame(profile1, profile2);
         }
     }
 }

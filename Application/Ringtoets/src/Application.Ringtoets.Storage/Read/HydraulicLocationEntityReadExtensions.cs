@@ -35,9 +35,19 @@ namespace Application.Ringtoets.Storage.Read
         /// Read the <see cref="HydraulicLocationEntity"/> and use the information to construct a <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         /// <param name="entity">The <see cref="HydraulicLocationEntity"/> to create <see cref="HydraulicBoundaryLocation"/> for.</param>
+        /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="HydraulicBoundaryLocation"/>.</returns>
-        internal static HydraulicBoundaryLocation Read(this HydraulicLocationEntity entity)
+        internal static HydraulicBoundaryLocation Read(this HydraulicLocationEntity entity, ReadConversionCollector collector)
         {
+            if (collector == null)
+            {
+                throw new ArgumentNullException("collector");
+            }
+            if (collector.Contains(entity))
+            {
+                return collector.Get(entity);
+            }
+
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(
                 entity.LocationId,
                 entity.Name,
@@ -51,6 +61,8 @@ namespace Application.Ringtoets.Storage.Read
             {
                 hydraulicBoundaryLocation.DesignWaterLevel = Convert.ToDouble(entity.DesignWaterLevel);
             }
+
+            collector.Read(entity, hydraulicBoundaryLocation);
 
             return hydraulicBoundaryLocation;
         }

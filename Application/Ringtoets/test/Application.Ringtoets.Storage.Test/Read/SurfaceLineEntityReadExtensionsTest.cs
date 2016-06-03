@@ -423,5 +423,26 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreSame(geometryPoint, surfaceLine.DitchDikeSide);
             Assert.AreSame(geometryPoint, surfaceLine.DitchPolderSide);
         }
+
+        [Test]
+        public void Read_SurfaceLineEntityReadMultipleTimes_ReturnSameSurfaceLine()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            const long id = 9348765;
+
+            var entity = new SurfaceLineEntity
+            {
+                SurfaceLineEntityId = id
+            };
+
+            // Call
+            RingtoetsPipingSurfaceLine surfaceLine1 = entity.Read(collector);
+            RingtoetsPipingSurfaceLine surfaceLine2 = entity.Read(collector);
+
+            // Assert
+            Assert.AreSame(surfaceLine1, surfaceLine2);
+        }
     }
 }

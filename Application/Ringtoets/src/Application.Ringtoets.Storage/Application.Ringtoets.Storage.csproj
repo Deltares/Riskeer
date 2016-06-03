@@ -129,6 +129,7 @@
     <Compile Include="Read\FailureMechanismSectionEntityReadExtensions.cs" />
     <Compile Include="Read\FailureMechanismSectionPointEntityReadExtensions.cs" />
     <Compile Include="Read\HydraulicLocationEntityReadExtensions.cs" />
+    <Compile Include="Read\PipingCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\ReadConversionCollector.cs" />
     <Compile Include="Read\ReferenceLinePointEntityReadExtensions.cs" />
     <Compile Include="Read\StochasticSoilModelSegmentPointEntityReadExtensions.cs" />

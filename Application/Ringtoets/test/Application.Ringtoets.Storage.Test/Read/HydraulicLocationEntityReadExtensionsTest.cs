@@ -24,11 +24,27 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
 
+using Ringtoets.HydraRing.Data;
+
 namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
     public class HydraulicLocationEntityReadExtensionsTest
     {
+        [Test]
+        public void Read_CollectorIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var entity = new HydraulicLocationEntity();
+
+            // Call
+            TestDelegate call = () => entity.Read(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("collector", paramName);
+        }
+
         [Test]
         public void Read_Always_ReturnsHydraulicBoundaryLocationWithPropertiesSet()
         {
@@ -48,8 +64,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 LocationY = Convert.ToDecimal(y)
             };
 
+            var collector = new ReadConversionCollector();
+
             // Call
-            var location = entity.Read();
+            var location = entity.Read(collector);
 
             // Assert
             Assert.IsNotNull(location);
@@ -75,12 +93,33 @@ namespace Application.Ringtoets.Storage.Test.Read
                 DesignWaterLevel = waterLevel
             };
 
+            var collector = new ReadConversionCollector();
+
             // Call
-            var location = entity.Read();
+            var location = entity.Read(collector);
 
             // Assert
             Assert.IsNotNull(location);
             Assert.AreEqual(expectedWaterLevel, location.DesignWaterLevel);
-        } 
+        }
+
+        [Test]
+        public void Read_SameHydraulicLocationEntityTwice_ReturnSameHydraulicBoundaryLocation()
+        {
+            // Setup
+            var entity = new HydraulicLocationEntity
+            {
+                Name = "A"
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            HydraulicBoundaryLocation location1 = entity.Read(collector);
+            HydraulicBoundaryLocation location2 = entity.Read(collector);
+
+            // Assert
+            Assert.AreSame(location1, location2);
+        }
     }
 }

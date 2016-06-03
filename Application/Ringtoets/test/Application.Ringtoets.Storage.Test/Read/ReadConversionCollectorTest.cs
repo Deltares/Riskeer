@@ -27,13 +27,166 @@ using Application.Ringtoets.Storage.Read;
 using Core.Common.Base.Geometry;
 
 using NUnit.Framework;
+
+using Ringtoets.HydraRing.Data;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
     public class ReadConversionCollectorTest
     {
+        #region StochasticSoilProfileEntity: Read, Contains, Get
+
+        [Test]
+        public void Contains_WithoutStochasticSoilProfileEntity_ArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Contains((StochasticSoilProfileEntity)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Contains_StochasticSoilProfileEntityAdded_True()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new StochasticSoilProfileEntity();
+            collector.Read(entity, new StochasticSoilProfile(1, SoilProfileType.SoilProfile1D, 1));
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_NoStochasticSoilProfileEntityAdded_False()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new StochasticSoilProfileEntity();
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_OtherStochasticSoilProfileEntityAdded_False()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new StochasticSoilProfileEntity();
+            collector.Read(new StochasticSoilProfileEntity(), new StochasticSoilProfile(0.4, SoilProfileType.SoilProfile2D, 2));
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Get_WithoutStochasticSoilProfileEntity_ThrowArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Get((StochasticSoilProfileEntity)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Get_StochasticSoilProfileEntityAdded_ReturnsReadStochasticSoilProfile()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var profile = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile2D, 2);
+            var entity = new StochasticSoilProfileEntity();
+            collector.Read(entity, profile);
+
+            // Call
+            StochasticSoilProfile result = collector.Get(entity);
+
+            // Assert
+            Assert.AreSame(profile, result);
+        }
+
+        [Test]
+        public void Get_NoStochasticSoilProfileEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new StochasticSoilProfileEntity();
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_OtherStochasticSoilProfileEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new StochasticSoilProfileEntity();
+            collector.Read(new StochasticSoilProfileEntity(), new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 6));
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Read_WithNullStochasticSoilProfileEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(null, new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 6));
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Read_WithNullStochasticSoilProfile_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(new StochasticSoilProfileEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        #endregion
+
         #region SoilProfileEntity: Read, Contains, Get
 
         [Test]
@@ -175,6 +328,168 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Call
             TestDelegate test = () => collector.Read(new SoilProfileEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        #endregion
+
+        #region SurfaceLineEntity: Read, Contains, Get
+
+        [Test]
+        public void Contains_SurfaceLineEntityIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate call = () => collector.Contains((SurfaceLineEntity)null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Contains_SurfaceLineEntityAdded_True()
+        {
+            // Setup
+            var entity = new SurfaceLineEntity();
+            var model = new RingtoetsPipingSurfaceLine();
+
+            var collector = new ReadConversionCollector();
+            collector.Read(entity, model);
+
+            // Call
+            var hasEntity = collector.Contains(entity);
+
+            // Assert
+            Assert.IsTrue(hasEntity);
+        }
+
+        [Test]
+        public void Contains_SurfaceLineEntityNotAdded_False()
+        {
+            // Setup
+            var entity = new SurfaceLineEntity();
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var hasEntity = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(hasEntity);
+        }
+
+        [Test]
+        public void Contains_OtherSurfaceLineEntityAdded_False()
+        {
+            // Setup
+            var registeredEntity = new SurfaceLineEntity();
+            var model = new RingtoetsPipingSurfaceLine();
+
+            var collector = new ReadConversionCollector();
+            collector.Read(registeredEntity, model);
+
+            var unregisteredEntity = new SurfaceLineEntity();
+
+            // Call
+            var hasEntity = collector.Contains(unregisteredEntity);
+
+            // Assert
+            Assert.IsFalse(hasEntity);
+        }
+
+        [Test]
+        public void Get_SurfaceLineEntityIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate call = () => collector.Get((SurfaceLineEntity)null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Get_SurfaceLineEntityAdded_ReturnsRingtoetsPipingSurfaceLine()
+        {
+            // Setup
+            var entity = new SurfaceLineEntity();
+            var model = new RingtoetsPipingSurfaceLine();
+
+            var collector = new ReadConversionCollector();
+            collector.Read(entity, model);
+
+            // Call
+            RingtoetsPipingSurfaceLine retrievedGeometryPoint = collector.Get(entity);
+
+            // Assert
+            Assert.AreSame(model, retrievedGeometryPoint);
+        }
+
+        [Test]
+        public void Get_SurfaceLineEntityNotAdded_ThrowInvalidOperationException()
+        {
+            // Setup
+            var entity = new SurfaceLineEntity();
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate call = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void Get_DifferentSurfaceLineEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var registeredEntity = new SurfaceLineEntity();
+            var model = new RingtoetsPipingSurfaceLine();
+
+            var collector = new ReadConversionCollector();
+            collector.Read(registeredEntity, model);
+
+            var unregisteredEntity = new SurfaceLineEntity();
+
+            // Call
+            TestDelegate call = () => collector.Get(unregisteredEntity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void Read_SurfaceLineEntityIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(null, new RingtoetsPipingSurfaceLine());
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Read_RingtoetsPipingSurfaceLineIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(new SurfaceLineEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -337,6 +652,155 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Call
             TestDelegate test = () => collector.Read(new SurfaceLinePointEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        #endregion
+
+        #region HydraulicLocationEntity: Read, Contains, Get
+
+        [Test]
+        public void Contains_WithoutHydraulicLocationEntity_ArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Contains((HydraulicLocationEntity)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Contains_HydraulicLocationEntityAdded_True()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new HydraulicLocationEntity();
+            collector.Read(entity, new HydraulicBoundaryLocation(1, "A", 1, 2));
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_NoHydraulicLocationEntityAdded_False()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new HydraulicLocationEntity();
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_OtherHydraulicLocationEntityAdded_False()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new HydraulicLocationEntity();
+            collector.Read(new HydraulicLocationEntity(), new HydraulicBoundaryLocation(1, "A", 2, 3));
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Get_WithoutHydraulicLocationEntity_ThrowArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Get((HydraulicLocationEntity)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Get_HydraulicLocationEntityAdded_ReturnsHydraulicBoundaryLocation()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var profile = new HydraulicBoundaryLocation(1, "A", 1, 1);
+            var entity = new HydraulicLocationEntity();
+            collector.Read(entity, profile);
+
+            // Call
+            var result = collector.Get(entity);
+
+            // Assert
+            Assert.AreSame(profile, result);
+        }
+
+        [Test]
+        public void Get_NoHydraulicLocationEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new HydraulicLocationEntity();
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_OtherHydraulicLocationEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new HydraulicLocationEntity();
+            collector.Read(new HydraulicLocationEntity(), new HydraulicBoundaryLocation(1,"A", 1, 1));
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Read_WithNullHydraulicLocationEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(null, new HydraulicBoundaryLocation(1, "A", 1, 1));
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Read_WithNullHydraulicBoundaryLocation_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(new HydraulicLocationEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

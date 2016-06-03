@@ -104,6 +104,7 @@
     <Compile Include="Read\FailureMechanismSectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\FailureMechanismSectionPointEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HydraulicLocationEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\PipingCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ProjectEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ReadConversionCollectorTest.cs" />
     <Compile Include="Read\ReferenceLinePointEntityReadExtensionsTest.cs" />

@@ -26,7 +26,6 @@ using Application.Ringtoets.Storage.DbContext;
 
 using Core.Common.Base.Geometry;
 
-using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Read
@@ -52,6 +51,11 @@ namespace Application.Ringtoets.Storage.Read
             {
                 throw new ArgumentNullException("collector");
             }
+            if (collector.Contains(entity))
+            {
+                return collector.Get(entity);
+            }
+
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 StorageId = entity.SurfaceLineEntityId,
@@ -60,8 +64,9 @@ namespace Application.Ringtoets.Storage.Read
                     Convert.ToDouble(entity.ReferenceLineIntersectionX),
                     Convert.ToDouble(entity.ReferenceLineIntersectionY))
             };
-
             entity.ReadSurfaceLineGeometryAndCharacteristicPoints(surfaceLine, collector);
+
+            collector.Read(entity, surfaceLine);
 
             return surfaceLine;
         }
