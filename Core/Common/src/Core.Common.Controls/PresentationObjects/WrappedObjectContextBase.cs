@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 
 namespace Core.Common.Controls.PresentationObjects
 {
@@ -50,7 +51,7 @@ namespace Core.Common.Controls.PresentationObjects
         /// </summary>
         public T WrappedData { get; private set; }
 
-        #region Equality members
+        #region IEquatable members
 
         public bool Equals(WrappedObjectContextBase<T> other)
         {
@@ -81,6 +82,11 @@ namespace Core.Common.Controls.PresentationObjects
             }
 
             return Equals(obj as WrappedObjectContextBase<T>);
+        }
+
+        public override int GetHashCode()
+        {
+            return GetType().GetHashCode() ^ WrappedData.GetHashCode();
         }
 
         #endregion

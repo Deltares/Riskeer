@@ -189,6 +189,47 @@ namespace Core.Common.Controls.Test.PresentationObjects
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void GetHashCode_EqualObjects_ReturnSameHashCode()
+        {
+            // Setup
+            var sourceObject = new object();
+            var sourceObject1 = new SimpleEquatable(sourceObject);
+            var sourceObject2 = new SimpleEquatable(sourceObject);
+
+            var context1 = new SimpleWrappedObjectContext<SimpleEquatable>(sourceObject1);
+            object context2 = new SimpleWrappedObjectContext<SimpleEquatable>(sourceObject2);
+
+            // Precondition:
+            Assert.AreEqual(context1, context2);
+
+            // Call
+            var hashCode1 = context1.GetHashCode();
+            var hashCode2 = context2.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(hashCode1, hashCode2);
+        }
+
+        [Test]
+        public void GetHashCode_OtherWithDifferentContextType_ReturnDifferentHashCode()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var sourceObject = mocks.Stub<object>();
+            mocks.ReplayAll();
+
+            var context1 = new SimpleWrappedObjectContext<object>(sourceObject);
+            object context2 = new AnotherSimpleWrappedObjectContext<object>(sourceObject);
+
+            // Call
+            var hashCode1 = context1.GetHashCode();
+            var hashCode2 = context2.GetHashCode();
+
+            // Assert
+            Assert.AreNotEqual(hashCode1, hashCode2);
+        }
+
         private class SimpleWrappedObjectContext<T> : WrappedObjectContextBase<T>
         {
             public SimpleWrappedObjectContext(T wrappedData) : base(wrappedData) {}
