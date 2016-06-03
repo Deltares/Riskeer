@@ -93,7 +93,6 @@ namespace Ringtoets.HeightStructures.Data
             InputParameters.CriticalOvertoppingDischarge.Mean = (RoundedDouble) 1;
             InputParameters.WidthOfFlowApertures.Mean = (RoundedDouble) 18;
             InputParameters.DeviationOfTheWaveDirection = (RoundedDouble) 0;
-            InputParameters.FailureProbabilityOfStructureGivenErosion = (RoundedDouble) 1;
         }
     }
 }

@@ -148,14 +148,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1);
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var calculationMock = mockRepository.StrictMock<ICalculation>();
-
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var input = new HeightStructuresInput();
+            var calculation = new HeightStructuresCalculation();
+            var input = calculation.InputParameters;
             input.Attach(observerMock);
-            var inputContext = new HeightStructuresInputContext(input, calculationMock, failureMechanism, assessmentSectionMock);
+            var inputContext = new HeightStructuresInputContext(input, calculation, failureMechanism, assessmentSectionMock);
 
             var properties = new HeightStructuresInputContextProperties
             {
@@ -164,16 +163,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             var random = new Random(100);
             var newOrientationOfTheNormalOfTheStructure = new RoundedDouble(2, random.NextDouble());
-            var newFailureProbabilityOfStructureGivenErosion = 0.01;
 
             // Call
             properties.OrientationOfTheNormalOfTheStructure = newOrientationOfTheNormalOfTheStructure;
-            properties.FailureProbabilityOfStructureGivenErosion = newFailureProbabilityOfStructureGivenErosion.ToString(CultureInfo.InvariantCulture);
+            properties.FailureProbabilityOfStructureGivenErosion = "0.01";
             properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             // Assert
             Assert.AreEqual(newOrientationOfTheNormalOfTheStructure, properties.OrientationOfTheNormalOfTheStructure);
-            Assert.AreEqual(string.Format("1/{0}", 1/newFailureProbabilityOfStructureGivenErosion), properties.FailureProbabilityOfStructureGivenErosion);
+            Assert.AreEqual("1/100", properties.FailureProbabilityOfStructureGivenErosion);
             Assert.AreSame(hydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
             mockRepository.VerifyAll();
         }
