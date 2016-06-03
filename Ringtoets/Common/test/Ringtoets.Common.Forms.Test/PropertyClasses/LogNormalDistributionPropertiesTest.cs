@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
@@ -216,27 +216,30 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             });
             Assert.AreEqual(3, dynamicProperties.Count);
 
-            var distributionTypePropertyName = TypeUtils.GetMemberName<NormalDistributionProperties>(ndp => ndp.DistributionType);
-            var distributionTypeAttributes = Attribute.GetCustomAttributes(properties.GetType().GetProperty(distributionTypePropertyName));
-            AssertAttributeProperty<ResourcesDisplayNameAttribute, string>(distributionTypeAttributes, "Type verdeling",
+            var distributionTypePropertyName = TypeUtils.GetMemberName<LogNormalDistributionProperties>(ndp => ndp.DistributionType);
+            PropertyDescriptor distributionTypeProperty = dynamicProperties.Find(distributionTypePropertyName, false);
+            Assert.IsTrue(distributionTypeProperty.IsReadOnly);
+            AssertAttributeProperty<ResourcesDisplayNameAttribute, string>(distributionTypeProperty.Attributes, "Type verdeling",
                                                                            attribute => attribute.DisplayName);
-            AssertAttributeProperty<ResourcesDescriptionAttribute, string>(distributionTypeAttributes,
+            AssertAttributeProperty<ResourcesDescriptionAttribute, string>(distributionTypeProperty.Attributes,
                                                                            "Het soort kansverdeling waarin deze parameter gedefinieerd wordt.",
                                                                            attribute => attribute.Description);
 
-            var meanPropertyName = TypeUtils.GetMemberName<NormalDistributionProperties>(ndp => ndp.Mean);
-            var meanAttributes = Attribute.GetCustomAttributes(properties.GetType().GetProperty(meanPropertyName));
-            AssertAttributeProperty<ResourcesDisplayNameAttribute, string>(meanAttributes, "Verwachtingswaarde",
+            var meanPropertyName = TypeUtils.GetMemberName<LogNormalDistributionProperties>(ndp => ndp.Mean);
+            PropertyDescriptor meanProperty = dynamicProperties.Find(meanPropertyName, false);
+            Assert.IsFalse(meanProperty.IsReadOnly);
+            AssertAttributeProperty<ResourcesDisplayNameAttribute, string>(meanProperty.Attributes, "Verwachtingswaarde",
                                                                            attribute => attribute.DisplayName);
-            AssertAttributeProperty<ResourcesDescriptionAttribute, string>(meanAttributes,
+            AssertAttributeProperty<ResourcesDescriptionAttribute, string>(meanProperty.Attributes,
                                                                            "De gemiddelde waarde van de lognormale verdeling.",
                                                                            attribute => attribute.Description);
 
-            var standardDeviationPropertyName = TypeUtils.GetMemberName<NormalDistributionProperties>(ndp => ndp.StandardDeviation);
-            var standardAttributes = Attribute.GetCustomAttributes(properties.GetType().GetProperty(standardDeviationPropertyName));
-            AssertAttributeProperty<ResourcesDisplayNameAttribute, string>(standardAttributes, "Standaardafwijking",
+            var standardDeviationPropertyName = TypeUtils.GetMemberName<LogNormalDistributionProperties>(ndp => ndp.StandardDeviation);
+            PropertyDescriptor standardDeviationProperty = dynamicProperties.Find(standardDeviationPropertyName, false);
+            Assert.IsFalse(standardDeviationProperty.IsReadOnly);
+            AssertAttributeProperty<ResourcesDisplayNameAttribute, string>(standardDeviationProperty.Attributes, "Standaardafwijking",
                                                                            attribute => attribute.DisplayName);
-            AssertAttributeProperty<ResourcesDescriptionAttribute, string>(standardAttributes,
+            AssertAttributeProperty<ResourcesDescriptionAttribute, string>(standardDeviationProperty.Attributes,
                                                                            "De standaardafwijking van de lognormale verdeling.",
                                                                            attribute => attribute.Description);
 
@@ -244,7 +247,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         private static void AssertAttributeProperty<TAttributeType, TAttributePropertyValueType>(
-            IEnumerable<Attribute> attributes,
+            IEnumerable attributes,
             TAttributePropertyValueType expectedValue,
             Func<TAttributeType, TAttributePropertyValueType> getAttributePropertyValue)
         {

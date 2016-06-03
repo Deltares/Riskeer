@@ -20,11 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -272,21 +275,45 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             });
             Assert.AreEqual(3, dynamicProperties.Count);
 
-            PropertyDescriptor distributionTypeProperty = dynamicProperties[0];
+            var distributionTypePropertyName = TypeUtils.GetMemberName<LogNormalDistributionVariationProperties>(ndp => ndp.DistributionType);
+            PropertyDescriptor distributionTypeProperty = dynamicProperties.Find(distributionTypePropertyName, false);
             Assert.IsTrue(distributionTypeProperty.IsReadOnly);
-            Assert.AreEqual("Type verdeling", distributionTypeProperty.DisplayName);
-            Assert.AreEqual("Het soort kansverdeling waarin deze parameter gedefinieerd wordt.", distributionTypeProperty.Description);
+            AssertAttributeProperty<ResourcesDisplayNameAttribute, string>(distributionTypeProperty.Attributes, "Type verdeling",
+                                                                           attribute => attribute.DisplayName);
+            AssertAttributeProperty<ResourcesDescriptionAttribute, string>(distributionTypeProperty.Attributes,
+                                                                           "Het soort kansverdeling waarin deze parameter gedefinieerd wordt.",
+                                                                           attribute => attribute.Description);
 
-            PropertyDescriptor meanProperty = dynamicProperties[1];
+            var meanPropertyName = TypeUtils.GetMemberName<LogNormalDistributionVariationProperties>(ndp => ndp.Mean);
+            PropertyDescriptor meanProperty = dynamicProperties.Find(meanPropertyName, false);
             Assert.AreEqual(expectMeanReadOnly, meanProperty.IsReadOnly);
-            Assert.AreEqual("Verwachtingswaarde", meanProperty.DisplayName);
-            Assert.AreEqual("De gemiddelde waarde van de lognormale verdeling.", meanProperty.Description);
+            AssertAttributeProperty<ResourcesDisplayNameAttribute, string>(meanProperty.Attributes, "Verwachtingswaarde",
+                                                                           attribute => attribute.DisplayName);
+            AssertAttributeProperty<ResourcesDescriptionAttribute, string>(meanProperty.Attributes,
+                                                                           "De gemiddelde waarde van de lognormale verdeling.",
+                                                                           attribute => attribute.Description);
 
-            PropertyDescriptor variationCoefficientProperty = dynamicProperties[2];
+            var variationCoefficientPropertyName = TypeUtils.GetMemberName<LogNormalDistributionVariationProperties>(ndp => ndp.VariationCoefficient);
+            PropertyDescriptor variationCoefficientProperty = dynamicProperties.Find(variationCoefficientPropertyName, false);
             Assert.AreEqual(expectVariationCoefficientReadOnly, variationCoefficientProperty.IsReadOnly);
-            Assert.AreEqual("Variatiecoëfficiënt", variationCoefficientProperty.DisplayName);
-            Assert.AreEqual("De variatiecoëfficiënt van de lognormale verdeling.", variationCoefficientProperty.Description);
+            AssertAttributeProperty<ResourcesDisplayNameAttribute, string>(variationCoefficientProperty.Attributes, "Variatiecoëfficiënt",
+                                                                           attribute => attribute.DisplayName);
+            AssertAttributeProperty<ResourcesDescriptionAttribute, string>(variationCoefficientProperty.Attributes,
+                                                                           "De variatiecoëfficiënt van de lognormale verdeling.",
+                                                                           attribute => attribute.Description);
             mockRepository.VerifyAll();
+        }
+
+        private static void AssertAttributeProperty<TAttributeType, TAttributePropertyValueType>(
+            IEnumerable attributes,
+            TAttributePropertyValueType expectedValue,
+            Func<TAttributeType, TAttributePropertyValueType> getAttributePropertyValue)
+        {
+            var attributesOfTypeTAttributeType = attributes.OfType<TAttributeType>();
+            Assert.IsNotNull(attributesOfTypeTAttributeType);
+            var attribute = attributesOfTypeTAttributeType.FirstOrDefault();
+            Assert.IsNotNull(attribute, string.Format("Attribute type '{0} not found in {1}'", typeof(TAttributeType), attributes));
+            Assert.AreEqual(expectedValue, getAttributePropertyValue(attribute));
         }
     }
 }
