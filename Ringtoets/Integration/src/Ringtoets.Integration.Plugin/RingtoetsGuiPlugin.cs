@@ -312,7 +312,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = context => RingtoetsCommonDataResources.ReferenceLine_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.ReferenceLineIcon,
-                ForeColor = context => context.WrappedData == null ?
+                ForeColor = context => context.WrappedData.ReferenceLine == null ?
                                            Color.FromKnownColor(KnownColor.GrayText) :
                                            Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) =>

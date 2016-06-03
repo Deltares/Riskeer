@@ -20,76 +20,21 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
+using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for <see cref="ReferenceLine"/> instances.
     /// </summary>
-    public class ReferenceLineContext : Observable
+    public class ReferenceLineContext : ObservableWrappedObjectContextBase<IAssessmentSection>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ReferenceLineContext"/> class.
         /// </summary>
-        /// <param name="parent">The parent owner of the data represented by the presentation object.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="parent"/> is <c>null</c>.</exception>
-        public ReferenceLineContext(IAssessmentSection parent)
-        {
-            if (parent == null)
-            {
-                throw new ArgumentNullException("parent", Resources.ReferenceLineContext_Parent_assessment_section_cannot_be_null);
-            }
-            Parent = parent;
-        }
-
-        /// <summary>
-        /// The reference line data wrapped by this presentation object.
-        /// </summary>
-        public ReferenceLine WrappedData
-        {
-            get
-            {
-                return Parent.ReferenceLine;
-            }
-        }
-
-        /// <summary>
-        /// The assessment section owning <see cref="WrappedData"/>.
-        /// </summary>
-        public IAssessmentSection Parent { get; private set; }
-
-        #region Equatable
-
-        private bool Equals(ReferenceLineContext other)
-        {
-            return Parent.Equals(other.Parent);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-            return Equals((ReferenceLineContext)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return Parent.GetHashCode();
-        }
-
-        #endregion
+        /// <param name="wrappedAssessmentSection">The assessment section that is wrapped.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedAssessmentSection"/> is <c>null</c>.</exception>
+        public ReferenceLineContext(IAssessmentSection wrappedAssessmentSection) : base(wrappedAssessmentSection) {}
     }
 }

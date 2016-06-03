@@ -180,8 +180,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(22, objects.Length);
                 var referenceLineContext = (ReferenceLineContext) objects[0];
-                Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
-                Assert.AreSame(assessmentSection, referenceLineContext.Parent);
+                Assert.AreSame(assessmentSection, referenceLineContext.WrappedData);
 
                 var contributionContext = (FailureMechanismContributionContext) objects[1];
                 Assert.AreSame(contribution, contributionContext.WrappedData);

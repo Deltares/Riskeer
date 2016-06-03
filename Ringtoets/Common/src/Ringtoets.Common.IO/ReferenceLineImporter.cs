@@ -92,9 +92,9 @@ namespace Ringtoets.Common.IO
             bool clearReferenceLineDependentData = false;
 
             var importTarget = (ReferenceLineContext)targetItem;
-            if (importTarget.Parent.ReferenceLine != null)
+            if (importTarget.WrappedData.ReferenceLine != null)
             {
-                clearReferenceLineDependentData = ConfirmImportOfReferenceLineToClearReferenceLineDependentData(importTarget.Parent);
+                clearReferenceLineDependentData = ConfirmImportOfReferenceLineToClearReferenceLineDependentData(importTarget.WrappedData);
             }
 
             if (ImportIsCancelled)
@@ -117,7 +117,7 @@ namespace Ringtoets.Common.IO
                 return false;
             }
 
-            AddReferenceLineToDataModel(importTarget.Parent, readResult.ImportedItems.First(), clearReferenceLineDependentData);
+            AddReferenceLineToDataModel(importTarget.WrappedData, readResult.ImportedItems.First(), clearReferenceLineDependentData);
             return true;
         }
 
@@ -188,8 +188,6 @@ namespace Ringtoets.Common.IO
             NotifyProgress(Resources.ReferenceLineImporter_ProgressText_Adding_imported_referenceline_to_assessmentsection,
                            2, clearReferenceLineDependentData ? 4 : 2);
             assessmentSection.ReferenceLine = importedReferenceLine;
-
-            changedObservables.Add(assessmentSection); // Note: Add assessmentSection to the list of changed observables. Otherwise only the reference line context item will be notified.
 
             if (clearReferenceLineDependentData && assessmentSection.GetFailureMechanisms() != null)
             {

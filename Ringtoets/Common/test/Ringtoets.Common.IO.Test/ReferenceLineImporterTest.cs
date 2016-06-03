@@ -73,8 +73,7 @@ namespace Ringtoets.Common.IO.Test
 
             // Assert
             Assert.IsTrue(importSuccesful);
-            Assert.IsInstanceOf<ReferenceLine>(assessmentSection.ReferenceLine);
-            Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
+            Assert.IsNotNull(assessmentSection.ReferenceLine);
             Point2D[] point2Ds = assessmentSection.ReferenceLine.Points.ToArray();
             Assert.AreEqual(803, point2Ds.Length);
             Assert.AreEqual(193515.719, point2Ds[467].X, 1e-6);
@@ -103,7 +102,7 @@ namespace Ringtoets.Common.IO.Test
                 new ExpectedProgressNotification
                 {
                     Text = "Geïmporteerde data toevoegen aan het traject.", CurrentStep = 2, MaxNrOfSteps = 2
-                },
+                }
             };
             var progressChangedCallCount = 0;
             var importer = new ReferenceLineImporter
@@ -149,7 +148,6 @@ namespace Ringtoets.Common.IO.Test
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccesful);
             Assert.IsNull(assessmentSection.ReferenceLine);
-            Assert.IsNull(referenceLineContext.WrappedData);
             mocks.VerifyAll();
         }
 
@@ -177,7 +175,6 @@ namespace Ringtoets.Common.IO.Test
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccesful);
             Assert.IsNull(assessmentSection.ReferenceLine);
-            Assert.IsNull(referenceLineContext.WrappedData);
             mocks.VerifyAll();
         }
 
@@ -194,13 +191,13 @@ namespace Ringtoets.Common.IO.Test
             var failureMechanism1 = mocks.Stub<IFailureMechanism>();
             failureMechanism1.Stub(fm => fm.Calculations).Return(new[]
             {
-                calculation1,
+                calculation1
             });
 
             var failureMechanism2 = mocks.Stub<IFailureMechanism>();
             failureMechanism2.Stub(fm => fm.Calculations).Return(new[]
             {
-                calculation3,
+                calculation3
             });
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -234,7 +231,6 @@ namespace Ringtoets.Common.IO.Test
             // Assert
             Assert.IsFalse(importSuccesful);
             Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
-            Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
             var expectedText = "Als u de referentielijn vervangt, zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd." + Environment.NewLine +
@@ -369,7 +365,7 @@ namespace Ringtoets.Common.IO.Test
                 new ExpectedProgressNotification
                 {
                     Text = "Verwijderen uitvoer van hydraulische randvoorwaarden.", CurrentStep = 4, MaxNrOfSteps = 4
-                },
+                }
             };
             var progressChangedCallCount = 0;
             var importer = new ReferenceLineImporter();
@@ -491,8 +487,7 @@ namespace Ringtoets.Common.IO.Test
 
             // Assert
             Assert.IsTrue(importSuccesful);
-            Assert.IsInstanceOf<ReferenceLine>(assessmentSection.ReferenceLine);
-            Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
+            Assert.IsNotNull(assessmentSection.ReferenceLine);
             Point2D[] point2Ds = assessmentSection.ReferenceLine.Points.ToArray();
             Assert.AreEqual(803, point2Ds.Length);
             Assert.AreEqual(195203.563, point2Ds[321].X, 1e-6);
@@ -538,6 +533,9 @@ namespace Ringtoets.Common.IO.Test
                 calculation4
             });
 
+            var contextObserver = mocks.Stub<IObserver>();
+            contextObserver.Expect(o => o.UpdateObserver());
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = originalReferenceLine;
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
@@ -545,10 +543,9 @@ namespace Ringtoets.Common.IO.Test
                 failureMechanism1,
                 failureMechanism2
             });
-            assessmentSection.Expect(section => section.NotifyObservers());
+            assessmentSection.Expect(section => section.Attach(contextObserver));
+            assessmentSection.Expect(section => section.NotifyObservers()).Do((Action)(() => contextObserver.UpdateObserver()));
 
-            var contextObserver = mocks.Stub<IObserver>();
-            contextObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
@@ -593,7 +590,7 @@ namespace Ringtoets.Common.IO.Test
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
-            referenceLineContext.Parent.Attach(observer);
+            referenceLineContext.WrappedData.Attach(observer);
 
             var importer = new ReferenceLineImporter();
 
@@ -628,14 +625,15 @@ namespace Ringtoets.Common.IO.Test
                 calculation1
             });
 
+            var contextObserver = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = originalReferenceLine;
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism1
             });
+            assessmentSection.Expect(section => section.Attach(contextObserver));
 
-            var contextObserver = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
@@ -701,6 +699,9 @@ namespace Ringtoets.Common.IO.Test
                 calculation4
             });
 
+            var contextObserver = mocks.Stub<IObserver>();
+            contextObserver.Expect(o => o.UpdateObserver());
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = originalReferenceLine;
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
@@ -708,10 +709,9 @@ namespace Ringtoets.Common.IO.Test
                 failureMechanism1,
                 failureMechanism2
             });
-            assessmentSection.Expect(section => section.NotifyObservers());
+            assessmentSection.Expect(section => section.Attach(contextObserver));
+            assessmentSection.Expect(section => section.NotifyObservers()).Do((Action)(() => contextObserver.UpdateObserver()));
 
-            var contextObserver = mocks.Stub<IObserver>();
-            contextObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
