@@ -1,4 +1,6 @@
-﻿using Core.Common.Gui.PropertyBag;
+﻿using System;
+using Core.Common.Base;
+using Core.Common.Gui.PropertyBag;
 
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -15,8 +17,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-
             // Call
             var properties = new PipingFailureMechanismContextProperties();
 
@@ -54,6 +54,64 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.A, properties.A);
             Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.B, properties.B);
+        }
+
+        [Test]
+        [TestCase(-1)]
+        [TestCase(-0.1)]
+        [TestCase(1.1)]
+        [TestCase(8)]
+        public void A_SetInvalidValue_ThrowsArgumentException(double value)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observerMock = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var properties = new PipingFailureMechanismContextProperties
+            {
+                Data = new PipingFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>())
+            };
+
+            // Call
+            TestDelegate call = () => properties.A = value;
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("De waarde moet tussen 0 en 1 zijn.", exception.Message);
+            Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.A, properties.A);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(0.1)]
+        [TestCase(1)]
+        [TestCase(0.0000001)]
+        [TestCase(0.9999999)]
+        public void A_SetValidValue_SetsValueAndUpdatesObservers(double value)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var properties = new PipingFailureMechanismContextProperties
+            {
+                Data = new PipingFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>())
+            };
+
+            failureMechanism.Attach(observerMock);
+
+            // Call
+            properties.A = value;
+
+            // Assert
+            Assert.AreEqual(value, failureMechanism.PipingProbabilityAssessmentInput.A);
+            mocks.VerifyAll();
         }
     }
 }

@@ -152,6 +152,15 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde moet tussen 0 en 1 zijn..
+        /// </summary>
+        public static string PipingProbabilityAssessmentInput_A_Value_must_be_between_zero_and_one {
+            get {
+                return ResourceManager.GetString("PipingProbabilityAssessmentInput_A_Value_must_be_between_zero_and_one", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vector moet 2 dimensies hebben, maar heeft er {0}..
         /// </summary>
         public static string Point2D_AddVector_Vector_must_be_2D_but_has_Dimensionality_0_ {

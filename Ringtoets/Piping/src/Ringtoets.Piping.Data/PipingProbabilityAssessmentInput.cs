@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.Properties;
+
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
@@ -26,13 +29,15 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingProbabilityAssessmentInput
     {
+        private double a;
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingProbabilityAssessmentInput"/>.
         /// </summary>
         public PipingProbabilityAssessmentInput()
         {
-            A = 1.0;
-            B = 350.0;
+            A = 0.4;
+            B = 300.0;
             SectionLength = double.NaN;
         }
 
@@ -40,7 +45,22 @@ namespace Ringtoets.Piping.Data
         /// Gets 'a' parameter used to factor in the 'length effect' when determining the
         /// maximum tolerated probability of failure.
         /// </summary>
-        public double A { get; private set; }
+        public double A
+        {
+            get
+            {
+                return a;
+            }
+            set
+            {
+                if (!(value >= 0) || !(value <= 1))
+                {
+                    throw new ArgumentException(Resources.PipingProbabilityAssessmentInput_A_Value_must_be_between_zero_and_one);
+                }
+                
+                a = value;
+            }
+        }
 
         /// <summary>
         /// Gets 'b' parameter used to factor in the 'length effect' when determining the

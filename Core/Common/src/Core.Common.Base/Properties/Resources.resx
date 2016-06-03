@@ -174,4 +174,7 @@
   <data name="RoundedDoubleConverter_ConvertFrom_String_cannot_be_empty" xml:space="preserve">
     <value>De tekst mag niet leeg zijn.</value>
   </data>
+  <data name="PipingProbabilityAssessmentInput_A_Value_must_be_between_zero_and_one" xml:space="preserve">
+    <value>De waarde moet tussen 0 en 1 zijn.</value>
+  </data>
 </root>

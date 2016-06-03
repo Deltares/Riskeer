@@ -200,6 +200,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 return data.WrappedData.PipingProbabilityAssessmentInput.A;
             }
+            set
+            {
+                data.WrappedData.PipingProbabilityAssessmentInput.A = value;
+                data.WrappedData.NotifyObservers();
+            }
         }
 
         [PropertyOrder(52)]

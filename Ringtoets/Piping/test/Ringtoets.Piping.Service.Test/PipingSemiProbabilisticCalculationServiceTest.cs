@@ -114,9 +114,9 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        [TestCase(30000, 6000, 24, 4.916313847)]
-        [TestCase(20000, 6000, 12, 4.972362935)]
-        [TestCase(20000, 8000, 24, 4.890463519)]
+        [TestCase(30000, 6000, 24, 4.777)]
+        [TestCase(20000, 6000, 12, 4.835)]
+        [TestCase(20000, 8000, 24, 4.748)]
         public void RequiredReliability_DifferentInputs_ReturnsExpectedValue(int norm, double assessmentSectionLength, double contribution, double expectedResult)
         {
             // Setup
@@ -146,7 +146,7 @@ namespace Ringtoets.Piping.Service.Test
             double fosUplift = 1.2;
             double fosHeave = 0.6;
             double fosSellmeijer = 0.9;
-            double expectedResult = 0.881;
+            double expectedResult = 0.907;
 
             var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
             var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput
@@ -210,7 +210,7 @@ namespace Ringtoets.Piping.Service.Test
 
             // Assert
             RoundedDouble result = pipingCalculation.SemiProbabilisticOutput.PipingFactorOfSafety;
-            Assert.AreEqual(0.881, result, result.GetAccuracy());
+            Assert.AreEqual(0.907, result, result.GetAccuracy());
         }
 
         [Test]
