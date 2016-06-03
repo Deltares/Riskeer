@@ -302,7 +302,7 @@ namespace Core.Common.Controls.DataGrid
             dataGridView.ColumnAdded += DataGridViewOnColumnAdded;
             dataGridView.CurrentCellDirtyStateChanged += DataGridViewOnCurrentCellDirtyStateChanged;
             dataGridView.GotFocus += DataGridViewOnGotFocus;
-            dataGridView.CellValidating += DataGridViewOnCellValidating;
+            dataGridView.CellEndEdit += DataGridViewOnCellEndEdit;
             dataGridView.DataError += DataGridViewOnDataError;
         }
 
@@ -330,7 +330,7 @@ namespace Core.Common.Controls.DataGrid
             }
         }
 
-        private void DataGridViewOnCellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        private void DataGridViewOnCellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             dataGridView.Rows[e.RowIndex].ErrorText = string.Empty;
         }
