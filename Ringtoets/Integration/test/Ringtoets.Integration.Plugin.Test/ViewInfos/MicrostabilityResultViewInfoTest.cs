@@ -29,8 +29,8 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResult;
-using Ringtoets.Integration.Forms.Views.SectionResultView;
+using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Integration.Forms.Views.SectionResultViews;
 using Ringtoets.Piping.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 

@@ -158,15 +158,5 @@ namespace Core.Common.Utils.Properties {
                 return ResourceManager.GetString("TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Parameter &apos;member&apos; is geen geldige expressie voor deze methode..
-        /// </summary>
-        public static string TypeUtils_GetMemberNameFromMemberExpression_member_not_a_valid_expression_for_this_method {
-            get {
-                return ResourceManager.GetString("TypeUtils_GetMemberNameFromMemberExpression_member_not_a_valid_expression_for_thi" +
-                        "s_method", resourceCulture);
-            }
-        }
     }
 }

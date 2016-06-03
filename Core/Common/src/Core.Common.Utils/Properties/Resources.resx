@@ -138,9 +138,6 @@
   <data name="Error_Path_must_not_point_to_folder" xml:space="preserve">
     <value>Bestandspad mag niet naar een map verwijzen.</value>
   </data>
-  <data name="TypeUtils_GetMemberNameFromMemberExpression_member_not_a_valid_expression_for_this_method" xml:space="preserve">
-    <value>Parameter 'member' is geen geldige expressie voor deze methode.</value>
-  </data>
   <data name="TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method" xml:space="preserve">
     <value>'{0}' is geen geldige expressie voor deze methode.</value>
   </data>

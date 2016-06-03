@@ -32,6 +32,7 @@ using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
@@ -39,7 +40,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Data.StandAlone.SectionResult;
+using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Plugin;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -202,7 +203,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_FailureMechanismIsRelevantWithDifferentFailureMechanismSectionResults_OutputNodeAdded(Type t)
         {
             // Delegate actual test
-            MethodInfo method = GetType().GetMethod("ChildNodeObjects_FailureMechanismIsRelevantWithSectionResults_OutputNodeAdded");
+            MethodInfo method = GetType().GetMethod(TypeUtils.GetMemberName<FailureMechanismContextTreeNodeInfoTest>(
+                s => s.ChildNodeObjects_FailureMechanismIsRelevantWithSectionResults_OutputNodeAdded<FailureMechanismSectionResult>()));
             MethodInfo genericMethod = method.MakeGenericMethod(t);
             genericMethod.Invoke(this, null);
         }

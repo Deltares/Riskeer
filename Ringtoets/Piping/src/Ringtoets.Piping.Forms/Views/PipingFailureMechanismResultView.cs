@@ -94,20 +94,20 @@ namespace Ringtoets.Piping.Forms.Views
                 TypeUtils.GetMemberName<PipingFailureMechanismSectionResultRow>(sr => sr.Name),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true
-                );
+            );
             DataGridViewControl.AddCheckBoxColumn(
                 TypeUtils.GetMemberName<PipingFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerOne),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one
-                );
+            );
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
                 true
-                );
+            );
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three
-                );
+            );
         }
 
         protected override object CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)

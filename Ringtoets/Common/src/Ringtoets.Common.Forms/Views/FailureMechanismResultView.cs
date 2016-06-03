@@ -34,6 +34,7 @@ namespace Ringtoets.Common.Forms.Views
     /// <summary>
     /// The view for the <see cref="FailureMechanismSectionResult"/>.
     /// </summary>
+    /// <typeparam name="T">The type of results which are presented by the <see cref="FailureMechanismResultView{T}"/>.</typeparam>
     public abstract partial class FailureMechanismResultView<T> : UserControl, IView where T : FailureMechanismSectionResult
     {
         private const int assessmentLayerOneColumnIndex = 1;

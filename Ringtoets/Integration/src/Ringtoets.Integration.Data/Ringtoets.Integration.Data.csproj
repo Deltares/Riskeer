@@ -43,21 +43,21 @@
     <Compile Include="AssessmentSection.cs" />
     <Compile Include="StandAlone\MacrostabilityOutwardsFailureMechanism.cs" />
     <Compile Include="StandAlone\MicrostabilityFailureMechanism.cs" />
-    <Compile Include="StandAlone\SectionResult\ClosingStructureFailureMechanismSectionResult.cs" />
-    <Compile Include="StandAlone\SectionResult\DuneErosionFailureMechanismSectionResult.cs" />
-    <Compile Include="StandAlone\SectionResult\GrassCoverErosionOutwardsFailureMechanismSectionResult.cs" />
-    <Compile Include="StandAlone\SectionResult\GrassCoverSlipOffInwardsFailureMechanismSectionResult.cs" />
-    <Compile Include="StandAlone\SectionResult\GrassCoverSlipOffOutwardsFailureMechanismSectionResult.cs" />
-    <Compile Include="StandAlone\SectionResult\MacrostabilityInwardsFailureMechanismSectionResult.cs" />
-    <Compile Include="StandAlone\SectionResult\MacrostabilityOutwardsFailureMechanismSectionResult.cs" />
-    <Compile Include="StandAlone\SectionResult\MicrostabilityFailureMechanismSectionResult.cs" />
-    <Compile Include="StandAlone\SectionResult\PipingStructureFailureMechanismSectionResult.cs" />
-    <Compile Include="StandAlone\SectionResult\StabilityStoneCoverFailureMechanismSectionResult.cs" />
-    <Compile Include="StandAlone\SectionResult\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult.cs" />
-    <Compile Include="StandAlone\SectionResult\StrengthStabilityPointConstructionFailureMechanismSectionResult.cs" />
-    <Compile Include="StandAlone\SectionResult\TechnicalInnovationFailureMechanismSectionResult.cs" />
-    <Compile Include="StandAlone\SectionResult\WaterPressureAsphaltCoverFailureMechanismSectionResult.cs" />
-    <Compile Include="StandAlone\SectionResult\WaveImpactAsphaltCoverFailureMechanismSectionResult.cs" />
+    <Compile Include="StandAlone\SectionResults\ClosingStructureFailureMechanismSectionResult.cs" />
+    <Compile Include="StandAlone\SectionResults\DuneErosionFailureMechanismSectionResult.cs" />
+    <Compile Include="StandAlone\SectionResults\GrassCoverErosionOutwardsFailureMechanismSectionResult.cs" />
+    <Compile Include="StandAlone\SectionResults\GrassCoverSlipOffInwardsFailureMechanismSectionResult.cs" />
+    <Compile Include="StandAlone\SectionResults\GrassCoverSlipOffOutwardsFailureMechanismSectionResult.cs" />
+    <Compile Include="StandAlone\SectionResults\MacrostabilityInwardsFailureMechanismSectionResult.cs" />
+    <Compile Include="StandAlone\SectionResults\MacrostabilityOutwardsFailureMechanismSectionResult.cs" />
+    <Compile Include="StandAlone\SectionResults\MicrostabilityFailureMechanismSectionResult.cs" />
+    <Compile Include="StandAlone\SectionResults\PipingStructureFailureMechanismSectionResult.cs" />
+    <Compile Include="StandAlone\SectionResults\StabilityStoneCoverFailureMechanismSectionResult.cs" />
+    <Compile Include="StandAlone\SectionResults\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult.cs" />
+    <Compile Include="StandAlone\SectionResults\StrengthStabilityPointConstructionFailureMechanismSectionResult.cs" />
+    <Compile Include="StandAlone\SectionResults\TechnicalInnovationFailureMechanismSectionResult.cs" />
+    <Compile Include="StandAlone\SectionResults\WaterPressureAsphaltCoverFailureMechanismSectionResult.cs" />
+    <Compile Include="StandAlone\SectionResults\WaveImpactAsphaltCoverFailureMechanismSectionResult.cs" />
     <Compile Include="StandAlone\WaterPressureAsphaltCoverFailureMechanism.cs" />
     <Compile Include="StandAlone\GrassCoverSlipOffInwardsFailureMechanism.cs" />
     <Compile Include="StandAlone\StrengthStabilityLengthwiseConstructionFailureMechanism.cs" />
@@ -136,7 +136,6 @@
       <Link>Copying.licenseheader</Link>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -67,23 +67,35 @@ namespace Core.Common.Utils.Reflection
         /// is not an expression with a member, such as a expression calling multiple methods.</exception>
         public static string GetMemberName<T>(Expression<Func<T, object>> expression)
         {
-            var member = expression.Body as MemberExpression;
+            return GetMemberName(expression, expression.Body);
+        }
 
-            if (member != null)
+        /// <summary>
+        /// Gets the name of the member.
+        /// </summary>
+        /// <typeparam name="T">The type of the class on which the expression takes place.</typeparam>
+        /// <param name="expression">The expression.</param>
+        /// <returns>The string name of the member.</returns>
+        /// <exception cref="System.ArgumentException">When <paramref name="expression"/> 
+        /// is not an expression with a member, such as a expression calling multiple methods.</exception>
+        public static string GetMemberName<T>(Expression<Action<T>> expression)
+        {
+            return GetMemberName(expression, expression.Body);
+        }
+
+        private static string GetMemberName(Expression originalExpression, Expression expressionBody)
+        {
+            try
             {
-                return GetMemberNameFromMemberExpression(member);
+                return GetMemberNameFromExpression(expressionBody);
             }
-
-            var unary = expression.Body as UnaryExpression;
-
-            if (unary != null)
+            catch (ArgumentException)
             {
-                return GetMemberNameFromMemberExpression(unary.Operand as MemberExpression);
+                var message = string.Format(Resources.TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method,
+                                            originalExpression);
+                throw new ArgumentException(message);
             }
-
-            var message = string.Format(Resources.TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method,
-                                        expression);
-            throw new ArgumentException(message);
+            
         }
 
         /// <summary>
@@ -214,13 +226,38 @@ namespace Core.Common.Utils.Reflection
             propertyInfo.SetValue(instance, value, null);
         }
 
-        private static string GetMemberNameFromMemberExpression(MemberExpression member)
+        /// <summary>
+        /// Returns the member name from the given <paramref name="expression"/>.
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">Thrown when the expression is not any of the following:
+        /// <list type="bullet">
+        /// <item><see cref="MemberExpression"/></item>
+        /// <item><see cref="MethodCallExpression"/></item>
+        /// <item><see cref="UnaryExpression"/> with a <see cref="UnaryExpression.Operand"/> of type
+        /// <see cref="MemberExpression"/> or <see cref="MethodCallExpression"/>.</item>
+        /// </list></exception>
+        private static string GetMemberNameFromExpression(Expression expression)
         {
+            var member = expression as MemberExpression;
             if (member != null)
             {
                 return member.Member.Name;
             }
-            throw new ArgumentException(Resources.TypeUtils_GetMemberNameFromMemberExpression_member_not_a_valid_expression_for_this_method);
+
+            var method = expression as MethodCallExpression;
+            if (method != null)
+            {
+                return method.Method.Name;
+            }
+
+            var unary = expression as UnaryExpression;
+            if (unary != null)
+            {
+                return GetMemberNameFromExpression(unary.Operand);
+            }
+            throw new ArgumentException();
         }
 
         /// <summary>

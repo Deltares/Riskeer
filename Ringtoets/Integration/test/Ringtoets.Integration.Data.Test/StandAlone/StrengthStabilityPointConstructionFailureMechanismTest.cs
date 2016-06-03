@@ -24,6 +24,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Ringtoets.Integration.Data.Test.StandAlone
 {
@@ -44,7 +45,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
         }
 
         [Test]
-        public void AddSection_WithSection_AddedArbitraryProbabilityFailureMechanismResult()
+        public void AddSection_WithSection_AddedStrengthStabilityPointConstructionFailureMechanismSectionResult()
         {
             // Setup
             var failureMechanism = new StrengthStabilityPointConstructionFailureMechanism();
@@ -57,7 +58,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
 
             // Assert
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.IsInstanceOf<FailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+            Assert.IsInstanceOf<StrengthStabilityPointConstructionFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
         }
     }
 }

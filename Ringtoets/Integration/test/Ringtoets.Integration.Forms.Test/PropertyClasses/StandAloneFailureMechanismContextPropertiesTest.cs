@@ -49,15 +49,20 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Data_SetNewSimpleFailureMechanismContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
             var failureMechanism = new TestFailureMechanism();
             var properties = new StandAloneFailureMechanismContextProperties();
 
             // Call
-            properties.Data = new FailureMechanismContext<IFailureMechanism>(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>());
+            properties.Data = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
+            mockRepository.VerifyAll();
         } 
     }
 }

@@ -57,11 +57,11 @@ using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
 using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResult;
+using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
-using Ringtoets.Integration.Forms.Views.SectionResultView;
+using Ringtoets.Integration.Forms.Views.SectionResultViews;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Piping.Data;
@@ -81,6 +81,86 @@ namespace Ringtoets.Integration.Plugin
     public class RingtoetsGuiPlugin : GuiPlugin
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GuiPlugin));
+
+        #region failureMechanismAssociations
+
+        private static readonly IEnumerable<FailureMechanismContextAssociation> failureMechanismAssociations = new[]
+        {
+            new FailureMechanismContextAssociation(
+                typeof(PipingFailureMechanism),
+                (mechanism, assessmentSection) => new PipingFailureMechanismContext((PipingFailureMechanism) mechanism, assessmentSection)
+                ),
+            new FailureMechanismContextAssociation(
+                typeof(GrassCoverErosionInwardsFailureMechanism),
+                (mechanism, assessmentSection) => new GrassCoverErosionInwardsFailureMechanismContext((GrassCoverErosionInwardsFailureMechanism) mechanism, assessmentSection)
+                ),
+            new FailureMechanismContextAssociation(
+                typeof(HeightStructuresFailureMechanism),
+                (mechanism, assessmentSection) => new HeightStructuresFailureMechanismContext((HeightStructuresFailureMechanism) mechanism, assessmentSection)
+                ),
+            new FailureMechanismContextAssociation(
+                typeof(DuneErosionFailureMechanism),
+                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(mechanism, assessmentSection)
+                ),
+            new FailureMechanismContextAssociation(
+                typeof(GrassCoverErosionOutwardsFailureMechanism),
+                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(mechanism, assessmentSection)
+                ),
+            new FailureMechanismContextAssociation(
+                typeof(GrassCoverSlipOffInwardsFailureMechanism),
+                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(mechanism, assessmentSection)
+                ),
+            new FailureMechanismContextAssociation(
+                typeof(GrassCoverSlipOffOutwardsFailureMechanism),
+                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(mechanism, assessmentSection)
+                ),
+            new FailureMechanismContextAssociation(
+                typeof(MicrostabilityFailureMechanism),
+                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(mechanism, assessmentSection)
+                ),
+            new FailureMechanismContextAssociation(
+                typeof(PipingStructureFailureMechanism),
+                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(mechanism, assessmentSection)
+                ),
+            new FailureMechanismContextAssociation(
+                typeof(StabilityStoneCoverFailureMechanism),
+                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(mechanism, assessmentSection)
+                ),
+            new FailureMechanismContextAssociation(
+                typeof(TechnicalInnovationFailureMechanism),
+                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(mechanism, assessmentSection)
+                ),
+            new FailureMechanismContextAssociation(
+                typeof(StrengthStabilityLengthwiseConstructionFailureMechanism),
+                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(mechanism, assessmentSection)
+                ),
+            new FailureMechanismContextAssociation(
+                typeof(WaterPressureAsphaltCoverFailureMechanism),
+                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(mechanism, assessmentSection)
+                ),
+            new FailureMechanismContextAssociation(
+                typeof(WaveImpactAsphaltCoverFailureMechanism),
+                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(mechanism, assessmentSection)
+                ),
+            new FailureMechanismContextAssociation(
+                typeof(ClosingStructureFailureMechanism),
+                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(mechanism, assessmentSection)
+                ),
+            new FailureMechanismContextAssociation(
+                typeof(MacrostabilityInwardsFailureMechanism),
+                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(mechanism, assessmentSection)
+                ),
+            new FailureMechanismContextAssociation(
+                typeof(MacrostabilityOutwardsFailureMechanism),
+                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(mechanism, assessmentSection)
+                ),
+            new FailureMechanismContextAssociation(
+                typeof(StrengthStabilityPointConstructionFailureMechanism),
+                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(mechanism, assessmentSection)
+                )
+        };
+
+        #endregion
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
@@ -483,7 +563,7 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
-        # region assessmentSection
+        #region assessmentSection
 
         private object[] AssessmentSectionChildNodeObjects(IAssessmentSection nodeData)
         {
@@ -501,109 +581,14 @@ namespace Ringtoets.Integration.Plugin
             return childNodes.ToArray();
         }
 
-        private static IEnumerable<object> WrapFailureMechanismsInContexts(IAssessmentSection nodeData)
+        private static IEnumerable<object> WrapFailureMechanismsInContexts(IAssessmentSection assessmentSection)
         {
-            foreach (IFailureMechanism failureMechanism in nodeData.GetFailureMechanisms())
-            {
-                var piping = failureMechanism as PipingFailureMechanism;
-                var grassCoverErosionInwards = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
-                var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
-
-                var duneErosion = failureMechanism as DuneErosionFailureMechanism;
-                var grassCoverErosionOutwards = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
-                var grassCoverSlipOffInwards = failureMechanism as GrassCoverSlipOffInwardsFailureMechanism;
-                var grassCoverSlipOffOutwards = failureMechanism as GrassCoverSlipOffOutwardsFailureMechanism;
-                var microstability = failureMechanism as MicrostabilityFailureMechanism;
-                var pipingStructure = failureMechanism as PipingStructureFailureMechanism;
-                var stabilityStoneCover = failureMechanism as StabilityStoneCoverFailureMechanism;
-                var technicalInnovation = failureMechanism as TechnicalInnovationFailureMechanism;
-
-                var strengthStabilityLengthwiseConstruction = failureMechanism as StrengthStabilityLengthwiseConstructionFailureMechanism;
-                var waterPressureAsphaltCover = failureMechanism as WaterPressureAsphaltCoverFailureMechanism;
-                var waveImpactAsphaltCover = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
-
-                var closingStructure = failureMechanism as ClosingStructureFailureMechanism;
-                var macrostabilityInwards = failureMechanism as MacrostabilityInwardsFailureMechanism;
-                var macrostabilityOutwards = failureMechanism as MacrostabilityOutwardsFailureMechanism;
-                var strengthStabilityPointConstruction = failureMechanism as StrengthStabilityPointConstructionFailureMechanism;
-
-                if (piping != null)
-                {
-                    yield return new PipingFailureMechanismContext(piping, nodeData);
-                }
-                else if (grassCoverErosionInwards != null)
-                {
-                    yield return new GrassCoverErosionInwardsFailureMechanismContext(grassCoverErosionInwards, nodeData);
-                }
-                else if (heightStructuresFailureMechanism != null)
-                {
-                    yield return new HeightStructuresFailureMechanismContext(heightStructuresFailureMechanism, nodeData);
-                }
-                else if (duneErosion != null)
-                {
-                    yield return new FailureMechanismContext<IFailureMechanism>(duneErosion, nodeData);
-                }
-                else if (grassCoverErosionOutwards != null)
-                {
-                    yield return new FailureMechanismContext<IFailureMechanism>(grassCoverErosionOutwards, nodeData);
-                }
-                else if (grassCoverSlipOffInwards != null)
-                {
-                    yield return new FailureMechanismContext<IFailureMechanism>(grassCoverSlipOffInwards, nodeData);
-                }
-                else if (grassCoverSlipOffOutwards != null)
-                {
-                    yield return new FailureMechanismContext<IFailureMechanism>(grassCoverSlipOffOutwards, nodeData);
-                }
-                else if (microstability != null)
-                {
-                    yield return new FailureMechanismContext<IFailureMechanism>(microstability, nodeData);
-                }
-                else if (pipingStructure != null)
-                {
-                    yield return new FailureMechanismContext<IFailureMechanism>(pipingStructure, nodeData);
-                }
-                else if (stabilityStoneCover != null)
-                {
-                    yield return new FailureMechanismContext<IFailureMechanism>(stabilityStoneCover, nodeData);
-                }
-                else if (technicalInnovation != null)
-                {
-                    yield return new FailureMechanismContext<IFailureMechanism>(technicalInnovation, nodeData);
-                }
-                else if (strengthStabilityLengthwiseConstruction != null)
-                {
-                    yield return new FailureMechanismContext<IFailureMechanism>(strengthStabilityLengthwiseConstruction, nodeData);
-                }
-                else if (waterPressureAsphaltCover != null)
-                {
-                    yield return new FailureMechanismContext<IFailureMechanism>(waterPressureAsphaltCover, nodeData);
-                }
-                else if (waveImpactAsphaltCover != null)
-                {
-                    yield return new FailureMechanismContext<IFailureMechanism>(waveImpactAsphaltCover, nodeData);
-                }
-                else if (closingStructure != null)
-                {
-                    yield return new FailureMechanismContext<IFailureMechanism>(closingStructure, nodeData);
-                }
-                else if (macrostabilityInwards != null)
-                {
-                    yield return new FailureMechanismContext<IFailureMechanism>(macrostabilityInwards, nodeData);
-                }
-                else if (macrostabilityOutwards != null)
-                {
-                    yield return new FailureMechanismContext<IFailureMechanism>(macrostabilityOutwards, nodeData);
-                }
-                else if (strengthStabilityPointConstruction != null)
-                {
-                    yield return new FailureMechanismContext<IFailureMechanism>(strengthStabilityPointConstruction, nodeData);
-                }
-                else
-                {
-                    throw new NotImplementedException();
-                }
-            }
+            return assessmentSection
+                .GetFailureMechanisms()
+                .Select(failureMechanism => failureMechanismAssociations
+                                                .First(a => a.Match(failureMechanism))
+                                                .Create(failureMechanism, assessmentSection)
+                );
         }
 
         private void AssessmentSectionOnNodeRenamed(IAssessmentSection nodeData, string newName)
@@ -638,9 +623,9 @@ namespace Ringtoets.Integration.Plugin
                       .Build();
         }
 
-        # endregion
+        #endregion
 
-        # region StandAloneFailureMechanismContext
+        #region StandAloneFailureMechanismContext
 
         private object[] StandAloneFailureMechanismEnabledChildNodeObjects(FailureMechanismContext<IFailureMechanism> nodeData)
         {
@@ -801,9 +786,9 @@ namespace Ringtoets.Integration.Plugin
                           .Build();
         }
 
-        # endregion
+        #endregion
 
-        # region CategoryTreeFolder
+        #region CategoryTreeFolder
 
         private Image GetFolderIcon(TreeFolderCategory category)
         {
@@ -990,5 +975,27 @@ namespace Ringtoets.Integration.Plugin
         }
 
         #endregion
+
+        private class FailureMechanismContextAssociation
+        {
+            private readonly Func<IFailureMechanism, IAssessmentSection, object> createFailureMechanismContext;
+            private readonly Type failureMechanismType;
+
+            public FailureMechanismContextAssociation(Type failureMechanismType, Func<IFailureMechanism, IAssessmentSection, object> createFailureMechanismContext)
+            {
+                this.createFailureMechanismContext = createFailureMechanismContext;
+                this.failureMechanismType = failureMechanismType;
+            }
+
+            public bool Match(IFailureMechanism failureMechanism)
+            {
+                return failureMechanism.GetType() == failureMechanismType;
+            }
+
+            public object Create(IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            {
+                return createFailureMechanismContext(failureMechanism, assessmentSection);
+            }
+        }
     }
 }

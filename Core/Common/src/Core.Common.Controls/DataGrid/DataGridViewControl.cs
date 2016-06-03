@@ -99,7 +99,7 @@ namespace Core.Common.Controls.DataGrid
         /// <param name="displayMember">The <see cref="DataGridViewComboBoxColumn.DisplayMember"/> of the column.</param>
         /// <remarks><paramref name="dataPropertyName"/> is also used to create the <see cref="DataGridViewColumn.Name"/>.
         /// The format is "column_<paramref name="dataPropertyName"/>.</remarks>
-        public void AddComboBoxColumn<T>(string dataPropertyName, string headerText, List<T> dataSource, string valueMember, string displayMember)
+        public void AddComboBoxColumn<T>(string dataPropertyName, string headerText, IEnumerable<T> dataSource, string valueMember, string displayMember)
         {
             var dataGridViewComboBoxColumn = new DataGridViewComboBoxColumn
             {
