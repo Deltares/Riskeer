@@ -122,7 +122,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
 
             NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMechanism, 3, 3);
-            AddImportedDataToModel(readFailureMechanismSections, context.ParentFailureMechanism, referenceLine);
+            AddImportedDataToModel(readFailureMechanismSections, context.WrappedData, referenceLine);
             return true;
         }
 

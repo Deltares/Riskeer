@@ -249,7 +249,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.Sections,
-                ForeColor = context => context.WrappedData.Any() ?
+                ForeColor = context => context.WrappedData.Sections.Any() ?
                                            Color.FromKnownColor(KnownColor.ControlText) :
                                            Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = FailureMechanismSectionsContextMenuStrip

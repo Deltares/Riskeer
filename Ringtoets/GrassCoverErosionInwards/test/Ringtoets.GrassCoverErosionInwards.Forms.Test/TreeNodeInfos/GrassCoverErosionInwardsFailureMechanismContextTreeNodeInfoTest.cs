@@ -112,8 +112,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
             Assert.AreEqual(2, inputsFolder.Contents.Count);
             var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
-            CollectionAssert.AreEqual(failureMechanism.Sections, failureMechanismSectionsContext.WrappedData);
-            Assert.AreSame(failureMechanism, failureMechanismSectionsContext.ParentFailureMechanism);
+            Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSectionMock, failureMechanismSectionsContext.ParentAssessmentSection);
             var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[1];
             Assert.AreSame(failureMechanism, commentContext.WrappedData);

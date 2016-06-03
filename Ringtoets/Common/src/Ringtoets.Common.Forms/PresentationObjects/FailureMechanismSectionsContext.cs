@@ -20,8 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using Core.Common.Base;
+using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -30,99 +29,28 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// <summary>
     /// This class is a presentation object for <see cref="IFailureMechanism.Sections"/>.
     /// </summary>
-    public class FailureMechanismSectionsContext : IObservable
+    public class FailureMechanismSectionsContext : ObservableWrappedObjectContextBase<IFailureMechanism>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismSectionsContext"/> class.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism whose sections to wrap.</param>
-        /// <param name="assessmentSection">The owning assessment section of <paramref name="failureMechanism"/>.</param>
+        /// <param name="wrappedFailureMechanism">The failure mechanism to wrap.</param>
+        /// <param name="assessmentSection">The owning assessment section of <paramref name="wrappedFailureMechanism"/>.</param>
         /// <exception cref="System.ArgumentNullException">When any input argument is null.</exception>
-        public FailureMechanismSectionsContext(IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public FailureMechanismSectionsContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection assessmentSection)
+            : base(wrappedFailureMechanism)
         {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException("failureMechanism");
-            }
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException("assessmentSection");
             }
 
-            ParentFailureMechanism = failureMechanism;
             ParentAssessmentSection = assessmentSection;
         }
 
         /// <summary>
-        /// Gets the sequence of <see cref="FailureMechanismSection"/> instances available 
-        /// on the wrapped failure mechanism.
-        /// </summary>
-        public IEnumerable<FailureMechanismSection> WrappedData
-        {
-            get
-            {
-                return ParentFailureMechanism.Sections;
-            }
-        }
-
-        /// <summary>
-        /// Gets failure mechanism that owns the sequence exposed by <see cref="WrappedData"/>.
-        /// </summary>
-        public IFailureMechanism ParentFailureMechanism { get; private set; }
-
-        /// <summary>
-        /// Gets the assessment section that owns <see cref="ParentFailureMechanism"/>.
+        /// Gets the assessment section which the context belongs to.
         /// </summary>
         public IAssessmentSection ParentAssessmentSection { get; private set; }
-
-        #region IObservable
-
-        public void Attach(IObserver observer)
-        {
-            ParentFailureMechanism.Attach(observer);
-        }
-
-        public void Detach(IObserver observer)
-        {
-            ParentFailureMechanism.Detach(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            ParentFailureMechanism.NotifyObservers();
-        }
-
-        #endregion
-
-        #region Equatable
-
-        private bool Equals(FailureMechanismSectionsContext other)
-        {
-            return Equals(ParentFailureMechanism, other.ParentFailureMechanism);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-            return Equals((FailureMechanismSectionsContext) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return ParentFailureMechanism.GetHashCode();
-        }
-
-        #endregion
     }
 }
