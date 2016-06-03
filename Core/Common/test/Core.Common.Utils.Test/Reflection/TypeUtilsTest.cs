@@ -94,6 +94,17 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
+        public void GetMemberName_MethodCallExpression_ReturnMethodName()
+        {
+            // Call
+            var testClass = new TestClass();
+            var memberName = TypeUtils.GetMemberName<TestClass>(t => testClass.PublicMethod());
+
+            // Assert
+            Assert.AreEqual("PublicMethod", memberName);
+        }
+
+        [Test]
         public void GetMemberName_MethodExpressionOfDifferentType_ThrowArgumentException()
         {
             // Call
@@ -400,6 +411,11 @@ namespace Core.Common.Utils.Test.Reflection
             private int PrivateMethod(int i)
             {
                 return i * 2;
+            }
+
+            public object PublicMethod()
+            {
+                return this;
             }
         }
 
