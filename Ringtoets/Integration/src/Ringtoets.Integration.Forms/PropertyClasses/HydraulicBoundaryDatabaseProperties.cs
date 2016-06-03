@@ -24,9 +24,9 @@ using System.Linq;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Data.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
@@ -35,27 +35,27 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryDatabaseContext>
     {
-        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_FilePath_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_FilePath_Description")]
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_FilePath_DisplayName")]
+        [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_FilePath_Description")]
         public string FilePath
         {
             get
             {
-                return data.Parent.HydraulicBoundaryDatabase != null ? data.Parent.HydraulicBoundaryDatabase.FilePath : string.Empty;
+                return data.WrappedData.HydraulicBoundaryDatabase != null ? data.WrappedData.HydraulicBoundaryDatabase.FilePath : string.Empty;
             }
         }
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Description")]
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_DisplayName")]
+        [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_Description")]
         public HydraulicBoundaryLocationProperties[] Locations
         {
             get
             {
-                return data.Parent.HydraulicBoundaryDatabase != null
-                           ? data.Parent.HydraulicBoundaryDatabase.Locations.Select(loc => new HydraulicBoundaryLocationProperties(loc)).ToArray()
+                return data.WrappedData.HydraulicBoundaryDatabase != null
+                           ? data.WrappedData.HydraulicBoundaryDatabase.Locations.Select(loc => new HydraulicBoundaryLocationProperties(loc)).ToArray()
                            : new HydraulicBoundaryLocationProperties[0];
             }
         }

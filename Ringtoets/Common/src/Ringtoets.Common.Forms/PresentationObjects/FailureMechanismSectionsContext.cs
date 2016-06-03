@@ -21,9 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-
 using Core.Common.Base;
-
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -96,7 +94,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
 
         #endregion
 
-        #region Equatible
+        #region Equatable
 
         private bool Equals(FailureMechanismSectionsContext other)
         {
@@ -117,7 +115,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
             {
                 return false;
             }
-            return Equals((FailureMechanismSectionsContext)obj);
+            return Equals((FailureMechanismSectionsContext) obj);
         }
 
         public override int GetHashCode()
@@ -126,6 +124,5 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         }
 
         #endregion
-
     }
 }

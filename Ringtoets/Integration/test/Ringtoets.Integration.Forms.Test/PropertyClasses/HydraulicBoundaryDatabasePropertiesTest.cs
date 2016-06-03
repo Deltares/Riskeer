@@ -56,9 +56,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             HydraulicBoundaryLocationProperties expectedLocationProperties = new HydraulicBoundaryLocationProperties(hydraulicBoundaryLocation);
 
             HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
-            hydraulicBoundaryDatabaseContext.Parent.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabaseContext.Parent.HydraulicBoundaryDatabase.FilePath = "Test";
-            hydraulicBoundaryDatabaseContext.Parent.HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+            hydraulicBoundaryDatabaseContext.WrappedData.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabaseContext.WrappedData.HydraulicBoundaryDatabase.FilePath = "Test";
+            hydraulicBoundaryDatabaseContext.WrappedData.HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Call
             HydraulicBoundaryDatabaseProperties properties = new HydraulicBoundaryDatabaseProperties
@@ -67,9 +67,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryDatabaseContext.Parent.HydraulicBoundaryDatabase.FilePath, properties.FilePath);
+            Assert.AreEqual(hydraulicBoundaryDatabaseContext.WrappedData.HydraulicBoundaryDatabase.FilePath, properties.FilePath);
             CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(HydraulicBoundaryLocationProperties));
-            Assert.AreEqual(1, hydraulicBoundaryDatabaseContext.Parent.HydraulicBoundaryDatabase.Locations.Count);
+            Assert.AreEqual(1, hydraulicBoundaryDatabaseContext.WrappedData.HydraulicBoundaryDatabase.Locations.Count);
 
             HydraulicBoundaryLocationProperties hydraulicBoundaryLocationProperties = properties.Locations.FirstOrDefault();
             Assert.AreEqual(expectedLocationProperties.Name, hydraulicBoundaryLocationProperties.Name);

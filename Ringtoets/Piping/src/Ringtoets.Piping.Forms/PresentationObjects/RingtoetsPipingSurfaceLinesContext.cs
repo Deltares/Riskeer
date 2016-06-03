@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
+using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 
@@ -29,81 +29,27 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     /// <summary>
     /// The presentation object for <see cref="PipingFailureMechanism.SurfaceLines"/>.
     /// </summary>
-    public class RingtoetsPipingSurfaceLinesContext : IObservable
+    public class RingtoetsPipingSurfaceLinesContext : ObservableWrappedObjectContextBase<PipingFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="RingtoetsPipingSurfaceLinesContext"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to wrap.</param>
+        /// <param name="wrappedFailureMechanism">The failure mechanism to wrap.</param>
         /// <param name="assessmentSection">The assessment section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> or <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public RingtoetsPipingSurfaceLinesContext(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedFailureMechanism"/> or <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public RingtoetsPipingSurfaceLinesContext(PipingFailureMechanism wrappedFailureMechanism, IAssessmentSection assessmentSection) : base(wrappedFailureMechanism)
         {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException("failureMechanism");
-            }
-
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException("assessmentSection");
             }
 
-            FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
         }
 
-        public PipingFailureMechanism FailureMechanism { get; private set; }
+        /// <summary>
+        /// Gets the assessment section which the context belongs to.
+        /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
-
-        #region IObservable
-
-        public void Attach(IObserver observer)
-        {
-            FailureMechanism.Attach(observer);
-        }
-
-        public void Detach(IObserver observer)
-        {
-            FailureMechanism.Detach(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            FailureMechanism.NotifyObservers();
-        }
-
-        #endregion
-
-        #region Equatible
-
-        private bool Equals(RingtoetsPipingSurfaceLinesContext other)
-        {
-            return Equals(FailureMechanism, other.FailureMechanism);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-            return Equals((RingtoetsPipingSurfaceLinesContext)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return FailureMechanism.GetHashCode();
-        }
-
-        #endregion
     }
 }

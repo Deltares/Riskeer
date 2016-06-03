@@ -24,18 +24,15 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
-
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.IO.SurfaceLines;
 using Ringtoets.Piping.Primitives;
-
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -109,7 +106,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            var surfaceLinesContext = (RingtoetsPipingSurfaceLinesContext)targetItem;
+            var surfaceLinesContext = (RingtoetsPipingSurfaceLinesContext) targetItem;
 
             var importSurfaceLinesResult = ReadPipingSurfaceLines(filePath);
             if (importSurfaceLinesResult.CriticalErrorOccurred)
@@ -164,7 +161,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             NotifyProgress(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model, 0, readSurfaceLines.Count);
             log.Info(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Start_adding_surface_lines);
 
-            var targetCollection = target.FailureMechanism.SurfaceLines;
+            var targetCollection = target.WrappedData.SurfaceLines;
             List<string> readCharacteristicPointsLocationNames = readCharacteristicPointsLocations.Select(cpl => cpl.Name).ToList();
             int surfaceLineNumber = 1;
             foreach (var readSurfaceLine in readSurfaceLines)
@@ -219,33 +216,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
 
             return result;
-        }
-
-        private class ReferenceLineIntersectionResult
-        {
-            private ReferenceLineIntersectionResult(ReferenceLineIntersectionsResult typeOfIntersection, Point2D intersectionPoint)
-            {
-                TypeOfIntersection = typeOfIntersection;
-                IntersectionPoint = intersectionPoint;
-            }
-
-            public static ReferenceLineIntersectionResult CreateNoSingleIntersectionResult()
-            {
-                return new ReferenceLineIntersectionResult(ReferenceLineIntersectionsResult.NoIntersections, null);
-            }
-
-            public static ReferenceLineIntersectionResult CreateIntersectionResult(Point2D point)
-            {
-                return new ReferenceLineIntersectionResult(ReferenceLineIntersectionsResult.OneIntersection, point);
-            }
-
-            public static ReferenceLineIntersectionResult CreateMultipleIntersectionsOrOverlapResult()
-            {
-                return new ReferenceLineIntersectionResult(ReferenceLineIntersectionsResult.MultipleIntersectionsOrOverlap, null);
-            }
-
-            public ReferenceLineIntersectionsResult TypeOfIntersection { get; private set; }
-            public Point2D IntersectionPoint { get; private set; }
         }
 
         private static ReferenceLineIntersectionResult GetReferenceLineIntersections(ReferenceLine referenceLine, RingtoetsPipingSurfaceLine surfaceLine)
@@ -304,6 +274,33 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             ImportIsCancelled = false;
         }
 
+        private class ReferenceLineIntersectionResult
+        {
+            private ReferenceLineIntersectionResult(ReferenceLineIntersectionsResult typeOfIntersection, Point2D intersectionPoint)
+            {
+                TypeOfIntersection = typeOfIntersection;
+                IntersectionPoint = intersectionPoint;
+            }
+
+            public ReferenceLineIntersectionsResult TypeOfIntersection { get; private set; }
+            public Point2D IntersectionPoint { get; private set; }
+
+            public static ReferenceLineIntersectionResult CreateNoSingleIntersectionResult()
+            {
+                return new ReferenceLineIntersectionResult(ReferenceLineIntersectionsResult.NoIntersections, null);
+            }
+
+            public static ReferenceLineIntersectionResult CreateIntersectionResult(Point2D point)
+            {
+                return new ReferenceLineIntersectionResult(ReferenceLineIntersectionsResult.OneIntersection, point);
+            }
+
+            public static ReferenceLineIntersectionResult CreateMultipleIntersectionsOrOverlapResult()
+            {
+                return new ReferenceLineIntersectionResult(ReferenceLineIntersectionsResult.MultipleIntersectionsOrOverlap, null);
+            }
+        }
+
         #region read piping surface lines
 
         private ReadResult<RingtoetsPipingSurfaceLine> ReadPipingSurfaceLines(string path)
@@ -320,7 +317,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                                path);
 
                 ReadResult<RingtoetsPipingSurfaceLine> readPipingSurfaceLines = ReadPipingSurfaceLines(path, reader);
-                
+
                 log.InfoFormat(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
                                path);
 

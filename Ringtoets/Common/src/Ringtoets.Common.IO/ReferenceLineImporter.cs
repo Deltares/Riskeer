@@ -189,7 +189,7 @@ namespace Ringtoets.Common.IO
                            2, clearReferenceLineDependentData ? 4 : 2);
             assessmentSection.ReferenceLine = importedReferenceLine;
 
-            changedObservables.Add(assessmentSection); // Note: Add assessmentSection to the list of changed observables. Otherwise only the reference line context item will only be notified.
+            changedObservables.Add(assessmentSection); // Note: Add assessmentSection to the list of changed observables. Otherwise only the reference line context item will be notified.
 
             if (clearReferenceLineDependentData && assessmentSection.GetFailureMechanisms() != null)
             {

@@ -20,8 +20,7 @@
 // All rights reserved.
 
 using System;
-
-using Core.Common.Base;
+using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 
@@ -30,84 +29,13 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryDatabase"/>.
     /// </summary>
-    public class HydraulicBoundaryDatabaseContext : IObservable
+    public class HydraulicBoundaryDatabaseContext : ObservableWrappedObjectContextBase<IAssessmentSection>
     {
-        private readonly IAssessmentSection parent;
-
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseContext"/>.
         /// </summary>
-        /// <param name="parent">The <see cref="IAssessmentSection"/> which the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="parent"/> is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseContext(IAssessmentSection parent)
-        {
-            if (parent == null)
-            {
-                throw new ArgumentNullException("parent", "Assessment section cannot be null.");
-            }
-
-            this.parent = parent;
-        }
-
-        /// <summary>
-        /// Gets the <see cref="IAssessmentSection"/> which this context object belongs to.
-        /// </summary>
-        public IAssessmentSection Parent
-        {
-            get
-            {
-                return parent;
-            }
-        }
-
-        #region Equal implementation
-
-        private bool Equals(HydraulicBoundaryDatabaseContext other)
-        {
-            return Equals(parent, other.parent);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-            return Equals((HydraulicBoundaryDatabaseContext) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return (parent != null ? parent.GetHashCode() : 0);
-        }
-
-        #endregion
-
-        #region IObservable
-
-        public void Attach(IObserver observer)
-        {
-            Parent.Attach(observer);
-        }
-
-        public void Detach(IObserver observer)
-        {
-            Parent.Detach(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            Parent.NotifyObservers();
-        }
-
-        #endregion
+        /// <param name="wrappedAssessmentSection">The <see cref="IAssessmentSection"/> which the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedAssessmentSection"/> is <c>null</c>.</exception>
+        public HydraulicBoundaryDatabaseContext(IAssessmentSection wrappedAssessmentSection) : base(wrappedAssessmentSection) {}
     }
 }

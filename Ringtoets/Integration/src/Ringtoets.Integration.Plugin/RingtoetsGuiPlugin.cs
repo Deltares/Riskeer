@@ -196,24 +196,6 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IEnumerable<TResult>, TView> 
-            CreateFailureMechanismResultViewInfo<TResult,TView>() 
-            where TResult : FailureMechanismSectionResult 
-            where TView : FailureMechanismResultView<TResult> 
-        {
-            return new ViewInfo<
-                FailureMechanismSectionResultContext<TResult>, 
-                IEnumerable<TResult>,
-                TView>
-            {
-                GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData,
-                GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
-            };
-        }
-
         /// <summary>
         /// Gets the child data instances that have <see cref="ViewInfo"/> definitions of some parent data object.
         /// </summary>
@@ -297,7 +279,7 @@ namespace Ringtoets.Integration.Plugin
                 Text = hydraulicBoundaryDatabase => RingtoetsFormsResources.HydraulicBoundaryDatabase_DisplayName,
                 Image = hydraulicBoundaryDatabase => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CanRename = (context, o) => false,
-                ForeColor = context => context.Parent.HydraulicBoundaryDatabase == null ?
+                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
                                            Color.FromKnownColor(KnownColor.GrayText) :
                                            Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
@@ -326,6 +308,24 @@ namespace Ringtoets.Integration.Plugin
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
+            };
+        }
+
+        private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IEnumerable<TResult>, TView>
+            CreateFailureMechanismResultViewInfo<TResult, TView>()
+            where TResult : FailureMechanismSectionResult
+            where TView : FailureMechanismResultView<TResult>
+        {
+            return new ViewInfo<
+                FailureMechanismSectionResultContext<TResult>,
+                IEnumerable<TResult>,
+                TView>
+            {
+                GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                CloseForData = CloseFailureMechanismResultViewForData,
+                GetViewData = context => context.WrappedData,
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
         }
 
@@ -406,9 +406,9 @@ namespace Ringtoets.Integration.Plugin
 
             var failureMechanismWithSectionResults = failureMechanism as IHasSectionResults<FailureMechanismSectionResult>;
 
-            return failureMechanism != null 
-                && failureMechanismWithSectionResults != null
-                && ReferenceEquals(viewData, failureMechanismWithSectionResults.SectionResults);
+            return failureMechanism != null
+                   && failureMechanismWithSectionResults != null
+                   && ReferenceEquals(viewData, failureMechanismWithSectionResults.SectionResults);
         }
 
         #endregion
@@ -837,7 +837,7 @@ namespace Ringtoets.Integration.Plugin
             var connectionItem = new StrictContextMenuItem(
                 RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect,
                 RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
-                RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => { SelectDatabaseFile(nodeData.Parent); });
+                RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => { SelectDatabaseFile(nodeData.WrappedData); });
 
             var designWaterLevelItem = new StrictContextMenuItem(
                 RingtoetsFormsResources.DesignWaterLevel_Calculate,
@@ -845,16 +845,16 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.FailureMechanismIcon,
                 (sender, args) =>
                 {
-                    var hrdFile = nodeData.Parent.HydraulicBoundaryDatabase.FilePath;
+                    var hrdFile = nodeData.WrappedData.HydraulicBoundaryDatabase.FilePath;
                     var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hrdFile);
                     if (validationProblem == null)
                     {
                         var hlcdDirectory = Path.GetDirectoryName(hrdFile);
-                        var activities = nodeData.Parent.HydraulicBoundaryDatabase.Locations.Select(hbl => CreateHydraRingTargetProbabilityCalculationActivity(nodeData.Parent, hbl, hlcdDirectory)).ToList();
+                        var activities = nodeData.WrappedData.HydraulicBoundaryDatabase.Locations.Select(hbl => CreateHydraRingTargetProbabilityCalculationActivity(nodeData.WrappedData, hbl, hlcdDirectory)).ToList();
 
                         ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
 
-                        nodeData.Parent.NotifyObservers();
+                        nodeData.WrappedData.NotifyObservers();
                     }
                     else
                     {
@@ -862,7 +862,7 @@ namespace Ringtoets.Integration.Plugin
                     }
                 });
 
-            if (nodeData.Parent.HydraulicBoundaryDatabase == null)
+            if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)
             {
                 designWaterLevelItem.Enabled = false;
                 designWaterLevelItem.ToolTipText = RingtoetsFormsResources.DesignWaterLevel_No_HRD_To_Calculate;

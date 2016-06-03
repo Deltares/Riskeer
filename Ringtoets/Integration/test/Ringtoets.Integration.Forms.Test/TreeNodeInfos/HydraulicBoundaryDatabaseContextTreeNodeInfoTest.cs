@@ -22,13 +22,11 @@
 using System;
 using System.Drawing;
 using System.Linq;
-
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -213,7 +211,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
 
             var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
-            nodeData.Parent.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            nodeData.WrappedData.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
             guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
@@ -228,7 +226,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 plugin.Gui = guiMock;
 
                 // Call
-                nodeData.Parent.HydraulicBoundaryDatabase.FilePath = testDataPath;
+                nodeData.WrappedData.HydraulicBoundaryDatabase.FilePath = testDataPath;
                 var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
 
                 const string expectedItemText = "&Toetspeilen berekenen";
@@ -237,7 +235,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             }
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
-
         }
 
         [Test]
@@ -289,7 +286,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 // Then
                 string message = string.Format("Berekeningen konden niet worden gestart. Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
-                    hydraulicBoundaryDatabase.FilePath);
+                                               hydraulicBoundaryDatabase.FilePath);
                 TestHelper.AssertLogMessageWithLevelIsGenerated(action, new Tuple<string, LogLevelConstant>(message, LogLevelConstant.Error));
 
                 Assert.IsNaN(hydraulicBoundaryLocation1.DesignWaterLevel); // No result set
