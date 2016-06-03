@@ -22,6 +22,8 @@
 using System;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Exceptions;
+
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
@@ -44,6 +46,8 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="registry"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
+        /// <exception cref="EntityNotFoundException">When <paramref name="mechanism"/>
+        /// does not have a corresponding entity in <paramref name="context"/>.</exception>
         internal static void Update(this PipingFailureMechanism mechanism, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)

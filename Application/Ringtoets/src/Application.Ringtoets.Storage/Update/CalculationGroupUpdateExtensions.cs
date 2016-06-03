@@ -48,6 +48,8 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="registry"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
+        /// <exception cref="EntityNotFoundException">When <paramref name="calculationGroup"/>
+        /// does not have a corresponding entity in <paramref name="context"/>.</exception>
         internal static void Update(this CalculationGroup calculationGroup, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (registry == null)

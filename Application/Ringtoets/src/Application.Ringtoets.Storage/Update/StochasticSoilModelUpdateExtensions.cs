@@ -50,6 +50,8 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="registry"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
+        /// <exception cref="EntityNotFoundException">When <paramref name="model"/>
+        /// does not have a corresponding entity in <paramref name="context"/>.</exception>
         internal static void Update(this StochasticSoilModel model, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)

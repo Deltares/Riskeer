@@ -173,6 +173,7 @@
     <Compile Include="Update\CalculationGroupUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverErosionInwardsFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\IFailureMechanismUpdateExtensions.cs" />
+    <Compile Include="Update\PipingCalculationScenarioUpdateExtensions.cs" />
     <Compile Include="Update\RingtoetsPipingSurfaceLineUpdateExtensions.cs" />
     <Compile Include="Update\FailureMechanismSectionUpdateExtensions.cs" />
     <Compile Include="Update\HydraulicBoundaryLocationUpdateExtensions.cs" />
