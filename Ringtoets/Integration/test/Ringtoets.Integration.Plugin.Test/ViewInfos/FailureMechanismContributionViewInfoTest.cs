@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewName = info.GetViewName(view, failureMechanismContribution);
 
             // Assert
-            Assert.AreEqual("Faalkansverdeling", viewName);
+            Assert.AreEqual("Faalkansbegroting", viewName);
         }
 
         [Test]
