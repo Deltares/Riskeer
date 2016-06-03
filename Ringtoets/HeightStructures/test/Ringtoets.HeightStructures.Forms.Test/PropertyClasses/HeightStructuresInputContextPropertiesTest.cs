@@ -21,9 +21,11 @@
 
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -31,6 +33,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.HeightStructures.Forms.Properties;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
 using Ringtoets.HydraRing.Data;
 using CoreCommonBasePropertiesResources = Core.Common.Base.Properties.Resources;
@@ -161,18 +164,93 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             var random = new Random(100);
             var newOrientationOfTheNormalOfTheStructure = new RoundedDouble(2, random.NextDouble());
-            var newFailureProbabilityOfStructureGivenErosion = "100";
+            var newFailureProbabilityOfStructureGivenErosion = 0.01;
 
             // Call
             properties.OrientationOfTheNormalOfTheStructure = newOrientationOfTheNormalOfTheStructure;
-            properties.FailureProbabilityOfStructureGivenErosion = newFailureProbabilityOfStructureGivenErosion;
+            properties.FailureProbabilityOfStructureGivenErosion = newFailureProbabilityOfStructureGivenErosion.ToString(CultureInfo.InvariantCulture);
             properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             // Assert
             Assert.AreEqual(newOrientationOfTheNormalOfTheStructure, properties.OrientationOfTheNormalOfTheStructure);
-            Assert.AreEqual(string.Format("1/{0}", newFailureProbabilityOfStructureGivenErosion), properties.FailureProbabilityOfStructureGivenErosion);
+            Assert.AreEqual(string.Format("1/{0}", 1/newFailureProbabilityOfStructureGivenErosion), properties.FailureProbabilityOfStructureGivenErosion);
             Assert.AreSame(hydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(double.MaxValue)]
+        public void SetFailureProbabilityOfStructureGivenErosion_InvalidValues_ThrowsArgumentException(double newValue)
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var calculationMock = mockRepository.StrictMock<ICalculation>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var input = new HeightStructuresInput();
+            var inputContext = new HeightStructuresInputContext(input, calculationMock, failureMechanism, assessmentSectionMock);
+
+            var properties = new HeightStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.FailureProbabilityOfStructureGivenErosion = newValue.ToString(CultureInfo.InvariantCulture);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, Resources.FailureProbabilityOfStructureGivenErosion_Value_too_large);
+        }
+
+        [Test]
+        [TestCase("no double value")]
+        [TestCase("")]
+        public void SetFailureProbabilityOfStructureGivenErosion_ValuesUnableToParse_ThrowsArgumentException(string newValue)
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var calculationMock = mockRepository.StrictMock<ICalculation>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var input = new HeightStructuresInput();
+            var inputContext = new HeightStructuresInputContext(input, calculationMock, failureMechanism, assessmentSectionMock);
+
+            var properties = new HeightStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.FailureProbabilityOfStructureGivenErosion = newValue;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, Resources.FailureProbabilityOfStructureGivenErosion_Could_not_parse_string_to_double_value);
+        }
+
+        [Test]
+        public void SetFailureProbabilityOfStructureGivenErosion_NullValue_ThrowsArgumentException()
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var calculationMock = mockRepository.StrictMock<ICalculation>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var input = new HeightStructuresInput();
+            var inputContext = new HeightStructuresInputContext(input, calculationMock, failureMechanism, assessmentSectionMock);
+
+            var properties = new HeightStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.FailureProbabilityOfStructureGivenErosion = null;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, Resources.FailureProbabilityOfStructureGivenErosion_Value_cannot_be_null);
         }
 
         [Test]
@@ -253,7 +331,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor stormDurationProperty = dynamicProperties[stormDurationPropertyIndex];
             Assert.AreEqual("Hydraulische gegevens", stormDurationProperty.Category);
-            Assert.AreEqual("Stormduur [uren]", stormDurationProperty.DisplayName);
+            Assert.AreEqual("Stormduur [uur]", stormDurationProperty.DisplayName);
             Assert.AreEqual("De duur van de storm dat gebruikt wordt tijdens de berekening.", stormDurationProperty.Description);
 
             mockRepository.VerifyAll();

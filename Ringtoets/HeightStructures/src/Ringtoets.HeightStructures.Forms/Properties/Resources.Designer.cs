@@ -143,6 +143,15 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal..
+        /// </summary>
+        public static string FailureProbabilityOfStructureGivenErosion_Could_not_parse_string_to_double_value {
+            get {
+                return ResourceManager.GetString("FailureProbabilityOfStructureGivenErosion_Could_not_parse_string_to_double_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De faalkans van het kunstwerk gegeven de erosie in de bodem..
         /// </summary>
         public static string FailureProbabilityOfStructureGivenErosion_Description {
@@ -157,6 +166,24 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         public static string FailureProbabilityOfStructureGivenErosion_DisplayName {
             get {
                 return ResourceManager.GetString("FailureProbabilityOfStructureGivenErosion_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde voor de faalkans moet ingevuld zijn..
+        /// </summary>
+        public static string FailureProbabilityOfStructureGivenErosion_Value_cannot_be_null {
+            get {
+                return ResourceManager.GetString("FailureProbabilityOfStructureGivenErosion_Value_cannot_be_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde voor de faalkans is te groot of te klein..
+        /// </summary>
+        public static string FailureProbabilityOfStructureGivenErosion_Value_too_large {
+            get {
+                return ResourceManager.GetString("FailureProbabilityOfStructureGivenErosion_Value_too_large", resourceCulture);
             }
         }
         
@@ -402,7 +429,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stormduur [uren].
+        ///   Looks up a localized string similar to Stormduur [uur].
         /// </summary>
         public static string StormDuration_DisplayName {
             get {

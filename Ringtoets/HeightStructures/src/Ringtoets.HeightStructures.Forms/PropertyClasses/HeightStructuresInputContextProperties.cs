@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
@@ -75,7 +76,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         /// <summary>
         /// Returns the available hydraulic boundary locations in order for the user to select one to 
-        /// set <see cref="HeightStructuresInput.HydraulicBoundaryLocation"/>. </summary>
+        /// set <see cref="HeightStructuresInput.HydraulicBoundaryLocation"/>.</summary>
         /// <returns>The available hydraulic boundary locations.</returns>
         public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
         {
@@ -84,13 +85,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         private static string ToProbabilityFormat(RoundedDouble probability)
         {
-            return string.Format(CoreCommonBasePropertiesResources.ProbabilityPerYearFormat, probability);
-        }
-
-        private static double FromProbabilityFormat(string probabilityFormat)
-        {
-            var value = probabilityFormat.Replace("1/", "");
-            return double.Parse(value);
+            var d = (RoundedDouble) (1/probability);
+            return string.Format(CoreCommonBasePropertiesResources.ProbabilityPerYearFormat, d);
         }
 
         #region Schematisation
@@ -220,7 +216,22 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.FailureProbabilityOfStructureGivenErosion = (RoundedDouble) FromProbabilityFormat(value);
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value", Resources.FailureProbabilityOfStructureGivenErosion_Value_cannot_be_null);
+                }
+                try
+                {
+                    data.WrappedData.FailureProbabilityOfStructureGivenErosion = (RoundedDouble) double.Parse(value);
+                }
+                catch (OverflowException)
+                {
+                    throw new ArgumentException(Resources.FailureProbabilityOfStructureGivenErosion_Value_too_large);
+                }
+                catch (FormatException)
+                {
+                    throw new ArgumentException(Resources.FailureProbabilityOfStructureGivenErosion_Could_not_parse_string_to_double_value);
+                }
                 data.WrappedData.NotifyObservers();
             }
         }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
@@ -138,7 +139,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         private void AssertDemoInput(HeightStructuresInput inputParameters)
         {
             Assert.AreEqual(2, inputParameters.LevelOfCrestOfStructure.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(3.5, inputParameters.LevelOfCrestOfStructure.Mean.Value);
+            Assert.AreEqual(5.74, inputParameters.LevelOfCrestOfStructure.Mean.Value);
             Assert.AreEqual(2, inputParameters.OrientationOfTheNormalOfTheStructure.NumberOfDecimalPlaces);
             Assert.AreEqual(115, inputParameters.OrientationOfTheNormalOfTheStructure.Value);
             Assert.AreEqual(2, inputParameters.AllowableIncreaseOfLevelForStorage.Mean.NumberOfDecimalPlaces);
@@ -153,7 +154,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(18, inputParameters.WidthOfFlowApertures.Mean.Value);
             Assert.AreEqual(2, inputParameters.DeviationOfTheWaveDirection.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, inputParameters.DeviationOfTheWaveDirection.Value);
-            Assert.AreEqual(2, inputParameters.FailureProbabilityOfStructureGivenErosion.NumberOfDecimalPlaces);
+            Assert.AreEqual(RoundedDouble.MaximumNumberOfDecimalPlaces, inputParameters.FailureProbabilityOfStructureGivenErosion.NumberOfDecimalPlaces);
             Assert.AreEqual(1, inputParameters.FailureProbabilityOfStructureGivenErosion.Value);
         }
 

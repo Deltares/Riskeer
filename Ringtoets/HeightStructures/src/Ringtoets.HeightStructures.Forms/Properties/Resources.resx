@@ -230,12 +230,21 @@
     <value>De duur van de storm dat gebruikt wordt tijdens de berekening.</value>
   </data>
   <data name="StormDuration_DisplayName" xml:space="preserve">
-    <value>Stormduur [uren]</value>
+    <value>Stormduur [uur]</value>
   </data>
   <data name="WidthOfFlowApertures_Description" xml:space="preserve">
     <value>De breedte van de kruin van het kunstwerk die gebruikt wordt tijdens de berekening.</value>
   </data>
   <data name="WidthOfFlowApertures_DisplayName" xml:space="preserve">
     <value>Breedte van de kruin van het kunstwerk [m]</value>
+  </data>
+  <data name="FailureProbabilityOfStructureGivenErosion_Could_not_parse_string_to_double_value" xml:space="preserve">
+    <value>De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.</value>
+  </data>
+  <data name="FailureProbabilityOfStructureGivenErosion_Value_too_large" xml:space="preserve">
+    <value>De waarde voor de faalkans is te groot of te klein.</value>
+  </data>
+  <data name="FailureProbabilityOfStructureGivenErosion_Value_cannot_be_null" xml:space="preserve">
+    <value>De waarde voor de faalkans moet ingevuld zijn.</value>
   </data>
 </root>

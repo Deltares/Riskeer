@@ -22,10 +22,12 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.HeightStructures.Data.Properties;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HeightStructures.Data.Test
@@ -252,19 +254,34 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void Properties_FailureProbabilityOfStructureGivenErosion_ExpectedValues()
+        [TestCase(0)]
+        [TestCase(0.5)]
+        [TestCase(1)]
+        public void Properties_ValidFailureProbabilityOfStructureGivenErosion_ExpectedValues(double failureProbabilityOfStructureGivenErosion)
         {
             // Setup
             var input = new HeightStructuresInput();
-            var random = new Random(22);
-
-            RoundedDouble failureProbabilityOfStructureGivenErosion = new RoundedDouble(5, random.NextDouble());
 
             // Call
-            input.FailureProbabilityOfStructureGivenErosion = failureProbabilityOfStructureGivenErosion;
+            input.FailureProbabilityOfStructureGivenErosion = (RoundedDouble)failureProbabilityOfStructureGivenErosion;
 
             // Assert
             AssertAreEqual(failureProbabilityOfStructureGivenErosion, input.FailureProbabilityOfStructureGivenErosion);
+        }
+
+        [Test]
+        [TestCase(-0.1)]
+        [TestCase(1.1)]
+        public void Properties_InvalidFailureProbabilityOfStructureGivenErosion_ExpectedValues(double failureProbabilityOfStructureGivenErosion)
+        {
+            // Setup
+            var input = new HeightStructuresInput();
+
+            // Call
+            TestDelegate call = () => input.FailureProbabilityOfStructureGivenErosion = (RoundedDouble)failureProbabilityOfStructureGivenErosion;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call,Resources.FailureProbabilityOfStructureGivenErosion_Value_needs_to_be_between_0_and_1);
         }
 
         [Test]

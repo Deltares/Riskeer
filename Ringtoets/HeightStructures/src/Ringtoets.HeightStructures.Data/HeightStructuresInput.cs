@@ -19,10 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.HeightStructures.Data.Properties;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HeightStructures.Data
@@ -41,14 +43,16 @@ namespace Ringtoets.HeightStructures.Data
         private readonly NormalDistribution widthOfFlowApertures;
         private readonly LogNormalDistribution stormDuration;
         private RoundedDouble orientationOfTheNormalOfTheStructure;
-        private RoundedDouble failureProbabilityOfStructureGivenErosion;
         private RoundedDouble deviationOfTheWaveDirection;
+        private RoundedDouble failureProbabilityOfStructureGivenErosion;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresInput"/> class.
         /// </summary>
         public HeightStructuresInput()
         {
+            failureProbabilityOfStructureGivenErosion = (RoundedDouble) 1;
+
             levelOfCrestOfStructure = new NormalDistribution(2)
             {
                 StandardDeviation = (RoundedDouble) 0.05
@@ -85,8 +89,6 @@ namespace Ringtoets.HeightStructures.Data
                 Mean = (RoundedDouble) 1.0
             };
             criticalOvertoppingDischarge.SetStandardDeviationFromVariationCoefficient(0.15);
-
-            failureProbabilityOfStructureGivenErosion = new RoundedDouble(2);
 
             widthOfFlowApertures = new NormalDistribution(2)
             {
@@ -260,6 +262,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets or sets the failure probability of structure given erosion.
         /// </summary>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is not in range [0, 1].</exception>
         public RoundedDouble FailureProbabilityOfStructureGivenErosion
         {
             get
@@ -268,8 +271,11 @@ namespace Ringtoets.HeightStructures.Data
             }
             set
             {
-                failureProbabilityOfStructureGivenErosion = value.ToPrecision(
-                    failureProbabilityOfStructureGivenErosion.NumberOfDecimalPlaces);
+                if (value < 0 || value > 1)
+                {
+                    throw new ArgumentException(Resources.FailureProbabilityOfStructureGivenErosion_Value_needs_to_be_between_0_and_1);
+                }
+                failureProbabilityOfStructureGivenErosion = value;
             }
         }
 
