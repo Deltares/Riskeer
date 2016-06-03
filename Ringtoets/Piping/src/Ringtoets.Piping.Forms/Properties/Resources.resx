@@ -581,7 +581,7 @@
     <value>Piping</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_Categories_Sellmeijer" xml:space="preserve">
-    <value>Interne erosie (Sellmeijer)</value>
+    <value>Terugschrijdende erosie (Sellmeijer)</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_Categories_Uplift" xml:space="preserve">
     <value>Opbarsten</value>

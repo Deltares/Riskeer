@@ -30,13 +30,21 @@ namespace Core.Common.Utils.Attributes
     /// <remarks>Do not combine with <see cref="CategoryAttribute"/>.</remarks>
     public sealed class ResourcesCategoryAttribute : CategoryAttribute
     {
+        private const char nonPrintableChar = '\t';
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ResourcesCategoryAttribute"/> class.
         /// </summary>
         /// <param name="resourceType">Type of the resource file.</param>
         /// <param name="resourceName">Name of the string resource property to be used as category.</param>
+        /// <param name="position">The position of the category.</param>
+        /// <param name="totalCategories">The total amount of categories in the control.</param>
         /// <exception cref="InvalidOperationException">Resource cannot be found or does 
         /// not have the given resource name.</exception>
-        public ResourcesCategoryAttribute(Type resourceType, string resourceName) : base(ResourceHelper.GetResourceLookup(resourceType, resourceName)) {}
+        /// <remarks>Implemented as proposed at http://stackoverflow.com/a/21441892/. </remarks>
+        public ResourcesCategoryAttribute(Type resourceType, string resourceName, ushort position = 0, ushort totalCategories = 0) : 
+            base(ResourceHelper.GetResourceLookup(resourceType, resourceName)
+                               .PadLeft(ResourceHelper.GetResourceLookup(resourceType, resourceName).Length + (totalCategories - position),
+                                        nonPrintableChar)) {}
     }
 }

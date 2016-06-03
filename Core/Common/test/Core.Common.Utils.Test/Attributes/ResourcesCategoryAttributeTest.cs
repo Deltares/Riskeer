@@ -41,5 +41,25 @@ namespace Core.Common.Utils.Test.Attributes
             // Assert
             Assert.AreEqual(Resources.SomeStringResource, attribute.Category);
         }
+
+        [Test]
+        public void ParameteredConstructor_StringResourceAtPosition_AddTabsForPosition()
+        {
+            // Call
+            var attribute = new ResourcesCategoryAttribute(typeof(Resources), "SomeStringResource", 1, 2);
+
+            // Assert
+            Assert.AreEqual(string.Format("\t{0}", Resources.SomeStringResource), attribute.Category);
+        }
+
+        [Test]
+        public void ParameteredConstructor_StringResourceAtPositionMoreThanCategoryAmount_NoTabsAdded()
+        {
+            // Call
+            var attribute = new ResourcesCategoryAttribute(typeof(Resources), "SomeStringResource", 4, 2);
+
+            // Assert
+            Assert.AreEqual(Resources.SomeStringResource, attribute.Category);
+        }
     }
 }
