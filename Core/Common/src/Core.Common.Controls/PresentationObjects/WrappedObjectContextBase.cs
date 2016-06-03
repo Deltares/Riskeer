@@ -71,16 +71,16 @@ namespace Core.Common.Controls.PresentationObjects
             {
                 return false;
             }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
-            return Equals(obj as WrappedObjectContextBase<T>);
-        }
 
-        public override int GetHashCode()
-        {
-            return WrappedData.GetHashCode();
+            return Equals(obj as WrappedObjectContextBase<T>);
         }
 
         #endregion
