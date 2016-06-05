@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -42,10 +43,11 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<IObservable>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<StochasticSoilModel>>>(context);
+            Assert.AreSame(failureMechanism.StochasticSoilModels, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocks.VerifyAll();
@@ -56,11 +58,12 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
+            var stochasticSoilModels = new ObservableList<StochasticSoilModel>();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new StochasticSoilModelContext(null, assessmentSection);
+            TestDelegate test = () => new StochasticSoilModelContext(stochasticSoilModels, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -75,207 +78,11 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate test = () => new StochasticSoilModelContext(failureMechanism, null);
+            TestDelegate test = () => new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void Attach_Observer_ObserverAttachedToStochasticSoilModels()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
-
-            // Call
-            context.Attach(observer);
-
-            // Assert
-            failureMechanism.StochasticSoilModels.NotifyObservers(); // Notification on wrapped object
-            mocks.VerifyAll(); // Expected UpdateObserver call
-        }
-
-        [Test]
-        public void Detach_Observer_ObserverDetachedFromStochasticSoilModels()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
-
-            context.Attach(observer);
-
-            // Call
-            context.Detach(observer);
-
-            // Assert
-            failureMechanism.StochasticSoilModels.NotifyObservers(); // Notification on wrapped object
-            mocks.VerifyAll(); // Expected no UpdateObserver call
-        }
-
-        [Test]
-        public void NotifyObservers_ObserverAttachedToStochasticSoilModels_NotificationCorrectlyPropagated()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
-
-            failureMechanism.StochasticSoilModels.Attach(observer); // Attach to wrapped object
-
-            // Call
-            context.NotifyObservers(); // Notification on context
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToItself_ReturnTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new PipingFailureMechanism();
-            mocks.ReplayAll();
-
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
-
-            // Call
-            bool isEqual = context.Equals(context);
-
-            // Assert
-            Assert.IsTrue(isEqual);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToNull_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new PipingFailureMechanism();
-            mocks.ReplayAll();
-
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
-            // Call
-            bool isEqual = context.Equals(null);
-
-            // Assert
-            Assert.IsFalse(isEqual);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToEqualOtherInstance_ReturnTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new PipingFailureMechanism();
-            mocks.ReplayAll();
-
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
-
-            var otherContext = new StochasticSoilModelContext(failureMechanism, assessmentSection);
-
-            // Call
-            bool isEqual = context.Equals(otherContext);
-            bool isEqual2 = otherContext.Equals(context);
-
-            // Assert
-            Assert.IsTrue(isEqual);
-            Assert.IsTrue(isEqual2);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToInequalOtherInstance_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new PipingFailureMechanism();
-            var otherFailureMechanism = new PipingFailureMechanism();
-            mocks.ReplayAll();
-
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
-
-            var otherContext = new StochasticSoilModelContext(otherFailureMechanism, assessmentSection);
-
-            // Call
-            bool isEqual = context.Equals(otherContext);
-            bool isEqual2 = otherContext.Equals(context);
-
-            // Assert
-            Assert.IsFalse(isEqual);
-            Assert.IsFalse(isEqual2);
-            mocks.VerifyAll();
-        }
-        
-        [Test]
-        public void Equals_ToInequalOtherObject_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new PipingFailureMechanism();
-            mocks.ReplayAll();
-
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
-            var otherContext = new Object();
-
-            // Call
-            bool isEqual = context.Equals(otherContext);
-
-            // Assert
-            Assert.IsFalse(isEqual);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetHashCode_TwoContextInstancesEqualToEachOther_ReturnIdenticalHashes()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new PipingFailureMechanism();
-            mocks.ReplayAll();
-
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
-
-            var otherContext = new StochasticSoilModelContext(failureMechanism, assessmentSection);
-            // Precondition
-            Assert.True(context.Equals(otherContext));
-
-            // Call
-            int contextHashCode = context.GetHashCode();
-            int otherContextHashCode = otherContext.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(contextHashCode, otherContextHashCode);
-            mocks.VerifyAll();
         }
     }
 }

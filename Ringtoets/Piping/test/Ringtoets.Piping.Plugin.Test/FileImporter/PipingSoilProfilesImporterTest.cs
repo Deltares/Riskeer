@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var targetContext = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            var targetContext = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             var importer = new PipingSoilProfilesImporter();
 
@@ -85,7 +85,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var targetContext = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            var targetContext = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             var importer = new PipingSoilProfilesImporter();
 
@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
 
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSoilProfilesImporter
@@ -119,7 +119,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             // Precondition
-            CollectionAssert.IsEmpty(context.FailureMechanism.StochasticSoilModels);
+            CollectionAssert.IsEmpty(context.WrappedData);
 
             var importResult = true;
 
@@ -134,7 +134,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 StringAssert.EndsWith(message, messageArray[0]);
             });
             Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(context.FailureMechanism.StochasticSoilModels);
+            CollectionAssert.IsEmpty(context.WrappedData);
             Assert.AreEqual(1, progress);
 
             mockRepository.VerifyAll(); // 'observer' should not be notified
@@ -153,7 +153,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
 
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSoilProfilesImporter
@@ -162,7 +162,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             // Precondition
-            CollectionAssert.IsEmpty(context.FailureMechanism.StochasticSoilModels);
+            CollectionAssert.IsEmpty(context.WrappedData);
 
             var importResult = true;
 
@@ -177,7 +177,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 StringAssert.EndsWith(message, messageArray[0]);
             });
             Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(context.FailureMechanism.StochasticSoilModels);
+            CollectionAssert.IsEmpty(context.WrappedData);
             Assert.AreEqual(1, progress);
 
             mockRepository.VerifyAll(); // 'observer' should not be notified
@@ -195,7 +195,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
 
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSoilProfilesImporter
@@ -204,7 +204,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             // Precondition
-            CollectionAssert.IsEmpty(context.FailureMechanism.StochasticSoilModels);
+            CollectionAssert.IsEmpty(context.WrappedData);
             var importResult = true;
 
             // Call
@@ -214,7 +214,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var expectedMessage = "Er is geen referentielijn beschikbaar. Geen data ingelezen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(context.FailureMechanism.StochasticSoilModels);
+            CollectionAssert.IsEmpty(context.WrappedData);
             Assert.AreEqual(0, progress);
 
             mockRepository.VerifyAll(); // 'observer' should not be notified
@@ -238,7 +238,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
             };
 
-            var context = new StochasticSoilModelContext(pipingFailureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(pipingFailureMechanism.StochasticSoilModels, pipingFailureMechanism, assessmentSection);
             context.Attach(observer);
 
             // Call
@@ -297,13 +297,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 ProgressChanged = IncrementProgress
             };
 
-            var context = new StochasticSoilModelContext(pipingFailureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(pipingFailureMechanism.StochasticSoilModels, pipingFailureMechanism, assessmentSection);
             context.Attach(observer);
             var importResult = false;
 
             // Precondition
             importer.Import(context, validFilePath);
-            var alreadyImportedSoilModelNames = context.FailureMechanism.StochasticSoilModels.Select(ssm => ssm.Name);
+            var alreadyImportedSoilModelNames = context.WrappedData.Select(ssm => ssm.Name);
 
             // Call
             Action call = () => importResult = importer.Import(context, validFilePath);
@@ -330,7 +330,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
 
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSoilProfilesImporter
@@ -339,7 +339,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             // Precondition
-            CollectionAssert.IsEmpty(context.FailureMechanism.StochasticSoilModels);
+            CollectionAssert.IsEmpty(context.WrappedData);
             Assert.IsTrue(File.Exists(validFilePath));
 
             importer.Cancel();
@@ -352,7 +352,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, ApplicationResources.PipingSoilProfilesImporter_Import_Import_cancelled, 1);
             Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(context.FailureMechanism.StochasticSoilModels);
+            CollectionAssert.IsEmpty(context.WrappedData);
             Assert.AreEqual(1, progress);
 
             mockRepository.VerifyAll(); // 'observer' should not be notified
@@ -372,7 +372,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
 
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSoilProfilesImporter
@@ -409,7 +409,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
 
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSoilProfilesImporter
@@ -428,8 +428,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                                    internalErrorMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(context.FailureMechanism.StochasticSoilModels,
-                                     "No items should be added to collection when import is aborted.");
+            CollectionAssert.IsEmpty(context.WrappedData, "No items should be added to collection when import is aborted.");
             Assert.AreEqual(1, progress);
 
             mockRepository.VerifyAll(); // Expect no calls on 'observer'
@@ -447,7 +446,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
 
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSoilProfilesImporter
@@ -474,7 +473,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
 
             Assert.IsTrue(importResult);
-            Assert.AreEqual(0, context.FailureMechanism.StochasticSoilModels.Count);
+            Assert.AreEqual(0, context.WrappedData.Count);
             Assert.AreEqual(7, progress);
 
             mockRepository.VerifyAll(); // Ensure there are no calls to UpdateObserver
@@ -492,7 +491,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
 
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSoilProfilesImporter
@@ -504,7 +503,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importResult = importer.Import(context, corruptPath);
 
             Assert.IsTrue(importResult);
-            Assert.AreEqual(0, context.FailureMechanism.StochasticSoilModels.Count);
+            Assert.AreEqual(0, context.WrappedData.Count);
 
             mockRepository.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
@@ -521,7 +520,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
 
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSoilProfilesImporter
@@ -556,7 +555,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
 
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSoilProfilesImporter
@@ -591,7 +590,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var importer = new PipingSoilProfilesImporter();
 
-            var context = new StochasticSoilModelContext(pipingFailureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(pipingFailureMechanism.StochasticSoilModels, pipingFailureMechanism, assessmentSection);
 
             // Call
             var importResult = importer.Import(context, validFilePath);
@@ -632,7 +631,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var importer = new PipingSoilProfilesImporter();
 
-            var context = new StochasticSoilModelContext(pipingFailureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(pipingFailureMechanism.StochasticSoilModels, pipingFailureMechanism, assessmentSection);
 
             // Call
             var importResult = importer.Import(context, validFilePath);
@@ -672,7 +671,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
 
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSoilProfilesImporter();
@@ -705,7 +704,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
 
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSoilProfilesImporter
@@ -775,7 +774,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
 
-            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSoilProfilesImporter

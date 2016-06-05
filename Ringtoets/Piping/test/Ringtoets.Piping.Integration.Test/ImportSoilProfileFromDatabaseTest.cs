@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Integration.Test
             assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
-            var context = new StochasticSoilModelContext(pipingFailureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(pipingFailureMechanism.StochasticSoilModels, pipingFailureMechanism, assessmentSection);
             context.Attach(observer);
 
             // When
@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Integration.Test
             assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
-            var context = new StochasticSoilModelContext(pipingFailureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(pipingFailureMechanism.StochasticSoilModels, pipingFailureMechanism, assessmentSection);
             context.Attach(observer);
 
             // When
@@ -177,7 +177,7 @@ namespace Ringtoets.Piping.Integration.Test
             assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
-            var context = new StochasticSoilModelContext(pipingFailureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(pipingFailureMechanism.StochasticSoilModels, pipingFailureMechanism, assessmentSection);
             context.Attach(observer);
 
             // When

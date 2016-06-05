@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var failureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelContext>(failureMechanismMock, assessmentSectionMock);
+            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelContext>(failureMechanismMock.StochasticSoilModels, failureMechanismMock, assessmentSectionMock);
             mocks.ReplayAll();
 
             // Call
@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var failureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelContext>(failureMechanismMock, assessmentSectionMock);
+            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelContext>(failureMechanismMock.StochasticSoilModels, failureMechanismMock, assessmentSectionMock);
             mocks.ReplayAll();
 
             // Call
@@ -114,7 +114,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var failureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelContext>(failureMechanismMock, assessmentSectionMock);
+            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelContext>(failureMechanismMock.StochasticSoilModels, failureMechanismMock, assessmentSectionMock);
             mocks.ReplayAll();
 
             // Call
@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var failureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelContext>(failureMechanismMock, assessmentSectionMock);
+            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelContext>(failureMechanismMock.StochasticSoilModels, failureMechanismMock, assessmentSectionMock);
             failureMechanismMock.StochasticSoilModels.Add(new StochasticSoilModel(0, "Name", "Name"));
             mocks.ReplayAll();
 
@@ -172,7 +172,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var failureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelContext>(failureMechanismMock, assessmentSectionMock);
+            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelContext>(failureMechanismMock.StochasticSoilModels, failureMechanismMock, assessmentSectionMock);
             failureMechanismMock.StochasticSoilModels.Add(stochasticSoilModel);
 
             mocks.ReplayAll();

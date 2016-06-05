@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 
@@ -29,15 +30,19 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     /// <summary>
     /// The presentation object for <see cref="PipingFailureMechanism.StochasticSoilModels"/>.
     /// </summary>
-    public class StochasticSoilModelContext : IObservable
+    public class StochasticSoilModelContext : ObservableWrappedObjectContextBase<ObservableList<StochasticSoilModel>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilModelContext"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to wrap.</param>
+        /// <param name="wrappedStochasticSoilModels">The stochastic soil models to wrap.</param>
+        /// <param name="failureMechanism">The failure mechanism.</param>
         /// <param name="assessmentSection">The assessment section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> or <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public StochasticSoilModelContext(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        /// <exception cref="ArgumentNullException">Thrown when one of the parameters is <c>null</c>.</exception>
+        public StochasticSoilModelContext(ObservableList<StochasticSoilModel> wrappedStochasticSoilModels,
+                                          PipingFailureMechanism failureMechanism,
+                                          IAssessmentSection assessmentSection)
+            : base(wrappedStochasticSoilModels)
         {
             if (failureMechanism == null)
             {
@@ -53,57 +58,14 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
             AssessmentSection = assessmentSection;
         }
 
+        /// <summary>
+        /// Gets the failure mechanism which the context belongs to.
+        /// </summary>
         public PipingFailureMechanism FailureMechanism { get; private set; }
+
+        /// <summary>
+        /// Gets the assessment section which the context belongs to.
+        /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
-
-        #region IObservable
-
-        public void Attach(IObserver observer)
-        {
-            FailureMechanism.StochasticSoilModels.Attach(observer);
-        }
-
-        public void Detach(IObserver observer)
-        {
-            FailureMechanism.StochasticSoilModels.Detach(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            FailureMechanism.StochasticSoilModels.NotifyObservers();
-        }
-
-        #endregion
-
-        #region Equatible
-
-        private bool Equals(StochasticSoilModelContext other)
-        {
-            return Equals(FailureMechanism, other.FailureMechanism);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-            return Equals((StochasticSoilModelContext) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return FailureMechanism.GetHashCode();
-        }
-
-        #endregion
     }
 }

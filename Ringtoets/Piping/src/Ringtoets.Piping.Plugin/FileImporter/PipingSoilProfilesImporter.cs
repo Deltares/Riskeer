@@ -164,7 +164,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private void AddImportedDataToModel(StochasticSoilModelContext target, ICollection<StochasticSoilModel> readStochasticSoilModels)
         {
-            var targetCollection = target.FailureMechanism.StochasticSoilModels;
+            var targetCollection = target.WrappedData;
             var stochasticSoilModelCount = readStochasticSoilModels.Count;
             var currentIndex = 1;
             foreach (var readStochasticSoilModel in readStochasticSoilModels)

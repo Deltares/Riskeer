@@ -136,7 +136,7 @@ namespace Ringtoets.Piping.Integration.Test
                                                                                    "DR6.soil"))
             {
                 var activity = new FileImportActivity(new PipingSoilProfilesImporter(),
-                                                      new StochasticSoilModelContext(assessmentSection.PipingFailureMechanism, assessmentSection),
+                                                      new StochasticSoilModelContext(assessmentSection.PipingFailureMechanism.StochasticSoilModels, assessmentSection.PipingFailureMechanism, assessmentSection),
                                                       Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil"));
 
                 activity.Run();
