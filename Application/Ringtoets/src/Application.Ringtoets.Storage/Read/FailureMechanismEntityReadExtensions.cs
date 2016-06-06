@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 
 using Ringtoets.Common.Data.Calculation;
@@ -56,10 +58,16 @@ namespace Application.Ringtoets.Storage.Read
                 IsRelevant = entity.IsRelevant == 1
             };
 
+            if (entity.PipingFailureMechanismMetaEntities.Count > 0)
+            {
+                ReadProbabilityAssessmentInput(entity.PipingFailureMechanismMetaEntities, failureMechanism.PipingProbabilityAssessmentInput);
+            }
+
             foreach (var stochasticSoilModelEntity in entity.StochasticSoilModelEntities)
             {
                 failureMechanism.StochasticSoilModels.Add(stochasticSoilModelEntity.Read(collector));
             }
+
             foreach (SurfaceLineEntity surfaceLineEntity in entity.SurfaceLineEntities)
             {
                 failureMechanism.SurfaceLines.Add(surfaceLineEntity.Read(collector));
@@ -70,6 +78,15 @@ namespace Application.Ringtoets.Storage.Read
             ReadRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
 
             return failureMechanism;
+        }
+
+        private static void ReadProbabilityAssessmentInput(ICollection<PipingFailureMechanismMetaEntity> pipingFailureMechanismMetaEntities, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput)
+        {
+            var metaEntities = pipingFailureMechanismMetaEntities.ToArray();
+            var probabilityAssessmentInput = metaEntities[0].Read();
+
+            pipingProbabilityAssessmentInput.StorageId = probabilityAssessmentInput.StorageId;
+            pipingProbabilityAssessmentInput.A = probabilityAssessmentInput.A;
         }
 
         private static void ReadRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity, CalculationGroup targetRootCalculationGroup, ReadConversionCollector collector)

@@ -60,6 +60,14 @@ namespace Application.Ringtoets.Storage.Test.Read
                 CalculationGroupEntity = new CalculationGroupEntity
                 {
                     CalculationGroupEntityId = 2
+                },
+                PipingFailureMechanismMetaEntities = new[]
+                {
+                    new PipingFailureMechanismMetaEntity
+                    {
+                        PipingFailureMechanismMetaEntityId = 3,
+                        A = new decimal(0.95)
+                    }
                 }
             };
             var collector = new ReadConversionCollector();
@@ -73,6 +81,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
             Assert.IsEmpty(failureMechanism.StochasticSoilModels);
             Assert.IsEmpty(failureMechanism.Sections);
+
+            var pipingFailureMechanismMetaEntities = entity.PipingFailureMechanismMetaEntities.ToArray();
+            var probabilityAssessmentInput = pipingFailureMechanismMetaEntities[0];
+            Assert.AreEqual(probabilityAssessmentInput.PipingFailureMechanismMetaEntityId, failureMechanism.PipingProbabilityAssessmentInput.StorageId);
+            Assert.AreEqual(probabilityAssessmentInput.A, failureMechanism.PipingProbabilityAssessmentInput.A);
         }
 
         [Test]
