@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -166,11 +167,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             // Call
             properties.OrientationOfTheNormalOfTheStructure = newOrientationOfTheNormalOfTheStructure;
-            properties.FailureProbabilityOfStructureGivenErosion = "0.01";
+            properties.FailureProbabilityOfStructureGivenErosion = "1e-2";
             properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             // Assert
             Assert.AreEqual(newOrientationOfTheNormalOfTheStructure, properties.OrientationOfTheNormalOfTheStructure);
+            Assert.AreEqual(0.01, input.FailureProbabilityOfStructureGivenErosion, input.FailureProbabilityOfStructureGivenErosion.GetAccuracy());
             Assert.AreEqual("1/100", properties.FailureProbabilityOfStructureGivenErosion);
             Assert.AreSame(hydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
             mockRepository.VerifyAll();
