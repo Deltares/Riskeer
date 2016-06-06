@@ -58,7 +58,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ObjectProperties<IDistribution>>(properties);
             Assert.IsNull(properties.Data);
             Assert.AreEqual("Variatiecoëfficiënt", properties.ToString());
-            Assert.AreEqual("Normale verdeling", properties.DistributionType);
+            Assert.AreEqual("Normaal", properties.DistributionType);
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.IsNull(properties.Data);
             Assert.AreEqual("Variatiecoëfficiënt", properties.ToString());
-            Assert.AreEqual("Normale verdeling", properties.DistributionType);
+            Assert.AreEqual("Normaal", properties.DistributionType);
             mockRepository.VerifyAll();
         }
 

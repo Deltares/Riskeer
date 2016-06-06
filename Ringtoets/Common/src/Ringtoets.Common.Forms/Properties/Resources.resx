@@ -395,7 +395,7 @@
     <value>Lognormaal</value>
   </data>
   <data name="DistributionType_Normal" xml:space="preserve">
-    <value>Normale verdeling</value>
+    <value>Normaal</value>
   </data>
   <data name="LogNormalDistribution_VariationCoefficient_Description" xml:space="preserve">
     <value>De variatiecoëfficiënt van de lognormale verdeling.</value>
