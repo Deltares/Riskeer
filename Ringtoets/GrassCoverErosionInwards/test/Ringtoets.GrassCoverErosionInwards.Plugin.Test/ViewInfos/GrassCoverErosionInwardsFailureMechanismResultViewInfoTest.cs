@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var viewName = info.GetViewName(null, null);
 
             // Assert
-            Assert.AreEqual("Oordeel", viewName);
+            Assert.AreEqual("Resultaat", viewName);
         }
 
         [Test]

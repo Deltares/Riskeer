@@ -84,7 +84,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var text = info.Text(context);
 
             // Assert
-            Assert.AreEqual("Oordeel", text);
+            Assert.AreEqual("Resultaat", text);
             mocks.VerifyAll();
         }
 

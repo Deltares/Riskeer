@@ -85,13 +85,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
-            using(var view = new WaterPressureAsphaltCoverResultView())
+            using (var view = new WaterPressureAsphaltCoverResultView())
             {
                 // Call
                 var viewName = info.GetViewName(view, failureMechanism.SectionResults);
 
                 // Assert
-                Assert.AreEqual("Oordeel", viewName);
+                Assert.AreEqual("Resultaat", viewName);
             }
         }
 
@@ -164,9 +164,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mocks.Stub<FailureMechanismBase>("N", "C");
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
-                {
-                    failureMechanismMock
-                });
+            {
+                failureMechanismMock
+            });
 
             mocks.ReplayAll();
 
@@ -191,10 +191,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
-                {
-                    new PipingFailureMechanism(),
-                    failureMechanism
-                });
+            {
+                new PipingFailureMechanism(),
+                failureMechanism
+            });
 
             mocks.ReplayAll();
 
@@ -236,7 +236,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
-                
+
                 // Call
                 var closeForData = info.CloseForData(view, new WaterPressureAsphaltCoverFailureMechanism());
 

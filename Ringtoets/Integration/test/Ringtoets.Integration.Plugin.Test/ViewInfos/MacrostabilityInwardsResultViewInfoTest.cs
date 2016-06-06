@@ -93,7 +93,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewName = info.GetViewName(viewMock, failureMechanism.SectionResults);
 
             // Assert
-            Assert.AreEqual("Oordeel", viewName);
+            Assert.AreEqual("Resultaat", viewName);
         }
 
         [Test]

@@ -469,7 +469,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uitvoer.
+        ///   Looks up a localized string similar to Oordeel.
         /// </summary>
         public static string FailureMechanism_Outputs_DisplayName {
             get {

@@ -134,7 +134,7 @@
     <value>Invoer</value>
   </data>
   <data name="FailureMechanism_Outputs_DisplayName" xml:space="preserve">
-    <value>Uitvoer</value>
+    <value>Oordeel</value>
   </data>
   <data name="Calculate_all" xml:space="preserve">
     <value>Alles be&amp;rekenen</value>

@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 var viewName = info.GetViewName(view, failureMechanism.SectionResults);
 
                 // Assert
-                Assert.AreEqual("Oordeel", viewName);
+                Assert.AreEqual("Resultaat", viewName);
             }
         }
 
@@ -165,7 +165,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mocks.Stub<FailureMechanismBase>("N","C");
+            var failureMechanismMock = mocks.Stub<FailureMechanismBase>("N", "C");
 
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
             {

@@ -161,7 +161,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oordeel.
+        ///   Looks up a localized string similar to Resultaat.
         /// </summary>
         public static string FailureMechanism_AssessmentResult_DisplayName {
             get {

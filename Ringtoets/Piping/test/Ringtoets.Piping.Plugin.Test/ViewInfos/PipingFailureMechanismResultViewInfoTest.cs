@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var viewName = info.GetViewName(viewMock, failureMechanism.SectionResults);
 
             // Assert
-            Assert.AreEqual("Oordeel", viewName);
+            Assert.AreEqual("Resultaat", viewName);
         }
 
         [Test]
@@ -275,7 +275,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var failureMechanismContext = new PipingFailureMechanismContext(
                 new PipingFailureMechanism(),
                 assessmentSectionMock
-            );
+                );
 
             // Call
             var closeForData = info.CloseForData(view, failureMechanismContext);
@@ -301,6 +301,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             // Assert
             mocks.VerifyAll();
-        } 
+        }
     }
 }

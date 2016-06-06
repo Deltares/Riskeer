@@ -123,7 +123,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, calculationsFolder.FailureMechanism);
 
             var outputsFolder = (CategoryTreeFolder) children[2];
-            Assert.AreEqual("Uitvoer", outputsFolder.Name);
+            Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>) outputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
