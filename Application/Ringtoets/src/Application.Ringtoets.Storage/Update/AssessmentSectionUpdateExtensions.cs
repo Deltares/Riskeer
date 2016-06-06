@@ -65,6 +65,8 @@ namespace Application.Ringtoets.Storage.Update
             AssessmentSectionEntity entity = GetCorrespondingAssessmentSectionEntity(section, context);
             entity.Name = section.Name;
             entity.Composition = (short) section.Composition;
+            entity.Comments = section.Comments;
+            entity.Norm = section.FailureMechanismContribution.Norm;
 
             UpdatePipingFailureMechanism(section, registry, context);
             UpdateGrassCoverErosionInwardsFailureMechanism(section, registry, context);

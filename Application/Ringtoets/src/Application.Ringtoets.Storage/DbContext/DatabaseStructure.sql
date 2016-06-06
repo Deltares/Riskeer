@@ -97,7 +97,6 @@ CREATE TABLE 'AssessmentSectionEntity'
 	'Name' VARCHAR (260),
 	'Comments' TEXT,
 	'Norm' INT (4) NOT NULL,
-	'Order' INT (4) NOT NULL,
 	'HydraulicDatabaseVersion' TEXT,
 	'HydraulicDatabaseLocation' TEXT,
 	'Composition' SMALLINT NOT NULL, -- Enum: Dike = 0, Dune = 1, DikeAndDune = 2

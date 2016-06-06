@@ -55,13 +55,17 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithCollector_ReturnsNewAssessmentSection(AssessmentSectionComposition assessmentSectionComposition)
         {
             // Setup
-            var testName = "testName";
+            const string testName = "testName";
+            const string comments = "Some text";
+            const int norm = int.MaxValue;
             var entityId = new Random(21).Next(1, 502);
             var entity = new AssessmentSectionEntity
             {
                 AssessmentSectionEntityId = entityId,
                 Name = testName,
-                Composition = (short) assessmentSectionComposition
+                Composition = (short) assessmentSectionComposition,
+                Comments = comments,
+                Norm = norm
             };
             var collector = new ReadConversionCollector();
 
@@ -72,6 +76,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNotNull(section);
             Assert.AreEqual(entityId, section.StorageId);
             Assert.AreEqual(testName, section.Name);
+            Assert.AreEqual(comments, section.Comments);
+            Assert.AreEqual(norm, section.FailureMechanismContribution.Norm);
             Assert.AreEqual(assessmentSectionComposition, section.Composition);
             Assert.IsNull(section.HydraulicBoundaryDatabase);
             Assert.IsNull(section.ReferenceLine);
@@ -81,7 +87,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithReferenceLineEntities_ReturnsNewAssessmentSectionWithReferenceLineSet()
         {
             // Setup
-            var entity = new AssessmentSectionEntity();
+            var entity = CreateAssessmentSectionEntity();
 
             var random = new Random(21);
             double firstX = random.NextDouble();
@@ -114,7 +120,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithHydraulicDatabaseLocationSet_ReturnsNewAssessmentSectionWithHydraulicDatabaseSet()
         {
             // Setup
-            var entity = new AssessmentSectionEntity();
+            var entity = CreateAssessmentSectionEntity();
 
             var testLocation = "testLocation";
             var testVersion = "testVersion";
@@ -146,7 +152,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithFailureMechanismWithStochasticSoilModelsSet_ReturnsNewAssessmentSectionWithStochasticSoilModelsInPipingFailureMechanism(bool isRelevant)
         {
             // Setup
-            var entity = new AssessmentSectionEntity();
+            var entity = CreateAssessmentSectionEntity();
             var entityId = new Random(21).Next(1, 502);
 
             var failureMechanismEntity = new FailureMechanismEntity
@@ -183,13 +189,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithFailureMechanismWithSurfaceLinesSet_ReturnsNewAssessmentSectionWithSurfaceLinesInPipingFailureMechanism(bool isRelevant)
         {
             // Setup
-            var entity = new AssessmentSectionEntity();
+            var entity = CreateAssessmentSectionEntity();
             var entityId = new Random(21).Next(1, 502);
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = entityId,
-                FailureMechanismType = (int)FailureMechanismType.Piping,
+                FailureMechanismType = (int) FailureMechanismType.Piping,
                 CalculationGroupEntity = new CalculationGroupEntity
                 {
                     CalculationGroupEntityId = 1
@@ -220,7 +226,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithPipingFailureMechanismWithCalculationGroupsSet_ReturnsNewAssessmentSectionWithCalculationGroupsInPipingFailureMechanism(bool isRelevant)
         {
             // Setup
-            var entity = new AssessmentSectionEntity();
+            var entity = CreateAssessmentSectionEntity();
             var entityId = new Random(21).Next(1, 502);
 
             const int rootGroupEntityId = 1;
@@ -230,7 +236,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = entityId,
-                FailureMechanismType = (int)FailureMechanismType.Piping,
+                FailureMechanismType = (int) FailureMechanismType.Piping,
                 CalculationGroupEntity = new CalculationGroupEntity
                 {
                     CalculationGroupEntityId = rootGroupEntityId,
@@ -261,15 +267,15 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(rootGroupEntityId, section.PipingFailureMechanism.CalculationsGroup.StorageId);
             IList<ICalculationBase> childCalculationGroups = section.PipingFailureMechanism.CalculationsGroup.Children;
             Assert.AreEqual(2, childCalculationGroups.Count);
-            Assert.AreEqual(childGroupEntity1Id, ((CalculationGroup)childCalculationGroups[0]).StorageId);
-            Assert.AreEqual(childGroupEntity2Id, ((CalculationGroup)childCalculationGroups[1]).StorageId);
+            Assert.AreEqual(childGroupEntity1Id, ((CalculationGroup) childCalculationGroups[0]).StorageId);
+            Assert.AreEqual(childGroupEntity2Id, ((CalculationGroup) childCalculationGroups[1]).StorageId);
         }
 
         [Test]
         public void Read_WithPipingFailureMechanismWithFailureMechanismSectionsSet_ReturnsNewAssessmentSectionWithFailureMechanismSectionsInPipingFailureMechanism()
         {
             // Setup
-            var entity = new AssessmentSectionEntity();
+            var entity = CreateAssessmentSectionEntity();
             var entityId = new Random(21).Next(1, 502);
 
             var failureMechanismEntity = new FailureMechanismEntity
@@ -297,7 +303,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithGrassCoverErosionInwardsFailureMechanismWithFailureMechanismSectionsSet_ReturnsNewAssessmentSectionWithFailureMechanismSectionsInGrassCoverErosionInwardsFailureMechanism()
         {
             // Setup
-            var entity = new AssessmentSectionEntity();
+            var entity = CreateAssessmentSectionEntity();
             var entityId = new Random(21).Next(1, 502);
 
             var failureMechanismEntity = new FailureMechanismEntity
@@ -323,7 +329,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithStandAloneFailureMechanismsSet_ReturnsNewAssessmentSectionWithFailureMechanismsSet(bool isRelevant)
         {
             // Setup
-            var entity = new AssessmentSectionEntity();
+            var entity = CreateAssessmentSectionEntity();
             var macrostabilityInwardsEntityId = 2;
             var macrostabilityOutwardsEntityId = 3;
             var microstabilityEntityId = 4;
@@ -377,6 +383,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssertFailureMechanismEqual(isRelevant, grassCoverSlipoffInwardsEntityId, 2, section.GrassCoverSlipOffInwards);
             AssertFailureMechanismEqual(isRelevant, duneErosionEntityId, 2, section.DuneErosion);
             AssertFailureMechanismEqual(isRelevant, technicalInnovationsEntityId, 2, section.TechnicalInnovation);
+        }
+
+        private static AssessmentSectionEntity CreateAssessmentSectionEntity()
+        {
+            return new AssessmentSectionEntity
+            {
+                Norm = 30000
+            };
         }
 
         private static FailureMechanismEntity CreateFailureMechanismEntity(bool isRelevant, int entityId, FailureMechanismType failureMechanismType)

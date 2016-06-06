@@ -55,13 +55,20 @@ namespace Application.Ringtoets.Storage.Test.Create
         [TestCase(AssessmentSectionComposition.Dike)]
         [TestCase(AssessmentSectionComposition.DikeAndDune)]
         [TestCase(AssessmentSectionComposition.Dune)]
-        public void Create_WithCollector_ReturnsAssessmentSectionEntityWithCompositionAndFailureMechanismForPiping(AssessmentSectionComposition assessmentSectionComposition)
+        public void Create_WithCollector_ReturnsAssessmentSectionEntityWithCompositionAndFailureMechanisms(AssessmentSectionComposition assessmentSectionComposition)
         {
             // Setup
-            string testName = "testName";
+            const string testName = "testName";
+            const string comments = "Some text";
+            const int norm = int.MaxValue;
             var assessmentSection = new AssessmentSection(assessmentSectionComposition)
             {
-                Name = testName
+                Name = testName,
+                Comments = comments,
+                FailureMechanismContribution =
+                {
+                    Norm = norm
+                }
             };
             var registry = new PersistenceRegistry();
 
@@ -70,27 +77,29 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual((short)assessmentSectionComposition, entity.Composition);
+            Assert.AreEqual((short) assessmentSectionComposition, entity.Composition);
             Assert.AreEqual(testName, entity.Name);
+            Assert.AreEqual(comments, entity.Comments);
+            Assert.AreEqual(norm, entity.Norm);
             Assert.AreEqual(18, entity.FailureMechanismEntities.Count);
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short)FailureMechanismType.Piping));
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short)FailureMechanismType.GrassRevetmentTopErosionAndInwards));
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short)FailureMechanismType.MacrostabilityInwards));
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short)FailureMechanismType.MacrostabilityOutwards));
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short)FailureMechanismType.Microstability));
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short)FailureMechanismType.StabilityStoneRevetment));
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short)FailureMechanismType.WaveImpactOnAsphaltRevetment));
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short)FailureMechanismType.WaterOverpressureAsphaltRevetment));
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short)FailureMechanismType.GrassRevetmentErosionOutwards));
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short)FailureMechanismType.GrassRevetmentSlidingOutwards));
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short)FailureMechanismType.GrassRevetmentSlidingInwards));
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short)FailureMechanismType.StructureHeight));
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short)FailureMechanismType.ReliabilityClosingOfStructure));
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short)FailureMechanismType.PipingAtStructure));
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short)FailureMechanismType.StrengthAndStabilityPointConstruction));
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short)FailureMechanismType.StrengthAndStabilityParallelConstruction));
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short)FailureMechanismType.DuneErosion));
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short)FailureMechanismType.TechnicalInnovations));
+            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.Piping));
+            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.GrassRevetmentTopErosionAndInwards));
+            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.MacrostabilityInwards));
+            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.MacrostabilityOutwards));
+            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.Microstability));
+            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.StabilityStoneRevetment));
+            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.WaveImpactOnAsphaltRevetment));
+            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.WaterOverpressureAsphaltRevetment));
+            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.GrassRevetmentErosionOutwards));
+            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.GrassRevetmentSlidingOutwards));
+            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.GrassRevetmentSlidingInwards));
+            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.StructureHeight));
+            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.ReliabilityClosingOfStructure));
+            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.PipingAtStructure));
+            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.StrengthAndStabilityPointConstruction));
+            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.StrengthAndStabilityParallelConstruction));
+            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.DuneErosion));
+            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.TechnicalInnovations));
 
             Assert.IsNull(entity.HydraulicDatabaseLocation);
             Assert.IsNull(entity.HydraulicDatabaseVersion);
@@ -125,7 +134,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(testFilePath, entity.HydraulicDatabaseLocation);
             Assert.AreEqual(testVersion, entity.HydraulicDatabaseVersion);
             Assert.AreEqual(1, entity.HydraulicLocationEntities.Count);
-        } 
+        }
 
         [Test]
         public void Create_WithReferenceLine_AddsReferenceLinePointEntities()
@@ -133,11 +142,11 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             assessmentSection.ReferenceLine = new ReferenceLine();
-            assessmentSection.ReferenceLine.SetGeometry(new []
+            assessmentSection.ReferenceLine.SetGeometry(new[]
             {
-                new Point2D(1,0),
-                new Point2D(2,3),
-                new Point2D(5,3)
+                new Point2D(1, 0),
+                new Point2D(2, 3),
+                new Point2D(5, 3)
             });
             var registry = new PersistenceRegistry();
 
@@ -146,7 +155,12 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreEqual(3, entity.ReferenceLinePointEntities.Count);
-            Assert.AreEqual(new []{0,1,2}, entity.ReferenceLinePointEntities.Select(rpe => rpe.Order));
-        } 
+            Assert.AreEqual(new[]
+            {
+                0,
+                1,
+                2
+            }, entity.ReferenceLinePointEntities.Select(rpe => rpe.Order));
+        }
     }
 }

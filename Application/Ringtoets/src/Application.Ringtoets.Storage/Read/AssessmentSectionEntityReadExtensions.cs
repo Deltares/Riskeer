@@ -54,7 +54,12 @@ namespace Application.Ringtoets.Storage.Read
             var assessmentSection = new AssessmentSection((AssessmentSectionComposition) entity.Composition)
             {
                 StorageId = entity.AssessmentSectionEntityId,
-                Name = entity.Name
+                Name = entity.Name,
+                Comments = entity.Comments,
+                FailureMechanismContribution =
+                {
+                    Norm = entity.Norm
+                }
             };
 
             entity.ReadPipingFailureMechanism(assessmentSection, collector);

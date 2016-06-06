@@ -22,7 +22,6 @@
 using System;
 using System.Data.Entity;
 using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -41,7 +40,7 @@ namespace Application.Ringtoets.Storage.Test.Update
     [TestFixture]
     public class AssessmentSectionUpdateExtensionsTest
     {
-        private int totalAmountOfFailureMechanismsInAssessmentSection = 18;
+        private readonly int totalAmountOfFailureMechanismsInAssessmentSection = 18;
 
         [Test]
         public void Update_WithoutContext_ThrowsArgumentNullException()
@@ -138,10 +137,14 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
-            var newName = "newName";
+            const string newName = "newName";
+            const string comments = "Some text";
+            const int norm = int.MaxValue;
             var composition = AssessmentSectionComposition.Dune;
             var section = InitializeCreatedDikeAssessmentSection(AssessmentSectionComposition.Dune);
             section.Name = newName;
+            section.Comments = comments;
+            section.FailureMechanismContribution.Norm = norm;
 
             var entity = new AssessmentSectionEntity
             {
@@ -161,6 +164,8 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             // Assert
             Assert.AreEqual(newName, entity.Name);
+            Assert.AreEqual(comments, entity.Comments);
+            Assert.AreEqual(norm, entity.Norm);
             Assert.AreEqual((short) composition, entity.Composition);
             Assert.IsEmpty(entity.ReferenceLinePointEntities);
             Assert.IsEmpty(entity.HydraulicLocationEntities);
@@ -588,11 +593,11 @@ namespace Application.Ringtoets.Storage.Test.Update
                 {
                     StorageId = failureMechanismId++
                 },
-                MacrostabilityOutwards = 
+                MacrostabilityOutwards =
                 {
                     StorageId = failureMechanismId++
                 },
-                Microstability = 
+                Microstability =
                 {
                     StorageId = failureMechanismId++
                 },
@@ -608,7 +613,7 @@ namespace Application.Ringtoets.Storage.Test.Update
                 {
                     StorageId = failureMechanismId++
                 },
-                StrengthStabilityLengthwiseConstruction = 
+                StrengthStabilityLengthwiseConstruction =
                 {
                     StorageId = failureMechanismId++
                 },
@@ -620,7 +625,7 @@ namespace Application.Ringtoets.Storage.Test.Update
                 {
                     StorageId = failureMechanismId++
                 },
-                WaterPressureAsphaltCover = 
+                WaterPressureAsphaltCover =
                 {
                     StorageId = failureMechanismId++
                 },
@@ -632,7 +637,7 @@ namespace Application.Ringtoets.Storage.Test.Update
                 {
                     StorageId = failureMechanismId++
                 },
-                GrassCoverSlipOffInwards = 
+                GrassCoverSlipOffInwards =
                 {
                     StorageId = failureMechanismId++
                 },
@@ -644,7 +649,7 @@ namespace Application.Ringtoets.Storage.Test.Update
                 {
                     StorageId = failureMechanismId++
                 },
-                TechnicalInnovation = 
+                TechnicalInnovation =
                 {
                     StorageId = failureMechanismId++
                 }

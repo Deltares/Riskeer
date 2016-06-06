@@ -47,7 +47,9 @@ namespace Application.Ringtoets.Storage.Create
             var entity = new AssessmentSectionEntity
             {
                 Name = section.Name,
-                Composition = (short) section.Composition
+                Composition = (short) section.Composition,
+                Comments = section.Comments,
+                Norm = section.FailureMechanismContribution.Norm
             };
 
             AddEntityForPipingFailureMechanism(section, entity, registry);

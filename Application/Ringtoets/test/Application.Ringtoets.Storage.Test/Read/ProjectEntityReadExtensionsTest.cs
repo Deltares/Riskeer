@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var testDescription = "testName";
-            var entityId = new Random(21).Next(1,502);
+            var entityId = new Random(21).Next(1, 502);
             var entity = new ProjectEntity
             {
                 ProjectEntityId = entityId,
@@ -62,19 +62,26 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNotNull(project);
             Assert.AreEqual(entityId, project.StorageId);
             Assert.AreEqual(testDescription, project.Description);
-        }    
+        }
 
         [Test]
         public void Read_WithAssessmentSection_ReturnsNewProjectWithAssessmentSections()
         {
             // Setup
+            const int norm = 10000;
             var entity = new ProjectEntity
             {
                 Description = "testName",
                 AssessmentSectionEntities =
                 {
-                    new AssessmentSectionEntity(),
-                    new AssessmentSectionEntity()
+                    new AssessmentSectionEntity
+                    {
+                        Norm = norm
+                    },
+                    new AssessmentSectionEntity
+                    {
+                        Norm = norm
+                    }
                 }
             };
 
@@ -83,6 +90,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, project.Items.Count);
-        }    
+        }
     }
 }
