@@ -62,6 +62,8 @@ namespace Application.Ringtoets.Storage.Update
             FailureMechanismEntity entity = mechanism.GetCorrespondingFailureMechanismEntity(context);
             entity.IsRelevant = Convert.ToByte(mechanism.IsRelevant);
 
+            mechanism.PipingProbabilityAssessmentInput.Update(registry, context);
+
             UpdateSoilModels(mechanism, registry, context, entity);
             UpdateSurfaceLines(mechanism, registry, context, entity);
             mechanism.UpdateFailureMechanismSections(registry, entity, context);

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Application.Ringtoets.Storage.Create;
@@ -157,6 +158,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 CalculationGroupEntityId = section.PipingFailureMechanism.CalculationsGroup.StorageId
             });
+            ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = section.PipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId,
+                FailureMechanismEntityId = section.PipingFailureMechanism.StorageId
+            });
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
             // Call
@@ -200,6 +206,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.CalculationGroupEntities.Add(new CalculationGroupEntity
             {
                 CalculationGroupEntityId = section.PipingFailureMechanism.CalculationsGroup.StorageId
+            });
+            ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = section.PipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId,
+                FailureMechanismEntityId = section.PipingFailureMechanism.StorageId
             });
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
@@ -246,6 +257,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 CalculationGroupEntityId = section.PipingFailureMechanism.CalculationsGroup.StorageId
             });
+            ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = section.PipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId,
+                FailureMechanismEntityId = section.PipingFailureMechanism.StorageId
+            });
             ringtoetsEntities.ReferenceLinePointEntities.Add(referenceLinePointEntity);
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
@@ -289,6 +305,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.CalculationGroupEntities.Add(new CalculationGroupEntity
             {
                 CalculationGroupEntityId = section.PipingFailureMechanism.CalculationsGroup.StorageId
+            });
+            ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = section.PipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId,
+                FailureMechanismEntityId = section.PipingFailureMechanism.StorageId
             });
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
@@ -348,6 +369,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 CalculationGroupEntityId = section.PipingFailureMechanism.CalculationsGroup.StorageId
             });
+            ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = section.PipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId,
+                FailureMechanismEntityId = section.PipingFailureMechanism.StorageId
+            });
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
             ringtoetsEntities.HydraulicLocationEntities.Add(hydraulicLocationEntity);
 
@@ -397,6 +423,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 CalculationGroupEntityId = section.PipingFailureMechanism.CalculationsGroup.StorageId
             });
+            ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = section.PipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId,
+                FailureMechanismEntityId = section.PipingFailureMechanism.StorageId
+            });
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
@@ -442,6 +473,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.CalculationGroupEntities.Add(new CalculationGroupEntity
             {
                 CalculationGroupEntityId = section.PipingFailureMechanism.CalculationsGroup.StorageId
+            });
+            ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = section.PipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId,
+                FailureMechanismEntityId = section.PipingFailureMechanism.StorageId
             });
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
@@ -513,6 +549,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 CalculationGroupEntityId = section.PipingFailureMechanism.CalculationsGroup.StorageId
             });
+            ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = section.PipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId,
+                FailureMechanismEntityId = section.PipingFailureMechanism.StorageId
+            });
 
             ringtoetsEntities.FailureMechanismEntities.Add(macrostabilityInwardsEntity);
             ringtoetsEntities.FailureMechanismEntities.Add(macrostabilityOutwardsEntity);
@@ -581,6 +622,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 {
                     StorageId = failureMechanismId++,
                     CalculationsGroup =
+                    {
+                        StorageId = 1
+                    },
+                    PipingProbabilityAssessmentInput =
                     {
                         StorageId = 1
                     }

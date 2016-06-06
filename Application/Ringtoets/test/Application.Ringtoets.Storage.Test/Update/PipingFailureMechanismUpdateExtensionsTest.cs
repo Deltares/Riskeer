@@ -158,6 +158,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
             ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroup);
+            ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = failureMechanism.PipingProbabilityAssessmentInput.StorageId,
+                FailureMechanismEntityId = failureMechanism.StorageId
+            });
 
             // Call
             failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
@@ -204,6 +209,11 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
             ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
+            ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = failureMechanism.PipingProbabilityAssessmentInput.StorageId,
+                FailureMechanismEntityId = failureMechanism.StorageId
+            });
 
             // Call
             failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
@@ -261,6 +271,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
             ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
             ringtoetsEntities.StochasticSoilModelEntities.Add(stochasticSoilModelEntity);
+            ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = failureMechanism.PipingProbabilityAssessmentInput.StorageId,
+                FailureMechanismEntityId = failureMechanism.StorageId
+            });
 
             // Call
             failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
@@ -305,6 +320,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
             ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
+            ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = failureMechanism.PipingProbabilityAssessmentInput.StorageId,
+                FailureMechanismEntityId = failureMechanism.StorageId
+            });
 
             // Call
             failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
@@ -360,6 +380,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
             ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
             ringtoetsEntities.SurfaceLineEntities.Add(surfaceLineEntity);
+            ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = failureMechanism.PipingProbabilityAssessmentInput.StorageId,
+                FailureMechanismEntityId = failureMechanism.StorageId
+            });
 
             // Call
             failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
@@ -401,6 +426,11 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
             ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
+            ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = failureMechanism.PipingProbabilityAssessmentInput.StorageId,
+                FailureMechanismEntityId = failureMechanism.StorageId
+            });
 
             // Call
             failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
@@ -456,6 +486,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
             ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
             ringtoetsEntities.FailureMechanismSectionEntities.Add(failureMechanismSectionEntity);
+            ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = failureMechanism.PipingProbabilityAssessmentInput.StorageId,
+                FailureMechanismEntityId = failureMechanism.StorageId
+            });
 
             // Call
             failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
@@ -503,6 +538,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
             ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
+            ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = failureMechanism.PipingProbabilityAssessmentInput.StorageId,
+                FailureMechanismEntityId = failureMechanism.StorageId
+            });
 
             var registry = new PersistenceRegistry();
 
@@ -567,6 +607,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
             ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
             ringtoetsEntities.CalculationGroupEntities.Add(childGroupEntity);
+            ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = failureMechanism.PipingProbabilityAssessmentInput.StorageId,
+                FailureMechanismEntityId = failureMechanism.StorageId
+            });
 
             var registry = new PersistenceRegistry();
 

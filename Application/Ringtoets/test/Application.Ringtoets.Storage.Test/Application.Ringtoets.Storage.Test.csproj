@@ -132,6 +132,7 @@
     <Compile Include="Update\IStorableExtensionsTest.cs" />
     <Compile Include="Update\PipingCalculationScenarioUpdateExtensionsTest.cs" />
     <Compile Include="Update\PipingFailureMechanismUpdateExtensionsTest.cs" />
+    <Compile Include="Update\PipingProbabilityAssessmentInputUpdateExtensionsTest.cs" />
     <Compile Include="Update\PipingSoilLayerUpdateExtensionsTest.cs" />
     <Compile Include="Update\PipingSoilProfileUpdateExtensionsTest.cs" />
     <Compile Include="Update\ProjectUpdateExtensionsTest.cs" />

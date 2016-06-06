@@ -25,6 +25,10 @@ using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Read
 {
+    /// <summary>
+    /// This class defines extension methods for read operations for a <see cref="PipingProbabilityAssessmentInput"/> based on the
+    /// <see cref="PipingFailureMechanismMetaEntity"/>.
+    /// </summary>
     internal static class PipingFailureMechanismMetaEntityReadExtensions
     {
         /// <summary>
