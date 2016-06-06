@@ -25,14 +25,27 @@ using Ringtoets.Common.Data.Properties;
 namespace Ringtoets.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// This class defines the possible outcomes of a simple layer 2a assessment.
+    /// This class defines the possible outcomes of a detailed assessment of safety per failure mechanism section.
     /// </summary>
     public enum AssessmentLayerTwoAResult
     {
+        /// <summary>
+        /// No assessment for the failure mechanism section has been performed.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), "AssessmentLayerTwoAResult_NotCalculated")]
         NotCalculated,
+
+        /// <summary>
+        /// An assessment for the failure mechanism section was performed and the outcome is 
+        /// that it failed the assessment.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), "AssessmentLayerTwoAResult_Failed")]
         Failed,
+
+        /// <summary>
+        /// An assessment for the failure mechanism section was performed and the outcome is 
+        /// that it passed the assessment.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), "AssessmentLayerTwoAResult_Successful")]
         Successful
     }

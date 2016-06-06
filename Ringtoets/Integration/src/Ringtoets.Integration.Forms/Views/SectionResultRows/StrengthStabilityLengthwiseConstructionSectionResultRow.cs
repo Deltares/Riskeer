@@ -39,17 +39,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         public StrengthStabilityLengthwiseConstructionSectionResultRow(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
         /// <summary>
-        /// Gets the name of the failure mechanism section.
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return SectionResult.Section.Name;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the value representing the result of the <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult.AssessmentLayerOne"/>.
         /// </summary>
         public bool AssessmentLayerOne

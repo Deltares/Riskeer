@@ -40,17 +40,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         public StrengthStabilityPointConstructionSectionResultRow(StrengthStabilityPointConstructionFailureMechanismSectionResult sectionResult) : base(sectionResult) { }
 
         /// <summary>
-        /// Gets the name of the failure mechanism section.
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return SectionResult.Section.Name;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the value representing the result of the <see cref="StrengthStabilityPointConstructionFailureMechanismSectionResult.AssessmentLayerTwoA"/>.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>

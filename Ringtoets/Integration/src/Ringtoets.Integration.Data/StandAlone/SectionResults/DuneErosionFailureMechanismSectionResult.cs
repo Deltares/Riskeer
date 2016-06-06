@@ -40,7 +40,8 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         public DuneErosionFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
 
         /// <summary>
-        /// Gets or sets the value of the simple detailed assessment of safety per failure mechanism section.
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section, for which
+        /// the result is a value of <see cref="AssessmentLayerTwoAResult"/>.
         /// </summary>
         public AssessmentLayerTwoAResult AssessmentLayerTwoA { get; set; }
 
