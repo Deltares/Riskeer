@@ -77,6 +77,16 @@ namespace Application.Ringtoets.Storage.Update
 
         private static void SetInputParameters(PipingCalculationEntity entity, PipingInput inputParameters, PersistenceRegistry registry)
         {
+            entity.SurfaceLineEntity = inputParameters.SurfaceLine == null ?
+                                           null :
+                                           registry.Get(inputParameters.SurfaceLine);
+            entity.HydraulicLocationEntity = inputParameters.HydraulicBoundaryLocation == null ?
+                                                 null :
+                                                 registry.Get(inputParameters.HydraulicBoundaryLocation);
+            entity.StochasticSoilProfileEntity = inputParameters.StochasticSoilProfile == null ?
+                                                     null :
+                                                     registry.Get(inputParameters.StochasticSoilProfile);
+
             entity.EntryPointL = GetNullableDecimal(inputParameters.EntryPointL);
             entity.ExitPointL = GetNullableDecimal(inputParameters.ExitPointL);
 
@@ -91,16 +101,6 @@ namespace Application.Ringtoets.Storage.Update
             entity.Diameter70StandardDeviation = Convert.ToDecimal(inputParameters.Diameter70.StandardDeviation);
             entity.DarcyPermeabilityMean = Convert.ToDecimal(inputParameters.DarcyPermeability.Mean);
             entity.DarcyPermeabilityStandardDeviation = Convert.ToDecimal(inputParameters.DarcyPermeability.StandardDeviation);
-
-            entity.SurfaceLineEntity = inputParameters.SurfaceLine == null ?
-                                           null :
-                                           registry.Get(inputParameters.SurfaceLine);
-            entity.HydraulicLocationEntity = inputParameters.HydraulicBoundaryLocation == null ?
-                                                 null :
-                                                 registry.Get(inputParameters.HydraulicBoundaryLocation);
-            entity.StochasticSoilProfileEntity = inputParameters.StochasticSoilProfile == null ?
-                                                     null :
-                                                     registry.Get(inputParameters.StochasticSoilProfile);
         }
 
         /// <summary>

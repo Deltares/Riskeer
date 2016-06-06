@@ -82,23 +82,108 @@ namespace Application.Ringtoets.Storage.TestUtil
                     SurfaceLines =
                     {
                         GetSurfaceLine()
-                    },
-                    CalculationsGroup =
+                    }
+                }
+            };
+            PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
+            CalculationGroup pipingCalculationGroup = pipingFailureMechanism.CalculationsGroup;
+            pipingCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "A",
+                Children =
+                {
+                    new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
                     {
-                        Children =
+                        Name = "AA",
+                        IsRelevant = true,
+                        Contribution = (RoundedDouble)1.0,
+                        Comments = "Nice comment about this calculation!",
+                        InputParameters =
                         {
-                            new CalculationGroup
+                            SurfaceLine = pipingFailureMechanism.SurfaceLines.First(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                            StochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(),
+                            StochasticSoilProfile = pipingFailureMechanism.StochasticSoilModels.First()
+                                                                          .StochasticSoilProfiles.First(),
+                            EntryPointL = (RoundedDouble)1.0,
+                            ExitPointL = (RoundedDouble)2.0,
+                            PhreaticLevelExit =
                             {
-                                Name = "A"
+                                Mean = (RoundedDouble)1.1,
+                                StandardDeviation = (RoundedDouble)2.2
                             },
-                            new CalculationGroup
+                            DampingFactorExit =
                             {
-                                Name = "B"
+                                Mean = (RoundedDouble)3.3,
+                                StandardDeviation = (RoundedDouble)4.4
+                            },
+                            SaturatedVolumicWeightOfCoverageLayer =
+                            {
+                                Mean = (RoundedDouble)5.5,
+                                StandardDeviation = (RoundedDouble)6.6,
+                                Shift = (RoundedDouble)7.7
+                            },
+                            Diameter70 =
+                            {
+                                Mean = (RoundedDouble)8.8,
+                                StandardDeviation = (RoundedDouble)9.9
+                            },
+                            DarcyPermeability =
+                            {
+                                Mean = (RoundedDouble)10.10,
+                                StandardDeviation = (RoundedDouble)11.11
                             }
                         }
                     }
                 }
-            };
+            });
+            pipingCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "B"
+            });
+            pipingCalculationGroup.Children.Add(new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
+            {
+                Name = "C",
+                IsRelevant = false,
+                Contribution = (RoundedDouble)0.5,
+                Comments = "Another great comment",
+                InputParameters =
+                {
+                    SurfaceLine = pipingFailureMechanism.SurfaceLines.First(),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                    StochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(),
+                    StochasticSoilProfile = pipingFailureMechanism.StochasticSoilModels.First()
+                                                                  .StochasticSoilProfiles.Skip(1).First(),
+                    EntryPointL = (RoundedDouble)0.3,
+                    ExitPointL = (RoundedDouble)2.3,
+                    PhreaticLevelExit =
+                    {
+                        Mean = (RoundedDouble)12.12,
+                        StandardDeviation = (RoundedDouble)13.13
+                    },
+                    DampingFactorExit =
+                    {
+                        Mean = (RoundedDouble)14.14,
+                        StandardDeviation = (RoundedDouble)15.15
+                    },
+                    SaturatedVolumicWeightOfCoverageLayer =
+                    {
+                        Mean = (RoundedDouble)16.16,
+                        StandardDeviation = (RoundedDouble)17.17,
+                        Shift = (RoundedDouble)18.18
+                    },
+                    Diameter70 =
+                    {
+                        Mean = (RoundedDouble)19.19,
+                        StandardDeviation = (RoundedDouble)20.20
+                    },
+                    DarcyPermeability =
+                    {
+                        Mean = (RoundedDouble)21.21,
+                        StandardDeviation = (RoundedDouble)22.22
+                    }
+                }
+            });
 
             var fullTestProject = new Project
             {
@@ -110,7 +195,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                 }
             };
 
-            AddSections(assessmentSection.PipingFailureMechanism);
+            AddSections(pipingFailureMechanism);
             AddSections(assessmentSection.GrassCoverErosionInwards);
             AddSections(assessmentSection.MacrostabilityInwards);
             AddSections(assessmentSection.MacrostabilityOutwards);

@@ -52,10 +52,11 @@ namespace Application.Ringtoets.Storage.Create
                 Norm = section.FailureMechanismContribution.Norm
             };
 
-            AddEntityForPipingFailureMechanism(section, entity, registry);
-            AddEntityForGrassCoverErosionInwardsFailureMechanism(section, entity, registry);
             AddEntityForHydraulicDatabase(section, entity, registry);
             AddEntityForReferenceLine(section, entity);
+
+            AddEntityForPipingFailureMechanism(section, entity, registry);
+            AddEntityForGrassCoverErosionInwardsFailureMechanism(section, entity, registry);
             AddEntitiesForAddStandAloneFailureMechanisms(section, entity, registry);
 
             registry.Register(entity, section);

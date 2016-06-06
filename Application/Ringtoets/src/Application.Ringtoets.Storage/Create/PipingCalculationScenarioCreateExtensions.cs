@@ -67,6 +67,20 @@ namespace Application.Ringtoets.Storage.Create
 
         private static void SetInputParametersToEntity(PipingCalculationEntity entity, PipingInput inputParameters, PersistenceRegistry registry)
         {
+            if (inputParameters.SurfaceLine != null)
+            {
+                entity.SurfaceLineEntity = inputParameters.SurfaceLine.Create(registry);
+            }
+            if (inputParameters.HydraulicBoundaryLocation != null)
+            {
+                entity.HydraulicLocationEntity = inputParameters.HydraulicBoundaryLocation.Create(registry);
+            }
+            if (inputParameters.StochasticSoilProfile != null)
+            {
+                inputParameters.StochasticSoilModel.Create(registry);
+                entity.StochasticSoilProfileEntity = registry.Get(inputParameters.StochasticSoilProfile);
+            }
+
             entity.ExitPointL = ToNullableDecimal(inputParameters.ExitPointL);
             entity.EntryPointL = ToNullableDecimal(inputParameters.EntryPointL);
 
@@ -85,20 +99,6 @@ namespace Application.Ringtoets.Storage.Create
 
             entity.DarcyPermeabilityMean = Convert.ToDecimal(inputParameters.DarcyPermeability.Mean);
             entity.DarcyPermeabilityStandardDeviation = Convert.ToDecimal(inputParameters.DarcyPermeability.StandardDeviation);
-
-            if (inputParameters.SurfaceLine != null)
-            {
-                entity.SurfaceLineEntity = inputParameters.SurfaceLine.Create(registry);
-            }
-            if (inputParameters.HydraulicBoundaryLocation != null)
-            {
-                entity.HydraulicLocationEntity = inputParameters.HydraulicBoundaryLocation.Create(registry);
-            }
-            if (inputParameters.StochasticSoilProfile != null)
-            {
-                inputParameters.StochasticSoilModel.Create(registry);
-                entity.StochasticSoilProfileEntity = registry.Get(inputParameters.StochasticSoilProfile);
-            }
         }
 
         private static decimal? ToNullableDecimal(RoundedDouble parameter)

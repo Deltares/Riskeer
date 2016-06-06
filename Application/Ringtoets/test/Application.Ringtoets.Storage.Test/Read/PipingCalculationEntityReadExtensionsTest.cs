@@ -159,6 +159,8 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreSame(surfaceLine, calculation.InputParameters.SurfaceLine);
+            Assert.AreEqual(1, calculation.InputParameters.EntryPointL, 1e-6);
+            Assert.AreEqual(2, calculation.InputParameters.ExitPointL, 1e-6);
         }
 
         [Test]

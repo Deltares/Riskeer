@@ -62,10 +62,11 @@ namespace Application.Ringtoets.Storage.Read
                 }
             };
 
-            entity.ReadPipingFailureMechanism(assessmentSection, collector);
-            entity.ReadGrassCoverErosionInwardsFailureMechanism(assessmentSection);
             entity.ReadHydraulicDatabase(assessmentSection, collector);
             entity.ReadReferenceLine(assessmentSection);
+
+            entity.ReadPipingFailureMechanism(assessmentSection, collector);
+            entity.ReadGrassCoverErosionInwardsFailureMechanism(assessmentSection);
             entity.ReadStandAloneFailureMechanisms(assessmentSection);
 
             return assessmentSection;

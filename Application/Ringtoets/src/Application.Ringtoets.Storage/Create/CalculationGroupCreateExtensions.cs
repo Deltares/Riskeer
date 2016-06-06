@@ -24,6 +24,7 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Create
 {
@@ -69,6 +70,11 @@ namespace Application.Ringtoets.Storage.Create
                 if (childGroup != null)
                 {
                     entity.CalculationGroupEntity1.Add(childGroup.Create(registry, i));
+                }
+                var childPipingCalculation = calculationBase as PipingCalculationScenario;
+                if (childPipingCalculation != null)
+                {
+                    entity.PipingCalculationEntities.Add(childPipingCalculation.Create(registry, i));
                 }
             }
         }

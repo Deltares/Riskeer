@@ -68,10 +68,11 @@ namespace Application.Ringtoets.Storage.Update
             entity.Comments = section.Comments;
             entity.Norm = section.FailureMechanismContribution.Norm;
 
-            UpdatePipingFailureMechanism(section, registry, context);
-            UpdateGrassCoverErosionInwardsFailureMechanism(section, registry, context);
             UpdateHydraulicDatabase(section, entity, registry, context);
             UpdateReferenceLine(section, entity, context);
+
+            UpdatePipingFailureMechanism(section, registry, context);
+            UpdateGrassCoverErosionInwardsFailureMechanism(section, registry, context);
             UpdateStandAloneFailureMechanisms(section, registry, context);
 
             registry.Register(entity, section);

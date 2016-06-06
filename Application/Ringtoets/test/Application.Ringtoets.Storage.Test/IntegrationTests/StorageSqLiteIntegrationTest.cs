@@ -401,7 +401,39 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     AssertCalculationGroup(expectedChildGroup, (CalculationGroup)actualChild);
                 }
+                var expectedPipingCalculation = expectedChild as PipingCalculationScenario;
+                if (expectedPipingCalculation != null)
+                {
+                    AssertPipingCalculationScenario(expectedPipingCalculation, (PipingCalculationScenario)actualChild);
+                }
             }
+        }
+
+        private void AssertPipingCalculationScenario(PipingCalculationScenario expectedPipingCalculation, PipingCalculationScenario actualPipingCalculation)
+        {
+            Assert.AreEqual(expectedPipingCalculation.IsRelevant, actualPipingCalculation.IsRelevant);
+            Assert.AreEqual(expectedPipingCalculation.Contribution, actualPipingCalculation.Contribution);
+            Assert.AreEqual(expectedPipingCalculation.Name, actualPipingCalculation.Name);
+            Assert.AreEqual(expectedPipingCalculation.Comments, actualPipingCalculation.Comments);
+
+            AssertPipingInput(expectedPipingCalculation.InputParameters, actualPipingCalculation.InputParameters);
+        }
+
+        private static void AssertPipingInput(PipingInput expectedPipingInput, PipingInput actualPipingInput)
+        {
+            Assert.AreEqual(expectedPipingInput.ExitPointL, actualPipingInput.ExitPointL);
+            Assert.AreEqual(expectedPipingInput.EntryPointL, actualPipingInput.EntryPointL);
+            Assert.AreEqual(expectedPipingInput.PhreaticLevelExit.Mean, actualPipingInput.PhreaticLevelExit.Mean);
+            Assert.AreEqual(expectedPipingInput.PhreaticLevelExit.StandardDeviation, actualPipingInput.PhreaticLevelExit.StandardDeviation);
+            Assert.AreEqual(expectedPipingInput.DampingFactorExit.Mean, actualPipingInput.DampingFactorExit.Mean);
+            Assert.AreEqual(expectedPipingInput.DampingFactorExit.StandardDeviation, actualPipingInput.DampingFactorExit.StandardDeviation);
+            Assert.AreEqual(expectedPipingInput.SaturatedVolumicWeightOfCoverageLayer.Mean, actualPipingInput.SaturatedVolumicWeightOfCoverageLayer.Mean);
+            Assert.AreEqual(expectedPipingInput.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation, actualPipingInput.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation);
+            Assert.AreEqual(expectedPipingInput.SaturatedVolumicWeightOfCoverageLayer.Shift, actualPipingInput.SaturatedVolumicWeightOfCoverageLayer.Shift);
+            Assert.AreEqual(expectedPipingInput.Diameter70.Mean, actualPipingInput.Diameter70.Mean);
+            Assert.AreEqual(expectedPipingInput.Diameter70.StandardDeviation, actualPipingInput.Diameter70.StandardDeviation);
+            Assert.AreEqual(expectedPipingInput.DarcyPermeability.Mean, actualPipingInput.DarcyPermeability.Mean);
+            Assert.AreEqual(expectedPipingInput.DarcyPermeability.StandardDeviation, actualPipingInput.DarcyPermeability.StandardDeviation);
         }
 
         private void TearDownTempRingtoetsFile(string filePath)

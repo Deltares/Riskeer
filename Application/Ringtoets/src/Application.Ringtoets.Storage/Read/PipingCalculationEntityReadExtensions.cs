@@ -66,20 +66,6 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadInputParameters(PipingInput inputParameters, PipingCalculationEntity entity, ReadConversionCollector collector)
         {
-            inputParameters.EntryPointL = GetRoundedDoubleFromNullableDecimal(entity.EntryPointL);
-            inputParameters.ExitPointL = GetRoundedDoubleFromNullableDecimal(entity.ExitPointL);
-            inputParameters.PhreaticLevelExit.Mean = (RoundedDouble)Convert.ToDouble(entity.PhreaticLevelExitMean);
-            inputParameters.PhreaticLevelExit.StandardDeviation = (RoundedDouble)Convert.ToDouble(entity.PhreaticLevelExitStandardDeviation);
-            inputParameters.DampingFactorExit.Mean = (RoundedDouble)Convert.ToDouble(entity.DampingFactorExitMean);
-            inputParameters.DampingFactorExit.StandardDeviation = (RoundedDouble)Convert.ToDouble(entity.DampingFactorExitStandardDeviation);
-            inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean = (RoundedDouble)Convert.ToDouble(entity.SaturatedVolumicWeightOfCoverageLayerMean);
-            inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation = (RoundedDouble)Convert.ToDouble(entity.SaturatedVolumicWeightOfCoverageLayerStandardDeviation);
-            inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift = (RoundedDouble)Convert.ToDouble(entity.SaturatedVolumicWeightOfCoverageLayerShift);
-            inputParameters.Diameter70.Mean = (RoundedDouble)Convert.ToDouble(entity.Diameter70Mean);
-            inputParameters.Diameter70.StandardDeviation = (RoundedDouble)Convert.ToDouble(entity.Diameter70StandardDeviation);
-            inputParameters.DarcyPermeability.Mean = (RoundedDouble)Convert.ToDouble(entity.DarcyPermeabilityMean);
-            inputParameters.DarcyPermeability.StandardDeviation = (RoundedDouble)Convert.ToDouble(entity.DarcyPermeabilityStandardDeviation);
-
             if (entity.SurfaceLineEntity != null)
             {
                 inputParameters.SurfaceLine = entity.SurfaceLineEntity.Read(collector);
@@ -93,6 +79,20 @@ namespace Application.Ringtoets.Storage.Read
                 inputParameters.StochasticSoilModel = entity.StochasticSoilProfileEntity.StochasticSoilModelEntity.Read(collector);
                 inputParameters.StochasticSoilProfile = entity.StochasticSoilProfileEntity.Read(collector);
             }
+
+            inputParameters.EntryPointL = GetRoundedDoubleFromNullableDecimal(entity.EntryPointL);
+            inputParameters.ExitPointL = GetRoundedDoubleFromNullableDecimal(entity.ExitPointL);
+            inputParameters.PhreaticLevelExit.Mean = (RoundedDouble)Convert.ToDouble(entity.PhreaticLevelExitMean);
+            inputParameters.PhreaticLevelExit.StandardDeviation = (RoundedDouble)Convert.ToDouble(entity.PhreaticLevelExitStandardDeviation);
+            inputParameters.DampingFactorExit.Mean = (RoundedDouble)Convert.ToDouble(entity.DampingFactorExitMean);
+            inputParameters.DampingFactorExit.StandardDeviation = (RoundedDouble)Convert.ToDouble(entity.DampingFactorExitStandardDeviation);
+            inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean = (RoundedDouble)Convert.ToDouble(entity.SaturatedVolumicWeightOfCoverageLayerMean);
+            inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation = (RoundedDouble)Convert.ToDouble(entity.SaturatedVolumicWeightOfCoverageLayerStandardDeviation);
+            inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift = (RoundedDouble)Convert.ToDouble(entity.SaturatedVolumicWeightOfCoverageLayerShift);
+            inputParameters.Diameter70.Mean = (RoundedDouble)Convert.ToDouble(entity.Diameter70Mean);
+            inputParameters.Diameter70.StandardDeviation = (RoundedDouble)Convert.ToDouble(entity.Diameter70StandardDeviation);
+            inputParameters.DarcyPermeability.Mean = (RoundedDouble)Convert.ToDouble(entity.DarcyPermeabilityMean);
+            inputParameters.DarcyPermeability.StandardDeviation = (RoundedDouble)Convert.ToDouble(entity.DarcyPermeabilityStandardDeviation);
         }
 
         private static RoundedDouble GetRoundedDoubleFromNullableDecimal(decimal? parameter)

@@ -28,6 +28,7 @@ using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
 
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Update
 {
@@ -90,6 +91,26 @@ namespace Application.Ringtoets.Storage.Update
                         {
                             childGroupEntity.CalculationGroupEntity2.CalculationGroupEntity1.Remove(childGroupEntity);
                             entity.CalculationGroupEntity1.Add(childGroupEntity);
+                        }
+                    }
+                }
+
+                var childCalculationScenario = calculationBase as PipingCalculationScenario;
+                if (childCalculationScenario != null)
+                {
+                    if (childCalculationScenario.IsNew())
+                    {
+                        entity.PipingCalculationEntities.Add(childCalculationScenario.Create(registry, i));
+                    }
+                    else
+                    {
+                        childCalculationScenario.Update(registry, context);
+                        PipingCalculationEntity childPipingCalculationEntity = context.PipingCalculationEntities.First(cge => cge.PipingCalculationEntityId == childCalculationScenario.StorageId);
+                        childPipingCalculationEntity.Order = i;
+                        if (!entity.PipingCalculationEntities.Contains(childPipingCalculationEntity))
+                        {
+                            childPipingCalculationEntity.CalculationGroupEntity.PipingCalculationEntities.Remove(childPipingCalculationEntity);
+                            entity.PipingCalculationEntities.Add(childPipingCalculationEntity);
                         }
                     }
                 }

@@ -25,6 +25,7 @@ using System.Collections;
 using Application.Ringtoets.Storage.DbContext;
 
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Read
 {
@@ -41,13 +42,19 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="entity">The <see cref="CalculationGroupEntity"/> to create 
         /// <see cref="CalculationGroup"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
+        /// <param name="generalPipingInput">The calculation input parameters for piping.</param>
         /// <returns>A new <see cref="CalculationGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static CalculationGroup Read(this CalculationGroupEntity entity, ReadConversionCollector collector)
+        internal static CalculationGroup ReadPipingCalculationGroup(this CalculationGroupEntity entity, ReadConversionCollector collector,
+                                                                    GeneralPipingInput generalPipingInput)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
+            }
+            if (generalPipingInput == null)
+            {
+                throw new ArgumentNullException("generalPipingInput");
             }
             var group = new CalculationGroup(entity.Name, Convert.ToBoolean(entity.IsEditable))
             {
@@ -58,7 +65,12 @@ namespace Application.Ringtoets.Storage.Read
                 var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
                 if (childCalculationGroupEntity != null)
                 {
-                    group.Children.Add(childCalculationGroupEntity.Read(collector));
+                    group.Children.Add(childCalculationGroupEntity.ReadPipingCalculationGroup(collector, generalPipingInput));
+                }
+                var childPipingCalculationEntity = childEntity as PipingCalculationEntity;
+                if (childPipingCalculationEntity != null)
+                {
+                    group.Children.Add(childPipingCalculationEntity.Read(collector, generalPipingInput));
                 }
             }
 
@@ -71,6 +83,10 @@ namespace Application.Ringtoets.Storage.Read
             foreach (CalculationGroupEntity groupEntity in entity.CalculationGroupEntity1)
             {
                 sortedList.Add(groupEntity.Order, groupEntity);
+            }
+            foreach (PipingCalculationEntity pipingCalculationEntity in entity.PipingCalculationEntities)
+            {
+                sortedList.Add(pipingCalculationEntity.Order, pipingCalculationEntity);
             }
             return sortedList.Values;
         }

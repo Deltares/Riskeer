@@ -28,6 +28,7 @@ using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
 
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
@@ -35,13 +36,14 @@ namespace Application.Ringtoets.Storage.Test.Read
     public class CalculationGroupEntityReadExtentionsTest
     {
         [Test]
-        public void Read_ReadConversionCollectorIsNull_ThrowArgumentNullException()
+        public void ReadPipingCalculationGroup_ReadConversionCollectorIsNull_ThrowArgumentNullException()
         {
             // Setup
             var entity = new CalculationGroupEntity();
+            var generalPipingInput = new GeneralPipingInput();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            TestDelegate call = () => entity.ReadPipingCalculationGroup(null, generalPipingInput);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -49,9 +51,24 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
+        public void ReadPipingCalculationGroup_GeneralPipingInputIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var entity = new CalculationGroupEntity();
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate call = () => entity.ReadPipingCalculationGroup(collector, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("generalPipingInput", paramName);
+        }
+
+        [Test]
         [TestCase(123, "A", 1)]
         [TestCase(1, "b", 0)]
-        public void Read_EntityWithoutChildren_CreateCalculationGroupWithoutChildren(
+        public void ReadPipingCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren(
             long id, string name, byte isEditable)
         {
             // Setup
@@ -59,13 +76,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 CalculationGroupEntityId = id,
                 Name = name,
-                IsEditable = isEditable,
+                IsEditable = isEditable
             };
 
             var collector = new ReadConversionCollector();
+            var generalPipingInput = new GeneralPipingInput();
 
             // Call
-            CalculationGroup group = entity.Read(collector);
+            CalculationGroup group = entity.ReadPipingCalculationGroup(collector, generalPipingInput);
 
             // Assert
             Assert.AreEqual(id, group.StorageId);
@@ -75,7 +93,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_EntityWithChildGroups_CreateCalculationGroupWithChildGroups()
+        public void ReadPipingCalculationGroup_EntityWithChildGroups_CreateCalculationGroupWithChildGroups()
         {
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
@@ -119,9 +137,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             var collector = new ReadConversionCollector();
+            var generalPipingInput = new GeneralPipingInput();
 
             // Call
-            var rootGroup = rootGroupEntity.Read(collector);
+            var rootGroup = rootGroupEntity.ReadPipingCalculationGroup(collector, generalPipingInput);
 
             // Assert
             Assert.AreEqual(1, rootGroup.StorageId);
@@ -150,6 +169,133 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(5, rootChildGroup1Child2.StorageId);
             Assert.IsTrue(rootChildGroup1Child2.IsNameEditable);
             CollectionAssert.IsEmpty(rootChildGroup1Child2.Children);
+        }
+
+        [Test]
+        public void ReadPipingCalculationGroup_EntityWithChildPipingCalculations_CreateCalculationGroupWithChildCalculations()
+        {
+            // Setup
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = 1,
+                Name = "A",
+                PipingCalculationEntities =
+                {
+                    new PipingCalculationEntity
+                    {
+                        PipingCalculationEntityId = 3,
+                        Order = 0,
+                        Name = "1",
+                        DampingFactorExitMean = 1,
+                        SaturatedVolumicWeightOfCoverageLayerMean = 1,
+                        Diameter70Mean = 1,
+                        DarcyPermeabilityMean = 1
+                    },
+                    new PipingCalculationEntity
+                    {
+                        PipingCalculationEntityId = 6,
+                        Order = 1,
+                        Name = "2",
+                        DampingFactorExitMean = 2,
+                        SaturatedVolumicWeightOfCoverageLayerMean = 2,
+                        Diameter70Mean = 2,
+                        DarcyPermeabilityMean = 2
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+            var generalPipingInput = new GeneralPipingInput();
+
+            // Call
+            var rootGroup = rootGroupEntity.ReadPipingCalculationGroup(collector, generalPipingInput);
+
+            // Assert
+            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
+            Assert.AreEqual(2, rootChildren.Length);
+
+            var rootChildCalculation1 = (PipingCalculationScenario)rootChildren[0];
+            Assert.AreEqual("1", rootChildCalculation1.Name);
+            Assert.AreEqual(3, rootChildCalculation1.StorageId);
+
+            var rootChildCalculation2 = (PipingCalculationScenario)rootChildren[1];
+            Assert.AreEqual("2", rootChildCalculation2.Name);
+            Assert.AreEqual(6, rootChildCalculation2.StorageId);
+        }
+
+        [Test]
+        public void ReadPipingCalculationGroup_EntityWithChildPipingCalculationsAndGroups_CreateCalculationGroupWithChildCalculationsAndGroups()
+        {
+            // Setup
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = 1,
+                Name = "A",
+                PipingCalculationEntities =
+                {
+                    new PipingCalculationEntity
+                    {
+                        PipingCalculationEntityId = 3,
+                        Order = 0,
+                        Name = "calculation1",
+                        DampingFactorExitMean = 1,
+                        SaturatedVolumicWeightOfCoverageLayerMean = 1,
+                        Diameter70Mean = 1,
+                        DarcyPermeabilityMean = 1
+                    },
+                    new PipingCalculationEntity
+                    {
+                        PipingCalculationEntityId = 6,
+                        Order = 2,
+                        Name = "calculation2",
+                        DampingFactorExitMean = 2,
+                        SaturatedVolumicWeightOfCoverageLayerMean = 2,
+                        Diameter70Mean = 2,
+                        DarcyPermeabilityMean = 2
+                    }
+                },
+                CalculationGroupEntity1 =
+                {
+                    new CalculationGroupEntity
+                    {
+                        CalculationGroupEntityId = 2,
+                        Order = 1,
+                        Name = "group1"
+                    },
+                    new CalculationGroupEntity
+                    {
+                        CalculationGroupEntityId = 4,
+                        Order = 3,
+                        Name = "group2"
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+            var generalPipingInput = new GeneralPipingInput();
+
+            // Call
+            var rootGroup = rootGroupEntity.ReadPipingCalculationGroup(collector, generalPipingInput);
+
+            // Assert
+            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
+            Assert.AreEqual(4, rootChildren.Length);
+
+            var rootChildCalculation1 = (PipingCalculationScenario)rootChildren[0];
+            Assert.AreEqual("calculation1", rootChildCalculation1.Name);
+            Assert.AreEqual(3, rootChildCalculation1.StorageId);
+
+            var rootChildGroup1 = (CalculationGroup)rootChildren[1];
+            Assert.AreEqual("group1", rootChildGroup1.Name);
+            Assert.AreEqual(2, rootChildGroup1.StorageId);
+
+            var rootChildCalculation2 = (PipingCalculationScenario)rootChildren[2];
+            Assert.AreEqual("calculation2", rootChildCalculation2.Name);
+            Assert.AreEqual(6, rootChildCalculation2.StorageId);
+
+            var rootChildGroup2 = (CalculationGroup)rootChildren[3];
+            Assert.AreEqual("group2", rootChildGroup2.Name);
+            Assert.AreEqual(4, rootChildGroup2.StorageId);
         }
     }
 }

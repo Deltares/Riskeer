@@ -28,6 +28,7 @@ using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create
 {
@@ -122,6 +123,97 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(0, childEntity2.IsEditable);
             Assert.AreEqual(1, childEntity2.Order);
             CollectionAssert.IsEmpty(childEntity2.CalculationGroupEntity1);
+        }
+
+        [Test]
+        public void Create_GroupWithChildPipingCalculations_CreateEntities()
+        {
+            // Setup
+            var generalInputParameters = new GeneralPipingInput();
+            var group = new CalculationGroup("root", true)
+            {
+                Children =
+                {
+                    new PipingCalculationScenario(generalInputParameters)
+                    {
+                        Name = "A"
+                    },
+                    new PipingCalculationScenario(generalInputParameters)
+                    {
+                        Name = "B"
+                    }
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            CalculationGroupEntity entity = group.Create(registry, 0);
+
+            // Assert
+            PipingCalculationEntity[] childCalculationEntities = entity.PipingCalculationEntities.ToArray();
+            Assert.AreEqual(2, childCalculationEntities.Length);
+
+            PipingCalculationEntity childEntity1 = childCalculationEntities[0];
+            Assert.AreEqual("A", childEntity1.Name);
+            Assert.AreEqual(0, childEntity1.Order);
+            PipingCalculationEntity childEntity2 = childCalculationEntities[1];
+            Assert.AreEqual("B", childEntity2.Name);
+            Assert.AreEqual(1, childEntity2.Order);
+        }
+
+        [Test]
+        public void Create_GroupWithChildPipingCalculationsAndChildCalculationGroups_CreateEntities()
+        {
+            // Setup
+            var generalInputParameters = new GeneralPipingInput();
+            var group = new CalculationGroup("root", true)
+            {
+                Children =
+                {
+                    new CalculationGroup("A", true),
+                    new PipingCalculationScenario(generalInputParameters)
+                    {
+                        Name = "B"
+                    },
+                    new CalculationGroup("C", false),
+                    new PipingCalculationScenario(generalInputParameters)
+                    {
+                        Name = "D"
+                    }
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            CalculationGroupEntity entity = group.Create(registry, 0);
+
+            // Assert
+            CalculationGroupEntity[] childGroupEntities = entity.CalculationGroupEntity1.ToArray();
+            PipingCalculationEntity[] childCalculationEntities = entity.PipingCalculationEntities.ToArray();
+            Assert.AreEqual(2, childGroupEntities.Length);
+            Assert.AreEqual(2, childCalculationEntities.Length);
+
+            CalculationGroupEntity childEntity1 = childGroupEntities[0];
+            Assert.AreEqual("A", childEntity1.Name);
+            Assert.AreEqual(1, childEntity1.IsEditable);
+            Assert.AreEqual(0, childEntity1.Order);
+            CollectionAssert.IsEmpty(childEntity1.CalculationGroupEntity1);
+
+            PipingCalculationEntity childEntity2 = childCalculationEntities[0];
+            Assert.AreEqual("B", childEntity2.Name);
+            Assert.AreEqual(1, childEntity2.Order);
+
+            CalculationGroupEntity childEntity3 = childGroupEntities[1];
+            Assert.AreEqual("C", childEntity3.Name);
+            Assert.AreEqual(0, childEntity3.IsEditable);
+            Assert.AreEqual(2, childEntity3.Order);
+            CollectionAssert.IsEmpty(childEntity3.CalculationGroupEntity1);
+
+            PipingCalculationEntity childEntity4 = childCalculationEntities[1];
+            Assert.AreEqual("D", childEntity4.Name);
+            Assert.AreEqual(3, childEntity4.Order);
         }
     }
 }

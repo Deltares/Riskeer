@@ -75,7 +75,8 @@ namespace Application.Ringtoets.Storage.Read
 
             entity.ReadFailureMechanismSections(failureMechanism);
 
-            ReadRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
+            ReadRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup,
+                                     failureMechanism.GeneralInput, collector);
 
             return failureMechanism;
         }
@@ -89,9 +90,11 @@ namespace Application.Ringtoets.Storage.Read
             pipingProbabilityAssessmentInput.A = probabilityAssessmentInput.A;
         }
 
-        private static void ReadRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity, CalculationGroup targetRootCalculationGroup, ReadConversionCollector collector)
+        private static void ReadRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
+                                             CalculationGroup targetRootCalculationGroup, GeneralPipingInput generalPipingInput,
+                                             ReadConversionCollector collector)
         {
-            var rootCalculationGroup = rootCalculationGroupEntity.Read(collector);
+            var rootCalculationGroup = rootCalculationGroupEntity.ReadPipingCalculationGroup(collector, generalPipingInput);
             targetRootCalculationGroup.StorageId = rootCalculationGroup.StorageId;
             foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
             {

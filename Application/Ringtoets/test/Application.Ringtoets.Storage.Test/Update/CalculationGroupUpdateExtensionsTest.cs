@@ -33,6 +33,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Update
 {
@@ -354,6 +355,191 @@ namespace Application.Ringtoets.Storage.Test.Update
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void Update_ChildPipingCalculationsReordered_EntitiesUpdated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            CalculationGroup calculationGroup = CreateCalculationGroupWith2ChildPipingCalculations();
+
+            var childGroupEntity1 = new PipingCalculationEntity
+            {
+                PipingCalculationEntityId = ((PipingCalculationScenario)calculationGroup.Children[0]).StorageId,
+                Name = "A",
+                Order = 1
+            };
+            var childGroupEntity2 = new PipingCalculationEntity
+            {
+                PipingCalculationEntityId = ((PipingCalculationScenario)calculationGroup.Children[1]).StorageId,
+                Name = "B",
+                Order = 0
+            };
+            var groupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = calculationGroup.StorageId,
+                IsEditable = Convert.ToByte(calculationGroup.IsNameEditable),
+                Name = "<original name>",
+                PipingCalculationEntities = 
+                {
+                    childGroupEntity1,
+                    childGroupEntity2
+                }
+            };
+            ringtoetsEntities.CalculationGroupEntities.Add(groupEntity);
+            ringtoetsEntities.PipingCalculationEntities.Add(childGroupEntity1);
+            ringtoetsEntities.PipingCalculationEntities.Add(childGroupEntity2);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            calculationGroup.Update(registry, ringtoetsEntities);
+
+            // Assert
+            Assert.AreEqual(0, childGroupEntity1.Order);
+            Assert.AreEqual(calculationGroup.Children[0].Name, childGroupEntity1.Name);
+            Assert.AreEqual(1, childGroupEntity2.Order);
+            Assert.AreEqual(calculationGroup.Children[1].Name, childGroupEntity2.Name);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ChildPipingCalculationsInserted_EntitiesUpdatedAndNewEntityCreated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            CalculationGroup calculationGroup = CreateCalculationGroupWith2ChildPipingCalculations();
+
+            PipingCalculationEntity childPipingCalculationEntity1 = CreateExpectedPipingCalculationEntity((PipingCalculationScenario)calculationGroup.Children[0], 0);
+            PipingCalculationEntity childPipingCalculationEntity2 = CreateExpectedPipingCalculationEntity((PipingCalculationScenario)calculationGroup.Children[1], 1);
+            var groupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = calculationGroup.StorageId,
+                IsEditable = Convert.ToByte(calculationGroup.IsNameEditable),
+                Name = "<original name>",
+                PipingCalculationEntities = 
+                {
+                    childPipingCalculationEntity1,
+                    childPipingCalculationEntity2
+                }
+            };
+            ringtoetsEntities.CalculationGroupEntities.Add(groupEntity);
+            ringtoetsEntities.PipingCalculationEntities.Add(childPipingCalculationEntity1);
+            ringtoetsEntities.PipingCalculationEntities.Add(childPipingCalculationEntity2);
+
+            var insertedPipingCalculationGroup = new PipingCalculationScenario(new GeneralPipingInput());
+            const int insertedIndex = 1;
+            calculationGroup.Children.Insert(insertedIndex, insertedPipingCalculationGroup);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            calculationGroup.Update(registry, ringtoetsEntities);
+
+            // Assert
+            PipingCalculationEntity[] updatedChildPipingCalculationEntities = groupEntity.PipingCalculationEntities
+                                                                                         .OrderBy(cge => cge.Order)
+                                                                                         .ToArray();
+            Assert.AreEqual(3, updatedChildPipingCalculationEntities.Length);
+            Assert.AreSame(childPipingCalculationEntity1, updatedChildPipingCalculationEntities[0]);
+            Assert.AreEqual(0, childPipingCalculationEntity1.Order);
+            Assert.AreEqual(calculationGroup.Children[0].Name, childPipingCalculationEntity1.Name);
+
+            PipingCalculationEntity newPipingCalculationEntity = updatedChildPipingCalculationEntities[insertedIndex];
+            Assert.AreEqual(insertedIndex, newPipingCalculationEntity.Order);
+            Assert.AreEqual(insertedPipingCalculationGroup.Name, newPipingCalculationEntity.Name);
+
+            Assert.AreSame(childPipingCalculationEntity2, updatedChildPipingCalculationEntities[2]);
+            Assert.AreEqual(2, childPipingCalculationEntity2.Order);
+            Assert.AreEqual(calculationGroup.Children[2].Name, childPipingCalculationEntity2.Name);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ChildPipingCalculationAdded_RootEntityUpdatedAndNewEntityCreated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            CalculationGroup calculationGroup = CreateCalculationGroupWithoutChildren(true);
+
+            CalculationGroupEntity rootGroupEntity = CreateExpectedEmptyGroupEntity(calculationGroup, 0);
+            ringtoetsEntities.CalculationGroupEntities.Add(rootGroupEntity);
+
+            var newPipingCalculation = new PipingCalculationScenario(new GeneralPipingInput());
+            calculationGroup.Children.Add(newPipingCalculation);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            calculationGroup.Update(registry, ringtoetsEntities);
+
+            // Assert
+            PipingCalculationEntity[] updatedChildPipingCalculationEntities = rootGroupEntity.PipingCalculationEntities
+                                                                                .OrderBy(cge => cge.Order)
+                                                                                .ToArray();
+            Assert.AreEqual(1, updatedChildPipingCalculationEntities.Length);
+            var newGroupEntity = updatedChildPipingCalculationEntities[0];
+            Assert.AreEqual(0, newGroupEntity.Order);
+            Assert.AreEqual(newPipingCalculation.Name, newGroupEntity.Name);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ExistingChildPipingCalculationDragged_EntitiesUpdated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var draggedPipingCalculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                Name = "<Dragged piping calculation>",
+                StorageId = 345
+            };
+            CalculationGroup calculationGroup = CreateCalculationGroupWith2ChildGroups();
+            ((CalculationGroup)calculationGroup.Children[0]).Children.Add(draggedPipingCalculation);
+
+            CalculationGroupEntity childGroup1Entity = CreateExpectedEmptyGroupEntity((CalculationGroup)calculationGroup.Children[0], 0);
+            CalculationGroupEntity childGroup2Entity = CreateExpectedEmptyGroupEntity((CalculationGroup)calculationGroup.Children[1], 1);
+            CalculationGroupEntity fillerGroupEntity = CreateExpectedEmptyGroupEntity(new CalculationGroup(), 0);
+            childGroup2Entity.CalculationGroupEntity1.Add(fillerGroupEntity);
+            PipingCalculationEntity draggedPipingCalculationEntity = CreateExpectedPipingCalculationEntity(draggedPipingCalculation, 1);
+            childGroup2Entity.PipingCalculationEntities.Add(draggedPipingCalculationEntity);
+            draggedPipingCalculationEntity.CalculationGroupEntity = childGroup2Entity;
+
+            CalculationGroupEntity rootGroupEntity = CreateExpectedEmptyGroupEntity(calculationGroup, 0);
+            rootGroupEntity.CalculationGroupEntity1.Add(childGroup1Entity);
+            rootGroupEntity.CalculationGroupEntity1.Add(childGroup2Entity);
+
+            ringtoetsEntities.CalculationGroupEntities.Add(rootGroupEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(childGroup1Entity);
+            ringtoetsEntities.CalculationGroupEntities.Add(childGroup2Entity);
+            ringtoetsEntities.CalculationGroupEntities.Add(fillerGroupEntity);
+            ringtoetsEntities.PipingCalculationEntities.Add(draggedPipingCalculationEntity);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            calculationGroup.Update(registry, ringtoetsEntities);
+
+            // Assert
+            Assert.AreEqual(0, draggedPipingCalculationEntity.Order);
+            CollectionAssert.Contains(childGroup1Entity.PipingCalculationEntities, draggedPipingCalculationEntity);
+            CollectionAssert.DoesNotContain(childGroup2Entity.PipingCalculationEntities, draggedPipingCalculationEntity);
+
+            Assert.AreEqual(0, fillerGroupEntity.Order);
+            mocks.VerifyAll();
+        }
+
         private static CalculationGroup CreateCalculationGroupWithoutChildren(bool isNameEditable)
         {
             return new CalculationGroup("<GroupWithoutChildren>", isNameEditable)
@@ -381,6 +567,26 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
         }
 
+        private CalculationGroup CreateCalculationGroupWith2ChildPipingCalculations()
+        {
+            var generalPipingInput = new GeneralPipingInput();
+            return new CalculationGroup("<GroupWithTwoChildPipingCalculations", true)
+            {
+                StorageId = 507698,
+                Children =
+                {
+                    new PipingCalculationScenario(generalPipingInput)
+                    {
+                        StorageId = 4
+                    },
+                    new PipingCalculationScenario(generalPipingInput)
+                    {
+                        StorageId = 12
+                    }
+                }
+            };
+        }
+
         private CalculationGroupEntity CreateExpectedEmptyGroupEntity(CalculationGroup group, int order)
         {
             return new CalculationGroupEntity
@@ -390,6 +596,13 @@ namespace Application.Ringtoets.Storage.Test.Update
                 IsEditable = Convert.ToByte(group.IsNameEditable),
                 Order = order
             };
+        }
+
+        private PipingCalculationEntity CreateExpectedPipingCalculationEntity(PipingCalculationScenario pipingCalculation, int order)
+        {
+            PipingCalculationEntity entity = pipingCalculation.Create(new PersistenceRegistry(), order);
+            entity.PipingCalculationEntityId = pipingCalculation.StorageId;
+            return entity;
         }
     }
 }
