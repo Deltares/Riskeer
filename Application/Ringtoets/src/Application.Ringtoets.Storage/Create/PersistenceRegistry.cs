@@ -60,6 +60,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine> surfaceLines = new Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine>(new ReferenceEqualityComparer<SurfaceLineEntity>());
         private readonly Dictionary<SurfaceLinePointEntity, Point3D> surfaceLinePoints = new Dictionary<SurfaceLinePointEntity, Point3D>(new ReferenceEqualityComparer<SurfaceLinePointEntity>());
         private readonly Dictionary<CharacteristicPointEntity, Point3D> characteristicPoints = new Dictionary<CharacteristicPointEntity, Point3D>(new ReferenceEqualityComparer<CharacteristicPointEntity>());
+        private readonly Dictionary<PipingFailureMechanismMetaEntity, PipingProbabilityAssessmentInput> pipingProbabilityAssessmentInputs = new Dictionary<PipingFailureMechanismMetaEntity, PipingProbabilityAssessmentInput>(new ReferenceEqualityComparer<PipingFailureMechanismMetaEntity>()); 
 
         /// <summary>
         /// Registers a create or update operation for <paramref name="model"/> and the
@@ -446,6 +447,11 @@ namespace Application.Ringtoets.Storage.Create
             Register(characteristicPoints, entity, model);
         }
 
+        internal void Register(PipingFailureMechanismMetaEntity entity, PipingProbabilityAssessmentInput model)
+        {
+            Register(pipingProbabilityAssessmentInputs, entity, model);
+        }
+
         /// <summary>
         /// Transfer ids from the created entities to the domain model objects' property.
         /// </summary>
@@ -514,6 +520,11 @@ namespace Application.Ringtoets.Storage.Create
             foreach (var entity in surfaceLinePoints.Keys)
             {
                 surfaceLinePoints[entity].StorageId = entity.SurfaceLinePointEntityId;
+            }
+
+            foreach (var entity in pipingProbabilityAssessmentInputs.Keys)
+            {
+                pipingProbabilityAssessmentInputs[entity].StorageId = entity.PipingFailureMechanismMetaEntityId;
             }
 
             // CharacteristicPoints do not really have a 'identity' within the object-model.
@@ -623,6 +634,13 @@ namespace Application.Ringtoets.Storage.Create
                 .Where(entity => entity.CharacteristicPointEntityId > 0)
                 .Except(characteristicPoints.Keys);
             characteristicPointEntities.RemoveRange(characteristicPointEntitiesToRemove);
+
+            var pipingFailureMechanismMetaEntities = dbContext.PipingFailureMechanismMetaEntities;
+            var pipingFailureMechanismMetaEntitiesToRemove = pipingFailureMechanismMetaEntities
+                .Local
+                .Where(entity => entity.PipingFailureMechanismMetaEntityId > 0)
+                .Except(pipingProbabilityAssessmentInputs.Keys);
+            pipingFailureMechanismMetaEntities.RemoveRange(pipingFailureMechanismMetaEntitiesToRemove);
         }
 
         private bool ContainsValue<T, U>(Dictionary<T, U> collection, U model)

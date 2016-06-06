@@ -53,6 +53,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             DbSet<SurfaceLineEntity> surfaceLinesSet = CreateEmptyTestDbSet<SurfaceLineEntity>();
             DbSet<SurfaceLinePointEntity> surfaceLinePointsSet = CreateEmptyTestDbSet<SurfaceLinePointEntity>();
             DbSet<CharacteristicPointEntity> characteristicPointsSet = CreateEmptyTestDbSet<CharacteristicPointEntity>();
+            DbSet<PipingFailureMechanismMetaEntity> failureMechanismMetaSet = CreateEmptyTestDbSet<PipingFailureMechanismMetaEntity>();
 
             var ringtoetsEntities = mockRepository.Stub<IRingtoetsEntities>();
             ringtoetsEntities.Stub(r => r.ProjectEntities).Return(projectsSet);
@@ -72,6 +73,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             ringtoetsEntities.Stub(r => r.SurfaceLineEntities).Return(surfaceLinesSet);
             ringtoetsEntities.Stub(r => r.SurfaceLinePointEntities).Return(surfaceLinePointsSet);
             ringtoetsEntities.Stub(r => r.CharacteristicPointEntities).Return(characteristicPointsSet);
+            ringtoetsEntities.Stub(r => r.PipingFailureMechanismMetaEntities).Return(failureMechanismMetaSet);
             return ringtoetsEntities;
         }
 

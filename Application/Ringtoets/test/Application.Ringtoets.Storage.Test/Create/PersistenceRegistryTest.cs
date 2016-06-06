@@ -1011,6 +1011,34 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual("model", paramName);
         }
 
+        [Test]
+        public void Register_WithNullPipingFailureMechanismMetaEntity_ThrowsArgumentNullExcpetion()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Register(null, new PipingProbabilityAssessmentInput());
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullPipingProbabilityAssessmentInput_ThrowsArgumentNullExcpetion()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Register(new PipingFailureMechanismMetaEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
         #endregion
 
         #region TransferId method
@@ -1300,6 +1328,27 @@ namespace Application.Ringtoets.Storage.Test.Create
                 SurfaceLinePointEntityId = storageId
             };
             var model = new Point3D(1.1, 2.2, 3.3);
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferId_WithPipingFailureMechanismMetaEntityAdded_EqualFailureMechanismMetaEntityIdAndPipingProbabilityAssessmentInputStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1, 4000);
+            var entity = new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = storageId
+            };
+            var model = new PipingProbabilityAssessmentInput();
             registry.Register(entity, model);
 
             // Call
@@ -1791,6 +1840,42 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(1, dbContext.CharacteristicPointEntities.Count());
             CollectionAssert.Contains(dbContext.CharacteristicPointEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_PipingFailureMechanismMetaEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = 1
+            };
+            var persistentEntity = new PipingFailureMechanismMetaEntity
+            {
+                PipingFailureMechanismMetaEntityId = 2
+            };
+            dbContext.PipingFailureMechanismMetaEntities.Add(orphanedEntity);
+            dbContext.PipingFailureMechanismMetaEntities.Add(persistentEntity);
+
+            var model = new PipingProbabilityAssessmentInput
+            {
+                StorageId = 394624 // Note: ID only has to match a SurfaceLinePointEntity's id!
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, model);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.PipingFailureMechanismMetaEntities.Count());
+            CollectionAssert.Contains(dbContext.PipingFailureMechanismMetaEntities, persistentEntity);
             mocks.VerifyAll();
         }
 

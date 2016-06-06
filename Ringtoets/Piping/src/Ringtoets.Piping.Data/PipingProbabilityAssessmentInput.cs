@@ -21,13 +21,14 @@
 
 using System;
 using Core.Common.Base.Properties;
+using Core.Common.Base.Storage;
 
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// This class holds parameters which influence the probability estimate for a piping assessment.
     /// </summary>
-    public class PipingProbabilityAssessmentInput
+    public class PipingProbabilityAssessmentInput : IStorable
     {
         private double a;
 
@@ -72,5 +73,7 @@ namespace Ringtoets.Piping.Data
         /// Gets or sets the length of the assessment section.
         /// </summary>
         public double SectionLength { get; set; }
+
+        public long StorageId { get; set; }
     }
 }

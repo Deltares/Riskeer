@@ -51,6 +51,8 @@ namespace Application.Ringtoets.Storage.Create
                 IsRelevant = Convert.ToByte(mechanism.IsRelevant)
             };
 
+
+            AddEntitiesForFailureMechanismMeta(mechanism, registry, entity);
             AddEntitiesForStochasticSoilModels(mechanism, registry, entity);
             AddEntitiesForSurfaceLines(mechanism, registry, entity);
             mechanism.AddEntitiesForFailureMechanismSections(registry, entity);
@@ -59,6 +61,11 @@ namespace Application.Ringtoets.Storage.Create
 
             registry.Register(entity, mechanism);
             return entity;
+        }
+
+        private static void AddEntitiesForFailureMechanismMeta(PipingFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)
+        {
+            entity.PipingFailureMechanismMetaEntities.Add(mechanism.PipingProbabilityAssessmentInput.Create(registry));
         }
 
         private static void AddEntitiesForStochasticSoilModels(PipingFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)

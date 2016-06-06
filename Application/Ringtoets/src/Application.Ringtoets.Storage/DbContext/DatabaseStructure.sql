@@ -271,7 +271,7 @@ CREATE TABLE 'PipingFailureMechanismMetaEntity'
 (
 	'PipingFailureMechanismMetaEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	'FailureMechanismEntityId' INTEGER,
-	'A' NUMERIC,
+	'A' NUMERIC NOT NULL,
 	CONSTRAINT 'FK_PipingFailureMechanismMetaEntity_FailureMechanismEntity' FOREIGN KEY ('FailureMechanismEntityId') REFERENCES 'FailureMechanismEntity' ('FailureMechanismEntityId') ON DELETE Cascade ON UPDATE Cascade
 )
 ;

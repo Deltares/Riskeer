@@ -69,7 +69,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNotNull(entity);
             Assert.AreEqual((short)FailureMechanismType.Piping, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
-            Assert.IsEmpty(entity.StochasticSoilModelEntities);
+            CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
+
+            var failureMechanismMetaEntity = entity.PipingFailureMechanismMetaEntities.ToArray()[0];
+            Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
         }
 
         [Test]
