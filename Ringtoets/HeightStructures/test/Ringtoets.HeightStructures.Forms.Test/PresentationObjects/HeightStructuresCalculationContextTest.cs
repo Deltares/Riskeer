@@ -31,22 +31,16 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
     [TestFixture]
     public class HeightStructuresCalculationContextTest
     {
-        private MockRepository mocksRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mocksRepository = new MockRepository();
-        }
-
         [Test]
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new HeightStructuresCalculation();
+            var mocksRepository = new MockRepository();
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             mocksRepository.ReplayAll();
+
+            var calculation = new HeightStructuresCalculation();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
             var context = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);

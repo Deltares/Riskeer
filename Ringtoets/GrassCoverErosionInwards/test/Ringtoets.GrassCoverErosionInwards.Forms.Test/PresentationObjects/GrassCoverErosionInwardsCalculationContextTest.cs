@@ -31,31 +31,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationContextTest
     {
-        private MockRepository mocksRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mocksRepository = new MockRepository();
-        }
-
         [Test]
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var calculationMock = mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
-            var failureMechanismMock = mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var mocksRepository = new MockRepository();
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             // Call
-            var context = new GrassCoverErosionInwardsCalculationContext(calculationMock, failureMechanismMock, assessmentSectionMock);
+            var context = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsContext<GrassCoverErosionInwardsCalculation>>(context);
             Assert.IsInstanceOf<ICalculationContext<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsFailureMechanism>>(context);
-            Assert.AreEqual(calculationMock, context.WrappedData);
-            Assert.AreEqual(failureMechanismMock, context.FailureMechanism);
+            Assert.AreEqual(calculation, context.WrappedData);
+            Assert.AreEqual(failureMechanism, context.FailureMechanism);
             Assert.AreEqual(assessmentSectionMock, context.AssessmentSection);
             mocksRepository.VerifyAll();
         }

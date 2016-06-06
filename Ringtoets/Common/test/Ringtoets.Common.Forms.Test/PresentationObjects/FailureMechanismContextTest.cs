@@ -37,18 +37,18 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
-            var context = new SimpleFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new SimpleFailureMechanismContext(failureMechanismMock, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IFailureMechanism>>(context);
             Assert.IsInstanceOf<IFailureMechanismContext<IFailureMechanism>>(context);
-            Assert.AreSame(assessmentSection, context.Parent);
-            Assert.AreSame(failureMechanism, context.WrappedData);
+            Assert.AreSame(assessmentSectionMock, context.Parent);
+            Assert.AreSame(failureMechanismMock, context.WrappedData);
             mocks.VerifyAll();
         }
 
@@ -57,15 +57,16 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new SimpleFailureMechanismContext(failureMechanism, null);
+            TestDelegate test = () => new SimpleFailureMechanismContext(failureMechanismMock, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("parent", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         private class SimpleFailureMechanismContext : FailureMechanismContext<IFailureMechanism>

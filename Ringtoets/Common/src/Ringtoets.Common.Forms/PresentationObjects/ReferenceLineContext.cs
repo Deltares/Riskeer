@@ -35,6 +35,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedAssessmentSection">The assessment section that is wrapped.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedAssessmentSection"/> is <c>null</c>.</exception>
-        public ReferenceLineContext(IAssessmentSection wrappedAssessmentSection) : base(wrappedAssessmentSection) {}
+        public ReferenceLineContext(IAssessmentSection wrappedAssessmentSection)
+            : base(wrappedAssessmentSection) {}
     }
 }

@@ -42,8 +42,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var pipingFailureMechanism = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             RingtoetsPipingSurfaceLine[] surfaceLines =
@@ -58,9 +57,10 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             };
 
             var target = new ObservableObject();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var context = new SimplePipingContext<ObservableObject>(target, surfaceLines, soilModels, pipingFailureMechanism, assessmentSection);
+            var context = new SimplePipingContext<ObservableObject>(target, surfaceLines, soilModels, failureMechanism, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(context);
@@ -70,9 +70,8 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             Assert.AreSame(soilModels, context.AvailableStochasticSoilModels,
                            "It is vital that the iterator should be identical to the collection, in order to stay in sync when items are added or removed.");
             Assert.AreSame(target, context.WrappedData);
-            Assert.AreSame(pipingFailureMechanism, context.FailureMechanism);
-            Assert.AreSame(assessmentSection, context.AssessmentSection);
-
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
+            Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
             mocks.VerifyAll();
         }
 
@@ -81,16 +80,17 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var pipingFailureMechanism = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
             TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
                                                                                 null,
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
-                                                                                pipingFailureMechanism,
-                                                                                assessmentSection);
+                                                                                failureMechanism,
+                                                                                assessmentSectionMock);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -107,16 +107,15 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var pipingFailureMechanism = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
             TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
                                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                 null,
-                                                                                pipingFailureMechanism,
-                                                                                assessmentSection);
+                                                                                new PipingFailureMechanism(),
+                                                                                assessmentSectionMock);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -133,7 +132,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
@@ -141,7 +140,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                                 null,
-                                                                                assessmentSection);
+                                                                                assessmentSectionMock);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -156,16 +155,11 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         [Test]
         public void ParameteredConstructor_AssessmentSectionIsNull_ThrowArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var pipingFailureMechanism = mocks.StrictMock<PipingFailureMechanism>();
-            mocks.ReplayAll();
-
             // Call
             TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
                                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
-                                                                                pipingFailureMechanism,
+                                                                                new PipingFailureMechanism(),
                                                                                 null);
 
             // Assert
@@ -175,7 +169,6 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                 Environment.NewLine
             }, StringSplitOptions.None)[0];
             Assert.AreEqual("Het traject mag niet 'null' zijn.", customMessage);
-            mocks.VerifyAll();
         }
 
         private class SimplePipingContext<T> : PipingContext<T> where T : IObservable

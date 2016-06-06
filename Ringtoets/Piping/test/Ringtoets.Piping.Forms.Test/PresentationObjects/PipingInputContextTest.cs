@@ -38,6 +38,10 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var surfaceLines = new[]
             {
@@ -48,24 +52,19 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                 new TestStochasticSoilModel()
             };
 
-            var mocks = new MockRepository();
             var failureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-
-            mocks.ReplayAll();
 
             // Call
-            var context = new PipingInputContext(calculation.InputParameters, calculation, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSection);
+            var context = new PipingInputContext(calculation.InputParameters, calculation, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<PipingContext<PipingInput>>(context);
             Assert.AreSame(calculation.InputParameters, context.WrappedData);
             Assert.AreSame(calculation, context.PipingCalculation);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
-            Assert.AreSame(assessmentSection, context.AssessmentSection);
+            Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
             CollectionAssert.AreEqual(surfaceLines, context.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(stochasticSoilModels, context.AvailableStochasticSoilModels);
-
             mocks.VerifyAll();
         }
 
@@ -73,6 +72,10 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void ParameteredConstructor_CalculationItemNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculationInput = new PipingInput(new GeneralPipingInput());
             var surfaceLines = new[]
             {
@@ -84,13 +87,8 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             };
             var failureMechanism = new PipingFailureMechanism();
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-
-            mocks.ReplayAll();
-
             // Call
-            TestDelegate call = () => new PipingInputContext(calculationInput, null, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSection);
+            TestDelegate call = () => new PipingInputContext(calculationInput, null, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSectionMock);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "De berekening mag niet 'null' zijn.");

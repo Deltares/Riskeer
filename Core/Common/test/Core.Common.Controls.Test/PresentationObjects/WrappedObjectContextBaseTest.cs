@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Controls.PresentationObjects;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Common.Controls.Test.PresentationObjects
 {
@@ -36,9 +35,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
         public void Constructor_ValidWrappedObjectInstance_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var sourceObject = mocks.Stub<object>();
-            mocks.ReplayAll();
+            var sourceObject = new object();
 
             // Call
             var context = new SimpleWrappedObjectContext<object>(sourceObject);
@@ -46,8 +43,6 @@ namespace Core.Common.Controls.Test.PresentationObjects
             // Assert
             Assert.IsInstanceOf<IEquatable<WrappedObjectContextBase<object>>>(context);
             Assert.AreSame(sourceObject, context.WrappedData);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -65,49 +60,33 @@ namespace Core.Common.Controls.Test.PresentationObjects
         public void Equals_ToNull_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var sourceObject = mocks.Stub<object>();
-            mocks.ReplayAll();
-
-            var context = new SimpleWrappedObjectContext<object>(sourceObject);
+            var context = new SimpleWrappedObjectContext<object>(new object());
 
             // Call
             var isEqual = context.Equals(null);
 
             // Assert
             Assert.IsFalse(isEqual);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Equals_ToItself_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var sourceObject = mocks.Stub<object>();
-            mocks.ReplayAll();
-
-            var context = new SimpleWrappedObjectContext<object>(sourceObject);
+            var context = new SimpleWrappedObjectContext<object>(new object());
 
             // Call
             var isEqual = context.Equals(context);
 
             // Assert
             Assert.IsTrue(isEqual);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Equals_ToOtherWithDifferentWrappedType_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var sourceObject = mocks.Stub<object>();
-            mocks.ReplayAll();
-
-            var context1 = new SimpleWrappedObjectContext<object>(sourceObject);
+            var context1 = new SimpleWrappedObjectContext<object>(new object());
             var context2 = new SimpleWrappedObjectContext<IEnumerable<object>>(Enumerable.Empty<object>());
 
             // Call
@@ -117,18 +96,14 @@ namespace Core.Common.Controls.Test.PresentationObjects
             // Assert
             Assert.IsFalse(isEqual1);
             Assert.IsFalse(isEqual2);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Equals_ToOtherWithDifferentWrappedData_ReturnFalse()
         {
             // Setup
-            var sourceObj1 = new object();
-            var sourceObj2 = new object();
-            var sourceObject1 = new SimpleEquatable(sourceObj1);
-            var sourceObject2 = new SimpleEquatable(sourceObj2);
+            var sourceObject1 = new SimpleEquatable(new object());
+            var sourceObject2 = new SimpleEquatable(new object());
 
             // Precondition:
             Assert.IsFalse(sourceObject1.Equals(sourceObject2));
@@ -149,44 +124,34 @@ namespace Core.Common.Controls.Test.PresentationObjects
         public void Equals_ToOtherWithDifferentContextType_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var sourceObject = mocks.Stub<object>();
-            mocks.ReplayAll();
-
+            var sourceObject = new object();
             var context1 = new SimpleWrappedObjectContext<object>(sourceObject);
             object context2 = new AnotherSimpleWrappedObjectContext<object>(sourceObject);
 
             // Call
             var isEqual1 = context1.Equals(context2);
-            var isEqual2 = context1.Equals(context2);
+            var isEqual2 = context2.Equals(context1);
 
             // Assert
             Assert.IsFalse(isEqual1);
             Assert.IsFalse(isEqual2);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Equals_ToOtherWithSameWrappedData_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var sourceObject = mocks.Stub<object>();
-            mocks.ReplayAll();
-
+            var sourceObject = new object();
             var context1 = new SimpleWrappedObjectContext<object>(sourceObject);
             object context2 = new SimpleWrappedObjectContext<object>(sourceObject);
 
             // Call
             var isEqual1 = context1.Equals(context2);
-            var isEqual2 = context1.Equals(context2);
+            var isEqual2 = context2.Equals(context1);
 
             // Assert
             Assert.IsTrue(isEqual1);
             Assert.IsTrue(isEqual2);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -196,7 +161,6 @@ namespace Core.Common.Controls.Test.PresentationObjects
             var sourceObject = new object();
             var sourceObject1 = new SimpleEquatable(sourceObject);
             var sourceObject2 = new SimpleEquatable(sourceObject);
-
             var context1 = new SimpleWrappedObjectContext<SimpleEquatable>(sourceObject1);
             object context2 = new SimpleWrappedObjectContext<SimpleEquatable>(sourceObject2);
 
@@ -215,10 +179,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
         public void GetHashCode_OtherWithDifferentContextType_ReturnDifferentHashCode()
         {
             // Setup
-            var mocks = new MockRepository();
-            var sourceObject = mocks.Stub<object>();
-            mocks.ReplayAll();
-
+            var sourceObject = new object();
             var context1 = new SimpleWrappedObjectContext<object>(sourceObject);
             object context2 = new AnotherSimpleWrappedObjectContext<object>(sourceObject);
 

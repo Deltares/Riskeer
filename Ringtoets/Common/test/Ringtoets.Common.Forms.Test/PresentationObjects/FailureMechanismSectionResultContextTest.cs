@@ -40,12 +40,12 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            mocks.ReplayAll();
+
             var failureMechanismSectionResults = new[]
             {
                 CreateFailureMechanismSectionResult()
             };
-
-            mocks.ReplayAll();
 
             // Call
             var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(failureMechanismSectionResults, failureMechanismMock);

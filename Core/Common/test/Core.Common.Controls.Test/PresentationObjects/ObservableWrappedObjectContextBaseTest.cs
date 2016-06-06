@@ -35,17 +35,16 @@ namespace Core.Common.Controls.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var sourceObject = mocks.Stub<IObservable>();
+            var sourceObjectMock = mocks.StrictMock<IObservable>();
             mocks.ReplayAll();
 
             // Call
-            var context = new SimpleObservableWrappedObjectContext(sourceObject);
+            var context = new SimpleObservableWrappedObjectContext(sourceObjectMock);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(context);
             Assert.IsInstanceOf<WrappedObjectContextBase<IObservable>>(context);
-            Assert.AreSame(sourceObject, context.WrappedData);
-
+            Assert.AreSame(sourceObjectMock, context.WrappedData);
             mocks.VerifyAll();
         }
 
@@ -54,15 +53,15 @@ namespace Core.Common.Controls.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var observer = mocks.Stub<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var equalitySource = new object();
             var sourceObject = new SimpleObservable(equalitySource);
-
             var context = new SimpleObservableWrappedObjectContext(sourceObject);
-            context.Attach(observer);
+
+            context.Attach(observerMock);
 
             // Call
             context.NotifyObservers();
@@ -76,15 +75,15 @@ namespace Core.Common.Controls.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
+            var observerMock = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
             var equalitySource = new object();
             var sourceObject = new SimpleObservable(equalitySource);
-
             var context = new SimpleObservableWrappedObjectContext(sourceObject);
-            context.Attach(observer);
-            context.Detach(observer);
+
+            context.Attach(observerMock);
+            context.Detach(observerMock);
 
             // Call
             context.NotifyObservers();
@@ -98,15 +97,15 @@ namespace Core.Common.Controls.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var observer = mocks.Stub<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var equalitySource = new object();
             var sourceObject = new SimpleObservable(equalitySource);
-            sourceObject.Attach(observer);
-
             var context = new SimpleObservableWrappedObjectContext(sourceObject);
+
+            sourceObject.Attach(observerMock);
 
             // Call
             context.NotifyObservers();
@@ -120,15 +119,15 @@ namespace Core.Common.Controls.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var observer = mocks.Stub<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var equalitySource = new object();
             var sourceObject = new SimpleObservable(equalitySource);
-
             var context = new SimpleObservableWrappedObjectContext(sourceObject);
-            context.Attach(observer);
+
+            context.Attach(observerMock);
 
             // Call
             sourceObject.NotifyObservers();

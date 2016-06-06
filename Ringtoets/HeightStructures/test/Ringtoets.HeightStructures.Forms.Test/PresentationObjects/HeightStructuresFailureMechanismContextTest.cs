@@ -37,17 +37,17 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<HeightStructuresFailureMechanism>>(context);
-            Assert.AreSame(assessmentSection, context.Parent);
+            Assert.AreSame(assessmentSectionMock, context.Parent);
             Assert.AreSame(failureMechanism, context.WrappedData);
             mocks.VerifyAll();
         }

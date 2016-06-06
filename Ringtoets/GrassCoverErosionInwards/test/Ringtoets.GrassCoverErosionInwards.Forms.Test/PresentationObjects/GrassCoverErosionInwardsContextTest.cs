@@ -36,33 +36,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
     [TestFixture]
     public class GrassCoverErosionInwardsContextTest
     {
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
-
         [Test]
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
+            var mockRepository = new MockRepository();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(null);
-            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             mockRepository.ReplayAll();
 
             var target = new ObservableObject();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(target, failureMechanismMock, assessmentSectionMock);
+            var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(target, failureMechanism, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableObject>>(context);
             Assert.AreSame(target, context.WrappedData);
             Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
-            Assert.AreSame(failureMechanismMock, context.FailureMechanism);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
             CollectionAssert.IsEmpty(context.AvailableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
         }
@@ -71,6 +64,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         public void ParameteredConstructor_FailureMechanismIsNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mockRepository = new MockRepository();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
 
@@ -88,17 +82,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         public void ParameteredConstructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            mockRepository.ReplayAll();
-
             var observableObject = new ObservableObject();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject, failureMechanismMock, null);
+            TestDelegate call = () => new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject, failureMechanism, null);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het traject mag niet 'null' zijn.");
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -107,13 +98,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 1.1, 2.2));
+
+            var mockRepository = new MockRepository();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase).Repeat.Twice();
-            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             mockRepository.ReplayAll();
 
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var target = new ObservableObject();
-            var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(target, failureMechanismMock, assessmentSectionMock);
+            var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(target, failureMechanism, assessmentSectionMock);
 
             // Call
             var availableHydraulicBoundaryLocations = context.AvailableHydraulicBoundaryLocations;

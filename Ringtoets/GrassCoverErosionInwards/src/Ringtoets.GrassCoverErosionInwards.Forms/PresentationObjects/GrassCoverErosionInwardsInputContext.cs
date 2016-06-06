@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         /// <param name="calculation">The calculation item which the <paramref name="input"/> belongs to.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is null.</exception>
+        /// <exception cref="ArgumentNullException">When any input argument is null.</exception>
         public GrassCoverErosionInwardsInputContext(GrassCoverErosionInwardsInput input,
                                                     ICalculation calculation,
                                                     GrassCoverErosionInwardsFailureMechanism failureMechanism,

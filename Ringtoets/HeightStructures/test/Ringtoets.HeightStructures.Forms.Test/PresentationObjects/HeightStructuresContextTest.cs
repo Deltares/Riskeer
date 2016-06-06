@@ -36,32 +36,25 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
     [TestFixture]
     public class HeightStructuresContextTest
     {
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
-
         [Test]
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
+            var mockRepository = new MockRepository();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mockRepository.StrictMock<HeightStructuresFailureMechanism>();
             mockRepository.ReplayAll();
 
             var target = new ObservableObject();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            var context = new SimpleHeightStructuresContext<ObservableObject>(target, failureMechanismMock, assessmentSectionMock);
+            var context = new SimpleHeightStructuresContext<ObservableObject>(target, failureMechanism, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableObject>>(context);
             Assert.AreSame(target, context.WrappedData);
             Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
-            Assert.AreSame(failureMechanismMock, context.FailureMechanism);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
             mockRepository.VerifyAll();
         }
 
@@ -69,6 +62,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
         public void ParameteredConstructor_FailureMechanismIsNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mockRepository = new MockRepository();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
 
@@ -86,17 +80,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
         public void ParameteredConstructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanismMock = mockRepository.StrictMock<HeightStructuresFailureMechanism>();
-            mockRepository.ReplayAll();
-
             var observableObject = new ObservableObject();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new SimpleHeightStructuresContext<ObservableObject>(observableObject, failureMechanismMock, null);
+            TestDelegate call = () => new SimpleHeightStructuresContext<ObservableObject>(observableObject, failureMechanism, null);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het traject mag niet 'null' zijn.");
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -105,13 +96,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 1.1, 2.2));
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mockRepository.ReplayAll();
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
             var target = new ObservableObject();
-            var context = new SimpleHeightStructuresContext<ObservableObject>(target, failureMechanism, assessmentSectionMock);
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var context = new SimpleHeightStructuresContext<ObservableObject>(target, failureMechanism, assessmentSectionStub);
 
             // Call
             var availableHydraulicBoundaryLocations = context.AvailableHydraulicBoundaryLocations;

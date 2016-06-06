@@ -35,16 +35,15 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var commentMock = mocks.StrictMock<ICommentable>();
+            var commentableMock = mocks.StrictMock<ICommentable>();
             mocks.ReplayAll();
 
             // Call
-            var context = new CommentContext<ICommentable>(commentMock);
+            var context = new CommentContext<ICommentable>(commentableMock);
 
             // Assert
             Assert.IsInstanceOf<WrappedObjectContextBase<ICommentable>>(context);
-            Assert.AreSame(commentMock, context.WrappedData);
-
+            Assert.AreSame(commentableMock, context.WrappedData);
             mocks.VerifyAll();
         }
     }

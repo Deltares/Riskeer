@@ -18,6 +18,10 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculationGroup = new CalculationGroup();
             var surfaceLines = new[]
             {
@@ -28,13 +32,10 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                 new TestStochasticSoilModel()
             };
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            mocks.ReplayAll();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var groupContext = new PipingCalculationGroupContext(calculationGroup, surfaceLines, soilModels, pipingFailureMechanismMock, assessmentSection);
+            var groupContext = new PipingCalculationGroupContext(calculationGroup, surfaceLines, soilModels, failureMechanism, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(groupContext);
@@ -43,8 +44,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
             Assert.AreSame(surfaceLines, groupContext.AvailablePipingSurfaceLines);
             Assert.AreSame(soilModels, groupContext.AvailableStochasticSoilModels);
-            Assert.AreSame(pipingFailureMechanismMock, groupContext.FailureMechanism);
-            Assert.AreSame(assessmentSection, groupContext.AssessmentSection);
+            Assert.AreSame(failureMechanism, groupContext.FailureMechanism);
+            Assert.AreSame(assessmentSectionMock, groupContext.AssessmentSection);
+            mocks.VerifyAll();
         }
     }
 }

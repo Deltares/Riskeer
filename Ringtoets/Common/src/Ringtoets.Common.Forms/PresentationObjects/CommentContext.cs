@@ -35,6 +35,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedCommentable">The commentable item to wrap.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedCommentable"/> is <c>null</c>.</exception>
-        public CommentContext(T wrappedCommentable) : base(wrappedCommentable) {}
+        public CommentContext(T wrappedCommentable)
+            : base(wrappedCommentable) {}
     }
 }

@@ -24,7 +24,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
@@ -46,20 +45,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var inputMock = mocksRepository.StrictMock<GrassCoverErosionInwardsInput>();
-            var calculationMock = mocksRepository.StrictMock<ICalculation>();
-            var failureMechanismMock = mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
+            var input = new GrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             // Call
-            var context = new GrassCoverErosionInwardsInputContext(inputMock, calculationMock, failureMechanismMock, assessmentSectionMock);
+            var context = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsContext<GrassCoverErosionInwardsInput>>(context);
-            Assert.AreEqual(inputMock, context.WrappedData);
-            Assert.AreEqual(calculationMock, context.Calculation);
-            Assert.AreEqual(failureMechanismMock, context.FailureMechanism);
+            Assert.AreEqual(input, context.WrappedData);
+            Assert.AreEqual(calculation, context.Calculation);
+            Assert.AreEqual(failureMechanism, context.FailureMechanism);
             Assert.AreEqual(assessmentSectionMock, context.AssessmentSection);
             mocksRepository.VerifyAll();
         }
@@ -68,13 +68,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         public void Constructor_NullCalculation_ThrowsArgumentNullException()
         {
             // Setup
-            var inputMock = mocksRepository.StrictMock<GrassCoverErosionInwardsInput>();
-            var failureMechanismMock = mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
+            var input = new GrassCoverErosionInwardsInput();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsInputContext(inputMock, null, failureMechanismMock, assessmentSectionMock);
+            TestDelegate test = () => new GrassCoverErosionInwardsInputContext(input, null, failureMechanism, assessmentSectionMock);
 
             // Assert
             var message = String.Format(Resources.GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,

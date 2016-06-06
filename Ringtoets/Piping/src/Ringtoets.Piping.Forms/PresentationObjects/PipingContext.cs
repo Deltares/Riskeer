@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
         /// <param name="pipingFailureMechanism">The piping failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
-        /// <exception cref="System.ArgumentNullException">When any input parameter is null.</exception>
+        /// <exception cref="ArgumentNullException">When any input argument is null.</exception>
         protected PipingContext(
             T wrappedData,
             IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines,

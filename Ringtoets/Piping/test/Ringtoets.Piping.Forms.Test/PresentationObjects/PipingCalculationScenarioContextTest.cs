@@ -17,6 +17,10 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void DefaultConstructor_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var surfacelines = new[]
             {
                 new RingtoetsPipingSurfaceLine()
@@ -26,14 +30,10 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                 new TestStochasticSoilModel()
             };
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
-
-            var mocks = new MockRepository();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var presentationObject = new PipingCalculationScenarioContext(calculation, surfacelines, soilModels, pipingFailureMechanismMock, assessmentSectionMock);
+            var presentationObject = new PipingCalculationScenarioContext(calculation, surfacelines, soilModels, failureMechanism, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(presentationObject);
@@ -42,8 +42,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             Assert.AreSame(calculation, presentationObject.WrappedData);
             Assert.AreSame(surfacelines, presentationObject.AvailablePipingSurfaceLines);
             Assert.AreSame(soilModels, presentationObject.AvailableStochasticSoilModels);
-            Assert.AreSame(pipingFailureMechanismMock, presentationObject.FailureMechanism);
+            Assert.AreSame(failureMechanism, presentationObject.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, presentationObject.AssessmentSection);
+            mocks.VerifyAll();
         }
     }
 }

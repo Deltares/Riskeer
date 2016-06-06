@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -38,6 +39,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// <param name="calculationsGroup">The <see cref="CalculationGroup"/> instance wrapped by this context object.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
+        /// <exception cref="ArgumentNullException">When any input argument is null.</exception>
         public HeightStructuresCalculationGroupContext(CalculationGroup calculationsGroup, HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(calculationsGroup, failureMechanism, assessmentSection) {}
     }

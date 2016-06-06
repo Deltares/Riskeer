@@ -37,19 +37,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var calculationGroup = new CalculationGroup();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             mockRepository.ReplayAll();
 
+            var calculationGroup = new CalculationGroup();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             // Call
-            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup, failureMechanismMock, assessmentSectionMock);
+            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsContext<CalculationGroup>>(groupContext);
             Assert.IsInstanceOf<ICalculationContext<CalculationGroup, GrassCoverErosionInwardsFailureMechanism>>(groupContext);
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
-            Assert.AreSame(failureMechanismMock, groupContext.FailureMechanism);
+            Assert.AreSame(failureMechanism, groupContext.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, groupContext.AssessmentSection);
             mockRepository.VerifyAll();
         }

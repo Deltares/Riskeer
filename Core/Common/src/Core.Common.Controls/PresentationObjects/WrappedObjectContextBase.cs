@@ -58,6 +58,10 @@ namespace Core.Common.Controls.PresentationObjects
             {
                 return false;
             }
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
             if (ReferenceEquals(this, other))
             {
                 return true;
@@ -67,19 +71,6 @@ namespace Core.Common.Controls.PresentationObjects
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
             return Equals(obj as WrappedObjectContextBase<T>);
         }
 

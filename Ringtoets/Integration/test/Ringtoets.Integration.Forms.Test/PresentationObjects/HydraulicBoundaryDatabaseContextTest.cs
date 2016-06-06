@@ -44,6 +44,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IAssessmentSection>>(pressentationObject);
             Assert.AreSame(assessmentSectionMock, pressentationObject.WrappedData);
+            mocks.VerifyAll();
         }
     }
 }

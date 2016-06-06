@@ -38,18 +38,19 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var failureMechanism = new PipingFailureMechanism();
+
             // Call
-            var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<StochasticSoilModel>>>(context);
             Assert.AreSame(failureMechanism.StochasticSoilModels, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
-            Assert.AreSame(assessmentSection, context.AssessmentSection);
+            Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
             mocks.VerifyAll();
         }
 
@@ -58,12 +59,13 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var stochasticSoilModels = new ObservableList<StochasticSoilModel>();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var stochasticSoilModels = new ObservableList<StochasticSoilModel>();
+
             // Call
-            TestDelegate test = () => new StochasticSoilModelContext(stochasticSoilModels, null, assessmentSection);
+            TestDelegate test = () => new StochasticSoilModelContext(stochasticSoilModels, null, assessmentSectionMock);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
