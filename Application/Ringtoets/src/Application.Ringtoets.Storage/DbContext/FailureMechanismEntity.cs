@@ -39,20 +39,23 @@ namespace Application.Ringtoets.Storage.DbContext
         public FailureMechanismEntity()
         {
             this.FailureMechanismSectionEntities = new HashSet<FailureMechanismSectionEntity>();
+            this.PipingFailureMechanismMetaEntities = new HashSet<PipingFailureMechanismMetaEntity>();
             this.StochasticSoilModelEntities = new HashSet<StochasticSoilModelEntity>();
             this.SurfaceLineEntities = new HashSet<SurfaceLineEntity>();
         }
     
         public long FailureMechanismEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
+        public Nullable<long> CalculationGroupEntityId { get; set; }
         public short FailureMechanismType { get; set; }
         public byte IsRelevant { get; set; }
-        public Nullable<long> CalculationGroupEntityId { get; set; }
     
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PipingFailureMechanismMetaEntity> PipingFailureMechanismMetaEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StochasticSoilModelEntity> StochasticSoilModelEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

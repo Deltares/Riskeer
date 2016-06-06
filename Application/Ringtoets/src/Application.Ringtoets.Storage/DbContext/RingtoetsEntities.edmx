@@ -43,9 +43,9 @@
           </Key>
           <Property Name="FailureMechanismEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="CalculationGroupEntityId" Type="integer" />
           <Property Name="FailureMechanismType" Type="smallint" Nullable="false" />
           <Property Name="IsRelevant" Type="tinyint" Nullable="false" />
-          <Property Name="CalculationGroupEntityId" Type="integer" />
         </EntityType>
         <EntityType Name="FailureMechanismSectionEntity">
           <Key>
@@ -104,6 +104,14 @@
           <Property Name="SaturatedVolumicWeightOfCoverageLayerShift" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="RelevantForScenario" Type="tinyint" Nullable="false" />
           <Property Name="ScenarioContribution" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PipingFailureMechanismMetaEntity">
+          <Key>
+            <PropertyRef Name="PipingFailureMechanismMetaEntityId" />
+          </Key>
+          <Property Name="PipingFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="integer" />
+          <Property Name="A" Type="decimal" Precision="53" Scale="0" />
         </EntityType>
         <EntityType Name="ProjectEntity">
           <Key>
@@ -341,6 +349,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PipingFailureMechanismMetaEntity_0_0">
+          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="0..1" />
+          <End Role="PipingFailureMechanismMetaEntity" Type="Self.PipingFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="PipingFailureMechanismMetaEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ReferenceLinePointEntity_0_0">
           <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="1" />
           <End Role="ReferenceLinePointEntity" Type="Self.ReferenceLinePointEntity" Multiplicity="*" />
@@ -446,6 +466,7 @@
           <EntitySet Name="FailureMechanismSectionPointEntity" EntityType="Self.FailureMechanismSectionPointEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationEntity" EntityType="Self.HydraulicLocationEntity" store:Type="Tables" />
           <EntitySet Name="PipingCalculationEntity" EntityType="Self.PipingCalculationEntity" store:Type="Tables" />
+          <EntitySet Name="PipingFailureMechanismMetaEntity" EntityType="Self.PipingFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="ProjectEntity" EntityType="Self.ProjectEntity" store:Type="Tables" />
           <EntitySet Name="ReferenceLinePointEntity" EntityType="Self.ReferenceLinePointEntity" store:Type="Tables" />
           <EntitySet Name="SoilLayerEntity" EntityType="Self.SoilLayerEntity" store:Type="Tables" />
@@ -504,6 +525,10 @@
             <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntity" />
             <End Role="PipingCalculationEntity" EntitySet="PipingCalculationEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_PipingFailureMechanismMetaEntity_0_0" Association="Self.FK_PipingFailureMechanismMetaEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
+            <End Role="PipingFailureMechanismMetaEntity" EntitySet="PipingFailureMechanismMetaEntity" />
+          </AssociationSet>
           <AssociationSet Name="FK_ReferenceLinePointEntity_0_0" Association="Self.FK_ReferenceLinePointEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
             <End Role="ReferenceLinePointEntity" EntitySet="ReferenceLinePointEntity" />
@@ -550,6 +575,7 @@
           <EntitySet Name="FailureMechanismSectionPointEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismSectionPointEntity" />
           <EntitySet Name="HydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" />
           <EntitySet Name="PipingCalculationEntities" EntityType="RingtoetsEntitiesModel.PipingCalculationEntity" />
+          <EntitySet Name="PipingFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.PipingFailureMechanismMetaEntity" />
           <EntitySet Name="ProjectEntities" EntityType="RingtoetsEntitiesModel.ProjectEntity" />
           <EntitySet Name="ReferenceLinePointEntities" EntityType="RingtoetsEntitiesModel.ReferenceLinePointEntity" />
           <EntitySet Name="SoilLayerEntities" EntityType="RingtoetsEntitiesModel.SoilLayerEntity" />
@@ -595,6 +621,10 @@
           <AssociationSet Name="FK_FailureMechanismSectionEntity_0_0" Association="RingtoetsEntitiesModel.FK_FailureMechanismSectionEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PipingFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
+            <End Role="PipingFailureMechanismMetaEntity" EntitySet="PipingFailureMechanismMetaEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_StochasticSoilModelEntity_0_0" Association="RingtoetsEntitiesModel.FK_StochasticSoilModelEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
@@ -688,12 +718,13 @@
           </Key>
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="CalculationGroupEntityId" Type="Int64" />
           <Property Name="FailureMechanismType" Type="Int16" Nullable="false" />
           <Property Name="IsRelevant" Type="Byte" Nullable="false" />
-          <Property Name="CalculationGroupEntityId" Type="Int64" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_1_0" FromRole="FailureMechanismEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="FailureMechanismEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="FailureMechanismSectionEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismSectionEntity_0_0" FromRole="FailureMechanismEntity" ToRole="FailureMechanismSectionEntity" />
+          <NavigationProperty Name="PipingFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="PipingFailureMechanismMetaEntity" />
           <NavigationProperty Name="StochasticSoilModelEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilModelEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StochasticSoilModelEntity" />
           <NavigationProperty Name="SurfaceLineEntities" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_0_0" FromRole="FailureMechanismEntity" ToRole="SurfaceLineEntity" />
         </EntityType>
@@ -763,6 +794,15 @@
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_2_0" FromRole="PipingCalculationEntity" ToRole="HydraulicLocationEntity" />
           <NavigationProperty Name="SurfaceLineEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_0_0" FromRole="PipingCalculationEntity" ToRole="SurfaceLineEntity" />
           <NavigationProperty Name="StochasticSoilProfileEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_1_0" FromRole="PipingCalculationEntity" ToRole="StochasticSoilProfileEntity" />
+        </EntityType>
+        <EntityType Name="PipingFailureMechanismMetaEntity">
+          <Key>
+            <PropertyRef Name="PipingFailureMechanismMetaEntityId" />
+          </Key>
+          <Property Name="PipingFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" />
+          <Property Name="A" Type="Decimal" Precision="53" Scale="0" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0" FromRole="PipingFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="ProjectEntity">
           <Key>
@@ -981,6 +1021,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PipingFailureMechanismMetaEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.PipingFailureMechanismMetaEntity" Role="PipingFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="PipingFailureMechanismMetaEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StochasticSoilModelEntity_0_0">
           <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.StochasticSoilModelEntity" Role="StochasticSoilModelEntity" Multiplicity="*" />
@@ -1157,9 +1209,9 @@
           <EntitySetMapping Name="FailureMechanismEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.FailureMechanismEntity">
               <MappingFragment StoreEntitySet="FailureMechanismEntity">
-                <ScalarProperty Name="CalculationGroupEntityId" ColumnName="CalculationGroupEntityId" />
                 <ScalarProperty Name="IsRelevant" ColumnName="IsRelevant" />
                 <ScalarProperty Name="FailureMechanismType" ColumnName="FailureMechanismType" />
+                <ScalarProperty Name="CalculationGroupEntityId" ColumnName="CalculationGroupEntityId" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
               </MappingFragment>
@@ -1224,6 +1276,15 @@
                 <ScalarProperty Name="SurfaceLineEntityId" ColumnName="SurfaceLineEntityId" />
                 <ScalarProperty Name="CalculationGroupEntityId" ColumnName="CalculationGroupEntityId" />
                 <ScalarProperty Name="PipingCalculationEntityId" ColumnName="PipingCalculationEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PipingFailureMechanismMetaEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.PipingFailureMechanismMetaEntity">
+              <MappingFragment StoreEntitySet="PipingFailureMechanismMetaEntity">
+                <ScalarProperty Name="A" ColumnName="A" />
+                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+                <ScalarProperty Name="PipingFailureMechanismMetaEntityId" ColumnName="PipingFailureMechanismMetaEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

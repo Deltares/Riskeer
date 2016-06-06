@@ -60,6 +60,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<FailureMechanismSectionPointEntity> FailureMechanismSectionPointEntities { get; set; }
         public virtual DbSet<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
         public virtual DbSet<PipingCalculationEntity> PipingCalculationEntities { get; set; }
+        public virtual DbSet<PipingFailureMechanismMetaEntity> PipingFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<ProjectEntity> ProjectEntities { get; set; }
         public virtual DbSet<ReferenceLinePointEntity> ReferenceLinePointEntities { get; set; }
         public virtual DbSet<SoilLayerEntity> SoilLayerEntities { get; set; }
