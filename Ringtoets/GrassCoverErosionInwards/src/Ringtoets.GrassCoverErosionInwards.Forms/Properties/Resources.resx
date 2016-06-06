@@ -260,7 +260,7 @@
     <value>Hydraulische gegevens</value>
   </data>
   <data name="HydraulicBoundaryLocation_Description" xml:space="preserve">
-    <value>De locatie met hydraulische randvoorwaarden die gebruikt wordt tijdens de berekening.</value>
+    <value>De locatie met hydraulische randvoorwaarden.</value>
   </data>
   <data name="HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
     <value>Locatie met hydraulische randvoorwaarden</value>

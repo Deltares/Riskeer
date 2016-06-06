@@ -61,7 +61,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De toegestane peilverhoging op het kombergend oppervlak die gebruikt wordt tijdens de berekening..
+        ///   Looks up a localized string similar to De toegestane peilverhoging op het kombergend oppervlak..
         /// </summary>
         public static string AllowableIncreaseOfLevelForStorage_Description {
             get {
@@ -188,7 +188,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De stroomvoerende breedte bij bodembescherming die gebruikt wordt tijdens de berekening..
+        ///   Looks up a localized string similar to De stroomvoerende breedte bij bodembescherming..
         /// </summary>
         public static string FlowWidthAtBottomProtection_Description {
             get {
@@ -252,7 +252,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De valversnelling die gebruikt wordt in de berekening..
+        ///   Looks up a localized string similar to De valversnelling van de zwaartekracht..
         /// </summary>
         public static string HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_Description {
             get {
@@ -272,7 +272,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het modelfactor kombergingsvolume dat gebruikt wordt in de berekening..
+        ///   Looks up a localized string similar to Het modelfactor kombergingsvolume..
         /// </summary>
         public static string HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_Description {
             get {
@@ -292,7 +292,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het modelfactor overslagdebiet die gebruikt wordt in de berekening..
+        ///   Looks up a localized string similar to Het modelfactor overslagdebiet..
         /// </summary>
         public static string HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Description {
             get {
@@ -312,7 +312,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt voor het lengte effect in de berekening..
+        ///   Looks up a localized string similar to De parameter &apos;N&apos;..
         /// </summary>
         public static string HeightStructuresInputFailureMechanismContext_N_Description {
             get {
@@ -330,7 +330,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden die gebruikt wordt tijdens de berekening..
+        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden..
         /// </summary>
         public static string HydraulicBoundaryLocation_Description {
             get {
@@ -348,7 +348,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De kerende hoogte van het kunstwerk dat gebruikt wordt tijdens de berekening..
+        ///   Looks up a localized string similar to De kerende hoogte van het kunstwerk..
         /// </summary>
         public static string LevelOfCrestOfStructure_Description {
             get {
@@ -366,7 +366,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het modelfactor van overloopdebiet bij superkritische stroming dat gebruikt wordt tijdens de berekening..
+        ///   Looks up a localized string similar to Het modelfactor van overloopdebiet bij superkritische stroming..
         /// </summary>
         public static string ModelFactorOvertoppingSuperCriticalFlow_Description {
             get {
@@ -402,7 +402,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het kombergend oppervlak dat gebruikt wordt tijdens de berekening..
+        ///   Looks up a localized string similar to Het kombergend oppervlak..
         /// </summary>
         public static string StorageStructureArea_Description {
             get {
@@ -420,7 +420,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De duur van de storm dat gebruikt wordt tijdens de berekening..
+        ///   Looks up a localized string similar to De duur van de storm..
         /// </summary>
         public static string StormDuration_Description {
             get {
@@ -438,7 +438,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De breedte van de kruin van het kunstwerk die gebruikt wordt tijdens de berekening..
+        ///   Looks up a localized string similar to De breedte van de kruin van het kunstwerk..
         /// </summary>
         public static string WidthOfFlowApertures_Description {
             get {

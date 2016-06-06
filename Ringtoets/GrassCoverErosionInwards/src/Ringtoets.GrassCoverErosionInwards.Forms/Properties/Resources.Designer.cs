@@ -470,7 +470,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden die gebruikt wordt tijdens de berekening..
+        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden..
         /// </summary>
         public static string HydraulicBoundaryLocation_Description {
             get {

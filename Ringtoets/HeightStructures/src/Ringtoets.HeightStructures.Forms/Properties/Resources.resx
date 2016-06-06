@@ -143,25 +143,25 @@
     <value>Modelfactoren</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_Description" xml:space="preserve">
-    <value>De valversnelling die gebruikt wordt in de berekening.</value>
+    <value>De valversnelling van de zwaartekracht.</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_DisplayName" xml:space="preserve">
     <value>Valversnelling [m/s²]</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_Description" xml:space="preserve">
-    <value>Het modelfactor kombergingsvolume dat gebruikt wordt in de berekening.</value>
+    <value>Het modelfactor kombergingsvolume.</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_DisplayName" xml:space="preserve">
     <value>Modelfactor kombergingsvolume [-]</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Description" xml:space="preserve">
-    <value>Het modelfactor overslagdebiet die gebruikt wordt in de berekening.</value>
+    <value>Het modelfactor overslagdebiet.</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayName" xml:space="preserve">
     <value>Modelfactor overslagdebiet [-]</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_N_Description" xml:space="preserve">
-    <value>De parameter 'N' die gebruikt wordt voor het lengte effect in de berekening.</value>
+    <value>De parameter 'N'.</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_N_DisplayName" xml:space="preserve">
     <value>N [-]</value>
@@ -170,7 +170,7 @@
     <value>Schematisatie</value>
   </data>
   <data name="AllowableIncreaseOfLevelForStorage_Description" xml:space="preserve">
-    <value>De toegestane peilverhoging op het kombergend oppervlak die gebruikt wordt tijdens de berekening.</value>
+    <value>De toegestane peilverhoging op het kombergend oppervlak.</value>
   </data>
   <data name="AllowableIncreaseOfLevelForStorage_DisplayName" xml:space="preserve">
     <value>Toegestane peilverhoging komberging [m]</value>
@@ -191,25 +191,25 @@
     <value>Faalkans kunstwerk gegeven erosie bodem [-]</value>
   </data>
   <data name="FlowWidthAtBottomProtection_Description" xml:space="preserve">
-    <value>De stroomvoerende breedte bij bodembescherming die gebruikt wordt tijdens de berekening.</value>
+    <value>De stroomvoerende breedte bij bodembescherming.</value>
   </data>
   <data name="FlowWidthAtBottomProtection_DisplayName" xml:space="preserve">
     <value>Stroomvoerende breedte bij bodembescherming [m]</value>
   </data>
   <data name="HydraulicBoundaryLocation_Description" xml:space="preserve">
-    <value>De locatie met hydraulische randvoorwaarden die gebruikt wordt tijdens de berekening.</value>
+    <value>De locatie met hydraulische randvoorwaarden.</value>
   </data>
   <data name="HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
     <value>Locatie met hydraulische randvoorwaarden</value>
   </data>
   <data name="LevelOfCrestOfStructure_Description" xml:space="preserve">
-    <value>De kerende hoogte van het kunstwerk dat gebruikt wordt tijdens de berekening.</value>
+    <value>De kerende hoogte van het kunstwerk.</value>
   </data>
   <data name="LevelOfCrestOfStructure_DisplayName" xml:space="preserve">
     <value>Kerende hoogte [m]</value>
   </data>
   <data name="ModelFactorOvertoppingSuperCriticalFlow_Description" xml:space="preserve">
-    <value>Het modelfactor van overloopdebiet bij superkritische stroming dat gebruikt wordt tijdens de berekening.</value>
+    <value>Het modelfactor van overloopdebiet bij superkritische stroming.</value>
   </data>
   <data name="ModelFactorOvertoppingSuperCriticalFlow_DisplayName" xml:space="preserve">
     <value>Modelfactor van overloopdebiet bij superkritische stroming [-]</value>
@@ -221,19 +221,19 @@
     <value>Oriëntatie [°]</value>
   </data>
   <data name="StorageStructureArea_Description" xml:space="preserve">
-    <value>Het kombergend oppervlak dat gebruikt wordt tijdens de berekening.</value>
+    <value>Het kombergend oppervlak.</value>
   </data>
   <data name="StorageStructureArea_DisplayName" xml:space="preserve">
     <value>Kombergend oppervlak [m²]</value>
   </data>
   <data name="StormDuration_Description" xml:space="preserve">
-    <value>De duur van de storm dat gebruikt wordt tijdens de berekening.</value>
+    <value>De duur van de storm.</value>
   </data>
   <data name="StormDuration_DisplayName" xml:space="preserve">
     <value>Stormduur [uur]</value>
   </data>
   <data name="WidthOfFlowApertures_Description" xml:space="preserve">
-    <value>De breedte van de kruin van het kunstwerk die gebruikt wordt tijdens de berekening.</value>
+    <value>De breedte van de kruin van het kunstwerk.</value>
   </data>
   <data name="WidthOfFlowApertures_DisplayName" xml:space="preserve">
     <value>Breedte van de kruin van het kunstwerk [m]</value>

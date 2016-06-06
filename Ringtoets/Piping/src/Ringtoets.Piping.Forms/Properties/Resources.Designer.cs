@@ -886,7 +886,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het stochastische ondergrondmodel dat voor de piping berekening gebruikt wordt..
+        ///   Looks up a localized string similar to De verschillende opbouwen van de ondergrond en hun respectieve kansen van voorkomen..
         /// </summary>
         public static string PipingInput_StochasticSoilModel_Description {
             get {
@@ -904,7 +904,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De ondergrondschematisatie die voor de piping berekening gebruikt wordt..
+        ///   Looks up a localized string similar to De opbouw van de ondergrond..
         /// </summary>
         public static string PipingInput_StochasticSoilProfile_Description {
             get {
@@ -922,7 +922,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De profielschematisatie die voor de piping berekening gebruikt wordt..
+        ///   Looks up a localized string similar to De meetgegevens die de dwarsdoorsneden van de grondprofielen definiëren..
         /// </summary>
         public static string PipingInput_SurfaceLine_Description {
             get {

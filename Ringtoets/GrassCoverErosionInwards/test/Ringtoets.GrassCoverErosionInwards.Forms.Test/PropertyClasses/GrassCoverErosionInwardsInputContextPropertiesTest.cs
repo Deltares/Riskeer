@@ -211,7 +211,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsFalse(hydraulicBoundaryLocationProperty.IsReadOnly);
             Assert.AreEqual("Hydraulische gegevens", hydraulicBoundaryLocationProperty.Category);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", hydraulicBoundaryLocationProperty.DisplayName);
-            Assert.AreEqual("De locatie met hydraulische randvoorwaarden die gebruikt wordt tijdens de berekening.", hydraulicBoundaryLocationProperty.Description);
+            Assert.AreEqual("De locatie met hydraulische randvoorwaarden.", hydraulicBoundaryLocationProperty.Description);
             mockRepository.VerifyAll();
         }
 
