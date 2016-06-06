@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedFailureMechanism">The failure mechanism to wrap.</param>
         /// <param name="assessmentSection">The assessment section.</param>
-        /// <exception cref="ArgumentNullException">When any input argument is null.</exception>
+        /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
         public RingtoetsPipingSurfaceLinesContext(PipingFailureMechanism wrappedFailureMechanism, IAssessmentSection assessmentSection)
             : base(wrappedFailureMechanism)
         {
