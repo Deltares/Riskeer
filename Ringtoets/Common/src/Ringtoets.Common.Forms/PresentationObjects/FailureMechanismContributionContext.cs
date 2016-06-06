@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 

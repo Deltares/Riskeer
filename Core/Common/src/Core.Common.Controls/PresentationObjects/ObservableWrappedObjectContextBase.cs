@@ -36,7 +36,7 @@ namespace Core.Common.Controls.PresentationObjects
         /// Initializes a new instance of the <see cref="ObservableWrappedObjectContextBase{T}"/> class.
         /// </summary>
         /// <param name="wrappedData">The wrapped data.</param>
-        /// <exception cref="ArgumentNullException">When <paramref name="wrappedData"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
         protected ObservableWrappedObjectContextBase(T wrappedData) : base(wrappedData) {}
 
         #region IObservable implementation
