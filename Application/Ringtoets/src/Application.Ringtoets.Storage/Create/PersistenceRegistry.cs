@@ -537,155 +537,170 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="dbContext">The <see cref="IRingtoetsEntities"/> from which to remove the entities.</param>
         internal void RemoveUntouched(IRingtoetsEntities dbContext)
         {
-            foreach (ProjectEntity projectEntities in dbContext.ProjectEntities
-                                                               .Where(e => e.ProjectEntityId > 0)
-                                                               .ToArray())
+            IList<ProjectEntity> orphanedProjectEntities = new List<ProjectEntity>();
+            foreach (ProjectEntity projectEntity in dbContext.ProjectEntities
+                                                             .Where(e => e.ProjectEntityId > 0))
             {
-                if (!projects.ContainsKey(projectEntities))
+                if (!projects.ContainsKey(projectEntity))
                 {
-                    dbContext.ProjectEntities.Remove(projectEntities);
+                    orphanedProjectEntities.Add(projectEntity);
                 }
             }
+            dbContext.ProjectEntities.RemoveRange(orphanedProjectEntities);
 
+            IList<AssessmentSectionEntity> orphanedAssessmentSectionEntities = new List<AssessmentSectionEntity>();
             foreach (AssessmentSectionEntity assessmentSectionEntity in dbContext.AssessmentSectionEntities
-                                                                                 .Where(e => e.AssessmentSectionEntityId > 0)
-                                                                                 .ToArray())
+                                                                                 .Where(e => e.AssessmentSectionEntityId > 0))
             {
                 if (!assessmentSections.ContainsKey(assessmentSectionEntity))
                 {
-                    dbContext.AssessmentSectionEntities.Remove(assessmentSectionEntity);
+                    orphanedAssessmentSectionEntities.Add(assessmentSectionEntity);
                 }
             }
+            dbContext.AssessmentSectionEntities.RemoveRange(orphanedAssessmentSectionEntities);
 
+            IList<FailureMechanismEntity> failureMechanismEntities = new List<FailureMechanismEntity>();
             foreach (FailureMechanismEntity failureMechanismEntity in dbContext.FailureMechanismEntities
-                                                                                .Where(e => e.FailureMechanismEntityId > 0)
-                                                                                .ToArray())
+                                                                                .Where(e => e.FailureMechanismEntityId > 0))
             {
                 if (!failureMechanisms.ContainsKey(failureMechanismEntity))
                 {
-                    dbContext.FailureMechanismEntities.Remove(failureMechanismEntity);
+                    failureMechanismEntities.Add(failureMechanismEntity);
                 }
             }
+            dbContext.FailureMechanismEntities.RemoveRange(failureMechanismEntities);
 
+            IList<FailureMechanismSectionEntity> failureMechanismSectionEntities = new List<FailureMechanismSectionEntity>();
             foreach (FailureMechanismSectionEntity failureMechanismSectionEntity in dbContext.FailureMechanismSectionEntities
-                                                                                             .Where(e => e.FailureMechanismSectionEntityId > 0)
-                                                                                             .ToArray())
+                                                                                             .Where(e => e.FailureMechanismSectionEntityId > 0))
             {
                 if (!failureMechanismSections.ContainsKey(failureMechanismSectionEntity))
                 {
-                    dbContext.FailureMechanismSectionEntities.Remove(failureMechanismSectionEntity);
+                    failureMechanismSectionEntities.Add(failureMechanismSectionEntity);
                 }
             }
+            dbContext.FailureMechanismSectionEntities.RemoveRange(failureMechanismSectionEntities);
 
+            IList<HydraulicLocationEntity> hydraulicLocationEntities = new List<HydraulicLocationEntity>();
             foreach (HydraulicLocationEntity hydraulicLocationEntity in dbContext.HydraulicLocationEntities
-                                                                                 .Where(e => e.HydraulicLocationEntityId > 0)
-                                                                                 .ToArray())
+                                                                                 .Where(e => e.HydraulicLocationEntityId > 0))
             {
                 if (!hydraulicLocations.ContainsKey(hydraulicLocationEntity))
                 {
-                    dbContext.HydraulicLocationEntities.Remove(hydraulicLocationEntity);
+                    hydraulicLocationEntities.Add(hydraulicLocationEntity);
                 }
             }
+            dbContext.HydraulicLocationEntities.RemoveRange(hydraulicLocationEntities);
 
+            IList<CalculationGroupEntity> calculationGroupEntities = new List<CalculationGroupEntity>();
             foreach (CalculationGroupEntity calculationGroupEntity in dbContext.CalculationGroupEntities
-                                                                               .Where(e => e.CalculationGroupEntityId > 0)
-                                                                               .ToArray())
+                                                                               .Where(e => e.CalculationGroupEntityId > 0))
             {
                 if (!calculationGroups.ContainsKey(calculationGroupEntity))
                 {
-                    dbContext.CalculationGroupEntities.Remove(calculationGroupEntity);
+                    calculationGroupEntities.Add(calculationGroupEntity);
                 }
             }
+            dbContext.CalculationGroupEntities.RemoveRange(calculationGroupEntities);
 
+            IList<PipingCalculationEntity> pipingCalculationEntities = new List<PipingCalculationEntity>();
             foreach (PipingCalculationEntity pipingCalculationEntity in dbContext.PipingCalculationEntities
-                                                                                 .Where(e => e.PipingCalculationEntityId > 0)
-                                                                                 .ToArray())
+                                                                                 .Where(e => e.PipingCalculationEntityId > 0))
             {
                 if (!pipingCalculations.ContainsKey(pipingCalculationEntity))
                 {
-                    dbContext.PipingCalculationEntities.Remove(pipingCalculationEntity);
+                    pipingCalculationEntities.Add(pipingCalculationEntity);
                 }
             }
+            dbContext.PipingCalculationEntities.RemoveRange(pipingCalculationEntities);
 
+            IList<StochasticSoilModelEntity> stochasticSoilModelEntities = new List<StochasticSoilModelEntity>();
             foreach (StochasticSoilModelEntity stochasticSoilModelEntity in dbContext.StochasticSoilModelEntities
-                                                                                     .Where(e => e.StochasticSoilModelEntityId > 0)
-                                                                                     .ToArray())
+                                                                                     .Where(e => e.StochasticSoilModelEntityId > 0))
             {
                 if (!stochasticSoilModels.ContainsKey(stochasticSoilModelEntity))
                 {
-                    dbContext.StochasticSoilModelEntities.Remove(stochasticSoilModelEntity);
+                    stochasticSoilModelEntities.Add(stochasticSoilModelEntity);
                 }
             }
+            dbContext.StochasticSoilModelEntities.RemoveRange(stochasticSoilModelEntities);
 
+            IList<StochasticSoilProfileEntity> stochasticSoilProfileEntities = new List<StochasticSoilProfileEntity>();
             foreach (StochasticSoilProfileEntity stochasticSoilProfileEntity in dbContext.StochasticSoilProfileEntities
-                                                                                         .Where(e => e.StochasticSoilProfileEntityId > 0)
-                                                                                         .ToArray())
+                                                                                         .Where(e => e.StochasticSoilProfileEntityId > 0))
             {
                 if (!stochasticSoilProfiles.ContainsKey(stochasticSoilProfileEntity))
                 {
-                    dbContext.StochasticSoilProfileEntities.Remove(stochasticSoilProfileEntity);
+                    stochasticSoilProfileEntities.Add(stochasticSoilProfileEntity);
                 }
             }
+            dbContext.StochasticSoilProfileEntities.RemoveRange(stochasticSoilProfileEntities);
 
+            IList<SoilProfileEntity> soilProfileEntities = new List<SoilProfileEntity>();
             foreach (SoilProfileEntity soilProfileEntity in dbContext.SoilProfileEntities
-                                                                     .Where(e => e.SoilProfileEntityId > 0)
-                                                                     .ToArray())
+                                                                     .Where(e => e.SoilProfileEntityId > 0))
             {
                 if (!soilProfiles.ContainsKey(soilProfileEntity))
                 {
-                    dbContext.SoilProfileEntities.Remove(soilProfileEntity);
+                    soilProfileEntities.Add(soilProfileEntity);
                 }
             }
+            dbContext.SoilProfileEntities.RemoveRange(soilProfileEntities);
 
+            IList<SoilLayerEntity> soilLayerEntities = new List<SoilLayerEntity>();
             foreach (SoilLayerEntity soilLayerEntity in dbContext.SoilLayerEntities
-                                                                 .Where(e => e.SoilLayerEntityId > 0)
-                                                                 .ToArray())
+                                                                 .Where(e => e.SoilLayerEntityId > 0))
             {
                 if (!soilLayers.ContainsKey(soilLayerEntity))
                 {
-                    dbContext.SoilLayerEntities.Remove(soilLayerEntity);
+                    soilLayerEntities.Add(soilLayerEntity);
                 }
             }
+            dbContext.SoilLayerEntities.RemoveRange(soilLayerEntities);
 
+            IList<SurfaceLineEntity> surfaceLineEntities = new List<SurfaceLineEntity>();
             foreach (SurfaceLineEntity surfaceLineEntity in dbContext.SurfaceLineEntities
-                                                                     .Where(e => e.SurfaceLineEntityId > 0)
-                                                                     .ToArray())
+                                                                     .Where(e => e.SurfaceLineEntityId > 0))
             {
                 if (!surfaceLines.ContainsKey(surfaceLineEntity))
                 {
-                    dbContext.SurfaceLineEntities.Remove(surfaceLineEntity);
+                    surfaceLineEntities.Add(surfaceLineEntity);
                 }
             }
+            dbContext.SurfaceLineEntities.RemoveRange(surfaceLineEntities);
 
+            IList<SurfaceLinePointEntity> surfaceLinePointEntities = new List<SurfaceLinePointEntity>();
             foreach (SurfaceLinePointEntity surfaceLinePointEntity in dbContext.SurfaceLinePointEntities
-                                                                               .Where(e => e.SurfaceLinePointEntityId > 0)
-                                                                               .ToArray())
+                                                                               .Where(e => e.SurfaceLinePointEntityId > 0))
             {
                 if (!surfaceLinePoints.ContainsKey(surfaceLinePointEntity))
                 {
-                    dbContext.SurfaceLinePointEntities.Remove(surfaceLinePointEntity);
+                    surfaceLinePointEntities.Add(surfaceLinePointEntity);
                 }
             }
+            dbContext.SurfaceLinePointEntities.RemoveRange(surfaceLinePointEntities);
 
+            IList<CharacteristicPointEntity> characteristicPointEntities = new List<CharacteristicPointEntity>();
             foreach (CharacteristicPointEntity characteristicPointEntity in dbContext.CharacteristicPointEntities
-                                                                                     .Where(e => e.CharacteristicPointEntityId > 0)
-                                                                                     .ToArray())
+                                                                                     .Where(e => e.CharacteristicPointEntityId > 0))
             {
                 if (!characteristicPoints.ContainsKey(characteristicPointEntity))
                 {
-                    dbContext.CharacteristicPointEntities.Remove(characteristicPointEntity);
+                    characteristicPointEntities.Add(characteristicPointEntity);
                 }
             }
+            dbContext.CharacteristicPointEntities.RemoveRange(characteristicPointEntities);
 
+            IList<PipingFailureMechanismMetaEntity> pipingFailureMechanismMetaEntities = new List<PipingFailureMechanismMetaEntity>();
             foreach (PipingFailureMechanismMetaEntity pipingFailureMechanismMetaEntity in dbContext.PipingFailureMechanismMetaEntities
-                                                                                                   .Where(e => e.PipingFailureMechanismMetaEntityId > 0)
-                                                                                                   .ToArray())
+                                                                                                   .Where(e => e.PipingFailureMechanismMetaEntityId > 0))
             {
                 if (!pipingProbabilityAssessmentInputs.ContainsKey(pipingFailureMechanismMetaEntity))
                 {
-                    dbContext.PipingFailureMechanismMetaEntities.Remove(pipingFailureMechanismMetaEntity);
+                    pipingFailureMechanismMetaEntities.Add(pipingFailureMechanismMetaEntity);
                 }
             }
+            dbContext.PipingFailureMechanismMetaEntities.RemoveRange(pipingFailureMechanismMetaEntities);
         }
 
         private bool ContainsValue<T, U>(Dictionary<T, U> collection, U model)

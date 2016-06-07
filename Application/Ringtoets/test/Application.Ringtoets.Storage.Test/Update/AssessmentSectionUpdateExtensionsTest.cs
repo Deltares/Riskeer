@@ -544,6 +544,12 @@ namespace Application.Ringtoets.Storage.Test.Update
                     technicalInnovationEntity
                 }
             };
+
+            // Precondition:
+            foreach (FailureMechanismEntity failureMechanismEntity in entity.FailureMechanismEntities)
+            {
+                Assert.IsFalse(Convert.ToBoolean(failureMechanismEntity.IsRelevant));
+            }
             ringtoetsEntities.AssessmentSectionEntities.Add(entity);
             ringtoetsEntities.CalculationGroupEntities.Add(new CalculationGroupEntity
             {
@@ -595,6 +601,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 duneErosionEntity,
                 technicalInnovationEntity
             }, entity.FailureMechanismEntities);
+            foreach (FailureMechanismEntity failureMechanismEntity in entity.FailureMechanismEntities)
+            {
+                Assert.IsTrue(Convert.ToBoolean(failureMechanismEntity.IsRelevant));
+            }
 
             mocks.VerifyAll();
         }

@@ -389,6 +389,41 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
+        public void Update_SurfaceLineWithCharacteristicPoints_CharacteristicPointEntitiesRegistered()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var context = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            RingtoetsPipingSurfaceLine surfaceLine = CreateSavedSurfaceLineWithData();
+
+            var entity = new SurfaceLineEntity
+            {
+                SurfaceLineEntityId = surfaceLine.StorageId
+            };
+            context.SurfaceLineEntities.Add(entity);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            surfaceLine.Update(registry, context);
+
+            // Assert
+            CharacteristicPointEntity[] characteristicPointEntities = entity.SurfaceLinePointEntities
+                                                                            .SelectMany(slpe => slpe.CharacteristicPointEntities)
+                                                                            .ToArray();
+            foreach (CharacteristicPointEntity characteristicPointEntity in characteristicPointEntities)
+            {
+                context.CharacteristicPointEntities.Add(characteristicPointEntity);
+            }
+            registry.RemoveUntouched(context);
+            Assert.AreEqual(characteristicPointEntities.Length, context.CharacteristicPointEntities.Count());
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [TestCase(CharacteristicPointType.BottomDitchDikeSide)]
         [TestCase(CharacteristicPointType.BottomDitchPolderSide)]
         [TestCase(CharacteristicPointType.DikeToeAtPolder)]
