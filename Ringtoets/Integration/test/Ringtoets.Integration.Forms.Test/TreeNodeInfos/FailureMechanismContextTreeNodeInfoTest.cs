@@ -200,7 +200,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         [TestCase(typeof(MacrostabilityInwardsFailureMechanismSectionResult))]
         [TestCase(typeof(MacrostabilityOutwardsFailureMechanismSectionResult))]
         [TestCase(typeof(StrengthStabilityPointConstructionFailureMechanismSectionResult))]
-        public void ChildNodeObjects_FailureMechanismIsRelevantWithDifferentFailureMechanismSectionResults_OutputNodeAdded(Type t)
+        public void ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(Type t)
         {
             // Delegate actual test
             MethodInfo method = GetType().GetMethod(TypeUtils.GetMemberName<FailureMechanismContextTreeNodeInfoTest>(
