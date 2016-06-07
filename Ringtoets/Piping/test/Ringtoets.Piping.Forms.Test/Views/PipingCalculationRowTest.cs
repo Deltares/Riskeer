@@ -25,6 +25,9 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
+
+using Rhino.Mocks;
+
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -76,22 +79,23 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void IsRelevant_AlwaysOnChange_NotifyObserversAndCalculationPropertyChanged(bool newValue)
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            calculation.Attach(observer);
+
             var row = new PipingCalculationRow(calculation);
 
-            int counter = 0;
-            using (new Observer(() => counter++)
-            {
-                Observable = calculation
-            })
-            {
-                // Call
-                row.IsRelevant = newValue;
+            // Call
+            row.IsRelevant = newValue;
 
-                // Assert
-                Assert.AreEqual(1, counter);
-                Assert.AreEqual(newValue, calculation.IsRelevant);
-            }
+            // Assert
+            Assert.AreEqual(newValue, calculation.IsRelevant);
+
+            mocks.VerifyAll();
         }
 
         [Test]

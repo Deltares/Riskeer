@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets the name of the <see cref="FailureMechanismContributionItem"/>.
+        /// Gets <see cref="FailureMechanismContributionItem.Assessment"/>.
         /// </summary>
         public string Assessment
         {
@@ -58,7 +58,7 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Returns the code of the <see cref="FailureMechanismContributionItem"/>
+        /// Gets <see cref="FailureMechanismContributionItem.AssessmentCode"/>.
         /// </summary>
         public string Code
         {
@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets the amount of contribution of the <see cref="FailureMechanismContributionItem"/> as a percentage.
+        /// Gets <see cref="FailureMechanismContributionItem.Contribution"/>.
         /// </summary>
         public double Contribution
         {
@@ -80,7 +80,7 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the norm of the <see cref="FailureMechanismContributionItem"/>.
+        /// Gets <see cref="FailureMechanismContributionItem.Norm"/>.
         /// </summary>
         public int Norm
         {
@@ -91,7 +91,7 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets the probability space of the <see cref="FailureMechanismContributionItem"/>.
+        /// Gets <see cref="FailureMechanismContributionItem.ProbabilitySpace"/>.
         /// </summary>
         public double ProbabilitySpace
         {
@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the isRelevant of the <see cref="FailureMechanismContributionItem"/>
+        /// Gets or sets <see cref="FailureMechanismContributionItem.IsRelevant"/>.
         /// </summary>
         public bool IsRelevant
         {

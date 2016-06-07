@@ -22,6 +22,9 @@
 using System;
 using Core.Common.Base;
 using NUnit.Framework;
+
+using Rhino.Mocks;
+
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Piping.Data;
@@ -68,25 +71,26 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void IsRelevant_AlwaysOnChange_NotifyFailureMechanismObserversAndCalculationPropertyChanged(bool newValue)
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var pipingFailureMechanism = new PipingFailureMechanism();
+            pipingFailureMechanism.Attach(observer);
+
             var norm = 10;
             var contributionItem = new FailureMechanismContributionItem(pipingFailureMechanism, norm);
 
             var row = new FailureMechanismContributionItemRow(contributionItem);
 
-            int counter = 0;
-            using (new Observer(() => counter++)
-            {
-                Observable = pipingFailureMechanism
-            })
-            {
-                // Call
-                row.IsRelevant = newValue;
+            // Call
+            row.IsRelevant = newValue;
 
-                // Assert
-                Assert.AreEqual(1, counter);
-                Assert.AreEqual(newValue, contributionItem.IsRelevant);
-            }
+            // Assert
+            Assert.AreEqual(newValue, contributionItem.IsRelevant);
+
+            mocks.VerifyAll();
         }
     }
 }

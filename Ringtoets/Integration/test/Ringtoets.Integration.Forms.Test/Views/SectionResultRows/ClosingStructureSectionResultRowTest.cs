@@ -25,6 +25,9 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+
+using Rhino.Mocks;
+
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
@@ -81,23 +84,24 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void AssessmentLayerOne_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged(bool newValue)
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var section = CreateSection();
             var result = new ClosingStructureFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
             var row = new ClosingStructureSectionResultRow(result);
 
-            int counter = 0;
-            using (new Observer(() => counter++)
-            {
-                Observable = result
-            })
-            {
-                // Call
-                row.AssessmentLayerOne = newValue;
+            // Call
+            row.AssessmentLayerOne = newValue;
 
-                // Assert
-                Assert.AreEqual(1, counter);
-                Assert.AreEqual(newValue, result.AssessmentLayerOne);
-            }
+            // Assert
+            Assert.AreEqual(newValue, result.AssessmentLayerOne);
+
+            mocks.VerifyAll();
         }
 
         [Test]

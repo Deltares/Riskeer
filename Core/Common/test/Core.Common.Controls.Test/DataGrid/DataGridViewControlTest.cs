@@ -158,11 +158,6 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
-                // Make sure the cell is not in edit mode when setting the current cell.
-                dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
-
-                control.AddTextBoxColumn("Test property", "Test header");
-
                 // Call
                 dataGridView.DataSource = dataSource;
 
