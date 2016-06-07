@@ -160,16 +160,17 @@ namespace Application.Ringtoets.Storage.Update
                 SurfaceLinePointEntity geometryPointEntity = registry.GetSurfaceLinePoint(currentCharacteristicPoint);
                 if (characteristicPointEntity == null)
                 {
-                    geometryPointEntity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
+                    characteristicPointEntity = new CharacteristicPointEntity
                     {
                         CharacteristicPointType = typeValue
-                    });
+                    };
+                    geometryPointEntity.CharacteristicPointEntities.Add(characteristicPointEntity);
                 }
                 else if (characteristicPointEntity.SurfaceLinePointEntity != geometryPointEntity)
                 {
                     characteristicPointEntity.SurfaceLinePointEntity = geometryPointEntity;
-                    registry.Register(characteristicPointEntity, currentCharacteristicPoint);
                 }
+                registry.Register(characteristicPointEntity, currentCharacteristicPoint);
             }
         }
 

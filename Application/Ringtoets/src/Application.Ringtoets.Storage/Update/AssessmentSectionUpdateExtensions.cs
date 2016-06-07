@@ -81,15 +81,21 @@ namespace Application.Ringtoets.Storage.Update
         private static void UpdateStandAloneFailureMechanisms(AssessmentSection section, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             section.MacrostabilityInwards.Update(registry, context);
+            section.MacrostabilityOutwards.Update(registry, context);
+            section.Microstability.Update(registry, context);
             section.StabilityStoneCover.Update(registry, context);
             section.WaveImpactAsphaltCover.Update(registry, context);
+            section.WaterPressureAsphaltCover.Update(registry, context);
             section.GrassCoverErosionOutwards.Update(registry, context);
             section.GrassCoverSlipOffOutwards.Update(registry, context);
+            section.GrassCoverSlipOffInwards.Update(registry, context);
             section.HeightStructures.Update(registry, context);
             section.ClosingStructure.Update(registry, context);
             section.PipingStructure.Update(registry, context);
             section.StrengthStabilityPointConstruction.Update(registry, context);
+            section.StrengthStabilityLengthwiseConstruction.Update(registry, context);
             section.DuneErosion.Update(registry, context);
+            section.TechnicalInnovation.Update(registry, context);
         }
 
         private static AssessmentSectionEntity GetCorrespondingAssessmentSectionEntity(AssessmentSection section, IRingtoetsEntities context)

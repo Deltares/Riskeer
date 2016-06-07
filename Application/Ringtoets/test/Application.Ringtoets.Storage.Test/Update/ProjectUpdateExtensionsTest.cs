@@ -292,6 +292,30 @@ namespace Application.Ringtoets.Storage.Test.Update
                 DuneErosion =
                 {
                     StorageId = 1
+                },
+                GrassCoverSlipOffInwards =
+                {
+                    StorageId = 1
+                },
+                MacrostabilityOutwards =
+                {
+                    StorageId = 1
+                },
+                Microstability =
+                {
+                    StorageId = 1
+                },
+                StrengthStabilityLengthwiseConstruction =
+                {
+                    StorageId = 1
+                },
+                TechnicalInnovation =
+                {
+                    StorageId = 1
+                },
+                WaterPressureAsphaltCover =
+                {
+                    StorageId = 1
                 }
             };
             var project = new Project
@@ -305,11 +329,11 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             var assessmentSectionEntity = new AssessmentSectionEntity
             {
-                AssessmentSectionEntityId = 1
+                AssessmentSectionEntityId = section.StorageId
             };
             var projectEntity = new ProjectEntity
             {
-                ProjectEntityId = 1,
+                ProjectEntityId = project.StorageId,
                 AssessmentSectionEntities =
                 {
                     assessmentSectionEntity
