@@ -106,6 +106,9 @@ namespace Application.Ringtoets.Storage.Read
                 var failureMechanism = pipingFailureMechanismEntity.ReadAsPipingFailureMechanism(collector);
 
                 var pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
+                pipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId = failureMechanism.PipingProbabilityAssessmentInput.StorageId;
+                pipingFailureMechanism.PipingProbabilityAssessmentInput.A = failureMechanism.PipingProbabilityAssessmentInput.A;
+                
                 pipingFailureMechanism.StochasticSoilModels.AddRange(failureMechanism.StochasticSoilModels);
                 pipingFailureMechanism.IsRelevant = failureMechanism.IsRelevant;
                 pipingFailureMechanism.StorageId = failureMechanism.StorageId;
