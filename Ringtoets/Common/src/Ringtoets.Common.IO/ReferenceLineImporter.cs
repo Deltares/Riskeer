@@ -231,7 +231,7 @@ namespace Ringtoets.Common.IO
 
         private void ClearHydraulicBoundaryOutput(IAssessmentSection assessmentSection)
         {
-            // TODO: WTI-360 - Clear all 'Toetspeil' calculation output
+            // TODO: WTI-440 - Clear all 'Toetspeil' calculation output
             //changedObservables.Add(clearedInstance);
         }
     }

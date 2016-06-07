@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private Form testForm;
 
         private const string normInputTextBoxName = "normInput";
-        private const string dataGridViewControlName = "probabilityDistributionGrid";
+        private const string dataGridViewControlName = "dataGridView";
         private const string assessmentSectionCompositionComboBoxName = "assessmentSectionCompositionComboBox";
         private const int isRelevantColumnIndex = 0;
         private const int nameColumnIndex = 1;

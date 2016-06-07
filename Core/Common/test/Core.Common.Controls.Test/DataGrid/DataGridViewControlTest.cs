@@ -145,9 +145,36 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
+        public void DataSource_Always_ReturnsDataGridViewSource()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataSource = new object();
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Make sure the cell is not in edit mode when setting the current cell.
+                dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                // Call
+                dataGridView.DataSource = dataSource;
+
+                // Assert
+                Assert.AreSame(dataSource, dataGridView.DataSource);
+            }
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AddTextBoxColumn_Always_AddsColumnToDataGridView(bool readOnly)
+        public void AddTextBoxColumn_WithoutAutoSizeMode_AddsColumnToDataGridViewWithDefaultAutoSizeMode(bool readOnly)
         {
             // Setup
             using (var form = new Form())
@@ -181,7 +208,48 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void AddCheckBoxColumn_Always_AddsColumnToDataGridView()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AddTextBoxColumn_AllParametersSet_AddsColumnToDataGridViewWithAutoSizeModeAndMinimumWidthAndFormat(bool readOnly)
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                var propertyName = "PropertyName";
+                var headerText = "HeaderText";
+
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                var autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                var minimumWidth = 100;
+                var format = "1/#,#";
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                control.AddTextBoxColumn(propertyName, headerText, readOnly, autoSizeMode, minimumWidth, format);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                DataGridViewTextBoxColumn columnData = (DataGridViewTextBoxColumn)dataGridView.Columns[0];
+                Assert.AreEqual(propertyName, columnData.DataPropertyName);
+                Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
+                Assert.AreEqual(headerText, columnData.HeaderText);
+                Assert.AreEqual(readOnly, columnData.ReadOnly);
+                Assert.AreEqual(autoSizeMode, columnData.AutoSizeMode);
+                Assert.AreEqual(minimumWidth, columnData.MinimumWidth);
+                Assert.AreEqual(format, columnData.DefaultCellStyle.Format);
+            }
+        }
+
+        [Test]
+        public void AddCheckBoxColumn_WithoutAutoSizeMode_AddsColumnToDataGridViewWithDefaultAutoSizeMode()
         {
             // Setup
             using (var form = new Form())
@@ -214,7 +282,42 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void AddComboBoxColumn_DataSourceValueMemberAndDisplayMemberNull_AddsColumnToDataGridViewWithoutDataSourceValueMemberAndDisplayMember()
+        public void AddCheckboxColumn_AutoSizeModeSet_AddsColumnToDataGridViewWithAutoSizeMode()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                var propertyName = "PropertyName";
+                var headerText = "HeaderText";
+
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                var autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                control.AddCheckBoxColumn(propertyName, headerText, autoSizeMode);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                DataGridViewCheckBoxColumn columnData = (DataGridViewCheckBoxColumn)dataGridView.Columns[0];
+                Assert.AreEqual(propertyName, columnData.DataPropertyName);
+                Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
+                Assert.AreEqual(headerText, columnData.HeaderText);
+                Assert.AreEqual(autoSizeMode, columnData.AutoSizeMode);
+                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
+            }
+        }
+
+        [Test]
+        public void AddComboBoxColumn_AutoSizeModeSet_AddsColumnToDataGridViewWithAutoSizeMode()
         {
             using (var form = new Form())
             using (var control = new DataGridViewControl())
@@ -230,13 +333,51 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Precondition
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
+                var autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+
+                // Call
+                control.AddComboBoxColumn<object>(propertyName, headerText, null, null, null, autoSizeMode);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                DataGridViewComboBoxColumn columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
+
+                Assert.AreEqual(propertyName, columnData.DataPropertyName);
+                Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
+                Assert.AreEqual(headerText, columnData.HeaderText);
+                Assert.IsNull(columnData.DataSource);
+                Assert.AreEqual(string.Empty, columnData.ValueMember);
+                Assert.AreEqual(string.Empty, columnData.DisplayMember);
+                Assert.AreEqual(autoSizeMode, columnData.AutoSizeMode);
+                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
+            }
+        }
+
+        [Test]
+        public void AddComboBoxColumn_DataSourceValueMemberAndDisplayMemberNull_AddsColumnToDataGridViewWithoutDataSourceValueMemberAndDisplayMember()
+        {
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                var propertyName = "PropertyName";
+                var headerText = "HeaderText";
+
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
                 // Call
                 control.AddComboBoxColumn<object>(propertyName, headerText, null, null, null);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
-                DataGridViewComboBoxColumn columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
+                DataGridViewComboBoxColumn columnData = (DataGridViewComboBoxColumn)dataGridView.Columns[0];
 
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);

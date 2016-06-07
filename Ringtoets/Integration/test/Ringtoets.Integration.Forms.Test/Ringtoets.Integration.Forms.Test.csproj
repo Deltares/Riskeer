@@ -90,6 +90,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\AssessmentSectionPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\ReferenceLineContextTreeNodeInfoTest.cs" />
+    <Compile Include="Views\FailureMechanismContributionItemRowTest.cs" />
     <Compile Include="Views\SectionResultRows\FailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultViews\ClosingStructureResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\DuneErosionResultViewTest.cs" />

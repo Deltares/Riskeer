@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Core.Common.Controls.Properties;
 
 namespace Core.Common.Controls.DataGrid
 {
@@ -54,16 +53,30 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
+        /// Returns the <see cref="DataGridView.DataSource"/>.
+        /// </summary>
+        public object DataSource
+        {
+            get
+            {
+                return dataGridView.DataSource;
+            }
+        }
+
+        /// <summary>
         /// Adds a new <see cref="DataGridViewTextBoxColumn"/> to the <see cref="DataGridView"/> with the given data.
         /// </summary>
         /// <param name="dataPropertyName">The <see cref="DataGridViewColumn.DataPropertyName"/> of the column.</param>
         /// <param name="headerText">The <see cref="DataGridViewColumn.HeaderText"/> of the column.</param>
         /// <param name="readOnly">Indicates whether the column is read-only or not.</param>
+        /// <param name="autoSizeMode">The <see cref="DataGridViewColumn.AutoSizeMode"/> of the column.</param>
+        /// <param name="minimumWidth">The minimum width of the column.</param>
+        /// <param name="format">The text format of the column.</param>
         /// <remarks><paramref name="dataPropertyName"/> is also used to create the <see cref="DataGridViewColumn.Name"/>.
         /// The format is "column_<paramref name="dataPropertyName"/>.</remarks>
-        public void AddTextBoxColumn(string dataPropertyName, string headerText, bool readOnly = false)
+        public void AddTextBoxColumn(string dataPropertyName, string headerText, bool readOnly = false, DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, int minimumWidth = 0, string format = null)
         {
-            dataGridView.Columns.Add(new DataGridViewTextBoxColumn
+            var dataGridViewTextBoxColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = dataPropertyName,
                 HeaderText = headerText,
@@ -72,8 +85,21 @@ namespace Core.Common.Controls.DataGrid
                 DefaultCellStyle =
                 {                    
                     DataSourceNullValue = string.Empty
-                }
-            });
+                },
+                AutoSizeMode = autoSizeMode
+            };
+
+            if (minimumWidth > 0)
+            {
+                dataGridViewTextBoxColumn.MinimumWidth = minimumWidth;
+            }
+
+            if (!string.IsNullOrEmpty(format))
+            {
+                dataGridViewTextBoxColumn.DefaultCellStyle.Format = format;
+            }
+
+            dataGridView.Columns.Add(dataGridViewTextBoxColumn);
         }
 
         /// <summary>
@@ -81,15 +107,17 @@ namespace Core.Common.Controls.DataGrid
         /// </summary>
         /// <param name="dataPropertyName">The <see cref="DataGridViewColumn.DataPropertyName"/> of the column.</param>
         /// <param name="headerText">The <see cref="DataGridViewColumn.HeaderText"/> of the column.</param>
+        /// <param name="autoSizeMode">The <see cref="DataGridViewColumn.AutoSizeMode"/> of the column.</param>
         /// <remarks><paramref name="dataPropertyName"/> is also used to create the <see cref="DataGridViewColumn.Name"/>.
         /// The format is "column_<paramref name="dataPropertyName"/>.</remarks>
-        public void AddCheckBoxColumn(string dataPropertyName, string headerText)
+        public void AddCheckBoxColumn(string dataPropertyName, string headerText, DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.AllCells)
         {
             dataGridView.Columns.Add(new DataGridViewCheckBoxColumn
             {
                 DataPropertyName = dataPropertyName,
                 HeaderText = headerText,
-                Name = string.Format("column_{0}", dataPropertyName)
+                Name = string.Format("column_{0}", dataPropertyName),
+                AutoSizeMode = autoSizeMode
             });
         }
 
@@ -101,15 +129,17 @@ namespace Core.Common.Controls.DataGrid
         /// <param name="dataSource">The datasource that is set on the column.</param>
         /// <param name="valueMember">The <see cref="DataGridViewComboBoxColumn.ValueMember"/> of the column.</param>
         /// <param name="displayMember">The <see cref="DataGridViewComboBoxColumn.DisplayMember"/> of the column.</param>
+        /// <param name="autoSizeMode">The <see cref="DataGridViewColumn.AutoSizeMode"/> of the column.</param>
         /// <remarks><paramref name="dataPropertyName"/> is also used to create the <see cref="DataGridViewColumn.Name"/>.
         /// The format is "column_<paramref name="dataPropertyName"/>.</remarks>
-        public void AddComboBoxColumn<T>(string dataPropertyName, string headerText, IEnumerable<T> dataSource, string valueMember, string displayMember)
+        public void AddComboBoxColumn<T>(string dataPropertyName, string headerText, IEnumerable<T> dataSource, string valueMember, string displayMember, DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.AllCells)
         {
             var dataGridViewComboBoxColumn = new DataGridViewComboBoxColumn
             {
                 DataPropertyName = dataPropertyName,
                 HeaderText = headerText,
-                Name = string.Format("column_{0}", dataPropertyName)
+                Name = string.Format("column_{0}", dataPropertyName),
+                AutoSizeMode = autoSizeMode
             };
 
             if (dataSource != null)
@@ -308,7 +338,6 @@ namespace Core.Common.Controls.DataGrid
 
         private void DataGridViewOnColumnAdded(object sender, DataGridViewColumnEventArgs e)
         {
-            e.Column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             e.Column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 

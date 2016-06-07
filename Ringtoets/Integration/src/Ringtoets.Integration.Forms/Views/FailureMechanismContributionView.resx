@@ -150,8 +150,62 @@
   <data name="&gt;&gt;normLabel.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="tableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
+  <data name="normInput.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="normInput.Location" type="System.Drawing.Point, System.Drawing">
+    <value>271, 3</value>
+  </data>
+  <data name="normInput.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 20</value>
+  </data>
+  <data name="normInput.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;normInput.Name" xml:space="preserve">
+    <value>normInput</value>
+  </data>
+  <data name="&gt;&gt;normInput.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;normInput.Parent" xml:space="preserve">
+    <value>tableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;normInput.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="perYearLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left</value>
+  </data>
+  <data name="perYearLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="perYearLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>398, 0</value>
+  </data>
+  <data name="perYearLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 26</value>
+  </data>
+  <data name="perYearLabel.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
+  </data>
+  <data name="perYearLabel.Text" xml:space="preserve">
+    <value>per jaar</value>
+  </data>
+  <data name="perYearLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;perYearLabel.Name" xml:space="preserve">
+    <value>perYearLabel</value>
+  </data>
+  <data name="&gt;&gt;perYearLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;perYearLabel.Parent" xml:space="preserve">
+    <value>tableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;perYearLabel.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="assessmentSectionConfigurationLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -210,62 +264,32 @@
   <data name="&gt;&gt;assessmentSectionCompositionComboBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="normInput.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="normInput.Location" type="System.Drawing.Point, System.Drawing">
-    <value>271, 3</value>
-  </data>
-  <data name="normInput.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 20</value>
-  </data>
-  <data name="normInput.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;normInput.Name" xml:space="preserve">
-    <value>normInput</value>
-  </data>
-  <data name="&gt;&gt;normInput.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;normInput.Parent" xml:space="preserve">
-    <value>tableLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;normInput.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="perYearLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left</value>
-  </data>
-  <data name="perYearLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="perYearLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>398, 0</value>
-  </data>
-  <data name="perYearLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 26</value>
-  </data>
-  <data name="perYearLabel.TabIndex" type="System.Int32, mscorlib">
+  <data name="tableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="perYearLabel.Text" xml:space="preserve">
-    <value>per jaar</value>
+  <data name="probabilityDistributionGrid.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="perYearLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
+  <data name="probabilityDistributionGrid.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 29</value>
   </data>
-  <data name="&gt;&gt;perYearLabel.Name" xml:space="preserve">
-    <value>perYearLabel</value>
+  <data name="probabilityDistributionGrid.Size" type="System.Drawing.Size, System.Drawing">
+    <value>525, 158</value>
   </data>
-  <data name="&gt;&gt;perYearLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="probabilityDistributionGrid.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
-  <data name="&gt;&gt;perYearLabel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;probabilityDistributionGrid.Name" xml:space="preserve">
+    <value>probabilityDistributionGrid</value>
+  </data>
+  <data name="&gt;&gt;probabilityDistributionGrid.Type" xml:space="preserve">
+    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=0.5.0.3501, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;probabilityDistributionGrid.Parent" xml:space="preserve">
     <value>tableLayoutPanel</value>
   </data>
-  <data name="&gt;&gt;perYearLabel.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;probabilityDistributionGrid.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="tableLayoutPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -296,30 +320,6 @@
   </data>
   <data name="tableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="assessmentSectionConfigurationLabel" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="assessmentSectionCompositionComboBox" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="normLabel" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="normInput" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="perYearLabel" Row="0" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="probabilityDistributionGrid" Row="1" RowSpan="1" Column="0" ColumnSpan="5" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="Absolute,26,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="probabilityDistributionGrid.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="probabilityDistributionGrid.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 29</value>
-  </data>
-  <data name="probabilityDistributionGrid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>525, 158</value>
-  </data>
-  <data name="probabilityDistributionGrid.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;probabilityDistributionGrid.Name" xml:space="preserve">
-    <value>probabilityDistributionGrid</value>
-  </data>
-  <data name="&gt;&gt;probabilityDistributionGrid.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;probabilityDistributionGrid.Parent" xml:space="preserve">
-    <value>tableLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;probabilityDistributionGrid.ZOrder" xml:space="preserve">
-    <value>5</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

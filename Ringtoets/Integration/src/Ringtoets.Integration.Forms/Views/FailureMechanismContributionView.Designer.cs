@@ -5,7 +5,6 @@ namespace Ringtoets.Integration.Forms.Views
     partial class FailureMechanismContributionView
     {
         private Label normLabel;
-        private DataGridView probabilityDistributionGrid;
         private NumericUpDown normInput;
         private Label perYearLabel;
 
@@ -24,13 +23,12 @@ namespace Ringtoets.Integration.Forms.Views
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FailureMechanismContributionView));
             this.normLabel = new System.Windows.Forms.Label();
-            this.probabilityDistributionGrid = new System.Windows.Forms.DataGridView();
             this.normInput = new System.Windows.Forms.NumericUpDown();
             this.perYearLabel = new System.Windows.Forms.Label();
             this.assessmentSectionConfigurationLabel = new System.Windows.Forms.Label();
             this.assessmentSectionCompositionComboBox = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)(this.probabilityDistributionGrid)).BeginInit();
+            this.probabilityDistributionGrid = new Core.Common.Controls.DataGrid.DataGridViewControl();
             ((System.ComponentModel.ISupportInitialize)(this.normInput)).BeginInit();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
@@ -42,15 +40,9 @@ namespace Ringtoets.Integration.Forms.Views
             // 
             // probabilityDistributionGrid
             // 
-            this.probabilityDistributionGrid.AllowUserToResizeColumns = false;
-            this.probabilityDistributionGrid.AllowUserToResizeRows = false;
-            this.probabilityDistributionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel.SetColumnSpan(this.probabilityDistributionGrid, 5);
             resources.ApplyResources(this.probabilityDistributionGrid, "probabilityDistributionGrid");
             this.probabilityDistributionGrid.Name = "probabilityDistributionGrid";
-            this.probabilityDistributionGrid.RowHeadersVisible = false;
-            this.probabilityDistributionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.probabilityDistributionGrid.StandardTab = true;
             // 
             // normInput
             // 
@@ -105,7 +97,6 @@ namespace Ringtoets.Integration.Forms.Views
             this.Controls.Add(this.tableLayoutPanel);
             this.Name = "FailureMechanismContributionView";
             resources.ApplyResources(this, "$this");
-            ((System.ComponentModel.ISupportInitialize)(this.probabilityDistributionGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.normInput)).EndInit();
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
@@ -118,6 +109,7 @@ namespace Ringtoets.Integration.Forms.Views
         private Label assessmentSectionConfigurationLabel;
         private ComboBox assessmentSectionCompositionComboBox;
         private TableLayoutPanel tableLayoutPanel;
+        private Core.Common.Controls.DataGrid.DataGridViewControl probabilityDistributionGrid;
 
     }
 }

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -46,13 +45,13 @@ namespace Ringtoets.Integration.Forms.Views
     {
         private readonly Observer isFailureMechanismRelevantObserver;
         private readonly Observer closeViewsForIrrelevantFailureMechanismObserver;
-        private DataGridViewColumn probabilityPerYearColumn;
         private FailureMechanismContribution data;
 
         private bool revertingComboBoxSelectedValue;
         private IAssessmentSection assessmentSection;
 
-        private DataGridViewCheckBoxColumn isRelevantColumn;
+        private const int isRelevantColumnIndex = 0;
+        private const int probabilityPerYearColumnIndex = 4;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionView"/>.
@@ -66,9 +65,8 @@ namespace Ringtoets.Integration.Forms.Views
             BindNormInputLeave();
             SubscribeEvents();
 
-            isFailureMechanismRelevantObserver = new Observer(SetRowStyling);
+            isFailureMechanismRelevantObserver = new Observer(probabilityDistributionGrid.RefreshDataGridView);
             closeViewsForIrrelevantFailureMechanismObserver = new Observer(CloseViewsForIrrelevantFailureMechanism);
-            Load += OnLoad;
         }
 
         /// <summary>
@@ -103,7 +101,7 @@ namespace Ringtoets.Integration.Forms.Views
         public void UpdateObserver()
         {
             SetNormText();
-            probabilityDistributionGrid.Invalidate();
+            probabilityDistributionGrid.RefreshDataGridView();
         }
 
         /// <summary> 
@@ -122,14 +120,6 @@ namespace Ringtoets.Integration.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void OnLoad(object sender, EventArgs e)
-        {
-            if (probabilityDistributionGrid.DataSource != null)
-            {
-                SetRowStyling();
-            }
-        }
-
         private void InitializeAssessmentSectionCompositionComboBox()
         {
             assessmentSectionCompositionComboBox.DataSource = new[]
@@ -144,25 +134,14 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void SubscribeEvents()
         {
-            probabilityDistributionGrid.CellFormatting += ProbabilityDistributionGridOnCellFormatting;
+            probabilityDistributionGrid.AddCellFormattingHandler(ProbabilityDistributionGridOnCellFormatting);
+            probabilityDistributionGrid.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
         }
 
         private void UnsubscribeEvents()
         {
-            probabilityDistributionGrid.CellFormatting -= ProbabilityDistributionGridOnCellFormatting;
-        }
-
-        private void ProbabilityDistributionGridOnCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (e.ColumnIndex == probabilityPerYearColumn.Index)
-            {
-                var contributionItem = data.Distribution.ElementAt(e.RowIndex);
-                if (Math.Abs(contributionItem.Contribution) < 1e-6)
-                {
-                    e.Value = RingtoetsIntegrationFormsResources.FailureMechanismContributionView_ProbabilityPerYear_Not_applicable;
-                    e.FormattingApplied = true;
-                }
-            }
+            probabilityDistributionGrid.RemoveCellFormattingHandler(ProbabilityDistributionGridOnCellFormatting);
+            probabilityDistributionGrid.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
         }
 
         private void HandleNewDataSet(FailureMechanismContribution value)
@@ -177,6 +156,8 @@ namespace Ringtoets.Integration.Forms.Views
 
             AttachToData();
             BindNormChange();
+
+            probabilityDistributionGrid.RefreshDataGridView();
         }
 
         private void HandleNewAssessmentSectionSet(IAssessmentSection value)
@@ -232,9 +213,8 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (data != null)
             {
-                probabilityDistributionGrid.DataSource = data.Distribution.Select(ci => new FailureMechanismContributionItemRow(ci)).ToArray();
-                SetRowStyling();
-                probabilityDistributionGrid.Invalidate();
+                probabilityDistributionGrid.SetDataSource(data.Distribution.Select(ci => new FailureMechanismContributionItemRow(ci)).ToArray());
+                probabilityDistributionGrid.RefreshDataGridView();
             }
         }
 
@@ -316,84 +296,76 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void InitializeGridColumns()
         {
-            probabilityDistributionGrid.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
-            probabilityDistributionGrid.GotFocus += DataGridViewGotFocus;
+            probabilityDistributionGrid.AddCheckBoxColumn(TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.IsRelevant), 
+                                                          CommonGuiResources.FailureMechanismContributionView_GridColumn_RelevancyFilter, 
+                                                          DataGridViewAutoSizeColumnMode.ColumnHeader);
 
-            var columnNameFormat = "column_{0}";
+            probabilityDistributionGrid.AddTextBoxColumn(TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.Assessment),
+                                                         CommonGuiResources.FailureMechanismContributionView_GridColumn_Assessment,
+                                                         true,
+                                                         DataGridViewAutoSizeColumnMode.AllCellsExceptHeader);
+            
+            probabilityDistributionGrid.AddTextBoxColumn(TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.Code),
+                                                         CommonGuiResources.FailureMechanismContributionView_GridColumn_AssessmentCode,
+                                                         true,
+                                                         DataGridViewAutoSizeColumnMode.AllCellsExceptHeader);
 
-            var isRelevantName = TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.IsRelevant);
-            isRelevantColumn = new DataGridViewCheckBoxColumn
+            probabilityDistributionGrid.AddTextBoxColumn(TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.Contribution),
+                                                         CommonGuiResources.FailureMechanismContributionView_GridColumn_Contribution,
+                                                         true,
+                                                         DataGridViewAutoSizeColumnMode.ColumnHeader);
+
+            probabilityDistributionGrid.AddTextBoxColumn(TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.ProbabilitySpace),
+                                                         CommonGuiResources.FailureMechanismContributionView_GridColumn_ProbabilitySpace,
+                                                         true,
+                                                         DataGridViewAutoSizeColumnMode.Fill,
+                                                         100,
+                                                         "1/#,#");
+        }
+
+
+        #region Event handling
+
+        private void ProbabilityDistributionGridOnCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == probabilityPerYearColumnIndex)
             {
-                DataPropertyName = isRelevantName,
-                HeaderText = CommonGuiResources.FailureMechanismContributionView_GridColumn_RelevancyFilter,
-                Name = string.Format(columnNameFormat, isRelevantName),
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
-            };
-
-            var assessmentName = TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.Assessment);
-            var assessmentColumn = new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = assessmentName,
-                HeaderText = CommonGuiResources.FailureMechanismContributionView_GridColumn_Assessment,
-                Name = string.Format(columnNameFormat, assessmentName),
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader,
-                ReadOnly = true
-            };
-
-            var assessmentCode = TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.Code);
-            var assessmentCodeColumn = new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = assessmentCode,
-                HeaderText = CommonGuiResources.FailureMechanismContributionView_GridColumn_AssessmentCode,
-                Name = string.Format(columnNameFormat, assessmentCode),
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader,
-                ReadOnly = true
-            };
-
-            var contributionName = TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.Contribution);
-            var probabilityColumn = new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = contributionName,
-                HeaderText = CommonGuiResources.FailureMechanismContributionView_GridColumn_Contribution,
-                Name = string.Format(columnNameFormat, contributionName),
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader,
-                ReadOnly = true
-            };
-
-            var probabilitySpaceName = TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.ProbabilitySpace);
-            probabilityPerYearColumn = new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = probabilitySpaceName,
-                HeaderText = CommonGuiResources.FailureMechanismContributionView_GridColumn_ProbabilitySpace,
-                Name = string.Format(columnNameFormat, probabilitySpaceName),
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-                MinimumWidth = 100,
-                DefaultCellStyle =
+                var contributionItem = data.Distribution.ElementAt(e.RowIndex);
+                if (Math.Abs(contributionItem.Contribution) < 1e-6)
                 {
-                    Format = "1/#,#"
-                },
-                ReadOnly = true
-            };
-            probabilityDistributionGrid.AutoGenerateColumns = false;
-            probabilityDistributionGrid.Columns.AddRange(isRelevantColumn, assessmentColumn, assessmentCodeColumn, probabilityColumn, probabilityPerYearColumn);
+                    e.Value = RingtoetsIntegrationFormsResources.FailureMechanismContributionView_ProbabilityPerYear_Not_applicable;
+                    e.FormattingApplied = true;
+                }
+            }
         }
-
-        private void DataGridViewCurrentCellDirtyStateChanged(object sender, EventArgs e)
+        private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            // Ensure checkbox values are directly committed
-            DataGridViewColumn currentColumn = probabilityDistributionGrid.Columns[probabilityDistributionGrid.CurrentCell.ColumnIndex];
-            if (currentColumn is DataGridViewCheckBoxColumn)
+            if (eventArgs.ColumnIndex != isRelevantColumnIndex)
             {
-                probabilityDistributionGrid.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                if (!IsIrrelevantChecked(eventArgs.RowIndex))
+                {
+                    probabilityDistributionGrid.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
+                else
+                {
+                    probabilityDistributionGrid.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
+            }
+            else
+            {
+                probabilityDistributionGrid.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex, IsReadOnly(eventArgs.RowIndex));
             }
         }
 
-        private void DataGridViewGotFocus(object sender, EventArgs eventArgs)
+        private bool IsIrrelevantChecked(int rowIndex)
         {
-            if (probabilityDistributionGrid.CurrentCell != null)
-            {
-                probabilityDistributionGrid.BeginEdit(true); // Always start editing after setting the focus (otherwise data grid view cell dirty events are no longer fired when using the keyboard...)
-            }
+            return (bool) probabilityDistributionGrid.GetCell(rowIndex, isRelevantColumnIndex).Value;
+        }
+
+        private bool IsReadOnly(int rowIndex)
+        {
+            FailureMechanismContributionItem rowData = data.Distribution.ElementAt(rowIndex);
+            return rowData.IsAlwaysRelevant;
         }
 
         private void AssessmentSectionCompositionComboBoxSelectedIndexChanged(object sender, EventArgs e)
@@ -441,104 +413,6 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        private void SetRowStyling()
-        {
-            foreach (DataGridViewRow row in probabilityDistributionGrid.Rows)
-            {
-                var isRelevantCell = (DataGridViewCheckBoxCell) row.Cells[isRelevantColumn.Index];
-                FailureMechanismContributionItem rowData = data.Distribution.ElementAt(row.Index);
-                isRelevantCell.ReadOnly = rowData.IsAlwaysRelevant;
-
-                var isFailureMechanismRelevant = (bool) isRelevantCell.Value;
-                SetRowStyle(isFailureMechanismRelevant, row);
-            }
-        }
-
-        private void SetRowStyle(bool checkboxSelected, DataGridViewRow row)
-        {
-            for (int i = 0; i < row.Cells.Count; i++)
-            {
-                if (i != isRelevantColumn.Index)
-                {
-                    if (checkboxSelected)
-                    {
-                        SetCellStyle(row.Cells[i], Color.FromKnownColor(KnownColor.White), Color.FromKnownColor(KnownColor.ControlText));
-                    }
-                    else
-                    {
-                        SetCellStyle(row.Cells[i], Color.FromKnownColor(KnownColor.DarkGray), Color.FromKnownColor(KnownColor.GrayText));
-                    }
-                }
-            }
-        }
-
-        private void SetCellStyle(DataGridViewCell cell, Color backgroundColor, Color textColor)
-        {
-            cell.Style.BackColor = backgroundColor;
-            cell.Style.ForeColor = textColor;
-        }
-
-        private class FailureMechanismContributionItemRow
-        {
-            private readonly FailureMechanismContributionItem item;
-
-            public FailureMechanismContributionItemRow(FailureMechanismContributionItem item)
-            {
-                this.item = item;
-            }
-
-            public string Assessment
-            {
-                get
-                {
-                    return item.Assessment;
-                }
-            }
-
-            public string Code
-            {
-                get
-                {
-                    return item.AssessmentCode;
-                }
-            }
-
-            public double Contribution
-            {
-                get
-                {
-                    return item.Contribution;
-                }
-            }
-
-            public int Norm
-            {
-                get
-                {
-                    return item.Norm;
-                }
-            }
-
-            public double ProbabilitySpace
-            {
-                get
-                {
-                    return item.ProbabilitySpace;
-                }
-            }
-
-            public bool IsRelevant
-            {
-                get
-                {
-                    return item.IsRelevant;
-                }
-                set
-                {
-                    item.IsRelevant = value;
-                    item.NotifyFailureMechanismObservers();
-                }
-            }
-        }
+        #endregion
     }
 }
