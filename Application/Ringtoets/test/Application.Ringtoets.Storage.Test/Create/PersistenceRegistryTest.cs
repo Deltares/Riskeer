@@ -1864,7 +1864,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var model = new PipingProbabilityAssessmentInput
             {
-                StorageId = 394624 // Note: ID only has to match a SurfaceLinePointEntity's id!
+                StorageId = persistentEntity.PipingFailureMechanismMetaEntityId
             };
 
             var registry = new PersistenceRegistry();

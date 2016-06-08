@@ -352,7 +352,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             });
             ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
             {
-                PipingFailureMechanismMetaEntityId = 2
+                PipingFailureMechanismMetaEntityId = section.PipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId
             });
 
             // Call

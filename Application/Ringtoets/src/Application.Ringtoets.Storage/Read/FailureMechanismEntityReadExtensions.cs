@@ -83,8 +83,7 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadProbabilityAssessmentInput(ICollection<PipingFailureMechanismMetaEntity> pipingFailureMechanismMetaEntities, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput)
         {
-            var metaEntities = pipingFailureMechanismMetaEntities.ToArray();
-            var probabilityAssessmentInput = metaEntities[0].Read();
+            PipingProbabilityAssessmentInput probabilityAssessmentInput = pipingFailureMechanismMetaEntities.ElementAt(0).Read();
 
             pipingProbabilityAssessmentInput.StorageId = probabilityAssessmentInput.StorageId;
             pipingProbabilityAssessmentInput.A = probabilityAssessmentInput.A;

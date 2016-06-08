@@ -52,41 +52,40 @@ namespace Application.Ringtoets.Storage.Test.Update
         public void Update_WithoutPersistenceRegistry_ArgumentNullException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var ringtoetsEntities = mocks.Stub<IRingtoetsEntities>();
+            mocks.ReplayAll();
+
             var probabilityAssessmentInput = new PipingProbabilityAssessmentInput();
 
             // Call
-            TestDelegate test = () =>
-            {
-                using (var ringtoetsEntities = new RingtoetsEntities())
-                {
-                    probabilityAssessmentInput.Update(null, ringtoetsEntities);
-                }
-            };
+            TestDelegate test = () => probabilityAssessmentInput.Update(null, ringtoetsEntities);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("registry", paramName);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Update_ContextWithNoPipingProbabilityAssessmentInput_EntityNotFoundException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
             var probabilityAssessmentInput = new PipingProbabilityAssessmentInput();
 
             // Call
-            TestDelegate test = () =>
-            {
-                using (var ringtoetsEntities = new RingtoetsEntities())
-                {
-                    probabilityAssessmentInput.Update(new PersistenceRegistry(), ringtoetsEntities);
-                }
-            };
+            TestDelegate test = () => probabilityAssessmentInput.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             var expectedMessage = String.Format("Het object 'PipingFailureMechanismMetaEntity' met id '{0}' is niet gevonden.", 0);
             EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -95,7 +94,6 @@ namespace Application.Ringtoets.Storage.Test.Update
             // Setup
             MockRepository mocks = new MockRepository();
             var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
-
             mocks.ReplayAll();
 
             var storageId = 1;
@@ -126,7 +124,6 @@ namespace Application.Ringtoets.Storage.Test.Update
             // Setup
             MockRepository mocks = new MockRepository();
             var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
-
             mocks.ReplayAll();
 
             double value = 0.64;
