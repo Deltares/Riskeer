@@ -65,8 +65,9 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             Assert.AreSame(logAppender, MessageWindowLogAppender.Instance);
 
             using (var form = new Form())
+            using (var messageWindow = new Gui.Forms.MessageWindow.MessageWindow(null))
             {
-                form.Controls.Add(new Gui.Forms.MessageWindow.MessageWindow(null));
+                form.Controls.Add(messageWindow);
                 form.Show();
 
                 var button = new ToolStripButtonTester("buttonShowDetails");
@@ -90,8 +91,8 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             Assert.AreSame(logAppender, MessageWindowLogAppender.Instance);
 
             using (var form = new Form())
+            using (var messageWindow = new Gui.Forms.MessageWindow.MessageWindow(dialogParent))
             {
-                var messageWindow = new Gui.Forms.MessageWindow.MessageWindow(dialogParent);
                 form.Controls.Add(messageWindow);
                 form.Show();
 

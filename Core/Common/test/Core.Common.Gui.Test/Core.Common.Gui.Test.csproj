@@ -118,6 +118,8 @@
     <Compile Include="Forms\PropertyGridView\PropertyResolverTest.cs" />
     <Compile Include="Forms\RichTextFileTest.cs" />
     <Compile Include="Forms\RichTextViewTest.cs" />
+    <Compile Include="Forms\SelectItemDialogTest.cs" />
+    <Compile Include="Forms\SelectViewDialogTest.cs" />
     <Compile Include="Forms\SplashScreen\SplashScreenTest.cs" />
     <Compile Include="Forms\ViewManager\ActiveViewChangeEventArgsTest.cs" />
     <Compile Include="Forms\ViewManager\AvalonDockDockingManagerTest.cs" />
