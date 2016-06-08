@@ -53,6 +53,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicLocations = new Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>(new ReferenceEqualityComparer<HydraulicLocationEntity>());
         private readonly Dictionary<CalculationGroupEntity, CalculationGroup> calculationGroups = new Dictionary<CalculationGroupEntity, CalculationGroup>(new ReferenceEqualityComparer<CalculationGroupEntity>());
         private readonly Dictionary<PipingCalculationEntity, PipingCalculationScenario> pipingCalculations = new Dictionary<PipingCalculationEntity, PipingCalculationScenario>(new ReferenceEqualityComparer<PipingCalculationEntity>());
+        private readonly Dictionary<PipingCalculationOutputEntity, PipingOutput> pipingOutputs = new Dictionary<PipingCalculationOutputEntity, PipingOutput>(new ReferenceEqualityComparer<PipingCalculationOutputEntity>());
         private readonly Dictionary<StochasticSoilModelEntity, StochasticSoilModel> stochasticSoilModels = new Dictionary<StochasticSoilModelEntity, StochasticSoilModel>(new ReferenceEqualityComparer<StochasticSoilModelEntity>());
         private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> stochasticSoilProfiles = new Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile>(new ReferenceEqualityComparer<StochasticSoilProfileEntity>());
         private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles = new Dictionary<SoilProfileEntity, PipingSoilProfile>(new ReferenceEqualityComparer<SoilProfileEntity>());
@@ -108,6 +109,22 @@ namespace Application.Ringtoets.Storage.Create
         public void Register(PipingCalculationEntity entity, PipingCalculationScenario model)
         {
             Register(pipingCalculations, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="PipingCalculationOutputEntity"/> that was registered.</param>
+        /// <param name="model">The <see cref="PipingOutput"/> which needed to registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(PipingCalculationOutputEntity entity, PipingOutput model)
+        {
+            Register(pipingOutputs, entity, model);
         }
 
         /// <summary>
@@ -447,6 +464,17 @@ namespace Application.Ringtoets.Storage.Create
             Register(characteristicPoints, entity, model);
         }
 
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> that is being registered.</param>
+        /// <param name="model">The <see cref="PipingProbabilityAssessmentInput"/> that it being registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
         internal void Register(PipingFailureMechanismMetaEntity entity, PipingProbabilityAssessmentInput model)
         {
             Register(pipingProbabilityAssessmentInputs, entity, model);
@@ -490,6 +518,11 @@ namespace Application.Ringtoets.Storage.Create
             foreach (var entity in pipingCalculations.Keys)
             {
                 pipingCalculations[entity].StorageId = entity.PipingCalculationEntityId;
+            }
+
+            foreach (var entity in pipingOutputs.Keys)
+            {
+                pipingOutputs[entity].StorageId = entity.PipingCalculationOutputEntityId;
             }
 
             foreach (var entity in stochasticSoilModels.Keys)
@@ -613,6 +646,17 @@ namespace Application.Ringtoets.Storage.Create
                 }
             }
             dbContext.PipingCalculationEntities.RemoveRange(orphanedPipingCalculationEntities);
+
+            IList<PipingCalculationOutputEntity> orphanedPipingCalculationOutputEntities = new List<PipingCalculationOutputEntity>();
+            foreach (PipingCalculationOutputEntity pipingCalculationOutputEntity in dbContext.PipingCalculationOutputEntities
+                                                                                 .Where(e => e.PipingCalculationOutputEntityId > 0))
+            {
+                if (!pipingOutputs.ContainsKey(pipingCalculationOutputEntity))
+                {
+                    orphanedPipingCalculationOutputEntities.Add(pipingCalculationOutputEntity);
+                }
+            }
+            dbContext.PipingCalculationOutputEntities.RemoveRange(orphanedPipingCalculationOutputEntities);
 
             IList<StochasticSoilModelEntity> orphanedStochasticSoilModelEntities = new List<StochasticSoilModelEntity>();
             foreach (StochasticSoilModelEntity stochasticSoilModelEntity in dbContext.StochasticSoilModelEntities

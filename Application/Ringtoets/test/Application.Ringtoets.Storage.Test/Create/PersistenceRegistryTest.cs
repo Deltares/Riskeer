@@ -844,6 +844,34 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void Register_WithNullPipingCalculationOutputEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(null, new PipingOutput(1,1,1,1,1,1));
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullPipingOutput_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(new PipingCalculationOutputEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
         public void Register_WithNullStochasticSoilModelEntity_ThrowsArgumentNullException()
         {
             // Setup
@@ -1202,6 +1230,27 @@ namespace Application.Ringtoets.Storage.Test.Create
                 PipingCalculationEntityId = storageId
             };
             var model = new PipingCalculationScenario(new GeneralPipingInput());
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferId_WithPipingCalculationOutputEntityAdded_EqualPipingCalculationOutputEntityIdAndPipingOutputStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1, 4000);
+            var entity = new PipingCalculationOutputEntity
+            {
+                PipingCalculationOutputEntityId = storageId
+            };
+            var model = new PipingOutput(1,2,3,4,5,6);
             registry.Register(entity, model);
 
             // Call
@@ -1594,6 +1643,42 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(1, dbContext.PipingCalculationEntities.Count());
             CollectionAssert.Contains(dbContext.PipingCalculationEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_PipingCalculationOutputEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new PipingCalculationOutputEntity
+            {
+                PipingCalculationOutputEntityId = 1
+            };
+            var persistentEntity = new PipingCalculationOutputEntity
+            {
+                PipingCalculationOutputEntityId = 2
+            };
+            dbContext.PipingCalculationOutputEntities.Add(orphanedEntity);
+            dbContext.PipingCalculationOutputEntities.Add(persistentEntity);
+
+            var calculationGroup = new PipingOutput(1,2,3,4,5,6)
+            {
+                StorageId = persistentEntity.PipingCalculationOutputEntityId
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, calculationGroup);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.PipingCalculationOutputEntities.Count());
+            CollectionAssert.Contains(dbContext.PipingCalculationOutputEntities, persistentEntity);
             mocks.VerifyAll();
         }
 

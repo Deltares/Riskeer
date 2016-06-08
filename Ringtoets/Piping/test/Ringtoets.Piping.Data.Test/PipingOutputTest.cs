@@ -21,6 +21,8 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Base.Storage;
+
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 
@@ -43,12 +45,15 @@ namespace Ringtoets.Piping.Data.Test
 
             Assert.IsInstanceOf<Observable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);
-            Assert.AreEqual(output.UpliftZValue, zuValue);
-            Assert.AreEqual(output.UpliftFactorOfSafety, foSuValue);
-            Assert.AreEqual(output.HeaveZValue, zhValue);
-            Assert.AreEqual(output.HeaveFactorOfSafety, foShValue);
-            Assert.AreEqual(output.SellmeijerZValue, zsValue);
-            Assert.AreEqual(output.SellmeijerFactorOfSafety, foSsValue);
+            Assert.IsInstanceOf<IStorable>(output);
+
+            Assert.AreEqual(zuValue, output.UpliftZValue);
+            Assert.AreEqual(foSuValue, output.UpliftFactorOfSafety);
+            Assert.AreEqual(zhValue, output.HeaveZValue);
+            Assert.AreEqual(foShValue, output.HeaveFactorOfSafety);
+            Assert.AreEqual(zsValue, output.SellmeijerZValue);
+            Assert.AreEqual(foSsValue, output.SellmeijerFactorOfSafety);
+            Assert.AreEqual(0, output.StorageId);
         }
     }
 }

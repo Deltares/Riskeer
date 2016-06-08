@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using Core.Common.Base;
+using Core.Common.Base.Storage;
+
 using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Piping.Data
@@ -27,7 +29,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// Simple class containing the results of a Piping calculation.
     /// </summary>
-    public class PipingOutput : Observable, ICalculationOutput
+    public class PipingOutput : Observable, ICalculationOutput, IStorable
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingOutput"/>. 
@@ -77,5 +79,7 @@ namespace Ringtoets.Piping.Data
         /// The factor of safety for the Sellmeijer sub calculation.
         /// </summary>
         public double SellmeijerFactorOfSafety { get; private set; }
+
+        public long StorageId { get; set; }
     }
 }
