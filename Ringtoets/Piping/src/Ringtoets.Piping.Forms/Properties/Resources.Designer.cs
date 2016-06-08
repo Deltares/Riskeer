@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sellmeijer.
+        ///   Looks up a localized string similar to Terugschrijdende erosie (Sellmeijer).
         /// </summary>
         public static string Categories_Sellmeijer {
             get {
