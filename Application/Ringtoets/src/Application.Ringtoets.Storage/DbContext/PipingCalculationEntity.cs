@@ -39,6 +39,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public PipingCalculationEntity()
         {
             this.PipingCalculationOutputEntities = new HashSet<PipingCalculationOutputEntity>();
+            this.PipingSemiProbabilisticOutputEntities = new HashSet<PipingSemiProbabilisticOutputEntity>();
         }
     
         public long PipingCalculationEntityId { get; set; }
@@ -64,6 +65,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public decimal SaturatedVolumicWeightOfCoverageLayerShift { get; set; }
         public byte RelevantForScenario { get; set; }
         public decimal ScenarioContribution { get; set; }
+        public Nullable<long> PipingSemiProbabilisticOutputEntityId { get; set; }
     
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
@@ -71,5 +73,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual StochasticSoilProfileEntity StochasticSoilProfileEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingCalculationOutputEntity> PipingCalculationOutputEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PipingSemiProbabilisticOutputEntity> PipingSemiProbabilisticOutputEntities { get; set; }
     }
 }

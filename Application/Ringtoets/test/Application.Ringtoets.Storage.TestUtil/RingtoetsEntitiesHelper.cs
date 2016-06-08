@@ -45,7 +45,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             DbSet<ReferenceLinePointEntity> referenceLinesSet = CreateEmptyTestDbSet<ReferenceLinePointEntity>();
             DbSet<CalculationGroupEntity> calculationGroupsSet = CreateEmptyTestDbSet<CalculationGroupEntity>();
             DbSet<PipingCalculationEntity> pipingCalculationsSet = CreateEmptyTestDbSet<PipingCalculationEntity>();
-            DbSet<PipingCalculationOutputEntity> pipingCalculationsOutputSet = CreateEmptyTestDbSet<PipingCalculationOutputEntity>();
+            DbSet<PipingCalculationOutputEntity> pipingCalculationsOutputsSet = CreateEmptyTestDbSet<PipingCalculationOutputEntity>();
+            DbSet<PipingSemiProbabilisticOutputEntity> pipingSemiProbabilisticOutputsSet = CreateEmptyTestDbSet<PipingSemiProbabilisticOutputEntity>();
             DbSet<StochasticSoilModelEntity> stochasticSoilModelsSet = CreateEmptyTestDbSet<StochasticSoilModelEntity>();
             DbSet<StochasticSoilModelSegmentPointEntity> soilModelSegmentPointsSet = CreateEmptyTestDbSet<StochasticSoilModelSegmentPointEntity>();
             DbSet<StochasticSoilProfileEntity> stochasticSoilProfilesSet = CreateEmptyTestDbSet<StochasticSoilProfileEntity>();
@@ -66,7 +67,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             ringtoetsEntities.Stub(r => r.ReferenceLinePointEntities).Return(referenceLinesSet);
             ringtoetsEntities.Stub(r => r.CalculationGroupEntities).Return(calculationGroupsSet);
             ringtoetsEntities.Stub(r => r.PipingCalculationEntities).Return(pipingCalculationsSet);
-            ringtoetsEntities.Stub(r => r.PipingCalculationOutputEntities).Return(pipingCalculationsOutputSet);
+            ringtoetsEntities.Stub(r => r.PipingCalculationOutputEntities).Return(pipingCalculationsOutputsSet);
+            ringtoetsEntities.Stub(r => r.PipingSemiProbabilisticOutputEntities).Return(pipingSemiProbabilisticOutputsSet);
             ringtoetsEntities.Stub(r => r.StochasticSoilModelEntities).Return(stochasticSoilModelsSet);
             ringtoetsEntities.Stub(r => r.StochasticSoilModelSegmentPointEntities).Return(soilModelSegmentPointsSet);
             ringtoetsEntities.Stub(r => r.StochasticSoilProfileEntities).Return(stochasticSoilProfilesSet);
