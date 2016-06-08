@@ -44,7 +44,7 @@ namespace Core.Common.Controls.DataGrid
         /// Returns <c>true</c> when the <see cref="DataGridView.CurrentCell"/> is in edit mode.
         /// <c>False</c> otherwise.
         /// </summary>
-        public bool IsCurrentCellInEditMode 
+        public bool IsCurrentCellInEditMode
         {
             get
             {
@@ -83,7 +83,7 @@ namespace Core.Common.Controls.DataGrid
                 Name = string.Format("column_{0}", dataPropertyName),
                 ReadOnly = readOnly,
                 DefaultCellStyle =
-                {                    
+                {
                     DataSourceNullValue = string.Empty
                 },
                 AutoSizeMode = autoSizeMode
@@ -334,6 +334,7 @@ namespace Core.Common.Controls.DataGrid
             dataGridView.GotFocus += DataGridViewOnGotFocus;
             dataGridView.CellEndEdit += DataGridViewOnCellEndEdit;
             dataGridView.DataError += DataGridViewOnDataError;
+            dataGridView.Leave += DataGridViewOnLeave;
         }
 
         private void DataGridViewOnColumnAdded(object sender, DataGridViewColumnEventArgs e)
@@ -372,6 +373,20 @@ namespace Core.Common.Controls.DataGrid
             if (e.Exception != null)
             {
                 dataGridView.Rows[e.RowIndex].ErrorText = e.Exception.Message;
+            }
+        }
+
+        private void DataGridViewOnLeave(object sender, EventArgs eventArgs)
+        {
+            if (!Disposing && dataGridView.CurrentCell != null && dataGridView.CurrentCell.IsInEditMode)
+            {
+                // Try to end the edit action
+                if (!dataGridView.EndEdit())
+                {
+                    // Cancel the edit action on validation errors
+                    dataGridView.CancelEdit();
+                    dataGridView.Rows[dataGridView.CurrentCell.RowIndex].ErrorText = string.Empty;
+                }
             }
         }
 

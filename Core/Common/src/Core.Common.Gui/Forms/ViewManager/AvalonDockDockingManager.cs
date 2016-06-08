@@ -322,12 +322,12 @@ namespace Core.Common.Gui.Forms.ViewManager
                 return;
             }
 
+            ControlHelper.UnfocusActiveControl(activeView as IContainerControl);
+
             if (!views.Contains(view))
             {
                 return; // not our view
             }
-
-            ControlHelper.UnfocusActiveControl(activeView as IContainerControl);
 
             activeView = view;
 
