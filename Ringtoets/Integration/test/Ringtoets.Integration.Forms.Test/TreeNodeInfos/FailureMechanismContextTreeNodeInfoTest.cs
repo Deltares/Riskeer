@@ -186,33 +186,33 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
         [Test]
         [TestCase(typeof(DuneErosionFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(DuneErosionFailureMechanismSectionResult)"))]
+            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(DuneErosionFailureMechanismSectionResult)")]
         [TestCase(typeof(GrassCoverErosionOutwardsFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(GrassCoverErosionOutwardsFailureMechanismSectionResult)"))]
+            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(GrassCoverErosionOutwardsFailureMechanismSectionResult)")]
         [TestCase(typeof(GrassCoverSlipOffInwardsFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(GrassCoverSlipOffInwardsFailureMechanismSectionResult)"))]
+            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(GrassCoverSlipOffInwardsFailureMechanismSectionResult)")]
         [TestCase(typeof(GrassCoverSlipOffOutwardsFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(GrassCoverSlipOffOutwardsFailureMechanismSectionResult)"))]
+            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(GrassCoverSlipOffOutwardsFailureMechanismSectionResult)")]
         [TestCase(typeof(MicrostabilityFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(MicrostabilityFailureMechanismSectionResult)"))]
+            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(MicrostabilityFailureMechanismSectionResult)")]
         [TestCase(typeof(PipingStructureFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(PipingStructureFailureMechanismSectionResult)"))]
+            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(PipingStructureFailureMechanismSectionResult)")]
         [TestCase(typeof(StabilityStoneCoverFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(StabilityStoneCoverFailureMechanismSectionResult)"))]
+            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(StabilityStoneCoverFailureMechanismSectionResult)")]
         [TestCase(typeof(TechnicalInnovationFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(TechnicalInnovationFailureMechanismSectionResult)"))]
+            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(TechnicalInnovationFailureMechanismSectionResult)")]
         [TestCase(typeof(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult)"))]
+            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult)")]
         [TestCase(typeof(WaterPressureAsphaltCoverFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(WaterPressureAsphaltCoverFailureMechanismSectionResult)"))]
+            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(WaterPressureAsphaltCoverFailureMechanismSectionResult)")]
         [TestCase(typeof(WaveImpactAsphaltCoverFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(WaveImpactAsphaltCoverFailureMechanismSectionResult)"))]
+            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(WaveImpactAsphaltCoverFailureMechanismSectionResult)")]
         [TestCase(typeof(ClosingStructureFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(ClosingStructureFailureMechanismSectionResult)"))]
+            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(ClosingStructureFailureMechanismSectionResult)")]
         [TestCase(typeof(MacrostabilityInwardsFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(MacrostabilityInwardsFailureMechanismSectionResult)"))]
+            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(MacrostabilityInwardsFailureMechanismSectionResult)")]
         [TestCase(typeof(MacrostabilityOutwardsFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(MacrostabilityOutwardsFailureMechanismSectionResult)"))]
+            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(MacrostabilityOutwardsFailureMechanismSectionResult)")]
         [TestCase(typeof(StrengthStabilityPointConstructionFailureMechanismSectionResult),
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(StrengthStabilityPointConstructionFailureMechanismSectionResult)")]
         public void ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(Type t)
