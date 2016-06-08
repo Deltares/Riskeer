@@ -40,8 +40,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
             InitializeComponent();
 
             textBox.Text = text;
-
-            Select(); // Select the form; otherwise the text in the textbox is selected by default
         }
 
         protected override Button GetCancelButton()

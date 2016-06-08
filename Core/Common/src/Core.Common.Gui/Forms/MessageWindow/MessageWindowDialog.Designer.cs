@@ -28,40 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MessageWindowDialog));
             this.textBox = new System.Windows.Forms.TextBox();
             this.buttonHidden = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox
             // 
-            this.textBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox.Location = new System.Drawing.Point(12, 12);
-            this.textBox.Multiline = true;
+            resources.ApplyResources(this.textBox, "textBox");
             this.textBox.Name = "textBox";
             this.textBox.ReadOnly = true;
-            this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox.Size = new System.Drawing.Size(260, 238);
-            this.textBox.TabIndex = 0;
+            this.textBox.TabStop = false;
             // 
             // buttonHidden
             // 
-            this.buttonHidden.Location = new System.Drawing.Point(25, 25);
+            resources.ApplyResources(this.buttonHidden, "buttonHidden");
             this.buttonHidden.Name = "buttonHidden";
-            this.buttonHidden.Size = new System.Drawing.Size(0, 0);
-            this.buttonHidden.TabIndex = 1;
             this.buttonHidden.UseVisualStyleBackColor = true;
             // 
             // MessageWindowDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
             this.Controls.Add(this.textBox);
             this.Controls.Add(this.buttonHidden);
             this.Name = "MessageWindowDialog";
-            this.Text = "Berichtdetails";
             this.ResumeLayout(false);
             this.PerformLayout();
 

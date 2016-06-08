@@ -201,7 +201,7 @@ namespace Core.Common.TestUtil
 
         private void InitializeTree(Control control)
         {
-            IList itemsToShow = new RootNode
+            IList itemsToShow = new ArrayList
             {
                 control
             };
@@ -268,14 +268,6 @@ namespace Core.Common.TestUtil
                 {
                     AddAllNodes(node.Nodes, (IEnumerable) item);
                 }
-            }
-        }
-
-        private class RootNode : ArrayList
-        {
-            public override string ToString()
-            {
-                return "RootNode";
             }
         }
     }

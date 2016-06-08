@@ -45,10 +45,10 @@ namespace Core.Common.Gui.Forms.MessageWindow
             this.buttonShowWarning = new System.Windows.Forms.ToolStripButton();
             this.buttonShowError = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.buttonShowDetails = new System.Windows.Forms.ToolStripButton();
             this.messagesDataGridView = new System.Windows.Forms.DataGridView();
-            this.imageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewImageColumn();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.imageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewImageColumn();
             this.timeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -107,7 +107,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
             this.buttonShowWarning,
             this.buttonShowError,
             this.toolStripSeparator1,
-            this.toolStripButton1});
+            this.buttonShowDetails});
             this.messagesToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.messagesToolStrip.Name = "messagesToolStrip";
             // 
@@ -146,13 +146,13 @@ namespace Core.Common.Gui.Forms.MessageWindow
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
-            // toolStripButton1
+            // buttonShowDetails
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::Core.Common.Gui.Properties.Resources.application_import_blue;
-            resources.ApplyResources(this.toolStripButton1, "toolStripButton1");
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.showDetailsToolStripMenuItem_Click);
+            this.buttonShowDetails.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonShowDetails.Image = global::Core.Common.Gui.Properties.Resources.application_import_blue;
+            resources.ApplyResources(this.buttonShowDetails, "buttonShowDetails");
+            this.buttonShowDetails.Name = "buttonShowDetails";
+            this.buttonShowDetails.Click += new System.EventHandler(this.showDetailsToolStripMenuItem_Click);
             // 
             // messagesDataGridView
             // 
@@ -183,6 +183,13 @@ namespace Core.Common.Gui.Forms.MessageWindow
             this.messagesDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.messagesDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            resources.ApplyResources(this.Id, "Id");
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            // 
             // imageDataGridViewTextBoxColumn
             // 
             this.imageDataGridViewTextBoxColumn.DataPropertyName = "Image";
@@ -192,13 +199,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
             this.imageDataGridViewTextBoxColumn.ReadOnly = true;
             this.imageDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.imageDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            resources.ApplyResources(this.Id, "Id");
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
             // 
             // timeDataGridViewTextBoxColumn
             // 
@@ -270,6 +270,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn timeDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn messageDataGridViewTextBoxColumn;
-        private ToolStripButton toolStripButton1;
+        private ToolStripButton buttonShowDetails;
     }
 }
