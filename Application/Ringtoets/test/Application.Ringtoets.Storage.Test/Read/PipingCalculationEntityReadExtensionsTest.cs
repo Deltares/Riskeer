@@ -338,7 +338,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
             stochasticSoilProfileEntity.StochasticSoilModelEntity = stochasticSoilModelEntity;
 
-
             var entity = new PipingCalculationEntity
             {
                 StochasticSoilProfileEntity = stochasticSoilProfileEntity,

@@ -402,7 +402,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Get_WithouRingtoetsPipingSurfaceLine_ArgumentNullException()
+        public void Get_WithoutRingtoetsPipingSurfaceLine_ArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -461,7 +461,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Get_WithouHydraulicBoundaryLocation_ArgumentNullException()
+        public void Get_WithoutHydraulicBoundaryLocation_ArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -520,7 +520,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Get_WithouStochasticSoilModelEntity_ArgumentNullException()
+        public void Get_WithoutStochasticSoilModelEntity_ArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -579,7 +579,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Get_WithouStochasticSoilProfileEntity_ArgumentNullException()
+        public void Get_WithoutStochasticSoilProfileEntity_ArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();

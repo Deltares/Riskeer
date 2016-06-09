@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Read
         private readonly Dictionary<SurfaceLinePointEntity, Point3D> surfaceLineGeometryPoints = new Dictionary<SurfaceLinePointEntity, Point3D>(new ReferenceEqualityComparer<SurfaceLinePointEntity>());
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicBoundaryLocations = new Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>(new ReferenceEqualityComparer<HydraulicLocationEntity>());
 
-        #region SoilProfileEntity: Read, Contains, Get
+        #region StochasticSoilModelEntity: Read, Contains, Get
 
         /// <summary>
         /// Registers a read operation for <see cref="StochasticSoilModelEntity"/> and the
@@ -258,7 +258,7 @@ namespace Application.Ringtoets.Storage.Read
 
         #endregion
 
-        #region SurfaceLinePointEntity: Read, Contains, Get
+        #region SurfaceLineEntity: Read, Contains, Get
 
         /// <summary>
         /// Registers a read operation for <see cref="SurfaceLineEntity"/> and the
@@ -403,7 +403,7 @@ namespace Application.Ringtoets.Storage.Read
 
         #endregion
 
-        #region SurfaceLinePointEntity: Read, Contains, Get
+        #region HydraulicLocationEntity: Read, Contains, Get
 
         /// <summary>
         /// Registers a read operation for <see cref="HydraulicLocationEntity"/> and the

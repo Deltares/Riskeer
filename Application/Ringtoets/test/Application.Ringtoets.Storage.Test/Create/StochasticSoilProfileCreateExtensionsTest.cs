@@ -105,7 +105,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             StochasticSoilProfileEntity entity2 = stochasticSoilProfile.Create(registry);
 
             // Assert
-            Assert.AreEqual(entity1, entity2);
+            Assert.AreSame(entity1, entity2);
         }
     }
 }

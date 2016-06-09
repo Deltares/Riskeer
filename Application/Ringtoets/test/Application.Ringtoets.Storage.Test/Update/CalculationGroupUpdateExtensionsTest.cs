@@ -365,13 +365,13 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             CalculationGroup calculationGroup = CreateCalculationGroupWith2ChildPipingCalculations();
 
-            var childGroupEntity1 = new PipingCalculationEntity
+            var childCalculationEntity1 = new PipingCalculationEntity
             {
                 PipingCalculationEntityId = ((PipingCalculationScenario)calculationGroup.Children[0]).StorageId,
                 Name = "A",
                 Order = 1
             };
-            var childGroupEntity2 = new PipingCalculationEntity
+            var childCalculationEntity2 = new PipingCalculationEntity
             {
                 PipingCalculationEntityId = ((PipingCalculationScenario)calculationGroup.Children[1]).StorageId,
                 Name = "B",
@@ -384,13 +384,13 @@ namespace Application.Ringtoets.Storage.Test.Update
                 Name = "<original name>",
                 PipingCalculationEntities = 
                 {
-                    childGroupEntity1,
-                    childGroupEntity2
+                    childCalculationEntity1,
+                    childCalculationEntity2
                 }
             };
             ringtoetsEntities.CalculationGroupEntities.Add(groupEntity);
-            ringtoetsEntities.PipingCalculationEntities.Add(childGroupEntity1);
-            ringtoetsEntities.PipingCalculationEntities.Add(childGroupEntity2);
+            ringtoetsEntities.PipingCalculationEntities.Add(childCalculationEntity1);
+            ringtoetsEntities.PipingCalculationEntities.Add(childCalculationEntity2);
 
             var registry = new PersistenceRegistry();
 
@@ -398,10 +398,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             calculationGroup.Update(registry, ringtoetsEntities);
 
             // Assert
-            Assert.AreEqual(0, childGroupEntity1.Order);
-            Assert.AreEqual(calculationGroup.Children[0].Name, childGroupEntity1.Name);
-            Assert.AreEqual(1, childGroupEntity2.Order);
-            Assert.AreEqual(calculationGroup.Children[1].Name, childGroupEntity2.Name);
+            Assert.AreEqual(0, childCalculationEntity1.Order);
+            Assert.AreEqual(calculationGroup.Children[0].Name, childCalculationEntity1.Name);
+            Assert.AreEqual(1, childCalculationEntity2.Order);
+            Assert.AreEqual(calculationGroup.Children[1].Name, childCalculationEntity2.Name);
             mocks.VerifyAll();
         }
 
@@ -432,9 +432,9 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.PipingCalculationEntities.Add(childPipingCalculationEntity1);
             ringtoetsEntities.PipingCalculationEntities.Add(childPipingCalculationEntity2);
 
-            var insertedPipingCalculationGroup = new PipingCalculationScenario(new GeneralPipingInput());
+            var insertedPipingCalculation = new PipingCalculationScenario(new GeneralPipingInput());
             const int insertedIndex = 1;
-            calculationGroup.Children.Insert(insertedIndex, insertedPipingCalculationGroup);
+            calculationGroup.Children.Insert(insertedIndex, insertedPipingCalculation);
 
             var registry = new PersistenceRegistry();
 
@@ -452,7 +452,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             PipingCalculationEntity newPipingCalculationEntity = updatedChildPipingCalculationEntities[insertedIndex];
             Assert.AreEqual(insertedIndex, newPipingCalculationEntity.Order);
-            Assert.AreEqual(insertedPipingCalculationGroup.Name, newPipingCalculationEntity.Name);
+            Assert.AreEqual(insertedPipingCalculation.Name, newPipingCalculationEntity.Name);
 
             Assert.AreSame(childPipingCalculationEntity2, updatedChildPipingCalculationEntities[2]);
             Assert.AreEqual(2, childPipingCalculationEntity2.Order);
