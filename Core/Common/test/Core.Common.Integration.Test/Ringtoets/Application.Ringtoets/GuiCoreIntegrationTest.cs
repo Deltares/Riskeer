@@ -1,5 +1,5 @@
 using System.Windows.Controls;
-
+using System.Windows.Threading;
 using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Gui;
@@ -22,6 +22,12 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         public void SetUp()
         {
             LogHelper.ResetLogging();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 
         [Test]

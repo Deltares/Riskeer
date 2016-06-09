@@ -336,9 +336,6 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         public void Dispose()
         {
-            Close();
-            Close();
-
             if (IsWindowDisposed)
             {
                 return;
@@ -346,15 +343,15 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             IsWindowDisposed = true;
 
+            Close();
+
             if (dockingManager.AutoHideWindow != null)
             {
                 var m = typeof(LayoutAutoHideWindowControl).GetField("_manager", BindingFlags.Instance | BindingFlags.NonPublic);
                 m.SetValue(dockingManager.AutoHideWindow, null);
                 dockingManager.AutoHideWindow.Dispose();
             }
-
-            Content = null;
-
+            
             if (Ribbon != null)
             {
                 foreach (var tab in Ribbon.Tabs)

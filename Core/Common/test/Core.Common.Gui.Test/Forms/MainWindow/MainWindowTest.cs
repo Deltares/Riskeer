@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-
+using System.Windows.Threading;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
@@ -44,6 +44,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         public void TearDown()
         {
             MessageWindowLogAppender.Instance = originalValue;
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 
         [Test]

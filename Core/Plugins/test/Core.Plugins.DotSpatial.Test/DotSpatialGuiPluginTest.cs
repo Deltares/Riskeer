@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Threading;
 using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
@@ -154,6 +155,8 @@ namespace Core.Plugins.DotSpatial.Test
                 Assert.AreEqual(visible ? Visibility.Visible : Visibility.Collapsed, plugin.RibbonCommandHandler.GetRibbonControl().ContextualGroups[0].Visibility);
                 mocks.VerifyAll();
             }
+
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
     }
 }

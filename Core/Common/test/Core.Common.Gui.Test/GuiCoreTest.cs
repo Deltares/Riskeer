@@ -5,7 +5,7 @@ using System.Configuration;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
-
+using System.Windows.Threading;
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
@@ -53,6 +53,7 @@ namespace Core.Common.Gui.Test
         {
             MessageWindowLogAppender.Instance = originalMessageWindowLogAppender;
             ViewPropertyEditor.ViewCommands = originalViewPropertyEditor;
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 
         [Test]

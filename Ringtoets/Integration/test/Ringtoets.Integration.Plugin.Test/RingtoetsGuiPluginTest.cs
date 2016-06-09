@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Threading;
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
@@ -92,6 +93,8 @@ namespace Ringtoets.Integration.Plugin.Test
                 // Assert
                 TestHelper.AssertLogMessagesCount(action, 0);
             }
+
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 
         [Test]
@@ -131,6 +134,8 @@ namespace Ringtoets.Integration.Plugin.Test
                 // Assert
                 TestHelper.AssertLogMessagesCount(action, 0);
             }
+
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 
         [Test]
@@ -173,6 +178,8 @@ namespace Ringtoets.Integration.Plugin.Test
                     fileMissingMessage);
                 TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(message, LogLevelConstant.Warn));
             }
+
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 
         [Test]

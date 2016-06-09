@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Threading;
 using Application.Ringtoets.Storage.TestUtil;
 
 using Core.Common.Base;
@@ -54,6 +55,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         public void TearDownTempRingtoetsFile()
         {
             TearDownTempRingtoetsFile(tempRingtoetsFile);
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 
         [Test]
