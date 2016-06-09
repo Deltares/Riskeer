@@ -374,6 +374,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                 Assert.AreEqual(expectedLayer.Top, actualLayer.Top);
                 Assert.AreEqual(expectedLayer.IsAquifer, actualLayer.IsAquifer);
+                Assert.AreEqual(expectedLayer.AbovePhreaticLevel, actualLayer.AbovePhreaticLevel);
+                Assert.AreEqual(expectedLayer.BelowPhreaticLevel, actualLayer.BelowPhreaticLevel);
+                Assert.AreEqual(expectedLayer.DryUnitWeight, actualLayer.DryUnitWeight);
             }
         }
 

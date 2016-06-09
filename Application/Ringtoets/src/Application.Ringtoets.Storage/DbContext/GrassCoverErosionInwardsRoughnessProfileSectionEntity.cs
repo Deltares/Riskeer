@@ -33,16 +33,16 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class SoilLayerEntity
+    public partial class GrassCoverErosionInwardsRoughnessProfileSectionEntity
     {
-        public long SoilLayerEntityId { get; set; }
-        public long SoilProfileEntityId { get; set; }
-        public decimal Top { get; set; }
-        public byte IsAquifer { get; set; }
-        public Nullable<decimal> AbovePhreaticLevel { get; set; }
-        public Nullable<decimal> BelowPhreaticLevel { get; set; }
-        public Nullable<decimal> DryUnitWeight { get; set; }
+        public long GrassCoverErosionInwardsRoughnessProfileSectionEntityId { get; set; }
+        public long GrassCoverErosionInwardsCalculationEntityId { get; set; }
+        public decimal StartPointX { get; set; }
+        public long StartPointY { get; set; }
+        public decimal EndPointX { get; set; }
+        public decimal EndPointY { get; set; }
+        public decimal Roughness { get; set; }
     
-        public virtual SoilProfileEntity SoilProfileEntity { get; set; }
+        public virtual GrassCoverErosionInwardsCalculationEntity GrassCoverErosionInwardsCalculationEntity { get; set; }
     }
 }

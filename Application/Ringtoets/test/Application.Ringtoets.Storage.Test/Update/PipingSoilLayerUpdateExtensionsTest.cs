@@ -137,14 +137,20 @@ namespace Application.Ringtoets.Storage.Test.Update
             var pipingSoilLayer = new PipingSoilLayer(newTop)
             {
                 StorageId = 1,
-                IsAquifer = true
+                IsAquifer = true,
+                AbovePhreaticLevel = 4.4,
+                BelowPhreaticLevel = null,
+                DryUnitWeight = 5.5
             };
 
             var soilLayerEntity = new SoilLayerEntity
             {
-                SoilLayerEntityId = 1,
+                SoilLayerEntityId = pipingSoilLayer.StorageId,
                 Top = 0,
-                IsAquifer = Convert.ToByte(false)
+                IsAquifer = Convert.ToByte(false),
+                AbovePhreaticLevel = 1.1m,
+                BelowPhreaticLevel = 2.2m,
+                DryUnitWeight = null
             };
 
             ringtoetsEntities.SoilLayerEntities.Add(soilLayerEntity);
@@ -155,6 +161,9 @@ namespace Application.Ringtoets.Storage.Test.Update
             // Assert
             Assert.AreEqual(Convert.ToDouble(newTop), Convert.ToDouble(soilLayerEntity.Top), 1e-6);
             Assert.AreEqual(Convert.ToByte(true), soilLayerEntity.IsAquifer);
+            Assert.AreEqual(pipingSoilLayer.AbovePhreaticLevel, soilLayerEntity.AbovePhreaticLevel);
+            Assert.IsNull(soilLayerEntity.BelowPhreaticLevel);
+            Assert.AreEqual(pipingSoilLayer.DryUnitWeight, soilLayerEntity.DryUnitWeight);
 
             mocks.VerifyAll();
         } 

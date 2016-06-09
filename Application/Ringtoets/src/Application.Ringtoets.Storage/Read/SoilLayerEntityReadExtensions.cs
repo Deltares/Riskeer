@@ -38,11 +38,24 @@ namespace Application.Ringtoets.Storage.Read
         /// <returns>A new <see cref="PipingSoilLayer"/>.</returns>
         internal static PipingSoilLayer Read(this SoilLayerEntity entity)
         {
-            return new PipingSoilLayer(Convert.ToDouble(entity.Top))
+            var pipingSoilLayer = new PipingSoilLayer(Convert.ToDouble(entity.Top))
             {
                 StorageId = entity.SoilLayerEntityId,
-                IsAquifer = Convert.ToBoolean(entity.IsAquifer)
+                IsAquifer = Convert.ToBoolean(entity.IsAquifer),
+                AbovePhreaticLevel = ToNullableDouble(entity.AbovePhreaticLevel),
+                BelowPhreaticLevel = ToNullableDouble(entity.BelowPhreaticLevel),
+                DryUnitWeight = ToNullableDouble(entity.DryUnitWeight)
             };
+            return pipingSoilLayer;
+        }
+
+        private static double? ToNullableDouble(decimal? parameterValue)
+        {
+            if (parameterValue == null)
+            {
+                return null;
+            }
+            return Convert.ToDouble(parameterValue);
         }
     }
 }

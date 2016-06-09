@@ -47,11 +47,23 @@ namespace Application.Ringtoets.Storage.Create
             var entity = new SoilLayerEntity
             {
                 IsAquifer = Convert.ToByte(layer.IsAquifer),
-                Top = Convert.ToDecimal(layer.Top)
+                Top = Convert.ToDecimal(layer.Top),
+                AbovePhreaticLevel = ToNullableDecimal(layer.AbovePhreaticLevel),
+                BelowPhreaticLevel = ToNullableDecimal(layer.BelowPhreaticLevel),
+                DryUnitWeight = ToNullableDecimal(layer.DryUnitWeight)
             };
 
             registry.Register(entity, layer);
             return entity;
+        }
+
+        private static decimal? ToNullableDecimal(double? parameterValue)
+        {
+            if (parameterValue == null)
+            {
+                return null;
+            }
+            return Convert.ToDecimal(parameterValue);
         }
     }
 }

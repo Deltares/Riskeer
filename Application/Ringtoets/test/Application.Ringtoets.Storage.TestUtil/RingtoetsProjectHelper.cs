@@ -49,6 +49,11 @@ namespace Application.Ringtoets.Storage.TestUtil
             ReferenceLine referenceLine = GetReferenceLine();
             Point2D[] referenceLineGeometryPoints = referenceLine.Points.ToArray();
 
+            PipingSoilProfile pipingSoilProfile = new TestPipingSoilProfile();
+            PipingSoilLayer pipingSoilLayer = pipingSoilProfile.Layers.First();
+            pipingSoilLayer.AbovePhreaticLevel = 1.1;
+            pipingSoilLayer.BelowPhreaticLevel = 2.2;
+            pipingSoilLayer.DryUnitWeight = 3.3;
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 Name = "assessmentSection",
@@ -70,7 +75,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             {
                                 new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, -1)
                                 {
-                                    SoilProfile = new TestPipingSoilProfile()
+                                    SoilProfile = pipingSoilProfile
                                 },
                                 new StochasticSoilProfile(0.8, SoilProfileType.SoilProfile1D, -1)
                                 {

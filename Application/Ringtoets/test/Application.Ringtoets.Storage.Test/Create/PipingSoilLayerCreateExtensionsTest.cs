@@ -52,7 +52,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             double top = new Random(21).NextDouble();
             var soilLayer = new PipingSoilLayer(top)
             {
-                IsAquifer = isAquifer
+                IsAquifer = isAquifer,
+                AbovePhreaticLevel = 3.3,
+                BelowPhreaticLevel = 2.2,
+                DryUnitWeight = 1.1
             };
             var registry = new PersistenceRegistry();
 
@@ -63,6 +66,30 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNotNull(entity);
             Assert.AreEqual(Convert.ToDecimal(top), entity.Top);
             Assert.AreEqual(Convert.ToByte(isAquifer), entity.IsAquifer);
-        } 
+            Assert.AreEqual(soilLayer.AbovePhreaticLevel, entity.AbovePhreaticLevel);
+            Assert.AreEqual(soilLayer.BelowPhreaticLevel, entity.BelowPhreaticLevel);
+            Assert.AreEqual(soilLayer.DryUnitWeight, entity.DryUnitWeight);
+        }
+
+        [Test]
+        public void Create_WithNullParameters_ReturnsFailureMechanismEntityWithPropertiesSet()
+        {
+            // Setup
+            var soilLayer = new PipingSoilLayer(0.0)
+            {
+                AbovePhreaticLevel = null,
+                BelowPhreaticLevel = null,
+                DryUnitWeight = null
+            };
+            var registry = new PersistenceRegistry();
+
+            // Call
+            var entity = soilLayer.Create(registry);
+
+            // Assert
+            Assert.IsNull(entity.AbovePhreaticLevel);
+            Assert.IsNull(entity.BelowPhreaticLevel);
+            Assert.IsNull(entity.DryUnitWeight);
+        }
     }
 }

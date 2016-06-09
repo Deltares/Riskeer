@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
@@ -38,11 +39,17 @@ namespace Application.Ringtoets.Storage.Test.Read
             var random = new Random(21);
             var entityId = random.Next(1, 502);
             double top = random.NextDouble();
+            double abovePhreaticLevel = random.NextDouble();
+            double belowPhreaticLevel = random.NextDouble();
+            double dryUnitWeight = random.NextDouble();
             var entity = new SoilLayerEntity
             {
                 SoilLayerEntityId = entityId,
                 Top = Convert.ToDecimal(top),
-                IsAquifer = Convert.ToByte(isAquifer)
+                IsAquifer = Convert.ToByte(isAquifer),
+                AbovePhreaticLevel = Convert.ToDecimal(abovePhreaticLevel),
+                BelowPhreaticLevel = Convert.ToDecimal(belowPhreaticLevel),
+                DryUnitWeight = Convert.ToDecimal(dryUnitWeight)
             };
 
             // Call
@@ -53,6 +60,29 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entityId, layer.StorageId);
             Assert.AreEqual(top, layer.Top, 1e-6);
             Assert.AreEqual(isAquifer, layer.IsAquifer);
-        }     
+            Assert.AreEqual(abovePhreaticLevel, layer.AbovePhreaticLevel, 1e-6);
+            Assert.AreEqual(belowPhreaticLevel, layer.BelowPhreaticLevel, 1e-6);
+            Assert.AreEqual(dryUnitWeight, layer.DryUnitWeight, 1e-6);
+        }
+
+        [Test]
+        public void Read_WithNullParameterValues_ReturnPipingSoilLayerWithNullParameters()
+        {
+            // Setup
+            var entity = new SoilLayerEntity
+            {
+                AbovePhreaticLevel = null,
+                BelowPhreaticLevel = null,
+                DryUnitWeight = null
+            };
+
+            // Call
+            var layer = entity.Read();
+
+            // Assert
+            Assert.IsNull(layer.AbovePhreaticLevel);
+            Assert.IsNull(layer.BelowPhreaticLevel);
+            Assert.IsNull(layer.DryUnitWeight);
+        }
     }
 }

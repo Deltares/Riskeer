@@ -33,16 +33,11 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class SoilLayerEntity
+    public partial class MacrostabilityInwardsFailureMechanismMetaEntity
     {
-        public long SoilLayerEntityId { get; set; }
-        public long SoilProfileEntityId { get; set; }
-        public decimal Top { get; set; }
-        public byte IsAquifer { get; set; }
-        public Nullable<decimal> AbovePhreaticLevel { get; set; }
-        public Nullable<decimal> BelowPhreaticLevel { get; set; }
-        public Nullable<decimal> DryUnitWeight { get; set; }
+        public long MacrostabilityInwardsFailureMechanismMetaEntityId { get; set; }
+        public Nullable<long> FailureMechanismEntityId { get; set; }
     
-        public virtual SoilProfileEntity SoilProfileEntity { get; set; }
+        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }
 }

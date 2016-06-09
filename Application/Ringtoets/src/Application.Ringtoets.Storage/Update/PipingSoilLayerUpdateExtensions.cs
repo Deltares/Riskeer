@@ -64,6 +64,9 @@ namespace Application.Ringtoets.Storage.Update
 
             entity.IsAquifer = Convert.ToByte(layer.IsAquifer);
             entity.Top = Convert.ToDecimal(layer.Top);
+            entity.AbovePhreaticLevel = ToNullableDecimal(layer.AbovePhreaticLevel);
+            entity.BelowPhreaticLevel = ToNullableDecimal(layer.BelowPhreaticLevel);
+            entity.DryUnitWeight = ToNullableDecimal(layer.DryUnitWeight);
 
             registry.Register(entity, layer);
         }
@@ -78,6 +81,15 @@ namespace Application.Ringtoets.Storage.Update
             {
                 throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(SoilLayerEntity).Name, layer.StorageId), exception);
             }
+        }
+
+        private static decimal? ToNullableDecimal(double? parameterValue)
+        {
+            if (parameterValue == null)
+            {
+                return null;
+            }
+            return Convert.ToDecimal(parameterValue);
         }
     }
 }
