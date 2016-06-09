@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
@@ -574,6 +575,373 @@ namespace Application.Ringtoets.Storage.Test.Update
             CollectionAssert.Contains(context.PipingCalculationEntities, entity);
             mocks.VerifyAll();
         }
+
+        [Test]
+        public void Update_PipingCalculationWithNewPipingOutput_PipingCalculationEntityUpdated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var context = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var entity = new PipingCalculationEntity
+            {
+                PipingCalculationEntityId = 453
+            };
+            context.PipingCalculationEntities.Add(entity);
+
+            var registry = new PersistenceRegistry();
+
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                StorageId = entity.PipingCalculationEntityId,
+                Output = new PipingOutput(1,1,1,1,1,1),
+                InputParameters =
+                {
+                    EntryPointL = (RoundedDouble)1.1,
+                    ExitPointL = (RoundedDouble)2.2,
+                    DampingFactorExit =
+                    {
+                        Mean = (RoundedDouble)1
+                    },
+                    SaturatedVolumicWeightOfCoverageLayer =
+                    {
+                        Mean = (RoundedDouble)1
+                    },
+                    Diameter70 =
+                    {
+                        Mean = (RoundedDouble)1
+                    },
+                    DarcyPermeability =
+                    {
+                        Mean = (RoundedDouble)1
+                    }
+                }
+            };
+
+            // Call
+            calculation.Update(registry, context);
+
+            // Assert
+            Assert.AreEqual(1, entity.PipingCalculationOutputEntities.Count);
+
+            PipingCalculationOutputEntity pipingCalculationOutputEntity = entity.PipingCalculationOutputEntities.First();
+            pipingCalculationOutputEntity.PipingCalculationOutputEntityId = 495876;
+            registry.TransferIds();
+            Assert.AreEqual(pipingCalculationOutputEntity.PipingCalculationOutputEntityId, calculation.Output.StorageId,
+                "New PipingCalculationOutputEntity should be registered to PersistenceRegistry.");
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_PipingCalculationWithUnchangedPipingOutput_PipingCalculationOutputEntityIsRegistered()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var context = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var calculationOutputEntity = new PipingCalculationOutputEntity
+            {
+                PipingCalculationOutputEntityId = 45
+            };
+            var entity = new PipingCalculationEntity
+            {
+                PipingCalculationEntityId = 453
+            };
+            entity.PipingCalculationOutputEntities.Add(calculationOutputEntity);
+            context.PipingCalculationEntities.Add(entity);
+            context.PipingCalculationOutputEntities.Add(calculationOutputEntity);
+
+            var registry = new PersistenceRegistry();
+
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                StorageId = entity.PipingCalculationEntityId,
+                Output = new PipingOutput(1, 1, 1, 1, 1, 1)
+                {
+                    StorageId = calculationOutputEntity.PipingCalculationOutputEntityId
+                },
+                InputParameters =
+                {
+                    EntryPointL = (RoundedDouble)1.1,
+                    ExitPointL = (RoundedDouble)2.2,
+                    DampingFactorExit =
+                    {
+                        Mean = (RoundedDouble)1
+                    },
+                    SaturatedVolumicWeightOfCoverageLayer =
+                    {
+                        Mean = (RoundedDouble)1
+                    },
+                    Diameter70 =
+                    {
+                        Mean = (RoundedDouble)1
+                    },
+                    DarcyPermeability =
+                    {
+                        Mean = (RoundedDouble)1
+                    }
+                }
+            };
+
+            // Call
+            calculation.Update(registry, context);
+
+            // Assert
+            CollectionAssert.Contains(context.PipingCalculationOutputEntities, calculationOutputEntity);
+            registry.RemoveUntouched(context);
+            CollectionAssert.Contains(context.PipingCalculationOutputEntities, calculationOutputEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_PipingCalculationWithRemovedPipingOutput_PipingCalculationEntityUpdated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var context = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var calculationOutputEntity = new PipingCalculationOutputEntity
+            {
+                PipingCalculationOutputEntityId = 45
+            };
+            var entity = new PipingCalculationEntity
+            {
+                PipingCalculationEntityId = 453
+            };
+            entity.PipingCalculationOutputEntities.Add(calculationOutputEntity);
+            context.PipingCalculationEntities.Add(entity);
+            context.PipingCalculationOutputEntities.Add(calculationOutputEntity);
+
+            var registry = new PersistenceRegistry();
+
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                StorageId = entity.PipingCalculationEntityId,
+                Output = null,
+                InputParameters =
+                {
+                    EntryPointL = (RoundedDouble)1.1,
+                    ExitPointL = (RoundedDouble)2.2,
+                    DampingFactorExit =
+                    {
+                        Mean = (RoundedDouble)1
+                    },
+                    SaturatedVolumicWeightOfCoverageLayer =
+                    {
+                        Mean = (RoundedDouble)1
+                    },
+                    Diameter70 =
+                    {
+                        Mean = (RoundedDouble)1
+                    },
+                    DarcyPermeability =
+                    {
+                        Mean = (RoundedDouble)1
+                    }
+                }
+            };
+
+            // Call
+            calculation.Update(registry, context);
+
+            // Assert
+            CollectionAssert.IsEmpty(entity.PipingCalculationOutputEntities);
+
+            registry.RemoveUntouched(context);
+            CollectionAssert.DoesNotContain(context.PipingCalculationOutputEntities, calculationOutputEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_PipingCalculationWithNewSemiProbabilisticOutput_PipingCalculationEntityUpdated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var context = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var entity = new PipingCalculationEntity
+            {
+                PipingCalculationEntityId = 453
+            };
+            context.PipingCalculationEntities.Add(entity);
+
+            var registry = new PersistenceRegistry();
+
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                StorageId = entity.PipingCalculationEntityId,
+                SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(1, 1, 1,
+                                                                            1, 1, 1,
+                                                                            1, 1, 1,
+                                                                            1, 1,
+                                                                            1, 1, 1),
+                InputParameters =
+                {
+                    EntryPointL = (RoundedDouble)1.1,
+                    ExitPointL = (RoundedDouble)2.2,
+                    DampingFactorExit =
+                    {
+                        Mean = (RoundedDouble)1
+                    },
+                    SaturatedVolumicWeightOfCoverageLayer =
+                    {
+                        Mean = (RoundedDouble)1
+                    },
+                    Diameter70 =
+                    {
+                        Mean = (RoundedDouble)1
+                    },
+                    DarcyPermeability =
+                    {
+                        Mean = (RoundedDouble)1
+                    }
+                }
+            };
+
+            // Call
+            calculation.Update(registry, context);
+
+            // Assert
+            Assert.AreEqual(1, entity.PipingSemiProbabilisticOutputEntities.Count);
+
+            PipingSemiProbabilisticOutputEntity semiProbabilisticOutputEntity = entity.PipingSemiProbabilisticOutputEntities.First();
+            semiProbabilisticOutputEntity.PipingSemiProbabilisticOutputEntityId = 546;
+            registry.TransferIds();
+            Assert.AreEqual(semiProbabilisticOutputEntity.PipingSemiProbabilisticOutputEntityId, calculation.SemiProbabilisticOutput.StorageId,
+                "New PipingSemiProbabilisticOutputEntity should be registered to PersistenceRegistry.");
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_PipingCalculationWithUnchangedSemiProbabilisticOutput_PipingSemiProbabilisticOutputEntityIsRegistered()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var context = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var semiProbabilisticOutputEntity = new PipingSemiProbabilisticOutputEntity
+            {
+                PipingSemiProbabilisticOutputEntityId = 549876
+            };
+            var entity = new PipingCalculationEntity
+            {
+                PipingCalculationEntityId = 453
+            };
+            entity.PipingSemiProbabilisticOutputEntities.Add(semiProbabilisticOutputEntity);
+            context.PipingCalculationEntities.Add(entity);
+            context.PipingSemiProbabilisticOutputEntities.Add(semiProbabilisticOutputEntity);
+
+            var registry = new PersistenceRegistry();
+
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                StorageId = entity.PipingCalculationEntityId,
+                SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(1, 1, 1,
+                                                                            1, 1, 1,
+                                                                            1, 1, 1,
+                                                                            1, 1,
+                                                                            1, 1, 1)
+                {
+                    StorageId = semiProbabilisticOutputEntity.PipingSemiProbabilisticOutputEntityId
+                },
+                InputParameters =
+                {
+                    EntryPointL = (RoundedDouble)1.1,
+                    ExitPointL = (RoundedDouble)2.2,
+                    DampingFactorExit =
+                    {
+                        Mean = (RoundedDouble)1
+                    },
+                    SaturatedVolumicWeightOfCoverageLayer =
+                    {
+                        Mean = (RoundedDouble)1
+                    },
+                    Diameter70 =
+                    {
+                        Mean = (RoundedDouble)1
+                    },
+                    DarcyPermeability =
+                    {
+                        Mean = (RoundedDouble)1
+                    }
+                }
+            };
+
+            // Call
+            calculation.Update(registry, context);
+
+            // Assert
+            CollectionAssert.Contains(context.PipingSemiProbabilisticOutputEntities, semiProbabilisticOutputEntity);
+            registry.RemoveUntouched(context);
+            CollectionAssert.Contains(context.PipingSemiProbabilisticOutputEntities, semiProbabilisticOutputEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_PipingCalculationWithRemovedSemiProbabilisticOutput_PipingCalculationEntityUpdated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var context = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var semiProbabilisticOutputEntity = new PipingSemiProbabilisticOutputEntity
+            {
+                PipingSemiProbabilisticOutputEntityId = 54976
+            };
+            var entity = new PipingCalculationEntity
+            {
+                PipingCalculationEntityId = 453
+            };
+            entity.PipingSemiProbabilisticOutputEntities.Add(semiProbabilisticOutputEntity);
+            context.PipingCalculationEntities.Add(entity);
+            context.PipingSemiProbabilisticOutputEntities.Add(semiProbabilisticOutputEntity);
+
+            var registry = new PersistenceRegistry();
+
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                StorageId = entity.PipingCalculationEntityId,
+                SemiProbabilisticOutput = null,
+                InputParameters =
+                {
+                    EntryPointL = (RoundedDouble)1.1,
+                    ExitPointL = (RoundedDouble)2.2,
+                    DampingFactorExit =
+                    {
+                        Mean = (RoundedDouble)1
+                    },
+                    SaturatedVolumicWeightOfCoverageLayer =
+                    {
+                        Mean = (RoundedDouble)1
+                    },
+                    Diameter70 =
+                    {
+                        Mean = (RoundedDouble)1
+                    },
+                    DarcyPermeability =
+                    {
+                        Mean = (RoundedDouble)1
+                    }
+                }
+            };
+
+            // Call
+            calculation.Update(registry, context);
+
+            // Assert
+            CollectionAssert.IsEmpty(entity.PipingSemiProbabilisticOutputEntities);
+
+            registry.RemoveUntouched(context);
+            CollectionAssert.DoesNotContain(context.PipingSemiProbabilisticOutputEntities, semiProbabilisticOutputEntity);
+            mocks.VerifyAll();
+        }
+        
         private decimal? ToNullableDecimal(RoundedDouble roundedDoubleValue)
         {
             if (double.IsNaN(roundedDoubleValue))

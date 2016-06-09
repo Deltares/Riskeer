@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 
 using Application.Ringtoets.Storage.DbContext;
 
@@ -60,8 +61,22 @@ namespace Application.Ringtoets.Storage.Read
                 Comments = entity.Comments
             };
             ReadInputParameters(calculation.InputParameters, entity, collector);
+            ReadCalculationOutputs(calculation, entity);
 
             return calculation;
+        }
+
+        private static void ReadCalculationOutputs(PipingCalculationScenario calculation, PipingCalculationEntity entity)
+        {
+            if (entity.PipingCalculationOutputEntities.Any())
+            {
+                calculation.Output = entity.PipingCalculationOutputEntities.Single().Read();
+            }
+
+            if (entity.PipingSemiProbabilisticOutputEntities.Any())
+            {
+                calculation.SemiProbabilisticOutput = entity.PipingSemiProbabilisticOutputEntities.Single().Read();
+            }
         }
 
         private static void ReadInputParameters(PipingInput inputParameters, PipingCalculationEntity entity, ReadConversionCollector collector)

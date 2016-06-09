@@ -59,6 +59,7 @@
     <Compile Include="Create\PipingCalculationScenarioCreateExtensions.cs" />
     <Compile Include="Create\PipingOutputCreateExtensions.cs" />
     <Compile Include="Create\PipingProbabilityAssessmentInputCreateExtensions.cs" />
+    <Compile Include="Create\PipingSemiProbabilisticOutputCreateExtensions.cs" />
     <Compile Include="Create\RingtoetsPipingSurfaceLineCreateExtensions.cs" />
     <Compile Include="Create\Point3DCreateExtensions.cs" />
     <Compile Include="Create\FailureMechanismSectionCreateExtensions.cs" />
@@ -141,7 +142,9 @@
     <Compile Include="Read\FailureMechanismSectionPointEntityReadExtensions.cs" />
     <Compile Include="Read\HydraulicLocationEntityReadExtensions.cs" />
     <Compile Include="Read\PipingCalculationEntityReadExtensions.cs" />
+    <Compile Include="Read\PipingCalculationOutputEntityReadExtensions.cs" />
     <Compile Include="Read\PipingFailureMechanismMetaEntityReadExtensions.cs" />
+    <Compile Include="Read\PipingSemiProbabilisticOutputEntityReadExtensions.cs" />
     <Compile Include="Read\ReadConversionCollector.cs" />
     <Compile Include="Read\ReferenceLinePointEntityReadExtensions.cs" />
     <Compile Include="Read\StochasticSoilModelSegmentPointEntityReadExtensions.cs" />

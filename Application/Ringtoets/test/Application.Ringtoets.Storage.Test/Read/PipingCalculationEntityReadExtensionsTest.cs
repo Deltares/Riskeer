@@ -127,6 +127,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
             Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
             Assert.IsNull(calculation.InputParameters.StochasticSoilProfile);
+            Assert.IsNull(calculation.Output);
         }
 
         [Test]
@@ -359,6 +360,64 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(stochasticSoilModelEntity.StochasticSoilModelEntityId, calculation.InputParameters.StochasticSoilModel.StorageId);
             Assert.IsTrue(collector.Contains(stochasticSoilProfileEntity));
             Assert.IsTrue(collector.Contains(stochasticSoilModelEntity));
+        }
+
+        [Test]
+        public void Read_EntityWithPipingCalculationOutputEntity_CalculationWithPipingOutput()
+        {
+            // Setup
+            const int outputId = 4578;
+            var entity = new PipingCalculationEntity
+            {
+                EntryPointL = 1m,
+                ExitPointL = 2m,
+                DampingFactorExitMean = 1,
+                SaturatedVolumicWeightOfCoverageLayerMean = 1,
+                Diameter70Mean = 1,
+                DarcyPermeabilityMean = 1
+            };
+            entity.PipingCalculationOutputEntities.Add(new PipingCalculationOutputEntity
+            {
+                PipingCalculationOutputEntityId = outputId
+            });
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
+
+            // Assert
+            Assert.IsNotNull(calculation.Output);
+            Assert.AreEqual(outputId, calculation.Output.StorageId);
+        }
+
+        [Test]
+        public void Read_EntityWithPipingSemiProbabilisticOutputEntity_CalculationWithPipingSemiProbabilisticOutput()
+        {
+            // Setup
+            const int outputId = 675;
+            var entity = new PipingCalculationEntity
+            {
+                EntryPointL = 1m,
+                ExitPointL = 2m,
+                DampingFactorExitMean = 1,
+                SaturatedVolumicWeightOfCoverageLayerMean = 1,
+                Diameter70Mean = 1,
+                DarcyPermeabilityMean = 1
+            };
+            entity.PipingSemiProbabilisticOutputEntities.Add(new PipingSemiProbabilisticOutputEntity
+            {
+                PipingSemiProbabilisticOutputEntityId = outputId
+            });
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
+
+            // Assert
+            Assert.IsNotNull(calculation.SemiProbabilisticOutput);
+            Assert.AreEqual(outputId, calculation.SemiProbabilisticOutput.StorageId);
         }
 
         private void AssertRoundedDouble(decimal expectedValue, RoundedDouble actualValue)

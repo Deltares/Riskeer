@@ -54,6 +54,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<CalculationGroupEntity, CalculationGroup> calculationGroups = new Dictionary<CalculationGroupEntity, CalculationGroup>(new ReferenceEqualityComparer<CalculationGroupEntity>());
         private readonly Dictionary<PipingCalculationEntity, PipingCalculationScenario> pipingCalculations = new Dictionary<PipingCalculationEntity, PipingCalculationScenario>(new ReferenceEqualityComparer<PipingCalculationEntity>());
         private readonly Dictionary<PipingCalculationOutputEntity, PipingOutput> pipingOutputs = new Dictionary<PipingCalculationOutputEntity, PipingOutput>(new ReferenceEqualityComparer<PipingCalculationOutputEntity>());
+        private readonly Dictionary<PipingSemiProbabilisticOutputEntity, PipingSemiProbabilisticOutput> pipingSemiProbabilisticOutputs = new Dictionary<PipingSemiProbabilisticOutputEntity, PipingSemiProbabilisticOutput>(new ReferenceEqualityComparer<PipingSemiProbabilisticOutputEntity>());
         private readonly Dictionary<StochasticSoilModelEntity, StochasticSoilModel> stochasticSoilModels = new Dictionary<StochasticSoilModelEntity, StochasticSoilModel>(new ReferenceEqualityComparer<StochasticSoilModelEntity>());
         private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> stochasticSoilProfiles = new Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile>(new ReferenceEqualityComparer<StochasticSoilProfileEntity>());
         private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles = new Dictionary<SoilProfileEntity, PipingSoilProfile>(new ReferenceEqualityComparer<SoilProfileEntity>());
@@ -125,6 +126,22 @@ namespace Application.Ringtoets.Storage.Create
         public void Register(PipingCalculationOutputEntity entity, PipingOutput model)
         {
             Register(pipingOutputs, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="PipingSemiProbabilisticOutputEntity"/> that was registered.</param>
+        /// <param name="model">The <see cref="PipingSemiProbabilisticOutput"/> which needed to registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(PipingSemiProbabilisticOutputEntity entity, PipingSemiProbabilisticOutput model)
+        {
+            Register(pipingSemiProbabilisticOutputs, entity, model);
         }
 
         /// <summary>
@@ -525,6 +542,11 @@ namespace Application.Ringtoets.Storage.Create
                 pipingOutputs[entity].StorageId = entity.PipingCalculationOutputEntityId;
             }
 
+            foreach (var entity in pipingSemiProbabilisticOutputs.Keys)
+            {
+                pipingSemiProbabilisticOutputs[entity].StorageId = entity.PipingSemiProbabilisticOutputEntityId;
+            }
+
             foreach (var entity in stochasticSoilModels.Keys)
             {
                 stochasticSoilModels[entity].StorageId = entity.StochasticSoilModelEntityId;
@@ -570,7 +592,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="dbContext">The <see cref="IRingtoetsEntities"/> from which to remove the entities.</param>
         internal void RemoveUntouched(IRingtoetsEntities dbContext)
         {
-            IList<ProjectEntity> orphanedProjectEntities = new List<ProjectEntity>();
+            var orphanedProjectEntities = new List<ProjectEntity>();
             foreach (ProjectEntity projectEntity in dbContext.ProjectEntities
                                                              .Where(e => e.ProjectEntityId > 0))
             {
@@ -581,7 +603,7 @@ namespace Application.Ringtoets.Storage.Create
             }
             dbContext.ProjectEntities.RemoveRange(orphanedProjectEntities);
 
-            IList<AssessmentSectionEntity> orphanedAssessmentSectionEntities = new List<AssessmentSectionEntity>();
+            var orphanedAssessmentSectionEntities = new List<AssessmentSectionEntity>();
             foreach (AssessmentSectionEntity assessmentSectionEntity in dbContext.AssessmentSectionEntities
                                                                                  .Where(e => e.AssessmentSectionEntityId > 0))
             {
@@ -592,7 +614,7 @@ namespace Application.Ringtoets.Storage.Create
             }
             dbContext.AssessmentSectionEntities.RemoveRange(orphanedAssessmentSectionEntities);
 
-            IList<FailureMechanismEntity> orphanedFailureMechanismEntities = new List<FailureMechanismEntity>();
+            var orphanedFailureMechanismEntities = new List<FailureMechanismEntity>();
             foreach (FailureMechanismEntity failureMechanismEntity in dbContext.FailureMechanismEntities
                                                                                 .Where(e => e.FailureMechanismEntityId > 0))
             {
@@ -603,7 +625,7 @@ namespace Application.Ringtoets.Storage.Create
             }
             dbContext.FailureMechanismEntities.RemoveRange(orphanedFailureMechanismEntities);
 
-            IList<FailureMechanismSectionEntity> orphanedFailureMechanismSectionEntities = new List<FailureMechanismSectionEntity>();
+            var orphanedFailureMechanismSectionEntities = new List<FailureMechanismSectionEntity>();
             foreach (FailureMechanismSectionEntity failureMechanismSectionEntity in dbContext.FailureMechanismSectionEntities
                                                                                              .Where(e => e.FailureMechanismSectionEntityId > 0))
             {
@@ -614,7 +636,7 @@ namespace Application.Ringtoets.Storage.Create
             }
             dbContext.FailureMechanismSectionEntities.RemoveRange(orphanedFailureMechanismSectionEntities);
 
-            IList<HydraulicLocationEntity> orphanedHydraulicLocationEntities = new List<HydraulicLocationEntity>();
+            var orphanedHydraulicLocationEntities = new List<HydraulicLocationEntity>();
             foreach (HydraulicLocationEntity hydraulicLocationEntity in dbContext.HydraulicLocationEntities
                                                                                  .Where(e => e.HydraulicLocationEntityId > 0))
             {
@@ -625,7 +647,7 @@ namespace Application.Ringtoets.Storage.Create
             }
             dbContext.HydraulicLocationEntities.RemoveRange(orphanedHydraulicLocationEntities);
 
-            IList<CalculationGroupEntity> orphanedCalculationGroupEntities = new List<CalculationGroupEntity>();
+            var orphanedCalculationGroupEntities = new List<CalculationGroupEntity>();
             foreach (CalculationGroupEntity calculationGroupEntity in dbContext.CalculationGroupEntities
                                                                                .Where(e => e.CalculationGroupEntityId > 0))
             {
@@ -636,7 +658,7 @@ namespace Application.Ringtoets.Storage.Create
             }
             dbContext.CalculationGroupEntities.RemoveRange(orphanedCalculationGroupEntities);
 
-            IList<PipingCalculationEntity> orphanedPipingCalculationEntities = new List<PipingCalculationEntity>();
+            var orphanedPipingCalculationEntities = new List<PipingCalculationEntity>();
             foreach (PipingCalculationEntity pipingCalculationEntity in dbContext.PipingCalculationEntities
                                                                                  .Where(e => e.PipingCalculationEntityId > 0))
             {
@@ -647,7 +669,7 @@ namespace Application.Ringtoets.Storage.Create
             }
             dbContext.PipingCalculationEntities.RemoveRange(orphanedPipingCalculationEntities);
 
-            IList<PipingCalculationOutputEntity> orphanedPipingCalculationOutputEntities = new List<PipingCalculationOutputEntity>();
+            var orphanedPipingCalculationOutputEntities = new List<PipingCalculationOutputEntity>();
             foreach (PipingCalculationOutputEntity pipingCalculationOutputEntity in dbContext.PipingCalculationOutputEntities
                                                                                  .Where(e => e.PipingCalculationOutputEntityId > 0))
             {
@@ -658,7 +680,18 @@ namespace Application.Ringtoets.Storage.Create
             }
             dbContext.PipingCalculationOutputEntities.RemoveRange(orphanedPipingCalculationOutputEntities);
 
-            IList<StochasticSoilModelEntity> orphanedStochasticSoilModelEntities = new List<StochasticSoilModelEntity>();
+            var orphanedPipingSemiProbabilisticOutputEntities = new List<PipingSemiProbabilisticOutputEntity>();
+            foreach (PipingSemiProbabilisticOutputEntity pipingSemiProbabilisticOutputEntity in dbContext.PipingSemiProbabilisticOutputEntities
+                                                                                                         .Where(e => e.PipingSemiProbabilisticOutputEntityId > 0))
+            {
+                if (!pipingSemiProbabilisticOutputs.ContainsKey(pipingSemiProbabilisticOutputEntity))
+                {
+                    orphanedPipingSemiProbabilisticOutputEntities.Add(pipingSemiProbabilisticOutputEntity);
+                }
+            }
+            dbContext.PipingSemiProbabilisticOutputEntities.RemoveRange(orphanedPipingSemiProbabilisticOutputEntities);
+
+            var orphanedStochasticSoilModelEntities = new List<StochasticSoilModelEntity>();
             foreach (StochasticSoilModelEntity stochasticSoilModelEntity in dbContext.StochasticSoilModelEntities
                                                                                      .Where(e => e.StochasticSoilModelEntityId > 0))
             {
@@ -669,7 +702,7 @@ namespace Application.Ringtoets.Storage.Create
             }
             dbContext.StochasticSoilModelEntities.RemoveRange(orphanedStochasticSoilModelEntities);
 
-            IList<StochasticSoilProfileEntity> orphanedStochasticSoilProfileEntities = new List<StochasticSoilProfileEntity>();
+            var orphanedStochasticSoilProfileEntities = new List<StochasticSoilProfileEntity>();
             foreach (StochasticSoilProfileEntity stochasticSoilProfileEntity in dbContext.StochasticSoilProfileEntities
                                                                                          .Where(e => e.StochasticSoilProfileEntityId > 0))
             {
@@ -680,7 +713,7 @@ namespace Application.Ringtoets.Storage.Create
             }
             dbContext.StochasticSoilProfileEntities.RemoveRange(orphanedStochasticSoilProfileEntities);
 
-            IList<SoilProfileEntity> orphanedSoilProfileEntities = new List<SoilProfileEntity>();
+            var orphanedSoilProfileEntities = new List<SoilProfileEntity>();
             foreach (SoilProfileEntity soilProfileEntity in dbContext.SoilProfileEntities
                                                                      .Where(e => e.SoilProfileEntityId > 0))
             {
@@ -691,7 +724,7 @@ namespace Application.Ringtoets.Storage.Create
             }
             dbContext.SoilProfileEntities.RemoveRange(orphanedSoilProfileEntities);
 
-            IList<SoilLayerEntity> orphanedSoilLayerEntities = new List<SoilLayerEntity>();
+            var orphanedSoilLayerEntities = new List<SoilLayerEntity>();
             foreach (SoilLayerEntity soilLayerEntity in dbContext.SoilLayerEntities
                                                                  .Where(e => e.SoilLayerEntityId > 0))
             {
@@ -702,7 +735,7 @@ namespace Application.Ringtoets.Storage.Create
             }
             dbContext.SoilLayerEntities.RemoveRange(orphanedSoilLayerEntities);
 
-            IList<SurfaceLineEntity> orphanedSurfaceLineEntities = new List<SurfaceLineEntity>();
+            var orphanedSurfaceLineEntities = new List<SurfaceLineEntity>();
             foreach (SurfaceLineEntity surfaceLineEntity in dbContext.SurfaceLineEntities
                                                                      .Where(e => e.SurfaceLineEntityId > 0))
             {
@@ -713,7 +746,7 @@ namespace Application.Ringtoets.Storage.Create
             }
             dbContext.SurfaceLineEntities.RemoveRange(orphanedSurfaceLineEntities);
 
-            IList<SurfaceLinePointEntity> orphanedSurfaceLinePointEntities = new List<SurfaceLinePointEntity>();
+            var orphanedSurfaceLinePointEntities = new List<SurfaceLinePointEntity>();
             foreach (SurfaceLinePointEntity surfaceLinePointEntity in dbContext.SurfaceLinePointEntities
                                                                                .Where(e => e.SurfaceLinePointEntityId > 0))
             {
@@ -724,7 +757,7 @@ namespace Application.Ringtoets.Storage.Create
             }
             dbContext.SurfaceLinePointEntities.RemoveRange(orphanedSurfaceLinePointEntities);
 
-            IList<CharacteristicPointEntity> orphanedCharacteristicPointEntities = new List<CharacteristicPointEntity>();
+            var orphanedCharacteristicPointEntities = new List<CharacteristicPointEntity>();
             foreach (CharacteristicPointEntity characteristicPointEntity in dbContext.CharacteristicPointEntities
                                                                                      .Where(e => e.CharacteristicPointEntityId > 0))
             {
@@ -735,7 +768,7 @@ namespace Application.Ringtoets.Storage.Create
             }
             dbContext.CharacteristicPointEntities.RemoveRange(orphanedCharacteristicPointEntities);
 
-            IList<PipingFailureMechanismMetaEntity> orphanedPipingFailureMechanismMetaEntities = new List<PipingFailureMechanismMetaEntity>();
+            var orphanedPipingFailureMechanismMetaEntities = new List<PipingFailureMechanismMetaEntity>();
             foreach (PipingFailureMechanismMetaEntity pipingFailureMechanismMetaEntity in dbContext.PipingFailureMechanismMetaEntities
                                                                                                    .Where(e => e.PipingFailureMechanismMetaEntityId > 0))
             {

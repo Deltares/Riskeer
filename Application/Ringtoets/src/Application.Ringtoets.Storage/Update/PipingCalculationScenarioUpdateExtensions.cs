@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Update
             entity.Name = calculation.Name;
             entity.Comments = calculation.Comments;
             SetInputParameters(entity, calculation.InputParameters, registry);
-            
+            UpdatePipingCalculationOutputs(entity, calculation, registry);
 
             registry.Register(entity, calculation);
         }
@@ -133,6 +133,47 @@ namespace Application.Ringtoets.Storage.Update
                 return null;
             }
             return Convert.ToDecimal(value);
+        }
+
+        private static void UpdatePipingCalculationOutputs(PipingCalculationEntity entity, PipingCalculationScenario calculation, PersistenceRegistry registry)
+        {
+            if (calculation.Output != null)
+            {
+                PipingOutput pipingOutput = calculation.Output;
+                if (pipingOutput.IsNew())
+                {
+                    entity.PipingCalculationOutputEntities.Clear();
+                    entity.PipingCalculationOutputEntities.Add(pipingOutput.Create(registry));
+                }
+                else
+                {
+                    registry.Register(entity.PipingCalculationOutputEntities.Single(), pipingOutput);
+                }
+
+
+            }
+            else
+            {
+                entity.PipingCalculationOutputEntities.Clear();
+            }
+
+            if (calculation.SemiProbabilisticOutput != null)
+            {
+                PipingSemiProbabilisticOutput semiProbabilisticOutput = calculation.SemiProbabilisticOutput;
+                if (semiProbabilisticOutput.IsNew())
+                {
+                    entity.PipingSemiProbabilisticOutputEntities.Clear();
+                    entity.PipingSemiProbabilisticOutputEntities.Add(semiProbabilisticOutput.Create(registry));
+                }
+                else
+                {
+                    registry.Register(entity.PipingSemiProbabilisticOutputEntities.Single(), semiProbabilisticOutput);
+                }
+            }
+            else
+            {
+                entity.PipingSemiProbabilisticOutputEntities.Clear();
+            }
         }
     }
 }

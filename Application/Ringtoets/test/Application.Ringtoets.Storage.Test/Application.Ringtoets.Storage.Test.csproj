@@ -88,6 +88,7 @@
     <Compile Include="Create\PipingCalculationScenarioCreateExtensionsTest.cs" />
     <Compile Include="Create\PipingOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\PipingProbabilityAssessmentInputCreateExtensionsTest.cs" />
+    <Compile Include="Create\PipingSemiProbabilisticOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\RingtoetsPipingSurfaceLineCreateExtensionsTest.cs" />
     <Compile Include="Create\Point3DCreateExtensionsTest.cs" />
     <Compile Include="Create\AssessmentSectionCreateExtensionsTest.cs" />
@@ -107,7 +108,9 @@
     <Compile Include="Read\FailureMechanismSectionPointEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HydraulicLocationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\PipingCalculationEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\PipingCalculationOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\PipingFailureMechanismMetaEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\PipingSemiProbabilisticOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ProjectEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ReadConversionCollectorTest.cs" />
     <Compile Include="Read\ReferenceLinePointEntityReadExtensionsTest.cs" />

@@ -1,4 +1,5 @@
 ﻿using Core.Common.Base.Data;
+using Core.Common.Base.Storage;
 
 namespace Ringtoets.Piping.Data
 {
@@ -6,7 +7,7 @@ namespace Ringtoets.Piping.Data
     /// This class contains the results of a semi-probabilistic assessment of the piping
     /// failure mechanism.
     /// </summary>
-    public class PipingSemiProbabilisticOutput
+    public class PipingSemiProbabilisticOutput : IStorable
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingSemiProbabilisticOutput"/>.
@@ -21,11 +22,15 @@ namespace Ringtoets.Piping.Data
         /// <param name="sellmeijerReliability">The reliability of the Sellmeijer sub-mechanism.</param>
         /// <param name="sellmeijerProbability">The probability of failure due to the Sellmeijer sub-mechanism.</param>
         /// <param name="requiredProbability">The required (maximum allowed) probability of failure due to piping.</param>
-        /// <param name="requiredReliability">The required (maximum allowed) reliabiality of the piping failure mechanism</param>
+        /// <param name="requiredReliability">The required (maximum allowed) reliability of the piping failure mechanism</param>
         /// <param name="pipingProbability">The calculated probability of failing due to piping.</param>
         /// <param name="pipingReliability">The calculated reliability of the piping failure mechanism.</param>
         /// <param name="pipingFactorOfSafety">The factor of safety for the piping failure mechanism.</param>
-        public PipingSemiProbabilisticOutput(double upliftFactorOfSafety, double upliftReliability, double upliftProbability, double heaveFactorOfSafety, double heaveReliability, double heaveProbability, double sellmeijerFactorOfSafety, double sellmeijerReliability, double sellmeijerProbability, double requiredProbability, double requiredReliability, double pipingProbability, double pipingReliability, double pipingFactorOfSafety)
+        public PipingSemiProbabilisticOutput(double upliftFactorOfSafety, double upliftReliability, double upliftProbability,
+                                             double heaveFactorOfSafety, double heaveReliability, double heaveProbability,
+                                             double sellmeijerFactorOfSafety, double sellmeijerReliability, double sellmeijerProbability,
+                                             double requiredProbability, double requiredReliability,
+                                             double pipingProbability, double pipingReliability, double pipingFactorOfSafety)
         {
             UpliftFactorOfSafety = new RoundedDouble(3, upliftFactorOfSafety);
             UpliftReliability = new RoundedDouble(3, upliftReliability);
@@ -113,5 +118,7 @@ namespace Ringtoets.Piping.Data
         /// Gets the probability of failing due to the Sellmeijer failure sub-mechanism.
         /// </summary>
         public RoundedDouble SellmeijerProbability { get; private set; }
+
+        public long StorageId { get; set; }
     }
 }

@@ -20,6 +20,9 @@
 // All rights reserved.
 
 using System;
+
+using Core.Common.Base.Storage;
+
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -65,6 +68,8 @@ namespace Ringtoets.Piping.Data.Test
                 pipingFactorOfSafety);
 
             // Assert
+            Assert.IsInstanceOf<IStorable>(output);
+
             Assert.AreEqual(upliftFactorOfSafety, output.UpliftFactorOfSafety, output.UpliftFactorOfSafety.GetAccuracy());
             Assert.AreEqual(upliftReliability, output.UpliftReliability, output.UpliftReliability.GetAccuracy());
             Assert.AreEqual(upliftProbability, output.UpliftProbability, output.UpliftProbability.GetAccuracy());
@@ -79,6 +84,8 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(pipingProbability, output.PipingProbability, output.PipingProbability.GetAccuracy());
             Assert.AreEqual(pipingReliability, output.PipingReliability, output.PipingReliability.GetAccuracy());
             Assert.AreEqual(pipingFactorOfSafety, output.PipingFactorOfSafety, output.PipingFactorOfSafety.GetAccuracy());
+
+            Assert.AreEqual(0, output.StorageId);
         }
     }
 }

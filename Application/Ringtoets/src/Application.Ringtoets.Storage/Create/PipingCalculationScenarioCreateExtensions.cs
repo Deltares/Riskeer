@@ -59,6 +59,8 @@ namespace Application.Ringtoets.Storage.Create
                 Order = order
             };
             SetInputParametersToEntity(entity, calculation.InputParameters, registry);
+            CreatePipingOutputEntity(entity, calculation.Output, registry);
+            CreatePipingSemiProbabilisticOutputEntity(entity, calculation.SemiProbabilisticOutput, registry);
 
             registry.Register(entity, calculation);
             
@@ -108,6 +110,22 @@ namespace Application.Ringtoets.Storage.Create
                 return null;
             }
             return Convert.ToDecimal(parameter);
+        }
+
+        private static void CreatePipingOutputEntity(PipingCalculationEntity entity, PipingOutput output, PersistenceRegistry registry)
+        {
+            if (output != null)
+            {
+                entity.PipingCalculationOutputEntities.Add(output.Create(registry));
+            }
+        }
+
+        private static void CreatePipingSemiProbabilisticOutputEntity(PipingCalculationEntity entity, PipingSemiProbabilisticOutput output, PersistenceRegistry registry)
+        {
+            if (output != null)
+            {
+                entity.PipingSemiProbabilisticOutputEntities.Add(output.Create(registry));
+            }
         }
     }
 }

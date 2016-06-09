@@ -872,6 +872,36 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void Register_WithNullPipingSemiProbabilisticOutputEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            PipingSemiProbabilisticOutput output = new PipingSemiProbabilisticOutput(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+
+            // Call
+            TestDelegate test = () => registry.Register(null, output);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullPipingSemiProbabilisticOutput_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(new PipingSemiProbabilisticOutputEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
         public void Register_WithNullStochasticSoilModelEntity_ThrowsArgumentNullException()
         {
             // Setup
@@ -1251,6 +1281,27 @@ namespace Application.Ringtoets.Storage.Test.Create
                 PipingCalculationOutputEntityId = storageId
             };
             var model = new PipingOutput(1,2,3,4,5,6);
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferId_WithPipingSemiProbabilisticOutputEntityAdded_EqualPipingSemiProbabilisticOutputEntityIdAndPipingSemiProbabilisticOutputStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1, 4000);
+            var entity = new PipingSemiProbabilisticOutputEntity
+            {
+                PipingSemiProbabilisticOutputEntityId = storageId
+            };
+            var model = new PipingSemiProbabilisticOutput(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
             registry.Register(entity, model);
 
             // Call
@@ -1679,6 +1730,43 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(1, dbContext.PipingCalculationOutputEntities.Count());
             CollectionAssert.Contains(dbContext.PipingCalculationOutputEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_PipingSemiProbabilisticOutputEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new PipingSemiProbabilisticOutputEntity
+            {
+                PipingSemiProbabilisticOutputEntityId = 1
+            };
+            var persistentEntity = new PipingSemiProbabilisticOutputEntity
+            {
+                PipingSemiProbabilisticOutputEntityId = 2
+            };
+            dbContext.PipingSemiProbabilisticOutputEntities.Add(orphanedEntity);
+            dbContext.PipingSemiProbabilisticOutputEntities.Add(persistentEntity);
+
+            var pipingSemiProbabilisticOutput = new PipingSemiProbabilisticOutput(1, 2, 3, 4, 5, 6, 7,
+                                                                     8, 9, 10, 11, 12, 13, 14)
+            {
+                StorageId = persistentEntity.PipingSemiProbabilisticOutputEntityId
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, pipingSemiProbabilisticOutput);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.PipingSemiProbabilisticOutputEntities.Count());
+            CollectionAssert.Contains(dbContext.PipingSemiProbabilisticOutputEntities, persistentEntity);
             mocks.VerifyAll();
         }
 

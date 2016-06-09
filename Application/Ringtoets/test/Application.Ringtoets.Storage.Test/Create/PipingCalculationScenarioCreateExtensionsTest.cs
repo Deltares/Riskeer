@@ -326,6 +326,48 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreSame(registry.Get(stochasticSoilProfile), entity.StochasticSoilProfileEntity);
         }
 
+        [Test]
+        public void Create_HasCalculationOutput_EntityHasPipingCalculationOutputEntity()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            var newOutput = new PipingOutput(1,2,3,4,5,6);
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                Output = newOutput
+            };
+
+            // Call
+            PipingCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            Assert.AreEqual(1, entity.PipingCalculationOutputEntities.Count);
+        }
+
+        [Test]
+        public void Create_HasPipingSemiProbabilisticOutput_EntityHasPipingSemiProbabilisticOutputEntity()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            var newOutput = new PipingSemiProbabilisticOutput(1, 2, 3,
+                                                              4, 5, 6,
+                                                              7, 8, 9,
+                                                              10, 11,
+                                                              12, 13, 14);
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                SemiProbabilisticOutput = newOutput
+            };
+
+            // Call
+            PipingCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            Assert.AreEqual(1, entity.PipingSemiProbabilisticOutputEntities.Count);
+        }
+
         private static decimal? GetExpectedValueForNullableDecimal(double valueThatCanBeNaN)
         {
             decimal? expectedExitPoint = null;

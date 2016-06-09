@@ -133,7 +133,13 @@ namespace Application.Ringtoets.Storage.TestUtil
                                 Mean = (RoundedDouble)10.10,
                                 StandardDeviation = (RoundedDouble)11.11
                             }
-                        }
+                        },
+                        Output = new PipingOutput(1.1, 2.2, 3.3, 4.4, 5.5, 6.6),
+                        SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(7.7, 8.8, 9.9,
+                                                                                    10.10, 11.11, 12.12,
+                                                                                    13.13, 14.14, 15.15,
+                                                                                    16.16, 17.17,
+                                                                                    18.18, 19.19, 20.20)
                     }
                 }
             });
@@ -182,7 +188,9 @@ namespace Application.Ringtoets.Storage.TestUtil
                         Mean = (RoundedDouble)21.21,
                         StandardDeviation = (RoundedDouble)22.22
                     }
-                }
+                },
+                Output = null,
+                SemiProbabilisticOutput = null
             });
 
             var fullTestProject = new Project
