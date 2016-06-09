@@ -42,16 +42,16 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             mocks.ReplayAll();
 
             // Call
-            using (var messageswindow = new Gui.Forms.MessageWindow.MessageWindow(dialogParent))
+            using (var messageWindow = new Gui.Forms.MessageWindow.MessageWindow(dialogParent))
             {
                 // Assert
-                Assert.IsInstanceOf<UserControl>(messageswindow);
-                Assert.IsInstanceOf<IMessageWindow>(messageswindow);
-                Assert.AreEqual("Berichten", messageswindow.Text);
-                Assert.IsInstanceOf<MessageWindowData>(messageswindow.Data);
-                Assert.AreSame(messageswindow, MessageWindowLogAppender.Instance.MessageWindow);
-                
+                Assert.IsInstanceOf<UserControl>(messageWindow);
+                Assert.IsInstanceOf<IMessageWindow>(messageWindow);
+                Assert.AreEqual("Berichten", messageWindow.Text);
+                Assert.IsInstanceOf<MessageWindowData>(messageWindow.Data);
+                Assert.AreSame(messageWindow, MessageWindowLogAppender.Instance.MessageWindow);
             }
+
             mocks.VerifyAll();
         }
 
@@ -71,6 +71,8 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 form.Show();
 
                 var button = new ToolStripButtonTester("buttonShowDetails");
+
+                // Action
                 button.Click();
             }
         }

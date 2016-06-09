@@ -44,6 +44,7 @@ namespace Core.Common.Gui.Test.Forms
         [Test]
         public void Constructor_WithDialogParent_SetProperties()
         {
+            // Setup
             var mocks = new MockRepository();
             var parent = mocks.StrictMock<IWin32Window>();
             mocks.ReplayAll();
