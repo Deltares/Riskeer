@@ -15,10 +15,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.treeViewControl = new Core.Common.Controls.TreeView.TreeViewControl();
+            this.SuspendLayout();
+            // 
+            // treeViewControl
+            // 
+            this.treeViewControl.Data = null;
+            this.treeViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewControl.Location = new System.Drawing.Point(0, 0);
+            this.treeViewControl.Name = "treeViewControl";
+            this.treeViewControl.Size = new System.Drawing.Size(150, 150);
+            this.treeViewControl.TabIndex = 0;
+            // 
+            // MapLegendView
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.treeViewControl);
+            this.Name = "MapLegendView";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private Common.Controls.TreeView.TreeViewControl treeViewControl;
     }
 }

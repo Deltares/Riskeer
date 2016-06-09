@@ -110,13 +110,15 @@ namespace Ringtoets.Integration.Forms.Views
         /// <param name="disposing"><c>true</c> if managed resources should be disposed; otherwise, <c>false</c>.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing)
             {
-                components.Dispose();
+                if (components != null) {
+                    components.Dispose();
+                }
+                UnsubscribeEvents();
+                DetachFromFailureMechanisms();
+                ViewCommands = null;
             }
-            UnsubscribeEvents();
-            DetachFromFailureMechanisms();
-            ViewCommands = null;
             base.Dispose(disposing);
         }
 

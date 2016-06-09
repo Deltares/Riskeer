@@ -50,7 +50,6 @@ namespace Core.Plugins.DotSpatial.Legend
 
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
         private readonly IWin32Window parentWindow;
-        private readonly TreeViewControl treeViewControl;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapLegendView"/>.
@@ -74,12 +73,6 @@ namespace Core.Plugins.DotSpatial.Legend
             InitializeComponent();
             Text = DotSpatialResources.General_Map;
 
-            treeViewControl = new TreeViewControl
-            {
-                Dock = DockStyle.Fill
-            };
-            Controls.Add(treeViewControl);
-
             RegisterTreeNodeInfos();
         }
 
@@ -102,11 +95,12 @@ namespace Core.Plugins.DotSpatial.Legend
 
         protected override void Dispose(bool disposing)
         {
-            Data = null;
-
-            if (disposing && (components != null))
+            if (disposing)
             {
-                components.Dispose();
+                if (components != null) {
+                    components.Dispose();
+                }
+                Data = null;
             }
 
             base.Dispose(disposing);

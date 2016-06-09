@@ -184,17 +184,19 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                               .Return(Enumerable.Empty<IFailureMechanism>());
             mocks.ReplayAll();
 
-            var view = new FailureMechanismContributionView
+            using (var view = new FailureMechanismContributionView
             {
                 Data = contribution1,
                 AssessmentSection = assessmentSection1
-            };
+            })
+            {
+                // Call
+                var closeForData = info.CloseForData(view, assessmentSection2);
 
-            // Call
-            var closeForData = info.CloseForData(view, assessmentSection2);
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
 
-            // Assert
-            Assert.IsFalse(closeForData);
             mocks.VerifyAll();
         }
 
