@@ -43,6 +43,7 @@ namespace Core.Common.IO.Readers
         /// <list type="bullet">
         /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
         /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
+        /// <item>Unable to open database file.</item>
         /// <item>Preparing the queries to read from the database failed.</item>
         /// </list>
         /// </exception>
@@ -51,19 +52,24 @@ namespace Core.Common.IO.Readers
             try
             {
                 FileUtils.ValidateFilePath(databaseFilePath);
+                Path = databaseFilePath;
+
+                if (!File.Exists(databaseFilePath))
+                {
+                    var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(UtilsResources.Error_File_does_not_exist);
+                    throw new CriticalFileReadException(message);
+                }
+
+                OpenConnection(databaseFilePath);
             }
             catch (ArgumentException e)
             {
                 throw new CriticalFileReadException(e.Message, e);
             }
-            if (!File.Exists(databaseFilePath))
+            catch (SQLiteException e)
             {
-                var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(UtilsResources.Error_File_does_not_exist);
-                throw new CriticalFileReadException(message);
+                throw new CriticalFileReadException(e.Message, e);
             }
-
-            Path = databaseFilePath;
-            OpenConnection(databaseFilePath);
         }
 
         /// <summary>
@@ -140,7 +146,7 @@ namespace Core.Common.IO.Readers
                 ForeignKeys = true
             }.ConnectionString;
 
-            Connection = new SQLiteConnection(connectionStringBuilder);
+            Connection = new SQLiteConnection(connectionStringBuilder, true);
             Connection.Open();
         }
     }

@@ -126,6 +126,7 @@
     <Compile Include="IntegrationTests\StorageSqLiteIntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqLiteConnectionStringBuilderTest.cs" />
+    <Compile Include="StorageSqliteCreatorTest.cs" />
     <Compile Include="StorageSqLiteTest.cs" />
     <Compile Include="Update\AssessmentSectionUpdateExtensionsTest.cs" />
     <Compile Include="Update\CalculationGroupUpdateExtensionsTest.cs" />

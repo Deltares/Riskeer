@@ -38,6 +38,27 @@ namespace Core.Common.IO.Test.Readers
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.IO, "SqLiteDatabaseReaderBase");
 
         [Test]
+        public void Constructor_WithNetworkPath_OpensConnection()
+        {
+            // Setup
+            const string fileName = "temp.sqlite";
+            var localPath = Path.Combine(@"c:", fileName);
+            var uncPath = Path.Combine(@"\\localhost\c$", fileName);
+
+            // Call
+            using (var fileDisposeHelper = new FileDisposeHelper(localPath))
+            {
+                fileDisposeHelper.Create();
+                using (var reader = new TestReader(uncPath))
+                {
+                    // Assert
+                    Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(reader);
+                    Assert.AreEqual(ConnectionState.Open, reader.TestConnection.State);
+                }
+            }
+        }
+
+        [Test]
         public void Constructor_WithParameter_OpensConnection()
         {
             // Setup

@@ -48,22 +48,23 @@ namespace Application.Ringtoets.Storage
                 SQLiteConnection.CreateFile(databaseFilePath);
             }
             var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(databaseFilePath);
-            using (var dbContext = new SQLiteConnection(connectionString))
+            try
             {
-                using (var command = dbContext.CreateCommand())
+                using (var dbContext = new SQLiteConnection(connectionString, true))
                 {
-                    try
+                    using (var command = dbContext.CreateCommand())
                     {
                         dbContext.Open();
                         command.CommandText = Resources.DatabaseStructure;
                         command.ExecuteNonQuery();
-                    }
-                    catch (SQLiteException exception)
-                    {
-                        var message = new FileWriterErrorMessageBuilder(databaseFilePath).Build(Resources.Error_Write_Structure_to_Database);
-                        throw new StorageException(message, new UpdateStorageException("", exception));
+                        dbContext.Close();
                     }
                 }
+            }
+            catch (SQLiteException exception)
+            {
+                var message = new FileWriterErrorMessageBuilder(databaseFilePath).Build(Resources.Error_Write_Structure_to_Database);
+                throw new StorageException(message, new UpdateStorageException("", exception));
             }
         }
     }
