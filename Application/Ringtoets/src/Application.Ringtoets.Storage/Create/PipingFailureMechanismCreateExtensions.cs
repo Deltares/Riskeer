@@ -48,9 +48,9 @@ namespace Application.Ringtoets.Storage.Create
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismType = (short) FailureMechanismType.Piping,
-                IsRelevant = Convert.ToByte(mechanism.IsRelevant)
+                IsRelevant = Convert.ToByte(mechanism.IsRelevant),
+                Comments = mechanism.Comments
             };
-
 
             AddEntitiesForFailureMechanismMeta(mechanism, registry, entity);
             AddEntitiesForStochasticSoilModels(mechanism, registry, entity);

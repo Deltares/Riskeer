@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Geometry;
@@ -53,12 +52,17 @@ namespace Application.Ringtoets.Storage.Test.Create
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Create_WithCollector_ReturnsFailureMechanismEntityWithPropertiesSet(bool isRelevant)
+        public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool isRelevant)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism
             {
-                IsRelevant = isRelevant
+                IsRelevant = isRelevant,
+                Comments = "Some text",
+                PipingProbabilityAssessmentInput =
+                {
+                    A = 0.9876
+                }
             };
             var registry = new PersistenceRegistry();
 
@@ -67,8 +71,9 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual((short)FailureMechanismType.Piping, entity.FailureMechanismType);
+            Assert.AreEqual((short) FailureMechanismType.Piping, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
+            Assert.AreEqual(failureMechanism.Comments, entity.Comments);
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
 
             var failureMechanismMetaEntity = entity.PipingFailureMechanismMetaEntities.ToArray()[0];
@@ -101,8 +106,14 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new [] { new Point2D(0,0) }));
-            failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new [] { new Point2D(0, 0) }));
+            failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
+            {
+                new Point2D(0, 0)
+            }));
+            failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
+            {
+                new Point2D(0, 0)
+            }));
             var registry = new PersistenceRegistry();
 
             // Call

@@ -61,6 +61,7 @@ namespace Application.Ringtoets.Storage.Update
 
             FailureMechanismEntity entity = mechanism.GetCorrespondingFailureMechanismEntity(context);
             entity.IsRelevant = Convert.ToByte(mechanism.IsRelevant);
+            entity.Comments = mechanism.Comments;
 
             mechanism.UpdateFailureMechanismSections(registry, entity, context);
 

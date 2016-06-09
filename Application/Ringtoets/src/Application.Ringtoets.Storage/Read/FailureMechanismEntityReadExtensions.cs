@@ -55,7 +55,8 @@ namespace Application.Ringtoets.Storage.Read
             var failureMechanism = new PipingFailureMechanism
             {
                 StorageId = entity.FailureMechanismEntityId,
-                IsRelevant = entity.IsRelevant == 1
+                IsRelevant = entity.IsRelevant == 1,
+                Comments = entity.Comments
             };
 
             if (entity.PipingFailureMechanismMetaEntities.Count > 0)
@@ -110,7 +111,8 @@ namespace Application.Ringtoets.Storage.Read
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 StorageId = entity.FailureMechanismEntityId,
-                IsRelevant = entity.IsRelevant == 1
+                IsRelevant = entity.IsRelevant == 1,
+                Comments = entity.Comments
             };
 
             entity.ReadFailureMechanismSections(failureMechanism);
@@ -127,7 +129,8 @@ namespace Application.Ringtoets.Storage.Read
             var failureMechanism = new MacrostabilityInwardsFailureMechanism()
             {
                 StorageId = entity.FailureMechanismEntityId,
-                IsRelevant = entity.IsRelevant == 1
+                IsRelevant = entity.IsRelevant == 1,
+                Comments = entity.Comments
             };
 
             entity.ReadFailureMechanismSections(failureMechanism);

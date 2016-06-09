@@ -24,7 +24,6 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
-
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
 
@@ -57,6 +56,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 FailureMechanismEntityId = entityId,
                 IsRelevant = Convert.ToByte(isRelevant),
+                Comments = "Some comment",
                 CalculationGroupEntity = new CalculationGroupEntity
                 {
                     CalculationGroupEntityId = 2
@@ -79,6 +79,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(entityId, failureMechanism.StorageId);
             Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(entity.Comments, failureMechanism.Comments);
             Assert.IsEmpty(failureMechanism.StochasticSoilModels);
             Assert.IsEmpty(failureMechanism.Sections);
 
@@ -219,11 +220,11 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             ICalculationBase child1 = failureMechanism.CalculationsGroup.Children[0];
             Assert.AreEqual("Child1", child1.Name);
-            Assert.AreEqual(childGroup1Id, ((CalculationGroup)child1).StorageId);
+            Assert.AreEqual(childGroup1Id, ((CalculationGroup) child1).StorageId);
 
             ICalculationBase child2 = failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual("Child2", child2.Name);
-            Assert.AreEqual(childGroup2Id, ((CalculationGroup)child2).StorageId);
+            Assert.AreEqual(childGroup2Id, ((CalculationGroup) child2).StorageId);
         }
 
         [Test]
@@ -237,6 +238,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 FailureMechanismEntityId = entityId,
                 IsRelevant = Convert.ToByte(isRelevant),
+                Comments = "Some comment"
             };
             var collector = new ReadConversionCollector();
 
@@ -247,6 +249,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(entityId, failureMechanism.StorageId);
             Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(entity.Comments, failureMechanism.Comments);
             Assert.IsEmpty(failureMechanism.Sections);
         }
 
@@ -277,7 +280,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
-        }   
+        }
 
         [Test]
         [TestCase(true)]
@@ -290,6 +293,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 FailureMechanismEntityId = entityId,
                 IsRelevant = Convert.ToByte(isRelevant),
+                Comments = "Some comment"
             };
 
             // Call
@@ -299,8 +303,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsEmpty(failureMechanism.Sections);
             Assert.AreEqual(entityId, failureMechanism.StorageId);
             Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(entity.Comments, failureMechanism.Comments);
             Assert.IsEmpty(failureMechanism.Sections);
-        }   
+        }
 
         [Test]
         public void ReadAsStandAloneFailureMechanism_WithSectionsSet_ReturnsNewStandAloneFailureMechanismWithFailureMechanismSections()
@@ -328,6 +333,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
-        }   
+        }
     }
 }

@@ -21,6 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -32,7 +33,7 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class GrassCoverErosionInwardsFailureMechanismTest
     {
         [Test]
-        public void CreateFailureMechanismSections_WithoutCollector_ThrowsArgumentNullException()
+        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -46,7 +47,30 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateFailureMechanismSections_WithoutSections_EmptyFailureMechanismSectionEntities()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool isRelevant)
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                IsRelevant = isRelevant,
+                Comments = "Some text"
+            };
+            var registry = new PersistenceRegistry();
+
+            // Call
+            var entity = failureMechanism.Create(registry);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreEqual((short) FailureMechanismType.GrassRevetmentTopErosionAndInwards, entity.FailureMechanismType);
+            Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
+            Assert.AreEqual(failureMechanism.Comments, entity.Comments);
+        }
+
+        [Test]
+        public void Create_WithoutSections_EmptyFailureMechanismSectionEntities()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -59,11 +83,14 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateFailureMechanismSections_WithSections_FailureMechanismSectionEntitiesCreated()
+        public void Create_WithSections_FailureMechanismSectionEntitiesCreated()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new [] { new Point2D(0,0) }));
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(0, 0)
+            }));
 
             // Call
             var entity = failureMechanism.Create(new PersistenceRegistry());

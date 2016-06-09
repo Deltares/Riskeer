@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class IFailureMechanismCreateExtensionsTest
     {
         [Test]
-        public void CreateFailureMechanismSections_WithoutCollector_ThrowsArgumentNullException()
+        public void AddEntitiesForFailureMechanismSections_WithoutCollector_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateFailureMechanismSections_WithoutEntity_ThrowsArgumentNullException()
+        public void AddEntitiesForFailureMechanismSections_WithoutEntity_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateFailureMechanismSections_WithoutSections_EmptyFailureMechanismSectionEntities()
+        public void AddEntitiesForFailureMechanismSections_WithoutSections_EmptyFailureMechanismSectionEntities()
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
@@ -75,11 +75,14 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateFailureMechanismSections_WithSections_FailureMechanismSectionEntitiesCreated()
+        public void AddEntitiesForFailureMechanismSections_WithSections_FailureMechanismSectionEntitiesCreated()
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new [] { new Point2D(0,0) }));
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(0, 0)
+            }));
             var failureMechanismEntity = new FailureMechanismEntity();
 
             // Call
@@ -88,6 +91,5 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);
         }
-
     }
 }

@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -136,13 +135,15 @@ namespace Application.Ringtoets.Storage.Test.Update
             var failureMechanism = new TestFailureMechanism()
             {
                 StorageId = 1,
-                IsRelevant = true
+                IsRelevant = true,
+                Comments = "Some comment"
             };
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = 1,
-                IsRelevant = Convert.ToByte(false)
+                IsRelevant = Convert.ToByte(false),
+                Comments = "Old comment"
             };
 
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -152,7 +153,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             // Assert
             Assert.AreEqual(Convert.ToByte(true), failureMechanismEntity.IsRelevant);
-
+            Assert.AreEqual(failureMechanism.Comments, failureMechanismEntity.Comments);
             mocks.VerifyAll();
         }
 
@@ -169,7 +170,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 StorageId = 1
             };
-            failureMechanism.AddSection(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(0, 0)
+            }));
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -201,7 +205,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 StorageId = 1
             };
             var testName = "testName";
-            failureMechanism.AddSection(new FailureMechanismSection(testName, new[] { new Point2D(0, 0) })
+            failureMechanism.AddSection(new FailureMechanismSection(testName, new[]
+            {
+                new Point2D(0, 0)
+            })
             {
                 StorageId = 1
             });
@@ -213,7 +220,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = 1,
-                FailureMechanismSectionEntities = 
+                FailureMechanismSectionEntities =
                 {
                     failureMechanismSectionEntity
                 }
@@ -230,7 +237,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             Assert.AreEqual(testName, failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(0).Name);
 
             mocks.VerifyAll();
-        } 
+        }
 
         [Test]
         public void UpdateFailureMechanismSections_WithoutPersistenceRegistry_ThrowsArgumentNullException()
@@ -299,8 +306,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 StorageId = 1
             };
-            failureMechanism.AddSection(new FailureMechanismSection("", new [] { new Point2D(0,0) }));
-            
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(0, 0)
+            }));
+
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = 1,
@@ -331,7 +341,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 StorageId = 1
             };
             var testName = "testName";
-            failureMechanism.AddSection(new FailureMechanismSection(testName, new[] { new Point2D(0, 0) })
+            failureMechanism.AddSection(new FailureMechanismSection(testName, new[]
+            {
+                new Point2D(0, 0)
+            })
             {
                 StorageId = 1
             });
@@ -343,7 +356,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = 1,
-                FailureMechanismSectionEntities = 
+                FailureMechanismSectionEntities =
                 {
                     failureMechanismSectionEntity
                 }
@@ -372,7 +385,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
                 // Call
                 TestDelegate test = () => failureMechanism.GetCorrespondingFailureMechanismEntity(ringtoetsEntities);
-                
+
                 // Assert
                 Assert.Throws<EntityNotFoundException>(test);
             }
@@ -430,7 +443,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             // Call
             FailureMechanismEntity entity = failureMechanism.GetCorrespondingFailureMechanismEntity(ringtoetsEntities);
-                
+
             // Assert
             Assert.AreSame(expectedEntity, entity);
 

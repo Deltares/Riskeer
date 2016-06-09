@@ -47,7 +47,8 @@ namespace Application.Ringtoets.Storage.Create
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismType = (short) FailureMechanismType.GrassRevetmentTopErosionAndInwards,
-                IsRelevant = Convert.ToByte(mechanism.IsRelevant)
+                IsRelevant = Convert.ToByte(mechanism.IsRelevant),
+                Comments = mechanism.Comments
             };
 
             mechanism.AddEntitiesForFailureMechanismSections(registry, entity);
