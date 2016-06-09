@@ -72,8 +72,11 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
 
                 var button = new ToolStripButtonTester("buttonShowDetails");
 
-                // Action
+                // Call
                 button.Click();
+
+                // Assert
+                // No dialog window shown
             }
         }
 
