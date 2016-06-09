@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
-
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -82,26 +81,6 @@ namespace Application.Ringtoets.Storage.Read
             return failureMechanism;
         }
 
-        private static void ReadProbabilityAssessmentInput(ICollection<PipingFailureMechanismMetaEntity> pipingFailureMechanismMetaEntities, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput)
-        {
-            PipingProbabilityAssessmentInput probabilityAssessmentInput = pipingFailureMechanismMetaEntities.ElementAt(0).Read();
-
-            pipingProbabilityAssessmentInput.StorageId = probabilityAssessmentInput.StorageId;
-            pipingProbabilityAssessmentInput.A = probabilityAssessmentInput.A;
-        }
-
-        private static void ReadRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
-                                             CalculationGroup targetRootCalculationGroup, GeneralPipingInput generalPipingInput,
-                                             ReadConversionCollector collector)
-        {
-            var rootCalculationGroup = rootCalculationGroupEntity.ReadPipingCalculationGroup(collector, generalPipingInput);
-            targetRootCalculationGroup.StorageId = rootCalculationGroup.StorageId;
-            foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
-            {
-                targetRootCalculationGroup.Children.Add(calculationBase);
-            }
-        }
-
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to construct a <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
         /// </summary>
@@ -136,6 +115,26 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadFailureMechanismSections(failureMechanism);
 
             return failureMechanism;
+        }
+
+        private static void ReadProbabilityAssessmentInput(ICollection<PipingFailureMechanismMetaEntity> pipingFailureMechanismMetaEntities, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput)
+        {
+            PipingProbabilityAssessmentInput probabilityAssessmentInput = pipingFailureMechanismMetaEntities.ElementAt(0).Read();
+
+            pipingProbabilityAssessmentInput.StorageId = probabilityAssessmentInput.StorageId;
+            pipingProbabilityAssessmentInput.A = probabilityAssessmentInput.A;
+        }
+
+        private static void ReadRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
+                                                     CalculationGroup targetRootCalculationGroup, GeneralPipingInput generalPipingInput,
+                                                     ReadConversionCollector collector)
+        {
+            var rootCalculationGroup = rootCalculationGroupEntity.ReadPipingCalculationGroup(collector, generalPipingInput);
+            targetRootCalculationGroup.StorageId = rootCalculationGroup.StorageId;
+            foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
+            {
+                targetRootCalculationGroup.Children.Add(calculationBase);
+            }
         }
 
         private static void ReadFailureMechanismSections(this FailureMechanismEntity entity, IFailureMechanism failureMechanism)

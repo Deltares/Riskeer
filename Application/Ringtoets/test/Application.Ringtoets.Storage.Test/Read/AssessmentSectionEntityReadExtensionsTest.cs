@@ -149,7 +149,50 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithFailureMechanismWithStochasticSoilModelsSet_ReturnsNewAssessmentSectionWithStochasticSoilModelsInPipingFailureMechanism(bool isRelevant)
+        public void Read_WithPipingFailureMechnismPropertiesSet_ReturnsNewAssessmentSectionWithPropertiesInPipingFailureMechanism(bool isRelevant)
+        {
+            // Setup
+            var entity = CreateAssessmentSectionEntity();
+            var entityId = new Random(21).Next(1, 502);
+            var parameterA = new Random(21).NextDouble()/10;
+            const string comments = "Some text";
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = entityId,
+                FailureMechanismType = (int) FailureMechanismType.Piping,
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    CalculationGroupEntityId = 1
+                },
+                IsRelevant = Convert.ToByte(isRelevant),
+                Comments = comments,
+                PipingFailureMechanismMetaEntities =
+                {
+                    new PipingFailureMechanismMetaEntity()
+                    {
+                        A = new decimal(parameterA)
+                    }
+                }
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var section = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(entityId, section.PipingFailureMechanism.StorageId);
+            Assert.AreEqual(isRelevant, section.PipingFailureMechanism.IsRelevant);
+            Assert.AreEqual(comments, section.PipingFailureMechanism.Comments);
+            Assert.AreEqual(parameterA, section.PipingFailureMechanism.PipingProbabilityAssessmentInput.A);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Read_WithPipingFailureMechanismWithStochasticSoilModelsSet_ReturnsNewAssessmentSectionWithStochasticSoilModelsInPipingFailureMechanism(bool isRelevant)
         {
             // Setup
             var entity = CreateAssessmentSectionEntity();
@@ -186,7 +229,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithFailureMechanismWithSurfaceLinesSet_ReturnsNewAssessmentSectionWithSurfaceLinesInPipingFailureMechanism(bool isRelevant)
+        public void Read_WithPipingFailureMechanismWithSurfaceLinesSet_ReturnsNewAssessmentSectionWithSurfaceLinesInPipingFailureMechanism(bool isRelevant)
         {
             // Setup
             var entity = CreateAssessmentSectionEntity();
@@ -300,6 +343,40 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Read_WithGrassCoverErosionInwardsFailureMechanismPropertiesSet_ReturnsNewAssessmentSectionWithPropertiesInGrassCoverErosionInwardsFailureMechanism(bool isRelevant)
+        {
+            // Setup
+            var entity = CreateAssessmentSectionEntity();
+            var entityId = new Random(21).Next(1, 502);
+            const string comments = "Some text";
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = entityId,
+                FailureMechanismType = (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards,
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    CalculationGroupEntityId = 1
+                },
+                IsRelevant = Convert.ToByte(isRelevant),
+                Comments = comments
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var section = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(entityId, section.GrassCoverErosionInwards.StorageId);
+            Assert.AreEqual(isRelevant, section.GrassCoverErosionInwards.IsRelevant);
+            Assert.AreEqual(comments, section.GrassCoverErosionInwards.Comments);
+        }
+
+        [Test]
         public void Read_WithGrassCoverErosionInwardsFailureMechanismWithFailureMechanismSectionsSet_ReturnsNewAssessmentSectionWithFailureMechanismSectionsInGrassCoverErosionInwardsFailureMechanism()
         {
             // Setup
@@ -400,14 +477,18 @@ namespace Application.Ringtoets.Storage.Test.Read
                 FailureMechanismEntityId = entityId,
                 FailureMechanismType = (short) failureMechanismType,
                 IsRelevant = Convert.ToByte(isRelevant),
+                Comments = entityId.ToString(),
                 FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
             };
         }
 
-        private static void AssertFailureMechanismEqual(bool expectedIsRelevant, int expectedEntityId, int expectedSectionCount, IFailureMechanism failureMechanism)
+        private static void AssertFailureMechanismEqual(bool expectedIsRelevant, int expectedEntityId,
+                                                        int expectedSectionCount, IFailureMechanism failureMechanism)
         {
             Assert.AreEqual(expectedEntityId, failureMechanism.StorageId);
             Assert.AreEqual(expectedIsRelevant, failureMechanism.IsRelevant);
+            var expectedComments = expectedEntityId.ToString();
+            Assert.AreEqual(expectedComments, failureMechanism.Comments);
             Assert.AreEqual(expectedSectionCount, failureMechanism.Sections.Count());
         }
 

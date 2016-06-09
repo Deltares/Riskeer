@@ -107,8 +107,9 @@ namespace Application.Ringtoets.Storage.Read
 
                 var pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
                 pipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId = failureMechanism.PipingProbabilityAssessmentInput.StorageId;
+                pipingFailureMechanism.Comments = failureMechanism.Comments;
                 pipingFailureMechanism.PipingProbabilityAssessmentInput.A = failureMechanism.PipingProbabilityAssessmentInput.A;
-                
+
                 pipingFailureMechanism.StochasticSoilModels.AddRange(failureMechanism.StochasticSoilModels);
                 pipingFailureMechanism.IsRelevant = failureMechanism.IsRelevant;
                 pipingFailureMechanism.StorageId = failureMechanism.StorageId;
@@ -138,6 +139,7 @@ namespace Application.Ringtoets.Storage.Read
                 var grassCoverErosionInwards = assessmentSection.GrassCoverErosionInwards;
                 grassCoverErosionInwards.IsRelevant = failureMechanism.IsRelevant;
                 grassCoverErosionInwards.StorageId = failureMechanism.StorageId;
+                grassCoverErosionInwards.Comments = failureMechanism.Comments;
                 foreach (var failureMechanismSection in failureMechanism.Sections)
                 {
                     grassCoverErosionInwards.AddSection(failureMechanismSection);
@@ -174,6 +176,7 @@ namespace Application.Ringtoets.Storage.Read
 
                 standAloneFailureMechanism.StorageId = failureMechanism.StorageId;
                 standAloneFailureMechanism.IsRelevant = failureMechanism.IsRelevant;
+                standAloneFailureMechanism.Comments = failureMechanism.Comments;
                 foreach (var failureMechanismSection in failureMechanism.Sections)
                 {
                     standAloneFailureMechanism.AddSection(failureMechanismSection);
