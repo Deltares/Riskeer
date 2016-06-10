@@ -48,7 +48,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.IsInstanceOf<UserControl>(control);
                 Assert.AreEqual(1, control.Controls.Count);
 
-                var dataGridView = control.Controls[0];
+                Control dataGridView = control.Controls[0];
                 Assert.IsInstanceOf<DoubleBufferedDataGridView>(dataGridView);
                 Assert.AreEqual(DockStyle.Fill, dataGridView.Dock);
             }
@@ -102,7 +102,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 dataGridView.DataSource = new[] { "" };
 
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 dataGridView.CurrentCell = dataGridViewCell;
                 dataGridView.BeginEdit(false);
 
@@ -133,7 +133,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 dataGridView.DataSource = new[] { "" };
 
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 dataGridView.CurrentCell = dataGridViewCell;
 
                 // Call
@@ -479,17 +479,17 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 dataGridView.DataSource = dataSource;
 
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 dataGridView.CurrentCell = dataGridViewCell;
 
-                var initialWidth = dataGridViewCell.OwningColumn.Width;
+                int initialWidth = dataGridViewCell.OwningColumn.Width;
                 dataGridViewCell.Value = "This is a long text.";
 
                 // Call
                 control.RefreshDataGridView();
 
                 // Assert
-                var longTextWidth = dataGridViewCell.OwningColumn.Width;
+                int longTextWidth = dataGridViewCell.OwningColumn.Width;
                 Assert.Greater(longTextWidth, initialWidth);
             }
         }
@@ -514,16 +514,16 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 dataGridView.DataSource = dataSource;
 
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 dataGridView.CurrentCell = dataGridViewCell;
 
-                var initialWidth = dataGridViewCell.OwningColumn.Width;
+                int initialWidth = dataGridViewCell.OwningColumn.Width;
                 dataGridViewCell.Value = "This is a long text.";
 
                 control.RefreshDataGridView();
 
                 // Precondition
-                var longTextWidth = dataGridViewCell.OwningColumn.Width;
+                int longTextWidth = dataGridViewCell.OwningColumn.Width;
                 Assert.Greater(longTextWidth, initialWidth);
 
                 dataGridViewCell.Value = string.Empty;
@@ -556,17 +556,17 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 dataGridView.DataSource = dataSource;
 
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 dataGridView.CurrentCell = dataGridViewCell;
 
-                var initialWidth = dataGridViewCell.OwningColumn.Width;
+                int initialWidth = dataGridViewCell.OwningColumn.Width;
                 dataGridViewCell.Value = "This is a long text.";
 
                 // Call
                 control.AutoResizeColumns();
                 
                 // Assert
-                var longTextWidth = dataGridViewCell.OwningColumn.Width;
+                int longTextWidth = dataGridViewCell.OwningColumn.Width;
                 Assert.Greater(longTextWidth, initialWidth);
             }
         }
@@ -591,16 +591,16 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 dataGridView.DataSource = dataSource;
 
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 dataGridView.CurrentCell = dataGridViewCell;
 
-                var initialWidth = dataGridViewCell.OwningColumn.Width;
+                int initialWidth = dataGridViewCell.OwningColumn.Width;
                 dataGridViewCell.Value = "This is a long text.";
 
                 control.AutoResizeColumns();
                 
                 // Precondition
-                var longTextWidth = dataGridViewCell.OwningColumn.Width;
+                int longTextWidth = dataGridViewCell.OwningColumn.Width;
                 Assert.Greater(longTextWidth, initialWidth);
 
                 dataGridViewCell.Value = string.Empty;
@@ -632,7 +632,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 dataGridView.DataSource = new[] { "" };
 
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 dataGridView.CurrentCell = dataGridViewCell;
                 dataGridView.BeginEdit(false);
 
@@ -735,7 +735,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.AddTextBoxColumn("Test property", "Test header");
 
                 dataGridView.DataSource = new[] { "" };
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 dataGridView.CurrentCell = dataGridViewCell;
 
                 // Call
@@ -941,7 +941,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.DisableCell(0, 0);
 
                 // Precondition
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 Assert.IsTrue(dataGridViewCell.ReadOnly);
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), dataGridViewCell.Style.BackColor);
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), dataGridViewCell.Style.ForeColor);
@@ -975,7 +975,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.DisableCell(0, 0);
 
                 // Precondition
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 Assert.IsTrue(dataGridViewCell.ReadOnly);
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), dataGridViewCell.Style.BackColor);
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), dataGridViewCell.Style.ForeColor);
@@ -1007,7 +1007,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.AddTextBoxColumn("Test property", "Test header");
 
                 dataGridView.DataSource = new[] { "" };
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 dataGridView.CurrentCell = dataGridViewCell;
 
                 int counter = 0;
@@ -1040,7 +1040,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.AddTextBoxColumn("Test property", "Test header");
 
                 dataGridView.DataSource = new[] { "" };
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 dataGridView.CurrentCell = dataGridViewCell;
 
                 int counter = 0;
@@ -1079,7 +1079,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.AddTextBoxColumn("Test property", "Test header");
 
                 dataGridView.DataSource = new[] { "" };
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 dataGridView.CurrentCell = dataGridViewCell;
 
                 int counter = 0;
@@ -1113,7 +1113,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.AddTextBoxColumn("Test property", "Test header");
 
                 dataGridView.DataSource = new[] { "" };
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 dataGridView.CurrentCell = dataGridViewCell;
 
                 int counter = 0;
@@ -1155,7 +1155,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 dataGridView.DataSource = new[] { false };
 
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 dataGridView.CurrentCell = dataGridViewCell;
                 dataGridView.BeginEdit(false);
                 gridTester.FireEvent("KeyUp", new KeyEventArgs(Keys.Space));
@@ -1189,7 +1189,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 dataGridView.DataSource = new[] { "" };
 
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 dataGridView.CurrentCell = dataGridViewCell;
 
                 // Precondition
@@ -1253,7 +1253,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.AddTextBoxColumn("Test property", "Test header");
 
                 dataGridView.DataSource = new[] { "Test value" };
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 dataGridView.CurrentCell = dataGridViewCell;
                 dataGridView.BeginEdit(false);
 
@@ -1304,7 +1304,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 var dataGridView = (DataGridView)gridTester.TheObject;
                 dataGridView.DataSource = new[] { new TestDataGridViewRow(new RoundedDouble(0, 25)) };
 
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 dataGridView.CurrentCell = dataGridViewCell;
                 string newValue = "3";
 
@@ -1341,7 +1341,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 var dataGridView = (DataGridView)gridTester.TheObject;
                 dataGridView.DataSource = new[] { new TestDataGridViewRow(new RoundedDouble(0, initialValue)) };
 
-                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
                 dataGridView.CurrentCell = dataGridViewCell;
                 string newValue = "test";
 
