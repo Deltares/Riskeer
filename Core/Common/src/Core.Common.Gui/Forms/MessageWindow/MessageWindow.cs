@@ -84,9 +84,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
             messagesDataGridView.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             messagesDataGridView.MouseUp += MessagesDataGridViewMouseUp;
 
-            // Apply sorting so the messages added last will be on Top.
-            messagesBindingSource.Sort = "Id";
-            messagesBindingSource.ApplySort(messagesBindingSource.SortProperty, ListSortDirection.Descending);
             ApplyFilter();
             messagesDataGridView.CellFormatting += MessagesDataGridViewCellFormatting;
 
@@ -101,7 +98,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
         {
             get
             {
-                return messageWindowData;
+                return Messages;
             }
             set {}
         }
@@ -121,18 +118,19 @@ namespace Core.Common.Gui.Forms.MessageWindow
                 return;
             }
 
-            messageWindowData.Messages.BeginLoadData();
+            Messages.BeginLoadData();
+
             try
             {
                 MessageData msg;
                 while (newMessages.TryDequeue(out msg))
                 {
-                    messageWindowData.Messages.AddMessagesRow(msg.ImageName, msg.Time, msg.Message);
+                    Messages.Rows.Add(msg.ImageName, msg.Time, msg.Message);
                 }
             }
             finally
             {
-                messageWindowData.Messages.EndLoadData();
+                Messages.EndLoadData();
             }
 
             if (messagesDataGridView.Rows.Count > 0)
@@ -192,7 +190,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
 
         private void MessagesDataGridViewCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex != 0 || e.Value == null)
+            if (e.ColumnIndex != levelColumnDataGridViewTextBoxColumn.Index || e.Value == null)
             {
                 return;
             }
@@ -220,21 +218,22 @@ namespace Core.Common.Gui.Forms.MessageWindow
         private string CreateLoggingLevelDataGridViewFilter()
         {
             var filterlines = new List<string>();
+            var filterFormat = string.Format("{0} = '{{0}}'", levelColumn.ColumnName);
             if (buttonShowInfo.Checked)
             {
-                filterlines.Add(string.Format("Image = '{0}'", Level.Info));
+                filterlines.Add(string.Format(filterFormat, Level.Info));
             }
             if (buttonShowWarning.Checked)
             {
-                filterlines.Add(string.Format("Image = '{0}'", Level.Warn));
+                filterlines.Add(string.Format(filterFormat, Level.Warn));
             }
             if (buttonShowError.Checked)
             {
-                filterlines.Add(string.Format("Image = '{0}'", Level.Error));
-                filterlines.Add(string.Format("Image = '{0}'", Level.Fatal));
+                filterlines.Add(string.Format(filterFormat, Level.Error));
+                filterlines.Add(string.Format(filterFormat, Level.Fatal));
             }
             return filterlines.Count == 0 ?
-                       "Image = 'NOTHING SHOWN'" :
+                       string.Format(filterFormat, "NOTHING SHOWN") :
                        string.Join(" OR ", filterlines);
         }
 
@@ -263,7 +262,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
                 return;
             }
 
-            var messageWindowDialog = new MessageWindowDialog(dialogParent, (string) messagesDataGridView.CurrentRow.Cells[messageDataGridViewTextBoxColumn.Index].Value);
+            var messageWindowDialog = new MessageWindowDialog(dialogParent, (string) messagesDataGridView.CurrentRow.Cells[messageColumnDataGridViewTextBoxColumn.Index].Value);
 
             messageWindowDialog.ShowDialog();
         }
@@ -288,7 +287,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
 
         public void Clear()
         {
-            messageWindowData.Clear();
+            Messages.Clear();
         }
 
         #endregion

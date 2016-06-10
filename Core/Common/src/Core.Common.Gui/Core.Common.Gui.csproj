@@ -207,15 +207,6 @@
     <Compile Include="Forms\MessageWindow\MessageWindow.Designer.cs">
       <DependentUpon>MessageWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MessageWindow\MessageWindowData.cs">
-      <DependentUpon>MessageWindowData.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Forms\MessageWindow\MessageWindowData.Designer.cs">
-      <DependentUpon>MessageWindowData.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Forms\MessageWindow\MessageWindowLogAppender.cs" />
     <Compile Include="Forms\Options\OptionsDialog.cs">
       <SubType>Form</SubType>
@@ -302,17 +293,6 @@
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
     <None Include="app.config" />
-    <None Include="Forms\MessageWindow\MessageWindowData.xsc">
-      <DependentUpon>MessageWindowData.xsd</DependentUpon>
-    </None>
-    <None Include="Forms\MessageWindow\MessageWindowData.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>MessageWindowData.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Forms\MessageWindow\MessageWindowData.xss">
-      <DependentUpon>MessageWindowData.xsd</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

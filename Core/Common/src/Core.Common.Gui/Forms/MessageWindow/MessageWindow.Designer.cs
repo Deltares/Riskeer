@@ -47,17 +47,21 @@ namespace Core.Common.Gui.Forms.MessageWindow
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonShowDetails = new System.Windows.Forms.ToolStripButton();
             this.messagesDataGridView = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.imageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewImageColumn();
-            this.timeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.messageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.messageWindowData = new Core.Common.Gui.Forms.MessageWindow.MessageWindowData();
+            this.messageWindowData = new System.Data.DataSet();
+            this.Messages = new System.Data.DataTable();
+            this.levelColumn = new System.Data.DataColumn();
+            this.timeColumn = new System.Data.DataColumn();
+            this.messageColumn = new System.Data.DataColumn();
+            this.levelColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewImageColumn();
+            this.timeColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.messageColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenu.SuspendLayout();
             this.messagesToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.messagesDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.messagesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.messageWindowData)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Messages)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenu
@@ -162,10 +166,9 @@ namespace Core.Common.Gui.Forms.MessageWindow
             this.messagesDataGridView.AutoGenerateColumns = false;
             this.messagesDataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.messagesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.imageDataGridViewTextBoxColumn,
-            this.Id,
-            this.timeDataGridViewTextBoxColumn,
-            this.messageDataGridViewTextBoxColumn});
+            this.levelColumnDataGridViewTextBoxColumn,
+            this.timeColumnDataGridViewTextBoxColumn,
+            this.messageColumnDataGridViewTextBoxColumn});
             this.messagesDataGridView.ContextMenuStrip = this.contextMenu;
             this.messagesDataGridView.DataSource = this.messagesBindingSource;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -183,53 +186,71 @@ namespace Core.Common.Gui.Forms.MessageWindow
             this.messagesDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.messagesDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            resources.ApplyResources(this.Id, "Id");
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            // 
-            // imageDataGridViewTextBoxColumn
-            // 
-            this.imageDataGridViewTextBoxColumn.DataPropertyName = "Image";
-            this.imageDataGridViewTextBoxColumn.Frozen = true;
-            resources.ApplyResources(this.imageDataGridViewTextBoxColumn, "imageDataGridViewTextBoxColumn");
-            this.imageDataGridViewTextBoxColumn.Name = "imageDataGridViewTextBoxColumn";
-            this.imageDataGridViewTextBoxColumn.ReadOnly = true;
-            this.imageDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.imageDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // timeDataGridViewTextBoxColumn
-            // 
-            this.timeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.timeDataGridViewTextBoxColumn.DataPropertyName = "Time";
-            dataGridViewCellStyle1.Format = "HH:mm:ss";
-            dataGridViewCellStyle1.NullValue = null;
-            this.timeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
-            resources.ApplyResources(this.timeDataGridViewTextBoxColumn, "timeDataGridViewTextBoxColumn");
-            this.timeDataGridViewTextBoxColumn.Name = "timeDataGridViewTextBoxColumn";
-            this.timeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // messageDataGridViewTextBoxColumn
-            // 
-            this.messageDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.messageDataGridViewTextBoxColumn.DataPropertyName = "Message";
-            this.messageDataGridViewTextBoxColumn.FillWeight = 70F;
-            resources.ApplyResources(this.messageDataGridViewTextBoxColumn, "messageDataGridViewTextBoxColumn");
-            this.messageDataGridViewTextBoxColumn.Name = "messageDataGridViewTextBoxColumn";
-            this.messageDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // messagesBindingSource
             // 
-            this.messagesBindingSource.DataMember = "Messages";
+            this.messagesBindingSource.DataMember = "MessageTable";
             this.messagesBindingSource.DataSource = this.messageWindowData;
-            this.messagesBindingSource.Sort = "Id";
+            this.messagesBindingSource.Sort = "timeColumn DESC";
             // 
             // messageWindowData
             // 
-            this.messageWindowData.DataSetName = "MessageWindowData";
-            this.messageWindowData.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.messageWindowData.DataSetName = "NewDataSet";
+            this.messageWindowData.Tables.AddRange(new System.Data.DataTable[] {
+            this.Messages});
+            // 
+            // Messages
+            // 
+            this.Messages.Columns.AddRange(new System.Data.DataColumn[] {
+            this.levelColumn,
+            this.timeColumn,
+            this.messageColumn});
+            this.Messages.TableName = "MessageTable";
+            // 
+            // levelColumn
+            // 
+            this.levelColumn.Caption = "";
+            this.levelColumn.ColumnName = "levelColumn";
+            // 
+            // timeColumn
+            // 
+            this.timeColumn.Caption = "";
+            this.timeColumn.ColumnName = "timeColumn";
+            this.timeColumn.DataType = typeof(System.DateTime);
+            this.timeColumn.DateTimeMode = System.Data.DataSetDateTime.Local;
+            // 
+            // messageColumn
+            // 
+            this.messageColumn.ColumnName = "messageColumn";
+            // 
+            // levelColumnDataGridViewTextBoxColumn
+            // 
+            this.levelColumnDataGridViewTextBoxColumn.DataPropertyName = "levelColumn";
+            resources.ApplyResources(this.levelColumnDataGridViewTextBoxColumn, "levelColumnDataGridViewTextBoxColumn");
+            this.levelColumnDataGridViewTextBoxColumn.Name = "levelColumnDataGridViewTextBoxColumn";
+            this.levelColumnDataGridViewTextBoxColumn.ReadOnly = true;
+            this.levelColumnDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // timeColumnDataGridViewTextBoxColumn
+            // 
+            this.timeColumnDataGridViewTextBoxColumn.DataPropertyName = "timeColumn";
+            dataGridViewCellStyle1.Format = "T";
+            dataGridViewCellStyle1.NullValue = null;
+            this.timeColumnDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            resources.ApplyResources(this.timeColumnDataGridViewTextBoxColumn, "timeColumnDataGridViewTextBoxColumn");
+            this.timeColumnDataGridViewTextBoxColumn.Name = "timeColumnDataGridViewTextBoxColumn";
+            this.timeColumnDataGridViewTextBoxColumn.ReadOnly = true;
+            this.timeColumnDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.timeColumnDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // messageColumnDataGridViewTextBoxColumn
+            // 
+            this.messageColumnDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.messageColumnDataGridViewTextBoxColumn.DataPropertyName = "messageColumn";
+            resources.ApplyResources(this.messageColumnDataGridViewTextBoxColumn, "messageColumnDataGridViewTextBoxColumn");
+            this.messageColumnDataGridViewTextBoxColumn.Name = "messageColumnDataGridViewTextBoxColumn";
+            this.messageColumnDataGridViewTextBoxColumn.ReadOnly = true;
+            this.messageColumnDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.messageColumnDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // MessageWindow
             // 
@@ -244,6 +265,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
             ((System.ComponentModel.ISupportInitialize)(this.messagesDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.messagesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.messageWindowData)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Messages)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -259,17 +281,20 @@ namespace Core.Common.Gui.Forms.MessageWindow
         private System.Windows.Forms.ToolStripSeparator cToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem buttonClearAll;
         private System.Windows.Forms.BindingSource messagesBindingSource;
-        private MessageWindowData messageWindowData;
         private System.Windows.Forms.ToolStrip messagesToolStrip;
         private System.Windows.Forms.ToolStripButton buttonShowWarning;
         private System.Windows.Forms.ToolStripButton buttonShowError;
         private System.Windows.Forms.ToolStripButton buttonShowInfo;
         private System.Windows.Forms.DataGridView messagesDataGridView;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private DataGridViewImageColumn imageDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn Id;
-        private DataGridViewTextBoxColumn timeDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn messageDataGridViewTextBoxColumn;
         private ToolStripButton buttonShowDetails;
+        private System.Data.DataSet messageWindowData;
+        private System.Data.DataTable Messages;
+        private System.Data.DataColumn levelColumn;
+        private System.Data.DataColumn timeColumn;
+        private System.Data.DataColumn messageColumn;
+        private DataGridViewImageColumn levelColumnDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn timeColumnDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn messageColumnDataGridViewTextBoxColumn;
     }
 }

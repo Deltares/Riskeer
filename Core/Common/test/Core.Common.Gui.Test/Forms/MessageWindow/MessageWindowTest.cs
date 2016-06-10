@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 
 using Core.Common.Gui.Forms.MessageWindow;
@@ -48,7 +49,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 Assert.IsInstanceOf<UserControl>(messageWindow);
                 Assert.IsInstanceOf<IMessageWindow>(messageWindow);
                 Assert.AreEqual("Berichten", messageWindow.Text);
-                Assert.IsInstanceOf<MessageWindowData>(messageWindow.Data);
+                Assert.IsInstanceOf<DataTable>(messageWindow.Data);
                 Assert.AreSame(messageWindow, MessageWindowLogAppender.Instance.MessageWindow);
             }
 
