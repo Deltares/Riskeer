@@ -56,17 +56,22 @@ namespace Application.Ringtoets.Storage
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
-                throw new ArgumentNullException("filePath", "Cannot create a connection string without the path to the file to connect to.");
+                throw new ArgumentNullException("filePath", @"Cannot create a connection string without the path to the file to connect to.");
             }
             return new SQLiteConnectionStringBuilder
             {
                 FailIfMissing = true,
-                DataSource = filePath,
+                DataSource = GetDataSourceLocation(filePath),
                 ReadOnly = false,
                 ForeignKeys = true,
                 Version = 3,
                 Pooling = true
             }.ConnectionString;
+        }
+
+        private static string GetDataSourceLocation(string filePath)
+        {
+            return (new Uri(filePath).IsUnc) ? "\\\\" + filePath : filePath;
         }
     }
 }

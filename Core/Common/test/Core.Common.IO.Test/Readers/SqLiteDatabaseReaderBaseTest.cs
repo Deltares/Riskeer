@@ -42,7 +42,7 @@ namespace Core.Common.IO.Test.Readers
         {
             // Setup
             const string fileName = "temp.sqlite";
-            var localPath = Path.Combine(@"c:", fileName);
+            var localPath = Path.Combine(@"c:\", fileName);
             var uncPath = Path.Combine(@"\\localhost\c$", fileName);
 
             // Call

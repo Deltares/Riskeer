@@ -70,6 +70,27 @@ namespace Application.Ringtoets.Storage.Test
             StringAssert.Contains("pooling=True", connectionString);
         }
 
+        [Test]
+        public void BuildSqLiteConnectionString_UncPathToSqLiteFile_ValidConnectionString()
+        {
+            // Setup
+            const string uncPathToSqlFile = @"\\server\share\file.sqlite";
+
+            // Call
+            var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(uncPathToSqlFile);
+
+            // Assert
+            Assert.IsNotNullOrEmpty(connectionString);
+            StringAssert.DoesNotContain("metadata=", connectionString);
+            StringAssert.DoesNotContain("System.Data.SQLite.EF6", connectionString);
+            StringAssert.Contains("failifmissing=True", connectionString);
+            StringAssert.Contains(String.Format(@"data source=\\{0}", uncPathToSqlFile), connectionString);
+            StringAssert.Contains("read only=False", connectionString);
+            StringAssert.Contains("foreign keys=True", connectionString);
+            StringAssert.Contains("version=3", connectionString);
+            StringAssert.Contains("pooling=True", connectionString);
+        }
+
         private const string pathToSqLiteFile = @"C:\SqLiteFile.sqlite";
     }
 }

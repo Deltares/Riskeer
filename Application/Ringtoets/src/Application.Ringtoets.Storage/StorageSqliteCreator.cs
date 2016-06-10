@@ -55,8 +55,15 @@ namespace Application.Ringtoets.Storage
                     using (var command = dbContext.CreateCommand())
                     {
                         dbContext.Open();
-                        command.CommandText = Resources.DatabaseStructure;
-                        command.ExecuteNonQuery();
+                        try
+                        {
+                            command.CommandText = Resources.DatabaseStructure;
+                            command.ExecuteNonQuery();
+                        }
+                        finally
+                        {
+                            SQLiteConnection.ClearAllPools();
+                        }
                         dbContext.Close();
                     }
                 }

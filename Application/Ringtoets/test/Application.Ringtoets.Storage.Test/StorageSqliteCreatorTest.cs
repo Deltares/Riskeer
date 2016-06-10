@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Application.Ringtoets.Storage.Test
@@ -46,13 +47,17 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             const string fileName = "DoesNotExist.sqlite";
+            var localPath = Path.Combine(@"c:\", fileName);
             var uncPath = Path.Combine(@"\\localhost\c$", fileName);
 
-            // Call
-            TestDelegate call = () => StorageSqliteCreator.CreateDatabaseStructure(uncPath);
+            using (new FileDisposeHelper(localPath))
+            {
+                // Call
+                TestDelegate call = () => StorageSqliteCreator.CreateDatabaseStructure(uncPath);
 
-            // Assert
-            Assert.DoesNotThrow(call);
+                // Assert
+                Assert.DoesNotThrow(call);
+            }
         }
     }
 }

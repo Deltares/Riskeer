@@ -21,6 +21,7 @@
 
 using System;
 using System.Data.SQLite;
+using Application.Ringtoets.Storage.Properties;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 
@@ -35,7 +36,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// Creates a new Sqlite database file with the structure defined in <paramref name="databaseSchemaQuery"/>.
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
-        /// <param name="databaseSchemaQuery">Script that containts the schema to execute on the database.</param>
+        /// <param name="databaseSchemaQuery">Script that contains the schema to execute on the database.</param>
         /// <exception cref="SQLiteException">Thrown when executing <paramref name="databaseSchemaQuery"/> failed.</exception>
         public static void CreateDatabaseFile(string databaseFilePath, string databaseSchemaQuery)
         {
@@ -47,7 +48,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             SQLiteConnection.CreateFile(databaseFilePath);
 
             var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(databaseFilePath);
-            using (var dbContext = new SQLiteConnection(connectionString))
+            using (var dbContext = new SQLiteConnection(connectionString, true))
             {
                 using (var command = dbContext.CreateCommand())
                 {
@@ -88,9 +89,9 @@ namespace Application.Ringtoets.Storage.TestUtil
         }
 
         /// <summary>
-        /// Returns a corrupt databaseschema that will pass validation.
+        /// Returns a corrupt database schema that will pass validation.
         /// </summary>
-        /// <returns>The corrupt databaseschema that will pass validation.</returns>
+        /// <returns>The corrupt database schema that will pass validation.</returns>
         public static string GetCorruptSchema()
         {
             return "DROP TABLE IF EXISTS 'VersionEntity'; " +
@@ -99,12 +100,12 @@ namespace Application.Ringtoets.Storage.TestUtil
         }
 
         /// <summary>
-        /// Returns a corrupt databaseschema that will pass validation.
+        /// Returns a corrupt database schema that will pass validation.
         /// </summary>
-        /// <returns>The corrupt databaseschema that will pass validation.</returns>
+        /// <returns>The corrupt database schema that will pass validation.</returns>
         public static string GetCompleteSchema()
         {
-            return Properties.Resources.DatabaseStructure;
+            return Resources.DatabaseStructure;
         }
     }
 }
