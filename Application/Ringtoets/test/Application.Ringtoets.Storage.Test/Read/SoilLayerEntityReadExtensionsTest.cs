@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_Always_NewPoint(bool isAquifer)
+        public void Read_WithDecimalParameterValues_ReturnPipingSoilLayerWithDoubleParameterValues(bool isAquifer)
         {
             // Setup
             var random = new Random(21);
