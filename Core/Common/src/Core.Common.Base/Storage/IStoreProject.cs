@@ -88,6 +88,11 @@ namespace Core.Common.Base.Storage
         Project LoadProject(string connectionArguments);
 
         /// <summary>
+        /// Removes the connection to a database that has been made previously.
+        /// </summary>
+        void CloseProject();
+
+        /// <summary>
         /// Checks if <paramref name="project"/> differs from the last saved or loaded <see cref="Project"/>, if any.
         /// </summary>
         /// <param name="project">The <see cref="Project"/> to save.</param>

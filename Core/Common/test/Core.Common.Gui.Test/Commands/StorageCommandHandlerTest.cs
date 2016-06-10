@@ -133,6 +133,7 @@ namespace Core.Common.Gui.Test.Commands
             viewCommands.Expect(g => g.RemoveAllViewsForItem(projectMock));
 
             var projectStorage = mocks.Stub<IStoreProject>();
+            projectStorage.Expect(ps => ps.CloseProject());
 
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Project = projectMock;
@@ -456,6 +457,7 @@ namespace Core.Common.Gui.Test.Commands
             var projectStorage = mocks.Stub<IStoreProject>();
             projectStorage.Stub(ps => ps.LoadProject(pathToSomeInvalidFile))
                           .Return(loadedProject);
+            projectStorage.Stub(ps => ps.CloseProject());
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             applicationSelection.Selection = originalProject;
 

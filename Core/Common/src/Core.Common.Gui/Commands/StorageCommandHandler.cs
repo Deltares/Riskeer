@@ -162,6 +162,7 @@ namespace Core.Common.Gui.Commands
 
             projectOwner.Project = null;
             projectOwner.ProjectFilePath = "";
+            projectPersistor.CloseProject();
             applicationSelection.Selection = null;
 
             mainWindowController.RefreshGui();

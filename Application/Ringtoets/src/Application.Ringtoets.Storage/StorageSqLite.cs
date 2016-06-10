@@ -204,6 +204,12 @@ namespace Application.Ringtoets.Storage
             }
         }
 
+        public void CloseProject()
+        {
+            filePath = null;
+            connectionString = null;
+        }
+
         public bool HasChanges(Project project)
         {
             if (string.IsNullOrWhiteSpace(connectionString))

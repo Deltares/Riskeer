@@ -551,6 +551,33 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
+        public void HasChanges_ValidProjectLoadedAndThenClosed_ReturnsTrue()
+        {
+            // Setup
+            StorageSqLite storageSqLite = new StorageSqLite();
+            Project storedProject = new Project();
+
+            FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
+            try
+            {
+                SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, storedProject);
+                Project loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
+                storageSqLite.CloseProject();
+
+                // Call
+                bool hasChanges = storageSqLite.HasChanges(loadedProject);
+
+                // Assert
+                Assert.IsTrue(hasChanges);
+            }
+            finally
+            {
+                CallGarbageCollector();
+                fileDisposeHelper.Dispose();
+            }
+        }
+
+        [Test]
         public void HasChanges_ValidProjectLoadedWithUnaffectedChange_ReturnsFalse()
         {
             // Setup
