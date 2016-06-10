@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 
 using Application.Ringtoets.Storage.DbContext;
 
@@ -68,14 +67,14 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadCalculationOutputs(PipingCalculationScenario calculation, PipingCalculationEntity entity)
         {
-            if (entity.PipingCalculationOutputEntities.Any())
+            if (entity.PipingCalculationOutputEntity != null)
             {
-                calculation.Output = entity.PipingCalculationOutputEntities.Single().Read();
+                calculation.Output = entity.PipingCalculationOutputEntity.Read();
             }
 
-            if (entity.PipingSemiProbabilisticOutputEntities.Any())
+            if (entity.PipingSemiProbabilisticOutputEntity != null)
             {
-                calculation.SemiProbabilisticOutput = entity.PipingSemiProbabilisticOutputEntities.Single().Read();
+                calculation.SemiProbabilisticOutput = entity.PipingSemiProbabilisticOutputEntity.Read();
             }
         }
 

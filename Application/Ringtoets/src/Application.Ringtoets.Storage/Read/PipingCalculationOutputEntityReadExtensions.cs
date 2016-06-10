@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-
 using Application.Ringtoets.Storage.DbContext;
 
 using Ringtoets.Piping.Data;
@@ -42,21 +40,12 @@ namespace Application.Ringtoets.Storage.Read
         /// <returns>A new <see cref="PipingOutput"/>.</returns>
         internal static PipingOutput Read(this PipingCalculationOutputEntity entity)
         {
-            return new PipingOutput(GetNanDouble(entity.UpliftZValue), GetNanDouble(entity.UpliftFactorOfSafety),
-                                    GetNanDouble(entity.HeaveZValue), GetNanDouble(entity.HeaveFactorOfSafety),
-                                    GetNanDouble(entity.SellmeijerZValue), GetNanDouble(entity.SellmeijerFactorOfSafety))
+            return new PipingOutput(entity.UpliftZValue.ToNanableDouble(), entity.UpliftFactorOfSafety.ToNanableDouble(),
+                                    entity.HeaveZValue.ToNanableDouble(), entity.HeaveFactorOfSafety.ToNanableDouble(),
+                                    entity.SellmeijerZValue.ToNanableDouble(), entity.SellmeijerFactorOfSafety.ToNanableDouble())
             {
                 StorageId = entity.PipingCalculationOutputEntityId
             };
-        }
-
-        private static double GetNanDouble(decimal? parameterValue)
-        {
-            if (parameterValue == null)
-            {
-                return double.NaN;
-            }
-            return Convert.ToDouble(parameterValue);
         }
     }
 }

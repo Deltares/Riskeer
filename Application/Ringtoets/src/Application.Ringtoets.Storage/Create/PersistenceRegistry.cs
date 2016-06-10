@@ -62,14 +62,14 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine> surfaceLines = new Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine>(new ReferenceEqualityComparer<SurfaceLineEntity>());
         private readonly Dictionary<SurfaceLinePointEntity, Point3D> surfaceLinePoints = new Dictionary<SurfaceLinePointEntity, Point3D>(new ReferenceEqualityComparer<SurfaceLinePointEntity>());
         private readonly Dictionary<CharacteristicPointEntity, Point3D> characteristicPoints = new Dictionary<CharacteristicPointEntity, Point3D>(new ReferenceEqualityComparer<CharacteristicPointEntity>());
-        private readonly Dictionary<PipingFailureMechanismMetaEntity, PipingProbabilityAssessmentInput> pipingProbabilityAssessmentInputs = new Dictionary<PipingFailureMechanismMetaEntity, PipingProbabilityAssessmentInput>(new ReferenceEqualityComparer<PipingFailureMechanismMetaEntity>()); 
+        private readonly Dictionary<PipingFailureMechanismMetaEntity, PipingProbabilityAssessmentInput> pipingProbabilityAssessmentInputs = new Dictionary<PipingFailureMechanismMetaEntity, PipingProbabilityAssessmentInput>(new ReferenceEqualityComparer<PipingFailureMechanismMetaEntity>());
 
         /// <summary>
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismSectionEntity"/> that was registered.</param>
-        /// <param name="model">The <see cref="FailureMechanismSection"/> which needed to registered.</param>
+        /// <param name="entity">The <see cref="FailureMechanismSectionEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="FailureMechanismSection"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
@@ -84,8 +84,8 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="CalculationGroupEntity"/> that was registered.</param>
-        /// <param name="model">The <see cref="CalculationGroup"/> which needed to registered.</param>
+        /// <param name="entity">The <see cref="CalculationGroupEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="CalculationGroup"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
@@ -100,8 +100,8 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingCalculationEntity"/> that was registered.</param>
-        /// <param name="model">The <see cref="PipingCalculationScenario"/> which needed to registered.</param>
+        /// <param name="entity">The <see cref="PipingCalculationEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="PipingCalculationScenario"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
@@ -116,8 +116,8 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingCalculationOutputEntity"/> that was registered.</param>
-        /// <param name="model">The <see cref="PipingOutput"/> which needed to registered.</param>
+        /// <param name="entity">The <see cref="PipingCalculationOutputEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="PipingOutput"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
@@ -132,8 +132,8 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingSemiProbabilisticOutputEntity"/> that was registered.</param>
-        /// <param name="model">The <see cref="PipingSemiProbabilisticOutput"/> which needed to registered.</param>
+        /// <param name="entity">The <see cref="PipingSemiProbabilisticOutputEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="PipingSemiProbabilisticOutput"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
@@ -148,8 +148,8 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="ProjectEntity"/> that was registered.</param>
-        /// <param name="model">The <see cref="Project"/> which needed to be registered.</param>
+        /// <param name="entity">The <see cref="ProjectEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="Project"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
@@ -164,8 +164,8 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="AssessmentSectionEntity"/> that was registered.</param>
-        /// <param name="model">The <see cref="AssessmentSection"/> which needed to be registered.</param>
+        /// <param name="entity">The <see cref="AssessmentSectionEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="AssessmentSection"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
@@ -180,8 +180,8 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="HydraulicLocationEntity"/> that was registered.</param>
-        /// <param name="model">The <see cref="HydraulicBoundaryLocation"/> which needed to be registered.</param>
+        /// <param name="entity">The <see cref="HydraulicLocationEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="HydraulicBoundaryLocation"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
@@ -196,8 +196,8 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> that was registered.</param>
-        /// <param name="model">The <see cref="IFailureMechanism"/> which needed to be registered.</param>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="IFailureMechanism"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
@@ -212,8 +212,8 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> that was registered.</param>
-        /// <param name="model">The <see cref="StochasticSoilModel"/> which needed to be registered.</param>
+        /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="StochasticSoilModel"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
@@ -228,8 +228,8 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="StochasticSoilProfileEntity"/> that was registered.</param>
-        /// <param name="model">The <see cref="StochasticSoilProfile"/> which needed to be registered.</param>
+        /// <param name="entity">The <see cref="StochasticSoilProfileEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="StochasticSoilProfile"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
@@ -244,8 +244,8 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="SoilProfileEntity"/> that was registered.</param>
-        /// <param name="model">The <see cref="PipingSoilProfile"/> which needed to be registered.</param>
+        /// <param name="entity">The <see cref="SoilProfileEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="PipingSoilProfile"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
@@ -260,8 +260,8 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="SoilLayerEntity"/> that was registered.</param>
-        /// <param name="model">The <see cref="PipingSoilLayer"/> which needed to be registered.</param>
+        /// <param name="entity">The <see cref="SoilLayerEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="PipingSoilLayer"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
@@ -277,7 +277,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <paramref name="model"/>.
         /// </summary>
         /// <param name="model">The <see cref="StochasticSoilModel"/> to check for.</param>
-        /// <returns><c>true</c> if the <see cref="model"/> was created before, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         internal bool Contains(StochasticSoilModel model)
         {
@@ -289,7 +289,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <paramref name="model"/>.
         /// </summary>
         /// <param name="model">The <see cref="StochasticSoilProfile"/> to check for.</param>
-        /// <returns><c>true</c> if the <see cref="model"/> was created before, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         internal bool Contains(StochasticSoilProfile model)
         {
@@ -301,7 +301,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <paramref name="model"/>.
         /// </summary>
         /// <param name="model">The <see cref="PipingSoilProfile"/> to check for.</param>
-        /// <returns><c>true</c> if the <see cref="model"/> was created before, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         internal bool Contains(PipingSoilProfile model)
         {
@@ -313,7 +313,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <paramref name="model"/>.
         /// </summary>
         /// <param name="model">The <see cref="HydraulicBoundaryLocation"/> to check for.</param>
-        /// <returns><c>true</c> if the <see cref="model"/> was created before, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         internal bool Contains(HydraulicBoundaryLocation model)
         {
@@ -325,7 +325,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <paramref name="model"/>.
         /// </summary>
         /// <param name="model">The <see cref="RingtoetsPipingSurfaceLine"/> to check for.</param>
-        /// <returns><c>true</c> if the <see cref="model"/> was created before, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         internal bool Contains(RingtoetsPipingSurfaceLine model)
         {
@@ -336,14 +336,14 @@ namespace Application.Ringtoets.Storage.Create
         /// Obtains the <see cref="StochasticSoilModelEntity"/> which was registered for
         /// the given <paramref name="model"/>.
         /// </summary>
-        /// <param name="model">The <see cref="StochasticSoilModel"/> for which a read/update
+        /// <param name="model">The <see cref="StochasticSoilModel"/> for which a create/update
         /// operation has been registered.</param>
         /// <returns>The created <see cref="StochasticSoilModelEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no create operation 
+        /// <exception cref="InvalidOperationException">Thrown when no create/update operation 
         /// has been registered for <paramref name="model"/>.</exception>
         /// <remarks>Use <see cref="Contains(StochasticSoilModel)"/> to find out whether
-        /// a create operation has been registered for <paramref name="model"/>.</remarks>
+        /// a create/update operation has been registered for <paramref name="model"/>.</remarks>
         internal StochasticSoilModelEntity Get(StochasticSoilModel model)
         {
             return Get(stochasticSoilModels, model);
@@ -353,14 +353,14 @@ namespace Application.Ringtoets.Storage.Create
         /// Obtains the <see cref="StochasticSoilProfileEntity"/> which was registered for
         /// the given <paramref name="model"/>.
         /// </summary>
-        /// <param name="model">The <see cref="StochasticSoilProfile"/> for which a read/update
+        /// <param name="model">The <see cref="StochasticSoilProfile"/> for which a create/update
         /// operation has been registered.</param>
         /// <returns>The created <see cref="StochasticSoilProfileEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no create operation 
+        /// <exception cref="InvalidOperationException">Thrown when no create/update operation 
         /// has been registered for <paramref name="model"/>.</exception>
         /// <remarks>Use <see cref="Contains(StochasticSoilProfile)"/> to find out whether
-        /// a create operation has been registered for <paramref name="model"/>.</remarks>
+        /// a create/create operation has been registered for <paramref name="model"/>.</remarks>
         internal StochasticSoilProfileEntity Get(StochasticSoilProfile model)
         {
             return Get(stochasticSoilProfiles, model);
@@ -370,13 +370,14 @@ namespace Application.Ringtoets.Storage.Create
         /// Obtains the <see cref="SoilProfileEntity"/> which was registered for the given
         /// <paramref name="model"/>.
         /// </summary>
-        /// <param name="model">The <see cref="SoilProfileEntity"/> for which a read operation has been registered.</param>
+        /// <param name="model">The <see cref="SoilProfileEntity"/> for which a create/update
+        /// operation has been registered.</param>
         /// <returns>The constructed <see cref="PipingSoilProfile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no create operation 
+        /// <exception cref="InvalidOperationException">Thrown when no create/update operation 
         /// has been registered for <paramref name="model"/>.</exception>
-        /// <remarks>Use <see cref="Contains(PipingSoilProfile)"/> to find out whether a create operation has
-        /// been registered for <paramref name="model"/>.</remarks>
+        /// <remarks>Use <see cref="Contains(PipingSoilProfile)"/> to find out whether a
+        /// create/update operation has been registered for <paramref name="model"/>.</remarks>
         internal SoilProfileEntity Get(PipingSoilProfile model)
         {
             return Get(soilProfiles, model);
@@ -420,9 +421,8 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="SurfaceLineEntity"/> that was registered.</param>
-        /// <param name="model">The <see cref="RingtoetsPipingSurfaceLine"/> which needed 
-        /// to be registered.</param>
+        /// <param name="entity">The <see cref="SurfaceLineEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="RingtoetsPipingSurfaceLine"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
@@ -437,9 +437,8 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="SurfaceLinePointEntity"/> that was registered.</param>
-        /// <param name="model">The surfaceline geometry <see cref="Point3D"/> corresponding
-        /// the registered database entity.</param>
+        /// <param name="entity">The <see cref="SurfaceLinePointEntity"/> to be registered.</param>
+        /// <param name="model">The surfaceline geometry <see cref="Point3D"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
@@ -457,7 +456,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="model">The surfaceline geometry <see cref="Point3D"/> for which
         /// a create or update operation has been registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no create operation
+        /// <exception cref="InvalidOperationException">Thrown when no create/update operation
         /// has been registered for <paramref name="model"/>.</exception>
         internal SurfaceLinePointEntity GetSurfaceLinePoint(Point3D model)
         {
@@ -468,9 +467,9 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="CharacteristicPointEntity"/> that was registered.</param>
+        /// <param name="entity">The <see cref="CharacteristicPointEntity"/> to be registered.</param>
         /// <param name="model">The surfaceline geometry <see cref="Point3D"/> corresponding
-        /// to the characteristic point data being registered.</param>
+        /// to the characteristic point data to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
@@ -485,8 +484,8 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> that is being registered.</param>
-        /// <param name="model">The <see cref="PipingProbabilityAssessmentInput"/> that it being registered.</param>
+        /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="PipingProbabilityAssessmentInput"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
@@ -616,7 +615,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedFailureMechanismEntities = new List<FailureMechanismEntity>();
             foreach (FailureMechanismEntity failureMechanismEntity in dbContext.FailureMechanismEntities
-                                                                                .Where(e => e.FailureMechanismEntityId > 0))
+                                                                               .Where(e => e.FailureMechanismEntityId > 0))
             {
                 if (!failureMechanisms.ContainsKey(failureMechanismEntity))
                 {
@@ -671,7 +670,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedPipingCalculationOutputEntities = new List<PipingCalculationOutputEntity>();
             foreach (PipingCalculationOutputEntity pipingCalculationOutputEntity in dbContext.PipingCalculationOutputEntities
-                                                                                 .Where(e => e.PipingCalculationOutputEntityId > 0))
+                                                                                             .Where(e => e.PipingCalculationOutputEntityId > 0))
             {
                 if (!pipingOutputs.ContainsKey(pipingCalculationOutputEntity))
                 {

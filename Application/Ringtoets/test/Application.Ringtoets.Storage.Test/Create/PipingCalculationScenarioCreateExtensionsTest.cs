@@ -114,8 +114,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(name, entity.Name);
             Assert.AreEqual(comments, entity.Comments);
 
-            Assert.AreEqual(GetExpectedValueForNullableDecimal(exitPoint), entity.ExitPointL);
-            Assert.AreEqual(GetExpectedValueForNullableDecimal(entryPoint), entity.EntryPointL);
+            Assert.AreEqual(exitPoint.ToNullableDecimal(), entity.ExitPointL);
+            Assert.AreEqual(entryPoint.ToNullableDecimal(), entity.EntryPointL);
 
             PipingInput input = calculation.InputParameters;
             Assert.AreEqual(Convert.ToDecimal(input.PhreaticLevelExit.Mean),
@@ -342,7 +342,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             PipingCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            Assert.AreEqual(1, entity.PipingCalculationOutputEntities.Count);
+            Assert.IsNotNull(entity.PipingCalculationOutputEntity);
         }
 
         [Test]
@@ -365,17 +365,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             PipingCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            Assert.AreEqual(1, entity.PipingSemiProbabilisticOutputEntities.Count);
-        }
-
-        private static decimal? GetExpectedValueForNullableDecimal(double valueThatCanBeNaN)
-        {
-            decimal? expectedExitPoint = null;
-            if (!double.IsNaN(valueThatCanBeNaN))
-            {
-                expectedExitPoint = Convert.ToDecimal(valueThatCanBeNaN);
-            }
-            return expectedExitPoint;
+            Assert.IsNotNull(entity.PipingSemiProbabilisticOutputEntity);
         }
 
         private double GetRandomDoubleFromRange(Random random, double lowerLimit, double upperLimit)

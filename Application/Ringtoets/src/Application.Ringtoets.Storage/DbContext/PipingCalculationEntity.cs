@@ -35,18 +35,13 @@ namespace Application.Ringtoets.Storage.DbContext
     
     public partial class PipingCalculationEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PipingCalculationEntity()
-        {
-            this.PipingCalculationOutputEntities = new HashSet<PipingCalculationOutputEntity>();
-            this.PipingSemiProbabilisticOutputEntities = new HashSet<PipingSemiProbabilisticOutputEntity>();
-        }
-    
         public long PipingCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
         public Nullable<long> SurfaceLineEntityId { get; set; }
         public Nullable<long> StochasticSoilProfileEntityId { get; set; }
         public Nullable<long> HydraulicLocationEntityId { get; set; }
+        public Nullable<long> PipingCalculationOutputEntityId { get; set; }
+        public Nullable<long> PipingSemiProbabilisticOutputEntityId { get; set; }
         public int Order { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
@@ -65,15 +60,12 @@ namespace Application.Ringtoets.Storage.DbContext
         public decimal SaturatedVolumicWeightOfCoverageLayerShift { get; set; }
         public byte RelevantForScenario { get; set; }
         public decimal ScenarioContribution { get; set; }
-        public Nullable<long> PipingSemiProbabilisticOutputEntityId { get; set; }
     
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
         public virtual SurfaceLineEntity SurfaceLineEntity { get; set; }
         public virtual StochasticSoilProfileEntity StochasticSoilProfileEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PipingCalculationOutputEntity> PipingCalculationOutputEntities { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PipingSemiProbabilisticOutputEntity> PipingSemiProbabilisticOutputEntities { get; set; }
+        public virtual PipingSemiProbabilisticOutputEntity PipingSemiProbabilisticOutputEntity { get; set; }
+        public virtual PipingCalculationOutputEntity PipingCalculationOutputEntity { get; set; }
     }
 }

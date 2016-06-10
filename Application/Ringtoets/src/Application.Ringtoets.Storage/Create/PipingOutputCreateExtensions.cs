@@ -49,24 +49,15 @@ namespace Application.Ringtoets.Storage.Create
             }
             var entity = new PipingCalculationOutputEntity
             {
-                HeaveFactorOfSafety = GetNullableDecimal(output.HeaveFactorOfSafety),
-                HeaveZValue = GetNullableDecimal(output.HeaveZValue),
-                SellmeijerFactorOfSafety = GetNullableDecimal(output.SellmeijerFactorOfSafety),
-                SellmeijerZValue = GetNullableDecimal(output.SellmeijerZValue),
-                UpliftFactorOfSafety = GetNullableDecimal(output.UpliftFactorOfSafety),
-                UpliftZValue = GetNullableDecimal(output.UpliftZValue)
+                HeaveFactorOfSafety = output.HeaveFactorOfSafety.ToNullableDecimal(),
+                HeaveZValue = output.HeaveZValue.ToNullableDecimal(),
+                SellmeijerFactorOfSafety = output.SellmeijerFactorOfSafety.ToNullableDecimal(),
+                SellmeijerZValue = output.SellmeijerZValue.ToNullableDecimal(),
+                UpliftFactorOfSafety = output.UpliftFactorOfSafety.ToNullableDecimal(),
+                UpliftZValue = output.UpliftZValue.ToNullableDecimal()
             };
             registry.Register(entity, output);
             return entity;
-        }
-
-        private static decimal? GetNullableDecimal(double parameterValue)
-        {
-            if (double.IsNaN(parameterValue))
-            {
-                return null;
-            }
-            return Convert.ToDecimal(parameterValue);
         }
     }
 }

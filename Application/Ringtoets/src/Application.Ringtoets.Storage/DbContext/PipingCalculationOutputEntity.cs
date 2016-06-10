@@ -35,8 +35,13 @@ namespace Application.Ringtoets.Storage.DbContext
     
     public partial class PipingCalculationOutputEntity
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PipingCalculationOutputEntity()
+        {
+            this.PipingCalculationEntities = new HashSet<PipingCalculationEntity>();
+        }
+    
         public long PipingCalculationOutputEntityId { get; set; }
-        public long PipingCalculationEntityId { get; set; }
         public Nullable<decimal> HeaveFactorOfSafety { get; set; }
         public Nullable<decimal> HeaveZValue { get; set; }
         public Nullable<decimal> UpliftFactorOfSafety { get; set; }
@@ -44,6 +49,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<decimal> SellmeijerFactorOfSafety { get; set; }
         public Nullable<decimal> SellmeijerZValue { get; set; }
     
-        public virtual PipingCalculationEntity PipingCalculationEntity { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }
     }
 }

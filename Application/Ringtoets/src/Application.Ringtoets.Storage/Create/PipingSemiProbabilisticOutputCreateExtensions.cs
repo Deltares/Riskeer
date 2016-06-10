@@ -52,32 +52,23 @@ namespace Application.Ringtoets.Storage.Create
             }
             var entity = new PipingSemiProbabilisticOutputEntity
             {
-                UpliftFactorOfSafety = GetNullableDecimal(semiProbabilisticOutput.UpliftFactorOfSafety),
-                UpliftReliability = GetNullableDecimal(semiProbabilisticOutput.UpliftReliability),
-                UpliftProbability = GetNullableDecimal(semiProbabilisticOutput.UpliftProbability),
-                HeaveFactorOfSafety = GetNullableDecimal(semiProbabilisticOutput.HeaveFactorOfSafety),
-                HeaveReliability = GetNullableDecimal(semiProbabilisticOutput.HeaveReliability),
-                HeaveProbability = GetNullableDecimal(semiProbabilisticOutput.HeaveProbability),
-                SellmeijerFactorOfSafety = GetNullableDecimal(semiProbabilisticOutput.SellmeijerFactorOfSafety),
-                SellmeijerReliability = GetNullableDecimal(semiProbabilisticOutput.SellmeijerReliability),
-                SellmeijerProbability = GetNullableDecimal(semiProbabilisticOutput.SellmeijerProbability),
-                RequiredProbability = GetNullableDecimal(semiProbabilisticOutput.RequiredProbability),
-                RequiredReliability = GetNullableDecimal(semiProbabilisticOutput.RequiredReliability),
-                PipingProbability = GetNullableDecimal(semiProbabilisticOutput.PipingProbability),
-                PipingReliability = GetNullableDecimal(semiProbabilisticOutput.PipingReliability),
-                PipingFactorOfSafety = GetNullableDecimal(semiProbabilisticOutput.PipingFactorOfSafety),
+                UpliftFactorOfSafety = semiProbabilisticOutput.UpliftFactorOfSafety.Value.ToNullableDecimal(),
+                UpliftReliability = semiProbabilisticOutput.UpliftReliability.Value.ToNullableDecimal(),
+                UpliftProbability = semiProbabilisticOutput.UpliftProbability.Value.ToNullableDecimal(),
+                HeaveFactorOfSafety = semiProbabilisticOutput.HeaveFactorOfSafety.Value.ToNullableDecimal(),
+                HeaveReliability = semiProbabilisticOutput.HeaveReliability.Value.ToNullableDecimal(),
+                HeaveProbability = semiProbabilisticOutput.HeaveProbability.Value.ToNullableDecimal(),
+                SellmeijerFactorOfSafety = semiProbabilisticOutput.SellmeijerFactorOfSafety.Value.ToNullableDecimal(),
+                SellmeijerReliability = semiProbabilisticOutput.SellmeijerReliability.Value.ToNullableDecimal(),
+                SellmeijerProbability = semiProbabilisticOutput.SellmeijerProbability.Value.ToNullableDecimal(),
+                RequiredProbability = semiProbabilisticOutput.RequiredProbability.Value.ToNullableDecimal(),
+                RequiredReliability = semiProbabilisticOutput.RequiredReliability.Value.ToNullableDecimal(),
+                PipingProbability = semiProbabilisticOutput.PipingProbability.Value.ToNullableDecimal(),
+                PipingReliability = semiProbabilisticOutput.PipingReliability.Value.ToNullableDecimal(),
+                PipingFactorOfSafety = semiProbabilisticOutput.PipingFactorOfSafety.Value.ToNullableDecimal(),
             };
             registry.Register(entity, semiProbabilisticOutput);
             return entity;
-        }
-
-        private static decimal? GetNullableDecimal(RoundedDouble parameterValue)
-        {
-            if (double.IsNaN(parameterValue))
-            {
-                return null;
-            }
-            return Convert.ToDecimal(parameterValue);
         }
     }
 }

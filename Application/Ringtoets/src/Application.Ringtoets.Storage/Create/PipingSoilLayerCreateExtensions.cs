@@ -48,22 +48,13 @@ namespace Application.Ringtoets.Storage.Create
             {
                 IsAquifer = Convert.ToByte(layer.IsAquifer),
                 Top = Convert.ToDecimal(layer.Top),
-                AbovePhreaticLevel = ToNullableDecimal(layer.AbovePhreaticLevel),
-                BelowPhreaticLevel = ToNullableDecimal(layer.BelowPhreaticLevel),
-                DryUnitWeight = ToNullableDecimal(layer.DryUnitWeight)
+                AbovePhreaticLevel = layer.AbovePhreaticLevel.ToNullableDecimal(),
+                BelowPhreaticLevel = layer.BelowPhreaticLevel.ToNullableDecimal(),
+                DryUnitWeight = layer.DryUnitWeight.ToNullableDecimal()
             };
 
             registry.Register(entity, layer);
             return entity;
-        }
-
-        private static decimal? ToNullableDecimal(double? parameterValue)
-        {
-            if (parameterValue == null)
-            {
-                return null;
-            }
-            return Convert.ToDecimal(parameterValue);
         }
     }
 }

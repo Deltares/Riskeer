@@ -83,8 +83,8 @@ namespace Application.Ringtoets.Storage.Create
                 entity.StochasticSoilProfileEntity = registry.Get(inputParameters.StochasticSoilProfile);
             }
 
-            entity.ExitPointL = ToNullableDecimal(inputParameters.ExitPointL);
-            entity.EntryPointL = ToNullableDecimal(inputParameters.EntryPointL);
+            entity.ExitPointL = inputParameters.ExitPointL.Value.ToNullableDecimal();
+            entity.EntryPointL = inputParameters.EntryPointL.Value.ToNullableDecimal();
 
             entity.PhreaticLevelExitMean = Convert.ToDecimal(inputParameters.PhreaticLevelExit.Mean);
             entity.PhreaticLevelExitStandardDeviation = Convert.ToDecimal(inputParameters.PhreaticLevelExit.StandardDeviation);
@@ -103,20 +103,11 @@ namespace Application.Ringtoets.Storage.Create
             entity.DarcyPermeabilityStandardDeviation = Convert.ToDecimal(inputParameters.DarcyPermeability.StandardDeviation);
         }
 
-        private static decimal? ToNullableDecimal(RoundedDouble parameter)
-        {
-            if (double.IsNaN(parameter))
-            {
-                return null;
-            }
-            return Convert.ToDecimal(parameter);
-        }
-
         private static void CreatePipingOutputEntity(PipingCalculationEntity entity, PipingOutput output, PersistenceRegistry registry)
         {
             if (output != null)
             {
-                entity.PipingCalculationOutputEntities.Add(output.Create(registry));
+                entity.PipingCalculationOutputEntity = output.Create(registry);
             }
         }
 
@@ -124,7 +115,7 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (output != null)
             {
-                entity.PipingSemiProbabilisticOutputEntities.Add(output.Create(registry));
+                entity.PipingSemiProbabilisticOutputEntity = output.Create(registry);
             }
         }
     }

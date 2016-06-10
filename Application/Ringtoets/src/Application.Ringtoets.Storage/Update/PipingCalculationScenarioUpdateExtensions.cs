@@ -87,8 +87,8 @@ namespace Application.Ringtoets.Storage.Update
                                                      null :
                                                      registry.Get(inputParameters.StochasticSoilProfile);
 
-            entity.EntryPointL = GetNullableDecimal(inputParameters.EntryPointL);
-            entity.ExitPointL = GetNullableDecimal(inputParameters.ExitPointL);
+            entity.EntryPointL = inputParameters.EntryPointL.Value.ToNullableDecimal();
+            entity.ExitPointL = inputParameters.ExitPointL.Value.ToNullableDecimal();
 
             entity.PhreaticLevelExitMean = Convert.ToDecimal(inputParameters.PhreaticLevelExit.Mean);
             entity.PhreaticLevelExitStandardDeviation = Convert.ToDecimal(inputParameters.PhreaticLevelExit.StandardDeviation);
@@ -126,15 +126,6 @@ namespace Application.Ringtoets.Storage.Update
             }
         }
 
-        private static decimal? GetNullableDecimal(RoundedDouble value)
-        {
-            if (double.IsNaN(value))
-            {
-                return null;
-            }
-            return Convert.ToDecimal(value);
-        }
-
         private static void UpdatePipingCalculationOutputs(PipingCalculationEntity entity, PipingCalculationScenario calculation, PersistenceRegistry registry)
         {
             if (calculation.Output != null)
@@ -142,19 +133,16 @@ namespace Application.Ringtoets.Storage.Update
                 PipingOutput pipingOutput = calculation.Output;
                 if (pipingOutput.IsNew())
                 {
-                    entity.PipingCalculationOutputEntities.Clear();
-                    entity.PipingCalculationOutputEntities.Add(pipingOutput.Create(registry));
+                    entity.PipingCalculationOutputEntity = pipingOutput.Create(registry);
                 }
                 else
                 {
-                    registry.Register(entity.PipingCalculationOutputEntities.Single(), pipingOutput);
+                    registry.Register(entity.PipingCalculationOutputEntity, pipingOutput);
                 }
-
-
             }
             else
             {
-                entity.PipingCalculationOutputEntities.Clear();
+                entity.PipingCalculationOutputEntity = null;
             }
 
             if (calculation.SemiProbabilisticOutput != null)
@@ -162,17 +150,16 @@ namespace Application.Ringtoets.Storage.Update
                 PipingSemiProbabilisticOutput semiProbabilisticOutput = calculation.SemiProbabilisticOutput;
                 if (semiProbabilisticOutput.IsNew())
                 {
-                    entity.PipingSemiProbabilisticOutputEntities.Clear();
-                    entity.PipingSemiProbabilisticOutputEntities.Add(semiProbabilisticOutput.Create(registry));
+                    entity.PipingSemiProbabilisticOutputEntity = semiProbabilisticOutput.Create(registry);
                 }
                 else
                 {
-                    registry.Register(entity.PipingSemiProbabilisticOutputEntities.Single(), semiProbabilisticOutput);
+                    registry.Register(entity.PipingSemiProbabilisticOutputEntity, semiProbabilisticOutput);
                 }
             }
             else
             {
-                entity.PipingSemiProbabilisticOutputEntities.Clear();
+                entity.PipingSemiProbabilisticOutputEntity = null;
             }
         }
     }

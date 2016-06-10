@@ -1099,10 +1099,10 @@ namespace Application.Ringtoets.Storage.Test.Create
 
         #endregion
 
-        #region TransferId method
+        #region TransferIds method
 
         [Test]
-        public void TransferId_WithProjectEntityAdded_EqualProjectEntityIdAndProjectStorageId()
+        public void TransferIds_WithProjectEntityAdded_EqualProjectEntityIdAndProjectStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1123,7 +1123,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void TransferId_WithAssessmentSectionEntityAdded_EqualAssessmentSectionEntityIdAndAssessmentSectionStorageId()
+        public void TransferIds_WithAssessmentSectionEntityAdded_EqualAssessmentSectionEntityIdAndAssessmentSectionStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1144,7 +1144,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void TransferId_WithFailureMechanismEntityAddedWithPipingFailureMechanism_EqualFailureMechanismEntityIdAndPipingFailureMechanismStorageId()
+        public void TransferIds_WithFailureMechanismEntityAddedWithPipingFailureMechanism_EqualFailureMechanismEntityIdAndPipingFailureMechanismStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1165,7 +1165,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void TransferId_WithFailureMechanismEntityAddedWithStandAloneFailureMechanism_EqualFailureMechanismEntityIdAndStandAloneFailureMechanismStorageId()
+        public void TransferIds_WithFailureMechanismEntityAddedWithStandAloneFailureMechanism_EqualFailureMechanismEntityIdAndStandAloneFailureMechanismStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1186,7 +1186,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void TransferId_WithFailureMechanismSectionEntityAddedWithFailureMechanismSection_EqualFailureMechanismSectionEntityIdAndFailureMechanismSectionStorageId()
+        public void TransferIds_WithFailureMechanismSectionEntityAddedWithFailureMechanismSection_EqualFailureMechanismSectionEntityIdAndFailureMechanismSectionStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1207,7 +1207,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void TransferId_WithHydraulicLocationEntityAdded_EqualHydraulicLocationEntityIdAndHydraulicBoundaryLocationStorageId()
+        public void TransferIds_WithHydraulicLocationEntityAdded_EqualHydraulicLocationEntityIdAndHydraulicBoundaryLocationStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1228,7 +1228,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void TransferId_WithCalculationGroupEntityAdded_EqualCalculationGroupEntityIdAndCalculationGroupStorageId()
+        public void TransferIds_WithCalculationGroupEntityAdded_EqualCalculationGroupEntityIdAndCalculationGroupStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1249,7 +1249,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void TransferId_WithPipingCalculationEntityAdded_EqualPipingCalculationEntityIdAndPipingCalculationScenarioStorageId()
+        public void TransferIds_WithPipingCalculationEntityAdded_EqualPipingCalculationEntityIdAndPipingCalculationScenarioStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1270,7 +1270,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void TransferId_WithPipingCalculationOutputEntityAdded_EqualPipingCalculationOutputEntityIdAndPipingOutputStorageId()
+        public void TransferIds_WithPipingCalculationOutputEntityAdded_EqualPipingCalculationOutputEntityIdAndPipingOutputStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1291,7 +1291,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void TransferId_WithPipingSemiProbabilisticOutputEntityAdded_EqualPipingSemiProbabilisticOutputEntityIdAndPipingSemiProbabilisticOutputStorageId()
+        public void TransferIds_WithPipingSemiProbabilisticOutputEntityAdded_EqualPipingSemiProbabilisticOutputEntityIdAndPipingSemiProbabilisticOutputStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1312,7 +1312,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void TransferId_WithStochasticSoilModelEntityAdded_EqualStochasticSoilModelEntityIdAndStochasticSoilModelStorageId()
+        public void TransferIds_WithStochasticSoilModelEntityAdded_EqualStochasticSoilModelEntityIdAndStochasticSoilModelStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1333,7 +1333,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void TransferId_WithStochasticSoilProfileEntityAdded_EqualStochasticSoilProfileEntityIdAndStochasticSoilProfileStorageId()
+        public void TransferIds_WithStochasticSoilProfileEntityAdded_EqualStochasticSoilProfileEntityIdAndStochasticSoilProfileStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1354,7 +1354,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void TransferId_WithSoilProfileEntityAdded_EqualSoilProfileEntityIdAndPipingSoilProfileStorageId()
+        public void TransferIds_WithSoilProfileEntityAdded_EqualSoilProfileEntityIdAndPipingSoilProfileStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1375,7 +1375,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void TransferId_WithSoilLayerEntityAdded_EqualSoilLayerEntityIdAndPipingSoilLayerStorageId()
+        public void TransferIds_WithSoilLayerEntityAdded_EqualSoilLayerEntityIdAndPipingSoilLayerStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1396,7 +1396,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void TransferId_WithSurfaceLineEntityAdded_EqualSurfaceLineEntityIdAndRingtoetsPipingSurfaceLineStorageId()
+        public void TransferIds_WithSurfaceLineEntityAdded_EqualSurfaceLineEntityIdAndRingtoetsPipingSurfaceLineStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1417,7 +1417,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void TransferId_WithSurfaceLinePointEntityAdded_EqualSurfaceLinePointEntityIdAndPoint3DStorageId()
+        public void TransferIds_WithSurfaceLinePointEntityAdded_EqualSurfaceLinePointEntityIdAndPoint3DStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1438,7 +1438,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void TransferId_WithPipingFailureMechanismMetaEntityAdded_EqualFailureMechanismMetaEntityIdAndPipingProbabilityAssessmentInputStorageId()
+        public void TransferIds_WithPipingFailureMechanismMetaEntityAdded_EqualFailureMechanismMetaEntityIdAndPipingProbabilityAssessmentInputStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1680,13 +1680,13 @@ namespace Application.Ringtoets.Storage.Test.Create
             dbContext.PipingCalculationEntities.Add(orphanedEntity);
             dbContext.PipingCalculationEntities.Add(persistentEntity);
 
-            var calculationGroup = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 StorageId = persistentEntity.PipingCalculationEntityId
             };
 
             var registry = new PersistenceRegistry();
-            registry.Register(persistentEntity, calculationGroup);
+            registry.Register(persistentEntity, calculation);
 
             // Call
             registry.RemoveUntouched(dbContext);
@@ -1716,13 +1716,13 @@ namespace Application.Ringtoets.Storage.Test.Create
             dbContext.PipingCalculationOutputEntities.Add(orphanedEntity);
             dbContext.PipingCalculationOutputEntities.Add(persistentEntity);
 
-            var calculationGroup = new PipingOutput(1,2,3,4,5,6)
+            var pipingOutput = new PipingOutput(1,2,3,4,5,6)
             {
                 StorageId = persistentEntity.PipingCalculationOutputEntityId
             };
 
             var registry = new PersistenceRegistry();
-            registry.Register(persistentEntity, calculationGroup);
+            registry.Register(persistentEntity, pipingOutput);
 
             // Call
             registry.RemoveUntouched(dbContext);

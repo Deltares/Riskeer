@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-
 using Application.Ringtoets.Storage.DbContext;
 
 using Ringtoets.Piping.Data;
@@ -43,23 +41,14 @@ namespace Application.Ringtoets.Storage.Read
         internal static PipingSemiProbabilisticOutput Read(this PipingSemiProbabilisticOutputEntity entity)
         {
             return new PipingSemiProbabilisticOutput(
-                GetNanDouble(entity.UpliftFactorOfSafety), GetNanDouble(entity.UpliftReliability), GetNanDouble(entity.UpliftProbability),
-                GetNanDouble(entity.HeaveFactorOfSafety), GetNanDouble(entity.HeaveReliability), GetNanDouble(entity.HeaveProbability),
-                GetNanDouble(entity.SellmeijerFactorOfSafety), GetNanDouble(entity.SellmeijerReliability), GetNanDouble(entity.SellmeijerProbability),
-                GetNanDouble(entity.RequiredProbability), GetNanDouble(entity.RequiredReliability),
-                GetNanDouble(entity.PipingProbability), GetNanDouble(entity.PipingReliability), GetNanDouble(entity.PipingFactorOfSafety))
+                entity.UpliftFactorOfSafety.ToNanableDouble(), entity.UpliftReliability.ToNanableDouble(), entity.UpliftProbability.ToNanableDouble(),
+                entity.HeaveFactorOfSafety.ToNanableDouble(), entity.HeaveReliability.ToNanableDouble(), entity.HeaveProbability.ToNanableDouble(),
+                entity.SellmeijerFactorOfSafety.ToNanableDouble(), entity.SellmeijerReliability.ToNanableDouble(), entity.SellmeijerProbability.ToNanableDouble(),
+                entity.RequiredProbability.ToNanableDouble(), entity.RequiredReliability.ToNanableDouble(),
+                entity.PipingProbability.ToNanableDouble(), entity.PipingReliability.ToNanableDouble(), entity.PipingFactorOfSafety.ToNanableDouble())
             {
                 StorageId = entity.PipingSemiProbabilisticOutputEntityId
             };
-        }
-
-        private static double GetNanDouble(decimal? parameterValue)
-        {
-            if (parameterValue == null)
-            {
-                return double.NaN;
-            }
-            return Convert.ToDouble(parameterValue);
         }
     }
 }

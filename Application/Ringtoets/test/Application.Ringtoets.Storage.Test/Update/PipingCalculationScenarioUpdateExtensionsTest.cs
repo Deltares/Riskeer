@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
@@ -165,8 +164,8 @@ namespace Application.Ringtoets.Storage.Test.Update
             Assert.AreEqual(calculation.Comments, entity.Comments);
 
             PipingInput inputParameters = calculation.InputParameters;
-            Assert.AreEqual(ToNullableDecimal(inputParameters.EntryPointL), entity.EntryPointL);
-            Assert.AreEqual(ToNullableDecimal(inputParameters.ExitPointL), entity.ExitPointL);
+            Assert.AreEqual(inputParameters.EntryPointL.Value.ToNullableDecimal(), entity.EntryPointL);
+            Assert.AreEqual(inputParameters.ExitPointL.Value.ToNullableDecimal(), entity.ExitPointL);
 
             Assert.AreEqual(inputParameters.PhreaticLevelExit.Mean.Value, entity.PhreaticLevelExitMean);
             Assert.AreEqual(inputParameters.PhreaticLevelExit.StandardDeviation.Value, entity.PhreaticLevelExitStandardDeviation);
@@ -644,9 +643,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             calculation.Update(registry, context);
 
             // Assert
-            Assert.AreEqual(1, entity.PipingCalculationOutputEntities.Count);
-
-            PipingCalculationOutputEntity pipingCalculationOutputEntity = entity.PipingCalculationOutputEntities.First();
+            PipingCalculationOutputEntity pipingCalculationOutputEntity = entity.PipingCalculationOutputEntity;
             pipingCalculationOutputEntity.PipingCalculationOutputEntityId = 495876;
             registry.TransferIds();
             Assert.AreEqual(pipingCalculationOutputEntity.PipingCalculationOutputEntityId, calculation.Output.StorageId,
@@ -668,9 +665,9 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
             var entity = new PipingCalculationEntity
             {
-                PipingCalculationEntityId = 453
+                PipingCalculationEntityId = 453,
+                PipingCalculationOutputEntity = calculationOutputEntity
             };
-            entity.PipingCalculationOutputEntities.Add(calculationOutputEntity);
             context.PipingCalculationEntities.Add(entity);
             context.PipingCalculationOutputEntities.Add(calculationOutputEntity);
 
@@ -730,9 +727,9 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
             var entity = new PipingCalculationEntity
             {
-                PipingCalculationEntityId = 453
+                PipingCalculationEntityId = 453,
+                PipingCalculationOutputEntity = calculationOutputEntity
             };
-            entity.PipingCalculationOutputEntities.Add(calculationOutputEntity);
             context.PipingCalculationEntities.Add(entity);
             context.PipingCalculationOutputEntities.Add(calculationOutputEntity);
 
@@ -769,7 +766,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             calculation.Update(registry, context);
 
             // Assert
-            CollectionAssert.IsEmpty(entity.PipingCalculationOutputEntities);
+            Assert.IsNull(entity.PipingCalculationOutputEntity);
 
             registry.RemoveUntouched(context);
             CollectionAssert.DoesNotContain(context.PipingCalculationOutputEntities, calculationOutputEntity);
@@ -827,9 +824,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             calculation.Update(registry, context);
 
             // Assert
-            Assert.AreEqual(1, entity.PipingSemiProbabilisticOutputEntities.Count);
-
-            PipingSemiProbabilisticOutputEntity semiProbabilisticOutputEntity = entity.PipingSemiProbabilisticOutputEntities.First();
+            PipingSemiProbabilisticOutputEntity semiProbabilisticOutputEntity = entity.PipingSemiProbabilisticOutputEntity;
             semiProbabilisticOutputEntity.PipingSemiProbabilisticOutputEntityId = 546;
             registry.TransferIds();
             Assert.AreEqual(semiProbabilisticOutputEntity.PipingSemiProbabilisticOutputEntityId, calculation.SemiProbabilisticOutput.StorageId,
@@ -851,9 +846,9 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
             var entity = new PipingCalculationEntity
             {
-                PipingCalculationEntityId = 453
+                PipingCalculationEntityId = 453,
+                PipingSemiProbabilisticOutputEntity = semiProbabilisticOutputEntity
             };
-            entity.PipingSemiProbabilisticOutputEntities.Add(semiProbabilisticOutputEntity);
             context.PipingCalculationEntities.Add(entity);
             context.PipingSemiProbabilisticOutputEntities.Add(semiProbabilisticOutputEntity);
 
@@ -917,9 +912,9 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
             var entity = new PipingCalculationEntity
             {
-                PipingCalculationEntityId = 453
+                PipingCalculationEntityId = 453,
+                PipingSemiProbabilisticOutputEntity = semiProbabilisticOutputEntity
             };
-            entity.PipingSemiProbabilisticOutputEntities.Add(semiProbabilisticOutputEntity);
             context.PipingCalculationEntities.Add(entity);
             context.PipingSemiProbabilisticOutputEntities.Add(semiProbabilisticOutputEntity);
 
@@ -956,20 +951,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             calculation.Update(registry, context);
 
             // Assert
-            CollectionAssert.IsEmpty(entity.PipingSemiProbabilisticOutputEntities);
+            Assert.IsNull(entity.PipingSemiProbabilisticOutputEntity);
 
             registry.RemoveUntouched(context);
             CollectionAssert.DoesNotContain(context.PipingSemiProbabilisticOutputEntities, semiProbabilisticOutputEntity);
             mocks.VerifyAll();
-        }
-        
-        private decimal? ToNullableDecimal(RoundedDouble roundedDoubleValue)
-        {
-            if (double.IsNaN(roundedDoubleValue))
-            {
-                return null;
-            }
-            return Convert.ToDecimal(roundedDoubleValue);
         }
     }
 }

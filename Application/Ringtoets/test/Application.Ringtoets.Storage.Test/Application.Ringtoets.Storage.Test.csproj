@@ -101,6 +101,8 @@
     <Compile Include="Create\ProjectCreateExtensionsTest.cs" />
     <Compile Include="Create\StochasticSoilModelCreateExtensionsTest.cs" />
     <Compile Include="Create\StochasticSoilProfileCreateExtensionsTest.cs" />
+    <Compile Include="DecimalConversionExtensionsTests.cs" />
+    <Compile Include="DoubleConversionExtensionsTest.cs" />
     <Compile Include="Read\AssessmentSectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentionsTest.cs" />
     <Compile Include="Read\FailureMechanismEntityReadExtensionsTest.cs" />
