@@ -229,6 +229,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
             this.levelColumnDataGridViewTextBoxColumn.Name = "levelColumnDataGridViewTextBoxColumn";
             this.levelColumnDataGridViewTextBoxColumn.ReadOnly = true;
             this.levelColumnDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.levelColumnDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // timeColumnDataGridViewTextBoxColumn
             // 
@@ -240,7 +241,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
             this.timeColumnDataGridViewTextBoxColumn.Name = "timeColumnDataGridViewTextBoxColumn";
             this.timeColumnDataGridViewTextBoxColumn.ReadOnly = true;
             this.timeColumnDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.timeColumnDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // messageColumnDataGridViewTextBoxColumn
             // 
@@ -250,7 +250,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
             this.messageColumnDataGridViewTextBoxColumn.Name = "messageColumnDataGridViewTextBoxColumn";
             this.messageColumnDataGridViewTextBoxColumn.ReadOnly = true;
             this.messageColumnDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.messageColumnDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // MessageWindow
             // 
