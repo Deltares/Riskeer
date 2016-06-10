@@ -27,11 +27,32 @@ namespace Application.Ringtoets.Storage.Test
 
             // Assert
             Assert.IsNotNullOrEmpty(connectionString);
-            StringAssert.Contains(pathToSqLiteFile, connectionString);
             StringAssert.Contains(String.Format("metadata=res://*/{0}.csdl|res://*/{0}.ssdl|res://*/{0}.msl;", "DbContext.RingtoetsEntities"), connectionString);
             StringAssert.Contains("provider=System.Data.SQLite.EF6", connectionString);
             StringAssert.Contains("failifmissing=True", connectionString);
             StringAssert.Contains(String.Format("data source={0}", pathToSqLiteFile), connectionString);
+            StringAssert.Contains("read only=False", connectionString);
+            StringAssert.Contains("foreign keys=True", connectionString);
+            StringAssert.Contains("version=3", connectionString);
+            StringAssert.Contains("pooling=True", connectionString);
+        }
+
+
+        [Test]
+        public void BuildSqLiteEntityConnectionString_ValidUncPathToSqLiteFile_ValidConnectionString()
+        {
+            // Setup
+            const string uncPathToSqlFile = @"\\server\share\file.sqlite";
+
+            // Call
+            var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteEntityConnectionString(uncPathToSqlFile);
+
+            // Assert
+            Assert.IsNotNullOrEmpty(connectionString);
+            StringAssert.Contains(String.Format("metadata=res://*/{0}.csdl|res://*/{0}.ssdl|res://*/{0}.msl;", "DbContext.RingtoetsEntities"), connectionString);
+            StringAssert.Contains("provider=System.Data.SQLite.EF6", connectionString);
+            StringAssert.Contains("failifmissing=True", connectionString);
+            StringAssert.Contains(String.Format(@"data source=\\{0}", uncPathToSqlFile), connectionString);
             StringAssert.Contains("read only=False", connectionString);
             StringAssert.Contains("foreign keys=True", connectionString);
             StringAssert.Contains("version=3", connectionString);
@@ -84,7 +105,7 @@ namespace Application.Ringtoets.Storage.Test
             StringAssert.DoesNotContain("metadata=", connectionString);
             StringAssert.DoesNotContain("System.Data.SQLite.EF6", connectionString);
             StringAssert.Contains("failifmissing=True", connectionString);
-            StringAssert.Contains(String.Format(@"data source=\\{0}", uncPathToSqlFile), connectionString);
+            StringAssert.Contains(String.Format(@"data source={0}", uncPathToSqlFile), connectionString);
             StringAssert.Contains("read only=False", connectionString);
             StringAssert.Contains("foreign keys=True", connectionString);
             StringAssert.Contains("version=3", connectionString);

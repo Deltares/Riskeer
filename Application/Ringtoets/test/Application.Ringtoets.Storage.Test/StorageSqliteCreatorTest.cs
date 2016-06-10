@@ -47,6 +47,28 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
+        public void CreateDatabaseStructure_WithNonExistingPath_DoesNotThrowException()
+        {
+            // Setup
+            const string fileName = "DoesNotExist.sqlite";
+            var fullPath = Path.GetFullPath(Path.Combine(testDataPath, fileName));
+
+            // Precondition
+            Assert.IsFalse(File.Exists(fullPath));
+
+            using (new FileDisposeHelper(fullPath))
+            {
+                // Call
+                TestDelegate call = () => StorageSqliteCreator.CreateDatabaseStructure(fullPath);
+
+                // Assert
+                Assert.DoesNotThrow(call);
+
+                Assert.IsTrue(File.Exists(fullPath));
+            }
+        }
+
+        [Test]
         public void CreateDatabaseStructure_WithNonExistingNetworkPath_DoesNotThrowException()
         {
             // Setup
@@ -72,9 +94,7 @@ namespace Application.Ringtoets.Storage.Test
         [Test]
         public void CreateDatabaseStructure_ValidPathToLockedFile_ThrowsUpdateStorageException()
         {
-            // Setup
-            FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
-            try
+            using (new FileDisposeHelper(tempRingtoetsFile))
             {
                 // Call
                 TestDelegate call = () => StorageSqliteCreator.CreateDatabaseStructure(tempRingtoetsFile);
@@ -87,14 +107,9 @@ namespace Application.Ringtoets.Storage.Test
 
                 // Assert
                 Assert.IsInstanceOf<UpdateStorageException>(exception.InnerException);
-                var expectedMessage = String.Format(@"Fout bij het schrijven naar bestand '{0}': "+
-                    "Een fout is opgetreden met schrijven naar het nieuwe Ringtoets bestand.", tempRingtoetsFile);
+                var expectedMessage = String.Format(@"Fout bij het schrijven naar bestand '{0}': " +
+                                                    "Een fout is opgetreden met schrijven naar het nieuwe Ringtoets bestand.", tempRingtoetsFile);
                 Assert.AreEqual(expectedMessage, exception.Message);
-            }
-            finally
-            {
-                CallGarbageCollector();
-                fileDisposeHelper.Dispose();
             }
         }
 
@@ -108,12 +123,6 @@ namespace Application.Ringtoets.Storage.Test
 
             var uncPath = new Uri(Path.Combine(@"\\localhost", drive + "$", relativePath));
             return uncPath.LocalPath;
-        }
-
-        private static void CallGarbageCollector()
-        {
-            //GC.Collect();
-            //GC.WaitForPendingFinalizers();
         }
     }
 }

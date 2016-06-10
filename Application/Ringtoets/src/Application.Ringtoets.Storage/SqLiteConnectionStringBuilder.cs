@@ -38,11 +38,15 @@ namespace Application.Ringtoets.Storage
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/> is <c>null</c>.</exception>
         public static string BuildSqLiteEntityConnectionString(string filePath)
         {
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentNullException("filePath", @"Cannot create a connection string without the path to the file to connect to.");
+            }
             return new EntityConnectionStringBuilder
             {
                 Metadata = string.Format(@"res://*/{0}.csdl|res://*/{0}.ssdl|res://*/{0}.msl", "DbContext.RingtoetsEntities"),
                 Provider = @"System.Data.SQLite.EF6",
-                ProviderConnectionString = BuildSqLiteConnectionString(filePath)
+                ProviderConnectionString = BuildSqLiteConnectionString(GetDataSourceLocation(filePath))
             }.ConnectionString;
         }
 
@@ -61,7 +65,7 @@ namespace Application.Ringtoets.Storage
             return new SQLiteConnectionStringBuilder
             {
                 FailIfMissing = true,
-                DataSource = GetDataSourceLocation(filePath),
+                DataSource = filePath,
                 ReadOnly = false,
                 ForeignKeys = true,
                 Version = 3,
