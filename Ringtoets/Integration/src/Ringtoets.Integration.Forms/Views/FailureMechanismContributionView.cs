@@ -126,9 +126,9 @@ namespace Ringtoets.Integration.Forms.Views
         {
             assessmentSectionCompositionComboBox.DataSource = new[]
             {
-                Tuple.Create(AssessmentSectionComposition.Dike, "Dijk"),
-                Tuple.Create(AssessmentSectionComposition.Dune, "Duin"),
-                Tuple.Create(AssessmentSectionComposition.DikeAndDune, "Dijk / Duin")
+                Tuple.Create(AssessmentSectionComposition.Dike, RingtoetsIntegrationFormsResources.FailureMechanismContributionView_InitializeAssessmentSectionCompositionComboBox_Dike),
+                Tuple.Create(AssessmentSectionComposition.Dune, RingtoetsIntegrationFormsResources.FailureMechanismContributionView_InitializeAssessmentSectionCompositionComboBox_Dune),
+                Tuple.Create(AssessmentSectionComposition.DikeAndDune, RingtoetsIntegrationFormsResources.FailureMechanismContributionView_InitializeAssessmentSectionCompositionComboBox_DikeAndDune)
             };
             assessmentSectionCompositionComboBox.ValueMember = TypeUtils.GetMemberName<Tuple<AssessmentSectionComposition, string>>(t => t.Item1);
             assessmentSectionCompositionComboBox.DisplayMember = TypeUtils.GetMemberName<Tuple<AssessmentSectionComposition, string>>(t => t.Item2);

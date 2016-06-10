@@ -239,4 +239,13 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="Calculation_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
+  <data name="FailureMechanismContributionView_InitializeAssessmentSectionCompositionComboBox_Dike" xml:space="preserve">
+    <value>Dijk</value>
+  </data>
+  <data name="FailureMechanismContributionView_InitializeAssessmentSectionCompositionComboBox_Dune" xml:space="preserve">
+    <value>Duin</value>
+  </data>
+  <data name="FailureMechanismContributionView_InitializeAssessmentSectionCompositionComboBox_DikeAndDune" xml:space="preserve">
+    <value>Dijk / Duin</value>
+  </data>
 </root>

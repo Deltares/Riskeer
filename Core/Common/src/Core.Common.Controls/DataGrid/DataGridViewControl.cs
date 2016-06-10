@@ -378,15 +378,17 @@ namespace Core.Common.Controls.DataGrid
 
         private void DataGridViewOnLeave(object sender, EventArgs eventArgs)
         {
-            if (!Disposing && dataGridView.CurrentCell != null && dataGridView.CurrentCell.IsInEditMode)
+            if (!Disposing && IsCurrentCellInEditMode)
             {
                 // Try to end the edit action
                 if (!dataGridView.EndEdit())
                 {
                     // Cancel the edit action on validation errors
                     dataGridView.CancelEdit();
-                    dataGridView.Rows[dataGridView.CurrentCell.RowIndex].ErrorText = string.Empty;
+                    dataGridView.CurrentCell.OwningRow.ErrorText = string.Empty;
                 }
+
+                dataGridView.CurrentCell = null;
             }
         }
 

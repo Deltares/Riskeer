@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
@@ -1285,6 +1285,79 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 // Assert
                 Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
+            }
+        }
+
+        [Test]
+        public void DataGridView_OnLeaveValidEditValue_ValueCommitted()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                control.AddTextBoxColumn("TestRoundedDouble", "Test header");
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+                dataGridView.DataSource = new[] { new TestDataGridViewRow(new RoundedDouble(0, 25)) };
+
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+                string newValue = "3";
+
+                dataGridViewCell.Value = newValue;
+
+                // Precondition
+                Assert.IsTrue(dataGridView.IsCurrentCellInEditMode);
+                Assert.AreEqual(string.Empty, dataGridView.Rows[0].ErrorText);
+
+                // Call
+                gridTester.FireEvent("Leave", EventArgs.Empty);
+
+                // Assert
+                Assert.IsFalse(dataGridView.IsCurrentCellInEditMode);
+                Assert.AreEqual(new RoundedDouble(2, Convert.ToDouble(newValue)), new RoundedDouble(2, Convert.ToDouble(dataGridViewCell.FormattedValue)));
+            }
+        }
+
+        [Test]
+        public void DataGridView_OnLeaveInvalidEditValue_EditCanceledValueNotCommitted()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                double initialValue = 25;
+
+                control.AddTextBoxColumn("TestRoundedDouble", "Test header");
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+                dataGridView.DataSource = new[] { new TestDataGridViewRow(new RoundedDouble(0, initialValue)) };
+
+                var dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+                string newValue = "test";
+
+                dataGridViewCell.Value = newValue;
+
+                // Precondition
+                Assert.IsTrue(dataGridView.IsCurrentCellInEditMode);
+                Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
+
+                // Call
+                gridTester.FireEvent("Leave", EventArgs.Empty);
+
+                // Assert
+                Assert.IsFalse(dataGridView.IsCurrentCellInEditMode);
+                Assert.AreEqual(string.Empty, dataGridView.Rows[0].ErrorText);
+                Assert.AreEqual(initialValue.ToString(CultureInfo.CurrentCulture), dataGridViewCell.FormattedValue);
             }
         }
 
