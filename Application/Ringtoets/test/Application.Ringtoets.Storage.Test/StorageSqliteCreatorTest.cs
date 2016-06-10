@@ -28,6 +28,8 @@ namespace Application.Ringtoets.Storage.Test
 {
     public class StorageSqliteCreatorTest
     {
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
+
         [Test]
         [TestCase(null)]
         [TestCase("")]
@@ -47,10 +49,11 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             const string fileName = "DoesNotExist.sqlite";
-            var localPath = Path.Combine(@"c:\", fileName);
-            var uncPath = Path.Combine(@"\\localhost\c$", fileName);
 
-            using (new FileDisposeHelper(localPath))
+            var fullPath = Path.GetFullPath(Path.Combine(testDataPath, fileName));
+            var uncPath = GetUncPath(fullPath);
+
+            using (new FileDisposeHelper(fullPath))
             {
                 // Call
                 TestDelegate call = () => StorageSqliteCreator.CreateDatabaseStructure(uncPath);
@@ -58,6 +61,18 @@ namespace Application.Ringtoets.Storage.Test
                 // Assert
                 Assert.DoesNotThrow(call);
             }
+        }
+
+        private static string GetUncPath(string fullPath)
+        {
+            var root = Path.GetPathRoot(fullPath);
+            Assert.IsNotNull(root);
+
+            var relativePath = fullPath.Replace(root, "");
+            var drive = root.Remove(1);
+
+            var uncPath = new Uri(Path.Combine(@"\\localhost", drive + "$", relativePath));
+            return uncPath.LocalPath;
         }
     }
 }
