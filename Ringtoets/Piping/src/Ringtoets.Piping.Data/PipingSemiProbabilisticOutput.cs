@@ -34,17 +34,17 @@ namespace Ringtoets.Piping.Data
         {
             UpliftFactorOfSafety = new RoundedDouble(3, upliftFactorOfSafety);
             UpliftReliability = new RoundedDouble(3, upliftReliability);
-            UpliftProbability = new RoundedDouble(2, upliftProbability);
+            UpliftProbability = (RoundedDouble) upliftProbability;
             HeaveFactorOfSafety = new RoundedDouble(3, heaveFactorOfSafety);
             HeaveReliability = new RoundedDouble(3, heaveReliability);
-            HeaveProbability = new RoundedDouble(2, heaveProbability);
+            HeaveProbability = (RoundedDouble) heaveProbability;
             SellmeijerFactorOfSafety = new RoundedDouble(3, sellmeijerFactorOfSafety);
             SellmeijerReliability = new RoundedDouble(3, sellmeijerReliability);
-            SellmeijerProbability = new RoundedDouble(2, sellmeijerProbability);
+            SellmeijerProbability = (RoundedDouble) sellmeijerProbability;
 
-            RequiredProbability = new RoundedDouble(2, requiredProbability);
+            RequiredProbability = (RoundedDouble) requiredProbability;
             RequiredReliability = new RoundedDouble(3, requiredReliability);
-            PipingProbability = new RoundedDouble(2, pipingProbability);
+            PipingProbability = (RoundedDouble) pipingProbability;
             PipingReliability = new RoundedDouble(3, pipingReliability);
             PipingFactorOfSafety = new RoundedDouble(3, pipingFactorOfSafety);
         }

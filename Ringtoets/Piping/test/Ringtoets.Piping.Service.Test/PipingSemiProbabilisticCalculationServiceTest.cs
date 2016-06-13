@@ -52,10 +52,10 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        [TestCase(30000, 0.6, 0.000233011)]
-        [TestCase(30000, 0.4, 0.003967252)]
-        [TestCase(20000, 0.6, 0.000292194)]
-        [TestCase(20000, 0.4, 0.004742775)]
+        [TestCase(30000, 0.6, 0.000233010568259)]
+        [TestCase(30000, 0.4, 0.003967252123066)]
+        [TestCase(20000, 0.6, 0.000292193848324)]
+        [TestCase(20000, 0.4, 0.004742775184826)]
         public void HeaveProbability_DifferentInputs_ReturnsExpectedValue(int norm, double factorOfSafety, double expectedResult)
         {
             // Setup
