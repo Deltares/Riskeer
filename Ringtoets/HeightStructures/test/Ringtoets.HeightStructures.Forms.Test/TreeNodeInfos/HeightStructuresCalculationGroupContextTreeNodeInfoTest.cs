@@ -372,7 +372,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndexRootGroup,
                                                           RingtoetsFormsResources.Calculate_all,
-                                                          Resources.HeightStructuresGuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                          RingtoetsFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
                                                           RingtoetsFormsResources.CalculateAllIcon,
                                                           false);
             mocks.VerifyAll();
@@ -423,7 +423,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuClearAllIndexRootGroup,
                                                           RingtoetsFormsResources.Calculate_all,
-                                                          Resources.HeightStructuresGuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                          RingtoetsFormsResources.GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
                                                           RingtoetsFormsResources.CalculateAllIcon,
                                                           false);
 

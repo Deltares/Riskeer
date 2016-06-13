@@ -231,7 +231,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateIndex,
                                                           RingtoetsCommonFormsResources.Calculate,
-                                                          Resources.HeightStructuresGuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                          RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
                                                           RingtoetsCommonFormsResources.CalculateIcon,
                                                           false);
 
@@ -267,7 +267,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
                                                           RingtoetsCommonFormsResources.Calculate,
-                                                          Resources.HeightStructuresGuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                          RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
                                                           RingtoetsCommonFormsResources.CalculateIcon,
                                                           false);
 
@@ -305,7 +305,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
                                                           RingtoetsCommonFormsResources.Calculate,
-                                                          Resources.HeightStructuresGuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                          RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
                                                           RingtoetsCommonFormsResources.CalculateIcon,
                                                           false);
 

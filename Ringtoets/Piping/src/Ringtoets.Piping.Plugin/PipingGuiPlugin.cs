@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -311,7 +312,7 @@ namespace Ringtoets.Piping.Plugin
                           .AddToggleRelevancyOfFailureMechanismItem(pipingFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCustomItem(validateAllItem)
-                          .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll, context => null)
+                          .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll, EnablePerformAllCalculationsInFailureMechanism)
                           .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
                           .AddSeparator()
                           .AddImportItem()
@@ -322,6 +323,11 @@ namespace Ringtoets.Piping.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private string EnablePerformAllCalculationsInFailureMechanism(PipingFailureMechanismContext pipingFailureMechanismContext)
+        {
+            return AllDataAvailable(pipingFailureMechanismContext.WrappedData);
         }
 
         private void RemoveAllViewsForItem(PipingFailureMechanismContext failureMechanismContext)
@@ -436,7 +442,7 @@ namespace Ringtoets.Piping.Plugin
                                                          (o, args) => { PipingCalculationService.Validate(calculation); });
 
             return builder.AddCustomItem(validateItem)
-                          .AddPerformCalculationItem(calculation, nodeData, PerformCalculation, context => null)
+                          .AddPerformCalculationItem(calculation, nodeData, PerformCalculation, EnablePerformCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
                           .AddRenameItem()
@@ -450,6 +456,16 @@ namespace Ringtoets.Piping.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private string EnablePerformCalculation(PipingCalculationScenarioContext context)
+        {
+            return AllDataAvailable(context.FailureMechanism);
+        }
+
+        private static string AllDataAvailable(PipingFailureMechanism failureMechanism)
+        {
+            return !failureMechanism.Sections.Any() ? RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported : null;
         }
 
         private static object[] PipingCalculationContextChildNodeObjects(PipingCalculationScenarioContext pipingCalculationScenarioContext)
@@ -559,7 +575,7 @@ namespace Ringtoets.Piping.Plugin
                    .AddCreateCalculationItem(nodeData, AddCalculationScenario)
                    .AddSeparator()
                    .AddCustomItem(validateAllItem)
-                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, context => null)
+                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, EnablePerformAllCalculationsInGroup)
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddSeparator();
 
@@ -578,6 +594,11 @@ namespace Ringtoets.Piping.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private string EnablePerformAllCalculationsInGroup(PipingCalculationGroupContext pipingCalculationGroupContext)
+        {
+            return AllDataAvailable(pipingCalculationGroupContext.FailureMechanism);
         }
 
         private static void AddCalculationScenario(PipingCalculationGroupContext nodeData)

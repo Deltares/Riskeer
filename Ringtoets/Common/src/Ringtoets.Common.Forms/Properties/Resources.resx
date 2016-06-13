@@ -406,4 +406,10 @@
   <data name="NormalDistribution_VariationCoefficient_Description" xml:space="preserve">
     <value>De variatiecoëfficiënt van de normale verdeling.</value>
   </data>
+  <data name="GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported" xml:space="preserve">
+    <value>Er is geen vakindeling geïmporteerd.</value>
+  </data>
+  <data name="GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported" xml:space="preserve">
+    <value>Er is geen hydraulische randvoorwaarden database geïmporteerd.</value>
+  </data>
 </root>

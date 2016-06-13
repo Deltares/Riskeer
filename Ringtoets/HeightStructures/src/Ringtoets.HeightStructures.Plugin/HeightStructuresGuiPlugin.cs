@@ -193,12 +193,12 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             if (!failureMechanism.Sections.Any())
             {
-                return Resources.HeightStructuresGuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported;
+                return RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported;
             }
 
             if (assessmentSection.HydraulicBoundaryDatabase == null)
             {
-                return Resources.HeightStructuresGuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
+                return RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
             }
 
             var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);

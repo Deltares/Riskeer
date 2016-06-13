@@ -396,7 +396,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                           RingtoetsFormsResources.Calculate_all,
-                                                          Resources.GrassCoverErosionInwardsGuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                          RingtoetsFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
                                                           RingtoetsFormsResources.CalculateIcon,
                                                           false);
             mocksRepository.VerifyAll();
@@ -434,7 +434,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
                                                           RingtoetsFormsResources.Calculate_all,
-                                                          Resources.GrassCoverErosionInwardsGuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                          RingtoetsFormsResources.GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
                                                           RingtoetsFormsResources.CalculateAllIcon,
                                                           false);
             mocksRepository.VerifyAll();

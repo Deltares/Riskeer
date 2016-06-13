@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -282,6 +283,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
             var pipingCalculation = new PipingCalculationScenario(failureMechanism.GeneralInput)
             {
                 Output = new TestPipingOutput()
@@ -443,6 +448,89 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_NoFailureMechanismSections_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        {
+            // Setup
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                Output = new TestPipingOutput()
+            };
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var gui = mocks.StrictMock<IGui>();
+            gui.Expect(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+
+            // Call
+            ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                          contextMenuCalculateAllIndex,
+                                                          RingtoetsCommonFormsResources.Calculate_all,
+                                                          RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                          RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                          false);
+
+            mocks.VerifyAll(); // Expect no calls on arguments
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismSectionsSet_ContextMenuItemCalculateAllEnabled()
+        {
+            //            // Setup
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                Output = new TestPipingOutput()
+            };
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var gui = mocks.StrictMock<IGui>();
+            gui.Expect(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+
+            // Call
+            ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                          contextMenuCalculateAllIndex,
+                                                          RingtoetsCommonFormsResources.Calculate_all,
+                                                          RingtoetsCommonFormsResources.Calculate_all_ToolTip,
+                                                          RingtoetsCommonFormsResources.CalculateAllIcon);
+
+            mocks.VerifyAll(); // Expect no calls on arguments
+        }
+
+        [Test]
         public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
         {
             // Setup
@@ -576,6 +664,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
             failureMechanism.CalculationsGroup.Children.Clear();
 
             var validCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
