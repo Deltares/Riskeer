@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Gui.Properties;
 using log4net.Core;

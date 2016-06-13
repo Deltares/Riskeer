@@ -234,7 +234,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
             // timeColumnDataGridViewTextBoxColumn
             // 
             this.timeColumnDataGridViewTextBoxColumn.DataPropertyName = "timeColumn";
-            dataGridViewCellStyle1.Format = "T";
+            dataGridViewCellStyle1.Format = "HH:mm:ss";
             dataGridViewCellStyle1.NullValue = null;
             this.timeColumnDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
             resources.ApplyResources(this.timeColumnDataGridViewTextBoxColumn, "timeColumnDataGridViewTextBoxColumn");
