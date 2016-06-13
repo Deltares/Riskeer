@@ -336,7 +336,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
             calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
             calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble) 1000);
+            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble) 1e-3);
             calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.Done);
 
             mocks.ReplayAll();
@@ -358,7 +358,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual(string.Empty, dataGridViewCell.ErrorText);
-                Assert.AreEqual(string.Format("1/{0:N0}", calculationScenarioMock.Probability), formattedValue);
+                Assert.AreEqual(string.Format("1/{0:N0}", 1 / calculationScenarioMock.Probability), formattedValue);
                 mocks.VerifyAll();
             }
         }

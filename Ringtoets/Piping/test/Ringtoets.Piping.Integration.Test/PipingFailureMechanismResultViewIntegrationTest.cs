@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Integration.Test
                 pipingCalculation1.Output = new PipingOutput(0, 0, 0, 0, 0, 0);
                 pipingCalculation1.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, probability, 0, 0);
                 pipingCalculation1.NotifyObservers();
-                Assert.AreEqual(string.Format("1/{0:N0}", pipingCalculation1.Probability), dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual(string.Format("1/{0:N0}", 1.0 / pipingCalculation1.Probability), dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(string.Empty, dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Add another, nested calculation without surface line and ensure the data grid view is updated when the surface line is set
@@ -121,7 +121,7 @@ namespace Ringtoets.Piping.Integration.Test
                 nestedPipingCalculationGroup.Children.Add(pipingCalculation3);
                 nestedPipingCalculationGroup.NotifyObservers();
                 assessmentSection.PipingFailureMechanism.CalculationsGroup.AddCalculationScenariosToFailureMechanismSectionResult(assessmentSection.PipingFailureMechanism);
-                Assert.AreEqual(string.Format("1/{0:N0}", pipingCalculation1.Probability), dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual(string.Format("1/{0:N0}", 1.0 / pipingCalculation1.Probability), dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(string.Empty, dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 pipingCalculation3.InputParameters.SurfaceLine = assessmentSection.PipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
@@ -151,7 +151,7 @@ namespace Ringtoets.Piping.Integration.Test
                 // Set contribution again so we have a probability.
                 pipingCalculation1.Contribution = (RoundedDouble) 1.0;
                 pipingCalculation1.NotifyObservers();
-                Assert.AreEqual(string.Format("1/{0:N0}", pipingCalculation1.Probability), dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual(string.Format("1/{0:N0}", 1.0 / pipingCalculation1.Probability), dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(string.Empty, dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Clear the output of the calculation and make sure the data grid view is updated

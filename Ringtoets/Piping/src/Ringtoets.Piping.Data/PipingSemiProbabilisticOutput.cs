@@ -50,72 +50,86 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the required probability of the piping failure mechanism.
+        /// Gets the required probability of the piping failure mechanism,
+        /// which value in range [0,1].
         /// </summary>
         public RoundedDouble RequiredProbability { get; private set; }
 
         /// <summary>
-        /// Get the required reliability of the piping failure mechanism.
+        /// Get the required reliability of the piping failure mechanism,
+        /// which is a value greater than 0.
         /// </summary>
         public RoundedDouble RequiredReliability { get; private set; }
 
         /// <summary>
-        /// Gets the factor of safety of the piping failure mechanism.
+        /// Gets the factor of safety of the piping failure mechanism,
+        /// which is a value greater than 0.
         /// </summary>
         public RoundedDouble PipingFactorOfSafety { get; private set; }
 
         /// <summary>
-        /// Gets the reliability of the piping failure mechanism.
+        /// Gets the reliability of the piping failure mechanism,
+        /// which is a value greater than 0.
         /// </summary>
         public RoundedDouble PipingReliability { get; private set; }
 
         /// <summary>
-        /// Gets the probability of failing due to the piping failure mechanism.
+        /// Gets the probability of failing due to the piping failure mechanism,
+        /// which value in range [0,1].
         /// </summary>
         public RoundedDouble PipingProbability { get; private set; }
 
         /// <summary>
-        /// Gets the factor of safety for the uplift sub-mechanism.
+        /// Gets the factor of safety for the uplift sub-mechanism,
+        /// which is a value greater than 0.
         /// </summary>
         public RoundedDouble UpliftFactorOfSafety { get; private set; }
 
         /// <summary>
-        /// Gets the reliability for the uplift sub-mechanism.
+        /// Gets the reliability for the uplift sub-mechanism,
+        /// which is a value greater than 0.
         /// </summary>
         public RoundedDouble UpliftReliability { get; private set; }
 
         /// <summary>
-        /// Gets the probability of failing due to the uplift failure sub-mechanism.
+        /// Gets the probability of failing due to the uplift failure sub-mechanism,
+        /// which value in range [0,1].
         /// </summary>
         public RoundedDouble UpliftProbability { get; private set; }
 
         /// <summary>
-        /// Gets the factor of safety for the heave sub-mechanism.
+        /// Gets the factor of safety for the heave sub-mechanism,
+        /// which is a value greater than 0.
         /// </summary>
         public RoundedDouble HeaveFactorOfSafety { get; private set; }
 
         /// <summary>
-        /// Gets the reliability for the heave sub-mechanism.
+        /// Gets the reliability for the heave sub-mechanism,
+        /// which is a value greater than 0.
         /// </summary>
         public RoundedDouble HeaveReliability { get; private set; }
 
         /// <summary>
-        /// Gets the probability of failing due to the heave failure sub-mechanism.
+        /// Gets the probability of failing due to the heave failure sub-mechanism,
+        /// which value in range [0,1].
         /// </summary>
         public RoundedDouble HeaveProbability { get; private set; }
 
         /// <summary>
-        /// Gets the factor of safety for the Sellmeijer sub-mechanism.
+        /// Gets the factor of safety for the Sellmeijer sub-mechanism,
+        /// which is a value greater than 0.
         /// </summary>
         public RoundedDouble SellmeijerFactorOfSafety { get; private set; }
 
         /// <summary>
-        /// Gets the reliability for the Sellmeijer sub-mechanism.
+        /// Gets the reliability for the Sellmeijer sub-mechanism,
+        /// which is a value greater than 0.
         /// </summary>
         public RoundedDouble SellmeijerReliability { get; private set; }
 
         /// <summary>
-        /// Gets the probability of failing due to the Sellmeijer failure sub-mechanism.
+        /// Gets the probability of failing due to the Sellmeijer failure sub-mechanism,
+        /// which value in range [0,1].
         /// </summary>
         public RoundedDouble SellmeijerProbability { get; private set; }
 

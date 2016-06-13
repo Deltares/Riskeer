@@ -26,20 +26,19 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(22);
-            var bigFactor = 1000000;
             double upliftFactorOfSafety = random.NextDouble();
             double upliftReliability = random.NextDouble();
-            double upliftProbability = random.NextDouble()*bigFactor;
+            double upliftProbability = random.NextDouble();
             double heaveFactorOfSafety = random.NextDouble();
             double heaveReliability = random.NextDouble();
-            double heaveProbability = random.NextDouble()*bigFactor;
+            double heaveProbability = random.NextDouble();
             double sellmeijerFactorOfSafety = random.NextDouble();
             double sellmeijerReliability = random.NextDouble();
-            double sellmeijerProbability = random.NextDouble()*bigFactor;
+            double sellmeijerProbability = random.NextDouble();
             double requiredProbability = random.NextDouble();
             double requiredReliability = random.NextDouble();
-            double pipingProbability = random.NextDouble()*bigFactor;
-            double pipingReliability = random.NextDouble()*bigFactor;
+            double pipingProbability = random.NextDouble();
+            double pipingReliability = random.NextDouble();
             double pipingFactorOfSafety = random.NextDouble();
 
             // Call
@@ -68,22 +67,22 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var probabilityFormat = "1/{0:n0}";
             Assert.AreEqual(upliftFactorOfSafety, properties.UpliftFactorOfSafety, properties.UpliftFactorOfSafety.GetAccuracy());
             Assert.AreEqual(upliftReliability, properties.UpliftReliability, properties.UpliftReliability.GetAccuracy());
-            Assert.AreEqual(string.Format(probabilityFormat, upliftProbability), properties.UpliftProbability);
+            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / upliftProbability), properties.UpliftProbability);
             Assert.AreEqual(heaveFactorOfSafety, properties.HeaveFactorOfSafety, properties.HeaveFactorOfSafety.GetAccuracy());
             Assert.AreEqual(heaveReliability, properties.HeaveReliability, properties.HeaveReliability.GetAccuracy());
-            Assert.AreEqual(string.Format(probabilityFormat, heaveProbability), properties.HeaveProbability);
+            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / heaveProbability), properties.HeaveProbability);
             Assert.AreEqual(sellmeijerFactorOfSafety, properties.SellmeijerFactorOfSafety, properties.SellmeijerFactorOfSafety.GetAccuracy());
             Assert.AreEqual(sellmeijerReliability, properties.SellmeijerReliability, properties.SellmeijerReliability.GetAccuracy());
-            Assert.AreEqual(string.Format(probabilityFormat, sellmeijerProbability), properties.SellmeijerProbability);
-            Assert.AreEqual(string.Format(probabilityFormat, requiredProbability), properties.RequiredProbability);
+            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / sellmeijerProbability), properties.SellmeijerProbability);
+            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / requiredProbability), properties.RequiredProbability);
             Assert.AreEqual(requiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
-            Assert.AreEqual(string.Format(probabilityFormat, pipingProbability), properties.PipingProbability);
+            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / pipingProbability), properties.PipingProbability);
             Assert.AreEqual(pipingReliability, properties.PipingReliability, properties.PipingReliability.GetAccuracy());
             Assert.AreEqual(pipingFactorOfSafety, properties.PipingFactorOfSafety, properties.PipingFactorOfSafety.GetAccuracy());
         }
 
         [Test]
-        public void GetProperties_WithInfinityValues_ReturnTranslatedFormat()
+        public void GetProperties_WithZeroValues_ReturnTranslatedFormat()
         {
             // Setup
             var random = new Random(22);
@@ -97,11 +96,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             double pipingReliability = random.NextDouble();
             double pipingFactorOfSafety = random.NextDouble();
 
-            double upliftProbability = double.PositiveInfinity;
-            double heaveProbability = double.PositiveInfinity;
-            double sellmeijerProbability = double.PositiveInfinity;
-            double requiredProbability = double.PositiveInfinity;
-            double pipingProbability = double.PositiveInfinity;
+            double upliftProbability = 0;
+            double heaveProbability = 0;
+            double sellmeijerProbability = 0;
+            double requiredProbability = 0;
+            double pipingProbability = 0;
 
             // Call
             var semiProbabilisticOutput = new PipingSemiProbabilisticOutput(

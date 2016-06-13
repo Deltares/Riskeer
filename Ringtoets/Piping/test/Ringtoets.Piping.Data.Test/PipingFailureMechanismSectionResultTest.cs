@@ -92,8 +92,8 @@ namespace Ringtoets.Piping.Data.Test
 
             var contribution1 = 0.2;
             var contribution2 = 0.8;
-            var probability1 = (RoundedDouble) 1000000;
-            var probability2 = (RoundedDouble) 2000000;
+            var probability1 = (RoundedDouble) (1.0/1000000);
+            var probability2 = (RoundedDouble) (1.0/2000000);
 
             calculationScenarioMock1.Stub(cs => cs.IsRelevant).Return(true);
             calculationScenarioMock1.Stub(cs => cs.Status).Return(CalculationScenarioStatus.Done);
@@ -119,7 +119,7 @@ namespace Ringtoets.Piping.Data.Test
             RoundedDouble? assessmentLayerTwoA = failureMechanismSectionResult.AssessmentLayerTwoA;
 
             // Assert
-            Assert.AreEqual(1.0 / ((1.0 / probability1) * contribution1 + (1.0 / probability2) * contribution2), assessmentLayerTwoA, 1e-8);
+            Assert.AreEqual(1.0 / ((probability1) * contribution1 + (probability2) * contribution2), assessmentLayerTwoA, 1e-8);
             mocks.VerifyAll();
         }
 

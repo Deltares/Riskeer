@@ -180,7 +180,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         private static string ToProbabilityFormat(RoundedDouble probability)
         {
-            return string.Format(CoreCommonResources.ProbabilityPerYearFormat, probability);
+            return string.Format(CoreCommonResources.ProbabilityPerYearFormat, (RoundedDouble) (1.0 / probability));
         }
     }
 }
