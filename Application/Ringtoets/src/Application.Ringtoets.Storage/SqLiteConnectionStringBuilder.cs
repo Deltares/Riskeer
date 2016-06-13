@@ -26,7 +26,7 @@ using System.Data.SQLite;
 namespace Application.Ringtoets.Storage
 {
     /// <summary>
-    /// This class builds a connection string to an SQLite database file.
+    /// This class builds a connection string to a SQLite database file.
     /// </summary>
     public static class SqLiteConnectionStringBuilder
     {
@@ -35,7 +35,7 @@ namespace Application.Ringtoets.Storage
         /// </summary>
         /// <param name="filePath">Location of the storage file.</param>
         /// <returns>A new connection string.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/> is <c>null</c> or empty (only whitespaces).</exception>
         public static string BuildSqLiteEntityConnectionString(string filePath)
         {
             if (string.IsNullOrWhiteSpace(filePath))
@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage
         /// </summary>
         /// <param name="filePath">Location of the storage file.</param>
         /// <returns>A new connection string.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/> is <c>null</c> or empty (only whitespaces).</exception>
         public static string BuildSqLiteConnectionString(string filePath)
         {
             if (string.IsNullOrWhiteSpace(filePath))
