@@ -54,5 +54,32 @@ namespace Application.Ringtoets.Storage.Test
             // Assert
             Assert.AreEqual(expectedValue, result, 1e-6);
         }
+
+        [Test]
+        public void ToNullableDouble_Null_ReturnNaN()
+        {
+            // Setup
+            decimal? value = null;
+
+            // Call
+            double? result = value.ToNullableDouble();
+
+            // Assert
+            Assert.IsNull(result);
+        }
+
+        [Test]
+        public void ToNullableDouble_Number_ReturnNumberAsDouble(
+            [Random(-9999.9999, 9999.9999, 1)]double expectedValue)
+        {
+            // Setup
+            decimal? value = Convert.ToDecimal(expectedValue);
+
+            // Call
+            double? result = value.ToNullableDouble();
+
+            // Assert
+            Assert.AreEqual(expectedValue, result, 1e-6);
+        }
     }
 }

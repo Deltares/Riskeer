@@ -23,7 +23,7 @@ using System;
 
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
-
+using Application.Ringtoets.Storage.Test.Update;
 using Core.Common.Base.Geometry;
 
 using NUnit.Framework;
@@ -801,6 +801,155 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Call
             TestDelegate test = () => collector.Read(new HydraulicLocationEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        #endregion
+
+        #region FailureMechanismSectionEntity: Read, Contains, Get
+
+        [Test]
+        public void Contains_WithoutFailureMechanismSectionEntity_ArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Contains((FailureMechanismSectionEntity)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Contains_FailureMechanismSectionEntityAdded_True()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new FailureMechanismSectionEntity();
+            collector.Read(entity, new TestFailureMechanismSection());
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_NoFailureMechanismSectionEntityAdded_False()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new FailureMechanismSectionEntity();
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_OtherFailureMechanismSectionEntityAdded_False()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new FailureMechanismSectionEntity();
+            collector.Read(new FailureMechanismSectionEntity(), new TestFailureMechanismSection());
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Get_WithoutFailureMechanismSectionEntity_ThrowArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Get((FailureMechanismSectionEntity)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Get_FailureMechanismSectionEntityAdded_ReturnsHydraulicBoundaryLocation()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var section = new TestFailureMechanismSection();
+            var entity = new FailureMechanismSectionEntity();
+            collector.Read(entity, section);
+
+            // Call
+            var result = collector.Get(entity);
+
+            // Assert
+            Assert.AreSame(section, result);
+        }
+
+        [Test]
+        public void Get_NoFailureMechanismSectionEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new FailureMechanismSectionEntity();
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_OtherFailureMechanismSectionEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new FailureMechanismSectionEntity();
+            collector.Read(new FailureMechanismSectionEntity(), new TestFailureMechanismSection());
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Read_WithNullFailureMechanismSectionEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(null, new TestFailureMechanismSection());
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Read_WithNullFailureMechanismSection_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(new FailureMechanismSectionEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

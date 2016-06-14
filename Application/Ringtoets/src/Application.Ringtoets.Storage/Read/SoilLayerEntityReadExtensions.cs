@@ -27,7 +27,7 @@ namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="PipingSoilLayer"/> based on the
-    /// <see cref="FailureMechanismEntity"/>.
+    /// <see cref="SoilLayerEntity"/>.
     /// </summary>
     internal static class SoilLayerEntityReadExtensions
     {
@@ -42,20 +42,11 @@ namespace Application.Ringtoets.Storage.Read
             {
                 StorageId = entity.SoilLayerEntityId,
                 IsAquifer = Convert.ToBoolean(entity.IsAquifer),
-                AbovePhreaticLevel = ToNullableDouble(entity.AbovePhreaticLevel),
-                BelowPhreaticLevel = ToNullableDouble(entity.BelowPhreaticLevel),
-                DryUnitWeight = ToNullableDouble(entity.DryUnitWeight)
+                AbovePhreaticLevel = entity.AbovePhreaticLevel.ToNullableDouble(),
+                BelowPhreaticLevel = entity.BelowPhreaticLevel.ToNullableDouble(),
+                DryUnitWeight = entity.DryUnitWeight.ToNullableDouble()
             };
             return pipingSoilLayer;
-        }
-
-        private static double? ToNullableDouble(decimal? parameterValue)
-        {
-            if (parameterValue == null)
-            {
-                return null;
-            }
-            return Convert.ToDouble(parameterValue);
         }
     }
 }

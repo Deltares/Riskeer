@@ -44,5 +44,21 @@ namespace Application.Ringtoets.Storage
             }
             return double.NaN;
         }
+
+        /// <summary>
+        /// Converts a nullable <see cref="decimal"/> into a nullable <see cref="double"/>.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        /// <returns><c>null</c> when <paramref name="value"/> is <c>null</c>,
+        /// or the <see cref="double"/> representation of the <paramref name="value"/>
+        /// otherwise.</returns>
+        public static double? ToNullableDouble(this decimal? value)
+        {
+            if (value == null)
+            {
+                return null;
+            }
+            return Convert.ToDouble(value);
+        }
     }
 }

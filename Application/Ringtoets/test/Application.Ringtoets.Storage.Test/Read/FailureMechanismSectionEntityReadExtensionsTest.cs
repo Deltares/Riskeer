@@ -30,6 +30,17 @@ namespace Application.Ringtoets.Storage.Test.Read
     public class FailureMechanismSectionEntityReadExtensionsTest
     {
         [Test]
+        public void Read_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new FailureMechanismSectionEntity().Read(null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("collector", paramName);
+        } 
+
+        [Test]
         public void Read_Always_NewPoint()
         {
             // Setup
@@ -47,12 +58,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-            var section = entity.Read();
+            var readConversionCollector = new ReadConversionCollector();
+            var section = entity.Read(readConversionCollector);
 
             // Assert
             Assert.IsNotNull(section);
             Assert.AreEqual(entityId, section.StorageId);
             Assert.AreEqual(name, section.Name);
+            Assert.AreEqual(section, readConversionCollector.Get(entity));
         } 
     }
 }

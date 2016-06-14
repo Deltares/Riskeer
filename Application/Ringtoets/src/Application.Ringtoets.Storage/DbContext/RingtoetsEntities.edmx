@@ -133,7 +133,7 @@
           </Key>
           <Property Name="PipingSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" />
-          <Property Name="LayerOne" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerOne" Type="tinyint" Nullable="false" />
           <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
         </EntityType>
         <EntityType Name="PipingSemiProbabilisticOutputEntity">
@@ -940,7 +940,7 @@
           </Key>
           <Property Name="PipingSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" />
-          <Property Name="LayerOne" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerOne" Type="Byte" Nullable="false" />
           <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_PipingSectionResultEntity_0_0" FromRole="PipingSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>

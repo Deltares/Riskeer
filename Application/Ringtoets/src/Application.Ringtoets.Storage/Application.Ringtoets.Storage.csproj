@@ -150,6 +150,7 @@
     <Compile Include="Read\PipingCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\PipingCalculationOutputEntityReadExtensions.cs" />
     <Compile Include="Read\PipingFailureMechanismMetaEntityReadExtensions.cs" />
+    <Compile Include="Read\PipingSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\PipingSemiProbabilisticOutputEntityReadExtensions.cs" />
     <Compile Include="Read\ReadConversionCollector.cs" />
     <Compile Include="Read\ReferenceLinePointEntityReadExtensions.cs" />

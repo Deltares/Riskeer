@@ -113,6 +113,7 @@
     <Compile Include="Read\PipingCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\PipingCalculationOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\PipingFailureMechanismMetaEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\PipingSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\PipingSemiProbabilisticOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ProjectEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ReadConversionCollectorTest.cs" />

@@ -66,8 +66,8 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadReferenceLine(assessmentSection);
 
             entity.ReadPipingFailureMechanism(assessmentSection, collector);
-            entity.ReadGrassCoverErosionInwardsFailureMechanism(assessmentSection);
-            entity.ReadStandAloneFailureMechanisms(assessmentSection);
+            entity.ReadGrassCoverErosionInwardsFailureMechanism(assessmentSection, collector);
+            entity.ReadStandAloneFailureMechanisms(assessmentSection, collector);
 
             return assessmentSection;
         }
@@ -103,38 +103,16 @@ namespace Application.Ringtoets.Storage.Read
             var pipingFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.Piping);
             if (pipingFailureMechanismEntity != null)
             {
-                var failureMechanism = pipingFailureMechanismEntity.ReadAsPipingFailureMechanism(collector);
-
-                var pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
-                pipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId = failureMechanism.PipingProbabilityAssessmentInput.StorageId;
-                pipingFailureMechanism.Comments = failureMechanism.Comments;
-                pipingFailureMechanism.PipingProbabilityAssessmentInput.A = failureMechanism.PipingProbabilityAssessmentInput.A;
-
-                pipingFailureMechanism.StochasticSoilModels.AddRange(failureMechanism.StochasticSoilModels);
-                pipingFailureMechanism.IsRelevant = failureMechanism.IsRelevant;
-                pipingFailureMechanism.StorageId = failureMechanism.StorageId;
-                foreach (var failureMechanismSection in failureMechanism.Sections)
-                {
-                    pipingFailureMechanism.AddSection(failureMechanismSection);
-                }
-                foreach (RingtoetsPipingSurfaceLine surfaceLine in failureMechanism.SurfaceLines)
-                {
-                    pipingFailureMechanism.SurfaceLines.Add(surfaceLine);
-                }
-                pipingFailureMechanism.CalculationsGroup.StorageId = failureMechanism.CalculationsGroup.StorageId;
-                foreach (ICalculationBase calculationBase in failureMechanism.CalculationsGroup.Children)
-                {
-                    pipingFailureMechanism.CalculationsGroup.Children.Add(calculationBase);
-                }
+                pipingFailureMechanismEntity.ReadAsPipingFailureMechanism(assessmentSection.PipingFailureMechanism, collector);
             }
         }
 
-        private static void ReadGrassCoverErosionInwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection)
+        private static void ReadGrassCoverErosionInwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
             var grassCoverErosionInwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards);
             if (grassCoverErosionInwardsFailureMechanismEntity != null)
             {
-                var failureMechanism = grassCoverErosionInwardsFailureMechanismEntity.ReadAsGrassCoverErosionInwardsFailureMechanism();
+                var failureMechanism = grassCoverErosionInwardsFailureMechanismEntity.ReadAsGrassCoverErosionInwardsFailureMechanism(collector);
 
                 var grassCoverErosionInwards = assessmentSection.GrassCoverErosionInwards;
                 grassCoverErosionInwards.IsRelevant = failureMechanism.IsRelevant;
@@ -147,32 +125,32 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-        private static void ReadStandAloneFailureMechanisms(this AssessmentSectionEntity entity, AssessmentSection assessmentSection)
+        private static void ReadStandAloneFailureMechanisms(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.MacrostabilityInwards, assessmentSection.MacrostabilityInwards);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.MacrostabilityOutwards, assessmentSection.MacrostabilityOutwards);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.Microstability, assessmentSection.Microstability);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.StabilityStoneRevetment, assessmentSection.StabilityStoneCover);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.WaveImpactOnAsphaltRevetment, assessmentSection.WaveImpactAsphaltCover);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.WaterOverpressureAsphaltRevetment, assessmentSection.WaterPressureAsphaltCover);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentErosionOutwards, assessmentSection.GrassCoverErosionOutwards);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentSlidingOutwards, assessmentSection.GrassCoverSlipOffOutwards);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentSlidingInwards, assessmentSection.GrassCoverSlipOffInwards);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.StructureHeight, assessmentSection.HeightStructures);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.ReliabilityClosingOfStructure, assessmentSection.ClosingStructure);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.PipingAtStructure, assessmentSection.PipingStructure);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.StrengthAndStabilityPointConstruction, assessmentSection.StrengthStabilityPointConstruction);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.StrengthAndStabilityParallelConstruction, assessmentSection.StrengthStabilityLengthwiseConstruction);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.DuneErosion, assessmentSection.DuneErosion);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.TechnicalInnovations, assessmentSection.TechnicalInnovation);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.MacrostabilityInwards, assessmentSection.MacrostabilityInwards, collector);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.MacrostabilityOutwards, assessmentSection.MacrostabilityOutwards, collector);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.Microstability, assessmentSection.Microstability, collector);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.StabilityStoneRevetment, assessmentSection.StabilityStoneCover, collector);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.WaveImpactOnAsphaltRevetment, assessmentSection.WaveImpactAsphaltCover, collector);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.WaterOverpressureAsphaltRevetment, assessmentSection.WaterPressureAsphaltCover, collector);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentErosionOutwards, assessmentSection.GrassCoverErosionOutwards, collector);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentSlidingOutwards, assessmentSection.GrassCoverSlipOffOutwards, collector);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentSlidingInwards, assessmentSection.GrassCoverSlipOffInwards, collector);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.StructureHeight, assessmentSection.HeightStructures, collector);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.ReliabilityClosingOfStructure, assessmentSection.ClosingStructure, collector);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.PipingAtStructure, assessmentSection.PipingStructure, collector);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.StrengthAndStabilityPointConstruction, assessmentSection.StrengthStabilityPointConstruction, collector);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.StrengthAndStabilityParallelConstruction, assessmentSection.StrengthStabilityLengthwiseConstruction, collector);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.DuneErosion, assessmentSection.DuneErosion, collector);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.TechnicalInnovations, assessmentSection.TechnicalInnovation, collector);
         }
 
-        private static void ReadStandAloneFailureMechanism(this AssessmentSectionEntity entity, FailureMechanismType failureMechanismType, IFailureMechanism standAloneFailureMechanism)
+        private static void ReadStandAloneFailureMechanism(this AssessmentSectionEntity entity, FailureMechanismType failureMechanismType, IFailureMechanism standAloneFailureMechanism, ReadConversionCollector collector)
         {
             var failureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) failureMechanismType);
             if (failureMechanismEntity != null)
             {
-                var failureMechanism = failureMechanismEntity.ReadAsMacroStabilityInwardsFailureMechanism();
+                var failureMechanism = failureMechanismEntity.ReadAsStandAloneFailureMechanism(collector);
 
                 standAloneFailureMechanism.StorageId = failureMechanism.StorageId;
                 standAloneFailureMechanism.IsRelevant = failureMechanism.IsRelevant;

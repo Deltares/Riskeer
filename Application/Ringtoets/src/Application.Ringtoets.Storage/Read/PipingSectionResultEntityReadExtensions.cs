@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -20,45 +20,40 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Common.Data.FailureMechanism;
+using Core.Common.Base.Data;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="FailureMechanismSection"/> based on the
-    /// <see cref="FailureMechanismSectionEntity"/>.
+    /// This class defines extension methods for read operations for a <see cref="PipingFailureMechanismSectionResult"/> based on the
+    /// <see cref="PipingSectionResultEntity"/>.
     /// </summary>
-    internal static class FailureMechanismSectionEntityReadExtensions
+    internal static class PipingSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="FailureMechanismSectionEntity"/> and use the information to construct a <see cref="FailureMechanismSection"/>.
+        /// Reads the <see cref="PipingSectionResultEntity"/> and use the information to construct a 
+        /// <see cref="PipingFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismSectionEntity"/> to create <see cref="FailureMechanismSection"/> for.</param>
+        /// <param name="entity">The <see cref="SoilLayerEntity"/> to create <see cref="PipingFailureMechanismSectionResult"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="FailureMechanismSection"/>.</returns>
+        /// <returns>A new <see cref="PipingSoilLayer"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static FailureMechanismSection Read(this FailureMechanismSectionEntity entity, ReadConversionCollector collector)
+        internal static PipingFailureMechanismSectionResult Read(this PipingSectionResultEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
             }
-
-            var points = entity.FailureMechanismSectionPointEntities
-                               .OrderBy(fmsp => fmsp.Order)
-                               .Select(failureMechanismSectionPointEntity => failureMechanismSectionPointEntity.Read())
-                               .ToList();
-
-            var mechanismSection = new FailureMechanismSection(entity.Name, points)
+            var sectionResult = new PipingFailureMechanismSectionResult(collector.Get(entity.FailureMechanismSectionEntity))
             {
-                StorageId = entity.FailureMechanismSectionEntityId
+                StorageId = entity.PipingSectionResultEntityId,
+                AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne),
+                AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNanableDouble()
             };
-
-            collector.Read(entity, mechanismSection);
-
-            return mechanismSection;
+            return sectionResult;
         }
     }
 }

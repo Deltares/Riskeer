@@ -318,8 +318,9 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithPipingFailureMechanismWithFailureMechanismSectionsSet_ReturnsNewAssessmentSectionWithFailureMechanismSectionsInPipingFailureMechanism()
         {
             // Setup
+            var random = new Random(21);
             var entity = CreateAssessmentSectionEntity();
-            var entityId = new Random(21).Next(1, 502);
+            var entityId = random.Next(1, 502);
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -331,6 +332,21 @@ namespace Application.Ringtoets.Storage.Test.Read
                 },
                 FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
             };
+            var sectionA = failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(0);
+            var sectionB = failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(1);
+            long pipingSectionIdA = random.Next(1, 502);
+            long pipingSectionIdB = random.Next(1, 502);
+            sectionA.PipingSectionResultEntities.Add(new PipingSectionResultEntity
+            {
+                PipingSectionResultEntityId = pipingSectionIdA,
+                FailureMechanismSectionEntity = sectionA
+            });
+            sectionB.PipingSectionResultEntities.Add(new PipingSectionResultEntity
+            {
+                PipingSectionResultEntityId = pipingSectionIdB,
+                FailureMechanismSectionEntity = sectionB
+            });
+
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
 
             var collector = new ReadConversionCollector();
@@ -340,6 +356,8 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, section.PipingFailureMechanism.Sections.Count());
+            Assert.AreEqual(pipingSectionIdA, section.PipingFailureMechanism.SectionResults.ElementAt(0).StorageId);
+            Assert.AreEqual(pipingSectionIdB, section.PipingFailureMechanism.SectionResults.ElementAt(1).StorageId);
         }
 
         [Test]

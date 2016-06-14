@@ -32,13 +32,26 @@ namespace Application.Ringtoets.Storage.Test.Read
     public class FailureMechanismEntityReadExtensionsTest
     {
         [Test]
+        public void ReadAsPipingFailureMechanism_WithoutFailureMechanism_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            TestDelegate test = () => entity.ReadAsPipingFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert 
+            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("failureMechanism", parameter);
+        }
+        [Test]
         public void ReadAsPipingFailureMechanism_WithoutCollector_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new FailureMechanismEntity();
 
             // Call
-            TestDelegate test = () => entity.ReadAsPipingFailureMechanism(null);
+            TestDelegate test = () => entity.ReadAsPipingFailureMechanism(new PipingFailureMechanism(), null);
 
             // Assert 
             var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -71,9 +84,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             var collector = new ReadConversionCollector();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var failureMechanism = entity.ReadAsPipingFailureMechanism(collector);
+            entity.ReadAsPipingFailureMechanism(failureMechanism, collector);
 
             // Assert
             Assert.IsNotNull(failureMechanism);
@@ -106,9 +120,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             var collector = new ReadConversionCollector();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var failureMechanism = entity.ReadAsPipingFailureMechanism(collector);
+            entity.ReadAsPipingFailureMechanism(failureMechanism, collector);
 
             // Assert
             Assert.AreEqual(2, failureMechanism.StochasticSoilModels.Count);
@@ -131,9 +146,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             var collector = new ReadConversionCollector();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var failureMechanism = entity.ReadAsPipingFailureMechanism(collector);
+            entity.ReadAsPipingFailureMechanism(failureMechanism, collector);
 
             // Assert
             Assert.AreEqual(2, failureMechanism.SurfaceLines.Count);
@@ -144,32 +160,41 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var entityId = new Random(21).Next(1, 502);
+            var failureMechanismSectionEntity = new FailureMechanismSectionEntity
+            {
+                Name = "section",
+                FailureMechanismSectionPointEntities =
+                {
+                    new FailureMechanismSectionPointEntity()
+                }
+            };
+            var pipingSectionResultEntity = new PipingSectionResultEntity
+            {
+                PipingSectionResultEntityId = entityId,
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            };
+            failureMechanismSectionEntity.PipingSectionResultEntities.Add(pipingSectionResultEntity);
             var entity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = entityId,
+                FailureMechanismEntityId = 1,
                 CalculationGroupEntity = new CalculationGroupEntity
                 {
                     CalculationGroupEntityId = 1
                 },
                 FailureMechanismSectionEntities =
                 {
-                    new FailureMechanismSectionEntity
-                    {
-                        Name = "section",
-                        FailureMechanismSectionPointEntities =
-                        {
-                            new FailureMechanismSectionPointEntity()
-                        }
-                    }
+                    failureMechanismSectionEntity
                 }
             };
             var collector = new ReadConversionCollector();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var failureMechanism = entity.ReadAsPipingFailureMechanism(collector);
+            entity.ReadAsPipingFailureMechanism(failureMechanism, collector);
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
+            Assert.AreEqual(entityId, failureMechanism.SectionResults.First().StorageId);
         }
 
         [Test]
@@ -210,9 +235,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             var collector = new ReadConversionCollector();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            PipingFailureMechanism failureMechanism = entity.ReadAsPipingFailureMechanism(collector);
+            entity.ReadAsPipingFailureMechanism(failureMechanism, collector);
 
             // Assert
             Assert.AreEqual(rootGroupId, failureMechanism.CalculationsGroup.StorageId);
@@ -243,7 +269,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var failureMechanism = entity.ReadAsGrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = entity.ReadAsGrassCoverErosionInwardsFailureMechanism(collector);
 
             // Assert
             Assert.IsNotNull(failureMechanism);
@@ -276,7 +302,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var failureMechanism = entity.ReadAsGrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = entity.ReadAsGrassCoverErosionInwardsFailureMechanism(collector);
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
@@ -295,9 +321,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 IsRelevant = Convert.ToByte(isRelevant),
                 Comments = "Some comment"
             };
+            var collector = new ReadConversionCollector();
 
             // Call
-            var failureMechanism = entity.ReadAsMacroStabilityInwardsFailureMechanism();
+            var failureMechanism = entity.ReadAsStandAloneFailureMechanism(collector);
 
             // Assert
             Assert.IsEmpty(failureMechanism.Sections);
@@ -327,9 +354,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                     }
                 }
             };
+            var collector = new ReadConversionCollector();
 
             // Call
-            var failureMechanism = entity.ReadAsMacroStabilityInwardsFailureMechanism();
+            var failureMechanism = entity.ReadAsStandAloneFailureMechanism(collector);
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
