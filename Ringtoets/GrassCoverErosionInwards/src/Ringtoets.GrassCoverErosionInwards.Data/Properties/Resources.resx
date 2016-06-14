@@ -138,4 +138,13 @@
   <data name="N_Value_should_be_in_interval_1_20" xml:space="preserve">
     <value>De waarde voor 'N' moet in interval [1, 20] liggen.</value>
   </data>
+  <data name="DikeProfile_Orientation_Value_0_out_of_range" xml:space="preserve">
+    <value>De dijkprofiel oriëntatie waarde {0} valt buiten het geldige bereik [0, 360].</value>
+  </data>
+  <data name="DikeProfile_AddProfileSection_New_segment_connected_with_incorrect_orientation" xml:space="preserve">
+    <value>Het nieuwe segment is wel verbonden, maar heeft verkeerde oriëntatie (moet omgedraaid worden).</value>
+  </data>
+  <data name="DikeProfile_AddProfileSection_New_segment_not_connected" xml:space="preserve">
+    <value>Het nieuwe segment is niet verbonden met de bestaande geometrie.</value>
+  </data>
 </root>

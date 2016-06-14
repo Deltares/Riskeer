@@ -61,7 +61,6 @@ namespace Application.Ringtoets.Storage.Test
 
         [Test]
         [TestCase(double.NaN)]
-        [TestCase(double.NaN)]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(double.MaxValue)]

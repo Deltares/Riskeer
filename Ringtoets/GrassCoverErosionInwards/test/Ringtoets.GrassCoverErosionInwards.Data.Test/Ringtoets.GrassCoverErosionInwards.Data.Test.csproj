@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BreakWaterTest.cs" />
+    <Compile Include="DikeProfileTest.cs" />
     <Compile Include="GeneralGrassCoverErosionInwardsInputTest.cs" />
     <Compile Include="GrassCoverErosionInwardsFailureMechanismSectionResultTest.cs" />
     <Compile Include="ProfileSectionTest.cs" />
