@@ -112,7 +112,11 @@ namespace Ringtoets.Piping.Forms.Views
 
         protected override object CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)
         {
-            return new PipingFailureMechanismSectionResultRow(sectionResult);
+            if (FailureMechanism == null)
+            {
+                return null;
+            }
+            return new PipingFailureMechanismSectionResultRow(sectionResult, FailureMechanism.Calculations.OfType<PipingCalculationScenario>());
         }
 
         #region Event handling
@@ -147,7 +151,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 PipingFailureMechanismSectionResult rowObject = resultRow.SectionResult;
 
-                var relevantScenarios = rowObject.CalculationScenarios.Where(cs => cs.IsRelevant).ToArray();
+                var relevantScenarios = rowObject.GetCalculationScenarios(FailureMechanism.Calculations.OfType<PipingCalculationScenario>()).Where(cs => cs.IsRelevant).ToArray();
                 bool relevantScenarioAvailable = relevantScenarios.Length != 0;
 
                 if (rowObject.AssessmentLayerOne || !relevantScenarioAvailable)
@@ -156,13 +160,13 @@ namespace Ringtoets.Piping.Forms.Views
                     return;
                 }
 
-                if (Math.Abs(rowObject.TotalContribution - 1.0) > tolerance)
+                if (Math.Abs(rowObject.GetTotalContribution(FailureMechanism.Calculations.OfType<PipingCalculationScenario>()) - 1.0) > tolerance)
                 {
                     currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
                     return;
                 }
 
-                var calculationScenarioStatus = rowObject.CalculationScenarioStatus;
+                var calculationScenarioStatus = rowObject.GetCalculationScenarioStatus(FailureMechanism.Calculations.OfType<PipingCalculationScenario>());
 
                 if (calculationScenarioStatus == CalculationScenarioStatus.NotCalculated)
                 {

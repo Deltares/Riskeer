@@ -551,8 +551,7 @@ namespace Ringtoets.Piping.Forms.Views
             }
 
             calculationGroup.NotifyObservers();
-
-            calculationGroup.AddCalculationScenariosToFailureMechanismSectionResult(pipingFailureMechanism);
+            // TODO still needed ?
             pipingFailureMechanism.NotifyObservers();
         }
 

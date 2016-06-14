@@ -69,10 +69,18 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         public virtual IFailureMechanism FailureMechanism
         {
+            protected get
+            {
+                return failureMechanism;
+            }
             set
             {
                 failureMechanism = value;
                 failureMechanismObserver.Observable = failureMechanism;
+                if (failureMechanism != null)
+                {
+                    UpdataDataGridViewDataSource();
+                }
             }
         }
 
@@ -133,7 +141,12 @@ namespace Ringtoets.Common.Forms.Views
         {
             UpdateFailureMechanismSectionResultsObservers();
             DataGridViewControl.EndEdit();
-            DataGridViewControl.SetDataSource(failureMechanismSectionResult.Select(CreateFailureMechanismSectionResultRow).ToList());
+            DataGridViewControl.SetDataSource(
+                failureMechanismSectionResult
+                    .Select(CreateFailureMechanismSectionResultRow)
+                    .Where(sr => sr != null)
+                    .ToList()
+            );
         }
 
         /// <summary>

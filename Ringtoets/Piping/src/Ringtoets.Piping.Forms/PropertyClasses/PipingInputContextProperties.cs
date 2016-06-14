@@ -175,8 +175,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
                     data.WrappedData.SurfaceLine = value;
                     PipingInputService.SetMatchingStochasticSoilModel(data.WrappedData, GetAvailableStochasticSoilModels());
-
-                    PipingCalculationScenarioService.SyncCalculationScenarioWithNewSurfaceLine(data.PipingCalculation, data.FailureMechanism, oldSurfaceLine);
                     data.WrappedData.NotifyObservers();
                 }
             }

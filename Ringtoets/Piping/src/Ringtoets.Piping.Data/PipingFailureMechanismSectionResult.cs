@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -34,29 +35,30 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingFailureMechanismSectionResult : FailureMechanismSectionResult
     {
+        private readonly CalculationGroup calculationsGroup;
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
+        /// <param name="calculationsGroup"></param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public PipingFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        public PipingFailureMechanismSectionResult(FailureMechanismSection section, CalculationGroup calculationsGroup = null) : base(section)
         {
-            CalculationScenarios = new List<ICalculationScenario>();
+            this.calculationsGroup = calculationsGroup;
         }
 
         /// <summary>
         /// Gets the value of assessment layer two a.
         /// </summary>
-        public RoundedDouble AssessmentLayerTwoA
+        /// <param name="calculations"></param>
+        public RoundedDouble GetAssessmentLayerTwoA(IEnumerable<PipingCalculationScenario> calculations)
         {
-            get
-            {
-                var calculationScenarios = CalculationScenarios.Where(cs => cs.IsRelevant && cs.Status == CalculationScenarioStatus.Done).ToList();
+            var calculationScenarios = GetCalculationScenarios(calculations).Where(cs => cs.Status == CalculationScenarioStatus.Done).ToList();
 
-                return calculationScenarios.Any()
-                    ? (RoundedDouble) (1.0 / calculationScenarios.Sum(scenario => (scenario.Probability.Value) * scenario.Contribution.Value))
-                    : (RoundedDouble) 0.0;
-            }
+            return calculationScenarios.Any()
+                       ? (RoundedDouble) (1.0/calculationScenarios.Sum(scenario => (scenario.Probability.Value)*scenario.Contribution.Value))
+                       : (RoundedDouble) 0.0;
         }
 
         /// <summary>
@@ -65,45 +67,36 @@ namespace Ringtoets.Piping.Data
         public RoundedDouble AssessmentLayerThree { get; set; }
 
         /// <summary>
-        /// Gets the contribution of all relevant <see cref="CalculationScenarios"/> together.
+        /// Gets the contribution of all relevant <see cref="GetCalculationScenarios"/> together.
         /// </summary>
-        public RoundedDouble TotalContribution
+        /// <param name="calculations"></param>
+        public RoundedDouble GetTotalContribution(IEnumerable<PipingCalculationScenario> calculations)
         {
-            get
-            {
-                return (RoundedDouble) CalculationScenarios.Where(cs => cs.IsRelevant)
-                                                           .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
-            }
+            return (RoundedDouble) GetCalculationScenarios(calculations).Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
         }
 
         /// <summary>
         /// Gets a list of <see cref="ICalculationScenario"/>.
         /// </summary>
-        public List<ICalculationScenario> CalculationScenarios { get; private set; }
+        /// <param name="calculations"></param>
+        public IEnumerable<PipingCalculationScenario> GetCalculationScenarios(IEnumerable<PipingCalculationScenario> calculations)
+        {
+            var lineSegments = Math2D.ConvertLinePointsToLineSegments(Section.Points);
+            return calculations
+                .Where(pc => pc.IsRelevant && pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
+        }
 
         /// <summary>
         /// Gets the status of the section result depending on the calculation scenarios.
         /// </summary>
-        public CalculationScenarioStatus CalculationScenarioStatus
-        {
-            get
-            {
-                return GetCalculationStatus();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the state of the assessment layer one.
-        /// </summary>
-        public bool AssessmentLayerOne { get; set; }
-
-        private CalculationScenarioStatus GetCalculationStatus()
+        /// <param name="calculations"></param>
+        public CalculationScenarioStatus GetCalculationScenarioStatus(IEnumerable<PipingCalculationScenario> calculations)
         {
             bool failed = false;
             bool notCalculated = false;
-            foreach (var calculationScenario in CalculationScenarios.Where(cs => cs.IsRelevant))
+            foreach (var calculationScenario in GetCalculationScenarios(calculations).Where(cs => cs.IsRelevant))
             {
-                switch (calculationScenario.Status) 
+                switch (calculationScenario.Status)
                 {
                     case CalculationScenarioStatus.Failed:
                         failed = true;
@@ -130,5 +123,10 @@ namespace Ringtoets.Piping.Data
 
             return CalculationScenarioStatus.Done;
         }
+
+        /// <summary>
+        /// Gets or sets the state of the assessment layer one.
+        /// </summary>
+        public bool AssessmentLayerOne { get; set; }
     }
 }

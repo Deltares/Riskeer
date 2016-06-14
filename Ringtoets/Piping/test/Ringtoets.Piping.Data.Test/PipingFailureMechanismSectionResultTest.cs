@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Piping.Data.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -45,9 +45,8 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreSame(section, sectionResult.Section);
             Assert.IsFalse(sectionResult.AssessmentLayerOne);
-            Assert.AreEqual((RoundedDouble) 0, sectionResult.AssessmentLayerTwoA);
+            Assert.AreEqual((RoundedDouble) 0, sectionResult.GetAssessmentLayerTwoA(new PipingCalculationScenario[0]));
             Assert.AreEqual((RoundedDouble) 0, sectionResult.AssessmentLayerThree);
-            CollectionAssert.IsEmpty(sectionResult.CalculationScenarios);
         }
 
         [Test]
@@ -84,67 +83,36 @@ namespace Ringtoets.Piping.Data.Test
             FailureMechanismSection section = CreateSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
-            var mocks = new MockRepository();
-            var calculationScenarioMock1 = mocks.StrictMock<ICalculationScenario>();
-            var calculationScenarioMock2 = mocks.StrictMock<ICalculationScenario>();
-            var calculationScenarioMock3 = mocks.StrictMock<ICalculationScenario>();
-            var calculationScenarioMock4 = mocks.StrictMock<ICalculationScenario>();
-
             var contribution1 = 0.2;
             var contribution2 = 0.8;
-            var probability1 = (RoundedDouble) (1.0/1000000);
-            var probability2 = (RoundedDouble) (1.0/2000000);
+            var probability1 = 1.0 / 1000000;
+            var probability2 = 1.0 / 2000000;
 
-            calculationScenarioMock1.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock1.Stub(cs => cs.Status).Return(CalculationScenarioStatus.Done);
-            calculationScenarioMock1.Stub(cs => cs.Contribution).Return((RoundedDouble)contribution1);
-            calculationScenarioMock1.Stub(cs => cs.Probability).Return(probability1);
+            var pipingCalculationScenario1 = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(probability1, section);
+            var pipingCalculationScenario2 = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(probability2, section);
+            var pipingCalculationScenario3 = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(0.0, section);
+            var pipingCalculationScenario4 = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
 
-            calculationScenarioMock2.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock2.Stub(cs => cs.Status).Return(CalculationScenarioStatus.Done);
-            calculationScenarioMock2.Stub(cs => cs.Contribution).Return((RoundedDouble)contribution2);
-            calculationScenarioMock2.Stub(cs => cs.Probability).Return(probability2);
+            pipingCalculationScenario1.IsRelevant = true;
+            pipingCalculationScenario1.Contribution = (RoundedDouble)contribution1;
 
-            calculationScenarioMock3.Stub(cs => cs.IsRelevant).Return(false);
+            pipingCalculationScenario2.IsRelevant = true;
+            pipingCalculationScenario2.Contribution = (RoundedDouble)contribution2;
 
-            calculationScenarioMock4.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock4.Stub(cs => cs.Status).Return(CalculationScenarioStatus.Failed);
+            pipingCalculationScenario3.IsRelevant = false;
 
-            mocks.ReplayAll();
+            pipingCalculationScenario4.IsRelevant = true;
 
-            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock1);
-            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock2);
+            var calculations = new []
+            {
+                pipingCalculationScenario1, pipingCalculationScenario2, pipingCalculationScenario3, pipingCalculationScenario4
+            };
 
             // Call
-            RoundedDouble? assessmentLayerTwoA = failureMechanismSectionResult.AssessmentLayerTwoA;
+            RoundedDouble? assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(calculations);
 
             // Assert
             Assert.AreEqual(1.0 / ((probability1) * contribution1 + (probability2) * contribution2), assessmentLayerTwoA, 1e-8);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssessmentLayerTwoA_ScenarioNotCalculated_ReturnsZero()
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
-
-            var mocks = new MockRepository();
-            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.NotCalculated);
-
-            mocks.ReplayAll();
-
-            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock);
-
-            // Call
-            RoundedDouble assessmentLayerTwoA = failureMechanismSectionResult.AssessmentLayerTwoA;
-
-            // Assert
-            Assert.AreEqual((RoundedDouble) 0, assessmentLayerTwoA);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -154,23 +122,14 @@ namespace Ringtoets.Piping.Data.Test
             FailureMechanismSection section = CreateSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
-            var mocks = new MockRepository();
-            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble) double.NaN);
-            calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
-            calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.Failed);
-
-            mocks.ReplayAll();
-
-            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock);
+            var pipingCalculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
+            pipingCalculationScenario.Contribution = (RoundedDouble) 1.0;
 
             // Call
-            RoundedDouble assessmentLayerTwoA = failureMechanismSectionResult.AssessmentLayerTwoA;
+            RoundedDouble assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new[] { pipingCalculationScenario });
 
             // Assert
             Assert.AreEqual((RoundedDouble) 0, assessmentLayerTwoA);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -181,7 +140,7 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            RoundedDouble? assessmentLayerTwoA = failureMechanismSectionResult.AssessmentLayerTwoA;
+            RoundedDouble? assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(Enumerable.Empty<PipingCalculationScenario>());
 
             // Assert
             Assert.AreEqual((RoundedDouble) 0.0, assessmentLayerTwoA);
@@ -194,19 +153,13 @@ namespace Ringtoets.Piping.Data.Test
             FailureMechanismSection section = CreateSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
-            var mocks = new MockRepository();
-            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(false);
-            var calculationScenarioMock2 = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock2.Stub(cs => cs.IsRelevant).Return(false);
+            var calculationScenarioMock = PipingCalculationScenarioFactory.CreateIrreleveantPipingCalculationScenario(section);
+            var calculationScenarioMock2 = PipingCalculationScenarioFactory.CreateIrreleveantPipingCalculationScenario(section);
 
-            mocks.ReplayAll();
-
-            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock);
-            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock2);
+            var calculationScenarios = new[] { calculationScenarioMock, calculationScenarioMock2 };
 
             // Call
-            RoundedDouble assessmentLayerTwoA = failureMechanismSectionResult.AssessmentLayerTwoA;
+            RoundedDouble assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(calculationScenarios);
 
             // Assert
             Assert.AreEqual((RoundedDouble) 0.0, assessmentLayerTwoA);
@@ -219,30 +172,21 @@ namespace Ringtoets.Piping.Data.Test
             FailureMechanismSection section = CreateSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
-            var mocks = new MockRepository();
-            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 0.3);
+            var pipingCalculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
+            pipingCalculationScenario.Contribution = (RoundedDouble) 0.3;
 
-            var calculationScenarioMock2 = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock2.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock2.Stub(cs => cs.Contribution).Return((RoundedDouble) 0.5);
+            var pipingCalculationScenario2 = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
+            pipingCalculationScenario2.Contribution = (RoundedDouble)0.5;
 
-            var calculationScenarioMock3 = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock3.Stub(cs => cs.IsRelevant).Return(false);
+            var pipingCalculationScenario3 = PipingCalculationScenarioFactory.CreateIrreleveantPipingCalculationScenario(section);
 
-            mocks.ReplayAll();
-
-            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock);
-            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock2);
-            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock3);
+            var calculationScenarios = new[] { pipingCalculationScenario, pipingCalculationScenario2, pipingCalculationScenario3 };
 
             // Call
-            RoundedDouble totalContribution = failureMechanismSectionResult.TotalContribution;
+            RoundedDouble totalContribution = failureMechanismSectionResult.GetTotalContribution(calculationScenarios);
 
             // Assert
             Assert.AreEqual((RoundedDouble) 0.8, totalContribution);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -261,61 +205,19 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void CalculationScenarios_Always_ReturnsAddedCalculationScenarios()
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
-
-            // Precondition
-            CollectionAssert.IsEmpty(failureMechanismSectionResult.CalculationScenarios);
-
-            var mocks = new MockRepository();
-            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            var calculationScenarioMock2 = mocks.StrictMock<ICalculationScenario>();
-            var calculationScenarioMock3 = mocks.StrictMock<ICalculationScenario>();
-
-            mocks.ReplayAll();
-
-            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock);
-            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock2);
-            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock3);
-
-            // Call
-            List<ICalculationScenario> scenarios = failureMechanismSectionResult.CalculationScenarios;
-
-            // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                calculationScenarioMock,
-                calculationScenarioMock2,
-                calculationScenarioMock3
-            }, scenarios);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void CalculationScenarioStatus_ScenarioNotCalculated_ReturnsStatusNotCalculated()
         {
             // Setup
             FailureMechanismSection section = CreateSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
-            var mocks = new MockRepository();
-            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.NotCalculated);
-
-            mocks.ReplayAll();
-
-            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock);
+            var pipingCalculationScenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
 
             // Call
-            CalculationScenarioStatus status = failureMechanismSectionResult.CalculationScenarioStatus;
+            CalculationScenarioStatus status = failureMechanismSectionResult.GetCalculationScenarioStatus(new[] { pipingCalculationScenario });
 
             // Assert
             Assert.AreEqual(CalculationScenarioStatus.NotCalculated, status);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -325,23 +227,14 @@ namespace Ringtoets.Piping.Data.Test
             FailureMechanismSection section = CreateSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
-            var mocks = new MockRepository();
-            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble) double.NaN);
-            calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
-            calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.Failed);
-
-            mocks.ReplayAll();
-
-            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock);
+            var pipingCalculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
+            pipingCalculationScenario.Contribution = (RoundedDouble) 1.0;
 
             // Call
-            CalculationScenarioStatus status = failureMechanismSectionResult.CalculationScenarioStatus;
+            CalculationScenarioStatus status = failureMechanismSectionResult.GetCalculationScenarioStatus(new[] { pipingCalculationScenario });
 
             // Assert
             Assert.AreEqual(CalculationScenarioStatus.Failed, status);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -351,28 +244,19 @@ namespace Ringtoets.Piping.Data.Test
             FailureMechanismSection section = CreateSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
-            var mocks = new MockRepository();
-            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.NotCalculated);
+            var pipingCalculationScenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            pipingCalculationScenario.IsRelevant = true;
 
-            var calculationScenarioMock2 = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock2.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock2.Stub(cs => cs.Probability).Return((RoundedDouble) double.NaN);
-            calculationScenarioMock2.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
-            calculationScenarioMock2.Stub(cs => cs.Status).Return(CalculationScenarioStatus.Failed);
-
-            mocks.ReplayAll();
-
-            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock);
-            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock2);
+            var pipingCalculationScenario2 = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
+            pipingCalculationScenario2.Contribution = (RoundedDouble) 1.0;
+            
+            var calculationScenarios = new[] { pipingCalculationScenario, pipingCalculationScenario2 };
 
             // Call
-            CalculationScenarioStatus status = failureMechanismSectionResult.CalculationScenarioStatus;
+            CalculationScenarioStatus status = failureMechanismSectionResult.GetCalculationScenarioStatus(calculationScenarios);
 
             // Assert
             Assert.AreEqual(CalculationScenarioStatus.Failed, status);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -382,24 +266,15 @@ namespace Ringtoets.Piping.Data.Test
             FailureMechanismSection section = CreateSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
-            var mocks = new MockRepository();
-            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
-            var expectedProbability = (RoundedDouble) 41661830;
-            calculationScenarioMock.Stub(cs => cs.Probability).Return(expectedProbability);
-            calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.Done);
-
-            mocks.ReplayAll();
-
-            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock);
+            var expectedProbability = 41661830;
+            var pipingCalculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(expectedProbability, section);
+            pipingCalculationScenario.Contribution = (RoundedDouble) 1.0;
 
             // Call
-            CalculationScenarioStatus status = failureMechanismSectionResult.CalculationScenarioStatus;
+            CalculationScenarioStatus status = failureMechanismSectionResult.GetCalculationScenarioStatus(new[] { pipingCalculationScenario });
 
             // Assert
             Assert.AreEqual(CalculationScenarioStatus.Done, status);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -410,10 +285,26 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            CalculationScenarioStatus status = failureMechanismSectionResult.CalculationScenarioStatus;
+            CalculationScenarioStatus status = failureMechanismSectionResult.GetCalculationScenarioStatus(Enumerable.Empty<PipingCalculationScenario>());
 
             // Assert
             Assert.AreEqual(CalculationScenarioStatus.Done, status);
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_ScenarioNotCalculated_ReturnsZero()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
+
+            var pipingCalculationScenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
+
+            // Call
+            RoundedDouble assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new [] { pipingCalculationScenario });
+
+            // Assert
+            Assert.AreEqual((RoundedDouble) 0, assessmentLayerTwoA);
         }
 
         private static FailureMechanismSection CreateSection()

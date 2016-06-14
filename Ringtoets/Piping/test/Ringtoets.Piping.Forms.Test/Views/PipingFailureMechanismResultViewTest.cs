@@ -30,10 +30,9 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
 
 namespace Ringtoets.Piping.Forms.Test.Views
@@ -95,7 +94,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_DataAlreadySetNewDataSet_DataSetAndDataGridViewUpdated()
         {
             // Setup
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView(new PipingFailureMechanism()))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -131,7 +130,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var testData = new object();
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView(new PipingFailureMechanism()))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -149,7 +148,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            using (ShowFullyConfiguredFailureMechanismResultsView())
+            using (ShowFullyConfiguredFailureMechanismResultsView(new PipingFailureMechanism()))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -179,7 +178,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultsView_ChangeCheckBox_DataGridViewCorrectlySyncedAndStylingSet(bool checkBoxSelected)
         {
             // Setup
-            using (ShowFullyConfiguredFailureMechanismResultsView())
+            using (ShowFullyConfiguredFailureMechanismResultsView(new PipingFailureMechanism()))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -228,7 +227,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
         {
             // Setup
-            using (ShowFullyConfiguredFailureMechanismResultsView())
+            using (ShowFullyConfiguredFailureMechanismResultsView(new PipingFailureMechanism()))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -248,7 +247,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(string newValue, int cellIndex, string propertyName)
         {
             // Setup
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView(new PipingFailureMechanism()))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -272,7 +271,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultView_EditValueDirtyStateChangedEventFired_ValueCommittedCellInEditMode()
         {
             // Setup
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView(new PipingFailureMechanism()))
             {
                 var sections = (List<PipingFailureMechanismSectionResult>) view.Data;
                 sections[0].AssessmentLayerOne = false;
@@ -298,20 +297,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultView_TotalContributionNotHundred_ShowsErrorTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 0.3);
-            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble) 1000);
-
-            mocks.ReplayAll();
-
             var rowIndex = 0;
 
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                var sections = (List<PipingFailureMechanismSectionResult>) view.Data;
-                sections[0].CalculationScenarios.Add(calculationScenarioMock);
+                var calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
+                    1000,
+                    pipingFailureMechanism.Sections.First()
+                );
+                calculationScenario.Contribution = (RoundedDouble)0.3;
+                pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
+                view.Data = pipingFailureMechanism.SectionResults;
 
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
@@ -324,7 +321,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak is opgeteld niet gelijk aan 100%.", dataGridViewCell.ErrorText);
                 Assert.AreEqual(double.NaN.ToString(CultureInfo.InvariantCulture), formattedValue);
-                mocks.VerifyAll();
             }
         }
 
@@ -332,21 +328,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultView_AssessmentLayerTwoAHasValue_DoesNotShowsErrorTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
-            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble) 1e-3);
-            calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.Done);
-
-            mocks.ReplayAll();
-
             var rowIndex = 0;
 
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                var sections = (List<PipingFailureMechanismSectionResult>) view.Data;
-                sections[0].CalculationScenarios.Add(calculationScenarioMock);
+                var calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
+                    (RoundedDouble) 1e-3,
+                    pipingFailureMechanism.Sections.First()
+                );
+                pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
+                view.Data = pipingFailureMechanism.SectionResults;
 
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
@@ -358,8 +350,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual(string.Empty, dataGridViewCell.ErrorText);
-                Assert.AreEqual(string.Format("1/{0:N0}", 1 / calculationScenarioMock.Probability), formattedValue);
-                mocks.VerifyAll();
+                Assert.AreEqual(string.Format("1/{0:N0}", 1/calculationScenario.Probability), formattedValue);
             }
         }
 
@@ -367,20 +358,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultView_AssessmentLayerTwoANull_ShowsErrorTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
-            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.NotCalculated);
-
-            mocks.ReplayAll();
-
             var rowIndex = 0;
 
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                var sections = (List<PipingFailureMechanismSectionResult>) view.Data;
-                sections[0].CalculationScenarios.Add(calculationScenarioMock);
+                var calculationScenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(
+                    pipingFailureMechanism.Sections.First()
+                );
+                pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
@@ -393,7 +379,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.AreEqual("Niet alle berekeningen voor dit vak zijn uitgevoerd.", dataGridViewCell.ErrorText);
                 Assert.AreEqual("-", formattedValue);
-                mocks.VerifyAll();
             }
         }
 
@@ -401,20 +386,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultView_AssessmentLayerTwoANaN_ShowsErrorTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
-            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.Failed);
-
-            mocks.ReplayAll();
-
             var rowIndex = 0;
 
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                var sections = (List<PipingFailureMechanismSectionResult>) view.Data;
-                sections[0].CalculationScenarios.Add(calculationScenarioMock);
+                var calculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(pipingFailureMechanism.Sections.First());
+                pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
+                view.Data = pipingFailureMechanism.SectionResults;
 
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
@@ -427,7 +406,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.AreEqual("Niet alle berekeningen voor dit vak hebben een geldige uitkomst.", dataGridViewCell.ErrorText);
                 Assert.AreEqual("-", formattedValue);
-                mocks.VerifyAll();
             }
         }
 
@@ -437,7 +415,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var rowIndex = 0;
 
-            using (ShowFullyConfiguredFailureMechanismResultsView())
+            using (ShowFullyConfiguredFailureMechanismResultsView(new PipingFailureMechanism()))
             {
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
@@ -457,20 +435,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultView_NoCalculationScenariosRelevant_DoesNotShowErrorTooltip()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
-            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(false);
-            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble) double.NaN);
-
-            mocks.ReplayAll();
-
             var rowIndex = 0;
 
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                var sections = (List<PipingFailureMechanismSectionResult>) view.Data;
-                sections[0].CalculationScenarios.Add(calculationScenarioMock);
+                var calculationScenario = PipingCalculationScenarioFactory.CreateIrreleveantPipingCalculationScenario(pipingFailureMechanism.Sections.First());
+                pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
@@ -490,21 +461,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultView_AssessmentLayerOneTrueAndAssessmentLayerTwoAHasError_DoesNotShowError()
         {
             // Setup
-            var mocks = new MockRepository();
-            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
-            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble) double.NaN);
-            calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.Failed);
-
-            mocks.ReplayAll();
-
             var rowIndex = 0;
 
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                var sections = (List<PipingFailureMechanismSectionResult>) view.Data;
-                sections[0].CalculationScenarios.Add(calculationScenarioMock);
+                var calculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(pipingFailureMechanism.Sections.First());
+                pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
@@ -518,7 +481,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(string.Empty, dataGridViewCell.ErrorText);
                 Assert.AreEqual("-", formattedValue);
-                mocks.VerifyAll();
             }
         }
 
@@ -527,10 +489,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private const int assessmentLayerTwoAIndex = 2;
         private const int assessmentLayerThreeIndex = 3;
 
-        private PipingFailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView()
+        private PipingFailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView(PipingFailureMechanism failureMechanism)
         {
-            var failureMechanism = new PipingFailureMechanism();
-
             failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0),

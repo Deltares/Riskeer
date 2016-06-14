@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -15,22 +16,25 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     internal class PipingFailureMechanismSectionResultRow
     {
+        private readonly IEnumerable<PipingCalculationScenario> calculations;
         private const double tolerance = 1e-6;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultRow"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="PipingFailureMechanismSectionResult"/> that is 
-        /// the source of this row.</param>
+        ///     the source of this row.</param>
+        /// <param name="calculations"></param>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="sectionResult"/> is
         /// <c>null</c>.</exception>
-        public PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)
+        public PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult, IEnumerable<PipingCalculationScenario> calculations)
         {
             if (sectionResult == null)
             {
                 throw new ArgumentNullException("sectionResult");
             }
             SectionResult = sectionResult;
+            this.calculations = calculations;
         }
 
         /// <summary>
@@ -67,20 +71,20 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                var relevantScenarios = SectionResult.CalculationScenarios.Where(cs => cs.IsRelevant).ToArray();
+                var relevantScenarios = SectionResult.GetCalculationScenarios(calculations).ToArray();
                 bool relevantScenarioAvailable = relevantScenarios.Length != 0;
 
-                if (relevantScenarioAvailable && Math.Abs(SectionResult.TotalContribution - 1.0) > tolerance)
+                if (relevantScenarioAvailable && Math.Abs(SectionResult.GetTotalContribution(calculations) - 1.0) > tolerance)
                 {
                     return string.Format("{0}", double.NaN);
                 }
 
-                if (!relevantScenarioAvailable || SectionResult.CalculationScenarioStatus != CalculationScenarioStatus.Done)
+                if (!relevantScenarioAvailable || SectionResult.GetCalculationScenarioStatus(calculations) != CalculationScenarioStatus.Done)
                 {
                     return Resources.FailureMechanismSectionResultRow_AssessmentLayerTwoA_No_result_dash;
                 }
 
-                var layerTwoA = SectionResult.AssessmentLayerTwoA.Value;
+                var layerTwoA = SectionResult.GetAssessmentLayerTwoA(calculations).Value;
 
                 return string.Format(CommonBaseResources.ProbabilityPerYearFormat, layerTwoA);
             }

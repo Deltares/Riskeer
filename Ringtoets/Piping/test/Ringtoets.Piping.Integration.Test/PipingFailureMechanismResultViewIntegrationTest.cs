@@ -84,7 +84,6 @@ namespace Ringtoets.Piping.Integration.Test
                 // Add a piping calculation and ensure it is shown in the data grid view
                 assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation1);
                 assessmentSection.PipingFailureMechanism.CalculationsGroup.NotifyObservers();
-                assessmentSection.PipingFailureMechanism.CalculationsGroup.AddCalculationScenariosToFailureMechanismSectionResult(assessmentSection.PipingFailureMechanism);
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("Niet alle berekeningen voor dit vak zijn uitgevoerd.", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
@@ -98,7 +97,6 @@ namespace Ringtoets.Piping.Integration.Test
                 // Add another, nested calculation and ensure the data grid view is updated
                 nestedPipingCalculationGroup.Children.Add(pipingCalculation2);
                 nestedPipingCalculationGroup.NotifyObservers();
-                assessmentSection.PipingFailureMechanism.CalculationsGroup.AddCalculationScenariosToFailureMechanismSectionResult(assessmentSection.PipingFailureMechanism);
                 Assert.AreEqual(double.NaN.ToString(CultureInfo.InvariantCulture), dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak is opgeteld niet gelijk aan 100%.", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
@@ -120,12 +118,10 @@ namespace Ringtoets.Piping.Integration.Test
                 var pipingCalculation3 = new PipingCalculationScenario(new GeneralPipingInput());
                 nestedPipingCalculationGroup.Children.Add(pipingCalculation3);
                 nestedPipingCalculationGroup.NotifyObservers();
-                assessmentSection.PipingFailureMechanism.CalculationsGroup.AddCalculationScenariosToFailureMechanismSectionResult(assessmentSection.PipingFailureMechanism);
                 Assert.AreEqual(string.Format("1/{0:N0}", 1.0 / pipingCalculation1.Probability), dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(string.Empty, dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 pipingCalculation3.InputParameters.SurfaceLine = assessmentSection.PipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
-                PipingCalculationScenarioService.SyncCalculationScenarioWithNewSurfaceLine(pipingCalculation3, assessmentSection.PipingFailureMechanism, null);
                 pipingCalculation3.InputParameters.NotifyObservers();
                 Assert.AreEqual(double.NaN.ToString(CultureInfo.InvariantCulture), dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak is opgeteld niet gelijk aan 100%.", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
@@ -143,7 +139,6 @@ namespace Ringtoets.Piping.Integration.Test
 
                 // Remove a calculation and make sure the data grid view is updated
                 nestedPipingCalculationGroup.Children.Remove(pipingCalculation3);
-                PipingCalculationScenarioService.RemoveCalculationScenarioFromSectionResult(pipingCalculation3, assessmentSection.PipingFailureMechanism);
                 nestedPipingCalculationGroup.NotifyObservers();
                 Assert.AreEqual(double.NaN.ToString(CultureInfo.InvariantCulture), dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak is opgeteld niet gelijk aan 100%.", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);

@@ -52,10 +52,10 @@
     <Compile Include="DerivedPipingInput.cs" />
     <Compile Include="GeneralPipingInput.cs" />
     <Compile Include="PipingCalculation.cs" />
-    <Compile Include="PipingCalculationGroupExtensions.cs" />
     <Compile Include="PipingCalculationScenario.cs" />
     <Compile Include="PipingCalculationScenarioExtensions.cs" />
     <Compile Include="PipingFailureMechanism.cs" />
+    <Compile Include="PipingFailureMechanismSection2aAssessmentResultExtensions.cs" />
     <Compile Include="PipingFailureMechanismSectionResult.cs" />
     <Compile Include="PipingInput.cs" />
     <Compile Include="PipingOutput.cs" />

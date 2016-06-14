@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PipingCalculationFactory.cs" />
+    <Compile Include="PipingCalculationScenarioFactory.cs" />
     <Compile Include="Segment2DLoopCollectionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestStochasticSoilModel.cs" />

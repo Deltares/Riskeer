@@ -427,6 +427,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             group.Children.Add(elementToBeRemoved);
             group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
             group.Attach(observer);
+            pipingFailureMechanism.CalculationsGroup.Children.Add(group);
 
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
@@ -442,13 +443,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                  pipingFailureMechanism,
                                                                  assessmentSectionMock);
 
-            group.AddCalculationScenariosToFailureMechanismSectionResult(pipingFailureMechanism);
-
             // Precondition
             Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
             Assert.AreEqual(2, group.Children.Count);
             var sectionResults = pipingFailureMechanism.SectionResults.ToArray();
-            CollectionAssert.Contains(sectionResults[0].CalculationScenarios, elementToBeRemoved);
+            CollectionAssert.Contains(sectionResults[0].GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>()), elementToBeRemoved);
 
             // Call
             info.OnNodeRemoved(calculationContext, groupContext);
@@ -456,7 +455,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, group.Children.Count);
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
-            CollectionAssert.DoesNotContain(sectionResults[0].CalculationScenarios, elementToBeRemoved);
+            CollectionAssert.DoesNotContain(sectionResults[0].GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>()), elementToBeRemoved);
 
             mocks.VerifyAll();
         }

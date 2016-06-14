@@ -1047,8 +1047,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var group = new CalculationGroup();
-
             var pipingFailureMechanism = new PipingFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
@@ -1097,7 +1095,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 new Point2D(10.0, 0.0)
             }));
 
-            var nodeData = new PipingCalculationGroupContext(group,
+            var nodeData = new PipingCalculationGroupContext(pipingFailureMechanism.CalculationsGroup,
                                                              surfaceLines,
                                                              new[]
                                                              {
@@ -1119,12 +1117,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             plugin.Gui = gui;
 
-            // Precondition
-            foreach (var failureMechanismSectionResult in pipingFailureMechanism.SectionResults)
-            {
-                CollectionAssert.IsEmpty(failureMechanismSectionResult.CalculationScenarios);
-            }
-
             DialogBoxHandler = (name, wnd) =>
             {
                 var selectionDialog = new FormTester(name).TheObject as PipingSurfaceLineSelectionDialog;
@@ -1144,14 +1136,15 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var failureMechanismSectionResult1 = pipingFailureMechanism.SectionResults.First();
             var failureMechanismSectionResult2 = pipingFailureMechanism.SectionResults.ElementAt(1);
 
-            Assert.AreEqual(2, failureMechanismSectionResult1.CalculationScenarios.Count);
+            var pipingCalculationScenarios = pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>().ToArray();
+            Assert.AreEqual(2, failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios).Count());
 
-            foreach (var calculationScenario in failureMechanismSectionResult1.CalculationScenarios)
+            foreach (var calculationScenario in failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios))
             {
                 Assert.IsInstanceOf<ICalculationScenario>(calculationScenario);
             }
 
-            CollectionAssert.IsEmpty(failureMechanismSectionResult2.CalculationScenarios);
+            CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(pipingCalculationScenarios));
 
             mocks.VerifyAll();
         }
@@ -1239,7 +1232,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Precondition
             foreach (var failureMechanismSectionResult in pipingFailureMechanism.SectionResults)
             {
-                CollectionAssert.IsEmpty(failureMechanismSectionResult.CalculationScenarios);
+                CollectionAssert.IsEmpty(failureMechanismSectionResult.GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>()));
             }
 
             DialogBoxHandler = (name, wnd) =>
@@ -1260,7 +1253,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Then
             foreach (var failureMechanismSectionResult in pipingFailureMechanism.SectionResults)
             {
-                CollectionAssert.IsEmpty(failureMechanismSectionResult.CalculationScenarios);
+                CollectionAssert.IsEmpty(failureMechanismSectionResult.GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>()));
             }
 
             mocks.VerifyAll();
@@ -1332,7 +1325,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              pipingFailureMechanism,
                                                              assessmentSectionMock);
 
-            var parentGroup = new CalculationGroup();
+            var parentGroup = pipingFailureMechanism.CalculationsGroup;
             parentGroup.Children.Add(group);
             var parentNodeData = new PipingCalculationGroupContext(parentGroup,
                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
@@ -1341,19 +1334,17 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                    assessmentSectionMock);
             parentNodeData.Attach(observer);
 
-            parentGroup.AddCalculationScenariosToFailureMechanismSectionResult(pipingFailureMechanism);
-
             // Precondition
             Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));
             var sectionResults = pipingFailureMechanism.SectionResults.ToArray();
-            CollectionAssert.Contains(sectionResults[0].CalculationScenarios, calculation);
+            CollectionAssert.Contains(sectionResults[0].GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>()), calculation);
 
             // Call
             info.OnNodeRemoved(nodeData, parentNodeData);
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
-            CollectionAssert.DoesNotContain(sectionResults[0].CalculationScenarios, calculation);
+            CollectionAssert.DoesNotContain(sectionResults[0].GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>()), calculation);
             mocks.VerifyAll();
         }
 

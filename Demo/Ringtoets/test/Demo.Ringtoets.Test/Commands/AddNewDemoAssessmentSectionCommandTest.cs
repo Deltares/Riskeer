@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
@@ -90,7 +91,10 @@ namespace Demo.Ringtoets.Test.Commands
                                                                                        .OfType<PipingCalculationScenario>()
                                                                                        .First();
             AssertCalculationAbleToCalculate(pipingCalculationScenario);
-            AssertCalculationInFailureMechanismSectionResult(pipingCalculationScenario, demoAssessmentSection.PipingFailureMechanism.SectionResults.ToArray());
+            AssertCalculationInFailureMechanismSectionResult(
+                pipingCalculationScenario, 
+                demoAssessmentSection.PipingFailureMechanism.SectionResults.ToArray(),
+                demoAssessmentSection.PipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>());
 
             Assert.AreEqual(1, demoAssessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Count);
             GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = demoAssessmentSection.GrassCoverErosionInwards
@@ -113,7 +117,7 @@ namespace Demo.Ringtoets.Test.Commands
             mocks.VerifyAll();
         }
 
-        private void AssertCalculationInFailureMechanismSectionResult(PipingCalculationScenario calculation, PipingFailureMechanismSectionResult[] sectionResults)
+        private void AssertCalculationInFailureMechanismSectionResult(PipingCalculationScenario calculation, PipingFailureMechanismSectionResult[] sectionResults, IEnumerable<PipingCalculationScenario> calculations)
         {
             Assert.AreEqual(283, sectionResults.Length);
             var sectionResultWithCalculation = sectionResults[22];
@@ -121,7 +125,7 @@ namespace Demo.Ringtoets.Test.Commands
             CollectionAssert.AreEqual(new[]
             {
                 calculation
-            }, sectionResultWithCalculation.CalculationScenarios);
+            }, sectionResultWithCalculation.GetCalculationScenarios(calculations));
         }
 
         private void AssertValuesOnHydraulicBoundaryLocations(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
