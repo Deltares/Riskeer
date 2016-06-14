@@ -190,7 +190,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
             // 
             this.messagesBindingSource.DataMember = "MessageTable";
             this.messagesBindingSource.DataSource = this.messageWindowData;
-            this.messagesBindingSource.Sort = "timeColumn DESC";
+            this.messagesBindingSource.Sort = "";
             // 
             // messageWindowData
             // 

@@ -124,7 +124,13 @@ namespace Core.Common.Gui.Forms.MessageWindow
                 MessageData msg;
                 while (newMessages.TryDequeue(out msg))
                 {
-                    Messages.Rows.Add(msg.ImageName, msg.Time, msg.Message);
+                    var row = Messages.NewRow();
+
+                    row[0] = msg.ImageName;
+                    row[1] = msg.Time;
+                    row[2] = msg.Message;
+
+                    Messages.Rows.InsertAt(row, 0);
                 }
             }
             finally
