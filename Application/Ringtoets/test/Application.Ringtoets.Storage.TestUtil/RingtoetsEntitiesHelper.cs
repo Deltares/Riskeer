@@ -24,6 +24,7 @@ using System.Data.Entity;
 
 using Application.Ringtoets.Storage.DbContext;
 using Rhino.Mocks;
+using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.TestUtil
 {
@@ -41,6 +42,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             DbSet<FailureMechanismEntity> failureMechanismsSet = CreateEmptyTestDbSet<FailureMechanismEntity>();
             DbSet<FailureMechanismSectionEntity> failureMechanismSectionsSet = CreateEmptyTestDbSet<FailureMechanismSectionEntity>();
             DbSet<FailureMechanismSectionPointEntity> failureMechanismSectionPointsSet = CreateEmptyTestDbSet<FailureMechanismSectionPointEntity>();
+            DbSet<PipingSectionResultEntity> pipingSectionResultssSet = CreateEmptyTestDbSet<PipingSectionResultEntity>();
             DbSet<AssessmentSectionEntity> assessmentSectionsSet = CreateEmptyTestDbSet<AssessmentSectionEntity>();
             DbSet<ReferenceLinePointEntity> referenceLinesSet = CreateEmptyTestDbSet<ReferenceLinePointEntity>();
             DbSet<CalculationGroupEntity> calculationGroupsSet = CreateEmptyTestDbSet<CalculationGroupEntity>();
@@ -63,6 +65,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             ringtoetsEntities.Stub(r => r.FailureMechanismEntities).Return(failureMechanismsSet);
             ringtoetsEntities.Stub(r => r.FailureMechanismSectionEntities).Return(failureMechanismSectionsSet);
             ringtoetsEntities.Stub(r => r.FailureMechanismSectionPointEntities).Return(failureMechanismSectionPointsSet);
+            ringtoetsEntities.Stub(r => r.PipingSectionResultEntities).Return(pipingSectionResultssSet);
             ringtoetsEntities.Stub(r => r.AssessmentSectionEntities).Return(assessmentSectionsSet);
             ringtoetsEntities.Stub(r => r.ReferenceLinePointEntities).Return(referenceLinesSet);
             ringtoetsEntities.Stub(r => r.CalculationGroupEntities).Return(calculationGroupsSet);

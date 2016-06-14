@@ -57,6 +57,7 @@
     <Compile Include="Create\GrassCoverErosionInwardsFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\IFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\PipingCalculationScenarioCreateExtensions.cs" />
+    <Compile Include="Create\PipingFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\PipingOutputCreateExtensions.cs" />
     <Compile Include="Create\PipingProbabilityAssessmentInputCreateExtensions.cs" />
     <Compile Include="Create\PipingSemiProbabilisticOutputCreateExtensions.cs" />
@@ -101,6 +102,9 @@
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\PipingFailureMechanismMetaEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\PipingSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\PipingSemiProbabilisticOutputEntity.cs">
@@ -191,6 +195,7 @@
     <Compile Include="Update\GrassCoverErosionInwardsFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\IFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\PipingCalculationScenarioUpdateExtensions.cs" />
+    <Compile Include="Update\PipingFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\PipingProbabilityAssessmentInputUpdateExtensions.cs" />
     <Compile Include="Update\RingtoetsPipingSurfaceLineUpdateExtensions.cs" />
     <Compile Include="Update\FailureMechanismSectionUpdateExtensions.cs" />

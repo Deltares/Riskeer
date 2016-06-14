@@ -24,6 +24,7 @@ using System.Linq;
 
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Test.Update;
 using Application.Ringtoets.Storage.TestUtil;
 
 using Core.Common.Base.Data;
@@ -338,12 +339,56 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsFalse(result);
         }
 
+        [Test]
+        public void Contains_FailureMechanismSectionAdded_True()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var failureMechanismSection = new TestFailureMechanismSection();
+            registry.Register(new FailureMechanismSectionEntity(), failureMechanismSection);
+
+            // Call
+            bool result = registry.Contains(failureMechanismSection);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_NoFailureMechanismSectionAdded_False()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var failureMechanismSection = new TestFailureMechanismSection();
+
+            // Call
+            bool result = registry.Contains(failureMechanismSection);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_OtherSFailureMechanismSectionAdded_False()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var failureMechanismSection = new TestFailureMechanismSection();
+            registry.Register(new FailureMechanismSectionEntity(), new TestFailureMechanismSection());
+
+            // Call
+            bool result = registry.Contains(failureMechanismSection);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
         #endregion
 
         #region Get methods
 
         [Test]
-        public void Get_WithoutModel_ArgumentNullException()
+        public void Get_WithoutPipingSoilProfile_ArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -520,7 +565,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Get_WithoutStochasticSoilModelEntity_ArgumentNullException()
+        public void Get_WithoutStochasticSoilModel_ArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -637,7 +682,64 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.Throws<InvalidOperationException>(test);
         }
 
-        #endregion
+        [Test]
+        public void Get_WithoutFailureMechanismSection_ArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Get((FailureMechanismSection)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Get_FailureMechanismSectionAdded_ReturnsEntity()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var section = new TestFailureMechanismSection();
+            var entity = new FailureMechanismSectionEntity();
+            registry.Register(entity, section);
+
+            // Call
+            FailureMechanismSectionEntity result = registry.Get(section);
+
+            // Assert
+            Assert.AreSame(entity, result);
+        }
+
+        [Test]
+        public void Get_NoFailureMechanismSectionAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var section = new TestFailureMechanismSection();
+
+            // Call
+            TestDelegate test = () => registry.Get(section);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_OtherFailureMechanismSectionAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var section = new TestFailureMechanismSection();
+            registry.Register(new FailureMechanismSectionEntity(), new TestFailureMechanismSection());
+
+            // Call
+            TestDelegate test = () => registry.Get(section);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
 
         [Test]
         public void GetSurfaceLinePoint_SurfaceLinePointAdded_ReturnsEntity()
@@ -656,6 +758,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreSame(initializedEntity, retrievedEntity);
 
         }
+
+        #endregion
 
         #region Register methods
 
@@ -757,6 +861,48 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullFailureMechanismSectionEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(null, new TestFailureMechanismSection());
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullPipingFailureMechanismSectionResult_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(new PipingSectionResultEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullPipingSectionResultEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(null, new PipingFailureMechanismSectionResult(new TestFailureMechanismSection()));
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
         }
 
         [Test]
@@ -1207,6 +1353,27 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void TransferIds_WithPipingSectionResultEntityAddedWithPipingFailureMechanismSectionResult_EqualPipingSectionEntityIdAndPipingFailureMechanismSectionResultStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1,4000);
+            var entity = new PipingSectionResultEntity()
+            {
+                PipingSectionResultEntityId = storageId
+            };
+            var model = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection());
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
         public void TransferIds_WithHydraulicLocationEntityAdded_EqualHydraulicLocationEntityIdAndHydraulicBoundaryLocationStorageId()
         {
             // Setup
@@ -1592,6 +1759,42 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(1, dbContext.FailureMechanismSectionEntities.Count());
             CollectionAssert.Contains(dbContext.FailureMechanismSectionEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_PipingSectionResultEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new PipingSectionResultEntity
+            {
+                PipingSectionResultEntityId = 1
+            };
+            var persistentEntity = new PipingSectionResultEntity
+            {
+                PipingSectionResultEntityId = 2
+            };
+            dbContext.PipingSectionResultEntities.Add(orphanedEntity);
+            dbContext.PipingSectionResultEntities.Add(persistentEntity);
+
+            var section = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                StorageId = persistentEntity.PipingSectionResultEntityId
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, section);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.PipingSectionResultEntities.Count());
+            CollectionAssert.Contains(dbContext.PipingSectionResultEntities, persistentEntity);
             mocks.VerifyAll();
         }
 

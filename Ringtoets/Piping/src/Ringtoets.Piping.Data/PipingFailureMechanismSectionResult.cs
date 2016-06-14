@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Piping.Data
@@ -29,7 +30,7 @@ namespace Ringtoets.Piping.Data
     /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>
     /// for a piping assessment.
     /// </summary>
-    public class PipingFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class PipingFailureMechanismSectionResult : FailureMechanismSectionResult, IStorable
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResult"/>.
@@ -48,5 +49,7 @@ namespace Ringtoets.Piping.Data
         /// Gets or sets the state of the assessment layer one.
         /// </summary>
         public bool AssessmentLayerOne { get; set; }
+
+        public long StorageId { get; set; }
     }
 }

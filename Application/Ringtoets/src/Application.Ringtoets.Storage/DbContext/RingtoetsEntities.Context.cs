@@ -62,6 +62,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<PipingCalculationEntity> PipingCalculationEntities { get; set; }
         public virtual DbSet<PipingCalculationOutputEntity> PipingCalculationOutputEntities { get; set; }
         public virtual DbSet<PipingFailureMechanismMetaEntity> PipingFailureMechanismMetaEntities { get; set; }
+        public virtual DbSet<PipingSectionResultEntity> PipingSectionResultEntities { get; set; }
         public virtual DbSet<PipingSemiProbabilisticOutputEntity> PipingSemiProbabilisticOutputEntities { get; set; }
         public virtual DbSet<ProjectEntity> ProjectEntities { get; set; }
         public virtual DbSet<ReferenceLinePointEntity> ReferenceLinePointEntities { get; set; }

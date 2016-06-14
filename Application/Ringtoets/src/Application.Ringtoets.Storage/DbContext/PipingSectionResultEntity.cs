@@ -33,23 +33,13 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class FailureMechanismSectionEntity
+    public partial class PipingSectionResultEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public FailureMechanismSectionEntity()
-        {
-            this.FailureMechanismSectionPointEntities = new HashSet<FailureMechanismSectionPointEntity>();
-            this.PipingSectionResultEntities = new HashSet<PipingSectionResultEntity>();
-        }
+        public long PipingSectionResultEntityId { get; set; }
+        public Nullable<long> FailureMechanismSectionEntityId { get; set; }
+        public Nullable<decimal> LayerOne { get; set; }
+        public Nullable<decimal> LayerThree { get; set; }
     
-        public long FailureMechanismSectionEntityId { get; set; }
-        public long FailureMechanismEntityId { get; set; }
-        public string Name { get; set; }
-    
-        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FailureMechanismSectionPointEntity> FailureMechanismSectionPointEntities { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PipingSectionResultEntity> PipingSectionResultEntities { get; set; }
+        public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }
 }

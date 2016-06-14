@@ -102,7 +102,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Create_WithSections_ReturnsFailureMechanismEntityWithFailureMechanismSectionEntities(bool isRelevant)
+        public void Create_WithSections_ReturnsWithFailureMechanismSectionEntitiesAndPipingResultEntities(bool isRelevant)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -122,6 +122,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(2, entity.FailureMechanismSectionEntities.Count);
+            Assert.AreEqual(2, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities).Count());
         }
 
         [Test]

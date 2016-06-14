@@ -86,6 +86,7 @@
     <Compile Include="Create\PersistenceRegistryTest.cs" />
     <Compile Include="Create\IFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\PipingCalculationScenarioCreateExtensionsTest.cs" />
+    <Compile Include="Create\PipingFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\PipingOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\PipingProbabilityAssessmentInputCreateExtensionsTest.cs" />
     <Compile Include="Create\PipingSemiProbabilisticOutputCreateExtensionsTest.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Update\HydraulicBoundaryLocationUpdateExtensionsTest.cs" />
     <Compile Include="Update\IStorableExtensionsTest.cs" />
     <Compile Include="Update\PipingCalculationScenarioUpdateExtensionsTest.cs" />
+    <Compile Include="Update\PipingFailureMechanismSectionResultUpdateExtensionsTest.cs" />
     <Compile Include="Update\PipingFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\PipingProbabilityAssessmentInputUpdateExtensionsTest.cs" />
     <Compile Include="Update\PipingSoilLayerUpdateExtensionsTest.cs" />

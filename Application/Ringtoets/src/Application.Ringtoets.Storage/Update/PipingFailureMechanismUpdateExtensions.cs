@@ -67,9 +67,25 @@ namespace Application.Ringtoets.Storage.Update
             UpdateSoilModels(mechanism, registry, context, entity);
             UpdateSurfaceLines(mechanism, registry, context, entity);
             mechanism.UpdateFailureMechanismSections(registry, entity, context);
+            UpdateSectionResults(mechanism, registry, context, entity);
             mechanism.CalculationsGroup.Update(registry, context);
 
             registry.Register(entity, mechanism);
+        }
+
+        private static void UpdateSectionResults(PipingFailureMechanism mechanism, PersistenceRegistry registry, IRingtoetsEntities context, FailureMechanismEntity entity)
+        {
+            foreach (var sectionResult in mechanism.SectionResults)
+            {
+                if (sectionResult.IsNew())
+                {
+                    registry.Get(sectionResult.Section).PipingSectionResultEntities.Add(sectionResult.Create(registry));
+                }
+                else
+                {
+                    sectionResult.Update(registry, context);
+                }
+            }
         }
 
         private static void UpdateSoilModels(PipingFailureMechanism mechanism, PersistenceRegistry registry, IRingtoetsEntities context, FailureMechanismEntity entity)

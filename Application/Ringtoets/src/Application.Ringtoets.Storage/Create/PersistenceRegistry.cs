@@ -50,6 +50,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<AssessmentSectionEntity, AssessmentSection> assessmentSections = new Dictionary<AssessmentSectionEntity, AssessmentSection>(new ReferenceEqualityComparer<AssessmentSectionEntity>());
         private readonly Dictionary<FailureMechanismEntity, IFailureMechanism> failureMechanisms = new Dictionary<FailureMechanismEntity, IFailureMechanism>(new ReferenceEqualityComparer<FailureMechanismEntity>());
         private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections = new Dictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
+        private readonly Dictionary<PipingSectionResultEntity, PipingFailureMechanismSectionResult> pipingFailureMechanismSectionResults = new Dictionary<PipingSectionResultEntity, PipingFailureMechanismSectionResult>();
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicLocations = new Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>(new ReferenceEqualityComparer<HydraulicLocationEntity>());
         private readonly Dictionary<CalculationGroupEntity, CalculationGroup> calculationGroups = new Dictionary<CalculationGroupEntity, CalculationGroup>(new ReferenceEqualityComparer<CalculationGroupEntity>());
         private readonly Dictionary<PipingCalculationEntity, PipingCalculationScenario> pipingCalculations = new Dictionary<PipingCalculationEntity, PipingCalculationScenario>(new ReferenceEqualityComparer<PipingCalculationEntity>());
@@ -78,6 +79,22 @@ namespace Application.Ringtoets.Storage.Create
         public void Register(FailureMechanismSectionEntity entity, FailureMechanismSection model)
         {
             Register(failureMechanismSections, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="PipingSectionResultEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="PipingFailureMechanismSectionResult"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(PipingSectionResultEntity entity, PipingFailureMechanismSectionResult model)
+        {
+            Register(pipingFailureMechanismSectionResults, entity, model);
         }
 
         /// <summary>
@@ -333,6 +350,18 @@ namespace Application.Ringtoets.Storage.Create
         }
 
         /// <summary>
+        /// Checks whether a create or update operations has been registered for the given
+        /// <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="FailureMechanismSection"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        internal bool Contains(FailureMechanismSection model)
+        {
+            return ContainsValue(failureMechanismSections, model);
+        }
+
+        /// <summary>
         /// Obtains the <see cref="StochasticSoilModelEntity"/> which was registered for
         /// the given <paramref name="model"/>.
         /// </summary>
@@ -410,11 +439,28 @@ namespace Application.Ringtoets.Storage.Create
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no create/update operation 
         /// has been registered for <paramref name="model"/>.</exception>
-        /// <remarks>Use <see cref="Contains(RingtoetsPipingSurfaceLine)"/> to find out
+        /// <remarks>Use <see cref="Contains(HydraulicBoundaryLocation)"/> to find out
         /// whether a create/update operation has been registered for <paramref name="model"/>.</remarks>
         internal HydraulicLocationEntity Get(HydraulicBoundaryLocation model)
         {
             return Get(hydraulicLocations, model);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="FailureMechanismSection"/> which was registered for the
+        /// given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="FailureMechanismSection"/> for which a
+        /// read/update operation has been registered.</param>
+        /// <returns>The constructed <see cref="FailureMechanismSectionEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create/update operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(FailureMechanismSection)"/> to find out
+        /// whether a create/update operation has been registered for <paramref name="model"/>.</remarks>
+        internal FailureMechanismSectionEntity Get(FailureMechanismSection model)
+        {
+            return Get(failureMechanismSections, model);
         }
 
         /// <summary>
@@ -519,6 +565,11 @@ namespace Application.Ringtoets.Storage.Create
             foreach (var entity in assessmentSections.Keys)
             {
                 assessmentSections[entity].StorageId = entity.AssessmentSectionEntityId;
+            }
+
+            foreach (var entity in pipingFailureMechanismSectionResults.Keys)
+            {
+                pipingFailureMechanismSectionResults[entity].StorageId = entity.PipingSectionResultEntityId;
             }
 
             foreach (var entity in hydraulicLocations.Keys)
@@ -634,6 +685,17 @@ namespace Application.Ringtoets.Storage.Create
                 }
             }
             dbContext.FailureMechanismSectionEntities.RemoveRange(orphanedFailureMechanismSectionEntities);
+
+            var orphanedPipingSectionResultEntities = new List<PipingSectionResultEntity>();
+            foreach (PipingSectionResultEntity pipingSectionResultEntity in dbContext.PipingSectionResultEntities
+                                                                                             .Where(e => e.PipingSectionResultEntityId > 0))
+            {
+                if (!pipingFailureMechanismSectionResults.ContainsKey(pipingSectionResultEntity))
+                {
+                    orphanedPipingSectionResultEntities.Add(pipingSectionResultEntity);
+                }
+            }
+            dbContext.PipingSectionResultEntities.RemoveRange(orphanedPipingSectionResultEntities);
 
             var orphanedHydraulicLocationEntities = new List<HydraulicLocationEntity>();
             foreach (HydraulicLocationEntity hydraulicLocationEntity in dbContext.HydraulicLocationEntities

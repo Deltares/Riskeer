@@ -437,6 +437,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             // Assert
             Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);
+            Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities).Count());
 
             mocks.VerifyAll();
         }
@@ -464,10 +465,19 @@ namespace Application.Ringtoets.Storage.Test.Update
                 StorageId = 1
             };
             failureMechanism.AddSection(failureMechanismSection);
+            failureMechanism.SectionResults.First().StorageId = 1;
 
+            var pipingSectionResultEntity = new PipingSectionResultEntity
+            {
+                PipingSectionResultEntityId = failureMechanism.SectionResults.First().StorageId
+            };
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
                 FailureMechanismSectionEntityId = failureMechanismSection.StorageId,
+                PipingSectionResultEntities =
+                {
+                    pipingSectionResultEntity
+                }
             };
             var rootCalculationGroupEntity = new CalculationGroupEntity
             {
@@ -486,6 +496,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
             ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
             ringtoetsEntities.FailureMechanismSectionEntities.Add(failureMechanismSectionEntity);
+            ringtoetsEntities.PipingSectionResultEntities.Add(pipingSectionResultEntity);
             ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
             {
                 PipingFailureMechanismMetaEntityId = failureMechanism.PipingProbabilityAssessmentInput.StorageId,
@@ -497,6 +508,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             // Assert
             Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);
+            Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities).Count());
             Assert.AreEqual(testName, failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(0).Name);
 
             mocks.VerifyAll();
