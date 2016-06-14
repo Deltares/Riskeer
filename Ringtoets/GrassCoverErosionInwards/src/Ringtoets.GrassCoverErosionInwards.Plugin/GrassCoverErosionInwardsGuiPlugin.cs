@@ -22,12 +22,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
+
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -46,6 +49,7 @@ using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.IO;
+
 using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
 using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -55,7 +59,7 @@ using BaseResources = Core.Common.Base.Properties.Resources;
 namespace Ringtoets.GrassCoverErosionInwards.Plugin
 {
     /// <summary>
-    /// The GUI plug-in for the <see cref="GrassCoverErosionInwards.Data.GrassCoverErosionInwardsFailureMechanism"/>.
+    /// The GUI plug-in for the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
     /// </summary>
     public class GrassCoverErosionInwardsGuiPlugin : GuiPlugin
     {
@@ -87,6 +91,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 FailureMechanismDisabledChildNodeObjects,
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
+
+            yield return new TreeNodeInfo<DikeProfilesContext>
+            {
+                Text = context => "Dijkprofielen",
+                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ForeColor = context => context.WrappedData.Any() ?
+                                           Color.FromKnownColor(KnownColor.ControlText) :
+                                           Color.FromKnownColor(KnownColor.GrayText),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddImportItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddCollapseAllItem()
+                                                                                 .AddExpandAllItem()
+                                                                                 .Build()
+            };
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionInwardsCalculationGroupContext>(
                 CalculationGroupContextChildNodeObjects,
@@ -141,7 +160,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
-            var hydraulicBoundaryLocationId = (int) calculation.InputParameters.HydraulicBoundaryLocation.Id;
+            var hydraulicBoundaryLocationId = (int)calculation.InputParameters.HydraulicBoundaryLocation.Id;
             var failureMechanismSection = failureMechanism.Sections.First(); // TODO: Pass dike section based on cross section of calculation with reference line
             var sectionLength = failureMechanismSection.GetSectionLength();
             var generalInput = failureMechanism.GeneralInput;
@@ -173,7 +192,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static HydraRingBreakWater ParseBreakWater(GrassCoverErosionInwardsInput input)
         {
-            return input.UseBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null;
+            return input.UseBreakWater ? new HydraRingBreakWater((int)input.BreakWater.Type, input.BreakWater.Height) : null;
         }
 
         private static IEnumerable<HydraRingForelandPoint> ParseForeshore(GrassCoverErosionInwardsInput input)
@@ -231,7 +250,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                              calc,
                                                                              failureMechanism,
                                                                              assessmentSection
-                                                                             )).ToList());
+                                                                                             )).ToList());
         }
 
         private static string AllDataAvailable(IAssessmentSection assessmentSection, GrassCoverErosionInwardsFailureMechanism failureMechanism)
@@ -317,6 +336,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };
         }
@@ -448,7 +468,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static void CalculationGroupContextOnNodeRemoved(GrassCoverErosionInwardsCalculationGroupContext context, object parentNodeData)
         {
-            var parentGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) parentNodeData;
+            var parentGroupContext = (GrassCoverErosionInwardsCalculationGroupContext)parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
             parentGroupContext.NotifyObservers();

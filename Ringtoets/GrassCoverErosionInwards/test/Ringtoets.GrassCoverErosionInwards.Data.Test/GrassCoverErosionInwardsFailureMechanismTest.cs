@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System.Linq;
+
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -41,12 +43,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
+
             Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, failureMechanism.Name);
             Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode, failureMechanism.Code);
-            CollectionAssert.IsEmpty(failureMechanism.Calculations);
+
             Assert.IsInstanceOf<GeneralGrassCoverErosionInwardsInput>(failureMechanism.GeneralInput);
+
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
             Assert.IsEmpty(failureMechanism.CalculationsGroup.Children);
+
+            Assert.IsInstanceOf<ObservableList<DikeProfile>>(failureMechanism.DikeProfiles);
+            CollectionAssert.IsEmpty(failureMechanism.DikeProfiles);
         }
 
         [Test]
@@ -121,6 +129,51 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(2, calculations.Count);
             Assert.IsTrue(calculations.All(c => c is GrassCoverErosionInwardsCalculation));
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenFailureMechanismWithDikeProfiles_WhenAddingAndRemovingElements_ThenCollectionIsUpdated()
+        {
+            // Scenario
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var dikeProfile1 = new DikeProfile(new Point2D(0, 0));
+            var dikeProfile2 = new DikeProfile(new Point2D(1, 1));
+            var dikeProfile3 = new DikeProfile(new Point2D(2, 2));
+
+            failureMechanism.DikeProfiles.Add(dikeProfile1);
+
+            // Event
+            failureMechanism.DikeProfiles.Add(dikeProfile2);
+            failureMechanism.DikeProfiles.Insert(0, dikeProfile3);
+            failureMechanism.DikeProfiles.Remove(dikeProfile1);
+
+            // Result
+            var expectedDikeProfiles = new[]
+            {
+                dikeProfile3,
+                dikeProfile2
+            };
+            CollectionAssert.AreEqual(expectedDikeProfiles, failureMechanism.DikeProfiles);
+        }
+
+        [Test]
+        public void GivenObserverAttachedToDikeProfiles_WhenNotifyObservers_ThenObserverIsNotified()
+        {
+            // Scenario
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.DikeProfiles.Attach(observer);
+
+            // Event
+            failureMechanism.DikeProfiles.NotifyObservers();
+
+            // Result
+            mocks.VerifyAll(); // Expect observer to be notified.
         }
     }
 }

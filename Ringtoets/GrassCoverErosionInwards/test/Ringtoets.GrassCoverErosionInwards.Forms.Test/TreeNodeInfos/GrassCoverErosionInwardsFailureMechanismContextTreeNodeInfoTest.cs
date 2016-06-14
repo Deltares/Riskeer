@@ -40,7 +40,6 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
-using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -110,11 +109,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var inputsFolder = (CategoryTreeFolder) children[0];
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
-            Assert.AreEqual(2, inputsFolder.Contents.Count);
+            Assert.AreEqual(3, inputsFolder.Contents.Count);
             var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSectionMock, failureMechanismSectionsContext.ParentAssessmentSection);
-            var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[1];
+
+            var dikeProfilesContext = (DikeProfilesContext)inputsFolder.Contents[1];
+            Assert.AreSame(failureMechanism.DikeProfiles, dikeProfilesContext.WrappedData);
+            Assert.AreSame(assessmentSectionMock, dikeProfilesContext.ParentAssessmentSection);
+
+            var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
             Assert.AreSame(failureMechanism, commentContext.WrappedData);
 
             var calculationsFolder = (GrassCoverErosionInwardsCalculationGroupContext) children[1];

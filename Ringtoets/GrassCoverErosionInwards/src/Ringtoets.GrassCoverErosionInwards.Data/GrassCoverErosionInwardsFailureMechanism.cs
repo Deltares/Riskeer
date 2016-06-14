@@ -21,9 +21,13 @@
 
 using System.Collections.Generic;
 using System.Linq;
+
+using Core.Common.Base;
+
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
+
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
@@ -44,6 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
             GeneralInput = new GeneralGrassCoverErosionInwardsInput();
             sectionResults = new List<GrassCoverErosionInwardsFailureMechanismSectionResult>();
+            DikeProfiles = new ObservableList<DikeProfile>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -58,6 +63,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets the general grass cover erosion inwards calculation input parameters that apply to each calculation.
         /// </summary>
         public GeneralGrassCoverErosionInwardsInput GeneralInput { get; private set; }
+
+        /// <summary>
+        /// Gets the available dike profiles for this instance.
+        /// </summary>
+        public ObservableList<DikeProfile> DikeProfiles { get; private set; }
 
         public CalculationGroup CalculationsGroup { get; private set; }
 

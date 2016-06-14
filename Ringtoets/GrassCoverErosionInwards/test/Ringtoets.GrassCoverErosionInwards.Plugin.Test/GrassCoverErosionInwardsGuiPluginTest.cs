@@ -102,8 +102,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = guiPlugin.GetTreeNodeInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(7, treeNodeInfos.Length);
+                Assert.AreEqual(8, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DikeProfilesContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>)));
