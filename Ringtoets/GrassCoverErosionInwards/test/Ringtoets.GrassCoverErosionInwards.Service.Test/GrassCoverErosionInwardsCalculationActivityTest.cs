@@ -19,10 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Linq;
 using Core.Common.Base.Service;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -53,35 +50,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
 
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Run_InvalidGrassCoverErosionInwardsCalculation_LogValidationStartAndEndWithError()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation();
-
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, "", failureMechanism, assessmentSectionMock);
-
-            // Call
-            Action call = () => activity.Run();
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith("Validatie mislukt: ", msgs[1]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
-            });
-            Assert.AreEqual(ActivityState.Failed, activity.State);
             mocks.VerifyAll();
         }
     }

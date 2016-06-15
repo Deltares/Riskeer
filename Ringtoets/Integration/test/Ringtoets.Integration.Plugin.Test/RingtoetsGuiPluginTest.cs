@@ -174,7 +174,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 // Assert
                 var fileMissingMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", notExistingFile);
                 string message = string.Format(
-                    RingtoetsCommonFormsResources.GuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_,
+                    RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_,
                     fileMissingMessage);
                 TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(message, LogLevelConstant.Warn));
             }

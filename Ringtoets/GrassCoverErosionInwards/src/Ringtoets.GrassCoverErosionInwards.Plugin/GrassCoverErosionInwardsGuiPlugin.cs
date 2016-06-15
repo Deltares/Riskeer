@@ -191,7 +191,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
             if (!string.IsNullOrEmpty(validationProblem))
             {
-                return string.Format(RingtoetsCommonFormsResources.GuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_, validationProblem);
+                return string.Format(RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_, validationProblem);
             }
 
             return null;

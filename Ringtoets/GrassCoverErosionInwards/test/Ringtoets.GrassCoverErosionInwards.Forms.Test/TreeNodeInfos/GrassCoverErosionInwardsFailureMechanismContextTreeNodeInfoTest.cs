@@ -477,7 +477,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
 
             Assert.AreEqual(RingtoetsFormsResources.Calculate_all, contextMenuItem.Text);
-            StringAssert.Contains(string.Format(RingtoetsFormsResources.GuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+            StringAssert.Contains(string.Format(RingtoetsFormsResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, contextMenuItem.Image);
             Assert.IsFalse(contextMenuItem.Enabled);
 

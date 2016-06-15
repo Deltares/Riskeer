@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Properties;
 using log4net;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -30,6 +31,7 @@ using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Calculation.Services;
+using Ringtoets.HydraRing.IO;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service
@@ -46,13 +48,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> for which to validate the values.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
         /// <returns><c>False</c> if <paramref name="calculation"/> contains validation errors; <c>True</c> otherwise.</returns>
-        internal static bool Validate(GrassCoverErosionInwardsCalculation calculation)
+        internal static bool Validate(GrassCoverErosionInwardsCalculation calculation, IAssessmentSection assessmentSection)
         {
             grassCoverErosionInwardsCalculationLogger.Info(string.Format(RingtoetsCommonServiceResources.Validation_Subject_0_started_Time_1_,
                                                                  calculation.Name, DateTimeService.CurrentTimeAsString));
 
-            var inputValidationResults = ValidateInput(calculation.InputParameters);
+            var inputValidationResults = ValidateInput(calculation.InputParameters, assessmentSection);
 
             if (inputValidationResults.Count > 0)
             {
@@ -155,13 +158,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
         }
 
-        private static List<string> ValidateInput(GrassCoverErosionInwardsInput inputParameters)
+        private static List<string> ValidateInput(GrassCoverErosionInwardsInput inputParameters, IAssessmentSection assessmentSection)
         {
             List<string> validationResult = new List<string>();
 
             if (inputParameters.HydraulicBoundaryLocation == null)
             {
                 validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
+            }
+
+            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
+
+            if (!string.IsNullOrEmpty(validationProblem))
+            {
+                validationResult.Add(validationProblem);
             }
 
             return validationResult;

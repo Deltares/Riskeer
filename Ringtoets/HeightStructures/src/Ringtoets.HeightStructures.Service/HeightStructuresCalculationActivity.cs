@@ -67,7 +67,7 @@ namespace Ringtoets.HeightStructures.Service
 
         protected override void OnRun()
         {
-            if (!HeightStructuresCalculationService.Validate(calculation))
+            if (!HeightStructuresCalculationService.Validate(calculation, assessmentSection))
             {
                 State = ActivityState.Failed;
                 return;

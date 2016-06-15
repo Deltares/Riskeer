@@ -41,7 +41,72 @@ namespace Ringtoets.HeightStructures.Integration.Test
     [TestFixture]
     public class HeightStructuresCalculationActivityIntegrationTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.Integration, "HeightStructuresCalculation");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+
+        [Test]
+        public void Run_InvalidHeightStructuresCalculation_LogValidationStartAndEndWithError()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var calculation = new HeightStructuresCalculation();
+
+            var activity = new HeightStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
+
+            // Call
+            Action call = () => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaarde locatie geselecteerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+            });
+            Assert.AreEqual(ActivityState.Failed, activity.State);
+        }
+
+        [Test]
+        public void Run_InvalidHeightStructuresCalculationInvalidHydraulicBoundaryDatabase_LogValidationStartAndEndWithError()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    FilePath = Path.Combine(testDataPath, "notexisting.sqlite")
+                }
+            };
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var calculation = new HeightStructuresCalculation();
+
+            var activity = new HeightStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
+
+            // Call
+            Action call = () => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(4, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaarde locatie geselecteerd.", msgs[1]);
+                StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[2]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+            });
+            Assert.AreEqual(ActivityState.Failed, activity.State);
+        }
 
         [Test]
         public void Run_ValidHeightStructuresCalculation_PerformHeightStructuresValidationAndCalculationAndLogStartAndEnd()
@@ -81,10 +146,10 @@ namespace Ringtoets.HeightStructures.Integration.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
             });
             Assert.AreEqual(ActivityState.Executed, activity.State);
         }
@@ -93,10 +158,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
         public void Run_InValidHeightStructuresCalculationAndRan_PerformHeightStructuresValidationAndCalculationAndLogStartAndEndAndError()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -121,8 +182,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 }
             };
 
-            calculation.Attach(observerMock);
-
             var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
 
             // Call
@@ -133,14 +192,13 @@ namespace Ringtoets.HeightStructures.Integration.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(5, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                StringAssert.StartsWith(String.Format("Hoogte kunstwerk '{0}' niet gelukt.", calculation.Name), msgs[3]);
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                StringAssert.StartsWith(string.Format("Hoogte kunstwerk '{0}' niet gelukt.", calculation.Name), msgs[3]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
-            mocks.VerifyAll();
         }
 
         [Test]

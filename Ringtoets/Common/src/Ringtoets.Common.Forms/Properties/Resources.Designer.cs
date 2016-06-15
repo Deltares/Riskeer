@@ -687,10 +687,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Herstellen van de verbinding met de hydraulische randvoorwaarden database is mislukt. {0}.
         /// </summary>
-        public static string GuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_ {
+        public static string Hydraulic_boundary_database_connection_failed_0_ {
             get {
-                return ResourceManager.GetString("GuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connect" +
-                        "ion_failed_0_", resourceCulture);
+                return ResourceManager.GetString("Hydraulic_boundary_database_connection_failed_0_", resourceCulture);
             }
         }
         

@@ -48,11 +48,6 @@ namespace Core.Common.TestUtil
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "Common", "test", "Ringtoets.Common.IO.Test");
             }
 
-            public static class HeightStructures
-            {
-                public static readonly TestDataPath Integration = System.IO.Path.Combine("Ringtoets", "HeightStructures", "test", "Ringtoets.HeightStructures.Integration.Test");
-            }
-
             public static class HydraRing
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "HydraRing", "test", "Ringtoets.HydraRing.IO.Test");
@@ -62,6 +57,7 @@ namespace Core.Common.TestUtil
             public static class Integration
             {
                 public static readonly TestDataPath Forms = System.IO.Path.Combine("Ringtoets", "Integration", "test", "Ringtoets.Integration.Forms.Test");
+                public static readonly TestDataPath Service = System.IO.Path.Combine("Ringtoets", "Integration", "test", "Ringtoets.Integration.Service.Test");
             }
 
             public static class GrassCoverErosionInwards

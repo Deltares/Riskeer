@@ -39,7 +39,120 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationServiceIntegrationTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.Integration, "HeightStructuresCalculation");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+
+        [Test]
+        public void Validate_InvalidCalculationInputValidHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
+
+            const string name = "<very nice name>";
+
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = name
+            };
+
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaarde locatie geselecteerd.", msgs[1]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_ValidCalculationInputAndInvalidHydraulicBoundaryDatabase_ReturnsFalse()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    FilePath = Path.Combine(testDataPath, "notexisting.sqlite")
+                }
+            };
+
+            const string name = "<very nice name>";
+
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
+                }
+            };
+
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_ValidCalculationInputAndHydraulicBoundaryDatabase_ReturnsTrue()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
+
+            const string name = "<very nice name>";
+
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
+                }
+            };
+
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(2, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[1]);
+            });
+            Assert.IsTrue(isValid);
+        }
 
         [Test]
         public void Calculate_ValidCalculation_LogStartAndEndAndReturnOutput()

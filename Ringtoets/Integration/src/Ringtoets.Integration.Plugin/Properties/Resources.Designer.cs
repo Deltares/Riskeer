@@ -190,24 +190,6 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetspeil berekenen voor locatie &apos;{0}&apos;.
-        /// </summary>
-        public static string RingtoetsGuiPlugin_Calculate_assessment_level_for_location_0_ {
-            get {
-                return ResourceManager.GetString("RingtoetsGuiPlugin_Calculate_assessment_level_for_location_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de berekening: inspecteer het logbestand..
-        /// </summary>
-        public static string RingtoetsGuiPlugin_Error_during_assessment_level_calculation {
-            get {
-                return ResourceManager.GetString("RingtoetsGuiPlugin_Error_during_assessment_level_calculation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Berekeningen konden niet worden gestart. {0}.
         /// </summary>
         public static string RingtoetsGuiPlugin_HydraulicBoundaryDatabaseContextMenuStrip_Start_calculation_failed_0_ {

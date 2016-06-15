@@ -67,7 +67,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         protected override void OnRun()
         {
-            if (!GrassCoverErosionInwardsCalculationService.Validate(calculation))
+            if (!GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection))
             {
                 State = ActivityState.Failed;
                 return;

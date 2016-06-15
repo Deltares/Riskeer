@@ -179,6 +179,11 @@
       <Name>Ringtoets.Integration.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.Service\Ringtoets.Integration.Service.csproj">
+      <Project>{28811c4a-6c18-42c1-88b2-a03a3784e2d0}</Project>
+      <Name>Ringtoets.Integration.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="RingtoetsRibbon.xaml">

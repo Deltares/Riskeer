@@ -64,6 +64,7 @@ using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Properties;
+using Ringtoets.Integration.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
@@ -483,7 +484,7 @@ namespace Ringtoets.Integration.Plugin
                 if (validationProblem != null)
                 {
                     log.WarnFormat(
-                        RingtoetsCommonFormsResources.GuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_,
+                        RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_,
                         validationProblem);
                 }
             }
@@ -892,8 +893,7 @@ namespace Ringtoets.Integration.Plugin
                     var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hrdFile);
                     if (validationProblem == null)
                     {
-                        var hlcdDirectory = Path.GetDirectoryName(hrdFile);
-                        var activities = nodeData.WrappedData.HydraulicBoundaryDatabase.Locations.Select(hbl => CreateHydraRingTargetProbabilityCalculationActivity(nodeData.WrappedData, hbl, hlcdDirectory)).ToList();
+                        var activities = nodeData.WrappedData.HydraulicBoundaryDatabase.Locations.Select(hbl => new DesignWaterLevelCalculationActivity(nodeData.WrappedData, hbl)).ToList();
 
                         ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
 
@@ -979,32 +979,6 @@ namespace Ringtoets.Integration.Plugin
                     assessmentSection.NotifyObservers();
                     log.InfoFormat(RingtoetsFormsResources.RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked, assessmentSection.HydraulicBoundaryDatabase.FilePath);
                 }
-            }
-        }
-
-        private static TargetProbabilityCalculationActivity CreateHydraRingTargetProbabilityCalculationActivity(IAssessmentSection assessmentSection,
-                                                                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation, string hlcdDirectory)
-        {
-            return HydraRingActivityFactory.Create(
-                string.Format(Resources.RingtoetsGuiPlugin_Calculate_assessment_level_for_location_0_, hydraulicBoundaryLocation.Id),
-                hlcdDirectory,
-                assessmentSection.Name, // TODO: Provide name of reference line instead
-                HydraRingTimeIntegrationSchemeType.FBC,
-                HydraRingUncertaintiesType.All,
-                new AssessmentLevelCalculationInput((int) hydraulicBoundaryLocation.Id, assessmentSection.FailureMechanismContribution.Norm),
-                () => { hydraulicBoundaryLocation.DesignWaterLevel = double.NaN; },
-                output => { ParseHydraRingOutput(hydraulicBoundaryLocation, output); });
-        }
-
-        private static void ParseHydraRingOutput(HydraulicBoundaryLocation hydraulicBoundaryLocation, TargetProbabilityCalculationOutput output)
-        {
-            if (output != null)
-            {
-                hydraulicBoundaryLocation.DesignWaterLevel = output.Result;
-            }
-            else
-            {
-                throw new InvalidOperationException(Resources.RingtoetsGuiPlugin_Error_during_assessment_level_calculation);
             }
         }
 
