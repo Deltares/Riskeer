@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Properties;
-using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Service;
@@ -41,8 +40,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
     /// </summary>
     internal static class GrassCoverErosionInwardsCalculationService
     {
-        private static readonly ILog grassCoverErosionInwardsCalculationLogger = LogManager.GetLogger(typeof(GrassCoverErosionInwardsCalculationService));
-
         /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
         /// the execution of the operation.
@@ -52,19 +49,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <returns><c>False</c> if <paramref name="calculation"/> contains validation errors; <c>True</c> otherwise.</returns>
         internal static bool Validate(GrassCoverErosionInwardsCalculation calculation, IAssessmentSection assessmentSection)
         {
-            grassCoverErosionInwardsCalculationLogger.Info(string.Format(RingtoetsCommonServiceResources.Validation_Subject_0_started_Time_1_,
-                                                                 calculation.Name, DateTimeService.CurrentTimeAsString));
-
-            var inputValidationResults = ValidateInput(calculation.InputParameters, assessmentSection);
-
-            if (inputValidationResults.Count > 0)
-            {
-                LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, inputValidationResults.ToArray());
-            }
-
-            LogValidationEndTime(calculation);
-
-            return inputValidationResults.Count == 0;
+            return CalculationServiceHelper.PerformValidation(calculation.Name, () => ValidateInput(calculation.InputParameters, assessmentSection));
         }
 
         /// <summary>
@@ -81,26 +66,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                          string hlcdDirectory, FailureMechanismSection failureMechanismSection,
                                                                          string ringId, GeneralGrassCoverErosionInwardsInput generalInput)
         {
-            grassCoverErosionInwardsCalculationLogger.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_started_Time_1_,
-                                                                 calculation.Name, DateTimeService.CurrentTimeAsString));
+            var input = CreateInput(calculation, failureMechanismSection, generalInput);
 
-            try
-            {
-                var input = CreateInput(calculation, failureMechanismSection, generalInput);
-                var output = HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, input);
-
-                if (output == null)
-                {
-                    grassCoverErosionInwardsCalculationLogger.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation, calculation.Name);
-                }
-
-                return output;
-            }
-            finally
-            {
-                grassCoverErosionInwardsCalculationLogger.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_ended_Time_1_,
-                                                                     calculation.Name, DateTimeService.CurrentTimeAsString));
-            }
+            return CalculationServiceHelper.PerformCalculation(calculation.Name,
+                                                               () => HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, input),
+                                                               Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation);
         }
 
         private static OvertoppingCalculationInput CreateInput(GrassCoverErosionInwardsCalculation calculation, FailureMechanismSection failureMechanismSection, GeneralGrassCoverErosionInwardsInput generalInput)
@@ -175,20 +145,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
 
             return validationResult;
-        }
-
-        private static void LogMessagesAsError(string format, params string[] errorMessages)
-        {
-            foreach (var errorMessage in errorMessages)
-            {
-                grassCoverErosionInwardsCalculationLogger.ErrorFormat(format, errorMessage);
-            }
-        }
-
-        private static void LogValidationEndTime(GrassCoverErosionInwardsCalculation calculation)
-        {
-            grassCoverErosionInwardsCalculationLogger.Info(string.Format(RingtoetsCommonServiceResources.Validation_Subject_0_ended_Time_1_,
-                                                                 calculation.Name, DateTimeService.CurrentTimeAsString));
         }
     }
 }

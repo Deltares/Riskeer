@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.IO;
-using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -41,8 +40,6 @@ namespace Ringtoets.Integration.Service
     /// </summary>
     internal static class DesignWaterLevelCalculationService 
     {
-        private static readonly ILog designWaterLevelCalculationLogger = LogManager.GetLogger(typeof(DesignWaterLevelCalculationService));
-
         /// <summary>
         /// Performs validation over the values on the given <paramref name="hydraulicBoundaryDatabase"/>. Error information is logged during
         /// the execution of the operation.
@@ -52,19 +49,18 @@ namespace Ringtoets.Integration.Service
         /// <returns><c>False</c> if <paramref name="hydraulicBoundaryDatabase"/> contains validation errors; <c>True</c> otherwise.</returns>
         internal static bool Validate(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            designWaterLevelCalculationLogger.Info(string.Format(RingtoetsCommonServiceResources.Validation_Subject_0_started_Time_1_,
-                                                                 hydraulicBoundaryLocation.Id, DateTimeService.CurrentTimeAsString));
+            CalculationServiceHelper.LogValidationBeginTime(hydraulicBoundaryLocation.Id.ToString());
 
             var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabase.FilePath);
             var hasErrors = string.IsNullOrEmpty(validationProblem);
 
             if (!hasErrors)
             {
-                LogMessagesAsError(RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_,
-                                   validationProblem);
+                CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_,
+                                                            validationProblem);
             }
 
-            LogValidationEndTime(hydraulicBoundaryLocation);
+            CalculationServiceHelper.LogValidationEndTime(hydraulicBoundaryLocation.Id.ToString());
 
             return hasErrors;
         }
@@ -81,47 +77,17 @@ namespace Ringtoets.Integration.Service
         internal static TargetProbabilityCalculationOutput Calculate(IAssessmentSection assessmentSection, HydraulicBoundaryDatabase hydraulicBoundaryDatabase, 
                                                                      HydraulicBoundaryLocation hydraulicBoundaryLocation, string ringId)
         {
-            designWaterLevelCalculationLogger.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_started_Time_1_,
-                                                                 hydraulicBoundaryLocation.Id, DateTimeService.CurrentTimeAsString));
+            var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabase.FilePath);
+            var input = CreateInput(assessmentSection, hydraulicBoundaryLocation);
 
-            try
-            {
-                var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabase.FilePath);
-                var input = CreateInput(assessmentSection, hydraulicBoundaryLocation);
-
-                var output = HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, input);
-
-                if (output == null)
-                {
-                    LogMessagesAsError(Resources.DesignWaterLevelCalculationService_Calculate_Error_in_design_water_level_0_calculation, hydraulicBoundaryLocation.Id.ToString());
-                }
-
-                return output;
-            }
-            finally
-            {
-                designWaterLevelCalculationLogger.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_ended_Time_1_,
-                                                                     hydraulicBoundaryLocation.Id, DateTimeService.CurrentTimeAsString));
-            }
+            return CalculationServiceHelper.PerformCalculation(hydraulicBoundaryLocation.Id.ToString(),
+                                                               () => HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, input),
+                                                               Resources.DesignWaterLevelCalculationService_Calculate_Error_in_design_water_level_0_calculation);
         }
 
         private static AssessmentLevelCalculationInput CreateInput(IAssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return new AssessmentLevelCalculationInput((int) hydraulicBoundaryLocation.Id, assessmentSection.FailureMechanismContribution.Norm);
-        }
-
-        private static void LogMessagesAsError(string format, params string[] errorMessages)
-        {
-            foreach (var errorMessage in errorMessages)
-            {
-                designWaterLevelCalculationLogger.ErrorFormat(format, errorMessage);
-            }
-        }
-
-        private static void LogValidationEndTime(HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            designWaterLevelCalculationLogger.Info(string.Format(RingtoetsCommonServiceResources.Validation_Subject_0_ended_Time_1_,
-                                                                 hydraulicBoundaryLocation.Id, DateTimeService.CurrentTimeAsString));
         }
     }
 }

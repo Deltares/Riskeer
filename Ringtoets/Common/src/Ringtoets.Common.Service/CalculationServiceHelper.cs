@@ -1,0 +1,140 @@
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.Collections.Generic;
+using log4net;
+using Ringtoets.Common.Service.Properties;
+
+namespace Ringtoets.Common.Service
+{
+    /// <summary>
+    /// This class defines helper methods for performing calculations.
+    /// </summary>
+    public static class CalculationServiceHelper
+    {
+        private static readonly ILog calculationServiceHelperLogger = LogManager.GetLogger(typeof(CalculationServiceHelper));
+
+        /// <summary>
+        /// Template method for performing validation.
+        /// </summary>
+        /// <param name="name">The name of the calculation.</param>
+        /// <param name="validationFunc">The method used to perform the validation.</param>
+        /// <returns><c>False</c> if <paramref name="validationFunc"/> contains validation errors; <c>True</c> otherwise.</returns>
+        public static bool PerformValidation(string name, Func<List<string>> validationFunc)
+        {
+            LogValidationBeginTime(name);
+
+            var inputValidationResults = validationFunc();
+
+            if (inputValidationResults.Count > 0)
+            {
+                LogMessagesAsError(Resources.Error_in_validation_0, inputValidationResults.ToArray());
+            }
+
+            LogValidationEndTime(name);
+
+            return inputValidationResults.Count == 0;
+        }
+
+        /// <summary>
+        /// Template method for performing calculations.
+        /// </summary>
+        /// <typeparam name="T">The output type.</typeparam>
+        /// <param name="name">The name of the calculation.</param>
+        /// <param name="calculationFunc">The method used to perform the calculation.</param>
+        /// <param name="errorMessage">The error message to show when the output is <c>null</c>.</param>
+        /// <returns><see cref="T"/> on a successful calculation, <c>null</c> otherwise.</returns>
+        public static T PerformCalculation<T>(string name, Func<T> calculationFunc, string errorMessage)
+        {
+            LogCalculationBeginTime(name);
+
+            try
+            {
+                var output = calculationFunc();
+
+                if (output == null)
+                {
+                    LogMessagesAsError(errorMessage, name);
+                }
+
+                return output;
+            }
+            finally
+            {
+                LogCalculationEndTime(name);
+            }
+        }
+
+        /// <summary>
+        /// Logs messages as errors.
+        /// </summary>
+        /// <param name="format">The format for the message.</param>
+        /// <param name="errorMessages">The messages to log.</param>
+        public static void LogMessagesAsError(string format, params string[] errorMessages)
+        {
+            foreach (var errorMessage in errorMessages)
+            {
+                calculationServiceHelperLogger.ErrorFormat(format, errorMessage);
+            }
+        }
+
+        /// <summary>
+        /// Logs the begin time of the validation.
+        /// </summary>
+        /// <param name="name">The name used for the log message.</param>
+        public static void LogValidationBeginTime(string name)
+        {
+            calculationServiceHelperLogger.Info(string.Format(Resources.Validation_Subject_0_started_Time_1_,
+                                                              name, DateTimeService.CurrentTimeAsString));
+        }
+
+        /// <summary>
+        /// Logs the end time of the validation.
+        /// </summary>
+        /// <param name="name">The name used for the log message.</param>
+        public static void LogValidationEndTime(string name)
+        {
+            calculationServiceHelperLogger.Info(string.Format(Resources.Validation_Subject_0_ended_Time_1_,
+                                                              name, DateTimeService.CurrentTimeAsString));
+        }
+
+        /// <summary>
+        /// Logs the begin time of the calculation.
+        /// </summary>
+        /// <param name="name">The name used for the log message.</param>
+        public static void LogCalculationBeginTime(string name)
+        {
+            calculationServiceHelperLogger.Info(string.Format(Resources.Calculation_Subject_0_started_Time_1_,
+                                                                 name, DateTimeService.CurrentTimeAsString));
+        }
+
+        /// <summary>
+        /// Logs the end time of the calculation.
+        /// </summary>
+        /// <param name="name">The name used for the log message.</param>
+        public static void LogCalculationEndTime(string name)
+        {
+            calculationServiceHelperLogger.Info(string.Format(Resources.Calculation_Subject_0_ended_Time_1_,
+                                                              name, DateTimeService.CurrentTimeAsString));
+        }
+    }
+}

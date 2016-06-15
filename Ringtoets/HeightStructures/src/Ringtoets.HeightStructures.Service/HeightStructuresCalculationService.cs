@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probabilistics;
@@ -40,8 +39,6 @@ namespace Ringtoets.HeightStructures.Service
     /// </summary>
     internal static class HeightStructuresCalculationService
     {
-        private static readonly ILog heightStructuresCalculationLogger = LogManager.GetLogger(typeof(HeightStructuresCalculationService));
-
         /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
         /// the execution of the operation.
@@ -51,19 +48,7 @@ namespace Ringtoets.HeightStructures.Service
         /// <returns><c>False</c> if <paramref name="calculation"/> contains validation errors; <c>True</c> otherwise.</returns>
         internal static bool Validate(HeightStructuresCalculation calculation, IAssessmentSection assessmentSection)
         {
-            heightStructuresCalculationLogger.Info(string.Format(RingtoetsCommonServiceResources.Validation_Subject_0_started_Time_1_,
-                                                                 calculation.Name, DateTimeService.CurrentTimeAsString));
-
-            var inputValidationResults = ValidateInput(calculation.InputParameters, assessmentSection);
-
-            if (inputValidationResults.Count > 0)
-            {
-                LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, inputValidationResults.ToArray());
-            }
-
-            LogValidationEndTime(calculation);
-
-            return inputValidationResults.Count == 0;
+            return CalculationServiceHelper.PerformValidation(calculation.Name, () => ValidateInput(calculation.InputParameters, assessmentSection));
         }
 
         /// <summary>
@@ -80,26 +65,10 @@ namespace Ringtoets.HeightStructures.Service
                                                                          string hlcdDirectory, FailureMechanismSection failureMechanismSection,
                                                                          string ringId, GeneralHeightStructuresInput generalInput)
         {
-            heightStructuresCalculationLogger.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_started_Time_1_,
-                                                                 calculation.Name, DateTimeService.CurrentTimeAsString));
-
-            try
-            {
-                var input = CreateInput(calculation, failureMechanismSection, generalInput);
-                var output = HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, input);
-
-                if (output == null)
-                {
-                    LogMessagesAsError(Resources.HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation, calculation.Name);
-                }
-                
-                return output;
-            }
-            finally
-            {
-                heightStructuresCalculationLogger.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_ended_Time_1_,
-                                                                     calculation.Name, DateTimeService.CurrentTimeAsString));
-            }
+            var input = CreateInput(calculation, failureMechanismSection, generalInput);
+            return CalculationServiceHelper.PerformCalculation(calculation.Name,
+                                                               () => HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, input),
+                                                               Resources.HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation);
         }
 
         private static StructuresOvertoppingCalculationInput CreateInput(HeightStructuresCalculation calculation, FailureMechanismSection failureMechanismSection, GeneralHeightStructuresInput generalInput)
@@ -141,20 +110,6 @@ namespace Ringtoets.HeightStructures.Service
             }
 
             return validationResult;
-        }
-
-        private static void LogMessagesAsError(string format, params string[] errorMessages)
-        {
-            foreach (var errorMessage in errorMessages)
-            {
-                heightStructuresCalculationLogger.ErrorFormat(format, errorMessage);
-            }
-        }
-
-        private static void LogValidationEndTime(HeightStructuresCalculation calculation)
-        {
-            heightStructuresCalculationLogger.Info(string.Format(RingtoetsCommonServiceResources.Validation_Subject_0_ended_Time_1_,
-                                                                 calculation.Name, DateTimeService.CurrentTimeAsString));
         }
     }
 }
