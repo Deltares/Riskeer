@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual((short)FailureMechanismType.StructureHeight, entity.FailureMechanismType);
+            Assert.AreEqual((short)FailureMechanismType.StrengthAndStabilityParallelConstruction, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.Comments, entity.Comments);
         }
