@@ -100,7 +100,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 ForeColor = context => context.WrappedData.Any() ?
                                            Color.FromKnownColor(KnownColor.ControlText) :
                                            Color.FromKnownColor(KnownColor.GrayText),
-                ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
+                ChildNodeObjects = context => context.WrappedData
+                                                     .Select(dp => new DikeProfileContext(dp, context.WrappedData))
+                                                     .Cast<object>()
+                                                     .ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddImportItem()
                                                                                  .AddSeparator()
