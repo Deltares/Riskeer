@@ -51,7 +51,6 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Activities\ExceedanceProbabilityCalculationActivity.cs" />
     <Compile Include="Activities\HydraRingActivity.cs" />
     <Compile Include="Data\HydraRingBreakWater.cs" />
     <Compile Include="Data\HydraRingSection.cs" />
@@ -65,7 +64,6 @@
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutput.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputBase.cs" />
     <Compile Include="Data\Output\TargetProbabilityCalculationOutput.cs" />
-    <Compile Include="Activities\HydraRingActivityFactory.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParser.cs" />
     <Compile Include="Services\HydraRingCalculationService.cs" />
     <Compile Include="Data\Input\Hydraulics\AssessmentLevelCalculationInput.cs" />
@@ -96,7 +94,6 @@
     <Compile Include="Parsers\TargetProbabilityCalculationParser.cs" />
     <Compile Include="Services\HydraRingInitializationService.cs" />
     <Compile Include="Services\HydraRingProcessFactory.cs" />
-    <Compile Include="Activities\TargetProbabilityCalculationActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

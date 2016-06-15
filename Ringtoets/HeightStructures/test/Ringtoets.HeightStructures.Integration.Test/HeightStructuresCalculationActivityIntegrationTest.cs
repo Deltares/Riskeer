@@ -56,6 +56,12 @@ namespace Ringtoets.HeightStructures.Integration.Test
             }
 
             var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
             var calculation = new HeightStructuresCalculation();
 
             var activity = new HeightStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
@@ -88,6 +94,12 @@ namespace Ringtoets.HeightStructures.Integration.Test
             };
 
             var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
             var calculation = new HeightStructuresCalculation();
 
             var activity = new HeightStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);

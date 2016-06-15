@@ -21,8 +21,8 @@
 
 using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data.Output;
-using Ringtoets.HydraRing.Calculation.Services;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Service.Properties;
 
@@ -31,11 +31,10 @@ namespace Ringtoets.Integration.Service
     /// <summary>
     /// <see cref="Activity"/> for running a design water level calculation.
     /// </summary>
-    public class DesignWaterLevelCalculationActivity : Activity
+    public class DesignWaterLevelCalculationActivity : HydraRingActivity<TargetProbabilityCalculationOutput>
     {
         private readonly IAssessmentSection assessmentSection;
         private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
-        private TargetProbabilityCalculationOutput output;
 
         public override string Name
         {
@@ -58,38 +57,17 @@ namespace Ringtoets.Integration.Service
 
         protected override void OnRun()
         {
-            if (!DesignWaterLevelCalculationService.Validate(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryLocation))
-            {
-                State = ActivityState.Failed;
-                return;
-            }
-
-            LogMessages.Clear();
-            hydraulicBoundaryLocation.DesignWaterLevel = double.NaN;
-
-            output = DesignWaterLevelCalculationService.Calculate(assessmentSection,
-                                                                  assessmentSection.HydraulicBoundaryDatabase,
-                                                                  hydraulicBoundaryLocation,
-                                                                  assessmentSection.Name); // TODO: Provide name of reference line instead
-
-            if (output == null)
-            {
-                State = ActivityState.Failed;
-            }
-        }
-
-        protected override void OnCancel()
-        {
-            HydraRingCalculationService.CancelRunningCalculation();
+            PerformRun(() => DesignWaterLevelCalculationService.Validate(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryLocation),
+                       () => hydraulicBoundaryLocation.DesignWaterLevel = double.NaN,
+                       () => DesignWaterLevelCalculationService.Calculate(assessmentSection,
+                                                                          assessmentSection.HydraulicBoundaryDatabase,
+                                                                          hydraulicBoundaryLocation,
+                                                                          assessmentSection.Name)); // TODO: Provide name of reference line instead
         }
 
         protected override void OnFinish()
         {
-            if (State == ActivityState.Executed)
-            {
-                hydraulicBoundaryLocation.DesignWaterLevel = output.Result;
-                hydraulicBoundaryLocation.NotifyObservers();
-            }
+            PerformFinish(() => hydraulicBoundaryLocation.DesignWaterLevel = Output.Result, hydraulicBoundaryLocation);
         }
     }
 }

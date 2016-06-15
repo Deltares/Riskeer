@@ -24,22 +24,20 @@ using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data.Output;
-using Ringtoets.HydraRing.Calculation.Services;
 
 namespace Ringtoets.HeightStructures.Service
 {
     /// <summary>
     /// <see cref="Activity"/> for running a height structures calculation.
     /// </summary>
-    public class HeightStructuresCalculationActivity : Activity
+    public class HeightStructuresCalculationActivity : HydraRingActivity<ExceedanceProbabilityCalculationOutput>
     {
         private readonly HeightStructuresCalculation calculation;
         private readonly string hlcdDirectory;
         private readonly HeightStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
-
-        private ExceedanceProbabilityCalculationOutput output;
 
         public override string Name
         {
@@ -67,44 +65,26 @@ namespace Ringtoets.HeightStructures.Service
 
         protected override void OnRun()
         {
-            if (!HeightStructuresCalculationService.Validate(calculation, assessmentSection))
-            {
-                State = ActivityState.Failed;
-                return;
-            }
-
-            LogMessages.Clear();
-            calculation.ClearOutput();
-
             var failureMechanismSection = failureMechanism.Sections.First(); // TODO: Obtain dike section based on cross section of structure with reference line
 
-            output = HeightStructuresCalculationService.Calculate(calculation,
-                                                                  hlcdDirectory,
-                                                                  failureMechanismSection,
-                                                                  failureMechanismSection.Name, // TODO: Provide name of reference line instead
-                                                                  failureMechanism.GeneralInput);
-
-            if (output == null)
-            {
-                State = ActivityState.Failed;
-            }
-        }
-
-        protected override void OnCancel()
-        {
-            HydraRingCalculationService.CancelRunningCalculation();
+            PerformRun(() => HeightStructuresCalculationService.Validate(calculation, assessmentSection),
+                       () => calculation.ClearOutput(),
+                       () => HeightStructuresCalculationService.Calculate(calculation,
+                                                                          hlcdDirectory,
+                                                                          failureMechanismSection,
+                                                                          failureMechanismSection.Name, // TODO: Provide name of reference line instead
+                                                                          failureMechanism.GeneralInput));
         }
 
         protected override void OnFinish()
         {
-            if (State == ActivityState.Executed)
+            PerformFinish(() =>
             {
                 calculation.Output = ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm,
                                                                             failureMechanism.Contribution,
                                                                             failureMechanism.GeneralInput.N,
-                                                                            output.Beta);
-                calculation.NotifyObservers();
-            }
+                                                                            Output.Beta);
+            }, calculation);
         }
     }
 }

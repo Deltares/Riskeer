@@ -20,31 +20,67 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Base.Service;
+using Ringtoets.HydraRing.Calculation.Services;
 
 namespace Ringtoets.HydraRing.Calculation.Activities
 {
     /// <summary>
     /// <see cref="Activity"/> for running calculations via Hydra-Ring.
     /// </summary>
-    public abstract class HydraRingActivity : Activity
+    public abstract class HydraRingActivity<T> : Activity
     {
-        private readonly Action beforeRunAction;
-
         /// <summary>
-        /// Creates a new instance of the <see cref="HydraRingActivity"/> class.
+        /// The output of the activity.
         /// </summary>
-        /// <param name="beforeRunAction">The action to perform before running a Hydra-Ring calculation (like clearing output, validation, etc.).</param>
-        protected HydraRingActivity(Action beforeRunAction)
+        protected T Output;
+
+        protected abstract override void OnRun();
+
+        protected override void OnCancel()
         {
-            this.beforeRunAction = beforeRunAction;
+            HydraRingCalculationService.CancelRunningCalculation();
         }
 
-        protected override void OnRun()
+        protected abstract override void OnFinish();
+
+        /// <summary>
+        /// Template method for performing the run of the activity.
+        /// </summary>
+        /// <param name="validationFunc">The method to perform for validation.</param>
+        /// <param name="clearAction">The method to perform for clearing the data of the output to set.</param>
+        /// <param name="calculationFunc">The method to perform for the calculation.</param>
+        protected void PerformRun(Func<bool> validationFunc, Action clearAction, Func<T> calculationFunc)
         {
-            if (beforeRunAction != null)
+            if (!validationFunc())
             {
-                beforeRunAction();
+                State = ActivityState.Failed;
+                return;
+            }
+
+            LogMessages.Clear();
+            clearAction();
+
+            Output = calculationFunc();
+
+            if (Output == null)
+            {
+                State = ActivityState.Failed;
+            }
+        }
+
+        /// <summary>
+        /// Template method for performing the finish of the activity.
+        /// </summary>
+        /// <param name="setOutputAction">The method to set the output on the object.</param>
+        /// <param name="observableObject">The object to notify the observers upon.</param>
+        protected void PerformFinish(Action setOutputAction, Observable observableObject)
+        {
+            if (State == ActivityState.Executed)
+            {
+                setOutputAction();
+                observableObject.NotifyObservers();
             }
         }
     }

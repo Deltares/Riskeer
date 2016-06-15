@@ -56,6 +56,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             }
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, "", failureMechanism, assessmentSection);
@@ -88,6 +94,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             };
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, "", failureMechanism, assessmentSection);
