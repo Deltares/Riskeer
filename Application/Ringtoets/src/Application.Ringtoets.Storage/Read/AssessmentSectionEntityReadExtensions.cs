@@ -68,6 +68,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadPipingFailureMechanism(assessmentSection, collector);
             entity.ReadGrassCoverErosionInwardsFailureMechanism(assessmentSection, collector);
             entity.ReadHeightStructuresFailureMechanism(assessmentSection, collector);
+            entity.ReadStrengthStabilityLengthwiseConstructionFailureMechanism(assessmentSection, collector);
             entity.ReadStandAloneFailureMechanisms(assessmentSection, collector);
 
             return assessmentSection;
@@ -126,6 +127,15 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
+        private static void ReadStrengthStabilityLengthwiseConstructionFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
+        {
+            var strengthStabilityLengthwiseConstructionFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.StrengthAndStabilityParallelConstruction);
+            if (strengthStabilityLengthwiseConstructionFailureMechanismEntity != null)
+            {
+                strengthStabilityLengthwiseConstructionFailureMechanismEntity.ReadAsStrengthStabilityLengthwiseConstructionFailureMechanism(assessmentSection.StrengthStabilityLengthwiseConstruction, collector);
+            }
+        }
+
         private static void ReadStandAloneFailureMechanisms(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.MacrostabilityInwards, assessmentSection.MacrostabilityInwards, collector);
@@ -140,7 +150,6 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.ReliabilityClosingOfStructure, assessmentSection.ClosingStructure, collector);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.PipingAtStructure, assessmentSection.PipingStructure, collector);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.StrengthAndStabilityPointConstruction, assessmentSection.StrengthStabilityPointConstruction, collector);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.StrengthAndStabilityParallelConstruction, assessmentSection.StrengthStabilityLengthwiseConstruction, collector);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.DuneErosion, assessmentSection.DuneErosion, collector);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.TechnicalInnovations, assessmentSection.TechnicalInnovation, collector);
         }

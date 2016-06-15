@@ -73,6 +73,12 @@ namespace Application.Ringtoets.Storage.DbContext
         DbSet<HeightStructuresSectionResultEntity> HeightStructuresSectionResultEntities { get; }
 
         /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="StrengthStabilityLengthwiseConstructionSectionResultEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<StrengthStabilityLengthwiseConstructionSectionResultEntity> StrengthStabilityLengthwiseConstructionSectionResultEntities { get; }
+
+        /// <summary>
         /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="PipingFailureMechanismMetaEntity"/> containing
         /// every entity found in the database.
         /// </summary>

@@ -35,6 +35,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
@@ -55,6 +56,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<PipingSectionResultEntity, PipingFailureMechanismSectionResult> pipingFailureMechanismSectionResults = new Dictionary<PipingSectionResultEntity, PipingFailureMechanismSectionResult>();
         private readonly Dictionary<GrassCoverErosionInwardsSectionResultEntity, GrassCoverErosionInwardsFailureMechanismSectionResult> grassCoverErosionInwardsFailureMechanismSectionResults = new Dictionary<GrassCoverErosionInwardsSectionResultEntity, GrassCoverErosionInwardsFailureMechanismSectionResult>();
         private readonly Dictionary<HeightStructuresSectionResultEntity, HeightStructuresFailureMechanismSectionResult> heightStructuresFailureMechanismSectionResults = new Dictionary<HeightStructuresSectionResultEntity, HeightStructuresFailureMechanismSectionResult>();
+        private readonly Dictionary<StrengthStabilityLengthwiseConstructionSectionResultEntity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> strengthStabilityLengthwiseConstructionFailureMechanismSectionResults = new Dictionary<StrengthStabilityLengthwiseConstructionSectionResultEntity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicLocations = new Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>(new ReferenceEqualityComparer<HydraulicLocationEntity>());
         private readonly Dictionary<CalculationGroupEntity, CalculationGroup> calculationGroups = new Dictionary<CalculationGroupEntity, CalculationGroup>(new ReferenceEqualityComparer<CalculationGroupEntity>());
         private readonly Dictionary<PipingCalculationEntity, PipingCalculationScenario> pipingCalculations = new Dictionary<PipingCalculationEntity, PipingCalculationScenario>(new ReferenceEqualityComparer<PipingCalculationEntity>());
@@ -131,6 +133,22 @@ namespace Application.Ringtoets.Storage.Create
         public void Register(HeightStructuresSectionResultEntity entity, HeightStructuresFailureMechanismSectionResult model)
         {
             Register(heightStructuresFailureMechanismSectionResults, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="StrengthStabilityLengthwiseConstructionSectionResultEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(StrengthStabilityLengthwiseConstructionSectionResultEntity entity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult model)
+        {
+            Register(strengthStabilityLengthwiseConstructionFailureMechanismSectionResults, entity, model);
         }
 
         /// <summary>
@@ -618,6 +636,11 @@ namespace Application.Ringtoets.Storage.Create
                 heightStructuresFailureMechanismSectionResults[entity].StorageId = entity.HeightStructuresSectionResultEntityId;
             }
 
+            foreach (var entity in strengthStabilityLengthwiseConstructionFailureMechanismSectionResults.Keys)
+            {
+                strengthStabilityLengthwiseConstructionFailureMechanismSectionResults[entity].StorageId = entity.StrengthStabilityLengthwiseConstructionSectionResultEntityId;
+            }
+
             foreach (var entity in hydraulicLocations.Keys)
             {
                 hydraulicLocations[entity].StorageId = entity.HydraulicLocationEntityId;
@@ -764,6 +787,17 @@ namespace Application.Ringtoets.Storage.Create
                 }
             }
             dbContext.HeightStructuresSectionResultEntities.RemoveRange(orphanedHeightStructuresSectionResultEntities);
+
+            var orphanedStrengthStabilityLengthwiseConstructionSectionResultEntities = new List<StrengthStabilityLengthwiseConstructionSectionResultEntity>();
+            foreach (StrengthStabilityLengthwiseConstructionSectionResultEntity sectionResultEntity in dbContext.StrengthStabilityLengthwiseConstructionSectionResultEntities
+                                                                                             .Where(e => e.StrengthStabilityLengthwiseConstructionSectionResultEntityId > 0))
+            {
+                if (!strengthStabilityLengthwiseConstructionFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
+                {
+                    orphanedStrengthStabilityLengthwiseConstructionSectionResultEntities.Add(sectionResultEntity);
+                }
+            }
+            dbContext.StrengthStabilityLengthwiseConstructionSectionResultEntities.RemoveRange(orphanedStrengthStabilityLengthwiseConstructionSectionResultEntities);
 
             var orphanedHydraulicLocationEntities = new List<HydraulicLocationEntity>();
             foreach (HydraulicLocationEntity hydraulicLocationEntity in dbContext.HydraulicLocationEntities

@@ -54,6 +54,8 @@
     </Compile>
     <Compile Include="Create\AssessmentSectionCreateExtensions.cs" />
     <Compile Include="Create\CalculationGroupCreateExtensions.cs" />
+    <Compile Include="Create\StrengthStabilityLengthwiseConstructionFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\HeightStructuresFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\HeightStructuresFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionInwardsFailureMechanismSectionResultCreateExtensions.cs" />
@@ -140,18 +142,28 @@
     <Compile Include="DbContext\StochasticSoilProfileEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\StrengthStabilityLengthwiseConstructionSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\SurfaceLineEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\SurfaceLinePointEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\TechnicalInnovationSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\VersionEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\WaterPressureAsphaltCoverSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DecimalConversionExtensions.cs" />
     <Compile Include="DoubleConversionExtensions.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentions.cs" />
+    <Compile Include="Read\StrengthStabilityLengthwiseConstructionSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\HeightStructuresSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionInwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\FailureMechanismEntityReadExtensions.cs" />
@@ -204,6 +216,8 @@
     <Compile Include="StorageSqLite.cs" />
     <Compile Include="Update\AssessmentSectionUpdateExtensions.cs" />
     <Compile Include="Update\CalculationGroupUpdateExtensions.cs" />
+    <Compile Include="Update\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultUpdateExtensions.cs" />
+    <Compile Include="Update\StrengthStabilityLengthwiseConstructionFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\HeightStructuresFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\HeightStructuresFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverErosionInwardsFailureMechanismSectionResultUpdateExtensions.cs" />

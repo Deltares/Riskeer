@@ -82,6 +82,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />
+    <Compile Include="Create\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\StrengthStabilityLengthwiseConstructionFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\HeightStructuresFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\HeightStructuresFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwardsMechanismSectionResultCreateExtensionsTest.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="DoubleConversionExtensionsTest.cs" />
     <Compile Include="Read\AssessmentSectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentionsTest.cs" />
+    <Compile Include="Read\StrengthStabilityLengthwiseConstructionSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructuresSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionInwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\FailureMechanismEntityReadExtensionsTest.cs" />
@@ -139,6 +142,8 @@
     <Compile Include="StorageSqLiteTest.cs" />
     <Compile Include="Update\AssessmentSectionUpdateExtensionsTest.cs" />
     <Compile Include="Update\CalculationGroupUpdateExtensionsTest.cs" />
+    <Compile Include="Update\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultUpdateExtensionsTest.cs" />
+    <Compile Include="Update\StrengthStabilityLengthwiseConstructionFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\HeightStructuresFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\HeightStructuresFailureMechanismSectionResultUpdateExtensionsTest.cs" />
     <Compile Include="Update\GrassCoverErosionInwardsFailureMechanismSectionResultUpdateExtensionsTest.cs" />

@@ -32,6 +32,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
@@ -229,6 +230,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddSections(assessmentSection.ClosingStructure);
             AddSections(assessmentSection.StrengthStabilityPointConstruction);
             AddSections(assessmentSection.StrengthStabilityLengthwiseConstruction);
+            SetSectionResults(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults);
             AddSections(assessmentSection.PipingStructure);
             AddSections(assessmentSection.DuneErosion);
             AddSections(assessmentSection.TechnicalInnovation);
@@ -266,6 +268,15 @@ namespace Application.Ringtoets.Storage.TestUtil
             }
         }
 
+        private static void SetSectionResults(IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+            }
+        }
 
         private static void AddSections(IFailureMechanism failureMechanism)
         {

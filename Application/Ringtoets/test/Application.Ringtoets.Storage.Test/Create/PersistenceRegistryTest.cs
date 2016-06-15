@@ -39,6 +39,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -964,6 +965,34 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void Register_WithNullStrengthStabilityLengthwiseConstructionFailureMechanismSectionResult_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(new StrengthStabilityLengthwiseConstructionSectionResultEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullStrengthStabilityLengthwiseConstructionSectionResultEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(null, new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(new TestFailureMechanismSection()));
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
         public void Register_WithNullHydraulicLocationEntity_ThrowsArgumentNullException()
         {
             // Setup
@@ -1474,6 +1503,27 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void TransferIds_WithStrengthStabilityLengthwiseConstructionSectionResultEntityAddedWithStrengthStabilityLengthwiseConstructionFailureMechanismSectionResult_EqualStrengthStabilityLengthwiseConstructionSectionEntityIdAndStrengthStabilityLengthwiseConstructionFailureMechanismSectionResultStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1,4000);
+            var entity = new StrengthStabilityLengthwiseConstructionSectionResultEntity()
+            {
+                StrengthStabilityLengthwiseConstructionSectionResultEntityId = storageId
+            };
+            var model = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(new TestFailureMechanismSection());
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
         public void TransferIds_WithHydraulicLocationEntityAdded_EqualHydraulicLocationEntityIdAndHydraulicBoundaryLocationStorageId()
         {
             // Setup
@@ -1967,6 +2017,42 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(1, dbContext.HeightStructuresSectionResultEntities.Count());
             CollectionAssert.Contains(dbContext.HeightStructuresSectionResultEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_StrengthStabilityLengthwiseConstructionSectionResultEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new StrengthStabilityLengthwiseConstructionSectionResultEntity
+            {
+                StrengthStabilityLengthwiseConstructionSectionResultEntityId = 1
+            };
+            var persistentEntity = new StrengthStabilityLengthwiseConstructionSectionResultEntity
+            {
+                StrengthStabilityLengthwiseConstructionSectionResultEntityId = 2
+            };
+            dbContext.StrengthStabilityLengthwiseConstructionSectionResultEntities.Add(orphanedEntity);
+            dbContext.StrengthStabilityLengthwiseConstructionSectionResultEntities.Add(persistentEntity);
+
+            var section = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                StorageId = persistentEntity.StrengthStabilityLengthwiseConstructionSectionResultEntityId
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, section);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.StrengthStabilityLengthwiseConstructionSectionResultEntities.Count());
+            CollectionAssert.Contains(dbContext.StrengthStabilityLengthwiseConstructionSectionResultEntities, persistentEntity);
             mocks.VerifyAll();
         }
 

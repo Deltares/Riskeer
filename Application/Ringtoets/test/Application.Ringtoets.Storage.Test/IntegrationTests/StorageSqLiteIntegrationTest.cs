@@ -42,6 +42,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
@@ -262,6 +263,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 AssertFailureMechanismSectionResults(
                     expectedAssessmentSection.HeightStructures.SectionResults,
                     actualAssessmentSection.HeightStructures.SectionResults);
+                AssertFailureMechanismSectionResults(
+                    expectedAssessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults,
+                    actualAssessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults);
             }
         }
 
@@ -312,6 +316,23 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 HeightStructuresFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
                 HeightStructuresFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+
+                Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
+                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
+            }
+        }
+
+        private void AssertFailureMechanismSectionResults(IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> expectedSectionResults, IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> actualSectionResults)
+        {
+            var expectedSectionResultsArray = expectedSectionResults.ToArray();
+            var actualSectionResultsArray = actualSectionResults.ToArray();
+
+            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
+
+            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
+            {
+                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
 
                 Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
                 Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);

@@ -42,6 +42,9 @@ namespace Application.Ringtoets.Storage.DbContext
             this.GrassCoverErosionInwardsSectionResultEntities = new HashSet<GrassCoverErosionInwardsSectionResultEntity>();
             this.HeightStructuresSectionResultEntities = new HashSet<HeightStructuresSectionResultEntity>();
             this.PipingSectionResultEntities = new HashSet<PipingSectionResultEntity>();
+            this.StrengthStabilityLengthwiseConstructionSectionResultEntities = new HashSet<StrengthStabilityLengthwiseConstructionSectionResultEntity>();
+            this.TechnicalInnovationSectionResultEntities = new HashSet<TechnicalInnovationSectionResultEntity>();
+            this.WaterPressureAsphaltCoverSectionResultEntities = new HashSet<WaterPressureAsphaltCoverSectionResultEntity>();
         }
     
         public long FailureMechanismSectionEntityId { get; set; }
@@ -57,5 +60,11 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual ICollection<HeightStructuresSectionResultEntity> HeightStructuresSectionResultEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingSectionResultEntity> PipingSectionResultEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StrengthStabilityLengthwiseConstructionSectionResultEntity> StrengthStabilityLengthwiseConstructionSectionResultEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TechnicalInnovationSectionResultEntity> TechnicalInnovationSectionResultEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WaterPressureAsphaltCoverSectionResultEntity> WaterPressureAsphaltCoverSectionResultEntities { get; set; }
     }
 }

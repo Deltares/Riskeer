@@ -88,10 +88,10 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadPipingMechanismSectionResults(this FailureMechanismEntity entity, PipingFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            foreach (var pipingSectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities))
+            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities))
             {
-                var readSectionResult = pipingSectionResultEntity.Read(collector);
-                var failureMechanismSection = collector.Get(pipingSectionResultEntity.FailureMechanismSectionEntity);
+                var readSectionResult = sectionResultEntity.Read(collector);
+                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
                 result.StorageId = readSectionResult.StorageId;
                 result.AssessmentLayerOne = readSectionResult.AssessmentLayerOne;
@@ -117,10 +117,10 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadGrassCoverErosionInwardsMechanismSectionResults(this FailureMechanismEntity entity, GrassCoverErosionInwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            foreach (var grassCoverErosionInwardsSectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionInwardsSectionResultEntities))
+            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionInwardsSectionResultEntities))
             {
-                var readSectionResult = grassCoverErosionInwardsSectionResultEntity.Read(collector);
-                var failureMechanismSection = collector.Get(grassCoverErosionInwardsSectionResultEntity.FailureMechanismSectionEntity);
+                var readSectionResult = sectionResultEntity.Read(collector);
+                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
                 result.StorageId = readSectionResult.StorageId;
                 result.AssessmentLayerOne = readSectionResult.AssessmentLayerOne;
@@ -146,10 +146,39 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadHeightStructuresMechanismSectionResults(this FailureMechanismEntity entity, HeightStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            foreach (var grassCoverErosionInwardsSectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.HeightStructuresSectionResultEntities))
+            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.HeightStructuresSectionResultEntities))
             {
-                var readSectionResult = grassCoverErosionInwardsSectionResultEntity.Read(collector);
-                var failureMechanismSection = collector.Get(grassCoverErosionInwardsSectionResultEntity.FailureMechanismSectionEntity);
+                var readSectionResult = sectionResultEntity.Read(collector);
+                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                result.StorageId = readSectionResult.StorageId;
+                result.AssessmentLayerOne = readSectionResult.AssessmentLayerOne;
+                result.AssessmentLayerThree = readSectionResult.AssessmentLayerThree;
+            }
+        }
+
+        /// <summary>
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="StrengthStabilityLengthwiseConstructionFailureMechanism"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="StrengthStabilityLengthwiseConstructionFailureMechanism"/> for.</param>
+        /// <param name="failureMechanism"></param>
+        /// <param name="collector">The object keeping track of read operations.</param>
+        internal static void ReadAsStrengthStabilityLengthwiseConstructionFailureMechanism(this FailureMechanismEntity entity, StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            failureMechanism.StorageId = entity.FailureMechanismEntityId;
+            failureMechanism.IsRelevant = entity.IsRelevant == 1;
+            failureMechanism.Comments = entity.Comments;
+
+            entity.ReadFailureMechanismSections(failureMechanism, collector);
+            entity.ReadStrengthStabilityLengthwiseConstructionMechanismSectionResults(failureMechanism, collector);
+        }
+
+        private static void ReadStrengthStabilityLengthwiseConstructionMechanismSectionResults(this FailureMechanismEntity entity, StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StrengthStabilityLengthwiseConstructionSectionResultEntities))
+            {
+                var readSectionResult = sectionResultEntity.Read(collector);
+                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
                 result.StorageId = readSectionResult.StorageId;
                 result.AssessmentLayerOne = readSectionResult.AssessmentLayerOne;

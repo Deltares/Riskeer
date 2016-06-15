@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Integration.Data.StandAlone.SectionResults
@@ -29,7 +30,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
     /// This class holds information about the result of a calculation on section level for the
     /// Strength and Stability of Lengthwise Constructions failure mechanism.
     /// </summary>
-    public class StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult : FailureMechanismSectionResult, IStorable
     {
         /// <summary>
         /// Creates a new instance of <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.
@@ -48,5 +49,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
         public RoundedDouble AssessmentLayerThree { get; set; }
+
+        public long StorageId { get; set; }
     }
 }
