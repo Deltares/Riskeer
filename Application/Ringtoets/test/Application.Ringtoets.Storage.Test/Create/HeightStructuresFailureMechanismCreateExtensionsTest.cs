@@ -26,18 +26,18 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.HeightStructures.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailureMechanismCreateExtensionsTest
+    public class HeightStructuresFailureMechanismCreateExtensionsTest
     {
         [Test]
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
             TestDelegate test = () => failureMechanism.Create(null);
@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool isRelevant)
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            var failureMechanism = new HeightStructuresFailureMechanism
             {
                 IsRelevant = isRelevant,
                 Comments = "Some text"
@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual((short) FailureMechanismType.GrassRevetmentTopErosionAndInwards, entity.FailureMechanismType);
+            Assert.AreEqual((short)FailureMechanismType.StructureHeight, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.Comments, entity.Comments);
         }
@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithoutSections_EmptyFailureMechanismSectionEntities()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
             var entity = failureMechanism.Create(new PersistenceRegistry());
@@ -87,7 +87,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithSections_FailureMechanismSectionEntitiesCreated()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("", new[]
             {
                 new Point2D(0, 0)
@@ -98,7 +98,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
-            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionInwardsSectionResultEntities).Count());
+            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.HeightStructuresSectionResultEntities).Count());
         }
     }
 }

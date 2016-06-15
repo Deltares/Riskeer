@@ -43,6 +43,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             DbSet<FailureMechanismSectionPointEntity> failureMechanismSectionPointsSet = CreateEmptyTestDbSet<FailureMechanismSectionPointEntity>();
             DbSet<PipingSectionResultEntity> pipingSectionResultsSet = CreateEmptyTestDbSet<PipingSectionResultEntity>();
             DbSet<GrassCoverErosionInwardsSectionResultEntity> grassCoverErosionInwardsSectionResultsSet = CreateEmptyTestDbSet<GrassCoverErosionInwardsSectionResultEntity>();
+            DbSet<HeightStructuresSectionResultEntity> heightStructuresSectionResultsSet = CreateEmptyTestDbSet<HeightStructuresSectionResultEntity>();
             DbSet<AssessmentSectionEntity> assessmentSectionsSet = CreateEmptyTestDbSet<AssessmentSectionEntity>();
             DbSet<ReferenceLinePointEntity> referenceLinesSet = CreateEmptyTestDbSet<ReferenceLinePointEntity>();
             DbSet<CalculationGroupEntity> calculationGroupsSet = CreateEmptyTestDbSet<CalculationGroupEntity>();
@@ -67,6 +68,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             ringtoetsEntities.Stub(r => r.FailureMechanismSectionPointEntities).Return(failureMechanismSectionPointsSet);
             ringtoetsEntities.Stub(r => r.PipingSectionResultEntities).Return(pipingSectionResultsSet);
             ringtoetsEntities.Stub(r => r.GrassCoverErosionInwardsSectionResultEntities).Return(grassCoverErosionInwardsSectionResultsSet);
+            ringtoetsEntities.Stub(r => r.HeightStructuresSectionResultEntities).Return(heightStructuresSectionResultsSet);
             ringtoetsEntities.Stub(r => r.AssessmentSectionEntities).Return(assessmentSectionsSet);
             ringtoetsEntities.Stub(r => r.ReferenceLinePointEntities).Return(referenceLinesSet);
             ringtoetsEntities.Stub(r => r.CalculationGroupEntities).Return(calculationGroupsSet);

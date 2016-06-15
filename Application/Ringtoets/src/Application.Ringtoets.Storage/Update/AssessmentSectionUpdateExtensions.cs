@@ -70,16 +70,15 @@ namespace Application.Ringtoets.Storage.Update
 
             UpdateHydraulicDatabase(section, entity, registry, context);
             UpdateReferenceLine(section, entity, context);
-
-            UpdatePipingFailureMechanism(section, registry, context);
-            UpdateGrassCoverErosionInwardsFailureMechanism(section, registry, context);
-            UpdateStandAloneFailureMechanisms(section, registry, context);
+            UpdateFailureMechanisms(section, registry, context);
 
             registry.Register(entity, section);
         }
 
-        private static void UpdateStandAloneFailureMechanisms(AssessmentSection section, PersistenceRegistry registry, IRingtoetsEntities context)
+        private static void UpdateFailureMechanisms(AssessmentSection section, PersistenceRegistry registry, IRingtoetsEntities context)
         {
+            section.PipingFailureMechanism.Update(registry, context);
+            section.GrassCoverErosionInwards.Update(registry, context);
             section.MacrostabilityInwards.Update(registry, context);
             section.MacrostabilityOutwards.Update(registry, context);
             section.Microstability.Update(registry, context);
@@ -108,16 +107,6 @@ namespace Application.Ringtoets.Storage.Update
             {
                 throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(AssessmentSectionEntity).Name, section.StorageId), exception);
             }
-        }
-
-        private static void UpdatePipingFailureMechanism(AssessmentSection section, PersistenceRegistry registry, IRingtoetsEntities context)
-        {
-            section.PipingFailureMechanism.Update(registry, context);
-        }
-
-        private static void UpdateGrassCoverErosionInwardsFailureMechanism(AssessmentSection section, PersistenceRegistry registry, IRingtoetsEntities context)
-        {
-            section.GrassCoverErosionInwards.Update(registry, context);
         }
 
         private static void UpdateReferenceLine(AssessmentSection section, AssessmentSectionEntity entity, IRingtoetsEntities context)

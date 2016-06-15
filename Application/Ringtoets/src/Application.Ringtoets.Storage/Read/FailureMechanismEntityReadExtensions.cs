@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Piping.Data;
 
@@ -38,12 +39,11 @@ namespace Application.Ringtoets.Storage.Read
     internal static class FailureMechanismEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to construct a <see cref="PipingFailureMechanism"/>.
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="PipingFailureMechanism"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="PipingFailureMechanism"/> for.</param>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to read into a <see cref="PipingFailureMechanism"/>.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="PipingFailureMechanism"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="failureMechanism"/> is <c>null</c></item>
@@ -100,12 +100,11 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to construct a <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="GrassCoverErosionInwardsFailureMechanism"/> for.</param>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to read into a <see cref="GrassCoverErosionInwardsFailureMechanism"/>.</param>
         /// <param name="failureMechanism"></param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="GrassCoverErosionInwardsFailureMechanism"/>.</returns>
         internal static void ReadAsGrassCoverErosionInwardsFailureMechanism(this FailureMechanismEntity entity, GrassCoverErosionInwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
             failureMechanism.StorageId = entity.FailureMechanismEntityId;
@@ -130,12 +129,40 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to construct a <see cref="MacrostabilityInwardsFailureMechanism"/>.
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="HeightStructuresFailureMechanism"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="GrassCoverErosionInwardsFailureMechanism"/> for.</param>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="HeightStructuresFailureMechanism"/> for.</param>
+        /// <param name="failureMechanism"></param>
+        /// <param name="collector">The object keeping track of read operations.</param>
+        internal static void ReadAsHeightStructuresFailureMechanism(this FailureMechanismEntity entity, HeightStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            failureMechanism.StorageId = entity.FailureMechanismEntityId;
+            failureMechanism.IsRelevant = entity.IsRelevant == 1;
+            failureMechanism.Comments = entity.Comments;
+
+            entity.ReadFailureMechanismSections(failureMechanism, collector);
+            entity.ReadHeightStructuresMechanismSectionResults(failureMechanism, collector);
+        }
+
+        private static void ReadHeightStructuresMechanismSectionResults(this FailureMechanismEntity entity, HeightStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            foreach (var grassCoverErosionInwardsSectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.HeightStructuresSectionResultEntities))
+            {
+                var readSectionResult = grassCoverErosionInwardsSectionResultEntity.Read(collector);
+                var failureMechanismSection = collector.Get(grassCoverErosionInwardsSectionResultEntity.FailureMechanismSectionEntity);
+                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                result.StorageId = readSectionResult.StorageId;
+                result.AssessmentLayerOne = readSectionResult.AssessmentLayerOne;
+                result.AssessmentLayerThree = readSectionResult.AssessmentLayerThree;
+            }
+        }
+
+        /// <summary>
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="IFailureMechanism"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to read into a <see cref="IFailureMechanism"/>.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="MacrostabilityInwardsFailureMechanism"/>.</returns>
         internal static void ReadAsStandAloneFailureMechanism(this FailureMechanismEntity entity, IFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
             failureMechanism.StorageId = entity.FailureMechanismEntityId;

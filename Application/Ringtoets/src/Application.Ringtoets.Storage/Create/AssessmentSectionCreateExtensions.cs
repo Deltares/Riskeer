@@ -21,7 +21,9 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Create
 {
@@ -55,17 +57,13 @@ namespace Application.Ringtoets.Storage.Create
             AddEntityForHydraulicDatabase(section, entity, registry);
             AddEntityForReferenceLine(section, entity);
 
-            AddEntityForPipingFailureMechanism(section, entity, registry);
-            AddEntityForGrassCoverErosionInwardsFailureMechanism(section, entity, registry);
+            entity.FailureMechanismEntities.Add(section.PipingFailureMechanism.Create(registry));
+            entity.FailureMechanismEntities.Add(section.GrassCoverErosionInwards.Create(registry));
+            entity.FailureMechanismEntities.Add(section.HeightStructures.Create(registry));
             AddEntitiesForAddStandAloneFailureMechanisms(section, entity, registry);
 
             registry.Register(entity, section);
             return entity;
-        }
-
-        private static void AddEntityForGrassCoverErosionInwardsFailureMechanism(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry registry)
-        {
-            entity.FailureMechanismEntities.Add(section.GrassCoverErosionInwards.Create(registry));
         }
 
         private static void AddEntitiesForAddStandAloneFailureMechanisms(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry registry)
@@ -79,18 +77,12 @@ namespace Application.Ringtoets.Storage.Create
             entity.FailureMechanismEntities.Add(section.GrassCoverErosionOutwards.Create(FailureMechanismType.GrassRevetmentErosionOutwards, registry));
             entity.FailureMechanismEntities.Add(section.GrassCoverSlipOffOutwards.Create(FailureMechanismType.GrassRevetmentSlidingOutwards, registry));
             entity.FailureMechanismEntities.Add(section.GrassCoverSlipOffInwards.Create(FailureMechanismType.GrassRevetmentSlidingInwards, registry));
-            entity.FailureMechanismEntities.Add(section.HeightStructures.Create(FailureMechanismType.StructureHeight, registry));
             entity.FailureMechanismEntities.Add(section.ClosingStructure.Create(FailureMechanismType.ReliabilityClosingOfStructure, registry));
             entity.FailureMechanismEntities.Add(section.PipingStructure.Create(FailureMechanismType.PipingAtStructure, registry));
             entity.FailureMechanismEntities.Add(section.StrengthStabilityPointConstruction.Create(FailureMechanismType.StrengthAndStabilityPointConstruction, registry));
             entity.FailureMechanismEntities.Add(section.StrengthStabilityLengthwiseConstruction.Create(FailureMechanismType.StrengthAndStabilityParallelConstruction, registry));
             entity.FailureMechanismEntities.Add(section.DuneErosion.Create(FailureMechanismType.DuneErosion, registry));
             entity.FailureMechanismEntities.Add(section.TechnicalInnovation.Create(FailureMechanismType.TechnicalInnovations, registry));
-        }
-
-        private static void AddEntityForPipingFailureMechanism(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry registry)
-        {
-            entity.FailureMechanismEntities.Add(section.PipingFailureMechanism.Create(registry));
         }
 
         private static void AddEntityForReferenceLine(AssessmentSection section, AssessmentSectionEntity entity)
