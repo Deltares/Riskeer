@@ -33,8 +33,10 @@ namespace Core.Components.Charting.Data
         /// Creates a new instance of <see cref="ChartDataCollection"/>.
         /// </summary>
         /// <param name="list">A <see cref="IList{T}"/> of <see cref="ChartData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="list"/> is <c>null</c>.</exception>
-        public ChartDataCollection(IList<ChartData> list)
+        /// <param name="name">The name of the <see cref="ChartData"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="list"/> is <c>null</c>,
+        /// or when <paramref name="name"/> is <c>null</c> or only whitespace.</exception>
+        public ChartDataCollection(IList<ChartData> list, string name) : base(name)
         {
             if (list == null)
             {

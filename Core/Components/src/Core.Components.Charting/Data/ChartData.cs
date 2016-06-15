@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 
 namespace Core.Components.Charting.Data
@@ -26,5 +27,38 @@ namespace Core.Components.Charting.Data
     /// <summary>
     /// Abstract class for data with the purpose of becoming visible in charting components.
     /// </summary>
-    public abstract class ChartData : Observable { }
+    public abstract class ChartData : Observable
+    {
+        private string name;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ChartData"/>.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="ChartData"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is <c>null</c> or only whitespace.</exception>
+        protected ChartData(string name)
+        {
+            Name = name;
+        }
+
+        /// <summary>
+        /// Gets or sets name of the <see cref="ChartData"/>.
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is <c>null</c> or only whitespace.</exception>
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("A name must be set to map data");
+                }
+                name = value;
+            }
+        }
+    }
 }

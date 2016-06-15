@@ -20,29 +20,31 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Linq;
 using Core.Components.Charting.Data;
-using OxyPlot;
 using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Converter
 {
     /// <summary>
-    /// This class converts <see cref="PointData"/> into <see cref="LineSeries"/> with point styling.
+    /// This class converts <see cref="ChartAreaData"/> into <see cref="AreaSeries"/>.
     /// </summary>
-    public class PointDataConverter : ChartDataConverter<PointData>
+    public class ChartAreaDataConverter : ChartDataConverter<ChartAreaData>
     {
-        protected override IList<Series> Convert(PointData data)
+        protected override IList<Series> Convert(ChartAreaData data)
         {
-            var series = new LineSeries
+            var series = new AreaSeries
             {
-                ItemsSource = data.Points.ToArray(),
                 IsVisible = data.IsVisible,
-                Mapping = TupleToDataPoint,
-                LineStyle = LineStyle.None,
-                MarkerType = MarkerType.Circle,
-                Tag = data,
+                Tag = data
             };
+            foreach (var p in data.Points)
+            {
+                series.Points.Add(TupleToDataPoint(p));
+            }
+            if (series.Points.Count > 0)
+            {
+                series.Points2.Add(series.Points[0]);
+            }
             return new List<Series> { series };
         }
     }

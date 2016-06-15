@@ -60,7 +60,7 @@ namespace Core.Plugins.OxyPlot.Test.Forms
             // Setup
             var chartView = new ChartDataView();
             var chart = (ChartControl)chartView.Controls[0];
-            var lineData = new LineData(Enumerable.Empty<Tuple<double, double>>());
+            var lineData = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test data");
 
             // Call
             chartView.Data = lineData;
@@ -76,7 +76,7 @@ namespace Core.Plugins.OxyPlot.Test.Forms
             // Setup
             var chartView = new ChartDataView();
             var chart = (ChartControl)chartView.Controls[0];
-            var pointData = new PointData(Enumerable.Empty<Tuple<double, double>>());
+            var pointData = new ChartPointData(Enumerable.Empty<Tuple<double, double>>(), "test data");
 
             // Call
             chartView.Data = pointData;
@@ -92,7 +92,7 @@ namespace Core.Plugins.OxyPlot.Test.Forms
             // Setup
             var chartView = new ChartDataView();
             var chart = (ChartControl)chartView.Controls[0];
-            var areaData = new AreaData(Enumerable.Empty<Tuple<double, double>>());
+            var areaData = new ChartAreaData(Enumerable.Empty<Tuple<double, double>>(), "test data");
 
             // Call
             chartView.Data = areaData;
@@ -108,7 +108,7 @@ namespace Core.Plugins.OxyPlot.Test.Forms
             // Setup
             var chartView = new ChartDataView();
             var chart = (ChartControl)chartView.Controls[0];
-            var chartDataCollection = new ChartDataCollection(new ChartData[0]);
+            var chartDataCollection = new ChartDataCollection(new ChartData[0], "test data");
 
             // Call
             chartView.Data = chartDataCollection;

@@ -11,24 +11,24 @@ using OxyPlot.Series;
 namespace Core.Components.OxyPlot.Test.Converter
 {
     [TestFixture]
-    public class LineDataConverterTest
+    public class ChartLineDataConverterTest
     {
         [Test]
         public void DefaultConstructor_IsChartDataConverter()
         {
             // Call
-            var converter = new LineDataConverter();
+            var converter = new ChartLineDataConverter();
 
             // Assert
-            Assert.IsInstanceOf<ChartDataConverter<LineData>>(converter);
+            Assert.IsInstanceOf<ChartDataConverter<ChartLineData>>(converter);
         }
 
         [Test]
         public void CanConvertSeries_LineData_ReturnTrue()
         {
             // Setup
-            var converter = new LineDataConverter();
-            var lineData = new LineData(new Collection<Tuple<double, double>>());
+            var converter = new ChartLineDataConverter();
+            var lineData = new ChartLineData(new Collection<Tuple<double, double>>(), "test data");
 
             // Call
             var canConvert = converter.CanConvertSeries(lineData);
@@ -41,8 +41,8 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void CanConvertSeries_ChartData_ReturnsFalse()
         {
             // Setup
-            var converter = new LineDataConverter();
-            var chartData = new TestChartData();
+            var converter = new ChartLineDataConverter();
+            var chartData = new TestChartData("test data");
 
             // Call
             var canConvert = converter.CanConvertSeries(chartData);
@@ -55,7 +55,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void Convert_RandomPointData_ReturnsNewSeries()
         {
             // Setup
-            var converter = new LineDataConverter();
+            var converter = new ChartLineDataConverter();
             var random = new Random(21);
             var randomCount = random.Next(5, 10);
             var points = new Collection<Tuple<double, double>>();
@@ -65,7 +65,7 @@ namespace Core.Components.OxyPlot.Test.Converter
                 points.Add(Tuple.Create(random.NextDouble(), random.NextDouble()));
             }
 
-            var lineData = new LineData(points);
+            var lineData = new ChartLineData(points, "test data");
 
             // Call
             var series = converter.Convert(lineData);
@@ -81,7 +81,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void Convert_DataNull_ThrowsArgumentNullException()
         {
             // Setup
-            var testConverter = new LineDataConverter();
+            var testConverter = new ChartLineDataConverter();
 
             // Call
             TestDelegate test = () => testConverter.Convert(null);
@@ -94,8 +94,8 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void Convert_DataCannotBeConverted_ThrowsArgumentException()
         {
             // Setup
-            var testConverter = new LineDataConverter();
-            var testChartData = new TestChartData();
+            var testConverter = new ChartLineDataConverter();
+            var testChartData = new TestChartData("test data");
             var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testChartData.GetType());
             // Precondition
             Assert.IsFalse(testConverter.CanConvertSeries(testChartData));

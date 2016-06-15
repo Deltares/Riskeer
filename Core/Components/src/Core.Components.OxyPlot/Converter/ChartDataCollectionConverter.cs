@@ -33,7 +33,7 @@ namespace Core.Components.OxyPlot.Converter
     {
         protected override IList<Series> Convert(ChartDataCollection data)
         {
-            var factory = new SeriesFactory();
+            var factory = new ChartSeriesFactory();
             var seriesCollection = new List<Series>();
             foreach(var series in data.List)
             {

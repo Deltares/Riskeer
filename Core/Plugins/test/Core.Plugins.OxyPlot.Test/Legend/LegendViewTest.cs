@@ -34,7 +34,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             // Setup 
             using (var view = new LegendView())
             {
-                var chartDataCollection = new ChartDataCollection(new List<ChartData>());
+                var chartDataCollection = new ChartDataCollection(new List<ChartData>(), "test data");
 
                 // Call
                 view.Data = chartDataCollection;
@@ -78,7 +78,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             // Setup
             var legendView = new LegendView
             {
-                Data = new ChartDataCollection(new List<ChartData>())
+                Data = new ChartDataCollection(new List<ChartData>(), "test data")
             };
 
             var treeViewControl = TypeUtils.GetField<TreeViewControl>(legendView, "treeViewControl");

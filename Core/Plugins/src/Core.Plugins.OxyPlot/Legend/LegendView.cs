@@ -46,7 +46,7 @@ namespace Core.Plugins.OxyPlot.Legend
             InitializeComponent();
             Text = Resources.General_Chart;
 
-            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<PointData>
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartPointData>
             {
                 Text = pointData => OxyPlotResources.ChartData_Point_data_label,
                 Image = pointData => OxyPlotResources.PointsIcon,
@@ -56,7 +56,7 @@ namespace Core.Plugins.OxyPlot.Legend
                 OnNodeChecked = PointBasedChartDataOnNodeChecked
             });
 
-            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<LineData>
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartLineData>
             {
                 Text = lineData => OxyPlotResources.ChartData_Line_data_label,
                 Image = lineData => OxyPlotResources.LineIcon,
@@ -66,7 +66,7 @@ namespace Core.Plugins.OxyPlot.Legend
                 OnNodeChecked = PointBasedChartDataOnNodeChecked
             });
 
-            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<AreaData>
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartAreaData>
             {
                 Text = areaData => OxyPlotResources.ChartData_Area_data_label,
                 Image = areaData => OxyPlotResources.AreaIcon,

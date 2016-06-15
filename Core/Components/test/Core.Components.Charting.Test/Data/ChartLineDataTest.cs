@@ -1,21 +1,39 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using NUnit.Framework;
 
 namespace Core.Components.Charting.Test.Data
 {
     [TestFixture]
-    public class PointDataTest
+    public class ChartLineDataTest
     {
         [Test]
         public void Constructor_NullPoints_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PointData(null);
+            TestDelegate test = () => new ChartLineData(null, "test data");
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("     ")]
+        public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
+        {
+            // Setup
+            var points = new Collection<Tuple<double, double>>();
+
+            // Call
+            TestDelegate test = () => new ChartLineData(points, invalidName);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to map data");
         }
 
         [Test]
@@ -25,7 +43,7 @@ namespace Core.Components.Charting.Test.Data
             var points = new Collection<Tuple<double, double>>();
 
             // Call
-            var data = new PointData(points);
+            var data = new ChartLineData(points, "test data");
 
             // Assert
             Assert.IsInstanceOf<ChartData>(data);
@@ -39,7 +57,7 @@ namespace Core.Components.Charting.Test.Data
             var points = CreateTestPoints();
 
             // Call
-            var data = new PointData(points);
+            var data = new ChartLineData(points, "test data");
 
             // Assert
             Assert.IsInstanceOf<ChartData>(data);

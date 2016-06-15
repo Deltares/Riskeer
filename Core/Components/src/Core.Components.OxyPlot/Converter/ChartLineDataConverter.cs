@@ -27,11 +27,11 @@ using OxyPlot.Series;
 namespace Core.Components.OxyPlot.Converter
 {
     /// <summary>
-    /// This class converts <see cref="LineData"/> into <see cref="LineSeries"/>.
+    /// This class converts <see cref="ChartLineData"/> into <see cref="LineSeries"/>.
     /// </summary>
-    public class LineDataConverter : ChartDataConverter<LineData>
+    public class ChartLineDataConverter : ChartDataConverter<ChartLineData>
     {
-        protected override IList<Series> Convert(LineData data)
+        protected override IList<Series> Convert(ChartLineData data)
         {
             var series = new LineSeries
             {

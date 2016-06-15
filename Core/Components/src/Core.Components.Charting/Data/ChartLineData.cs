@@ -19,33 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
-using Core.Components.Charting.Data;
-using OxyPlot.Series;
 
-namespace Core.Components.OxyPlot.Converter
+namespace Core.Components.Charting.Data
 {
     /// <summary>
-    /// This class converts <see cref="AreaData"/> into <see cref="AreaSeries"/>.
+    /// This class represents data in 2D space which is visible as a line.
     /// </summary>
-    public class AreaDataConverter : ChartDataConverter<AreaData>
+    public class ChartLineData : PointBasedChartData
     {
-        protected override IList<Series> Convert(AreaData data)
-        {
-            var series = new AreaSeries
-            {
-                IsVisible = data.IsVisible,
-                Tag = data
-            };
-            foreach (var p in data.Points)
-            {
-                series.Points.Add(TupleToDataPoint(p));
-            }
-            if (series.Points.Count > 0)
-            {
-                series.Points2.Add(series.Points[0]);
-            }
-            return new List<Series> { series };
-        }
+        /// <summary>
+        /// Creates a new instance of <see cref="ChartLineData"/>.
+        /// </summary>
+        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) points.</param>
+        /// <param name="name">The name of the <see cref="ChartData"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>,
+        /// or when <paramref name="name"/> is <c>null</c> or only whitespace.</exception>
+        public ChartLineData(IEnumerable<Tuple<double, double>> points, string name) : base(points, name) {}
     }
 }

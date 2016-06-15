@@ -19,21 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
+using System.Linq;
+using Core.Components.Charting.Data;
+using OxyPlot;
+using OxyPlot.Series;
 
-namespace Core.Components.Charting.Data
+namespace Core.Components.OxyPlot.Converter
 {
     /// <summary>
-    /// This class represents data in 2D space which is visible as points.
+    /// This class converts <see cref="ChartPointData"/> into <see cref="LineSeries"/> with point styling.
     /// </summary>
-    public class PointData : PointBasedChartData
+    public class ChartPointDataConverter : ChartDataConverter<ChartPointData>
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="PointData"/>.
-        /// </summary>
-        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) points.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
-        public PointData(IEnumerable<Tuple<double, double>> points) : base(points) {}
+        protected override IList<Series> Convert(ChartPointData data)
+        {
+            var series = new LineSeries
+            {
+                ItemsSource = data.Points.ToArray(),
+                IsVisible = data.IsVisible,
+                Mapping = TupleToDataPoint,
+                LineStyle = LineStyle.None,
+                MarkerType = MarkerType.Circle,
+                Tag = data,
+            };
+            return new List<Series> { series };
+        }
     }
 }

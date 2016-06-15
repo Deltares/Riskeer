@@ -46,12 +46,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\AreaDataTest.cs" />
+    <Compile Include="Data\ChartAreaDataTest.cs" />
     <Compile Include="Data\ChartDataCollectionTest.cs" />
     <Compile Include="Data\ChartDataTest.cs" />
-    <Compile Include="Data\LineDataTest.cs" />
+    <Compile Include="Data\ChartLineDataTest.cs" />
     <Compile Include="Data\PointBasedChartDataTest.cs" />
-    <Compile Include="Data\PointDataTest.cs" />
+    <Compile Include="Data\ChartPointDataTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -37,11 +37,11 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Data\AreaData.cs" />
+    <Compile Include="Data\ChartAreaData.cs" />
     <Compile Include="Data\ChartData.cs" />
     <Compile Include="Data\ChartDataCollection.cs" />
-    <Compile Include="Data\LineData.cs" />
-    <Compile Include="Data\PointData.cs" />
+    <Compile Include="Data\ChartLineData.cs" />
+    <Compile Include="Data\ChartPointData.cs" />
     <Compile Include="Data\PointBasedChartData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

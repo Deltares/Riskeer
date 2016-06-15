@@ -13,11 +13,31 @@ namespace Core.Components.Charting.Test.Data
         public void Constructor_WithoutPoints_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestPointBasedChartData(null);
+            TestDelegate test = () => new TestPointBasedChartData(null, "test data");
             
             // Assert
             var expectedMessage = "A point collection is required when creating a subclass of Core.Components.Charting.Data.PointBasedChartData.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("        ")]
+        public void Constructor_InvalidName_ThrowsArgumentExcpetion(string invalidName)
+        {
+            // Setup
+            var points = new Collection<Tuple<double, double>>
+            {
+                Tuple.Create(0.0, 1.0),
+                Tuple.Create(2.5, 1.1)
+            };
+
+            // Call
+            TestDelegate test = () => new TestPointBasedChartData(points, invalidName);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to map data");
         }
 
         [Test]
@@ -31,7 +51,7 @@ namespace Core.Components.Charting.Test.Data
             };
             
             // Call
-            var data = new TestPointBasedChartData(points);
+            var data = new TestPointBasedChartData(points, "test data");
 
             // Assert
             Assert.AreNotSame(points, data.Points);
@@ -42,6 +62,6 @@ namespace Core.Components.Charting.Test.Data
 
     public class TestPointBasedChartData : PointBasedChartData
     {
-        public TestPointBasedChartData(IEnumerable<Tuple<double,double>> points) : base(points) { }
+        public TestPointBasedChartData(IEnumerable<Tuple<double,double>> points, string name) : base(points, name) { }
     }
 }

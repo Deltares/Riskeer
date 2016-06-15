@@ -166,4 +166,55 @@
   <data name="OpenMapViewCommand_Execute_List" xml:space="preserve">
     <value>Lijst</value>
   </data>
+  <data name="OpenChartViewCommand_Execute_Line_one" xml:space="preserve">
+    <value>Lijn 1</value>
+  </data>
+  <data name="OpenChartViewCommand_Execute_Line_two" xml:space="preserve">
+    <value>Lijn 2</value>
+  </data>
+  <data name="OpenChartViewCommand_Execute_Area_one" xml:space="preserve">
+    <value>Gebied 1</value>
+  </data>
+  <data name="OpenChartViewCommand_Execute_Area_two" xml:space="preserve">
+    <value>Gebied 2</value>
+  </data>
+  <data name="OpenChartViewCommand_Execute_Points_one" xml:space="preserve">
+    <value>Punten 1</value>
+  </data>
+  <data name="OpenChartViewCommand_Execute_Points_two" xml:space="preserve">
+    <value>Punten 2</value>
+  </data>
+  <data name="OpenChartViewCommand_Execute_Graph_data" xml:space="preserve">
+    <value>Grafiek data</value>
+  </data>
+  <data name="OpenMapViewCommand_Execute_Texel" xml:space="preserve">
+    <value>Texel</value>
+  </data>
+  <data name="OpenMapViewCommand_Execute_Vlieland" xml:space="preserve">
+    <value>Vlieland</value>
+  </data>
+  <data name="OpenMapViewCommand_Execute_Terschelling" xml:space="preserve">
+    <value>Terschelling</value>
+  </data>
+  <data name="OpenMapViewCommand_Execute_Ameland" xml:space="preserve">
+    <value>Ameland</value>
+  </data>
+  <data name="OpenMapViewCommand_Execute_Schiermonnikoog" xml:space="preserve">
+    <value>Schiermonnikoog</value>
+  </data>
+  <data name="OpenMapViewCommand_Execute_Randstad" xml:space="preserve">
+    <value>Randstad</value>
+  </data>
+  <data name="OpenMapViewCommand_Execute_Snelwegen_randstad" xml:space="preserve">
+    <value>Snelwegen randstad</value>
+  </data>
+  <data name="OpenMapViewCommand_Execute_Kustlijn_Flevoland" xml:space="preserve">
+    <value>Kustlijn Flevoland</value>
+  </data>
+  <data name="OpenMapViewCommand_Execute_Continentaal_Nederland" xml:space="preserve">
+    <value>Continentaal Nederland</value>
+  </data>
+  <data name="OpenMapViewCommand_Execute_Demo_map_netherlands" xml:space="preserve">
+    <value>Demo kaart Nederland</value>
+  </data>
 </root>

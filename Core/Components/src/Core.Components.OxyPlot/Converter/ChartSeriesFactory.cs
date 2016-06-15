@@ -30,16 +30,16 @@ namespace Core.Components.OxyPlot.Converter
     /// <summary>
     /// This class creates new <see cref="Series"/> objects from <see cref="ChartData"/>.
     /// </summary>
-    public class SeriesFactory
+    public class ChartSeriesFactory
     {
         /// <summary>
-        /// Collection of converters that the <see cref="SeriesFactory"/> can use to transform <see cref="ChartData"/>.
+        /// Collection of converters that the <see cref="ChartSeriesFactory"/> can use to transform <see cref="ChartData"/>.
         /// </summary>
         private readonly IEnumerable<IChartDataConverter> converters = new Collection<IChartDataConverter>
         {
-            new AreaDataConverter(),
-            new LineDataConverter(),
-            new PointDataConverter(),
+            new ChartAreaDataConverter(),
+            new ChartLineDataConverter(),
+            new ChartPointDataConverter(),
             new ChartDataCollectionConverter()
         };
 

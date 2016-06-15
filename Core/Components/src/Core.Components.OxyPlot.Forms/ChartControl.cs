@@ -35,7 +35,7 @@ namespace Core.Components.OxyPlot.Forms
     /// </summary>
     public sealed class ChartControl : Control, IObserver, IChartControl
     {
-        private readonly SeriesFactory seriesFactory = new SeriesFactory();
+        private readonly ChartSeriesFactory seriesFactory = new ChartSeriesFactory();
 
         private ChartData data;
 

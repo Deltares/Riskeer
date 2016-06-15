@@ -29,7 +29,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             var treeViewControl = TypeUtils.GetField<TreeViewControl>(legendView, "treeViewControl");
             var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
 
-            info = treeNodeInfoLookup[typeof(LineData)];
+            info = treeNodeInfoLookup[typeof(ChartLineData)];
         }
 
         [TearDown]
@@ -42,7 +42,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(LineData), info.TagType);
+            Assert.AreEqual(typeof(ChartLineData), info.TagType);
             Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
@@ -60,7 +60,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var lineData = mocks.StrictMock<LineData>(Enumerable.Empty<Tuple<double, double>>());
+            var lineData = mocks.StrictMock<ChartLineData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
 
             mocks.ReplayAll();
 
@@ -77,7 +77,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var lineData = mocks.StrictMock<LineData>(Enumerable.Empty<Tuple<double, double>>());
+            var lineData = mocks.StrictMock<ChartLineData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
 
             mocks.ReplayAll();
 
@@ -94,7 +94,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void CanDrag_Always_ReturnsTrue()
         {
             // Setup
-            var lineData = mocks.StrictMock<LineData>(Enumerable.Empty<Tuple<double, double>>());
+            var lineData = mocks.StrictMock<ChartLineData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
 
             mocks.ReplayAll();
 
@@ -111,7 +111,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void CanCheck_Always_ReturnsTrue()
         {
             // Setup
-            var lineData = mocks.StrictMock<LineData>(Enumerable.Empty<Tuple<double, double>>());
+            var lineData = mocks.StrictMock<ChartLineData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
 
             mocks.ReplayAll();
 
@@ -129,7 +129,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void IsChecked_Always_ReturnsAccordingToVisibleStateOfLineData(bool isVisible)
         {
             // Setup
-            var lineData = mocks.StrictMock<LineData>(Enumerable.Empty<Tuple<double, double>>());
+            var lineData = mocks.StrictMock<ChartLineData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
 
             lineData.IsVisible = isVisible;
 
@@ -149,7 +149,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void LineDataNodeWithoutParent_SetsLineDataVisibility(bool initialVisibleState)
         {
             // Setup
-            var lineData = mocks.StrictMock<LineData>(Enumerable.Empty<Tuple<double, double>>());
+            var lineData = mocks.StrictMock<ChartLineData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
 
             mocks.ReplayAll();
 
@@ -170,7 +170,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup
             var observable = mocks.StrictMock<IObservable>();
-            var lineData = mocks.StrictMock<LineData>(Enumerable.Empty<Tuple<double, double>>());
+            var lineData = mocks.StrictMock<ChartLineData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
 
             observable.Expect(o => o.NotifyObservers());
 

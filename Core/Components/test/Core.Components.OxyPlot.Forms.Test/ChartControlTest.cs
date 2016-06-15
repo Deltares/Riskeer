@@ -34,7 +34,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         {
             // Setup
             var chart = new ChartControl();
-            var testData = new TestChartData();
+            var testData = new TestChartData("test data");
 
             // Call
             TestDelegate test = () => chart.Data = testData;
@@ -61,7 +61,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         {
             // Setup
             var chart = new ChartControl();
-            var testData = new LineData(Enumerable.Empty<Tuple<double, double>>());
+            var testData = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test data");
             var observers = TypeUtils.GetField<ICollection<IObserver>>(testData, "observers");
             var view = TypeUtils.GetField<PlotView>(chart, "view");
 
@@ -81,8 +81,8 @@ namespace Core.Components.OxyPlot.Forms.Test
         {
             // Setup
             var chart = new ChartControl();
-            var testDataOld = new LineData(Enumerable.Empty<Tuple<double, double>>());
-            var testDataNew = new LineData(Enumerable.Empty<Tuple<double, double>>());
+            var testDataOld = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test data");
+            var testDataNew = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test data");
             var observersOld = TypeUtils.GetField<ICollection<IObserver>>(testDataOld, "observers");
             var observersNew = TypeUtils.GetField<ICollection<IObserver>>(testDataNew, "observers");
             var view = TypeUtils.GetField<PlotView>(chart, "view");
@@ -105,7 +105,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         {
             // Setup
             var chart = new ChartControl();
-            var testData = new LineData(Enumerable.Empty<Tuple<double, double>>());
+            var testData = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test data");
             var observers = TypeUtils.GetField<ICollection<IObserver>>(testData, "observers");
             var view = TypeUtils.GetField<PlotView>(chart, "view");
 
@@ -168,7 +168,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Setup
             var form = new Form();
             var chart = new ChartControl();
-            var testData = new LineData(Enumerable.Empty<Tuple<double, double>>());
+            var testData = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test data");
             var view = TypeUtils.GetField<PlotView>(chart, "view");
             var invalidated = 0;
 
@@ -194,7 +194,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Setup
             var form = new Form();
             var chart = new ChartControl();
-            var testData = new LineData(Enumerable.Empty<Tuple<double, double>>());
+            var testData = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test data");
             var view = TypeUtils.GetField<PlotView>(chart, "view");
             var invalidated = 0;
 

@@ -61,7 +61,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>());
+            var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>(), "test data");
 
             mocks.ReplayAll();
 
@@ -78,7 +78,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>());
+            var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>(), "test data");
 
             mocks.ReplayAll();
 
@@ -95,15 +95,15 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void ChildNodeObjects_Always_ReturnsChildsOnDataReversed()
         {
             // Setup
-            var chartData1 = mocks.StrictMock<ChartData>();
-            var chartData2 = mocks.StrictMock<ChartData>();
-            var chartData3 = mocks.StrictMock<ChartData>();
+            var chartData1 = mocks.StrictMock<ChartData>("test data");
+            var chartData2 = mocks.StrictMock<ChartData>("test data");
+            var chartData3 = mocks.StrictMock<ChartData>("test data");
             var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>
             {
                 chartData1,
                 chartData2,
                 chartData3
-            });
+            }, "test data");
 
             mocks.ReplayAll();
 
@@ -120,7 +120,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void CanDrop_SourceNodeTagIsNoChartData_ReturnsFalse()
         {
             // Setup
-            var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>());
+            var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>(), "test data");
 
             mocks.ReplayAll();
 
@@ -137,8 +137,8 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void CanDrop_SourceNodeTagIsChartData_ReturnsTrue()
         {
             // Setup
-            var chartData = mocks.StrictMock<ChartData>();
-            var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>());
+            var chartData = mocks.StrictMock<ChartData>("test data");
+            var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>(), "test data");
 
             mocks.ReplayAll();
 
@@ -155,7 +155,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void CanInsert_SourceNodeTagIsNoChartData_ReturnsFalse()
         {
             // Setup
-            var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>());
+            var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>(), "test data");
 
             mocks.ReplayAll();
 
@@ -172,8 +172,8 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void CanInsert_SourceNodeTagIsChartData_ReturnsTrue()
         {
             // Setup
-            var chartData = mocks.StrictMock<ChartData>();
-            var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>());
+            var chartData = mocks.StrictMock<ChartData>("test data");
+            var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>(), "test data");
 
             mocks.ReplayAll();
 
@@ -194,15 +194,15 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
-            var chartData1 = mocks.StrictMock<ChartData>();
-            var chartData2 = mocks.StrictMock<ChartData>();
-            var chartData3 = mocks.StrictMock<ChartData>();
+            var chartData1 = mocks.StrictMock<ChartData>("test data");
+            var chartData2 = mocks.StrictMock<ChartData>("test data");
+            var chartData3 = mocks.StrictMock<ChartData>("test data");
             var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>
             {
                 chartData1,
                 chartData2,
                 chartData3
-            });
+            }, "test data");
 
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
@@ -231,15 +231,15 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
-            var chartData1 = mocks.StrictMock<ChartData>();
-            var chartData2 = mocks.StrictMock<ChartData>();
-            var chartData3 = mocks.StrictMock<ChartData>();
+            var chartData1 = mocks.StrictMock<ChartData>("test data");
+            var chartData2 = mocks.StrictMock<ChartData>("test data");
+            var chartData3 = mocks.StrictMock<ChartData>("test data");
             var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>
             {
                 chartData1,
                 chartData2,
                 chartData3
-            });
+            }, "test data");
 
             chartDataCollection.Attach(observer);
 

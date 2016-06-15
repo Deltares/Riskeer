@@ -12,18 +12,18 @@ using OxyPlot.Series;
 namespace Core.Components.OxyPlot.Test.Converter
 {
     [TestFixture]
-    public class SeriesFactoryTest
+    public class ChartSeriesFactoryTest
     {
         [Test]
         public void Create_AreaData_ReturnsAreaSeries()
         {
             // Setup
-            var factory = new SeriesFactory();
+            var factory = new ChartSeriesFactory();
             var testData = CreateTestData();
             var expectedData = CreateExpectedData(testData);
 
             // Call
-            IList<Series> series = factory.Create(new AreaData(testData));
+            IList<Series> series = factory.Create(new ChartAreaData(testData, "test data"));
 
             // Assert
             Assert.AreEqual(1, series.Count);
@@ -38,11 +38,11 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void Create_LineData_ReturnsLineSeries()
         {
             // Setup
-            var factory = new SeriesFactory();
+            var factory = new ChartSeriesFactory();
             var testData = CreateTestData();
 
             // Call
-            IList<Series> series = factory.Create(new LineData(testData));
+            IList<Series> series = factory.Create(new ChartLineData(testData, "test data"));
 
             // Assert
             Assert.AreEqual(1, series.Count);
@@ -56,11 +56,11 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void Create_PointData_ReturnsLinesSeriesWithPointStyle()
         {
             // Setup
-            var factory = new SeriesFactory();
+            var factory = new ChartSeriesFactory();
             var testData = CreateTestData();
 
             // Call
-            IList<Series> series = factory.Create(new PointData(testData));
+            IList<Series> series = factory.Create(new ChartPointData(testData, "test data"));
 
             // Assert
             Assert.AreEqual(1, series.Count);
@@ -76,8 +76,8 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void Create_OtherData_ThrowsNotSupportedException()
         {
             // Setup
-            var factory = new SeriesFactory();
-            var testData = new TestChartData();
+            var factory = new ChartSeriesFactory();
+            var testData = new TestChartData("test data");
 
             // Call
             TestDelegate test = () => factory.Create(testData);

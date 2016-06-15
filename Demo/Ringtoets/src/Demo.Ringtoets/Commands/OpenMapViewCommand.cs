@@ -7,6 +7,7 @@ using Core.Common.Gui;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
+using Demo.Ringtoets.Properties;
 
 namespace Demo.Ringtoets.Commands
 {
@@ -49,35 +50,35 @@ namespace Demo.Ringtoets.Commands
                 new Point2D(4.764723, 52.990274),
                 new Point2D(4.713888, 53.056108),
                 new Point2D(4.883333, 53.184168)
-            }), "Texel");
+            }), Resources.OpenMapViewCommand_Execute_Texel);
 
             var polygons2 = new MapPolygonData(GetFeatureWithPoints(new Collection<Point2D>
             {
                 new Point2D(4.957224, 53.23778),
                 new Point2D(4.879999, 53.214441),
                 new Point2D(5.10639, 53.303331)
-            }), "Vlieland");
+            }), Resources.OpenMapViewCommand_Execute_Vlieland);
 
             var polygons3 = new MapPolygonData(GetFeatureWithPoints(new Collection<Point2D>
             {
                 new Point2D(5.213057, 53.35),
                 new Point2D(5.16889, 53.373888),
                 new Point2D(5.581945, 53.447779)
-            }), "Terschelling");
+            }), Resources.OpenMapViewCommand_Execute_Terschelling);
 
             var polygons4 = new MapPolygonData(GetFeatureWithPoints(new Collection<Point2D>
             {
                 new Point2D(5.699167, 53.462778),
                 new Point2D(5.956114, 53.462778),
                 new Point2D(5.633055, 53.441668)
-            }), "Ameland");
+            }), Resources.OpenMapViewCommand_Execute_Ameland);
 
             var polygons5 = new MapPolygonData(GetFeatureWithPoints(new Collection<Point2D>
             {
                 new Point2D(6.135, 53.453608),
                 new Point2D(6.14889, 53.497499),
                 new Point2D(6.341112, 53.502779)
-            }), "Schiermonnikoog");
+            }), Resources.OpenMapViewCommand_Execute_Schiermonnikoog);
 
             var pointsRandstad = new MapPointData(GetFeatureWithPoints(new Collection<Point2D>
             {
@@ -87,7 +88,7 @@ namespace Demo.Ringtoets.Commands
                 new Point2D(4.3007, 52.0705),
                 new Point2D(4.8952, 52.3702),
                 new Point2D(4.3667, 52.0167)
-            }), "Randstad");
+            }), Resources.OpenMapViewCommand_Execute_Randstad);
 
             var linesRandstad = new MapLineData(GetFeatureWithPoints(new Collection<Point2D>
             {
@@ -100,7 +101,7 @@ namespace Demo.Ringtoets.Commands
                 new Point2D(4.3667, 52.0167),
                 new Point2D(5.1146, 52.0918),
                 new Point2D(4.8952, 52.3702)
-            }), "Snelwegen randstad");
+            }), Resources.OpenMapViewCommand_Execute_Snelwegen_randstad);
 
             var lines = new MapLineData(GetFeatureWithPoints(new Collection<Point2D>
             {
@@ -113,7 +114,7 @@ namespace Demo.Ringtoets.Commands
                 new Point2D(5.855558, 52.544168),
                 new Point2D(5.855558, 52.492495),
                 new Point2D(5.763887, 52.415277)
-            }), "Kustlijn Flevoland");
+            }), Resources.OpenMapViewCommand_Execute_Kustlijn_Flevoland);
 
             var polygonNetherlands = new MapPolygonData(GetFeatureWithPoints(new Collection<Point2D>
             {
@@ -156,12 +157,12 @@ namespace Demo.Ringtoets.Commands
                 new Point2D(4.58, 52.471666),
                 new Point2D(4.734167, 52.955553),
                 new Point2D(6.871668, 53.416109)
-            }), "Continentaal Nederland");
+            }), Resources.OpenMapViewCommand_Execute_Continentaal_Nederland);
 
             documentViewController.DocumentViewsResolver.OpenViewForData(new MapDataCollection(new List<MapData>
             {
                 polygons1, polygons2, polygons3, polygons4, polygons5, lines, polygonNetherlands, linesRandstad, pointsRandstad
-            }, "Demo kaart Nederland"));
+            }, Resources.OpenMapViewCommand_Execute_Demo_map_netherlands));
         }
 
         private IEnumerable<MapFeature> GetFeatureWithPoints(Collection<Point2D> points)

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Components.Charting.Data;
+using Demo.Ringtoets.Properties;
 
 namespace Demo.Ringtoets.Commands
 {
@@ -42,7 +43,7 @@ namespace Demo.Ringtoets.Commands
 
         public void Execute(params object[] arguments)
         {
-            var line1 = new LineData(new Collection<Tuple<double, double>>
+            var line1 = new ChartLineData(new Collection<Tuple<double, double>>
             {
                 Tuple.Create(0.0, 0.500),
                 Tuple.Create(0.1, 0.723),
@@ -66,9 +67,9 @@ namespace Demo.Ringtoets.Commands
                 Tuple.Create(1.9, 1.317),
                 Tuple.Create(2.0, 1.540),
                 Tuple.Create(2.1, 1.823)
-            });
+            }, Resources.OpenChartViewCommand_Execute_Line_one);
 
-            var line2 = new LineData(new Collection<Tuple<double, double>>
+            var line2 = new ChartLineData(new Collection<Tuple<double, double>>
             {
                 Tuple.Create(0.0, 0.800),
                 Tuple.Create(0.1, 1.009),
@@ -92,9 +93,9 @@ namespace Demo.Ringtoets.Commands
                 Tuple.Create(1.9, 0.658),
                 Tuple.Create(2.0, 0.752),
                 Tuple.Create(2.1, 0.895)
-            });
+            }, Resources.OpenChartViewCommand_Execute_Line_two);
 
-            var area1 = new AreaData(new Collection<Tuple<double, double>>
+            var area1 = new ChartAreaData(new Collection<Tuple<double, double>>
             {
                 Tuple.Create(0.0, 0.500),
                 Tuple.Create(0.1, 0.723),
@@ -129,8 +130,8 @@ namespace Demo.Ringtoets.Commands
                 Tuple.Create(0.1, 0.723 - 0.5),
                 Tuple.Create(0.0, 0.000),
                 Tuple.Create(0.0, 0.500)
-            });
-            var area2 = new AreaData(new Collection<Tuple<double, double>>
+            }, Resources.OpenChartViewCommand_Execute_Area_one);
+            var area2 = new ChartAreaData(new Collection<Tuple<double, double>>
             {
                 Tuple.Create(0.1, 0.723 - 0.5),
                 Tuple.Create(0.2, 0.892 - 0.5),
@@ -171,8 +172,8 @@ namespace Demo.Ringtoets.Commands
                 Tuple.Create(0.2, 0.892 - 0.7),
                 Tuple.Create(0.1, 0.723 - 0.7),
                 Tuple.Create(0.1, 0.723 - 0.5)
-            });
-            var points1 = new PointData(new Collection<Tuple<double, double>>
+            }, Resources.OpenChartViewCommand_Execute_Area_two);
+            var points1 = new ChartPointData(new Collection<Tuple<double, double>>
             {
                 Tuple.Create(0.2, 0.892 + 0.04),
                 Tuple.Create(0.3, 1.013 + 0.02),
@@ -182,9 +183,9 @@ namespace Demo.Ringtoets.Commands
                 Tuple.Create(1.4, 0.892 - 0.02),
                 Tuple.Create(1.5, 0.905 + 0.01),
                 Tuple.Create(1.8, 1.148 + 0.02)
-            });
+            }, Resources.OpenChartViewCommand_Execute_Points_one);
 
-            var points2 = new PointData(new Collection<Tuple<double, double>>
+            var points2 = new ChartPointData(new Collection<Tuple<double, double>>
             {
                 Tuple.Create(0.0, 0.800 + 0.01),
                 Tuple.Create(0.1, 1.009 + 0.02),
@@ -201,12 +202,12 @@ namespace Demo.Ringtoets.Commands
                 Tuple.Create(1.4, 0.716 + 0.02),
                 Tuple.Create(1.7, 0.591),
                 Tuple.Create(1.8, 0.606)
-            });
+            }, Resources.OpenChartViewCommand_Execute_Points_two);
 
             documentViewController.DocumentViewsResolver.OpenViewForData(new ChartDataCollection(new List<ChartData>
             {
                 area1, area2, line1, line2, points1, points2
-            }));
+            }, Resources.OpenChartViewCommand_Execute_Graph_data));
         }
     }
 }

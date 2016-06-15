@@ -34,8 +34,10 @@ namespace Core.Components.Charting.Data
         /// Creates a new instance of <see cref="PointBasedChartData"/>.
         /// </summary>
         /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) points.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
-        protected PointBasedChartData(IEnumerable<Tuple<double, double>> points)
+        /// <param name="name">The name of the <see cref="ChartData"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>,
+        /// or when <paramref name="name"/> is <c>null</c> or only whitespace.</exception>
+        protected PointBasedChartData(IEnumerable<Tuple<double, double>> points, string name) : base(name)
         {
             if (points == null)
             {

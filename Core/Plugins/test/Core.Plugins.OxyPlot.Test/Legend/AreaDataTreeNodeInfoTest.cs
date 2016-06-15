@@ -29,7 +29,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             var treeViewControl = TypeUtils.GetField<TreeViewControl>(legendView, "treeViewControl");
             var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
 
-            info = treeNodeInfoLookup[typeof(AreaData)];
+            info = treeNodeInfoLookup[typeof(ChartAreaData)];
         }
 
         [TearDown]
@@ -42,7 +42,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(AreaData), info.TagType);
+            Assert.AreEqual(typeof(ChartAreaData), info.TagType);
             Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
@@ -60,7 +60,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var areaData = mocks.StrictMock<AreaData>(Enumerable.Empty<Tuple<double, double>>());
+            var areaData = mocks.StrictMock<ChartAreaData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
 
             mocks.ReplayAll();
 
@@ -77,7 +77,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var areaData = mocks.StrictMock<AreaData>(Enumerable.Empty<Tuple<double, double>>());
+            var areaData = mocks.StrictMock<ChartAreaData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
 
             mocks.ReplayAll();
 
@@ -94,7 +94,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void CanDrag_Always_ReturnsTrue()
         {
             // Setup
-            var areaData = mocks.StrictMock<AreaData>(Enumerable.Empty<Tuple<double, double>>());
+            var areaData = mocks.StrictMock<ChartAreaData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
 
             mocks.ReplayAll();
 
@@ -111,7 +111,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void CanCheck_Always_ReturnsTrue()
         {
             // Setup
-            var areaData = mocks.StrictMock<AreaData>(Enumerable.Empty<Tuple<double, double>>());
+            var areaData = mocks.StrictMock<ChartAreaData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
 
             mocks.ReplayAll();
 
@@ -129,7 +129,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void IsChecked_Always_ReturnsAccordingToVisibleStateOfAreaData(bool isVisible)
         {
             // Setup
-            var areaData = mocks.StrictMock<AreaData>(Enumerable.Empty<Tuple<double, double>>());
+            var areaData = mocks.StrictMock<ChartAreaData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
 
             areaData.IsVisible = isVisible;
 
@@ -149,7 +149,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void OnNodeChecked_AreaDataNodeWithoutParent_SetsAreaDataVisibility(bool initialVisibleState)
         {
             // Setup
-            var areaData = mocks.StrictMock<AreaData>(Enumerable.Empty<Tuple<double, double>>());
+            var areaData = mocks.StrictMock<ChartAreaData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
 
             mocks.ReplayAll();
 
@@ -170,7 +170,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup
             var observable = mocks.StrictMock<IObservable>();
-            var areaData = mocks.StrictMock<AreaData>(Enumerable.Empty<Tuple<double, double>>());
+            var areaData = mocks.StrictMock<ChartAreaData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
 
             observable.Expect(o => o.NotifyObservers());
 
