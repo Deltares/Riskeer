@@ -39,6 +39,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public FailureMechanismSectionEntity()
         {
             this.FailureMechanismSectionPointEntities = new HashSet<FailureMechanismSectionPointEntity>();
+            this.GrassCoverErosionInwardsSectionResultEntities = new HashSet<GrassCoverErosionInwardsSectionResultEntity>();
             this.PipingSectionResultEntities = new HashSet<PipingSectionResultEntity>();
         }
     
@@ -49,6 +50,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismSectionPointEntity> FailureMechanismSectionPointEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GrassCoverErosionInwardsSectionResultEntity> GrassCoverErosionInwardsSectionResultEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingSectionResultEntity> PipingSectionResultEntities { get; set; }
     }

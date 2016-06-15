@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
@@ -29,7 +30,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>
     /// for a grass cover erosion inwards assessment.
     /// </summary>
-    public class GrassCoverErosionInwardsFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class GrassCoverErosionInwardsFailureMechanismSectionResult : FailureMechanismSectionResult, IStorable
     {
         private readonly RoundedDouble assessmentLayerTwoA;
 
@@ -61,5 +62,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets or sets the state of the assessment layer one.
         /// </summary>
         public bool AssessmentLayerOne { get; set; }
+
+        public long StorageId { get; set; }
     }
 }

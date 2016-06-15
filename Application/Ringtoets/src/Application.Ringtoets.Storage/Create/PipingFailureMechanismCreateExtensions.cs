@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Create
             AddEntitiesForStochasticSoilModels(mechanism, registry, entity);
             AddEntitiesForSurfaceLines(mechanism, registry, entity);
             mechanism.AddEntitiesForFailureMechanismSections(registry, entity);
-            AddEntitiesForSectionResults(mechanism, registry, entity);
+            AddEntitiesForSectionResults(mechanism, registry);
 
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
 
@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Create
             return entity;
         }
 
-        private static void AddEntitiesForSectionResults(PipingFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)
+        private static void AddEntitiesForSectionResults(PipingFailureMechanism mechanism, PersistenceRegistry registry)
         {
             foreach (var pipingFailureMechanismSectionResult in mechanism.SectionResults)
             {

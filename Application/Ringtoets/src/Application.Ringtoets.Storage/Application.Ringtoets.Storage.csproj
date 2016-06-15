@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="Create\AssessmentSectionCreateExtensions.cs" />
     <Compile Include="Create\CalculationGroupCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverErosionInwardsFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionInwardsFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\IFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\PipingCalculationScenarioCreateExtensions.cs" />
@@ -90,6 +91,9 @@
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\FailureMechanismSectionPointEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\GrassCoverErosionInwardsSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\HydraulicLocationEntity.cs">
@@ -193,6 +197,7 @@
     <Compile Include="StorageSqLite.cs" />
     <Compile Include="Update\AssessmentSectionUpdateExtensions.cs" />
     <Compile Include="Update\CalculationGroupUpdateExtensions.cs" />
+    <Compile Include="Update\GrassCoverErosionInwardsFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverErosionInwardsFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\IFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\PipingCalculationScenarioUpdateExtensions.cs" />

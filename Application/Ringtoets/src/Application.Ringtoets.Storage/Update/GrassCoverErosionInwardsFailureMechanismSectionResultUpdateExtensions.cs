@@ -20,24 +20,26 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
-
+using Application.Ringtoets.Storage.Properties;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Update
 {
     /// <summary>
-    /// Extension methods for <see cref="GrassCoverErosionInwardsFailureMechanism"/> related to updating a <see cref="FailureMechanismEntity"/>.
+    /// Extension methods for <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> related to updating a 
+    /// <see cref="GrassCoverErosionInwardsSectionResultEntity"/>.
     /// </summary>
-    internal static class GrassCoverErosionInwardsFailureMechanismUpdateExtensions
+    internal static class GrassCoverErosionInwardsFailureMechanismSectionResultUpdateExtensions
     {
         /// <summary>
-        /// Updates a <see cref="FailureMechanismEntity"/> in the database based on the information of the 
-        /// <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
+        /// Updates a <see cref="GrassCoverErosionInwardsSectionResultEntity"/> in the database based on the information of the 
+        /// <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="mechanism">The mechanism to update the database entity for.</param>
+        /// <param name="result">The result to update the database entity for.</param>
         /// <param name="registry">The object keeping track of update operations.</param>
         /// <param name="context">The context to obtain the existing entity from.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
@@ -45,9 +47,9 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="registry"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        /// <exception cref="EntityNotFoundException">When <paramref name="mechanism"/>
+        /// <exception cref="EntityNotFoundException">When <paramref name="result"/>
         /// does not have a corresponding entity in <paramref name="context"/>.</exception>
-        internal static void Update(this GrassCoverErosionInwardsFailureMechanism mechanism, PersistenceRegistry registry, IRingtoetsEntities context)
+        internal static void Update(this GrassCoverErosionInwardsFailureMechanismSectionResult result, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
             {
@@ -58,27 +60,23 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("registry");
             }
 
-            FailureMechanismEntity entity = mechanism.GetCorrespondingFailureMechanismEntity(context);
-            entity.IsRelevant = Convert.ToByte(mechanism.IsRelevant);
+            GrassCoverErosionInwardsSectionResultEntity entity = GetCorrespondingGrassCoverErosionInwardsSectionResult(result, context);
 
-            mechanism.UpdateFailureMechanismSections(registry, entity, context);
-            UpdateSectionResults(mechanism, registry, context);
+            entity.LayerOne = Convert.ToByte(result.AssessmentLayerOne);
+            entity.LayerThree = Convert.ToDecimal(result.AssessmentLayerThree);
 
-            registry.Register(entity, mechanism);
+            registry.Register(entity, result);
         }
 
-        private static void UpdateSectionResults(GrassCoverErosionInwardsFailureMechanism mechanism, PersistenceRegistry registry, IRingtoetsEntities context)
+        private static GrassCoverErosionInwardsSectionResultEntity GetCorrespondingGrassCoverErosionInwardsSectionResult(GrassCoverErosionInwardsFailureMechanismSectionResult result, IRingtoetsEntities context)
         {
-            foreach (var sectionResult in mechanism.SectionResults)
+            try
             {
-                if (sectionResult.IsNew())
-                {
-                    registry.Get(sectionResult.Section).GrassCoverErosionInwardsSectionResultEntities.Add(sectionResult.Create(registry));
-                }
-                else
-                {
-                    sectionResult.Update(registry, context);
-                }
+                return context.GrassCoverErosionInwardsSectionResultEntities.Single(sle => sle.GrassCoverErosionInwardsSectionResultEntityId == result.StorageId);
+            }
+            catch (InvalidOperationException exception)
+            {
+                throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(GrassCoverErosionInwardsSectionResultEntity).Name, result.StorageId), exception);
             }
         }
     }

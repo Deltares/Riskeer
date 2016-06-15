@@ -67,13 +67,13 @@ namespace Application.Ringtoets.Storage.Update
             UpdateSoilModels(mechanism, registry, context, entity);
             UpdateSurfaceLines(mechanism, registry, context, entity);
             mechanism.UpdateFailureMechanismSections(registry, entity, context);
-            UpdateSectionResults(mechanism, registry, context, entity);
+            UpdateSectionResults(mechanism, registry, context);
             mechanism.CalculationsGroup.Update(registry, context);
 
             registry.Register(entity, mechanism);
         }
 
-        private static void UpdateSectionResults(PipingFailureMechanism mechanism, PersistenceRegistry registry, IRingtoetsEntities context, FailureMechanismEntity entity)
+        private static void UpdateSectionResults(PipingFailureMechanism mechanism, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             foreach (var sectionResult in mechanism.SectionResults)
             {

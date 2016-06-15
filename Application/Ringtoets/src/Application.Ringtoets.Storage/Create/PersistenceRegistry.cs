@@ -31,6 +31,7 @@ using Core.Common.Utils;
 
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
@@ -51,6 +52,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<FailureMechanismEntity, IFailureMechanism> failureMechanisms = new Dictionary<FailureMechanismEntity, IFailureMechanism>(new ReferenceEqualityComparer<FailureMechanismEntity>());
         private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections = new Dictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
         private readonly Dictionary<PipingSectionResultEntity, PipingFailureMechanismSectionResult> pipingFailureMechanismSectionResults = new Dictionary<PipingSectionResultEntity, PipingFailureMechanismSectionResult>();
+        private readonly Dictionary<GrassCoverErosionInwardsSectionResultEntity, GrassCoverErosionInwardsFailureMechanismSectionResult> grassCoverErosionInwardsFailureMechanismSectionResults = new Dictionary<GrassCoverErosionInwardsSectionResultEntity, GrassCoverErosionInwardsFailureMechanismSectionResult>();
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicLocations = new Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>(new ReferenceEqualityComparer<HydraulicLocationEntity>());
         private readonly Dictionary<CalculationGroupEntity, CalculationGroup> calculationGroups = new Dictionary<CalculationGroupEntity, CalculationGroup>(new ReferenceEqualityComparer<CalculationGroupEntity>());
         private readonly Dictionary<PipingCalculationEntity, PipingCalculationScenario> pipingCalculations = new Dictionary<PipingCalculationEntity, PipingCalculationScenario>(new ReferenceEqualityComparer<PipingCalculationEntity>());
@@ -95,6 +97,22 @@ namespace Application.Ringtoets.Storage.Create
         public void Register(PipingSectionResultEntity entity, PipingFailureMechanismSectionResult model)
         {
             Register(pipingFailureMechanismSectionResults, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="GrassCoverErosionInwardsSectionResultEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(GrassCoverErosionInwardsSectionResultEntity entity, GrassCoverErosionInwardsFailureMechanismSectionResult model)
+        {
+            Register(grassCoverErosionInwardsFailureMechanismSectionResults, entity, model);
         }
 
         /// <summary>
@@ -572,6 +590,11 @@ namespace Application.Ringtoets.Storage.Create
                 pipingFailureMechanismSectionResults[entity].StorageId = entity.PipingSectionResultEntityId;
             }
 
+            foreach (var entity in grassCoverErosionInwardsFailureMechanismSectionResults.Keys)
+            {
+                grassCoverErosionInwardsFailureMechanismSectionResults[entity].StorageId = entity.GrassCoverErosionInwardsSectionResultEntityId;
+            }
+
             foreach (var entity in hydraulicLocations.Keys)
             {
                 hydraulicLocations[entity].StorageId = entity.HydraulicLocationEntityId;
@@ -696,6 +719,17 @@ namespace Application.Ringtoets.Storage.Create
                 }
             }
             dbContext.PipingSectionResultEntities.RemoveRange(orphanedPipingSectionResultEntities);
+
+            var orphanedGrassCoverErosionInwardsSectionResultEntities = new List<GrassCoverErosionInwardsSectionResultEntity>();
+            foreach (GrassCoverErosionInwardsSectionResultEntity sectionResultEntity in dbContext.GrassCoverErosionInwardsSectionResultEntities
+                                                                                             .Where(e => e.GrassCoverErosionInwardsSectionResultEntityId > 0))
+            {
+                if (!grassCoverErosionInwardsFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
+                {
+                    orphanedGrassCoverErosionInwardsSectionResultEntities.Add(sectionResultEntity);
+                }
+            }
+            dbContext.GrassCoverErosionInwardsSectionResultEntities.RemoveRange(orphanedGrassCoverErosionInwardsSectionResultEntities);
 
             var orphanedHydraulicLocationEntities = new List<HydraulicLocationEntity>();
             foreach (HydraulicLocationEntity hydraulicLocationEntity in dbContext.HydraulicLocationEntities

@@ -52,9 +52,20 @@ namespace Application.Ringtoets.Storage.Create
             };
 
             mechanism.AddEntitiesForFailureMechanismSections(registry, entity);
+            AddEntitiesForSectionResults(mechanism, registry);
 
             registry.Register(entity, mechanism);
             return entity;
+        }
+
+        private static void AddEntitiesForSectionResults(GrassCoverErosionInwardsFailureMechanism mechanism, PersistenceRegistry registry)
+        {
+            foreach (var failureMechanismSectionResult in mechanism.SectionResults)
+            {
+                var sectionResultEntity = failureMechanismSectionResult.Create(registry);
+                var section = registry.Get(failureMechanismSectionResult.Section);
+                section.GrassCoverErosionInwardsSectionResultEntities.Add(sectionResultEntity);
+            }
         }
     }
 }

@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverErosionInwardsMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwardsFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\PersistenceRegistryTest.cs" />
     <Compile Include="Create\IFailureMechanismCreateExtensionsTest.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="StorageSqLiteTest.cs" />
     <Compile Include="Update\AssessmentSectionUpdateExtensionsTest.cs" />
     <Compile Include="Update\CalculationGroupUpdateExtensionsTest.cs" />
+    <Compile Include="Update\GrassCoverErosionInwardsFailureMechanismSectionResultUpdateExtensionsTest.cs" />
     <Compile Include="Update\GrassCoverErosionInwardsFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\IFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\FailureMechanismSectionUpdateExtensionsTest.cs" />
