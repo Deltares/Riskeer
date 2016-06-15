@@ -184,10 +184,10 @@
   <data name="DikeGeometryProperties_DisplayName" xml:space="preserve">
     <value>Dijkgeometrie</value>
   </data>
-  <data name="DikeGeometry_Coordinates_Description" xml:space="preserve">
+  <data name="Geometry_Coordinates_Description" xml:space="preserve">
     <value>Lijst met punten in coördinaten.</value>
   </data>
-  <data name="DikeGeometry_Coordinates_DisplayName" xml:space="preserve">
+  <data name="Geometry_Coordinates_DisplayName" xml:space="preserve">
     <value>Coördinaten [m]</value>
   </data>
   <data name="DikeGeometry_Roughness_Description" xml:space="preserve">
@@ -213,12 +213,6 @@
   </data>
   <data name="Foreshore_UseForeshore_DisplayName" xml:space="preserve">
     <value>Aanwezig</value>
-  </data>
-  <data name="Foreshore_NumberOfCoordinates_Description" xml:space="preserve">
-    <value>Aantal coördinaten tot de teen van de dijk.</value>
-  </data>
-  <data name="Foreshore_NumberOfCoordinates_DisplayName" xml:space="preserve">
-    <value>Aantal coördinaten</value>
   </data>
   <data name="Orientation_Description" xml:space="preserve">
     <value>Oriëntatie van de dijk.</value>

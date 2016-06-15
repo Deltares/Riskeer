@@ -42,8 +42,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     {
         [PropertyOrder(1)]
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
-        [ResourcesDisplayName(typeof(Resources), "DikeGeometry_Coordinates_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DikeGeometry_Coordinates_Description")]
+        [ResourcesDisplayName(typeof(Resources), "Geometry_Coordinates_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Geometry_Coordinates_Description")]
         public Point2D[] Coordinates
         {
             get

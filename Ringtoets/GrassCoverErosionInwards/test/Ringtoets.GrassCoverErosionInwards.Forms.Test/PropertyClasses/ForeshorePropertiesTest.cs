@@ -21,6 +21,7 @@
 
 using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -71,7 +72,43 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsFalse(properties.UseForeshore);
-            Assert.AreEqual(0, properties.NumberOfCoordinates);
+            CollectionAssert.IsEmpty(properties.Coordinates);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Data_SetInputContextInstanceWithData_ReturnCorrectPropertyValues()
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            mockRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    UseForeshore = true
+                }
+            };
+            calculation.InputParameters.SetForeshoreGeometry(new[]
+            {
+                new ProfileSection(new Point2D(0, 0), new Point2D(1, 1))
+            });
+            var properties = new ForeshoreProperties();
+
+            // Call
+            properties.Data = new GrassCoverErosionInwardsInputContext(calculation.InputParameters, calculation, failureMechanismMock, assessmentSectionMock);
+
+            // Assert
+            var expectedCoordinates = new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            };
+            Assert.IsTrue(properties.UseForeshore);
+            CollectionAssert.AreEqual(expectedCoordinates, properties.Coordinates);
+
             mockRepository.VerifyAll();
         }
 
@@ -133,15 +170,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Aanwezig", useForeshoreProperty.DisplayName);
             Assert.AreEqual("Is er een voorland aanwezig?", useForeshoreProperty.Description);
 
-            PropertyDescriptor numberOfCoordinatesProperty = dynamicProperties[numberOfCoordinatesDikeHeightProperty];
-            Assert.IsNotNull(numberOfCoordinatesProperty);
-            Assert.IsTrue(numberOfCoordinatesProperty.IsReadOnly);
-            Assert.AreEqual("Aantal coördinaten", numberOfCoordinatesProperty.DisplayName);
-            Assert.AreEqual("Aantal coördinaten tot de teen van de dijk.", numberOfCoordinatesProperty.Description);
+            PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
+            Assert.IsNotNull(coordinatesProperty);
+            Assert.IsTrue(coordinatesProperty.IsReadOnly);
+            Assert.AreEqual("Coördinaten [m]", coordinatesProperty.DisplayName);
+            Assert.AreEqual("Lijst met punten in coördinaten.", coordinatesProperty.Description);
+
             mockRepository.VerifyAll();
         }
 
         private const int useForeshorePropertyIndex = 0;
-        private const int numberOfCoordinatesDikeHeightProperty = 1;
+        private const int coordinatesPropertyIndex = 1;
     }
 }

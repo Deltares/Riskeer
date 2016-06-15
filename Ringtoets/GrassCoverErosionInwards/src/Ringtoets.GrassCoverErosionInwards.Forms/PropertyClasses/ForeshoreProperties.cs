@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -33,7 +36,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     public class ForeshoreProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
     {
         private const int useForeshorePropertyIndex = 1;
-        private const int numberOfCoordinatesPropertyIndex = 2;
+        private const int coordinatesPropertyIndex = 2;
 
         [PropertyOrder(useForeshorePropertyIndex)]
         [ResourcesDisplayName(typeof(Resources), "Foreshore_UseForeshore_DisplayName")]
@@ -51,14 +54,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(numberOfCoordinatesPropertyIndex)]
-        [ResourcesDisplayName(typeof(Resources), "Foreshore_NumberOfCoordinates_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Foreshore_NumberOfCoordinates_Description")]
-        public int NumberOfCoordinates
+        [PropertyOrder(coordinatesPropertyIndex)]
+        [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
+        [ResourcesDisplayName(typeof(Resources), "Geometry_Coordinates_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Geometry_Coordinates_Description")]
+        public Point2D[] Coordinates
         {
             get
             {
-                return data.WrappedData.ForeshoreGeometry.Count();
+                var startingPoint = data.WrappedData.ForeshoreGeometry.FirstOrDefault();
+                if (startingPoint == null)
+                {
+                    return new Point2D[0];
+                }
+                var coordinates = new List<Point2D>
+                {
+                    startingPoint.StartingPoint
+                };
+                coordinates.AddRange(data.WrappedData.ForeshoreGeometry.Select(d => d.EndingPoint));
+                return coordinates.ToArray();
             }
         }
 

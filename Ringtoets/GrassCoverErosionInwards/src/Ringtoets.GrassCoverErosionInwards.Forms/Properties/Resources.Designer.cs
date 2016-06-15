@@ -206,24 +206,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lijst met punten in coördinaten..
-        /// </summary>
-        public static string DikeGeometry_Coordinates_Description {
-            get {
-                return ResourceManager.GetString("DikeGeometry_Coordinates_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Coördinaten [m].
-        /// </summary>
-        public static string DikeGeometry_Coordinates_DisplayName {
-            get {
-                return ResourceManager.GetString("DikeGeometry_Coordinates_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Lijst met de ruwheid van elk onderdeel..
         /// </summary>
         public static string DikeGeometry_Roughness_Description {
@@ -278,24 +260,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aantal coördinaten tot de teen van de dijk..
-        /// </summary>
-        public static string Foreshore_NumberOfCoordinates_Description {
-            get {
-                return ResourceManager.GetString("Foreshore_NumberOfCoordinates_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Aantal coördinaten.
-        /// </summary>
-        public static string Foreshore_NumberOfCoordinates_DisplayName {
-            get {
-                return ResourceManager.GetString("Foreshore_NumberOfCoordinates_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Is er een voorland aanwezig?.
         /// </summary>
         public static string Foreshore_UseForeshore_Description {
@@ -328,6 +292,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string ForeshoreProperties_DisplayName {
             get {
                 return ResourceManager.GetString("ForeshoreProperties_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijst met punten in coördinaten..
+        /// </summary>
+        public static string Geometry_Coordinates_Description {
+            get {
+                return ResourceManager.GetString("Geometry_Coordinates_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coördinaten [m].
+        /// </summary>
+        public static string Geometry_Coordinates_DisplayName {
+            get {
+                return ResourceManager.GetString("Geometry_Coordinates_DisplayName", resourceCulture);
             }
         }
         

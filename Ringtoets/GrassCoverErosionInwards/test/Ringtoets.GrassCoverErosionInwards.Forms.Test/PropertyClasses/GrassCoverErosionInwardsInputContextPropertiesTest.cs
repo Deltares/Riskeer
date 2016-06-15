@@ -88,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 Data = inputContext
             };
             Assert.AreEqual(foreshoreProperties.UseForeshore, properties.Foreshore.UseForeshore);
-            Assert.AreEqual(foreshoreProperties.NumberOfCoordinates, properties.Foreshore.NumberOfCoordinates);
+            Assert.AreEqual(foreshoreProperties.Coordinates, properties.Foreshore.Coordinates);
 
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.00, properties.Orientation.Value);
