@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,6 +28,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
@@ -209,7 +211,9 @@ namespace Application.Ringtoets.Storage.TestUtil
             };
 
             AddSections(pipingFailureMechanism);
+            SetSectionResults(pipingFailureMechanism.SectionResults);
             AddSections(assessmentSection.GrassCoverErosionInwards);
+            SetSectionResults(assessmentSection.GrassCoverErosionInwards.SectionResults);
             AddSections(assessmentSection.MacrostabilityInwards);
             AddSections(assessmentSection.MacrostabilityOutwards);
             AddSections(assessmentSection.Microstability);
@@ -228,6 +232,26 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddSections(assessmentSection.TechnicalInnovation);
 
             return fullTestProject;
+        }
+
+        private static void SetSectionResults(IEnumerable<PipingFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+            }
         }
 
         private static void AddSections(IFailureMechanism failureMechanism)

@@ -147,6 +147,7 @@
     <Compile Include="DecimalConversionExtensions.cs" />
     <Compile Include="DoubleConversionExtensions.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentions.cs" />
+    <Compile Include="Read\GrassCoverErosionInwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\FailureMechanismEntityReadExtensions.cs" />
     <Compile Include="Read\FailureMechanismSectionEntityReadExtensions.cs" />
     <Compile Include="Read\FailureMechanismSectionPointEntityReadExtensions.cs" />

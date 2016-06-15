@@ -107,6 +107,7 @@
     <Compile Include="DoubleConversionExtensionsTest.cs" />
     <Compile Include="Read\AssessmentSectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentionsTest.cs" />
+    <Compile Include="Read\GrassCoverErosionInwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\FailureMechanismEntityReadExtensionsTest.cs" />
     <Compile Include="Read\FailureMechanismSectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\FailureMechanismSectionPointEntityReadExtensionsTest.cs" />

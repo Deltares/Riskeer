@@ -22,33 +22,33 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
-using Ringtoets.Piping.Data;
+using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="PipingFailureMechanismSectionResult"/> based on the
-    /// <see cref="PipingSectionResultEntity"/>.
+    /// This class defines extension methods for read operations for a <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> based on the
+    /// <see cref="GrassCoverErosionInwardsSectionResultEntity"/>.
     /// </summary>
-    internal static class PipingSectionResultEntityReadExtensions
+    internal static class GrassCoverErosionInwardsSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="PipingSectionResultEntity"/> and use the information to construct a 
-        /// <see cref="PipingFailureMechanismSectionResult"/>.
+        /// Reads the <see cref="GrassCoverErosionInwardsSectionResultEntity"/> and use the information to construct a 
+        /// <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingSectionResultEntity"/> to create <see cref="PipingFailureMechanismSectionResult"/> for.</param>
+        /// <param name="entity">The <see cref="GrassCoverErosionInwardsSectionResultEntity"/> to create <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="PipingFailureMechanismSectionResult"/>.</returns>
+        /// <returns>A new <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static PipingFailureMechanismSectionResult Read(this PipingSectionResultEntity entity, ReadConversionCollector collector)
+        internal static GrassCoverErosionInwardsFailureMechanismSectionResult Read(this GrassCoverErosionInwardsSectionResultEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
             }
-            var sectionResult = new PipingFailureMechanismSectionResult(collector.Get(entity.FailureMechanismSectionEntity))
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(collector.Get(entity.FailureMechanismSectionEntity))
             {
-                StorageId = entity.PipingSectionResultEntityId,
+                StorageId = entity.GrassCoverErosionInwardsSectionResultEntityId,
                 AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne),
                 AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNanableDouble()
             };

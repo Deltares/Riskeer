@@ -113,6 +113,20 @@ namespace Application.Ringtoets.Storage.Read
             failureMechanism.Comments = entity.Comments;
 
             entity.ReadFailureMechanismSections(failureMechanism, collector);
+            entity.ReadGrassCoverErosionInwardsMechanismSectionResults(failureMechanism, collector);
+        }
+
+        private static void ReadGrassCoverErosionInwardsMechanismSectionResults(this FailureMechanismEntity entity, GrassCoverErosionInwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            foreach (var grassCoverErosionInwardsSectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionInwardsSectionResultEntities))
+            {
+                var readSectionResult = grassCoverErosionInwardsSectionResultEntity.Read(collector);
+                var failureMechanismSection = collector.Get(grassCoverErosionInwardsSectionResultEntity.FailureMechanismSectionEntity);
+                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                result.StorageId = readSectionResult.StorageId;
+                result.AssessmentLayerOne = readSectionResult.AssessmentLayerOne;
+                result.AssessmentLayerThree = readSectionResult.AssessmentLayerThree;
+            }
         }
 
         /// <summary>

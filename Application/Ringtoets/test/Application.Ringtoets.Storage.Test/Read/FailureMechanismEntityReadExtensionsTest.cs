@@ -287,19 +287,26 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var entityId = new Random(21).Next(1, 502);
+            var failureMechanismSectionEntity = new FailureMechanismSectionEntity
+            {
+                Name = "section",
+                FailureMechanismSectionPointEntities =
+                {
+                    new FailureMechanismSectionPointEntity()
+                }
+            };
+            var grassCoverErosionInwardsSectionResultEntity = new GrassCoverErosionInwardsSectionResultEntity
+            {
+                GrassCoverErosionInwardsSectionResultEntityId = entityId,
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            };
+            failureMechanismSectionEntity.GrassCoverErosionInwardsSectionResultEntities.Add(grassCoverErosionInwardsSectionResultEntity);
             var entity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = entityId,
+                FailureMechanismEntityId = 1,
                 FailureMechanismSectionEntities =
                 {
-                    new FailureMechanismSectionEntity
-                    {
-                        Name = "section",
-                        FailureMechanismSectionPointEntities =
-                        {
-                            new FailureMechanismSectionPointEntity()
-                        }
-                    }
+                    failureMechanismSectionEntity
                 }
             };
             var collector = new ReadConversionCollector();
@@ -310,6 +317,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
+            Assert.AreEqual(entityId, failureMechanism.SectionResults.First().StorageId);
         }
 
         [Test]
