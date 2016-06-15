@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
-            Assert.IsTrue(validationMessages.Any(message => message.Contains("Piping length")));
+            Assert.AreEqual("Kwelweglengte heeft ongeldige waarde (0 of negatief)", validationMessages[0]);
         }
 
         [Test]
@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
-            Assert.IsTrue(validationMessages.Any(message => message.Contains("DAquifer")));
+            Assert.AreEqual("Parameter 'DAquifer' (dikte watervoerend pakket) heeft ongeldige waarde (0 of negatief).", validationMessages[0]);
         }
 
         [Test]
@@ -129,7 +129,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
-            Assert.IsTrue(validationMessages.Any(message => message.Contains("Bedding angle")));
+            Assert.AreEqual("Rolweerstandshoek heeft ongeldige waarde (0 of negatief).", validationMessages[0]);
         }
 
         [Test]
@@ -151,8 +151,8 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(2, validationMessages.Count);
-            Assert.AreEqual(1, validationMessages.Count(message => message.Contains("PhiExit -  HExit")));
-            Assert.AreEqual(1, validationMessages.Count(message => message.Contains("phiExit - hExit")));
+            Assert.AreEqual("Het verschil tussen de parameters 'PhiExit' (Stijghoogte bij uittredepunt) en 'HExit' (Freatische waterstand bij uittredepunt) mag niet nul zijn.", validationMessages[0]);
+            Assert.AreEqual("Het verschil tussen de parameters 'PhiExit' (Stijghoogte bij uittredepunt) en 'HExit' (Freatische waterstand bij uittredepunt) mag niet nul zijn.", validationMessages[1]);
         }
 
         [Test]
@@ -172,7 +172,8 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(2, validationMessages.Count);
-            Assert.AreEqual(2, validationMessages.Count(message => message.Contains("Rexit")));
+            Assert.AreEqual("Parameter 'Rexit' (Dempingsfactor bij uittredepunt) mag niet nul zijn.", validationMessages[0]);
+            Assert.AreEqual("Parameter 'Rexit' (Dempingsfactor bij uittredepunt) mag niet nul zijn.", validationMessages[1]);
         }
 
         [Test]
@@ -191,7 +192,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
-            Assert.IsTrue(validationMessages.Any(message => message.Contains("Dtotal")));
+            Assert.AreEqual("Parameter 'Dtotal' (totale deklaagdikte bij uittredepunt) mag niet nul zijn.", validationMessages[0]);
         }
 
         [Test]
@@ -210,12 +211,12 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
-            Assert.IsTrue(validationMessages.Any(message => message.Contains("DAquifer")));
+            Assert.AreEqual("Parameter 'DAquifer' (dikte watervoerend pakket) heeft ongeldige waarde (0 of negatief).", validationMessages[0]);
         }
 
         [Test]
         public void Validate_VolumetricWeightWaterZero_ValidationMessageForVolumetricWeightWater()
-        {                                                                                                                                                                                
+        {
             // Setup
             PipingCalculatorInput input = new TestPipingInput
             {
@@ -229,7 +230,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
-            Assert.IsTrue(validationMessages.Any(message => message.Contains("Volumetric weight water")));
+            Assert.AreEqual("Volumiek gewicht water heeft ongeldige waarde (=0).", validationMessages[0]);
         }
 
         [Test] // Validate_DifferenceAssessmentLevelAndPhreaticLevelExitEqualToSellmeijerReductionFactorTimesThicknessCoverageLayer_ValidationMessageForHRiverHExitRcDTotal
@@ -255,7 +256,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
-            Assert.IsTrue(validationMessages.Any(message => message.Contains("HRiver - HExit - (Rc*DTotal)")));
+            Assert.AreEqual("De term HRiver - HExit - (Rc*DTotal) mag niet nul zijn.", validationMessages[0]);
         }
 
         [Test]
@@ -319,7 +320,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Assert
             var message = string.Format("The bottomlevel ({0}) of the profile is not deep enough. It must be below at least {1} m below the toplevel of the deepest layer ({2}).", bottom, 0.001, top);
             Assert.AreEqual(1, validationMessages.Count);
-            Assert.IsTrue(validationMessages.Any(vm => vm.Contains(message)));
+            Assert.AreEqual(message, validationMessages[0]);
         }
 
         [Test]
