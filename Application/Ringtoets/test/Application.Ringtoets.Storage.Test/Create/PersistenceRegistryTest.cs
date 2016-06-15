@@ -993,6 +993,62 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void Register_WithNullTechnicalInnovationFailureMechanismSectionResult_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(new TechnicalInnovationSectionResultEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullTechnicalInnovationSectionResultEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(null, new TechnicalInnovationFailureMechanismSectionResult(new TestFailureMechanismSection()));
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullWaterPressureAsphaltCoverFailureMechanismSectionResult_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(new WaterPressureAsphaltCoverSectionResultEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullWaterPressureAsphaltCoverSectionResultEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(null, new WaterPressureAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection()));
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
         public void Register_WithNullHydraulicLocationEntity_ThrowsArgumentNullException()
         {
             // Setup
@@ -1514,6 +1570,48 @@ namespace Application.Ringtoets.Storage.Test.Create
                 StrengthStabilityLengthwiseConstructionSectionResultEntityId = storageId
             };
             var model = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(new TestFailureMechanismSection());
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferIds_WithTechnicalInnovationSectionResultEntityAddedWithTechnicalInnovationFailureMechanismSectionResult_EqualTechnicalInnovationSectionEntityIdAndTechnicalInnovationFailureMechanismSectionResultStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1,4000);
+            var entity = new TechnicalInnovationSectionResultEntity()
+            {
+                TechnicalInnovationSectionResultEntityId = storageId
+            };
+            var model = new TechnicalInnovationFailureMechanismSectionResult(new TestFailureMechanismSection());
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferIds_WithWaterPressureAsphaltCoverSectionResultEntityAddedWithWaterPressureAsphaltCoverFailureMechanismSectionResult_EqualWaterPressureAsphaltCoverSectionEntityIdAndWaterPressureAsphaltCoverFailureMechanismSectionResultStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1,4000);
+            var entity = new WaterPressureAsphaltCoverSectionResultEntity()
+            {
+                WaterPressureAsphaltCoverSectionResultEntityId = storageId
+            };
+            var model = new WaterPressureAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
             registry.Register(entity, model);
 
             // Call
@@ -2053,6 +2151,78 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(1, dbContext.StrengthStabilityLengthwiseConstructionSectionResultEntities.Count());
             CollectionAssert.Contains(dbContext.StrengthStabilityLengthwiseConstructionSectionResultEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_TechnicalInnovationSectionResultEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new TechnicalInnovationSectionResultEntity
+            {
+                TechnicalInnovationSectionResultEntityId = 1
+            };
+            var persistentEntity = new TechnicalInnovationSectionResultEntity
+            {
+                TechnicalInnovationSectionResultEntityId = 2
+            };
+            dbContext.TechnicalInnovationSectionResultEntities.Add(orphanedEntity);
+            dbContext.TechnicalInnovationSectionResultEntities.Add(persistentEntity);
+
+            var section = new TechnicalInnovationFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                StorageId = persistentEntity.TechnicalInnovationSectionResultEntityId
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, section);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.TechnicalInnovationSectionResultEntities.Count());
+            CollectionAssert.Contains(dbContext.TechnicalInnovationSectionResultEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_WaterPressureAsphaltCoverSectionResultEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new WaterPressureAsphaltCoverSectionResultEntity
+            {
+                WaterPressureAsphaltCoverSectionResultEntityId = 1
+            };
+            var persistentEntity = new WaterPressureAsphaltCoverSectionResultEntity
+            {
+                WaterPressureAsphaltCoverSectionResultEntityId = 2
+            };
+            dbContext.WaterPressureAsphaltCoverSectionResultEntities.Add(orphanedEntity);
+            dbContext.WaterPressureAsphaltCoverSectionResultEntities.Add(persistentEntity);
+
+            var section = new WaterPressureAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                StorageId = persistentEntity.WaterPressureAsphaltCoverSectionResultEntityId
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, section);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.WaterPressureAsphaltCoverSectionResultEntities.Count());
+            CollectionAssert.Contains(dbContext.WaterPressureAsphaltCoverSectionResultEntities, persistentEntity);
             mocks.VerifyAll();
         }
 

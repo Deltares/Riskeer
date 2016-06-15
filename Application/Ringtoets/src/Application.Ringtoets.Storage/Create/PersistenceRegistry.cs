@@ -57,6 +57,8 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<GrassCoverErosionInwardsSectionResultEntity, GrassCoverErosionInwardsFailureMechanismSectionResult> grassCoverErosionInwardsFailureMechanismSectionResults = new Dictionary<GrassCoverErosionInwardsSectionResultEntity, GrassCoverErosionInwardsFailureMechanismSectionResult>();
         private readonly Dictionary<HeightStructuresSectionResultEntity, HeightStructuresFailureMechanismSectionResult> heightStructuresFailureMechanismSectionResults = new Dictionary<HeightStructuresSectionResultEntity, HeightStructuresFailureMechanismSectionResult>();
         private readonly Dictionary<StrengthStabilityLengthwiseConstructionSectionResultEntity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> strengthStabilityLengthwiseConstructionFailureMechanismSectionResults = new Dictionary<StrengthStabilityLengthwiseConstructionSectionResultEntity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
+        private readonly Dictionary<TechnicalInnovationSectionResultEntity, TechnicalInnovationFailureMechanismSectionResult> technicalInnovationFailureMechanismSectionResults = new Dictionary<TechnicalInnovationSectionResultEntity, TechnicalInnovationFailureMechanismSectionResult>();
+        private readonly Dictionary<WaterPressureAsphaltCoverSectionResultEntity, WaterPressureAsphaltCoverFailureMechanismSectionResult> waterPressureAsphaltCoverFailureMechanismSectionResults = new Dictionary<WaterPressureAsphaltCoverSectionResultEntity, WaterPressureAsphaltCoverFailureMechanismSectionResult>();
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicLocations = new Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>(new ReferenceEqualityComparer<HydraulicLocationEntity>());
         private readonly Dictionary<CalculationGroupEntity, CalculationGroup> calculationGroups = new Dictionary<CalculationGroupEntity, CalculationGroup>(new ReferenceEqualityComparer<CalculationGroupEntity>());
         private readonly Dictionary<PipingCalculationEntity, PipingCalculationScenario> pipingCalculations = new Dictionary<PipingCalculationEntity, PipingCalculationScenario>(new ReferenceEqualityComparer<PipingCalculationEntity>());
@@ -149,6 +151,38 @@ namespace Application.Ringtoets.Storage.Create
         public void Register(StrengthStabilityLengthwiseConstructionSectionResultEntity entity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult model)
         {
             Register(strengthStabilityLengthwiseConstructionFailureMechanismSectionResults, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="TechnicalInnovationSectionResultEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="TechnicalInnovationFailureMechanismSectionResult"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(TechnicalInnovationSectionResultEntity entity, TechnicalInnovationFailureMechanismSectionResult model)
+        {
+            Register(technicalInnovationFailureMechanismSectionResults, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="WaterPressureAsphaltCoverSectionResultEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(WaterPressureAsphaltCoverSectionResultEntity entity, WaterPressureAsphaltCoverFailureMechanismSectionResult model)
+        {
+            Register(waterPressureAsphaltCoverFailureMechanismSectionResults, entity, model);
         }
 
         /// <summary>
@@ -641,6 +675,16 @@ namespace Application.Ringtoets.Storage.Create
                 strengthStabilityLengthwiseConstructionFailureMechanismSectionResults[entity].StorageId = entity.StrengthStabilityLengthwiseConstructionSectionResultEntityId;
             }
 
+            foreach (var entity in technicalInnovationFailureMechanismSectionResults.Keys)
+            {
+                technicalInnovationFailureMechanismSectionResults[entity].StorageId = entity.TechnicalInnovationSectionResultEntityId;
+            }
+
+            foreach (var entity in waterPressureAsphaltCoverFailureMechanismSectionResults.Keys)
+            {
+                waterPressureAsphaltCoverFailureMechanismSectionResults[entity].StorageId = entity.WaterPressureAsphaltCoverSectionResultEntityId;
+            }
+
             foreach (var entity in hydraulicLocations.Keys)
             {
                 hydraulicLocations[entity].StorageId = entity.HydraulicLocationEntityId;
@@ -798,6 +842,28 @@ namespace Application.Ringtoets.Storage.Create
                 }
             }
             dbContext.StrengthStabilityLengthwiseConstructionSectionResultEntities.RemoveRange(orphanedStrengthStabilityLengthwiseConstructionSectionResultEntities);
+
+            var orphanedTechnicalInnovationSectionResultEntities = new List<TechnicalInnovationSectionResultEntity>();
+            foreach (TechnicalInnovationSectionResultEntity sectionResultEntity in dbContext.TechnicalInnovationSectionResultEntities
+                                                                                             .Where(e => e.TechnicalInnovationSectionResultEntityId > 0))
+            {
+                if (!technicalInnovationFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
+                {
+                    orphanedTechnicalInnovationSectionResultEntities.Add(sectionResultEntity);
+                }
+            }
+            dbContext.TechnicalInnovationSectionResultEntities.RemoveRange(orphanedTechnicalInnovationSectionResultEntities);
+
+            var orphanedWaterPressureAsphaltCoverSectionResultEntities = new List<WaterPressureAsphaltCoverSectionResultEntity>();
+            foreach (WaterPressureAsphaltCoverSectionResultEntity sectionResultEntity in dbContext.WaterPressureAsphaltCoverSectionResultEntities
+                                                                                             .Where(e => e.WaterPressureAsphaltCoverSectionResultEntityId > 0))
+            {
+                if (!waterPressureAsphaltCoverFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
+                {
+                    orphanedWaterPressureAsphaltCoverSectionResultEntities.Add(sectionResultEntity);
+                }
+            }
+            dbContext.WaterPressureAsphaltCoverSectionResultEntities.RemoveRange(orphanedWaterPressureAsphaltCoverSectionResultEntities);
 
             var orphanedHydraulicLocationEntities = new List<HydraulicLocationEntity>();
             foreach (HydraulicLocationEntity hydraulicLocationEntity in dbContext.HydraulicLocationEntities

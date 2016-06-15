@@ -79,6 +79,18 @@ namespace Application.Ringtoets.Storage.DbContext
         DbSet<StrengthStabilityLengthwiseConstructionSectionResultEntity> StrengthStabilityLengthwiseConstructionSectionResultEntities { get; }
 
         /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="TechnicalInnovationSectionResultEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<TechnicalInnovationSectionResultEntity> TechnicalInnovationSectionResultEntities { get; }
+
+        /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="WaterPressureAsphaltCoverSectionResultEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<WaterPressureAsphaltCoverSectionResultEntity> WaterPressureAsphaltCoverSectionResultEntities { get; }
+
+        /// <summary>
         /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="PipingFailureMechanismMetaEntity"/> containing
         /// every entity found in the database.
         /// </summary>

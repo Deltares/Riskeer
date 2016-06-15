@@ -222,6 +222,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddSections(assessmentSection.StabilityStoneCover);
             AddSections(assessmentSection.WaveImpactAsphaltCover);
             AddSections(assessmentSection.WaterPressureAsphaltCover);
+            SetSectionResults(assessmentSection.WaterPressureAsphaltCover.SectionResults);
             AddSections(assessmentSection.GrassCoverErosionOutwards);
             AddSections(assessmentSection.GrassCoverSlipOffOutwards);
             AddSections(assessmentSection.GrassCoverSlipOffInwards);
@@ -234,6 +235,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddSections(assessmentSection.PipingStructure);
             AddSections(assessmentSection.DuneErosion);
             AddSections(assessmentSection.TechnicalInnovation);
+            SetSectionResults(assessmentSection.TechnicalInnovation.SectionResults);
 
             return fullTestProject;
         }
@@ -269,6 +271,26 @@ namespace Application.Ringtoets.Storage.TestUtil
         }
 
         private static void SetSectionResults(IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<TechnicalInnovationFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
             foreach (var sectionResult in sectionResults)

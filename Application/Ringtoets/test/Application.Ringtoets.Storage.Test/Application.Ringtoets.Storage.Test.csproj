@@ -82,6 +82,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />
+    <Compile Include="Create\WaterPressureAsphaltCoverFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\WaterPressureAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\TechnicalInnovationFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\TechnicalInnovationFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\StrengthStabilityLengthwiseConstructionFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\HeightStructuresFailureMechanismCreateExtensionsTest.cs" />
@@ -111,6 +115,8 @@
     <Compile Include="DoubleConversionExtensionsTest.cs" />
     <Compile Include="Read\AssessmentSectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentionsTest.cs" />
+    <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\TechnicalInnovationSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StrengthStabilityLengthwiseConstructionSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructuresSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionInwardsSectionResultEntityReadExtensionsTest.cs" />
@@ -142,6 +148,10 @@
     <Compile Include="StorageSqLiteTest.cs" />
     <Compile Include="Update\AssessmentSectionUpdateExtensionsTest.cs" />
     <Compile Include="Update\CalculationGroupUpdateExtensionsTest.cs" />
+    <Compile Include="Update\TechnicalInnovationFailureMechanismSectionResultUpdateExtensionsTest.cs" />
+    <Compile Include="Update\TechnicalInnovationFailureMechanismUpdateExtensionsTest.cs" />
+    <Compile Include="Update\WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateExtensionsTest.cs" />
+    <Compile Include="Update\WaterPressureAsphaltCoverFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultUpdateExtensionsTest.cs" />
     <Compile Include="Update\StrengthStabilityLengthwiseConstructionFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\HeightStructuresFailureMechanismUpdateExtensionsTest.cs" />

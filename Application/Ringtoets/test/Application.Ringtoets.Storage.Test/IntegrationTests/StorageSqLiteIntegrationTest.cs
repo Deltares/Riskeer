@@ -266,6 +266,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 AssertFailureMechanismSectionResults(
                     expectedAssessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults,
                     actualAssessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults);
+                AssertFailureMechanismSectionResults(
+                    expectedAssessmentSection.TechnicalInnovation.SectionResults,
+                    actualAssessmentSection.TechnicalInnovation.SectionResults);
+                AssertFailureMechanismSectionResults(
+                    expectedAssessmentSection.WaterPressureAsphaltCover.SectionResults,
+                    actualAssessmentSection.WaterPressureAsphaltCover.SectionResults);
             }
         }
 
@@ -333,6 +339,40 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
                 StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+
+                Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
+                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
+            }
+        }
+
+        private void AssertFailureMechanismSectionResults(IEnumerable<TechnicalInnovationFailureMechanismSectionResult> expectedSectionResults, IEnumerable<TechnicalInnovationFailureMechanismSectionResult> actualSectionResults)
+        {
+            var expectedSectionResultsArray = expectedSectionResults.ToArray();
+            var actualSectionResultsArray = actualSectionResults.ToArray();
+
+            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
+
+            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
+            {
+                TechnicalInnovationFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                TechnicalInnovationFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+
+                Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
+                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
+            }
+        }
+
+        private void AssertFailureMechanismSectionResults(IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> expectedSectionResults, IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> actualSectionResults)
+        {
+            var expectedSectionResultsArray = expectedSectionResults.ToArray();
+            var actualSectionResultsArray = actualSectionResults.ToArray();
+
+            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
+
+            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
+            {
+                WaterPressureAsphaltCoverFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                WaterPressureAsphaltCoverFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
 
                 Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
                 Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);

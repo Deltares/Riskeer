@@ -54,6 +54,10 @@
     </Compile>
     <Compile Include="Create\AssessmentSectionCreateExtensions.cs" />
     <Compile Include="Create\CalculationGroupCreateExtensions.cs" />
+    <Compile Include="Create\WaterPressureAsphaltCoverFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\WaterPressureAsphaltCoverFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\TechnicalInnovationFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\TechnicalInnovationFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\StrengthStabilityLengthwiseConstructionFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\HeightStructuresFailureMechanismCreateExtensions.cs" />
@@ -163,6 +167,8 @@
     <Compile Include="DecimalConversionExtensions.cs" />
     <Compile Include="DoubleConversionExtensions.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentions.cs" />
+    <Compile Include="Read\TechnicalInnovationSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\StrengthStabilityLengthwiseConstructionSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\HeightStructuresSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionInwardsSectionResultEntityReadExtensions.cs" />
@@ -216,6 +222,10 @@
     <Compile Include="StorageSqLite.cs" />
     <Compile Include="Update\AssessmentSectionUpdateExtensions.cs" />
     <Compile Include="Update\CalculationGroupUpdateExtensions.cs" />
+    <Compile Include="Update\WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateExtensions.cs" />
+    <Compile Include="Update\WaterPressureAsphaltCoverFailureMechanismUpdateExtensions.cs" />
+    <Compile Include="Update\TechnicalInnovationFailureMechanismSectionResultUpdateExtensions.cs" />
+    <Compile Include="Update\TechnicalInnovationFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\StrengthStabilityLengthwiseConstructionFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\HeightStructuresFailureMechanismUpdateExtensions.cs" />
