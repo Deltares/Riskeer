@@ -22,10 +22,13 @@
 using System;
 using System.Collections.Generic;
 using log4net;
+using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.Service.Properties;
+
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.Piping.Service
 {
@@ -46,7 +49,7 @@ namespace Ringtoets.Piping.Service
         /// <returns><c>False</c> if <paramref name="calculation"/> contains validation errors; <c>True</c> otherwise.</returns>
         public static bool Validate(PipingCalculation calculation)
         {
-            pipingCalculationLogger.Info(String.Format(Resources.Validation_Subject_0_started_Time_1_,
+            pipingCalculationLogger.Info(String.Format(RingtoetsCommonServiceResources.Validation_Subject_0_started_Time_1_,
                                                        calculation.Name, DateTimeService.CurrentTimeAsString));
 
             var inputValidationResults = ValidateInput(calculation.InputParameters);
@@ -75,7 +78,7 @@ namespace Ringtoets.Piping.Service
         /// <remarks>Consider calling <see cref="Validate"/> first to see if calculation is possible.</remarks>
         public static void Calculate(PipingCalculation calculation)
         {
-            pipingCalculationLogger.Info(String.Format(Resources.Calculation_Subject_0_started_Time_1_,
+            pipingCalculationLogger.Info(String.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_started_Time_1_,
                                                        calculation.Name, DateTimeService.CurrentTimeAsString));
 
             try
@@ -95,14 +98,14 @@ namespace Ringtoets.Piping.Service
             }
             finally
             {
-                pipingCalculationLogger.Info(String.Format(Resources.Calculation_Subject_0_ended_Time_1_,
+                pipingCalculationLogger.Info(String.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_ended_Time_1_,
                                                            calculation.Name, DateTimeService.CurrentTimeAsString));
             }
         }
 
         private static void LogValidationEndTime(PipingCalculation calculation)
         {
-            pipingCalculationLogger.Info(String.Format(Resources.Validation_Subject_0_ended_Time_1_,
+            pipingCalculationLogger.Info(String.Format(RingtoetsCommonServiceResources.Validation_Subject_0_ended_Time_1_,
                                                        calculation.Name, DateTimeService.CurrentTimeAsString));
         }
 

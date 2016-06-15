@@ -90,12 +90,12 @@ namespace Ringtoets.HydraRing.Calculation.Activities
         {
             base.OnRun();
 
-            targetProbabilityCalculationOutput = hydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput);
+            targetProbabilityCalculationOutput = HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput);
         }
 
         protected override void OnCancel()
         {
-            hydraRingCalculationService.CancelRunningCalculation();
+            HydraRingCalculationService.CancelRunningCalculation();
         }
 
         protected override void OnFinish()

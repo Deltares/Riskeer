@@ -44,6 +44,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
+using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
@@ -152,105 +153,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             yield return RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityAssessmentOutputTreeNodeInfo(
                 EmptyProbabilityAssessmentOutputContextMenuStrip);
-        }
-
-        private static ExceedanceProbabilityCalculationActivity CreateHydraRingExceedenceProbabilityCalculationActivity(
-            string hlcdDirectory,
-            GrassCoverErosionInwardsCalculation calculation,
-            GrassCoverErosionInwardsFailureMechanism failureMechanism,
-            IAssessmentSection assessmentSection)
-        {
-            var hydraulicBoundaryLocationId = (int)calculation.InputParameters.HydraulicBoundaryLocation.Id;
-            var failureMechanismSection = failureMechanism.Sections.First(); // TODO: Pass dike section based on cross section of calculation with reference line
-            var sectionLength = failureMechanismSection.GetSectionLength();
-            var generalInput = failureMechanism.GeneralInput;
-            var inwardsInput = calculation.InputParameters;
-
-            return HydraRingActivityFactory.Create(
-                calculation.Name,
-                hlcdDirectory,
-                failureMechanismSection.Name, // TODO: Provide name of reference line instead
-                HydraRingTimeIntegrationSchemeType.FBC,
-                HydraRingUncertaintiesType.All,
-                new OvertoppingCalculationInput(hydraulicBoundaryLocationId,
-                                                new HydraRingSection(1, failureMechanismSection.Name, sectionLength, inwardsInput.Orientation),
-                                                inwardsInput.DikeHeight,
-                                                generalInput.CriticalOvertoppingModelFactor,
-                                                generalInput.FbFactor.Mean, generalInput.FbFactor.StandardDeviation,
-                                                generalInput.FnFactor.Mean, generalInput.FnFactor.StandardDeviation,
-                                                generalInput.OvertoppingModelFactor,
-                                                inwardsInput.CriticalFlowRate.Mean, inwardsInput.CriticalFlowRate.StandardDeviation,
-                                                generalInput.FrunupModelFactor.Mean, generalInput.FrunupModelFactor.StandardDeviation,
-                                                generalInput.FshallowModelFactor.Mean, generalInput.FshallowModelFactor.StandardDeviation,
-                                                ParseProfilePoints(inwardsInput.DikeGeometry),
-                                                ParseForeshore(inwardsInput),
-                                                ParseBreakWater(inwardsInput)
-                    ),
-                calculation.ClearOutput,
-                output => { ParseHydraRingOutput(calculation, failureMechanism, assessmentSection, output); });
-        }
-
-        private static HydraRingBreakWater ParseBreakWater(GrassCoverErosionInwardsInput input)
-        {
-            return input.UseBreakWater ? new HydraRingBreakWater((int)input.BreakWater.Type, input.BreakWater.Height) : null;
-        }
-
-        private static IEnumerable<HydraRingForelandPoint> ParseForeshore(GrassCoverErosionInwardsInput input)
-        {
-            var firstProfileSection = input.ForeshoreGeometry.FirstOrDefault();
-            if (!input.UseForeshore || firstProfileSection == null)
-            {
-                yield break;
-            }
-
-            yield return new HydraRingForelandPoint(firstProfileSection.StartingPoint.X, firstProfileSection.StartingPoint.Y);
-
-            foreach (var foreshore in input.ForeshoreGeometry)
-            {
-                yield return new HydraRingForelandPoint(foreshore.EndingPoint.X, foreshore.EndingPoint.Y);
-            }
-        }
-
-        private static IEnumerable<HydraRingRoughnessProfilePoint> ParseProfilePoints(IEnumerable<RoughnessProfileSection> profileSections)
-        {
-            var firstProfileSection = profileSections.FirstOrDefault();
-            if (firstProfileSection == null)
-            {
-                yield break;
-            }
-
-            // By default, the roughness is 1.0 (no reduction due to bed friction).
-            yield return new HydraRingRoughnessProfilePoint(firstProfileSection.StartingPoint.X, firstProfileSection.StartingPoint.Y, 1);
-
-            foreach (var profileSection in profileSections)
-            {
-                yield return new HydraRingRoughnessProfilePoint(profileSection.EndingPoint.X, profileSection.EndingPoint.Y, profileSection.Roughness);
-            }
-        }
-
-        private static void ParseHydraRingOutput(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection, ExceedanceProbabilityCalculationOutput output)
-        {
-            if (output != null)
-            {
-                calculation.Output = ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm, failureMechanism.Contribution, failureMechanism.GeneralInput.N, output.Beta);
-                calculation.NotifyObservers();
-            }
-            else
-            {
-                throw new InvalidOperationException(Resources.GrassCoverErosionInwardsGuiPlugin_Error_during_overtopping_calculation);
-            }
-        }
+        }       
 
         private void CalculateAll(GrassCoverErosionInwardsFailureMechanism failureMechanism, IEnumerable<GrassCoverErosionInwardsCalculation> calculations, IAssessmentSection assessmentSection)
         {
-            // TODO: Remove "Where" filter when validation is implemented
-            ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations.Where(calc => calc.InputParameters.HydraulicBoundaryLocation != null)
-                                                                         .Select(calc => CreateHydraRingExceedenceProbabilityCalculationActivity(
-                                                                             Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
-                                                                             calc,
-                                                                             failureMechanism,
-                                                                             assessmentSection
-                                                                                             )).ToList());
+            ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations.Select(calc => new GrassCoverErosionInwardsCalculationActivity(calc,
+                                                                                                                                         Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                                                                         failureMechanism,
+                                                                                                                                         assessmentSection)).ToList());
         }
 
         private static string AllDataAvailable(IAssessmentSection assessmentSection, GrassCoverErosionInwardsFailureMechanism failureMechanism)
@@ -550,18 +460,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private void Calculate(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationContext context)
         {
-            // TODO: Remove null-check when validation is implemented
-            if (calculation.InputParameters.HydraulicBoundaryLocation == null)
-            {
-                return;
-            }
-            var activity = CreateHydraRingExceedenceProbabilityCalculationActivity(
-                Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
-                calculation,
-                context.FailureMechanism,
-                context.AssessmentSection);
-
-            ActivityProgressDialogRunner.Run(Gui.MainWindow, activity);
+            ActivityProgressDialogRunner.Run(Gui.MainWindow, new GrassCoverErosionInwardsCalculationActivity(calculation,
+                                                                                                             Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                                             context.FailureMechanism,
+                                                                                                             context.AssessmentSection));
         }
 
         private void CalculationContextOnNodeRemoved(GrassCoverErosionInwardsCalculationContext context, object parentData)

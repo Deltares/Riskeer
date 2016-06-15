@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -31,21 +30,15 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
-using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Forms.Views;
-using Ringtoets.HeightStructures.Plugin.Properties;
-using Ringtoets.HydraRing.Calculation.Activities;
-using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
-using Ringtoets.HydraRing.Calculation.Data.Output;
+using Ringtoets.HeightStructures.Service;
 using Ringtoets.HydraRing.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -135,58 +128,15 @@ namespace Ringtoets.HeightStructures.Plugin
             };
         }
 
-        private static ExceedanceProbabilityCalculationActivity CreateHydraRingExceedenceProbabilityCalculationActivity(
-            string hlcdDirectory,
-            HeightStructuresCalculation calculation,
-            HeightStructuresFailureMechanism failureMechanism,
-            IAssessmentSection assessmentSection)
-        {
-            var hydraulicBoundaryLocationId = (int) calculation.InputParameters.HydraulicBoundaryLocation.Id;
-            var failureMechanismSection = failureMechanism.Sections.First(); // TODO: Obtain dike section based on cross section of structure with reference line
-            var sectionLength = failureMechanismSection.GetSectionLength();
-            var generalInputParameters = failureMechanism.GeneralInput;
-            var inputParameters = calculation.InputParameters;
-
-            return HydraRingActivityFactory.Create(
-                calculation.Name,
-                hlcdDirectory,
-                failureMechanismSection.Name, // TODO: Provide name of reference line instead
-                HydraRingTimeIntegrationSchemeType.FBC,
-                HydraRingUncertaintiesType.All,
-                new StructuresOvertoppingCalculationInput(
-                    hydraulicBoundaryLocationId,
-                    new HydraRingSection(1, failureMechanismSection.Name, sectionLength, inputParameters.OrientationOfTheNormalOfTheStructure),
-                    generalInputParameters.GravitationalAcceleration,
-                    generalInputParameters.ModelFactorOvertoppingFlow.Mean, generalInputParameters.ModelFactorOvertoppingFlow.StandardDeviation,
-                    inputParameters.LevelOfCrestOfStructure.Mean, inputParameters.LevelOfCrestOfStructure.StandardDeviation,
-                    inputParameters.OrientationOfTheNormalOfTheStructure,
-                    inputParameters.ModelFactorOvertoppingSuperCriticalFlow.Mean, inputParameters.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation,
-                    inputParameters.AllowableIncreaseOfLevelForStorage.Mean, inputParameters.AllowableIncreaseOfLevelForStorage.StandardDeviation,
-                    generalInputParameters.ModelFactorForStorageVolume.Mean, generalInputParameters.ModelFactorForStorageVolume.StandardDeviation,
-                    inputParameters.StorageStructureArea.Mean, inputParameters.StorageStructureArea.GetVariationCoefficient(),
-                    generalInputParameters.ModelFactorForIncomingFlowVolume,
-                    inputParameters.FlowWidthAtBottomProtection.Mean, inputParameters.FlowWidthAtBottomProtection.StandardDeviation,
-                    inputParameters.CriticalOvertoppingDischarge.Mean, inputParameters.CriticalOvertoppingDischarge.GetVariationCoefficient(),
-                    inputParameters.FailureProbabilityOfStructureGivenErosion,
-                    inputParameters.WidthOfFlowApertures.Mean, inputParameters.WidthOfFlowApertures.GetVariationCoefficient(),
-                    inputParameters.DeviationOfTheWaveDirection,
-                    inputParameters.StormDuration.Mean, inputParameters.StormDuration.GetVariationCoefficient()),
-                calculation.ClearOutput,
-                output => { ParseHydraRingOutput(calculation, failureMechanism, assessmentSection, output); });
-        }
-
         private void CalculateAll(HeightStructuresFailureMechanism failureMechanism,
                                   IEnumerable<HeightStructuresCalculation> calculations,
                                   IAssessmentSection assessmentSection)
         {
-            // TODO: Remove "Where" filter when validation is implemented
-            ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations.Where(calc => calc.InputParameters.HydraulicBoundaryLocation != null)
-                                                                         .Select(calc => CreateHydraRingExceedenceProbabilityCalculationActivity(
-                                                                             Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
-                                                                             calc,
-                                                                             failureMechanism,
-                                                                             assessmentSection
-                                                                                             )).ToList());
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             calculations.Select(calc => new HeightStructuresCalculationActivity(calc,
+                                                                                                                 Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                                                 failureMechanism,
+                                                                                                                 assessmentSection)).ToList());
         }
 
         private static string AllDataAvailable(IAssessmentSection assessmentSection, HeightStructuresFailureMechanism failureMechanism)
@@ -209,25 +159,6 @@ namespace Ringtoets.HeightStructures.Plugin
             }
 
             return null;
-        }
-
-        private static void ParseHydraRingOutput(HeightStructuresCalculation calculation,
-                                                 HeightStructuresFailureMechanism failureMechanism,
-                                                 IAssessmentSection assessmentSection,
-                                                 ExceedanceProbabilityCalculationOutput output)
-        {
-            if (output != null)
-            {
-                calculation.Output = ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm,
-                                                                            failureMechanism.Contribution,
-                                                                            failureMechanism.GeneralInput.N,
-                                                                            output.Beta);
-                calculation.NotifyObservers();
-            }
-            else
-            {
-                throw new InvalidOperationException(Resources.HeightStructuresGuiPlugin_Error_during_overtopping_calculation);
-            }
         }
 
         #region EmptyProbabilityAssessmentOutput TreeNodeInfo
@@ -505,18 +436,10 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private void Calculate(HeightStructuresCalculation calculation, HeightStructuresCalculationContext context)
         {
-            // TODO: Remove null-check when validation is implemented
-            if (calculation.InputParameters.HydraulicBoundaryLocation == null)
-            {
-                return;
-            }
-            var activity = CreateHydraRingExceedenceProbabilityCalculationActivity(
-                Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
-                calculation,
-                context.FailureMechanism,
-                context.AssessmentSection);
-
-            ActivityProgressDialogRunner.Run(Gui.MainWindow, activity);
+            ActivityProgressDialogRunner.Run(Gui.MainWindow, new HeightStructuresCalculationActivity(calculation,
+                                                                                                     Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                                     context.FailureMechanism,
+                                                                                                     context.AssessmentSection));
         }
 
         private void CalculationContextOnNodeRemoved(HeightStructuresCalculationContext context, object parentData)

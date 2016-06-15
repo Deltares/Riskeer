@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Piping.Service
+namespace Ringtoets.Common.Service
 {
     /// <summary>
     /// The <see cref="DateTimeService"/> class is responsible for providing general <see cref="DateTime"/> operations.
@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Service
         /// <summary>
         /// Gets the current time in HH:mm:ss format.
         /// </summary>
-        public static String CurrentTimeAsString
+        public static string CurrentTimeAsString
         {
             get
             {

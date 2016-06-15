@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.HeightStructures.Plugin.Properties {
+namespace Ringtoets.HeightStructures.Service {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Ringtoets.HeightStructures.Plugin.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.HeightStructures.Plugin.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.HeightStructures.Service.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,12 @@ namespace Ringtoets.HeightStructures.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de berekening..
+        ///   Looks up a localized string similar to Hoogte kunstwerk &apos;{0}&apos; niet gelukt..
         /// </summary>
-        internal static string HeightStructuresGuiPlugin_Error_during_overtopping_calculation {
+        internal static string HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation {
             get {
-                return ResourceManager.GetString("HeightStructuresGuiPlugin_Error_during_overtopping_calculation", resourceCulture);
+                return ResourceManager.GetString("HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calcula" +
+                        "tion", resourceCulture);
             }
         }
     }

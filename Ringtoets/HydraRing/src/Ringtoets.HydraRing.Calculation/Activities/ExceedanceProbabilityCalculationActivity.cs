@@ -90,14 +90,14 @@ namespace Ringtoets.HydraRing.Calculation.Activities
         {
             base.OnRun();
 
-            exceedanceProbabilityCalculationOutput = hydraRingCalculationService.PerformCalculation(
+            exceedanceProbabilityCalculationOutput = HydraRingCalculationService.PerformCalculation(
                 hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType,
                 exceedanceProbabilityCalculationInput);
         }
 
         protected override void OnCancel()
         {
-            hydraRingCalculationService.CancelRunningCalculation();
+            HydraRingCalculationService.CancelRunningCalculation();
         }
 
         protected override void OnFinish()

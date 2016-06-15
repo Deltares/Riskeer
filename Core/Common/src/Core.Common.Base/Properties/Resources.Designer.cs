@@ -116,6 +116,16 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gras erosie kruin en binnentalud &apos;{0}&apos; niet gelukt..
+        /// </summary>
+        public static string GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion" +
+                        "_inwards_0_calculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Punten voor een lijn moeten uit elkaar liggen om een lijn te kunnen vormen..
         /// </summary>
         public static string Math2D_LineIntersectionWithLine_Line_points_are_equal {

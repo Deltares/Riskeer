@@ -118,6 +118,10 @@
       <Name>Ringtoets.GrassCoverErosionInwards.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.GrassCoverErosionInwards.Service\Ringtoets.GrassCoverErosionInwards.Service.csproj">
+      <Project>{5D158D8E-A5EB-489C-A885-87E13BC0D3B3}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

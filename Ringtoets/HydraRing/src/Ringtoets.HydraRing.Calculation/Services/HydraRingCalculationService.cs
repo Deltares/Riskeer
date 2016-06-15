@@ -46,7 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="targetProbabilityCalculationInput">The input of the calculation to perform.</param>
         /// <returns>A <see cref="TargetProbabilityCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
-        public virtual TargetProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId,
+        public static TargetProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId,
                                                                              HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
                                                                              HydraRingUncertaintiesType uncertaintiesType,
                                                                              TargetProbabilityCalculationInput targetProbabilityCalculationInput)
@@ -67,7 +67,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="exceedanceProbabilityCalculationInput">The input of the calculation to perform.</param>
         /// <returns>A <see cref="ExceedanceProbabilityCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
-        public virtual ExceedanceProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId,
+        public static ExceedanceProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId,
                                                                                  HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
                                                                                  HydraRingUncertaintiesType uncertaintiesType,
                                                                                  ExceedanceProbabilityCalculationInput exceedanceProbabilityCalculationInput)
@@ -81,7 +81,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <summary>
         /// Cancels any currently running Hydra-Ring calculation.
         /// </summary>
-        public virtual void CancelRunningCalculation()
+        public static void CancelRunningCalculation()
         {
             if (hydraRingProcess != null && !hydraRingProcess.HasExited)
             {
@@ -96,7 +96,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             var sectionId = hydraRingCalculationInput.Section.SectionId;
 
             // Create a working directory
-            var workingDirectory = CreateWorkingDirectory(sectionId.ToString());
+            var workingDirectory = CreateWorkingDirectory();
 
             // Write the initialization script
             var hydraRingInitializationService = new HydraRingInitializationService(hydraRingCalculationInput.FailureMechanismType, sectionId, hlcdDirectory, workingDirectory);
@@ -116,9 +116,9 @@ namespace Ringtoets.HydraRing.Calculation.Services
             return parseFunction(hydraRingInitializationService.OutputFilePath, hydraRingInitializationService.OutputDataBasePath);
         }
 
-        private static string CreateWorkingDirectory(string folderName)
+        private static string CreateWorkingDirectory()
         {
-            var workingDirectory = Path.Combine(Path.GetTempPath(), folderName);
+            var workingDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
             if (Directory.Exists(workingDirectory))
             {

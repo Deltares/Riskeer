@@ -19,11 +19,19 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-[assembly: AssemblyTitle("Ringtoets.GrassCoverErosionInwards.Service")]
-[assembly: AssemblyProduct("Ringtoets.GrassCoverErosionInwards.Service")]
-[assembly: Guid("fab17b31-71c4-4f69-a197-702ed145ff34")]
-[assembly: InternalsVisibleTo("Ringtoets.GrassCoverErosionInwards.Service.Test")]
-[assembly: InternalsVisibleTo("Ringtoets.GrassCoverErosionInwards.Integration.Test")]
+using System;
+using NUnit.Framework;
+
+namespace Ringtoets.Common.Service.Test
+{
+    [TestFixture]
+    public class DateTimeServiceTest
+    {
+        [Test]
+        public void CurrentTimeAsString_Always_ReturnsTimeAsStringWithDefaultFormat()
+        {
+            // Call && Assert
+            Assert.AreEqual(DateTime.Now.ToString("HH:mm:ss"), DateTimeService.CurrentTimeAsString);
+        }
+    }
+}

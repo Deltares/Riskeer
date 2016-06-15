@@ -177,4 +177,7 @@
   <data name="PipingProbabilityAssessmentInput_A_Value_must_be_between_zero_and_one" xml:space="preserve">
     <value>De waarde moet tussen 0 en 1 zijn.</value>
   </data>
+  <data name="GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation" xml:space="preserve">
+    <value>Gras erosie kruin en binnentalud '{0}' niet gelukt.</value>
+  </data>
 </root>

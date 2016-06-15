@@ -55,54 +55,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
         }
 
         [Test]
-        public void Run_ExceedanceProbabilityCalculationActivity_PerformCalculationCalledWithCorrectParameters()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var hydraRingCalculationService = mocks.StrictMock<HydraRingCalculationService>();
-            var exceedanceProbabilityCalculationOutput = mocks.StrictMock<ExceedanceProbabilityCalculationOutput>(1,2, 3, 5, 6, 7, 8, 9, 9.9);
-            var exceedanceProbabilityCalculationInput = mocks.StrictMock<ExceedanceProbabilityCalculationInput>(10000);
-
-            const string hlcdDirectory = "hlcdDirectory";
-            const string ringId = "ringId";
-            const HydraRingUncertaintiesType uncertaintiesType = HydraRingUncertaintiesType.All;
-            const HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.FBC;
-
-            hydraRingCalculationService.Expect(hcs => hcs.PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, exceedanceProbabilityCalculationInput)).Return(exceedanceProbabilityCalculationOutput);
-
-            mocks.ReplayAll();
-
-            var activity = new ExceedanceProbabilityCalculationActivity("Name of activity", hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, exceedanceProbabilityCalculationInput, null, null, hydraRingCalculationService);
-
-            // Call
-            activity.Run();
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Cancel_ExceedanceProbabilityCalculationActivity_CancelRunningCalculationCalled()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var hydraRingCalculationService = mocks.StrictMock<HydraRingCalculationService>();
-            var exceedanceProbabilityCalculationInput = mocks.StrictMock<ExceedanceProbabilityCalculationInput>(10000);
-
-            hydraRingCalculationService.Expect(hcs => hcs.CancelRunningCalculation());
-
-            mocks.ReplayAll();
-
-            var activity = new ExceedanceProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, exceedanceProbabilityCalculationInput, null, null, hydraRingCalculationService);
-
-            // Call
-            activity.Cancel();
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Run_Always_BeforeRunActionPerformedAsExpected()
         {
             // Setup

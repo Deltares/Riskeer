@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.Piping.Service.Properties {
+namespace Ringtoets.Common.Service.Properties {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace Ringtoets.Piping.Service.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace Ringtoets.Piping.Service.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.Piping.Service.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.Common.Service.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Service.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,38 +61,56 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Piping berekening niet gelukt: {0}.
+        ///   Looks up a localized string similar to Berekening van &apos;{0}&apos; beëindigd om: {1}.
         /// </summary>
-        internal static string Error_in_piping_calculation_0 {
+        public static string Calculation_Subject_0_ended_Time_1_ {
             get {
-                return ResourceManager.GetString("Error_in_piping_calculation_0", resourceCulture);
+                return ResourceManager.GetString("Calculation_Subject_0_ended_Time_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekening van &apos;{0}&apos; gestart om: {1}.
+        /// </summary>
+        public static string Calculation_Subject_0_started_Time_1_ {
+            get {
+                return ResourceManager.GetString("Calculation_Subject_0_started_Time_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaarde locatie geselecteerd..
+        /// </summary>
+        public static string CalculationService_ValidateInput_No_hydraulic_boundary_location_selected {
+            get {
+                return ResourceManager.GetString("CalculationService_ValidateInput_No_hydraulic_boundary_location_selected", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Validatie mislukt: {0}.
         /// </summary>
-        internal static string Error_in_piping_validation_0 {
+        public static string Error_in_validation_0 {
             get {
-                return ResourceManager.GetString("Error_in_piping_validation_0", resourceCulture);
+                return ResourceManager.GetString("Error_in_validation_0", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer..
+        ///   Looks up a localized string similar to Validatie van &apos;{0}&apos; beëindigd om: {1}.
         /// </summary>
-        internal static string PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer {
+        public static string Validation_Subject_0_ended_Time_1_ {
             get {
-                return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer", resourceCulture);
+                return ResourceManager.GetString("Validation_Subject_0_ended_Time_1_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan de dikte van de deklaag niet afleiden op basis van de invoer..
+        ///   Looks up a localized string similar to Validatie van &apos;{0}&apos; gestart om: {1}.
         /// </summary>
-        internal static string PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer {
+        public static string Validation_Subject_0_started_Time_1_ {
             get {
-                return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer", resourceCulture);
+                return ResourceManager.GetString("Validation_Subject_0_started_Time_1_", resourceCulture);
             }
         }
     }

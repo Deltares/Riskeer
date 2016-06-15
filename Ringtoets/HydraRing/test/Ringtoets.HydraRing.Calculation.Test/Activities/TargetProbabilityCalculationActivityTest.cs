@@ -54,53 +54,53 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
             Assert.AreEqual(ActivityState.None, activity.State);
         }
 
-        [Test]
-        public void Run_TargetProbabilityCalculationActivity_PerformCalculationCalledWithCorrectParameters()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var hydraRingCalculationService = mocks.StrictMock<HydraRingCalculationService>();
-            var targetProbabilityCalculationOutput = mocks.StrictMock<TargetProbabilityCalculationOutput>(1.1, 2.2);
-            var targetProbabilityCalculationInput = mocks.StrictMock<TargetProbabilityCalculationInput>(1, 10000);
-
-            const string hlcdDirectory = "hlcdDirectory";
-            const string ringId = "ringId";
-            const HydraRingUncertaintiesType uncertaintiesType = HydraRingUncertaintiesType.All;
-            const HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.FBC;
-
-            hydraRingCalculationService.Expect(hcs => hcs.PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput)).Return(targetProbabilityCalculationOutput);
-
-            mocks.ReplayAll();
-
-            var activity = new TargetProbabilityCalculationActivity("Name of activity", hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, null, null, hydraRingCalculationService);
-
-            // Call
-            activity.Run();
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Cancel_TargetProbabilityCalculationActivity_CancelRunningCalculationCalled()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var hydraRingCalculationService = mocks.StrictMock<HydraRingCalculationService>();
-            var targetProbabilityCalculationInput = mocks.StrictMock<TargetProbabilityCalculationInput>(1, 10000);
-
-            hydraRingCalculationService.Expect(hcs => hcs.CancelRunningCalculation());
-
-            mocks.ReplayAll();
-
-            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInput, null, null, hydraRingCalculationService);
-
-            // Call
-            activity.Cancel();
-
-            // Assert
-            mocks.VerifyAll();
-        }
+//        [Test]
+//        public void Run_TargetProbabilityCalculationActivity_PerformCalculationCalledWithCorrectParameters()
+//        {
+//            // Setup
+//            var mocks = new MockRepository();
+//            var hydraRingCalculationService = mocks.StrictMock<HydraRingCalculationService>();
+//            var targetProbabilityCalculationOutput = mocks.StrictMock<TargetProbabilityCalculationOutput>(1.1, 2.2);
+//            var targetProbabilityCalculationInput = mocks.StrictMock<TargetProbabilityCalculationInput>(1, 10000);
+//
+//            const string hlcdDirectory = "hlcdDirectory";
+//            const string ringId = "ringId";
+//            const HydraRingUncertaintiesType uncertaintiesType = HydraRingUncertaintiesType.All;
+//            const HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.FBC;
+//
+//            hydraRingCalculationService.Expect(hcs => hcs.PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput)).Return(targetProbabilityCalculationOutput);
+//
+//            mocks.ReplayAll();
+//
+//            var activity = new TargetProbabilityCalculationActivity("Name of activity", hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, null, null, hydraRingCalculationService);
+//
+//            // Call
+//            activity.Run();
+//
+//            // Assert
+//            mocks.VerifyAll();
+//        }
+//
+//        [Test]
+//        public void Cancel_TargetProbabilityCalculationActivity_CancelRunningCalculationCalled()
+//        {
+//            // Setup
+//            var mocks = new MockRepository();
+//            var hydraRingCalculationService = mocks.StrictMock<HydraRingCalculationService>();
+//            var targetProbabilityCalculationInput = mocks.StrictMock<TargetProbabilityCalculationInput>(1, 10000);
+//
+//            hydraRingCalculationService.Expect(hcs => hcs.CancelRunningCalculation());
+//
+//            mocks.ReplayAll();
+//
+//            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInput, null, null, hydraRingCalculationService);
+//
+//            // Call
+//            activity.Cancel();
+//
+//            // Assert
+//            mocks.VerifyAll();
+//        }
 
         [Test]
         public void Run_Always_BeforeRunActionPerformedAsExpected()

@@ -43,7 +43,6 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Plugin;
-using Ringtoets.HeightStructures.Plugin.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using HeightStructuresFormsResources = Ringtoets.HeightStructures.Forms.Properties.Resources;
@@ -462,9 +461,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Then
             TestHelper.AssertLogMessages(action, messages =>
             {
-                var msgs = messages.GetEnumerator();
-                Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("Er is een fout opgetreden tijdens de berekening.", msgs.Current);
+                var msgs = messages.ToArray();
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                StringAssert.StartsWith(String.Format("Hoogte kunstwerk '{0}' niet gelukt.", calculation.Name), msgs[3]);
+                StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
             });
 
             Assert.IsNull(calculation.Output);

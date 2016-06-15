@@ -470,9 +470,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Then
             TestHelper.AssertLogMessages(action, messages =>
             {
-                var msgs = messages.GetEnumerator();
-                Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("Er is een fout opgetreden tijdens de berekening.", msgs.Current);
+                var msgs = messages.ToArray();
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                StringAssert.StartsWith(String.Format("Gras erosie kruin en binnentalud '{0}' niet gelukt.", calculation.Name), msgs[3]);
+                StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
             });
 
             Assert.IsNull(calculation.Output);
