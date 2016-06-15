@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -79,10 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-            {
-                new Point2D(0, 0)
-            }));
+            failureMechanism.AddSection(new TestFailureMechanismSection());
             var failureMechanismEntity = new FailureMechanismEntity();
 
             // Call

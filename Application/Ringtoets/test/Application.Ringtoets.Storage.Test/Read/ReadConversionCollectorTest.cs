@@ -23,7 +23,7 @@ using System;
 
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Test.Update;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 
 using NUnit.Framework;

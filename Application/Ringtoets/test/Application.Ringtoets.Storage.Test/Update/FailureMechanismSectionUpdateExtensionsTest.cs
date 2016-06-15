@@ -201,8 +201,4 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
          
     }
-
-    public class TestFailureMechanismSection : FailureMechanismSection {
-        public TestFailureMechanismSection() : base(string.Empty, new [] { new Point2D(0,0) }) {}
-    }
 }

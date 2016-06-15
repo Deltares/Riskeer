@@ -412,7 +412,7 @@ namespace Application.Ringtoets.Storage.Test.Update
                     StorageId = 1
                 }
             };
-            failureMechanism.AddSection(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
+            failureMechanism.AddSection(new TestFailureMechanismSection());
 
             var rootCalculationGroupEntity = new CalculationGroupEntity
             {

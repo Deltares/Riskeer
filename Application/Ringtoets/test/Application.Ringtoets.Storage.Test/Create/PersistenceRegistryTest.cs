@@ -24,7 +24,6 @@ using System.Linq;
 
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Test.Update;
 using Application.Ringtoets.Storage.TestUtil;
 
 using Core.Common.Base.Data;
@@ -1485,7 +1484,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 FailureMechanismSectionEntityId = storageId
             };
-            var model = new FailureMechanismSection("name", new [] { new Point2D(0,0) });
+            var model = new TestFailureMechanismSection();
             registry.Register(entity, model);
 
             // Call
@@ -1996,7 +1995,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             dbContext.FailureMechanismSectionEntities.Add(orphanedEntity);
             dbContext.FailureMechanismSectionEntities.Add(persistentEntity);
 
-            var section = new FailureMechanismSection("A", new[]{new Point2D(1, 2) }){ StorageId = persistentEntity.FailureMechanismSectionEntityId };
+            var section = new TestFailureMechanismSection{ StorageId = persistentEntity.FailureMechanismSectionEntityId };
 
             var registry = new PersistenceRegistry();
             registry.Register(persistentEntity, section);

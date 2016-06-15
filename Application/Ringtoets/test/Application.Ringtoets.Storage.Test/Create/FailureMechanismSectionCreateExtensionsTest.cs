@@ -21,6 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -34,7 +35,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithoutCollector_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanismSection = new FailureMechanismSection("", new [] { new Point2D(0,0), new Point2D(0,0) });
+            var failureMechanismSection = new TestFailureMechanismSection();
 
             // Call
             TestDelegate test = () => failureMechanismSection.Create(null);

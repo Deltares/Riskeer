@@ -23,10 +23,10 @@ using System;
 using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
@@ -106,14 +106,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
-            {
-                new Point2D(0, 0)
-            }));
-            failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
-            {
-                new Point2D(0, 0)
-            }));
+            failureMechanism.AddSection(new TestFailureMechanismSection());
+            failureMechanism.AddSection(new TestFailureMechanismSection());
             var registry = new PersistenceRegistry();
 
             // Call

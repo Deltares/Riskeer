@@ -21,10 +21,9 @@
 
 using System;
 using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create
@@ -36,7 +35,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
             TestDelegate test = () => sectionResult.Create(null);
@@ -52,7 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         )
         {
             // Setup
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
             sectionResult.AssessmentLayerOne = assessmentLayerOneResult;
             sectionResult.AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult;
 
@@ -68,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
             sectionResult.AssessmentLayerThree = (RoundedDouble) double.NaN;
 
             // Call
