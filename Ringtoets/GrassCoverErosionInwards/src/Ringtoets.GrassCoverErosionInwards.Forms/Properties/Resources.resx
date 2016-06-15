@@ -155,25 +155,25 @@
     <value>Schematisatie</value>
   </data>
   <data name="BreakWaterHeight_Description" xml:space="preserve">
-    <value>De hoogte van de havendam [m+NAP].</value>
+    <value>De hoogte van de dam [m+NAP].</value>
   </data>
   <data name="BreakWaterHeight_DisplayName" xml:space="preserve">
     <value>Hoogte [m+NAP]</value>
   </data>
   <data name="BreakWaterProperties_Description" xml:space="preserve">
-    <value>Eigenschappen van de havendam.</value>
+    <value>Eigenschappen van de dam.</value>
   </data>
   <data name="BreakWaterProperties_DisplayName" xml:space="preserve">
-    <value>Havendam</value>
+    <value>Dam</value>
   </data>
   <data name="BreakWaterType_Description" xml:space="preserve">
-    <value>Het type van de havendam.</value>
+    <value>Het type van de dam.</value>
   </data>
   <data name="BreakWaterType_DisplayName" xml:space="preserve">
     <value>Type</value>
   </data>
   <data name="BreakWater_UseBreakWater_Description" xml:space="preserve">
-    <value>Is er een havendam aanwezig?</value>
+    <value>Is er een dam aanwezig?</value>
   </data>
   <data name="BreakWater_UseBreakWater_DisplayName" xml:space="preserve">
     <value>Aanwezig</value>

@@ -61,7 +61,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is er een havendam aanwezig?.
+        ///   Looks up a localized string similar to Is er een dam aanwezig?.
         /// </summary>
         public static string BreakWater_UseBreakWater_Description {
             get {
@@ -79,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De hoogte van de havendam [m+NAP]..
+        ///   Looks up a localized string similar to De hoogte van de dam [m+NAP]..
         /// </summary>
         public static string BreakWaterHeight_Description {
             get {
@@ -97,7 +97,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eigenschappen van de havendam..
+        ///   Looks up a localized string similar to Eigenschappen van de dam..
         /// </summary>
         public static string BreakWaterProperties_Description {
             get {
@@ -106,7 +106,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Havendam.
+        ///   Looks up a localized string similar to Dam.
         /// </summary>
         public static string BreakWaterProperties_DisplayName {
             get {
@@ -115,7 +115,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het type van de havendam..
+        ///   Looks up a localized string similar to Het type van de dam..
         /// </summary>
         public static string BreakWaterType_Description {
             get {

@@ -196,8 +196,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(breakWaterProperty);
             Assert.IsTrue(breakWaterProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", breakWaterProperty.Category);
-            Assert.AreEqual("Havendam", breakWaterProperty.DisplayName);
-            Assert.AreEqual("Eigenschappen van de havendam.", breakWaterProperty.Description);
+            Assert.AreEqual("Dam", breakWaterProperty.DisplayName);
+            Assert.AreEqual("Eigenschappen van de dam.", breakWaterProperty.Description);
 
             PropertyDescriptor criticalFlowRateProperty = dynamicProperties[criticalFlowRatePropertyIndex];
             Assert.IsNotNull(criticalFlowRateProperty);

@@ -139,19 +139,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(useBreakWaterProperty);
             Assert.IsFalse(useBreakWaterProperty.IsReadOnly);
             Assert.AreEqual("Aanwezig", useBreakWaterProperty.DisplayName);
-            Assert.AreEqual("Is er een havendam aanwezig?", useBreakWaterProperty.Description);
+            Assert.AreEqual("Is er een dam aanwezig?", useBreakWaterProperty.Description);
 
             PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
             Assert.IsNotNull(breakWaterTypeProperty);
             Assert.IsFalse(breakWaterTypeProperty.IsReadOnly);
             Assert.AreEqual("Type", breakWaterTypeProperty.DisplayName);
-            Assert.AreEqual("Het type van de havendam.", breakWaterTypeProperty.Description);
+            Assert.AreEqual("Het type van de dam.", breakWaterTypeProperty.Description);
 
             PropertyDescriptor breakWaterHeightProperty = dynamicProperties[2];
             Assert.IsNotNull(breakWaterHeightProperty);
             Assert.IsFalse(breakWaterHeightProperty.IsReadOnly);
             Assert.AreEqual("Hoogte [m+NAP]", breakWaterHeightProperty.DisplayName);
-            Assert.AreEqual("De hoogte van de havendam [m+NAP].", breakWaterHeightProperty.Description);
+            Assert.AreEqual("De hoogte van de dam [m+NAP].", breakWaterHeightProperty.Description);
             mockRepository.VerifyAll();
         }
     }
