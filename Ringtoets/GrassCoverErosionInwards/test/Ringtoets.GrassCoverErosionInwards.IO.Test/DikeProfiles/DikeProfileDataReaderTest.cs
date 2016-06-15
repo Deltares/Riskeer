@@ -23,6 +23,7 @@ using System;
 using System.IO;
 
 using Core.Common.Base.Geometry;
+using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 
 using NUnit.Framework;
@@ -35,11 +36,87 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
     public class DikeProfileDataReaderTest
     {
         [Test]
+        [TestCase("")]
+        [TestCase("      ")]
+        [TestCase(null)]
+        public void ReadDikeProfileData_NoFilePath_ThrowArgumentException(string invalidFilePath)
+        {
+            // Setup
+            var reader = new DikeProfileDataReader();
+
+            // Call
+            TestDelegate call = () => reader.ReadDikeProfileData(invalidFilePath);
+
+            // Assert
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet leeg of ongedefinieerd zijn.",
+                                                invalidFilePath);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void ReadReferenceLine_FilePathHasInvalidPathCharacter_ThrowArgumentException()
+        {
+            // Setup
+            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
+
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                              Path.Combine("DikeProfiles", "profiel001 - Ringtoets.prfl"));
+            string invalidFilePath = validFilePath.Replace("-", invalidFileNameChars[3].ToString());
+
+            var reader = new DikeProfileDataReader();
+
+            // Call
+            TestDelegate call = () => reader.ReadDikeProfileData(invalidFilePath);
+
+            // Assert
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet de volgende tekens bevatten: {1}",
+                                                invalidFilePath, String.Join(", ", invalidFileNameChars));
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void ReadReferenceLine_FilePathIsActuallyDirectoryPath_ThrowArgumentException()
+        {
+            // Setup
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                                Path.DirectorySeparatorChar.ToString());
+
+            var reader = new DikeProfileDataReader();
+
+            // Call
+            TestDelegate call = () => reader.ReadDikeProfileData(invalidFilePath);
+
+            // Assert
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet naar een map verwijzen.",
+                                                invalidFilePath);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void ReadReferenceLine_ShapefileDoesntExist_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                "I_do_not_exist.shp");
+
+            var reader = new DikeProfileDataReader();
+
+            // Call
+            TestDelegate call = () => reader.ReadDikeProfileData(invalidFilePath);
+
+            // Assert
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
+                                                invalidFilePath);
+            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
         public void ReadDikeProfileData_ValidFilePath1_ReturnDikeProfileData()
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                Path.Combine("DikeProfiles", "profiel001 - Ringtoets.prfl"));
+                                                              Path.Combine("DikeProfiles", "profiel001 - Ringtoets.prfl"));
 
             var reader = new DikeProfileDataReader();
 
@@ -111,5 +188,37 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
                 "talud met (ruwe) berm" + Environment.NewLine;
             Assert.AreEqual(expectedMemo, result.Memo);
         }
+
+        [Test]
+        [TestCase("faulry_noId.prfl", "ID")]
+        [TestCase("faulty_emptyFile.prfl", "VERSIE, ID, RICHTING, DAM, DAMHOOGTE, VOORLAND, DAMWAND, KRUINHOOGTE, DIJK, MEMO")]
+        [TestCase("faulty_noDam.prfl", "DAM")]
+        [TestCase("faulty_noDamHoogte.prfl", "DAMHOOGTE")]
+        [TestCase("faulty_noDamWand.prfl", "DAMWAND")]
+        [TestCase("faulty_noDijk.prfl", "DIJK")]
+        [TestCase("faulty_noKruinHoogte.prfl", "KRUINHOOGTE")]
+        [TestCase("faulty_NoMemo.prfl", "MEMO")]
+        [TestCase("faulty_noRichting.prfl", "RICHTING")]
+        [TestCase("faulty_noVersie.prfl", "VERSIE")]
+        [TestCase("faulty_noVoorland.prfl", "VOORLAND")]
+        public void ReadDikeProfileData_FaultyFilesWithMissingParameters_ThrowCriticalFileReadException(
+            string faultyFileName, string missingParameterNames)
+        {
+            // Setup
+            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                                Path.Combine("DikeProfiles", faultyFileName));
+
+            var reader = new DikeProfileDataReader();
+
+            // Call
+            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
+
+            // Assert
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': De volgende parameter(s) zijn niet aanwezig in het bestand: {1}",
+                                                   faultyFilePath, missingParameterNames);
+            Assert.AreEqual(expectedMessage, message);
+        }
+        // TODO: DAMWAND en DAMWAND Type coverage (beide files hebben dezelfde waardes)
     }
 }

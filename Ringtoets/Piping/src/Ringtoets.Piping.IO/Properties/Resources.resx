@@ -171,9 +171,6 @@
   <data name="SoilLayer2DReader_Could_not_parse_point_location" xml:space="preserve">
     <value>Coördinaat van een punt bevat ongeldige waarde.</value>
   </data>
-  <data name="TextFile_On_LineNumber_0_" xml:space="preserve">
-    <value>op regel {0}</value>
-  </data>
   <data name="PipingSurfaceLinesCsvReader_SurfaceLineName_0_" xml:space="preserve">
     <value>profielschematisatie '{0}'</value>
   </data>

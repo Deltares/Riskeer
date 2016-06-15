@@ -376,7 +376,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <returns>New <see cref="CriticalFileReadException"/> with message and inner exception set.</returns>
         private CriticalFileReadException CreateCriticalFileReadException(int currentLine, string criticalErrorMessage, Exception innerException = null)
         {
-            string locationDescription = string.Format(Resources.TextFile_On_LineNumber_0_, currentLine);
+            string locationDescription = string.Format(UtilsResources.TextFile_On_LineNumber_0_, currentLine);
             var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
                                                                      .Build(criticalErrorMessage);
             return new CriticalFileReadException(message, innerException);
@@ -390,7 +390,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <returns>New <see cref="LineParseException"/> with message set.</returns>
         private LineParseException CreateLineParseException(int currentLine, string lineParseErrorMessage)
         {
-            string locationDescription = string.Format(Resources.TextFile_On_LineNumber_0_, currentLine);
+            string locationDescription = string.Format(UtilsResources.TextFile_On_LineNumber_0_, currentLine);
             var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
                                                                      .Build(lineParseErrorMessage);
             return new LineParseException(message);
@@ -406,7 +406,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <returns>New <see cref="LineParseException"/> with message and inner exceptions set.</returns>
         private LineParseException CreateLineParseException(int currentLine, string surfaceLineName, string lineParseErrorMessage, Exception innerException = null)
         {
-            string locationDescription = string.Format(Resources.TextFile_On_LineNumber_0_, currentLine);
+            string locationDescription = string.Format(UtilsResources.TextFile_On_LineNumber_0_, currentLine);
             string subjectDescription = string.Format(Resources.PipingSurfaceLinesCsvReader_SurfaceLineName_0_, surfaceLineName);
             var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
                                                                      .WithSubject(subjectDescription)
