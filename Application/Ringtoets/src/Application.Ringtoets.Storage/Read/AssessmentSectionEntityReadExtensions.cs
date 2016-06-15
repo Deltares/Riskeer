@@ -112,16 +112,7 @@ namespace Application.Ringtoets.Storage.Read
             var grassCoverErosionInwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards);
             if (grassCoverErosionInwardsFailureMechanismEntity != null)
             {
-                var failureMechanism = grassCoverErosionInwardsFailureMechanismEntity.ReadAsGrassCoverErosionInwardsFailureMechanism(collector);
-
-                var grassCoverErosionInwards = assessmentSection.GrassCoverErosionInwards;
-                grassCoverErosionInwards.IsRelevant = failureMechanism.IsRelevant;
-                grassCoverErosionInwards.StorageId = failureMechanism.StorageId;
-                grassCoverErosionInwards.Comments = failureMechanism.Comments;
-                foreach (var failureMechanismSection in failureMechanism.Sections)
-                {
-                    grassCoverErosionInwards.AddSection(failureMechanismSection);
-                }
+                grassCoverErosionInwardsFailureMechanismEntity.ReadAsGrassCoverErosionInwardsFailureMechanism(assessmentSection.GrassCoverErosionInwards, collector);
             }
         }
 
@@ -150,15 +141,7 @@ namespace Application.Ringtoets.Storage.Read
             var failureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) failureMechanismType);
             if (failureMechanismEntity != null)
             {
-                var failureMechanism = failureMechanismEntity.ReadAsStandAloneFailureMechanism(collector);
-
-                standAloneFailureMechanism.StorageId = failureMechanism.StorageId;
-                standAloneFailureMechanism.IsRelevant = failureMechanism.IsRelevant;
-                standAloneFailureMechanism.Comments = failureMechanism.Comments;
-                foreach (var failureMechanismSection in failureMechanism.Sections)
-                {
-                    standAloneFailureMechanism.AddSection(failureMechanismSection);
-                }
+                failureMechanismEntity.ReadAsStandAloneFailureMechanism(standAloneFailureMechanism, collector);
             }
         }
     }

@@ -103,40 +103,32 @@ namespace Application.Ringtoets.Storage.Read
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to construct a <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
         /// </summary>
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="GrassCoverErosionInwardsFailureMechanism"/> for.</param>
+        /// <param name="failureMechanism"></param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsFailureMechanism"/>.</returns>
-        internal static GrassCoverErosionInwardsFailureMechanism ReadAsGrassCoverErosionInwardsFailureMechanism(this FailureMechanismEntity entity, ReadConversionCollector collector)
+        internal static void ReadAsGrassCoverErosionInwardsFailureMechanism(this FailureMechanismEntity entity, GrassCoverErosionInwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
-            {
-                StorageId = entity.FailureMechanismEntityId,
-                IsRelevant = entity.IsRelevant == 1,
-                Comments = entity.Comments
-            };
+            failureMechanism.StorageId = entity.FailureMechanismEntityId;
+            failureMechanism.IsRelevant = entity.IsRelevant == 1;
+            failureMechanism.Comments = entity.Comments;
 
             entity.ReadFailureMechanismSections(failureMechanism, collector);
-
-            return failureMechanism;
         }
 
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to construct a <see cref="MacrostabilityInwardsFailureMechanism"/>.
         /// </summary>
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="GrassCoverErosionInwardsFailureMechanism"/> for.</param>
+        /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="MacrostabilityInwardsFailureMechanism"/>.</returns>
-        internal static IFailureMechanism ReadAsStandAloneFailureMechanism(this FailureMechanismEntity entity, ReadConversionCollector collector)
+        internal static void ReadAsStandAloneFailureMechanism(this FailureMechanismEntity entity, IFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            var failureMechanism = new TemporaryFailureMechanism
-            {
-                StorageId = entity.FailureMechanismEntityId,
-                IsRelevant = entity.IsRelevant == 1,
-                Comments = entity.Comments
-            };
+            failureMechanism.StorageId = entity.FailureMechanismEntityId;
+            failureMechanism.IsRelevant = entity.IsRelevant == 1;
+            failureMechanism.Comments = entity.Comments;
 
             entity.ReadFailureMechanismSections(failureMechanism, collector);
-
-            return failureMechanism;
         }
 
         private static void ReadProbabilityAssessmentInput(ICollection<PipingFailureMechanismMetaEntity> pipingFailureMechanismMetaEntities, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput)
@@ -164,18 +156,6 @@ namespace Application.Ringtoets.Storage.Read
             foreach (var failureMechanismSectionEntity in entity.FailureMechanismSectionEntities)
             {
                 failureMechanism.AddSection(failureMechanismSectionEntity.Read(collector));
-            }
-        }
-    }
-
-    internal class TemporaryFailureMechanism : FailureMechanismBase {
-        public TemporaryFailureMechanism() : base("a", "a") {}
-
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return Enumerable.Empty<ICalculation>();
             }
         }
     }

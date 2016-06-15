@@ -25,6 +25,8 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
@@ -267,9 +269,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 Comments = "Some comment"
             };
             var collector = new ReadConversionCollector();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            var failureMechanism = entity.ReadAsGrassCoverErosionInwardsFailureMechanism(collector);
+            entity.ReadAsGrassCoverErosionInwardsFailureMechanism(failureMechanism, collector);
 
             // Assert
             Assert.IsNotNull(failureMechanism);
@@ -300,9 +303,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             var collector = new ReadConversionCollector();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            var failureMechanism = entity.ReadAsGrassCoverErosionInwardsFailureMechanism(collector);
+            entity.ReadAsGrassCoverErosionInwardsFailureMechanism(failureMechanism, collector);
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
@@ -322,9 +326,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 Comments = "Some comment"
             };
             var collector = new ReadConversionCollector();
+            var failureMechanism = new TestFailureMechanism();
 
             // Call
-            var failureMechanism = entity.ReadAsStandAloneFailureMechanism(collector);
+            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
 
             // Assert
             Assert.IsEmpty(failureMechanism.Sections);
@@ -355,9 +360,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             var collector = new ReadConversionCollector();
+            var failureMechanism = new TestFailureMechanism();
 
             // Call
-            var failureMechanism = entity.ReadAsStandAloneFailureMechanism(collector);
+            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
