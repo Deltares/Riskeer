@@ -21,18 +21,14 @@
 
 using System.Drawing;
 using System.Linq;
-
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -166,6 +162,37 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ChildNodeObjects_Always_ReturnDikeProfiles()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var dikeProfile1 = new DikeProfile(new Point2D(0, 0));
+            var dikeProfile2 = new DikeProfile(new Point2D(0, 0));
+            var dikeProfiles = new ObservableList<DikeProfile>
+            {
+                dikeProfile1,
+                dikeProfile2
+            };
+
+            var dikeProfilesContext = new DikeProfilesContext(dikeProfiles, assessmentSection);
+
+            // Call
+            var children = info.ChildNodeObjects(dikeProfilesContext);
+
+            // Assert
+            var expectedChildren = new[]
+            {
+                dikeProfile1,
+                dikeProfile2
+            };
+            CollectionAssert.AreEqual(expectedChildren, children);
+            mocks.ReplayAll();
         }
 
         [Test]
