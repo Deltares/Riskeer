@@ -44,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetDikeProfileInstanceWithData_ReturnCorrectPropertyValues()
+        public void Data_SetDikeProfileInstanceWithBreakWater_ReturnCorrectPropertyValues()
         {
             // Setup
             var dikeProfile = new DikeProfile(new Point2D(0, 0))
@@ -64,7 +64,66 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void PropertyAttributes_ReturnExpectedValues()
+        public void Data_SetDikeProfileInstanceWithoutBreakWater_ReturnCorrectPropertyValues()
+        {
+            // Setup
+            var dikeProfile = new DikeProfile(new Point2D(0, 0));
+
+            var properties = new DikeProfileBreakWaterProperties();
+
+            // Call
+            properties.Data = dikeProfile;
+
+            // Assert
+            Assert.IsFalse(properties.HasBreakWater);
+        }
+
+        [Test]
+        public void PropertyAttributes_SetDikeProfileInstanceWithBreakWater_ReturnExpectedValues()
+        {
+            // Setup
+            var dikeProfile = new DikeProfile(new Point2D(0, 0))
+            {
+                BreakWater = new BreakWater(BreakWaterType.Caisson, 10.0)
+            };
+
+            // Call
+            var properties = new DikeProfileBreakWaterProperties
+            {
+                Data = dikeProfile
+            };
+
+            // Assert
+            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
+
+            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
+            Assert.AreEqual(4, dynamicProperties.Count);
+
+            PropertyDescriptor useBreakWaterProperty = dynamicProperties[0];
+            Assert.IsNotNull(useBreakWaterProperty);
+            Assert.IsTrue(useBreakWaterProperty.IsReadOnly);
+            Assert.AreEqual("Aanwezig", useBreakWaterProperty.DisplayName);
+            Assert.AreEqual("Is er een dam aanwezig?", useBreakWaterProperty.Description);
+
+            PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
+            Assert.IsNotNull(breakWaterTypeProperty);
+            Assert.IsTrue(breakWaterTypeProperty.IsBrowsable);
+            Assert.IsTrue(breakWaterTypeProperty.IsReadOnly);
+            Assert.AreEqual("Type", breakWaterTypeProperty.DisplayName);
+            Assert.AreEqual("Het type van de dam.", breakWaterTypeProperty.Description);
+
+            PropertyDescriptor breakWaterHeightProperty = dynamicProperties[2];
+            Assert.IsNotNull(breakWaterHeightProperty);
+            Assert.IsTrue(breakWaterHeightProperty.IsBrowsable);
+            Assert.IsTrue(breakWaterHeightProperty.IsReadOnly);
+            Assert.AreEqual("Hoogte [m+NAP]", breakWaterHeightProperty.DisplayName);
+            Assert.AreEqual("De hoogte van de dam [m+NAP].", breakWaterHeightProperty.Description);
+        }
+
+        [Test]
+        public void PropertyAttributes_SetDikeProfileInstanceWithoutBreakWater_ReturnExpectedValues()
         {
             // Setup
             var dikeProfile = new DikeProfile(new Point2D(0, 0));
@@ -91,15 +150,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
             Assert.IsNotNull(breakWaterTypeProperty);
-            Assert.IsTrue(breakWaterTypeProperty.IsReadOnly);
-            Assert.AreEqual("Type", breakWaterTypeProperty.DisplayName);
-            Assert.AreEqual("Het type van de dam.", breakWaterTypeProperty.Description);
+            Assert.IsFalse(breakWaterTypeProperty.IsBrowsable);
 
             PropertyDescriptor breakWaterHeightProperty = dynamicProperties[2];
             Assert.IsNotNull(breakWaterHeightProperty);
-            Assert.IsTrue(breakWaterHeightProperty.IsReadOnly);
-            Assert.AreEqual("Hoogte [m+NAP]", breakWaterHeightProperty.DisplayName);
-            Assert.AreEqual("De hoogte van de dam [m+NAP].", breakWaterHeightProperty.Description);
+            Assert.IsFalse(breakWaterHeightProperty.IsBrowsable);
         }
     }
 }

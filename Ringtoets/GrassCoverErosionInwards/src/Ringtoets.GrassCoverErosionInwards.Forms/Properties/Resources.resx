@@ -172,11 +172,17 @@
   <data name="BreakWaterType_DisplayName" xml:space="preserve">
     <value>Type</value>
   </data>
-  <data name="BreakWater_UseBreakWater_Description" xml:space="preserve">
+  <data name="BreakWater_HasBreakWater_Description" xml:space="preserve">
     <value>Is er een dam aanwezig?</value>
   </data>
-  <data name="BreakWater_UseBreakWater_DisplayName" xml:space="preserve">
+  <data name="BreakWater_HasBreakWater_DisplayName" xml:space="preserve">
     <value>Aanwezig</value>
+  </data>
+  <data name="BreakWater_UseBreakWater_Description" xml:space="preserve">
+    <value>Moet de dam worden gebruikt tijdens de berekening?</value>
+  </data>
+  <data name="BreakWater_UseBreakWater_DisplayName" xml:space="preserve">
+    <value>Gebruik</value>
   </data>
   <data name="DikeGeometryProperties_Description" xml:space="preserve">
     <value>Eigenschappen van de dijkgeometrie.</value>

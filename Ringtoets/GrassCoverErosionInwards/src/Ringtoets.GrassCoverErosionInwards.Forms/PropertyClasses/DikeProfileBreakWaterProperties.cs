@@ -37,8 +37,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     public class DikeProfileBreakWaterProperties : ObjectProperties<DikeProfile>
     {
         [PropertyOrder(1)]
-        [ResourcesDisplayName(typeof(Resources), "BreakWater_UseBreakWater_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "BreakWater_UseBreakWater_Description")]
+        [ResourcesDisplayName(typeof(Resources), "BreakWater_HasBreakWater_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "BreakWater_HasBreakWater_Description")]
         public bool HasBreakWater
         {
             get
@@ -47,6 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(2)]
         [ResourcesDisplayName(typeof(Resources), "BreakWaterType_DisplayName")]
         [ResourcesDescription(typeof(Resources), "BreakWaterType_Description")]
@@ -59,6 +60,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(3)]
         [ResourcesDisplayName(typeof(Resources), "BreakWaterHeight_DisplayName")]
         [ResourcesDescription(typeof(Resources), "BreakWaterHeight_Description")]
@@ -68,6 +70,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             {
                 return data.BreakWater.Height;
             }
+        }
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            return data.HasBreakWater;
         }
 
         public override string ToString()

@@ -63,6 +63,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Is er een dam aanwezig?.
         /// </summary>
+        public static string BreakWater_HasBreakWater_Description {
+            get {
+                return ResourceManager.GetString("BreakWater_HasBreakWater_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aanwezig.
+        /// </summary>
+        public static string BreakWater_HasBreakWater_DisplayName {
+            get {
+                return ResourceManager.GetString("BreakWater_HasBreakWater_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moet het de golfbreker worden gebruikt tijdens de berekening?.
+        /// </summary>
         public static string BreakWater_UseBreakWater_Description {
             get {
                 return ResourceManager.GetString("BreakWater_UseBreakWater_Description", resourceCulture);
@@ -70,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aanwezig.
+        ///   Looks up a localized string similar to Gebruik.
         /// </summary>
         public static string BreakWater_UseBreakWater_DisplayName {
             get {

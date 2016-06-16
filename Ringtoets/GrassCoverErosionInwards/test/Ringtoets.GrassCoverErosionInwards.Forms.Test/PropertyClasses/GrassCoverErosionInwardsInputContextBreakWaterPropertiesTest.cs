@@ -138,8 +138,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptor useBreakWaterProperty = dynamicProperties[0];
             Assert.IsNotNull(useBreakWaterProperty);
             Assert.IsFalse(useBreakWaterProperty.IsReadOnly);
-            Assert.AreEqual("Aanwezig", useBreakWaterProperty.DisplayName);
-            Assert.AreEqual("Is er een dam aanwezig?", useBreakWaterProperty.Description);
+            Assert.AreEqual("Gebruik", useBreakWaterProperty.DisplayName);
+            Assert.AreEqual("Moet de dam worden gebruikt tijdens de berekening?", useBreakWaterProperty.Description);
 
             PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
             Assert.IsNotNull(breakWaterTypeProperty);
