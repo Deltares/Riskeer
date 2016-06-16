@@ -689,7 +689,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingCalculationsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_SectionResultScenariosNotUpdated()
+        public void GivenPipingCalculationsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_CalculationsNotUpdated()
         {
             // Given
             var pipingCalculationsView = ShowPipingCalculationsView();
@@ -715,11 +715,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             button.Click();
 
             // Then
-            foreach (var failureMechanismSectionResult in pipingCalculationsView.PipingFailureMechanism.SectionResults)
-            {
-                // TODO is this test still relevant?
-                //CollectionAssert.IsEmpty(failureMechanismSectionResult.GetCalculationScenarios(pipingFailureMechanism.Calculations));
-            }
+            Assert.IsEmpty(pipingCalculationsView.PipingFailureMechanism.Calculations);
         }
 
         [Test]

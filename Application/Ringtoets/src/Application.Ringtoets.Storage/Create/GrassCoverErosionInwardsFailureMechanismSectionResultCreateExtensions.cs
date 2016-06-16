@@ -44,14 +44,14 @@ namespace Application.Ringtoets.Storage.Create
             {
                 throw new ArgumentNullException("registry");
             }
-            var pipingSectionResultEntity = new GrassCoverErosionInwardsSectionResultEntity
+            var sectionResultEntity = new GrassCoverErosionInwardsSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
                 LayerThree = result.AssessmentLayerThree.Value.ToNullableDecimal()
             };
 
-            registry.Register(pipingSectionResultEntity, result);
-            return pipingSectionResultEntity;
+            registry.Register(sectionResultEntity, result);
+            return sectionResultEntity;
         }
     }
 }

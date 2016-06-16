@@ -551,8 +551,6 @@ namespace Ringtoets.Piping.Forms.Views
             }
 
             calculationGroup.NotifyObservers();
-            // TODO still needed ?
-            pipingFailureMechanism.NotifyObservers();
         }
 
         private void OnPipingFailureMechanismUpdate()

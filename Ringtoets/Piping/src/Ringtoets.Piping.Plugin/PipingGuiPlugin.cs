@@ -638,8 +638,6 @@ namespace Ringtoets.Piping.Plugin
             GeneratePipingCalculations(nodeData.WrappedData, view.SelectedSurfaceLines, nodeData.AvailableStochasticSoilModels, nodeData.FailureMechanism.GeneralInput);
 
             nodeData.NotifyObservers();
-            // TODO still needed?
-            nodeData.FailureMechanism.NotifyObservers();
         }
 
         private void GeneratePipingCalculations(CalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput)
