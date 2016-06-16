@@ -61,6 +61,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanismContextProperties>();
+            yield return new PropertyInfo<DikeProfile, DikeProfileProperties>();
             yield return new PropertyInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsInputContextProperties>();
         }
 

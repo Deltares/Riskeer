@@ -34,7 +34,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of foreshore of <see cref="DikeProfile"/> for properties panel.
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class DikeProfileForeshoreProperties : ObjectProperties<DikeProfile>
     {
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]

@@ -65,6 +65,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(breakWaterPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "BreakWaterProperties_DisplayName")]
         [ResourcesDescription(typeof(Resources), "BreakWaterProperties_Description")]
@@ -80,6 +81,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(foreshorePropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "ForeshoreProperties_DisplayName")]
         [ResourcesDescription(typeof(Resources), "ForeshoreProperties_Description")]
@@ -95,6 +97,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(dikeGeometryPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "DikeGeometryProperties_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DikeGeometryProperties_Description")]

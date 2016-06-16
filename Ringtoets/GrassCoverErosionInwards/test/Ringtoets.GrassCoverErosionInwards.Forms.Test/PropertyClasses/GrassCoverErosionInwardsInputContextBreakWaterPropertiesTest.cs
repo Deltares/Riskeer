@@ -128,9 +128,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Assert
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
-
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             Assert.AreEqual(4, dynamicProperties.Count);

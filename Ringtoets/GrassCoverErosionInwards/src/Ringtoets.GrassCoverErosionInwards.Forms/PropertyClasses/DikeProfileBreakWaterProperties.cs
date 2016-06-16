@@ -33,7 +33,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of break water of <see cref="DikeProfile"/> for properties panel.
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class DikeProfileBreakWaterProperties : ObjectProperties<DikeProfile>
     {
         [PropertyOrder(1)]

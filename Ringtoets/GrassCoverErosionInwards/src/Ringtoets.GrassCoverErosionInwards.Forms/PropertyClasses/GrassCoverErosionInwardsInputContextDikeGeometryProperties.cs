@@ -36,7 +36,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of dike geometry of <see cref="GrassCoverErosionInwardsInputContext"/> for properties panel.
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class GrassCoverErosionInwardsInputContextDikeGeometryProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
     {
         [PropertyOrder(1)]

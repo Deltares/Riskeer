@@ -34,7 +34,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of break water of <see cref="GrassCoverErosionInwardsInputContext"/> for properties panel.
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class GrassCoverErosionInwardsInputContextBreakWaterProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
     {
         [PropertyOrder(1)]
