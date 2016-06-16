@@ -206,9 +206,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new LogNormalDistributionProperties(observerableMock, DistributionPropertiesReadOnly.None);
 
             // Assert
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            Assert.IsNotInstanceOf<ExpandableObjectConverter>(classTypeConverter);
-
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
             {

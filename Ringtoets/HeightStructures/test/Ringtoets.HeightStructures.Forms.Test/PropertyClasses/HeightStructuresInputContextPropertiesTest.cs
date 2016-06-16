@@ -282,31 +282,37 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Oriëntatie van het kunstwerk.", orientationOfTheNormalOfTheStructureProperty.Description);
 
             PropertyDescriptor levelOfCrestOfStructureProperty = dynamicProperties[levelOfCrestOfStructurePropertyIndex];
+            Assert.IsTrue(levelOfCrestOfStructureProperty.Converter is ExpandableObjectConverter);
             Assert.AreEqual("Schematisatie", levelOfCrestOfStructureProperty.Category);
             Assert.AreEqual("Kerende hoogte [m]", levelOfCrestOfStructureProperty.DisplayName);
             Assert.AreEqual("De kerende hoogte van het kunstwerk.", levelOfCrestOfStructureProperty.Description);
 
             PropertyDescriptor allowableIncreaseOfLevelForStorageProperty = dynamicProperties[allowableIncreaseOfLevelForStoragePropertyIndex];
+            Assert.IsTrue(allowableIncreaseOfLevelForStorageProperty.Converter is ExpandableObjectConverter);
             Assert.AreEqual("Schematisatie", allowableIncreaseOfLevelForStorageProperty.Category);
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", allowableIncreaseOfLevelForStorageProperty.DisplayName);
             Assert.AreEqual("De toegestane peilverhoging op het kombergend oppervlak.", allowableIncreaseOfLevelForStorageProperty.Description);
 
             PropertyDescriptor storageStructureAreaProperty = dynamicProperties[storageStructureAreaPropertyIndex];
+            Assert.IsTrue(storageStructureAreaProperty.Converter is ExpandableObjectConverter);
             Assert.AreEqual("Schematisatie", storageStructureAreaProperty.Category);
             Assert.AreEqual("Kombergend oppervlak [m²]", storageStructureAreaProperty.DisplayName);
             Assert.AreEqual("Het kombergend oppervlak.", storageStructureAreaProperty.Description);
 
             PropertyDescriptor flowWidthAtBottomProtectionProperty = dynamicProperties[flowWidthAtBottomProtectionPropertyIndex];
+            Assert.IsTrue(flowWidthAtBottomProtectionProperty.Converter is ExpandableObjectConverter);
             Assert.AreEqual("Schematisatie", flowWidthAtBottomProtectionProperty.Category);
             Assert.AreEqual("Stroomvoerende breedte bij bodembescherming [m]", flowWidthAtBottomProtectionProperty.DisplayName);
             Assert.AreEqual("De stroomvoerende breedte bij bodembescherming.", flowWidthAtBottomProtectionProperty.Description);
 
             PropertyDescriptor widthOfFlowAperturesProperty = dynamicProperties[widthOfFlowAperturesPropertyIndex];
+            Assert.IsTrue(widthOfFlowAperturesProperty.Converter is ExpandableObjectConverter);
             Assert.AreEqual("Schematisatie", widthOfFlowAperturesProperty.Category);
             Assert.AreEqual("Breedte van de kruin van het kunstwerk [m]", widthOfFlowAperturesProperty.DisplayName);
             Assert.AreEqual("De breedte van de kruin van het kunstwerk.", widthOfFlowAperturesProperty.Description);
 
             PropertyDescriptor criticalOvertoppingDischargeProperty = dynamicProperties[criticalOvertoppingDischargePropertyIndex];
+            Assert.IsTrue(criticalOvertoppingDischargeProperty.Converter is ExpandableObjectConverter);
             Assert.AreEqual("Schematisatie", criticalOvertoppingDischargeProperty.Category);
             Assert.AreEqual("Kritiek overslagdebiet [m³/s/m]", criticalOvertoppingDischargeProperty.DisplayName);
             Assert.AreEqual("Het kritieke overslagdebiet per strekkende meter.", criticalOvertoppingDischargeProperty.Description);
@@ -318,6 +324,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("De faalkans van het kunstwerk gegeven de erosie in de bodem.", failureProbabilityOfStructureGivenErosionProperty.Description);
 
             PropertyDescriptor modelFactorOvertoppingSuperCriticalFlowProperty = dynamicProperties[modelFactorOvertoppingSuperCriticalFlowPropertyIndex];
+            Assert.IsTrue(modelFactorOvertoppingSuperCriticalFlowProperty.Converter is ExpandableObjectConverter);
             Assert.AreEqual("Modelfactoren", modelFactorOvertoppingSuperCriticalFlowProperty.Category);
             Assert.AreEqual("Modelfactor van overloopdebiet bij superkritische stroming [-]", modelFactorOvertoppingSuperCriticalFlowProperty.DisplayName);
             Assert.AreEqual("Het modelfactor van overloopdebiet bij superkritische stroming.", modelFactorOvertoppingSuperCriticalFlowProperty.Description);
@@ -329,6 +336,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("De locatie met hydraulische randvoorwaarden.", hydraulicBoundaryLocationProperty.Description);
 
             PropertyDescriptor stormDurationProperty = dynamicProperties[stormDurationPropertyIndex];
+            Assert.IsTrue(stormDurationProperty.Converter is ExpandableObjectConverter);
             Assert.AreEqual("Hydraulische gegevens", stormDurationProperty.Category);
             Assert.AreEqual("Stormduur [uur]", stormDurationProperty.DisplayName);
             Assert.AreEqual("De duur van de storm.", stormDurationProperty.Description);
