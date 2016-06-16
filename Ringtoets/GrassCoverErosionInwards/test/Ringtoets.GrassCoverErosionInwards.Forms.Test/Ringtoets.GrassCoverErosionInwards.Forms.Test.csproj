@@ -64,6 +64,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyClasses\DikeProfileForeshorePropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\BreakWaterPropertiesTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionInwardsCalculationContextTest.cs" />
@@ -73,7 +74,7 @@
     <Compile Include="PresentationObjects\GrassCoverErosionInwardsInputContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\DikeGeometryPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\ForeshorePropertiesTest.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextForeshorePropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\DikeProfileTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DikeProfilesContextTreeNodeInfoTest.cs" />

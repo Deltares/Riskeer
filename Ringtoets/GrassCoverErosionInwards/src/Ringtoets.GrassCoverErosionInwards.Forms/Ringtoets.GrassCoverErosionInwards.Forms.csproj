@@ -54,9 +54,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\BreakWaterProperties.cs" />
+    <Compile Include="PropertyClasses\DikeProfileForeshoreProperties.cs" />
     <Compile Include="PropertyClasses\DikeGeometryProperties.cs" />
     <Compile Include="TypeConverters\EnumTypeConverter.cs" />
-    <Compile Include="PropertyClasses\ForeshoreProperties.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextForeshoreProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsFailureMechanismContextProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextProperties.cs" />
     <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditor.cs" />

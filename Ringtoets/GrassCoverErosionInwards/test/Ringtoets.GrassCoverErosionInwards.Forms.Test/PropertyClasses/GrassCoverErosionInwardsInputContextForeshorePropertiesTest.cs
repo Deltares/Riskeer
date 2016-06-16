@@ -33,7 +33,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class ForeshorePropertiesTest
+    public class GrassCoverErosionInwardsInputContextForeshorePropertiesTest
     {
         private MockRepository mockRepository;
 
@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup & Call
-            var properties = new ForeshoreProperties();
+            var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties();
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsInputContext>>(properties);
@@ -65,7 +65,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var inputMock = mockRepository.StrictMock<GrassCoverErosionInwardsInput>();
             mockRepository.ReplayAll();
 
-            var properties = new ForeshoreProperties();
+            var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties();
 
             // Call
             properties.Data = new GrassCoverErosionInwardsInputContext(inputMock, calculationMock, failureMechanismMock, assessmentSectionMock);
@@ -95,7 +95,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             {
                 new ProfileSection(new Point2D(0, 0), new Point2D(1, 1))
             });
-            var properties = new ForeshoreProperties();
+            var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties();
 
             // Call
             properties.Data = new GrassCoverErosionInwardsInputContext(calculation.InputParameters, calculation, failureMechanismMock, assessmentSectionMock);
@@ -126,7 +126,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var input = new GrassCoverErosionInwardsInput();
             input.Attach(observerMock);
-            var properties = new ForeshoreProperties
+            var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties
             {
                 Data = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock)
             };
@@ -151,7 +151,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var input = new GrassCoverErosionInwardsInput();
 
             // Call
-            var properties = new ForeshoreProperties
+            var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties
             {
                 Data = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock)
             };

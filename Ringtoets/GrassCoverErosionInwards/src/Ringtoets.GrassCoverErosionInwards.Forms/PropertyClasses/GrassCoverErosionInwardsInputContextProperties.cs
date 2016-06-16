@@ -83,11 +83,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "ForeshoreProperties_DisplayName")]
         [ResourcesDescription(typeof(Resources), "ForeshoreProperties_Description")]
-        public ForeshoreProperties Foreshore
+        public GrassCoverErosionInwardsInputContextForeshoreProperties Foreshore
         {
             get
             {
-                return new ForeshoreProperties
+                return new GrassCoverErosionInwardsInputContextForeshoreProperties
                 {
                     Data = data
                 };

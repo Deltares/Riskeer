@@ -83,7 +83,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.DikeHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(0.00, properties.DikeHeight.Value);
 
-            var foreshoreProperties = new ForeshoreProperties
+            var foreshoreProperties = new GrassCoverErosionInwardsInputContextForeshoreProperties
             {
                 Data = inputContext
             };
