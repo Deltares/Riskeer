@@ -65,41 +65,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var input = new GrassCoverErosionInwardsInput();
-
-            var properties = new GrassCoverErosionInwardsInputContextProperties();
+            var inputContext = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock);
 
             // Call
-            var inputContext = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock);
-            properties.Data = inputContext;
+            var properties = new GrassCoverErosionInwardsInputContextProperties
+            {
+                Data = inputContext
+            };
 
             // Assert
-            var dikeGeometryProperties = new GrassCoverErosionInwardsInputContextDikeGeometryProperties
-            {
-                Data = inputContext
-            };
-            Assert.AreEqual(dikeGeometryProperties.Coordinates, properties.DikeGeometry.Coordinates);
-            Assert.AreEqual(dikeGeometryProperties.Roughness, properties.DikeGeometry.Roughness);
-
-            Assert.AreEqual(2, properties.DikeHeight.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.00, properties.DikeHeight.Value);
-
-            var foreshoreProperties = new GrassCoverErosionInwardsInputContextForeshoreProperties
-            {
-                Data = inputContext
-            };
-            Assert.AreEqual(foreshoreProperties.UseForeshore, properties.Foreshore.UseForeshore);
-            Assert.AreEqual(foreshoreProperties.Coordinates, properties.Foreshore.Coordinates);
-
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.00, properties.Orientation.Value);
-
-            var breakWaterProperties = new GrassCoverErosionInwardsInputContextBreakWaterProperties
-            {
-                Data = inputContext
-            };
-            Assert.AreEqual(breakWaterProperties.UseBreakWater, properties.BreakWater.UseBreakWater);
-            Assert.AreEqual(breakWaterProperties.BreakWaterHeight, properties.BreakWater.BreakWaterHeight);
-            Assert.AreEqual(breakWaterProperties.BreakWaterType, properties.BreakWater.BreakWaterType);
+            Assert.AreEqual(0.0, properties.Orientation.Value);
+            Assert.AreSame(inputContext, properties.BreakWater.Data);
+            Assert.AreSame(inputContext, properties.Foreshore.Data);
+            Assert.AreSame(inputContext, properties.DikeGeometry.Data);
+            Assert.AreEqual(2, properties.DikeHeight.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.0, properties.DikeHeight.Value);
             Assert.AreEqual(input.CriticalFlowRate.Mean, properties.CriticalFlowRate.Mean);
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
             Assert.AreEqual(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
@@ -132,13 +113,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var newOrientation = new RoundedDouble(2, 5);
 
             // Call
-            properties.DikeHeight = newDikeHeight;
             properties.Orientation = newOrientation;
+            properties.DikeHeight = newDikeHeight;
             properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             // Assert
-            Assert.AreEqual(newDikeHeight, input.DikeHeight);
             Assert.AreEqual(newOrientation, input.Orientation);
+            Assert.AreEqual(newDikeHeight, input.DikeHeight);
             Assert.AreEqual(hydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
             mockRepository.VerifyAll();
         }
@@ -164,27 +145,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             Assert.AreEqual(8, dynamicProperties.Count);
 
-            PropertyDescriptor dikeGeometryProperty = dynamicProperties[dikeGeometryPropertyIndex];
-            Assert.IsNotNull(dikeGeometryProperty);
-            Assert.IsTrue(dikeGeometryProperty.IsReadOnly);
-            Assert.AreEqual("Schematisatie", dikeGeometryProperty.Category);
-            Assert.AreEqual("Dijkgeometrie", dikeGeometryProperty.DisplayName);
-            Assert.AreEqual("Eigenschappen van de dijkgeometrie.", dikeGeometryProperty.Description);
-
-            PropertyDescriptor dikeHeightProperty = dynamicProperties[dikeHeightPropertyIndex];
-            Assert.IsNotNull(dikeHeightProperty);
-            Assert.IsFalse(dikeHeightProperty.IsReadOnly);
-            Assert.AreEqual("Schematisatie", dikeHeightProperty.Category);
-            Assert.AreEqual("Dijkhoogte [m+NAP]", dikeHeightProperty.DisplayName);
-            Assert.AreEqual("De hoogte van de dijk [m+NAP].", dikeHeightProperty.Description);
-
-            PropertyDescriptor foreshoreProperty = dynamicProperties[foreshorePropertyIndex];
-            Assert.IsNotNull(foreshoreProperty);
-            Assert.IsTrue(foreshoreProperty.IsReadOnly);
-            Assert.AreEqual("Schematisatie", foreshoreProperty.Category);
-            Assert.AreEqual("Voorlandgeometrie", foreshoreProperty.DisplayName);
-            Assert.AreEqual("Eigenschappen van de voorlandgeometrie.", foreshoreProperty.Description);
-
             PropertyDescriptor orientationProperty = dynamicProperties[orientationPropertyIndex];
             Assert.IsNotNull(orientationProperty);
             Assert.IsFalse(orientationProperty.IsReadOnly);
@@ -198,6 +158,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Schematisatie", breakWaterProperty.Category);
             Assert.AreEqual("Dam", breakWaterProperty.DisplayName);
             Assert.AreEqual("Eigenschappen van de dam.", breakWaterProperty.Description);
+
+            PropertyDescriptor foreshoreProperty = dynamicProperties[foreshorePropertyIndex];
+            Assert.IsNotNull(foreshoreProperty);
+            Assert.IsTrue(foreshoreProperty.IsReadOnly);
+            Assert.AreEqual("Schematisatie", foreshoreProperty.Category);
+            Assert.AreEqual("Voorlandgeometrie", foreshoreProperty.DisplayName);
+            Assert.AreEqual("Eigenschappen van de voorlandgeometrie.", foreshoreProperty.Description);
+
+            PropertyDescriptor dikeGeometryProperty = dynamicProperties[dikeGeometryPropertyIndex];
+            Assert.IsNotNull(dikeGeometryProperty);
+            Assert.IsTrue(dikeGeometryProperty.IsReadOnly);
+            Assert.AreEqual("Schematisatie", dikeGeometryProperty.Category);
+            Assert.AreEqual("Dijkgeometrie", dikeGeometryProperty.DisplayName);
+            Assert.AreEqual("Eigenschappen van de dijkgeometrie.", dikeGeometryProperty.Description);
+
+            PropertyDescriptor dikeHeightProperty = dynamicProperties[dikeHeightPropertyIndex];
+            Assert.IsNotNull(dikeHeightProperty);
+            Assert.IsFalse(dikeHeightProperty.IsReadOnly);
+            Assert.AreEqual("Schematisatie", dikeHeightProperty.Category);
+            Assert.AreEqual("Dijkhoogte [m+NAP]", dikeHeightProperty.DisplayName);
+            Assert.AreEqual("De hoogte van de dijk [m+NAP].", dikeHeightProperty.Description);
 
             PropertyDescriptor criticalFlowRateProperty = dynamicProperties[criticalFlowRatePropertyIndex];
             Assert.IsNotNull(criticalFlowRateProperty);
