@@ -98,6 +98,7 @@
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilModelSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilProfileSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSurfaceLineSelectionEditorTest.cs" />
+    <Compile Include="Views\PipingCalculationInputViewTest.cs" />
     <Compile Include="Views\PipingCalculationRowTest.cs" />
     <Compile Include="Views\PipingFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\PipingCalculationsViewTest.cs" />
@@ -134,6 +135,10 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting.Forms\Core.Components.Charting.Forms.csproj">
+      <Project>{2465CCA1-C505-4827-9454-4FD5FD9194CD}</Project>
+      <Name>Core.Components.Charting.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
       <Project>{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}</Project>

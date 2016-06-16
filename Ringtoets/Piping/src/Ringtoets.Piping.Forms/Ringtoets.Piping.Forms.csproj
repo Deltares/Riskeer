@@ -39,9 +39,16 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Core.Components.Charting, Version=0.5.0.3615, Culture=neutral, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Core.Components.OxyPlot, Version=0.5.0.3615, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="Core.Components.OxyPlot.Forms, Version=0.5.0.3615, Culture=neutral, processorArchitecture=x86" />
     <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9" />
+    <Reference Include="OxyPlot.WindowsForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=245eacd6b5d2d338" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -92,6 +99,12 @@
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilModelSelectionEditor.cs" />
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilProfileSelectionEditor.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSurfaceLineSelectionEditor.cs" />
+    <Compile Include="Views\PipingCalculationInputView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PipingCalculationInputView.Designer.cs">
+      <DependentUpon>PipingCalculationInputView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\PipingCalculationRow.cs" />
     <Compile Include="Views\PipingCalculationsView.cs">
       <SubType>UserControl</SubType>
@@ -142,6 +155,11 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Version\Core.Common.Version.csproj">
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
       <Name>Core.Common.Version</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting.Forms\Core.Components.Charting.Forms.csproj">
+      <Project>{2465CCA1-C505-4827-9454-4FD5FD9194CD}</Project>
+      <Name>Core.Components.Charting.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
@@ -203,6 +221,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PipingCalculationInputView.resx">
+      <DependentUpon>PipingCalculationInputView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PipingCalculationsView.resx">
       <DependentUpon>PipingCalculationsView.cs</DependentUpon>
