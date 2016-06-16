@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
 using OxyPlot;
 
 namespace Core.Components.OxyPlot.Converter
@@ -61,6 +63,49 @@ namespace Core.Components.OxyPlot.Converter
                     throw new NotSupportedException();
             }
             return lineStyle;
+        }
+
+        /// <summary>
+        /// Converts <see cref="ChartPointSymbol"/> to <see cref="MarkerType"/>.
+        /// </summary>
+        /// <param name="symbol">The <see cref="ChartPointSymbol"/> to convert.</param>
+        /// <returns>The converted <see cref="MarkerType"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="symbol"/> 
+        /// cannot be converted.</exception>
+        public static MarkerType Convert(ChartPointSymbol symbol)
+        {
+            MarkerType markerType;
+            switch (symbol)
+            {
+                case ChartPointSymbol.None:
+                    markerType = MarkerType.None;
+                    break;
+                case ChartPointSymbol.Circle:
+                    markerType = MarkerType.Circle;
+                    break;
+                case ChartPointSymbol.Square:
+                    markerType = MarkerType.Square;
+                    break;
+                case ChartPointSymbol.Diamond:
+                    markerType = MarkerType.Diamond;
+                    break;
+                case ChartPointSymbol.Triangle:
+                    markerType = MarkerType.Triangle;
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
+            return markerType;
+        }
+
+        /// <summary>
+        /// Converts <see cref="Color"/> to <see cref="OxyColor"/>.
+        /// </summary>
+        /// <param name="color">The <see cref="Color"/> to convert.</param>
+        /// <returns>The converted <see cref="OxyColor"/>.</returns>
+        public static OxyColor Convert(Color color)
+        {
+            return OxyColor.FromArgb(color.A, color.R, color.G, color.B);
         }
     }
 }

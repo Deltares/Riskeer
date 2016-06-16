@@ -19,31 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using Core.Components.Charting.Styles;
-using NUnit.Framework;
-
-namespace Core.Components.Charting.Test.Styles
+namespace Core.Components.Charting.Styles
 {
-    [TestFixture]
-    public class ChartLineStyleTest
+    /// <summary>
+    /// All symbols supported by <see cref="ChartPointStyle"/>.
+    /// </summary>
+    public enum ChartPointSymbol
     {
-        [Test]
-        public void Constructor_WithAllParameters_SetsProperties()
-        {
-            // Setup
-            var color = Color.AliceBlue;
-            var width = 3;
-            var style = DashStyle.Solid;
-
-            // Call
-            var lineStyle = new ChartLineStyle(color, width, style);
-
-            // Assert
-            Assert.AreEqual(color, lineStyle.Color);
-            Assert.AreEqual(width, lineStyle.Width);
-            Assert.AreEqual(style, lineStyle.Style);
-        }
+        None,
+        Circle,
+        Square,
+        Diamond,
+        Triangle
     }
 }

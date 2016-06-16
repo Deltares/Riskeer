@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Components.Charting.Styles;
 
 namespace Core.Components.Charting.Data
 {
@@ -39,5 +40,10 @@ namespace Core.Components.Charting.Data
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
         public ChartPointData(IEnumerable<Tuple<double, double>> points, string name) : base(points, name) {}
+
+        /// <summary>
+        /// The style of the point.
+        /// </summary>
+        public ChartPointStyle Style { get; set; }
     }
 }

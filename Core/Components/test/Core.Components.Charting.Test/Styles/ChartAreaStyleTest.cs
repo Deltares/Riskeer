@@ -20,30 +20,29 @@
 // All rights reserved.
 
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Components.Charting.Styles;
 using NUnit.Framework;
 
 namespace Core.Components.Charting.Test.Styles
 {
     [TestFixture]
-    public class ChartLineStyleTest
+    public class ChartAreaStyleTest
     {
         [Test]
         public void Constructor_WithAllParameters_SetsProperties()
         {
             // Setup
-            var color = Color.AliceBlue;
+            var fillColor = Color.AliceBlue;
+            var strokeColor = Color.Blue;
             var width = 3;
-            var style = DashStyle.Solid;
 
             // Call
-            var lineStyle = new ChartLineStyle(color, width, style);
+            var areaStyle = new ChartAreaStyle(fillColor, strokeColor, width);
 
             // Assert
-            Assert.AreEqual(color, lineStyle.Color);
-            Assert.AreEqual(width, lineStyle.Width);
-            Assert.AreEqual(style, lineStyle.Style);
+            Assert.AreEqual(fillColor, areaStyle.FillColor);
+            Assert.AreEqual(strokeColor, areaStyle.StrokeColor);
+            Assert.AreEqual(width, areaStyle.Width);
         }
     }
 }

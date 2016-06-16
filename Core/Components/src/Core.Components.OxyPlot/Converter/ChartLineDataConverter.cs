@@ -40,8 +40,7 @@ namespace Core.Components.OxyPlot.Converter
                 ItemsSource = data.Points.ToArray(),
                 Mapping = TupleToDataPoint,
                 IsVisible = data.IsVisible,
-                Tag = data,
-                Title = data.Name
+                Tag = data
             };
 
             CreateStyle(series, data.Style);
@@ -53,7 +52,7 @@ namespace Core.Components.OxyPlot.Converter
         {
             if (style != null)
             {
-                series.Color = OxyColor.FromArgb(style.Color.A, style.Color.R, style.Color.G, style.Color.B);
+                series.Color = ChartDataHelper.Convert(style.Color);
                 series.StrokeThickness = style.Width;
                 series.LineStyle = ChartDataHelper.Convert(style.Style);
             }

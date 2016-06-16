@@ -22,8 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
 using Core.Components.Charting.TestUtil;
 using Core.Components.OxyPlot.Converter;
 using NUnit.Framework;
@@ -129,6 +131,81 @@ namespace Core.Components.OxyPlot.Test.Converter
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(KnownColor.AliceBlue)]
+        [TestCase(KnownColor.Azure)]
+        [TestCase(KnownColor.Beige)]
+        public void Convert_WithDifferentColors_AppliesStyleToSeries(KnownColor color)
+        {
+            // Setup
+            var converter = new ChartPointDataConverter();
+            var expectedColor = Color.FromKnownColor(color);
+            var style = new ChartPointStyle(expectedColor, 3, ChartPointSymbol.Circle);
+            var data = new ChartPointData(new Collection<Tuple<double, double>>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var series = converter.Convert(data);
+
+            // Assert
+            var lineSeries = ((LineSeries)series[0]);
+            AssertColors(style.Color, lineSeries.MarkerFill);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(5)]
+        [TestCase(7)]
+        public void Convert_WithDifferentWidths_AppliesStyleToSeries(int width)
+        {
+            // Setup
+            var converter = new ChartPointDataConverter();
+            var style = new ChartPointStyle(Color.Red, width, ChartPointSymbol.Circle);
+            var data = new ChartPointData(new Collection<Tuple<double, double>>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var series = converter.Convert(data);
+
+            // Assert
+            var lineSeries = ((LineSeries)series[0]);
+            Assert.AreEqual(width, lineSeries.MarkerSize);
+        }
+
+        [Test]
+        [TestCase(ChartPointSymbol.None, MarkerType.None)]
+        [TestCase(ChartPointSymbol.Circle, MarkerType.Circle)]
+        [TestCase(ChartPointSymbol.Square, MarkerType.Square)]
+        [TestCase(ChartPointSymbol.Diamond, MarkerType.Diamond)]
+        [TestCase(ChartPointSymbol.Triangle, MarkerType.Triangle)]
+        public void Convert_WidhtDifferentChartPointSymbols_AppliesStyleToSeries(ChartPointSymbol symbol, MarkerType expectedMarkerType)
+        {
+            // Setup
+            var converter = new ChartPointDataConverter();
+            var style = new ChartPointStyle(Color.Red, 3, symbol);
+            var data = new ChartPointData(new Collection<Tuple<double, double>>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var series = converter.Convert(data);
+
+            // Assert
+            var lineSeries = ((LineSeries)series[0]);
+            Assert.AreEqual(expectedMarkerType, lineSeries.MarkerType);
+        }
+
+        private void AssertColors(Color color, OxyColor oxyColor)
+        {
+            OxyColor originalColor = OxyColor.FromArgb(color.A, color.R, color.G, color.B);
+            Assert.AreEqual(originalColor, oxyColor);
         }
     }
 }

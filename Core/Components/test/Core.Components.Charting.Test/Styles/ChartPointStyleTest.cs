@@ -20,14 +20,13 @@
 // All rights reserved.
 
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Components.Charting.Styles;
 using NUnit.Framework;
 
 namespace Core.Components.Charting.Test.Styles
 {
     [TestFixture]
-    public class ChartLineStyleTest
+    public class ChartPointStyleTest
     {
         [Test]
         public void Constructor_WithAllParameters_SetsProperties()
@@ -35,15 +34,15 @@ namespace Core.Components.Charting.Test.Styles
             // Setup
             var color = Color.AliceBlue;
             var width = 3;
-            var style = DashStyle.Solid;
+            var symbol = ChartPointSymbol.Circle;
 
             // Call
-            var lineStyle = new ChartLineStyle(color, width, style);
+            var pointStyle = new ChartPointStyle(color, width, symbol);
 
             // Assert
-            Assert.AreEqual(color, lineStyle.Color);
-            Assert.AreEqual(width, lineStyle.Width);
-            Assert.AreEqual(style, lineStyle.Style);
+            Assert.AreEqual(color, pointStyle.Color);
+            Assert.AreEqual(width, pointStyle.Size);
+            Assert.AreEqual(symbol, pointStyle.Symbol);
         }
     }
 }

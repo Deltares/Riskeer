@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
 using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Converter
@@ -45,7 +46,20 @@ namespace Core.Components.OxyPlot.Converter
             {
                 series.Points2.Add(series.Points[0]);
             }
+
+            CreateStyle(series, data.Style);
+
             return new List<Series> { series };
+        }
+
+        private void CreateStyle(AreaSeries series, ChartAreaStyle style)
+        {
+            if (style != null)
+            {
+                series.Fill = ChartDataHelper.Convert(style.FillColor);
+                series.Color = ChartDataHelper.Convert(style.StrokeColor);
+                series.StrokeThickness = style.Width;
+            }
         }
     }
 }

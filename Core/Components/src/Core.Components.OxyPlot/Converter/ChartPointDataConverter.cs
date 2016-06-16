@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
 using OxyPlot;
 using OxyPlot.Series;
 
@@ -41,9 +42,22 @@ namespace Core.Components.OxyPlot.Converter
                 Mapping = TupleToDataPoint,
                 LineStyle = LineStyle.None,
                 MarkerType = MarkerType.Circle,
-                Tag = data,
+                Tag = data
             };
+
+            CreateStyle(series, data.Style);
+
             return new List<Series> { series };
+        }
+
+        private void CreateStyle(LineSeries series, ChartPointStyle style)
+        {
+            if (style != null)
+            {
+                series.MarkerFill = ChartDataHelper.Convert(style.Color);
+                series.MarkerSize = style.Size;
+                series.MarkerType = ChartDataHelper.Convert(style.Symbol);
+            }
         }
     }
 }

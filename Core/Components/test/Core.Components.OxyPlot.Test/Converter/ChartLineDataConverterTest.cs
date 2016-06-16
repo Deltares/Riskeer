@@ -133,22 +133,6 @@ namespace Core.Components.OxyPlot.Test.Converter
         }
 
         [Test]
-        public void Convert_DataName_SeriesTitleSameAsDataName()
-        {
-            // Setup
-            var name = "<Some name>";
-            var converter = new ChartLineDataConverter();
-            var data = new ChartLineData(new Collection<Tuple<double, double>>(), name);
-
-            // Call
-            var series = converter.Convert(data);
-
-            // Assert
-            var lineSeries = ((LineSeries)series[0]);
-            Assert.AreEqual(name, lineSeries.Title);
-        }
-
-        [Test]
         [TestCase(KnownColor.AliceBlue)]
         [TestCase(KnownColor.Azure)]
         [TestCase(KnownColor.Beige)]

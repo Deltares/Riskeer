@@ -22,9 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
 using Core.Components.Charting.TestUtil;
 using Core.Components.OxyPlot.Converter;
 using NUnit.Framework;
@@ -129,6 +131,80 @@ namespace Core.Components.OxyPlot.Test.Converter
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(KnownColor.AliceBlue)]
+        [TestCase(KnownColor.Azure)]
+        [TestCase(KnownColor.Beige)]
+        public void Convert_WithDifferentFillColors_AppliesStyleToSeries(KnownColor color)
+        {
+            // Setup
+            var converter = new ChartAreaDataConverter();
+            var expectedColor = Color.FromKnownColor(color);
+            var style = new ChartAreaStyle(expectedColor, Color.Red, 3);
+            var data = new ChartAreaData(new Collection<Tuple<double, double>>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var series = converter.Convert(data);
+
+            // Assert
+            var areaSeries = ((AreaSeries)series[0]);
+            AssertColors(style.FillColor, areaSeries.Fill);
+        }
+
+        [Test]
+        [TestCase(KnownColor.AliceBlue)]
+        [TestCase(KnownColor.Azure)]
+        [TestCase(KnownColor.Beige)]
+        public void Convert_WithDifferentStrokeColors_AppliesStyleToSeries(KnownColor color)
+        {
+            // Setup
+            var converter = new ChartAreaDataConverter();
+            var expectedColor = Color.FromKnownColor(color);
+            var style = new ChartAreaStyle(Color.Red, expectedColor, 3);
+            var data = new ChartAreaData(new Collection<Tuple<double, double>>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var series = converter.Convert(data);
+
+            // Assert
+            var areaSeries = ((AreaSeries)series[0]);
+            AssertColors(style.StrokeColor, areaSeries.Color);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(5)]
+        [TestCase(7)]
+        public void Convert_WithDifferentStrokeWidths_AppliesStyleToSeries(int width)
+        {
+            // Setup
+            var converter = new ChartAreaDataConverter();
+            var style = new ChartAreaStyle(Color.Red, Color.Red, width);
+            var data = new ChartAreaData(new Collection<Tuple<double, double>>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var series = converter.Convert(data);
+
+            // Assert
+            var areaSeries = ((AreaSeries)series[0]);
+            Assert.AreEqual(width, areaSeries.StrokeThickness);
+        }
+
+        private void AssertColors(Color color, OxyColor oxyColor)
+        {
+            OxyColor originalColor = OxyColor.FromArgb(color.A, color.R, color.G, color.B);
+            Assert.AreEqual(originalColor, oxyColor);
         }
     }
 }

@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Drawing.Drawing2D;
+using Core.Components.Charting.Styles;
 using Core.Components.OxyPlot.Converter;
 using NUnit.Framework;
 using OxyPlot;
@@ -30,6 +32,8 @@ namespace Core.Components.OxyPlot.Test.Converter
     [TestFixture]
     public class ChartDataHelperTest
     {
+        #region Convert DashStyle
+
         [Test]
         public void Convert_Solid_ReturnsDefault()
         {
@@ -89,5 +93,82 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Assert
             Assert.Throws<NotSupportedException>(call);
         }
+
+        #endregion
+
+        #region Convert ChartPointSymbol
+
+        [Test]
+        public void Convert_None_ReturnsNone()
+        {
+            // Call
+            MarkerType markerType = ChartDataHelper.Convert(ChartPointSymbol.None);
+
+            // Assert
+            Assert.AreEqual(MarkerType.None, markerType);
+        }
+
+        [Test]
+        public void Convert_Circle_ReturnsCircle()
+        {
+            // Call
+            MarkerType markerType = ChartDataHelper.Convert(ChartPointSymbol.Circle);
+
+            // Assert
+            Assert.AreEqual(MarkerType.Circle, markerType);
+        }
+
+        [Test]
+        public void Convert_Square_ReturnsSquare()
+        {
+            // Call
+            MarkerType markerType = ChartDataHelper.Convert(ChartPointSymbol.Square);
+
+            // Assert
+            Assert.AreEqual(MarkerType.Square, markerType);
+        }
+
+        [Test]
+        public void Convert_Diamond_ReturnsDiamond()
+        {
+            // Call
+            MarkerType markerType = ChartDataHelper.Convert(ChartPointSymbol.Diamond);
+
+            // Assert
+            Assert.AreEqual(MarkerType.Diamond, markerType);
+        }
+
+        [Test]
+        public void Convert_Triangle_ReturnsTriangle()
+        {
+            // Call
+            MarkerType markerType = ChartDataHelper.Convert(ChartPointSymbol.Triangle);
+
+            // Assert
+            Assert.AreEqual(MarkerType.Triangle, markerType);
+        }
+
+        #endregion
+
+        #region Convert Color
+
+        [Test]
+        [TestCase(KnownColor.Blue)]
+        [TestCase(KnownColor.Red)]
+        [TestCase(KnownColor.Green)]
+        public void Convert_Color_ReturnsOxyColor(KnownColor knownColor)
+        {
+            // Setup
+            Color color = Color.FromKnownColor(knownColor);
+
+            // Call
+            OxyColor oxyColor = ChartDataHelper.Convert(color);
+
+            // Assert
+            OxyColor originalColor = OxyColor.FromArgb(color.A, color.R, color.G, color.B);
+            Assert.AreEqual(originalColor, oxyColor);
+        }
+
+        #endregion
     }
 }
