@@ -278,7 +278,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eigenschappen van het voorland..
+        ///   Looks up a localized string similar to Eigenschappen van de voorlandgeometrie..
         /// </summary>
         public static string ForeshoreProperties_Description {
             get {
@@ -287,7 +287,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voorland.
+        ///   Looks up a localized string similar to Voorlandgeometrie.
         /// </summary>
         public static string ForeshoreProperties_DisplayName {
             get {

@@ -39,60 +39,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionInwardsInputContextProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
     {
-        private const int dikeGeometryPropertyIndex = 1;
-        private const int dikeHeightPropertyIndex = 2;
+        private const int orientationPropertyIndex = 1;
+        private const int breakWaterPropertyIndex = 2;
         private const int foreshorePropertyIndex = 3;
-        private const int orientationPropertyIndex = 4;
-        private const int breakWaterPropertyIndex = 5;
+        private const int dikeGeometryPropertyIndex = 4;
+        private const int dikeHeightPropertyIndex = 5;
         private const int criticalFlowRatePropertyIndex = 6;
         private const int hydraulicBoundaryLocationPropertyIndex = 7;
-
-        [PropertyOrder(dikeGeometryPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
-        [ResourcesDisplayName(typeof(Resources), "DikeGeometryProperties_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DikeGeometryProperties_Description")]
-        public DikeGeometryProperties DikeGeometry
-        {
-            get
-            {
-                return new DikeGeometryProperties
-                {
-                    Data = data
-                };
-            }
-        }
-
-        [PropertyOrder(dikeHeightPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
-        [ResourcesDisplayName(typeof(Resources), "DikeHeight_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DikeHeight_Description")]
-        public RoundedDouble DikeHeight
-        {
-            get
-            {
-                return data.WrappedData.DikeHeight;
-            }
-            set
-            {
-                data.WrappedData.DikeHeight = value;
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
-        [PropertyOrder(foreshorePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
-        [ResourcesDisplayName(typeof(Resources), "ForeshoreProperties_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ForeshoreProperties_Description")]
-        public ForeshoreProperties Foreshore
-        {
-            get
-            {
-                return new ForeshoreProperties
-                {
-                    Data = data
-                };
-            }
-        }
 
         [PropertyOrder(orientationPropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
@@ -123,6 +76,53 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
                 {
                     Data = data
                 };
+            }
+        }
+
+        [PropertyOrder(foreshorePropertyIndex)]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesDisplayName(typeof(Resources), "ForeshoreProperties_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "ForeshoreProperties_Description")]
+        public ForeshoreProperties Foreshore
+        {
+            get
+            {
+                return new ForeshoreProperties
+                {
+                    Data = data
+                };
+            }
+        }
+
+        [PropertyOrder(dikeGeometryPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesDisplayName(typeof(Resources), "DikeGeometryProperties_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "DikeGeometryProperties_Description")]
+        public DikeGeometryProperties DikeGeometry
+        {
+            get
+            {
+                return new DikeGeometryProperties
+                {
+                    Data = data
+                };
+            }
+        }
+
+        [PropertyOrder(dikeHeightPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesDisplayName(typeof(Resources), "DikeHeight_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "DikeHeight_Description")]
+        public RoundedDouble DikeHeight
+        {
+            get
+            {
+                return data.WrappedData.DikeHeight;
+            }
+            set
+            {
+                data.WrappedData.DikeHeight = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 

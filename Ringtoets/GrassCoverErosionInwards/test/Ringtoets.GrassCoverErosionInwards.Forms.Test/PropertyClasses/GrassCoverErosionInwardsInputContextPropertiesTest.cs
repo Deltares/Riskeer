@@ -182,8 +182,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(foreshoreProperty);
             Assert.IsTrue(foreshoreProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", foreshoreProperty.Category);
-            Assert.AreEqual("Voorland", foreshoreProperty.DisplayName);
-            Assert.AreEqual("Eigenschappen van het voorland.", foreshoreProperty.Description);
+            Assert.AreEqual("Voorlandgeometrie", foreshoreProperty.DisplayName);
+            Assert.AreEqual("Eigenschappen van de voorlandgeometrie.", foreshoreProperty.Description);
 
             PropertyDescriptor orientationProperty = dynamicProperties[orientationPropertyIndex];
             Assert.IsNotNull(orientationProperty);
@@ -215,11 +215,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
-        private const int dikeGeometryPropertyIndex = 0;
-        private const int dikeHeightPropertyIndex = 1;
+        private const int orientationPropertyIndex = 0;
+        private const int breakWaterPropertyIndex = 1;
         private const int foreshorePropertyIndex = 2;
-        private const int orientationPropertyIndex = 3;
-        private const int breakWaterPropertyIndex = 4;
+        private const int dikeGeometryPropertyIndex = 3;
+        private const int dikeHeightPropertyIndex = 4;
         private const int criticalFlowRatePropertyIndex = 5;
         private const int hydraulicBoundaryLocationPropertyIndex = 6;
     }

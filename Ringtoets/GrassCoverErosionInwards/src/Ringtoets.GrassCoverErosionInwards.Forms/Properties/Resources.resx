@@ -203,10 +203,10 @@
     <value>Dijkhoogte [m+NAP]</value>
   </data>
   <data name="ForeshoreProperties_Description" xml:space="preserve">
-    <value>Eigenschappen van het voorland.</value>
+    <value>Eigenschappen van de voorlandgeometrie.</value>
   </data>
   <data name="ForeshoreProperties_DisplayName" xml:space="preserve">
-    <value>Voorland</value>
+    <value>Voorlandgeometrie</value>
   </data>
   <data name="Foreshore_UseForeshore_Description" xml:space="preserve">
     <value>Is er een voorland aanwezig?</value>
