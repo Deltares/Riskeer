@@ -19,16 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.InteropServices;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using Core.Components.Charting.Styles;
+using NUnit.Framework;
 
-[assembly: AssemblyTitle("Core.Components.Charting.Test")]
-[assembly: AssemblyProduct("Core.Components.Charting.Test")]
+namespace Core.Components.Charting.Test.Styles
+{
+    [TestFixture]
+    public class ChartLineStyleTest
+    {
+        [Test]
+        public void Constructor_WithAllParameters_SetsProperties()
+        {
+            // Setup
+            var color = Color.AliceBlue;
+            var width = 3;
+            var style = DashStyle.Solid;
 
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
-// COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(false)]
+            // Call
+            var lineStyle = new ChartLineStyle(color, width, style);
 
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("da0ce3e0-6a5d-438f-a29d-797a82c4d72b")]
+            // Assert
+            Assert.AreEqual(color, lineStyle.Color);
+            Assert.AreEqual(width, lineStyle.Width);
+            Assert.AreEqual(style, lineStyle.Style);
+        } 
+    }
+}

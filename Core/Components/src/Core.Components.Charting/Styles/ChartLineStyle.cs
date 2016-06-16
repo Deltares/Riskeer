@@ -19,31 +19,42 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
-using Core.Components.Charting.Styles;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 
-namespace Core.Components.Charting.Data
+namespace Core.Components.Charting.Styles
 {
     /// <summary>
-    /// This class represents data in 2D space which is visible as a line.
+    /// This class represents styling of a line on a chart.
     /// </summary>
-    public class ChartLineData : PointBasedChartData
+    public class ChartLineStyle
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ChartLineData"/>.
+        /// Creates a new instance of <see cref="ChartLineStyle"/>.
         /// </summary>
-        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) points.</param>
-        /// <param name="name">The name of the <see cref="ChartLineData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is 
-        /// <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
-        /// <c>null</c> or only whitespace.</exception>
-        public ChartLineData(IEnumerable<Tuple<double, double>> points, string name) : base(points, name) {}
+        /// <param name="color">The color of the line.</param>
+        /// <param name="width">The width of the line.</param>
+        /// <param name="style">The <see cref="DashStyle"/> of the line.</param>
+        public ChartLineStyle(Color color, int width, DashStyle style)
+        {
+            Color = color;
+            Width = width;
+            Style = style;
+        }
 
         /// <summary>
-        /// Gets or sets the style of the line.
+        /// Gets the line color.
         /// </summary>
-        public ChartLineStyle Style { get; set; }
+        public Color Color { get; private set; }
+
+        /// <summary>
+        /// Gets the line width.
+        /// </summary>
+        public int Width { get; private set; }
+
+        /// <summary>
+        /// Gets the line style.
+        /// </summary>
+        public DashStyle Style { get; private set; }
     }
 }

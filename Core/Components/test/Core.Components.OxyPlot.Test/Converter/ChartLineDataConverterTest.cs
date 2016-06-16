@@ -1,11 +1,36 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
 using Core.Components.Charting.TestUtil;
 using Core.Components.OxyPlot.Converter;
 using NUnit.Framework;
+using OxyPlot;
 using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Test.Converter
@@ -105,6 +130,97 @@ namespace Core.Components.OxyPlot.Test.Converter
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void Convert_DataName_SeriesTitleSameAsDataName()
+        {
+            // Setup
+            var name = "<Some name>";
+            var converter = new ChartLineDataConverter();
+            var data = new ChartLineData(new Collection<Tuple<double, double>>(), name);
+
+            // Call
+            var series = converter.Convert(data);
+
+            // Assert
+            var lineSeries = ((LineSeries)series[0]);
+            Assert.AreEqual(name, lineSeries.Title);
+        }
+
+        [Test]
+        [TestCase(KnownColor.AliceBlue)]
+        [TestCase(KnownColor.Azure)]
+        [TestCase(KnownColor.Beige)]
+        public void Convert_WithDifferentCoors_AppliesStyleToSeries(KnownColor color)
+        {
+            // Setup
+            var converter = new ChartLineDataConverter();
+            var expectedColor = Color.FromKnownColor(color);
+            var style = new ChartLineStyle(expectedColor, 3, DashStyle.Solid);
+            var data = new ChartLineData(new Collection<Tuple<double, double>>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var series = converter.Convert(data);
+
+            // Assert
+            var lineSeries = ((LineSeries)series[0]);
+            AssertColors(style.Color, lineSeries.Color);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(5)]
+        [TestCase(7)]
+        public void Convert_WithDifferentWidths_AppliesStyleToSeries(int width)
+        {
+            // Setup
+            var converter = new ChartLineDataConverter();
+            var style = new ChartLineStyle(Color.Red, width, DashStyle.Solid);
+            var data = new ChartLineData(new Collection<Tuple<double, double>>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var series = converter.Convert(data);
+
+            // Assert
+            var lineSeries = ((LineSeries)series[0]);
+            Assert.AreEqual(width, lineSeries.StrokeThickness);
+        }
+
+        [Test]
+        [TestCase(DashStyle.Solid, LineStyle.Solid)]
+        [TestCase(DashStyle.Dash, LineStyle.Dash)]
+        [TestCase(DashStyle.Dot, LineStyle.Dot)]
+        [TestCase(DashStyle.DashDot, LineStyle.DashDot)]
+        [TestCase(DashStyle.DashDotDot, LineStyle.DashDotDot)]
+        public void Convert_WidhtDifferentDashStyles_AppliesStyleToSeries(DashStyle dashStyle, LineStyle expectedLineStyle)
+        {
+            // Setup
+            var converter = new ChartLineDataConverter();
+            var style = new ChartLineStyle(Color.Red, 3, dashStyle);
+            var data = new ChartLineData(new Collection<Tuple<double, double>>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var series = converter.Convert(data);
+
+            // Assert
+            var lineSeries = ((LineSeries)series[0]);
+            Assert.AreEqual(expectedLineStyle, lineSeries.LineStyle);
+        }
+
+        private void AssertColors(Color color, OxyColor oxyColor)
+        {
+            OxyColor originalColor = OxyColor.FromArgb(color.A, color.R, color.G, color.B);
+            Assert.AreEqual(originalColor, oxyColor);
         }
     }
 }

@@ -22,6 +22,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
+using OxyPlot;
 using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Converter
@@ -38,9 +40,23 @@ namespace Core.Components.OxyPlot.Converter
                 ItemsSource = data.Points.ToArray(),
                 Mapping = TupleToDataPoint,
                 IsVisible = data.IsVisible,
-                Tag = data
+                Tag = data,
+                Title = data.Name
             };
+
+            CreateStyle(series, data.Style);
+
             return new List<Series>{ series };
+        }
+
+        private static void CreateStyle(LineSeries series, ChartLineStyle style)
+        {
+            if (style != null)
+            {
+                series.Color = OxyColor.FromArgb(style.Color.A, style.Color.R, style.Color.G, style.Color.B);
+                series.StrokeThickness = style.Width;
+                series.LineStyle = ChartDataHelper.Convert(style.Style);
+            }
         }
     }
 }

@@ -48,11 +48,13 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converter\ChartAreaDataConverterTest.cs" />
     <Compile Include="Converter\ChartDataCollectionConverterTest.cs" />
     <Compile Include="Converter\ChartDataConverterTest.cs" />
+    <Compile Include="Converter\ChartDataHelperTest.cs" />
     <Compile Include="Converter\ChartLineDataConverterTest.cs" />
     <Compile Include="Converter\ChartPointDataConverterTest.cs" />
     <Compile Include="DynamicPlotControllerTest.cs" />
@@ -60,6 +62,9 @@
     <Compile Include="Converter\ChartSeriesFactoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
+      <Link>Copying.Lesser.licenseheader</Link>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

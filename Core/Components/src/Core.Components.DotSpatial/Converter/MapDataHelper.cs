@@ -6,7 +6,7 @@ using DotSpatial.Symbology;
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// Helper methods related to <see cref="MapData"/> instancees.
+    /// Helper methods related to <see cref="MapData"/> instances.
     /// </summary>
     public static class MapDataHelper
     {

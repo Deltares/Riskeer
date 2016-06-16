@@ -43,6 +43,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -50,6 +51,7 @@
     </Compile>
     <Compile Include="Converter\ChartAreaDataConverter.cs" />
     <Compile Include="Converter\ChartDataCollectionConverter.cs" />
+    <Compile Include="Converter\ChartDataHelper.cs" />
     <Compile Include="Converter\IChartDataConverter.cs" />
     <Compile Include="Converter\ChartLineDataConverter.cs" />
     <Compile Include="Converter\ChartPointDataConverter.cs" />
