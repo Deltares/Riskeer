@@ -42,10 +42,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsNotNull(profileSection);
             Assert.AreSame(begin, profileSection.StartingPoint);
             Assert.AreSame(end, profileSection.EndingPoint);
-
-            Assert.IsInstanceOf<Segment2D>(profileSection.Geometry);
-            Assert.AreSame(begin, profileSection.Geometry.FirstPoint);
-            Assert.AreSame(end, profileSection.Geometry.SecondPoint);
         }
 
         [Test]

@@ -180,4 +180,7 @@
   <data name="GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation" xml:space="preserve">
     <value>Gras erosie kruin en binnentalud '{0}' niet gelukt.</value>
   </data>
+  <data name="GrassCoverErosionInwardsGuiPlugin_DikeProfilesContext_DisplayName" xml:space="preserve">
+    <value>Dijkprofielen</value>
+  </data>
 </root>

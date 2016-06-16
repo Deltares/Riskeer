@@ -89,7 +89,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         [TestCase(-1e-6)]
         [TestCase(360 + 1e-6)]
         [TestCase(875.12)]
-        public void Orientation_SetIllegalValue_ValidationError(double invalidNewValue)
+        public void Orientation_SetIllegalValue_ThrowsArgumentOutOfRangeException(double invalidNewValue)
         {
             // Setup
             var dikeProfile = new DikeProfile(new Point2D(0, 0));
@@ -98,7 +98,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             TestDelegate call = () => dikeProfile.Orientation = invalidNewValue;
 
             // Assert
-            string expectedMessage = String.Format("De dijkprofiel oriëntatie waarde {0} valt buiten het geldige bereik [0, 360].",
+            string expectedMessage = String.Format("De dijkprofiel oriëntatie waarde {0} moet in het interval [0, 360] liggen.",
                                                    invalidNewValue);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
@@ -233,7 +233,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             CollectionAssert.IsEmpty(dikeProfile.ForeshoreGeometry);
 
             // Call
-            dikeProfile.AddForshoreProfileSection(newSection);
+            dikeProfile.AddForshoreGeometrySection(newSection);
 
             // Assert
             CollectionAssert.Contains(dikeProfile.ForeshoreGeometry, newSection);
@@ -248,12 +248,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             var connectedPoint = new Point2D(1.1, 2.2);
             var existingSection = new ProfileSection(connectedPoint, new Point2D(3.3, 4.4));
-            dikeProfile.AddForshoreProfileSection(existingSection);
+            dikeProfile.AddForshoreGeometrySection(existingSection);
 
             var newSection = new ProfileSection(new Point2D(0.0, 0.0), connectedPoint);
 
             // Call
-            dikeProfile.AddForshoreProfileSection(newSection);
+            dikeProfile.AddForshoreGeometrySection(newSection);
 
             // Assert
             ProfileSection[] expectedForshoreSections =
@@ -272,16 +272,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             var connectedPoint = new Point2D(1.1, 2.2);
             var existingSection = new ProfileSection(connectedPoint, new Point2D(3.3, 4.4));
-            dikeProfile.AddForshoreProfileSection(existingSection);
+            dikeProfile.AddForshoreGeometrySection(existingSection);
 
             var newSection = new ProfileSection(connectedPoint, new Point2D(0.0, 0.0));
 
             // Call
-            TestDelegate call = () => dikeProfile.AddForshoreProfileSection(newSection);
+            TestDelegate call = () => dikeProfile.AddForshoreGeometrySection(newSection);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call,
-                                                                                      "Het nieuwe segment is wel verbonden, maar heeft verkeerde oriëntatie (moet omgedraaid worden).");
+                                                                                      "Het nieuwe segment is wel verbonden, maar heeft een verkeerde oriëntatie (moet omgedraaid worden).");
             CollectionAssert.DoesNotContain(dikeProfile.ForeshoreGeometry, newSection);
         }
 
@@ -293,12 +293,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             var connectedPoint = new Point2D(4.4, 5.5);
             var existingSection = new ProfileSection(new Point2D(1.1, 2.2), connectedPoint);
-            dikeProfile.AddForshoreProfileSection(existingSection);
+            dikeProfile.AddForshoreGeometrySection(existingSection);
 
             var newSection = new ProfileSection(connectedPoint, new Point2D(12.12, 13.13));
 
             // Call
-            dikeProfile.AddForshoreProfileSection(newSection);
+            dikeProfile.AddForshoreGeometrySection(newSection);
 
             // Assert
             ProfileSection[] expectedForshoreSections =
@@ -317,16 +317,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             var connectedPoint = new Point2D(4.4, 5.5);
             var existingSection = new ProfileSection(new Point2D(1.1, 2.2), connectedPoint);
-            dikeProfile.AddForshoreProfileSection(existingSection);
+            dikeProfile.AddForshoreGeometrySection(existingSection);
 
             var newSection = new ProfileSection(new Point2D(12.12, 13.13), connectedPoint);
 
             // Call
-            TestDelegate call = () => dikeProfile.AddForshoreProfileSection(newSection);
+            TestDelegate call = () => dikeProfile.AddForshoreGeometrySection(newSection);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call,
-                                                                                      "Het nieuwe segment is wel verbonden, maar heeft verkeerde oriëntatie (moet omgedraaid worden).");
+                                                                                      "Het nieuwe segment is wel verbonden, maar heeft een verkeerde oriëntatie (moet omgedraaid worden).");
             CollectionAssert.DoesNotContain(dikeProfile.ForeshoreGeometry, newSection);
         }
 
@@ -348,7 +348,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                                                                  .Select(segment => new ProfileSection(segment.FirstPoint, segment.SecondPoint));
             foreach (ProfileSection existingSection in existingSections)
             {
-                dikeProfile.AddForshoreProfileSection(existingSection);
+                dikeProfile.AddForshoreGeometrySection(existingSection);
             }
 
             var random = new Random(123);
@@ -356,7 +356,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                                                               new Point2D(random.NextDouble(), random.NextDouble()));
 
             // Call
-            TestDelegate call = () => dikeProfile.AddForshoreProfileSection(totallyDisconnectSection);
+            TestDelegate call = () => dikeProfile.AddForshoreGeometrySection(totallyDisconnectSection);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call,
@@ -385,13 +385,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                                                  .ToArray();
             foreach (ProfileSection existingSection in existingSections)
             {
-                dikeProfile.AddForshoreProfileSection(existingSection);
+                dikeProfile.AddForshoreGeometrySection(existingSection);
             }
 
             ProfileSection totallyDisconnectSection = existingSections[index];
 
             // Call
-            TestDelegate call = () => dikeProfile.AddForshoreProfileSection(totallyDisconnectSection);
+            TestDelegate call = () => dikeProfile.AddForshoreGeometrySection(totallyDisconnectSection);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call,
@@ -419,13 +419,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 .ToArray();
             foreach (ProfileSection existingSection in existingSections)
             {
-                dikeProfile.AddForshoreProfileSection(existingSection);
+                dikeProfile.AddForshoreGeometrySection(existingSection);
             }
 
             var touchingSection = new ProfileSection(existingSections[index].EndingPoint, new Point2D(999.99, 999.9));
 
             // Call
-            TestDelegate call = () => dikeProfile.AddForshoreProfileSection(touchingSection);
+            TestDelegate call = () => dikeProfile.AddForshoreGeometrySection(touchingSection);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call,
@@ -453,13 +453,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                                                       .ToArray();
             foreach (ProfileSection existingSection in existingSections)
             {
-                dikeProfile.AddForshoreProfileSection(existingSection);
+                dikeProfile.AddForshoreGeometrySection(existingSection);
             }
 
             var touchingSection = new ProfileSection(new Point2D(999.99, 999.9), existingSections[index].StartingPoint);
 
             // Call
-            TestDelegate call = () => dikeProfile.AddForshoreProfileSection(touchingSection);
+            TestDelegate call = () => dikeProfile.AddForshoreGeometrySection(touchingSection);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call,
@@ -527,7 +527,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call,
-                                                                                      "Het nieuwe segment is wel verbonden, maar heeft verkeerde oriëntatie (moet omgedraaid worden).");
+                                                                                      "Het nieuwe segment is wel verbonden, maar heeft een verkeerde oriëntatie (moet omgedraaid worden).");
             CollectionAssert.DoesNotContain(dikeProfile.DikeGeometry, newSection);
         }
 
@@ -572,7 +572,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call,
-                                                                                      "Het nieuwe segment is wel verbonden, maar heeft verkeerde oriëntatie (moet omgedraaid worden).");
+                                                                                      "Het nieuwe segment is wel verbonden, maar heeft een verkeerde oriëntatie (moet omgedraaid worden).");
             CollectionAssert.DoesNotContain(dikeProfile.DikeGeometry, newSection);
         }
 

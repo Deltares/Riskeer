@@ -77,8 +77,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         [Test]
         public void Constructor_AssessmentSectionIsNull_ThrowArgumentNullException()
         {
-            // Setup
-
             // Call
             TestDelegate call = () => new DikeProfilesContext(new ObservableList<DikeProfile>(), null);
 

@@ -49,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 throw new ArgumentNullException("worldCoordinate");
             }
 
-            Name = "Dijkprofiel";
+            Name = Resources.DikeProfile_DefaultName;
             Memo = "";
             dikeGeometry = new List<RoughnessProfileSection>();
             foreshoreGeometry = new List<ProfileSection>();
@@ -57,8 +57,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Orientation of the dike profile geometry with respect to North in degrees. A
-        /// positive value equals a clockwise rotation.
+        /// Gets or sets the orientation of the dike profile geometry with respect to North
+        /// in degrees. A positive value equals a clockwise rotation.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">When <paramref name="value"/> is
         /// not in range [0, 360].</exception>
@@ -72,7 +72,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             {
                 if (value < 0.0 || value > 360.0)
                 {
-                    string message = string.Format(Resources.DikeProfile_Orientation_Value_0_out_of_range, value);
+                    string message = string.Format(Resources.DikeProfile_Orientation_Value_0_should_be_in_interval, value);
                     throw new ArgumentOutOfRangeException("value", message);
                 }
                 orientation = value;
@@ -80,27 +80,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// The reference point in world coordinates corresponding to the local coordinate <see cref="X0"/>.
+        /// Gets the reference point in world coordinates corresponding to the local coordinate <see cref="X0"/>.
         /// </summary>
         public Point2D WorldReferencePoint { get; private set; }
 
         /// <summary>
-        /// The local x-coordinate corresponding to the world reference point <see cref="WorldReferencePoint"/>.
+        /// Gets or sets the local x-coordinate corresponding to the world reference point <see cref="WorldReferencePoint"/>.
         /// </summary>
         public double X0 { get; set; }
 
         /// <summary>
-        /// Name of the dike profile.
+        /// Gets or sets the name of the dike profile.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// The break water object of the dike profile, if any.
+        /// Gets or sets the break water object of the dike profile, if any.
         /// </summary>
         public BreakWater BreakWater { get; set; }
 
         /// <summary>
-        /// The geometry of the dike with roughness data.
+        /// Gets the geometry of the dike with roughness data.
         /// </summary>
         public IEnumerable<RoughnessProfileSection> DikeGeometry
         {
@@ -111,7 +111,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// The geometry of the foreshore.
+        /// Gets the geometry of the foreshore.
         /// </summary>
         public IEnumerable<ProfileSection> ForeshoreGeometry
         {
@@ -122,17 +122,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// The height of the dike [m+NAP].
+        /// Gets or sets the height of the dike [m+NAP].
         /// </summary>
         public double CrestLevel { get; set; }
 
         /// <summary>
-        /// Optional notes about this instance.
+        /// Gets or sets the optional notes about this instance.
         /// </summary>
         public string Memo { get; set; }
 
         /// <summary>
-        /// Indicates if there is a break water object available for this instances or not.
+        /// Indicates if there is a break water object available for this instance or not.
         /// </summary>
         public bool HasBreakWater
         {
@@ -146,10 +146,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Adds a geometry section to <see cref="ForeshoreGeometry"/>.
         /// </summary>
         /// <param name="section">The new section to add.</param>
-        /// <exception cref="ArgumentException">Thrown when either <paramref name="section"/>
-        /// is not connected to <see cref="ForeshoreGeometry"/> or is connected but has
-        /// an incorrect orientation.</exception>
-        public void AddForshoreProfileSection(ProfileSection section)
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="section"/>
+        /// is either not connected to <see cref="ForeshoreGeometry"/> or is connected but
+        /// has an incorrect orientation.</exception>
+        public void AddForshoreGeometrySection(ProfileSection section)
         {
             AddProfileSection(foreshoreGeometry, section);
         }
@@ -158,8 +158,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Adds a geometry section to <see cref="DikeGeometry"/>.
         /// </summary>
         /// <param name="roughnessProfileSection">The new section to add.</param>
-        /// <exception cref="ArgumentException">Thrown when either <paramref name="roughnessProfileSection"/>
-        /// is not connected to <see cref="DikeGeometry"/> or is connected but has
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="roughnessProfileSection"/>
+        /// is either not connected to <see cref="DikeGeometry"/> or is connected but has
         /// an incorrect orientation.</exception>
         public void AddDikeGeometrySection(RoughnessProfileSection roughnessProfileSection)
         {
@@ -173,9 +173,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <typeparam name="T">The type of profile section.</typeparam>
         /// <param name="profileSections">Collection of already defined geometry sections.</param>
         /// <param name="section">The section to add to <paramref name="profileSections"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when either <paramref name="section"/>
-        /// is not connected to <paramref name="profileSections"/> or is connected but has
-        /// an incorrect orientation.</exception>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="section"/>
+        /// is either not connected to <paramref name="profileSections"/> or is connected
+        /// but has an incorrect orientation.</exception>
         private static void AddProfileSection<T>(IList<T> profileSections, T section) where T : ProfileSection
         {
             if (profileSections.Count == 0)
@@ -196,7 +196,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             {
                 profileSections.Insert(0, section);
             }
-
             else if (section.StartingPoint.Equals(endingSection.EndingPoint))
             {
                 profileSections.Add(section);

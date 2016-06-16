@@ -96,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_Always_ReturnExpectedText()
+        public void Image_Always_ReturnExpectedImage()
         {
             // Setup
             var mocks = new MockRepository();

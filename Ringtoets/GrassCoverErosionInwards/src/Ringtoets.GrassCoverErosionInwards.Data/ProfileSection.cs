@@ -50,7 +50,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
             StartingPoint = startingPoint;
             EndingPoint = endingPoint;
-            Geometry = new Segment2D(startingPoint, endingPoint);
         }
 
         /// <summary>
@@ -62,10 +61,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets the ending 2D geometry point of the <see cref="ProfileSection"/>.
         /// </summary>
         public Point2D EndingPoint { get; private set; }
-
-        /// <summary>
-        /// Gets the 2D geometry of the <see cref="ProfileSection"/>.
-        /// </summary>
-        public Segment2D Geometry { get; private set; }
     }
 }

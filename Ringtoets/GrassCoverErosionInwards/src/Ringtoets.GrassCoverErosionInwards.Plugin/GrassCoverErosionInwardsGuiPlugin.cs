@@ -95,7 +95,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             yield return new TreeNodeInfo<DikeProfilesContext>
             {
-                Text = context => "Dijkprofielen",
+                Text = context => BaseResources.GrassCoverErosionInwardsGuiPlugin_DikeProfilesContext_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.Any() ?
                                            Color.FromKnownColor(KnownColor.ControlText) :
