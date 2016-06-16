@@ -7,6 +7,6 @@ namespace Core.Components.Charting.TestUtil
     /// </summary>
     public class TestChartData : ChartData
     {
-        public TestChartData(string name) : base(name) {}
+        public TestChartData() : base("test data") {}
     }
 }

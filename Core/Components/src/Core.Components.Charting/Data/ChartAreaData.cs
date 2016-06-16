@@ -33,9 +33,11 @@ namespace Core.Components.Charting.Data
         /// Creates a new instance of <see cref="ChartAreaData"/>.
         /// </summary>
         /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) points.</param>
-        /// <param name="name">The name of the <see cref="ChartData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>,
-        /// or when <paramref name="name"/> is <c>null</c> or only whitespace.</exception>
+        /// <param name="name">The name of the <see cref="ChartAreaData"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is 
+        /// <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c> or only whitespace.</exception>
         public ChartAreaData(IEnumerable<Tuple<double, double>> points, string name) : base(points, name) {}
     }
 }

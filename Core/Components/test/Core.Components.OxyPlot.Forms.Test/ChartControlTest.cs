@@ -34,7 +34,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         {
             // Setup
             var chart = new ChartControl();
-            var testData = new TestChartData("test data");
+            var testData = new TestChartData();
 
             // Call
             TestDelegate test = () => chart.Data = testData;

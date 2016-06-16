@@ -35,26 +35,6 @@ namespace Core.Components.Charting.Test.Data
             Assert.IsInstanceOf<Observable>(data);
             Assert.AreEqual(name, data.Name);
         }
-
-        [Test]
-        public void Name_SetName_ReturnsNewName()
-        {
-            // setup
-            var name = "Some name";
-            var newName = "Something";
-            var data = new TestChartData(name);
-
-            // Precondition
-            Assert.AreEqual(name, data.Name);
-
-            // Call
-            data.Name = newName;
-
-            // Assert
-            Assert.AreNotEqual(name, data.Name);
-            Assert.AreEqual(newName, data.Name);
-
-        }
     }
 
     public class TestChartData : ChartData

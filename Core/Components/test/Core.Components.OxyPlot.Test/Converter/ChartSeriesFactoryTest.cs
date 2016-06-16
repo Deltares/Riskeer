@@ -77,7 +77,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         {
             // Setup
             var factory = new ChartSeriesFactory();
-            var testData = new TestChartData("test data");
+            var testData = new TestChartData();
 
             // Call
             TestDelegate test = () => factory.Create(testData);

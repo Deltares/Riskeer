@@ -38,7 +38,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var testConverter = new TestChartDataConverter<Class>();
 
             // Call
-            var chartDataResult = testConverter.CanConvertSeries(new TestChartData("test data"));
+            var chartDataResult = testConverter.CanConvertSeries(new TestChartData());
             var classResult = testConverter.CanConvertSeries(new Class("test data"));
             var childResult = testConverter.CanConvertSeries(new Child("test data"));
 
@@ -66,7 +66,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         {
             // Setup
             var testConverter = new TestChartDataConverter<Class>();
-            var testChartData = new TestChartData("test data");
+            var testChartData = new TestChartData();
             var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testChartData.GetType());
             // Precondition
             Assert.IsFalse(testConverter.CanConvertSeries(testChartData));

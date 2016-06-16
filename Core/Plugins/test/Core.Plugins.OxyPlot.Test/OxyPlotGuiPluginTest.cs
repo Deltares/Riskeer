@@ -64,7 +64,7 @@ namespace Core.Plugins.OxyPlot.Test
             {
                 var chartView = mocks.Stub<IChartView>();
                 var chart = mocks.Stub<IChartControl>();
-                chart.Data = new TestChartData("test data");
+                chart.Data = new TestChartData();
                 chartView.Stub(v => v.Chart).Return(chart);
                 view = chartView;
             }
