@@ -350,7 +350,7 @@ namespace Ringtoets.Integration.Forms.Views
                 }
                 else
                 {
-                    probabilityDistributionGrid.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                    probabilityDistributionGrid.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex, true);
                 }
             }
             else

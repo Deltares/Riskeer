@@ -1129,6 +1129,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var enabledBackColor = Color.FromKnownColor(KnownColor.White);
             var enabledForeColor = Color.FromKnownColor(KnownColor.ControlText);
 
+            Assert.IsTrue(cell.ReadOnly);
             Assert.AreEqual(enabledBackColor, cell.Style.BackColor,
                             "Color does not match for column index: " + cell.ColumnIndex);
             Assert.AreEqual(enabledForeColor, cell.Style.ForeColor,
@@ -1140,6 +1141,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var irrelevantMechanismBackColor = Color.FromKnownColor(KnownColor.DarkGray);
             var irrelevantMechanismForeColor = Color.FromKnownColor(KnownColor.GrayText);
 
+            Assert.IsTrue(cell.ReadOnly);
             Assert.AreEqual(irrelevantMechanismBackColor, cell.Style.BackColor,
                             "Color does not match for column index: " + cell.ColumnIndex);
             Assert.AreEqual(irrelevantMechanismForeColor, cell.Style.ForeColor,
