@@ -24,9 +24,6 @@ using System.Linq;
 
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Properties;
-
 using Core.Common.Base.Geometry;
 
 using Ringtoets.Piping.Primitives;
@@ -64,7 +61,9 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("context");
             }
 
-            SurfaceLineEntity entity = GetCorrespondingSurfaceLineEntity(surfaceLine, context);
+            SurfaceLineEntity entity = surfaceLine.GetCorrespondingEntity(
+                context.SurfaceLineEntities,
+                o => o.SurfaceLineEntityId);
 
             entity.Name = surfaceLine.Name;
             entity.ReferenceLineIntersectionX = Convert.ToDecimal(surfaceLine.ReferenceLineIntersectionWorldPoint.X);
@@ -171,30 +170,6 @@ namespace Application.Ringtoets.Storage.Update
                     characteristicPointEntity.SurfaceLinePointEntity = geometryPointEntity;
                 }
                 registry.Register(characteristicPointEntity, currentCharacteristicPoint);
-            }
-        }
-
-        /// <summary>
-        /// Gets the <see cref="SurfaceLineEntity"/> from a <see cref="IRingtoetsEntities"/>
-        /// corresponding to an already saved <see cref="RingtoetsPipingSurfaceLine"/> instance.
-        /// </summary>
-        /// <param name="surfaceLine">The surface line.</param>
-        /// <param name="context">The context.</param>
-        /// <returns>The <see cref="SurfaceLineEntity"/>.</returns>
-        /// <exception cref="EntryPointNotFoundException">When no <see cref="SurfaceLineEntity"/>
-        /// can be found in <paramref name="context"/> that matches <paramref name="surfaceLine"/>.</exception>
-        private static SurfaceLineEntity GetCorrespondingSurfaceLineEntity(RingtoetsPipingSurfaceLine surfaceLine, IRingtoetsEntities context)
-        {
-            try
-            {
-                return context.SurfaceLineEntities.Single(sle => sle.SurfaceLineEntityId == surfaceLine.StorageId);
-            }
-            catch (InvalidOperationException exception)
-            {
-                string message = string.Format(Resources.Error_Entity_Not_Found_0_1,
-                                               typeof(SurfaceLineEntity).Name,
-                                               surfaceLine.StorageId);
-                throw new EntityNotFoundException(message, exception);
             }
         }
     }

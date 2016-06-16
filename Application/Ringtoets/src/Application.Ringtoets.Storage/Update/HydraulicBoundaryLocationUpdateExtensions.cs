@@ -20,12 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Properties;
 using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Update
@@ -48,7 +45,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
         /// <exception cref="EntityNotFoundException">When <paramref name="location"/>
-        /// does not have a corresponding entity in <paramref name="context"/>.</exception>
+        /// does not have a corresponding entity in the database.</exception>
         internal static void Update(this HydraulicBoundaryLocation location, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
@@ -60,25 +57,16 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("registry");
             }
 
-            HydraulicLocationEntity entity = GetCorrespondingHydraulicBoundaryLocationEntity(location, context);
+            HydraulicLocationEntity entity = location.GetCorrespondingEntity(
+                context.HydraulicLocationEntities, 
+                o => o.HydraulicLocationEntityId);
+
             entity.Name = location.Name;
             entity.LocationX = Convert.ToDecimal(location.Location.X);
             entity.LocationY = Convert.ToDecimal(location.Location.Y);
             entity.DesignWaterLevel = double.IsNaN(location.DesignWaterLevel) ? (double?) null : location.DesignWaterLevel;
 
             registry.Register(entity, location);
-        }
-
-        private static HydraulicLocationEntity GetCorrespondingHydraulicBoundaryLocationEntity(HydraulicBoundaryLocation location, IRingtoetsEntities context)
-        {
-            try
-            {
-                return context.HydraulicLocationEntities.Single(hle => hle.HydraulicLocationEntityId == location.StorageId);
-            }
-            catch (InvalidOperationException exception)
-            {
-                throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(HydraulicLocationEntity).Name, location.StorageId), exception);
-            }
         }
     }
 }

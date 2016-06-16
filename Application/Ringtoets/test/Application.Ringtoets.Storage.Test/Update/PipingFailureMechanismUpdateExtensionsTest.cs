@@ -143,6 +143,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 CalculationsGroup =
                 {
                     StorageId = 4
+                },
+                PipingProbabilityAssessmentInput =
+                {
+                    StorageId = 1
                 }
             };
 
@@ -193,6 +197,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 StochasticSoilModels =
                 {
                     new StochasticSoilModel(-1, string.Empty, string.Empty)
+                },
+                PipingProbabilityAssessmentInput =
+                {
+                    StorageId = 1
                 }
             };
 
@@ -247,6 +255,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 StochasticSoilModels =
                 {
                     stochasticSoilModel
+                },
+                PipingProbabilityAssessmentInput =
+                {
+                    StorageId = 1
                 }
             };
 
@@ -301,6 +313,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 CalculationsGroup =
                 {
                     StorageId = 3
+                },
+                PipingProbabilityAssessmentInput =
+                {
+                    StorageId = 1
                 }
             };
             failureMechanism.SurfaceLines.Add(new RingtoetsPipingSurfaceLine
@@ -355,6 +371,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 CalculationsGroup =
                 {
                     StorageId = 54
+                },
+                PipingProbabilityAssessmentInput =
+                {
+                    StorageId = 1
                 }
             };
             failureMechanism.SurfaceLines.Add(surfaceLine);
@@ -410,6 +430,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 CalculationsGroup =
                 {
                     StorageId = 1
+                },
+                PipingProbabilityAssessmentInput =
+                {
+                    StorageId = 1
                 }
             };
             failureMechanism.AddSection(new TestFailureMechanismSection());
@@ -457,6 +481,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 CalculationsGroup =
                 {
                     StorageId = 97
+                },
+                PipingProbabilityAssessmentInput =
+                {
+                    StorageId = 1
                 }
             };
             var testName = "testName";
@@ -528,6 +556,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 CalculationsGroup =
                 {
                     StorageId = 1
+                },
+                PipingProbabilityAssessmentInput =
+                {
+                    StorageId = 1
                 }
             };
             var newCalculationGroup = new CalculationGroup
@@ -582,6 +614,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 StorageId = 1,
                 CalculationsGroup =
+                {
+                    StorageId = 1
+                },
+                PipingProbabilityAssessmentInput =
                 {
                     StorageId = 1
                 }

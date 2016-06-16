@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoStrengthStabilityLengthwiseConstructionSoilLayer_EntityNotFoundException()
+        public void Update_ContextWithNoStrengthStabilityLengthwiseConstructionSectionResult_EntityNotFoundException()
         {
             // Setup
             var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(new TestFailureMechanismSection());
@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoStrengthStabilityLengthwiseConstructionSoilLayerWithId_EntityNotFoundException()
+        public void Update_ContextWithNoStrengthStabilityLengthwiseConstructionSectionResultWithId_EntityNotFoundException()
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -122,7 +122,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_WithStrengthStabilityLengthwiseConstructionSoilLayer_PropertiesUpdated()
+        public void Update_WithStrengthStabilityLengthwiseConstructionSectionResult_PropertiesUpdated()
         {
             // Setup
             MockRepository mocks = new MockRepository();

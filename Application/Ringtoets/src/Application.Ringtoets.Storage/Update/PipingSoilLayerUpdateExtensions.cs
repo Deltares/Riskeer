@@ -20,12 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Update
@@ -48,7 +45,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
         /// <exception cref="EntityNotFoundException">When <paramref name="layer"/>
-        /// does not have a corresponding entity in <paramref name="context"/>.</exception>
+        /// does not have a corresponding entity in the database.</exception>
         internal static void Update(this PipingSoilLayer layer, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
@@ -60,7 +57,9 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("registry");
             }
 
-            SoilLayerEntity entity = GetCorrespondingSoilLayerEntity(layer, context);
+            SoilLayerEntity entity = layer.GetCorrespondingEntity(
+                context.SoilLayerEntities,
+                o => o.SoilLayerEntityId);
 
             entity.IsAquifer = Convert.ToByte(layer.IsAquifer);
             entity.Top = Convert.ToDecimal(layer.Top);
@@ -69,18 +68,6 @@ namespace Application.Ringtoets.Storage.Update
             entity.DryUnitWeight = layer.DryUnitWeight.ToNullableDecimal();
 
             registry.Register(entity, layer);
-        }
-
-        private static SoilLayerEntity GetCorrespondingSoilLayerEntity(PipingSoilLayer layer, IRingtoetsEntities context)
-        {
-            try
-            {
-                return context.SoilLayerEntities.Single(sle => sle.SoilLayerEntityId == layer.StorageId);
-            }
-            catch (InvalidOperationException exception)
-            {
-                throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(SoilLayerEntity).Name, layer.StorageId), exception);
-            }
         }
     }
 }

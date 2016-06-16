@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Properties;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Update
@@ -48,7 +46,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
         /// <exception cref="EntityNotFoundException">When <paramref name="result"/>
-        /// does not have a corresponding entity in <paramref name="context"/>.</exception>
+        /// does not have a corresponding entity in the database.</exception>
         internal static void Update(this TechnicalInnovationFailureMechanismSectionResult result, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
@@ -60,24 +58,14 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("registry");
             }
 
-            TechnicalInnovationSectionResultEntity entity = GetCorrespondingTechnicalInnovationSectionResult(result, context);
+            TechnicalInnovationSectionResultEntity entity = result.GetCorrespondingEntity(
+                context.TechnicalInnovationSectionResultEntities,
+                o => o.TechnicalInnovationSectionResultEntityId);
 
             entity.LayerOne = Convert.ToByte(result.AssessmentLayerOne);
             entity.LayerThree = Convert.ToDecimal(result.AssessmentLayerThree);
 
             registry.Register(entity, result);
-        }
-
-        private static TechnicalInnovationSectionResultEntity GetCorrespondingTechnicalInnovationSectionResult(TechnicalInnovationFailureMechanismSectionResult result, IRingtoetsEntities context)
-        {
-            try
-            {
-                return context.TechnicalInnovationSectionResultEntities.Single(sle => sle.TechnicalInnovationSectionResultEntityId == result.StorageId);
-            }
-            catch (InvalidOperationException exception)
-            {
-                throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(TechnicalInnovationSectionResultEntity).Name, result.StorageId), exception);
-            }
         }
     }
 }

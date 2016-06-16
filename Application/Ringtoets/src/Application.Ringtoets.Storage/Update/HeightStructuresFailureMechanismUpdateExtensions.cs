@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
         /// <exception cref="EntityNotFoundException">When <paramref name="mechanism"/>
-        /// does not have a corresponding entity in <paramref name="context"/>.</exception>
+        /// does not have a corresponding entity in the database.</exception>
         internal static void Update(this HeightStructuresFailureMechanism mechanism, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
@@ -58,7 +58,10 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("registry");
             }
 
-            FailureMechanismEntity entity = mechanism.GetCorrespondingFailureMechanismEntity(context);
+            FailureMechanismEntity entity = mechanism.GetCorrespondingEntity(
+                context.FailureMechanismEntities,
+                o => o.FailureMechanismEntityId);
+
             entity.IsRelevant = Convert.ToByte(mechanism.IsRelevant);
 
             mechanism.UpdateFailureMechanismSections(registry, entity, context);

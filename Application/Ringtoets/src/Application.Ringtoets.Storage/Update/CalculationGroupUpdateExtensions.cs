@@ -25,8 +25,6 @@ using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Properties;
-
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
 
@@ -50,7 +48,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
         /// <exception cref="EntityNotFoundException">When <paramref name="calculationGroup"/>
-        /// does not have a corresponding entity in <paramref name="context"/>.</exception>
+        /// does not have a corresponding entity in the database.</exception>
         internal static void Update(this CalculationGroup calculationGroup, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (registry == null)
@@ -62,7 +60,7 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("context");
             }
 
-            CalculationGroupEntity entity = GetCorrespondingCalculationGroupEntity(calculationGroup, context);
+            CalculationGroupEntity entity = calculationGroup.GetCorrespondingEntity(context.CalculationGroupEntities, o => o.CalculationGroupEntityId);
             entity.Name = calculationGroup.Name;
 
             UpdateChildren(entity, calculationGroup, registry, context);
@@ -114,21 +112,6 @@ namespace Application.Ringtoets.Storage.Update
                         }
                     }
                 }
-            }
-        }
-
-        private static CalculationGroupEntity GetCorrespondingCalculationGroupEntity(CalculationGroup calculationGroup, IRingtoetsEntities context)
-        {
-            try
-            {
-                return context.CalculationGroupEntities.Single(cge => cge.CalculationGroupEntityId == calculationGroup.StorageId);
-            }
-            catch (InvalidOperationException e)
-            {
-                string message = string.Format(Resources.Error_Entity_Not_Found_0_1,
-                                               typeof(CalculationGroupEntity).Name,
-                                               calculationGroup.StorageId);
-                throw new EntityNotFoundException(message, e);
             }
         }
     }

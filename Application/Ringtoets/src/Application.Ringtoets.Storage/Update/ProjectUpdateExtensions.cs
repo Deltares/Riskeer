@@ -24,7 +24,6 @@ using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Properties;
 using Core.Common.Base.Data;
 using Ringtoets.Integration.Data;
 
@@ -48,7 +47,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
         /// <exception cref="EntityNotFoundException">When <paramref name="project"/>
-        /// does not have a corresponding entity in <paramref name="context"/>.</exception>
+        /// does not have a corresponding entity in the database.</exception>
         internal static void Update(this Project project, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
@@ -60,7 +59,10 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("registry");
             }
 
-            ProjectEntity entity = GetCorrespondingProjectEntity(project, context);
+            ProjectEntity entity = project.GetCorrespondingEntity(
+                context.ProjectEntities,
+                o => o.ProjectEntityId);
+
             entity.Description = project.Description;
 
             foreach (var result in project.Items.OfType<AssessmentSection>())
@@ -76,18 +78,6 @@ namespace Application.Ringtoets.Storage.Update
             }
 
             registry.Register(entity, project);
-        }
-
-        private static ProjectEntity GetCorrespondingProjectEntity(Project project, IRingtoetsEntities context)
-        {
-            try
-            {
-                return context.ProjectEntities.Single(pe => pe.ProjectEntityId == project.StorageId);
-            }
-            catch (InvalidOperationException exception)
-            {
-                throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(ProjectEntity).Name, project.StorageId), exception);
-            }
         }
     }
 }

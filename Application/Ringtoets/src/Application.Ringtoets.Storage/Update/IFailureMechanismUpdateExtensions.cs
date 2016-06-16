@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Properties;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Application.Ringtoets.Storage.Update
@@ -47,7 +45,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
         /// <exception cref="EntityNotFoundException">When <paramref name="mechanism"/>
-        /// does not have a corresponding entity in <paramref name="context"/>.</exception>
+        /// does not have a corresponding entity in the database.</exception>
         internal static void Update(this IFailureMechanism mechanism, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
@@ -59,7 +57,10 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("registry");
             }
 
-            FailureMechanismEntity entity = mechanism.GetCorrespondingFailureMechanismEntity(context);
+            FailureMechanismEntity entity = mechanism.GetCorrespondingEntity(
+                context.FailureMechanismEntities,
+                o => o.FailureMechanismEntityId);
+
             entity.IsRelevant = Convert.ToByte(mechanism.IsRelevant);
             entity.Comments = mechanism.Comments;
 
@@ -108,29 +109,6 @@ namespace Application.Ringtoets.Storage.Update
                 {
                     failureMechanismSection.Update(registry, context);
                 }
-            }
-        }
-
-        /// <summary>
-        /// Gets the <see cref="FailureMechanismEntity"/> based on the <see cref="IFailureMechanism"/>.
-        /// </summary>
-        /// <param name="mechanism">The failure mechanism corresponding with the failure mechanism entity.</param>
-        /// <param name="context">The context to obtain the existing entity from.</param>
-        /// <returns>The stored <see cref="FailureMechanismEntity"/>.</returns>
-        /// <exception cref="EntityNotFoundException">Thrown when either:
-        /// <list type="bullet">
-        /// <item>the <see cref="FailureMechanismEntity"/> couldn't be found in the <paramref name="context"/></item>
-        /// <item>more than one <see cref="FailureMechanismEntity"/> was found in the <paramref name="context"/></item>
-        /// </list></exception>
-        internal static FailureMechanismEntity GetCorrespondingFailureMechanismEntity(this IFailureMechanism mechanism, IRingtoetsEntities context)
-        {
-            try
-            {
-                return context.FailureMechanismEntities.Single(fme => fme.FailureMechanismEntityId == mechanism.StorageId);
-            }
-            catch (InvalidOperationException exception)
-            {
-                throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(FailureMechanismEntity).Name, mechanism.StorageId), exception);
             }
         }
     }

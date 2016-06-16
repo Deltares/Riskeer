@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoWaterPressureAsphaltCoverSoilLayer_EntityNotFoundException()
+        public void Update_ContextWithNoWaterPressureAsphaltCoverSectionResult_EntityNotFoundException()
         {
             // Setup
             var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoWaterPressureAsphaltCoverSoilLayerWithId_EntityNotFoundException()
+        public void Update_ContextWithNoWaterPressureAsphaltCoverSectionResultWithId_EntityNotFoundException()
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -122,7 +122,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_WithWaterPressureAsphaltCoverSoilLayer_PropertiesUpdated()
+        public void Update_WithWaterPressureAsphaltCoverSectionResult_PropertiesUpdated()
         {
             // Setup
             MockRepository mocks = new MockRepository();

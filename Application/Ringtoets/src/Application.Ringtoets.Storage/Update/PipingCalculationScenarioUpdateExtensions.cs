@@ -20,12 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Properties;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Update
@@ -49,7 +46,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
         /// <exception cref="EntityNotFoundException">When <paramref name="calculation"/>
-        /// does not have a corresponding entity in <paramref name="context"/>.</exception>
+        /// does not have a corresponding entity in the database.</exception>
         internal static void Update(this PipingCalculationScenario calculation, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (registry == null)
@@ -61,7 +58,9 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("context");
             }
 
-            PipingCalculationEntity entity = GetCorrespondingPipingCalculationEntity(calculation, context);
+            PipingCalculationEntity entity = calculation.GetCorrespondingEntity(
+                context.PipingCalculationEntities,
+                o => o.PipingCalculationEntityId);
             entity.RelevantForScenario = Convert.ToByte(calculation.IsRelevant);
             entity.ScenarioContribution = Convert.ToDecimal(calculation.Contribution);
             entity.Name = calculation.Name;
@@ -98,29 +97,6 @@ namespace Application.Ringtoets.Storage.Update
             entity.Diameter70StandardDeviation = Convert.ToDecimal(inputParameters.Diameter70.StandardDeviation);
             entity.DarcyPermeabilityMean = Convert.ToDecimal(inputParameters.DarcyPermeability.Mean);
             entity.DarcyPermeabilityStandardDeviation = Convert.ToDecimal(inputParameters.DarcyPermeability.StandardDeviation);
-        }
-
-        /// <summary>
-        /// Gets the <see cref="PipingCalculationEntity"/> based on the <see cref="PipingCalculationScenario"/>.
-        /// </summary>
-        /// <param name="calculation">The piping calculation corresponding with the failure mechanism entity.</param>
-        /// <param name="context">The context to obtain the existing entity from.</param>
-        /// <returns>The stored <see cref="PipingCalculationEntity"/>.</returns>
-        /// <exception cref="EntityNotFoundException">Thrown when either:
-        /// <list type="bullet">
-        /// <item>the <see cref="PipingCalculationEntity"/> couldn't be found in the <paramref name="context"/></item>
-        /// <item>more than one <see cref="PipingCalculationEntity"/> was found in the <paramref name="context"/></item>
-        /// </list></exception>
-        private static PipingCalculationEntity GetCorrespondingPipingCalculationEntity(this PipingCalculationScenario calculation, IRingtoetsEntities context)
-        {
-            try
-            {
-                return context.PipingCalculationEntities.Single(pc => pc.PipingCalculationEntityId == calculation.StorageId);
-            }
-            catch (InvalidOperationException exception)
-            {
-                throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(FailureMechanismEntity).Name, calculation.StorageId), exception);
-            }
         }
 
         private static void UpdatePipingCalculationOutputs(PipingCalculationEntity entity, PipingCalculationScenario calculation, PersistenceRegistry registry)

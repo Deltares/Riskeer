@@ -115,6 +115,7 @@
     <Compile Include="Create\StochasticSoilProfileCreateExtensionsTest.cs" />
     <Compile Include="DecimalConversionExtensionsTests.cs" />
     <Compile Include="DoubleConversionExtensionsTest.cs" />
+    <Compile Include="IStorableExtensionsTest.cs" />
     <Compile Include="Read\AssessmentSectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentionsTest.cs" />
     <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensionsTest.cs" />
@@ -166,7 +167,6 @@
     <Compile Include="Update\IFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\FailureMechanismSectionUpdateExtensionsTest.cs" />
     <Compile Include="Update\HydraulicBoundaryLocationUpdateExtensionsTest.cs" />
-    <Compile Include="Update\IStorableExtensionsTest.cs" />
     <Compile Include="Update\PipingCalculationScenarioUpdateExtensionsTest.cs" />
     <Compile Include="Update\PipingFailureMechanismSectionResultUpdateExtensionsTest.cs" />
     <Compile Include="Update\PipingFailureMechanismUpdateExtensionsTest.cs" />

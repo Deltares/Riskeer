@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoTechnicalInnovationSoilLayer_EntityNotFoundException()
+        public void Update_ContextWithNoTechnicalInnovationSectionResult_EntityNotFoundException()
         {
             // Setup
             var sectionResult = new TechnicalInnovationFailureMechanismSectionResult(new TestFailureMechanismSection());
@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoTechnicalInnovationSoilLayerWithId_EntityNotFoundException()
+        public void Update_ContextWithNoTechnicalInnovationSectionResultWithId_EntityNotFoundException()
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -122,7 +122,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_WithTechnicalInnovationSoilLayer_PropertiesUpdated()
+        public void Update_WithTechnicalInnovationSectionResult_PropertiesUpdated()
         {
             // Setup
             MockRepository mocks = new MockRepository();

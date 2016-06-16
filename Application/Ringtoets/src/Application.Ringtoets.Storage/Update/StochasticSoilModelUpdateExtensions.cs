@@ -25,8 +25,6 @@ using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Properties;
-
 using Core.Common.Base.Geometry;
 
 using Ringtoets.Piping.Data;
@@ -51,7 +49,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
         /// <exception cref="EntityNotFoundException">When <paramref name="model"/>
-        /// does not have a corresponding entity in <paramref name="context"/>.</exception>
+        /// does not have a corresponding entity in the database.</exception>
         internal static void Update(this StochasticSoilModel model, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
@@ -63,7 +61,10 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("registry");
             }
 
-            StochasticSoilModelEntity entity = GetCorrespondingStochasticSoilModelEntity(model, context);
+            StochasticSoilModelEntity entity = model.GetCorrespondingEntity(
+                context.StochasticSoilModelEntities,
+                o => o.StochasticSoilModelEntityId);
+
             entity.Name = model.Name;
             entity.SegmentName = model.SegmentName;
 
@@ -123,18 +124,6 @@ namespace Application.Ringtoets.Storage.Update
                 Point2D point = model.Geometry[i];
                 StochasticSoilModelSegmentPointEntity pointEntity = point.CreateStochasticSoilModelSegmentPointEntity(i);
                 entity.StochasticSoilModelSegmentPointEntities.Add(pointEntity);
-            }
-        }
-
-        private static StochasticSoilModelEntity GetCorrespondingStochasticSoilModelEntity(StochasticSoilModel model, IRingtoetsEntities context)
-        {
-            try
-            {
-                return context.StochasticSoilModelEntities.Single(ssme => ssme.StochasticSoilModelEntityId == model.StorageId);
-            }
-            catch (InvalidOperationException exception)
-            {
-                throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(StochasticSoilModelEntity).Name, model.StorageId), exception);
             }
         }
     }

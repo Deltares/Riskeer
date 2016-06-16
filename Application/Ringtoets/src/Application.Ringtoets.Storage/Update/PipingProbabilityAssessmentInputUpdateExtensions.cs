@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Properties;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Update
@@ -47,7 +45,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
         /// <exception cref="EntityNotFoundException">When <paramref name="probabilityAssessmentInput"/>
-        /// does not have a corresponding entity in <paramref name="context"/>.</exception>
+        /// does not have a corresponding entity in the database.</exception>
         internal static void Update(this PipingProbabilityAssessmentInput probabilityAssessmentInput, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
@@ -59,22 +57,13 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("registry");
             }
 
-            PipingFailureMechanismMetaEntity entity = probabilityAssessmentInput.GetCorrespondingPipingFailureMechanismMetaEntity(context);
+            PipingFailureMechanismMetaEntity entity = probabilityAssessmentInput.GetCorrespondingEntity(
+                context.PipingFailureMechanismMetaEntities,
+                o => o.PipingFailureMechanismMetaEntityId);
+
             entity.A = Convert.ToDecimal(probabilityAssessmentInput.A);
 
             registry.Register(entity, probabilityAssessmentInput);
-        }
-
-        private static PipingFailureMechanismMetaEntity GetCorrespondingPipingFailureMechanismMetaEntity(this PipingProbabilityAssessmentInput model, IRingtoetsEntities context)
-        {
-            try
-            {
-                return context.PipingFailureMechanismMetaEntities.Single(pfmme => pfmme.PipingFailureMechanismMetaEntityId == model.StorageId);
-            }
-            catch (InvalidOperationException exception)
-            {
-                throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(PipingFailureMechanismMetaEntity).Name, model.StorageId), exception);
-            }
         }
     }
 }

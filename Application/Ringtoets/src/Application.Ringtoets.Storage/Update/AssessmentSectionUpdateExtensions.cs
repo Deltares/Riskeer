@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
         /// <exception cref="EntityNotFoundException">When <paramref name="section"/>
-        /// does not have a corresponding entity in <paramref name="context"/>.</exception>
+        /// does not have a corresponding entity in the database.</exception>
         internal static void Update(this AssessmentSection section, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("registry");
             }
 
-            AssessmentSectionEntity entity = GetCorrespondingAssessmentSectionEntity(section, context);
+            AssessmentSectionEntity entity = section.GetCorrespondingEntity(context.AssessmentSectionEntities, o => o.AssessmentSectionEntityId);
             entity.Name = section.Name;
             entity.Composition = (short) section.Composition;
             entity.Comments = section.Comments;
@@ -95,18 +95,6 @@ namespace Application.Ringtoets.Storage.Update
             section.StrengthStabilityLengthwiseConstruction.Update(registry, context);
             section.DuneErosion.Update(registry, context);
             section.TechnicalInnovation.Update(registry, context);
-        }
-
-        private static AssessmentSectionEntity GetCorrespondingAssessmentSectionEntity(AssessmentSection section, IRingtoetsEntities context)
-        {
-            try
-            {
-                return context.AssessmentSectionEntities.Single(ase => ase.AssessmentSectionEntityId == section.StorageId);
-            }
-            catch (InvalidOperationException exception)
-            {
-                throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(AssessmentSectionEntity).Name, section.StorageId), exception);
-            }
         }
 
         private static void UpdateReferenceLine(AssessmentSection section, AssessmentSectionEntity entity, IRingtoetsEntities context)

@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoGrassCoverErosionInwardsSoilLayer_EntityNotFoundException()
+        public void Update_ContextWithNoCoverErosionInwardsSectionResult_EntityNotFoundException()
         {
             // Setup
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoGrassCoverErosionInwardsSoilLayerWithId_EntityNotFoundException()
+        public void Update_ContextWithNoCoverErosionInwardsSectionResultWithId_EntityNotFoundException()
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -122,7 +122,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_WithGrassCoverErosionInwardsSoilLayer_PropertiesUpdated()
+        public void Update_WithGrassCoverErosionInwardsSectionResult_PropertiesUpdated()
         {
             // Setup
             MockRepository mocks = new MockRepository();

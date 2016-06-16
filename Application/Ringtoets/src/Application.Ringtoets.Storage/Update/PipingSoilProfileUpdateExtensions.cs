@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Update
@@ -47,7 +45,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
         /// <exception cref="EntityNotFoundException">When <paramref name="profile"/>
-        /// does not have a corresponding entity in <paramref name="context"/>.</exception>
+        /// does not have a corresponding entity in the database.</exception>
         internal static void Update(this PipingSoilProfile profile, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
@@ -59,7 +57,10 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("registry");
             }
 
-            SoilProfileEntity entity = GetCorrespondingPipingSoilProfileEntity(profile, context);
+            SoilProfileEntity entity = profile.GetCorrespondingEntity(
+                context.SoilProfileEntities,
+                o => o.SoilProfileEntityId);
+
             entity.Name = profile.Name;
             entity.Bottom = Convert.ToDecimal(profile.Bottom);
 
@@ -76,18 +77,6 @@ namespace Application.Ringtoets.Storage.Update
             }
 
             registry.Register(entity, profile);
-        }
-
-        private static SoilProfileEntity GetCorrespondingPipingSoilProfileEntity(PipingSoilProfile profile, IRingtoetsEntities context)
-        {
-            try
-            {
-                return context.SoilProfileEntities.Single(spe => spe.SoilProfileEntityId == profile.StorageId);
-            }
-            catch (InvalidOperationException exception)
-            {
-                throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(SoilProfileEntity).Name, profile.StorageId), exception);
-            }
         }
     }
 }

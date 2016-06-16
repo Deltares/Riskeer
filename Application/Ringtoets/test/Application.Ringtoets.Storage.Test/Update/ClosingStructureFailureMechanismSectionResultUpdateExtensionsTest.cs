@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoClosingStructureSoilLayer_EntityNotFoundException()
+        public void Update_ContextWithNoClosingStructureSectionResult_EntityNotFoundException()
         {
             // Setup
             var sectionResult = new ClosingStructureFailureMechanismSectionResult(new TestFailureMechanismSection());
@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoClosingStructureSoilLayerWithId_EntityNotFoundException()
+        public void Update_ContextWithNoClosingStructureSectionResultWithId_EntityNotFoundException()
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -122,7 +122,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_WithClosingStructureSoilLayer_PropertiesUpdated()
+        public void Update_WithClosingStructureSectionResult_PropertiesUpdated()
         {
             // Setup
             MockRepository mocks = new MockRepository();
