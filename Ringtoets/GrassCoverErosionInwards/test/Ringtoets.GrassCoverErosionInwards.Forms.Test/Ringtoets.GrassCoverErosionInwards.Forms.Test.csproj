@@ -58,7 +58,6 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PresentationObjects\DikeProfileContextTest.cs" />
     <Compile Include="PresentationObjects\DikeProfilesContextTest.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -76,7 +75,7 @@
     <Compile Include="PropertyClasses\DikeGeometryPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ForeshorePropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsFailureMechanismContextPropertiesTest.cs" />
-    <Compile Include="TreeNodeInfos\DikeProfileContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\DikeProfileTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DikeProfilesContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ProbabilityAssessmentOutputTreeNodeInfoTest.cs" />

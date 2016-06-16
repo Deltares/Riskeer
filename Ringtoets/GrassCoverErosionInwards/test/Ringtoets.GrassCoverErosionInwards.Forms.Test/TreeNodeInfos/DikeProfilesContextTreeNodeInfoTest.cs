@@ -165,7 +165,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnDikeProfileContexts()
+        public void ChildNodeObjects_Always_ReturnDikeProfiles()
         {
             // Setup
             var mocks = new MockRepository();
@@ -187,17 +187,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(2, children.Length);
-
-            var dikeProfileContext = children.ElementAt(0) as DikeProfileContext;
-            Assert.IsNotNull(dikeProfileContext);
-            Assert.AreSame(dikeProfile1, dikeProfileContext.WrappedData);
-            Assert.AreSame(dikeProfiles, dikeProfileContext.DikeProfilesList);
-
-            dikeProfileContext = children.ElementAt(1) as DikeProfileContext;
-            Assert.IsNotNull(dikeProfileContext);
-            Assert.AreSame(dikeProfile2, dikeProfileContext.WrappedData);
-            Assert.AreSame(dikeProfiles, dikeProfileContext.DikeProfilesList);
-
+            Assert.AreSame(dikeProfile1, children.ElementAt(0));
+            Assert.AreSame(dikeProfile2, children.ElementAt(1));
             mocks.ReplayAll();
         }
 

@@ -21,7 +21,6 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -30,14 +29,13 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
 using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class DikeProfileContextTreeNodeInfoTest
+    public class DikeProfileTreeNodeInfoTest
     {
         private GrassCoverErosionInwardsGuiPlugin plugin;
         private TreeNodeInfo info;
@@ -46,14 +44,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void SetUp()
         {
             plugin = new GrassCoverErosionInwardsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DikeProfileContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DikeProfile));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(DikeProfileContext), info.TagType);
+            Assert.AreEqual(typeof(DikeProfile), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ContextMenuStrip);
@@ -82,11 +80,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 Name = profileName
             };
-            var dikeProfiles = new ObservableList<DikeProfile>();
-            var dikeProfileContext = new DikeProfileContext(dikeProfile, dikeProfiles);
 
             // Call
-            string text = info.Text(dikeProfileContext);
+            string text = info.Text(dikeProfile);
 
             // Assert
             Assert.AreEqual(profileName, text);
@@ -95,13 +91,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnExpectedImage()
         {
-            // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0));
-            var dikeProfiles = new ObservableList<DikeProfile>();
-            var dikeProfileContext = new DikeProfileContext(dikeProfile, dikeProfiles);
-
             // Call
-            Image image = info.Image(dikeProfileContext);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.DikeProfile, image);

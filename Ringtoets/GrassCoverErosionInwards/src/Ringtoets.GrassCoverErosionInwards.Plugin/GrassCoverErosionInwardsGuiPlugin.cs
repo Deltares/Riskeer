@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -38,17 +37,12 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
-using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
 using Ringtoets.GrassCoverErosionInwards.Service;
-using Ringtoets.HydraRing.Calculation.Activities;
-using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
-using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.IO;
 
 using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
@@ -101,7 +95,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                            Color.FromKnownColor(KnownColor.ControlText) :
                                            Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = context => context.WrappedData
-                                                     .Select(dp => new DikeProfileContext(dp, context.WrappedData))
                                                      .Cast<object>()
                                                      .ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
@@ -112,9 +105,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<DikeProfileContext>
+            yield return new TreeNodeInfo<DikeProfile>
             {
-                Text = context => context.WrappedData.Name,
+                Text = dikeProfile => dikeProfile.Name,
                 Image = context => Resources.DikeProfile,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
