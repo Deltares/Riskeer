@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 
@@ -43,17 +43,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var dikeProfile = new DikeProfile(worldCoordinate);
 
             // Assert
-            Assert.IsInstanceOf<double>(dikeProfile.Orientation);
+            Assert.IsInstanceOf<RoundedDouble>(dikeProfile.Orientation);
+            Assert.IsInstanceOf<RoundedDouble>(dikeProfile.CrestLevel);
             Assert.IsInstanceOf<double>(dikeProfile.X0);
 
             Assert.AreSame(worldCoordinate, dikeProfile.WorldReferencePoint);
-            Assert.AreEqual(0.0, dikeProfile.Orientation);
+            Assert.AreEqual(0.0, dikeProfile.Orientation.Value);
+            Assert.AreEqual(2, dikeProfile.Orientation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, dikeProfile.X0);
             Assert.AreEqual("Dijkprofiel", dikeProfile.Name);
             Assert.IsNull(dikeProfile.BreakWater);
             CollectionAssert.IsEmpty(dikeProfile.DikeGeometry);
             CollectionAssert.IsEmpty(dikeProfile.ForeshoreGeometry);
-            Assert.AreEqual(0.0, dikeProfile.CrestLevel);
+            Assert.AreEqual(0.0, dikeProfile.CrestLevel.Value);
+            Assert.AreEqual(2, dikeProfile.CrestLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(string.Empty, dikeProfile.Memo);
         }
 
@@ -69,19 +72,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        [TestCase(0.0)]
-        [TestCase(180.346)]
-        [TestCase(360.0)]
-        public void Orientation_SetNewValue_GetsNewValue(double newValue)
+        public void Orientation_SetToValueWithTooManyDecimalPlaces_ValueIsRounded()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0,0));
+            var dikeProfile = new DikeProfile(new Point2D(0, 0));
+
+            int originalNumberOfDecimalPlaces = dikeProfile.Orientation.NumberOfDecimalPlaces;
 
             // Call
-            dikeProfile.Orientation = newValue;
+            dikeProfile.Orientation = new RoundedDouble(5, 1.23456);
 
             // Assert
-            Assert.AreEqual(newValue, dikeProfile.Orientation);
+            Assert.AreEqual(originalNumberOfDecimalPlaces, dikeProfile.Orientation.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.23, dikeProfile.Orientation.Value);
         }
 
         [Test]
@@ -95,7 +98,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var dikeProfile = new DikeProfile(new Point2D(0, 0));
 
             // Call
-            TestDelegate call = () => dikeProfile.Orientation = invalidNewValue;
+            TestDelegate call = () => dikeProfile.Orientation = (RoundedDouble) invalidNewValue;
 
             // Assert
             string expectedMessage = String.Format("De dijkprofiel oriëntatie waarde {0} moet in het interval [0, 360] liggen.",
@@ -117,16 +120,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void CrestLevel_SetNewValue_GetsNewValue([Random(-9999.99, 9999.99, 1)] double newValue)
+        public void CrestLevel_SetToValueWithTooManyDecimalPlaces_ValueIsRounded()
         {
             // Setup
             var dikeProfile = new DikeProfile(new Point2D(0, 0));
 
+            int originalNumberOfDecimalPlaces = dikeProfile.CrestLevel.NumberOfDecimalPlaces;
+
             // Call
-            dikeProfile.CrestLevel = newValue;
+            dikeProfile.CrestLevel = new RoundedDouble(5, 1.23456);
 
             // Assert
-            Assert.AreEqual(newValue, dikeProfile.CrestLevel);
+            Assert.AreEqual(originalNumberOfDecimalPlaces, dikeProfile.CrestLevel.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.23, dikeProfile.CrestLevel.Value);
         }
 
         [Test]

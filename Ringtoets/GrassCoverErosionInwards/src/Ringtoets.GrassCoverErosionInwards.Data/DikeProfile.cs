@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
@@ -36,7 +36,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     {
         private readonly List<ProfileSection> foreshoreGeometry;
         private readonly List<RoughnessProfileSection> dikeGeometry;
-        private double orientation;
+        private RoundedDouble orientation;
+        private RoundedDouble crestLevel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DikeProfile"/> class.
@@ -48,6 +49,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             {
                 throw new ArgumentNullException("worldCoordinate");
             }
+
+            orientation = new RoundedDouble(2);
+            crestLevel = new RoundedDouble(2);
 
             Name = Resources.DikeProfile_DefaultName;
             Memo = "";
@@ -62,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">When <paramref name="value"/> is
         /// not in range [0, 360].</exception>
-        public double Orientation
+        public RoundedDouble Orientation
         {
             get
             {
@@ -72,10 +76,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             {
                 if (value < 0.0 || value > 360.0)
                 {
-                    string message = string.Format(Resources.DikeProfile_Orientation_Value_0_should_be_in_interval, value);
+                    string message = string.Format(Resources.DikeProfile_Orientation_Value_0_should_be_in_interval, value.Value);
                     throw new ArgumentOutOfRangeException("value", message);
                 }
-                orientation = value;
+
+                orientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
             }
         }
 
@@ -124,7 +129,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets or sets the height of the dike [m+NAP].
         /// </summary>
-        public double CrestLevel { get; set; }
+        public RoundedDouble CrestLevel
+        {
+            get
+            {
+                return crestLevel;
+            }
+            set
+            {
+                crestLevel = value.ToPrecision(crestLevel.NumberOfDecimalPlaces);
+            }
+        }
 
         /// <summary>
         /// Gets or sets the optional notes about this instance.
