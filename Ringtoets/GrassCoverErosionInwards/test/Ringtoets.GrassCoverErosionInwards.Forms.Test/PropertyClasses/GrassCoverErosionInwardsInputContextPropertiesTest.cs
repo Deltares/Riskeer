@@ -73,7 +73,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             properties.Data = inputContext;
 
             // Assert
-            var dikeGeometryProperties = new DikeGeometryProperties
+            var dikeGeometryProperties = new GrassCoverErosionInwardsInputContextDikeGeometryProperties
             {
                 Data = inputContext
             };

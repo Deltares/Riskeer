@@ -98,11 +98,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "DikeGeometryProperties_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DikeGeometryProperties_Description")]
-        public DikeGeometryProperties DikeGeometry
+        public GrassCoverErosionInwardsInputContextDikeGeometryProperties DikeGeometry
         {
             get
             {
-                return new DikeGeometryProperties
+                return new GrassCoverErosionInwardsInputContextDikeGeometryProperties
                 {
                     Data = data
                 };

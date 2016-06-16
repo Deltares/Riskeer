@@ -33,7 +33,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class DikeGeometryPropertiesTest
+    public class GrassCoverErosionInwardsInputContextDikeGeometryPropertiesTest
     {
         private MockRepository mockRepository;
 
@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Call
-            var properties = new DikeGeometryProperties();
+            var properties = new GrassCoverErosionInwardsInputContextDikeGeometryProperties();
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsInputContext>>(properties);
@@ -65,7 +65,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var input = new GrassCoverErosionInwardsInput();
-            var properties = new DikeGeometryProperties();
+            var properties = new GrassCoverErosionInwardsInputContextDikeGeometryProperties();
 
             // Call
             properties.Data = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock);
@@ -89,7 +89,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             {
                 new RoughnessProfileSection(new Point2D(0, 0), new Point2D(1, 1), 2)
             });
-            var properties = new DikeGeometryProperties();
+            var properties = new GrassCoverErosionInwardsInputContextDikeGeometryProperties();
 
             // Call
             properties.Data = new GrassCoverErosionInwardsInputContext(calculation.InputParameters, calculation, failureMechanismMock, assessmentSectionMock);
@@ -122,7 +122,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var input = new GrassCoverErosionInwardsInput();
 
             // Call
-            var properties = new DikeGeometryProperties
+            var properties = new GrassCoverErosionInwardsInputContextDikeGeometryProperties
             {
                 Data = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock)
             };
