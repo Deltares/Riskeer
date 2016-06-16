@@ -224,7 +224,7 @@ namespace Ringtoets.Piping.Service.Test
             TestDelegate test = () => PipingSemiProbabilisticCalculationService.Calculate(pipingCalculation, new PipingProbabilityAssessmentInput(), int.MinValue, double.NaN);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Cannot perform a semi-probabilistic calculation without output from the piping kernel.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Veiligheidsfactor voor piping kan niet worden berekend.");
         }
 
         private PipingCalculation AsPipingCalculation(PipingOutput pipingOutput)

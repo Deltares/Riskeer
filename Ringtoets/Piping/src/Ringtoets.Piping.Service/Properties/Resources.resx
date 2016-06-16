@@ -129,4 +129,7 @@
   <data name="PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer" xml:space="preserve">
     <value>Kan de dikte van de deklaag niet afleiden op basis van de invoer.</value>
   </data>
+  <data name="PipingSemiProbabilisticCalculationService_ValidateOutputOnCalculation_Factor_of_safety_cannot_be_calculated" xml:space="preserve">
+    <value>Veiligheidsfactor voor piping kan niet worden berekend.</value>
+  </data>
 </root>

@@ -1,6 +1,7 @@
 using System;
 using MathNet.Numerics.Distributions;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Service.Properties;
 
 namespace Ringtoets.Piping.Service
 {
@@ -179,7 +180,7 @@ namespace Ringtoets.Piping.Service
         {
             if (!calculation.HasOutput)
             {
-                throw new ArgumentException("Cannot perform a semi-probabilistic calculation without output from the piping kernel.");
+                throw new ArgumentException(Resources.PipingSemiProbabilisticCalculationService_ValidateOutputOnCalculation_Factor_of_safety_cannot_be_calculated);
             }
         }
 
