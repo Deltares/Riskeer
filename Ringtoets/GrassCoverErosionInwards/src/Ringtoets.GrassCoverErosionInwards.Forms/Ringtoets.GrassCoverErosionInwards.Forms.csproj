@@ -53,7 +53,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="PropertyClasses\BreakWaterProperties.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextBreakWaterProperties.cs" />
     <Compile Include="PropertyClasses\DikeProfileForeshoreProperties.cs" />
     <Compile Include="PropertyClasses\DikeGeometryProperties.cs" />
     <Compile Include="TypeConverters\EnumTypeConverter.cs" />

@@ -68,11 +68,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "BreakWaterProperties_DisplayName")]
         [ResourcesDescription(typeof(Resources), "BreakWaterProperties_Description")]
-        public BreakWaterProperties BreakWater
+        public GrassCoverErosionInwardsInputContextBreakWaterProperties BreakWater
         {
             get
             {
-                return new BreakWaterProperties
+                return new GrassCoverErosionInwardsInputContextBreakWaterProperties
                 {
                     Data = data
                 };

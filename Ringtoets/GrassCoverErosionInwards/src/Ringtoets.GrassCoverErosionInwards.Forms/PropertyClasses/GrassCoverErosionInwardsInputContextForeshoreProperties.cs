@@ -32,6 +32,9 @@ using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 {
+    /// <summary>
+    /// ViewModel of foreshore of <see cref="GrassCoverErosionInwardsInputContext"/> for properties panel.
+    /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class GrassCoverErosionInwardsInputContextForeshoreProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
     {

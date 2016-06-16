@@ -93,7 +93,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.00, properties.Orientation.Value);
 
-            var breakWaterProperties = new BreakWaterProperties
+            var breakWaterProperties = new GrassCoverErosionInwardsInputContextBreakWaterProperties
             {
                 Data = inputContext
             };

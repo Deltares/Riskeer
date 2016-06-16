@@ -32,10 +32,10 @@ using Ringtoets.GrassCoverErosionInwards.Forms.TypeConverters;
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="GrassCoverErosionInwardsInput.BreakWater"/> for properties panel.
+    /// ViewModel of break water of <see cref="GrassCoverErosionInwardsInputContext"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class BreakWaterProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
+    public class GrassCoverErosionInwardsInputContextBreakWaterProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
     {
         [PropertyOrder(1)]
         [ResourcesDisplayName(typeof(Resources), "BreakWater_UseBreakWater_DisplayName")]

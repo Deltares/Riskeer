@@ -66,7 +66,7 @@
     </Compile>
     <Compile Include="PropertyClasses\DikeProfileForeshorePropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\BreakWaterPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextBreakWaterPropertiesTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionInwardsCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionInwardsCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionInwardsContextTest.cs" />
