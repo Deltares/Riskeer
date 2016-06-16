@@ -61,6 +61,7 @@ namespace Application.Ringtoets.Storage.Create
             entity.FailureMechanismEntities.Add(section.StrengthStabilityLengthwiseConstruction.Create(registry));
             entity.FailureMechanismEntities.Add(section.TechnicalInnovation.Create(registry));
             entity.FailureMechanismEntities.Add(section.WaterPressureAsphaltCover.Create(registry));
+            entity.FailureMechanismEntities.Add(section.ClosingStructure.Create(registry));
 
             AddEntitiesForAddStandAloneFailureMechanisms(section, entity, registry);
 
@@ -78,7 +79,6 @@ namespace Application.Ringtoets.Storage.Create
             entity.FailureMechanismEntities.Add(section.GrassCoverErosionOutwards.Create(FailureMechanismType.GrassRevetmentErosionOutwards, registry));
             entity.FailureMechanismEntities.Add(section.GrassCoverSlipOffOutwards.Create(FailureMechanismType.GrassRevetmentSlidingOutwards, registry));
             entity.FailureMechanismEntities.Add(section.GrassCoverSlipOffInwards.Create(FailureMechanismType.GrassRevetmentSlidingInwards, registry));
-            entity.FailureMechanismEntities.Add(section.ClosingStructure.Create(FailureMechanismType.ReliabilityClosingOfStructure, registry));
             entity.FailureMechanismEntities.Add(section.PipingStructure.Create(FailureMechanismType.PipingAtStructure, registry));
             entity.FailureMechanismEntities.Add(section.StrengthStabilityPointConstruction.Create(FailureMechanismType.StrengthAndStabilityPointConstruction, registry));
             entity.FailureMechanismEntities.Add(section.DuneErosion.Create(FailureMechanismType.DuneErosion, registry));

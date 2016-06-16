@@ -272,6 +272,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 AssertFailureMechanismSectionResults(
                     expectedAssessmentSection.WaterPressureAsphaltCover.SectionResults,
                     actualAssessmentSection.WaterPressureAsphaltCover.SectionResults);
+                AssertFailureMechanismSectionResults(
+                    expectedAssessmentSection.ClosingStructure.SectionResults,
+                    actualAssessmentSection.ClosingStructure.SectionResults);
             }
         }
 
@@ -375,6 +378,24 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 WaterPressureAsphaltCoverFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
 
                 Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
+                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
+            }
+        }
+
+        private void AssertFailureMechanismSectionResults(IEnumerable<ClosingStructureFailureMechanismSectionResult> expectedSectionResults, IEnumerable<ClosingStructureFailureMechanismSectionResult> actualSectionResults)
+        {
+            var expectedSectionResultsArray = expectedSectionResults.ToArray();
+            var actualSectionResultsArray = actualSectionResults.ToArray();
+
+            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
+
+            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
+            {
+                ClosingStructureFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                ClosingStructureFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+
+                Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
+                Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
                 Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
             }
         }

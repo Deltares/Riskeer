@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Storage;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -51,10 +52,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
+            Assert.IsInstanceOf<IStorable>(result);
             Assert.AreSame(section, result.Section);
             Assert.IsFalse(result.AssessmentLayerOne);
             Assert.AreEqual(0, result.AssessmentLayerTwoA.Value);
             Assert.AreEqual(0, result.AssessmentLayerThree.Value);
+            Assert.AreEqual(0, result.StorageId);
         }
     }
 }

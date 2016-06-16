@@ -43,7 +43,7 @@
           <Property Name="ClosingStructureSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerTwo" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="decimal" Precision="53" Scale="0" />
           <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
         </EntityType>
         <EntityType Name="FailureMechanismEntity">
@@ -91,7 +91,7 @@
           <Property Name="GrassCoverErosionOutwardsSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerTwo" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="decimal" Precision="53" Scale="0" />
           <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
         </EntityType>
         <EntityType Name="GrassCoverSlipOffInwardsSectionResultEntity">
@@ -101,7 +101,7 @@
           <Property Name="GrassCoverSlipOffInwardsSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerTwo" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="decimal" Precision="53" Scale="0" />
           <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
         </EntityType>
         <EntityType Name="GrassCoverSlipOffOutwardsSectionResultEntity">
@@ -111,7 +111,7 @@
           <Property Name="GrassCoverSlipOffOutwardsSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerTwo" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="decimal" Precision="53" Scale="0" />
           <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
         </EntityType>
         <EntityType Name="HeightStructuresSectionResultEntity">
@@ -142,7 +142,7 @@
           <Property Name="MacrostabilityInwardsSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerTwo" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="decimal" Precision="53" Scale="0" />
           <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
         </EntityType>
         <EntityType Name="MacrostabilityOutwardsSectionResultEntity">
@@ -152,7 +152,7 @@
           <Property Name="MacrostabilityOutwardsSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerTwo" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="decimal" Precision="53" Scale="0" />
           <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
         </EntityType>
         <EntityType Name="PipingCalculationEntity">
@@ -363,7 +363,7 @@
           <Property Name="WaveImpactAsphaltCoverSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerTwo" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="decimal" Precision="53" Scale="0" />
           <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
         </EntityType>
         <Association Name="FK_AssessmentSectionEntity_0_0">
@@ -1209,7 +1209,7 @@
           <Property Name="ClosingStructureSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwo" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="Decimal" Precision="53" Scale="0" />
           <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructureSectionResultEntity_0_0" FromRole="ClosingStructureSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
@@ -1281,7 +1281,7 @@
           <Property Name="GrassCoverErosionOutwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwo" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="Decimal" Precision="53" Scale="0" />
           <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsSectionResultEntity_0_0" FromRole="GrassCoverErosionOutwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
@@ -1292,7 +1292,7 @@
           <Property Name="GrassCoverSlipOffInwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwo" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="Decimal" Precision="53" Scale="0" />
           <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverSlipOffInwardsSectionResultEntity_0_0" FromRole="GrassCoverSlipOffInwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
@@ -1303,7 +1303,7 @@
           <Property Name="GrassCoverSlipOffOutwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwo" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="Decimal" Precision="53" Scale="0" />
           <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverSlipOffOutwardsSectionResultEntity_0_0" FromRole="GrassCoverSlipOffOutwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
@@ -1338,7 +1338,7 @@
           <Property Name="MacrostabilityInwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwo" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="Decimal" Precision="53" Scale="0" />
           <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_MacrostabilityInwardsSectionResultEntity_0_0" FromRole="MacrostabilityInwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
@@ -1349,7 +1349,7 @@
           <Property Name="MacrostabilityOutwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwo" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="Decimal" Precision="53" Scale="0" />
           <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_MacrostabilityOutwardsSectionResultEntity_0_0" FromRole="MacrostabilityOutwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
@@ -1591,7 +1591,7 @@
           <Property Name="WaveImpactAsphaltCoverSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwo" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="Decimal" Precision="53" Scale="0" />
           <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverSectionResultEntity_0_0" FromRole="WaveImpactAsphaltCoverSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
@@ -2071,7 +2071,7 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.ClosingStructureSectionResultEntity">
               <MappingFragment StoreEntitySet="ClosingStructureSectionResultEntity">
                 <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerTwo" ColumnName="LayerTwo" />
+                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="ClosingStructureSectionResultEntityId" ColumnName="ClosingStructureSectionResultEntityId" />
@@ -2124,7 +2124,7 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionOutwardsSectionResultEntity">
               <MappingFragment StoreEntitySet="GrassCoverErosionOutwardsSectionResultEntity">
                 <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerTwo" ColumnName="LayerTwo" />
+                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="GrassCoverErosionOutwardsSectionResultEntityId" ColumnName="GrassCoverErosionOutwardsSectionResultEntityId" />
@@ -2135,7 +2135,7 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverSlipOffInwardsSectionResultEntity">
               <MappingFragment StoreEntitySet="GrassCoverSlipOffInwardsSectionResultEntity">
                 <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerTwo" ColumnName="LayerTwo" />
+                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="GrassCoverSlipOffInwardsSectionResultEntityId" ColumnName="GrassCoverSlipOffInwardsSectionResultEntityId" />
@@ -2146,7 +2146,7 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverSlipOffOutwardsSectionResultEntity">
               <MappingFragment StoreEntitySet="GrassCoverSlipOffOutwardsSectionResultEntity">
                 <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerTwo" ColumnName="LayerTwo" />
+                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="GrassCoverSlipOffOutwardsSectionResultEntityId" ColumnName="GrassCoverSlipOffOutwardsSectionResultEntityId" />
@@ -2180,7 +2180,7 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacrostabilityInwardsSectionResultEntity">
               <MappingFragment StoreEntitySet="MacrostabilityInwardsSectionResultEntity">
                 <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerTwo" ColumnName="LayerTwo" />
+                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="MacrostabilityInwardsSectionResultEntityId" ColumnName="MacrostabilityInwardsSectionResultEntityId" />
@@ -2191,7 +2191,7 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacrostabilityOutwardsSectionResultEntity">
               <MappingFragment StoreEntitySet="MacrostabilityOutwardsSectionResultEntity">
                 <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerTwo" ColumnName="LayerTwo" />
+                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="MacrostabilityOutwardsSectionResultEntityId" ColumnName="MacrostabilityOutwardsSectionResultEntityId" />
@@ -2421,7 +2421,7 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.WaveImpactAsphaltCoverSectionResultEntity">
               <MappingFragment StoreEntitySet="WaveImpactAsphaltCoverSectionResultEntity">
                 <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerTwo" ColumnName="LayerTwo" />
+                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="WaveImpactAsphaltCoverSectionResultEntityId" ColumnName="WaveImpactAsphaltCoverSectionResultEntityId" />

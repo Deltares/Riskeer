@@ -91,6 +91,12 @@ namespace Application.Ringtoets.Storage.DbContext
         DbSet<WaterPressureAsphaltCoverSectionResultEntity> WaterPressureAsphaltCoverSectionResultEntities { get; }
 
         /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="ClosingStructureSectionResultEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<ClosingStructureSectionResultEntity> ClosingStructureSectionResultEntities { get; }
+
+        /// <summary>
         /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="PipingFailureMechanismMetaEntity"/> containing
         /// every entity found in the database.
         /// </summary>

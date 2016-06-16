@@ -47,6 +47,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             DbSet<StrengthStabilityLengthwiseConstructionSectionResultEntity> strengthStabilityLengthwiseConstructionSectionResultsSet = CreateEmptyTestDbSet<StrengthStabilityLengthwiseConstructionSectionResultEntity>();
             DbSet<TechnicalInnovationSectionResultEntity> technicalInnovationSectionResultsSet = CreateEmptyTestDbSet<TechnicalInnovationSectionResultEntity>();
             DbSet<WaterPressureAsphaltCoverSectionResultEntity> waterPressureAsphaltCoverSectionResultsSet = CreateEmptyTestDbSet<WaterPressureAsphaltCoverSectionResultEntity>();
+            DbSet<ClosingStructureSectionResultEntity> closingStructureSectionResultsSet = CreateEmptyTestDbSet<ClosingStructureSectionResultEntity>();
             DbSet<AssessmentSectionEntity> assessmentSectionsSet = CreateEmptyTestDbSet<AssessmentSectionEntity>();
             DbSet<ReferenceLinePointEntity> referenceLinesSet = CreateEmptyTestDbSet<ReferenceLinePointEntity>();
             DbSet<CalculationGroupEntity> calculationGroupsSet = CreateEmptyTestDbSet<CalculationGroupEntity>();
@@ -75,6 +76,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             ringtoetsEntities.Stub(r => r.StrengthStabilityLengthwiseConstructionSectionResultEntities).Return(strengthStabilityLengthwiseConstructionSectionResultsSet);
             ringtoetsEntities.Stub(r => r.TechnicalInnovationSectionResultEntities).Return(technicalInnovationSectionResultsSet);
             ringtoetsEntities.Stub(r => r.WaterPressureAsphaltCoverSectionResultEntities).Return(waterPressureAsphaltCoverSectionResultsSet);
+            ringtoetsEntities.Stub(r => r.ClosingStructureSectionResultEntities).Return(closingStructureSectionResultsSet);
             ringtoetsEntities.Stub(r => r.AssessmentSectionEntities).Return(assessmentSectionsSet);
             ringtoetsEntities.Stub(r => r.ReferenceLinePointEntities).Return(referenceLinesSet);
             ringtoetsEntities.Stub(r => r.CalculationGroupEntities).Return(calculationGroupsSet);

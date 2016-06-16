@@ -54,6 +54,8 @@
     </Compile>
     <Compile Include="Create\AssessmentSectionCreateExtensions.cs" />
     <Compile Include="Create\CalculationGroupCreateExtensions.cs" />
+    <Compile Include="Create\ClosingStructureFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\ClosingStructureFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\WaterPressureAsphaltCoverFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\WaterPressureAsphaltCoverFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\TechnicalInnovationFailureMechanismCreateExtensions.cs" />
@@ -188,6 +190,7 @@
     <Compile Include="DecimalConversionExtensions.cs" />
     <Compile Include="DoubleConversionExtensions.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentions.cs" />
+    <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\TechnicalInnovationSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\StrengthStabilityLengthwiseConstructionSectionResultEntityReadExtensions.cs" />
@@ -243,6 +246,8 @@
     <Compile Include="StorageSqLite.cs" />
     <Compile Include="Update\AssessmentSectionUpdateExtensions.cs" />
     <Compile Include="Update\CalculationGroupUpdateExtensions.cs" />
+    <Compile Include="Update\ClosingStructureFailureMechanismSectionResultUpdateExtensions.cs" />
+    <Compile Include="Update\ClosingStructureFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\WaterPressureAsphaltCoverFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\TechnicalInnovationFailureMechanismSectionResultUpdateExtensions.cs" />

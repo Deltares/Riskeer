@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public long WaveImpactAsphaltCoverSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
         public byte LayerOne { get; set; }
-        public Nullable<decimal> LayerTwo { get; set; }
+        public Nullable<decimal> LayerTwoA { get; set; }
         public Nullable<decimal> LayerThree { get; set; }
     
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }

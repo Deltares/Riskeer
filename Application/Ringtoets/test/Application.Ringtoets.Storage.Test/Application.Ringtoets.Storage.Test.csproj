@@ -82,6 +82,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />
+    <Compile Include="Create\ClosingStructureFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\ClosingStructureFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\WaterPressureAsphaltCoverFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\WaterPressureAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\TechnicalInnovationFailureMechanismCreateExtensionsTest.cs" />
@@ -115,6 +117,7 @@
     <Compile Include="DoubleConversionExtensionsTest.cs" />
     <Compile Include="Read\AssessmentSectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentionsTest.cs" />
+    <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\TechnicalInnovationSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StrengthStabilityLengthwiseConstructionSectionResultEntityReadExtensionsTest.cs" />
@@ -148,6 +151,8 @@
     <Compile Include="StorageSqLiteTest.cs" />
     <Compile Include="Update\AssessmentSectionUpdateExtensionsTest.cs" />
     <Compile Include="Update\CalculationGroupUpdateExtensionsTest.cs" />
+    <Compile Include="Update\ClosingStructureFailureMechanismSectionResultUpdateExtensionsTest.cs" />
+    <Compile Include="Update\ClosingStructureFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\TechnicalInnovationFailureMechanismSectionResultUpdateExtensionsTest.cs" />
     <Compile Include="Update\TechnicalInnovationFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateExtensionsTest.cs" />

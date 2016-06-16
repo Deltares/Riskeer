@@ -1048,6 +1048,34 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void Register_WithNullClosingStructureFailureMechanismSectionResult_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(new ClosingStructureSectionResultEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullClosingStructureSectionResultEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(null, new ClosingStructureFailureMechanismSectionResult(new TestFailureMechanismSection()));
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
         public void Register_WithNullHydraulicLocationEntity_ThrowsArgumentNullException()
         {
             // Setup
@@ -1611,6 +1639,27 @@ namespace Application.Ringtoets.Storage.Test.Create
                 WaterPressureAsphaltCoverSectionResultEntityId = storageId
             };
             var model = new WaterPressureAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferIds_WithClosingStructureSectionResultEntityAddedWithClosingStructureFailureMechanismSectionResult_EqualClosingStructureSectionEntityIdAndClosingStructureFailureMechanismSectionResultStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1,4000);
+            var entity = new ClosingStructureSectionResultEntity()
+            {
+                ClosingStructureSectionResultEntityId = storageId
+            };
+            var model = new ClosingStructureFailureMechanismSectionResult(new TestFailureMechanismSection());
             registry.Register(entity, model);
 
             // Call
@@ -2222,6 +2271,42 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(1, dbContext.WaterPressureAsphaltCoverSectionResultEntities.Count());
             CollectionAssert.Contains(dbContext.WaterPressureAsphaltCoverSectionResultEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_ClosingStructureSectionResultEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new ClosingStructureSectionResultEntity
+            {
+                ClosingStructureSectionResultEntityId = 1
+            };
+            var persistentEntity = new ClosingStructureSectionResultEntity
+            {
+                ClosingStructureSectionResultEntityId = 2
+            };
+            dbContext.ClosingStructureSectionResultEntities.Add(orphanedEntity);
+            dbContext.ClosingStructureSectionResultEntities.Add(persistentEntity);
+
+            var section = new ClosingStructureFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                StorageId = persistentEntity.ClosingStructureSectionResultEntityId
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, section);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.ClosingStructureSectionResultEntities.Count());
+            CollectionAssert.Contains(dbContext.ClosingStructureSectionResultEntities, persistentEntity);
             mocks.VerifyAll();
         }
 

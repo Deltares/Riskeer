@@ -245,6 +245,36 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         /// <summary>
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="ClosingStructureFailureMechanism"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="ClosingStructureFailureMechanism"/> for.</param>
+        /// <param name="failureMechanism"></param>
+        /// <param name="collector">The object keeping track of read operations.</param>
+        internal static void ReadAsClosingStructureFailureMechanism(this FailureMechanismEntity entity, ClosingStructureFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            failureMechanism.StorageId = entity.FailureMechanismEntityId;
+            failureMechanism.IsRelevant = entity.IsRelevant == 1;
+            failureMechanism.Comments = entity.Comments;
+
+            entity.ReadFailureMechanismSections(failureMechanism, collector);
+            entity.ReadClosingStructureMechanismSectionResults(failureMechanism, collector);
+        }
+
+        private static void ReadClosingStructureMechanismSectionResults(this FailureMechanismEntity entity, ClosingStructureFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.ClosingStructureSectionResultEntities))
+            {
+                var readSectionResult = sectionResultEntity.Read(collector);
+                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                result.StorageId = readSectionResult.StorageId;
+                result.AssessmentLayerOne = readSectionResult.AssessmentLayerOne;
+                result.AssessmentLayerTwoA = readSectionResult.AssessmentLayerTwoA;
+                result.AssessmentLayerThree = readSectionResult.AssessmentLayerThree;
+            }
+        }
+
+        /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="IFailureMechanism"/>.
         /// </summary>
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to read into a <see cref="IFailureMechanism"/>.</param>

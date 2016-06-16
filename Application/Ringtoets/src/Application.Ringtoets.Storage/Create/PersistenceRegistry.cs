@@ -59,6 +59,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<StrengthStabilityLengthwiseConstructionSectionResultEntity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> strengthStabilityLengthwiseConstructionFailureMechanismSectionResults = new Dictionary<StrengthStabilityLengthwiseConstructionSectionResultEntity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
         private readonly Dictionary<TechnicalInnovationSectionResultEntity, TechnicalInnovationFailureMechanismSectionResult> technicalInnovationFailureMechanismSectionResults = new Dictionary<TechnicalInnovationSectionResultEntity, TechnicalInnovationFailureMechanismSectionResult>();
         private readonly Dictionary<WaterPressureAsphaltCoverSectionResultEntity, WaterPressureAsphaltCoverFailureMechanismSectionResult> waterPressureAsphaltCoverFailureMechanismSectionResults = new Dictionary<WaterPressureAsphaltCoverSectionResultEntity, WaterPressureAsphaltCoverFailureMechanismSectionResult>();
+        private readonly Dictionary<ClosingStructureSectionResultEntity, ClosingStructureFailureMechanismSectionResult> closingStructureFailureMechanismSectionResults = new Dictionary<ClosingStructureSectionResultEntity, ClosingStructureFailureMechanismSectionResult>();
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicLocations = new Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>(new ReferenceEqualityComparer<HydraulicLocationEntity>());
         private readonly Dictionary<CalculationGroupEntity, CalculationGroup> calculationGroups = new Dictionary<CalculationGroupEntity, CalculationGroup>(new ReferenceEqualityComparer<CalculationGroupEntity>());
         private readonly Dictionary<PipingCalculationEntity, PipingCalculationScenario> pipingCalculations = new Dictionary<PipingCalculationEntity, PipingCalculationScenario>(new ReferenceEqualityComparer<PipingCalculationEntity>());
@@ -183,6 +184,22 @@ namespace Application.Ringtoets.Storage.Create
         public void Register(WaterPressureAsphaltCoverSectionResultEntity entity, WaterPressureAsphaltCoverFailureMechanismSectionResult model)
         {
             Register(waterPressureAsphaltCoverFailureMechanismSectionResults, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="ClosingStructureSectionResultEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="ClosingStructureFailureMechanismSectionResult"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(ClosingStructureSectionResultEntity entity, ClosingStructureFailureMechanismSectionResult model)
+        {
+            Register(closingStructureFailureMechanismSectionResults, entity, model);
         }
 
         /// <summary>
@@ -685,6 +702,11 @@ namespace Application.Ringtoets.Storage.Create
                 waterPressureAsphaltCoverFailureMechanismSectionResults[entity].StorageId = entity.WaterPressureAsphaltCoverSectionResultEntityId;
             }
 
+            foreach (var entity in closingStructureFailureMechanismSectionResults.Keys)
+            {
+                closingStructureFailureMechanismSectionResults[entity].StorageId = entity.ClosingStructureSectionResultEntityId;
+            }
+
             foreach (var entity in hydraulicLocations.Keys)
             {
                 hydraulicLocations[entity].StorageId = entity.HydraulicLocationEntityId;
@@ -864,6 +886,17 @@ namespace Application.Ringtoets.Storage.Create
                 }
             }
             dbContext.WaterPressureAsphaltCoverSectionResultEntities.RemoveRange(orphanedWaterPressureAsphaltCoverSectionResultEntities);
+
+            var orphanedClosingStructureSectionResultEntities = new List<ClosingStructureSectionResultEntity>();
+            foreach (ClosingStructureSectionResultEntity sectionResultEntity in dbContext.ClosingStructureSectionResultEntities
+                                                                                             .Where(e => e.ClosingStructureSectionResultEntityId > 0))
+            {
+                if (!closingStructureFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
+                {
+                    orphanedClosingStructureSectionResultEntities.Add(sectionResultEntity);
+                }
+            }
+            dbContext.ClosingStructureSectionResultEntities.RemoveRange(orphanedClosingStructureSectionResultEntities);
 
             var orphanedHydraulicLocationEntities = new List<HydraulicLocationEntity>();
             foreach (HydraulicLocationEntity hydraulicLocationEntity in dbContext.HydraulicLocationEntities

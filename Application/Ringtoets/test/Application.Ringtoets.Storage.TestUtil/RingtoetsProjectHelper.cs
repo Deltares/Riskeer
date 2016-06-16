@@ -229,6 +229,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddSections(assessmentSection.HeightStructures);
             SetSectionResults(assessmentSection.HeightStructures.SectionResults);
             AddSections(assessmentSection.ClosingStructure);
+            SetSectionResults(assessmentSection.ClosingStructure.SectionResults);
             AddSections(assessmentSection.StrengthStabilityPointConstruction);
             AddSections(assessmentSection.StrengthStabilityLengthwiseConstruction);
             SetSectionResults(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults);
@@ -296,6 +297,17 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<ClosingStructureFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = (RoundedDouble)random.NextDouble();
                 sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
             }
         }

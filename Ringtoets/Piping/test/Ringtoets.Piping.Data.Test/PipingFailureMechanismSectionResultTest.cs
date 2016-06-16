@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Storage;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -40,10 +41,13 @@ namespace Ringtoets.Piping.Data.Test
             PipingFailureMechanismSectionResult sectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Assert
+            Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
+            Assert.IsInstanceOf<IStorable>(sectionResult);
             Assert.AreSame(section, sectionResult.Section);
             Assert.IsFalse(sectionResult.AssessmentLayerOne);
             Assert.AreEqual((RoundedDouble) 0, sectionResult.GetAssessmentLayerTwoA(new PipingCalculationScenario[0]));
-            Assert.AreEqual((RoundedDouble) 0, sectionResult.AssessmentLayerThree);
+            Assert.AreEqual((RoundedDouble)0, sectionResult.AssessmentLayerThree);
+            Assert.AreEqual(0, sectionResult.StorageId);
         }
 
         [Test]
