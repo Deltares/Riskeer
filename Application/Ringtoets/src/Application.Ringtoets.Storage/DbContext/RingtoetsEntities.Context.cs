@@ -55,12 +55,18 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<AssessmentSectionEntity> AssessmentSectionEntities { get; set; }
         public virtual DbSet<CalculationGroupEntity> CalculationGroupEntities { get; set; }
         public virtual DbSet<CharacteristicPointEntity> CharacteristicPointEntities { get; set; }
+        public virtual DbSet<ClosingStructureSectionResultEntity> ClosingStructureSectionResultEntities { get; set; }
         public virtual DbSet<FailureMechanismEntity> FailureMechanismEntities { get; set; }
         public virtual DbSet<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
         public virtual DbSet<FailureMechanismSectionPointEntity> FailureMechanismSectionPointEntities { get; set; }
         public virtual DbSet<GrassCoverErosionInwardsSectionResultEntity> GrassCoverErosionInwardsSectionResultEntities { get; set; }
+        public virtual DbSet<GrassCoverErosionOutwardsSectionResultEntity> GrassCoverErosionOutwardsSectionResultEntities { get; set; }
+        public virtual DbSet<GrassCoverSlipOffInwardsSectionResultEntity> GrassCoverSlipOffInwardsSectionResultEntities { get; set; }
+        public virtual DbSet<GrassCoverSlipOffOutwardsSectionResultEntity> GrassCoverSlipOffOutwardsSectionResultEntities { get; set; }
         public virtual DbSet<HeightStructuresSectionResultEntity> HeightStructuresSectionResultEntities { get; set; }
         public virtual DbSet<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
+        public virtual DbSet<MacrostabilityInwardsSectionResultEntity> MacrostabilityInwardsSectionResultEntities { get; set; }
+        public virtual DbSet<MacrostabilityOutwardsSectionResultEntity> MacrostabilityOutwardsSectionResultEntities { get; set; }
         public virtual DbSet<PipingCalculationEntity> PipingCalculationEntities { get; set; }
         public virtual DbSet<PipingCalculationOutputEntity> PipingCalculationOutputEntities { get; set; }
         public virtual DbSet<PipingFailureMechanismMetaEntity> PipingFailureMechanismMetaEntities { get; set; }
@@ -79,5 +85,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<TechnicalInnovationSectionResultEntity> TechnicalInnovationSectionResultEntities { get; set; }
         public virtual DbSet<VersionEntity> VersionEntities { get; set; }
         public virtual DbSet<WaterPressureAsphaltCoverSectionResultEntity> WaterPressureAsphaltCoverSectionResultEntities { get; set; }
+        public virtual DbSet<WaveImpactAsphaltCoverSectionResultEntity> WaveImpactAsphaltCoverSectionResultEntities { get; set; }
     }
 }

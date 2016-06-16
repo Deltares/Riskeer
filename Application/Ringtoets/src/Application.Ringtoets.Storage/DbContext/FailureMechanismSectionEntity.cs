@@ -38,26 +38,45 @@ namespace Application.Ringtoets.Storage.DbContext
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public FailureMechanismSectionEntity()
         {
+            this.ClosingStructureSectionResultEntities = new HashSet<ClosingStructureSectionResultEntity>();
             this.FailureMechanismSectionPointEntities = new HashSet<FailureMechanismSectionPointEntity>();
             this.GrassCoverErosionInwardsSectionResultEntities = new HashSet<GrassCoverErosionInwardsSectionResultEntity>();
+            this.GrassCoverErosionOutwardsSectionResultEntities = new HashSet<GrassCoverErosionOutwardsSectionResultEntity>();
+            this.GrassCoverSlipOffInwardsSectionResultEntities = new HashSet<GrassCoverSlipOffInwardsSectionResultEntity>();
+            this.GrassCoverSlipOffOutwardsSectionResultEntities = new HashSet<GrassCoverSlipOffOutwardsSectionResultEntity>();
             this.HeightStructuresSectionResultEntities = new HashSet<HeightStructuresSectionResultEntity>();
+            this.MacrostabilityInwardsSectionResultEntities = new HashSet<MacrostabilityInwardsSectionResultEntity>();
+            this.MacrostabilityOutwardsSectionResultEntities = new HashSet<MacrostabilityOutwardsSectionResultEntity>();
             this.PipingSectionResultEntities = new HashSet<PipingSectionResultEntity>();
             this.StrengthStabilityLengthwiseConstructionSectionResultEntities = new HashSet<StrengthStabilityLengthwiseConstructionSectionResultEntity>();
             this.TechnicalInnovationSectionResultEntities = new HashSet<TechnicalInnovationSectionResultEntity>();
             this.WaterPressureAsphaltCoverSectionResultEntities = new HashSet<WaterPressureAsphaltCoverSectionResultEntity>();
+            this.WaveImpactAsphaltCoverSectionResultEntities = new HashSet<WaveImpactAsphaltCoverSectionResultEntity>();
         }
     
         public long FailureMechanismSectionEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public string Name { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClosingStructureSectionResultEntity> ClosingStructureSectionResultEntities { get; set; }
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismSectionPointEntity> FailureMechanismSectionPointEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionInwardsSectionResultEntity> GrassCoverErosionInwardsSectionResultEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GrassCoverErosionOutwardsSectionResultEntity> GrassCoverErosionOutwardsSectionResultEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GrassCoverSlipOffInwardsSectionResultEntity> GrassCoverSlipOffInwardsSectionResultEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GrassCoverSlipOffOutwardsSectionResultEntity> GrassCoverSlipOffOutwardsSectionResultEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HeightStructuresSectionResultEntity> HeightStructuresSectionResultEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MacrostabilityInwardsSectionResultEntity> MacrostabilityInwardsSectionResultEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MacrostabilityOutwardsSectionResultEntity> MacrostabilityOutwardsSectionResultEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingSectionResultEntity> PipingSectionResultEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -66,5 +85,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual ICollection<TechnicalInnovationSectionResultEntity> TechnicalInnovationSectionResultEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WaterPressureAsphaltCoverSectionResultEntity> WaterPressureAsphaltCoverSectionResultEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WaveImpactAsphaltCoverSectionResultEntity> WaveImpactAsphaltCoverSectionResultEntities { get; set; }
     }
 }

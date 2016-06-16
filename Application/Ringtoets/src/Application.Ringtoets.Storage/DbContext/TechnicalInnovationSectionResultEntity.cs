@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.DbContext
     public partial class TechnicalInnovationSectionResultEntity
     {
         public long TechnicalInnovationSectionResultEntityId { get; set; }
-        public Nullable<long> FailureMechanismSectionEntityId { get; set; }
+        public long FailureMechanismSectionEntityId { get; set; }
         public byte LayerOne { get; set; }
         public Nullable<decimal> LayerThree { get; set; }
     

@@ -33,11 +33,12 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class StrengthStabilityLengthwiseConstructionSectionResultEntity
+    public partial class MacrostabilityOutwardsSectionResultEntity
     {
-        public long StrengthStabilityLengthwiseConstructionSectionResultEntityId { get; set; }
+        public long MacrostabilityOutwardsSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
         public byte LayerOne { get; set; }
+        public Nullable<decimal> LayerTwo { get; set; }
         public Nullable<decimal> LayerThree { get; set; }
     
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
