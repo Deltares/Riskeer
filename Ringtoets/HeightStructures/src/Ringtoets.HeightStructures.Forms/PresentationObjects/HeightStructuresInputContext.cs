@@ -42,7 +42,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
         public HeightStructuresInputContext(HeightStructuresInput input,
-                                            ICalculation calculation,
+                                            HeightStructuresCalculation calculation,
                                             HeightStructuresFailureMechanism failureMechanism,
                                             IAssessmentSection assessmentSection)
             : base(input, failureMechanism, assessmentSection)
@@ -61,6 +61,6 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// <summary>
         /// Gets the calculation item which the context belongs to.
         /// </summary>
-        public ICalculation Calculation { get; private set; }
+        public HeightStructuresCalculation Calculation { get; private set; }
     }
 }

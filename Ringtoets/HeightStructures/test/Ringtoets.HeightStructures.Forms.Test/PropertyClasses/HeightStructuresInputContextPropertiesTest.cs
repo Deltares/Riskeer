@@ -29,7 +29,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
@@ -68,14 +67,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var calculationMock = mockRepository.StrictMock<ICalculation>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
+            var calculation = new HeightStructuresCalculation();
             var input = new HeightStructuresInput();
             var properties = new HeightStructuresInputContextProperties();
 
-            var inputContext = new HeightStructuresInputContext(input, calculationMock, failureMechanism, assessmentSectionMock);
+            var inputContext = new HeightStructuresInputContext(input, calculation, failureMechanism, assessmentSectionMock);
 
             // Call
             properties.Data = inputContext;
@@ -184,12 +183,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var calculationMock = mockRepository.StrictMock<ICalculation>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
+            var calculation = new HeightStructuresCalculation();
             var input = new HeightStructuresInput();
-            var inputContext = new HeightStructuresInputContext(input, calculationMock, failureMechanism, assessmentSectionMock);
+            var inputContext = new HeightStructuresInputContext(input, calculation, failureMechanism, assessmentSectionMock);
 
             var properties = new HeightStructuresInputContextProperties
             {
@@ -210,12 +209,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var calculationMock = mockRepository.StrictMock<ICalculation>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
+            var calculation = new HeightStructuresCalculation();
             var input = new HeightStructuresInput();
-            var inputContext = new HeightStructuresInputContext(input, calculationMock, failureMechanism, assessmentSectionMock);
+            var inputContext = new HeightStructuresInputContext(input, calculation, failureMechanism, assessmentSectionMock);
 
             var properties = new HeightStructuresInputContextProperties
             {
@@ -234,12 +233,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var calculationMock = mockRepository.StrictMock<ICalculation>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
+            var calculation = new HeightStructuresCalculation();
             var input = new HeightStructuresInput();
-            var inputContext = new HeightStructuresInputContext(input, calculationMock, failureMechanism, assessmentSectionMock);
+            var inputContext = new HeightStructuresInputContext(input, calculation, failureMechanism, assessmentSectionMock);
 
             var properties = new HeightStructuresInputContextProperties
             {
@@ -258,12 +257,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var calculationMock = mockRepository.StrictMock<ICalculation>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
+            var calculation = new HeightStructuresCalculation();
             var input = new HeightStructuresInput();
-            var inputContext = new HeightStructuresInputContext(input, calculationMock, failureMechanism, assessmentSectionMock);
+            var inputContext = new HeightStructuresInputContext(input, calculation, failureMechanism, assessmentSectionMock);
 
             // Call
             var properties = new HeightStructuresInputContextProperties

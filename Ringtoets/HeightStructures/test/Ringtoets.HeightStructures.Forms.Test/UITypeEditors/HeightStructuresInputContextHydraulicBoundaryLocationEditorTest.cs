@@ -26,7 +26,6 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
@@ -55,14 +54,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var heightStructuresInput = new HeightStructuresInput();
-            var calculationMock = mockRepository.StrictMock<ICalculation>();
+            var heightStructuresCalculation = new HeightStructuresCalculation();
 
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase)
                                  .Return(hydraulicBoundaryDatabase)
                                  .Repeat.AtLeastOnce();
             var inputContext = new HeightStructuresInputContext(heightStructuresInput,
-                                                                calculationMock,
+                                                                heightStructuresCalculation,
                                                                 failureMechanism,
                                                                 assessmentSectionMock);
 
@@ -105,14 +104,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation
             };
+            var heightStructuresCalculation = new HeightStructuresCalculation();
 
-            var calculationMock = mockRepository.StrictMock<ICalculation>();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase)
                                  .Return(hydraulicBoundaryDatabase)
                                  .Repeat.AtLeastOnce();
             var inputContext = new HeightStructuresInputContext(heightStructuresInput,
-                                                                calculationMock,
+                                                                heightStructuresCalculation,
                                                                 failureMechanism,
                                                                 assessmentSectionMock);
 
