@@ -38,11 +38,11 @@ namespace Core.Plugins.OxyPlot.Test.Commands
             // Setup
             var mocks = new MockRepository();
             var plugin = mocks.StrictMock<IToolViewController>();
-            plugin.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(open);
+            plugin.Expect(p => p.IsToolWindowOpen<ChartLegendView>()).Return(open);
 
             mocks.ReplayAll();
 
-            var controller = new LegendController(plugin);
+            var controller = new ChartLegendController(plugin);
             var command = new ToggleLegendViewCommand(controller);
 
             // Call
@@ -63,16 +63,16 @@ namespace Core.Plugins.OxyPlot.Test.Commands
             // Open first
             using (mocks.Ordered())
             {
-                plugin.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(false);
-                plugin.Expect(p => p.OpenToolView(Arg<LegendView>.Matches(v => true)));
+                plugin.Expect(p => p.IsToolWindowOpen<ChartLegendView>()).Return(false);
+                plugin.Expect(p => p.OpenToolView(Arg<ChartLegendView>.Matches(v => true)));
 
                 // Then close
-                plugin.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(true);
-                plugin.Expect(p => p.CloseToolView(Arg<LegendView>.Matches(v => true)));
+                plugin.Expect(p => p.IsToolWindowOpen<ChartLegendView>()).Return(true);
+                plugin.Expect(p => p.CloseToolView(Arg<ChartLegendView>.Matches(v => true)));
             }
             mocks.ReplayAll();
 
-            var controller = new LegendController(plugin);
+            var controller = new ChartLegendController(plugin);
             var command = new ToggleLegendViewCommand(controller);
 
             // Call

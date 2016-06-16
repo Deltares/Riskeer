@@ -7,13 +7,13 @@ using Rhino.Mocks;
 namespace Core.Plugins.OxyPlot.Test.Legend
 {
     [TestFixture]
-    public class LegendControllerTest
+    public class ChartLegendControllerTest
     {
         [Test]
         public void Constructor_WithoutPlugin_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new LegendController(null);
+            TestDelegate test = () => new ChartLegendController(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -29,7 +29,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new LegendController(toolViewController);
+            TestDelegate test = () => new ChartLegendController(toolViewController);
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -44,11 +44,11 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             // Setup
             var mocks = new MockRepository();
             var toolViewController = mocks.StrictMock<IToolViewController>();
-            toolViewController.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(open);
+            toolViewController.Expect(p => p.IsToolWindowOpen<ChartLegendView>()).Return(open);
 
             mocks.ReplayAll();
 
-            var controller = new LegendController(toolViewController);
+            var controller = new ChartLegendController(toolViewController);
 
             // Call
             var result = controller.IsLegendViewOpen();
@@ -68,19 +68,19 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             var toolViewController = mocks.StrictMock<IToolViewController>();
             if (open)
             {
-                toolViewController.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(false);
-                toolViewController.Expect(p => p.OpenToolView(Arg<LegendView>.Matches(c => true)));
-                toolViewController.Expect(p => p.CloseToolView(Arg<LegendView>.Matches(c => true)));
+                toolViewController.Expect(p => p.IsToolWindowOpen<ChartLegendView>()).Return(false);
+                toolViewController.Expect(p => p.OpenToolView(Arg<ChartLegendView>.Matches(c => true)));
+                toolViewController.Expect(p => p.CloseToolView(Arg<ChartLegendView>.Matches(c => true)));
             }
             else
             {
-                toolViewController.Expect(p => p.OpenToolView(Arg<LegendView>.Matches(c => true)));
+                toolViewController.Expect(p => p.OpenToolView(Arg<ChartLegendView>.Matches(c => true)));
             }
-            toolViewController.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(open);
+            toolViewController.Expect(p => p.IsToolWindowOpen<ChartLegendView>()).Return(open);
 
             mocks.ReplayAll();
 
-            var controller = new LegendController(toolViewController);
+            var controller = new ChartLegendController(toolViewController);
 
             if (open)
             {

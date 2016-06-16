@@ -77,9 +77,9 @@ namespace Core.Plugins.OxyPlot.Test
             {
                 var gui = mocks.StrictMock<IGui>();
 
-                gui.Stub(g => g.IsToolWindowOpen<LegendView>()).Return(false);
+                gui.Stub(g => g.IsToolWindowOpen<ChartLegendView>()).Return(false);
 
-                gui.Expect(g => g.OpenToolView(Arg<LegendView>.Matches(c => true)));
+                gui.Expect(g => g.OpenToolView(Arg<ChartLegendView>.Matches(c => true)));
                 gui.Expect(g => g.ActiveViewChanged += null).IgnoreArguments();
                 gui.Expect(g => g.ActiveViewChanged -= null).IgnoreArguments();
                 gui.Expect(g => g.ActiveView).Return(view);

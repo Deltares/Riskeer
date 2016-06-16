@@ -12,13 +12,13 @@ using NUnit.Framework;
 namespace Core.Plugins.OxyPlot.Test.Legend
 {
     [TestFixture]
-    public class LegendViewTest
+    public class ChartLegendViewTest
     {
         [Test]
         public void DefaultConstructor_CreatesUserControl()
         {
             // Call 
-            using (var view = new LegendView())
+            using (var view = new ChartLegendView())
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -32,7 +32,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void Data_ChartControl_DataSet()
         {
             // Setup 
-            using (var view = new LegendView())
+            using (var view = new ChartLegendView())
             {
                 var chartDataCollection = new ChartDataCollection(new List<ChartData>(), "test data");
 
@@ -48,7 +48,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void Data_ForNull_NullSet()
         {
             // Setup 
-            using (var view = new LegendView())
+            using (var view = new ChartLegendView())
             {
                 // Call
                 view.Data = null;
@@ -62,7 +62,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void Data_OtherObject_ThrowsInvalidCastException()
         {
             // Setup 
-            using (var view = new LegendView())
+            using (var view = new ChartLegendView())
             {
                 // Call
                 TestDelegate test = () => view.Data = new object();
@@ -76,7 +76,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void Dispose_Always_DataSetToNull()
         {
             // Setup
-            var legendView = new LegendView
+            var legendView = new ChartLegendView
             {
                 Data = new ChartDataCollection(new List<ChartData>(), "test data")
             };

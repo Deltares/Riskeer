@@ -18,16 +18,16 @@ namespace Core.Plugins.OxyPlot.Test.Legend
     public class ChartDataCollectionTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private LegendView legendView;
+        private ChartLegendView chartLegendView;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            legendView = new LegendView();
+            chartLegendView = new ChartLegendView();
 
-            var treeViewControl = TypeUtils.GetField<TreeViewControl>(legendView, "treeViewControl");
+            var treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
             var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
 
             info = treeNodeInfoLookup[typeof(ChartDataCollection)];
@@ -36,7 +36,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         [TearDown]
         public void TearDown()
         {
-            legendView.Dispose();
+            chartLegendView.Dispose();
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         }
 
         [Test]
-        public void Text_Always_ReturnsTextFromResource()
+        public void Text_Always_ReturnsNameFromChartData()
         {
             // Setup
             var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>(), "test data");
@@ -69,7 +69,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             var text = info.Text(chartDataCollection);
 
             // Assert
-            Assert.AreEqual(Resources.General_Chart, text);
+            Assert.AreEqual(chartDataCollection.Name, text);
 
             mocks.VerifyAll();
         }

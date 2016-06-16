@@ -41,7 +41,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         }
 
         [Test]
-        public void Text_Always_ReturnsTextFromResource()
+        public void Text_Always_ReturnsNameFromMapData()
         {
             // Setup
             var mocks = CreateDefaultMocks();

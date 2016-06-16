@@ -25,17 +25,17 @@ using Core.Plugins.OxyPlot.Legend;
 namespace Core.Plugins.OxyPlot.Commands
 {
     /// <summary>
-    /// This class describes the command which toggles the visibility of the <see cref="LegendView"/>.
+    /// This class describes the command which toggles the visibility of the <see cref="ChartLegendView"/>.
     /// </summary>
     public class ToggleLegendViewCommand : ICommand
     {
-        private readonly LegendController controller;
+        private readonly ChartLegendController controller;
 
         /// <summary>
         /// Creates a new instance of <see cref="ToggleLegendViewCommand"/>.
         /// </summary>
-        /// <param name="controller">The <see cref="LegendController"/> to use to invoke actions and determine state.</param>
-        public ToggleLegendViewCommand(LegendController controller)
+        /// <param name="controller">The <see cref="ChartLegendController"/> to use to invoke actions and determine state.</param>
+        public ToggleLegendViewCommand(ChartLegendController controller)
         {
             this.controller = controller;
         }

@@ -2,7 +2,7 @@ using Core.Common.Controls.TreeView;
 
 namespace Core.Plugins.OxyPlot.Legend
 {
-    partial class LegendView
+    partial class ChartLegendView
     {
         /// <summary> 
         /// Required designer variable.
@@ -18,7 +18,7 @@ namespace Core.Plugins.OxyPlot.Legend
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LegendView));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChartLegendView));
             this.treeViewControl = new TreeViewControl();
             this.SuspendLayout();
             // 
@@ -27,12 +27,12 @@ namespace Core.Plugins.OxyPlot.Legend
             resources.ApplyResources(this.treeViewControl, "treeViewControl");
             this.treeViewControl.Name = "treeViewControl";
             // 
-            // LegendView
+            // ChartLegendView
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.treeViewControl);
-            this.Name = "LegendView";
+            this.Name = "ChartLegendView";
             this.ResumeLayout(false);
 
         }

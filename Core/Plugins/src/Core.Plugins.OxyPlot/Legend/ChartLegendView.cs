@@ -26,8 +26,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Forms;
-using Core.Plugins.OxyPlot.Properties;
-
 using OxyPlotResources = Core.Plugins.OxyPlot.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -36,55 +34,17 @@ namespace Core.Plugins.OxyPlot.Legend
     /// <summary>
     /// This class defines a view which shows the data that have been added to a <see cref="ChartControl"/>.
     /// </summary>
-    public sealed partial class LegendView : UserControl, IView
+    public sealed partial class ChartLegendView : UserControl, IView
     {
         /// <summary>
-        /// Creates a new instance of <see cref="LegendView"/>.
+        /// Creates a new instance of <see cref="ChartLegendView"/>.
         /// </summary>
-        public LegendView()
+        public ChartLegendView()
         {
             InitializeComponent();
-            Text = Resources.General_Chart;
+            Text = OxyPlotResources.General_Chart;
 
-            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartPointData>
-            {
-                Text = pointData => OxyPlotResources.ChartData_Point_data_label,
-                Image = pointData => OxyPlotResources.PointsIcon,
-                CanDrag = (pointData, parentData) => true,
-                CanCheck = pointData => true,
-                IsChecked = pointData => pointData.IsVisible,
-                OnNodeChecked = PointBasedChartDataOnNodeChecked
-            });
-
-            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartLineData>
-            {
-                Text = lineData => OxyPlotResources.ChartData_Line_data_label,
-                Image = lineData => OxyPlotResources.LineIcon,
-                CanDrag = (lineData, parentData) => true,
-                CanCheck = lineData => true,
-                IsChecked = lineData => lineData.IsVisible,
-                OnNodeChecked = PointBasedChartDataOnNodeChecked
-            });
-
-            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartAreaData>
-            {
-                Text = areaData => OxyPlotResources.ChartData_Area_data_label,
-                Image = areaData => OxyPlotResources.AreaIcon,
-                CanDrag = (areaData, parentData) => true,
-                CanCheck = areaData => true,
-                IsChecked = areaData => areaData.IsVisible,
-                OnNodeChecked = PointBasedChartDataOnNodeChecked
-            });
-
-            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartDataCollection>
-            {
-                Text = chartControl => OxyPlotResources.General_Chart,
-                Image = chartControl => GuiResources.folder,
-                ChildNodeObjects = chartControl => chartControl.List.Reverse().Cast<object>().ToArray(),
-                CanDrop = ChartControlCanDrop,
-                CanInsert = ChartControlCanInsert,
-                OnDrop = ChartControlOnDrop
-            });
+            RegisterTreeNodeInfos();
         }
 
         public object Data
@@ -114,6 +74,49 @@ namespace Core.Plugins.OxyPlot.Legend
             }
 
             base.Dispose(disposing);
+        }
+
+        private void RegisterTreeNodeInfos()
+        {
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartPointData>
+            {
+                Text = pointData => pointData.Name,
+                Image = pointData => OxyPlotResources.PointsIcon,
+                CanDrag = (pointData, parentData) => true,
+                CanCheck = pointData => true,
+                IsChecked = pointData => pointData.IsVisible,
+                OnNodeChecked = PointBasedChartDataOnNodeChecked
+            });
+
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartLineData>
+            {
+                Text = lineData => lineData.Name,
+                Image = lineData => OxyPlotResources.LineIcon,
+                CanDrag = (lineData, parentData) => true,
+                CanCheck = lineData => true,
+                IsChecked = lineData => lineData.IsVisible,
+                OnNodeChecked = PointBasedChartDataOnNodeChecked
+            });
+
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartAreaData>
+            {
+                Text = areaData => areaData.Name,
+                Image = areaData => OxyPlotResources.AreaIcon,
+                CanDrag = (areaData, parentData) => true,
+                CanCheck = areaData => true,
+                IsChecked = areaData => areaData.IsVisible,
+                OnNodeChecked = PointBasedChartDataOnNodeChecked
+            });
+
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartDataCollection>
+            {
+                Text = chartControl => chartControl.Name,
+                Image = chartControl => GuiResources.folder,
+                ChildNodeObjects = chartControl => chartControl.List.Reverse().Cast<object>().ToArray(),
+                CanDrop = ChartControlCanDrop,
+                CanInsert = ChartControlCanInsert,
+                OnDrop = ChartControlOnDrop
+            });
         }
 
         # region ChartData

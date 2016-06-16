@@ -40,7 +40,7 @@ namespace Core.Plugins.OxyPlot
     {
         private ChartingRibbon chartingRibbon;
 
-        private LegendController legendController;
+        private ChartLegendController chartLegendController;
 
         private bool activated;
 
@@ -54,10 +54,10 @@ namespace Core.Plugins.OxyPlot
 
         public override void Activate()
         {
-            legendController = CreateLegendController(Gui);
-            chartingRibbon = CreateRibbon(legendController, Gui);
+            chartLegendController = CreateLegendController(Gui);
+            chartingRibbon = CreateRibbon(chartLegendController, Gui);
 
-            legendController.ToggleLegend();
+            chartLegendController.ToggleLegend();
             Gui.ActiveViewChanged += GuiOnActiveViewChanged;
             activated = true;
         }
@@ -81,14 +81,14 @@ namespace Core.Plugins.OxyPlot
         }
 
         /// <summary>
-        /// Creates a new <see cref="LegendController"/>.
+        /// Creates a new <see cref="ChartLegendController"/>.
         /// </summary>
         /// <param name="toolViewController">The <see cref="IToolViewController"/> to use for the controller
-        /// <see cref="LegendController"/>.</param>
-        /// <returns>A new <see cref="LegendController"/> instance.</returns>
-        private LegendController CreateLegendController(IToolViewController toolViewController)
+        /// <see cref="ChartLegendController"/>.</param>
+        /// <returns>A new <see cref="ChartLegendController"/> instance.</returns>
+        private ChartLegendController CreateLegendController(IToolViewController toolViewController)
         {
-            var controller = new LegendController(toolViewController);
+            var controller = new ChartLegendController(toolViewController);
             controller.OnOpenLegend += (s,e) => UpdateComponentsForActiveView();
             return controller;
         }
@@ -96,15 +96,15 @@ namespace Core.Plugins.OxyPlot
         /// <summary>
         /// Creates the <see cref="ChartingRibbon"/> and the commands that will be used when clicking on the buttons.
         /// </summary>
-        /// <param name="legendController">The <see cref="LegendController"/> to use for the 
+        /// <param name="chartLegendController">The <see cref="ChartLegendController"/> to use for the 
         /// <see cref="ChartingRibbon"/>.</param>
         /// <param name="documentViewController">The controller for Document Views.</param>
         /// <returns>A new <see cref="ChartingRibbon"/> instance.</returns>
-        private static ChartingRibbon CreateRibbon(LegendController legendController, IDocumentViewController documentViewController)
+        private static ChartingRibbon CreateRibbon(ChartLegendController chartLegendController, IDocumentViewController documentViewController)
         {
             return new ChartingRibbon
             {
-                ToggleLegendViewCommand = new ToggleLegendViewCommand(legendController)
+                ToggleLegendViewCommand = new ToggleLegendViewCommand(chartLegendController)
             };
         }
 
@@ -123,12 +123,12 @@ namespace Core.Plugins.OxyPlot
             if (chartView != null)
             {
                 chartingRibbon.Chart = chartView.Chart;
-                legendController.Update(chartView.Chart.Data);
+                chartLegendController.Update(chartView.Chart.Data);
             }
             else
             {
                 chartingRibbon.Chart = null;
-                legendController.Update(null);
+                chartLegendController.Update(null);
             }
         }
     }

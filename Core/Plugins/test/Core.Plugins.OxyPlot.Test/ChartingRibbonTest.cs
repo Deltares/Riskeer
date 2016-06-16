@@ -38,7 +38,7 @@ namespace Core.Plugins.OxyPlot.Test
             var toolViewController = mocks.Stub<IToolViewController>();
             mocks.ReplayAll();
 
-            var toggleLegendViewCommand = new ToggleLegendViewCommand(new LegendController(toolViewController));
+            var toggleLegendViewCommand = new ToggleLegendViewCommand(new ChartLegendController(toolViewController));
             var ribbon = new ChartingRibbon
             {
                 ToggleLegendViewCommand = toggleLegendViewCommand,
