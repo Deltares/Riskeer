@@ -260,7 +260,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is er een voorland aanwezig?.
+        ///   Looks up a localized string similar to Moet het voorland worden gebruikt tijdens de berekening?.
         /// </summary>
         public static string Foreshore_UseForeshore_Description {
             get {
@@ -269,7 +269,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aanwezig.
+        ///   Looks up a localized string similar to Gebruik.
         /// </summary>
         public static string Foreshore_UseForeshore_DisplayName {
             get {

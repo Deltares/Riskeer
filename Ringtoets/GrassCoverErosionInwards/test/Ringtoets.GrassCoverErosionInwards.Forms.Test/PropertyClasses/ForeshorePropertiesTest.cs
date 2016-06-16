@@ -167,8 +167,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptor useForeshoreProperty = dynamicProperties[useForeshorePropertyIndex];
             Assert.IsNotNull(useForeshoreProperty);
             Assert.IsFalse(useForeshoreProperty.IsReadOnly);
-            Assert.AreEqual("Aanwezig", useForeshoreProperty.DisplayName);
-            Assert.AreEqual("Is er een voorland aanwezig?", useForeshoreProperty.Description);
+            Assert.AreEqual("Gebruik", useForeshoreProperty.DisplayName);
+            Assert.AreEqual("Moet het voorland worden gebruikt tijdens de berekening?", useForeshoreProperty.Description);
 
             PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
             Assert.IsNotNull(coordinatesProperty);

@@ -209,10 +209,10 @@
     <value>Voorlandgeometrie</value>
   </data>
   <data name="Foreshore_UseForeshore_Description" xml:space="preserve">
-    <value>Is er een voorland aanwezig?</value>
+    <value>Moet het voorland worden gebruikt tijdens de berekening?</value>
   </data>
   <data name="Foreshore_UseForeshore_DisplayName" xml:space="preserve">
-    <value>Aanwezig</value>
+    <value>Gebruik</value>
   </data>
   <data name="Orientation_Description" xml:space="preserve">
     <value>Oriëntatie van de dijk.</value>
