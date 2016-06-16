@@ -145,6 +145,8 @@ namespace Ringtoets.Piping.Plugin
                 Text = pipingInputContext => PipingFormsResources.PipingInputContext_NodeDisplayName,
                 Image = pipingInputContext => PipingFormsResources.PipingInputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .AddSeparator()
                                                                                  .AddImportItem()
                                                                                  .AddExportItem()
                                                                                  .AddSeparator()
