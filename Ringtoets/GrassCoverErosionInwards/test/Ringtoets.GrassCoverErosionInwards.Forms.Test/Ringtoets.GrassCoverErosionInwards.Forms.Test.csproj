@@ -64,6 +64,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyClasses\DikeProfileBreakWaterPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DikeProfileForeshorePropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextBreakWaterPropertiesTest.cs" />
