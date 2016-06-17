@@ -57,6 +57,8 @@ namespace Core.Components.OxyPlot.Converter
                 series.MarkerFill = ChartDataHelper.Convert(style.Color);
                 series.MarkerSize = style.Size;
                 series.MarkerType = ChartDataHelper.Convert(style.Symbol);
+                series.MarkerStroke = ChartDataHelper.Convert(style.StrokeColor);
+                series.MarkerStrokeThickness = style.StrokeThickness;
             }
         }
     }

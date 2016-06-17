@@ -33,11 +33,15 @@ namespace Core.Components.Charting.Styles
         /// </summary>
         /// <param name="color">The color of the point.</param>
         /// <param name="size">The size of the point.</param>
+        /// <param name="strokeColor">The color of the stroke of the point.</param>
+        /// <param name="strokeThickness">The thickness of the stroke of the point.</param>
         /// <param name="symbol">The symbol of the point.</param>
-        public ChartPointStyle(Color color, int size, ChartPointSymbol symbol)
+        public ChartPointStyle(Color color, int size, Color strokeColor, int strokeThickness, ChartPointSymbol symbol)
         {
             Color = color;
+            StrokeColor = strokeColor;
             Size = size;
+            StrokeThickness = strokeThickness;
             Symbol = symbol;
         }
 
@@ -47,9 +51,19 @@ namespace Core.Components.Charting.Styles
         public Color Color { get; private set; }
 
         /// <summary>
+        /// Gets the point stroke color.
+        /// </summary>
+        public Color StrokeColor { get; private set; }
+
+        /// <summary>
         /// Gets the point size.
         /// </summary>
         public double Size { get; private set; }
+
+        /// <summary>
+        /// Gets the point stroke thickness.
+        /// </summary>
+        public int StrokeThickness { get; private set; }
 
         /// <summary>
         /// Gets the point symbol.

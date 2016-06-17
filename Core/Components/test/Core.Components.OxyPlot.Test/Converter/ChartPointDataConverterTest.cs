@@ -142,7 +142,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartPointDataConverter();
             var expectedColor = Color.FromKnownColor(color);
-            var style = new ChartPointStyle(expectedColor, 3, ChartPointSymbol.Circle);
+            var style = new ChartPointStyle(expectedColor, 3, Color.Red, 2, ChartPointSymbol.Circle);
             var data = new ChartPointData(new Collection<Tuple<double, double>>(), "test")
             {
                 Style = style
@@ -157,6 +157,29 @@ namespace Core.Components.OxyPlot.Test.Converter
         }
 
         [Test]
+        [TestCase(KnownColor.AliceBlue)]
+        [TestCase(KnownColor.Azure)]
+        [TestCase(KnownColor.Beige)]
+        public void Convert_WithDifferentStrokeColors_AppliesStyleToSeries(KnownColor color)
+        {
+            // Setup
+            var converter = new ChartPointDataConverter();
+            var expectedColor = Color.FromKnownColor(color);
+            var style = new ChartPointStyle(Color.Red, 3, expectedColor, 2, ChartPointSymbol.Circle);
+            var data = new ChartPointData(new Collection<Tuple<double, double>>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var series = converter.Convert(data);
+
+            // Assert
+            var lineSeries = ((LineSeries)series[0]);
+            AssertColors(style.StrokeColor, lineSeries.MarkerStroke);
+        }
+
+        [Test]
         [TestCase(1)]
         [TestCase(5)]
         [TestCase(7)]
@@ -164,7 +187,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         {
             // Setup
             var converter = new ChartPointDataConverter();
-            var style = new ChartPointStyle(Color.Red, width, ChartPointSymbol.Circle);
+            var style = new ChartPointStyle(Color.Red, width, Color.Red, 2, ChartPointSymbol.Circle);
             var data = new ChartPointData(new Collection<Tuple<double, double>>(), "test")
             {
                 Style = style
@@ -179,6 +202,28 @@ namespace Core.Components.OxyPlot.Test.Converter
         }
 
         [Test]
+        [TestCase(1)]
+        [TestCase(5)]
+        [TestCase(7)]
+        public void Convert_WithDifferentStrokeThickness_AppliesStyleToSeries(int strokeThickness)
+        {
+            // Setup
+            var converter = new ChartPointDataConverter();
+            var style = new ChartPointStyle(Color.Red, 3, Color.Red, strokeThickness, ChartPointSymbol.Circle);
+            var data = new ChartPointData(new Collection<Tuple<double, double>>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var series = converter.Convert(data);
+
+            // Assert
+            var lineSeries = ((LineSeries)series[0]);
+            Assert.AreEqual(strokeThickness, lineSeries.MarkerStrokeThickness);
+        }
+
+        [Test]
         [TestCase(ChartPointSymbol.None, MarkerType.None)]
         [TestCase(ChartPointSymbol.Circle, MarkerType.Circle)]
         [TestCase(ChartPointSymbol.Square, MarkerType.Square)]
@@ -188,7 +233,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         {
             // Setup
             var converter = new ChartPointDataConverter();
-            var style = new ChartPointStyle(Color.Red, 3, symbol);
+            var style = new ChartPointStyle(Color.Red, 3, Color.Red, 2, symbol);
             var data = new ChartPointData(new Collection<Tuple<double, double>>(), "test")
             {
                 Style = style

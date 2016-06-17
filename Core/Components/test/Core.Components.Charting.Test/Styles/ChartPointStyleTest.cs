@@ -33,15 +33,19 @@ namespace Core.Components.Charting.Test.Styles
         {
             // Setup
             var color = Color.AliceBlue;
-            var width = 3;
+            var size = 3;
+            var strokeColor = Color.AntiqueWhite;
+            var strokeThickness = 2;
             var symbol = ChartPointSymbol.Circle;
 
             // Call
-            var pointStyle = new ChartPointStyle(color, width, symbol);
+            var pointStyle = new ChartPointStyle(color, size, strokeColor, strokeThickness, symbol);
 
             // Assert
             Assert.AreEqual(color, pointStyle.Color);
-            Assert.AreEqual(width, pointStyle.Size);
+            Assert.AreEqual(size, pointStyle.Size);
+            Assert.AreEqual(strokeColor, pointStyle.StrokeColor);
+            Assert.AreEqual(strokeThickness, pointStyle.StrokeThickness);
             Assert.AreEqual(symbol, pointStyle.Symbol);
         }
     }
