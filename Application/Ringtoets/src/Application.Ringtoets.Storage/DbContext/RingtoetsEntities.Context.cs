@@ -56,6 +56,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<CalculationGroupEntity> CalculationGroupEntities { get; set; }
         public virtual DbSet<CharacteristicPointEntity> CharacteristicPointEntities { get; set; }
         public virtual DbSet<ClosingStructureSectionResultEntity> ClosingStructureSectionResultEntities { get; set; }
+        public virtual DbSet<DuneErosionSectionResultEntity> DuneErosionSectionResultEntities { get; set; }
         public virtual DbSet<FailureMechanismEntity> FailureMechanismEntities { get; set; }
         public virtual DbSet<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
         public virtual DbSet<FailureMechanismSectionPointEntity> FailureMechanismSectionPointEntities { get; set; }
@@ -78,6 +79,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<ReferenceLinePointEntity> ReferenceLinePointEntities { get; set; }
         public virtual DbSet<SoilLayerEntity> SoilLayerEntities { get; set; }
         public virtual DbSet<SoilProfileEntity> SoilProfileEntities { get; set; }
+        public virtual DbSet<StabilityStoneCoverSectionResultEntity> StabilityStoneCoverSectionResultEntities { get; set; }
         public virtual DbSet<StochasticSoilModelEntity> StochasticSoilModelEntities { get; set; }
         public virtual DbSet<StochasticSoilModelSegmentPointEntity> StochasticSoilModelSegmentPointEntities { get; set; }
         public virtual DbSet<StochasticSoilProfileEntity> StochasticSoilProfileEntities { get; set; }

@@ -78,6 +78,8 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadGrassCoverSlipOffOutwardsFailureMechanism(assessmentSection, collector);
             entity.ReadMicrostabilityFailureMechanism(assessmentSection, collector);
             entity.ReadPipingStructureFailureMechanism(assessmentSection, collector);
+            entity.ReadDuneErosionFailureMechanism(assessmentSection, collector);
+            entity.ReadStabilityStoneCoverFailureMechanism(assessmentSection, collector);
             entity.ReadStandAloneFailureMechanisms(assessmentSection, collector);
 
             return assessmentSection;
@@ -244,11 +246,27 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
+        private static void ReadDuneErosionFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
+        {
+            var duneErosionFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.DuneErosion);
+            if (duneErosionFailureMechanismEntity != null)
+            {
+                duneErosionFailureMechanismEntity.ReadAsDuneErosionFailureMechanism(assessmentSection.DuneErosion, collector);
+            }
+        }
+
+        private static void ReadStabilityStoneCoverFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
+        {
+            var stabilityStoneCoverFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.StabilityStoneRevetment);
+            if (stabilityStoneCoverFailureMechanismEntity != null)
+            {
+                stabilityStoneCoverFailureMechanismEntity.ReadAsStabilityStoneCoverFailureMechanism(assessmentSection.StabilityStoneCover, collector);
+            }
+        }
+
         private static void ReadStandAloneFailureMechanisms(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.StabilityStoneRevetment, assessmentSection.StabilityStoneCover, collector);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.StrengthAndStabilityPointConstruction, assessmentSection.StrengthStabilityPointConstruction, collector);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.DuneErosion, assessmentSection.DuneErosion, collector);
         }
 
         private static void ReadStandAloneFailureMechanism(this AssessmentSectionEntity entity, FailureMechanismType failureMechanismType, IFailureMechanism standAloneFailureMechanism, ReadConversionCollector collector)

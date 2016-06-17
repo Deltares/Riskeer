@@ -56,6 +56,10 @@
     <Compile Include="Create\CalculationGroupCreateExtensions.cs" />
     <Compile Include="Create\ClosingStructureFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\ClosingStructureFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\StabilityStoneCoverFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\StabilityStoneCoverFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\DuneErosionFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\DuneErosionFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\PipingStructureFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\PipingStructureFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\MicrostabilityFailureMechanismCreateExtensions.cs" />
@@ -111,6 +115,9 @@
     </Compile>
     <Compile Include="DbContext\CharacteristicPointType.cs" />
     <Compile Include="DbContext\ClosingStructureSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\DuneErosionSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\FailureMechanismEntity.cs">
@@ -179,6 +186,9 @@
     <Compile Include="DbContext\SoilProfileEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\StabilityStoneCoverSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\StochasticSoilModelEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -214,6 +224,8 @@
     <Compile Include="IStorableExtensions.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentions.cs" />
     <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\StabilityStoneCoverSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\DuneErosionSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverSlipOffInwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverSlipOffOutwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\MicrostabilitySectionResultEntityReadExtensions.cs" />
@@ -279,6 +291,10 @@
     <Compile Include="Update\CalculationGroupUpdateExtensions.cs" />
     <Compile Include="Update\ClosingStructureFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\ClosingStructureFailureMechanismUpdateExtensions.cs" />
+    <Compile Include="Update\StabilityStoneCoverFailureMechanismSectionResultUpdateExtensions.cs" />
+    <Compile Include="Update\StabilityStoneCoverFailureMechanismUpdateExtensions.cs" />
+    <Compile Include="Update\DuneErosionFailureMechanismSectionResultUpdateExtensions.cs" />
+    <Compile Include="Update\DuneErosionFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverSlipOffInwardsFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverSlipOffInwardsFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverSlipOffOutwardsFailureMechanismSectionResultUpdateExtensions.cs" />

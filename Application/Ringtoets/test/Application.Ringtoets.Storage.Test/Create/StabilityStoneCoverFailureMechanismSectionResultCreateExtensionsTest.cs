@@ -30,13 +30,13 @@ using Ringtoets.Integration.Data.StandAlone.SectionResults;
 namespace Application.Ringtoets.Storage.Test.Create
 {
     [TestFixture]
-    public class GrassCoverSlipOffOutwardsFailureMechanismSectionResultCreateExtensionsTest
+    public class StabilityStoneCoverFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
-            var sectionResult = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
             TestDelegate test = () => sectionResult.Create(null);
@@ -47,14 +47,12 @@ namespace Application.Ringtoets.Storage.Test.Create
 
         [Test]
         public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults(
-            [Values(true, false)] bool assessmentLayerOneResult,
             [Values(AssessmentLayerTwoAResult.NotCalculated, AssessmentLayerTwoAResult.Failed)] AssessmentLayerTwoAResult assessmentLayerTwoAResult,
             [Values(3.2, 4.5)] double assessmentLayerThreeResult    
         )
         {
             // Setup
-            var sectionResult = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
-            sectionResult.AssessmentLayerOne = assessmentLayerOneResult;
+            var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
             sectionResult.AssessmentLayerTwoA = assessmentLayerTwoAResult;
             sectionResult.AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult;
 
@@ -62,7 +60,6 @@ namespace Application.Ringtoets.Storage.Test.Create
             var result = sectionResult.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
             Assert.AreEqual(Convert.ToDecimal(assessmentLayerTwoAResult), result.LayerTwoA);
             Assert.AreEqual(Convert.ToDecimal(assessmentLayerThreeResult), result.LayerThree);
         }
@@ -71,7 +68,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
             sectionResult.AssessmentLayerThree = (RoundedDouble) double.NaN;
 
             // Call

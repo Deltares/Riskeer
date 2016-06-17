@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNotNull(sectionResult);
             Assert.AreEqual(entityId, sectionResult.StorageId);
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual((AssessmentLayerTwoAResult)layerTwoA, sectionResult.AssessmentLayerTwoA);
+            Assert.AreEqual(layerTwoA, sectionResult.AssessmentLayerTwoA);
             Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
         }
 

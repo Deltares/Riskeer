@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Storage;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
@@ -55,10 +56,12 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
+            Assert.IsInstanceOf<IStorable>(result);
             Assert.AreSame(section, result.Section);
             Assert.IsFalse(result.AssessmentLayerOne);
             Assert.AreEqual((AssessmentLayerTwoAResult)0, result.AssessmentLayerTwoA);
             Assert.AreEqual(0, result.AssessmentLayerThree.Value);
+            Assert.AreEqual(0, result.StorageId);
         }
     }
 }

@@ -39,6 +39,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public FailureMechanismSectionEntity()
         {
             this.ClosingStructureSectionResultEntities = new HashSet<ClosingStructureSectionResultEntity>();
+            this.DuneErosionSectionResultEntities = new HashSet<DuneErosionSectionResultEntity>();
             this.FailureMechanismSectionPointEntities = new HashSet<FailureMechanismSectionPointEntity>();
             this.GrassCoverErosionInwardsSectionResultEntities = new HashSet<GrassCoverErosionInwardsSectionResultEntity>();
             this.GrassCoverErosionOutwardsSectionResultEntities = new HashSet<GrassCoverErosionOutwardsSectionResultEntity>();
@@ -50,6 +51,7 @@ namespace Application.Ringtoets.Storage.DbContext
             this.MicrostabilitySectionResultEntities = new HashSet<MicrostabilitySectionResultEntity>();
             this.PipingSectionResultEntities = new HashSet<PipingSectionResultEntity>();
             this.PipingStructureSectionResultEntities = new HashSet<PipingStructureSectionResultEntity>();
+            this.StabilityStoneCoverSectionResultEntities = new HashSet<StabilityStoneCoverSectionResultEntity>();
             this.StrengthStabilityLengthwiseConstructionSectionResultEntities = new HashSet<StrengthStabilityLengthwiseConstructionSectionResultEntity>();
             this.TechnicalInnovationSectionResultEntities = new HashSet<TechnicalInnovationSectionResultEntity>();
             this.WaterPressureAsphaltCoverSectionResultEntities = new HashSet<WaterPressureAsphaltCoverSectionResultEntity>();
@@ -62,6 +64,8 @@ namespace Application.Ringtoets.Storage.DbContext
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClosingStructureSectionResultEntity> ClosingStructureSectionResultEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DuneErosionSectionResultEntity> DuneErosionSectionResultEntities { get; set; }
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismSectionPointEntity> FailureMechanismSectionPointEntities { get; set; }
@@ -85,6 +89,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual ICollection<PipingSectionResultEntity> PipingSectionResultEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingStructureSectionResultEntity> PipingStructureSectionResultEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StabilityStoneCoverSectionResultEntity> StabilityStoneCoverSectionResultEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StrengthStabilityLengthwiseConstructionSectionResultEntity> StrengthStabilityLengthwiseConstructionSectionResultEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

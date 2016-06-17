@@ -223,6 +223,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddSections(assessmentSection.Microstability);
             SetSectionResults(assessmentSection.Microstability.SectionResults);
             AddSections(assessmentSection.StabilityStoneCover);
+            SetSectionResults(assessmentSection.StabilityStoneCover.SectionResults);
             AddSections(assessmentSection.WaveImpactAsphaltCover);
             SetSectionResults(assessmentSection.WaveImpactAsphaltCover.SectionResults);
             AddSections(assessmentSection.WaterPressureAsphaltCover);
@@ -243,6 +244,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddSections(assessmentSection.PipingStructure);
             SetSectionResults(assessmentSection.PipingStructure.SectionResults);
             AddSections(assessmentSection.DuneErosion);
+            SetSectionResults(assessmentSection.DuneErosion.SectionResults);
             AddSections(assessmentSection.TechnicalInnovation);
             SetSectionResults(assessmentSection.TechnicalInnovation.SectionResults);
 
@@ -413,6 +415,30 @@ namespace Application.Ringtoets.Storage.TestUtil
                 var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
 
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
+                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<DuneErosionFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
+
+                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
+                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
+
                 sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
                 sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
             }

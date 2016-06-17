@@ -68,6 +68,8 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<GrassCoverSlipOffOutwardsSectionResultEntity, GrassCoverSlipOffOutwardsFailureMechanismSectionResult> grassCoverSlipOffOutwardsFailureMechanismSectionResults = new Dictionary<GrassCoverSlipOffOutwardsSectionResultEntity, GrassCoverSlipOffOutwardsFailureMechanismSectionResult>();
         private readonly Dictionary<MicrostabilitySectionResultEntity, MicrostabilityFailureMechanismSectionResult> microstabilityFailureMechanismSectionResults = new Dictionary<MicrostabilitySectionResultEntity, MicrostabilityFailureMechanismSectionResult>();
         private readonly Dictionary<PipingStructureSectionResultEntity, PipingStructureFailureMechanismSectionResult> pipingStructureFailureMechanismSectionResults = new Dictionary<PipingStructureSectionResultEntity, PipingStructureFailureMechanismSectionResult>();
+        private readonly Dictionary<DuneErosionSectionResultEntity, DuneErosionFailureMechanismSectionResult> duneErosionFailureMechanismSectionResults = new Dictionary<DuneErosionSectionResultEntity, DuneErosionFailureMechanismSectionResult>();
+        private readonly Dictionary<StabilityStoneCoverSectionResultEntity, StabilityStoneCoverFailureMechanismSectionResult> stabilityStoneCoverFailureMechanismSectionResults = new Dictionary<StabilityStoneCoverSectionResultEntity, StabilityStoneCoverFailureMechanismSectionResult>();
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicLocations = new Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>(new ReferenceEqualityComparer<HydraulicLocationEntity>());
         private readonly Dictionary<CalculationGroupEntity, CalculationGroup> calculationGroups = new Dictionary<CalculationGroupEntity, CalculationGroup>(new ReferenceEqualityComparer<CalculationGroupEntity>());
         private readonly Dictionary<PipingCalculationEntity, PipingCalculationScenario> pipingCalculations = new Dictionary<PipingCalculationEntity, PipingCalculationScenario>(new ReferenceEqualityComparer<PipingCalculationEntity>());
@@ -311,7 +313,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
         /// <param name="entity">The <see cref="MicrostabilitySectionResultEntity"/> to be registered.</param>
-        /// <param name="model">The <see cref="PipingStructureMechanismSectionResult"/> to be registered.</param>
+        /// <param name="model">The <see cref="MicrostabilityFailureMechanismSectionResult"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
@@ -336,6 +338,38 @@ namespace Application.Ringtoets.Storage.Create
         public void Register(PipingStructureSectionResultEntity entity, PipingStructureFailureMechanismSectionResult model)
         {
             Register(pipingStructureFailureMechanismSectionResults, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="DuneErosionSectionResultEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="DuneErosionFailureMechanismSectionResult"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(DuneErosionSectionResultEntity entity, DuneErosionFailureMechanismSectionResult model)
+        {
+            Register(duneErosionFailureMechanismSectionResults, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="StabilityStoneCoverSectionResultEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="StabilityStoneCoverFailureMechanismSectionResult"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(StabilityStoneCoverSectionResultEntity entity, StabilityStoneCoverFailureMechanismSectionResult model)
+        {
+            Register(stabilityStoneCoverFailureMechanismSectionResults, entity, model);
         }
 
         /// <summary>
@@ -883,6 +917,16 @@ namespace Application.Ringtoets.Storage.Create
                 pipingStructureFailureMechanismSectionResults[entity].StorageId = entity.PipingStructureSectionResultEntityId;
             }
 
+            foreach (var entity in duneErosionFailureMechanismSectionResults.Keys)
+            {
+                duneErosionFailureMechanismSectionResults[entity].StorageId = entity.DuneErosionSectionResultEntityId;
+            }
+
+            foreach (var entity in stabilityStoneCoverFailureMechanismSectionResults.Keys)
+            {
+                stabilityStoneCoverFailureMechanismSectionResults[entity].StorageId = entity.StabilityStoneCoverSectionResultEntityId;
+            }
+
             foreach (var entity in hydraulicLocations.Keys)
             {
                 hydraulicLocations[entity].StorageId = entity.HydraulicLocationEntityId;
@@ -1161,6 +1205,28 @@ namespace Application.Ringtoets.Storage.Create
                 }
             }
             dbContext.PipingStructureSectionResultEntities.RemoveRange(orphanedPipingStructureSectionResultEntities);
+
+            var orphanedDuneErosionSectionResultEntities = new List<DuneErosionSectionResultEntity>();
+            foreach (DuneErosionSectionResultEntity sectionResultEntity in dbContext.DuneErosionSectionResultEntities
+                                                                                             .Where(e => e.DuneErosionSectionResultEntityId > 0))
+            {
+                if (!duneErosionFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
+                {
+                    orphanedDuneErosionSectionResultEntities.Add(sectionResultEntity);
+                }
+            }
+            dbContext.DuneErosionSectionResultEntities.RemoveRange(orphanedDuneErosionSectionResultEntities);
+
+            var orphanedStabilityStoneCoverSectionResultEntities = new List<StabilityStoneCoverSectionResultEntity>();
+            foreach (StabilityStoneCoverSectionResultEntity sectionResultEntity in dbContext.StabilityStoneCoverSectionResultEntities
+                                                                                             .Where(e => e.StabilityStoneCoverSectionResultEntityId > 0))
+            {
+                if (!stabilityStoneCoverFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
+                {
+                    orphanedStabilityStoneCoverSectionResultEntities.Add(sectionResultEntity);
+                }
+            }
+            dbContext.StabilityStoneCoverSectionResultEntities.RemoveRange(orphanedStabilityStoneCoverSectionResultEntities);
 
             var orphanedHydraulicLocationEntities = new List<HydraulicLocationEntity>();
             foreach (HydraulicLocationEntity hydraulicLocationEntity in dbContext.HydraulicLocationEntities

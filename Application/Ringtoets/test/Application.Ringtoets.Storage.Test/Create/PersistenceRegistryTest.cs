@@ -1298,6 +1298,62 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void Register_WithNullDuneErosionFailureMechanismSectionResult_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(new DuneErosionSectionResultEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullDuneErosionSectionResultEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(null, new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection()));
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullStabilityStoneCoverFailureMechanismSectionResult_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(new StabilityStoneCoverSectionResultEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullStabilityStoneCoverSectionResultEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(null, new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection()));
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
         public void Register_WithNullHydraulicLocationEntity_ThrowsArgumentNullException()
         {
             // Setup
@@ -2050,6 +2106,48 @@ namespace Application.Ringtoets.Storage.Test.Create
                 PipingStructureSectionResultEntityId = storageId
             };
             var model = new PipingStructureFailureMechanismSectionResult(new TestFailureMechanismSection());
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferIds_WithDuneErosionSectionResultEntityAddedWithDuneErosionFailureMechanismSectionResult_EqualDuneErosionSectionEntityIdAndDuneErosionFailureMechanismSectionResultStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1,4000);
+            var entity = new DuneErosionSectionResultEntity
+            {
+                DuneErosionSectionResultEntityId = storageId
+            };
+            var model = new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection());
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferIds_WithStabilityStoneCoverSectionResultEntityAddedWithStabilityStoneCoverFailureMechanismSectionResult_EqualStabilityStoneCoverSectionEntityIdAndStabilityStoneCoverFailureMechanismSectionResultStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1,4000);
+            var entity = new StabilityStoneCoverSectionResultEntity
+            {
+                StabilityStoneCoverSectionResultEntityId = storageId
+            };
+            var model = new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
             registry.Register(entity, model);
 
             // Call
@@ -2985,6 +3083,78 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(1, dbContext.PipingStructureSectionResultEntities.Count());
             CollectionAssert.Contains(dbContext.PipingStructureSectionResultEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_DuneErosionSectionResultEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new DuneErosionSectionResultEntity
+            {
+                DuneErosionSectionResultEntityId = 1
+            };
+            var persistentEntity = new DuneErosionSectionResultEntity
+            {
+                DuneErosionSectionResultEntityId = 2
+            };
+            dbContext.DuneErosionSectionResultEntities.Add(orphanedEntity);
+            dbContext.DuneErosionSectionResultEntities.Add(persistentEntity);
+
+            var section = new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                StorageId = persistentEntity.DuneErosionSectionResultEntityId
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, section);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.DuneErosionSectionResultEntities.Count());
+            CollectionAssert.Contains(dbContext.DuneErosionSectionResultEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_StabilityStoneCoverSectionResultEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new StabilityStoneCoverSectionResultEntity
+            {
+                StabilityStoneCoverSectionResultEntityId = 1
+            };
+            var persistentEntity = new StabilityStoneCoverSectionResultEntity
+            {
+                StabilityStoneCoverSectionResultEntityId = 2
+            };
+            dbContext.StabilityStoneCoverSectionResultEntities.Add(orphanedEntity);
+            dbContext.StabilityStoneCoverSectionResultEntities.Add(persistentEntity);
+
+            var section = new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                StorageId = persistentEntity.StabilityStoneCoverSectionResultEntityId
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, section);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.StabilityStoneCoverSectionResultEntities.Count());
+            CollectionAssert.Contains(dbContext.StabilityStoneCoverSectionResultEntities, persistentEntity);
             mocks.VerifyAll();
         }
 

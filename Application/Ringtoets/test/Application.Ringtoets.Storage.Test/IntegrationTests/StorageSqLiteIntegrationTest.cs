@@ -299,6 +299,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 AssertFailureMechanismSectionResults(
                     expectedAssessmentSection.PipingStructure.SectionResults,
                     actualAssessmentSection.PipingStructure.SectionResults);
+                AssertFailureMechanismSectionResults(
+                    expectedAssessmentSection.DuneErosion.SectionResults,
+                    actualAssessmentSection.DuneErosion.SectionResults);
+                AssertFailureMechanismSectionResults(
+                    expectedAssessmentSection.StabilityStoneCover.SectionResults,
+                    actualAssessmentSection.StabilityStoneCover.SectionResults);
             }
         }
 
@@ -563,6 +569,40 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 PipingStructureFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
 
                 Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
+                Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
+                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
+            }
+        }
+
+        private void AssertFailureMechanismSectionResults(IEnumerable<DuneErosionFailureMechanismSectionResult> expectedSectionResults, IEnumerable<DuneErosionFailureMechanismSectionResult> actualSectionResults)
+        {
+            var expectedSectionResultsArray = expectedSectionResults.ToArray();
+            var actualSectionResultsArray = actualSectionResults.ToArray();
+
+            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
+
+            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
+            {
+                DuneErosionFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                DuneErosionFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+
+                Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
+                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
+            }
+        }
+
+        private void AssertFailureMechanismSectionResults(IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> expectedSectionResults, IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> actualSectionResults)
+        {
+            var expectedSectionResultsArray = expectedSectionResults.ToArray();
+            var actualSectionResultsArray = actualSectionResults.ToArray();
+
+            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
+
+            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
+            {
+                StabilityStoneCoverFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                StabilityStoneCoverFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+
                 Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
                 Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
             }

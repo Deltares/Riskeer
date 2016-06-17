@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
             sectionResult.AssessmentLayerOne = assessmentLayerOneResult;
-            sectionResult.AssessmentLayerTwoA = (AssessmentLayerTwoAResult) assessmentLayerTwoAResult;
+            sectionResult.AssessmentLayerTwoA = assessmentLayerTwoAResult;
             sectionResult.AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult;
 
             // Call

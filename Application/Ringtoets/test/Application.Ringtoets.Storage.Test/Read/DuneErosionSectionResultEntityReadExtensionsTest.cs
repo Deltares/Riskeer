@@ -30,16 +30,16 @@ using Ringtoets.Integration.Data.StandAlone.SectionResults;
 namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
-    public class GrassCoverSlipOffOutwardsSectionResultEntityReadExtensionsTest
+    public class DuneErosionSectionResultEntityReadExtensionsTest
     {
         [Test]
         public void Read_CollectorIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var entity = new GrassCoverSlipOffOutwardsSectionResultEntity();
+            var entity = new DuneErosionSectionResultEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection()), null);
+            TestDelegate call = () => entity.Read(new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection()), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_SectionResultIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var entity = new GrassCoverSlipOffOutwardsSectionResultEntity();
+            var entity = new DuneErosionSectionResultEntity();
 
             // Call
             TestDelegate call = () => entity.Read(null, new ReadConversionCollector());
@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [TestCase(true, AssessmentLayerTwoAResult.Failed)]
         [TestCase(false, AssessmentLayerTwoAResult.Successful)]
         [TestCase(false, AssessmentLayerTwoAResult.Failed)]
-        public void Read_WithDecimalParameterValues_ReturnGrassCoverSlipOffOutwardsSoilLayerWithDoubleParameterValues(bool layerOne, AssessmentLayerTwoAResult layerTwoA)
+        public void Read_WithDecimalParameterValues_ReturnDuneErosionSoilLayerWithDoubleParameterValues(bool layerOne, AssessmentLayerTwoAResult layerTwoA)
         {
             // Setup
             var random = new Random(21);
@@ -74,15 +74,14 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new GrassCoverSlipOffOutwardsSectionResultEntity
+            var entity = new DuneErosionSectionResultEntity
             {
-                GrassCoverSlipOffOutwardsSectionResultEntityId = entityId,
+                DuneErosionSectionResultEntityId = entityId,
                 LayerThree = Convert.ToDecimal(layerThree),
                 LayerTwoA = Convert.ToByte(layerTwoA),
-                LayerOne = Convert.ToByte(layerOne),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult, collector);
@@ -90,7 +89,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(sectionResult);
             Assert.AreEqual(entityId, sectionResult.StorageId);
-            Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
             Assert.AreEqual(layerTwoA, sectionResult.AssessmentLayerTwoA);
             Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
         }
@@ -99,20 +97,19 @@ namespace Application.Ringtoets.Storage.Test.Read
         [TestCase(true, AssessmentLayerTwoAResult.Failed)]
         [TestCase(false, AssessmentLayerTwoAResult.Successful)]
         [TestCase(false, AssessmentLayerTwoAResult.Failed)]
-        public void Read_WithNullLayerThree_ReturnGrassCoverSlipOffOutwardsSoilLayerWithNullParameters(bool layerOne, AssessmentLayerTwoAResult layerTwoA)
+        public void Read_WithNullLayerThree_ReturnDuneErosionSoilLayerWithNullParameters(bool layerOne, AssessmentLayerTwoAResult layerTwoA)
         {
             // Setup
             var collector = new ReadConversionCollector();
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new GrassCoverSlipOffOutwardsSectionResultEntity
+            var entity = new DuneErosionSectionResultEntity
             {
-                LayerOne = Convert.ToByte(layerOne),
                 LayerTwoA = Convert.ToByte(layerTwoA),
                 LayerThree = null,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection()); 
+            var sectionResult = new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection()); 
 
             // Call
             entity.Read(sectionResult, collector);
