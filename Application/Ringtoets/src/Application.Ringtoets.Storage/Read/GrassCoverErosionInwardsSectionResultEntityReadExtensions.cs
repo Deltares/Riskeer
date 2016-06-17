@@ -37,22 +37,24 @@ namespace Application.Ringtoets.Storage.Read
         /// <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="entity">The <see cref="GrassCoverErosionInwardsSectionResultEntity"/> to create <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> for.</param>
+        /// <param name="sectionResult">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static GrassCoverErosionInwardsFailureMechanismSectionResult Read(this GrassCoverErosionInwardsSectionResultEntity entity, ReadConversionCollector collector)
+        internal static void Read(this GrassCoverErosionInwardsSectionResultEntity entity, GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
             }
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(collector.Get(entity.FailureMechanismSectionEntity))
+            if (sectionResult == null)
             {
-                StorageId = entity.GrassCoverErosionInwardsSectionResultEntityId,
-                AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne),
-                AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNanableDouble()
-            };
-            return sectionResult;
+                throw new ArgumentNullException("sectionResult");
+            }
+
+            sectionResult.StorageId = entity.GrassCoverErosionInwardsSectionResultEntityId;
+            sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
+            sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNanableDouble();
         }
     }
 }

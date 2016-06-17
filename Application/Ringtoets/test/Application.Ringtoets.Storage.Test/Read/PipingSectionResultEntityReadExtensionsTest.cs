@@ -24,6 +24,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
@@ -37,11 +38,25 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new PipingSectionResultEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            TestDelegate call = () => entity.Read(new PipingFailureMechanismSectionResult(new TestFailureMechanismSection()), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("collector", paramName);
+        }
+
+        [Test]
+        public void Read_SectionResultIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var entity = new ClosingStructureSectionResultEntity();
+
+            // Call
+            TestDelegate call = () => entity.Read(null, new ReadConversionCollector());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("sectionResult", paramName);
         }
 
         [Test]
@@ -65,14 +80,16 @@ namespace Application.Ringtoets.Storage.Test.Read
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
 
+            var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection());
+
             // Call
-            var result = entity.Read(collector);
+            entity.Read(sectionResult, collector);
 
             // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(entityId, result.StorageId);
-            Assert.AreEqual(layerOne, result.AssessmentLayerOne);
-            Assert.AreEqual(layerThree, result.AssessmentLayerThree, 1e-6);
+            Assert.IsNotNull(sectionResult);
+            Assert.AreEqual(entityId, sectionResult.StorageId);
+            Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
+            Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
         }
 
         [Test]
@@ -90,12 +107,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                 LayerThree = null,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
+            var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
-            var layer = entity.Read(collector);
+            entity.Read(sectionResult, collector);
 
             // Assert
-            Assert.IsNaN(layer.AssessmentLayerThree);
+            Assert.IsNaN(sectionResult.AssessmentLayerThree);
         } 
     }
 }

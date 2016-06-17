@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.Read
             }
 
             failureMechanism.StorageId = entity.FailureMechanismEntityId;
-            failureMechanism.IsRelevant = entity.IsRelevant == 1;
+            failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
             failureMechanism.Comments = entity.Comments;
 
             if (entity.PipingFailureMechanismMetaEntities.Count > 0)
@@ -90,12 +90,10 @@ namespace Application.Ringtoets.Storage.Read
         {
             foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities))
             {
-                var readSectionResult = sectionResultEntity.Read(collector);
                 var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-                result.StorageId = readSectionResult.StorageId;
-                result.AssessmentLayerOne = readSectionResult.AssessmentLayerOne;
-                result.AssessmentLayerThree = readSectionResult.AssessmentLayerThree;
+
+                sectionResultEntity.Read(result, collector);
             }
         }
 
@@ -108,7 +106,7 @@ namespace Application.Ringtoets.Storage.Read
         internal static void ReadAsGrassCoverErosionInwardsFailureMechanism(this FailureMechanismEntity entity, GrassCoverErosionInwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
             failureMechanism.StorageId = entity.FailureMechanismEntityId;
-            failureMechanism.IsRelevant = entity.IsRelevant == 1;
+            failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
             failureMechanism.Comments = entity.Comments;
 
             entity.ReadFailureMechanismSections(failureMechanism, collector);
@@ -119,12 +117,10 @@ namespace Application.Ringtoets.Storage.Read
         {
             foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionInwardsSectionResultEntities))
             {
-                var readSectionResult = sectionResultEntity.Read(collector);
                 var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-                result.StorageId = readSectionResult.StorageId;
-                result.AssessmentLayerOne = readSectionResult.AssessmentLayerOne;
-                result.AssessmentLayerThree = readSectionResult.AssessmentLayerThree;
+                
+                sectionResultEntity.Read(result, collector);
             }
         }
 
@@ -137,7 +133,7 @@ namespace Application.Ringtoets.Storage.Read
         internal static void ReadAsHeightStructuresFailureMechanism(this FailureMechanismEntity entity, HeightStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
             failureMechanism.StorageId = entity.FailureMechanismEntityId;
-            failureMechanism.IsRelevant = entity.IsRelevant == 1;
+            failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
             failureMechanism.Comments = entity.Comments;
 
             entity.ReadFailureMechanismSections(failureMechanism, collector);
@@ -148,12 +144,10 @@ namespace Application.Ringtoets.Storage.Read
         {
             foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.HeightStructuresSectionResultEntities))
             {
-                var readSectionResult = sectionResultEntity.Read(collector);
                 var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-                result.StorageId = readSectionResult.StorageId;
-                result.AssessmentLayerOne = readSectionResult.AssessmentLayerOne;
-                result.AssessmentLayerThree = readSectionResult.AssessmentLayerThree;
+
+                sectionResultEntity.Read(result, collector);
             }
         }
 
@@ -166,7 +160,7 @@ namespace Application.Ringtoets.Storage.Read
         internal static void ReadAsStrengthStabilityLengthwiseConstructionFailureMechanism(this FailureMechanismEntity entity, StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
             failureMechanism.StorageId = entity.FailureMechanismEntityId;
-            failureMechanism.IsRelevant = entity.IsRelevant == 1;
+            failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
             failureMechanism.Comments = entity.Comments;
 
             entity.ReadFailureMechanismSections(failureMechanism, collector);
@@ -177,12 +171,10 @@ namespace Application.Ringtoets.Storage.Read
         {
             foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StrengthStabilityLengthwiseConstructionSectionResultEntities))
             {
-                var readSectionResult = sectionResultEntity.Read(collector);
                 var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-                result.StorageId = readSectionResult.StorageId;
-                result.AssessmentLayerOne = readSectionResult.AssessmentLayerOne;
-                result.AssessmentLayerThree = readSectionResult.AssessmentLayerThree;
+
+                sectionResultEntity.Read(result, collector);
             }
         }
 
@@ -195,7 +187,7 @@ namespace Application.Ringtoets.Storage.Read
         internal static void ReadAsTechnicalInnovationFailureMechanism(this FailureMechanismEntity entity, TechnicalInnovationFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
             failureMechanism.StorageId = entity.FailureMechanismEntityId;
-            failureMechanism.IsRelevant = entity.IsRelevant == 1;
+            failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
             failureMechanism.Comments = entity.Comments;
 
             entity.ReadFailureMechanismSections(failureMechanism, collector);
@@ -206,12 +198,10 @@ namespace Application.Ringtoets.Storage.Read
         {
             foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.TechnicalInnovationSectionResultEntities))
             {
-                var readSectionResult = sectionResultEntity.Read(collector);
                 var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-                result.StorageId = readSectionResult.StorageId;
-                result.AssessmentLayerOne = readSectionResult.AssessmentLayerOne;
-                result.AssessmentLayerThree = readSectionResult.AssessmentLayerThree;
+
+                sectionResultEntity.Read(result, collector);
             }
         }
 
@@ -224,7 +214,7 @@ namespace Application.Ringtoets.Storage.Read
         internal static void ReadAsWaterPressureAsphaltCoverFailureMechanism(this FailureMechanismEntity entity, WaterPressureAsphaltCoverFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
             failureMechanism.StorageId = entity.FailureMechanismEntityId;
-            failureMechanism.IsRelevant = entity.IsRelevant == 1;
+            failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
             failureMechanism.Comments = entity.Comments;
 
             entity.ReadFailureMechanismSections(failureMechanism, collector);
@@ -235,12 +225,10 @@ namespace Application.Ringtoets.Storage.Read
         {
             foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaterPressureAsphaltCoverSectionResultEntities))
             {
-                var readSectionResult = sectionResultEntity.Read(collector);
                 var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-                result.StorageId = readSectionResult.StorageId;
-                result.AssessmentLayerOne = readSectionResult.AssessmentLayerOne;
-                result.AssessmentLayerThree = readSectionResult.AssessmentLayerThree;
+
+                sectionResultEntity.Read(result, collector);
             }
         }
 
@@ -253,7 +241,7 @@ namespace Application.Ringtoets.Storage.Read
         internal static void ReadAsClosingStructureFailureMechanism(this FailureMechanismEntity entity, ClosingStructureFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
             failureMechanism.StorageId = entity.FailureMechanismEntityId;
-            failureMechanism.IsRelevant = entity.IsRelevant == 1;
+            failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
             failureMechanism.Comments = entity.Comments;
 
             entity.ReadFailureMechanismSections(failureMechanism, collector);
@@ -264,13 +252,10 @@ namespace Application.Ringtoets.Storage.Read
         {
             foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.ClosingStructureSectionResultEntities))
             {
-                var readSectionResult = sectionResultEntity.Read(collector);
                 var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-                result.StorageId = readSectionResult.StorageId;
-                result.AssessmentLayerOne = readSectionResult.AssessmentLayerOne;
-                result.AssessmentLayerTwoA = readSectionResult.AssessmentLayerTwoA;
-                result.AssessmentLayerThree = readSectionResult.AssessmentLayerThree;
+
+                sectionResultEntity.Read(result, collector);
             }
         }
 
@@ -283,7 +268,7 @@ namespace Application.Ringtoets.Storage.Read
         internal static void ReadAsStandAloneFailureMechanism(this FailureMechanismEntity entity, IFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
             failureMechanism.StorageId = entity.FailureMechanismEntityId;
-            failureMechanism.IsRelevant = entity.IsRelevant == 1;
+            failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
             failureMechanism.Comments = entity.Comments;
 
             entity.ReadFailureMechanismSections(failureMechanism, collector);

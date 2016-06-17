@@ -37,22 +37,23 @@ namespace Application.Ringtoets.Storage.Read
         /// <see cref="PipingFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="entity">The <see cref="PipingSectionResultEntity"/> to create <see cref="PipingFailureMechanismSectionResult"/> for.</param>
+        /// <param name="sectionResult">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="PipingFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static PipingFailureMechanismSectionResult Read(this PipingSectionResultEntity entity, ReadConversionCollector collector)
+        internal static void Read(this PipingSectionResultEntity entity, PipingFailureMechanismSectionResult sectionResult, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
             }
-            var sectionResult = new PipingFailureMechanismSectionResult(collector.Get(entity.FailureMechanismSectionEntity))
+            if (sectionResult == null)
             {
-                StorageId = entity.PipingSectionResultEntityId,
-                AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne),
-                AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNanableDouble()
-            };
-            return sectionResult;
+                throw new ArgumentNullException("sectionResult");
+            }
+            sectionResult.StorageId = entity.PipingSectionResultEntityId;
+            sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
+            sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNanableDouble();
         }
     }
 }

@@ -33,27 +33,29 @@ namespace Application.Ringtoets.Storage.Read
     internal static class ClosingStructureSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="ClosingStructureSectionResultEntity"/> and use the information to construct a 
+        /// Reads the <see cref="ClosingStructureSectionResultEntity"/> and use the information to update a 
         /// <see cref="ClosingStructureFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="entity">The <see cref="ClosingStructureSectionResultEntity"/> to create <see cref="ClosingStructureFailureMechanismSectionResult"/> for.</param>
+        /// <param name="sectionResult">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="ClosingStructureFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static ClosingStructureFailureMechanismSectionResult Read(this ClosingStructureSectionResultEntity entity, ReadConversionCollector collector)
+        internal static void Read(this ClosingStructureSectionResultEntity entity, ClosingStructureFailureMechanismSectionResult sectionResult, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
-            }
-            var sectionResult = new ClosingStructureFailureMechanismSectionResult(collector.Get(entity.FailureMechanismSectionEntity))
+            } 
+            if (sectionResult == null)
             {
-                StorageId = entity.ClosingStructureSectionResultEntityId,
-                AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne),
-                AssessmentLayerTwoA = (RoundedDouble)entity.LayerTwoA.ToNanableDouble(),
-                AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNanableDouble()
-            };
-            return sectionResult;
+                throw new ArgumentNullException("sectionResult");
+            }
+
+            sectionResult.StorageId = entity.ClosingStructureSectionResultEntityId;
+            sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
+            sectionResult.AssessmentLayerTwoA = (RoundedDouble)entity.LayerTwoA.ToNanableDouble();
+            sectionResult.AssessmentLayerThree = (RoundedDouble)entity.LayerThree.ToNanableDouble();
         }
     }
 }

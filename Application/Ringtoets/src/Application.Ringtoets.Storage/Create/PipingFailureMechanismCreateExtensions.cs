@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
@@ -40,23 +41,12 @@ namespace Application.Ringtoets.Storage.Create
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static FailureMechanismEntity Create(this PipingFailureMechanism mechanism, PersistenceRegistry registry)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
-
-            var entity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (short) FailureMechanismType.Piping,
-                IsRelevant = Convert.ToByte(mechanism.IsRelevant),
-                Comments = mechanism.Comments
-            };
+            var entity = mechanism.Create(FailureMechanismType.Piping, registry);
 
             AddEntitiesForFailureMechanismMeta(mechanism, registry, entity);
             AddEntitiesForStochasticSoilModels(mechanism, registry, entity);
             AddEntitiesForSurfaceLines(mechanism, registry, entity);
-            mechanism.AddEntitiesForFailureMechanismSections(registry, entity);
-            AddEntitiesForSectionResults(mechanism, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
 
@@ -64,9 +54,11 @@ namespace Application.Ringtoets.Storage.Create
             return entity;
         }
 
-        private static void AddEntitiesForSectionResults(PipingFailureMechanism mechanism, PersistenceRegistry registry)
+        private static void AddEntitiesForSectionResults(
+            IEnumerable<PipingFailureMechanismSectionResult> sectionResults, 
+            PersistenceRegistry registry)
         {
-            foreach (var pipingFailureMechanismSectionResult in mechanism.SectionResults)
+            foreach (var pipingFailureMechanismSectionResult in sectionResults)
             {
                 var pipingSectionResultEntity = pipingFailureMechanismSectionResult.Create(registry);
                 var section = registry.Get(pipingFailureMechanismSectionResult.Section);

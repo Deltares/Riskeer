@@ -37,22 +37,23 @@ namespace Application.Ringtoets.Storage.Read
         /// <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="entity">The <see cref="StrengthStabilityLengthwiseConstructionSectionResultEntity"/> to create <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/> for.</param>
+        /// <param name="sectionResult">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult Read(this StrengthStabilityLengthwiseConstructionSectionResultEntity entity, ReadConversionCollector collector)
+        internal static void Read(this StrengthStabilityLengthwiseConstructionSectionResultEntity entity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
             }
-            var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(collector.Get(entity.FailureMechanismSectionEntity))
+            if (sectionResult == null)
             {
-                StorageId = entity.StrengthStabilityLengthwiseConstructionSectionResultEntityId,
-                AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne),
-                AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNanableDouble()
-            };
-            return sectionResult;
+                throw new ArgumentNullException("sectionResult");
+            }
+            sectionResult.StorageId = entity.StrengthStabilityLengthwiseConstructionSectionResultEntityId;
+            sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
+            sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNanableDouble();
         }
     }
 }

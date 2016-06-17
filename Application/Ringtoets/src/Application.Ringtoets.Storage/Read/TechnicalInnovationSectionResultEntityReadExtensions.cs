@@ -37,21 +37,23 @@ namespace Application.Ringtoets.Storage.Read
         /// <see cref="TechnicalInnovationFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="entity">The <see cref="TechnicalInnovationSectionResultEntity"/> to create <see cref="TechnicalInnovationFailureMechanismSectionResult"/> for.</param>
+        /// <param name="sectionResult">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="TechnicalInnovationFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static TechnicalInnovationFailureMechanismSectionResult Read(this TechnicalInnovationSectionResultEntity entity, ReadConversionCollector collector)
+        internal static TechnicalInnovationFailureMechanismSectionResult Read(this TechnicalInnovationSectionResultEntity entity, TechnicalInnovationFailureMechanismSectionResult sectionResult, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
             }
-            var sectionResult = new TechnicalInnovationFailureMechanismSectionResult(collector.Get(entity.FailureMechanismSectionEntity))
+            if (sectionResult == null)
             {
-                StorageId = entity.TechnicalInnovationSectionResultEntityId,
-                AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne),
-                AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNanableDouble()
-            };
+                throw new ArgumentNullException("sectionResult");
+            }
+            sectionResult.StorageId = entity.TechnicalInnovationSectionResultEntityId;
+            sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
+            sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNanableDouble();
             return sectionResult;
         }
     }

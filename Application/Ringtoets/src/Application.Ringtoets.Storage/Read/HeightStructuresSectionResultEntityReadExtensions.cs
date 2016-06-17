@@ -37,22 +37,23 @@ namespace Application.Ringtoets.Storage.Read
         /// <see cref="HeightStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="entity">The <see cref="HeightStructuresSectionResultEntity"/> to create <see cref="HeightStructuresFailureMechanismSectionResult"/> for.</param>
+        /// <param name="sectionResult">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="HeightStructuresFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static HeightStructuresFailureMechanismSectionResult Read(this HeightStructuresSectionResultEntity entity, ReadConversionCollector collector)
+        internal static void Read(this HeightStructuresSectionResultEntity entity, HeightStructuresFailureMechanismSectionResult sectionResult, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
-            }
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(collector.Get(entity.FailureMechanismSectionEntity))
+            } 
+            if (sectionResult == null)
             {
-                StorageId = entity.HeightStructuresSectionResultEntityId,
-                AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne),
-                AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNanableDouble()
-            };
-            return sectionResult;
+                throw new ArgumentNullException("sectionResult");
+            }
+            sectionResult.StorageId = entity.HeightStructuresSectionResultEntityId;
+            sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
+            sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNanableDouble();
         }
     }
 }

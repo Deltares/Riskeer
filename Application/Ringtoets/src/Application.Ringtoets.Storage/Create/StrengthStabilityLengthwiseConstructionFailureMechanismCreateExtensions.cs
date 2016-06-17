@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Create
 {
@@ -39,28 +41,18 @@ namespace Application.Ringtoets.Storage.Create
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static FailureMechanismEntity Create(this StrengthStabilityLengthwiseConstructionFailureMechanism mechanism, PersistenceRegistry registry)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
-
-            var entity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (short) FailureMechanismType.StrengthAndStabilityParallelConstruction,
-                IsRelevant = Convert.ToByte(mechanism.IsRelevant),
-                Comments = mechanism.Comments
-            };
-
-            mechanism.AddEntitiesForFailureMechanismSections(registry, entity);
-            AddEntitiesForSectionResults(mechanism, registry);
+            var entity = mechanism.Create(FailureMechanismType.StrengthAndStabilityParallelConstruction, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             registry.Register(entity, mechanism);
             return entity;
         }
 
-        private static void AddEntitiesForSectionResults(StrengthStabilityLengthwiseConstructionFailureMechanism mechanism, PersistenceRegistry registry)
+        private static void AddEntitiesForSectionResults(
+            IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> sectionResults, 
+            PersistenceRegistry registry)
         {
-            foreach (var failureMechanismSectionResult in mechanism.SectionResults)
+            foreach (var failureMechanismSectionResult in sectionResults)
             {
                 var sectionResultEntity = failureMechanismSectionResult.Create(registry);
                 var section = registry.Get(failureMechanismSectionResult.Section);
