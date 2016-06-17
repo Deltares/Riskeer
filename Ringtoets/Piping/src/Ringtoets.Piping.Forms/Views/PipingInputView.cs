@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Components.Charting.Forms;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
@@ -29,7 +30,7 @@ namespace Ringtoets.Piping.Forms.Views
     /// <summary>
     /// This class is a view to show the piping input.
     /// </summary>
-    public partial class PipingInputView : UserControl, IChartView
+    public partial class PipingInputView : UserControl, IChartView, IObserver
     {
         private PipingInput data;
         private PipingCalculationScenario calculation;
@@ -55,9 +56,10 @@ namespace Ringtoets.Piping.Forms.Views
             }
             set
             {
+                DetachFromData();
                 calculation = value;
-
                 SetChartTitle();
+                AttachToData();
             }
         }
 
@@ -81,6 +83,11 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
+        public void UpdateObserver()
+        {
+            SetChartTitle();
+        }
+
         private void SetChartTitle()
         {
             chartControl.SetChartTitle(calculation.Name);
@@ -90,6 +97,22 @@ namespace Ringtoets.Piping.Forms.Views
         {
             chartControl.SetBottomAxisTitle(Resources.PipingInputView_Distance_DisplayName);
             chartControl.SetLeftAxisTitle(Resources.PipingInputView_Height_DisplayName);
+        }
+
+        private void DetachFromData()
+        {
+            if (calculation != null)
+            {
+                calculation.Detach(this);
+            }
+        }
+
+        private void AttachToData()
+        {
+            if (calculation != null)
+            {
+                calculation.Attach(this);
+            }
         }
     }
 }

@@ -69,6 +69,7 @@ namespace Core.Components.OxyPlot.Forms
         public void SetModelTitle(string title)
         {
             Model.Title = title;
+            InvalidatePlot(false);
         }
 
         /// <summary>

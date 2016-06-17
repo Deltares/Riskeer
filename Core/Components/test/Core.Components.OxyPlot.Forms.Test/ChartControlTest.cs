@@ -247,6 +247,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             var form = new Form();
             var chart = new ChartControl();
             var view = TypeUtils.GetField<PlotView>(chart, "view");
+            form.Controls.Add(chart);
 
             form.Show();
 
@@ -267,6 +268,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             var form = new Form();
             var chart = new ChartControl();
             var view = TypeUtils.GetField<PlotView>(chart, "view");
+            form.Controls.Add(chart);
 
             form.Show();
 
@@ -281,20 +283,26 @@ namespace Core.Components.OxyPlot.Forms.Test
         [TestCase("Title")]
         [TestCase("Test")]
         [TestCase("Label")]
-        public void SetModelTitle_Always_SetsNewTitleToModel(string newTitle)
+        public void SetModelTitle_Always_SetsNewTitleToModelAndViewInvalidated(string newTitle)
         {
             // Setup
             var form = new Form();
             var chart = new ChartControl();
             var view = TypeUtils.GetField<PlotView>(chart, "view");
+            form.Controls.Add(chart);
 
             form.Show();
+
+
+            var invalidated = 0;
+            view.Invalidated += (sender, args) => invalidated++;
 
             // Call
             chart.SetChartTitle(newTitle);
 
             // Assert
             Assert.AreEqual(view.Model.Title, newTitle);
+            Assert.AreEqual(1, invalidated);
         }
     }
 }
