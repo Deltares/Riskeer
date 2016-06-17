@@ -64,6 +64,10 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<MacrostabilityOutwardsSectionResultEntity, MacrostabilityOutwardsFailureMechanismSectionResult> macrostabilityOutwardsFailureMechanismSectionResults = new Dictionary<MacrostabilityOutwardsSectionResultEntity, MacrostabilityOutwardsFailureMechanismSectionResult>();
         private readonly Dictionary<WaveImpactAsphaltCoverSectionResultEntity, WaveImpactAsphaltCoverFailureMechanismSectionResult> waveImpactAsphaltCoverFailureMechanismSectionResults = new Dictionary<WaveImpactAsphaltCoverSectionResultEntity, WaveImpactAsphaltCoverFailureMechanismSectionResult>();
         private readonly Dictionary<GrassCoverErosionOutwardsSectionResultEntity, GrassCoverErosionOutwardsFailureMechanismSectionResult> grassCoverErosionOutwardsFailureMechanismSectionResults = new Dictionary<GrassCoverErosionOutwardsSectionResultEntity, GrassCoverErosionOutwardsFailureMechanismSectionResult>();
+        private readonly Dictionary<GrassCoverSlipOffInwardsSectionResultEntity, GrassCoverSlipOffInwardsFailureMechanismSectionResult> grassCoverSlipOffInwardsFailureMechanismSectionResults = new Dictionary<GrassCoverSlipOffInwardsSectionResultEntity, GrassCoverSlipOffInwardsFailureMechanismSectionResult>();
+        private readonly Dictionary<GrassCoverSlipOffOutwardsSectionResultEntity, GrassCoverSlipOffOutwardsFailureMechanismSectionResult> grassCoverSlipOffOutwardsFailureMechanismSectionResults = new Dictionary<GrassCoverSlipOffOutwardsSectionResultEntity, GrassCoverSlipOffOutwardsFailureMechanismSectionResult>();
+        private readonly Dictionary<MicrostabilitySectionResultEntity, MicrostabilityFailureMechanismSectionResult> microstabilityFailureMechanismSectionResults = new Dictionary<MicrostabilitySectionResultEntity, MicrostabilityFailureMechanismSectionResult>();
+        private readonly Dictionary<PipingStructureSectionResultEntity, PipingStructureFailureMechanismSectionResult> pipingStructureFailureMechanismSectionResults = new Dictionary<PipingStructureSectionResultEntity, PipingStructureFailureMechanismSectionResult>();
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicLocations = new Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>(new ReferenceEqualityComparer<HydraulicLocationEntity>());
         private readonly Dictionary<CalculationGroupEntity, CalculationGroup> calculationGroups = new Dictionary<CalculationGroupEntity, CalculationGroup>(new ReferenceEqualityComparer<CalculationGroupEntity>());
         private readonly Dictionary<PipingCalculationEntity, PipingCalculationScenario> pipingCalculations = new Dictionary<PipingCalculationEntity, PipingCalculationScenario>(new ReferenceEqualityComparer<PipingCalculationEntity>());
@@ -268,6 +272,70 @@ namespace Application.Ringtoets.Storage.Create
         public void Register(GrassCoverErosionOutwardsSectionResultEntity entity, GrassCoverErosionOutwardsFailureMechanismSectionResult model)
         {
             Register(grassCoverErosionOutwardsFailureMechanismSectionResults, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="GrassCoverSlipOffInwardsSectionResultEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(GrassCoverSlipOffInwardsSectionResultEntity entity, GrassCoverSlipOffInwardsFailureMechanismSectionResult model)
+        {
+            Register(grassCoverSlipOffInwardsFailureMechanismSectionResults, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="GrassCoverSlipOffOutwardsSectionResultEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(GrassCoverSlipOffOutwardsSectionResultEntity entity, GrassCoverSlipOffOutwardsFailureMechanismSectionResult model)
+        {
+            Register(grassCoverSlipOffOutwardsFailureMechanismSectionResults, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="MicrostabilitySectionResultEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="PipingStructureMechanismSectionResult"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(MicrostabilitySectionResultEntity entity, MicrostabilityFailureMechanismSectionResult model)
+        {
+            Register(microstabilityFailureMechanismSectionResults, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="PipingStructureSectionResultEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="PipingStructureFailureMechanismSectionResult"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(PipingStructureSectionResultEntity entity, PipingStructureFailureMechanismSectionResult model)
+        {
+            Register(pipingStructureFailureMechanismSectionResults, entity, model);
         }
 
         /// <summary>
@@ -795,6 +863,26 @@ namespace Application.Ringtoets.Storage.Create
                 grassCoverErosionOutwardsFailureMechanismSectionResults[entity].StorageId = entity.GrassCoverErosionOutwardsSectionResultEntityId;
             }
 
+            foreach (var entity in grassCoverSlipOffInwardsFailureMechanismSectionResults.Keys)
+            {
+                grassCoverSlipOffInwardsFailureMechanismSectionResults[entity].StorageId = entity.GrassCoverSlipOffInwardsSectionResultEntityId;
+            }
+
+            foreach (var entity in grassCoverSlipOffOutwardsFailureMechanismSectionResults.Keys)
+            {
+                grassCoverSlipOffOutwardsFailureMechanismSectionResults[entity].StorageId = entity.GrassCoverSlipOffOutwardsSectionResultEntityId;
+            }
+
+            foreach (var entity in microstabilityFailureMechanismSectionResults.Keys)
+            {
+                microstabilityFailureMechanismSectionResults[entity].StorageId = entity.MicrostabilitySectionResultEntityId;
+            }
+
+            foreach (var entity in pipingStructureFailureMechanismSectionResults.Keys)
+            {
+                pipingStructureFailureMechanismSectionResults[entity].StorageId = entity.PipingStructureSectionResultEntityId;
+            }
+
             foreach (var entity in hydraulicLocations.Keys)
             {
                 hydraulicLocations[entity].StorageId = entity.HydraulicLocationEntityId;
@@ -1029,6 +1117,50 @@ namespace Application.Ringtoets.Storage.Create
                 }
             }
             dbContext.GrassCoverErosionOutwardsSectionResultEntities.RemoveRange(orphanedGrassCoverErosionOutwardsSectionResultEntities);
+
+            var orphanedGrassCoverSlipOffInwardsSectionResultEntities = new List<GrassCoverSlipOffInwardsSectionResultEntity>();
+            foreach (GrassCoverSlipOffInwardsSectionResultEntity sectionResultEntity in dbContext.GrassCoverSlipOffInwardsSectionResultEntities
+                                                                                             .Where(e => e.GrassCoverSlipOffInwardsSectionResultEntityId > 0))
+            {
+                if (!grassCoverSlipOffInwardsFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
+                {
+                    orphanedGrassCoverSlipOffInwardsSectionResultEntities.Add(sectionResultEntity);
+                }
+            }
+            dbContext.GrassCoverSlipOffInwardsSectionResultEntities.RemoveRange(orphanedGrassCoverSlipOffInwardsSectionResultEntities);
+
+            var orphanedGrassCoverSlipOffOutwardsSectionResultEntities = new List<GrassCoverSlipOffOutwardsSectionResultEntity>();
+            foreach (GrassCoverSlipOffOutwardsSectionResultEntity sectionResultEntity in dbContext.GrassCoverSlipOffOutwardsSectionResultEntities
+                                                                                             .Where(e => e.GrassCoverSlipOffOutwardsSectionResultEntityId > 0))
+            {
+                if (!grassCoverSlipOffOutwardsFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
+                {
+                    orphanedGrassCoverSlipOffOutwardsSectionResultEntities.Add(sectionResultEntity);
+                }
+            }
+            dbContext.GrassCoverSlipOffOutwardsSectionResultEntities.RemoveRange(orphanedGrassCoverSlipOffOutwardsSectionResultEntities);
+
+            var orphanedMicrostabilitySectionResultEntities = new List<MicrostabilitySectionResultEntity>();
+            foreach (MicrostabilitySectionResultEntity sectionResultEntity in dbContext.MicrostabilitySectionResultEntities
+                                                                                             .Where(e => e.MicrostabilitySectionResultEntityId > 0))
+            {
+                if (!microstabilityFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
+                {
+                    orphanedMicrostabilitySectionResultEntities.Add(sectionResultEntity);
+                }
+            }
+            dbContext.MicrostabilitySectionResultEntities.RemoveRange(orphanedMicrostabilitySectionResultEntities);
+
+            var orphanedPipingStructureSectionResultEntities = new List<PipingStructureSectionResultEntity>();
+            foreach (PipingStructureSectionResultEntity sectionResultEntity in dbContext.PipingStructureSectionResultEntities
+                                                                                             .Where(e => e.PipingStructureSectionResultEntityId > 0))
+            {
+                if (!pipingStructureFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
+                {
+                    orphanedPipingStructureSectionResultEntities.Add(sectionResultEntity);
+                }
+            }
+            dbContext.PipingStructureSectionResultEntities.RemoveRange(orphanedPipingStructureSectionResultEntities);
 
             var orphanedHydraulicLocationEntities = new List<HydraulicLocationEntity>();
             foreach (HydraulicLocationEntity hydraulicLocationEntity in dbContext.HydraulicLocationEntities

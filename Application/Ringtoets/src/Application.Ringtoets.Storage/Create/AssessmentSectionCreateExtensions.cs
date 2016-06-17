@@ -66,6 +66,10 @@ namespace Application.Ringtoets.Storage.Create
             entity.FailureMechanismEntities.Add(section.MacrostabilityOutwards.Create(registry));
             entity.FailureMechanismEntities.Add(section.WaveImpactAsphaltCover.Create(registry));
             entity.FailureMechanismEntities.Add(section.GrassCoverErosionOutwards.Create(registry));
+            entity.FailureMechanismEntities.Add(section.GrassCoverSlipOffInwards.Create(registry));
+            entity.FailureMechanismEntities.Add(section.GrassCoverSlipOffOutwards.Create(registry));
+            entity.FailureMechanismEntities.Add(section.Microstability.Create(registry));
+            entity.FailureMechanismEntities.Add(section.PipingStructure.Create(registry));
 
             AddEntitiesForAddStandAloneFailureMechanisms(section, entity, registry);
 
@@ -75,11 +79,7 @@ namespace Application.Ringtoets.Storage.Create
 
         private static void AddEntitiesForAddStandAloneFailureMechanisms(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry registry)
         {
-            entity.FailureMechanismEntities.Add(section.Microstability.Create(FailureMechanismType.Microstability, registry));
             entity.FailureMechanismEntities.Add(section.StabilityStoneCover.Create(FailureMechanismType.StabilityStoneRevetment, registry));
-            entity.FailureMechanismEntities.Add(section.GrassCoverSlipOffOutwards.Create(FailureMechanismType.GrassRevetmentSlidingOutwards, registry));
-            entity.FailureMechanismEntities.Add(section.GrassCoverSlipOffInwards.Create(FailureMechanismType.GrassRevetmentSlidingInwards, registry));
-            entity.FailureMechanismEntities.Add(section.PipingStructure.Create(FailureMechanismType.PipingAtStructure, registry));
             entity.FailureMechanismEntities.Add(section.StrengthStabilityPointConstruction.Create(FailureMechanismType.StrengthAndStabilityPointConstruction, registry));
             entity.FailureMechanismEntities.Add(section.DuneErosion.Create(FailureMechanismType.DuneErosion, registry));
         }

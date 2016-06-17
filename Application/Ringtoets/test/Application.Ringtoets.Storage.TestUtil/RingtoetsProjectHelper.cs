@@ -221,6 +221,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddSections(assessmentSection.MacrostabilityOutwards);
             SetSectionResults(assessmentSection.MacrostabilityOutwards.SectionResults);
             AddSections(assessmentSection.Microstability);
+            SetSectionResults(assessmentSection.Microstability.SectionResults);
             AddSections(assessmentSection.StabilityStoneCover);
             AddSections(assessmentSection.WaveImpactAsphaltCover);
             SetSectionResults(assessmentSection.WaveImpactAsphaltCover.SectionResults);
@@ -228,8 +229,10 @@ namespace Application.Ringtoets.Storage.TestUtil
             SetSectionResults(assessmentSection.WaterPressureAsphaltCover.SectionResults);
             AddSections(assessmentSection.GrassCoverErosionOutwards);
             SetSectionResults(assessmentSection.GrassCoverErosionOutwards.SectionResults);
-            AddSections(assessmentSection.GrassCoverSlipOffOutwards);
             AddSections(assessmentSection.GrassCoverSlipOffInwards);
+            SetSectionResults(assessmentSection.GrassCoverSlipOffInwards.SectionResults);
+            AddSections(assessmentSection.GrassCoverSlipOffOutwards);
+            SetSectionResults(assessmentSection.GrassCoverSlipOffOutwards.SectionResults);
             AddSections(assessmentSection.HeightStructures);
             SetSectionResults(assessmentSection.HeightStructures.SectionResults);
             AddSections(assessmentSection.ClosingStructure);
@@ -238,6 +241,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddSections(assessmentSection.StrengthStabilityLengthwiseConstruction);
             SetSectionResults(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults);
             AddSections(assessmentSection.PipingStructure);
+            SetSectionResults(assessmentSection.PipingStructure.SectionResults);
             AddSections(assessmentSection.DuneErosion);
             AddSections(assessmentSection.TechnicalInnovation);
             SetSectionResults(assessmentSection.TechnicalInnovation.SectionResults);
@@ -350,6 +354,58 @@ namespace Application.Ringtoets.Storage.TestUtil
         }
 
         private static void SetSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
+
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
+                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
+
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
+                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
+
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
+                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<MicrostabilityFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
+
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
+                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<PipingStructureFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
             foreach (var sectionResult in sectionResults)

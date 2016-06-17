@@ -121,6 +121,30 @@ namespace Application.Ringtoets.Storage.DbContext
         DbSet<GrassCoverErosionOutwardsSectionResultEntity> GrassCoverErosionOutwardsSectionResultEntities { get; }
 
         /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="GrassCoverSlipOffInwardsSectionResultEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<GrassCoverSlipOffInwardsSectionResultEntity> GrassCoverSlipOffInwardsSectionResultEntities { get; }
+
+        /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="GrassCoverSlipOffOutwardsSectionResultEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<GrassCoverSlipOffOutwardsSectionResultEntity> GrassCoverSlipOffOutwardsSectionResultEntities { get; }
+
+        /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="MicrostabilitySectionResultEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<MicrostabilitySectionResultEntity> MicrostabilitySectionResultEntities { get; }
+
+        /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="PipingStructureSectionResultEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<PipingStructureSectionResultEntity> PipingStructureSectionResultEntities { get; }
+
+        /// <summary>
         /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="PipingFailureMechanismMetaEntity"/> containing
         /// every entity found in the database.
         /// </summary>

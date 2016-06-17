@@ -74,6 +74,10 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadMacrostabilityOutwardsFailureMechanism(assessmentSection, collector);
             entity.ReadWaveImpactAsphaltCoverFailureMechanism(assessmentSection, collector);
             entity.ReadGrassCoverErosionOutwardsFailureMechanism(assessmentSection, collector);
+            entity.ReadGrassCoverSlipOffInwardsFailureMechanism(assessmentSection, collector);
+            entity.ReadGrassCoverSlipOffOutwardsFailureMechanism(assessmentSection, collector);
+            entity.ReadMicrostabilityFailureMechanism(assessmentSection, collector);
+            entity.ReadPipingStructureFailureMechanism(assessmentSection, collector);
             entity.ReadStandAloneFailureMechanisms(assessmentSection, collector);
 
             return assessmentSection;
@@ -204,13 +208,45 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
+        private static void ReadGrassCoverSlipOffInwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
+        {
+            var grassCoverSlipOffInwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.GrassRevetmentSlidingInwards);
+            if (grassCoverSlipOffInwardsFailureMechanismEntity != null)
+            {
+                grassCoverSlipOffInwardsFailureMechanismEntity.ReadAsGrassCoverSlipOffInwardsFailureMechanism(assessmentSection.GrassCoverSlipOffInwards, collector);
+            }
+        }
+
+        private static void ReadGrassCoverSlipOffOutwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
+        {
+            var grassCoverSlipOffOutwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.GrassRevetmentSlidingOutwards);
+            if (grassCoverSlipOffOutwardsFailureMechanismEntity != null)
+            {
+                grassCoverSlipOffOutwardsFailureMechanismEntity.ReadAsGrassCoverSlipOffOutwardsFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards, collector);
+            }
+        }
+
+        private static void ReadMicrostabilityFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
+        {
+            var microstabilityFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.Microstability);
+            if (microstabilityFailureMechanismEntity != null)
+            {
+                microstabilityFailureMechanismEntity.ReadAsMicrostabilityFailureMechanism(assessmentSection.Microstability, collector);
+            }
+        }
+
+        private static void ReadPipingStructureFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
+        {
+            var pipingStructureFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.PipingAtStructure);
+            if (pipingStructureFailureMechanismEntity != null)
+            {
+                pipingStructureFailureMechanismEntity.ReadAsPipingStructureFailureMechanism(assessmentSection.PipingStructure, collector);
+            }
+        }
+
         private static void ReadStandAloneFailureMechanisms(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.Microstability, assessmentSection.Microstability, collector);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.StabilityStoneRevetment, assessmentSection.StabilityStoneCover, collector);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentSlidingOutwards, assessmentSection.GrassCoverSlipOffOutwards, collector);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentSlidingInwards, assessmentSection.GrassCoverSlipOffInwards, collector);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.PipingAtStructure, assessmentSection.PipingStructure, collector);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.StrengthAndStabilityPointConstruction, assessmentSection.StrengthStabilityPointConstruction, collector);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.DuneErosion, assessmentSection.DuneErosion, collector);
         }
