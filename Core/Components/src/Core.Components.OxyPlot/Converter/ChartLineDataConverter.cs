@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
-using OxyPlot;
 using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Converter

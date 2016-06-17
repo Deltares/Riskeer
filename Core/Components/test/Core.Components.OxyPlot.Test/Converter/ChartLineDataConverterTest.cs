@@ -136,7 +136,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         [TestCase(KnownColor.AliceBlue)]
         [TestCase(KnownColor.Azure)]
         [TestCase(KnownColor.Beige)]
-        public void Convert_WithDifferentCoors_AppliesStyleToSeries(KnownColor color)
+        public void Convert_WithDifferentColors_AppliesStyleToSeries(KnownColor color)
         {
             // Setup
             var converter = new ChartLineDataConverter();
@@ -183,7 +183,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         [TestCase(DashStyle.Dot, LineStyle.Dot)]
         [TestCase(DashStyle.DashDot, LineStyle.DashDot)]
         [TestCase(DashStyle.DashDotDot, LineStyle.DashDotDot)]
-        public void Convert_WidhtDifferentDashStyles_AppliesStyleToSeries(DashStyle dashStyle, LineStyle expectedLineStyle)
+        public void Convert_WithDifferentDashStyles_AppliesStyleToSeries(DashStyle dashStyle, LineStyle expectedLineStyle)
         {
             // Setup
             var converter = new ChartLineDataConverter();

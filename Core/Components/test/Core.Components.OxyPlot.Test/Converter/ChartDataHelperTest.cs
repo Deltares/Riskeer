@@ -35,7 +35,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         #region Convert DashStyle
 
         [Test]
-        public void Convert_Solid_ReturnsDefault()
+        public void Convert_Solid_ReturnsSolid()
         {
             // Call
             var lineStyle = ChartDataHelper.Convert(DashStyle.Solid);

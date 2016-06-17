@@ -184,7 +184,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         [TestCase(ChartPointSymbol.Square, MarkerType.Square)]
         [TestCase(ChartPointSymbol.Diamond, MarkerType.Diamond)]
         [TestCase(ChartPointSymbol.Triangle, MarkerType.Triangle)]
-        public void Convert_WidhtDifferentChartPointSymbols_AppliesStyleToSeries(ChartPointSymbol symbol, MarkerType expectedMarkerType)
+        public void Convert_WithDifferentChartPointSymbols_AppliesStyleToSeries(ChartPointSymbol symbol, MarkerType expectedMarkerType)
         {
             // Setup
             var converter = new ChartPointDataConverter();
