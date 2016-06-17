@@ -201,6 +201,9 @@
     <Compile Include="DbContext\StrengthStabilityLengthwiseConstructionSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\StrengthStabilityPointConstructionSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\SurfaceLineEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>

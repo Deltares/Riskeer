@@ -53,6 +53,7 @@ namespace Application.Ringtoets.Storage.DbContext
             this.PipingStructureSectionResultEntities = new HashSet<PipingStructureSectionResultEntity>();
             this.StabilityStoneCoverSectionResultEntities = new HashSet<StabilityStoneCoverSectionResultEntity>();
             this.StrengthStabilityLengthwiseConstructionSectionResultEntities = new HashSet<StrengthStabilityLengthwiseConstructionSectionResultEntity>();
+            this.StrengthStabilityPointConstructionSectionResultEntities = new HashSet<StrengthStabilityPointConstructionSectionResultEntity>();
             this.TechnicalInnovationSectionResultEntities = new HashSet<TechnicalInnovationSectionResultEntity>();
             this.WaterPressureAsphaltCoverSectionResultEntities = new HashSet<WaterPressureAsphaltCoverSectionResultEntity>();
             this.WaveImpactAsphaltCoverSectionResultEntities = new HashSet<WaveImpactAsphaltCoverSectionResultEntity>();
@@ -93,6 +94,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual ICollection<StabilityStoneCoverSectionResultEntity> StabilityStoneCoverSectionResultEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StrengthStabilityLengthwiseConstructionSectionResultEntity> StrengthStabilityLengthwiseConstructionSectionResultEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StrengthStabilityPointConstructionSectionResultEntity> StrengthStabilityPointConstructionSectionResultEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TechnicalInnovationSectionResultEntity> TechnicalInnovationSectionResultEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
