@@ -46,11 +46,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
             const string name = "<very nice name>";
 
@@ -58,7 +54,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
             {
                 Name = name
             };
-
 
             // Call
             bool isValid = false;
@@ -99,7 +94,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 }
             };
 
-
             // Call
             bool isValid = false;
             Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSection);
@@ -121,11 +115,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
             const string name = "<very nice name>";
 
@@ -137,7 +127,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
                 }
             };
-
 
             // Call
             bool isValid = false;
@@ -159,16 +148,9 @@ namespace Ringtoets.HeightStructures.Integration.Test
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            assessmentSection.HeightStructures.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -182,11 +164,11 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 }
             };
 
-            var failureMechanismSection = failureMechanism.Sections.First();
+            var failureMechanismSection = assessmentSection.HeightStructures.Sections.First();
             ExceedanceProbabilityCalculationOutput output = null;
 
             // Call
-            Action call = () => output = HeightStructuresCalculationService.Calculate(calculation, testDataPath, failureMechanismSection, failureMechanismSection.Name, failureMechanism.GeneralInput);
+            Action call = () => output = HeightStructuresCalculationService.Calculate(calculation, testDataPath, failureMechanismSection, failureMechanismSection.Name, assessmentSection.HeightStructures.GeneralInput);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -204,16 +186,9 @@ namespace Ringtoets.HeightStructures.Integration.Test
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            assessmentSection.HeightStructures.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -227,11 +202,11 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 }
             };
 
-            var failureMechanismSection = failureMechanism.Sections.First();
+            var failureMechanismSection = assessmentSection.HeightStructures.Sections.First();
             ExceedanceProbabilityCalculationOutput output = null;
 
             // Call
-            Action call = () => output = HeightStructuresCalculationService.Calculate(calculation, testDataPath, failureMechanismSection, failureMechanismSection.Name, failureMechanism.GeneralInput);
+            Action call = () => output = HeightStructuresCalculationService.Calculate(calculation, testDataPath, failureMechanismSection, failureMechanismSection.Name, assessmentSection.HeightStructures.GeneralInput);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -239,10 +214,19 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith(string.Format("Hoogte kunstwerk '{0}' niet gelukt.", calculation.Name), msgs[1]);
+                StringAssert.StartsWith(string.Format("De berekening voor hoogte kunstwerk '{0}' is niet gelukt.", calculation.Name), msgs[1]);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
             });
             Assert.IsNull(output);
+        }
+
+        private void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
+        {
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
         }
     }
 }

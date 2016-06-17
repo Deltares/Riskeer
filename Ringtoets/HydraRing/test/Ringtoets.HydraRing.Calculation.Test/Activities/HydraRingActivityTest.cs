@@ -71,7 +71,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
         }
 
         [Test]
-        public void Run_CalculationFuncReturnsValue_PerformsValidationAndCalculationAndStateNotFailed()
+        public void Run_CalculationFuncReturnsValue_PerformsValidationAndCalculationAndStateNotExecuted()
         {
             // Setup
             TestHydraRingActivity activity = new TestHydraRingActivity(true, () => 2.0);
@@ -80,7 +80,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
             activity.Run();
 
             // Assert
-            Assert.AreNotEqual(ActivityState.Failed, activity.State);
+            Assert.AreEqual(ActivityState.Executed, activity.State);
         }
 
         [Test]
@@ -89,14 +89,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
             // Setup
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observableMock = mocks.StrictMock<IObservable>();
+            observableMock.Expect(o => o.Attach(observerMock));
+            observableMock.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            Observable observableObject = new TestObservable();
-            observableObject.Attach(observerMock);
+            observableMock.Attach(observerMock);
 
             double newValue = 2.0;
-            TestHydraRingActivity activity = new TestHydraRingActivity(true, () => newValue, observableObject);
+            TestHydraRingActivity activity = new TestHydraRingActivity(true, () => newValue, observableMock);
 
             activity.Run();
 
@@ -114,12 +115,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
             // Setup
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
+            var observableMock = mocks.StrictMock<IObservable>();
+            observableMock.Expect(o => o.Attach(observerMock));
             mocks.ReplayAll();
 
-            Observable observableObject = new TestObservable();
-            observableObject.Attach(observerMock);
+            observableMock.Attach(observerMock);
 
-            TestHydraRingActivity activity = new TestHydraRingActivity(true, () => null, observableObject);
+            TestHydraRingActivity activity = new TestHydraRingActivity(true, () => null, observableMock);
 
             activity.Run();
 
@@ -135,10 +137,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
         {
             private readonly bool valid;
             private readonly Func<object> calculationFunc;
-            private readonly Observable observableObject;
+            private readonly IObservable observableObject;
             private double value = 3.0;
 
-            public TestHydraRingActivity(bool valid, Func<object> calculationFunc, Observable observableObject = null)
+            public TestHydraRingActivity(bool valid, Func<object> calculationFunc, IObservable observableObject = null)
             {
                 this.valid = valid;
                 this.calculationFunc = calculationFunc;
@@ -160,10 +162,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
 
             protected override void OnFinish()
             {
-                PerformFinish(() => value = (double)Output, observableObject);
+                PerformFinish(() => value = (double) Output, observableObject);
             }
         }
-
-        private class TestObservable : Observable {}
     }
 }

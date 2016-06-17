@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using log4net;
 using Ringtoets.Common.Service.Properties;
 
@@ -31,39 +31,42 @@ namespace Ringtoets.Common.Service
     /// </summary>
     public static class CalculationServiceHelper
     {
-        private static readonly ILog calculationServiceHelperLogger = LogManager.GetLogger(typeof(CalculationServiceHelper));
+        private static readonly ILog log = LogManager.GetLogger(typeof(CalculationServiceHelper));
 
         /// <summary>
-        /// Template method for performing validation.
+        /// Method for performing validation. Error and status information is logged during
+        /// the execution of the operation.
         /// </summary>
         /// <param name="name">The name of the calculation.</param>
         /// <param name="validationFunc">The method used to perform the validation.</param>
-        /// <returns><c>False</c> if <paramref name="validationFunc"/> contains validation errors; <c>True</c> otherwise.</returns>
-        public static bool PerformValidation(string name, Func<List<string>> validationFunc)
+        /// <returns><c>True</c> if <paramref name="validationFunc"/> has no validation errors; <c>False</c> otherwise.</returns>
+        public static bool PerformValidation(string name, Func<string[]> validationFunc)
         {
             LogValidationBeginTime(name);
 
             var inputValidationResults = validationFunc();
 
-            if (inputValidationResults.Count > 0)
+            if (inputValidationResults.Any())
             {
-                LogMessagesAsError(Resources.Error_in_validation_0, inputValidationResults.ToArray());
+                LogMessagesAsError(Resources.Error_in_validation_0, inputValidationResults);
             }
 
             LogValidationEndTime(name);
 
-            return inputValidationResults.Count == 0;
+            return !inputValidationResults.Any();
         }
 
         /// <summary>
-        /// Template method for performing calculations.
+        /// Method for performing calculations. Error and status information is logged during
+        /// the execution of the operation.
         /// </summary>
         /// <typeparam name="T">The output type.</typeparam>
         /// <param name="name">The name of the calculation.</param>
         /// <param name="calculationFunc">The method used to perform the calculation.</param>
-        /// <param name="errorMessage">The error message to show when the output is <c>null</c>.</param>
-        /// <returns><see cref="T"/> on a successful calculation, <c>null</c> otherwise.</returns>
-        public static T PerformCalculation<T>(string name, Func<T> calculationFunc, string errorMessage)
+        /// <param name="outputIsNullErrorMessage">The error message to show when the output is <c>null</c>.</param>
+        /// <returns><typeparamref name="T"/> on a successful calculation, <c>null</c> otherwise.</returns>
+        /// <remarks>When <paramref name="calculationFunc"/> throws an exception, this will not be catched in this method.</remarks>
+        public static T PerformCalculation<T>(string name, Func<T> calculationFunc, string outputIsNullErrorMessage)
         {
             LogCalculationBeginTime(name);
 
@@ -73,7 +76,7 @@ namespace Ringtoets.Common.Service
 
                 if (output == null)
                 {
-                    LogMessagesAsError(errorMessage, name);
+                    LogMessagesAsError(outputIsNullErrorMessage, name);
                 }
 
                 return output;
@@ -93,47 +96,47 @@ namespace Ringtoets.Common.Service
         {
             foreach (var errorMessage in errorMessages)
             {
-                calculationServiceHelperLogger.ErrorFormat(format, errorMessage);
+                log.ErrorFormat(format, errorMessage);
             }
         }
 
         /// <summary>
         /// Logs the begin time of the validation.
         /// </summary>
-        /// <param name="name">The name used for the log message.</param>
+        /// <param name="name">The name of the object being validated.</param>
         public static void LogValidationBeginTime(string name)
         {
-            calculationServiceHelperLogger.Info(string.Format(Resources.Validation_Subject_0_started_Time_1_,
+            log.Info(string.Format(Resources.Validation_Subject_0_started_Time_1_,
                                                               name, DateTimeService.CurrentTimeAsString));
         }
 
         /// <summary>
         /// Logs the end time of the validation.
         /// </summary>
-        /// <param name="name">The name used for the log message.</param>
+        /// <param name="name">The name of the object being validated.</param>
         public static void LogValidationEndTime(string name)
         {
-            calculationServiceHelperLogger.Info(string.Format(Resources.Validation_Subject_0_ended_Time_1_,
+            log.Info(string.Format(Resources.Validation_Subject_0_ended_Time_1_,
                                                               name, DateTimeService.CurrentTimeAsString));
         }
 
         /// <summary>
         /// Logs the begin time of the calculation.
         /// </summary>
-        /// <param name="name">The name used for the log message.</param>
+        /// <param name="name">The name of the calculation being started.</param>
         public static void LogCalculationBeginTime(string name)
         {
-            calculationServiceHelperLogger.Info(string.Format(Resources.Calculation_Subject_0_started_Time_1_,
+            log.Info(string.Format(Resources.Calculation_Subject_0_started_Time_1_,
                                                                  name, DateTimeService.CurrentTimeAsString));
         }
 
         /// <summary>
         /// Logs the end time of the calculation.
         /// </summary>
-        /// <param name="name">The name used for the log message.</param>
+        /// <param name="name">TThe name of the calculation that has ended.</param>
         public static void LogCalculationEndTime(string name)
         {
-            calculationServiceHelperLogger.Info(string.Format(Resources.Calculation_Subject_0_ended_Time_1_,
+            log.Info(string.Format(Resources.Calculation_Subject_0_ended_Time_1_,
                                                               name, DateTimeService.CurrentTimeAsString));
         }
     }

@@ -97,13 +97,7 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
             var hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
 
@@ -130,13 +124,7 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1);
 
@@ -170,13 +158,7 @@ namespace Ringtoets.Integration.Service.Test
             mocks.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
             var hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
             hydraulicBoundaryLocation.Attach(observerMock);
@@ -202,13 +184,7 @@ namespace Ringtoets.Integration.Service.Test
             mocks.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1);
             hydraulicBoundaryLocation.Attach(observerMock);
@@ -223,6 +199,16 @@ namespace Ringtoets.Integration.Service.Test
             // Assert
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
             mocks.VerifyAll();
+        }
+
+        private void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
+        {
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
         }
     }
 }

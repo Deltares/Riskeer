@@ -42,13 +42,7 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
             bool valid = false;
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1);
@@ -99,20 +93,17 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
             var hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
 
             TargetProbabilityCalculationOutput output = null;
 
             // Call
-            Action call = () => output = DesignWaterLevelCalculationService.Calculate(assessmentSection, assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryLocation, assessmentSection.Name);
+            Action call = () => output = DesignWaterLevelCalculationService.Calculate(assessmentSection,
+                                                                                      assessmentSection.HydraulicBoundaryDatabase,
+                                                                                      hydraulicBoundaryLocation,
+                                                                                      assessmentSection.Name);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -130,20 +121,17 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1);
 
             TargetProbabilityCalculationOutput output = null;
 
             // Call
-            Action call = () => output = DesignWaterLevelCalculationService.Calculate(assessmentSection, assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryLocation, assessmentSection.Name);
+            Action call = () => output = DesignWaterLevelCalculationService.Calculate(assessmentSection,
+                                                                                      assessmentSection.HydraulicBoundaryDatabase,
+                                                                                      hydraulicBoundaryLocation,
+                                                                                      assessmentSection.Name);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -155,6 +143,16 @@ namespace Ringtoets.Integration.Service.Test
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", hydraulicBoundaryLocation.Id), msgs[2]);
             });
             Assert.IsNull(output);
+        }
+
+        private void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
+        {
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
         }
     }
 }

@@ -21,11 +21,11 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Properties;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
 using Ringtoets.HydraRing.Calculation.Data.Output;
@@ -46,27 +46,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// </summary>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> for which to validate the values.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
-        /// <returns><c>False</c> if <paramref name="calculation"/> contains validation errors; <c>True</c> otherwise.</returns>
+        /// <returns><c>True</c>c> if <paramref name="calculation"/> has no validation errors; <c>False</c>c> otherwise.</returns>
         internal static bool Validate(GrassCoverErosionInwardsCalculation calculation, IAssessmentSection assessmentSection)
         {
             return CalculationServiceHelper.PerformValidation(calculation.Name, () => ValidateInput(calculation.InputParameters, assessmentSection));
         }
 
         /// <summary>
-        /// Performs a height structures calculation based on the supplied <see cref="GrassCoverErosionInwardsCalculation"/> and sets <see cref="GrassCoverErosionInwardsCalculation.Output"/>
+        /// Performs a grass cover erosion inwards calculation based on the supplied <see cref="GrassCoverErosionInwardsCalculation"/> and sets <see cref="GrassCoverErosionInwardsCalculation.Output"/>
         /// if the calculation was successful. Error and status information is logged during the execution of the operation.
         /// </summary>
-        /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> to base the input for the calculation upon.</param>
+        /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> that holds all the information required to perform the calculation.</param>
         /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
         /// <param name="failureMechanismSection">The <see cref="FailureMechanismSection"/> to create input with.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
-        /// <param name="generalInput">The <see cref="GeneralGrassCoverErosionInwardsInput"/> to create the input with for the calculation.</param>
+        /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
         /// <returns>A <see cref="ExceedanceProbabilityCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
         internal static ExceedanceProbabilityCalculationOutput Calculate(GrassCoverErosionInwardsCalculation calculation,
                                                                          string hlcdDirectory, FailureMechanismSection failureMechanismSection,
                                                                          string ringId, GeneralGrassCoverErosionInwardsInput generalInput)
         {
-            var input = CreateInput(calculation, failureMechanismSection, generalInput);
+            OvertoppingCalculationInput input = CreateInput(calculation, failureMechanismSection, generalInput);
 
             return CalculationServiceHelper.PerformCalculation(calculation.Name,
                                                                () => HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, input),
@@ -75,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         private static OvertoppingCalculationInput CreateInput(GrassCoverErosionInwardsCalculation calculation, FailureMechanismSection failureMechanismSection, GeneralGrassCoverErosionInwardsInput generalInput)
         {
-            return new OvertoppingCalculationInput((int) calculation.InputParameters.HydraulicBoundaryLocation.Id,
+            return new OvertoppingCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
                                                    new HydraRingSection(1, failureMechanismSection.Name, failureMechanismSection.GetSectionLength(), calculation.InputParameters.Orientation),
                                                    calculation.InputParameters.DikeHeight,
                                                    generalInput.CriticalOvertoppingModelFactor,
@@ -92,12 +92,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         private static HydraRingBreakWater ParseBreakWater(GrassCoverErosionInwardsInput input)
         {
-            return input.UseBreakWater ? new HydraRingBreakWater((int)input.BreakWater.Type, input.BreakWater.Height) : null;
+            return input.UseBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null;
         }
 
         private static IEnumerable<HydraRingForelandPoint> ParseForeshore(GrassCoverErosionInwardsInput input)
         {
-            var firstProfileSection = input.ForeshoreGeometry.FirstOrDefault();
+            ProfileSection firstProfileSection = input.ForeshoreGeometry.FirstOrDefault();
             if (!input.UseForeshore || firstProfileSection == null)
             {
                 yield break;
@@ -113,7 +113,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         private static IEnumerable<HydraRingRoughnessProfilePoint> ParseProfilePoints(IEnumerable<RoughnessProfileSection> profileSections)
         {
-            var firstProfileSection = profileSections.FirstOrDefault();
+            RoughnessProfileSection firstProfileSection = profileSections.FirstOrDefault();
             if (firstProfileSection == null)
             {
                 yield break;
@@ -128,7 +128,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
         }
 
-        private static List<string> ValidateInput(GrassCoverErosionInwardsInput inputParameters, IAssessmentSection assessmentSection)
+        private static string[] ValidateInput(GrassCoverErosionInwardsInput inputParameters, IAssessmentSection assessmentSection)
         {
             List<string> validationResult = new List<string>();
 
@@ -144,7 +144,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 validationResult.Add(validationProblem);
             }
 
-            return validationResult;
+            return validationResult.ToArray();
         }
     }
 }

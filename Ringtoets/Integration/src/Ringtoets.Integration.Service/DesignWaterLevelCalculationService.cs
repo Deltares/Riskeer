@@ -87,7 +87,7 @@ namespace Ringtoets.Integration.Service
 
         private static AssessmentLevelCalculationInput CreateInput(IAssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            return new AssessmentLevelCalculationInput((int) hydraulicBoundaryLocation.Id, assessmentSection.FailureMechanismContribution.Norm);
+            return new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocation.Id, assessmentSection.FailureMechanismContribution.Norm);
         }
     }
 }

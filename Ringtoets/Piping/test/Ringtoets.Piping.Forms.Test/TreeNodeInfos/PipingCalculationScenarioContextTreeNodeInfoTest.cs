@@ -169,7 +169,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
@@ -183,14 +183,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                 pipingFailureMechanism,
                                                                 assessmentSectionMock);
 
-            gui.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
             mocks.ReplayAll();
 
             plugin.Gui = gui;
 
             // Call
-            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
@@ -205,7 +205,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
@@ -222,14 +222,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                 pipingFailureMechanism,
                                                                 assessmentSectionMock);
 
-            gui.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
             mocks.ReplayAll();
 
             plugin.Gui = gui;
 
             // Call
-            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
@@ -244,7 +244,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
@@ -255,14 +255,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                 failureMechanism,
                                                                 assessmentSectionMock);
 
-            gui.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
             mocks.ReplayAll();
 
             plugin.Gui = gui;
 
             // Call
-            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
@@ -280,7 +280,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
@@ -295,14 +295,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                 failureMechanism,
                                                                 assessmentSectionMock);
 
-            gui.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
             mocks.ReplayAll();
 
             plugin.Gui = gui;
 
             // Call
-            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
@@ -320,7 +320,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var gui = mocks.StrictMock<IGui>();
             var menuBuilderMock = mocks.Stub<IContextMenuBuilder>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var pipingFailureMechanism = new PipingFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var nodeData = new PipingCalculationScenarioContext(new PipingCalculationScenario(new GeneralPipingInput()),
@@ -345,14 +345,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
-            gui.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(menuBuilderMock);
+            gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
 
             mocks.ReplayAll();
 
             plugin.Gui = gui;
 
             // Call
-            info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+            info.ContextMenuStrip(nodeData, null, treeViewControl);
 
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
@@ -467,7 +467,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var gui = mocks.DynamicMock<IGui>();
             var mainWindow = mocks.DynamicMock<IMainWindow>();
             var observer = mocks.StrictMock<IObserver>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
@@ -484,7 +484,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             observer.Expect(o => o.UpdateObserver());
 
             assessmentSectionMock.Stub(s => s.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 20000));
-            gui.Expect(cmp => cmp.Get(pipingCalculationContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            gui.Expect(cmp => cmp.Get(pipingCalculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
             gui.Expect(g => g.MainWindow).Return(mainWindow);
 
             var expectedValidationMessageCount = 2; // No surfaceline or soil profile selected for calculation
@@ -496,7 +496,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             calculation.Attach(observer);
 
-            var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControlMock);
+            var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControl);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -531,7 +531,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Given
             var gui = mocks.DynamicMock<IGui>();
             var observer = mocks.StrictMock<IObserver>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var pipingFailureMechanism = new PipingFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
@@ -541,7 +541,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                                 pipingFailureMechanism,
                                                                                 assessmentSectionMock);
 
-            gui.Expect(cmp => cmp.Get(pipingCalculationContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            gui.Expect(cmp => cmp.Get(pipingCalculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
             var expectedValidationMessageCount = 2; // No surfaceline or soil profile selected for calculation
             var expectedStatusMessageCount = 2;
@@ -556,7 +556,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             calculation.Attach(observer);
 
-            var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControlMock);
+            var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControl);
 
             // When
             Action action = () => contextMenuAdapter.Items[validateContextMenuItemIndex].PerformClick();
@@ -574,7 +574,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var gui = mocks.DynamicMock<IGui>();
             var mainWindow = mocks.DynamicMock<IMainWindow>();
             var observer = mocks.StrictMock<IObserver>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var calculateContextMenuItemIndex = 1;
             var calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             var pipingFailureMechanism = new PipingFailureMechanism();
@@ -590,7 +590,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                                 assessmentSectionMock);
 
             assessmentSectionMock.Stub(s => s.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 20000));
-            gui.Expect(g => g.Get(pipingCalculationContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            gui.Expect(g => g.Get(pipingCalculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
             gui.Expect(g => g.MainWindow).Return(mainWindow);
 
             observer.Expect(o => o.UpdateObserver());
@@ -601,7 +601,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             calculation.Attach(observer);
 
-            var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControlMock);
+            var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControl);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -638,7 +638,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Given
             var gui = mocks.DynamicMock<IGui>();
             var observer = mocks.StrictMock<IObserver>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var pipingFailureMechanism = new PipingFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
@@ -648,7 +648,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                                 pipingFailureMechanism,
                                                                                 assessmentSectionMock);
 
-            gui.Expect(cmp => cmp.Get(pipingCalculationContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            gui.Expect(cmp => cmp.Get(pipingCalculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
             int clearOutputItemPosition = 2;
             if (confirm)
@@ -663,7 +663,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             calculation.Output = new TestPipingOutput();
             calculation.Attach(observer);
 
-            var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControlMock);
+            var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControl);
 
             string messageBoxText = null, messageBoxTitle = null;
             DialogBoxHandler = (name, wnd) =>

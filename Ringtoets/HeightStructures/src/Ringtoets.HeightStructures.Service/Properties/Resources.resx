@@ -117,67 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Activity_Finish_Execution_of_ActivityName_0_has_been_cancelled" xml:space="preserve">
-    <value>Uitvoeren van '{0}' is geannuleerd.</value>
-  </data>
-  <data name="Activity_Finish_Execution_of_ActivityName_0_has_succeeded" xml:space="preserve">
-    <value>Uitvoeren van '{0}' is gelukt.</value>
-  </data>
-  <data name="Activity_Finish_Execution_of_ActivityName_0_has_failed" xml:space="preserve">
-    <value>Uitvoeren van '{0}' is mislukt.</value>
-  </data>
-  <data name="FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_ProgressText_2" xml:space="preserve">
-    <value>Stap {0} van {1}  |  {2}</value>
-  </data>
-  <data name="Project_Constructor_Default_name" xml:space="preserve">
-    <value>Project</value>
-  </data>
-  <data name="Confirm" xml:space="preserve">
-    <value>Bevestigen</value>
-  </data>
-  <data name="App_App_Ringtoets_Copyright" xml:space="preserve">
-    <value>Ringtoets Copyright (C) 2016 Stichting Deltares. Dit programma komt ZONDER ENIGE GARANTIE. Dit programma is gratis en u mag het zelf verder verspreiden en/of aanpassen overeenkomstig de GNU Lesser General Public License versie 3.</value>
-  </data>
-  <data name="Segment2D_Constructor_Segment_must_be_created_with_two_points" xml:space="preserve">
-    <value>Voor het maken van een segment zijn twee punten nodig.</value>
-  </data>
-  <data name="Math2D_LineIntersectionWithLine_Line_points_are_equal" xml:space="preserve">
-    <value>Punten voor een lijn moeten uit elkaar liggen om een lijn te kunnen vormen.</value>
-  </data>
-  <data name="Math2D_SplitLineAtLengths_Sum_of_lengths_must_equal_line_length" xml:space="preserve">
-    <value>De som van alle lengtes moet gelijk zijn aan de lengte van de opgegeven lijn.</value>
-  </data>
-  <data name="Math2D_SplitLineAtLengths_All_lengths_cannot_be_negative" xml:space="preserve">
-    <value>Er mogen geen negatieve lengtes worden opgegeven om de lijn mee op te knippen.</value>
-  </data>
-  <data name="Math2D_SplitLineAtLengths_Not_enough_points_to_make_line" xml:space="preserve">
-    <value>Er zijn niet genoeg punten beschikbaar om een lijn te definiëren.</value>
-  </data>
-  <data name="RoundedDouble_ToString_PositiveInfinity" xml:space="preserve">
-    <value>Oneindig</value>
-  </data>
-  <data name="RoundedDouble_ToString_NegativeInfinity" xml:space="preserve">
-    <value>-Oneindig</value>
-  </data>
-  <data name="RoundedDoubleConverter_ConvertFrom_String_must_represent_number" xml:space="preserve">
-    <value>De tekst moet een getal zijn.</value>
-  </data>
-  <data name="RoundedDoubleConverter_ConvertFrom_String_too_small_or_too_big_to_represent_as_double" xml:space="preserve">
-    <value>De tekst is een getal dat te groot of te klein is om gerepresenteerd te worden.</value>
-  </data>
-  <data name="Point2D_AddVector_Vector_must_be_2D_but_has_Dimensionality_0_" xml:space="preserve">
-    <value>Vector moet 2 dimensies hebben, maar heeft er {0}.</value>
-  </data>
-  <data name="ProbabilityPerYearFormat" xml:space="preserve">
-    <value>1/{0:n0}</value>
-  </data>
-  <data name="RoundedDoubleConverter_ConvertFrom_String_cannot_be_empty" xml:space="preserve">
-    <value>De tekst mag niet leeg zijn.</value>
-  </data>
-  <data name="PipingProbabilityAssessmentInput_A_Value_must_be_between_zero_and_one" xml:space="preserve">
-    <value>De waarde moet tussen 0 en 1 zijn.</value>
-  </data>
-  <data name="GrassCoverErosionInwardsGuiPlugin_DikeProfilesContext_DisplayName" xml:space="preserve">
-    <value>Dijkprofielen</value>
+  <data name="HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation" xml:space="preserve">
+    <value>De berekening voor hoogte kunstwerk '{0}' is niet gelukt.</value>
   </data>
 </root>

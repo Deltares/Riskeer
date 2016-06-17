@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -35,8 +35,10 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             string name = "Test name";
-            List<string> errorMessages = new List<string>();
-            errorMessages.Add("Error message 1");
+            string[] errorMessages =
+            {
+                "Error message 1"
+            };
 
             // Call
             bool valid = false;
@@ -59,7 +61,8 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             string name = "Test name";
-            List<string> errorMessages = new List<string>();
+            string[] errorMessages =
+            {};
 
             // Call
             bool valid = false;
@@ -82,7 +85,7 @@ namespace Ringtoets.Common.Service.Test
             // Setup
             string name = "Test name";
             string errorMessage = "There was an error: {0}";
-            
+
             object output = null;
 
             // Call
@@ -152,6 +155,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             var name = "Test name";
+            DateTime dateTime = DateTime.Now;
 
             // Call
             Action call = () => CalculationServiceHelper.LogValidationBeginTime(name);
@@ -162,6 +166,8 @@ namespace Ringtoets.Common.Service.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om:", name), msgs[0]);
+
+                AssertLogTime(msgs[0], dateTime);
             });
         }
 
@@ -170,6 +176,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             var name = "Test name";
+            DateTime dateTime = DateTime.Now;
 
             // Call
             Action call = () => CalculationServiceHelper.LogValidationEndTime(name);
@@ -180,6 +187,8 @@ namespace Ringtoets.Common.Service.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om:", name), msgs[0]);
+
+                AssertLogTime(msgs[0], dateTime);
             });
         }
 
@@ -188,6 +197,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             var name = "Test name";
+            DateTime dateTime = DateTime.Now;
 
             // Call
             Action call = () => CalculationServiceHelper.LogCalculationBeginTime(name);
@@ -198,6 +208,8 @@ namespace Ringtoets.Common.Service.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om:", name), msgs[0]);
+
+                AssertLogTime(msgs[0], dateTime);
             });
         }
 
@@ -206,6 +218,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             var name = "Test name";
+            DateTime dateTime = DateTime.Now;
 
             // Call
             Action call = () => CalculationServiceHelper.LogCalculationEndTime(name);
@@ -216,7 +229,19 @@ namespace Ringtoets.Common.Service.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om:", name), msgs[0]);
+
+                AssertLogTime(msgs[0], dateTime);
             });
+        }
+
+        private static void AssertLogTime(string message, DateTime dateTime)
+        {
+            string[] logMessageArray = message.Split(':');
+            string logMessageDateTime = string.Format("{0}:{1}:{2}", logMessageArray[1], logMessageArray[2], logMessageArray[3]).Substring(1);
+
+            DateTime dateTimeFromLog = DateTime.ParseExact(logMessageDateTime, "HH:mm:ss", CultureInfo.CurrentCulture);
+            TimeSpan timeSpan = dateTimeFromLog - dateTime;
+            Assert.LessOrEqual(timeSpan, TimeSpan.FromMilliseconds(500));
         }
     }
 }

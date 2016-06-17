@@ -374,7 +374,7 @@ namespace Ringtoets.Piping.Plugin
                           .AddToggleRelevancyOfFailureMechanismItem(pipingFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCustomItem(validateAllItem)
-                          .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll, EnablePerformAllCalculationsInFailureMechanism)
+                          .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
                           .AddSeparator()
                           .AddImportItem()
@@ -387,9 +387,9 @@ namespace Ringtoets.Piping.Plugin
                           .Build();
         }
 
-        private string EnablePerformAllCalculationsInFailureMechanism(PipingFailureMechanismContext pipingFailureMechanismContext)
+        private string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism(PipingFailureMechanismContext pipingFailureMechanismContext)
         {
-            return AllDataAvailable(pipingFailureMechanismContext.WrappedData);
+            return ValidateAllDataAvailableAndGetErrorMessage(pipingFailureMechanismContext.WrappedData);
         }
 
         private void RemoveAllViewsForItem(PipingFailureMechanismContext failureMechanismContext)
@@ -504,7 +504,7 @@ namespace Ringtoets.Piping.Plugin
                                                          (o, args) => { PipingCalculationService.Validate(calculation); });
 
             return builder.AddCustomItem(validateItem)
-                          .AddPerformCalculationItem(calculation, nodeData, PerformCalculation, EnablePerformCalculation)
+                          .AddPerformCalculationItem(calculation, nodeData, PerformCalculation, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
                           .AddRenameItem()
@@ -520,12 +520,12 @@ namespace Ringtoets.Piping.Plugin
                           .Build();
         }
 
-        private string EnablePerformCalculation(PipingCalculationScenarioContext context)
+        private string ValidateAllDataAvailableAndGetErrorMessageForCalculation(PipingCalculationScenarioContext context)
         {
-            return AllDataAvailable(context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.FailureMechanism);
         }
 
-        private static string AllDataAvailable(PipingFailureMechanism failureMechanism)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(PipingFailureMechanism failureMechanism)
         {
             return !failureMechanism.Sections.Any() ? RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported : null;
         }
@@ -636,7 +636,7 @@ namespace Ringtoets.Piping.Plugin
                    .AddCreateCalculationItem(nodeData, AddCalculationScenario)
                    .AddSeparator()
                    .AddCustomItem(validateAllItem)
-                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, EnablePerformAllCalculationsInGroup)
+                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddSeparator();
 
@@ -657,9 +657,9 @@ namespace Ringtoets.Piping.Plugin
                           .Build();
         }
 
-        private string EnablePerformAllCalculationsInGroup(PipingCalculationGroupContext pipingCalculationGroupContext)
+        private string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup(PipingCalculationGroupContext pipingCalculationGroupContext)
         {
-            return AllDataAvailable(pipingCalculationGroupContext.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(pipingCalculationGroupContext.FailureMechanism);
         }
 
         private static void AddCalculationScenario(PipingCalculationGroupContext nodeData)

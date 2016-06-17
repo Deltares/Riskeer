@@ -32,7 +32,7 @@ namespace Ringtoets.HydraRing.Calculation.Activities
     public abstract class HydraRingActivity<T> : Activity
     {
         /// <summary>
-        /// The output of the activity.
+        /// The output of the calculation.
         /// </summary>
         protected T Output;
 
@@ -46,7 +46,10 @@ namespace Ringtoets.HydraRing.Calculation.Activities
         protected abstract override void OnFinish();
 
         /// <summary>
-        /// Template method for performing the run of the activity.
+        /// Method for performing the run of the activity. The calculation will be validated
+        /// and after the validation is successful, the <paramref name="clearAction"/> will be performed.
+        /// After that the calculation will be performed. Error and status information is logged during 
+        /// the execution of the operation.
         /// </summary>
         /// <param name="validationFunc">The method to perform for validation.</param>
         /// <param name="clearAction">The method to perform for clearing the data of the output to set.</param>
@@ -71,11 +74,13 @@ namespace Ringtoets.HydraRing.Calculation.Activities
         }
 
         /// <summary>
-        /// Template method for performing the finish of the activity.
+        /// Method for performing the finish of the activity. If the calculation is successfull
+        /// executed, the output will be set on the calculation. After that the observers of 
+        /// <paramref name="observableObject"/> will be notified.
         /// </summary>
         /// <param name="setOutputAction">The method to set the output on the object.</param>
         /// <param name="observableObject">The object to notify the observers upon.</param>
-        protected void PerformFinish(Action setOutputAction, Observable observableObject)
+        protected void PerformFinish(Action setOutputAction, IObservable observableObject)
         {
             if (State == ActivityState.Executed)
             {

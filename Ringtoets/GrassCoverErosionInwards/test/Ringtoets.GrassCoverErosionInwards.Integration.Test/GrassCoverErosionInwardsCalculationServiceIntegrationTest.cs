@@ -46,11 +46,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
             const string name = "<very nice name>";
 
@@ -58,7 +54,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             {
                 Name = name
             };
-
 
             // Call
             bool isValid = false;
@@ -99,7 +94,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 }
             };
 
-
             // Call
             bool isValid = false;
             Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
@@ -121,11 +115,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
             const string name = "<very nice name>";
 
@@ -137,7 +127,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
                 }
             };
-
 
             // Call
             bool isValid = false;
@@ -159,16 +148,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            assessmentSection.GrassCoverErosionInwards.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -182,11 +164,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 }
             };
 
-            var failureMechanismSection = failureMechanism.Sections.First();
+            var failureMechanismSection = assessmentSection.GrassCoverErosionInwards.Sections.First();
             ExceedanceProbabilityCalculationOutput output = null;
 
             // Call
-            Action call = () => output = GrassCoverErosionInwardsCalculationService.Calculate(calculation, testDataPath, failureMechanismSection, failureMechanismSection.Name, failureMechanism.GeneralInput);
+            Action call = () => output = GrassCoverErosionInwardsCalculationService.Calculate(calculation,
+                                                                                              testDataPath,
+                                                                                              failureMechanismSection,
+                                                                                              failureMechanismSection.Name,
+                                                                                              assessmentSection.GrassCoverErosionInwards.GeneralInput);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -204,16 +190,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            assessmentSection.GrassCoverErosionInwards.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -227,11 +206,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 }
             };
 
-            var failureMechanismSection = failureMechanism.Sections.First();
+            var failureMechanismSection = assessmentSection.GrassCoverErosionInwards.Sections.First();
             ExceedanceProbabilityCalculationOutput output = null;
 
             // Call
-            Action call = () => output = GrassCoverErosionInwardsCalculationService.Calculate(calculation, testDataPath, failureMechanismSection, failureMechanismSection.Name, failureMechanism.GeneralInput);
+            Action call = () => output = GrassCoverErosionInwardsCalculationService.Calculate(calculation,
+                                                                                              testDataPath,
+                                                                                              failureMechanismSection,
+                                                                                              failureMechanismSection.Name,
+                                                                                              assessmentSection.GrassCoverErosionInwards.GeneralInput);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -239,10 +222,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith(String.Format("Gras erosie kruin en binnentalud '{0}' niet gelukt.", calculation.Name), msgs[1]);
+                StringAssert.StartsWith(String.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[1]);
                 StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
             });
             Assert.IsNull(output);
+        }
+
+        private void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
+        {
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
         }
     }
 }

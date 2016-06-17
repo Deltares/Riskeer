@@ -33,11 +33,12 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         /// <summary>
         /// Creates a new instance of the <see cref="AssessmentLevelCalculationInput"/> class.
         /// </summary>
+        /// <param name="sectionId">The id of the section to use during the calculation.</param>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        public AssessmentLevelCalculationInput(int hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId, norm)
+        public AssessmentLevelCalculationInput(int sectionId, long hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId, norm)
         {
-            section = new HydraRingSection(HydraulicBoundaryLocationId, HydraulicBoundaryLocationId.ToString(), double.NaN, double.NaN);
+            section = new HydraRingSection(sectionId, sectionId.ToString(), double.NaN, double.NaN);
         }
 
         public override HydraRingFailureMechanismType FailureMechanismType

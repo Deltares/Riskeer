@@ -893,7 +893,7 @@ namespace Ringtoets.Integration.Plugin
                     var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hrdFile);
                     if (validationProblem == null)
                     {
-                        var activities = nodeData.WrappedData.HydraulicBoundaryDatabase.Locations.Select(hbl => new DesignWaterLevelCalculationActivity(nodeData.WrappedData, hbl)).ToList();
+                        var activities = nodeData.WrappedData.HydraulicBoundaryDatabase.Locations.Select(hbl => new DesignWaterLevelCalculationActivity(nodeData.WrappedData, hbl)).ToArray();
 
                         ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
 

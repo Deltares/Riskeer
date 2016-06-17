@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.HeightStructures.Service {
+namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Ringtoets.HeightStructures.Service {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.HeightStructures.Service.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.GrassCoverErosionInwards.Service.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,12 +61,12 @@ namespace Ringtoets.HeightStructures.Service {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hoogte kunstwerk &apos;{0}&apos; niet gelukt..
+        ///   Looks up a localized string similar to De berekening voor grasbekleding erosie kruin en binnentalud &apos;{0}&apos; is niet gelukt..
         /// </summary>
-        internal static string HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation {
+        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation {
             get {
-                return ResourceManager.GetString("HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calcula" +
-                        "tion", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion" +
+                        "_inwards_0_calculation", resourceCulture);
             }
         }
     }

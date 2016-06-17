@@ -136,10 +136,10 @@ namespace Ringtoets.HeightStructures.Plugin
                                              calculations.Select(calc => new HeightStructuresCalculationActivity(calc,
                                                                                                                  Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
                                                                                                                  failureMechanism,
-                                                                                                                 assessmentSection)).ToList());
+                                                                                                                 assessmentSection)).ToArray());
         }
 
-        private static string AllDataAvailable(IAssessmentSection assessmentSection, HeightStructuresFailureMechanism failureMechanism)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, HeightStructuresFailureMechanism failureMechanism)
         {
             if (!failureMechanism.Sections.Any())
             {
@@ -243,7 +243,7 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddSeparator()
                           .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddPerformAllCalculationsInFailureMechanismItem(context, CalculateAll, EnablePerformAllCalculationsInFailureMechanism)
+                          .AddPerformAllCalculationsInFailureMechanismItem(context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddClearAllCalculationOutputInFailureMechanismItem(context.WrappedData)
                           .AddSeparator()
                           .AddImportItem()
@@ -272,9 +272,9 @@ namespace Ringtoets.HeightStructures.Plugin
                           .Build();
         }
 
-        private static string EnablePerformAllCalculationsInFailureMechanism(HeightStructuresFailureMechanismContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism(HeightStructuresFailureMechanismContext context)
         {
-            return AllDataAvailable(context.Parent, context.WrappedData);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
         }
 
         private void CalculateAll(HeightStructuresFailureMechanismContext context)
@@ -331,7 +331,7 @@ namespace Ringtoets.HeightStructures.Plugin
             builder.AddCreateCalculationGroupItem(group)
                    .AddCreateCalculationItem(context, AddCalculation)
                    .AddSeparator()
-                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, EnablePerformAllCalculationsInGroup)
+                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddSeparator();
 
@@ -370,9 +370,9 @@ namespace Ringtoets.HeightStructures.Plugin
             context.WrappedData.NotifyObservers();
         }
 
-        private static string EnablePerformAllCalculationsInGroup(HeightStructuresCalculationGroupContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup(HeightStructuresCalculationGroupContext context)
         {
-            return AllDataAvailable(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
         private void CalculateAll(CalculationGroup group, HeightStructuresCalculationGroupContext context)
@@ -413,7 +413,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
             HeightStructuresCalculation calculation = context.WrappedData;
 
-            return builder.AddPerformCalculationItem(calculation, context, Calculate, EnablePerformCalculation)
+            return builder.AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
                           .AddRenameItem()
@@ -429,9 +429,9 @@ namespace Ringtoets.HeightStructures.Plugin
                           .Build();
         }
 
-        private static string EnablePerformCalculation(HeightStructuresCalculationContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculation(HeightStructuresCalculationContext context)
         {
-            return AllDataAvailable(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
         private void Calculate(HeightStructuresCalculation calculation, HeightStructuresCalculationContext context)

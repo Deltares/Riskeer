@@ -23,6 +23,7 @@ using System;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
@@ -48,15 +49,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            assessmentSection.GrassCoverErosionInwards.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -64,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var calculation = new GrassCoverErosionInwardsCalculation();
 
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, "", failureMechanism, assessmentSection);
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, "", assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
             // Call
             Action call = () => activity.Run();
@@ -82,7 +77,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Run_InvalidHeightStructuresCalculationInvalidHydraulicBoundaryDatabase_LogValidationStartAndEndWithError()
+        public void Run_InvalidGrassCoverErosionInwardsCalculationInvalidHydraulicBoundaryDatabase_LogValidationStartAndEndWithError()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -93,8 +88,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 }
             };
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            assessmentSection.GrassCoverErosionInwards.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -102,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var calculation = new GrassCoverErosionInwardsCalculation();
 
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, "", failureMechanism, assessmentSection);
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, "", assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
             // Call
             Action call = () => activity.Run();
@@ -121,20 +115,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Run_ValidHeightStructuresCalculation_PerformHeightStructuresValidationAndCalculationAndLogStartAndEnd()
+        public void Run_ValidGrassCoverErosionInwardsCalculationn_PerformGrassCoverErosionInwardsValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            assessmentSection.GrassCoverErosionInwards.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -148,7 +135,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 }
             };
 
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
             // Call
             Action call = () => activity.Run();
@@ -167,7 +154,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Run_InValidHeightStructuresCalculationAndRan_PerformHeightStructuresValidationAndCalculationAndLogStartAndEndAndError()
+        public void Run_InvalidGrassCoverErosionInwardsCalculationAndRan_PerformGrassCoverErosionInwardsValidationAndCalculationAndLogStartAndEndAndError()
         {
             // Setup
             var mocks = new MockRepository();
@@ -175,16 +162,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             mocks.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            assessmentSection.GrassCoverErosionInwards.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -200,7 +180,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             calculation.Attach(observerMock);
 
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
             // Call
             Action call = () => activity.Run();
@@ -213,15 +193,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                 StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
                 StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                StringAssert.StartsWith(String.Format("Gras erosie kruin en binnentalud '{0}' niet gelukt.", calculation.Name), msgs[3]);
+                StringAssert.StartsWith(String.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[3]);
                 StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
-            mocks.VerifyAll();
+            mocks.VerifyAll(); // Expect no calls on the observer
         }
 
         [Test]
-        public void Finish_ValidHeightStructuresCalculationAndRan_SetsOutputAndNotifyObserversOfHeightStructuresCalculation()
+        public void Finish_ValidGrassCoverErosionInwardsCalculationAndRan_SetsOutputAndNotifyObserversOfGrassCoverErosionInwardsCalculation()
         {
             // Setup
             var mocks = new MockRepository();
@@ -230,16 +210,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             mocks.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            assessmentSection.GrassCoverErosionInwards.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -255,7 +228,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             calculation.Attach(observerMock);
 
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
             activity.Run();
 
@@ -263,12 +236,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             activity.Finish();
 
             // Assert
-            Assert.IsNotNull(calculation.Output);
+            Assert.AreEqual((RoundedDouble)0.625, calculation.Output.FactorOfSafety);
+            Assert.AreEqual((RoundedDouble)382.04, calculation.Output.Probability);
+            Assert.AreEqual((RoundedDouble)2.792, calculation.Output.Reliability);
+            Assert.AreEqual((RoundedDouble)250000.00, calculation.Output.RequiredProbability);
+            Assert.AreEqual((RoundedDouble)4.465, calculation.Output.RequiredReliability);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Finish_InValidHeightStructuresCalculationAndRan_DoesNotSetOutputAndDoesNotNotifyObserversOfHeightStructuresCalculation()
+        public void Finish_InvalidGrassCoverErosionInwardsCalculationAndRan_DoesNotSetOutputAndDoesNotNotifyObserversOfGrassCoverErosionInwardsCalculation()
         {
             // Setup
             var mocks = new MockRepository();
@@ -276,16 +253,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             mocks.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            assessmentSection.GrassCoverErosionInwards.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -301,7 +271,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             calculation.Attach(observerMock);
 
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
             activity.Run();
 
@@ -310,7 +280,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             // Assert
             Assert.IsNull(calculation.Output);
-            mocks.VerifyAll();
+            mocks.VerifyAll(); // Expect no calls on the observer
+        }
+
+        private void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
+        {
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
         }
     }
 }

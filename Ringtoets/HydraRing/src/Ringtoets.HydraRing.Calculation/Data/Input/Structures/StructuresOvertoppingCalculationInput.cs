@@ -85,7 +85,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="hydraRingDeviationOfTheWaveDirection">The deviation of the wave direction to use during the calculation.</param>
         /// <param name="hydraRingStormDurationMean">The mean of the storm duration to use during the calculation.</param>
         /// <param name="hydraRingStormDurationVariation">The variation of the storm duration to use during the calculation.</param>
-        public StructuresOvertoppingCalculationInput(int hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
+        public StructuresOvertoppingCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
                                                      double hydraRingGravitationalAcceleration,
                                                      double hydraRingModelFactorOvertoppingFlowMean, double hydraRingModelFactorOvertoppingFlowStandardDeviation,
                                                      double hydraRingLevelOfCrestOfStructureMean, double hydraRingLevelOfCrestOfStructureStandardDeviation,

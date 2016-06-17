@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <remarks>As a part of the constructor, the <paramref name="norm"/> is automatically converted into a reliability index.</remarks>
-        protected TargetProbabilityCalculationInput(int hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId)
+        protected TargetProbabilityCalculationInput(long hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId)
         {
             beta = -Normal.InvCDF(0.0, 1.0, 1.0/norm);
         }

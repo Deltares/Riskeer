@@ -465,7 +465,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                 StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
                 StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                StringAssert.StartsWith(String.Format("Hoogte kunstwerk '{0}' niet gelukt.", calculation.Name), msgs[3]);
+                StringAssert.StartsWith(String.Format("De berekening voor hoogte kunstwerk '{0}' is niet gelukt.", calculation.Name), msgs[3]);
                 StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
             });
 

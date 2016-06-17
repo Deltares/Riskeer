@@ -206,7 +206,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Given
             var gui = mocks.StrictMock<IGui>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var generalInputParameters = new GeneralPipingInput();
             var pipingCalculation1 = new PipingCalculationScenario(generalInputParameters)
@@ -348,7 +348,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_PipingFailureMechanismNoOutput_ClearAllOutputDisabled()
         {
             // Setup
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
@@ -379,7 +379,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_PipingFailureMechanismWithOutput_ClearAllOutputEnabled()
         {
             // Setup
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -416,7 +416,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_PipingFailureMechanismWithNoCalculations_ValidateAndCalculateAllDisabled()
         {
             // Setup
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var dataMock = new PipingFailureMechanism();
@@ -451,7 +451,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_NoFailureMechanismSections_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -490,8 +490,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         [Test]
         public void ContextMenuStrip_FailureMechanismSectionsSet_ContextMenuItemCalculateAllEnabled()
         {
-            //            // Setup
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            // Setup
+            var treeViewControl = new TreeViewControl();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -539,7 +539,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
 
             var gui = mocks.StrictMock<IGui>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
 
             menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
@@ -584,7 +584,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
 
             var gui = mocks.StrictMock<IGui>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
 
             menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
@@ -611,7 +611,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -660,7 +660,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var gui = mocks.StrictMock<IGui>();
             var mainWindow = mocks.Stub<IMainWindow>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -722,7 +722,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
 
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var gui = mocks.StrictMock<IGui>();
@@ -759,7 +759,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = new TreeViewControl();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var gui = mocks.StrictMock<IGui>();

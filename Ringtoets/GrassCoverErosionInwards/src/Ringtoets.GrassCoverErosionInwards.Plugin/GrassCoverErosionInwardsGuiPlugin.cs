@@ -167,10 +167,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations.Select(calc => new GrassCoverErosionInwardsCalculationActivity(calc,
                                                                                                                                          Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
                                                                                                                                          failureMechanism,
-                                                                                                                                         assessmentSection)).ToList());
+                                                                                                                                         assessmentSection)).ToArray());
         }
 
-        private static string AllDataAvailable(IAssessmentSection assessmentSection, GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
             if (!failureMechanism.Sections.Any())
             {
@@ -274,7 +274,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .AddSeparator()
                           .AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddPerformAllCalculationsInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, CalculateAll, EnablePerformAllCalculationsInFailureMechanism)
+                          .AddPerformAllCalculationsInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
                           .AddSeparator()
                           .AddImportItem()
@@ -303,9 +303,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
-        private static string EnablePerformAllCalculationsInFailureMechanism(GrassCoverErosionInwardsFailureMechanismContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism(GrassCoverErosionInwardsFailureMechanismContext context)
         {
-            return AllDataAvailable(context.Parent, context.WrappedData);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
         }
 
         private void CalculateAll(GrassCoverErosionInwardsFailureMechanismContext context)
@@ -362,7 +362,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             builder.AddCreateCalculationGroupItem(group)
                    .AddCreateCalculationItem(context, AddCalculation)
                    .AddSeparator()
-                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, EnablePerformAllCalculationsInGroup)
+                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddSeparator();
 
@@ -401,9 +401,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             context.WrappedData.NotifyObservers();
         }
 
-        private static string EnablePerformAllCalculationsInGroup(GrassCoverErosionInwardsCalculationGroupContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup(GrassCoverErosionInwardsCalculationGroupContext context)
         {
-            return AllDataAvailable(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
         private void CalculateAll(CalculationGroup group, GrassCoverErosionInwardsCalculationGroupContext context)
@@ -444,7 +444,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             GrassCoverErosionInwardsCalculation calculation = context.WrappedData;
 
-            return builder.AddPerformCalculationItem(calculation, context, Calculate, EnablePerformCalculation)
+            return builder.AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
                           .AddRenameItem()
@@ -460,9 +460,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
-        private static string EnablePerformCalculation(GrassCoverErosionInwardsCalculationContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculation(GrassCoverErosionInwardsCalculationContext context)
         {
-            return AllDataAvailable(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
         private void Calculate(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationContext context)

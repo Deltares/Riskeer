@@ -36,7 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             // Call
             var norm = 10000;
             var expectedBeta = -Normal.InvCDF(0.0, 1.0, 1.0/norm);
-            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, norm);
+            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, 1, norm);
 
             // Assert
             Assert.AreEqual(HydraRingFailureMechanismType.AssessmentLevel, assessmentLevelCalculationInput.FailureMechanismType);
@@ -70,7 +70,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void GetSubMechanismModelId_ReturnsExpectedValues()
         {
             // Call
-            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, 2.2);
+            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, 1, 2.2);
 
             // Assert
             Assert.IsNull(assessmentLevelCalculationInput.GetSubMechanismModelId(1));

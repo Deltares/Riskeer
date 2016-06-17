@@ -39,14 +39,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
 
-        public override string Name
-        {
-            get
-            {
-                return calculation.Name;
-            }
-        }
-
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationActivity"/>.
         /// </summary>
@@ -63,9 +55,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             this.assessmentSection = assessmentSection;
         }
 
+        public override string Name
+        {
+            get
+            {
+                return calculation.Name;
+            }
+        }
+
         protected override void OnRun()
         {
-            var failureMechanismSection = failureMechanism.Sections.First(); // TODO: Obtain dike section based on cross section of structure with reference line
+            var failureMechanismSection = failureMechanism.Sections.First(); // TODO: Obtain dike section based on cross section of dike profile with reference line
 
             PerformRun(() => GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection),
                        () => calculation.ClearOutput(),
