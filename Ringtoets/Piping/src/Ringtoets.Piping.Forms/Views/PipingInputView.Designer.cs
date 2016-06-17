@@ -1,6 +1,6 @@
 ﻿namespace Ringtoets.Piping.Forms.Views
 {
-    partial class PipingCalculationInputView
+    partial class PipingInputView
     {
         /// <summary> 
         /// Required designer variable.
@@ -41,12 +41,12 @@
             this.chartControl.TabIndex = 0;
             this.chartControl.Text = "chartControl1";
             // 
-            // PipingCalculationInputView
+            // PipingInputView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.chartControl);
-            this.Name = "PipingCalculationInputView";
+            this.Name = "PipingInputView";
             this.ResumeLayout(false);
 
         }

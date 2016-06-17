@@ -90,11 +90,11 @@
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilModelSelectionEditor.cs" />
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilProfileSelectionEditor.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSurfaceLineSelectionEditor.cs" />
-    <Compile Include="Views\PipingCalculationInputView.cs">
+    <Compile Include="Views\PipingInputView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\PipingCalculationInputView.Designer.cs">
-      <DependentUpon>PipingCalculationInputView.cs</DependentUpon>
+    <Compile Include="Views\PipingInputView.Designer.cs">
+      <DependentUpon>PipingInputView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\PipingCalculationRow.cs" />
     <Compile Include="Views\PipingCalculationsView.cs">
@@ -213,8 +213,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\PipingCalculationInputView.resx">
-      <DependentUpon>PipingCalculationInputView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\PipingInputView.resx">
+      <DependentUpon>PipingInputView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PipingCalculationsView.resx">
       <DependentUpon>PipingCalculationsView.cs</DependentUpon>

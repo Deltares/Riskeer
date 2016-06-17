@@ -27,13 +27,13 @@ using Ringtoets.Piping.Forms.Views;
 namespace Ringtoets.Piping.Forms.Test.Views
 {
     [TestFixture]
-    public class PipingCalculationInputViewTest
+    public class PipingInputViewTest
     {
         [Test]
         public void DefaultConstructor_DefaultValues()
         {
             // Call
-            var view = new PipingCalculationInputView();
+            var view = new PipingInputView();
 
             // Assert
             Assert.IsInstanceOf<UserControl>(view);

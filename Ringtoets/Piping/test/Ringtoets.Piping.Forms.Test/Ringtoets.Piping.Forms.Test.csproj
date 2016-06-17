@@ -98,7 +98,7 @@
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilModelSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilProfileSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSurfaceLineSelectionEditorTest.cs" />
-    <Compile Include="Views\PipingCalculationInputViewTest.cs" />
+    <Compile Include="Views\PipingInputViewTest.cs" />
     <Compile Include="Views\PipingCalculationRowTest.cs" />
     <Compile Include="Views\PipingFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\PipingCalculationsViewTest.cs" />

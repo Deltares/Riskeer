@@ -27,12 +27,12 @@ namespace Ringtoets.Piping.Forms.Views
     /// <summary>
     /// This class is a view to show the piping input.
     /// </summary>
-    public partial class PipingCalculationInputView : UserControl, IChartView
+    public partial class PipingInputView : UserControl, IChartView
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingCalculationInputView"/>.
+        /// Creates a new instance of <see cref="PipingInputView"/>.
         /// </summary>
-        public PipingCalculationInputView()
+        public PipingInputView()
         {
             InitializeComponent();
         }

@@ -110,6 +110,14 @@ namespace Ringtoets.Piping.Plugin
                     view.PipingFailureMechanism = context.FailureMechanism;
                 }
             };
+
+            yield return new ViewInfo<PipingInputContext, PipingInput, PipingInputView>
+            {
+                GetViewData = context => context.WrappedData,
+                GetViewName = (view, input) => PipingFormsResources.PipingInputContext_NodeDisplayName,
+                Image = PipingFormsResources.PipingInputIcon,
+                CloseForData = ClosePipingInutViewForData
+            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
@@ -300,6 +308,54 @@ namespace Ringtoets.Piping.Plugin
         }
 
         #endregion endregion
+
+        #region PipingInputView ViewInfo
+
+        private bool ClosePipingInutViewForData(PipingInputView view, object o)
+        {
+            var pipingCalculationScenarioContext = o as PipingCalculationScenarioContext;
+            if (pipingCalculationScenarioContext != null)
+            {
+                return ReferenceEquals(view.Data, pipingCalculationScenarioContext.WrappedData.InputParameters);
+            }
+
+            IEnumerable<PipingInput> calculationInputs = null;
+
+            var pipingCalculationGroupContext = o as PipingCalculationGroupContext;
+            if (pipingCalculationGroupContext != null)
+            {
+                calculationInputs = pipingCalculationGroupContext.WrappedData.GetCalculations()
+                                                     .OfType<PipingCalculationScenario>()
+                                                     .Select(c => c.InputParameters);
+            }
+
+            var pipingFailureMechanismContext = o as PipingFailureMechanismContext;
+            if (pipingFailureMechanismContext != null)
+            {
+                calculationInputs = pipingFailureMechanismContext.WrappedData.CalculationsGroup.GetCalculations()
+                                                     .OfType<PipingCalculationScenario>()
+                                                     .Select(c => c.InputParameters);
+            }
+
+            var assessmentSection = o as IAssessmentSection;
+            if (assessmentSection != null)
+            {
+                var failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                        .OfType<PipingFailureMechanism>()
+                                                        .FirstOrDefault();
+
+                if (failureMechanism != null)
+                {
+                    calculationInputs = failureMechanism.CalculationsGroup.GetCalculations()
+                                            .OfType<PipingCalculationScenario>()
+                                            .Select(c => c.InputParameters);
+                }
+            }
+
+            return calculationInputs != null && calculationInputs.Any(ci => ReferenceEquals(view.Data, ci));
+        }
+
+        #endregion
 
         # region Piping TreeNodeInfo
 
