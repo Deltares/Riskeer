@@ -41,8 +41,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
-        private readonly int assessmentLayerTwoAIndex = 2;
-
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismResultView"/>.
         /// </summary>
@@ -138,7 +136,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 }
                 else
                 {
-                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex, eventArgs.ColumnIndex == assessmentLayerTwoAIndex);
+                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
             }
         }

@@ -922,8 +922,9 @@ namespace Core.Common.Controls.Test.DataGrid
             }
         }
 
-        [Test]
-        public void RestoreCell_ReadOnlyFalse_SetsCellStyleToEnabledWithReadOnlyFalse()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void RestoreCell_WithoutSpecificReadOnlyState_SetsCellStyleToEnabledWithColumnReadOnlyState(bool columnReadOnlyState)
         {
             // Setup
             using (var form = new Form())
@@ -934,7 +935,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
-                control.AddTextBoxColumn("Test property", "Test header");
+                control.AddTextBoxColumn("Test property", "Test header", columnReadOnlyState);
 
                 dataGridView.DataSource = new[] { "" };
 
@@ -950,14 +951,15 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.RestoreCell(0, 0);
 
                 // Assert
-                Assert.IsFalse(dataGridViewCell.ReadOnly);
+                Assert.AreEqual(columnReadOnlyState, dataGridViewCell.ReadOnly);
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.White), dataGridViewCell.Style.BackColor);
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataGridViewCell.Style.ForeColor);
             }
         }
 
-        [Test]
-        public void RestoreCell_ReadOnlyTrue_SetsCellStyleToEnabledWithReadOnlyTrue()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void RestoreCell_WithSpecificReadOnlyState_SetsCellStyleToEnabledWithSpecificReadOnlyState(bool specificReadOnlyState)
         {
             // Setup
             using (var form = new Form())
@@ -966,9 +968,9 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(control);
                 form.Show();
 
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                control.AddTextBoxColumn("Test property", "Test header");
+                control.AddTextBoxColumn("Test property", "Test header", !specificReadOnlyState); // Set read-only state of the column to the opposite
 
                 dataGridView.DataSource = new[] { "" };
 
@@ -981,10 +983,10 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), dataGridViewCell.Style.ForeColor);
 
                 // Call
-                control.RestoreCell(0, 0, true);
+                control.RestoreCell(0, 0, specificReadOnlyState);
 
                 // Assert
-                Assert.IsTrue(dataGridViewCell.ReadOnly);
+                Assert.AreEqual(specificReadOnlyState, dataGridViewCell.ReadOnly);
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.White), dataGridViewCell.Style.BackColor);
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataGridViewCell.Style.ForeColor);
             }

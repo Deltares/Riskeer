@@ -260,8 +260,19 @@ namespace Core.Common.Controls.DataGrid
         /// </summary>
         /// <param name="rowIndex">The row index of the cell.</param>
         /// <param name="columnIndex">The column index of the cell.</param>
-        /// <param name="readOnly">Indicates wether the column should be read-only.</param>
-        public void RestoreCell(int rowIndex, int columnIndex, bool readOnly = false)
+        /// <remarks>The read-only state of the cell is set according to the read-only state of the corresponding column.</remarks>
+        public void RestoreCell(int rowIndex, int columnIndex)
+        {
+            RestoreCell(rowIndex, columnIndex, GetColumnFromIndex(columnIndex).ReadOnly);
+        }
+
+        /// <summary>
+        /// Restore the initial style of the cell at <paramref name="rowIndex"/>, <paramref name="columnIndex"/>.
+        /// </summary>
+        /// <param name="rowIndex">The row index of the cell.</param>
+        /// <param name="columnIndex">The column index of the cell.</param>
+        /// <param name="readOnly">Indicates whether the cell should be read-only.</param>
+        public void RestoreCell(int rowIndex, int columnIndex, bool readOnly)
         {
             var cell = GetCell(rowIndex, columnIndex);
             cell.ReadOnly = readOnly;

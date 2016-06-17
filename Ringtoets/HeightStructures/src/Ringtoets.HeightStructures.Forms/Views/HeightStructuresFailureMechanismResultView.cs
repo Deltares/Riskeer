@@ -40,8 +40,6 @@ namespace Ringtoets.HeightStructures.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
-        private readonly int assessmentLayerTwoAIndex = 2;
-
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismResultView"/>.
         /// </summary>
@@ -137,7 +135,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
                 }
                 else
                 {
-                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex, eventArgs.ColumnIndex == assessmentLayerTwoAIndex);
+                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
             }
         }
