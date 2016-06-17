@@ -132,7 +132,7 @@ namespace Application.Ringtoets.Storage.Test
 
             // Assert
             var message = Assert.Throws<EntityNotFoundException>(test).Message;
-            Assert.AreEqual(string.Format("Het object 'WithId' met id '0' is niet gevonden."), message);
+            Assert.AreEqual("Het object \'WithId\' met id \'0\' is niet gevonden.", message);
         }
 
         [Test]

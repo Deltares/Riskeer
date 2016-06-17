@@ -337,7 +337,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
 
             // Assert
             Assert.IsEmpty(failureMechanism.Sections);
@@ -371,7 +371,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());

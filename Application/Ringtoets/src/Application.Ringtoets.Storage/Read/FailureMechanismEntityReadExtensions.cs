@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException("collector");
             }
 
-            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
 
             if (entity.PipingFailureMechanismMetaEntities.Count > 0)
             {
@@ -102,7 +102,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         internal static void ReadAsGrassCoverErosionInwardsFailureMechanism(this FailureMechanismEntity entity, GrassCoverErosionInwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadGrassCoverErosionInwardsMechanismSectionResults(failureMechanism, collector);
         }
 
@@ -125,7 +125,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         internal static void ReadAsHeightStructuresFailureMechanism(this FailureMechanismEntity entity, HeightStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadHeightStructuresMechanismSectionResults(failureMechanism, collector);
         }
 
@@ -148,7 +148,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         internal static void ReadAsStrengthStabilityLengthwiseConstructionFailureMechanism(this FailureMechanismEntity entity, StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadStrengthStabilityLengthwiseConstructionMechanismSectionResults(failureMechanism, collector);
         }
 
@@ -171,7 +171,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         internal static void ReadAsTechnicalInnovationFailureMechanism(this FailureMechanismEntity entity, TechnicalInnovationFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadTechnicalInnovationMechanismSectionResults(failureMechanism, collector);
         }
 
@@ -194,7 +194,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         internal static void ReadAsWaterPressureAsphaltCoverFailureMechanism(this FailureMechanismEntity entity, WaterPressureAsphaltCoverFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadWaterPressureAsphaltCoverMechanismSectionResults(failureMechanism, collector);
         }
 
@@ -217,7 +217,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         internal static void ReadAsClosingStructureFailureMechanism(this FailureMechanismEntity entity, ClosingStructureFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadClosingStructureMechanismSectionResults(failureMechanism, collector);
         }
 
@@ -240,7 +240,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         internal static void ReadAsMacrostabilityInwardsFailureMechanism(this FailureMechanismEntity entity, MacrostabilityInwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadMacrostabilityInwardsMechanismSectionResults(failureMechanism, collector);
         }
 
@@ -263,7 +263,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         internal static void ReadAsMacrostabilityOutwardsFailureMechanism(this FailureMechanismEntity entity, MacrostabilityOutwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadMacrostabilityOutwardsMechanismSectionResults(failureMechanism, collector);
         }
 
@@ -286,7 +286,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         internal static void ReadAsWaveImpactAsphaltCoverFailureMechanism(this FailureMechanismEntity entity, WaveImpactAsphaltCoverFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadWaveImpactAsphaltCoverMechanismSectionResults(failureMechanism, collector);
         }
 
@@ -307,7 +307,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to read into a <see cref="IFailureMechanism"/>.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        internal static void ReadAsStandAloneFailureMechanism(this FailureMechanismEntity entity, IFailureMechanism failureMechanism, ReadConversionCollector collector)
+        internal static void ReadCommonFailureMechanismProperties(this FailureMechanismEntity entity, IFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
             failureMechanism.StorageId = entity.FailureMechanismEntityId;
             failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);

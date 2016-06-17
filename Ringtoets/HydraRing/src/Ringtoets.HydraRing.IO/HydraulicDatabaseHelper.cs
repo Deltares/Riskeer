@@ -58,8 +58,8 @@ namespace Ringtoets.HydraRing.IO
         /// </summary>
         /// <param name="database">The database to compare the version of.</param>
         /// <param name="pathToDatabase">The path to the database to compare the version of.</param>
-        /// <returns><c>true</c> if <paramref name="database"/> is of the given <paramref name="version"/>,
-        /// <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if <paramref name="database"/> equals the version of the database at
+        /// <paramref name="pathToDatabase"/>, <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when no connection with the hydraulic 
         /// boundary database could be created using <paramref name="pathToDatabase"/>.</exception>
         /// <exception cref="ArgumentNullException">Thrown when:

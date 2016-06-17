@@ -119,7 +119,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
             Observable observableObject = new TestObservable();
             observableObject.Attach(observerMock);
 
-            double newValue = 2.0;
             TestHydraRingActivity activity = new TestHydraRingActivity(true, () => null, observableObject);
 
             activity.Run();

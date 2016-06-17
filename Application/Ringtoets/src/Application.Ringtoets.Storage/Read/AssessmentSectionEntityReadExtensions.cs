@@ -211,7 +211,7 @@ namespace Application.Ringtoets.Storage.Read
             var failureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) failureMechanismType);
             if (failureMechanismEntity != null)
             {
-                failureMechanismEntity.ReadAsStandAloneFailureMechanism(standAloneFailureMechanism, collector);
+                failureMechanismEntity.ReadCommonFailureMechanismProperties(standAloneFailureMechanism, collector);
             }
         }
     }
