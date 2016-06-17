@@ -72,7 +72,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsFalse(properties.UseBreakWater);
-            Assert.AreEqual(BreakWaterType.Caisson, properties.BreakWaterType);
+            Assert.AreEqual(BreakWaterType.Dam, properties.BreakWaterType);
             Assert.AreEqual(0.0, properties.BreakWaterHeight.Value);
             mockRepository.VerifyAll();
         }
