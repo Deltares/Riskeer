@@ -31,6 +31,7 @@ using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.IO.Properties;
 
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
@@ -61,13 +62,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
 
         private const string idPattern = @"^ID\s+(?<id>\w+)$";
         private const string versionPattern = @"^VERSIE\s+(?<version>\S+)$";
-        private const string orientationPattern = @"^RICHTING\s+(?<orientation>\d+(?:\.\d+)?)$";
-        private const string damTypePattern = @"^DAM\s+(?<damtype>\d)$";
-        private const string profileTypePattern = @"^DAMWAND\s+(?<profiletype>\d)$";
+        private const string orientationPattern = @"^RICHTING\s+(?<orientation>-?\d+(?:\.\d+)?)$";
+        private const string damTypePattern = @"^DAM\s+(?<damtype>-?\d+)$";
+        private const string profileTypePattern = @"^DAMWAND\s+(?<profiletype>-?\d+)$";
         private const string damHeightPattern = @"^DAMHOOGTE\s+(?<damheight>-?\d+(?:\.\d+)?)$";
         private const string crestLevelPattern = @"^KRUINHOOGTE\s+(?<crestlevel>-?\d+(?:\.\d+)?)$";
-        private const string dikeGeometryPattern = @"^DIJK\s+(?<dikegeometry>\d+)$";
-        private const string foreshoreGeometryPattern = @"^VOORLAND\s+(?<foreshoregeometry>\d+)$";
+        private const string dikeGeometryPattern = @"^DIJK\s+(?<dikegeometry>-?\d+)$";
+        private const string foreshoreGeometryPattern = @"^VOORLAND\s+(?<foreshoregeometry>-?\d+)$";
         private const string roughnessSectionPattern = @"^(?<localx>-?\d+(?:\.\d+)?)\s+(?<localz>-?\d+(?:\.\d+)?)\s+(?<roughness>-?\d+(?:\.\d+)?)$";
         private const string memoPattern = @"^MEMO$";
 
@@ -107,8 +108,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                     Match versionMatch = new Regex(versionPattern).Match(text);
                     if (versionMatch.Success)
                     {
-                        //versionMatch.Groups["version"].Value;
-                        // TODO: Validate version (needs to be 4.0)
+                        if (!new Version(versionMatch.Groups["version"].Value).Equals(new Version(4, 0)))
+                        {
+                            string message = Resources.DikeProfileDataReader_ReadDikeProfileData_Only_version_four_zero_supported;
+                            throw CreateCriticalFileReadException(lineNumber, message);
+                        }
+                        ;
+                        // TODO: Versie can be parsed
                         readParameters |= ParametersFoundInFile.VERSIE;
                         continue;
                     }
@@ -124,8 +130,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                     Match orientationMatch = new Regex(orientationPattern).Match(text);
                     if (orientationMatch.Success)
                     {
-                        data.Orientation = double.Parse(orientationMatch.Groups["orientation"].Value, CultureInfo.InvariantCulture);
-                        // TODO: Validate orientation [0, 360] range
+                        var orientation = double.Parse(orientationMatch.Groups["orientation"].Value, CultureInfo.InvariantCulture);
+                        if (orientation < 0.0 || orientation > 360.0)
+                        {
+                            string message = string.Format(Resources.DikeProfileDataReader_ReadDikeProfileData_Orientation_0_must_be_in_range,
+                                                           orientation);
+                            throw CreateCriticalFileReadException(lineNumber, message);
+                        }
+                        data.Orientation = orientation;
                         // TODO: Validate can be parsed
                         readParameters |= ParametersFoundInFile.RICHTING;
                         continue;
@@ -133,8 +145,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                     Match damTypeMatch = new Regex(damTypePattern).Match(text);
                     if (damTypeMatch.Success)
                     {
-                        data.DamType = (DamType)int.Parse(damTypeMatch.Groups["damtype"].Value, CultureInfo.InvariantCulture);
-                        // TODO: Validate damtype [0, 3] range
+                        var damTypeValue = int.Parse(damTypeMatch.Groups["damtype"].Value, CultureInfo.InvariantCulture);
+                        if (!CanSafelyCastToEnum<DamType>(damTypeValue))
+                        {
+                            string message = string.Format(Resources.DikeProfileDataReader_ReadDikeProfileData_DamType_0_must_be_in_range,
+                                                           damTypeValue);
+                            throw CreateCriticalFileReadException(lineNumber, message);
+                        }
+                        data.DamType = (DamType)damTypeValue;
                         // TODO: Validate can be parsed
                         readParameters |= ParametersFoundInFile.DAM;
                         continue;
@@ -142,8 +160,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                     Match profileTypeMatch = new Regex(profileTypePattern).Match(text);
                     if (profileTypeMatch.Success)
                     {
-                        data.ProfileType = (ProfileType)int.Parse(profileTypeMatch.Groups["profiletype"].Value, CultureInfo.InvariantCulture);
-                        // TODO: Validate profile type [0, 2] range
+                        var profileTypeValue = int.Parse(profileTypeMatch.Groups["profiletype"].Value, CultureInfo.InvariantCulture);
+                        if (!CanSafelyCastToEnum<ProfileType>(profileTypeValue))
+                        {
+                            string message = string.Format(Resources.DikeProfileDataReader_ReadDikeProfileData_ProfileType_0_must_be_in_range,
+                                                           profileTypeValue);
+                            throw CreateCriticalFileReadException(lineNumber, message);
+                        }
+                        data.ProfileType = (ProfileType)profileTypeValue;
                         // TODO: Validate can be parsed
                         readParameters |= ParametersFoundInFile.DAMWAND;
                         continue;
@@ -168,7 +192,12 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                     if (dikeGeometryMatch.Success)
                     {
                         int numberOfElements = int.Parse(dikeGeometryMatch.Groups["dikegeometry"].Value, CultureInfo.InvariantCulture);
-                        // TODO: Validate dikegeometry count > 0
+                        if (numberOfElements < 0)
+                        {
+                            string message = string.Format(Resources.DikeProfileDataReader_ReadDikeProfileData_DikeCount_cannot_be_negative,
+                                                           numberOfElements);
+                            throw CreateCriticalFileReadException(lineNumber, message);
+                        }
                         // TODO: Validate can be parsed
                         if (numberOfElements == 0)
                         {
@@ -180,14 +209,21 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                         double previousLocalX = 0, previousLocalZ = 0, previousRoughness = 0;
                         for (int i = 0; i < numberOfElements; i++)
                         {
-                            text = reader.ReadLine();
+                            lineNumber++;
+                            text = ReadLineAndHandleIOExceptions(reader, lineNumber);
+
                             Match roughnessSectionDataMatch = new Regex(roughnessSectionPattern).Match(text);
-                            // TODO: Validate roughness [0.0, 1.0] range
                             // TODO: Validate all can be parsed
                             // TODO: Ensure all in file
                             double localX = double.Parse(roughnessSectionDataMatch.Groups["localx"].Value, CultureInfo.InvariantCulture);
                             double localZ = double.Parse(roughnessSectionDataMatch.Groups["localz"].Value, CultureInfo.InvariantCulture);
                             double roughness = double.Parse(roughnessSectionDataMatch.Groups["roughness"].Value, CultureInfo.InvariantCulture);
+                            if (roughness < 0.0 || roughness > 1.0)
+                            {
+                                string message = string.Format(Resources.DikeProfileDataReader_ReadDikeProfileData_Roughness_0_must_be_in_range,
+                                                               roughness);
+                                throw CreateCriticalFileReadException(lineNumber, message);
+                            }
                             if (i > 0)
                             {
                                 data.DikeGeometry[i - 1] = new RoughnessProfileSection(new Point2D(previousLocalX, previousLocalZ), new Point2D(localX, localZ), previousRoughness);
@@ -203,7 +239,12 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                     if (foreshoreGeometryMatch.Success)
                     {
                         int numberOfElements = int.Parse(foreshoreGeometryMatch.Groups["foreshoregeometry"].Value, CultureInfo.InvariantCulture);
-                        // TODO: Validate foreshore geometry count > 0
+                        if (numberOfElements < 0)
+                        {
+                            string message = string.Format(Resources.DikeProfileDataReader_ReadDikeProfileData_ForeshoreCount_0_cannot_be_negative,
+                                                           numberOfElements);
+                            throw CreateCriticalFileReadException(lineNumber, message);
+                        }
                         // TODO: Validate can be parsed
                         if (numberOfElements == 0)
                         {
@@ -214,14 +255,21 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                         double previousLocalX = 0, previousLocalZ = 0, previousRoughness = 0;
                         for (int i = 0; i < numberOfElements; i++)
                         {
-                            text = reader.ReadLine();
+                            lineNumber++;
+                            text = ReadLineAndHandleIOExceptions(reader, lineNumber);
+
                             Match roughnessSectionDataMatch = new Regex(roughnessSectionPattern).Match(text);
-                            // TODO: Validate roughness [0.0, 1.0] range
                             // TODO: Validate all can be parsed
                             // TODO: Ensure all in file
                             double localX = double.Parse(roughnessSectionDataMatch.Groups["localx"].Value, CultureInfo.InvariantCulture);
                             double localZ = double.Parse(roughnessSectionDataMatch.Groups["localz"].Value, CultureInfo.InvariantCulture);
                             double roughness = double.Parse(roughnessSectionDataMatch.Groups["roughness"].Value, CultureInfo.InvariantCulture);
+                            if (roughness < 0.0 || roughness > 1.0)
+                            {
+                                string message = string.Format(Resources.DikeProfileDataReader_ReadDikeProfileData_Roughness_0_must_be_in_range,
+                                                               roughness);
+                                throw CreateCriticalFileReadException(lineNumber, message);
+                            }
                             if (i > 0)
                             {
                                 data.ForeshoreGeometry[i - 1] = new RoughnessProfileSection(new Point2D(previousLocalX, previousLocalZ), new Point2D(localX, localZ), previousRoughness);
@@ -258,13 +306,21 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
             string[] missingParameters = requiredParameters.Where(z => !readParameters.HasFlag(z)).Select(z => z.ToString()).ToArray();
             if (missingParameters.Any())
             {
-                string criticalErrorMessage = string.Format("De volgende parameter(s) zijn niet aanwezig in het bestand: {0}",
+                string criticalErrorMessage = string.Format(Resources.DikeProfileDataReader_ReadDikeProfileData_List_mising_parameters_0_,
                                                             String.Join(", ", missingParameters));
                 var message = new FileReaderErrorMessageBuilder(fileBeingRead)
                     .Build(criticalErrorMessage);
                 throw new CriticalFileReadException(message);
             }
             return data;
+        }
+
+        private static bool CanSafelyCastToEnum<TEnum>(int parameterValue) where TEnum : struct, IConvertible, IComparable, IFormattable
+        {
+            return Enum.GetValues(typeof(TEnum))
+                       .OfType<TEnum>()
+                       .Select(dt => Convert.ToInt32(dt))
+                       .Any(i => i.Equals(parameterValue));
         }
 
         /// <summary>

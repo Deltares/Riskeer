@@ -219,6 +219,139 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
                                                    faultyFilePath, missingParameterNames);
             Assert.AreEqual(expectedMessage, message);
         }
+
+
+        [Test]
+        [TestCase("faulty_incorrectVersion1.prfl")]
+        [TestCase("faulty_incorrectVersion2.prfl")]
+        public void ReadDikeProfileData_FaultyFileWithUnsupportedVersion_ThrowCriticalFileReadException(
+            string faultyFileName)
+        {
+            // Setup
+            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                                Path.Combine("DikeProfiles", faultyFileName));
+
+            var reader = new DikeProfileDataReader();
+
+            // Call
+            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
+
+            // Assert
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Enkel bestanden van versie '4.0' worden ondersteund.",
+                                                   faultyFilePath);
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        [TestCase("faulty_richtingTooBig.prfl", 360.5)]
+        [TestCase("faulty_richtingTooSmall.prfl", -12.36)]
+        public void ReadDikeProfileData_FaultyFileWithOrientationOutOfRange_ThrowCriticalFileReadException(
+            string faultyFileName, double expectedOrientationInFile)
+        {
+            // Setup
+            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                                Path.Combine("DikeProfiles", faultyFileName));
+
+            var reader = new DikeProfileDataReader();
+
+            // Call
+            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
+
+            // Assert
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 4: De ingelezen orientatie waarde ({1}) moet binnen het bereik [0, 360] vallen.",
+                                                   faultyFilePath, expectedOrientationInFile);
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        [TestCase("faulty_damTooBig.prfl", 4)]
+        [TestCase("faulty_damTooSmall.prfl", -1)]
+        public void ReadDikeProfileData_FaultyFileWithDamTypeOutOfRange_ThrowCriticalFileReadException(
+            string faultyFileName, int expectedDamInFile)
+        {
+            // Setup
+            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                                Path.Combine("DikeProfiles", faultyFileName));
+
+            var reader = new DikeProfileDataReader();
+
+            // Call
+            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
+
+            // Assert
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 6: De ingelezen dam-type waarde ({1}) moet binnen het bereik [0, 3] vallen.",
+                                                   faultyFilePath, expectedDamInFile);
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        [TestCase("faulty_damwandTooBig.prfl", 3)]
+        [TestCase("faulty_damwandTooSmall.prfl", -1)]
+        public void ReadDikeProfileData_FaultyFileWithProfileTypeOutOfRange_ThrowCriticalFileReadException(
+            string faultyFileName, int expectedDamInFile)
+        {
+            // Setup
+            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                                Path.Combine("DikeProfiles", faultyFileName));
+
+            var reader = new DikeProfileDataReader();
+
+            // Call
+            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
+
+            // Assert
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 11: De ingelezen damwand-type waarde ({1}) moet binnen het bereik [0, 2] vallen.",
+                                                   faultyFilePath, expectedDamInFile);
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void ReadDikeProfileData_FaultyFileWithNegativeForshorePointCount_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                                Path.Combine("DikeProfiles", "faulty_voorlandCountNegative.prfl"));
+
+            var reader = new DikeProfileDataReader();
+
+            // Call
+            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
+
+            // Assert
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 9: Het ingelezen aantal voorland punten (-1) mag niet negatief zijn.",
+                                                   faultyFilePath);
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        [TestCase("faulty_voorlandHasRoughnessTooBig.prfl", 1.234, 11)]
+        [TestCase("faulty_voorlandHasRoughnessTooSmall.prfl", -0.943, 10)]
+        [TestCase("faulty_dijkHasRoughnessTooSmall.prfl", -0.123, 14)]
+        [TestCase("faulty_dijkHasRoughnessTooBig.prfl", 1.321, 15)]
+        public void ReadDikeProfileData_FaultyFileWithRoughnessOutOfRange_ThrowCriticalFileReadException(
+            string faultyFileName, double expectedFaultyRoughness, double expectedLineNumber)
+        {
+            // Setup
+            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                                Path.Combine("DikeProfiles", faultyFileName));
+
+            var reader = new DikeProfileDataReader();
+
+            // Call
+            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
+
+            // Assert
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel {1}: De ingelezen ruwheid ({2}) moet in het bereik [0, 1] vallen.",
+                                                   faultyFilePath, expectedLineNumber, expectedFaultyRoughness);
+            Assert.AreEqual(expectedMessage, message);
+        }
+        
         // TODO: DAMWAND en DAMWAND Type coverage (beide files hebben dezelfde waardes)
     }
 }
