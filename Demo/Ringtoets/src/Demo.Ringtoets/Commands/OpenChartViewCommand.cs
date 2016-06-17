@@ -98,7 +98,7 @@ namespace Demo.Ringtoets.Commands
                 Tuple.Create(2.0, 0.752),
                 Tuple.Create(2.1, 0.895)
             }, Resources.OpenChartViewCommand_Execute_Line_two);
-            line2.Style = new ChartLineStyle(Color.DarkSlateBlue, 4, DashStyle.DashDot);
+            line2.Style = new ChartLineStyle(Color.DarkSlateBlue, 2, DashStyle.DashDot);
 
             var area1 = new ChartAreaData(new Collection<Tuple<double, double>>
             {
@@ -181,7 +181,7 @@ namespace Demo.Ringtoets.Commands
                 Tuple.Create(0.1, 0.723 - 0.7),
                 Tuple.Create(0.1, 0.723 - 0.5)
             }, Resources.OpenChartViewCommand_Execute_Area_two);
-            area2.Style = new ChartAreaStyle(Color.Wheat, Color.DarkOrange, 5);
+            area2.Style = new ChartAreaStyle(Color.FromArgb(120, Color.Wheat), Color.DarkOrange, 2);
 
             var points1 = new ChartPointData(new Collection<Tuple<double, double>>
             {
@@ -214,7 +214,7 @@ namespace Demo.Ringtoets.Commands
                 Tuple.Create(1.7, 0.591),
                 Tuple.Create(1.8, 0.606)
             }, Resources.OpenChartViewCommand_Execute_Points_two);
-            points2.Style = new ChartPointStyle(Color.DarkTurquoise, 7, ChartPointSymbol.Diamond);
+            points2.Style = new ChartPointStyle(Color.FromArgb(190,Color.Gold), 7, ChartPointSymbol.Diamond);
 
             documentViewController.DocumentViewsResolver.OpenViewForData(new ChartDataCollection(new List<ChartData>
             {
