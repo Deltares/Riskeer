@@ -74,13 +74,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
             set
             {
-                if (value < 0.0 || value > 360.0)
+                var roundedValue = value.ToPrecision(orientation.NumberOfDecimalPlaces);
+
+                if (roundedValue < 0.0 || roundedValue > 360.0)
                 {
-                    string message = string.Format(Resources.DikeProfile_Orientation_Value_0_should_be_in_interval, value.Value);
+                    string message = string.Format(Resources.DikeProfile_Orientation_Value_0_should_be_in_interval, roundedValue);
                     throw new ArgumentOutOfRangeException("value", message);
                 }
 
-                orientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
+                orientation = roundedValue;
             }
         }
 

@@ -88,9 +88,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
+        [TestCase(-1e-3, 0.0)]
+        [TestCase(360 + 1e-3, 360.0)]
+        public void Orientation_SetValueThatIsNoLongerIllegalAfterRounding_RoundedValueIsSet(double newValue, double expectedRoundedValue)
+        {
+            // Setup
+            var dikeProfile = new DikeProfile(new Point2D(0, 0));
+
+            // Call
+            dikeProfile.Orientation = (RoundedDouble) newValue;
+
+            // Assert
+            Assert.AreEqual(expectedRoundedValue, dikeProfile.Orientation.Value);
+        }
+
+        [Test]
         [TestCase(-987.65)]
-        [TestCase(-1e-6)]
-        [TestCase(360 + 1e-6)]
+        [TestCase(-1e-2)]
+        [TestCase(360 + 1e-2)]
         [TestCase(875.12)]
         public void Orientation_SetIllegalValue_ThrowsArgumentOutOfRangeException(double invalidNewValue)
         {
@@ -102,7 +117,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             string expectedMessage = String.Format("De dijkprofiel oriëntatie waarde {0} moet in het interval [0, 360] liggen.",
-                                                   invalidNewValue);
+                                                   new RoundedDouble(dikeProfile.Orientation.NumberOfDecimalPlaces, invalidNewValue));
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
