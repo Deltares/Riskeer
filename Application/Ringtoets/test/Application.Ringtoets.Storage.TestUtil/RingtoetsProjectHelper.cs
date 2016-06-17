@@ -217,10 +217,13 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddSections(assessmentSection.GrassCoverErosionInwards);
             SetSectionResults(assessmentSection.GrassCoverErosionInwards.SectionResults);
             AddSections(assessmentSection.MacrostabilityInwards);
+            SetSectionResults(assessmentSection.MacrostabilityInwards.SectionResults);
             AddSections(assessmentSection.MacrostabilityOutwards);
+            SetSectionResults(assessmentSection.MacrostabilityOutwards.SectionResults);
             AddSections(assessmentSection.Microstability);
             AddSections(assessmentSection.StabilityStoneCover);
             AddSections(assessmentSection.WaveImpactAsphaltCover);
+            SetSectionResults(assessmentSection.WaveImpactAsphaltCover.SectionResults);
             AddSections(assessmentSection.WaterPressureAsphaltCover);
             SetSectionResults(assessmentSection.WaterPressureAsphaltCover.SectionResults);
             AddSections(assessmentSection.GrassCoverErosionOutwards);
@@ -302,6 +305,39 @@ namespace Application.Ringtoets.Storage.TestUtil
         }
 
         private static void SetSectionResults(IEnumerable<ClosingStructureFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<MacrostabilityInwardsFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
             foreach (var sectionResult in sectionResults)

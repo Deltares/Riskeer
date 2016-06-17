@@ -62,6 +62,9 @@ namespace Application.Ringtoets.Storage.Create
             entity.FailureMechanismEntities.Add(section.TechnicalInnovation.Create(registry));
             entity.FailureMechanismEntities.Add(section.WaterPressureAsphaltCover.Create(registry));
             entity.FailureMechanismEntities.Add(section.ClosingStructure.Create(registry));
+            entity.FailureMechanismEntities.Add(section.MacrostabilityInwards.Create(registry));
+            entity.FailureMechanismEntities.Add(section.MacrostabilityOutwards.Create(registry));
+            entity.FailureMechanismEntities.Add(section.WaveImpactAsphaltCover.Create(registry));
 
             AddEntitiesForAddStandAloneFailureMechanisms(section, entity, registry);
 
@@ -71,11 +74,8 @@ namespace Application.Ringtoets.Storage.Create
 
         private static void AddEntitiesForAddStandAloneFailureMechanisms(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry registry)
         {
-            entity.FailureMechanismEntities.Add(section.MacrostabilityInwards.Create(FailureMechanismType.MacrostabilityInwards, registry));
-            entity.FailureMechanismEntities.Add(section.MacrostabilityOutwards.Create(FailureMechanismType.MacrostabilityOutwards, registry));
             entity.FailureMechanismEntities.Add(section.Microstability.Create(FailureMechanismType.Microstability, registry));
             entity.FailureMechanismEntities.Add(section.StabilityStoneCover.Create(FailureMechanismType.StabilityStoneRevetment, registry));
-            entity.FailureMechanismEntities.Add(section.WaveImpactAsphaltCover.Create(FailureMechanismType.WaveImpactOnAsphaltRevetment, registry));
             entity.FailureMechanismEntities.Add(section.GrassCoverErosionOutwards.Create(FailureMechanismType.GrassRevetmentErosionOutwards, registry));
             entity.FailureMechanismEntities.Add(section.GrassCoverSlipOffOutwards.Create(FailureMechanismType.GrassRevetmentSlidingOutwards, registry));
             entity.FailureMechanismEntities.Add(section.GrassCoverSlipOffInwards.Create(FailureMechanismType.GrassRevetmentSlidingInwards, registry));

@@ -60,9 +60,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException("collector");
             }
 
-            failureMechanism.StorageId = entity.FailureMechanismEntityId;
-            failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
-            failureMechanism.Comments = entity.Comments;
+            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
 
             if (entity.PipingFailureMechanismMetaEntities.Count > 0)
             {
@@ -79,7 +77,6 @@ namespace Application.Ringtoets.Storage.Read
                 failureMechanism.SurfaceLines.Add(surfaceLineEntity.Read(collector));
             }
 
-            entity.ReadFailureMechanismSections(failureMechanism, collector);
             entity.ReadPipingMechanismSectionResults(failureMechanism, collector);
 
             ReadRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup,
@@ -105,11 +102,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         internal static void ReadAsGrassCoverErosionInwardsFailureMechanism(this FailureMechanismEntity entity, GrassCoverErosionInwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            failureMechanism.StorageId = entity.FailureMechanismEntityId;
-            failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
-            failureMechanism.Comments = entity.Comments;
-
-            entity.ReadFailureMechanismSections(failureMechanism, collector);
+            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
             entity.ReadGrassCoverErosionInwardsMechanismSectionResults(failureMechanism, collector);
         }
 
@@ -132,11 +125,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         internal static void ReadAsHeightStructuresFailureMechanism(this FailureMechanismEntity entity, HeightStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            failureMechanism.StorageId = entity.FailureMechanismEntityId;
-            failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
-            failureMechanism.Comments = entity.Comments;
-
-            entity.ReadFailureMechanismSections(failureMechanism, collector);
+            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
             entity.ReadHeightStructuresMechanismSectionResults(failureMechanism, collector);
         }
 
@@ -159,11 +148,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         internal static void ReadAsStrengthStabilityLengthwiseConstructionFailureMechanism(this FailureMechanismEntity entity, StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            failureMechanism.StorageId = entity.FailureMechanismEntityId;
-            failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
-            failureMechanism.Comments = entity.Comments;
-
-            entity.ReadFailureMechanismSections(failureMechanism, collector);
+            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
             entity.ReadStrengthStabilityLengthwiseConstructionMechanismSectionResults(failureMechanism, collector);
         }
 
@@ -186,11 +171,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         internal static void ReadAsTechnicalInnovationFailureMechanism(this FailureMechanismEntity entity, TechnicalInnovationFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            failureMechanism.StorageId = entity.FailureMechanismEntityId;
-            failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
-            failureMechanism.Comments = entity.Comments;
-
-            entity.ReadFailureMechanismSections(failureMechanism, collector);
+            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
             entity.ReadTechnicalInnovationMechanismSectionResults(failureMechanism, collector);
         }
 
@@ -213,11 +194,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         internal static void ReadAsWaterPressureAsphaltCoverFailureMechanism(this FailureMechanismEntity entity, WaterPressureAsphaltCoverFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            failureMechanism.StorageId = entity.FailureMechanismEntityId;
-            failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
-            failureMechanism.Comments = entity.Comments;
-
-            entity.ReadFailureMechanismSections(failureMechanism, collector);
+            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
             entity.ReadWaterPressureAsphaltCoverMechanismSectionResults(failureMechanism, collector);
         }
 
@@ -240,17 +217,82 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         internal static void ReadAsClosingStructureFailureMechanism(this FailureMechanismEntity entity, ClosingStructureFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            failureMechanism.StorageId = entity.FailureMechanismEntityId;
-            failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
-            failureMechanism.Comments = entity.Comments;
-
-            entity.ReadFailureMechanismSections(failureMechanism, collector);
+            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
             entity.ReadClosingStructureMechanismSectionResults(failureMechanism, collector);
         }
 
         private static void ReadClosingStructureMechanismSectionResults(this FailureMechanismEntity entity, ClosingStructureFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
             foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.ClosingStructureSectionResultEntities))
+            {
+                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+
+                sectionResultEntity.Read(result, collector);
+            }
+        }
+
+        /// <summary>
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="MacrostabilityInwardsFailureMechanism"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="MacrostabilityInwardsFailureMechanism"/> for.</param>
+        /// <param name="failureMechanism"></param>
+        /// <param name="collector">The object keeping track of read operations.</param>
+        internal static void ReadAsMacrostabilityInwardsFailureMechanism(this FailureMechanismEntity entity, MacrostabilityInwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
+            entity.ReadMacrostabilityInwardsMechanismSectionResults(failureMechanism, collector);
+        }
+
+        private static void ReadMacrostabilityInwardsMechanismSectionResults(this FailureMechanismEntity entity, MacrostabilityInwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacrostabilityInwardsSectionResultEntities))
+            {
+                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+
+                sectionResultEntity.Read(result, collector);
+            }
+        }
+
+        /// <summary>
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="MacrostabilityOutwardsFailureMechanism"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="MacrostabilityOutwardsFailureMechanism"/> for.</param>
+        /// <param name="failureMechanism"></param>
+        /// <param name="collector">The object keeping track of read operations.</param>
+        internal static void ReadAsMacrostabilityOutwardsFailureMechanism(this FailureMechanismEntity entity, MacrostabilityOutwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
+            entity.ReadMacrostabilityOutwardsMechanismSectionResults(failureMechanism, collector);
+        }
+
+        private static void ReadMacrostabilityOutwardsMechanismSectionResults(this FailureMechanismEntity entity, MacrostabilityOutwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacrostabilityOutwardsSectionResultEntities))
+            {
+                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+
+                sectionResultEntity.Read(result, collector);
+            }
+        }
+
+        /// <summary>
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="WaveImpactAsphaltCoverFailureMechanism"/> for.</param>
+        /// <param name="failureMechanism"></param>
+        /// <param name="collector">The object keeping track of read operations.</param>
+        internal static void ReadAsWaveImpactAsphaltCoverFailureMechanism(this FailureMechanismEntity entity, WaveImpactAsphaltCoverFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            entity.ReadAsStandAloneFailureMechanism(failureMechanism, collector);
+            entity.ReadWaveImpactAsphaltCoverMechanismSectionResults(failureMechanism, collector);
+        }
+
+        private static void ReadWaveImpactAsphaltCoverMechanismSectionResults(this FailureMechanismEntity entity, WaveImpactAsphaltCoverFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaveImpactAsphaltCoverSectionResultEntities))
             {
                 var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));

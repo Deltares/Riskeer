@@ -21,11 +21,9 @@
 
 using System;
 using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -1076,6 +1074,90 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void Register_WithNullMacrostabilityInwardsFailureMechanismSectionResult_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(new MacrostabilityInwardsSectionResultEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullMacrostabilityInwardsSectionResultEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(null, new MacrostabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection()));
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullMacrostabilityOutwardsFailureMechanismSectionResult_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(new MacrostabilityOutwardsSectionResultEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullMacrostabilityOutwardsSectionResultEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(null, new MacrostabilityOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection()));
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullWaveImpactAsphaltCoverFailureMechanismSectionResult_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(new WaveImpactAsphaltCoverSectionResultEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullWaveImpactAsphaltCoverSectionResultEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(null, new WaveImpactAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection()));
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
         public void Register_WithNullHydraulicLocationEntity_ThrowsArgumentNullException()
         {
             // Setup
@@ -1529,7 +1611,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1,4000);
-            var entity = new PipingSectionResultEntity()
+            var entity = new PipingSectionResultEntity
             {
                 PipingSectionResultEntityId = storageId
             };
@@ -1550,7 +1632,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1,4000);
-            var entity = new GrassCoverErosionInwardsSectionResultEntity()
+            var entity = new GrassCoverErosionInwardsSectionResultEntity
             {
                 GrassCoverErosionInwardsSectionResultEntityId = storageId
             };
@@ -1571,7 +1653,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1,4000);
-            var entity = new HeightStructuresSectionResultEntity()
+            var entity = new HeightStructuresSectionResultEntity
             {
                 HeightStructuresSectionResultEntityId = storageId
             };
@@ -1592,7 +1674,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1,4000);
-            var entity = new StrengthStabilityLengthwiseConstructionSectionResultEntity()
+            var entity = new StrengthStabilityLengthwiseConstructionSectionResultEntity
             {
                 StrengthStabilityLengthwiseConstructionSectionResultEntityId = storageId
             };
@@ -1613,7 +1695,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1,4000);
-            var entity = new TechnicalInnovationSectionResultEntity()
+            var entity = new TechnicalInnovationSectionResultEntity
             {
                 TechnicalInnovationSectionResultEntityId = storageId
             };
@@ -1634,7 +1716,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1,4000);
-            var entity = new WaterPressureAsphaltCoverSectionResultEntity()
+            var entity = new WaterPressureAsphaltCoverSectionResultEntity
             {
                 WaterPressureAsphaltCoverSectionResultEntityId = storageId
             };
@@ -1655,11 +1737,74 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             long storageId = new Random(21).Next(1,4000);
-            var entity = new ClosingStructureSectionResultEntity()
+            var entity = new ClosingStructureSectionResultEntity
             {
                 ClosingStructureSectionResultEntityId = storageId
             };
             var model = new ClosingStructureFailureMechanismSectionResult(new TestFailureMechanismSection());
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferIds_WithMacrostabilityInwardsSectionResultEntityAddedWithMacrostabilityInwardsFailureMechanismSectionResult_EqualMacrostabilityInwardsSectionEntityIdAndMacrostabilityInwardsFailureMechanismSectionResultStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1,4000);
+            var entity = new MacrostabilityInwardsSectionResultEntity
+            {
+                MacrostabilityInwardsSectionResultEntityId = storageId
+            };
+            var model = new MacrostabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferIds_WithMacrostabilityOutwardsSectionResultEntityAddedWithMacrostabilityOutwardsFailureMechanismSectionResult_EqualMacrostabilityOutwardsSectionEntityIdAndMacrostabilityOutwardsFailureMechanismSectionResultStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1,4000);
+            var entity = new MacrostabilityOutwardsSectionResultEntity
+            {
+                MacrostabilityOutwardsSectionResultEntityId = storageId
+            };
+            var model = new MacrostabilityOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferIds_WithWaveImpactAsphaltCoverSectionResultEntityAddedWithWaveImpactAsphaltCoverFailureMechanismSectionResult_EqualWaveImpactAsphaltCoverSectionEntityIdAndWaveImpactAsphaltCoverFailureMechanismSectionResultStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1,4000);
+            var entity = new WaveImpactAsphaltCoverSectionResultEntity
+            {
+                WaveImpactAsphaltCoverSectionResultEntityId = storageId
+            };
+            var model = new WaveImpactAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
             registry.Register(entity, model);
 
             // Call
@@ -2307,6 +2452,114 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(1, dbContext.ClosingStructureSectionResultEntities.Count());
             CollectionAssert.Contains(dbContext.ClosingStructureSectionResultEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_MacrostabilityInwardsSectionResultEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new MacrostabilityInwardsSectionResultEntity
+            {
+                MacrostabilityInwardsSectionResultEntityId = 1
+            };
+            var persistentEntity = new MacrostabilityInwardsSectionResultEntity
+            {
+                MacrostabilityInwardsSectionResultEntityId = 2
+            };
+            dbContext.MacrostabilityInwardsSectionResultEntities.Add(orphanedEntity);
+            dbContext.MacrostabilityInwardsSectionResultEntities.Add(persistentEntity);
+
+            var section = new MacrostabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                StorageId = persistentEntity.MacrostabilityInwardsSectionResultEntityId
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, section);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.MacrostabilityInwardsSectionResultEntities.Count());
+            CollectionAssert.Contains(dbContext.MacrostabilityInwardsSectionResultEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_MacrostabilityOutwardsSectionResultEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new MacrostabilityOutwardsSectionResultEntity
+            {
+                MacrostabilityOutwardsSectionResultEntityId = 1
+            };
+            var persistentEntity = new MacrostabilityOutwardsSectionResultEntity
+            {
+                MacrostabilityOutwardsSectionResultEntityId = 2
+            };
+            dbContext.MacrostabilityOutwardsSectionResultEntities.Add(orphanedEntity);
+            dbContext.MacrostabilityOutwardsSectionResultEntities.Add(persistentEntity);
+
+            var section = new MacrostabilityOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                StorageId = persistentEntity.MacrostabilityOutwardsSectionResultEntityId
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, section);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.MacrostabilityOutwardsSectionResultEntities.Count());
+            CollectionAssert.Contains(dbContext.MacrostabilityOutwardsSectionResultEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_WaveImpactAsphaltCoverSectionResultEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new WaveImpactAsphaltCoverSectionResultEntity
+            {
+                WaveImpactAsphaltCoverSectionResultEntityId = 1
+            };
+            var persistentEntity = new WaveImpactAsphaltCoverSectionResultEntity
+            {
+                WaveImpactAsphaltCoverSectionResultEntityId = 2
+            };
+            dbContext.WaveImpactAsphaltCoverSectionResultEntities.Add(orphanedEntity);
+            dbContext.WaveImpactAsphaltCoverSectionResultEntities.Add(persistentEntity);
+
+            var section = new WaveImpactAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                StorageId = persistentEntity.WaveImpactAsphaltCoverSectionResultEntityId
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, section);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.WaveImpactAsphaltCoverSectionResultEntities.Count());
+            CollectionAssert.Contains(dbContext.WaveImpactAsphaltCoverSectionResultEntities, persistentEntity);
             mocks.VerifyAll();
         }
 

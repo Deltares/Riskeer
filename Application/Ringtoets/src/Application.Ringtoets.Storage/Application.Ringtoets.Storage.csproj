@@ -56,6 +56,12 @@
     <Compile Include="Create\CalculationGroupCreateExtensions.cs" />
     <Compile Include="Create\ClosingStructureFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\ClosingStructureFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\WaveImpactAsphaltCoverFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\MacrostabilityOutwardsFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\MacrostabilityOutwardsFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\MacrostabilityInwardsFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\MacrostabilityInwardsFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\WaterPressureAsphaltCoverFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\WaterPressureAsphaltCoverFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\TechnicalInnovationFailureMechanismCreateExtensions.cs" />
@@ -183,6 +189,9 @@
     <Compile Include="IStorableExtensions.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentions.cs" />
     <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\MacrostabilityInwardsSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\MacrostabilityOutwardsSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\WaveImpactAsphaltCoverSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\TechnicalInnovationSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\StrengthStabilityLengthwiseConstructionSectionResultEntityReadExtensions.cs" />
@@ -240,6 +249,12 @@
     <Compile Include="Update\CalculationGroupUpdateExtensions.cs" />
     <Compile Include="Update\ClosingStructureFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\ClosingStructureFailureMechanismUpdateExtensions.cs" />
+    <Compile Include="Update\MacrostabilityInwardsFailureMechanismSectionResultUpdateExtensions.cs" />
+    <Compile Include="Update\MacrostabilityInwardsFailureMechanismUpdateExtensions.cs" />
+    <Compile Include="Update\MacrostabilityOutwardsFailureMechanismSectionResultUpdateExtensions.cs" />
+    <Compile Include="Update\MacrostabilityOutwardsFailureMechanismUpdateExtensions.cs" />
+    <Compile Include="Update\WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateExtensions.cs" />
+    <Compile Include="Update\WaveImpactAsphaltCoverFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\WaterPressureAsphaltCoverFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\TechnicalInnovationFailureMechanismSectionResultUpdateExtensions.cs" />

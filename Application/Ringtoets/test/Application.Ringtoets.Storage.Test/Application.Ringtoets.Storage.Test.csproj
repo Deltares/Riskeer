@@ -84,6 +84,12 @@
     <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructureFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructureFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\MacrostabilityInwardsFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\MacrostabilityInwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\MacrostabilityOutwardsFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\MacrostabilityOutwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\WaveImpactAsphaltCoverFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\WaterPressureAsphaltCoverFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\WaterPressureAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\TechnicalInnovationFailureMechanismCreateExtensionsTest.cs" />
@@ -119,6 +125,9 @@
     <Compile Include="Read\AssessmentSectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentionsTest.cs" />
     <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\MacrostabilityInwardsSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\MacrostabilityOutwardsSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\WaveImpactAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\TechnicalInnovationSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StrengthStabilityLengthwiseConstructionSectionResultEntityReadExtensionsTest.cs" />
@@ -154,6 +163,12 @@
     <Compile Include="Update\CalculationGroupUpdateExtensionsTest.cs" />
     <Compile Include="Update\ClosingStructureFailureMechanismSectionResultUpdateExtensionsTest.cs" />
     <Compile Include="Update\ClosingStructureFailureMechanismUpdateExtensionsTest.cs" />
+    <Compile Include="Update\MacrostabilityInwardsFailureMechanismSectionResultUpdateExtensionsTest.cs" />
+    <Compile Include="Update\MacrostabilityInwardsFailureMechanismUpdateExtensionsTest.cs" />
+    <Compile Include="Update\MacrostabilityOutwardsFailureMechanismSectionResultUpdateExtensionsTest.cs" />
+    <Compile Include="Update\MacrostabilityOutwardsFailureMechanismUpdateExtensionsTest.cs" />
+    <Compile Include="Update\WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateExtensionsTest.cs" />
+    <Compile Include="Update\WaveImpactAsphaltCoverFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\TechnicalInnovationFailureMechanismSectionResultUpdateExtensionsTest.cs" />
     <Compile Include="Update\TechnicalInnovationFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateExtensionsTest.cs" />

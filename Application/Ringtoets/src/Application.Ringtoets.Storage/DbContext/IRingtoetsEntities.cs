@@ -97,6 +97,24 @@ namespace Application.Ringtoets.Storage.DbContext
         DbSet<ClosingStructureSectionResultEntity> ClosingStructureSectionResultEntities { get; }
 
         /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="MacrostabilityInwardsSectionResultEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<MacrostabilityInwardsSectionResultEntity> MacrostabilityInwardsSectionResultEntities { get; }
+
+        /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="MacrostabilityOutwardsSectionResultEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<MacrostabilityOutwardsSectionResultEntity> MacrostabilityOutwardsSectionResultEntities { get; }
+
+        /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="WaveImpactAsphaltCoverSectionResultEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<WaveImpactAsphaltCoverSectionResultEntity> WaveImpactAsphaltCoverSectionResultEntities { get; }
+
+        /// <summary>
         /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="PipingFailureMechanismMetaEntity"/> containing
         /// every entity found in the database.
         /// </summary>

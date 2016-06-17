@@ -48,6 +48,9 @@ namespace Application.Ringtoets.Storage.TestUtil
             DbSet<TechnicalInnovationSectionResultEntity> technicalInnovationSectionResultsSet = CreateEmptyTestDbSet<TechnicalInnovationSectionResultEntity>();
             DbSet<WaterPressureAsphaltCoverSectionResultEntity> waterPressureAsphaltCoverSectionResultsSet = CreateEmptyTestDbSet<WaterPressureAsphaltCoverSectionResultEntity>();
             DbSet<ClosingStructureSectionResultEntity> closingStructureSectionResultsSet = CreateEmptyTestDbSet<ClosingStructureSectionResultEntity>();
+            DbSet<MacrostabilityInwardsSectionResultEntity> macrostabilityInwardsSectionResultsSet = CreateEmptyTestDbSet<MacrostabilityInwardsSectionResultEntity>();
+            DbSet<MacrostabilityOutwardsSectionResultEntity> macrostabilityOutwardsSectionResultsSet = CreateEmptyTestDbSet<MacrostabilityOutwardsSectionResultEntity>();
+            DbSet<WaveImpactAsphaltCoverSectionResultEntity> waveImpactAsphaltCoverSectionResultsSet = CreateEmptyTestDbSet<WaveImpactAsphaltCoverSectionResultEntity>();
             DbSet<AssessmentSectionEntity> assessmentSectionsSet = CreateEmptyTestDbSet<AssessmentSectionEntity>();
             DbSet<ReferenceLinePointEntity> referenceLinesSet = CreateEmptyTestDbSet<ReferenceLinePointEntity>();
             DbSet<CalculationGroupEntity> calculationGroupsSet = CreateEmptyTestDbSet<CalculationGroupEntity>();
@@ -77,6 +80,9 @@ namespace Application.Ringtoets.Storage.TestUtil
             ringtoetsEntities.Stub(r => r.TechnicalInnovationSectionResultEntities).Return(technicalInnovationSectionResultsSet);
             ringtoetsEntities.Stub(r => r.WaterPressureAsphaltCoverSectionResultEntities).Return(waterPressureAsphaltCoverSectionResultsSet);
             ringtoetsEntities.Stub(r => r.ClosingStructureSectionResultEntities).Return(closingStructureSectionResultsSet);
+            ringtoetsEntities.Stub(r => r.MacrostabilityInwardsSectionResultEntities).Return(macrostabilityInwardsSectionResultsSet);
+            ringtoetsEntities.Stub(r => r.MacrostabilityOutwardsSectionResultEntities).Return(macrostabilityOutwardsSectionResultsSet);
+            ringtoetsEntities.Stub(r => r.WaveImpactAsphaltCoverSectionResultEntities).Return(waveImpactAsphaltCoverSectionResultsSet);
             ringtoetsEntities.Stub(r => r.AssessmentSectionEntities).Return(assessmentSectionsSet);
             ringtoetsEntities.Stub(r => r.ReferenceLinePointEntities).Return(referenceLinesSet);
             ringtoetsEntities.Stub(r => r.CalculationGroupEntities).Return(calculationGroupsSet);

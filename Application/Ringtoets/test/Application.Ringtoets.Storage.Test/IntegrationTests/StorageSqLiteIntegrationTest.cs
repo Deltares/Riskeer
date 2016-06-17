@@ -275,6 +275,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 AssertFailureMechanismSectionResults(
                     expectedAssessmentSection.ClosingStructure.SectionResults,
                     actualAssessmentSection.ClosingStructure.SectionResults);
+                AssertFailureMechanismSectionResults(
+                    expectedAssessmentSection.MacrostabilityOutwards.SectionResults,
+                    actualAssessmentSection.MacrostabilityOutwards.SectionResults);
+                AssertFailureMechanismSectionResults(
+                    expectedAssessmentSection.MacrostabilityInwards.SectionResults,
+                    actualAssessmentSection.MacrostabilityInwards.SectionResults);
+                AssertFailureMechanismSectionResults(
+                    expectedAssessmentSection.WaveImpactAsphaltCover.SectionResults,
+                    actualAssessmentSection.WaveImpactAsphaltCover.SectionResults);
             }
         }
 
@@ -393,6 +402,60 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 ClosingStructureFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
                 ClosingStructureFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+
+                Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
+                Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
+                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
+            }
+        }
+
+        private void AssertFailureMechanismSectionResults(IEnumerable<MacrostabilityInwardsFailureMechanismSectionResult> expectedSectionResults, IEnumerable<MacrostabilityInwardsFailureMechanismSectionResult> actualSectionResults)
+        {
+            var expectedSectionResultsArray = expectedSectionResults.ToArray();
+            var actualSectionResultsArray = actualSectionResults.ToArray();
+
+            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
+
+            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
+            {
+                MacrostabilityInwardsFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                MacrostabilityInwardsFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+
+                Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
+                Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
+                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
+            }
+        }
+
+        private void AssertFailureMechanismSectionResults(IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> expectedSectionResults, IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> actualSectionResults)
+        {
+            var expectedSectionResultsArray = expectedSectionResults.ToArray();
+            var actualSectionResultsArray = actualSectionResults.ToArray();
+
+            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
+
+            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
+            {
+                MacrostabilityOutwardsFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                MacrostabilityOutwardsFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+
+                Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
+                Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
+                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
+            }
+        }
+
+        private void AssertFailureMechanismSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> expectedSectionResults, IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> actualSectionResults)
+        {
+            var expectedSectionResultsArray = expectedSectionResults.ToArray();
+            var actualSectionResultsArray = actualSectionResults.ToArray();
+
+            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
+
+            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
+            {
+                WaveImpactAsphaltCoverFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                WaveImpactAsphaltCoverFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
 
                 Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
                 Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
