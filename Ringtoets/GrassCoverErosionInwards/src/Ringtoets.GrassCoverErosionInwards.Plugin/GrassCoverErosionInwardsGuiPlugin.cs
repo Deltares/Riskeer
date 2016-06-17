@@ -160,7 +160,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             yield return RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityAssessmentOutputTreeNodeInfo(
                 EmptyProbabilityAssessmentOutputContextMenuStrip);
-        }
+        }       
 
         private void CalculateAll(GrassCoverErosionInwardsFailureMechanism failureMechanism, IEnumerable<GrassCoverErosionInwardsCalculation> calculations, IAssessmentSection assessmentSection)
         {

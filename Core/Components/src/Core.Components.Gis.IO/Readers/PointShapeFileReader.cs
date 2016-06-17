@@ -119,8 +119,6 @@ namespace Core.Components.Gis.IO.Readers
         private FeatureBasedMapData ConvertPointFeatureToMapPointData(IFeature pointFeature, string name)
         {
             MapFeature feature = CreateMapFeatureForPointFeature(pointFeature);
-            CopyMetaDataIntoFeature(feature, readIndex);
-
             IEnumerable<MapFeature> mapFeatures = new List<MapFeature>
             {
                 feature

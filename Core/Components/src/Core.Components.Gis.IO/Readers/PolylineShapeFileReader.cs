@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
@@ -169,6 +170,17 @@ namespace Core.Components.Gis.IO.Readers
             {
                 lineCoordinates.Select(c => new Point2D(c.X, c.Y))
             };
+        }
+
+        private void CopyMetaDataIntoFeature(MapFeature targetFeature, int sourceFeatureIndex)
+        {
+            DataTable table = ShapeFile.GetAttributes(sourceFeatureIndex, 1);
+            DataRow dataRow = table.Rows[0];
+
+            for (int i = 0; i < table.Columns.Count; i++)
+            {
+                targetFeature.MetaData[table.Columns[i].ColumnName] = dataRow[i];
+            }
         }
     }
 }
