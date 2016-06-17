@@ -72,16 +72,10 @@ namespace Application.Ringtoets.Storage.Create
             entity.FailureMechanismEntities.Add(section.PipingStructure.Create(registry));
             entity.FailureMechanismEntities.Add(section.StabilityStoneCover.Create(registry));
             entity.FailureMechanismEntities.Add(section.DuneErosion.Create(registry));
-
-            AddEntitiesForAddStandAloneFailureMechanisms(section, entity, registry);
+            entity.FailureMechanismEntities.Add(section.StrengthStabilityPointConstruction.Create(registry));
 
             registry.Register(entity, section);
             return entity;
-        }
-
-        private static void AddEntitiesForAddStandAloneFailureMechanisms(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry registry)
-        {
-            entity.FailureMechanismEntities.Add(section.StrengthStabilityPointConstruction.Create(FailureMechanismType.StrengthAndStabilityPointConstruction, registry));
         }
 
         private static void AddEntityForReferenceLine(AssessmentSection section, AssessmentSectionEntity entity)

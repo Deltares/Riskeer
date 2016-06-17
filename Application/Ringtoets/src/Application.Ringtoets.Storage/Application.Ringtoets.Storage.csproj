@@ -56,6 +56,8 @@
     <Compile Include="Create\CalculationGroupCreateExtensions.cs" />
     <Compile Include="Create\ClosingStructureFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\ClosingStructureFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\StrengthStabilityPointConstructionFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\StrengthStabilityPointConstructionFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCoverFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCoverFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\DuneErosionFailureMechanismCreateExtensions.cs" />
@@ -227,6 +229,7 @@
     <Compile Include="IStorableExtensions.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentions.cs" />
     <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\StrengthStabilityPointConstructionSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityStoneCoverSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\DuneErosionSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverSlipOffInwardsSectionResultEntityReadExtensions.cs" />
@@ -294,6 +297,8 @@
     <Compile Include="Update\CalculationGroupUpdateExtensions.cs" />
     <Compile Include="Update\ClosingStructureFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\ClosingStructureFailureMechanismUpdateExtensions.cs" />
+    <Compile Include="Update\StrengthStabilityPointConstructionFailureMechanismSectionResultUpdateExtensions.cs" />
+    <Compile Include="Update\StrengthStabilityPointConstructionFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\StabilityStoneCoverFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\StabilityStoneCoverFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\DuneErosionFailureMechanismSectionResultUpdateExtensions.cs" />

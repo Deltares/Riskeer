@@ -1354,6 +1354,34 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void Register_WithNullStrengthStabilityPointConstructionFailureMechanismSectionResult_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(new StrengthStabilityPointConstructionSectionResultEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullStrengthStabilityPointConstructionSectionResultEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            TestDelegate test = () => registry.Register(null, new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection()));
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
         public void Register_WithNullHydraulicLocationEntity_ThrowsArgumentNullException()
         {
             // Setup
@@ -2148,6 +2176,27 @@ namespace Application.Ringtoets.Storage.Test.Create
                 StabilityStoneCoverSectionResultEntityId = storageId
             };
             var model = new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferIds_WithStrengthStabilityPointConstructionSectionResultEntityAddedWithStrengthStabilityPointConstructionFailureMechanismSectionResult_EqualStrengthStabilityPointConstructionSectionEntityIdAndStrengthStabilityPointConstructionFailureMechanismSectionResultStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1,4000);
+            var entity = new StrengthStabilityPointConstructionSectionResultEntity
+            {
+                StrengthStabilityPointConstructionSectionResultEntityId = storageId
+            };
+            var model = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection());
             registry.Register(entity, model);
 
             // Call
@@ -3155,6 +3204,42 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(1, dbContext.StabilityStoneCoverSectionResultEntities.Count());
             CollectionAssert.Contains(dbContext.StabilityStoneCoverSectionResultEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_StrengthStabilityPointConstructionSectionResultEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new StrengthStabilityPointConstructionSectionResultEntity
+            {
+                StrengthStabilityPointConstructionSectionResultEntityId = 1
+            };
+            var persistentEntity = new StrengthStabilityPointConstructionSectionResultEntity
+            {
+                StrengthStabilityPointConstructionSectionResultEntityId = 2
+            };
+            dbContext.StrengthStabilityPointConstructionSectionResultEntities.Add(orphanedEntity);
+            dbContext.StrengthStabilityPointConstructionSectionResultEntities.Add(persistentEntity);
+
+            var section = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                StorageId = persistentEntity.StrengthStabilityPointConstructionSectionResultEntityId
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, section);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.StrengthStabilityPointConstructionSectionResultEntities.Count());
+            CollectionAssert.Contains(dbContext.StrengthStabilityPointConstructionSectionResultEntities, persistentEntity);
             mocks.VerifyAll();
         }
 

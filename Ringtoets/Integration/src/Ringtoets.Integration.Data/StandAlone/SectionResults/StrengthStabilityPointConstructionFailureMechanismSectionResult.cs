@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Properties;
 
@@ -30,7 +31,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
     /// This class holds information about the result of a calculation on section level for the
     /// Strength and Stability of Point Constructions failure mechanism.
     /// </summary>
-    public class StrengthStabilityPointConstructionFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class StrengthStabilityPointConstructionFailureMechanismSectionResult : FailureMechanismSectionResult, IStorable
     {
         private RoundedDouble assessmentLayerTwoA;
 
@@ -70,5 +71,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
         public RoundedDouble AssessmentLayerThree { get; set; }
+
+        public long StorageId { get; set; }
     }
 }

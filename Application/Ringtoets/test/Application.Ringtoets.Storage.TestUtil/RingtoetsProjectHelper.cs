@@ -239,6 +239,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddSections(assessmentSection.ClosingStructure);
             SetSectionResults(assessmentSection.ClosingStructure.SectionResults);
             AddSections(assessmentSection.StrengthStabilityPointConstruction);
+            SetSectionResults(assessmentSection.StrengthStabilityPointConstruction.SectionResults);
             AddSections(assessmentSection.StrengthStabilityLengthwiseConstruction);
             SetSectionResults(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults);
             AddSections(assessmentSection.PipingStructure);
@@ -440,6 +441,16 @@ namespace Application.Ringtoets.Storage.TestUtil
                 var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
 
                 sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
+                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerTwoA = (RoundedDouble)random.NextDouble();
                 sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
             }
         }

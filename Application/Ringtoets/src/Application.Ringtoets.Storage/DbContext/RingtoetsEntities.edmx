@@ -352,8 +352,8 @@
           </Key>
           <Property Name="StrengthStabilityPointConstructionSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="LevelTwoA" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="LevelThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
         </EntityType>
         <EntityType Name="SurfaceLineEntity">
           <Key>
@@ -1739,8 +1739,8 @@
           </Key>
           <Property Name="StrengthStabilityPointConstructionSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="LevelTwoA" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="LevelThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_StrengthStabilityPointConstructionSectionResultEntity_0_0" FromRole="StrengthStabilityPointConstructionSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="SurfaceLineEntity">
@@ -2683,8 +2683,8 @@
           <EntitySetMapping Name="StrengthStabilityPointConstructionSectionResultEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.StrengthStabilityPointConstructionSectionResultEntity">
               <MappingFragment StoreEntitySet="StrengthStabilityPointConstructionSectionResultEntity">
-                <ScalarProperty Name="LevelThree" ColumnName="LevelThree" />
-                <ScalarProperty Name="LevelTwoA" ColumnName="LevelTwoA" />
+                <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
+                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="StrengthStabilityPointConstructionSectionResultEntityId" ColumnName="StrengthStabilityPointConstructionSectionResultEntityId" />
               </MappingFragment>

@@ -463,6 +463,29 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         /// <summary>
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="StrengthStabilityPointConstructionFailureMechanism"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="StrengthStabilityPointConstructionFailureMechanism"/> for.</param>
+        /// <param name="failureMechanism"></param>
+        /// <param name="collector">The object keeping track of read operations.</param>
+        internal static void ReadAsStrengthStabilityPointConstructionFailureMechanism(this FailureMechanismEntity entity, StrengthStabilityPointConstructionFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+            entity.ReadStrengthStabilityPointConstructionMechanismSectionResults(failureMechanism, collector);
+        }
+
+        private static void ReadStrengthStabilityPointConstructionMechanismSectionResults(this FailureMechanismEntity entity, StrengthStabilityPointConstructionFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StrengthStabilityPointConstructionSectionResultEntities))
+            {
+                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+
+                sectionResultEntity.Read(result, collector);
+            }
+        }
+
+        /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="IFailureMechanism"/>.
         /// </summary>
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to read into a <see cref="IFailureMechanism"/>.</param>

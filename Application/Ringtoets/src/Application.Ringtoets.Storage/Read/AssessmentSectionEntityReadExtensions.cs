@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
@@ -80,7 +79,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadPipingStructureFailureMechanism(assessmentSection, collector);
             entity.ReadDuneErosionFailureMechanism(assessmentSection, collector);
             entity.ReadStabilityStoneCoverFailureMechanism(assessmentSection, collector);
-            entity.ReadStandAloneFailureMechanisms(assessmentSection, collector);
+            entity.ReadStrengthStabilityPointConstructionFailureMechanism(assessmentSection, collector);
 
             return assessmentSection;
         }
@@ -264,17 +263,12 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-        private static void ReadStandAloneFailureMechanisms(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
+        private static void ReadStrengthStabilityPointConstructionFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.StrengthAndStabilityPointConstruction, assessmentSection.StrengthStabilityPointConstruction, collector);
-        }
-
-        private static void ReadStandAloneFailureMechanism(this AssessmentSectionEntity entity, FailureMechanismType failureMechanismType, IFailureMechanism standAloneFailureMechanism, ReadConversionCollector collector)
-        {
-            var failureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) failureMechanismType);
-            if (failureMechanismEntity != null)
+            var strengthStabilityPointConstructionFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.StrengthAndStabilityPointConstruction);
+            if (strengthStabilityPointConstructionFailureMechanismEntity != null)
             {
-                failureMechanismEntity.ReadCommonFailureMechanismProperties(standAloneFailureMechanism, collector);
+                strengthStabilityPointConstructionFailureMechanismEntity.ReadAsStrengthStabilityPointConstructionFailureMechanism(assessmentSection.StrengthStabilityPointConstruction, collector);
             }
         }
     }

@@ -305,6 +305,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 AssertFailureMechanismSectionResults(
                     expectedAssessmentSection.StabilityStoneCover.SectionResults,
                     actualAssessmentSection.StabilityStoneCover.SectionResults);
+                AssertFailureMechanismSectionResults(
+                    expectedAssessmentSection.StrengthStabilityPointConstruction.SectionResults,
+                    actualAssessmentSection.StrengthStabilityPointConstruction.SectionResults);
             }
         }
 
@@ -602,6 +605,23 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 StabilityStoneCoverFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
                 StabilityStoneCoverFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+
+                Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
+                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
+            }
+        }
+
+        private void AssertFailureMechanismSectionResults(IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> expectedSectionResults, IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> actualSectionResults)
+        {
+            var expectedSectionResultsArray = expectedSectionResults.ToArray();
+            var actualSectionResultsArray = actualSectionResults.ToArray();
+
+            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
+
+            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
+            {
+                StrengthStabilityPointConstructionFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                StrengthStabilityPointConstructionFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
 
                 Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
                 Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);

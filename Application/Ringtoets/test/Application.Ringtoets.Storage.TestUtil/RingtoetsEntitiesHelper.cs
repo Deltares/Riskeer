@@ -58,6 +58,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             DbSet<PipingStructureSectionResultEntity> pipingStructureSectionResultsSet = CreateEmptyTestDbSet<PipingStructureSectionResultEntity>();
             DbSet<DuneErosionSectionResultEntity> duneErosionSectionResultsSet = CreateEmptyTestDbSet<DuneErosionSectionResultEntity>();
             DbSet<StabilityStoneCoverSectionResultEntity> stabilityStoneCoverSectionResultsSet = CreateEmptyTestDbSet<StabilityStoneCoverSectionResultEntity>();
+            DbSet<StrengthStabilityPointConstructionSectionResultEntity> strengthStabilityPointConstructionSectionResultsSet = CreateEmptyTestDbSet<StrengthStabilityPointConstructionSectionResultEntity>();
             DbSet<AssessmentSectionEntity> assessmentSectionsSet = CreateEmptyTestDbSet<AssessmentSectionEntity>();
             DbSet<ReferenceLinePointEntity> referenceLinesSet = CreateEmptyTestDbSet<ReferenceLinePointEntity>();
             DbSet<CalculationGroupEntity> calculationGroupsSet = CreateEmptyTestDbSet<CalculationGroupEntity>();
@@ -97,6 +98,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             ringtoetsEntities.Stub(r => r.PipingStructureSectionResultEntities).Return(pipingStructureSectionResultsSet);
             ringtoetsEntities.Stub(r => r.DuneErosionSectionResultEntities).Return(duneErosionSectionResultsSet);
             ringtoetsEntities.Stub(r => r.StabilityStoneCoverSectionResultEntities).Return(stabilityStoneCoverSectionResultsSet);
+            ringtoetsEntities.Stub(r => r.StrengthStabilityPointConstructionSectionResultEntities).Return(strengthStabilityPointConstructionSectionResultsSet);
             ringtoetsEntities.Stub(r => r.AssessmentSectionEntities).Return(assessmentSectionsSet);
             ringtoetsEntities.Stub(r => r.ReferenceLinePointEntities).Return(referenceLinesSet);
             ringtoetsEntities.Stub(r => r.CalculationGroupEntities).Return(calculationGroupsSet);
