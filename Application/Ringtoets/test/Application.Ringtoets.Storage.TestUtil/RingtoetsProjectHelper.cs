@@ -227,6 +227,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddSections(assessmentSection.WaterPressureAsphaltCover);
             SetSectionResults(assessmentSection.WaterPressureAsphaltCover.SectionResults);
             AddSections(assessmentSection.GrassCoverErosionOutwards);
+            SetSectionResults(assessmentSection.GrassCoverErosionOutwards.SectionResults);
             AddSections(assessmentSection.GrassCoverSlipOffOutwards);
             AddSections(assessmentSection.GrassCoverSlipOffInwards);
             AddSections(assessmentSection.HeightStructures);
@@ -344,6 +345,19 @@ namespace Application.Ringtoets.Storage.TestUtil
             {
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
                 sectionResult.AssessmentLayerTwoA = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
+
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
                 sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
             }
         }

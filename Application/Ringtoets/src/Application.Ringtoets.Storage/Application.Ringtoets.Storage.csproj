@@ -56,6 +56,8 @@
     <Compile Include="Create\CalculationGroupCreateExtensions.cs" />
     <Compile Include="Create\ClosingStructureFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\ClosingStructureFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverErosionOutwardsFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverErosionOutwardsFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\WaveImpactAsphaltCoverFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\MacrostabilityOutwardsFailureMechanismCreateExtensions.cs" />
@@ -204,6 +206,7 @@
     <Compile Include="IStorableExtensions.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentions.cs" />
     <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\GrassCoverErosionOutwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\MacrostabilityInwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\MacrostabilityOutwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\WaveImpactAsphaltCoverSectionResultEntityReadExtensions.cs" />
@@ -264,6 +267,8 @@
     <Compile Include="Update\CalculationGroupUpdateExtensions.cs" />
     <Compile Include="Update\ClosingStructureFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\ClosingStructureFailureMechanismUpdateExtensions.cs" />
+    <Compile Include="Update\GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateExtensions.cs" />
+    <Compile Include="Update\GrassCoverErosionOutwardsFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\MacrostabilityInwardsFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\MacrostabilityInwardsFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\MacrostabilityOutwardsFailureMechanismSectionResultUpdateExtensions.cs" />

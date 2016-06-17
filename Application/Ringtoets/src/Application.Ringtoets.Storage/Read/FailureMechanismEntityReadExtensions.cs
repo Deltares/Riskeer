@@ -302,6 +302,29 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         /// <summary>
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for.</param>
+        /// <param name="failureMechanism"></param>
+        /// <param name="collector">The object keeping track of read operations.</param>
+        internal static void ReadAsGrassCoverErosionOutwardsFailureMechanism(this FailureMechanismEntity entity, GrassCoverErosionOutwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+            entity.ReadGrassCoverErosionOutwardsMechanismSectionResults(failureMechanism, collector);
+        }
+
+        private static void ReadGrassCoverErosionOutwardsMechanismSectionResults(this FailureMechanismEntity entity, GrassCoverErosionOutwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionOutwardsSectionResultEntities))
+            {
+                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+
+                sectionResultEntity.Read(result, collector);
+            }
+        }
+
+        /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="IFailureMechanism"/>.
         /// </summary>
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to read into a <see cref="IFailureMechanism"/>.</param>

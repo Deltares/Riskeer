@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// No assessment for the failure mechanism section has been performed.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), "AssessmentLayerTwoAResult_NotCalculated")]
-        NotCalculated,
+        NotCalculated = 1,
 
         /// <summary>
         /// An assessment for the failure mechanism section was performed and the outcome is 

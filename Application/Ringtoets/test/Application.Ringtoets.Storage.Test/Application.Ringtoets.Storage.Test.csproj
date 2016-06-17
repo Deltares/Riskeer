@@ -84,6 +84,8 @@
     <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructureFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructureFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverErosionOutwardsFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverErosionOutwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\MacrostabilityInwardsFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\MacrostabilityInwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\MacrostabilityOutwardsFailureMechanismCreateExtensionsTest.cs" />
@@ -125,6 +127,7 @@
     <Compile Include="Read\AssessmentSectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentionsTest.cs" />
     <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\GrassCoverErosionOutwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacrostabilityInwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacrostabilityOutwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\WaveImpactAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
@@ -163,6 +166,8 @@
     <Compile Include="Update\CalculationGroupUpdateExtensionsTest.cs" />
     <Compile Include="Update\ClosingStructureFailureMechanismSectionResultUpdateExtensionsTest.cs" />
     <Compile Include="Update\ClosingStructureFailureMechanismUpdateExtensionsTest.cs" />
+    <Compile Include="Update\GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateExtensionsTest.cs" />
+    <Compile Include="Update\GrassCoverErosionOutwardsFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\MacrostabilityInwardsFailureMechanismSectionResultUpdateExtensionsTest.cs" />
     <Compile Include="Update\MacrostabilityInwardsFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\MacrostabilityOutwardsFailureMechanismSectionResultUpdateExtensionsTest.cs" />
