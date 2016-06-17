@@ -28,6 +28,7 @@ using Core.Common.Utils.Reflection;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
 using NUnit.Framework;
+using OxyPlot.Axes;
 using OxyPlot.WindowsForms;
 
 namespace Core.Components.OxyPlot.Forms.Test
@@ -234,6 +235,66 @@ namespace Core.Components.OxyPlot.Forms.Test
             Assert.AreEqual(1, invalidated);
             Assert.AreEqual(1, view.Model.Series.Count);
             Assert.AreNotSame(series[0], view.Model.Series[0]);
+        }
+
+        [Test]
+        [TestCase("Title")]
+        [TestCase("Test")]
+        [TestCase("Label")]
+        public void SetBottomAxisTitle_Always_SetsNewTitleToBottomAxis(string newTitle)
+        {
+            // Setup
+            var form = new Form();
+            var chart = new ChartControl();
+            var view = TypeUtils.GetField<PlotView>(chart, "view");
+
+            form.Show();
+
+            // Call
+            chart.SetBottomAxisTitle(newTitle);
+
+            // Assert
+            Assert.AreEqual(view.Model.Axes.First(a => a.Position == AxisPosition.Bottom).Title, newTitle);
+        }
+
+        [Test]
+        [TestCase("Title")]
+        [TestCase("Test")]
+        [TestCase("Label")]
+        public void SetLeftAxisTitle_Always_SetsNewTitleToLeftAxis(string newTitle)
+        {
+            // Setup
+            var form = new Form();
+            var chart = new ChartControl();
+            var view = TypeUtils.GetField<PlotView>(chart, "view");
+
+            form.Show();
+
+            // Call
+            chart.SetLeftAxisTitle(newTitle);
+
+            // Assert
+            Assert.AreEqual(view.Model.Axes.First(a => a.Position == AxisPosition.Left).Title, newTitle);
+        }
+
+        [Test]
+        [TestCase("Title")]
+        [TestCase("Test")]
+        [TestCase("Label")]
+        public void SetModelTitle_Always_SetsNewTitleToModel(string newTitle)
+        {
+            // Setup
+            var form = new Form();
+            var chart = new ChartControl();
+            var view = TypeUtils.GetField<PlotView>(chart, "view");
+
+            form.Show();
+
+            // Call
+            chart.SetChartTitle(newTitle);
+
+            // Assert
+            Assert.AreEqual(view.Model.Title, newTitle);
         }
     }
 }

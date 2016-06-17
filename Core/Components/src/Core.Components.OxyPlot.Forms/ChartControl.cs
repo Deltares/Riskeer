@@ -154,6 +154,21 @@ namespace Core.Components.OxyPlot.Forms
             DrawSeries();
         }
 
+        public void SetChartTitle(string title)
+        {
+            view.SetModelTitle(title);
+        }
+
+        public void SetBottomAxisTitle(string title)
+        {
+            view.SetBottomAxisTitle(title);
+        }
+
+        public void SetLeftAxisTitle(string title)
+        {
+            view.SetLeftAxisTitle(title);
+        }
+
         #endregion
     }
 }

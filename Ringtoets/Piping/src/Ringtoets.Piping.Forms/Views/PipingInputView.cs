@@ -21,6 +21,8 @@
 
 using System.Windows.Forms;
 using Core.Components.Charting.Forms;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.Views
 {
@@ -29,15 +31,47 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     public partial class PipingInputView : UserControl, IChartView
     {
+        private PipingInput data;
+        private PipingCalculationScenario calculation;
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingInputView"/>.
         /// </summary>
         public PipingInputView()
         {
             InitializeComponent();
+
+            SetChartAxisTitles();
         }
 
-        public object Data { get; set; }
+        /// <summary>
+        /// Gets or sets the calculation the input belongs to.
+        /// </summary>
+        public PipingCalculationScenario Calculation
+        {
+            get
+            {
+                return calculation;
+            }
+            set
+            {
+                calculation = value;
+
+                SetChartTitle();
+            }
+        }
+
+        public object Data
+        {
+            get
+            {
+                return data;
+            }
+            set
+            {
+                data = value as PipingInput;
+            }
+        }
 
         public IChartControl Chart
         {
@@ -45,6 +79,17 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 return chartControl;
             }
+        }
+
+        private void SetChartTitle()
+        {
+            chartControl.SetChartTitle(calculation.Name);
+        }
+
+        private void SetChartAxisTitles()
+        {
+            chartControl.SetBottomAxisTitle(Resources.PipingInputView_Distance_DisplayName);
+            chartControl.SetLeftAxisTitle(Resources.PipingInputView_Height_DisplayName);
         }
     }
 }

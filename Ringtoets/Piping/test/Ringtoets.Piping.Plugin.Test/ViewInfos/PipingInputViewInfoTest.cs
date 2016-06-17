@@ -512,5 +512,32 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             Assert.IsFalse(closeForData);
             mocks.VerifyAll();
         }
+
+        [Test]
+        public void AfterCreate_Always_SetsSpecificPropertiesToView()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            PipingCalculationScenario pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingInputContext context = new PipingInputContext(pipingCalculation.InputParameters, pipingCalculation,
+                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                Enumerable.Empty<StochasticSoilModel>(),
+                                                                new PipingFailureMechanism(),
+                                                                assessmentSection);
+
+            PipingInputView view = new PipingInputView
+            {
+                Data = pipingCalculation.InputParameters
+            };
+
+            // Call
+            info.AfterCreate(view, context);
+
+            // Assert
+            Assert.AreSame(pipingCalculation, view.Calculation);
+            mocks.VerifyAll();
+        }
     }
 }

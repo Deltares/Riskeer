@@ -21,7 +21,9 @@
 
 using System.Windows.Forms;
 using Core.Components.Charting.Forms;
+using Core.Components.OxyPlot.Forms;
 using NUnit.Framework;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Views;
 
 namespace Ringtoets.Piping.Forms.Test.Views
@@ -33,13 +35,69 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void DefaultConstructor_DefaultValues()
         {
             // Call
-            var view = new PipingInputView();
+            PipingInputView view = new PipingInputView();
 
             // Assert
             Assert.IsInstanceOf<UserControl>(view);
             Assert.IsInstanceOf<IChartView>(view);
             Assert.IsNotNull(view.Chart);
             Assert.IsNull(view.Data);
+        }
+
+        [Test]
+        public void DefaultConstructor_Always_AddChartControl()
+        {
+            // Call
+            PipingInputView view = new PipingInputView();
+
+            // Assert
+            Assert.AreEqual(1, view.Controls.Count);
+            ChartControl chartControl = view.Controls[0] as ChartControl;
+            Assert.IsNotNull(chartControl);
+            Assert.AreEqual(DockStyle.Fill, chartControl.Dock);
+            Assert.IsNull(chartControl.Data);            
+        }
+
+        [Test]
+        public void Data_PipingInput_DataSet()
+        {
+            // Setup
+            PipingInput input = new PipingInput(new GeneralPipingInput());
+            PipingInputView view = new PipingInputView();
+
+            // Call
+            view.Data = input;
+
+            // Assert
+            Assert.AreSame(input, view.Data);
+        }
+
+        [Test]
+        public void Data_OtherThanPipingInput_DataNull()
+        {
+            // Setup
+            object input = new object();
+            PipingInputView view = new PipingInputView();
+
+            // Call
+            view.Data = input;
+
+            // Assert
+            Assert.IsNull(view.Data);
+        }
+
+        [Test]
+        public void Calculation_Always_SetsCalculation()
+        {
+            // Setup
+            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingInputView view = new PipingInputView();
+
+            // Call
+            view.Calculation = calculation;
+
+            // Assert
+            Assert.AreSame(calculation, view.Calculation);
         }
     }
 }

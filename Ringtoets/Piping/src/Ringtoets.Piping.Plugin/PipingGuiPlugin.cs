@@ -116,7 +116,11 @@ namespace Ringtoets.Piping.Plugin
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, input) => PipingFormsResources.PipingInputContext_NodeDisplayName,
                 Image = PipingFormsResources.PipingInputIcon,
-                CloseForData = ClosePipingInutViewForData
+                CloseForData = ClosePipingInutViewForData,
+                AfterCreate = (view, context) =>
+                {
+                    view.Calculation = context.PipingCalculation;
+                }
             };
         }
 

@@ -673,4 +673,10 @@
   <data name="PipingContext_DataDescription_PipingCalculationItem" xml:space="preserve">
     <value>De berekening</value>
   </data>
+  <data name="PipingInputView_Distance_DisplayName" xml:space="preserve">
+    <value>Afstand [m]</value>
+  </data>
+  <data name="PipingInputView_Height_DisplayName" xml:space="preserve">
+    <value>Hoogte [m+NAP]</value>
+  </data>
 </root>

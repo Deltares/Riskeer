@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Components.OxyPlot.Forms.Properties;
 using OxyPlot;
@@ -50,6 +51,50 @@ namespace Core.Components.OxyPlot.Forms
             };
 
             Invalidated += OnInvalidated;
+        }
+
+        /// <summary>
+        /// Zooms to a level so that everything is in view.
+        /// </summary>
+        public void ZoomToAll()
+        {
+            ActualModel.ResetAllAxes();
+            InvalidatePlot(false);
+        }
+
+        /// <summary>
+        /// Sets the title of the plot view.
+        /// </summary>
+        /// <param name="title">The title to set.</param>
+        public void SetModelTitle(string title)
+        {
+            Model.Title = title;
+        }
+
+        /// <summary>
+        /// Sets the title of the bottom axis in the view.
+        /// </summary>
+        /// <param name="title">The title to set.</param>
+        public void SetBottomAxisTitle(string title)
+        {
+            var axis = GetAxisOnPosition(AxisPosition.Bottom);
+            if (axis != null)
+            {
+                axis.Title = title;
+            }
+        }
+
+        /// <summary>
+        /// Sets the title of the left axis in the view.
+        /// </summary>
+        /// <param name="title">The title to set.</param>
+        public void SetLeftAxisTitle(string title)
+        {
+            var axis = GetAxisOnPosition(AxisPosition.Left);
+            if (axis != null)
+            {
+                axis.Title = title;
+            }
         }
 
         private void OnInvalidated(object sender, EventArgs e)
@@ -90,13 +135,9 @@ namespace Core.Components.OxyPlot.Forms
             };
         }
 
-        /// <summary>
-        /// Zooms to a level so that everything is in view.
-        /// </summary>
-        public void ZoomToAll()
+        private Axis GetAxisOnPosition(AxisPosition position)
         {
-            ActualModel.ResetAllAxes();
-            InvalidatePlot(false);
+            return Model.Axes.First(a => a.Position == position);
         }
     }
 }

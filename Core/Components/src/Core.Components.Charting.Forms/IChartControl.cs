@@ -57,5 +57,23 @@ namespace Core.Components.Charting.Forms
         /// Zooms to a level so that everything is in view.
         /// </summary>
         void ZoomToAll();
+
+        /// <summary>
+        /// Sets the title of the chart.
+        /// </summary>
+        /// <param name="title">The title to set.</param>
+        void SetChartTitle(string title);
+
+        /// <summary>
+        /// Sets the title of the bottom axis in the view.
+        /// </summary>
+        /// <param name="title">The title to set.</param>
+        void SetBottomAxisTitle(string title);
+
+        /// <summary>
+        /// Sets the title of the left axis in the view.
+        /// </summary>
+        /// <param name="title">The title to set.</param>
+        void SetLeftAxisTitle(string title);
     }
 }

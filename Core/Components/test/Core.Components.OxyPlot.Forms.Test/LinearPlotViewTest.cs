@@ -75,5 +75,62 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Assert
             Assert.AreEqual(1, invalidated);
         }
+
+        [Test]
+        [TestCase("Title")]
+        [TestCase("Test")]
+        [TestCase("Label")]
+        public void SetModelTitle_Always_SetsNewTitleToModel(string newTitle)
+        {
+            // Setup
+            var form = new Form();
+            var view = new LinearPlotView();
+
+            form.Show();
+
+            // Call
+            view.SetModelTitle(newTitle);
+
+            // Assert
+            Assert.AreEqual(view.Model.Title, newTitle);
+        }
+
+        [Test]
+        [TestCase("Title")]
+        [TestCase("Test")]
+        [TestCase("Label")]
+        public void SetBottomAxisTitle_Always_SetsNewTitleToBottomAxis(string newTitle)
+        {
+            // Setup
+            var form = new Form();
+            var view = new LinearPlotView();
+
+            form.Show();
+
+            // Call
+            view.SetBottomAxisTitle(newTitle);
+
+            // Assert
+            Assert.AreEqual(view.Model.Axes.First(a => a.Position == AxisPosition.Bottom).Title, newTitle);
+        }
+
+        [Test]
+        [TestCase("Title")]
+        [TestCase("Test")]
+        [TestCase("Label")]
+        public void SetLeftAxisTitle_Always_SetsNewTitleToLeftAxis(string newTitle)
+        {
+            // Setup
+            var form = new Form();
+            var view = new LinearPlotView();
+
+            form.Show();
+
+            // Call
+            view.SetLeftAxisTitle(newTitle);
+
+            // Assert
+            Assert.AreEqual(view.Model.Axes.First(a => a.Position == AxisPosition.Left).Title, newTitle);
+        }
     }
 }
