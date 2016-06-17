@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles;
 
@@ -30,41 +28,6 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
     [TestFixture]
     public class DikeProfileLocationTest
     {
-        [Test]
-        [TestCase("Id", null, "name", 0.0)]
-        [TestCase("Naam", "id", null, 0.0)]
-        public void Constructor_InitializedWithNullParameter_ThrownArgumentException(string parameterName, string idValue, string nameValue, double x0Value)
-        {
-            // Call
-            TestDelegate call = () => new DikeProfileLocation(idValue, nameValue, x0Value, new Point2D(0.0, 0.0));
-
-            // Assert
-            var expectedMessage = string.Format("Fout bij het aanmaken van een dijk profiel locatie: {0} is ongeldig.", parameterName);
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-        }
-
-        [Test]
-        public void Constructor_InitializedWithNullPoint_ThrownArgumentException()
-        {
-            // Call
-            TestDelegate call = () => new DikeProfileLocation("anID", "aNAME", 0.0, null);
-
-            // Assert
-            var expectedMessage = "Fout bij het aanmaken van een dijk profiel locatie: Punt is ongeldig.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-        }
-
-        [Test]
-        public void Constructor_InitializedWithInvalidX0_ThrownArgumentException()
-        {
-            // Call
-            TestDelegate call = () => new DikeProfileLocation("id", "name", double.NaN, new Point2D(0.0, 0.0));
-
-            // Assert
-            var expectedMessage = "Fout bij het aanmaken van een dijk profiel locatie: X0 is ongeldig.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-        }
-
         [Test]
         public void Constructor_InitializedWithValidValues_CorrectProperties()
         {
@@ -77,6 +40,20 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             Assert.AreEqual("name", dikeProfileLocation.Name);
             Assert.AreEqual(1.1, dikeProfileLocation.X0);
             Assert.AreEqual(referencePoint, dikeProfileLocation.Point);
+        }
+
+        [Test]
+        public void Constructor_InitializedWithValidValues_CorrectPropertyTypes()
+        {
+            // Setup
+            var referencePoint = new Point2D(2.2, 3.3);
+            DikeProfileLocation dikeProfileLocation = new DikeProfileLocation("id", null, 1.1, referencePoint);
+
+            // Assert
+            Assert.IsInstanceOf(typeof(string), dikeProfileLocation.Id);
+            Assert.IsNull(dikeProfileLocation.Name);
+            Assert.IsInstanceOf(typeof(double), dikeProfileLocation.X0);
+            Assert.IsInstanceOf(typeof(Point2D), dikeProfileLocation.Point);
         }
     }
 }

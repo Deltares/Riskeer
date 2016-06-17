@@ -142,15 +142,6 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fout bij het aanmaken van een dijk profiel locatie: Naam is ongeldig..
-        /// </summary>
-        internal static string DikeProfileLocation_Constructor_Invalid_Name {
-            get {
-                return ResourceManager.GetString("DikeProfileLocation_Constructor_Invalid_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Fout bij het aanmaken van een dijk profiel locatie: Punt is ongeldig..
         /// </summary>
         internal static string DikeProfileLocation_Constructor_Invalid_Point {
@@ -169,20 +160,20 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het bestand bevat het attribuut Id met een waarde welke uit meer dan alleen letters en cijfers bestaat..
+        /// </summary>
+        internal static string DikeProfileLocationReader_GetDikeProfileLocations_Illegal_Id {
+            get {
+                return ResourceManager.GetString("DikeProfileLocationReader_GetDikeProfileLocations_Illegal_Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het bestand heeft een attribuut &apos;ID&apos; zonder geldige waarde, welke vereist is om de locaties van de dijkprofielen in te lezen..
         /// </summary>
         internal static string DikeProfileLocationReader_GetDikeProfileLocations_Invalid_Id {
             get {
                 return ResourceManager.GetString("DikeProfileLocationReader_GetDikeProfileLocations_Invalid_Id", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het bestand heeft een attribuut &apos;Naam&apos; zonder geldige waarde, welke vereist is om de locaties van de dijkprofielen in te lezen..
-        /// </summary>
-        internal static string DikeProfileLocationReader_GetDikeProfileLocations_Invalid_Name {
-            get {
-                return ResourceManager.GetString("DikeProfileLocationReader_GetDikeProfileLocations_Invalid_Name", resourceCulture);
             }
         }
         

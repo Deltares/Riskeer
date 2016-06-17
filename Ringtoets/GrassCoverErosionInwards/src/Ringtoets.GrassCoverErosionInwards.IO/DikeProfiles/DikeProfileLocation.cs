@@ -39,23 +39,6 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <param name="pointValue">The actual location.</param>
         public DikeProfileLocation(string idValue, string nameValue, double x0Value, Point2D pointValue)
         {
-            if (idValue == null)
-            {
-                throw new ArgumentException(Resources.DikeProfileLocation_Constructor_Invalid_Id);
-            }
-            if (nameValue == null)
-            {
-                throw new ArgumentException(Resources.DikeProfileLocation_Constructor_Invalid_Name);
-            }
-            if (double.IsNaN(x0Value))
-            {
-                throw new ArgumentException(Resources.DikeProfileLocation_Constructor_Invalid_X0);
-            }
-            if (pointValue == null)
-            {
-                throw new ArgumentException(Resources.DikeProfileLocation_Constructor_Invalid_Point);
-            }
-
             Id = idValue;
             Name = nameValue;
             X0 = x0Value;

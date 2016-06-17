@@ -75,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// </summary>
         /// <param name="shapeFilePath">Filepath of the shapefile containing dike locations.</param>
         /// <exception cref="CriticalFileReadException">Shapefile does not only contain point features.</exception>
-        /// <returns></returns>
+        /// <returns>Return an instance of <see cref="PointShapeFileReader"/>.</returns>
         private PointShapeFileReader OpenPointsShapeFile(string shapeFilePath)
         {
             try
@@ -91,13 +91,16 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         }
 
         /// <summary>
-        /// Get the number of point features in the shapefile.
+        /// Retrieve a <see cref="DikeProfileLocation"/> for each point feature in the shapefile.
         /// </summary>
-        /// <exception cref="CriticalFileReadException">Shapefile does not contain the required attributes.</exception>
-        /// <returns></returns>
-        private int GetDikeProfileLocationCount()
+        /// <exception cref="CriticalFileReadException">Shapefile does not contain the required attributes, 
+        /// or misses values for required attributes, or an attribute's type is incorrect.</exception>
+        /// <returns>A <see cref="List{T}"/> of <see cref="DikeProfileLocation"/> objects.</returns>
+        public IList<DikeProfileLocation> GetDikeProfileLocations()
         {
-            foreach (string attribute in new[]{"ID", "Naam", "X0"})
+            List<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
+
+            foreach (string attribute in new[] { "ID", "Naam", "X0" })
             {
                 if (!pointsShapeFileReader.HasAttribute(attribute))
                 {
@@ -105,19 +108,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                         string.Format("Het bestand heeft geen attribuut '{0}' welke vereist is om de locaties van de dijkprofielen in te lezen.", attribute));
                 }
             }
-            return pointsShapeFileReader.GetNumberOfLines();
-        }
 
-        /// <summary>
-        /// Retrieve a <see cref="DikeProfileLocation"/> for each point feature in the shapefile.
-        /// </summary>
-        /// <exception cref="CriticalFileReadException">Shapefile does not contain values for all required attributes.</exception>
-        /// <returns>A <see cref="List{T}"/> of <see cref="DikeProfileLocation"/> objects.</returns>
-        public IList<DikeProfileLocation> GetDikeProfileLocations()
-        {
-            List<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
-
-            int dikeProfileLocationCount = GetDikeProfileLocationCount();
+            int dikeProfileLocationCount = pointsShapeFileReader.GetNumberOfLines();
             for (int i = 0; i < dikeProfileLocationCount; i++)
             {
                 MapPointData mapPointData = (MapPointData)pointsShapeFileReader.ReadLine();
@@ -125,16 +117,16 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                 IDictionary<string, object> attributes = mapPointData.Features.First().MetaData;
 
                 var attributeIdValue = attributes["ID"] as string;
-                if (string.IsNullOrWhiteSpace(attributeIdValue))
+                if (attributeIdValue == null)
                 {
                     throw new CriticalFileReadException(GrasCoverErosionInwardsIoResources.DikeProfileLocationReader_GetDikeProfileLocations_Invalid_Id);
                 }
+                if (!attributeIdValue.All(char.IsLetterOrDigit))
+                {
+                    throw new CriticalFileReadException(GrasCoverErosionInwardsIoResources.DikeProfileLocationReader_GetDikeProfileLocations_Illegal_Id);
+                }
 
                 var attributeNameValue = attributes["Naam"] as string;
-                if (string.IsNullOrWhiteSpace(attributeNameValue))
-                {
-                    throw new CriticalFileReadException(GrasCoverErosionInwardsIoResources.DikeProfileLocationReader_GetDikeProfileLocations_Invalid_Name);
-                }
 
                 var attributeX0Value = attributes["X0"] as double?;
                 if (attributeX0Value == null)

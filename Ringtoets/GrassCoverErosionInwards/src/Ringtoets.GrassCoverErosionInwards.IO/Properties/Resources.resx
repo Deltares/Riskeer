@@ -123,9 +123,6 @@
   <data name="DikeProfileLocation_Constructor_Invalid_Id" xml:space="preserve">
     <value>Fout bij het aanmaken van een dijk profiel locatie: Id is ongeldig.</value>
   </data>
-  <data name="DikeProfileLocation_Constructor_Invalid_Name" xml:space="preserve">
-    <value>Fout bij het aanmaken van een dijk profiel locatie: Naam is ongeldig.</value>
-  </data>
   <data name="DikeProfileLocation_Constructor_Invalid_Point" xml:space="preserve">
     <value>Fout bij het aanmaken van een dijk profiel locatie: Punt is ongeldig.</value>
   </data>
@@ -135,11 +132,11 @@
   <data name="DikeProfileLocationReader_GetDikeProfileLocations_Invalid_Id" xml:space="preserve">
     <value>Het bestand heeft een attribuut 'ID' zonder geldige waarde, welke vereist is om de locaties van de dijkprofielen in te lezen.</value>
   </data>
-  <data name="DikeProfileLocationReader_GetDikeProfileLocations_Invalid_Name" xml:space="preserve">
-    <value>Het bestand heeft een attribuut 'Naam' zonder geldige waarde, welke vereist is om de locaties van de dijkprofielen in te lezen.</value>
-  </data>
   <data name="DikeProfileLocationReader_GetDikeProfileLocations_Invalid_X0" xml:space="preserve">
     <value>Het bestand heeft een attribuut 'X0' zonder geldige waarde, welke vereist is om de locaties van de dijkprofielen in te lezen.</value>
+  </data>
+  <data name="DikeProfileLocationReader_GetDikeProfileLocations_Illegal_Id" xml:space="preserve">
+    <value>Het bestand bevat het attribuut Id met een waarde welke uit meer dan alleen letters en cijfers bestaat.</value>
   </data>
   <data name="DikeProfileDataReader_ReadDikeProfileData_DamType_0_must_be_in_range" xml:space="preserve">
     <value>De ingelezen dam-type waarde ({0}) moet binnen het bereik [0, 3] vallen.</value>
