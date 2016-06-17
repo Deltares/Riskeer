@@ -60,7 +60,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
         public virtual DbSet<FailureMechanismSectionPointEntity> FailureMechanismSectionPointEntities { get; set; }
         public virtual DbSet<GrassCoverErosionInwardsSectionResultEntity> GrassCoverErosionInwardsSectionResultEntities { get; set; }
-        public virtual DbSet<GrassCoverErosionOutwardsSectionResultEntity> GrassCoverErosionOutwardsSectionResultEntities { get; set; }
         public virtual DbSet<GrassCoverSlipOffInwardsSectionResultEntity> GrassCoverSlipOffInwardsSectionResultEntities { get; set; }
         public virtual DbSet<GrassCoverSlipOffOutwardsSectionResultEntity> GrassCoverSlipOffOutwardsSectionResultEntities { get; set; }
         public virtual DbSet<HeightStructuresSectionResultEntity> HeightStructuresSectionResultEntities { get; set; }
