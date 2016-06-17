@@ -20,12 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Data;
 using System.IO;
 using System.Linq;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using DotSpatial.Data;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
@@ -110,6 +112,17 @@ namespace Core.Components.Gis.IO.Readers
             if (ShapeFile != null)
             {
                 ShapeFile.Close();
+            }
+        }
+
+        protected void CopyMetaDataIntoFeature(MapFeature targetFeature, int sourceFeatureIndex)
+        {
+            DataTable table = ShapeFile.GetAttributes(sourceFeatureIndex, 1);
+            DataRow dataRow = table.Rows[0];
+
+            for (int i = 0; i < table.Columns.Count; i++)
+            {
+                targetFeature.MetaData[table.Columns[i].ColumnName] = dataRow[i];
             }
         }
     }
