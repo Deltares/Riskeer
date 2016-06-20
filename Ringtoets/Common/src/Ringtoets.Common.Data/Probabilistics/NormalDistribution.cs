@@ -67,11 +67,14 @@ namespace Ringtoets.Common.Data.Probabilistics
             }
             set
             {
-                if (value < 0)
+                var roundedValue = value.ToPrecision(standardDeviation.NumberOfDecimalPlaces);
+
+                if (roundedValue < 0)
                 {
                     throw new ArgumentOutOfRangeException("value", Resources.StandardDeviation_Should_be_greater_than_or_equal_to_zero);
                 }
-                standardDeviation = value.ToPrecision(standardDeviation.NumberOfDecimalPlaces);
+
+                standardDeviation = roundedValue;
             }
         }
     }

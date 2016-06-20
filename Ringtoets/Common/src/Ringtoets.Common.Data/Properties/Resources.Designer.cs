@@ -134,7 +134,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de toegestane bijdrage aan faalkans moet in interval [0, 100] liggen..
+        ///   Looks up a localized string similar to De waarde voor de toegestane bijdrage aan de faalkans moet in interval [0, 100] liggen..
         /// </summary>
         public static string Contribution_Value_should_be_in_interval_0_100 {
             get {

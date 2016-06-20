@@ -48,55 +48,52 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         }
 
         [Test]
-        [TestCase(0, 1.0)]
-        [TestCase(3, 1.235)]
-        [TestCase(4, 1.2345)]
-        [TestCase(15, 1.234500000000000)]
-        public void Mean_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(int numberOfDecimalPlaces, double expectedStandardDeviation)
+        public void Mean_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces()
         {
             // Setup
+            var value = 1.23456789;
+            var numberOfDecimalPlaces = 4;
             var distribution = new NormalDistribution(numberOfDecimalPlaces);
 
             // Call
-            distribution.Mean = new RoundedDouble(4, 1.2345);
+            distribution.Mean = (RoundedDouble) value;
 
             // Assert
             Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(expectedStandardDeviation, distribution.Mean.Value);
+            Assert.AreEqual(new RoundedDouble(numberOfDecimalPlaces, value), distribution.Mean);
         }
 
         [Test]
-        [TestCase(0 - 1e-2)]
+        [TestCase(1.23456789)]
+        [TestCase(0 - 1e-3, "Valid standard deviation due to rounding to 0.0")]
+        public void StandardDeviation_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(double standardDeviation)
+        {
+            // Setup
+            var numberOfDecimalPlaces = 2;
+            var distribution = new NormalDistribution(numberOfDecimalPlaces);
+
+            // Call
+            distribution.StandardDeviation = (RoundedDouble) standardDeviation;
+
+            // Assert
+            Assert.AreEqual(numberOfDecimalPlaces, distribution.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(new RoundedDouble(numberOfDecimalPlaces, standardDeviation), distribution.StandardDeviation);
+        }
+
+        [Test]
         [TestCase(-4)]
-        public void StandardDeviation_SettingToLessThan0_ThrowArgumentOutOfRangeException(double newStd)
+        [TestCase(0 - 1e-2)]
+        public void StandardDeviation_SettingToLessThan0_ThrowArgumentOutOfRangeException(double standardDeviation)
         {
             // Setup
             var distribution = new NormalDistribution(2);
 
             // Call
-            TestDelegate call = () => distribution.StandardDeviation = (RoundedDouble) newStd;
+            TestDelegate call = () => distribution.StandardDeviation = (RoundedDouble) standardDeviation;
 
             // Assert
             const string expectedMessage = "Standaard afwijking (\u03C3) moet groter zijn dan of gelijk zijn aan 0.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-        }
-
-        [Test]
-        [TestCase(0, 6.0)]
-        [TestCase(2, 5.68)]
-        [TestCase(3, 5.678)]
-        [TestCase(15, 5.678000000000000)]
-        public void StandardDeviation_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(int numberOfDecimalPlaces, double expectedStandardDeviation)
-        {
-            // Setup
-            var distribution = new NormalDistribution(numberOfDecimalPlaces);
-
-            // Call
-            distribution.StandardDeviation = new RoundedDouble(3, 5.678);
-
-            // Assert
-            Assert.AreEqual(numberOfDecimalPlaces, distribution.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(expectedStandardDeviation, distribution.StandardDeviation.Value);
         }
     }
 }

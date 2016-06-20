@@ -70,34 +70,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void Orientation_SetToValueWithTooManyDecimalPlaces_ValueIsRounded()
+        [TestCase(123.456789)]
+        [TestCase(-1e-3, "Valid orientation due to rounding to 0.0")]
+        [TestCase(360 + 1e-3, "Valid orientation due to rounding to 360.0")]
+        public void Orientation_SetValue_GetValueRoundedToGivenNumberOfDecimalPlaces(double orientation)
         {
             // Setup
             var dikeProfile = new DikeProfile(new Point2D(0, 0));
-
-            int originalNumberOfDecimalPlaces = dikeProfile.Orientation.NumberOfDecimalPlaces;
-
-            // Call
-            dikeProfile.Orientation = new RoundedDouble(5, 1.23456);
-
-            // Assert
-            Assert.AreEqual(originalNumberOfDecimalPlaces, dikeProfile.Orientation.NumberOfDecimalPlaces);
-            Assert.AreEqual(1.23, dikeProfile.Orientation.Value);
-        }
-
-        [Test]
-        [TestCase(-1e-3, 0.0)]
-        [TestCase(360 + 1e-3, 360.0)]
-        public void Orientation_SetValueThatIsNoLongerIllegalAfterRounding_RoundedValueIsSet(double newValue, double expectedRoundedValue)
-        {
-            // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0));
+            var orignalNumberOfDecimals = dikeProfile.Orientation.NumberOfDecimalPlaces;
 
             // Call
-            dikeProfile.Orientation = (RoundedDouble) newValue;
+            dikeProfile.Orientation = (RoundedDouble) orientation;
 
             // Assert
-            Assert.AreEqual(expectedRoundedValue, dikeProfile.Orientation.Value);
+            Assert.AreEqual(orignalNumberOfDecimals, dikeProfile.Orientation.NumberOfDecimalPlaces);
+            Assert.AreEqual(new RoundedDouble(orignalNumberOfDecimals, orientation), dikeProfile.Orientation);
         }
 
         [Test]

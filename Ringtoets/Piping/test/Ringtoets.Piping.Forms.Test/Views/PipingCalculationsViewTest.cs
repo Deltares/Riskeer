@@ -434,7 +434,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [TestCase("1e+6", contributionColumnIndex)]
         [TestCase("14.3", contributionColumnIndex)]
         [TestCase("1", dampingFactorExitMeanColumnIndex)]
-        [TestCase("1e-6", dampingFactorExitMeanColumnIndex)]
+        [TestCase("1e-2", dampingFactorExitMeanColumnIndex)]
         [TestCase("1e+6", dampingFactorExitMeanColumnIndex)]
         [TestCase("14.3", dampingFactorExitMeanColumnIndex)]
         [TestCase("1", phreaticLevelExitMeanColumnIndex)]
