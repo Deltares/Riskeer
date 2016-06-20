@@ -54,6 +54,7 @@
     <Compile Include="GeneralGrassCoverErosionInwardsInputTest.cs" />
     <Compile Include="GrassCoverErosionInwardsFailureMechanismSectionResultTest.cs" />
     <Compile Include="ProfileSectionTest.cs" />
+    <Compile Include="RoughnessPointTest.cs" />
     <Compile Include="RoughnessProfileSectionTest.cs" />
     <Compile Include="GrassCoverErosionInwardsCalculationTest.cs" />
     <Compile Include="GrassCoverErosionInwardsFailureMechanismTest.cs" />
