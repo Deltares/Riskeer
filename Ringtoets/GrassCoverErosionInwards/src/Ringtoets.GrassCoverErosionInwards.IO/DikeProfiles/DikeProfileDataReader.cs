@@ -161,9 +161,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                             readParameters |= ParametersFoundInFile.DIJK;
                             continue;
                         }
-                        data.DikeGeometry = new RoughnessProfileSection[numberOfElements - 1];
+                        data.DikeGeometry = new RoughnessPoint[numberOfElements];
 
-                        double previousLocalX = 0, previousLocalZ = 0, previousRoughness = 0;
                         for (int i = 0; i < numberOfElements; i++)
                         {
                             lineNumber++;
@@ -181,13 +180,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                                                                roughness);
                                 throw CreateCriticalFileReadException(lineNumber, message);
                             }
-                            if (i > 0)
-                            {
-                                data.DikeGeometry[i - 1] = new RoughnessProfileSection(new Point2D(previousLocalX, previousLocalZ), new Point2D(localX, localZ), previousRoughness);
-                            }
-                            previousLocalX = localX;
-                            previousLocalZ = localZ;
-                            previousRoughness = roughness;
+                            data.DikeGeometry[i] = new RoughnessPoint(new Point2D(localX, localZ), roughness);
                         }
                         readParameters |= ParametersFoundInFile.DIJK;
                         continue;
@@ -209,8 +202,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                             readParameters |= ParametersFoundInFile.VOORLAND;
                             continue;
                         }
-                        data.ForeshoreGeometry = new RoughnessProfileSection[numberOfElements - 1];
-                        double previousLocalX = 0, previousLocalZ = 0, previousRoughness = 0;
+                        data.ForeshoreGeometry = new RoughnessPoint[numberOfElements];
                         for (int i = 0; i < numberOfElements; i++)
                         {
                             lineNumber++;
@@ -228,13 +220,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                                                                roughness);
                                 throw CreateCriticalFileReadException(lineNumber, message);
                             }
-                            if (i > 0)
-                            {
-                                data.ForeshoreGeometry[i - 1] = new RoughnessProfileSection(new Point2D(previousLocalX, previousLocalZ), new Point2D(localX, localZ), previousRoughness);
-                            }
-                            previousLocalX = localX;
-                            previousLocalZ = localZ;
-                            previousRoughness = roughness;
+                            data.ForeshoreGeometry[i] = new RoughnessPoint(new Point2D(localX, localZ), roughness);
                         }
                         readParameters |= ParametersFoundInFile.VOORLAND;
                         continue;

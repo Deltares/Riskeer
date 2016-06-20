@@ -159,8 +159,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
             var newValue = new[]
             {
-                new RoughnessProfileSection(new Point2D(0, 0), new Point2D(1, 1), 1.0),
-                new RoughnessProfileSection(new Point2D(1, 1), new Point2D(3, 3), 0.9),
+                new RoughnessPoint(new Point2D(0, 0), 1.0), 
+                new RoughnessPoint(new Point2D(1, 1), 0.9)
             };
 
             // Call
@@ -178,8 +178,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
             var newValue = new[]
             {
-                new RoughnessProfileSection(new Point2D(0, 0), new Point2D(1, 1), 1.0),
-                new RoughnessProfileSection(new Point2D(1, 1), new Point2D(3, 3), 0.9),
+                new RoughnessPoint(new Point2D(1, 1), 1.0), 
+                new RoughnessPoint(new Point2D(3, 3), 0.9)
             };
 
             // Call

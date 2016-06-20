@@ -36,8 +36,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
             Orientation = double.NaN;
             DamHeight = double.NaN;
             CrestLevel = double.NaN;
-            ForeshoreGeometry = new RoughnessProfileSection[0];
-            DikeGeometry = new RoughnessProfileSection[0];
+            ForeshoreGeometry = new RoughnessPoint[0];
+            DikeGeometry = new RoughnessPoint[0];
         }
 
         /// <summary>
@@ -79,12 +79,12 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// Gets or sets the foreshore geometry in local coordinates with their respective
         /// roughness values.
         /// </summary>
-        public RoughnessProfileSection[] ForeshoreGeometry { get; set; }
+        public RoughnessPoint[] ForeshoreGeometry { get; set; }
 
         /// <summary>
         /// Gets or sets the dike geometry in local coordinates with their respective
         /// roughness values.
         /// </summary>
-        public RoughnessProfileSection[] DikeGeometry { get; set; }
+        public RoughnessPoint[] DikeGeometry { get; set; }
     }
 }
