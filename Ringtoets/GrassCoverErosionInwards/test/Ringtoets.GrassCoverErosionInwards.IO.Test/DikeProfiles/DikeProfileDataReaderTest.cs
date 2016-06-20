@@ -136,9 +136,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             Assert.AreEqual(6.0, result.CrestLevel);
             Assert.AreEqual(2, result.DikeGeometry.Length);
             Assert.AreEqual(new Point2D(0.0, 0.0), result.DikeGeometry[0].Point);
-            Assert.AreEqual(1.0, result.DikeGeometry[0].Roughness);
+            Assert.AreEqual(1.0, result.DikeGeometry[0].Roughness.Value);
             Assert.AreEqual(new Point2D(18.0, 6.0), result.DikeGeometry[1].Point);
-            Assert.AreEqual(1.0, result.DikeGeometry[1].Roughness);
+            Assert.AreEqual(1.0, result.DikeGeometry[1].Roughness.Value);
             var expectedMemo =
                 "Verkenning prfl format:" + Environment.NewLine +
                 "Basis:" + Environment.NewLine +
@@ -168,22 +168,22 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             Assert.AreEqual(0.5, result.DamHeight);
             Assert.AreEqual(3, result.ForeshoreGeometry.Length);
             Assert.AreEqual(new Point2D(-150.0, -9.0), result.ForeshoreGeometry[0].Point);
-            Assert.AreEqual(1.0, result.ForeshoreGeometry[0].Roughness);
+            Assert.AreEqual(1.0, result.ForeshoreGeometry[0].Roughness.Value);
             Assert.AreEqual(new Point2D(-100.0, -6.0), result.ForeshoreGeometry[1].Point);
-            Assert.AreEqual(1.0, result.ForeshoreGeometry[1].Roughness);
+            Assert.AreEqual(1.0, result.ForeshoreGeometry[1].Roughness.Value);
             Assert.AreEqual(new Point2D(-18.0, -6.0), result.ForeshoreGeometry[2].Point);
-            Assert.AreEqual(1.0, result.ForeshoreGeometry[2].Roughness);
+            Assert.AreEqual(1.0, result.ForeshoreGeometry[2].Roughness.Value);
 
             Assert.AreEqual(6.0, result.CrestLevel);
             Assert.AreEqual(4, result.DikeGeometry.Length);
             Assert.AreEqual(new Point2D(-18.0, -6.0), result.DikeGeometry[0].Point);
-            Assert.AreEqual(1.0, result.DikeGeometry[0].Roughness);
+            Assert.AreEqual(1.0, result.DikeGeometry[0].Roughness.Value);
             Assert.AreEqual(new Point2D(-2.0, -0.1), result.DikeGeometry[1].Point);
-            Assert.AreEqual(0.5, result.DikeGeometry[1].Roughness);
+            Assert.AreEqual(0.5, result.DikeGeometry[1].Roughness.Value);
             Assert.AreEqual(new Point2D(2.0, 0.1), result.DikeGeometry[2].Point);
-            Assert.AreEqual(1.0, result.DikeGeometry[2].Roughness);
+            Assert.AreEqual(1.0, result.DikeGeometry[2].Roughness.Value);
             Assert.AreEqual(new Point2D(18.0, 6.0), result.DikeGeometry[3].Point);
-            Assert.AreEqual(1.0, result.DikeGeometry[3].Roughness);
+            Assert.AreEqual(1.0, result.DikeGeometry[3].Roughness.Value);
             var expectedMemo =
                 "Verkenning prfl format:" + Environment.NewLine +
                 "geen dam" + Environment.NewLine +
