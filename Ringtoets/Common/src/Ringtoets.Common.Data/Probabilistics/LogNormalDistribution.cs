@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Data.Probabilistics
             }
             set
             {
-                var roundedValue = value.ToPrecision(mean.NumberOfDecimalPlaces);
+                RoundedDouble roundedValue = value.ToPrecision(mean.NumberOfDecimalPlaces);
 
                 if (roundedValue <= 0)
                 {
@@ -85,7 +85,7 @@ namespace Ringtoets.Common.Data.Probabilistics
             }
             set
             {
-                var roundedValue = value.ToPrecision(standardDeviation.NumberOfDecimalPlaces);
+                RoundedDouble roundedValue = value.ToPrecision(standardDeviation.NumberOfDecimalPlaces);
 
                 if (roundedValue < 0)
                 {

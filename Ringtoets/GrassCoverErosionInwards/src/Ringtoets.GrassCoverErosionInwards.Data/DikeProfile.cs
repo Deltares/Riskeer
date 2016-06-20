@@ -73,7 +73,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
             set
             {
-                var roundedValue = value.ToPrecision(orientation.NumberOfDecimalPlaces);
+                RoundedDouble roundedValue = value.ToPrecision(orientation.NumberOfDecimalPlaces);
 
                 if (roundedValue < 0.0 || roundedValue > 360.0)
                 {

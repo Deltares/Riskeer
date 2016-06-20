@@ -98,7 +98,7 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                var roundedValue = value.ToPrecision(entryPointL.NumberOfDecimalPlaces);
+                RoundedDouble roundedValue = value.ToPrecision(entryPointL.NumberOfDecimalPlaces);
 
                 if (roundedValue < 0.0)
                 {
@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                var roundedValue = value.ToPrecision(exitPointL.NumberOfDecimalPlaces);
+                RoundedDouble roundedValue = value.ToPrecision(exitPointL.NumberOfDecimalPlaces);
 
                 if (roundedValue <= 0.0)
                 {

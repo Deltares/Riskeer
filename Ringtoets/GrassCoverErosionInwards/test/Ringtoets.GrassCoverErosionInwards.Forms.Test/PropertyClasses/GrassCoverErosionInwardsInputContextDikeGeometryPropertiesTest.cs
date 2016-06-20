@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var expectedRoughness = new[]
             {
-                new RoundedDouble(2, 1.1)
+                new RoundedDouble(2, 0.6)
             };
             CollectionAssert.AreEqual(expectedRoughness, properties.Roughnesses);
             mockRepository.VerifyAll();

@@ -58,7 +58,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return DikeGeometryHelper.GetRoughnesses(data.WrappedData.DikeGeometry).ToArray();
+                return DikeGeometryHelper.GetRoughnesses(data.WrappedData.DikeGeometry);
             }
         }
 

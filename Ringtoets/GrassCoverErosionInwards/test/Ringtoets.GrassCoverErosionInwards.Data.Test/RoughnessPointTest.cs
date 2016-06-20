@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
@@ -29,18 +31,39 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
     public class RoughnessPointTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        [TestCase(0.567896)]
+        [TestCase(0.5 - 1.0e-3, Description = "Valid roughness due to rounding to 0.5")]
+        [TestCase(1.0 + 1.0e-3, Description = "Valid roughness due to rounding to 1.0")]
+        public void Constructor_ValidRoughness_ExpectedValues(double roughness)
         {
             // Setup
             var point = new Point2D(1.1, 2.2);
-            const double roughness = 5.5;
 
             // Call
             var roughnessPoint = new RoughnessPoint(point, roughness);
 
             // Assert
             Assert.AreEqual(point, roughnessPoint.Point);
-            Assert.AreEqual(roughness, roughnessPoint.Roughness);
+            var numberOfDecimalPlaces = roughnessPoint.Roughness.NumberOfDecimalPlaces;
+            Assert.AreEqual(2, numberOfDecimalPlaces);
+            Assert.AreEqual(new RoundedDouble(numberOfDecimalPlaces, roughness), roughnessPoint.Roughness);
+        }
+
+        [Test]
+        [TestCase(0.5 - 1.0e-2)]
+        [TestCase(1.0 + 1.0e-2)]
+        public void Constructor_IllegalRoughness_ThrowsArgumentOutOfRangeException(double roughness)
+        {
+            // Setup
+            var point = new Point2D(1.1, 2.2);
+
+            // Call
+            TestDelegate call = () => new RoughnessPoint(point, roughness);
+
+            // Assert
+            string expectedMessage = String.Format("De ruwheid waarde {0} moet in het interval [0.5, 1.0] liggen.",
+                                                   new RoundedDouble(2, roughness));
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]

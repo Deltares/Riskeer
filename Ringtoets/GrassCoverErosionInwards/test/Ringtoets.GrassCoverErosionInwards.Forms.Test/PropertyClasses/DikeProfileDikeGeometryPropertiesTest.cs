@@ -67,8 +67,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             {
                 DikeGeometry =
                 {
-                    new RoughnessPoint(new Point2D(0, 0), 2),
-                    new RoughnessPoint(new Point2D(1, 1), double.NaN)
+                    new RoughnessPoint(new Point2D(0, 0), 0.6),
+                    new RoughnessPoint(new Point2D(1, 1), 0.7)
                 }
             };
 
@@ -87,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var expectedRoughness = new[]
             {
-                new RoundedDouble(2, 2)
+                new RoundedDouble(2, 0.6)
             };
             CollectionAssert.AreEqual(expectedRoughness, properties.Roughnesses);
         }

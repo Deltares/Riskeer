@@ -35,19 +35,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         /// This method returns the roughnesses of a dike geometry.
         /// </summary>
         /// <param name="roughnessPoints">The roughness points that represent the dike geometry.</param>
-        /// <returns>An enumerator for a collection of roughnesses.</returns>
-        public static IEnumerable<RoundedDouble> GetRoughnesses(IEnumerable<RoughnessPoint> roughnessPoints)
+        /// <returns>An array of roughnesses.</returns>
+        public static RoundedDouble[] GetRoughnesses(IEnumerable<RoughnessPoint> roughnessPoints)
         {
-            var lastPoint = roughnessPoints.LastOrDefault();
-            if (lastPoint != null)
-            {
-                return roughnessPoints
-                           .TakeWhile(rp => !ReferenceEquals(rp, lastPoint))
-                           .Select(rp => new RoundedDouble(2, rp.Roughness))
-                           .ToArray();
-            }
+            RoughnessPoint[] pointArray = roughnessPoints.ToArray();
 
-            return new RoundedDouble[0];
+            return pointArray.Length > 1
+                       ? pointArray.Take(pointArray.Length - 1)
+                                   .Select(p => p.Roughness)
+                                   .ToArray()
+                       : new RoundedDouble[0];
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var dikeGeometry = new List<RoughnessPoint>();
 
             // Call
-            var roughnesses = DikeGeometryHelper.GetRoughnesses(dikeGeometry);
+            RoundedDouble[] roughnesses = DikeGeometryHelper.GetRoughnesses(dikeGeometry);
 
             // Assert
             CollectionAssert.IsEmpty(roughnesses);
@@ -50,11 +50,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             var dikeGeometry = new List<RoughnessPoint>
             {
-                new RoughnessPoint(new Point2D(1.1, 2.2), 3.3)
+                new RoughnessPoint(new Point2D(1.1, 2.2), 0.6)
             };
 
             // Call
-            var roughnesses = DikeGeometryHelper.GetRoughnesses(dikeGeometry);
+            RoundedDouble[] roughnesses = DikeGeometryHelper.GetRoughnesses(dikeGeometry);
 
             // Assert
             CollectionAssert.IsEmpty(roughnesses);
@@ -66,16 +66,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             var dikeGeometry = new List<RoughnessPoint>
             {
-                new RoughnessPoint(new Point2D(1.1, 2.2), 3.3),
-                new RoughnessPoint(new Point2D(4.4, 5.5), 6.6),
-                new RoughnessPoint(new Point2D(7.7, 8.8), 9.9)
+                new RoughnessPoint(new Point2D(1.1, 2.2), 0.6),
+                new RoughnessPoint(new Point2D(3.3, 4.4), 0.7),
+                new RoughnessPoint(new Point2D(5.5, 6.6), 0.8)
             };
 
             // Call
-            var roughnesses = DikeGeometryHelper.GetRoughnesses(dikeGeometry);
+            RoundedDouble[] roughnesses = DikeGeometryHelper.GetRoughnesses(dikeGeometry);
 
             // Assert
-            CollectionAssert.AreEqual(new[] { new RoundedDouble(2, 3.3), new RoundedDouble(2, 6.6) }, roughnesses);
+            CollectionAssert.AreEqual(new[]
+            {
+                new RoundedDouble(2, 0.6),
+                new RoundedDouble(2, 0.7)
+            }, roughnesses);
         }
     }
 }
