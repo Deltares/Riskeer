@@ -51,9 +51,11 @@ namespace Application.Ringtoets.Storage.Test.Create
         )
         {
             // Setup
-            var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(new TestFailureMechanismSection());
-            sectionResult.AssessmentLayerOne = assessmentLayerOneResult;
-            sectionResult.AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult;
+            var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                AssessmentLayerOne = assessmentLayerOneResult,
+                AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
+            };
 
             // Call
             var result = sectionResult.Create(new PersistenceRegistry());
@@ -67,8 +69,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(new TestFailureMechanismSection());
-            sectionResult.AssessmentLayerThree = (RoundedDouble) double.NaN;
+            var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                AssessmentLayerThree = (RoundedDouble) double.NaN
+            };
 
             // Call
             var result = sectionResult.Create(new PersistenceRegistry());

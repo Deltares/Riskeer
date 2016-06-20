@@ -52,9 +52,11 @@ namespace Application.Ringtoets.Storage.Test.Create
         )
         {
             // Setup
-            var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection());
-            sectionResult.AssessmentLayerTwoA = (RoundedDouble) assessmentLayerTwoAResult;
-            sectionResult.AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult;
+            var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                AssessmentLayerTwoA = (RoundedDouble) assessmentLayerTwoAResult,
+                AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
+            };
 
             // Call
             var result = sectionResult.Create(new PersistenceRegistry());
@@ -68,8 +70,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithNaNLevel2aResult_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection());
-            sectionResult.AssessmentLayerTwoA = (RoundedDouble)double.NaN;
+            var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                AssessmentLayerTwoA = (RoundedDouble) double.NaN
+            };
 
             // Call
             var result = sectionResult.Create(new PersistenceRegistry());
@@ -82,8 +86,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection());
-            sectionResult.AssessmentLayerThree = (RoundedDouble) double.NaN;
+            var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                AssessmentLayerThree = (RoundedDouble) double.NaN
+            };
 
             // Call
             var result = sectionResult.Create(new PersistenceRegistry());

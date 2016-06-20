@@ -53,10 +53,12 @@ namespace Application.Ringtoets.Storage.Test.Create
         )
         {
             // Setup
-            var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
-            sectionResult.AssessmentLayerOne = assessmentLayerOneResult;
-            sectionResult.AssessmentLayerTwoA = assessmentLayerTwoAResult;
-            sectionResult.AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult;
+            var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                AssessmentLayerOne = assessmentLayerOneResult,
+                AssessmentLayerTwoA = assessmentLayerTwoAResult,
+                AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
+            };
 
             // Call
             var result = sectionResult.Create(new PersistenceRegistry());
@@ -71,8 +73,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
-            sectionResult.AssessmentLayerThree = (RoundedDouble) double.NaN;
+            var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                AssessmentLayerThree = (RoundedDouble) double.NaN
+            };
 
             // Call
             var result = sectionResult.Create(new PersistenceRegistry());

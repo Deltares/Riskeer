@@ -51,9 +51,11 @@ namespace Application.Ringtoets.Storage.Test.Create
         )
         {
             // Setup
-            var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection());
-            sectionResult.AssessmentLayerOne = assessmentLayerOneResult;
-            sectionResult.AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult;
+            var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                AssessmentLayerOne = assessmentLayerOneResult,
+                AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
+            };
 
             // Call
             var result = sectionResult.Create(new PersistenceRegistry());
@@ -67,8 +69,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection());
-            sectionResult.AssessmentLayerThree = (RoundedDouble) double.NaN;
+            var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                AssessmentLayerThree = (RoundedDouble) double.NaN
+            };
 
             // Call
             var result = sectionResult.Create(new PersistenceRegistry());

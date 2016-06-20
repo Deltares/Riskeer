@@ -52,9 +52,11 @@ namespace Application.Ringtoets.Storage.Test.Create
         )
         {
             // Setup
-            var sectionResult = new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection());
-            sectionResult.AssessmentLayerTwoA = assessmentLayerTwoAResult;
-            sectionResult.AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult;
+            var sectionResult = new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                AssessmentLayerTwoA = assessmentLayerTwoAResult,
+                AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
+            };
 
             // Call
             var result = sectionResult.Create(new PersistenceRegistry());
@@ -68,8 +70,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection());
-            sectionResult.AssessmentLayerThree = (RoundedDouble) double.NaN;
+            var sectionResult = new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                AssessmentLayerThree = (RoundedDouble) double.NaN
+            };
 
             // Call
             var result = sectionResult.Create(new PersistenceRegistry());
