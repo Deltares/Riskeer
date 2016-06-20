@@ -514,7 +514,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void AfterCreate_Always_SetsSpecificPropertiesToView()
+        public void AfterCreate_Always_SetsCalculationOnView()
         {
             // Setup
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();

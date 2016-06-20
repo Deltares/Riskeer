@@ -44,6 +44,21 @@ namespace Core.Components.Charting.Forms
         ChartData Data { get; set; }
 
         /// <summary>
+        /// Gets or sets the title of the chart.
+        /// </summary>
+        string ChartTitle { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title of the bottom axis in the view.
+        /// </summary>
+        string BottomAxisTitle { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title of the left axis in the view.
+        /// </summary>
+        string LeftAxisTitle { get; set; }
+
+        /// <summary>
         /// Toggles panning of the <see cref="IChartControl"/>. Panning is invoked by clicking the left mouse-button.
         /// </summary>
         void TogglePanning();
@@ -57,23 +72,5 @@ namespace Core.Components.Charting.Forms
         /// Zooms to a level so that everything is in view.
         /// </summary>
         void ZoomToAll();
-
-        /// <summary>
-        /// Sets the title of the chart.
-        /// </summary>
-        /// <param name="title">The title to set.</param>
-        void SetChartTitle(string title);
-
-        /// <summary>
-        /// Sets the title of the bottom axis in the view.
-        /// </summary>
-        /// <param name="title">The title to set.</param>
-        void SetBottomAxisTitle(string title);
-
-        /// <summary>
-        /// Sets the title of the left axis in the view.
-        /// </summary>
-        /// <param name="title">The title to set.</param>
-        void SetLeftAxisTitle(string title);
     }
 }

@@ -28,7 +28,6 @@ using Core.Common.Utils.Reflection;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
 using NUnit.Framework;
-using OxyPlot.Axes;
 using OxyPlot.WindowsForms;
 
 namespace Core.Components.OxyPlot.Forms.Test
@@ -241,7 +240,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         [TestCase("Title")]
         [TestCase("Test")]
         [TestCase("Label")]
-        public void SetBottomAxisTitle_Always_SetsNewTitleToBottomAxis(string newTitle)
+        public void BottomAxisTitle_Always_SetsNewTitleToBottomAxis(string newTitle)
         {
             // Setup
             var form = new Form();
@@ -251,11 +250,15 @@ namespace Core.Components.OxyPlot.Forms.Test
 
             form.Show();
 
+            var invalidated = 0;
+            view.Invalidated += (sender, args) => invalidated++;
+
             // Call
-            chart.SetBottomAxisTitle(newTitle);
+            chart.BottomAxisTitle = newTitle;
 
             // Assert
-            Assert.AreEqual(view.Model.Axes.First(a => a.Position == AxisPosition.Bottom).Title, newTitle);
+            Assert.AreEqual(chart.BottomAxisTitle, newTitle);
+            Assert.AreEqual(1, invalidated);
         }
 
         [Test]
@@ -272,11 +275,15 @@ namespace Core.Components.OxyPlot.Forms.Test
 
             form.Show();
 
+            var invalidated = 0;
+            view.Invalidated += (sender, args) => invalidated++;
+
             // Call
-            chart.SetLeftAxisTitle(newTitle);
+            chart.LeftAxisTitle = newTitle;
 
             // Assert
-            Assert.AreEqual(view.Model.Axes.First(a => a.Position == AxisPosition.Left).Title, newTitle);
+            Assert.AreEqual(chart.LeftAxisTitle, newTitle);
+            Assert.AreEqual(1, invalidated);
         }
 
         [Test]
@@ -293,15 +300,14 @@ namespace Core.Components.OxyPlot.Forms.Test
 
             form.Show();
 
-
             var invalidated = 0;
             view.Invalidated += (sender, args) => invalidated++;
 
             // Call
-            chart.SetChartTitle(newTitle);
+            chart.ChartTitle = newTitle;
 
             // Assert
-            Assert.AreEqual(view.Model.Title, newTitle);
+            Assert.AreEqual(chart.ChartTitle, newTitle);
             Assert.AreEqual(1, invalidated);
         }
     }

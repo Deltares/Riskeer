@@ -24,6 +24,7 @@ using Core.Components.Charting.Forms;
 using Core.Components.OxyPlot.Forms;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.Views;
 
 namespace Ringtoets.Piping.Forms.Test.Views
@@ -55,7 +56,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             ChartControl chartControl = view.Controls[0] as ChartControl;
             Assert.IsNotNull(chartControl);
             Assert.AreEqual(DockStyle.Fill, chartControl.Dock);
-            Assert.IsNull(chartControl.Data);            
+            Assert.IsNull(chartControl.Data);
+            Assert.AreEqual(Resources.PipingInputView_Distance_DisplayName, chartControl.BottomAxisTitle);
+            Assert.AreEqual(Resources.PipingInputView_Height_DisplayName, chartControl.LeftAxisTitle);
         }
 
         [Test]
@@ -87,10 +90,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Calculation_Always_SetsCalculation()
+        public void Calculation_Always_SetsCalculationAndUpdateChartTitle()
         {
             // Setup
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                Name = "Test name"
+            };
             PipingInputView view = new PipingInputView();
 
             // Call
@@ -98,6 +104,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.AreSame(calculation, view.Calculation);
+            Assert.AreEqual(calculation.Name, view.Chart.ChartTitle);
         }
     }
 }

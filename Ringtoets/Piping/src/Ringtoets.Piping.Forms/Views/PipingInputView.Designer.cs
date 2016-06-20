@@ -1,4 +1,6 @@
-﻿namespace Ringtoets.Piping.Forms.Views
+﻿using Ringtoets.Piping.Forms.Properties;
+
+namespace Ringtoets.Piping.Forms.Views
 {
     partial class PipingInputView
     {
@@ -40,6 +42,8 @@
             this.chartControl.Size = new System.Drawing.Size(150, 150);
             this.chartControl.TabIndex = 0;
             this.chartControl.Text = "chartControl1";
+            this.chartControl.BottomAxisTitle = Resources.PipingInputView_Distance_DisplayName;
+            this.chartControl.LeftAxisTitle = Resources.PipingInputView_Height_DisplayName;
             // 
             // PipingInputView
             // 

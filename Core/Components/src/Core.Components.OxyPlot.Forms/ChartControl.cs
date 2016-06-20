@@ -23,8 +23,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Components.Charting.Forms;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Forms;
 using Core.Components.OxyPlot.Converter;
 using OxyPlot.WindowsForms;
 
@@ -134,6 +134,42 @@ namespace Core.Components.OxyPlot.Forms
             }
         }
 
+        public string ChartTitle
+        {
+            get
+            {
+                return view.ModelTitle;
+            }
+            set
+            {
+                view.ModelTitle = value;
+            }
+        }
+
+        public string BottomAxisTitle
+        {
+            get
+            {
+                return view.BottomAxisTitle;
+            }
+            set
+            {
+                view.BottomAxisTitle = value;
+            }
+        }
+
+        public string LeftAxisTitle
+        {
+            get
+            {
+                return view.LeftAxisTitle;
+            }
+            set
+            {
+                view.LeftAxisTitle = value;
+            }
+        }
+
         public void TogglePanning()
         {
             controller.TogglePanning();
@@ -152,21 +188,6 @@ namespace Core.Components.OxyPlot.Forms
         public void UpdateObserver()
         {
             DrawSeries();
-        }
-
-        public void SetChartTitle(string title)
-        {
-            view.SetModelTitle(title);
-        }
-
-        public void SetBottomAxisTitle(string title)
-        {
-            view.SetBottomAxisTitle(title);
-        }
-
-        public void SetLeftAxisTitle(string title)
-        {
-            view.SetLeftAxisTitle(title);
         }
 
         #endregion

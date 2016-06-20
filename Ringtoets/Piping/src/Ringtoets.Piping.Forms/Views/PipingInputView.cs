@@ -23,7 +23,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Charting.Forms;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.Views
 {
@@ -41,8 +40,6 @@ namespace Ringtoets.Piping.Forms.Views
         public PipingInputView()
         {
             InitializeComponent();
-
-            SetChartAxisTitles();
         }
 
         /// <summary>
@@ -90,13 +87,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void SetChartTitle()
         {
-            chartControl.SetChartTitle(calculation.Name);
-        }
-
-        private void SetChartAxisTitles()
-        {
-            chartControl.SetBottomAxisTitle(Resources.PipingInputView_Distance_DisplayName);
-            chartControl.SetLeftAxisTitle(Resources.PipingInputView_Height_DisplayName);
+            chartControl.ChartTitle = calculation.Name;
         }
 
         private void DetachFromData()

@@ -80,7 +80,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         [TestCase("Title")]
         [TestCase("Test")]
         [TestCase("Label")]
-        public void SetModelTitle_Always_SetsNewTitleToModelAndInvalidatesView(string newTitle)
+        public void ModelTitle_Always_SetsNewTitleToModelAndInvalidatesView(string newTitle)
         {
             // Setup
             var form = new Form();
@@ -92,10 +92,10 @@ namespace Core.Components.OxyPlot.Forms.Test
             form.Show();
 
             // Call
-            view.SetModelTitle(newTitle);
+            view.ModelTitle = newTitle;
 
             // Assert
-            Assert.AreEqual(view.Model.Title, newTitle);
+            Assert.AreEqual(view.ModelTitle, newTitle);
             Assert.AreEqual(1, invalidated);
         }
 
@@ -103,40 +103,46 @@ namespace Core.Components.OxyPlot.Forms.Test
         [TestCase("Title")]
         [TestCase("Test")]
         [TestCase("Label")]
-        public void SetBottomAxisTitle_Always_SetsNewTitleToBottomAxis(string newTitle)
+        public void BottomAxisTitle_Always_SetsNewTitleToBottomAxisAndInvalidatesView(string newTitle)
         {
             // Setup
             var form = new Form();
             var view = new LinearPlotView();
             form.Controls.Add(view);
+            var invalidated = 0;
+            view.Invalidated += (sender, args) => invalidated++;
 
             form.Show();
 
             // Call
-            view.SetBottomAxisTitle(newTitle);
+            view.BottomAxisTitle = newTitle;
 
             // Assert
-            Assert.AreEqual(view.Model.Axes.First(a => a.Position == AxisPosition.Bottom).Title, newTitle);
+            Assert.AreEqual(view.BottomAxisTitle, newTitle);
+            Assert.AreEqual(1, invalidated);
         }
 
         [Test]
         [TestCase("Title")]
         [TestCase("Test")]
         [TestCase("Label")]
-        public void SetLeftAxisTitle_Always_SetsNewTitleToLeftAxis(string newTitle)
+        public void SetLeftAxisTitle_Always_SetsNewTitleToLeftAxisAndInvalidatesView(string newTitle)
         {
             // Setup
             var form = new Form();
             var view = new LinearPlotView();
             form.Controls.Add(view);
+            var invalidated = 0;
+            view.Invalidated += (sender, args) => invalidated++;
 
             form.Show();
 
             // Call
-            view.SetLeftAxisTitle(newTitle);
+            view.LeftAxisTitle = newTitle;
 
             // Assert
-            Assert.AreEqual(view.Model.Axes.First(a => a.Position == AxisPosition.Left).Title, newTitle);
+            Assert.AreEqual(view.LeftAxisTitle, newTitle);
+            Assert.AreEqual(1, invalidated);
         }
     }
 }

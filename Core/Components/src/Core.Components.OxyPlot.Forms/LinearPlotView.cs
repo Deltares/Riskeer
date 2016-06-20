@@ -54,6 +54,54 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         /// <summary>
+        /// Sets the title of the plot view.
+        /// </summary>
+        public string ModelTitle
+        {
+            get
+            {
+                return Model.Title;
+            }
+            set
+            {
+                Model.Title = value;
+                InvalidatePlot(false);
+            }
+        }
+
+        /// <summary>
+        /// Sets the title of the bottom axis in the view.
+        /// </summary>
+        public string BottomAxisTitle
+        {
+            get
+            {
+                var axis = GetAxisOnPosition(AxisPosition.Bottom);
+                return axis != null ? axis.Title : null;
+            }
+            set
+            {
+                SetAxisTitle(AxisPosition.Bottom, value);
+            }
+        }
+
+        /// <summary>
+        /// Sets the title of the left axis in the view.
+        /// </summary>
+        public string LeftAxisTitle
+        {
+            get
+            {
+                var axis = GetAxisOnPosition(AxisPosition.Left);
+                return axis != null ? axis.Title : null;
+            }
+            set
+            {
+                SetAxisTitle(AxisPosition.Left, value);
+            }
+        }
+
+        /// <summary>
         /// Zooms to a level so that everything is in view.
         /// </summary>
         public void ZoomToAll()
@@ -62,39 +110,13 @@ namespace Core.Components.OxyPlot.Forms
             InvalidatePlot(false);
         }
 
-        /// <summary>
-        /// Sets the title of the plot view.
-        /// </summary>
-        /// <param name="title">The title to set.</param>
-        public void SetModelTitle(string title)
+        private void SetAxisTitle(AxisPosition axisPosition, string value)
         {
-            Model.Title = title;
-            InvalidatePlot(false);
-        }
-
-        /// <summary>
-        /// Sets the title of the bottom axis in the view.
-        /// </summary>
-        /// <param name="title">The title to set.</param>
-        public void SetBottomAxisTitle(string title)
-        {
-            var axis = GetAxisOnPosition(AxisPosition.Bottom);
+            var axis = GetAxisOnPosition(axisPosition);
             if (axis != null)
             {
-                axis.Title = title;
-            }
-        }
-
-        /// <summary>
-        /// Sets the title of the left axis in the view.
-        /// </summary>
-        /// <param name="title">The title to set.</param>
-        public void SetLeftAxisTitle(string title)
-        {
-            var axis = GetAxisOnPosition(AxisPosition.Left);
-            if (axis != null)
-            {
-                axis.Title = title;
+                axis.Title = value;
+                InvalidatePlot(false);
             }
         }
 
