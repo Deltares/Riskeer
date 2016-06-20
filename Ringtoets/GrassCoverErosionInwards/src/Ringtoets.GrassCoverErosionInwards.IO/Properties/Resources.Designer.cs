@@ -61,11 +61,119 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De ingelezen kruinhoogte ({0}) is geen getal..
+        /// </summary>
+        internal static string DikeProfileDataReader_ParseCrestLevel_CrestLevel_0_not_number {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseCrestLevel_CrestLevel_0_not_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen kruinhoogte ({0}) is te groot of te klein om ingelezen te worden..
+        /// </summary>
+        internal static string DikeProfileDataReader_ParseCrestLevel_CrestLevel_0_overflows {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseCrestLevel_CrestLevel_0_overflows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen damhoogte ({0}) is geen getal..
+        /// </summary>
+        internal static string DikeProfileDataReader_ParseDamHeight_DamHeight_0_not_number {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseDamHeight_DamHeight_0_not_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen damhoogte ({0}) is te groot of te klein om ingelezen te worden..
+        /// </summary>
+        internal static string DikeProfileDataReader_ParseDamHeight_DamHeight_0_overflows {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseDamHeight_DamHeight_0_overflows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het ingelezen dam-type ({0}) is geen geheel getal..
+        /// </summary>
+        internal static string DikeProfileDataReader_ParseDamType_DamType_0_is_not_integer {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseDamType_DamType_0_is_not_integer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De ingelezen dam-type waarde ({0}) moet binnen het bereik [0, 3] vallen..
         /// </summary>
-        internal static string DikeProfileDataReader_ReadDikeProfileData_DamType_0_must_be_in_range {
+        internal static string DikeProfileDataReader_ParseDamType_DamType_0_must_be_in_range {
             get {
-                return ResourceManager.GetString("DikeProfileDataReader_ReadDikeProfileData_DamType_0_must_be_in_range", resourceCulture);
+                return ResourceManager.GetString("DikeProfileDataReader_ParseDamType_DamType_0_must_be_in_range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het ingelezen dam-type ({0}) is te groot of te klein om ingelezen te worden..
+        /// </summary>
+        internal static string DikeProfileDataReader_ParseDamType_DamType_0_overflows {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseDamType_DamType_0_overflows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen orientatie ({0}) is geen getal..
+        /// </summary>
+        internal static string DikeProfileDataReader_ParseOrientation_Orientation_0_not_double {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseOrientation_Orientation_0_not_double", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen orientatie ({0}) is te groot of te klein om ingelezen te worden..
+        /// </summary>
+        internal static string DikeProfileDataReader_ParseOrientation_Orientation_0_overflows {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseOrientation_Orientation_0_overflows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het ingelezen profiel-type ({0}) is geen geheel getal..
+        /// </summary>
+        internal static string DikeProfileDataReader_ParseProfileType_ProfileType_0_not_integer {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseProfileType_ProfileType_0_not_integer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het ingelezen profiel-type ({0}) is te groot of te klein om ingelezen te worden..
+        /// </summary>
+        internal static string DikeProfileDataReader_ParseProfileType_ProfileType_0_overflows {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseProfileType_ProfileType_0_overflows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen versie ({0}) is geen geldige versie code..
+        /// </summary>
+        internal static string DikeProfileDataReader_ParseVersion_Invalid_version_0_ {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseVersion_Invalid_version_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen versie ({0}) bevat een versienummer die te groot is..
+        /// </summary>
+        internal static string DikeProfileDataReader_ParseVersion_Version_0_overflows {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseVersion_Version_0_overflows", resourceCulture);
             }
         }
         
@@ -97,24 +205,6 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enkel bestanden van versie &apos;4.0&apos; worden ondersteund..
-        /// </summary>
-        internal static string DikeProfileDataReader_ReadDikeProfileData_Only_version_four_zero_supported {
-            get {
-                return ResourceManager.GetString("DikeProfileDataReader_ReadDikeProfileData_Only_version_four_zero_supported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De ingelezen orientatie waarde ({0}) moet binnen het bereik [0, 360] vallen..
-        /// </summary>
-        internal static string DikeProfileDataReader_ReadDikeProfileData_Orientation_0_must_be_in_range {
-            get {
-                return ResourceManager.GetString("DikeProfileDataReader_ReadDikeProfileData_Orientation_0_must_be_in_range", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De ingelezen damwand-type waarde ({0}) moet binnen het bereik [0, 2] vallen..
         /// </summary>
         internal static string DikeProfileDataReader_ReadDikeProfileData_ProfileType_0_must_be_in_range {
@@ -129,6 +219,24 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         internal static string DikeProfileDataReader_ReadDikeProfileData_Roughness_0_must_be_in_range {
             get {
                 return ResourceManager.GetString("DikeProfileDataReader_ReadDikeProfileData_Roughness_0_must_be_in_range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen orientatie waarde ({0}) moet binnen het bereik [0, 360] vallen..
+        /// </summary>
+        internal static string DikeProfileDataReader_TryReadOrientation_Orientation_0_must_be_in_range {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_TryReadOrientation_Orientation_0_must_be_in_range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enkel bestanden van versie &apos;4.0&apos; worden ondersteund..
+        /// </summary>
+        internal static string DikeProfileDataReader_TryReadVersion_Only_version_four_zero_supported {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_TryReadVersion_Only_version_four_zero_supported", resourceCulture);
             }
         }
         

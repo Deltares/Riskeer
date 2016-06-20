@@ -138,7 +138,7 @@
   <data name="DikeProfileLocationReader_GetDikeProfileLocations_Illegal_Id" xml:space="preserve">
     <value>Het bestand bevat het attribuut Id met een waarde welke uit meer dan alleen letters en cijfers bestaat.</value>
   </data>
-  <data name="DikeProfileDataReader_ReadDikeProfileData_DamType_0_must_be_in_range" xml:space="preserve">
+  <data name="DikeProfileDataReader_ParseDamType_DamType_0_must_be_in_range" xml:space="preserve">
     <value>De ingelezen dam-type waarde ({0}) moet binnen het bereik [0, 3] vallen.</value>
   </data>
   <data name="DikeProfileDataReader_ReadDikeProfileData_DikeCount_cannot_be_negative" xml:space="preserve">
@@ -150,10 +150,10 @@
   <data name="DikeProfileDataReader_ReadDikeProfileData_List_mising_parameters_0_" xml:space="preserve">
     <value>De volgende parameter(s) zijn niet aanwezig in het bestand: {0}</value>
   </data>
-  <data name="DikeProfileDataReader_ReadDikeProfileData_Only_version_four_zero_supported" xml:space="preserve">
+  <data name="DikeProfileDataReader_TryReadVersion_Only_version_four_zero_supported" xml:space="preserve">
     <value>Enkel bestanden van versie '4.0' worden ondersteund.</value>
   </data>
-  <data name="DikeProfileDataReader_ReadDikeProfileData_Orientation_0_must_be_in_range" xml:space="preserve">
+  <data name="DikeProfileDataReader_TryReadOrientation_Orientation_0_must_be_in_range" xml:space="preserve">
     <value>De ingelezen orientatie waarde ({0}) moet binnen het bereik [0, 360] vallen.</value>
   </data>
   <data name="DikeProfileDataReader_ReadDikeProfileData_ProfileType_0_must_be_in_range" xml:space="preserve">
@@ -164,5 +164,41 @@
   </data>
   <data name="DikeProfileLocationReader_CheckRequiredAttributePresence_Missing_attribute_0_" xml:space="preserve">
     <value>Het bestand heeft geen attribuut '{0}' welke vereist is om de locaties van de dijkprofielen in te lezen.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseVersion_Invalid_version_0_" xml:space="preserve">
+    <value>De ingelezen versie ({0}) is geen geldige versie code.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseDamType_DamType_0_is_not_integer" xml:space="preserve">
+    <value>Het ingelezen dam-type ({0}) is geen geheel getal.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseOrientation_Orientation_0_not_double" xml:space="preserve">
+    <value>De ingelezen orientatie ({0}) is geen getal.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseDamType_DamType_0_overflows" xml:space="preserve">
+    <value>Het ingelezen dam-type ({0}) is te groot of te klein om ingelezen te worden.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseOrientation_Orientation_0_overflows" xml:space="preserve">
+    <value>De ingelezen orientatie ({0}) is te groot of te klein om ingelezen te worden.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseVersion_Version_0_overflows" xml:space="preserve">
+    <value>De ingelezen versie ({0}) bevat een versienummer die te groot is.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseDamHeight_DamHeight_0_not_number" xml:space="preserve">
+    <value>De ingelezen damhoogte ({0}) is geen getal.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseDamHeight_DamHeight_0_overflows" xml:space="preserve">
+    <value>De ingelezen damhoogte ({0}) is te groot of te klein om ingelezen te worden.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseProfileType_ProfileType_0_overflows" xml:space="preserve">
+    <value>Het ingelezen profiel-type ({0}) is te groot of te klein om ingelezen te worden.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseProfileType_ProfileType_0_not_integer" xml:space="preserve">
+    <value>Het ingelezen profiel-type ({0}) is geen geheel getal.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseCrestLevel_CrestLevel_0_not_number" xml:space="preserve">
+    <value>De ingelezen kruinhoogte ({0}) is geen getal.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseCrestLevel_CrestLevel_0_overflows" xml:space="preserve">
+    <value>De ingelezen kruinhoogte ({0}) is te groot of te klein om ingelezen te worden.</value>
   </data>
 </root>
