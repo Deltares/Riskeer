@@ -155,6 +155,36 @@ namespace Application.Ringtoets.Storage.Test.Update
             Assert.AreEqual(sectionResult.AssessmentLayerThree.Value.ToNullableDecimal(), sectionResultEntity.LayerThree);
 
             mocks.VerifyAll();
-        } 
+        }
+
+        [Test]
+        public void Create_WithNaNResult_ReturnsEntityWithNullResult()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+
+            mocks.ReplayAll();
+
+            var sectionResult = new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                StorageId = 1,
+                AssessmentLayerThree = (RoundedDouble)double.NaN
+            };
+
+            var sectionResultEntity = new DuneErosionSectionResultEntity
+            {
+                DuneErosionSectionResultEntityId = sectionResult.StorageId,
+                LayerThree = 1.1m,
+            };
+
+            ringtoetsEntities.DuneErosionSectionResultEntities.Add(sectionResultEntity);
+
+            // Call
+            sectionResult.Update(new PersistenceRegistry(), ringtoetsEntities);
+
+            // Assert
+            Assert.IsNull(sectionResultEntity.LayerThree);
+        }
     }
 }
