@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.Service
             var input = CreateInput(assessmentSection, hydraulicBoundaryLocation);
 
             return CalculationServiceHelper.PerformCalculation(hydraulicBoundaryLocation.Id.ToString(),
-                                                               () => HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, input),
+                                                               () => HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta, HydraRingUncertaintiesType.All, input),
                                                                Resources.DesignWaterLevelCalculationService_Calculate_Error_in_design_water_level_0_calculation);
         }
 

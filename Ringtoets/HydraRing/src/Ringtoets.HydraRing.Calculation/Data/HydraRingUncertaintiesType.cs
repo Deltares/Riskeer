@@ -29,9 +29,24 @@ namespace Ringtoets.HydraRing.Calculation.Data
     /// </remarks>
     public enum HydraRingUncertaintiesType
     {
-        None = 0, // "No uncertainties"
-        All = 1, // "All uncertainties"
-        Model = 2, // "Only model uncertainties"
-        Statistic = 3 // "Only statistical uncertainties"
+        /// <summary>
+        /// No uncertainties.
+        /// </summary>
+        None = 0,
+
+        /// <summary>
+        /// All uncertainties.
+        /// </summary>
+        All = 1,
+
+        /// <summary>
+        /// Only model uncertainties.
+        /// </summary>
+        Model = 2,
+
+        /// <summary>
+        /// Only statistical uncertainties.
+        /// </summary>
+        Statistic = 3
     }
 }

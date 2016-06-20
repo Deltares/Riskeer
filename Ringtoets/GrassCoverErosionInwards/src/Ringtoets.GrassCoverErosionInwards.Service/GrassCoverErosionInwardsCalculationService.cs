@@ -69,7 +69,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             OvertoppingCalculationInput input = CreateInput(calculation, failureMechanismSection, generalInput);
 
             return CalculationServiceHelper.PerformCalculation(calculation.Name,
-                                                               () => HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, input),
+                                                               () => HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta, HydraRingUncertaintiesType.All, input),
                                                                Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation);
         }
 

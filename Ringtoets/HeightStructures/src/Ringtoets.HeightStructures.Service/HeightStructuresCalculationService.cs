@@ -68,7 +68,7 @@ namespace Ringtoets.HeightStructures.Service
         {
             var input = CreateInput(calculation, failureMechanismSection, generalInput);
             return CalculationServiceHelper.PerformCalculation(calculation.Name,
-                                                               () => HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, input),
+                                                               () => HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta, HydraRingUncertaintiesType.All, input),
                                                                Resources.HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation);
         }
 

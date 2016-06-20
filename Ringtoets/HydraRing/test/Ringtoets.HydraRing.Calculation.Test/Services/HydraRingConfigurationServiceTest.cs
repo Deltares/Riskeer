@@ -36,11 +36,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         public void Constructor_ExpectedValues()
         {
             // Call
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.NTI, HydraRingUncertaintiesType.Model);
+            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.NumericalTimeIntegration, HydraRingUncertaintiesType.Model);
 
             // Assert
             Assert.AreEqual("34-1", hydraRingConfigurationService.RingId);
-            Assert.AreEqual(HydraRingTimeIntegrationSchemeType.NTI, hydraRingConfigurationService.TimeIntegrationSchemeType);
+            Assert.AreEqual(HydraRingTimeIntegrationSchemeType.NumericalTimeIntegration, hydraRingConfigurationService.TimeIntegrationSchemeType);
             Assert.AreEqual(HydraRingUncertaintiesType.Model, hydraRingConfigurationService.UncertaintiesType);
         }
 
@@ -48,7 +48,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         public void AddHydraRingCalculationInput_DuplicateSectionId_ThrowsArgumentException()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.NTI, HydraRingUncertaintiesType.Model);
+            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.NumericalTimeIntegration, HydraRingUncertaintiesType.Model);
             var calculationInput1 = new HydraRingCalculationInputImplementation(1, 2);
             var calculationInput2 = new HydraRingCalculationInputImplementation(1, 3);
 
@@ -65,7 +65,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         public void GenerateDataBaseCreationScript_SingleHydraRingCalculationInputAddedToConfiguration_ReturnsExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.NTI, HydraRingUncertaintiesType.Model);
+            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.NumericalTimeIntegration, HydraRingUncertaintiesType.Model);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(1, 700004));
 
@@ -145,7 +145,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         public void GenerateDataBaseCreationScript_MultipleHydraRingCalculationInputsAddedToConfiguration_ReturnsExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.NTI, HydraRingUncertaintiesType.Model);
+            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.NumericalTimeIntegration, HydraRingUncertaintiesType.Model);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(1, 700004));
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(2, 700005));

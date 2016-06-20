@@ -30,18 +30,18 @@ namespace Ringtoets.HydraRing.Calculation.Data
     public enum HydraRingTimeIntegrationSchemeType
     {
         /// <summary>
-        /// Ferry Borges Castanheta time integration scheme.
+        /// Ferry Borges Castanheta (FBC) time integration scheme.
         /// </summary>
-        FBC = 1,
+        FerryBorgesCastanheta = 1,
 
         /// <summary>
-        /// Arbitrary Point in Time time integration scheme.
+        /// Arbitrary Point in Time (APT) time integration scheme.
         /// </summary>
-        APT = 2,
+        ArbitraryPointInTime = 2,
 
         /// <summary>
-        /// Numerical Time Integration time integration scheme.
+        /// Numerical Time Integration time (NTI) integration scheme.
         /// </summary>
-        NTI = 3
+        NumericalTimeIntegration = 3
     }
 }

@@ -59,7 +59,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             Assert.IsInstanceOf<IStorable>(result);
             Assert.AreSame(section, result.Section);
             Assert.IsFalse(result.AssessmentLayerOne);
-            Assert.AreEqual((AssessmentLayerTwoAResult)0, result.AssessmentLayerTwoA);
+            Assert.AreEqual(AssessmentLayerTwoAResult.NotCalculated, result.AssessmentLayerTwoA);
             Assert.AreEqual(0, result.AssessmentLayerThree.Value);
             Assert.AreEqual(0, result.StorageId);
         }

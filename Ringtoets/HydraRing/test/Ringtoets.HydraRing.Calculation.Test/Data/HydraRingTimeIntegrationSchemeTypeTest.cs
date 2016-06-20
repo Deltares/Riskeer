@@ -37,9 +37,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
         [Test]
         public void ConvertToInteger_ForAllValues_ReturnsExpectedInteger()
         {
-            Assert.AreEqual(1, (int) HydraRingTimeIntegrationSchemeType.FBC);
-            Assert.AreEqual(2, (int) HydraRingTimeIntegrationSchemeType.APT);
-            Assert.AreEqual(3, (int) HydraRingTimeIntegrationSchemeType.NTI);
+            Assert.AreEqual(1, (int) HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta);
+            Assert.AreEqual(2, (int) HydraRingTimeIntegrationSchemeType.ArbitraryPointInTime);
+            Assert.AreEqual(3, (int) HydraRingTimeIntegrationSchemeType.NumericalTimeIntegration);
         }
     }
 }

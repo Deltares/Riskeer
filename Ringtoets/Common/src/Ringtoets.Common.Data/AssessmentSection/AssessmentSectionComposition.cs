@@ -29,16 +29,16 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <summary>
         /// The assessment section consists only out of 'dike' elements.
         /// </summary>
-        Dike = 0,
+        Dike,
 
         /// <summary>
         /// The assessment section consists only out of 'dune' elements.
         /// </summary>
-        Dune = 1,
+        Dune,
 
         /// <summary>
         /// The assessment section consists out of a combination of 'dike' and 'dune' elements.
         /// </summary>
-        DikeAndDune = 2
+        DikeAndDune
     }
 }

@@ -55,7 +55,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="PipingCalculationActivity.cs" />
-    <Compile Include="PipingCalculationResult.cs" />
     <Compile Include="PipingCalculationService.cs" />
     <Compile Include="PipingInputService.cs" />
     <Compile Include="PipingSemiProbabilisticCalculationService.cs" />

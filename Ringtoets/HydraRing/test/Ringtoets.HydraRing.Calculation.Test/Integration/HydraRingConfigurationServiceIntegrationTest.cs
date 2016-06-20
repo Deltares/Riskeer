@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void GenerateDataBaseCreationScript_HydraRingConfigurationWithAssessmentLevelCalculation_ReturnsExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta, HydraRingUncertaintiesType.All);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new AssessmentLevelCalculationInput(1, 700004, 10000));
 
@@ -104,7 +104,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void GenerateDataBaseCreationScript_HydraRingConfigurationWithOvertoppingCalculation_ReturnsExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta, HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
             var hydraRingSection = new HydraRingSection(1, "700004", 2.2, 3.3);
@@ -215,7 +215,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void GenerateDataBaseCreationScript_HydraRingConfigurationWithStructuresOvertoppingCalculationCalculation_ReturnsExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta, HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
             var hydraRingSection = new HydraRingSection(1, "700004", 2.2, 3.3);
