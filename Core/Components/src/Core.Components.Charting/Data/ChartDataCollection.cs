@@ -50,5 +50,56 @@ namespace Core.Components.Charting.Data
         /// Gets the list of <see cref="ChartData"/> of the <see cref="ChartDataCollection"/>.
         /// </summary>
         public IList<ChartData> List { get; private set; }
+
+        /// <summary>
+        /// Adds an element to the list of <see cref="ChartData"/>.
+        /// </summary>
+        /// <param name="elementToAdd">The <see cref="ChartData"/> element to add to the list.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="elementToAdd"/> is <c>null</c>.</exception>
+        public void Add(ChartData elementToAdd)
+        {
+            if (elementToAdd == null)
+            {
+                throw new ArgumentNullException("elementToAdd", "An element cannot be null when adding it to the collection.");
+            }
+            List.Add(elementToAdd);
+        }
+
+        /// <summary>
+        /// Replaces an element in the list of <see cref="ChartData"/>.
+        /// </summary>
+        /// <param name="oldElement">The <see cref="ChartData"/> element to replace.</param>
+        /// <param name="newElement">The <see cref="ChartData"/> element to replace with.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="oldElement"/> or 
+        /// <paramref name="newElement"/> is <c>null</c>.</exception>
+        public void Replace(ChartData oldElement, ChartData newElement)
+        {
+            if (newElement == null)
+            {
+                throw new ArgumentNullException("newElement", "An element cannot be replaced with null. Use Remove instead.");
+            }
+
+            if (oldElement == null)
+            {
+                throw new ArgumentNullException("oldElement", "A null element cannot be replaced. User Add instead.");
+            }
+
+            for (var i = 0; i < List.Count; i++)
+            {
+                if (List[i].Equals(oldElement))
+                {
+                    List[i] = newElement;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Removes the given element from the list of <see cref="ChartData"/>.
+        /// </summary>
+        /// <param name="elementToRemove">The <see cref="ChartData"/> element to remove.</param>
+        public void Remove(ChartData elementToRemove)
+        {
+            List.Remove(elementToRemove);
+        }
     }
 }

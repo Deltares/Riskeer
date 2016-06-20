@@ -55,7 +55,7 @@ namespace Core.Components.Charting.Data
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("A name must be set to map data");
+                    throw new ArgumentException("A name must be set to chart data");
                 }
                 name = value;
             }

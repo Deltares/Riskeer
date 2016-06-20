@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             ChartControl chartControl = view.Controls[0] as ChartControl;
             Assert.IsNotNull(chartControl);
             Assert.AreEqual(DockStyle.Fill, chartControl.Dock);
-            Assert.IsNull(chartControl.Data);
+            Assert.IsNotNull(chartControl.Data);
             Assert.AreEqual(Resources.PipingInputView_Distance_DisplayName, chartControl.BottomAxisTitle);
             Assert.AreEqual(Resources.PipingInputView_Height_DisplayName, chartControl.LeftAxisTitle);
         }

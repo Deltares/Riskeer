@@ -30,7 +30,7 @@ namespace Core.Plugins.OxyPlot.Forms
     /// </summary>
     public partial class ChartDataView : UserControl, IChartView
     {
-        private ChartData data;
+        private ChartDataCollection data;
 
         /// <summary>
         /// Creates a new instance of <see cref="ChartDataView"/>.
@@ -48,11 +48,16 @@ namespace Core.Plugins.OxyPlot.Forms
             }
             set
             {
-                data = (ChartData) value;
+                data = (ChartDataCollection) value;
 
                 if (data != null)
                 {
-                    Chart.Data = data;
+                    foreach (var chartData in data.List)
+                    {
+                        Chart.Data.Add(chartData);
+                    }
+
+                    Chart.Data.NotifyObservers();
                 }
             }
         }

@@ -53,7 +53,7 @@ namespace Core.Components.Charting.Test.Data
             TestDelegate test = () => new ChartDataCollection(list, invalidName);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to map data");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to chart data");
         }
 
         [Test]
@@ -68,6 +68,184 @@ namespace Core.Components.Charting.Test.Data
             // Assert
             Assert.IsInstanceOf<ChartData>(collection);
             Assert.AreSame(list, collection.List);
+        }
+
+        [Test]
+        public void Constructor_WithName_SetsName()
+        {
+            // Setup
+            var list = Enumerable.Empty<ChartData>().ToList();
+            var name = "Some name";
+
+            // Call
+            var data = new ChartDataCollection(list, name);
+
+            // Assert
+            Assert.AreEqual(name, data.Name);
+        }
+
+        [Test]
+        public void Add_NotNull_AddsElementToCollection()
+        {
+            // Setup
+            var list = Enumerable.Empty<ChartData>().ToList();
+            var data = new ChartDataCollection(list, "test");
+            var objectToAdd = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test");
+
+            // Call
+            data.Add(objectToAdd);
+
+            // Assert
+            Assert.AreEqual(1, data.List.Count);
+            Assert.AreSame(objectToAdd, data.List.First());
+        }
+
+        [Test]
+        public void Add_Null_ThrowsArgumentNullException()
+        {
+            // Setup
+            var list = Enumerable.Empty<ChartData>().ToList();
+            var data = new ChartDataCollection(list, "test");
+
+            // Call
+            TestDelegate call = () => data.Add(null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "An element cannot be null when adding it to the collection.");
+        }
+
+        [Test]
+        public void Replace_NotNull_ReplacesElementInCollection()
+        {
+            // Setup
+            var list = Enumerable.Empty<ChartData>().ToList();
+            var data = new ChartDataCollection(list, "test");
+            var oldDataElement = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test");
+            var newDataElement = new ChartPointData(Enumerable.Empty<Tuple<double, double>>(), "another test");
+
+            data.Add(oldDataElement);
+
+            // Precondition
+            Assert.AreEqual(1, data.List.Count);
+            Assert.IsInstanceOf<ChartLineData>(data.List.First());
+
+            // Call
+            data.Replace(oldDataElement, newDataElement);
+
+            // Assert
+            Assert.AreEqual(1, data.List.Count);
+            Assert.IsInstanceOf<ChartPointData>(data.List.First());
+        }
+
+        [Test]
+        public void Replace_NewElementNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var list = Enumerable.Empty<ChartData>().ToList();
+            var data = new ChartDataCollection(list, "test");
+            var oldDataElement = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test");
+
+            data.Add(oldDataElement);
+
+            // Precondition
+            Assert.AreEqual(1, data.List.Count);
+            Assert.IsInstanceOf<ChartLineData>(data.List.First());
+
+            // Call
+            TestDelegate test = () => data.Replace(oldDataElement, null);
+
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "An element cannot be replaced with null. Use Remove instead.");
+            Assert.AreEqual(1, data.List.Count);
+            Assert.IsInstanceOf<ChartLineData>(data.List.First());
+        }
+
+        [Test]
+        public void Replace_OldElementNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var list = Enumerable.Empty<ChartData>().ToList();
+            var data = new ChartDataCollection(list, "test");
+            var dataElement = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test");
+            var newDataElement = new ChartPointData(Enumerable.Empty<Tuple<double, double>>(), "another test");
+
+            data.Add(dataElement);
+
+            // Precondition
+            Assert.AreEqual(1, data.List.Count);
+            Assert.IsInstanceOf<ChartLineData>(data.List.First());
+
+            // Call
+            TestDelegate test = () => data.Replace(null, newDataElement);
+
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A null element cannot be replaced. User Add instead.");
+            Assert.AreEqual(1, data.List.Count);
+            Assert.IsInstanceOf<ChartLineData>(data.List.First());
+        }
+
+        [Test]
+        public void Remove_ExistingElement_RemovesElement()
+        {
+            // Setup
+            var list = Enumerable.Empty<ChartData>().ToList();
+            var data = new ChartDataCollection(list, "test");
+            var dataElement = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test");
+
+            data.Add(dataElement);
+
+            // Precondition
+            Assert.AreEqual(1, data.List.Count);
+            Assert.IsInstanceOf<ChartLineData>(data.List.First());
+
+            // Call
+            data.Remove(dataElement);
+
+            // Assert
+            CollectionAssert.IsEmpty(data.List);
+        }
+
+        [Test]
+        public void Remove_Null_DoesNotRemove()
+        {
+            // Setup
+            var list = Enumerable.Empty<ChartData>().ToList();
+            var data = new ChartDataCollection(list, "test");
+            var dataElement = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test");
+
+            data.Add(dataElement);
+
+            // Precondition
+            Assert.AreEqual(1, data.List.Count);
+            Assert.IsInstanceOf<ChartLineData>(data.List.First());
+            var listBeforeRemove = data.List;
+
+            // Call
+            data.Remove(null);
+
+            // Assert
+            CollectionAssert.AreEqual(listBeforeRemove, data.List);
+        }
+
+        [Test]
+        public void Remove_NotExistingElement_DoesNotRemove()
+        {
+            // Setup
+            var list = Enumerable.Empty<ChartData>().ToList();
+            var data = new ChartDataCollection(list, "test");
+            var dataElement = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test");
+            var otherDataElement = new ChartPointData(Enumerable.Empty<Tuple<double, double>>(), "another test");
+
+            data.Add(dataElement);
+
+            // Precondition
+            Assert.AreEqual(1, data.List.Count);
+            Assert.IsInstanceOf<ChartLineData>(data.List.First());
+            var listBeforeRemove = data.List;
+
+            // Call
+            data.Remove(otherDataElement);
+
+            // Assert
+            CollectionAssert.AreEqual(listBeforeRemove, data.List);
         }
     }
 }

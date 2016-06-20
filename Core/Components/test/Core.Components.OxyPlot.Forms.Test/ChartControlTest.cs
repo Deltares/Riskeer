@@ -20,13 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Utils.Reflection;
 using Core.Components.Charting.Data;
-using Core.Components.Charting.TestUtil;
 using NUnit.Framework;
 using OxyPlot.WindowsForms;
 
@@ -39,125 +36,51 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void DefaultConstructor_PropertiesSet()
         {
             // Call
-            var chart = new ChartControl();
-
-            // Assert
-            Assert.IsInstanceOf<Control>(chart);
-            Assert.AreEqual(75, chart.MinimumSize.Height);
-            Assert.AreEqual(50, chart.MinimumSize.Width);
-            Assert.IsNull(chart.Data);
-            Assert.IsTrue(chart.IsPanningEnabled);
-            Assert.IsFalse(chart.IsRectangleZoomingEnabled);
-        }
-
-        [Test]
-        public void Data_NotKnownChartData_ThrowsNotSupportedException()
-        {
-            // Setup
-            var chart = new ChartControl();
-            var testData = new TestChartData();
-
-            // Call
-            TestDelegate test = () => chart.Data = testData;
-
-            // Assert
-            Assert.Throws<NotSupportedException>(test);
-        }
-
-        [Test]
-        public void Data_Null_ReturnsNull()
-        {
-            // Setup
-            var chart = new ChartControl();
-
-            // Call
-            chart.Data = null;
-
-            // Assert
-            Assert.IsNull(chart.Data);
-        }
-
-        [Test]
-        public void Data_KnownChartData_ChartControlAttachedSeriesAdded()
-        {
-            // Setup
-            var chart = new ChartControl();
-            var testData = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test data");
-            var observers = TypeUtils.GetField<ICollection<IObserver>>(testData, "observers");
-            var view = TypeUtils.GetField<PlotView>(chart, "view");
-
-            // Call
-            chart.Data = testData;
-
-            // Assert
-            CollectionAssert.AreEqual(new[]
+            using (var chart = new ChartControl())
             {
-                chart
-            }, observers);
-            Assert.AreEqual(1, view.Model.Series.Count);
+                // Assert
+                Assert.IsInstanceOf<Control>(chart);
+                Assert.AreEqual(75, chart.MinimumSize.Height);
+                Assert.AreEqual(50, chart.MinimumSize.Width);
+                Assert.IsNotNull(chart.Data);
+                CollectionAssert.IsEmpty(chart.Data.List);
+                Assert.IsTrue(chart.IsPanningEnabled);
+                Assert.IsFalse(chart.IsRectangleZoomingEnabled);
+            }
         }
 
         [Test]
-        public void Data_NewDataSet_ChartControlDetachedFromOldAttachedToNewSeriesUpdated()
+        public void Data_NotNull_ReturnsData()
         {
             // Setup
-            var chart = new ChartControl();
-            var testDataOld = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test data");
-            var testDataNew = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test data");
-            var observersOld = TypeUtils.GetField<ICollection<IObserver>>(testDataOld, "observers");
-            var observersNew = TypeUtils.GetField<ICollection<IObserver>>(testDataNew, "observers");
-            var view = TypeUtils.GetField<PlotView>(chart, "view");
-
-            // Call
-            chart.Data = testDataOld;
-            chart.Data = testDataNew;
-
-            // Assert
-            CollectionAssert.IsEmpty(observersOld);
-            CollectionAssert.AreEqual(new[]
+            using (var chart = new ChartControl())
             {
-                chart
-            }, observersNew);
-            Assert.AreEqual(1, view.Model.Series.Count);
-        }
+                var testData = new ChartPointData(Enumerable.Empty<Tuple<double, double>>(), "test data");
 
-        [Test]
-        public void Data_DataSetNewValueIsNull_ChartControlDetachedSeriesCleared()
-        {
-            // Setup
-            var chart = new ChartControl();
-            var testData = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test data");
-            var observers = TypeUtils.GetField<ICollection<IObserver>>(testData, "observers");
-            var view = TypeUtils.GetField<PlotView>(chart, "view");
+                // Call
+                chart.Data.Add(testData);
 
-            chart.Data = testData;
-
-            // Precondition
-            Assert.AreEqual(1, view.Model.Series.Count);
-
-            // Call
-            chart.Data = null;
-
-            // Assert
-            CollectionAssert.IsEmpty(observers);
-            CollectionAssert.IsEmpty(view.Model.Series);
+                // Assert
+                Assert.AreSame(testData, chart.Data.List.First());
+            }
         }
 
         [Test]
         public void TogglePanning_Always_PanningEnabled()
         {
             // Setup
-            var chart = new ChartControl();
+            using (var chart = new ChartControl())
+            {
+                // Precondition
+                Assert.IsTrue(chart.IsPanningEnabled);
 
-            // Precondition
-            Assert.IsTrue(chart.IsPanningEnabled);
+                // Call
+                chart.TogglePanning();
 
-            // Call
-            chart.TogglePanning();
-
-            // Assert
-            Assert.IsTrue(chart.IsPanningEnabled);
-            Assert.IsFalse(chart.IsRectangleZoomingEnabled);
+                // Assert
+                Assert.IsTrue(chart.IsPanningEnabled);
+                Assert.IsFalse(chart.IsRectangleZoomingEnabled);
+            }
         }
 
         [Test]
@@ -166,74 +89,81 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void ToggleRectangleZooming_Always_ChangesState(bool isRectangleZooming)
         {
             // Setup
-            var chart = new ChartControl();
-            if (isRectangleZooming)
+            using (var chart = new ChartControl())
             {
+                if (isRectangleZooming)
+                {
+                    chart.ToggleRectangleZooming();
+                }
+
+                // Precondition
+                Assert.AreEqual(isRectangleZooming, chart.IsRectangleZoomingEnabled);
+                Assert.AreEqual(!isRectangleZooming, chart.IsPanningEnabled);
+
+                // Call
                 chart.ToggleRectangleZooming();
+
+                // Assert
+                Assert.IsTrue(chart.IsRectangleZoomingEnabled);
             }
-
-            // Precondition
-            Assert.AreEqual(isRectangleZooming, chart.IsRectangleZoomingEnabled);
-            Assert.AreEqual(!isRectangleZooming, chart.IsPanningEnabled);
-
-            // Call
-            chart.ToggleRectangleZooming();
-
-            // Assert
-            Assert.IsTrue(chart.IsRectangleZoomingEnabled);
         }
 
         [Test]
         public void ZoomToAll_ChartInForm_ViewInvalidatedSeriesSame()
         {
             // Setup
-            var form = new Form();
-            var chart = new ChartControl();
-            var testData = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test data");
-            var view = TypeUtils.GetField<PlotView>(chart, "view");
-            var invalidated = 0;
+            using (var form = new Form())
+            {
+                var chart = new ChartControl();
+                var testData = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test data");
+                var view = TypeUtils.GetField<PlotView>(chart, "view");
+                var invalidated = 0;
 
-            chart.Data = testData;
-            var series = view.Model.Series.ToList();
+                chart.Data.Add(testData);
+                var series = view.Model.Series.ToList();
 
-            form.Controls.Add(chart);
-            view.Invalidated += (sender, args) => invalidated++;
+                form.Controls.Add(chart);
+                view.Invalidated += (sender, args) => invalidated++;
 
-            form.Show();
+                form.Show();
 
-            // Call
-            chart.ZoomToAll();
+                // Call
+                chart.ZoomToAll();
 
-            // Assert
-            Assert.AreEqual(1, invalidated);
-            CollectionAssert.AreEqual(series, view.Model.Series);
+                // Assert
+                Assert.AreEqual(1, invalidated);
+                CollectionAssert.AreEqual(series, view.Model.Series);
+            }
         }
 
         [Test]
         public void UpdateObserver_ChartInForm_ViewInvalidatedSeriesRenewed()
         {
             // Setup
-            var form = new Form();
-            var chart = new ChartControl();
-            var testData = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test data");
-            var view = TypeUtils.GetField<PlotView>(chart, "view");
-            var invalidated = 0;
+            using (var form = new Form())
+            {
+                var chart = new ChartControl();
+                var testData = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test data");
+                var view = TypeUtils.GetField<PlotView>(chart, "view");
+                var invalidated = 0;
 
-            chart.Data = testData;
-            var series = view.Model.Series.ToList();
+                chart.Data.Add(testData);
+                chart.UpdateObserver();
+                var series = view.Model.Series.ToList();
 
-            form.Controls.Add(chart);
-            view.Invalidated += (sender, args) => invalidated++;
+                form.Controls.Add(chart);
+                view.Invalidated += (sender, args) => invalidated++;
 
-            form.Show();
+                form.Show();
 
-            // Call
-            chart.UpdateObserver();
+                // Call
+                chart.UpdateObserver();
 
-            // Assert
-            Assert.AreEqual(1, invalidated);
-            Assert.AreEqual(1, view.Model.Series.Count);
-            Assert.AreNotSame(series[0], view.Model.Series[0]);
+                // Assert
+                Assert.AreEqual(1, invalidated);
+                Assert.AreEqual(1, view.Model.Series.Count);
+                Assert.AreNotSame(series[0], view.Model.Series[0]);
+            }
         }
 
         [Test]
@@ -243,22 +173,24 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void BottomAxisTitle_Always_SetsNewTitleToBottomAxis(string newTitle)
         {
             // Setup
-            var form = new Form();
-            var chart = new ChartControl();
-            var view = TypeUtils.GetField<PlotView>(chart, "view");
-            form.Controls.Add(chart);
+            using (var form = new Form())
+            {
+                var chart = new ChartControl();
+                var view = TypeUtils.GetField<PlotView>(chart, "view");
+                form.Controls.Add(chart);
 
-            form.Show();
+                form.Show();
 
-            var invalidated = 0;
-            view.Invalidated += (sender, args) => invalidated++;
+                var invalidated = 0;
+                view.Invalidated += (sender, args) => invalidated++;
 
-            // Call
-            chart.BottomAxisTitle = newTitle;
+                // Call
+                chart.BottomAxisTitle = newTitle;
 
-            // Assert
-            Assert.AreEqual(chart.BottomAxisTitle, newTitle);
-            Assert.AreEqual(1, invalidated);
+                // Assert
+                Assert.AreEqual(chart.BottomAxisTitle, newTitle);
+                Assert.AreEqual(1, invalidated);
+            }
         }
 
         [Test]
@@ -268,22 +200,24 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void SetLeftAxisTitle_Always_SetsNewTitleToLeftAxis(string newTitle)
         {
             // Setup
-            var form = new Form();
-            var chart = new ChartControl();
-            var view = TypeUtils.GetField<PlotView>(chart, "view");
-            form.Controls.Add(chart);
+            using (var form = new Form())
+            {
+                var chart = new ChartControl();
+                var view = TypeUtils.GetField<PlotView>(chart, "view");
+                form.Controls.Add(chart);
 
-            form.Show();
+                form.Show();
 
-            var invalidated = 0;
-            view.Invalidated += (sender, args) => invalidated++;
+                var invalidated = 0;
+                view.Invalidated += (sender, args) => invalidated++;
 
-            // Call
-            chart.LeftAxisTitle = newTitle;
+                // Call
+                chart.LeftAxisTitle = newTitle;
 
-            // Assert
-            Assert.AreEqual(chart.LeftAxisTitle, newTitle);
-            Assert.AreEqual(1, invalidated);
+                // Assert
+                Assert.AreEqual(chart.LeftAxisTitle, newTitle);
+                Assert.AreEqual(1, invalidated);
+            }
         }
 
         [Test]
@@ -293,22 +227,24 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void SetModelTitle_Always_SetsNewTitleToModelAndViewInvalidated(string newTitle)
         {
             // Setup
-            var form = new Form();
-            var chart = new ChartControl();
-            var view = TypeUtils.GetField<PlotView>(chart, "view");
-            form.Controls.Add(chart);
+            using (var form = new Form())
+            {
+                var chart = new ChartControl();
+                var view = TypeUtils.GetField<PlotView>(chart, "view");
+                form.Controls.Add(chart);
 
-            form.Show();
+                form.Show();
 
-            var invalidated = 0;
-            view.Invalidated += (sender, args) => invalidated++;
+                var invalidated = 0;
+                view.Invalidated += (sender, args) => invalidated++;
 
-            // Call
-            chart.ChartTitle = newTitle;
+                // Call
+                chart.ChartTitle = newTitle;
 
-            // Assert
-            Assert.AreEqual(chart.ChartTitle, newTitle);
-            Assert.AreEqual(1, invalidated);
+                // Assert
+                Assert.AreEqual(chart.ChartTitle, newTitle);
+                Assert.AreEqual(1, invalidated);
+            }
         }
     }
 }

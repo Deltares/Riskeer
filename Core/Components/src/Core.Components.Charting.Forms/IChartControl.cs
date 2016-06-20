@@ -41,7 +41,7 @@ namespace Core.Components.Charting.Forms
         /// <summary>
         /// Gets or sets the data to show in the <see cref="IChartControl"/>.
         /// </summary>
-        ChartData Data { get; set; }
+        ChartDataCollection Data { get; }
 
         /// <summary>
         /// Gets or sets the title of the chart.

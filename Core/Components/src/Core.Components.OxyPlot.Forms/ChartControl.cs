@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -37,8 +38,6 @@ namespace Core.Components.OxyPlot.Forms
     {
         private readonly ChartSeriesFactory seriesFactory = new ChartSeriesFactory();
 
-        private ChartData data;
-
         private LinearPlotView view;
         private DynamicPlotController controller;
 
@@ -49,28 +48,11 @@ namespace Core.Components.OxyPlot.Forms
         {
             InitializePlotView();
             MinimumSize = new Size(50, 75);
-        }
 
-        /// <summary>
-        /// Attaches the <see cref="ChartControl"/> to the currently set <see cref="Data"/>, if there is any.
-        /// </summary>
-        private void AttachToData()
-        {
-            if (data != null)
-            {
-                data.Attach(this);
-            }
-        }
+            Data = new ChartDataCollection(new List<ChartData>(), "Root");
+            Data.Attach(this);
 
-        /// <summary>
-        /// Detaches the <see cref="ChartControl"/> to the currently set <see cref="Data"/>, if there is any.
-        /// </summary>
-        private void DetachFromData()
-        {
-            if (data != null)
-            {
-                data.Detach(this);
-            }
+            DrawSeries();
         }
 
         /// <summary>
@@ -90,9 +72,9 @@ namespace Core.Components.OxyPlot.Forms
         private void DrawSeries()
         {
             view.Model.Series.Clear();
-            if (data != null)
+            if (Data != null)
             {
-                foreach (var series in seriesFactory.Create(data))
+                foreach (var series in seriesFactory.Create(Data))
                 {
                     view.Model.Series.Add(series);
                 }
@@ -119,20 +101,7 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public ChartData Data
-        {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                DetachFromData();
-                data = value;
-                AttachToData();
-                DrawSeries();
-            }
-        }
+        public ChartDataCollection Data { get; set; }
 
         public string ChartTitle
         {

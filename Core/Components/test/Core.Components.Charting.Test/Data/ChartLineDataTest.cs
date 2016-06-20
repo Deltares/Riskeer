@@ -54,7 +54,7 @@ namespace Core.Components.Charting.Test.Data
             TestDelegate test = () => new ChartLineData(points, invalidName);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to map data");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to chart data");
         }
 
         [Test]
