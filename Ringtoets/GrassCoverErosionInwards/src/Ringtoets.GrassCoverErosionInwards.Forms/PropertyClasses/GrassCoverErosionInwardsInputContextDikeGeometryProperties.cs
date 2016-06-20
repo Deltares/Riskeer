@@ -27,13 +27,14 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of dike geometry of <see cref="GrassCoverErosionInwardsInputContext"/> for properties panel.
+    /// ViewModel of <see cref="GrassCoverErosionInwardsInput.DikeGeometry"/> for properties panel.
     /// </summary>
     public class GrassCoverErosionInwardsInputContextDikeGeometryProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
     {

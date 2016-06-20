@@ -33,7 +33,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of dike geometry of <see cref="DikeProfile"/> for properties panel.
+    /// ViewModel of <see cref="DikeProfile.DikeGeometry"/> for properties panel.
     /// </summary>
     public class DikeProfileDikeGeometryProperties : ObjectProperties<DikeProfile>
     {

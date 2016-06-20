@@ -90,7 +90,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor breakWaterProperty = dynamicProperties[breakWaterPropertyIndex];
             Assert.IsNotNull(breakWaterProperty);
-            Assert.IsTrue(breakWaterProperty.Converter is ExpandableObjectConverter);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(breakWaterProperty.Converter);
             Assert.IsTrue(breakWaterProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", breakWaterProperty.Category);
             Assert.AreEqual("Dam", breakWaterProperty.DisplayName);
@@ -98,7 +98,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor foreshoreProperty = dynamicProperties[foreshorePropertyIndex];
             Assert.IsNotNull(foreshoreProperty);
-            Assert.IsTrue(foreshoreProperty.Converter is ExpandableObjectConverter);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(foreshoreProperty.Converter);
             Assert.IsTrue(foreshoreProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", foreshoreProperty.Category);
             Assert.AreEqual("Voorlandgeometrie", foreshoreProperty.DisplayName);
@@ -106,7 +106,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor dikeGeometryProperty = dynamicProperties[dikeGeometryPropertyIndex];
             Assert.IsNotNull(dikeGeometryProperty);
-            Assert.IsTrue(dikeGeometryProperty.Converter is ExpandableObjectConverter);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(dikeGeometryProperty.Converter);
             Assert.IsTrue(dikeGeometryProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", dikeGeometryProperty.Category);
             Assert.AreEqual("Dijkgeometrie", dikeGeometryProperty.DisplayName);

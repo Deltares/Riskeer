@@ -156,7 +156,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor frunupModelFactorProperty = dynamicProperties[frunupModelFactorPropertyIndex];
             Assert.IsNotNull(frunupModelFactorProperty);
-            Assert.IsTrue(frunupModelFactorProperty.Converter is ExpandableObjectConverter);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(frunupModelFactorProperty.Converter);
             Assert.IsTrue(frunupModelFactorProperty.IsReadOnly);
             Assert.AreEqual("Modelfactoren", frunupModelFactorProperty.Category);
             Assert.AreEqual("Modelfactor Frunup [-]", frunupModelFactorProperty.DisplayName);
@@ -164,7 +164,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor fbModelProperty = dynamicProperties[fbFactorPropertyIndex];
             Assert.IsNotNull(fbModelProperty);
-            Assert.IsTrue(fbModelProperty.Converter is ExpandableObjectConverter);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(fbModelProperty.Converter);
             Assert.IsTrue(fbModelProperty.IsReadOnly);
             Assert.AreEqual("Modelfactoren", fbModelProperty.Category);
             Assert.AreEqual("Modelfactor Fb [-]", fbModelProperty.DisplayName);
@@ -172,7 +172,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor fnFactorProperty = dynamicProperties[fnFactorPropertyIndex];
             Assert.IsNotNull(fnFactorProperty);
-            Assert.IsTrue(fnFactorProperty.Converter is ExpandableObjectConverter);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(fnFactorProperty.Converter);
             Assert.IsTrue(fnFactorProperty.IsReadOnly);
             Assert.AreEqual("Modelfactoren", fnFactorProperty.Category);
             Assert.AreEqual("Modelfactor Fn [-]", fnFactorProperty.DisplayName);
@@ -180,7 +180,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor fshallowProperty = dynamicProperties[fshallowModelFactorPropertyIndex];
             Assert.IsNotNull(fshallowProperty);
-            Assert.IsTrue(fshallowProperty.Converter is ExpandableObjectConverter);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(fshallowProperty.Converter);
             Assert.IsTrue(fshallowProperty.IsReadOnly);
             Assert.AreEqual("Modelfactoren", fshallowProperty.Category);
             Assert.AreEqual("Modelfactor Fondiep [-]", fshallowProperty.DisplayName);

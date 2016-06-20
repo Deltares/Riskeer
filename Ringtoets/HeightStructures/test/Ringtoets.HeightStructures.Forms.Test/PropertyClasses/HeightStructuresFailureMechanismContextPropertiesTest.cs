@@ -159,7 +159,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor modelfactorOvertoppingFlowProperty = dynamicProperties[modelfactorOvertoppingFlowPropertyIndex];
             Assert.IsNotNull(modelfactorOvertoppingFlowProperty);
-            Assert.IsTrue(modelfactorOvertoppingFlowProperty.Converter is ExpandableObjectConverter);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(modelfactorOvertoppingFlowProperty.Converter);
             Assert.IsTrue(modelfactorOvertoppingFlowProperty.IsReadOnly);
             Assert.AreEqual("Modelfactoren", modelfactorOvertoppingFlowProperty.Category);
             Assert.AreEqual("Modelfactor overslagdebiet [-]", modelfactorOvertoppingFlowProperty.DisplayName);
@@ -167,7 +167,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor modelFactorForStorageVolumeProperty = dynamicProperties[modelFactorForStorageVolumePropertyIndex];
             Assert.IsNotNull(modelFactorForStorageVolumeProperty);
-            Assert.IsTrue(modelFactorForStorageVolumeProperty.Converter is ExpandableObjectConverter);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorForStorageVolumeProperty.Converter);
             Assert.IsTrue(modelFactorForStorageVolumeProperty.IsReadOnly);
             Assert.AreEqual("Modelfactoren", modelFactorForStorageVolumeProperty.Category);
             Assert.AreEqual("Modelfactor kombergingsvolume [-]", modelFactorForStorageVolumeProperty.DisplayName);
