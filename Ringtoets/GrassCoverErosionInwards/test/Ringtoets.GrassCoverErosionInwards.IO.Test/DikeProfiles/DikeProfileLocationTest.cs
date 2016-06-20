@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles;
@@ -54,6 +55,70 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             Assert.IsNull(dikeProfileLocation.Name);
             Assert.IsInstanceOf(typeof(double), dikeProfileLocation.Offset);
             Assert.IsInstanceOf(typeof(Point2D), dikeProfileLocation.Point);
+        }
+
+        [Test]
+        public void Constructor_InitializedWithNullId_ThrownArgumentException()
+        {
+            // Setup
+            var referencePoint = new Point2D(2.2, 3.3);
+
+            // Call
+            TestDelegate call = () => new DikeProfileLocation(null, "aNAME", 1.1, referencePoint);
+
+            // Assert
+            var expectedMessage = "De locatie parameter 'Id' heeft geen waarde.";
+            string message = Assert.Throws<ArgumentException>(call).Message;
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void Constructor_InitializedWithNullPoint_ThrownArgumentException()
+        {
+            // Call
+            TestDelegate call = () => new DikeProfileLocation("anID", "aNAME", 1.1, null);
+
+            // Assert
+            var expectedMessage = "De locatie heeft geen coördinaten.";
+            string message = Assert.Throws<ArgumentException>(call).Message;
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        [TestCase("a 1")]
+        [TestCase("a#1")]
+        [TestCase("   ")]
+        [TestCase("*&(%&$")]
+        public void Constructor_InitializedWithInvalidId_ThrownArgumentException(string id)
+        {
+            // Setup
+            var referencePoint = new Point2D(2.2, 3.3);
+
+            // Call
+            TestDelegate call = () => new DikeProfileLocation(id, "aNAME", 1.1, referencePoint);
+
+            // Assert
+            var expectedMessage = "De locatie parameter 'Id' bevat meer dan letters en cijfers.";
+            string message = Assert.Throws<ArgumentException>(call).Message;
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        public void Constructor_InitializedWithInvalidId_ThrownArgumentException(double x0)
+        {
+            // Setup
+            var referencePoint = new Point2D(2.2, 3.3);
+
+            // Call
+            TestDelegate call = () => new DikeProfileLocation("anID", "aNAME", x0, referencePoint);
+
+            // Assert
+            var expectedMessage = "De locatie parameter 'X0' bevat een ongeldig getal.";
+            string message = Assert.Throws<ArgumentException>(call).Message;
+            Assert.AreEqual(expectedMessage, message);
         }
     }
 }

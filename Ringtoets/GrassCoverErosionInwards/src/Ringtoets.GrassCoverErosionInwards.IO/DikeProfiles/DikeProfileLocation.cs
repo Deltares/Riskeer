@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Linq;
 using Core.Common.Base.Geometry;
+using GrasCoverErosionInwardsIoResources = Ringtoets.GrassCoverErosionInwards.IO.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
 {
@@ -35,8 +38,29 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <param name="name">The name of this <see cref="DikeProfileLocation"/></param>
         /// <param name="offset">The coordinate offset in the local coordinate system for this <see cref="DikeProfileLocation"/></param>
         /// <param name="point">The coordinates of the location as a <see cref="Point2D"/>.</param>
+        /// <exception cref="ArgumentException"><list type="Bullet">
+        /// <item>The Id parameter is null.</item>
+        /// <item>The Id parameter contains illegal characters.</item>
+        /// <item>The Point parameter is null.</item>
+        /// </list></exception>
         public DikeProfileLocation(string id, string name, double offset, Point2D point)
         {
+            if (id == null)
+            {
+                throw new ArgumentException(GrasCoverErosionInwardsIoResources.DikeProfileLocation_DikeProfileLocation_Id_is_null);
+            }
+            if (!id.All(char.IsLetterOrDigit))
+            {
+                throw new ArgumentException(GrasCoverErosionInwardsIoResources.DikeProfileLocation_DikeProfileLocation_Id_is_invalid);
+            }
+            if (double.IsNaN(offset) || double.IsInfinity(offset))
+            {
+                throw new ArgumentException(GrasCoverErosionInwardsIoResources.DikeProfileLocation_DikeProfileLocation_X0_is_invalid);
+            }
+            if (point == null)
+            {
+                throw new ArgumentException(GrasCoverErosionInwardsIoResources.DikeProfileLocation_DikeProfileLocation_Point_is_null);
+            }
             Id = id;
             Name = name;
             Offset = offset;

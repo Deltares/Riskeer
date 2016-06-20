@@ -92,7 +92,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                 var attributeX0Value = GetOffsetAttributeValue(attributes);
 
                 Point2D point = mapPointData.Features.First().MapGeometries.First().PointCollections.First().First();
-                dikeProfileLocations.Add(new DikeProfileLocation(attributeIdValue, attributeNameValue, attributeX0Value, point));
+                try
+                {
+                    dikeProfileLocations.Add(new DikeProfileLocation(attributeIdValue, attributeNameValue, attributeX0Value, point));
+                }
+                catch (ArgumentException exception)
+                {
+                    throw new CriticalFileReadException(exception.Message);
+                }
             }
 
             return dikeProfileLocations;
@@ -142,14 +149,6 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         private static string GetIdAttributeValue(IDictionary<string, object> attributes)
         {
             var attributeIdValue = attributes[idAttributeName] as string;
-            if (attributeIdValue == null)
-            {
-                throw new CriticalFileReadException(GrasCoverErosionInwardsIoResources.DikeProfileLocationReader_GetDikeProfileLocations_Invalid_Id);
-            }
-            if (!attributeIdValue.All(char.IsLetterOrDigit))
-            {
-                throw new CriticalFileReadException(GrasCoverErosionInwardsIoResources.DikeProfileLocationReader_GetDikeProfileLocations_Illegal_Id);
-            }
             return attributeIdValue;
         }
 

@@ -129,14 +129,8 @@
   <data name="DikeProfileLocation_Constructor_Invalid_X0" xml:space="preserve">
     <value>Fout bij het aanmaken van een dijk profiel locatie: offset is ongeldig.</value>
   </data>
-  <data name="DikeProfileLocationReader_GetDikeProfileLocations_Invalid_Id" xml:space="preserve">
-    <value>Het bestand heeft een attribuut 'ID' zonder geldige waarde, welke vereist is om de locaties van de dijkprofielen in te lezen.</value>
-  </data>
   <data name="DikeProfileLocationReader_GetDikeProfileLocations_Invalid_X0" xml:space="preserve">
     <value>Het bestand heeft een attribuut 'X0' zonder geldige waarde, welke vereist is om de locaties van de dijkprofielen in te lezen.</value>
-  </data>
-  <data name="DikeProfileLocationReader_GetDikeProfileLocations_Illegal_Id" xml:space="preserve">
-    <value>Het bestand bevat het attribuut Id met een waarde welke uit meer dan alleen letters en cijfers bestaat.</value>
   </data>
   <data name="DikeProfileDataReader_ParseDamType_DamType_0_must_be_in_range" xml:space="preserve">
     <value>De ingelezen dam-type waarde ({0}) moet binnen het bereik [0, 3] vallen.</value>
@@ -200,5 +194,20 @@
   </data>
   <data name="DikeProfileDataReader_ParseCrestLevel_CrestLevel_0_overflows" xml:space="preserve">
     <value>De ingelezen kruinhoogte ({0}) is te groot of te klein om ingelezen te worden.</value>
+  </data>
+  <data name="DikeProfileLocation_DikeProfileLocation_Invalid_point" xml:space="preserve">
+    <value>Het bestand bevat een ongeldig punt als locatie.</value>
+  </data>
+  <data name="DikeProfileLocation_DikeProfileLocation_Id_is_null" xml:space="preserve">
+    <value>De locatie parameter 'Id' heeft geen waarde.</value>
+  </data>
+  <data name="DikeProfileLocation_DikeProfileLocation_Id_is_invalid" xml:space="preserve">
+    <value>De locatie parameter 'Id' bevat meer dan letters en cijfers.</value>
+  </data>
+  <data name="DikeProfileLocation_DikeProfileLocation_Point_is_null" xml:space="preserve">
+    <value>De locatie heeft geen coördinaten.</value>
+  </data>
+  <data name="DikeProfileLocation_DikeProfileLocation_X0_is_invalid" xml:space="preserve">
+    <value>De locatie parameter 'X0' bevat een ongeldig getal.</value>
   </data>
 </root>

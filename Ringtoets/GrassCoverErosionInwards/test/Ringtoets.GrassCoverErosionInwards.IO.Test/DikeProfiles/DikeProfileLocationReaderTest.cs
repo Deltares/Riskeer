@@ -164,14 +164,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
-        [TestCase("Voorlanden_12-2_EmptyId.shp", "ID")]
-        [TestCase("Voorlanden_12-2_EmptyX0.shp", "X0")]
-        public void GetDikeProfileLocations_FileWithEmptyEntryInColumn_ThrowCriticalFileReadException(
-            string fileName, string offendingColumnName)
+        public void GetDikeProfileLocations_FileWithNullId_ThrowCriticalFileReadException()
         {
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                          Path.Combine("DikeProfiles", fileName));
+                          Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyId.shp"));
 
             using (var reader = new DikeProfileLocationReader(invalidFilePath))
             {
@@ -179,8 +176,26 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
                 TestDelegate call = () => reader.GetDikeProfileLocations();
 
                 // Assert
-                var expectedMessage = string.Format("Het bestand heeft een attribuut '{0}' zonder geldige waarde, welke vereist is om de locaties van de dijkprofielen in te lezen.",
-                                                    offendingColumnName);
+                var expectedMessage = "De locatie parameter 'Id' heeft geen waarde.";
+                string message = Assert.Throws<CriticalFileReadException>(call).Message;
+                Assert.AreEqual(expectedMessage, message);
+            }
+        }
+
+        [Test]
+        public void GetDikeProfileLocations_FileWithNullX0_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                          Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyX0.shp"));
+
+            using (var reader = new DikeProfileLocationReader(invalidFilePath))
+            {
+                // Call
+                TestDelegate call = () => reader.GetDikeProfileLocations();
+
+                // Assert
+                var expectedMessage = "Het bestand heeft een attribuut 'X0' zonder geldige waarde, welke vereist is om de locaties van de dijkprofielen in te lezen.";
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -201,7 +216,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
                 TestDelegate call = () => reader.GetDikeProfileLocations();
 
                 // Assert
-                var expectedMessage = "Het bestand bevat het attribuut Id met een waarde welke uit meer dan alleen letters en cijfers bestaat.";
+                var expectedMessage = "De locatie parameter 'Id' bevat meer dan letters en cijfers.";
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
                 Assert.AreEqual(expectedMessage, message);
             }

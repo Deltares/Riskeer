@@ -268,29 +268,56 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De locatie parameter &apos;Id&apos; bevat meer dan letters en cijfers..
+        /// </summary>
+        internal static string DikeProfileLocation_DikeProfileLocation_Id_is_invalid {
+            get {
+                return ResourceManager.GetString("DikeProfileLocation_DikeProfileLocation_Id_is_invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie parameter &apos;Id&apos; heeft geen waarde..
+        /// </summary>
+        internal static string DikeProfileLocation_DikeProfileLocation_Id_is_null {
+            get {
+                return ResourceManager.GetString("DikeProfileLocation_DikeProfileLocation_Id_is_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand bevat een ongeldig punt als locatie..
+        /// </summary>
+        internal static string DikeProfileLocation_DikeProfileLocation_Invalid_point {
+            get {
+                return ResourceManager.GetString("DikeProfileLocation_DikeProfileLocation_Invalid_point", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie heeft geen coördinaten..
+        /// </summary>
+        internal static string DikeProfileLocation_DikeProfileLocation_Point_is_null {
+            get {
+                return ResourceManager.GetString("DikeProfileLocation_DikeProfileLocation_Point_is_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie parameter &apos;X0&apos; bevat een ongeldig getal..
+        /// </summary>
+        internal static string DikeProfileLocation_DikeProfileLocation_X0_is_invalid {
+            get {
+                return ResourceManager.GetString("DikeProfileLocation_DikeProfileLocation_X0_is_invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het bestand heeft geen attribuut &apos;{0}&apos; welke vereist is om de locaties van de dijkprofielen in te lezen..
         /// </summary>
         internal static string DikeProfileLocationReader_CheckRequiredAttributePresence_Missing_attribute_0_ {
             get {
                 return ResourceManager.GetString("DikeProfileLocationReader_CheckRequiredAttributePresence_Missing_attribute_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het bestand bevat het attribuut Id met een waarde welke uit meer dan alleen letters en cijfers bestaat..
-        /// </summary>
-        internal static string DikeProfileLocationReader_GetDikeProfileLocations_Illegal_Id {
-            get {
-                return ResourceManager.GetString("DikeProfileLocationReader_GetDikeProfileLocations_Illegal_Id", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het bestand heeft een attribuut &apos;ID&apos; zonder geldige waarde, welke vereist is om de locaties van de dijkprofielen in te lezen..
-        /// </summary>
-        internal static string DikeProfileLocationReader_GetDikeProfileLocations_Invalid_Id {
-            get {
-                return ResourceManager.GetString("DikeProfileLocationReader_GetDikeProfileLocations_Invalid_Id", resourceCulture);
             }
         }
         
