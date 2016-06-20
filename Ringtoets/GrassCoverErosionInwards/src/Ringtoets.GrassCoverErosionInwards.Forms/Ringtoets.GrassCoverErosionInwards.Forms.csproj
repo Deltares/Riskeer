@@ -53,6 +53,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyClasses\DikeGeometryHelper.cs" />
     <Compile Include="PropertyClasses\DikeProfileProperties.cs" />
     <Compile Include="PropertyClasses\DikeProfileDikeGeometryProperties.cs" />
     <Compile Include="PropertyClasses\DikeProfileBreakWaterProperties.cs" />

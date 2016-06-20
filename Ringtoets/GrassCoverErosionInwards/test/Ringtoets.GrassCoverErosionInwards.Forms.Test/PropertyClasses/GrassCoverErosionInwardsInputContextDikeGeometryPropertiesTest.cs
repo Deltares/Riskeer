@@ -72,7 +72,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             CollectionAssert.IsEmpty(properties.Coordinates);
-            CollectionAssert.IsEmpty(properties.Roughness);
+            CollectionAssert.IsEmpty(properties.Roughnesses);
             mockRepository.VerifyAll();
         }
 
@@ -102,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             {
                 new RoundedDouble(2, 1.1)
             };
-            CollectionAssert.AreEqual(expectedRoughness, properties.Roughness);
+            CollectionAssert.AreEqual(expectedRoughness, properties.Roughnesses);
             mockRepository.VerifyAll();
         }
 

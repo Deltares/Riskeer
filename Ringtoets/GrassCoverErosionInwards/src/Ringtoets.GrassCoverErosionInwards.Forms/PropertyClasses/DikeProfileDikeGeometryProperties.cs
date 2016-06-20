@@ -53,20 +53,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
         [ResourcesDisplayName(typeof(Resources), "DikeGeometry_Roughness_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DikeGeometry_Roughness_Description")]
-        public RoundedDouble[] Roughness
+        public RoundedDouble[] Roughnesses
         {
             get
             {
-                var lastPoint = data.DikeGeometry.LastOrDefault();
-                if (lastPoint != null)
-                {
-                    return data.DikeGeometry
-                               .TakeWhile(rp => !ReferenceEquals(rp, lastPoint))
-                               .Select(rp => new RoundedDouble(2, rp.Roughness))
-                               .ToArray();
-                }
-
-                return new RoundedDouble[0];
+                return DikeGeometryHelper.GetRoughnesses(data.DikeGeometry).ToArray();
             }
         }
 
