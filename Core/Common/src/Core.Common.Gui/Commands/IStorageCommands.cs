@@ -64,10 +64,5 @@ namespace Core.Common.Gui.Commands
         /// <returns><c>true</c> if an existing <see cref="Project"/> has been loaded, 
         /// <c>false</c> otherwise.</returns>
         bool OpenExistingProject(string filePath);
-
-        /// <summary>
-        /// Close the current project and related views.
-        /// </summary>
-        void CloseProject();
     }
 }

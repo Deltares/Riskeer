@@ -130,40 +130,40 @@ namespace Core.Common.Gui.Commands
         {
             log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_existing_project);
 
-            var loadedProject = LoadProjectFromStorage(filePath);
-
-            if (loadedProject == null)
-            {
-                log.Error(Resources.StorageCommandHandler_OpeningExistingProject_Opening_existing_project_failed);
-                return false;
-            }
-
-            // Project loaded successfully, close current project
             CloseProject();
 
-            projectOwner.ProjectFilePath = filePath;
-            projectOwner.Project = loadedProject;
-            projectOwner.Project.Name = Path.GetFileNameWithoutExtension(filePath);
+            var newProject = LoadProjectFromStorage(filePath);
+            var isOpenProjectSuccessful = newProject != null;
+            if (!isOpenProjectSuccessful)
+            {
+                log.Error(Resources.StorageCommandHandler_OpeningExistingProject_Opening_existing_project_failed);
+                newProject = new Project();
+            }
+            else
+            {
+                log.Info(Resources.StorageCommandHandler_OpeningExistingProject_Opening_existing_project_successful);
+                newProject.Name = Path.GetFileNameWithoutExtension(filePath);
+                projectOwner.ProjectFilePath = filePath;
+            }
+
+            projectOwner.Project = newProject;
             projectOwner.Project.NotifyObservers();
             mainWindowController.RefreshGui();
-            log.Info(Resources.StorageCommandHandler_OpeningExistingProject_Opening_existing_project_successful);
-            return true;
+            return isOpenProjectSuccessful;
         }
 
-        public void CloseProject()
+        private void CloseProject()
         {
             if (projectOwner.Project == null)
             {
                 return;
             }
 
-            // remove views before closing project. 
             viewCommands.RemoveAllViewsForItem(projectOwner.Project);
 
             projectOwner.Project = null;
             projectOwner.ProjectFilePath = "";
             projectPersistor.CloseProject();
-            applicationSelection.Selection = null;
 
             mainWindowController.RefreshGui();
         }

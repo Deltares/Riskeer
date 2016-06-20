@@ -122,81 +122,6 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void CloseProject_ProjectSet_NullsProjectSelectionAndPath()
-        {
-            // Setup
-            const string savedProjectPath = @"C:\savedProject.rtd";
-
-            var projectMock = mocks.StrictMock<Project>();
-
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            viewCommands.Expect(g => g.RemoveAllViewsForItem(projectMock));
-
-            var projectStorage = mocks.Stub<IStoreProject>();
-            projectStorage.Expect(ps => ps.CloseProject());
-
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            projectOwner.Project = projectMock;
-            projectOwner.ProjectFilePath = savedProjectPath;
-            projectOwner.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            projectOwner.Stub(g => g.ProjectClosing += null).IgnoreArguments();
-            projectOwner.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-            projectOwner.Stub(g => g.ProjectClosing -= null).IgnoreArguments();
-
-            var applicationSelection = mocks.Stub<IApplicationSelection>();
-            applicationSelection.Selection = projectMock;
-
-            var mainWindowController = mocks.Stub<IMainWindowController>();
-            mainWindowController.Expect(c => c.RefreshGui());
-
-            var toolViewController = mocks.Stub<IToolViewController>();
-
-            mocks.ReplayAll();
-
-            using (var storageCommandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
-                                                                         mainWindowController, toolViewController, viewCommands))
-            {
-                // Call
-                storageCommandHandler.CloseProject();
-
-                // Assert
-                Assert.IsNull(projectOwner.Project);
-                Assert.IsNull(applicationSelection.Selection);
-                Assert.AreEqual("", projectOwner.ProjectFilePath);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseProject_ProjectNotYetSet_DoesNotThrowException()
-        {
-            // Setup
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var projectStorage = mocks.Stub<IStoreProject>();
-            var applicationSelection = mocks.Stub<IApplicationSelection>();
-            var mainWindowController = mocks.Stub<IMainWindowController>();
-            var toolViewController = mocks.Stub<IToolViewController>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            projectOwner.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            projectOwner.Stub(g => g.ProjectClosing += null).IgnoreArguments();
-            projectOwner.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-            projectOwner.Stub(g => g.ProjectClosing -= null).IgnoreArguments();
-
-            mocks.ReplayAll();
-
-            using (var storageCommandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
-                                                                         mainWindowController, toolViewController, viewCommands))
-            {
-                // Call
-                TestDelegate closeProject = () => storageCommandHandler.CloseProject();
-
-                // Assert
-                Assert.DoesNotThrow(closeProject);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void SaveProject_ProjectIsNull_DoNothingAndReturnFalse()
         {
             // Setup
@@ -318,15 +243,11 @@ namespace Core.Common.Gui.Test.Commands
             var projectStorage = mocks.Stub<IStoreProject>();
             projectStorage.Stub(ps => ps.LoadProject(pathToSomeInvalidFile))
                           .Throw(new StorageException(goodErrorMessageText, new Exception("H@X!")));
-            var applicationSelection = mocks.StrictMock<IApplicationSelection>();
-            var mainWindowController = mocks.StrictMock<IMainWindowController>();
-            var toolViewController = mocks.StrictMock<IToolViewController>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var projectOwner = mocks.StrictMock<IProjectOwner>();
-            projectOwner.Stub(po => po.ProjectOpened += null).IgnoreArguments();
-            projectOwner.Stub(po => po.ProjectClosing += null).IgnoreArguments();
-            projectOwner.Stub(po => po.ProjectOpened -= null).IgnoreArguments();
-            projectOwner.Stub(po => po.ProjectClosing -= null).IgnoreArguments();
+            var applicationSelection = mocks.Stub<IApplicationSelection>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            var toolViewController = mocks.Stub<IToolViewController>();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
             mocks.ReplayAll();
 
             using (var commandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
@@ -358,15 +279,11 @@ namespace Core.Common.Gui.Test.Commands
             var projectStorage = mocks.Stub<IStoreProject>();
             projectStorage.Stub(ps => ps.LoadProject(pathToSomeInvalidFile))
                           .Return(null);
-            var applicationSelection = mocks.StrictMock<IApplicationSelection>();
-            var mainWindowController = mocks.StrictMock<IMainWindowController>();
-            var toolViewController = mocks.StrictMock<IToolViewController>();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var projectOwner = mocks.StrictMock<IProjectOwner>();
-            projectOwner.Stub(po => po.ProjectOpened += null).IgnoreArguments();
-            projectOwner.Stub(po => po.ProjectClosing += null).IgnoreArguments();
-            projectOwner.Stub(po => po.ProjectOpened -= null).IgnoreArguments();
-            projectOwner.Stub(po => po.ProjectClosing -= null).IgnoreArguments();
+            var applicationSelection = mocks.Stub<IApplicationSelection>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            var toolViewController = mocks.Stub<IToolViewController>();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
             mocks.ReplayAll();
 
             using (var commandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
@@ -446,7 +363,7 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             const string fileName = "newProject";
-            string pathToSomeInvalidFile = string.Format("C://folder/directory/{0}.rtd",
+            string pathToSomeValidFile = string.Format("C://folder/directory/{0}.rtd",
                                                          fileName);
             var loadedProject = new Project();
             var originalProject = new Project("Original");
@@ -455,7 +372,7 @@ namespace Core.Common.Gui.Test.Commands
             observer.Expect(o => o.UpdateObserver());
 
             var projectStorage = mocks.Stub<IStoreProject>();
-            projectStorage.Stub(ps => ps.LoadProject(pathToSomeInvalidFile))
+            projectStorage.Stub(ps => ps.LoadProject(pathToSomeValidFile))
                           .Return(loadedProject);
             projectStorage.Stub(ps => ps.CloseProject());
             var applicationSelection = mocks.Stub<IApplicationSelection>();
@@ -484,7 +401,7 @@ namespace Core.Common.Gui.Test.Commands
             {
                 // Call
                 bool result = false;
-                Action call = () => result = commandHandler.OpenExistingProject(pathToSomeInvalidFile);
+                Action call = () => result = commandHandler.OpenExistingProject(pathToSomeValidFile);
 
                 // Assert
                 var expectedMessages = new[]
@@ -496,9 +413,8 @@ namespace Core.Common.Gui.Test.Commands
                 Assert.IsTrue(result);
             }
             Assert.IsInstanceOf<Project>(projectOwner.Project);
-            Assert.AreEqual(pathToSomeInvalidFile, projectOwner.ProjectFilePath);
+            Assert.AreEqual(pathToSomeValidFile, projectOwner.ProjectFilePath);
             Assert.AreEqual(fileName, projectOwner.Project.Name);
-            Assert.IsNull(applicationSelection.Selection);
             mocks.VerifyAll();
         }
 

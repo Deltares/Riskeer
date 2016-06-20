@@ -669,8 +669,8 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileOpenClicked(object sender, RoutedEventArgs e)
         {
-            var succesful = commands.StorageCommands.OpenExistingProject();
-            OnAfterProjectSaveOrOpen(succesful);
+            var successful = commands.StorageCommands.OpenExistingProject();
+            OnAfterProjectSaveOrOpen(successful);
         }
 
         private void OnFileNewClicked(object sender, RoutedEventArgs e)
