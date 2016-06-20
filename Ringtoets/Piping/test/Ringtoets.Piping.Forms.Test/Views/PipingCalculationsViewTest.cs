@@ -446,7 +446,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [TestCase("1e+6", entryPointLColumnIndex)]
         [TestCase("14.3", entryPointLColumnIndex)]
         [TestCase("1", exitPointLColumnIndex)]
-        [TestCase("1e-6", exitPointLColumnIndex)]
+        [TestCase("1e-2", exitPointLColumnIndex)]
         [TestCase("1e+6", exitPointLColumnIndex)]
         [TestCase("14.3", exitPointLColumnIndex)]
         public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(string newValue, int cellIndex)

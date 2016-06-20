@@ -98,11 +98,13 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                if (value < 0.0)
+                var roundedValue = value.ToPrecision(entryPointL.NumberOfDecimalPlaces);
+
+                if (roundedValue < 0.0)
                 {
                     throw new ArgumentOutOfRangeException("value", Resources.PipingInput_EntryPointL_Value_must_be_greater_than_or_equal_to_zero);
                 }
-                entryPointL = value.ToPrecision(entryPointL.NumberOfDecimalPlaces);
+                entryPointL = roundedValue;
             }
         }
 
@@ -121,11 +123,14 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                if (value <= 0.0)
+                var roundedValue = value.ToPrecision(exitPointL.NumberOfDecimalPlaces);
+
+                if (roundedValue <= 0.0)
                 {
                     throw new ArgumentOutOfRangeException("value", Resources.PipingInput_ExitPointL_Value_must_be_greater_than_zero);
                 }
-                exitPointL = value.ToPrecision(exitPointL.NumberOfDecimalPlaces);
+
+                exitPointL = roundedValue;
             }
         }
 

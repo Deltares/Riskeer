@@ -152,22 +152,23 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ExitPointL_SetToValueWithTooManyDecimalPlaces_ValueIsRounded()
+        public void ExitPointL_SetToNew_ValueIsRounded()
         {
             // Setup
             var pipingInput = new PipingInput(new GeneralPipingInput());
-
+            const double value = 1.23456;
             int originalNumberOfDecimalPlaces = pipingInput.ExitPointL.NumberOfDecimalPlaces;
 
             // Call
-            pipingInput.ExitPointL = new RoundedDouble(5, 1.23456);
+            pipingInput.ExitPointL = (RoundedDouble) value;
 
             // Assert
             Assert.AreEqual(originalNumberOfDecimalPlaces, pipingInput.ExitPointL.NumberOfDecimalPlaces);
-            Assert.AreEqual(1.23, pipingInput.ExitPointL.Value);
+            Assert.AreEqual(new RoundedDouble(originalNumberOfDecimalPlaces, value), pipingInput.ExitPointL);
         }
 
         [Test]
+        [TestCase(1e-6, "Invalid ExitPointL due to rounding to 0.0")]
         [TestCase(0)]
         [TestCase(-1e-6)]
         [TestCase(-21)]
@@ -184,7 +185,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        [TestCase(-1e-6)]
+        [TestCase(-1e-2)]
         [TestCase(-21)]
         public void EntryPointL_ValueLessThanZero_ThrowsArgumentOutOfRangeException(double value)
         {
@@ -199,19 +200,20 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void EntryPointL_SetToNewValueWithTooManyDecimalPlaces_ValueIsRounded()
+        [TestCase(-1e-3, "Valid EntryPointL due to rounding to 0.0")]
+        [TestCase(1.23456789)]
+        public void EntryPointL_SetToNew_ValueIsRounded(double value)
         {
             // Setup
             var pipingInput = new PipingInput(new GeneralPipingInput());
-
             int originalNumberOfDecimalPlaces = pipingInput.EntryPointL.NumberOfDecimalPlaces;
 
             // Call
-            pipingInput.EntryPointL = new RoundedDouble(5, 9.87654);
+            pipingInput.EntryPointL = (RoundedDouble) value;
 
             // Assert
             Assert.AreEqual(originalNumberOfDecimalPlaces, pipingInput.EntryPointL.NumberOfDecimalPlaces);
-            Assert.AreEqual(9.88, pipingInput.EntryPointL.Value);
+            Assert.AreEqual(new RoundedDouble(originalNumberOfDecimalPlaces, value), pipingInput.EntryPointL);
         }
 
         [Test]
