@@ -34,7 +34,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// </summary>
     public class DikeProfile
     {
-        private readonly List<ProfileSection> foreshoreGeometry;
+        private readonly List<Point2D> foreshoreGeometry;
         private readonly List<RoughnessProfileSection> dikeGeometry;
         private RoundedDouble orientation;
         private RoundedDouble crestLevel;
@@ -56,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             Name = Resources.DikeProfile_DefaultName;
             Memo = "";
             dikeGeometry = new List<RoughnessProfileSection>();
-            foreshoreGeometry = new List<ProfileSection>();
+            foreshoreGeometry = new List<Point2D>();
             WorldReferencePoint = worldCoordinate;
         }
 
@@ -120,7 +120,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the geometry of the foreshore.
         /// </summary>
-        public IEnumerable<ProfileSection> ForeshoreGeometry
+        public IList<Point2D> ForeshoreGeometry
         {
             get
             {
@@ -157,18 +157,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             {
                 return BreakWater != null;
             }
-        }
-
-        /// <summary>
-        /// Adds a geometry section to <see cref="ForeshoreGeometry"/>.
-        /// </summary>
-        /// <param name="section">The new section to add.</param>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="section"/>
-        /// is either not connected to <see cref="ForeshoreGeometry"/> or is connected but
-        /// has an incorrect orientation.</exception>
-        public void AddForshoreGeometrySection(ProfileSection section)
-        {
-            AddProfileSection(foreshoreGeometry, section);
         }
 
         /// <summary>
