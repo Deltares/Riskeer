@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
@@ -57,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 StandardDeviation = (RoundedDouble) 0.0006
             };
 
-            DikeGeometry = Enumerable.Empty<RoughnessProfileSection>();
+            DikeGeometry = new List<RoughnessPoint>();
             ForeshoreGeometry = new List<Point2D>();
         }
 
@@ -115,7 +114,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the geometry of the dike with roughness data.
         /// </summary>
-        public IEnumerable<RoughnessProfileSection> DikeGeometry { get; private set; }
+        public IList<RoughnessPoint> DikeGeometry { get; private set; }
 
         /// <summary>
         /// Gets or sets the dike height.
@@ -152,19 +151,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets or set the hydraulic boundary location from which to use the assessment level.
         /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
-
-        /// <summary>
-        /// Sets the grass cover erosion inwards dike geometry.
-        /// </summary>
-        /// <param name="profileSections">The grass cover erosion inwards geometry points.</param>
-        public void SetDikeGeometry(IEnumerable<RoughnessProfileSection> profileSections)
-        {
-            if (profileSections == null)
-            {
-                throw new ArgumentNullException("profileSections");
-            }
-            DikeGeometry = profileSections;
-        }
 
         private void UpdateProfileParameters()
         {

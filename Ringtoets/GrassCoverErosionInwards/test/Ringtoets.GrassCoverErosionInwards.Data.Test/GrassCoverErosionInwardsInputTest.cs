@@ -19,10 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
@@ -85,37 +83,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(useBreakWater, input.UseBreakWater);
             CollectionAssert.IsEmpty(input.DikeGeometry);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
-        }
-
-        [Test]
-        public void SetDikeGeometry_NullRoughnessProfileSections_ThrowsArgumentNullException()
-        {
-            // Setup
-            var input = new GrassCoverErosionInwardsInput();
-
-            // Call
-            TestDelegate test = () => input.SetDikeGeometry(null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
-        }
-
-        [Test]
-        public void SetDikeGeometry_ValidGeometry_ReturnsExpectedValues()
-        {
-            // Setup
-            var input = new GrassCoverErosionInwardsInput();
-            var sections = new[]
-            {
-                new RoughnessProfileSection(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4), 1.1),
-                new RoughnessProfileSection(new Point2D(3.3, 4.4), new Point2D(5.5, 6.6), 2.2)
-            };
-
-            // Call
-            input.SetDikeGeometry(sections);
-
-            // Assert
-            Assert.AreEqual(sections, input.DikeGeometry);
         }
     }
 }

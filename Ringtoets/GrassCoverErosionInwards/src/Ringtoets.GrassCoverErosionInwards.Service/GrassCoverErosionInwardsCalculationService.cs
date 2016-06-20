@@ -100,20 +100,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             return input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y));
         }
 
-        private static IEnumerable<HydraRingRoughnessProfilePoint> ParseProfilePoints(IEnumerable<RoughnessProfileSection> profileSections)
+        private static IEnumerable<HydraRingRoughnessProfilePoint> ParseProfilePoints(IList<RoughnessPoint> roughnessProfilePoints)
         {
-            RoughnessProfileSection firstProfileSection = profileSections.FirstOrDefault();
-            if (firstProfileSection == null)
+            for (var i = 0; i < roughnessProfilePoints.Count; i++)
             {
-                yield break;
-            }
+                var roughnessProfilePoint = roughnessProfilePoints.ElementAt(i);
 
-            // By default, the roughness is 1.0 (no reduction due to bed friction).
-            yield return new HydraRingRoughnessProfilePoint(firstProfileSection.StartingPoint.X, firstProfileSection.StartingPoint.Y, 1);
+                if (i == 0)
+                {
+                    yield return new HydraRingRoughnessProfilePoint(roughnessProfilePoint.Point.X, roughnessProfilePoint.Point.Y, 1.0);
+                }
+                else
+                {
+                    var precedingRoughnessProfilePoint = roughnessProfilePoints.ElementAt(i - 1);
 
-            foreach (var profileSection in profileSections)
-            {
-                yield return new HydraRingRoughnessProfilePoint(profileSection.EndingPoint.X, profileSection.EndingPoint.Y, profileSection.Roughness);
+                    yield return new HydraRingRoughnessProfilePoint(roughnessProfilePoint.Point.X, roughnessProfilePoint.Point.Y, precedingRoughnessProfilePoint.Roughness);
+                }
             }
         }
 

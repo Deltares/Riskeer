@@ -85,10 +85,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation();
-            calculation.InputParameters.SetDikeGeometry(new[]
-            {
-                new RoughnessProfileSection(new Point2D(0, 0), new Point2D(1, 1), 2)
-            });
             var properties = new GrassCoverErosionInwardsInputContextDikeGeometryProperties();
 
             // Call
@@ -97,14 +93,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             var expectedCoordinates = new[]
             {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
+                new Point2D(1.1, 2.2),
+                new Point2D(3.3, 4.4)
             };
             CollectionAssert.AreEqual(expectedCoordinates, properties.Coordinates);
 
             var expectedRoughness = new[]
             {
-                new RoundedDouble(2, 2)
+                new RoundedDouble(2, 1.1)
             };
             CollectionAssert.AreEqual(expectedRoughness, properties.Roughness);
             mockRepository.VerifyAll();

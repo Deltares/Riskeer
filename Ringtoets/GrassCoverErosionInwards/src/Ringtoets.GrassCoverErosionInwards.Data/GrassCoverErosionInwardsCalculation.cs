@@ -96,11 +96,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             InputParameters.Orientation = (RoundedDouble) 5.5;
 
             // Dike and Foreshore
-            var dikeSections = new[]
-            {
-                new RoughnessProfileSection(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4), 1.1)
-            };
-            InputParameters.SetDikeGeometry(dikeSections);
+            InputParameters.DikeGeometry.Add(new RoughnessPoint(new Point2D(1.1, 2.2), 1.1));
+            InputParameters.DikeGeometry.Add(new RoughnessPoint(new Point2D(3.3, 4.4), double.NaN));
             InputParameters.ForeshoreGeometry.Add(new Point2D(3.3, 4.4));
             InputParameters.ForeshoreGeometry.Add(new Point2D(5.5, 6.6));
             InputParameters.UseForeshore = true;
