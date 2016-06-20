@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             // Assert
             Assert.AreEqual("id", dikeProfileLocation.Id);
             Assert.AreEqual("name", dikeProfileLocation.Name);
-            Assert.AreEqual(1.1, dikeProfileLocation.X0);
+            Assert.AreEqual(1.1, dikeProfileLocation.Offset);
             Assert.AreEqual(referencePoint, dikeProfileLocation.Point);
         }
 
@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             // Assert
             Assert.IsInstanceOf(typeof(string), dikeProfileLocation.Id);
             Assert.IsNull(dikeProfileLocation.Name);
-            Assert.IsInstanceOf(typeof(double), dikeProfileLocation.X0);
+            Assert.IsInstanceOf(typeof(double), dikeProfileLocation.Offset);
             Assert.IsInstanceOf(typeof(Point2D), dikeProfileLocation.Point);
         }
     }

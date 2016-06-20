@@ -127,7 +127,7 @@
     <value>Fout bij het aanmaken van een dijk profiel locatie: Punt is ongeldig.</value>
   </data>
   <data name="DikeProfileLocation_Constructor_Invalid_X0" xml:space="preserve">
-    <value>Fout bij het aanmaken van een dijk profiel locatie: X0 is ongeldig.</value>
+    <value>Fout bij het aanmaken van een dijk profiel locatie: offset is ongeldig.</value>
   </data>
   <data name="DikeProfileLocationReader_GetDikeProfileLocations_Invalid_Id" xml:space="preserve">
     <value>Het bestand heeft een attribuut 'ID' zonder geldige waarde, welke vereist is om de locaties van de dijkprofielen in te lezen.</value>
@@ -161,5 +161,8 @@
   </data>
   <data name="DikeProfileDataReader_ReadDikeProfileData_Roughness_0_must_be_in_range" xml:space="preserve">
     <value>De ingelezen ruwheid ({0}) moet in het bereik [0, 1] vallen.</value>
+  </data>
+  <data name="DikeProfileLocationReader_CheckRequiredAttributePresence_Missing_attribute_0_" xml:space="preserve">
+    <value>Het bestand heeft geen attribuut '{0}' welke vereist is om de locaties van de dijkprofielen in te lezen.</value>
   </data>
 </root>

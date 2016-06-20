@@ -41,6 +41,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
     /// </summary>
     public class DikeProfileLocationReader : IDisposable
     {
+        private const string idAttributeName = "ID";
+        private const string nameAttributeName = "Naam";
+        private const string offsetAttributeName = "X0";
         private readonly PointShapeFileReader pointsShapeFileReader;
 
         /// <summary>
@@ -63,8 +66,38 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         }
 
         /// <summary>
-        /// Disposes of the utilized <see cref="pointsShapeFileReader"/> instance.
+        /// Retrieve a <see cref="DikeProfileLocation"/> for each point feature in the shapefile.
         /// </summary>
+        /// <exception cref="CriticalFileReadException"><list type="bullet">
+        /// <item>Shapefile does not contain the required attributes</item>
+        /// <item>Shapefile misses values for required attributes</item>
+        /// <item>Shapefile has an attribute whose type is incorrect</item>
+        /// </list></exception>
+        /// <returns>A <see cref="List{T}"/> of <see cref="DikeProfileLocation"/> objects.</returns>
+        public IList<DikeProfileLocation> GetDikeProfileLocations()
+        {
+            List<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
+
+            CheckRequiredAttributePresence();
+
+            int dikeProfileLocationCount = pointsShapeFileReader.GetNumberOfLines();
+            for (int i = 0; i < dikeProfileLocationCount; i++)
+            {
+                MapPointData mapPointData = (MapPointData) pointsShapeFileReader.ReadLine();
+
+                IDictionary<string, object> attributes = mapPointData.Features.First().MetaData;
+
+                var attributeIdValue = GetIdAttributeValue(attributes);
+                var attributeNameValue = GetNameAttributeValue(attributes);
+                var attributeX0Value = GetOffsetAttributeValue(attributes);
+
+                Point2D point = mapPointData.Features.First().MapGeometries.First().PointCollections.First().First();
+                dikeProfileLocations.Add(new DikeProfileLocation(attributeIdValue, attributeNameValue, attributeX0Value, point));
+            }
+
+            return dikeProfileLocations;
+        }
+
         public void Dispose()
         {
             pointsShapeFileReader.Dispose();
@@ -90,55 +123,52 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
             }
         }
 
-        /// <summary>
-        /// Retrieve a <see cref="DikeProfileLocation"/> for each point feature in the shapefile.
-        /// </summary>
-        /// <exception cref="CriticalFileReadException">Shapefile does not contain the required attributes, 
-        /// or misses values for required attributes, or an attribute's type is incorrect.</exception>
-        /// <returns>A <see cref="List{T}"/> of <see cref="DikeProfileLocation"/> objects.</returns>
-        public IList<DikeProfileLocation> GetDikeProfileLocations()
+        private static double GetOffsetAttributeValue(IDictionary<string, object> attributes)
         {
-            List<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
+            var attributeX0Value = attributes[offsetAttributeName] as double?;
+            if (attributeX0Value == null)
+            {
+                throw new CriticalFileReadException(GrasCoverErosionInwardsIoResources.DikeProfileLocationReader_GetDikeProfileLocations_Invalid_X0);
+            }
+            return attributeX0Value.Value;
+        }
 
-            foreach (string attribute in new[] { "ID", "Naam", "X0" })
+        private static string GetNameAttributeValue(IDictionary<string, object> attributes)
+        {
+            var attributeNameValue = attributes[nameAttributeName] as string;
+            return attributeNameValue;
+        }
+
+        private static string GetIdAttributeValue(IDictionary<string, object> attributes)
+        {
+            var attributeIdValue = attributes[idAttributeName] as string;
+            if (attributeIdValue == null)
+            {
+                throw new CriticalFileReadException(GrasCoverErosionInwardsIoResources.DikeProfileLocationReader_GetDikeProfileLocations_Invalid_Id);
+            }
+            if (!attributeIdValue.All(char.IsLetterOrDigit))
+            {
+                throw new CriticalFileReadException(GrasCoverErosionInwardsIoResources.DikeProfileLocationReader_GetDikeProfileLocations_Illegal_Id);
+            }
+            return attributeIdValue;
+        }
+
+        private void CheckRequiredAttributePresence()
+        {
+            IEnumerable<string> requiredAttributes = new[]
+            {
+                idAttributeName,
+                nameAttributeName,
+                offsetAttributeName
+            };
+            foreach (string attribute in requiredAttributes)
             {
                 if (!pointsShapeFileReader.HasAttribute(attribute))
                 {
                     throw new CriticalFileReadException(
-                        string.Format("Het bestand heeft geen attribuut '{0}' welke vereist is om de locaties van de dijkprofielen in te lezen.", attribute));
+                        string.Format(GrasCoverErosionInwardsIoResources.DikeProfileLocationReader_CheckRequiredAttributePresence_Missing_attribute_0_, attribute));
                 }
             }
-
-            int dikeProfileLocationCount = pointsShapeFileReader.GetNumberOfLines();
-            for (int i = 0; i < dikeProfileLocationCount; i++)
-            {
-                MapPointData mapPointData = (MapPointData)pointsShapeFileReader.ReadLine();
-
-                IDictionary<string, object> attributes = mapPointData.Features.First().MetaData;
-
-                var attributeIdValue = attributes["ID"] as string;
-                if (attributeIdValue == null)
-                {
-                    throw new CriticalFileReadException(GrasCoverErosionInwardsIoResources.DikeProfileLocationReader_GetDikeProfileLocations_Invalid_Id);
-                }
-                if (!attributeIdValue.All(char.IsLetterOrDigit))
-                {
-                    throw new CriticalFileReadException(GrasCoverErosionInwardsIoResources.DikeProfileLocationReader_GetDikeProfileLocations_Illegal_Id);
-                }
-
-                var attributeNameValue = attributes["Naam"] as string;
-
-                var attributeX0Value = attributes["X0"] as double?;
-                if (attributeX0Value == null)
-                {
-                    throw new CriticalFileReadException(GrasCoverErosionInwardsIoResources.DikeProfileLocationReader_GetDikeProfileLocations_Invalid_X0);
-                }
-
-                Point2D point = mapPointData.Features.First().MapGeometries.First().PointCollections.First().First();
-                dikeProfileLocations.Add(new DikeProfileLocation(attributeIdValue, attributeNameValue, attributeX0Value.Value, point));
-            }
-
-            return dikeProfileLocations;
         }
     }
 }

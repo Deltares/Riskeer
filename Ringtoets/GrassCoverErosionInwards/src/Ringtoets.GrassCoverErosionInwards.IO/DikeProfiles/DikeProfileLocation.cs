@@ -31,16 +31,16 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <summary>
         /// Creates a new instance of <see cref="DikeProfileLocation"/>.
         /// </summary>
-        /// <param name="idValue">The identifier for this <see cref="DikeProfileLocation"/></param>
-        /// <param name="nameValue">The name of this <see cref="DikeProfileLocation"/></param>
-        /// <param name="x0Value">The coordinate offset for this <see cref="DikeProfileLocation"/></param>
-        /// <param name="pointValue">The actual location.</param>
-        public DikeProfileLocation(string idValue, string nameValue, double x0Value, Point2D pointValue)
+        /// <param name="id">The identifier for this <see cref="DikeProfileLocation"/></param>
+        /// <param name="name">The name of this <see cref="DikeProfileLocation"/></param>
+        /// <param name="offset">The coordinate offset in the local coordinate system for this <see cref="DikeProfileLocation"/></param>
+        /// <param name="point">The coordinates of the location as a <see cref="Point2D"/>.</param>
+        public DikeProfileLocation(string id, string name, double offset, Point2D point)
         {
-            Id = idValue;
-            Name = nameValue;
-            X0 = x0Value;
-            Point = pointValue;
+            Id = id;
+            Name = name;
+            Offset = offset;
+            Point = point;
         }
 
         /// <summary>
@@ -54,9 +54,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         public string Name { get; private set; }
 
         /// <summary>
-        /// Gets the coordinate offset for this <see cref="DikeProfileLocation"/>.
+        /// Gets the coordinate offset in the local coordinate system for this <see cref="DikeProfileLocation"/>.
         /// </summary>
-        public double X0 { get; private set; }
+        public double Offset { get; private set; }
 
         /// <summary>
         /// Gets the actual location of this <see cref="DikeProfileLocation"/>.

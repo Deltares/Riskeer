@@ -266,11 +266,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
                 Assert.AreEqual("profiel004", locations[3].Name);
                 Assert.AreEqual("profiel005", locations[4].Name);
 
-                Assert.AreEqual(-10.61273321, locations[0].X0);
-                Assert.AreEqual(-9.4408575, locations[1].X0);
-                Assert.AreEqual(8.25860742, locations[2].X0);
-                Assert.AreEqual(-17.93475471, locations[3].X0);
-                Assert.AreEqual(15.56165507, locations[4].X0);
+                Assert.AreEqual(-10.61273321, locations[0].Offset);
+                Assert.AreEqual(-9.4408575, locations[1].Offset);
+                Assert.AreEqual(8.25860742, locations[2].Offset);
+                Assert.AreEqual(-17.93475471, locations[3].Offset);
+                Assert.AreEqual(15.56165507, locations[4].Offset);
             }
         }
 
