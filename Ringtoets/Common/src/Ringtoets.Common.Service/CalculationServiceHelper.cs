@@ -133,7 +133,7 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Logs the end time of the calculation.
         /// </summary>
-        /// <param name="name">TThe name of the calculation that has ended.</param>
+        /// <param name="name">The name of the calculation that has ended.</param>
         public static void LogCalculationEndTime(string name)
         {
             log.Info(string.Format(Resources.Calculation_Subject_0_ended_Time_1_,

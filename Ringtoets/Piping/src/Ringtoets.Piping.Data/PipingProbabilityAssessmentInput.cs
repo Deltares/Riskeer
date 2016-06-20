@@ -20,8 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Properties;
 using Core.Common.Base.Storage;
+
+using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data
 {

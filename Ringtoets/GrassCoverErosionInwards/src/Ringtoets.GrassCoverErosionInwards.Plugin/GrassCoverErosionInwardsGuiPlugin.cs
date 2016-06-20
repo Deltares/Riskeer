@@ -47,6 +47,7 @@ using Ringtoets.HydraRing.IO;
 
 using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
 using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
+using GrassCoverErosionInwardsPluginResources = Ringtoets.GrassCoverErosionInwards.Plugin.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
@@ -90,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             yield return new TreeNodeInfo<DikeProfilesContext>
             {
-                Text = context => BaseResources.GrassCoverErosionInwardsGuiPlugin_DikeProfilesContext_DisplayName,
+                Text = context => GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_DikeProfilesContext_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.Any() ?
                                            Color.FromKnownColor(KnownColor.ControlText) :

@@ -555,8 +555,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             DataGridView grid = null;
             DialogBoxHandler = (name, wnd) =>
             {
-                selectionDialog = new FormTester(name).TheObject as PipingSurfaceLineSelectionDialog;
-                grid = new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject as DataGridView;
+                selectionDialog = (PipingSurfaceLineSelectionDialog)new FormTester(name).TheObject;
+                grid = (DataGridView)new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
 
                 new ButtonTester("CustomCancelButton", selectionDialog).Click();
             };
@@ -633,7 +633,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             DialogBoxHandler = (name, wnd) =>
             {
-                var selectionDialog = new FormTester(name).TheObject as PipingSurfaceLineSelectionDialog;
+                var selectionDialog = (PipingSurfaceLineSelectionDialog)new FormTester(name).TheObject;
 
                 // When
                 new ButtonTester(buttonName, selectionDialog).Click();
@@ -661,7 +661,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             DialogBoxHandler = (name, wnd) =>
             {
-                var selectionDialog = new FormTester(name).TheObject as PipingSurfaceLineSelectionDialog;
+                var selectionDialog = (PipingSurfaceLineSelectionDialog)new FormTester(name).TheObject;
 
                 var selectionView = (DataGridView) new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
 
@@ -702,7 +702,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             DialogBoxHandler = (name, wnd) =>
             {
-                var selectionDialog = new FormTester(name).TheObject as PipingSurfaceLineSelectionDialog;
+                var selectionDialog = (PipingSurfaceLineSelectionDialog)new FormTester(name).TheObject;
 
                 var selectionView = (DataGridView) new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
 
