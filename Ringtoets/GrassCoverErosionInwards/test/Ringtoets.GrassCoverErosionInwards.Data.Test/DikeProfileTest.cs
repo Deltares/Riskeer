@@ -71,8 +71,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
         [Test]
         [TestCase(123.456789)]
-        [TestCase(-1e-3, "Valid orientation due to rounding to 0.0")]
-        [TestCase(360 + 1e-3, "Valid orientation due to rounding to 360.0")]
+        [TestCase(-1e-3, Description = "Valid orientation due to rounding to 0.0")]
+        [TestCase(360 + 1e-3, Description = "Valid orientation due to rounding to 360.0")]
         public void Orientation_SetValue_GetValueRoundedToGivenNumberOfDecimalPlaces(double orientation)
         {
             // Setup

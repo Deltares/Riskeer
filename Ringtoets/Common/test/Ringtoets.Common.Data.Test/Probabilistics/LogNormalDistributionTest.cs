@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
         [Test]
         [TestCase(0)]
-        [TestCase(0 + 1e-3, "Invalid mean due to rounding to 0.0")]
+        [TestCase(0 + 1e-3, Description = "Invalid mean due to rounding to 0.0")]
         [TestCase(-123.45)]
         public void Mean_SettingToLessThanOrEqualTo0_ThrowArgumentOutOfRangeException(double mean)
         {
@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
         [Test]
         [TestCase(1.23456789)]
-        [TestCase(0 - 1e-3, "Valid standard deviation due to rounding to 0.0")]
+        [TestCase(0 - 1e-3, Description = "Valid standard deviation due to rounding to 0.0")]
         public void StandardDeviation_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(double standardDeviation)
         {
             // Setup

@@ -168,7 +168,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        [TestCase(1e-6, "Invalid ExitPointL due to rounding to 0.0")]
+        [TestCase(1e-6, Description = "Invalid ExitPointL due to rounding to 0.0")]
         [TestCase(0)]
         [TestCase(-1e-6)]
         [TestCase(-21)]
@@ -200,7 +200,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        [TestCase(-1e-3, "Valid EntryPointL due to rounding to 0.0")]
+        [TestCase(-1e-3, Description = "Valid EntryPointL due to rounding to 0.0")]
         [TestCase(1.23456789)]
         public void EntryPointL_SetToNew_ValueIsRounded(double value)
         {
