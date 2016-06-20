@@ -97,18 +97,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         private static IEnumerable<HydraRingForelandPoint> ParseForeshore(GrassCoverErosionInwardsInput input)
         {
-            ProfileSection firstProfileSection = input.ForeshoreGeometry.FirstOrDefault();
-            if (!input.UseForeshore || firstProfileSection == null)
-            {
-                yield break;
-            }
-
-            yield return new HydraRingForelandPoint(firstProfileSection.StartingPoint.X, firstProfileSection.StartingPoint.Y);
-
-            foreach (var foreshore in input.ForeshoreGeometry)
-            {
-                yield return new HydraRingForelandPoint(foreshore.EndingPoint.X, foreshore.EndingPoint.Y);
-            }
+            return input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y));
         }
 
         private static IEnumerable<HydraRingRoughnessProfilePoint> ParseProfilePoints(IEnumerable<RoughnessProfileSection> profileSections)

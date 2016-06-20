@@ -100,12 +100,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             {
                 new RoughnessProfileSection(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4), 1.1)
             };
-            var foreshoreSections = new[]
-            {
-                new ProfileSection(new Point2D(3.3, 4.4), new Point2D(5.5, 6.6))
-            };
             InputParameters.SetDikeGeometry(dikeSections);
-            InputParameters.SetForeshoreGeometry(foreshoreSections);
+            InputParameters.ForeshoreGeometry.Add(new Point2D(3.3, 4.4));
+            InputParameters.ForeshoreGeometry.Add(new Point2D(5.5, 6.6));
             InputParameters.UseForeshore = true;
 
             // Dike height

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
@@ -57,7 +58,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             };
 
             DikeGeometry = Enumerable.Empty<RoughnessProfileSection>();
-            ForeshoreGeometry = Enumerable.Empty<ProfileSection>();
+            ForeshoreGeometry = new List<Point2D>();
         }
 
         /// <summary>
@@ -99,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the geometry of the foreshore.
         /// </summary>
-        public IEnumerable<ProfileSection> ForeshoreGeometry { get; private set; }
+        public IList<Point2D> ForeshoreGeometry { get; private set; }
 
         /// <summary>
         /// Gets or sets if <see cref="BreakWater"/> needs to be taken into account.
@@ -163,19 +164,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 throw new ArgumentNullException("profileSections");
             }
             DikeGeometry = profileSections;
-        }
-
-        /// <summary>
-        /// Sets the grass cover erosion inwards foreshore geometry.
-        /// </summary>
-        /// <param name="profileSections">The grass cover erosion inwards geometry points.</param>
-        public void SetForeshoreGeometry(IEnumerable<ProfileSection> profileSections)
-        {
-            if (profileSections == null)
-            {
-                throw new ArgumentNullException("profileSections");
-            }
-            ForeshoreGeometry = profileSections;
         }
 
         private void UpdateProfileParameters()

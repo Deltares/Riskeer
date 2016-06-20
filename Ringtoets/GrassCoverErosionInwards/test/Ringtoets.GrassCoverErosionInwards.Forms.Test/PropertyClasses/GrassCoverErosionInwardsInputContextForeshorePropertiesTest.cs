@@ -91,10 +91,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                     UseForeshore = true
                 }
             };
-            calculation.InputParameters.SetForeshoreGeometry(new[]
-            {
-                new ProfileSection(new Point2D(0, 0), new Point2D(1, 1))
-            });
             var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties();
 
             // Call
@@ -103,8 +99,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             var expectedCoordinates = new[]
             {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
+                new Point2D(3.3, 4.4),
+                new Point2D(5.5, 6.6)
             };
             Assert.IsTrue(properties.UseForeshore);
             CollectionAssert.AreEqual(expectedCoordinates, properties.Coordinates);

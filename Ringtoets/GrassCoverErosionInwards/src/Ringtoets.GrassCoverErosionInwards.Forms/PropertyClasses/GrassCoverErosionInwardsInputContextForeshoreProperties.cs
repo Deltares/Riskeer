@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -64,17 +63,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                var startingPoint = data.WrappedData.ForeshoreGeometry.FirstOrDefault();
-                if (startingPoint == null)
-                {
-                    return new Point2D[0];
-                }
-                var coordinates = new List<Point2D>
-                {
-                    startingPoint.StartingPoint
-                };
-                coordinates.AddRange(data.WrappedData.ForeshoreGeometry.Select(d => d.EndingPoint));
-                return coordinates.ToArray();
+                return data.WrappedData.ForeshoreGeometry.ToArray();
             }
         }
 

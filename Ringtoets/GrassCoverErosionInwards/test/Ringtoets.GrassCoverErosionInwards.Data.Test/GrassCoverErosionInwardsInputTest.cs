@@ -101,19 +101,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void SetForeshoreGeometry_NullProfileSections_ThrowsArgumentNullException()
-        {
-            // Setup
-            var input = new GrassCoverErosionInwardsInput();
-
-            // Call
-            TestDelegate test = () => input.SetForeshoreGeometry(null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
-        }
-
-        [Test]
         public void SetDikeGeometry_ValidGeometry_ReturnsExpectedValues()
         {
             // Setup
@@ -129,24 +116,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.AreEqual(sections, input.DikeGeometry);
-        }
-
-        [Test]
-        public void SetForeshoreGeometry_ValidGeometry_ReturnsExpectedValues()
-        {
-            // Setup
-            var input = new GrassCoverErosionInwardsInput();
-            var sections = new[]
-            {
-                new ProfileSection(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4)),
-                new ProfileSection(new Point2D(3.3, 4.4), new Point2D(5.5, 6.6))
-            };
-
-            // Call
-            input.SetForeshoreGeometry(sections);
-
-            // Assert
-            Assert.AreEqual(sections, input.ForeshoreGeometry);
         }
     }
 }
