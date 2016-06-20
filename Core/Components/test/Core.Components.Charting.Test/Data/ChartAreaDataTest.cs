@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using NUnit.Framework;
@@ -47,7 +48,7 @@ namespace Core.Components.Charting.Test.Data
         public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Setup
-            var points = new Collection<Tuple<double, double>>();
+            var points = new Collection<Point2D>();
 
             // Call
             TestDelegate test = () => new ChartAreaData(points, invalidName);
@@ -60,7 +61,7 @@ namespace Core.Components.Charting.Test.Data
         public void Constructor_WithEmptyPoints_CreatesNewICharData()
         {
             // Setup
-            var points = new Collection<Tuple<double, double>>();
+            var points = new Collection<Point2D>();
 
             // Call
             var data = new ChartAreaData(points, "test data");
@@ -85,13 +86,13 @@ namespace Core.Components.Charting.Test.Data
             CollectionAssert.AreEqual(points, data.Points);
         }
 
-        private Collection<Tuple<double, double>> CreateTestPoints()
+        private Collection<Point2D> CreateTestPoints()
         {
-            return new Collection<Tuple<double, double>>
+            return new Collection<Point2D>
             {
-                Tuple.Create(0.0, 1.1),    
-                Tuple.Create(1.0, 2.1),
-                Tuple.Create(1.6, 1.6)    
+                new Point2D(0.0, 1.1),
+                new Point2D(1.0, 2.1),
+                new Point2D(1.6, 1.6)    
             };
         }
     }

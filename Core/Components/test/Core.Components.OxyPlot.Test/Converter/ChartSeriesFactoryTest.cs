@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
 using Core.Components.OxyPlot.Converter;
@@ -107,18 +108,18 @@ namespace Core.Components.OxyPlot.Test.Converter
             Assert.Throws<NotSupportedException>(test);
         }
 
-        private static ICollection<DataPoint> CreateExpectedData(IEnumerable<Tuple<double, double>> testData)
+        private static ICollection<DataPoint> CreateExpectedData(IEnumerable<Point2D> testData)
         {
-            return testData.Select(p => new DataPoint(p.Item1, p.Item2)).ToArray();
+            return testData.Select(p => new DataPoint(p.X, p.Y)).ToArray();
         }
 
-        private static Collection<Tuple<double, double>> CreateTestData()
+        private static Collection<Point2D> CreateTestData()
         {
-            return new Collection<Tuple<double, double>>
+            return new Collection<Point2D>
             {
-                Tuple.Create(1.2, 3.4),
-                Tuple.Create(3.2, 3.4),
-                Tuple.Create(0.2, 2.4)
+                new Point2D(1.2, 3.4),
+                new Point2D(3.2, 3.4),
+                new Point2D(0.2, 2.4)
             };
         }
     }

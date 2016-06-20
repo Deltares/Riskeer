@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
@@ -80,13 +81,13 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartDataCollectionConverter();
             var random = new Random(21);
             var randomCount = random.Next(5, 10);
-            var pointsArea = new Collection<Tuple<double, double>>();
-            var pointsLine = new Collection<Tuple<double, double>>();
+            var pointsArea = new Collection<Point2D>();
+            var pointsLine = new Collection<Point2D>();
 
             for (int i = 0; i < randomCount; i++)
             {
-                pointsArea.Add(Tuple.Create(random.NextDouble(), random.NextDouble()));
-                pointsLine.Add(Tuple.Create(random.NextDouble(), random.NextDouble()));
+                pointsArea.Add(new Point2D(random.NextDouble(), random.NextDouble()));
+                pointsLine.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
             var collectionData = new ChartDataCollection(new List<ChartData>(), "test data");

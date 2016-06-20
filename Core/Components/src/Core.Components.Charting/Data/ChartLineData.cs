@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base.Geometry;
 using Core.Components.Charting.Styles;
 
 namespace Core.Components.Charting.Data
@@ -39,7 +40,7 @@ namespace Core.Components.Charting.Data
         /// <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public ChartLineData(IEnumerable<Tuple<double, double>> points, string name) : base(points, name) {}
+        public ChartLineData(IEnumerable<Point2D> points, string name) : base(points, name) { }
 
         /// <summary>
         /// Gets or sets the style of the line.

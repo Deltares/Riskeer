@@ -37,7 +37,7 @@ namespace Core.Components.OxyPlot.Converter
             var series = new LineSeries
             {
                 ItemsSource = data.Points.ToArray(),
-                Mapping = TupleToDataPoint,
+                Mapping = Point2DToDataPoint,
                 IsVisible = data.IsVisible,
                 Tag = data
             };

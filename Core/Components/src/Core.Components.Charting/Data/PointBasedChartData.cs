@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 
 namespace Core.Components.Charting.Data
 {
@@ -39,7 +40,7 @@ namespace Core.Components.Charting.Data
         /// <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        protected PointBasedChartData(IEnumerable<Tuple<double, double>> points, string name) : base(name)
+        protected PointBasedChartData(IEnumerable<Point2D> points, string name) : base(name)
         {
             if (points == null)
             {
@@ -58,6 +59,6 @@ namespace Core.Components.Charting.Data
         /// <summary>
         /// Gets the collection of points in 2D space.
         /// </summary>
-        public IEnumerable<Tuple<double, double>> Points { get; private set; }
+        public IEnumerable<Point2D> Points { get; private set; }
     }
 }

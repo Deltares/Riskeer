@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using Core.Components.Charting.Data;
 using NUnit.Framework;
@@ -55,7 +56,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Setup
             using (var chart = new ChartControl())
             {
-                var testData = new ChartPointData(Enumerable.Empty<Tuple<double, double>>(), "test data");
+                var testData = new ChartPointData(Enumerable.Empty<Point2D>(), "test data");
 
                 // Call
                 chart.Data.Add(testData);
@@ -115,7 +116,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             using (var form = new Form())
             {
                 var chart = new ChartControl();
-                var testData = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test data");
+                var testData = new ChartLineData(Enumerable.Empty<Point2D>(), "test data");
                 var view = TypeUtils.GetField<PlotView>(chart, "view");
                 var invalidated = 0;
 
@@ -143,7 +144,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             using (var form = new Form())
             {
                 var chart = new ChartControl();
-                var testData = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test data");
+                var testData = new ChartLineData(Enumerable.Empty<Point2D>(), "test data");
                 var view = TypeUtils.GetField<PlotView>(chart, "view");
                 var invalidated = 0;
 

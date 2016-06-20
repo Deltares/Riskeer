@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using NUnit.Framework;
@@ -48,10 +49,10 @@ namespace Core.Components.Charting.Test.Data
         public void Constructor_InvalidName_ThrowsArgumentExcpetion(string invalidName)
         {
             // Setup
-            var points = new Collection<Tuple<double, double>>
+            var points = new Collection<Point2D>
             {
-                Tuple.Create(0.0, 1.0),
-                Tuple.Create(2.5, 1.1)
+                new Point2D(0.0, 1.0),
+                new Point2D(2.5, 1.1)
             };
 
             // Call
@@ -65,10 +66,10 @@ namespace Core.Components.Charting.Test.Data
         public void Constructor_WithPoints_PropertiesSet()
         {
             // Setup
-            var points = new Collection<Tuple<double, double>>
+            var points = new Collection<Point2D>
             {
-                Tuple.Create(0.0, 1.0),
-                Tuple.Create(2.5, 1.1)
+                new Point2D(0.0, 1.0),
+                new Point2D(2.5, 1.1)
             };
             
             // Call
@@ -83,6 +84,6 @@ namespace Core.Components.Charting.Test.Data
 
     public class TestPointBasedChartData : PointBasedChartData
     {
-        public TestPointBasedChartData(IEnumerable<Tuple<double,double>> points, string name) : base(points, name) { }
+        public TestPointBasedChartData(IEnumerable<Point2D> points, string name) : base(points, name) { }
     }
 }

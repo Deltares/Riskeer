@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
@@ -60,7 +61,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void Text_Always_ReturnsNameFromChartData()
         {
             // Setup
-            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
+            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Point2D>(), "test data");
 
             mocks.ReplayAll();
 
@@ -77,7 +78,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
+            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Point2D>(), "test data");
 
             mocks.ReplayAll();
 
@@ -94,7 +95,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void CanDrag_Always_ReturnsTrue()
         {
             // Setup
-            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
+            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Point2D>(), "test data");
 
             mocks.ReplayAll();
 
@@ -111,7 +112,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void CanCheck_Always_ReturnsTrue()
         {
             // Setup
-            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
+            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Point2D>(), "test data");
 
             mocks.ReplayAll();
 
@@ -129,7 +130,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void IsChecked_Always_ReturnsAccordingToVisibleStateOfPointsData(bool isVisible)
         {
             // Setup
-            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
+            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Point2D>(), "test data");
 
             pointData.IsVisible = isVisible;
 
@@ -149,7 +150,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void PointDataNodeWithoutParent_SetsPointDataVisibility(bool initialVisibleState)
         {
             // Setup
-            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
+            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Point2D>(), "test data");
 
             mocks.ReplayAll();
 
@@ -170,7 +171,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup
             var observable = mocks.StrictMock<IObservable>();
-            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Tuple<double, double>>(), "test data");
+            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Point2D>(), "test data");
 
             observable.Expect(o => o.NotifyObservers());
 

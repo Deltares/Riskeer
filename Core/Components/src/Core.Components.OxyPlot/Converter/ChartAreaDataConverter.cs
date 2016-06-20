@@ -40,7 +40,7 @@ namespace Core.Components.OxyPlot.Converter
             };
             foreach (var p in data.Points)
             {
-                series.Points.Add(TupleToDataPoint(p));
+                series.Points.Add(Point2DToDataPoint(p));
             }
             if (series.Points.Count > 0)
             {

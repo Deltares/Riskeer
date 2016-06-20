@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using OxyPlot;
 using OxyPlot.Series;
@@ -60,10 +61,10 @@ namespace Core.Components.OxyPlot.Converter
         /// <returns>A new <see cref="DataPoint"/> based on <paramref name="obj"/>.</returns>
         /// <exception cref="InvalidCastException">Thrown when <paramref name="obj"/> is not
         /// of type <see cref="Tuple"/> of <see cref="double"/>.</exception>
-        protected static DataPoint TupleToDataPoint(object obj)
+        protected static DataPoint Point2DToDataPoint(object obj)
         {
-            var point = (Tuple<double, double>) obj;
-            return new DataPoint(point.Item1, point.Item2);
+            Point2D point = (Point2D) obj;
+            return new DataPoint(point.X, point.Y);
         }
 
         /// <summary>

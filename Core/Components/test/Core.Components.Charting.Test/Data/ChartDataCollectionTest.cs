@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using NUnit.Framework;
@@ -90,7 +91,7 @@ namespace Core.Components.Charting.Test.Data
             // Setup
             var list = Enumerable.Empty<ChartData>().ToList();
             var data = new ChartDataCollection(list, "test");
-            var objectToAdd = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test");
+            var objectToAdd = new ChartLineData(Enumerable.Empty<Point2D>(), "test");
 
             // Call
             data.Add(objectToAdd);
@@ -120,8 +121,8 @@ namespace Core.Components.Charting.Test.Data
             // Setup
             var list = Enumerable.Empty<ChartData>().ToList();
             var data = new ChartDataCollection(list, "test");
-            var oldDataElement = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test");
-            var newDataElement = new ChartPointData(Enumerable.Empty<Tuple<double, double>>(), "another test");
+            var oldDataElement = new ChartLineData(Enumerable.Empty<Point2D>(), "test");
+            var newDataElement = new ChartPointData(Enumerable.Empty<Point2D>(), "another test");
 
             data.Add(oldDataElement);
 
@@ -143,7 +144,7 @@ namespace Core.Components.Charting.Test.Data
             // Setup
             var list = Enumerable.Empty<ChartData>().ToList();
             var data = new ChartDataCollection(list, "test");
-            var oldDataElement = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test");
+            var oldDataElement = new ChartLineData(Enumerable.Empty<Point2D>(), "test");
 
             data.Add(oldDataElement);
 
@@ -165,8 +166,8 @@ namespace Core.Components.Charting.Test.Data
             // Setup
             var list = Enumerable.Empty<ChartData>().ToList();
             var data = new ChartDataCollection(list, "test");
-            var dataElement = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test");
-            var newDataElement = new ChartPointData(Enumerable.Empty<Tuple<double, double>>(), "another test");
+            var dataElement = new ChartLineData(Enumerable.Empty<Point2D>(), "test");
+            var newDataElement = new ChartPointData(Enumerable.Empty<Point2D>(), "another test");
 
             data.Add(dataElement);
 
@@ -188,7 +189,7 @@ namespace Core.Components.Charting.Test.Data
             // Setup
             var list = Enumerable.Empty<ChartData>().ToList();
             var data = new ChartDataCollection(list, "test");
-            var dataElement = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test");
+            var dataElement = new ChartLineData(Enumerable.Empty<Point2D>(), "test");
 
             data.Add(dataElement);
 
@@ -209,7 +210,7 @@ namespace Core.Components.Charting.Test.Data
             // Setup
             var list = Enumerable.Empty<ChartData>().ToList();
             var data = new ChartDataCollection(list, "test");
-            var dataElement = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test");
+            var dataElement = new ChartLineData(Enumerable.Empty<Point2D>(), "test");
 
             data.Add(dataElement);
 
@@ -231,8 +232,8 @@ namespace Core.Components.Charting.Test.Data
             // Setup
             var list = Enumerable.Empty<ChartData>().ToList();
             var data = new ChartDataCollection(list, "test");
-            var dataElement = new ChartLineData(Enumerable.Empty<Tuple<double, double>>(), "test");
-            var otherDataElement = new ChartPointData(Enumerable.Empty<Tuple<double, double>>(), "another test");
+            var dataElement = new ChartLineData(Enumerable.Empty<Point2D>(), "test");
+            var otherDataElement = new ChartPointData(Enumerable.Empty<Point2D>(), "another test");
 
             data.Add(dataElement);
 

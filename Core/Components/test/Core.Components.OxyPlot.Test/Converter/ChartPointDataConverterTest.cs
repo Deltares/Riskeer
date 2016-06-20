@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
@@ -52,7 +53,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         {
             // Setup
             var converter = new ChartPointDataConverter();
-            var pointData = new ChartPointData(new Collection<Tuple<double, double>>(), "test data");
+            var pointData = new ChartPointData(new Collection<Point2D>(), "test data");
 
             // Call
             var canConvert = converter.CanConvertSeries(pointData);
@@ -82,11 +83,11 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartPointDataConverter();
             var random = new Random(21);
             var randomCount = random.Next(5, 10);
-            var points = new Collection<Tuple<double, double>>();
+            var points = new Collection<Point2D>();
 
             for (int i = 0; i < randomCount; i++)
             {
-                points.Add(Tuple.Create(random.NextDouble(), random.NextDouble()));
+                points.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
             var pointData = new ChartPointData(points, "test data");
@@ -143,7 +144,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartPointDataConverter();
             var expectedColor = Color.FromKnownColor(color);
             var style = new ChartPointStyle(expectedColor, 3, Color.Red, 2, ChartPointSymbol.Circle);
-            var data = new ChartPointData(new Collection<Tuple<double, double>>(), "test")
+            var data = new ChartPointData(new Collection<Point2D>(), "test")
             {
                 Style = style
             };
@@ -166,7 +167,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartPointDataConverter();
             var expectedColor = Color.FromKnownColor(color);
             var style = new ChartPointStyle(Color.Red, 3, expectedColor, 2, ChartPointSymbol.Circle);
-            var data = new ChartPointData(new Collection<Tuple<double, double>>(), "test")
+            var data = new ChartPointData(new Collection<Point2D>(), "test")
             {
                 Style = style
             };
@@ -188,7 +189,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartPointDataConverter();
             var style = new ChartPointStyle(Color.Red, width, Color.Red, 2, ChartPointSymbol.Circle);
-            var data = new ChartPointData(new Collection<Tuple<double, double>>(), "test")
+            var data = new ChartPointData(new Collection<Point2D>(), "test")
             {
                 Style = style
             };
@@ -210,7 +211,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartPointDataConverter();
             var style = new ChartPointStyle(Color.Red, 3, Color.Red, strokeThickness, ChartPointSymbol.Circle);
-            var data = new ChartPointData(new Collection<Tuple<double, double>>(), "test")
+            var data = new ChartPointData(new Collection<Point2D>(), "test")
             {
                 Style = style
             };
@@ -234,7 +235,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartPointDataConverter();
             var style = new ChartPointStyle(Color.Red, 3, Color.Red, 2, symbol);
-            var data = new ChartPointData(new Collection<Tuple<double, double>>(), "test")
+            var data = new ChartPointData(new Collection<Point2D>(), "test")
             {
                 Style = style
             };

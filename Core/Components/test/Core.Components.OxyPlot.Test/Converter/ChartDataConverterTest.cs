@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
@@ -35,21 +36,19 @@ namespace Core.Components.OxyPlot.Test.Converter
     public class ChartDataConverterTest
     {
         [Test]
-        public void TupleToDataPoint_RandomTupleDoubleDouble_ReturnsDataPoint()
+        public void Point2DToDataPoint_RandomPoint2D_ReturnsDataPoint()
         {
             // Setup
             var random = new Random(21);
-            var a = random.NextDouble();
-            var b = random.NextDouble();
-            var tuple = Tuple.Create(a,b);
+            var point2D = new Point2D(random.NextDouble(), random.NextDouble());
             var testConverter = new TestChartDataConverter<ChartData>();
 
             // Call
-            var point = testConverter.PublicTupleToDataPoint(tuple);
+            var point = testConverter.PublicPoint2DToDataPoint(point2D);
 
             // Assert
-            Assert.AreEqual(a, point.X);
-            Assert.AreEqual(b, point.Y);
+            Assert.AreEqual(point2D.X, point.X);
+            Assert.AreEqual(point2D.Y, point.Y);
         }
 
         [Test]
@@ -116,9 +115,9 @@ namespace Core.Components.OxyPlot.Test.Converter
                 throw new NotImplementedException();
             }
 
-            public DataPoint PublicTupleToDataPoint(object obj)
+            public DataPoint PublicPoint2DToDataPoint(object obj)
             {
-                return TupleToDataPoint(obj);
+                return Point2DToDataPoint(obj);
             }
         }
     }

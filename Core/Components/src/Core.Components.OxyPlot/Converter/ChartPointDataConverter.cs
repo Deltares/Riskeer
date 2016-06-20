@@ -39,7 +39,7 @@ namespace Core.Components.OxyPlot.Converter
             {
                 ItemsSource = data.Points.ToArray(),
                 IsVisible = data.IsVisible,
-                Mapping = TupleToDataPoint,
+                Mapping = Point2DToDataPoint,
                 LineStyle = LineStyle.None,
                 MarkerType = MarkerType.Circle,
                 Tag = data

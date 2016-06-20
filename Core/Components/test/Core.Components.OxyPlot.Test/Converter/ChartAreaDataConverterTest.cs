@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
@@ -53,7 +54,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         {
             // Setup
             var converter = new ChartAreaDataConverter();
-            var areaData = new ChartAreaData(new Collection<Tuple<double, double>>(), "test data");
+            var areaData = new ChartAreaData(new Collection<Point2D>(), "test data");
 
             // Call
             var canConvert = converter.CanConvertSeries(areaData);
@@ -83,11 +84,11 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartAreaDataConverter();
             var random = new Random(21);
             var randomCount = random.Next(5, 10);
-            var points = new Collection<Tuple<double, double>>();
+            var points = new Collection<Point2D>();
 
             for (int i = 0; i < randomCount; i++)
             {
-                points.Add(Tuple.Create(random.NextDouble(), random.NextDouble()));
+                points.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
             var areaData = new ChartAreaData(points, "test data");
@@ -98,7 +99,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Assert
             Assert.IsInstanceOf<IList<Series>>(series);
             var areaSeries = ((AreaSeries)series[0]);
-            var expectedData = points.Select(t => new DataPoint(t.Item1, t.Item2)).ToArray();
+            var expectedData = points.Select(t => new DataPoint(t.X, t.Y)).ToArray();
             CollectionAssert.AreEqual(expectedData, areaSeries.Points);
             CollectionAssert.AreEqual(new Collection<DataPoint> { expectedData.First() }, areaSeries.Points2);
         }
@@ -143,7 +144,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartAreaDataConverter();
             var expectedColor = Color.FromKnownColor(color);
             var style = new ChartAreaStyle(expectedColor, Color.Red, 3);
-            var data = new ChartAreaData(new Collection<Tuple<double, double>>(), "test")
+            var data = new ChartAreaData(new Collection<Point2D>(), "test")
             {
                 Style = style
             };
@@ -166,7 +167,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartAreaDataConverter();
             var expectedColor = Color.FromKnownColor(color);
             var style = new ChartAreaStyle(Color.Red, expectedColor, 3);
-            var data = new ChartAreaData(new Collection<Tuple<double, double>>(), "test")
+            var data = new ChartAreaData(new Collection<Point2D>(), "test")
             {
                 Style = style
             };
@@ -188,7 +189,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartAreaDataConverter();
             var style = new ChartAreaStyle(Color.Red, Color.Red, width);
-            var data = new ChartAreaData(new Collection<Tuple<double, double>>(), "test")
+            var data = new ChartAreaData(new Collection<Point2D>(), "test")
             {
                 Style = style
             };

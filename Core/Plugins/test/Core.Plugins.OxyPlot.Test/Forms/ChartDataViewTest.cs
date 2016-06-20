@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Forms;
@@ -67,7 +68,7 @@ namespace Core.Plugins.OxyPlot.Test.Forms
             using (var chartView = new ChartDataView())
             {
                 var chart = (ChartControl) chartView.Controls[0];
-                var pointData = new ChartPointData(Enumerable.Empty<Tuple<double, double>>(), "test");
+                var pointData = new ChartPointData(Enumerable.Empty<Point2D>(), "test");
                 var chartDataCollection = new ChartDataCollection(new ChartData[]
                 {
                     pointData
