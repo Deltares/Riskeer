@@ -63,8 +63,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Data_SetDikeProfileInstanceWithData_ReturnCorrectPropertyValues()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0));
-            dikeProfile.AddDikeGeometrySection(new RoughnessProfileSection(new Point2D(0, 0), new Point2D(1, 1), 2));
+            var dikeProfile = new DikeProfile(new Point2D(0, 0))
+            {
+                DikeGeometry =
+                {
+                    new RoughnessPoint(new Point2D(0, 0), 2),
+                    new RoughnessPoint(new Point2D(1, 1), double.NaN)
+                }
+            };
 
             var properties = new DikeProfileDikeGeometryProperties();
 

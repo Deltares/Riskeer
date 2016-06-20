@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -46,17 +45,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                var startingPoint = data.DikeGeometry.FirstOrDefault();
-                if (startingPoint == null)
-                {
-                    return new Point2D[0];
-                }
-                var coordinates = new List<Point2D>
-                {
-                    startingPoint.StartingPoint
-                };
-                coordinates.AddRange(data.DikeGeometry.Select(d => d.EndingPoint));
-                return coordinates.ToArray();
+                return data.DikeGeometry.Select(rp => rp.Point).ToArray();
             }
         }
 
@@ -68,8 +57,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                var roughnesses = data.DikeGeometry.Select(d => d.Roughness);
-                return roughnesses.Select(roughness => new RoundedDouble(2, roughness)).ToArray();
+                var lastPoint = data.DikeGeometry.LastOrDefault();
+                if (lastPoint != null)
+                {
+                    return data.DikeGeometry
+                               .TakeWhile(rp => !ReferenceEquals(rp, lastPoint))
+                               .Select(rp => new RoundedDouble(2, rp.Roughness))
+                               .ToArray();
+                }
+
+                return new RoundedDouble[0];
             }
         }
 

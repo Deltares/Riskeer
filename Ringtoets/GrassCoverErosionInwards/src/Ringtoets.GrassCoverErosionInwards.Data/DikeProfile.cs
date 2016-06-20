@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
@@ -35,7 +34,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     public class DikeProfile
     {
         private readonly List<Point2D> foreshoreGeometry;
-        private readonly List<RoughnessProfileSection> dikeGeometry;
+        private readonly List<RoughnessPoint> dikeGeometry;
         private RoundedDouble orientation;
         private RoundedDouble crestLevel;
 
@@ -55,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
 
             Name = Resources.DikeProfile_DefaultName;
             Memo = "";
-            dikeGeometry = new List<RoughnessProfileSection>();
+            dikeGeometry = new List<RoughnessPoint>();
             foreshoreGeometry = new List<Point2D>();
             WorldReferencePoint = worldCoordinate;
         }
@@ -109,7 +108,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the geometry of the dike with roughness data.
         /// </summary>
-        public IEnumerable<RoughnessProfileSection> DikeGeometry
+        /// <remarks>
+        /// The roughness of a <see cref="RoughnessPoint"/> in the list represents
+        /// the roughness of the section between this <see cref="RoughnessPoint"/>
+        /// and the succeeding <see cref="RoughnessPoint"/>. The roughness of the last
+        /// point is irrelevant.
+        /// </remarks>
+        public IList<RoughnessPoint> DikeGeometry
         {
             get
             {
@@ -156,58 +161,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             get
             {
                 return BreakWater != null;
-            }
-        }
-
-        /// <summary>
-        /// Adds a geometry section to <see cref="DikeGeometry"/>.
-        /// </summary>
-        /// <param name="roughnessProfileSection">The new section to add.</param>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="roughnessProfileSection"/>
-        /// is either not connected to <see cref="DikeGeometry"/> or is connected but has
-        /// an incorrect orientation.</exception>
-        public void AddDikeGeometrySection(RoughnessProfileSection roughnessProfileSection)
-        {
-            AddProfileSection(dikeGeometry, roughnessProfileSection);
-        }
-
-        /// <summary>
-        /// Adds a profile section to an existing collection profile section, but only if
-        /// it can be connected properly.
-        /// </summary>
-        /// <typeparam name="T">The type of profile section.</typeparam>
-        /// <param name="profileSections">Collection of already defined geometry sections.</param>
-        /// <param name="section">The section to add to <paramref name="profileSections"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="section"/>
-        /// is either not connected to <paramref name="profileSections"/> or is connected
-        /// but has an incorrect orientation.</exception>
-        private static void AddProfileSection<T>(IList<T> profileSections, T section) where T : ProfileSection
-        {
-            if (profileSections.Count == 0)
-            {
-                profileSections.Add(section);
-                return;
-            }
-
-            ProfileSection startingSection = profileSections.First();
-            ProfileSection endingSection = profileSections.Last();
-            if (section.StartingPoint.Equals(startingSection.StartingPoint) ||
-                section.EndingPoint.Equals(endingSection.EndingPoint))
-            {
-                throw new ArgumentException(Resources.DikeProfile_AddProfileSection_New_segment_connected_with_incorrect_orientation);
-            }
-
-            if (section.EndingPoint.Equals(startingSection.StartingPoint))
-            {
-                profileSections.Insert(0, section);
-            }
-            else if (section.StartingPoint.Equals(endingSection.EndingPoint))
-            {
-                profileSections.Add(section);
-            }
-            else
-            {
-                throw new ArgumentException(Resources.DikeProfile_AddProfileSection_New_segment_not_connected);
             }
         }
     }
