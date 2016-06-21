@@ -34,6 +34,8 @@ using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
 
+using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
+
 namespace Ringtoets.Piping.Forms.Test.Views
 {
     [TestFixture]
@@ -109,7 +111,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void ChreateEntryPoint_EntryPointNaN_ThrowsArgumentException()
+        public void CreateEntryPoint_EntryPointNaN_ThrowsArgumentException()
         {
             // Call
             TestDelegate call = () => PipingChartDataFactory.CreateEntryPoint((RoundedDouble)double.NaN, null);
@@ -164,6 +166,192 @@ namespace Ringtoets.Piping.Forms.Test.Views
             AssertEqualPointCollections(new[] {entryPointOnLine}, chartPointData.Points);
 
             AssertEqualStyle(chartPointData.Style, Color.Blue, 8, Color.Gray, 2, ChartPointSymbol.Triangle);
+        }
+
+        [Test]
+        public void CreateDitchPolderSide_DitchPolderSideNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => PipingChartDataFactory.CreateDitchPolderSide(null);
+
+            // Assert 
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("ditchPolderSide", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateDitchPolderSide_GivenDitchPolderSide_ReturnsChartDataWithDefaultStyling()
+        {
+            // Setup
+            Point3D ditchPolderSide = new Point3D(1.0, 4.3, 6.4);
+
+            // Call
+            ChartData data = PipingChartDataFactory.CreateDitchPolderSide(ditchPolderSide);
+
+            // Assert
+            Assert.IsInstanceOf<ChartPointData>(data);
+            ChartPointData chartPointData = (ChartPointData)data;
+            Assert.AreEqual(1, chartPointData.Points.Count());
+            Assert.AreEqual(PipingDataResources.CharacteristicPoint_DitchPolderSide, chartPointData.Name);
+
+            AssertEqualPointCollections(new[] { new Point2D(ditchPolderSide.X, ditchPolderSide.Z) }, chartPointData.Points);
+
+            AssertEqualStyle(chartPointData.Style, Color.Red, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
+        }
+
+        [Test]
+        public void CreateBottomDitchPolderSide_BottomDitchPolderSideNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => PipingChartDataFactory.CreateDitchPolderSide(null);
+
+            // Assert 
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("ditchPolderSide", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateBottomDitchPolderSide_GivenBottomDitchPolderSide_ReturnsChartDataWithDefaultStyling()
+        {
+            // Setup
+            Point3D bottomDitchPolderSide = new Point3D(1.0, 4.3, 6.4);
+
+            // Call
+            ChartData data = PipingChartDataFactory.CreateBottomDitchPolderSide(bottomDitchPolderSide);
+
+            // Assert
+            Assert.IsInstanceOf<ChartPointData>(data);
+            ChartPointData chartPointData = (ChartPointData)data;
+            Assert.AreEqual(1, chartPointData.Points.Count());
+            Assert.AreEqual(PipingDataResources.CharacteristicPoint_BottomDitchPolderSide, chartPointData.Name);
+
+            AssertEqualPointCollections(new[] { new Point2D(bottomDitchPolderSide.X, bottomDitchPolderSide.Z) }, chartPointData.Points);
+
+            AssertEqualStyle(chartPointData.Style, Color.Blue, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
+        }
+
+        [Test]
+        public void CreateBottomDitchDikeSide_BottomDitchDikeSideNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => PipingChartDataFactory.CreateBottomDitchDikeSide(null);
+
+            // Assert 
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("bottomDitchDikeSide", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateBottomDitchDikeSide_GivenBottomDitchDikeSide_ReturnsChartDataWithDefaultStyling()
+        {
+            // Setup
+            Point3D bottomDitchDikeSide = new Point3D(1.0, 4.3, 6.4);
+
+            // Call
+            ChartData data = PipingChartDataFactory.CreateBottomDitchDikeSide(bottomDitchDikeSide);
+
+            // Assert
+            Assert.IsInstanceOf<ChartPointData>(data);
+            ChartPointData chartPointData = (ChartPointData)data;
+            Assert.AreEqual(1, chartPointData.Points.Count());
+            Assert.AreEqual(PipingDataResources.CharacteristicPoint_BottomDitchDikeSide, chartPointData.Name);
+
+            AssertEqualPointCollections(new[] { new Point2D(bottomDitchDikeSide.X, bottomDitchDikeSide.Z) }, chartPointData.Points);
+
+            AssertEqualStyle(chartPointData.Style, Color.Green, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
+        }
+
+        [Test]
+        public void CreateDitchDikeSide_DitchDikeSideNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => PipingChartDataFactory.CreateDitchDikeSide(null);
+
+            // Assert 
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("ditchDikeSide", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateDitchDikeSide_GivenDitchDikeSide_ReturnsChartDataWithDefaultStyling()
+        {
+            // Setup
+            Point3D ditchDikeSide = new Point3D(1.0, 4.3, 6.4);
+
+            // Call
+            ChartData data = PipingChartDataFactory.CreateDitchDikeSide(ditchDikeSide);
+
+            // Assert
+            Assert.IsInstanceOf<ChartPointData>(data);
+            ChartPointData chartPointData = (ChartPointData)data;
+            Assert.AreEqual(1, chartPointData.Points.Count());
+            Assert.AreEqual(PipingDataResources.CharacteristicPoint_DitchDikeSide, chartPointData.Name);
+
+            AssertEqualPointCollections(new[] { new Point2D(ditchDikeSide.X, ditchDikeSide.Z) }, chartPointData.Points);
+
+            AssertEqualStyle(chartPointData.Style, Color.Purple, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
+        }
+
+        [Test]
+        public void CreateDikeToeAtRiver_DikeToeAtRiverNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => PipingChartDataFactory.CreateDikeToeAtRiver(null);
+
+            // Assert 
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("dikeToeAtRiver", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateDikeToeAtRiver_GivenDikeToeAtRivere_ReturnsChartDataWithDefaultStyling()
+        {
+            // Setup
+            Point3D dikeToeAtRiver = new Point3D(1.0, 4.3, 6.4);
+
+            // Call
+            ChartData data = PipingChartDataFactory.CreateDikeToeAtRiver(dikeToeAtRiver);
+
+            // Assert
+            Assert.IsInstanceOf<ChartPointData>(data);
+            ChartPointData chartPointData = (ChartPointData)data;
+            Assert.AreEqual(1, chartPointData.Points.Count());
+            Assert.AreEqual(PipingDataResources.CharacteristicPoint_DikeToeAtRiver, chartPointData.Name);
+
+            AssertEqualPointCollections(new[] { new Point2D(dikeToeAtRiver.X, dikeToeAtRiver.Z) }, chartPointData.Points);
+
+            AssertEqualStyle(chartPointData.Style, Color.Orange, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
+        }
+
+        [Test]
+        public void CreateDikeToeAtPolder_DikeToeAtPolderNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => PipingChartDataFactory.CreateDikeToeAtPolder(null);
+
+            // Assert 
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("dikeToeAtPolder", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateDikeToeAtPolder_GivenDikeToeAtPolder_ReturnsChartDataWithDefaultStyling()
+        {
+            // Setup
+            Point3D dikeToeAtPolder = new Point3D(1.0, 4.3, 6.4);
+
+            // Call
+            ChartData data = PipingChartDataFactory.CreateDikeToeAtPolder(dikeToeAtPolder);
+
+            // Assert
+            Assert.IsInstanceOf<ChartPointData>(data);
+            ChartPointData chartPointData = (ChartPointData)data;
+            Assert.AreEqual(1, chartPointData.Points.Count());
+            Assert.AreEqual(PipingDataResources.CharacteristicPoint_DikeToeAtPolder, chartPointData.Name);
+
+            AssertEqualPointCollections(new[] { new Point2D(dikeToeAtPolder.X, dikeToeAtPolder.Z) }, chartPointData.Points);
+
+            AssertEqualStyle(chartPointData.Style, Color.Silver, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
 
         private void AssertEqualPointCollections(IEnumerable<Point2D> points, IEnumerable<Point2D> chartPoints)

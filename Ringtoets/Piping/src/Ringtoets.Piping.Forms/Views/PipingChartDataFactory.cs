@@ -27,9 +27,10 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
+
+using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
 {
@@ -104,6 +105,143 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 Style = new ChartPointStyle(Color.Blue, 8, Color.Gray, 2, ChartPointSymbol.Triangle)
             };
+        }
+
+        /// <summary>
+        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="ditchPolderSide"/>.
+        /// </summary>
+        /// <param name="ditchPolderSide">The <see cref="Point3D"/> for which to create <see cref="ChartData"/>.</param>
+        /// <returns><see cref="ChartData"/> based on the <paramref name="ditchPolderSide"/>.</returns>
+        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="ditchPolderSide"/> is <c>null</c>.</exception>
+        public static ChartData CreateDitchPolderSide(Point3D ditchPolderSide)
+        {
+            if (ditchPolderSide == null)
+            {
+                throw new ArgumentNullException("ditchPolderSide");
+            }
+
+            return new ChartPointData(new[]
+            {
+                Point3DToPoint2D(ditchPolderSide)
+            }, PipingDataResources.CharacteristicPoint_DitchPolderSide)
+            {
+                Style = new ChartPointStyle(Color.Red, 8, Color.Transparent, 0, ChartPointSymbol.Circle)
+            };
+        }
+
+        /// <summary>
+        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="bottomDitchPolderSide"/>.
+        /// </summary>
+        /// <param name="bottomDitchPolderSide">The <see cref="Point3D"/> for which to create <see cref="ChartData"/>.</param>
+        /// <returns><see cref="ChartData"/> based on the <paramref name="bottomDitchPolderSide"/>.</returns>
+        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="bottomDitchPolderSide"/> is <c>null</c>.</exception>
+        public static ChartData CreateBottomDitchPolderSide(Point3D bottomDitchPolderSide)
+        {
+            if (bottomDitchPolderSide == null)
+            {
+                throw new ArgumentNullException("bottomDitchPolderSide");
+            }
+
+            return new ChartPointData(new[]
+            {
+                Point3DToPoint2D(bottomDitchPolderSide)
+            }, PipingDataResources.CharacteristicPoint_BottomDitchPolderSide)
+            {
+                Style = new ChartPointStyle(Color.Blue, 8, Color.Transparent, 0, ChartPointSymbol.Circle)
+            };
+        }
+
+        /// <summary>
+        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="bottomDitchDikeSide"/>.
+        /// </summary>
+        /// <param name="bottomDitchDikeSide">The <see cref="Point3D"/> for which to create <see cref="ChartData"/>.</param>
+        /// <returns><see cref="ChartData"/> based on the <paramref name="bottomDitchDikeSide"/>.</returns>
+        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="bottomDitchDikeSide"/> is <c>null</c>.</exception>
+        public static ChartData CreateBottomDitchDikeSide(Point3D bottomDitchDikeSide)
+        {
+            if (bottomDitchDikeSide == null)
+            {
+                throw new ArgumentNullException("bottomDitchDikeSide");
+            }
+
+            return new ChartPointData(new[]
+            {
+                Point3DToPoint2D(bottomDitchDikeSide)
+            }, PipingDataResources.CharacteristicPoint_BottomDitchDikeSide)
+            {
+                Style = new ChartPointStyle(Color.Green, 8, Color.Transparent, 0, ChartPointSymbol.Circle)
+            };
+        }
+
+        /// <summary>
+        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="ditchDikeSide"/>.
+        /// </summary>
+        /// <param name="ditchDikeSide">The <see cref="Point3D"/> for which to create <see cref="ChartData"/>.</param>
+        /// <returns><see cref="ChartData"/> based on the <paramref name="ditchDikeSide"/>.</returns>
+        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="ditchDikeSide"/> is <c>null</c>.</exception>
+        public static ChartData CreateDitchDikeSide(Point3D ditchDikeSide)
+        {
+            if (ditchDikeSide == null)
+            {
+                throw new ArgumentNullException("ditchDikeSide");
+            }
+
+            return new ChartPointData(new[]
+            {
+                Point3DToPoint2D(ditchDikeSide)
+            }, PipingDataResources.CharacteristicPoint_DitchDikeSide)
+            {
+                Style = new ChartPointStyle(Color.Purple, 8, Color.Transparent, 0, ChartPointSymbol.Circle)
+            };
+        }
+
+        /// <summary>
+        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="dikeToeAtRiver"/>.
+        /// </summary>
+        /// <param name="dikeToeAtRiver">The <see cref="Point3D"/> for which to create <see cref="ChartData"/>.</param>
+        /// <returns><see cref="ChartData"/> based on the <paramref name="dikeToeAtRiver"/>.</returns>
+        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="dikeToeAtRiver"/> is <c>null</c>.</exception>
+        public static ChartData CreateDikeToeAtRiver(Point3D dikeToeAtRiver)
+        {
+            if (dikeToeAtRiver == null)
+            {
+                throw new ArgumentNullException("dikeToeAtRiver");
+            }
+
+            return new ChartPointData(new[]
+            {
+                Point3DToPoint2D(dikeToeAtRiver)
+            }, PipingDataResources.CharacteristicPoint_DikeToeAtRiver)
+            {
+                Style = new ChartPointStyle(Color.Orange, 8, Color.Transparent, 0, ChartPointSymbol.Circle)
+            };
+        }
+
+        /// <summary>
+        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="dikeToeAtPolder"/>.
+        /// </summary>
+        /// <param name="dikeToeAtPolder">The <see cref="Point3D"/> for which to create <see cref="ChartData"/>.</param>
+        /// <returns><see cref="ChartData"/> based on the <paramref name="dikeToeAtPolder"/>.</returns>
+        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="dikeToeAtPolder"/> is <c>null</c>.</exception>
+        public static ChartData CreateDikeToeAtPolder(Point3D dikeToeAtPolder)
+        {
+            if (dikeToeAtPolder == null)
+            {
+                throw new ArgumentNullException("dikeToeAtPolder");
+            }
+
+            return new ChartPointData(new[]
+            {
+                Point3DToPoint2D(dikeToeAtPolder)
+            }, PipingDataResources.CharacteristicPoint_DikeToeAtPolder)
+            {
+                Style = new ChartPointStyle(Color.Silver, 8, Color.Transparent, 0, ChartPointSymbol.Circle)
+            };
+        }
+
+        private static Point2D Point3DToPoint2D(Point3D point3D)
+        {
+            return new Point2D(point3D.X, point3D.Z);
         }
     }
 }
