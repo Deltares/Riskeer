@@ -115,15 +115,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De dijkprofiel oriëntatie waarde {0} moet in het interval [0, 360] liggen..
-        /// </summary>
-        public static string DikeProfile_Orientation_Value_0_should_be_in_interval {
-            get {
-                return ResourceManager.GetString("DikeProfile_Orientation_Value_0_should_be_in_interval", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Nieuwe berekening.
         /// </summary>
         public static string GrassCoverErosionInwardsCalculation_DefaultName {
@@ -160,7 +151,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De ruwheidswaarde {0} moet in het interval [0.5, 1.0] liggen..
+        ///   Looks up a localized string similar to De ruwheid waarde {0} moet in het interval [0.5, 1.0] liggen..
         /// </summary>
         public static string RoughnessPoint_Roughness_Value_0_should_be_in_interval {
             get {

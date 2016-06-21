@@ -83,8 +83,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets or sets the orientation of the dike profile geometry with respect to North
         /// in degrees. A positive value equals a clockwise rotation.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">When <paramref name="value"/> is
-        /// not in range [0, 360].</exception>
         public RoundedDouble Orientation
         {
             get
@@ -93,15 +91,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
             set
             {
-                RoundedDouble roundedValue = value.ToPrecision(orientation.NumberOfDecimalPlaces);
-
-                if (roundedValue < 0.0 || roundedValue > 360.0)
-                {
-                    string message = string.Format(Resources.DikeProfile_Orientation_Value_0_should_be_in_interval, roundedValue);
-                    throw new ArgumentOutOfRangeException("value", message);
-                }
-
-                orientation = roundedValue;
+                orientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
             }
         }
 

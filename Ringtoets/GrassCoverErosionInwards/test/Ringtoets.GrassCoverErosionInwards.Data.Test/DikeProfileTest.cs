@@ -22,8 +22,6 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
-
 using NUnit.Framework;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
@@ -70,43 +68,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        [TestCase(123.456789)]
-        [TestCase(-1e-3, Description = "Valid orientation due to rounding to 0.0")]
-        [TestCase(360 + 1e-3, Description = "Valid orientation due to rounding to 360.0")]
-        public void Orientation_SetValue_GetValueRoundedToGivenNumberOfDecimalPlaces(double orientation)
-        {
-            // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0));
-            var orignalNumberOfDecimals = dikeProfile.Orientation.NumberOfDecimalPlaces;
-
-            // Call
-            dikeProfile.Orientation = (RoundedDouble) orientation;
-
-            // Assert
-            Assert.AreEqual(orignalNumberOfDecimals, dikeProfile.Orientation.NumberOfDecimalPlaces);
-            Assert.AreEqual(new RoundedDouble(orignalNumberOfDecimals, orientation), dikeProfile.Orientation);
-        }
-
-        [Test]
-        [TestCase(-987.65)]
-        [TestCase(-1e-2)]
-        [TestCase(360 + 1e-2)]
-        [TestCase(875.12)]
-        public void Orientation_SetIllegalValue_ThrowsArgumentOutOfRangeException(double invalidNewValue)
-        {
-            // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0));
-
-            // Call
-            TestDelegate call = () => dikeProfile.Orientation = (RoundedDouble) invalidNewValue;
-
-            // Assert
-            string expectedMessage = String.Format("De dijkprofiel oriëntatie waarde {0} moet in het interval [0, 360] liggen.",
-                                                   new RoundedDouble(dikeProfile.Orientation.NumberOfDecimalPlaces, invalidNewValue));
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-        }
-
-        [Test]
         public void X0_SetNewValue_GetsNewValue([Random(-9999.99, 9999.99, 1)] double newValue)
         {
             // Setup
@@ -117,6 +78,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.AreEqual(newValue, dikeProfile.X0);
+        }
+
+        [Test]
+        public void Orientation_SetToValueWithTooManyDecimalPlaces_ValueIsRounded()
+        {
+            // Setup
+            var dikeProfile = new DikeProfile(new Point2D(0, 0));
+
+            int originalNumberOfDecimalPlaces = dikeProfile.Orientation.NumberOfDecimalPlaces;
+
+            // Call
+            dikeProfile.Orientation = new RoundedDouble(5, 1.23456);
+
+            // Assert
+            Assert.AreEqual(originalNumberOfDecimalPlaces, dikeProfile.Orientation.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.23, dikeProfile.Orientation.Value);
         }
 
         [Test]
