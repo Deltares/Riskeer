@@ -40,12 +40,12 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
-using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using GrassCoverErosionInwardsFormResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
+using GrassCoverErosionInwardsPluginResources = Ringtoets.GrassCoverErosionInwards.Plugin.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 {
@@ -170,6 +170,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -215,27 +217,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControlMock);
 
             // Assert
-            Assert.AreEqual(9, menu.Items.Count);
-
+            Assert.AreEqual(11, menu.Items.Count);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
-                                                          RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
-                                                          RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
-                                                          RingtoetsFormsResources.AddFolderIcon);
+                RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
+                RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
+                RingtoetsFormsResources.AddFolderIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
-                                                          RingtoetsFormsResources.CalculationGroup_Add_Calculation,
-                                                          RingtoetsFormsResources.CalculationGroup_Add_Calculation_Tooltip,
-                                                          RingtoetsFormsResources.FailureMechanismIcon);
-
+                RingtoetsFormsResources.CalculationGroup_Add_Calculation,
+                RingtoetsFormsResources.CalculationGroup_Add_Calculation_Tooltip,
+                RingtoetsFormsResources.FailureMechanismIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
-                                                          RingtoetsFormsResources.Calculate_all,
-                                                          RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
-                                                          RingtoetsFormsResources.CalculateIcon,
-                                                          false);
+                RingtoetsFormsResources.Calculate_all,
+                RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
+                RingtoetsFormsResources.CalculateIcon,
+                false);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndexRootGroup,
-                                                          RingtoetsFormsResources.Clear_all_output,
-                                                          RingtoetsFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
-                                                          RingtoetsFormsResources.ClearIcon,
-                                                          false);
+                RingtoetsFormsResources.Clear_all_output,
+                RingtoetsFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
+                RingtoetsFormsResources.ClearIcon,
+                false);
 
             mocks.VerifyAll();
         }
@@ -541,6 +541,70 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                           RingtoetsFormsResources.CalculateIcon);
             mocks.VerifyAll();
         }
+        
+        [Test]
+        public void ContextMenuStrip_FailureMechanismWithoutDikeProfiles_ContextMenuItemGenerateCalculationsDisabledAndTooltipSet()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(null);
+
+            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                               failureMechanism,
+                                                                               assessmentSectionMock);
+
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            guiMock.Expect(g => g.Get(nodeData, treeViewControlMock)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            // Call
+            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuGenerateCalculationsIndexRootGroup,
+                RingtoetsFormsResources.CalculationGroup_Generate_Scenarios,
+                GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip,
+                RingtoetsFormsResources.GenerateScenariosIcon,
+                false);
+
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void ContextMenuStrip_FailureMechanismWithDikeProfiles_ContextMenuItemGenerateCalculationsDisabledAndTooltipSet()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.DikeProfiles.Add(new DikeProfile(new Point2D(1,2)));
+
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(null);
+
+            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                               failureMechanism,
+                                                                               assessmentSectionMock);
+
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            guiMock.Expect(g => g.Get(nodeData, treeViewControlMock)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            // Call
+            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuGenerateCalculationsIndexRootGroup,
+                RingtoetsFormsResources.CalculationGroup_Generate_Scenarios,
+                GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_ToolTip,
+                RingtoetsFormsResources.GenerateScenariosIcon);
+
+            mocks.VerifyAll();
+        }
 
         [Test]
         public void ContextMenuStrip_ClickOnCalculateAllItem_ScheduleAllChildCalculations()
@@ -781,10 +845,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-        private const int contextMenuAddCalculationGroupIndexRootGroup = 1;
-        private const int contextMenuAddCalculationIndexRootGroup = 2;
-        private const int contextMenuCalculateAllIndexRootGroup = 4;
-        private const int contextMenuClearAllIndexRootGroup = 5;
+        private const int contextMenuGenerateCalculationsIndexRootGroup = 1;
+        private const int contextMenuAddCalculationGroupIndexRootGroup = 3;
+        private const int contextMenuAddCalculationIndexRootGroup = 4;
+        private const int contextMenuCalculateAllIndexRootGroup = 6;
+        private const int contextMenuClearAllIndexRootGroup = 7;
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
         private const int contextMenuAddCalculationIndexNestedGroup = 1;
         private const int contextMenuCalculateAllIndexNestedGroup = 3;

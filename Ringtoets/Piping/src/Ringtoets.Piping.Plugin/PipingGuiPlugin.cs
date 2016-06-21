@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -642,9 +641,9 @@ namespace Ringtoets.Piping.Plugin
 
             if (isNestedGroup)
             {
-                builder.AddRenameItem();
-                builder.AddDeleteItem();
-                builder.AddSeparator();
+                builder.AddRenameItem()
+                       .AddDeleteItem()
+                       .AddSeparator();
             }
 
             return builder.AddImportItem()
@@ -683,9 +682,9 @@ namespace Ringtoets.Piping.Plugin
                     PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip;
 
             var generateCalculationsItem = new StrictContextMenuItem(
-                PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations,
+                RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
                 pipingCalculationGroupGeneratePipingCalculationsToolTip,
-                PipingFormsResources.GeneratePipingCalculationsIcon, (o, args) => { ShowSurfaceLineSelectionDialog(nodeData); })
+                RingtoetsCommonFormsResources.GenerateScenariosIcon, (o, args) => { ShowSurfaceLineSelectionDialog(nodeData); })
             {
                 Enabled = surfaceLineAvailable
             };

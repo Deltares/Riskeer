@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
-using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
+
+using CommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms
 {
@@ -20,7 +21,7 @@ namespace Ringtoets.Piping.Forms
         /// <param name="dialogParent">The parent of the dialog.</param>
         /// <param name="surfaceLines">The collection of <see cref="RingtoetsPipingSurfaceLine"/> to show in the dialog.</param>
         public PipingSurfaceLineSelectionDialog(IWin32Window dialogParent, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines)
-            : base(dialogParent, Resources.GeneratePipingCalculationsIcon, 300, 400)
+            : base(dialogParent, CommonFormsResources.GenerateScenariosIcon, 300, 400)
         {
             InitializeComponent();
 

@@ -412,9 +412,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(menu, 1,
-                                                              PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
                                                               PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip,
-                                                              PipingFormsResources.GeneratePipingCalculationsIcon,
+                                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                                               false);
             }
             mocks.VerifyAll();
@@ -454,9 +454,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(menu, 1,
-                                                              PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
                                                               PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip,
-                                                              PipingFormsResources.GeneratePipingCalculationsIcon,
+                                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                                               false);
             }
             mocks.VerifyAll();
@@ -499,9 +499,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(menu, 1,
-                                                              PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
                                                               PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_ToolTip,
-                                                              PipingFormsResources.GeneratePipingCalculationsIcon);
+                                                              RingtoetsCommonFormsResources.GenerateScenariosIcon);
             }
             mocks.VerifyAll();
         }

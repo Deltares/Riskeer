@@ -157,6 +157,7 @@
     <None Include="Resources\table_delete.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\wand-hat.png" />
     <None Include="Resources\database.png" />
     <None Include="Resources\database--exclamation.png" />
     <None Include="Resources\chart_single_line.png" />

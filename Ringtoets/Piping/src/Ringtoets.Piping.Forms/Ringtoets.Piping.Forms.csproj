@@ -256,9 +256,6 @@
   <ItemGroup>
     <None Include="Resources\shovel.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\wand-hat.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

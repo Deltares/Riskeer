@@ -80,6 +80,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         public IAssessmentSection AssessmentSection { get; private set; }
 
         /// <summary>
+        /// Gets the available dike profiles which can be used to assign to a <see cref="GrassCoverErosionInwardsCalculation"/>.
+        /// </summary>
+        public IEnumerable<DikeProfile> AvailableDikeProfiles
+        {
+            get
+            {
+                return FailureMechanism.DikeProfiles;
+            } 
+        }
+
+        /// <summary>
         /// Gets the available hydraulic boundary locations in order for the user to select one to 
         /// set <see cref="GrassCoverErosionInwardsInput.HydraulicBoundaryLocation"/>.
         /// </summary>

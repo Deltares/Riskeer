@@ -27,6 +27,7 @@ using System.Linq;
 using System.Windows.Forms;
 
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 
@@ -354,9 +355,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
             var isNestedGroup = parentData is GrassCoverErosionInwardsCalculationGroupContext;
 
+            var generateCalculationsItem = CreateGenerateCalculationsItem(context);
+
             if (!isNestedGroup)
             {
                 builder.AddOpenItem()
+                       .AddSeparator()
+                       .AddCustomItem(generateCalculationsItem)
                        .AddSeparator();
             }
 
@@ -382,6 +387,29 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private StrictContextMenuItem CreateGenerateCalculationsItem(GrassCoverErosionInwardsCalculationGroupContext nodeData)
+        {
+            var isDikeProfileAvailable = nodeData.AvailableDikeProfiles.Any();
+
+            var calculationGroupGenerateCalculationsToolTip =
+                isDikeProfileAvailable ?
+                    GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_ToolTip :
+                    GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip;
+
+            var generateCalculationsItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
+                calculationGroupGenerateCalculationsToolTip,
+                RingtoetsCommonFormsResources.GenerateScenariosIcon, (o, args) => { ShowDikeProfileSelectionDialog(nodeData); })
+            {
+                Enabled = isDikeProfileAvailable
+            };
+            return generateCalculationsItem;
+        }
+
+        private void ShowDikeProfileSelectionDialog(GrassCoverErosionInwardsCalculationGroupContext nodeData)
+        {
         }
 
         private static void CalculationGroupContextOnNodeRemoved(GrassCoverErosionInwardsCalculationGroupContext context, object parentNodeData)
