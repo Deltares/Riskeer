@@ -498,8 +498,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }
         }
 
-        private const int surfaceLineIndex = 1;
         private const int entryPointIndex = 0;
+        private const int surfaceLineIndex = 1;        
 
         private void AssertSurfaceLineChartData(RingtoetsPipingSurfaceLine surfaceLine, ChartData chartData)
         {

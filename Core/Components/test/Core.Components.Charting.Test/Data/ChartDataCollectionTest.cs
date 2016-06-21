@@ -178,7 +178,7 @@ namespace Core.Components.Charting.Test.Data
             // Call
             TestDelegate test = () => data.Replace(null, newDataElement);
 
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A null element cannot be replaced. User Add instead.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A null element cannot be replaced. Use Add instead.");
             Assert.AreEqual(1, data.List.Count);
             Assert.IsInstanceOf<ChartLineData>(data.List.First());
         }

@@ -101,7 +101,7 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public ChartDataCollection Data { get; set; }
+        public ChartDataCollection Data { get; private set; }
 
         public string ChartTitle
         {

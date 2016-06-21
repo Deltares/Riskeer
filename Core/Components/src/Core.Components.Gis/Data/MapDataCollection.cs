@@ -82,7 +82,7 @@ namespace Core.Components.Gis.Data
 
             if (oldElement == null)
             {
-                throw new ArgumentNullException("oldElement", "A null element cannot be replaced. User Add instead.");
+                throw new ArgumentNullException("oldElement", "A null element cannot be replaced. Use Add instead.");
             }
 
             for (var i = 0; i < List.Count; i++)

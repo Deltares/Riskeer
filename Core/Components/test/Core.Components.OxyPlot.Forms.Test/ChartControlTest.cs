@@ -51,22 +51,6 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void Data_NotNull_ReturnsData()
-        {
-            // Setup
-            using (var chart = new ChartControl())
-            {
-                var testData = new ChartPointData(Enumerable.Empty<Point2D>(), "test data");
-
-                // Call
-                chart.Data.Add(testData);
-
-                // Assert
-                Assert.AreSame(testData, chart.Data.List.First());
-            }
-        }
-
-        [Test]
         public void TogglePanning_Always_PanningEnabled()
         {
             // Setup
