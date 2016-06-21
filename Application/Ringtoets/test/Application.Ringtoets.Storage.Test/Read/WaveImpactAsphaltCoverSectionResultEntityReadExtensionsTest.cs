@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithDecimalParameterValues_ReturnWaveImpactAsphaltCoverSoilLayerWithDoubleParameterValues(bool layerOne)
+        public void Read_WithDecimalParameterValues_ReturnWaveImpactAsphaltCoverSectionResultWithDoubleParameterValues(bool layerOne)
         {
             // Setup
             var random = new Random(21);
@@ -97,7 +97,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithNullLayerTwoA_ReturnWaveImpactAsphaltCoverSoilLayerWithNullParameters(bool layerOne)
+        public void Read_WithNullLayerTwoA_ReturnWaveImpactAsphaltCoverSectionResultWithNullParameters(bool layerOne)
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -122,7 +122,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithNullLayerThree_ReturnWaveImpactAsphaltCoverSoilLayerWithNullParameters(bool layerOne)
+        public void Read_WithNullLayerThree_ReturnWaveImpactAsphaltCoverSectionResultWithNullParameters(bool layerOne)
         {
             // Setup
             var collector = new ReadConversionCollector();

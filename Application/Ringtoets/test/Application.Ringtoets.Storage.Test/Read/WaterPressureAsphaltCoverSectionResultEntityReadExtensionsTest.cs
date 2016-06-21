@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithDecimalParameterValues_ReturnWaterPressureAsphaltCoverSoilLayerWithDoubleParameterValues(bool layerOne)
+        public void Read_WithDecimalParameterValues_ReturnWaterPressureAsphaltCoverSectionResultWithDoubleParameterValues(bool layerOne)
         {
             // Setup
             var random = new Random(21);
@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithNullParameterValues_ReturnWaterPressureAsphaltCoverSoilLayerWithNullParameters(bool layerOne)
+        public void Read_WithNullParameterValues_ReturnWaterPressureAsphaltCoverSectionResultWithNullParameters(bool layerOne)
         {
             // Setup
             var collector = new ReadConversionCollector();

@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithDecimalParameterValues_ReturnStrengthStabilityLengthwiseConstructionSoilLayerWithDoubleParameterValues(bool layerOne)
+        public void Read_WithDecimalParameterValues_ReturnStrengthStabilityLengthwiseConstructionSectionResultWithDoubleParameterValues(bool layerOne)
         {
             // Setup
             var random = new Random(21);
@@ -96,7 +96,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithNullParameterValues_ReturnStrengthStabilityLengthwiseConstructionSoilLayerWithNullParameters(bool layerOne)
+        public void Read_WithNullParameterValues_ReturnStrengthStabilityLengthwiseConstructionSectionResultWithNullParameters(bool layerOne)
         {
             // Setup
             var collector = new ReadConversionCollector();

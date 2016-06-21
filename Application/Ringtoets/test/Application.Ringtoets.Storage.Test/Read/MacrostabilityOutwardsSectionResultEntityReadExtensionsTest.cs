@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithDecimalParameterValues_ReturnMacrostabilityOutwardsSoilLayerWithDoubleParameterValues(bool layerOne)
+        public void Read_WithDecimalParameterValues_ReturnMacrostabilityOutwardsSectionResultWithDoubleParameterValues(bool layerOne)
         {
             // Setup
             var random = new Random(21);
@@ -97,7 +97,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithNullLayerTwoA_ReturnMacrostabilityOutwardsSoilLayerWithNullParameters(bool layerOne)
+        public void Read_WithNullLayerTwoA_ReturnMacrostabilityOutwardsSectionResultWithNullParameters(bool layerOne)
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -122,7 +122,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithNullLayerThree_ReturnMacrostabilityOutwardsSoilLayerWithNullParameters(bool layerOne)
+        public void Read_WithNullLayerThree_ReturnMacrostabilityOutwardsSectionResultWithNullParameters(bool layerOne)
         {
             // Setup
             var collector = new ReadConversionCollector();

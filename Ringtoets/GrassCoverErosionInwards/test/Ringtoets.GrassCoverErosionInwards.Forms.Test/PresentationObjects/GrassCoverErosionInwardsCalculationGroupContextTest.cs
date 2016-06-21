@@ -52,6 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
             Assert.AreSame(failureMechanism, groupContext.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, groupContext.AssessmentSection);
+            Assert.AreSame(failureMechanism.DikeProfiles, groupContext.AvailableDikeProfiles);
             mockRepository.VerifyAll();
         }
     }

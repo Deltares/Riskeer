@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [TestCase(true, AssessmentLayerTwoAResult.Failed)]
         [TestCase(false, AssessmentLayerTwoAResult.Successful)]
         [TestCase(false, AssessmentLayerTwoAResult.Failed)]
-        public void Read_WithDecimalParameterValues_ReturnGrassCoverSlipOffOutwardsSoilLayerWithDoubleParameterValues(bool layerOne, AssessmentLayerTwoAResult layerTwoA)
+        public void Read_WithDecimalParameterValues_ReturnGrassCoverSlipOffOutwardsSectionResultWithDoubleParameterValues(bool layerOne, AssessmentLayerTwoAResult layerTwoA)
         {
             // Setup
             var random = new Random(21);
@@ -99,7 +99,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [TestCase(true, AssessmentLayerTwoAResult.Failed)]
         [TestCase(false, AssessmentLayerTwoAResult.Successful)]
         [TestCase(false, AssessmentLayerTwoAResult.Failed)]
-        public void Read_WithNullLayerThree_ReturnGrassCoverSlipOffOutwardsSoilLayerWithNullParameters(bool layerOne, AssessmentLayerTwoAResult layerTwoA)
+        public void Read_WithNullLayerThree_ReturnGrassCoverSlipOffOutwardsSectionResultWithNullParameters(bool layerOne, AssessmentLayerTwoAResult layerTwoA)
         {
             // Setup
             var collector = new ReadConversionCollector();

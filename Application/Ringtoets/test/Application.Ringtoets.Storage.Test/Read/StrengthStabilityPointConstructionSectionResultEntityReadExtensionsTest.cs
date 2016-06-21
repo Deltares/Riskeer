@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_WithDecimalParameterValues_ReturnStrengthStabilityPointConstructionSoilLayerWithDoubleParameterValues()
+        public void Read_WithDecimalParameterValues_ReturnStrengthStabilityPointConstructionSectionResultWithDoubleParameterValues()
         {
             // Setup
             var random = new Random(21);
@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_WithNullLayerTwoA_ReturnStrengthStabilityPointConstructionSoilLayerWithNullParameters()
+        public void Read_WithNullLayerTwoA_ReturnStrengthStabilityPointConstructionSectionResultWithNullParameters()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -113,7 +113,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         } 
 
         [Test]
-        public void Read_WithNullLayerThree_ReturnStrengthStabilityPointConstructionSoilLayerWithNullParameters()
+        public void Read_WithNullLayerThree_ReturnStrengthStabilityPointConstructionSectionResultWithNullParameters()
         {
             // Setup
             var collector = new ReadConversionCollector();

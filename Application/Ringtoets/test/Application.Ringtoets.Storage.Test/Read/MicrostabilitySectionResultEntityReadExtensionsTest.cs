@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [TestCase(true, AssessmentLayerTwoAResult.Failed)]
         [TestCase(false, AssessmentLayerTwoAResult.Successful)]
         [TestCase(false, AssessmentLayerTwoAResult.Failed)]
-        public void Read_WithDecimalParameterValues_ReturnMicrostabilitySoilLayerWithDoubleParameterValues(bool layerOne, AssessmentLayerTwoAResult layerTwoA)
+        public void Read_WithDecimalParameterValues_ReturnMicrostabilitySectionResultWithDoubleParameterValues(bool layerOne, AssessmentLayerTwoAResult layerTwoA)
         {
             // Setup
             var random = new Random(21);
@@ -99,7 +99,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [TestCase(true, AssessmentLayerTwoAResult.Failed)]
         [TestCase(false, AssessmentLayerTwoAResult.Successful)]
         [TestCase(false, AssessmentLayerTwoAResult.Failed)]
-        public void Read_WithNullLayerThree_ReturnMicrostabilitySoilLayerWithNullParameters(bool layerOne, AssessmentLayerTwoAResult layerTwoA)
+        public void Read_WithNullLayerThree_ReturnMicrostabilitySectionResultWithNullParameters(bool layerOne, AssessmentLayerTwoAResult layerTwoA)
         {
             // Setup
             var collector = new ReadConversionCollector();
