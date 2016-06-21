@@ -55,9 +55,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 Mean = (RoundedDouble) 0.004,
                 StandardDeviation = (RoundedDouble) 0.0006
             };
-
-            DikeGeometry = new List<RoughnessPoint>();
-            ForeshoreGeometry = new List<Point2D>();
         }
 
         /// <summary>
@@ -99,7 +96,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the geometry of the foreshore.
         /// </summary>
-        public IList<Point2D> ForeshoreGeometry { get; private set; }
+        public IEnumerable<Point2D> ForeshoreGeometry
+        {
+            get
+            {
+                return dikeProfile != null
+                           ? dikeProfile.ForeshoreGeometry
+                           : new List<Point2D>();
+            }
+        }
 
         /// <summary>
         /// Gets or sets if <see cref="BreakWater"/> needs to be taken into account.
@@ -114,10 +119,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the geometry of the dike with roughness data.
         /// </summary>
-        public IList<RoughnessPoint> DikeGeometry { get; private set; }
+        /// <remarks>
+        /// The roughness of a <see cref="RoughnessPoint"/> in the collection represents
+        /// the roughness of the section between this <see cref="RoughnessPoint"/>
+        /// and the succeeding <see cref="RoughnessPoint"/>. The roughness of the last
+        /// point is irrelevant.
+        /// </remarks>
+        public IEnumerable<RoughnessPoint> DikeGeometry
+        {
+            get
+            {
+                return dikeProfile != null
+                           ? dikeProfile.DikeGeometry
+                           : new List<RoughnessPoint>();
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the dike height.
+        /// Gets or sets the height of the dike [m+NAP].
         /// </summary>
         public RoundedDouble DikeHeight
         {

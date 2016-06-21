@@ -87,23 +87,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
 
         private void AddDemoInput()
         {
-            // BreakWater
-            InputParameters.BreakWater.Type = BreakWaterType.Dam;
-            InputParameters.BreakWater.Height = (RoundedDouble) 10;
-            InputParameters.UseBreakWater = true;
-
-            // Orientation
-            InputParameters.Orientation = (RoundedDouble) 5.5;
-
-            // Dike and Foreshore
-            InputParameters.DikeGeometry.Add(new RoughnessPoint(new Point2D(1.1, 2.2), 0.6));
-            InputParameters.DikeGeometry.Add(new RoughnessPoint(new Point2D(3.3, 4.4), 0.7));
-            InputParameters.ForeshoreGeometry.Add(new Point2D(3.3, 4.4));
-            InputParameters.ForeshoreGeometry.Add(new Point2D(5.5, 6.6));
-            InputParameters.UseForeshore = true;
-
-            // Dike height
-            InputParameters.DikeHeight = (RoundedDouble) 10;
+            InputParameters.DikeProfile = new DikeProfile(new Point2D(0, 0))
+            {
+                Orientation = (RoundedDouble) 5.5,
+                BreakWater = new BreakWater(BreakWaterType.Dam, 10.0),
+                DikeGeometry =
+                {
+                    new RoughnessPoint(new Point2D(1.1, 2.2), 0.6),
+                    new RoughnessPoint(new Point2D(3.3, 4.4), 0.7)
+                },
+                ForeshoreGeometry =
+                {
+                    new Point2D(3.3, 4.4),
+                    new Point2D(5.5, 6.6)
+                },
+                CrestLevel = (RoundedDouble) 10
+            };
         }
     }
 }

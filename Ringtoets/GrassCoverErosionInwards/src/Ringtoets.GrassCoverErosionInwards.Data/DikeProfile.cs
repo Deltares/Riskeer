@@ -39,7 +39,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         private RoundedDouble crestLevel;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DikeProfile"/> class.
+        /// Creates a new instance of the <see cref="DikeProfile"/> class.
         /// </summary>
         /// <param name="worldCoordinate">The value for <see cref="WorldReferencePoint"/>.</param>
         public DikeProfile(Point2D worldCoordinate)
