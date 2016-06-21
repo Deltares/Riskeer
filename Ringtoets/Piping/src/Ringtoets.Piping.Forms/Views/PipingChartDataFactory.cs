@@ -23,9 +23,12 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.Views
@@ -46,9 +49,19 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
+        /// Create a <see cref="ChartPointData"/> instance with a name, but without data.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="ChartPointData"/>.</param>
+        /// <returns>An empty <see cref="ChartPointData"/> object.</returns>
+        public static ChartPointData CreateEmptyPointData(string name)
+        {
+            return new ChartPointData(Enumerable.Empty<Point2D>(), name);
+        }
+
+        /// <summary>
         /// Create <see cref="ChartData"/> with default styling based on the <paramref name="surfaceLine"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> for which to create <see cref="ChartData"/>/</param>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> for which to create <see cref="ChartData"/>.</param>
         /// <returns><see cref="ChartData"/> based on the <paramref name="surfaceLine"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
         public static ChartData Create(RingtoetsPipingSurfaceLine surfaceLine)
@@ -61,6 +74,35 @@ namespace Ringtoets.Piping.Forms.Views
             return new ChartLineData(surfaceLine.ProjectGeometryToLZ(), surfaceLine.Name)
             {
                 Style = new ChartLineStyle(Color.SaddleBrown, 2, DashStyle.Solid)
+            };
+        }
+
+        /// <summary>
+        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="entryPoint"/>.
+        /// </summary>
+        /// <param name="entryPoint">The entry point for which to create <see cref="ChartData"/>.</param>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to get place the entry point on.</param>
+        /// <returns><see cref="ChartData"/> based on the <paramref name="entryPoint"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="entryPoint"/> is <c>NaN</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
+        public static ChartData CreateEntryPoint(RoundedDouble entryPoint, RingtoetsPipingSurfaceLine surfaceLine)
+        {
+            if (double.IsNaN(entryPoint))
+            {
+                throw new ArgumentException("Entry point should have a value.", "entryPoint");
+            }
+
+            if (surfaceLine == null)
+            {
+                throw new ArgumentNullException("surfaceLine");
+            }
+
+            return new ChartPointData(new[]
+            {
+                new Point2D(entryPoint, surfaceLine.GetZAtL(entryPoint)),
+            }, Resources.PipingInput_EntryPointL_DisplayName)
+            {
+                Style = new ChartPointStyle(Color.Blue, 8, Color.Gray, 2, ChartPointSymbol.Triangle)
             };
         }
     }

@@ -153,8 +153,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsNotNull(chartData);
                 Assert.AreEqual(Resources.PipingInputContext_NodeDisplayName, chartData.Name);
 
-                Assert.AreEqual(1, chartData.List.Count);
-                AssertSurfaceLineChartData(surfaceLine, chartData.List[0]);
+                Assert.AreEqual(2, chartData.List.Count);
+                AssertSurfaceLineChartData(surfaceLine, chartData.List[surfaceLineIndex]);
+                AssertEntryPointLPointchartData(pipingInput, surfaceLine, chartData.List[entryPointIndex]);
             }
         }
 
@@ -176,11 +177,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsNotNull(chartData);
                 Assert.AreEqual(Resources.PipingInputContext_NodeDisplayName, chartData.Name);
 
-                Assert.AreEqual(1, chartData.List.Count);
-                var lineData = (ChartLineData) chartData.List[0];
+                Assert.AreEqual(2, chartData.List.Count);
+                var lineData = (ChartLineData) chartData.List[surfaceLineIndex];
+                var pointData = (ChartPointData) chartData.List[entryPointIndex];
 
                 Assert.AreEqual(0, lineData.Points.Count());
+                Assert.AreEqual(0, pointData.Points.Count());
                 Assert.AreEqual(Resources.RingtoetsPipingSurfaceLine_DisplayName, lineData.Name);
+                Assert.AreEqual(Resources.PipingInput_EntryPointL_DisplayName, pointData.Name);
             }
         }
 
@@ -321,7 +325,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 };
 
                 view.Data = pipingInput;
-                ChartLineData oldSurfaceLineChartData = (ChartLineData) view.Chart.Data.List[0];
+                ChartLineData oldSurfaceLineChartData = (ChartLineData) view.Chart.Data.List[surfaceLineIndex];
+                ChartPointData oldEntryPointChartData = (ChartPointData)view.Chart.Data.List[entryPointIndex];
 
                 var points2 = new[]
                 {
@@ -341,9 +346,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 pipingInput.NotifyObservers();
 
                 // Assert
-                ChartLineData newSurfaceLineChartData = (ChartLineData)view.Chart.Data.List[0];
+                ChartLineData newSurfaceLineChartData = (ChartLineData)view.Chart.Data.List[surfaceLineIndex];
                 Assert.AreNotEqual(oldSurfaceLineChartData, newSurfaceLineChartData);
                 AssertSurfaceLineChartData(surfaceLine2, newSurfaceLineChartData);
+
+                ChartPointData newEntryPointChartData = (ChartPointData) view.Chart.Data.List[entryPointIndex];
+                Assert.AreNotEqual(oldEntryPointChartData, newEntryPointChartData);
+                AssertEntryPointLPointchartData(pipingInput, surfaceLine2, newEntryPointChartData);
             }
         }
 
@@ -489,6 +498,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }
         }
 
+        private const int surfaceLineIndex = 1;
+        private const int entryPointIndex = 0;
+
         private void AssertSurfaceLineChartData(RingtoetsPipingSurfaceLine surfaceLine, ChartData chartData)
         {
             Assert.IsInstanceOf<ChartLineData>(chartData);
@@ -497,6 +509,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(surfaceLine.Points.Length, surfaceLineChartData.Points.Count());
             CollectionAssert.AreEqual(surfaceLine.ProjectGeometryToLZ(), surfaceLineChartData.Points);
             Assert.AreEqual(surfaceLine.Name, chartData.Name);
+        }
+
+        private void AssertEntryPointLPointchartData(PipingInput pipingInput, RingtoetsPipingSurfaceLine surfaceLine, ChartData chartData)
+        {
+            Assert.IsInstanceOf<ChartPointData>(chartData);
+            ChartPointData entryPointChartData = (ChartPointData) chartData;
+
+            Assert.AreEqual(1, entryPointChartData.Points.Count());
+            Point2D entryPoint = new Point2D(pipingInput.EntryPointL, surfaceLine.GetZAtL(pipingInput.EntryPointL));
+            CollectionAssert.AreEqual(new[] { entryPoint }, entryPointChartData.Points);
+            Assert.AreEqual(Resources.PipingInput_EntryPointL_DisplayName, entryPointChartData.Name);
         }
     }
 }

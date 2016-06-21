@@ -24,10 +24,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
 using NUnit.Framework;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
@@ -44,11 +46,25 @@ namespace Ringtoets.Piping.Forms.Test.Views
             const string name = "<test>";
 
             // Call
-            ChartLineData mapData = PipingChartDataFactory.CreateEmptyLineData(name);
+            ChartLineData chartData = PipingChartDataFactory.CreateEmptyLineData(name);
 
             // Assert
-            Assert.AreEqual(name, mapData.Name);
-            Assert.IsEmpty(mapData.Points);
+            Assert.AreEqual(name, chartData.Name);
+            Assert.IsEmpty(chartData.Points);
+        }
+
+        [Test]
+        public void CreateEmptyPointData_Always_ReturnEmptyChartPointDataWithNameSet()
+        {
+            // Setup
+            const string name = "<test>";
+
+            // Call
+            ChartPointData chartData = PipingChartDataFactory.CreateEmptyPointData(name);
+
+            // Assert
+            Assert.AreEqual(name, chartData.Name);
+            Assert.IsEmpty(chartData.Points);
         }
 
         [Test]
@@ -92,6 +108,64 @@ namespace Ringtoets.Piping.Forms.Test.Views
             AssertEqualStyle(chartLineData.Style, Color.SaddleBrown, 2, DashStyle.Solid);
         }
 
+        [Test]
+        public void ChreateEntryPoint_EntryPointNaN_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate call = () => PipingChartDataFactory.CreateEntryPoint((RoundedDouble)double.NaN, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("entryPoint", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateEntryPoint_SurfaceLineNull_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate call = () => PipingChartDataFactory.CreateEntryPoint((RoundedDouble) 1.0, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("surfaceLine", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateEntryPoint_GivenSurfaceLine_ReturnsChartDataWithDefaultStyling()
+        {
+            // Setup
+            var points = new[]
+            {
+                new Point3D(1.2, 2.3, 4.0),
+                new Point3D(2.7, 2.0, 6.0)
+            };
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Surface line name"
+            };
+            surfaceLine.SetGeometry(points);
+
+            var input = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = surfaceLine
+            };
+
+            // Call
+            ChartData data = PipingChartDataFactory.CreateEntryPoint(input.EntryPointL, input.SurfaceLine);
+
+            // Assert
+            Assert.IsInstanceOf<ChartPointData>(data);
+            ChartPointData chartPointData = (ChartPointData) data;
+            Assert.AreEqual(1, chartPointData.Points.Count());
+            Assert.AreEqual(Resources.PipingInput_EntryPointL_DisplayName, chartPointData.Name);
+
+            Point2D entryPointOnLine = new Point2D(input.EntryPointL, surfaceLine.GetZAtL(input.EntryPointL));
+            AssertEqualPointCollections(new[] {entryPointOnLine}, chartPointData.Points);
+
+            AssertEqualStyle(chartPointData.Style, Color.Blue, 8, Color.Gray, 2, ChartPointSymbol.Triangle);
+        }
+
         private void AssertEqualPointCollections(IEnumerable<Point2D> points, IEnumerable<Point2D> chartPoints)
         {
             CollectionAssert.AreEqual(points.Select(p => new Point2D(p.X, p.Y)), chartPoints);
@@ -102,6 +176,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);
             Assert.AreEqual(style, lineStyle.Style);
+        }
+
+        private void AssertEqualStyle(ChartPointStyle pointStyle, Color color, int size, Color strokeColor, int strokeThickness, ChartPointSymbol symbol)
+        {
+            Assert.AreEqual(color, pointStyle.Color);
+            Assert.AreEqual(size, pointStyle.Size);
+            Assert.AreEqual(strokeColor, pointStyle.StrokeColor);
+            Assert.AreEqual(strokeThickness, pointStyle.StrokeThickness);
+            Assert.AreEqual(symbol, pointStyle.Symbol);
         }
     }
 }

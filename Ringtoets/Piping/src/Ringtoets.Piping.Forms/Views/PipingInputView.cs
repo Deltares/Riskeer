@@ -37,6 +37,8 @@ namespace Ringtoets.Piping.Forms.Views
         private PipingCalculationScenario calculation;
 
         private ChartData surfaceLineData;
+        private ChartData entryPointData;
+        private ChartData exitPointData;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingInputView"/>.
@@ -109,7 +111,10 @@ namespace Ringtoets.Piping.Forms.Views
 
             if (data != null)
             {
-                surfaceLineData = AddOrUpdateChartData(surfaceLineData, GetSurfaceLineChartData());
+                // Bottom most layer
+                entryPointData = AddOrUpdateChartData(entryPointData, GetEntryPointChartData());
+                surfaceLineData = AddOrUpdateChartData(surfaceLineData, GetSurfaceLineChartData());               
+                // Top most layer
             }
 
             chartControl.Data.NotifyObservers();
@@ -123,6 +128,15 @@ namespace Ringtoets.Piping.Forms.Views
             }
 
             return PipingChartDataFactory.Create(data.SurfaceLine);
+        }
+
+        private ChartData GetEntryPointChartData()
+        {
+            if (data == null || data.SurfaceLine == null)
+            {
+                return PipingChartDataFactory.CreateEmptyPointData(Resources.PipingInput_EntryPointL_DisplayName);
+            }
+            return PipingChartDataFactory.CreateEntryPoint(data.EntryPointL, data.SurfaceLine);
         }
 
         private ChartData AddOrUpdateChartData(ChartData oldChartData, ChartData newChartData)
