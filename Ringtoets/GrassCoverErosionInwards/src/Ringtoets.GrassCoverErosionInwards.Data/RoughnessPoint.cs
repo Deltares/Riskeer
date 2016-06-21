@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
@@ -37,7 +36,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <param name="point">The geometry point.</param>
         /// <param name="roughness">The roughness.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="roughness"/> is not in range [0.5, 1.0].</exception>
         public RoughnessPoint(Point2D point, double roughness)
         {
             if (point == null)
@@ -45,15 +43,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 throw new ArgumentNullException("point");
             }
 
-            var roundedRoughness = new RoundedDouble(2, roughness);
-            if (roundedRoughness < 0.5 || roundedRoughness > 1.0)
-            {
-                string message = string.Format(Resources.RoughnessPoint_Roughness_Value_0_should_be_in_interval, roundedRoughness);
-                throw new ArgumentOutOfRangeException("roughness", message);
-            }
-
             Point = point;
-            Roughness = roundedRoughness;
+            Roughness = new RoundedDouble(2, roughness);
         }
 
         /// <summary>

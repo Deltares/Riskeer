@@ -147,7 +147,4 @@
   <data name="DikeProfile_DefaultName" xml:space="preserve">
     <value>Dijkprofiel</value>
   </data>
-  <data name="RoughnessPoint_Roughness_Value_0_should_be_in_interval" xml:space="preserve">
-    <value>De ruwheid waarde {0} moet in het interval [0.5, 1.0] liggen.</value>
-  </data>
 </root>

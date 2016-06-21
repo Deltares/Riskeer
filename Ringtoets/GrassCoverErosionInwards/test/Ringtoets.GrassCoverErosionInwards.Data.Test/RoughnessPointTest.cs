@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
@@ -31,12 +30,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
     public class RoughnessPointTest
     {
         [Test]
-        [TestCase(0.567896)]
-        [TestCase(0.5 - 1.0e-3, Description = "Valid roughness due to rounding to 0.5")]
-        [TestCase(1.0 + 1.0e-3, Description = "Valid roughness due to rounding to 1.0")]
-        public void Constructor_ValidRoughness_ExpectedValues(double roughness)
+        public void Constructor_ExpectedValues()
         {
             // Setup
+            const double roughness = 1.23456789;
             var point = new Point2D(1.1, 2.2);
 
             // Call
@@ -44,26 +41,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.AreEqual(point, roughnessPoint.Point);
-            var numberOfDecimalPlaces = roughnessPoint.Roughness.NumberOfDecimalPlaces;
-            Assert.AreEqual(2, numberOfDecimalPlaces);
-            Assert.AreEqual(new RoundedDouble(numberOfDecimalPlaces, roughness), roughnessPoint.Roughness);
-        }
-
-        [Test]
-        [TestCase(0.5 - 1.0e-2)]
-        [TestCase(1.0 + 1.0e-2)]
-        public void Constructor_IllegalRoughness_ThrowsArgumentOutOfRangeException(double roughness)
-        {
-            // Setup
-            var point = new Point2D(1.1, 2.2);
-
-            // Call
-            TestDelegate call = () => new RoughnessPoint(point, roughness);
-
-            // Assert
-            string expectedMessage = String.Format("De ruwheid waarde {0} moet in het interval [0.5, 1.0] liggen.",
-                                                   new RoundedDouble(2, roughness));
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            Assert.AreEqual(2, roughnessPoint.Roughness.NumberOfDecimalPlaces);
+            Assert.AreEqual(new RoundedDouble(2, roughness), roughnessPoint.Roughness);
         }
 
         [Test]

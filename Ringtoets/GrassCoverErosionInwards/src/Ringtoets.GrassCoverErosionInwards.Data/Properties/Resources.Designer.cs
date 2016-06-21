@@ -149,14 +149,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Properties {
                 return ResourceManager.GetString("N_Value_0_should_be_in_interval", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De ruwheid waarde {0} moet in het interval [0.5, 1.0] liggen..
-        /// </summary>
-        public static string RoughnessPoint_Roughness_Value_0_should_be_in_interval {
-            get {
-                return ResourceManager.GetString("RoughnessPoint_Roughness_Value_0_should_be_in_interval", resourceCulture);
-            }
-        }
     }
 }
