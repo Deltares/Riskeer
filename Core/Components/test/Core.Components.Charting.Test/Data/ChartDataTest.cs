@@ -56,6 +56,42 @@ namespace Core.Components.Charting.Test.Data
             Assert.IsInstanceOf<Observable>(data);
             Assert.AreEqual(name, data.Name);
         }
+
+        [Test]
+        public void Name_SetName_ReturnsNewName()
+        {
+            // setup
+            var name = "Some name";
+            var newName = "Something";
+            var data = new TestChartData(name);
+
+            // Precondition
+            Assert.AreEqual(name, data.Name);
+
+            // Call
+            data.Name = newName;
+
+            // Assert
+            Assert.AreNotEqual(name, data.Name);
+            Assert.AreEqual(newName, data.Name);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("   ")]
+        [TestCase("")]
+        public void Name_InvalidName_ThrowsArgumentException(string invalidName)
+        {
+            // Setup
+            var name = "Some name";
+            var data = new TestChartData(name);
+
+            // Call
+            TestDelegate call = () => data.Name = invalidName;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "A name must be set to chart data");
+        }
     }
 
     public class TestChartData : ChartData

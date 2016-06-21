@@ -72,7 +72,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point3D(2.7, 2.0, 6.0)
             };
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Surface line name"
+            };
             surfaceLine.SetGeometry(points);
 
             // Call
@@ -82,7 +85,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsInstanceOf<ChartLineData>(data);
             ChartLineData chartLineData = (ChartLineData) data;
             Assert.AreEqual(2, chartLineData.Points.Count());
-            Assert.AreEqual(Resources.RingtoetsPipingSurfaceLine_DisplayName, data.Name);
+            Assert.AreEqual(surfaceLine.Name, data.Name);
 
             AssertEqualPointCollections(surfaceLine.ProjectGeometryToLZ(), chartLineData.Points);
 

@@ -132,7 +132,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new Point3D(2.7, 2.0, 6.0)
                 };
 
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                var surfaceLine = new RingtoetsPipingSurfaceLine()
+                {
+                    Name = "Surface line name"
+                };
                 surfaceLine.SetGeometry(points);
 
                 var pipingInput = new PipingInput(new GeneralPipingInput())
@@ -148,9 +151,36 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsInstanceOf<ChartDataCollection>(view.Chart.Data);
                 var chartData = view.Chart.Data;
                 Assert.IsNotNull(chartData);
+                Assert.AreEqual(Resources.PipingInputContext_NodeDisplayName, chartData.Name);
 
                 Assert.AreEqual(1, chartData.List.Count);
                 AssertSurfaceLineChartData(surfaceLine, chartData.List[0]);
+            }
+        }
+
+        [Test]
+        public void Data_WithoutSurfaceLine_ChartDataSet()
+        {
+            // Setup
+            using (PipingInputView view = new PipingInputView())
+            {
+                var pipingInput = new PipingInput(new GeneralPipingInput());
+
+                // Call
+                view.Data = pipingInput;
+
+                // Assert
+                Assert.AreSame(pipingInput, view.Data);
+                Assert.IsInstanceOf<ChartDataCollection>(view.Chart.Data);
+                var chartData = view.Chart.Data;
+                Assert.IsNotNull(chartData);
+                Assert.AreEqual(Resources.PipingInputContext_NodeDisplayName, chartData.Name);
+
+                Assert.AreEqual(1, chartData.List.Count);
+                var lineData = (ChartLineData) chartData.List[0];
+
+                Assert.AreEqual(0, lineData.Points.Count());
+                Assert.AreEqual(Resources.RingtoetsPipingSurfaceLine_DisplayName, lineData.Name);
             }
         }
 
@@ -279,7 +309,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new Point3D(2.7, 2.0, 6.0)
                 };
 
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                var surfaceLine = new RingtoetsPipingSurfaceLine
+                {
+                    Name = "Surface line name"
+                };
                 surfaceLine.SetGeometry(points);
 
                 var pipingInput = new PipingInput(new GeneralPipingInput())
@@ -296,7 +329,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new Point3D(6.9, 2.0, 2.0)
                 };
 
-                var surfaceLine2 = new RingtoetsPipingSurfaceLine();
+                var surfaceLine2 = new RingtoetsPipingSurfaceLine
+                {
+                    Name = "Surface line name"
+                };
                 surfaceLine2.SetGeometry(points2);
 
                 pipingInput.SurfaceLine = surfaceLine2;
@@ -323,7 +359,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new Point3D(2.7, 2.0, 6.0)
                 };
 
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                var surfaceLine = new RingtoetsPipingSurfaceLine
+                {
+                    Name = "Surface line name"
+                };
                 surfaceLine.SetGeometry(points);
                 var input1 = new PipingInput(new GeneralPipingInput())
                 {
@@ -368,7 +407,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new Point3D(2.7, 2.0, 6.0)
                 };
 
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                var surfaceLine = new RingtoetsPipingSurfaceLine
+                {
+                    Name = "Surface line name"
+                };
                 surfaceLine.SetGeometry(points);
                 var input = new PipingInput(new GeneralPipingInput())
                 {
@@ -412,7 +454,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new Point3D(2.7, 2.0, 6.0)
                 };
 
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                var surfaceLine = new RingtoetsPipingSurfaceLine
+                {
+                    Name = "Surface line name"
+                };
                 surfaceLine.SetGeometry(points);
                 var input1 = new PipingInput(new GeneralPipingInput())
                 {
@@ -451,7 +496,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             Assert.AreEqual(surfaceLine.Points.Length, surfaceLineChartData.Points.Count());
             CollectionAssert.AreEqual(surfaceLine.ProjectGeometryToLZ(), surfaceLineChartData.Points);
-            Assert.AreEqual(Resources.RingtoetsPipingSurfaceLine_DisplayName, chartData.Name);
+            Assert.AreEqual(surfaceLine.Name, chartData.Name);
         }
     }
 }

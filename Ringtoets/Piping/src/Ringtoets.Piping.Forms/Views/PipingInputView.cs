@@ -105,6 +105,8 @@ namespace Ringtoets.Piping.Forms.Views
         
         private void SetDataToChart()
         {
+            chartControl.Data.Name = Resources.PipingInputContext_NodeDisplayName;
+
             if (data != null)
             {
                 surfaceLineData = AddOrUpdateChartData(surfaceLineData, GetSurfaceLineChartData());

@@ -51,7 +51,7 @@ namespace Core.Components.Charting.Data
             {
                 return name;
             }
-            private set
+            set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {

@@ -53,7 +53,6 @@ namespace Core.Components.Gis.Test.Data
             // Assert
             Assert.AreNotEqual(name, data.Name);
             Assert.AreEqual(newName, data.Name);
-
         }
 
         private class MapDataChild : MapData {

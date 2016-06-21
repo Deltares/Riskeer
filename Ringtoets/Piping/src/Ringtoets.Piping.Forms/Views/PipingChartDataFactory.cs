@@ -27,7 +27,6 @@ using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
 using Ringtoets.Piping.Primitives;
-using Resources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
 {
@@ -59,7 +58,7 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException("surfaceLine");
             }
 
-            return new ChartLineData(surfaceLine.ProjectGeometryToLZ(), Resources.RingtoetsPipingSurfaceLine_DisplayName)
+            return new ChartLineData(surfaceLine.ProjectGeometryToLZ(), surfaceLine.Name)
             {
                 Style = new ChartLineStyle(Color.SaddleBrown, 2, DashStyle.Solid)
             };
