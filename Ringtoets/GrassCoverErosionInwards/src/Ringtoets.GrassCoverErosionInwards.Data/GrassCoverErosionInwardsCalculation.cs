@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Base;
-using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
@@ -40,7 +38,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             Name = Resources.GrassCoverErosionInwardsCalculation_DefaultName;
             InputParameters = new GrassCoverErosionInwardsInput();
-            AddDemoInput();
         }
 
         /// <summary>
@@ -83,26 +80,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public ICalculationOutput GetObservableOutput()
         {
             return Output;
-        }
-
-        private void AddDemoInput()
-        {
-            InputParameters.DikeProfile = new DikeProfile(new Point2D(0, 0))
-            {
-                Orientation = (RoundedDouble) 5.5,
-                BreakWater = new BreakWater(BreakWaterType.Dam, 10.0),
-                DikeGeometry =
-                {
-                    new RoughnessPoint(new Point2D(1.1, 2.2), 0.6),
-                    new RoughnessPoint(new Point2D(3.3, 4.4), 0.7)
-                },
-                ForeshoreGeometry =
-                {
-                    new Point2D(3.3, 4.4),
-                    new Point2D(5.5, 6.6)
-                },
-                CrestLevel = (RoundedDouble) 10
-            };
         }
     }
 }

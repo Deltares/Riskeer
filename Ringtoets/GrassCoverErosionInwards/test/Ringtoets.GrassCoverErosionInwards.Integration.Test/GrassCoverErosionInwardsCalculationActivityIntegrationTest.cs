@@ -131,7 +131,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = CreateDikeProfile()
                 }
             };
 
@@ -222,7 +223,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = CreateDikeProfile()
                 }
             };
 
@@ -236,11 +238,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             activity.Finish();
 
             // Assert
-            Assert.AreEqual((RoundedDouble)0.625, calculation.Output.FactorOfSafety);
-            Assert.AreEqual((RoundedDouble)382.04, calculation.Output.Probability);
-            Assert.AreEqual((RoundedDouble)2.792, calculation.Output.Reliability);
-            Assert.AreEqual((RoundedDouble)250000.00, calculation.Output.RequiredProbability);
-            Assert.AreEqual((RoundedDouble)4.465, calculation.Output.RequiredReliability);
+            Assert.AreEqual((RoundedDouble) 0.625, calculation.Output.FactorOfSafety);
+            Assert.AreEqual((RoundedDouble) 382.04, calculation.Output.Probability);
+            Assert.AreEqual((RoundedDouble) 2.792, calculation.Output.Reliability);
+            Assert.AreEqual((RoundedDouble) 250000.00, calculation.Output.RequiredProbability);
+            Assert.AreEqual((RoundedDouble) 4.465, calculation.Output.RequiredReliability);
             mocks.VerifyAll();
         }
 
@@ -291,6 +293,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             {
                 importer.Import(assessmentSection, validFilePath);
             }
+        }
+
+        private static DikeProfile CreateDikeProfile()
+        {
+            return new DikeProfile(new Point2D(0, 0))
+            {
+                Orientation = (RoundedDouble)5.5,
+                BreakWater = new BreakWater(BreakWaterType.Dam, 10.0),
+                DikeGeometry =
+                {
+                    new RoughnessPoint(new Point2D(1.1, 2.2), 0.6),
+                    new RoughnessPoint(new Point2D(3.3, 4.4), 0.7)
+                },
+                ForeshoreGeometry =
+                {
+                    new Point2D(3.3, 4.4),
+                    new Point2D(5.5, 6.6)
+                },
+                CrestLevel = (RoundedDouble)10
+            };
         }
     }
 }

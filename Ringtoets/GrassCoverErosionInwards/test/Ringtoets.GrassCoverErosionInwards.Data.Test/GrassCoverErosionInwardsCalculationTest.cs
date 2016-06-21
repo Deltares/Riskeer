@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
@@ -45,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments);
             Assert.IsNull(calculation.Output);
-            AssertDemoInput(calculation.InputParameters);
+            Assert.IsNull(calculation.InputParameters.DikeProfile);
         }
 
         [Test]
@@ -169,28 +168,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.AreSame(output, calculationOutput);
-        }
-
-        private void AssertDemoInput(GrassCoverErosionInwardsInput inputParameters)
-        {
-            // BreakWater
-            Assert.IsNotNull(inputParameters.BreakWater);
-            Assert.AreEqual(10.0, inputParameters.BreakWater.Height.Value);
-            Assert.AreEqual(BreakWaterType.Dam, inputParameters.BreakWater.Type);
-            Assert.IsTrue(inputParameters.UseBreakWater);
-
-            // Orientation
-            Assert.AreEqual(2, inputParameters.Orientation.NumberOfDecimalPlaces);
-            Assert.AreEqual(5.5, inputParameters.Orientation.Value);
-
-            // Dike and Foreshore
-            Assert.IsTrue(inputParameters.ForeshoreGeometry.Any());
-            Assert.IsTrue(inputParameters.DikeGeometry.Any());
-            Assert.IsTrue(inputParameters.UseForeshore);
-
-            // Dike height
-            Assert.AreEqual(2, inputParameters.DikeHeight.NumberOfDecimalPlaces);
-            Assert.AreEqual(10, inputParameters.DikeHeight.Value);
         }
 
         private class TestGrassCoverErosionInwardsOutput : ProbabilityAssessmentOutput

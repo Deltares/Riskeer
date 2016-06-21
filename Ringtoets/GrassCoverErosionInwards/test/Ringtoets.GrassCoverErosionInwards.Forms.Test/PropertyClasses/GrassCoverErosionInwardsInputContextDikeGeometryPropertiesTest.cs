@@ -84,8 +84,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
             var properties = new GrassCoverErosionInwardsInputContextDikeGeometryProperties();
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = new DikeProfile(new Point2D(0, 0))
+                    {
+                        DikeGeometry =
+                        {
+                            new RoughnessPoint(new Point2D(1.1, 2.2), 0.6),
+                            new RoughnessPoint(new Point2D(3.3, 4.4), 0.7)
+                        }
+                    }
+                }
+            };
 
             // Call
             properties.Data = new GrassCoverErosionInwardsInputContext(calculation.InputParameters, calculation, failureMechanismMock, assessmentSectionMock);

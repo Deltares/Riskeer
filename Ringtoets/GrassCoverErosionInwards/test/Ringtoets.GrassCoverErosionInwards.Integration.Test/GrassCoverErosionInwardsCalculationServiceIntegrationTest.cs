@@ -22,6 +22,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -160,7 +161,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = new DikeProfile(new Point2D(0, 0))
+                    {
+                        Orientation = (RoundedDouble) 5.5,
+                        DikeGeometry =
+                        {
+                            new RoughnessPoint(new Point2D(1.1, 2.2), 0.6),
+                            new RoughnessPoint(new Point2D(3.3, 4.4), 0.7)
+                        },
+                        CrestLevel = (RoundedDouble) 10
+                    }
                 }
             };
 

@@ -84,14 +84,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             mockRepository.ReplayAll();
 
+            var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties();
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
-                    UseForeshore = true
+                    UseForeshore = true,
+                    DikeProfile = new DikeProfile(new Point2D(0, 0))
+                    {
+                        ForeshoreGeometry =
+                        {
+                            new Point2D(1.1, 2.2),
+                            new Point2D(3.3, 4.4)
+                        }
+                    }
                 }
             };
-            var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties();
 
             // Call
             properties.Data = new GrassCoverErosionInwardsInputContext(calculation.InputParameters, calculation, failureMechanismMock, assessmentSectionMock);
@@ -99,8 +107,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             var expectedCoordinates = new[]
             {
-                new Point2D(3.3, 4.4),
-                new Point2D(5.5, 6.6)
+                new Point2D(1.1, 2.2),
+                new Point2D(3.3, 4.4)
             };
             Assert.IsTrue(properties.UseForeshore);
             CollectionAssert.AreEqual(expectedCoordinates, properties.Coordinates);

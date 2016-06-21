@@ -74,7 +74,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets the dike's orientation
+        /// Gets or sets the orientation of the dike profile geometry with respect to North
+        /// in degrees. A positive value equals a clockwise rotation.
         /// </summary>
         public RoundedDouble Orientation
         {
@@ -151,7 +152,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets the dike's critical flow rate.
+        /// Gets or sets the critical flow rate.
         /// </summary>
         public LogNormalDistribution CriticalFlowRate
         {
