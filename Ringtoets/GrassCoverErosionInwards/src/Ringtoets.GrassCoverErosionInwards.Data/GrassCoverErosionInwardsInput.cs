@@ -89,6 +89,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
+        /// Gets or sets if <see cref="BreakWater"/> needs to be taken into account.
+        /// </summary>
+        public bool UseBreakWater { get; set; }
+
+        /// <summary>
+        /// Gets the <see cref="BreakWater"/>.
+        /// </summary>
+        public BreakWater BreakWater { get; private set; }
+
+        /// <summary>
         /// Gets or sets if the <see cref="ForeshoreGeometry"/> needs to be taken into account.
         /// </summary>
         public bool UseForeshore { get; set; }
@@ -105,16 +115,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                            : new List<Point2D>();
             }
         }
-
-        /// <summary>
-        /// Gets or sets if <see cref="BreakWater"/> needs to be taken into account.
-        /// </summary>
-        public bool UseBreakWater { get; set; }
-
-        /// <summary>
-        /// Gets the <see cref="BreakWater"/>.
-        /// </summary>
-        public BreakWater BreakWater { get; private set; }
 
         /// <summary>
         /// Gets the geometry of the dike with roughness data.
