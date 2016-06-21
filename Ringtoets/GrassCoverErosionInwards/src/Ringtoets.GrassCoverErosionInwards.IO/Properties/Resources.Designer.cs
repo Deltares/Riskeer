@@ -330,36 +330,36 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De ingelezen Id ({0}) bevat spaties, welke niet zijn toegestaan..
         /// </summary>
-        internal static string DikeProfileDataReader_TryReadId_Id_0_has_unsupported_white_space {
+        internal static string DikeProfileDataReader_ValidateId_Id_0_has_unsupported_white_space {
             get {
-                return ResourceManager.GetString("DikeProfileDataReader_TryReadId_Id_0_has_unsupported_white_space", resourceCulture);
+                return ResourceManager.GetString("DikeProfileDataReader_ValidateId_Id_0_has_unsupported_white_space", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De ingelezen Id ({0}) is geen geldig id..
         /// </summary>
-        internal static string DikeProfileDataReader_TryReadId_Id_0_not_valid {
+        internal static string DikeProfileDataReader_ValidateId_Id_0_not_valid {
             get {
-                return ResourceManager.GetString("DikeProfileDataReader_TryReadId_Id_0_not_valid", resourceCulture);
+                return ResourceManager.GetString("DikeProfileDataReader_ValidateId_Id_0_not_valid", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De ingelezen orientatie waarde ({0}) moet binnen het bereik [0, 360] vallen..
         /// </summary>
-        internal static string DikeProfileDataReader_TryReadOrientation_Orientation_0_must_be_in_range {
+        internal static string DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_range {
             get {
-                return ResourceManager.GetString("DikeProfileDataReader_TryReadOrientation_Orientation_0_must_be_in_range", resourceCulture);
+                return ResourceManager.GetString("DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_range", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Enkel bestanden van versie &apos;4.0&apos; worden ondersteund..
         /// </summary>
-        internal static string DikeProfileDataReader_TryReadVersion_Only_version_four_zero_supported {
+        internal static string DikeProfileDataReader_ValidateVersion_Only_version_four_zero_supported {
             get {
-                return ResourceManager.GetString("DikeProfileDataReader_TryReadVersion_Only_version_four_zero_supported", resourceCulture);
+                return ResourceManager.GetString("DikeProfileDataReader_ValidateVersion_Only_version_four_zero_supported", resourceCulture);
             }
         }
         

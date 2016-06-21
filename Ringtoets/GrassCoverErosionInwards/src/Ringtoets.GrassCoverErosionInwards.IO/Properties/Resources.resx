@@ -144,10 +144,10 @@
   <data name="DikeProfileDataReader_ReadDikeProfileData_List_mising_parameters_0_" xml:space="preserve">
     <value>De volgende parameter(s) zijn niet aanwezig in het bestand: {0}</value>
   </data>
-  <data name="DikeProfileDataReader_TryReadVersion_Only_version_four_zero_supported" xml:space="preserve">
+  <data name="DikeProfileDataReader_ValidateVersion_Only_version_four_zero_supported" xml:space="preserve">
     <value>Enkel bestanden van versie '4.0' worden ondersteund.</value>
   </data>
-  <data name="DikeProfileDataReader_TryReadOrientation_Orientation_0_must_be_in_range" xml:space="preserve">
+  <data name="DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_range" xml:space="preserve">
     <value>De ingelezen orientatie waarde ({0}) moet binnen het bereik [0, 360] vallen.</value>
   </data>
   <data name="DikeProfileDataReader_ReadDikeProfileData_ProfileType_0_must_be_in_range" xml:space="preserve">
@@ -210,10 +210,10 @@
   <data name="DikeProfileLocation_DikeProfileLocation_X0_is_invalid" xml:space="preserve">
     <value>De locatie parameter 'X0' bevat een ongeldig getal.</value>
   </data>
-  <data name="DikeProfileDataReader_TryReadId_Id_0_not_valid" xml:space="preserve">
+  <data name="DikeProfileDataReader_ValidateId_Id_0_not_valid" xml:space="preserve">
     <value>De ingelezen Id ({0}) is geen geldig id.</value>
   </data>
-  <data name="DikeProfileDataReader_TryReadId_Id_0_has_unsupported_white_space" xml:space="preserve">
+  <data name="DikeProfileDataReader_ValidateId_Id_0_has_unsupported_white_space" xml:space="preserve">
     <value>De ingelezen Id ({0}) bevat spaties, welke niet zijn toegestaan.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfDikeElements_DijkCount_0_not_integer" xml:space="preserve">
