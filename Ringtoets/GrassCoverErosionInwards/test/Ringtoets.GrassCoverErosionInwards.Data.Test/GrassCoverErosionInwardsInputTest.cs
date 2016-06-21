@@ -133,7 +133,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             {
                 Orientation = (RoundedDouble) 1.1,
                 BreakWater = new BreakWater(BreakWaterType.Caisson, 2.2),
-                ForeshoreGeometry = { new Point2D(3.3, 4.4) },
+                ForeshoreGeometry =
+                {
+                    new Point2D(3.3, 4.4)
+                },
                 DikeGeometry =
                 {
                     new RoughnessPoint(new Point2D(5.5, 6.6), 0.7)
@@ -170,6 +173,63 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(new RoundedDouble(0), input.DikeHeight);
             Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
             Assert.AreEqual(originalCriticalFlowRate, input.CriticalFlowRate);
+        }
+
+        [Test]
+        public void Orientation_SetNewValue_ValueIsRounded()
+        {
+            // Setup
+            var input = new GrassCoverErosionInwardsInput();
+
+            int originalNumberOfDecimalPlaces = input.Orientation.NumberOfDecimalPlaces;
+
+            // Call
+            input.Orientation = new RoundedDouble(5, 1.23456);
+
+            // Assert
+            Assert.AreEqual(originalNumberOfDecimalPlaces, input.Orientation.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.23, input.Orientation.Value);
+        }
+
+        [Test]
+        public void DikeHeight_SetNewValue_ValueIsRounded()
+        {
+            // Setup
+            var input = new GrassCoverErosionInwardsInput();
+
+            int originalNumberOfDecimalPlaces = input.DikeHeight.NumberOfDecimalPlaces;
+
+            // Call
+            input.DikeHeight = new RoundedDouble(5, 1.23456);
+
+            // Assert
+            Assert.AreEqual(originalNumberOfDecimalPlaces, input.DikeHeight.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.23, input.DikeHeight.Value);
+        }
+
+        [Test]
+        public void CriticalFlowRate_SetNewValue_GetNewValues()
+        {
+            // Setup
+            const double meanValue = 1.2345689;
+            const double standardDeviationValue = 9.87654321;
+            var input = new GrassCoverErosionInwardsInput();
+
+            int originalNumberOfDecimalPlacesMean = input.CriticalFlowRate.Mean.NumberOfDecimalPlaces;
+            int originalNumberOfDecimalPlacesStandardDeviation = input.CriticalFlowRate.StandardDeviation.NumberOfDecimalPlaces;
+
+            // Call
+            input.CriticalFlowRate = new LogNormalDistribution(10)
+            {
+                Mean = (RoundedDouble) meanValue,
+                StandardDeviation = (RoundedDouble) standardDeviationValue
+            };
+
+            // Assert
+            Assert.AreEqual(originalNumberOfDecimalPlacesMean, input.CriticalFlowRate.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(new RoundedDouble(originalNumberOfDecimalPlacesMean, meanValue), input.CriticalFlowRate.Mean);
+            Assert.AreEqual(originalNumberOfDecimalPlacesStandardDeviation, input.CriticalFlowRate.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(new RoundedDouble(originalNumberOfDecimalPlacesStandardDeviation, standardDeviationValue), input.CriticalFlowRate.StandardDeviation);
         }
     }
 }
