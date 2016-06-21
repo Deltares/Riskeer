@@ -45,17 +45,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsInstanceOf<RoundedDouble>(dikeProfile.CrestLevel);
             Assert.IsInstanceOf<double>(dikeProfile.X0);
 
+            Assert.AreEqual("Dijkprofiel", dikeProfile.Name);
+            Assert.AreEqual(string.Empty, dikeProfile.Memo);
             Assert.AreSame(worldCoordinate, dikeProfile.WorldReferencePoint);
+            Assert.AreEqual(0.0, dikeProfile.X0);
             Assert.AreEqual(0.0, dikeProfile.Orientation.Value);
             Assert.AreEqual(2, dikeProfile.Orientation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.0, dikeProfile.X0);
-            Assert.AreEqual("Dijkprofiel", dikeProfile.Name);
             Assert.IsNull(dikeProfile.BreakWater);
             CollectionAssert.IsEmpty(dikeProfile.DikeGeometry);
             CollectionAssert.IsEmpty(dikeProfile.ForeshoreGeometry);
             Assert.AreEqual(0.0, dikeProfile.CrestLevel.Value);
             Assert.AreEqual(2, dikeProfile.CrestLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(string.Empty, dikeProfile.Memo);
         }
 
         [Test]

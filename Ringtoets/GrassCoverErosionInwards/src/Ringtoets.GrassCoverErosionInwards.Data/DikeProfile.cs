@@ -60,6 +60,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
+        /// Gets or sets the name of the dike profile.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the optional notes about this instance.
+        /// </summary>
+        public string Memo { get; set; }
+
+        /// <summary>
+        /// Gets the reference point in world coordinates corresponding to the local coordinate <see cref="X0"/>.
+        /// </summary>
+        public Point2D WorldReferencePoint { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the local x-coordinate corresponding to the world reference point <see cref="WorldReferencePoint"/>.
+        /// </summary>
+        public double X0 { get; set; }
+
+        /// <summary>
         /// Gets or sets the orientation of the dike profile geometry with respect to North
         /// in degrees. A positive value equals a clockwise rotation.
         /// </summary>
@@ -86,24 +106,31 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets the reference point in world coordinates corresponding to the local coordinate <see cref="X0"/>.
+        /// Indicates if there is a break water object available for this instance or not.
         /// </summary>
-        public Point2D WorldReferencePoint { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the local x-coordinate corresponding to the world reference point <see cref="WorldReferencePoint"/>.
-        /// </summary>
-        public double X0 { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the dike profile.
-        /// </summary>
-        public string Name { get; set; }
+        public bool HasBreakWater
+        {
+            get
+            {
+                return BreakWater != null;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the break water object of the dike profile, if any.
         /// </summary>
         public BreakWater BreakWater { get; set; }
+
+        /// <summary>
+        /// Gets the geometry of the foreshore.
+        /// </summary>
+        public IList<Point2D> ForeshoreGeometry
+        {
+            get
+            {
+                return foreshoreGeometry;
+            }
+        }
 
         /// <summary>
         /// Gets the geometry of the dike with roughness data.
@@ -123,17 +150,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets the geometry of the foreshore.
-        /// </summary>
-        public IList<Point2D> ForeshoreGeometry
-        {
-            get
-            {
-                return foreshoreGeometry;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the height of the dike [m+NAP].
         /// </summary>
         public RoundedDouble CrestLevel
@@ -145,22 +161,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             set
             {
                 crestLevel = value.ToPrecision(crestLevel.NumberOfDecimalPlaces);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the optional notes about this instance.
-        /// </summary>
-        public string Memo { get; set; }
-
-        /// <summary>
-        /// Indicates if there is a break water object available for this instance or not.
-        /// </summary>
-        public bool HasBreakWater
-        {
-            get
-            {
-                return BreakWater != null;
             }
         }
     }
