@@ -59,7 +59,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
             }
             set
             {
-                if (value < 0 || value > 1)
+                if (!double.IsNaN(value) && (value < 0 || value > 1))
                 {
                     throw new ArgumentException(Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1);
                 }

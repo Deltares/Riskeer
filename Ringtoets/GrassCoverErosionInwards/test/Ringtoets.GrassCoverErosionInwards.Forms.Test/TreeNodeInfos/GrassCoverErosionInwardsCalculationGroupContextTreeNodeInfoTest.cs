@@ -37,6 +37,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
@@ -772,6 +773,206 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                             "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenDikeProfileSelectedAndDialogClosed_ThenCalculationsAddedWithProfileAssigned()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+                var dikeProfile1 = new DikeProfile(new Point2D(0.0, 0.0))
+                {
+                    Name = "Dike profile 1",
+                };
+
+                var dikeProfile2 = new DikeProfile(new Point2D(5.0, 0.0))
+                {
+                    Name = "Dike profile 2",
+                };
+
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+                {
+                    DikeProfiles =
+                    {
+                        dikeProfile1,
+                        dikeProfile2
+                    }
+                };
+
+                var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                 failureMechanism,
+                                                                 assessmentSectionMock);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                var gui = mocks.StrictMock<IGui>();
+                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Expect(g => g.MainWindow).Return(mainWindow);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog)new FormTester(name).TheObject;
+                    var grid = (DataGridView)new ControlTester("DikeProfileDataGrid", selectionDialog).TheObject;
+
+                    grid.Rows[0].Cells[0].Value = true;
+
+                    new ButtonTester("OkButton", selectionDialog).Click();
+                };
+
+                var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+
+                // When
+                contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
+
+                // Then
+                var grassCoverErosionInwardsCalculations = failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>().ToArray();
+                Assert.AreEqual(1, grassCoverErosionInwardsCalculations.Length);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenCancelButtonClickedAndDialogClosed_ThenCalculationsNotUpdated()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+                var dikeProfile1 = new DikeProfile(new Point2D(0.0, 0.0))
+                {
+                    Name = "Dike profile 1",
+                };
+
+                var dikeProfile2 = new DikeProfile(new Point2D(5.0, 0.0))
+                {
+                    Name = "Dike profile 2",
+                };
+
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+                {
+                    DikeProfiles =
+                    {
+                        dikeProfile1,
+                        dikeProfile2
+                    }
+                };
+
+                var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                 failureMechanism,
+                                                                 assessmentSectionMock);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                var gui = mocks.StrictMock<IGui>();
+                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Expect(g => g.MainWindow).Return(mainWindow);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+                
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog)new FormTester(name).TheObject;
+                    var grid = (DataGridView)new ControlTester("DikeProfileDataGrid", selectionDialog).TheObject;
+
+                    grid.Rows[0].Cells[0].Value = true;
+
+                    new ButtonTester("CustomCancelButton", selectionDialog).Click();
+                };
+
+                var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+
+                // When
+                contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
+
+                // Then
+                var grassCoverErosionInwardsCalculations = failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>().ToArray();
+                Assert.AreEqual(0, grassCoverErosionInwardsCalculations.Length);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenScenariosWithExistingCalculationWithSameName_WhenOkButtonClickedAndDialogClosed_ThenCalculationWithUniqueNameAdded()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+                var existingCalculationName = "Dike profile";
+                var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0))
+                {
+                    Name = existingCalculationName,
+                };
+
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+                {
+                    DikeProfiles =
+                    {
+                        dikeProfile,
+                    },
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new GrassCoverErosionInwardsCalculation
+                            {
+                                Name = existingCalculationName
+                            }
+                        }
+                    }
+                };
+
+                var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                 failureMechanism,
+                                                                 assessmentSectionMock);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                var gui = mocks.StrictMock<IGui>();
+                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Expect(g => g.MainWindow).Return(mainWindow);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+                
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog)new FormTester(name).TheObject;
+                    var grid = (DataGridView)new ControlTester("DikeProfileDataGrid", selectionDialog).TheObject;
+
+                    grid.Rows[0].Cells[0].Value = true;
+
+                    new ButtonTester("OkButton", selectionDialog).Click();
+                };
+
+                var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+
+                var expectedNewName = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, existingCalculationName, c => c.Name);
+
+                // When
+                contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
+
+                // Then
+                var grassCoverErosionInwardsCalculations = failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>().ToArray();
+                Assert.AreEqual(2, grassCoverErosionInwardsCalculations.Length);
+                Assert.AreEqual(expectedNewName, grassCoverErosionInwardsCalculations[1].Name);
+            }
             mocks.VerifyAll();
         }
 

@@ -39,6 +39,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Forms;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
@@ -410,6 +411,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private void ShowDikeProfileSelectionDialog(GrassCoverErosionInwardsCalculationGroupContext nodeData)
         {
+            var view = new GrassCoverErosionInwardsDikeProfileSelectionDialog(Gui.MainWindow, nodeData.AvailableDikeProfiles);
+            view.ShowDialog();
+
+            GenerateCalculations(nodeData.WrappedData, view.SelectedDikeProfiles);
+
+            nodeData.NotifyObservers();
+        }
+
+        private void GenerateCalculations(CalculationGroup target, IEnumerable<DikeProfile> dikeProfiles)
+        {
+            foreach (var profile in dikeProfiles)
+            {
+                target.Children.Add(new GrassCoverErosionInwardsCalculation
+                {
+                    Name = NamingHelper.GetUniqueName(target.Children, profile.Name, c => c.Name),
+                    InputParameters =
+                    {
+                        DikeProfile = profile
+                    }
+                });
+            }
         }
 
         private static void CalculationGroupContextOnNodeRemoved(GrassCoverErosionInwardsCalculationGroupContext context, object parentNodeData)
