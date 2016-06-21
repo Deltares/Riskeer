@@ -21,8 +21,10 @@
 
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.Views
 {
@@ -33,6 +35,8 @@ namespace Ringtoets.Piping.Forms.Views
     {
         private PipingInput data;
         private PipingCalculationScenario calculation;
+
+        private ChartData surfaceLineData;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingInputView"/>.
@@ -68,7 +72,12 @@ namespace Ringtoets.Piping.Forms.Views
             }
             set
             {
-                data = value as PipingInput;
+                var newValue = value as PipingInput;
+
+                DetachFromData();
+                data = newValue;
+                SetDataToChart();
+                AttachToData();
             }
         }
 
@@ -83,11 +92,49 @@ namespace Ringtoets.Piping.Forms.Views
         public void UpdateObserver()
         {
             SetChartTitle();
+            SetDataToChart();
         }
 
         private void SetChartTitle()
         {
-            chartControl.ChartTitle = calculation.Name;
+            if (calculation != null)
+            {
+                chartControl.ChartTitle = calculation.Name;
+            }
+        }
+        
+        private void SetDataToChart()
+        {
+            if (data != null)
+            {
+                surfaceLineData = AddOrUpdateChartData(surfaceLineData, GetSurfaceLineChartData());
+            }
+
+            chartControl.Data.NotifyObservers();
+        }
+
+        private ChartData GetSurfaceLineChartData()
+        {
+            if (data == null || data.SurfaceLine == null)
+            {
+                return PipingChartDataFactory.CreateEmptyLineData(Resources.RingtoetsPipingSurfaceLine_DisplayName);
+            }
+
+            return PipingChartDataFactory.Create(data.SurfaceLine);
+        }
+
+        private ChartData AddOrUpdateChartData(ChartData oldChartData, ChartData newChartData)
+        {
+            if (oldChartData != null)
+            {
+                chartControl.Data.Remove(oldChartData);
+            }
+            if (newChartData != null)
+            {
+                chartControl.Data.Add(newChartData);
+            }
+
+            return newChartData;
         }
 
         private void DetachFromData()
@@ -96,6 +143,11 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 calculation.Detach(this);
             }
+
+            if (data != null)
+            {
+                data.Detach(this);
+            }
         }
 
         private void AttachToData()
@@ -103,6 +155,11 @@ namespace Ringtoets.Piping.Forms.Views
             if (calculation != null)
             {
                 calculation.Attach(this);
+            }
+
+            if (data != null)
+            {
+                data.Attach(this);
             }
         }
     }
