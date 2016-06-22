@@ -133,7 +133,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             Assert.AreEqual(ProfileType.Coordinates, result.ProfileType);
             Assert.AreEqual(0.0, result.DamHeight);
             CollectionAssert.IsEmpty(result.ForeshoreGeometry);
-            Assert.AreEqual(6.0, result.CrestLevel);
+            Assert.AreEqual(6.0, result.DikeHeight);
             Assert.AreEqual(2, result.DikeGeometry.Length);
             Assert.AreEqual(new Point2D(0.0, 0.0), result.DikeGeometry[0].Point);
             Assert.AreEqual(1.0, result.DikeGeometry[0].Roughness.Value);
@@ -174,7 +174,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             Assert.AreEqual(new Point2D(-18.0, -6.0), result.ForeshoreGeometry[2].Point);
             Assert.AreEqual(1.0, result.ForeshoreGeometry[2].Roughness.Value);
 
-            Assert.AreEqual(6.0, result.CrestLevel);
+            Assert.AreEqual(6.0, result.DikeHeight);
             Assert.AreEqual(4, result.DikeGeometry.Length);
             Assert.AreEqual(new Point2D(-18.0, -6.0), result.DikeGeometry[0].Point);
             Assert.AreEqual(1.0, result.DikeGeometry[0].Roughness.Value);
@@ -262,7 +262,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 4: De ingelezen orientatie waarde ({1}) moet binnen het bereik [0, 360] vallen.",
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 4: De ingelezen oriëntatie waarde ({1}) moet binnen het bereik [0, 360] vallen.",
                                                    faultyFilePath, expectedOrientationInFile);
             Assert.AreEqual(expectedMessage, message);
         }
@@ -325,7 +325,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 9: Het ingelezen aantal voorland punten (-1) mag niet negatief zijn.",
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 9: Het ingelezen aantal voorlandgeometrie punten (-1) mag niet negatief zijn.",
                                                    faultyFilePath);
             Assert.AreEqual(expectedMessage, message);
         }
@@ -456,7 +456,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 4: De ingelezen orientatie ({1}) is geen getal.",
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 4: De ingelezen oriëntatie ({1}) is geen getal.",
                                                    faultyFilePath, expectedReadText);
             Assert.AreEqual(expectedMessage, message);
         }
@@ -478,7 +478,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 4: De ingelezen orientatie ({1}) is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 4: De ingelezen oriëntatie ({1}) is te groot of te klein om ingelezen te worden.",
                                                    faultyFilePath, expectedReadText);
             Assert.AreEqual(expectedMessage, message);
         }
@@ -622,7 +622,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [TestCase("faulty_unparsableKruinhoogte.prfl", "- 8ykultow9yowl;i 3-9854")]
         [TestCase("faulty_unparsableKruinhoogte_noValue1.prfl", "")]
         [TestCase("faulty_unparsableKruinhoogte_noValue2.prfl", "")]
-        public void ReadDikeProfileData_FaultyFileWithUnparsableCrestLevel_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FaultyFileWithUnparsableDikeHeight_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
             // Setup
@@ -636,7 +636,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 12: De ingelezen kruinhoogte ({1}) is geen getal.",
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 12: De ingelezen dijkhoogte ({1}) is geen getal.",
                                                    faultyFilePath, expectedReadText);
             Assert.AreEqual(expectedMessage, message);
         }
@@ -644,7 +644,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [Test]
         [TestCase("faulty_unparsableKruinhoogte_Overflow1.prfl", "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")]
         [TestCase("faulty_unparsableKruinhoogte_Overflow2.prfl", "-33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333")]
-        public void ReadDikeProfileData_FaultyFileWithOverflowCrestLevel_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FaultyFileWithOverflowDikeHeight_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
             // Setup
@@ -658,7 +658,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 12: De ingelezen kruinhoogte ({1}) is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 12: De ingelezen dijkhoogte ({1}) is te groot of te klein om ingelezen te worden.",
                                                    faultyFilePath, expectedReadText);
             Assert.AreEqual(expectedMessage, message);
         }
@@ -681,7 +681,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 16: Het ingelezen aantal dijk punten ({1}) is geen geheel getal.",
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 16: Het ingelezen aantal dijkgeometrie punten ({1}) is geen geheel getal.",
                                                    faultyFilePath, expectedReadText);
             Assert.AreEqual(expectedMessage, message);
         }
@@ -703,7 +703,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 16: Het ingelezen aantal dijk punten ({1}) is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 16: Het ingelezen aantal dijkgeometrie punten ({1}) is te groot of te klein om ingelezen te worden.",
                                                    faultyFilePath, expectedReadText);
             Assert.AreEqual(expectedMessage, message);
         }
@@ -815,7 +815,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 9: Het ingelezen aantal voorland punten ({1}) is geen geheel getal.",
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 9: Het ingelezen aantal voorlandgeometrie punten ({1}) is geen geheel getal.",
                                                    faultyFilePath, expectedReadText);
             Assert.AreEqual(expectedMessage, message);
         }
@@ -837,7 +837,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 9: Het ingelezen aantal voorland punten ({1}) is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 9: Het ingelezen aantal voorlandgeometrie punten ({1}) is te groot of te klein om ingelezen te worden.",
                                                    faultyFilePath, expectedReadText);
             Assert.AreEqual(expectedMessage, message);
         }

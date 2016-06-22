@@ -81,7 +81,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 {
                     new RoughnessPoint(new Point2D(2.2, 3.3), 0.6)
                 },
-                CrestLevel = (RoundedDouble) 4.4
+                DikeHeight = (RoundedDouble) 4.4
             };
 
             if (withBreakWater)
@@ -113,7 +113,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(withForeshore, input.UseForeshore);
             Assert.AreSame(dikeProfile.ForeshoreGeometry, input.ForeshoreGeometry);
             Assert.AreSame(dikeProfile.DikeGeometry, input.DikeGeometry);
-            Assert.AreEqual(dikeProfile.CrestLevel, input.DikeHeight);
+            Assert.AreEqual(dikeProfile.DikeHeight, input.DikeHeight);
             Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
             Assert.AreEqual(originalCriticalFlowRate, input.CriticalFlowRate);
         }
@@ -141,7 +141,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 {
                     new RoughnessPoint(new Point2D(5.5, 6.6), 0.7)
                 },
-                CrestLevel = (RoundedDouble) 8.8
+                DikeHeight = (RoundedDouble) 8.8
             };
 
             input.DikeProfile = dikeProfile;

@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.IsInstanceOf<RoundedDouble>(dikeProfile.Orientation);
-            Assert.IsInstanceOf<RoundedDouble>(dikeProfile.CrestLevel);
+            Assert.IsInstanceOf<RoundedDouble>(dikeProfile.DikeHeight);
             Assert.IsInstanceOf<double>(dikeProfile.X0);
 
             Assert.AreEqual("Dijkprofiel", dikeProfile.Name);
@@ -52,8 +52,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsNull(dikeProfile.BreakWater);
             CollectionAssert.IsEmpty(dikeProfile.DikeGeometry);
             CollectionAssert.IsEmpty(dikeProfile.ForeshoreGeometry);
-            Assert.AreEqual(0.0, dikeProfile.CrestLevel.Value);
-            Assert.AreEqual(2, dikeProfile.CrestLevel.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.0, dikeProfile.DikeHeight.Value);
+            Assert.AreEqual(2, dikeProfile.DikeHeight.NumberOfDecimalPlaces);
         }
 
         [Test]
@@ -97,19 +97,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void CrestLevel_SetToValueWithTooManyDecimalPlaces_ValueIsRounded()
+        public void DikeHeight_SetToValueWithTooManyDecimalPlaces_ValueIsRounded()
         {
             // Setup
             var dikeProfile = new DikeProfile(new Point2D(0, 0));
 
-            int originalNumberOfDecimalPlaces = dikeProfile.CrestLevel.NumberOfDecimalPlaces;
+            int originalNumberOfDecimalPlaces = dikeProfile.DikeHeight.NumberOfDecimalPlaces;
 
             // Call
-            dikeProfile.CrestLevel = new RoundedDouble(5, 1.23456);
+            dikeProfile.DikeHeight = new RoundedDouble(5, 1.23456);
 
             // Assert
-            Assert.AreEqual(originalNumberOfDecimalPlaces, dikeProfile.CrestLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(1.23, dikeProfile.CrestLevel.Value);
+            Assert.AreEqual(originalNumberOfDecimalPlaces, dikeProfile.DikeHeight.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.23, dikeProfile.DikeHeight.Value);
         }
 
         [Test]

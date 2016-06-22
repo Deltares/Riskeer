@@ -61,24 +61,6 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De ingelezen kruinhoogte ({0}) is geen getal..
-        /// </summary>
-        internal static string DikeProfileDataReader_ParseCrestLevel_CrestLevel_0_not_number {
-            get {
-                return ResourceManager.GetString("DikeProfileDataReader_ParseCrestLevel_CrestLevel_0_not_number", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De ingelezen kruinhoogte ({0}) is te groot of te klein om ingelezen te worden..
-        /// </summary>
-        internal static string DikeProfileDataReader_ParseCrestLevel_CrestLevel_0_overflows {
-            get {
-                return ResourceManager.GetString("DikeProfileDataReader_ParseCrestLevel_CrestLevel_0_overflows", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De ingelezen damhoogte ({0}) is geen getal..
         /// </summary>
         internal static string DikeProfileDataReader_ParseDamHeight_DamHeight_0_not_number {
@@ -124,7 +106,25 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het ingelezen aantal dijk punten ({0}) is geen geheel getal..
+        ///   Looks up a localized string similar to De ingelezen dijkhoogte ({0}) is geen getal..
+        /// </summary>
+        internal static string DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_not_number {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_not_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen dijkhoogte ({0}) is te groot of te klein om ingelezen te worden..
+        /// </summary>
+        internal static string DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_overflows {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_overflows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het ingelezen aantal dijkgeometrie punten ({0}) is geen geheel getal..
         /// </summary>
         internal static string DikeProfileDataReader_ParseNumberOfDikeElements_DijkCount_0_not_integer {
             get {
@@ -133,7 +133,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het ingelezen aantal dijk punten ({0}) is te groot of te klein om ingelezen te worden..
+        ///   Looks up a localized string similar to Het ingelezen aantal dijkgeometrie punten ({0}) is te groot of te klein om ingelezen te worden..
         /// </summary>
         internal static string DikeProfileDataReader_ParseNumberOfDikeElements_DikeCount_0_overflows {
             get {
@@ -142,7 +142,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het ingelezen aantal voorland punten ({0}) is geen geheel getal..
+        ///   Looks up a localized string similar to Het ingelezen aantal voorlandgeometrie punten ({0}) is geen geheel getal..
         /// </summary>
         internal static string DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_not_integer {
             get {
@@ -152,7 +152,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het ingelezen aantal voorland punten ({0}) is te groot of te klein om ingelezen te worden..
+        ///   Looks up a localized string similar to Het ingelezen aantal voorlandgeometrie punten ({0}) is te groot of te klein om ingelezen te worden..
         /// </summary>
         internal static string DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_overflows {
             get {
@@ -161,7 +161,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De ingelezen orientatie ({0}) is geen getal..
+        ///   Looks up a localized string similar to De ingelezen oriëntatie ({0}) is geen getal..
         /// </summary>
         internal static string DikeProfileDataReader_ParseOrientation_Orientation_0_not_double {
             get {
@@ -170,7 +170,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De ingelezen orientatie ({0}) is te groot of te klein om ingelezen te worden..
+        ///   Looks up a localized string similar to De ingelezen oriëntatie ({0}) is te groot of te klein om ingelezen te worden..
         /// </summary>
         internal static string DikeProfileDataReader_ParseOrientation_Orientation_0_overflows {
             get {
@@ -235,7 +235,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het ingelezen aantal dijk punten ({0}) mag niet negatief zijn..
+        ///   Looks up a localized string similar to Het ingelezen aantal dijkgeometrie punten ({0}) mag niet negatief zijn..
         /// </summary>
         internal static string DikeProfileDataReader_ReadDikeProfileData_DikeCount_cannot_be_negative {
             get {
@@ -244,7 +244,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het ingelezen aantal voorland punten ({0}) mag niet negatief zijn..
+        ///   Looks up a localized string similar to Het ingelezen aantal voorlandgeometrie punten ({0}) mag niet negatief zijn..
         /// </summary>
         internal static string DikeProfileDataReader_ReadDikeProfileData_ForeshoreCount_0_cannot_be_negative {
             get {
@@ -346,7 +346,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De ingelezen orientatie waarde ({0}) moet binnen het bereik [0, 360] vallen..
+        ///   Looks up a localized string similar to De ingelezen oriëntatie waarde ({0}) moet binnen het bereik [0, 360] vallen..
         /// </summary>
         internal static string DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_range {
             get {

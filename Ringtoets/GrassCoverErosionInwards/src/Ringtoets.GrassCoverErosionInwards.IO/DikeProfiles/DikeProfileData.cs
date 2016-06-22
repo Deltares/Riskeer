@@ -35,7 +35,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         {
             Orientation = double.NaN;
             DamHeight = double.NaN;
-            CrestLevel = double.NaN;
+            DikeHeight = double.NaN;
             ForeshoreGeometry = new RoughnessPoint[0];
             DikeGeometry = new RoughnessPoint[0];
         }
@@ -68,7 +68,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <summary>
         /// Gets or sets the height of the dike profile at the crest.
         /// </summary>
-        public double CrestLevel { get; set; }
+        public double DikeHeight { get; set; }
 
         /// <summary>
         /// Gets or sets the notes supplied in the file for this dike profile.

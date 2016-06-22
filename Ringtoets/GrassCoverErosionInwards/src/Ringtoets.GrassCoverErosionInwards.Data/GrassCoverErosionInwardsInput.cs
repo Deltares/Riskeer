@@ -190,7 +190,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 BreakWater = dikeProfile.HasBreakWater
                                  ? new BreakWater(dikeProfile.BreakWater.Type, dikeProfile.BreakWater.Height)
                                  : GetDefaultBreakWater();
-                DikeHeight = dikeProfile.CrestLevel;
+                DikeHeight = dikeProfile.DikeHeight;
             }
         }
 

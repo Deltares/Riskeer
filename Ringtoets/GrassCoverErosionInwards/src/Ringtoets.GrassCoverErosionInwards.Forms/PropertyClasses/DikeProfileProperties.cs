@@ -104,11 +104,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "DikeHeight_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DikeHeight_Description")]
-        public RoundedDouble CrestLevel
+        public RoundedDouble DikeHeight
         {
             get
             {
-                return data.CrestLevel;
+                return data.DikeHeight;
             }
         }
     }

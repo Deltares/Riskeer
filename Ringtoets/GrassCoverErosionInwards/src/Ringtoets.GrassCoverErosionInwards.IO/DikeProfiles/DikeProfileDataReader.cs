@@ -107,7 +107,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                     }
 
                     if (TryReadId(text, data, lineNumber))
+                    {
                         continue;
+                    }
 
                     if (TryReadOrientation(text, data, lineNumber))
                     {
@@ -129,7 +131,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                         continue;
                     }
 
-                    if (TryReadCrestLevel(text, data, lineNumber))
+                    if (TryReadDikeHeight(text, data, lineNumber))
                     {
                         continue;
                     }
@@ -543,15 +545,15 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// validated successfully; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">The value after the KRUINHOOGTE key
         /// does not represent a valid number.</exception>
-        private bool TryReadCrestLevel(string text, DikeProfileData data, int lineNumber)
+        private bool TryReadDikeHeight(string text, DikeProfileData data, int lineNumber)
         {
-            Match crestLevelMatch = new Regex(@"^KRUINHOOGTE(\s+(?<crestlevel>.+?)?)?\s*$").Match(text);
+            Match crestLevelMatch = new Regex(@"^KRUINHOOGTE(\s+(?<dikeheight>.+?)?)?\s*$").Match(text);
             if (crestLevelMatch.Success)
             {
-                string readCrestLevelText = crestLevelMatch.Groups["crestlevel"].Value;
-                double crestLevel = ParseCrestLevel(lineNumber, readCrestLevelText);
+                string readDikeHeightText = crestLevelMatch.Groups["dikeheight"].Value;
+                double crestLevel = ParseDikeHeight(lineNumber, readDikeHeightText);
 
-                data.CrestLevel = crestLevel;
+                data.DikeHeight = crestLevel;
                 readParameters |= ParametersFoundInFile.KRUINHOOGTE;
                 return true;
             }
@@ -562,26 +564,26 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// Parses the height of the dike from a piece of text.
         /// </summary>
         /// <param name="lineNumber">The line number.</param>
-        /// <param name="readCrestLevelText">The text.</param>
+        /// <param name="readDikeHeightText">The text.</param>
         /// <returns>The height of the dike.</returns>
-        /// <exception cref="CriticalFileReadException">When <paramref name="readCrestLevelText"/>
+        /// <exception cref="CriticalFileReadException">When <paramref name="readDikeHeightText"/>
         /// does not represent a number.</exception>
-        private double ParseCrestLevel(int lineNumber, string readCrestLevelText)
+        private double ParseDikeHeight(int lineNumber, string readDikeHeightText)
         {
             try
             {
-                return double.Parse(readCrestLevelText, CultureInfo.InvariantCulture);
+                return double.Parse(readDikeHeightText, CultureInfo.InvariantCulture);
             }
             catch (FormatException e)
             {
-                string message = string.Format(Resources.DikeProfileDataReader_ParseCrestLevel_CrestLevel_0_not_number,
-                                               readCrestLevelText);
+                string message = string.Format(Resources.DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_not_number,
+                                               readDikeHeightText);
                 throw CreateCriticalFileReadException(lineNumber, message, e);
             }
             catch (OverflowException e)
             {
-                string message = string.Format(Resources.DikeProfileDataReader_ParseCrestLevel_CrestLevel_0_overflows,
-                                               readCrestLevelText);
+                string message = string.Format(Resources.DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_overflows,
+                                               readDikeHeightText);
                 throw CreateCriticalFileReadException(lineNumber, message, e);
             }
         }

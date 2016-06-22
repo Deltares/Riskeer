@@ -60,8 +60,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreSame(dikeProfile, properties.BreakWater.Data);
             Assert.AreSame(dikeProfile, properties.Foreshore.Data);
             Assert.AreSame(dikeProfile, properties.DikeGeometry.Data);
-            Assert.AreEqual(2, properties.CrestLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.0, properties.CrestLevel.Value);
+            Assert.AreEqual(2, properties.DikeHeight.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.0, properties.DikeHeight.Value);
         }
 
         [Test]

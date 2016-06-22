@@ -311,7 +311,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                     new Point2D(3.3, 4.4),
                     new Point2D(5.5, 6.6)
                 },
-                CrestLevel = (RoundedDouble)10
+                DikeHeight = (RoundedDouble)10
             };
         }
     }

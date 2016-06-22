@@ -136,10 +136,10 @@
     <value>De ingelezen dam-type waarde ({0}) moet binnen het bereik [0, 3] vallen.</value>
   </data>
   <data name="DikeProfileDataReader_ReadDikeProfileData_DikeCount_cannot_be_negative" xml:space="preserve">
-    <value>Het ingelezen aantal dijk punten ({0}) mag niet negatief zijn.</value>
+    <value>Het ingelezen aantal dijkgeometrie punten ({0}) mag niet negatief zijn.</value>
   </data>
   <data name="DikeProfileDataReader_ReadDikeProfileData_ForeshoreCount_0_cannot_be_negative" xml:space="preserve">
-    <value>Het ingelezen aantal voorland punten ({0}) mag niet negatief zijn.</value>
+    <value>Het ingelezen aantal voorlandgeometrie punten ({0}) mag niet negatief zijn.</value>
   </data>
   <data name="DikeProfileDataReader_ReadDikeProfileData_List_mising_parameters_0_" xml:space="preserve">
     <value>De volgende parameter(s) zijn niet aanwezig in het bestand: {0}</value>
@@ -148,7 +148,7 @@
     <value>Enkel bestanden van versie '4.0' worden ondersteund.</value>
   </data>
   <data name="DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_range" xml:space="preserve">
-    <value>De ingelezen orientatie waarde ({0}) moet binnen het bereik [0, 360] vallen.</value>
+    <value>De ingelezen oriëntatie waarde ({0}) moet binnen het bereik [0, 360] vallen.</value>
   </data>
   <data name="DikeProfileDataReader_ReadDikeProfileData_ProfileType_0_must_be_in_range" xml:space="preserve">
     <value>De ingelezen damwand-type waarde ({0}) moet binnen het bereik [0, 2] vallen.</value>
@@ -166,13 +166,13 @@
     <value>Het ingelezen dam-type ({0}) is geen geheel getal.</value>
   </data>
   <data name="DikeProfileDataReader_ParseOrientation_Orientation_0_not_double" xml:space="preserve">
-    <value>De ingelezen orientatie ({0}) is geen getal.</value>
+    <value>De ingelezen oriëntatie ({0}) is geen getal.</value>
   </data>
   <data name="DikeProfileDataReader_ParseDamType_DamType_0_overflows" xml:space="preserve">
     <value>Het ingelezen dam-type ({0}) is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileDataReader_ParseOrientation_Orientation_0_overflows" xml:space="preserve">
-    <value>De ingelezen orientatie ({0}) is te groot of te klein om ingelezen te worden.</value>
+    <value>De ingelezen oriëntatie ({0}) is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileDataReader_ParseVersion_Version_0_overflows" xml:space="preserve">
     <value>De ingelezen versie ({0}) bevat een versienummer die te groot is.</value>
@@ -189,11 +189,11 @@
   <data name="DikeProfileDataReader_ParseProfileType_ProfileType_0_not_integer" xml:space="preserve">
     <value>Het ingelezen profiel-type ({0}) is geen geheel getal.</value>
   </data>
-  <data name="DikeProfileDataReader_ParseCrestLevel_CrestLevel_0_not_number" xml:space="preserve">
-    <value>De ingelezen kruinhoogte ({0}) is geen getal.</value>
+  <data name="DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_not_number" xml:space="preserve">
+    <value>De ingelezen dijkhoogte ({0}) is geen getal.</value>
   </data>
-  <data name="DikeProfileDataReader_ParseCrestLevel_CrestLevel_0_overflows" xml:space="preserve">
-    <value>De ingelezen kruinhoogte ({0}) is te groot of te klein om ingelezen te worden.</value>
+  <data name="DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_overflows" xml:space="preserve">
+    <value>De ingelezen dijkhoogte ({0}) is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileLocation_DikeProfileLocation_Invalid_point" xml:space="preserve">
     <value>Het bestand bevat een ongeldig punt als locatie.</value>
@@ -217,10 +217,10 @@
     <value>De ingelezen Id ({0}) bevat spaties, welke niet zijn toegestaan.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfDikeElements_DijkCount_0_not_integer" xml:space="preserve">
-    <value>Het ingelezen aantal dijk punten ({0}) is geen geheel getal.</value>
+    <value>Het ingelezen aantal dijkgeometrie punten ({0}) is geen geheel getal.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfDikeElements_DikeCount_0_overflows" xml:space="preserve">
-    <value>Het ingelezen aantal dijk punten ({0}) is te groot of te klein om ingelezen te worden.</value>
+    <value>Het ingelezen aantal dijkgeometrie punten ({0}) is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileDataReader_ParseRoughnessPointParameter_ParameterName_0_Value_1_not_number" xml:space="preserve">
     <value>De ingelezen {0} ({1}) is geen getal.</value>
@@ -229,10 +229,10 @@
     <value>De ingelezen {0} ({1}) is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_not_integer" xml:space="preserve">
-    <value>Het ingelezen aantal voorland punten ({0}) is geen geheel getal.</value>
+    <value>Het ingelezen aantal voorlandgeometrie punten ({0}) is geen geheel getal.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_overflows" xml:space="preserve">
-    <value>Het ingelezen aantal voorland punten ({0}) is te groot of te klein om ingelezen te worden.</value>
+    <value>Het ingelezen aantal voorlandgeometrie punten ({0}) is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileDataReader_TryReadForeshoreRoughnessPoints_ForeshoreCount_0_does_not_correspond_ExpectedCount_1_" xml:space="preserve">
     <value>Het aantal voorland punten in het bestand ({0}) komt niet overeen met de aangegeven hoeveelheid voorland punten ({1}).</value>

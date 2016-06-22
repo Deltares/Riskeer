@@ -45,7 +45,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             Assert.IsNaN(dikeProfileData.Orientation);
             Assert.AreEqual(DamType.None, dikeProfileData.DamType);
             Assert.IsNaN(dikeProfileData.DamHeight);
-            Assert.IsNaN(dikeProfileData.CrestLevel);
+            Assert.IsNaN(dikeProfileData.DikeHeight);
             Assert.AreEqual(ProfileType.Coordinates, dikeProfileData.ProfileType);
             Assert.IsNull(dikeProfileData.Memo);
             CollectionAssert.IsEmpty(dikeProfileData.ForeshoreGeometry);
@@ -109,16 +109,16 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void CrestLevel_SetNewValue_GetNewlySetValue([Random(-999.999, 999.999, 1)]double newValue)
+        public void DikeHeight_SetNewValue_GetNewlySetValue([Random(-999.999, 999.999, 1)]double newValue)
         {
             // Setup
             var dikeProfileData = new DikeProfileData();
 
             // Call
-            dikeProfileData.CrestLevel = newValue;
+            dikeProfileData.DikeHeight = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, dikeProfileData.CrestLevel);
+            Assert.AreEqual(newValue, dikeProfileData.DikeHeight);
         }
 
         [Test]

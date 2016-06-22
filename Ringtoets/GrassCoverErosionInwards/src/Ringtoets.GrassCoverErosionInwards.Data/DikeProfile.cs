@@ -36,7 +36,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         private readonly List<Point2D> foreshoreGeometry;
         private readonly List<RoughnessPoint> dikeGeometry;
         private RoundedDouble orientation;
-        private RoundedDouble crestLevel;
+        private RoundedDouble dikeHeight;
 
         /// <summary>
         /// Creates a new instance of the <see cref="DikeProfile"/> class.
@@ -50,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
 
             orientation = new RoundedDouble(2);
-            crestLevel = new RoundedDouble(2);
+            dikeHeight = new RoundedDouble(2);
 
             Name = Resources.DikeProfile_DefaultName;
             Memo = "";
@@ -142,15 +142,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets or sets the height of the dike [m+NAP].
         /// </summary>
-        public RoundedDouble CrestLevel
+        public RoundedDouble DikeHeight
         {
             get
             {
-                return crestLevel;
+                return dikeHeight;
             }
             set
             {
-                crestLevel = value.ToPrecision(crestLevel.NumberOfDecimalPlaces);
+                dikeHeight = value.ToPrecision(dikeHeight.NumberOfDecimalPlaces);
             }
         }
     }
