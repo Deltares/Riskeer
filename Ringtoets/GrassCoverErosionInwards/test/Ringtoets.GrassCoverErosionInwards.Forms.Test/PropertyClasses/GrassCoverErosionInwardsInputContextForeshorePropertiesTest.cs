@@ -144,20 +144,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void PropertyAttributes_ReturnExpectedValues()
+        public void PropertyAttributes_SetInputInstanceWithDikeProfile_ReturnExpectedValues()
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
             mockRepository.ReplayAll();
 
-            var input = new GrassCoverErosionInwardsInput();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var input = new GrassCoverErosionInwardsInput
+            {
+                DikeProfile = new DikeProfile(new Point2D(0, 0))
+            };
 
             // Call
             var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties
             {
-                Data = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock)
+                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionMock)
             };
 
             // Assert
@@ -168,6 +171,43 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptor useForeshoreProperty = dynamicProperties[useForeshorePropertyIndex];
             Assert.IsNotNull(useForeshoreProperty);
             Assert.IsFalse(useForeshoreProperty.IsReadOnly);
+            Assert.AreEqual("Gebruik", useForeshoreProperty.DisplayName);
+            Assert.AreEqual("Moet het voorland worden gebruikt tijdens de berekening?", useForeshoreProperty.Description);
+
+            PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
+            Assert.IsNotNull(coordinatesProperty);
+            Assert.IsTrue(coordinatesProperty.IsReadOnly);
+            Assert.AreEqual("Coördinaten [m]", coordinatesProperty.DisplayName);
+            Assert.AreEqual("Lijst met punten in lokale coördinaten.", coordinatesProperty.Description);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void PropertyAttributes_SetInputInstanceWithoutDikeProfile_ReturnExpectedValues()
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var input = new GrassCoverErosionInwardsInput();
+
+            // Call
+            var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties
+            {
+                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionMock)
+            };
+
+            // Assert
+            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            PropertyDescriptor useForeshoreProperty = dynamicProperties[useForeshorePropertyIndex];
+            Assert.IsNotNull(useForeshoreProperty);
+            Assert.IsTrue(useForeshoreProperty.IsReadOnly);
             Assert.AreEqual("Gebruik", useForeshoreProperty.DisplayName);
             Assert.AreEqual("Moet het voorland worden gebruikt tijdens de berekening?", useForeshoreProperty.Description);
 

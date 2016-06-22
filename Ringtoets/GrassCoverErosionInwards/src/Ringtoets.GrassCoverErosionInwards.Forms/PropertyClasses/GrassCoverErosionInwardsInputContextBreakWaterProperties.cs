@@ -36,6 +36,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionInwardsInputContextBreakWaterProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
     {
+        [DynamicReadOnly]
         [PropertyOrder(1)]
         [ResourcesDisplayName(typeof(Resources), "BreakWater_UseBreakWater_DisplayName")]
         [ResourcesDescription(typeof(Resources), "BreakWater_UseBreakWater_Description")]
@@ -43,6 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
+
                 return data.WrappedData.UseBreakWater;
             }
             set
@@ -52,6 +54,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(2)]
         [ResourcesDisplayName(typeof(Resources), "BreakWaterType_DisplayName")]
         [ResourcesDescription(typeof(Resources), "BreakWaterType_Description")]
@@ -69,6 +72,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(3)]
         [ResourcesDisplayName(typeof(Resources), "BreakWaterHeight_DisplayName")]
         [ResourcesDescription(typeof(Resources), "BreakWaterHeight_Description")]
@@ -83,6 +87,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
                 data.WrappedData.BreakWater.Height = value;
                 data.WrappedData.NotifyObservers();
             }
+        }
+
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadOnlyValidationMethod(string propertyName)
+        {
+            return data.WrappedData.DikeProfile == null;
         }
 
         public override string ToString()

@@ -40,6 +40,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int useForeshorePropertyIndex = 1;
         private const int coordinatesPropertyIndex = 2;
 
+        [DynamicReadOnly]
         [PropertyOrder(useForeshorePropertyIndex)]
         [ResourcesDisplayName(typeof(Resources), "Foreshore_UseForeshore_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Foreshore_UseForeshore_Description")]
@@ -66,6 +67,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             {
                 return data.WrappedData.ForeshoreGeometry.ToArray();
             }
+        }
+
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadOnlyValidationMethod(string propertyName)
+        {
+            return data.WrappedData.DikeProfile == null;
         }
 
         public override string ToString()
