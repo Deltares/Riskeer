@@ -128,9 +128,9 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(2, inputParameters.SeepageLength.StandardDeviation.NumberOfDecimalPlaces);
 
             Assert.IsNaN(inputParameters.ExitPointL);
-            Assert.AreEqual(2, inputParameters.ExitPointL.NumberOfDecimalPlaces);
+            Assert.AreEqual(3, inputParameters.ExitPointL.NumberOfDecimalPlaces);
             Assert.IsNaN(inputParameters.EntryPointL);
-            Assert.AreEqual(2, inputParameters.EntryPointL.NumberOfDecimalPlaces);
+            Assert.AreEqual(3, inputParameters.EntryPointL.NumberOfDecimalPlaces);
             Assert.IsNaN(inputParameters.PiezometricHeadExit);
             Assert.AreEqual(2, inputParameters.PiezometricHeadExit.NumberOfDecimalPlaces);
 
@@ -168,9 +168,9 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        [TestCase(1e-6, Description = "Invalid ExitPointL due to rounding to 0.0")]
+        [TestCase(1e-4, Description = "Invalid ExitPointL due to rounding to 0.0")]
         [TestCase(0)]
-        [TestCase(-1e-6)]
+        [TestCase(-1e-4)]
         [TestCase(-21)]
         public void ExitPointL_ValueLessThanOrEqualToZero_ThrowsArgumentOutOfRangeException(double value)
         {
@@ -185,7 +185,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        [TestCase(-1e-2)]
+        [TestCase(-1e-3)]
         [TestCase(-21)]
         public void EntryPointL_ValueLessThanZero_ThrowsArgumentOutOfRangeException(double value)
         {
@@ -200,7 +200,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        [TestCase(-1e-3, Description = "Valid EntryPointL due to rounding to 0.0")]
+        [TestCase(-1e-4, Description = "Valid EntryPointL due to rounding to 0.0")]
         [TestCase(1.23456789)]
         public void EntryPointL_SetToNew_ValueIsRounded(double value)
         {

@@ -64,8 +64,8 @@ namespace Ringtoets.Piping.Data
 
             this.generalInputParameters = generalInputParameters;
 
-            exitPointL = new RoundedDouble(2, double.NaN);
-            entryPointL = new RoundedDouble(2, double.NaN);
+            exitPointL = new RoundedDouble(3, double.NaN);
+            entryPointL = new RoundedDouble(3, double.NaN);
 
             phreaticLevelExit = new NormalDistribution(3);
             dampingFactorExit = new LogNormalDistribution(3)
