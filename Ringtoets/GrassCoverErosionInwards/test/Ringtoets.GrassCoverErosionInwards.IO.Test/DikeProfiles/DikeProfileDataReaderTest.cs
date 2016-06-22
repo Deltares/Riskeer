@@ -193,6 +193,40 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
+        public void ReadDikeProfileData_ValidFilePath3_ReturnDikeProfileData()
+        {
+            // Setup
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                              Path.Combine("DikeProfiles", "profiel001_DifferentDamAndDamwand.prfl"));
+
+            var reader = new DikeProfileDataReader();
+
+            // Call
+            DikeProfileData result = reader.ReadDikeProfileData(validFilePath);
+
+            // Assert
+            Assert.AreEqual("profiel001", result.Id);
+            Assert.AreEqual(330.0, result.Orientation);
+            Assert.AreEqual(DamType.HarborDam, result.DamType);
+            Assert.AreEqual(ProfileType.SheetPileWithNoseConstruction, result.ProfileType);
+            Assert.AreEqual(0.0, result.DamHeight);
+            CollectionAssert.IsEmpty(result.ForeshoreGeometry);
+            Assert.AreEqual(6.0, result.DikeHeight);
+            Assert.AreEqual(2, result.DikeGeometry.Length);
+            Assert.AreEqual(new Point2D(0.0, 0.0), result.DikeGeometry[0].Point);
+            Assert.AreEqual(1.0, result.DikeGeometry[0].Roughness.Value);
+            Assert.AreEqual(new Point2D(18.0, 6.0), result.DikeGeometry[1].Point);
+            Assert.AreEqual(1.0, result.DikeGeometry[1].Roughness.Value);
+            var expectedMemo =
+                "Verkenning prfl format:" + Environment.NewLine +
+                "Basis:" + Environment.NewLine +
+                "geen dam" + Environment.NewLine +
+                "geen voorland" + Environment.NewLine +
+                "recht talud" + Environment.NewLine;
+            Assert.AreEqual(expectedMemo, result.Memo);
+        }
+
+        [Test]
         [TestCase("faulry_noId.prfl", "ID")]
         [TestCase("faulty_emptyFile.prfl", "VERSIE, ID, RICHTING, DAM, DAMHOOGTE, VOORLAND, DAMWAND, KRUINHOOGTE, DIJK, MEMO")]
         [TestCase("faulty_noDam.prfl", "DAM")]
@@ -861,7 +895,34 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             Assert.AreEqual(expectedMessage, message);
         }
 
-        // TODO: DAMWAND en DAMWAND Type coverage (beide files hebben dezelfde waardes)
+        [Test]
+        [TestCase("faulty_doubleVersie.prfl", 2, "VERSIE")]
+        [TestCase("faulty_doubleId.prfl", 4, "ID")]
+        [TestCase("faulty_doubleRichting.prfl", 7, "RICHTING")]
+        [TestCase("faulty_doubleDam.prfl", 7, "DAM")]
+        [TestCase("faulty_doubleDamhoogte.prfl", 10, "DAMHOOGTE")]
+        [TestCase("faulty_doubleVoorland.prfl", 10, "VOORLAND")]
+        [TestCase("faulty_doubleDamwand.prfl", 12, "DAMWAND")]
+        [TestCase("faulty_doubleKruinhoogte.prfl", 14, "KRUINHOOGTE")]
+        [TestCase("faulty_doubleDijk.prfl", 18, "DIJK")]
+        public void ReadDikeProfileData_FaultyFileWithDoubleParameter_ThrowsCriticalFileReadException(
+            string faultyFileName, int expectedLineNumber, string expectedParameter)
+        {
+            // Setup
+            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                               Path.Combine("DikeProfiles", faultyFileName));
+
+            var reader = new DikeProfileDataReader();
+
+            // Call
+            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
+
+            // Assert
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel {1}: De parameter {2} is al eerder in het bestand gedefinieerd.",
+                                                   faultyFilePath, expectedLineNumber, expectedParameter);
+            Assert.AreEqual(expectedMessage, message);
+        }
 
         private static void DoReadDikeProfileData_FaultyFileWithRoughnessOutOfRange_ThrowsCriticalFileReadException(
             string faultyFileName, double expectedFaultyRoughness, double expectedLineNumber, string expectedLowerLimitText)

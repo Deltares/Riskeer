@@ -85,7 +85,6 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                 throw new CriticalFileReadException(message);
             }
 
-            // TODO: Duplicate entries
             var data = new DikeProfileData();
             readParameters = ParametersFoundInFile.None;
             using (var reader = new StreamReader(filePath))
@@ -93,7 +92,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                 fileBeingRead = filePath;
                 string text;
                 int lineNumber = 0;
-                while ((text = ReadLineAndHandleIOExceptions(reader, 1)) != null)
+                while ((text = ReadLineAndHandleIOExceptions(reader, lineNumber+1)) != null)
                 {
                     lineNumber++;
                     if (string.IsNullOrWhiteSpace(text))
@@ -163,12 +162,15 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <returns><c>True</c> if the text matches a VERSIE key-value pair and has been
         /// validated successfully; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">The value after the VERSIE key does
-        /// not represent a valid version code or the version is not supported by this reader.</exception>
+        /// not represent a valid version code or the version is not supported by this reader
+        /// or has already been defined.</exception>
         private bool TryReadVersion(string text, int lineNumber)
         {
             Match versionMatch = new Regex(@"^VERSIE(\s+(?<version>.+?)?)?\s*$").Match(text);
             if (versionMatch.Success)
             {
+                ValidateNoPriorParameterDefinition(ParametersFoundInFile.VERSIE, lineNumber);
+
                 string readVersionText = versionMatch.Groups["version"].Value;
                 Version fileVersion = ParseVersion(lineNumber, readVersionText);
 
@@ -240,12 +242,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <returns><c>True</c> if the text matches an ID key-value pair and has been
         /// validated successfully; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">The value after the ID key does
-        /// not represent an id.</exception>
+        /// not represent an id or has already been defined.</exception>
         private bool TryReadId(string text, DikeProfileData data, int lineNumber)
         {
             Match idMatch = new Regex(@"^ID(\s+(?<id>.+?)?)?\s*$").Match(text);
             if (idMatch.Success)
             {
+                ValidateNoPriorParameterDefinition(ParametersFoundInFile.ID, lineNumber);
+
                 string readIdText = idMatch.Groups["id"].Value;
                 ValidateId(readIdText, lineNumber);
 
@@ -290,12 +294,15 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <returns><c>True</c> if the text matches a RICHTING key-value pair and has been
         /// validated successfully; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">The value after the RICHTING key does
-        /// not represent a valid number or the orientation value is not in the range [0, 360].</exception>
+        /// not represent a valid number or the orientation value is not in the range [0, 360]
+        /// or has already been defined.</exception>
         private bool TryReadOrientation(string text, DikeProfileData data, int lineNumber)
         {
             Match orientationMatch = new Regex(@"^RICHTING(\s+(?<orientation>.+?)?)?\s*$").Match(text);
             if (orientationMatch.Success)
             {
+                ValidateNoPriorParameterDefinition(ParametersFoundInFile.RICHTING, lineNumber);
+
                 string readOrientationText = orientationMatch.Groups["orientation"].Value;
                 double orientation = ParseOrientation(lineNumber, readOrientationText);
 
@@ -363,12 +370,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <returns><c>True</c> if the text matches a DAM key-value pair and has been
         /// validated successfully; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">The value after the DAM key does
-        /// not represent a valid <see cref="DamType"/> value.</exception>
+        /// not represent a valid <see cref="DamType"/> value or has already been defined.</exception>
         private bool TryReadDamType(string text, DikeProfileData data, int lineNumber)
         {
             Match damTypeMatch = new Regex(@"^DAM(\s+(?<damtype>.+?)?)?\s*$").Match(text);
             if (damTypeMatch.Success)
             {
+                ValidateNoPriorParameterDefinition(ParametersFoundInFile.DAM, lineNumber);
+
                 string readDamTypeText = damTypeMatch.Groups["damtype"].Value;
                 DamType damType = ParseDamType(lineNumber, readDamTypeText);
 
@@ -427,12 +436,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <returns><c>True</c> if the text matches a DAMWAND key-value pair and has been
         /// validated successfully; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">The value after the DAMWAND key
-        /// does not represent a valid <see cref="ProfileType"/> value.</exception>
+        /// does not represent a valid <see cref="ProfileType"/> value or has already been defined.</exception>
         private bool TryReadProfileType(string text, DikeProfileData data, int lineNumber)
         {
             Match profileTypeMatch = new Regex(@"^DAMWAND(\s+(?<profiletype>.+?)?)?\s*$").Match(text);
             if (profileTypeMatch.Success)
             {
+                ValidateNoPriorParameterDefinition(ParametersFoundInFile.DAMWAND, lineNumber);
+
                 string readProfileTypeText = profileTypeMatch.Groups["profiletype"].Value;
                 ProfileType profileType = ParseProfileType(lineNumber, readProfileTypeText);
 
@@ -490,12 +501,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <returns><c>True</c> if the text matches a DAMHOOGTE key-value pair and has been
         /// validated successfully; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">The value after the DAMHOOGTE key
-        /// does not represent a valid number.</exception>
+        /// does not represent a valid number or has already been defined.</exception>
         private bool TryReadDamHeight(string text, DikeProfileData data, int lineNumber)
         {
             Match damHeightMatch = new Regex(@"^DAMHOOGTE(\s+(?<damheight>.+?)?)?\s*$").Match(text);
             if (damHeightMatch.Success)
             {
+                ValidateNoPriorParameterDefinition(ParametersFoundInFile.DAMHOOGTE, lineNumber);
+
                 string readDamHeightText = damHeightMatch.Groups["damheight"].Value;
                 var damHeight = ParseDamHeight(readDamHeightText, lineNumber);
 
@@ -544,12 +557,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <returns><c>True</c> if the text matches a KRUINHOOGTE key-value pair and has been
         /// validated successfully; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">The value after the KRUINHOOGTE key
-        /// does not represent a valid number.</exception>
+        /// does not represent a valid number or has already been defined.</exception>
         private bool TryReadDikeHeight(string text, DikeProfileData data, int lineNumber)
         {
             Match crestLevelMatch = new Regex(@"^KRUINHOOGTE(\s+(?<dikeheight>.+?)?)?\s*$").Match(text);
             if (crestLevelMatch.Success)
             {
+                ValidateNoPriorParameterDefinition(ParametersFoundInFile.KRUINHOOGTE, lineNumber);
+
                 string readDikeHeightText = crestLevelMatch.Groups["dikeheight"].Value;
                 double crestLevel = ParseDikeHeight(lineNumber, readDikeHeightText);
 
@@ -600,12 +615,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// validated successfully; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">The value after the DIJK key
         /// does not represent a valid number or any of read the parameters in the following
-        /// data block is invalid.</exception>
+        /// data block is invalid or has already been defined.</exception>
         private bool TryReadDikeRoughnessPoints(string text, DikeProfileData data, TextReader reader, ref int lineNumber)
         {
             Match dikeGeometryMatch = new Regex(@"^DIJK(\s+(?<dikegeometry>.+?)?)?\s*$").Match(text);
             if (dikeGeometryMatch.Success)
             {
+                ValidateNoPriorParameterDefinition(ParametersFoundInFile.DIJK, lineNumber);
+
                 string readDikeGeometryCountText = dikeGeometryMatch.Groups["dikegeometry"].Value;
                 int numberOfElements = ParseNumberOfDikeElements(lineNumber, readDikeGeometryCountText);
 
@@ -777,12 +794,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// validated successfully; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">The value after the VOORLAND key
         /// does not represent a valid number or any of read the parameters in the following
-        /// data block is invalid.</exception>
+        /// data block is invalid or has already been defined.</exception>
         private bool TryReadForeshoreRoughnessPoints(string text, DikeProfileData data, TextReader reader, ref int lineNumber)
         {
             Match foreshoreGeometryMatch = new Regex(@"^VOORLAND(\s+(?<foreshoregeometry>.+?)?)?\s*$").Match(text);
             if (foreshoreGeometryMatch.Success)
             {
+                ValidateNoPriorParameterDefinition(ParametersFoundInFile.VOORLAND, lineNumber);
+
                 string readForeshoreCountText = foreshoreGeometryMatch.Groups["foreshoregeometry"].Value;
                 var numberOfElements = ParseNumberOfForeshoreElements(readForeshoreCountText, lineNumber);
 
@@ -870,6 +889,23 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Validates that there is no prior parameter definition of a given parameter.
+        /// </summary>
+        /// <param name="parameter">The parameter.</param>
+        /// <param name="lineNumber">The line number.</param>
+        /// <exception cref="CriticalFileReadException">When <paramref name="parameter"/>
+        /// already has been defined in the file at a line prior to <paramref name="lineNumber"/>.</exception>
+        private void ValidateNoPriorParameterDefinition(ParametersFoundInFile parameter, int lineNumber)
+        {
+            if (readParameters.HasFlag(parameter))
+            {
+                string message = string.Format(Resources.DikeProfileDataReader_ValidateNoPriorParameterDefinition_Parameter_0_already_defined,
+                                               parameter);
+                throw CreateCriticalFileReadException(lineNumber, message);
+            }
         }
 
         private static bool CanSafelyCastToEnum<TEnum>(int parameterValue) where TEnum : struct, IConvertible, IComparable, IFormattable

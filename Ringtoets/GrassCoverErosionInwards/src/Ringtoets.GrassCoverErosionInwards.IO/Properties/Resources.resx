@@ -249,4 +249,7 @@
   <data name="DikeProfileDataReader_TryReadDikeRoughnessPoints_DikeCount_0_does_not_correspond_ExpectedCount_1_" xml:space="preserve">
     <value>Het aantal dijk punten in het bestand ({0}) komt niet overeen met de aangegeven hoeveelheid dijk punten ({1}).</value>
   </data>
+  <data name="DikeProfileDataReader_ValidateNoPriorParameterDefinition_Parameter_0_already_defined" xml:space="preserve">
+    <value>De parameter {0} is al eerder in het bestand gedefinieerd.</value>
+  </data>
 </root>

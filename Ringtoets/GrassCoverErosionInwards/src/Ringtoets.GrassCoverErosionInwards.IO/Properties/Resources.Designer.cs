@@ -346,6 +346,16 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De parameter {0} is al eerder in het bestand gedefinieerd..
+        /// </summary>
+        internal static string DikeProfileDataReader_ValidateNoPriorParameterDefinition_Parameter_0_already_defined {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ValidateNoPriorParameterDefinition_Parameter_0_already_defi" +
+                        "ned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De ingelezen oriëntatie waarde ({0}) moet binnen het bereik [0, 360] vallen..
         /// </summary>
         internal static string DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_range {
