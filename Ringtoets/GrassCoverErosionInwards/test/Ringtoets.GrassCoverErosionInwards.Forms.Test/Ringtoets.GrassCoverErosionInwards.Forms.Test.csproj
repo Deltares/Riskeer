@@ -91,6 +91,7 @@
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TypeConverters\EnumTypeConverterTest.cs" />
+    <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextDikeProfileEditorTest.cs" />
     <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditorTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsDikeProfileSelectionViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismResultViewTest.cs" />

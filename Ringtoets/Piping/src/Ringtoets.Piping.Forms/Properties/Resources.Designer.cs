@@ -903,7 +903,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De meetgegevens die de dwarsdoorsneden van de grondprofielen definiëren..
+        ///   Looks up a localized string similar to De schematisatie van de hoogte van het dwarsprofiel..
         /// </summary>
         public static string PipingInput_SurfaceLine_Description {
             get {

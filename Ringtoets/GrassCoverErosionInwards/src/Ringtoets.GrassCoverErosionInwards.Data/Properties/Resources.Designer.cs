@@ -88,24 +88,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het nieuwe segment is wel verbonden, maar heeft een verkeerde oriëntatie (moet omgedraaid worden)..
-        /// </summary>
-        public static string DikeProfile_AddProfileSection_New_segment_connected_with_incorrect_orientation {
-            get {
-                return ResourceManager.GetString("DikeProfile_AddProfileSection_New_segment_connected_with_incorrect_orientation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het nieuwe segment is niet verbonden met de bestaande geometrie..
-        /// </summary>
-        public static string DikeProfile_AddProfileSection_New_segment_not_connected {
-            get {
-                return ResourceManager.GetString("DikeProfile_AddProfileSection_New_segment_not_connected", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dijkprofiel.
         /// </summary>
         public static string DikeProfile_DefaultName {

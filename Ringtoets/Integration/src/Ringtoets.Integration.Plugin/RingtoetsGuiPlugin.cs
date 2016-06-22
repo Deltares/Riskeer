@@ -622,7 +622,7 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
-        #region assessmentSection
+        #region AssessmentSection
 
         private object[] AssessmentSectionChildNodeObjects(IAssessmentSection nodeData)
         {

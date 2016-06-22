@@ -27,6 +27,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.UITypeEditors;
@@ -39,13 +40,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionInwardsInputContextProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
     {
-        private const int orientationPropertyIndex = 1;
-        private const int breakWaterPropertyIndex = 2;
-        private const int foreshorePropertyIndex = 3;
-        private const int dikeGeometryPropertyIndex = 4;
-        private const int dikeHeightPropertyIndex = 5;
-        private const int criticalFlowRatePropertyIndex = 6;
-        private const int hydraulicBoundaryLocationPropertyIndex = 7;
+        private const int dikeProfilePropertyIndex = 1;
+        private const int orientationPropertyIndex = 2;
+        private const int breakWaterPropertyIndex = 3;
+        private const int foreshorePropertyIndex = 4;
+        private const int dikeGeometryPropertyIndex = 5;
+        private const int dikeHeightPropertyIndex = 6;
+        private const int criticalFlowRatePropertyIndex = 7;
+        private const int hydraulicBoundaryLocationPropertyIndex = 8;
+
+        [PropertyOrder(dikeProfilePropertyIndex)]
+        [Editor(typeof(GrassCoverErosionInwardsInputContextDikeProfileEditor), typeof(UITypeEditor))]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesDisplayName(typeof(Resources), "DikeProfile_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "DikeProfile_Description")]
+        public DikeProfile DikeProfile
+        {
+            get
+            {
+                return data.WrappedData.DikeProfile;
+            }
+            set
+            {
+                data.WrappedData.DikeProfile = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
 
         [PropertyOrder(orientationPropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
@@ -161,6 +181,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
                 data.WrappedData.HydraulicBoundaryLocation = value;
                 data.WrappedData.NotifyObservers();
             }
+        }
+
+        public IEnumerable<DikeProfile> GetAvailableDikeProfiles()
+        {
+            return data.AvailableDikeProfiles;
         }
 
         public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()

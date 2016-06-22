@@ -138,12 +138,6 @@
   <data name="N_Value_0_should_be_in_interval" xml:space="preserve">
     <value>De 'N' waarde {0} moet in het interval [1, 20] liggen.</value>
   </data>
-  <data name="DikeProfile_AddProfileSection_New_segment_connected_with_incorrect_orientation" xml:space="preserve">
-    <value>Het nieuwe segment is wel verbonden, maar heeft een verkeerde oriëntatie (moet omgedraaid worden).</value>
-  </data>
-  <data name="DikeProfile_AddProfileSection_New_segment_not_connected" xml:space="preserve">
-    <value>Het nieuwe segment is niet verbonden met de bestaande geometrie.</value>
-  </data>
   <data name="DikeProfile_DefaultName" xml:space="preserve">
     <value>Dijkprofiel</value>
   </data>

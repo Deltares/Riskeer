@@ -79,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Moet het de golfbreker worden gebruikt tijdens de berekening?.
+        ///   Looks up a localized string similar to Moet de dam worden gebruikt tijdens de berekening?.
         /// </summary>
         public static string BreakWater_UseBreakWater_Description {
             get {
@@ -274,6 +274,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string DikeHeight_DisplayName {
             get {
                 return ResourceManager.GetString("DikeHeight_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De schematisatie van het dijkprofiel..
+        /// </summary>
+        public static string DikeProfile_Description {
+            get {
+                return ResourceManager.GetString("DikeProfile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dijkprofiel.
+        /// </summary>
+        public static string DikeProfile_DisplayName {
+            get {
+                return ResourceManager.GetString("DikeProfile_DisplayName", resourceCulture);
             }
         }
         

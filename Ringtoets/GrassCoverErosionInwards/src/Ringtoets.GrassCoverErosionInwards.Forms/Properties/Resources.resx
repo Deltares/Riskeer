@@ -265,4 +265,10 @@
   <data name="HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
     <value>Locatie met hydraulische randvoorwaarden</value>
   </data>
+  <data name="DikeProfile_Description" xml:space="preserve">
+    <value>De schematisatie van het dijkprofiel.</value>
+  </data>
+  <data name="DikeProfile_DisplayName" xml:space="preserve">
+    <value>Dijkprofiel</value>
+  </data>
 </root>

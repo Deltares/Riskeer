@@ -22,6 +22,7 @@
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -64,7 +65,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
             mockRepository.ReplayAll();
 
-            var input = new GrassCoverErosionInwardsInput();
+            var input = new GrassCoverErosionInwardsInput
+            {
+                DikeProfile = new DikeProfile(new Point2D(0, 0)),
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 0, 0)
+            };
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock);
 
             // Call
@@ -75,6 +80,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
+            Assert.AreSame(input.DikeProfile, properties.DikeProfile);
             Assert.AreEqual(0.0, properties.Orientation.Value);
             Assert.AreSame(inputContext, properties.BreakWater.Data);
             Assert.AreSame(inputContext, properties.Foreshore.Data);
@@ -83,7 +89,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(0.0, properties.DikeHeight.Value);
             Assert.AreEqual(input.CriticalFlowRate.Mean, properties.CriticalFlowRate.Mean);
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
-            Assert.AreEqual(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
+            Assert.AreSame(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
             mockRepository.VerifyAll();
         }
 
@@ -92,11 +98,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var observerMock = mockRepository.StrictMock<IObserver>();
-            const int numberProperties = 3;
+            const int numberProperties = 4;
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
@@ -109,18 +112,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 Data = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock)
             };
 
+            var newDikeProfile = new DikeProfile(new Point2D(0, 0));
             var newDikeHeight = new RoundedDouble(2, 9);
             var newOrientation = new RoundedDouble(2, 5);
+            var newHydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1);
 
             // Call
+            properties.DikeProfile = newDikeProfile;
             properties.Orientation = newOrientation;
             properties.DikeHeight = newDikeHeight;
-            properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            properties.HydraulicBoundaryLocation = newHydraulicBoundaryLocation;
 
             // Assert
+            Assert.AreSame(newDikeProfile, input.DikeProfile);
             Assert.AreEqual(newOrientation, input.Orientation);
             Assert.AreEqual(newDikeHeight, input.DikeHeight);
-            Assert.AreEqual(hydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
+            Assert.AreSame(newHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
             mockRepository.VerifyAll();
         }
 
@@ -143,7 +150,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(8, dynamicProperties.Count);
+            Assert.AreEqual(9, dynamicProperties.Count);
+
+            PropertyDescriptor dikeProfileProperty = dynamicProperties[dikeProfilePropertyIndex];
+            Assert.IsNotNull(dikeProfileProperty);
+            Assert.IsFalse(dikeProfileProperty.IsReadOnly);
+            Assert.AreEqual("Schematisatie", dikeProfileProperty.Category);
+            Assert.AreEqual("Dijkprofiel", dikeProfileProperty.DisplayName);
+            Assert.AreEqual("De schematisatie van het dijkprofiel.", dikeProfileProperty.Description);
 
             PropertyDescriptor orientationProperty = dynamicProperties[orientationPropertyIndex];
             Assert.IsNotNull(orientationProperty);
@@ -200,12 +214,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
-        private const int orientationPropertyIndex = 0;
-        private const int breakWaterPropertyIndex = 1;
-        private const int foreshorePropertyIndex = 2;
-        private const int dikeGeometryPropertyIndex = 3;
-        private const int dikeHeightPropertyIndex = 4;
-        private const int criticalFlowRatePropertyIndex = 5;
-        private const int hydraulicBoundaryLocationPropertyIndex = 6;
+        private const int dikeProfilePropertyIndex = 0;
+        private const int orientationPropertyIndex = 1;
+        private const int breakWaterPropertyIndex = 2;
+        private const int foreshorePropertyIndex = 3;
+        private const int dikeGeometryPropertyIndex = 4;
+        private const int dikeHeightPropertyIndex = 5;
+        private const int criticalFlowRatePropertyIndex = 6;
+        private const int hydraulicBoundaryLocationPropertyIndex = 7;
     }
 }

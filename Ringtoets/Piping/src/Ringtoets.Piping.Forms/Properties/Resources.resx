@@ -305,7 +305,7 @@
     <value>Profielschematisatie</value>
   </data>
   <data name="PipingInput_SurfaceLine_Description" xml:space="preserve">
-    <value>De meetgegevens die de dwarsdoorsneden van de grondprofielen definiëren.</value>
+    <value>De schematisatie van de hoogte van het dwarsprofiel.</value>
   </data>
   <data name="PipingInput_SurfaceLine_DisplayName" xml:space="preserve">
     <value>Profielschematisatie</value>
