@@ -89,6 +89,226 @@ namespace Ringtoets.Piping.Service.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 var msgs = messages.ToArray();
+                Assert.AreEqual(7, msgs.Length);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaarden locatie geselecteerd.", msgs[1]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen profielschematisatie geselecteerd.", msgs[2]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen stochastisch ondergrondprofiel geselecteerd.", msgs[3]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen waarde voor het intredepunt opgegeven.", msgs[4]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen waarde voor het uittredepunt opgegeven.", msgs[5]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_CalculationWithoutHydraulicBoundaryLocation_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string name = "<very nice name>";
+            
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            calculation.InputParameters.HydraulicBoundaryLocation = null;
+            calculation.Name = name;
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaarden locatie geselecteerd.", msgs[1]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_CalculationWithHydraulicBoundaryLocationNotCalculated_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string name = "<very nice name>";
+
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = double.NaN;
+            calculation.Name = name;
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(4, msgs.Length);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith("Validatie mislukt: Kan het toetspeil niet afleiden op basis van de invoer.", msgs[1]);
+                StringAssert.StartsWith("Validatie mislukt: Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_CalculationWithoutEntryPointL_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string name = "<very nice name>";
+            
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            calculation.InputParameters.EntryPointL = (RoundedDouble) double.NaN;
+            calculation.Name = name;
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith("Validatie mislukt: Er is geen waarde voor het intredepunt opgegeven.", msgs[1]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_CalculationWithoutExitPointL_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string name = "<very nice name>";
+
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            calculation.InputParameters.ExitPointL = (RoundedDouble)double.NaN;
+            calculation.Name = name;
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith("Validatie mislukt: Er is geen waarde voor het uittredepunt opgegeven.", msgs[1]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        [TestCase(0.5)]
+        [TestCase(0.5+1e-6)]
+        [TestCase(0.6)]
+        [TestCase(1.6)]
+        public void Validate_CalculationWithExitPointLBeforeEntryPointL_LogsErrorAndReturnsFalse(double entryPointL)
+        {
+            // Setup
+            const string name = "<very nice name>";
+
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            calculation.InputParameters.ExitPointL = (RoundedDouble) 0.5;
+            calculation.InputParameters.EntryPointL = (RoundedDouble) entryPointL;
+            calculation.Name = name;
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith("Validatie mislukt: Het uittredepunt ligt niet voorbij het intredepunt.", msgs[1]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_CalculationWithoutSurfaceLine_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string name = "<very nice name>";
+            
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            calculation.InputParameters.SurfaceLine = null;
+            calculation.InputParameters.ExitPointL = (RoundedDouble) 0.9;
+            calculation.InputParameters.EntryPointL = (RoundedDouble) 0.1;
+            calculation.Name = name;
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith("Validatie mislukt: Er is geen profielschematisatie geselecteerd.", msgs[1]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_CalculationWithoutStochasticSoilProfile_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string name = "<very nice name>";
+            
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            calculation.InputParameters.StochasticSoilProfile = null;
+            calculation.Name = name;
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith("Validatie mislukt: Er is geen stochastisch ondergrondprofiel geselecteerd.", msgs[1]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_CalculationWithExitPointPastLocalizedSurfaceLine_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string name = "<very nice name>";
+
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            calculation.InputParameters.ExitPointL = (RoundedDouble) 1.1;
+            calculation.Name = name;
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
                 StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.", msgs[1]);

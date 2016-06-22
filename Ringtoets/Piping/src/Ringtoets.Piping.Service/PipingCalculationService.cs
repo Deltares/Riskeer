@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Service
 
         /// <summary>
         /// Performs a piping calculation based on the supplied <see cref="PipingCalculation"/> and sets <see cref="PipingCalculation.Output"/>
-        /// to the <see cref="PipingCalculationResult"/> if the calculation was successful. Error and status information is logged during
+        /// based on the result if the calculation was successful. Error and status information is logged during
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="PipingCalculation"/> to base the input for the calculation upon.</param>
@@ -100,14 +100,66 @@ namespace Ringtoets.Piping.Service
         {
             List<string> validationResult = new List<string>();
 
-            if (double.IsNaN(inputParameters.ThicknessAquiferLayer.Mean))
+            var isHydraulicBoundaryLocationMissing = inputParameters.HydraulicBoundaryLocation == null;
+            var isSoilProfileMissing = inputParameters.StochasticSoilProfile == null;
+            var isSurfaceLineMissing = inputParameters.SurfaceLine == null;
+            var isExitPointLMissing = double.IsNaN(inputParameters.ExitPointL);
+            var isEntryPointLMissing = double.IsNaN(inputParameters.EntryPointL);
+            var isExitPointLBeyondEntryPointL = inputParameters.ExitPointL > inputParameters.EntryPointL;
+
+            if (isHydraulicBoundaryLocationMissing)
             {
-                validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer);
+                validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected);
             }
 
-            if (double.IsNaN(inputParameters.ThicknessCoverageLayer.Mean))
+            if (isSurfaceLineMissing)
             {
-                validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer);
+                validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_SurfaceLine_selected);
+            }
+
+            if (isSoilProfileMissing)
+            {
+                validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_StochasticSoilProfile_selected);
+            }
+
+            if (isEntryPointLMissing)
+            {
+                validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_EntryPointL);
+            }
+
+            if (isExitPointLMissing)
+            {
+                validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_ExitPointL);
+            }
+
+            if (!isEntryPointLMissing && !isExitPointLMissing && !isExitPointLBeyondEntryPointL)
+            {
+                validationResult.Add(Resources.PipingCalculationService_ValidateInput_EntryPointL_greater_or_equal_to_ExitPointL);
+            }
+
+            if (!isHydraulicBoundaryLocationMissing)
+            {
+                if (double.IsNaN(inputParameters.AssessmentLevel))
+                {
+                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_AssessmentLevel);
+                }
+                if (double.IsNaN(inputParameters.PiezometricHeadExit))
+                {
+                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
+                }
+            }
+
+            if (!isSurfaceLineMissing && !isSoilProfileMissing && !isExitPointLMissing)
+            {
+                if (double.IsNaN(inputParameters.ThicknessAquiferLayer.Mean))
+                {
+                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer);
+                }
+
+                if (double.IsNaN(inputParameters.ThicknessCoverageLayer.Mean))
+                {
+                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer);
+                }
             }
 
             return validationResult;
@@ -139,8 +191,7 @@ namespace Ringtoets.Piping.Service
                 inputParameters.BeddingAngle,
                 inputParameters.ExitPointL,
                 inputParameters.SurfaceLine,
-                inputParameters.StochasticSoilProfile.SoilProfile
-                );
+                inputParameters.StochasticSoilProfile.SoilProfile);
         }
     }
 }

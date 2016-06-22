@@ -79,6 +79,24 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kan het toetspeil niet afleiden op basis van de invoer..
+        /// </summary>
+        internal static string PipingCalculationService_ValidateInput_Cannot_determine_AssessmentLevel {
+            get {
+                return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_determine_AssessmentLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer..
+        /// </summary>
+        internal static string PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit {
+            get {
+                return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer..
         /// </summary>
         internal static string PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer {
@@ -93,6 +111,61 @@ namespace Ringtoets.Piping.Service.Properties {
         internal static string PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer {
             get {
                 return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het uittredepunt ligt niet voorbij het intredepunt..
+        /// </summary>
+        internal static string PipingCalculationService_ValidateInput_EntryPointL_greater_or_equal_to_ExitPointL {
+            get {
+                return ResourceManager.GetString("PipingCalculationService_ValidateInput_EntryPointL_greater_or_equal_to_ExitPointL" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaarden locatie geselecteerd..
+        /// </summary>
+        internal static string PipingCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected {
+            get {
+                return ResourceManager.GetString("PipingCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen stochastisch ondergrondprofiel geselecteerd..
+        /// </summary>
+        internal static string PipingCalculationService_ValidateInput_No_StochasticSoilProfile_selected {
+            get {
+                return ResourceManager.GetString("PipingCalculationService_ValidateInput_No_StochasticSoilProfile_selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen profielschematisatie geselecteerd..
+        /// </summary>
+        internal static string PipingCalculationService_ValidateInput_No_SurfaceLine_selected {
+            get {
+                return ResourceManager.GetString("PipingCalculationService_ValidateInput_No_SurfaceLine_selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen waarde voor het intredepunt opgegeven..
+        /// </summary>
+        internal static string PipingCalculationService_ValidateInput_No_value_for_EntryPointL {
+            get {
+                return ResourceManager.GetString("PipingCalculationService_ValidateInput_No_value_for_EntryPointL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen waarde voor het uittredepunt opgegeven..
+        /// </summary>
+        internal static string PipingCalculationService_ValidateInput_No_value_for_ExitPointL {
+            get {
+                return ResourceManager.GetString("PipingCalculationService_ValidateInput_No_value_for_ExitPointL", resourceCulture);
             }
         }
         
