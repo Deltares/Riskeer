@@ -20,13 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Common.Gui.Converters;
-using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.HydraRing.Data.Test
 {
@@ -81,54 +77,14 @@ namespace Ringtoets.HydraRing.Data.Test
         }
 
         [Test]
-        public void PropertyAttributes_ReturnExpectedValues()
-        {
-            // Setup
-            var hydraulicBoundaryLocationProperties = new HydraulicBoundaryDatabaseProperties();
-
-            var dynamicPropertyBag = new DynamicPropertyBag(hydraulicBoundaryLocationProperties);
-            const string expectedFilePathDisplayName = "Hydraulische randvoorwaarden database";
-            const string expectedFilePathDescription = "Locatie van het hydraulische randvoorwaarden database bestand.";
-            const string expectedFilePathCategory = "Algemeen";
-
-            const string expectedLocationsDisplayName = "Locaties";
-            const string expectedLocationsDescription = "Locaties uit de hydraulische randvoorwaarden database.";
-            const string expectedLocationsCategory = "Algemeen";
-
-            // Call
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(hydraulicBoundaryLocationProperties, true);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            PropertyDescriptor filePathProperty = dynamicProperties.Find("FilePath", false);
-            PropertyDescriptor locationsProperty = dynamicProperties.Find("Locations", false);
-
-            // Assert
-            Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
-
-            Assert.IsNotNull(filePathProperty);
-            Assert.IsTrue(filePathProperty.IsReadOnly);
-            Assert.IsTrue(filePathProperty.IsBrowsable);
-            Assert.AreEqual(expectedFilePathDisplayName, filePathProperty.DisplayName);
-            Assert.AreEqual(expectedFilePathDescription, filePathProperty.Description);
-            Assert.AreEqual(expectedFilePathCategory, filePathProperty.Category);
-
-            Assert.IsNotNull(locationsProperty);
-            Assert.IsInstanceOf<ExpandableArrayConverter>(locationsProperty.Converter);
-            Assert.IsTrue(locationsProperty.IsReadOnly);
-            Assert.IsTrue(locationsProperty.IsBrowsable);
-            Assert.AreEqual(expectedLocationsDisplayName, locationsProperty.DisplayName);
-            Assert.AreEqual(expectedLocationsDescription, locationsProperty.Description);
-            Assert.AreEqual(expectedLocationsCategory, filePathProperty.Category);
-        }
-
-        [Test]
         public void ToString_Always_ReturnsName()
         {
             // Setup
             var testName = "testName";
-            var hydraulicBoundaryLocationProperties = new HydraulicBoundaryLocation(0, testName, 0, 0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, testName, 0, 0);
 
             // Call
-            var result = hydraulicBoundaryLocationProperties.ToString();
+            var result = hydraulicBoundaryLocation.ToString();
 
             // Assert
             Assert.AreEqual(testName, result);

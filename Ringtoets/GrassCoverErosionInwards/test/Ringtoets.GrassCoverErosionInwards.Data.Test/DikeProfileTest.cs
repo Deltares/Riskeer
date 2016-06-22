@@ -203,5 +203,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Assert
             Assert.IsTrue(hasBreakWater);
         }
+
+        [Test]
+        public void ToString_Always_ReturnsName()
+        {
+            // Setup
+            var testName = "testName";
+            var dikeProfile = new DikeProfile(new Point2D(0, 0))
+            {
+                Name = testName
+            };
+
+            // Call
+            var result = dikeProfile.ToString();
+
+            // Assert
+            Assert.AreEqual(testName, result);
+        }
     }
 }

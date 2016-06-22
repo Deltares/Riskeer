@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
@@ -152,6 +151,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             {
                 dikeHeight = value.ToPrecision(dikeHeight.NumberOfDecimalPlaces);
             }
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }
