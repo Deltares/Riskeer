@@ -131,20 +131,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
-        [Test]
-        public void PropertyAttributes_ReturnExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void PropertyAttributes_ReturnExpectedValues(bool withDikeProfile)
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
-            var inputMock = mockRepository.StrictMock<GrassCoverErosionInwardsInput>();
             mockRepository.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var input = new GrassCoverErosionInwardsInput();
+
+            if (withDikeProfile)
+            {
+                input.DikeProfile = new DikeProfile(new Point2D(0, 0));
+            }
 
             // Call
             var properties = new GrassCoverErosionInwardsInputContextProperties
             {
-                Data = new GrassCoverErosionInwardsInputContext(inputMock, calculationMock, failureMechanismMock, assessmentSectionMock)
+                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionMock)
             };
 
             // Assert
@@ -161,7 +168,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor orientationProperty = dynamicProperties[orientationPropertyIndex];
             Assert.IsNotNull(orientationProperty);
-            Assert.IsFalse(orientationProperty.IsReadOnly);
+            Assert.AreEqual(!withDikeProfile, orientationProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", orientationProperty.Category);
             Assert.AreEqual("Oriëntatie [°]", orientationProperty.DisplayName);
             Assert.AreEqual("Oriëntatie van de dijk.", orientationProperty.Description);
@@ -192,7 +199,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor dikeHeightProperty = dynamicProperties[dikeHeightPropertyIndex];
             Assert.IsNotNull(dikeHeightProperty);
-            Assert.IsFalse(dikeHeightProperty.IsReadOnly);
+            Assert.AreEqual(!withDikeProfile, dikeHeightProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", dikeHeightProperty.Category);
             Assert.AreEqual("Dijkhoogte [m+NAP]", dikeHeightProperty.DisplayName);
             Assert.AreEqual("De hoogte van de dijk [m+NAP].", dikeHeightProperty.Description);

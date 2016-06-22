@@ -67,6 +67,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(orientationPropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "Orientation_DisplayName")]
@@ -132,6 +133,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(dikeHeightPropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "DikeHeight_DisplayName")]
@@ -181,6 +183,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
                 data.WrappedData.HydraulicBoundaryLocation = value;
                 data.WrappedData.NotifyObservers();
             }
+        }
+
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadOnlyValidationMethod(string propertyName)
+        {
+            return data.WrappedData.DikeProfile == null;
         }
 
         public IEnumerable<DikeProfile> GetAvailableDikeProfiles()

@@ -112,53 +112,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
-        [Test]
-        public void PropertyAttributes_SetInputInstanceWithDikeProfile_ReturnExpectedValues()
-        {
-            // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var input = new GrassCoverErosionInwardsInput
-            {
-                DikeProfile = new DikeProfile(new Point2D(0, 0))
-            };
-
-            // Call
-            var properties = new GrassCoverErosionInwardsInputContextBreakWaterProperties
-            {
-                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionMock)
-            };
-
-            // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(4, dynamicProperties.Count);
-
-            PropertyDescriptor useBreakWaterProperty = dynamicProperties[0];
-            Assert.IsNotNull(useBreakWaterProperty);
-            Assert.IsFalse(useBreakWaterProperty.IsReadOnly);
-            Assert.AreEqual("Gebruik", useBreakWaterProperty.DisplayName);
-            Assert.AreEqual("Moet de dam worden gebruikt tijdens de berekening?", useBreakWaterProperty.Description);
-
-            PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
-            Assert.IsNotNull(breakWaterTypeProperty);
-            Assert.IsFalse(breakWaterTypeProperty.IsReadOnly);
-            Assert.AreEqual("Type", breakWaterTypeProperty.DisplayName);
-            Assert.AreEqual("Het type van de dam.", breakWaterTypeProperty.Description);
-
-            PropertyDescriptor breakWaterHeightProperty = dynamicProperties[2];
-            Assert.IsNotNull(breakWaterHeightProperty);
-            Assert.IsFalse(breakWaterHeightProperty.IsReadOnly);
-            Assert.AreEqual("Hoogte [m+NAP]", breakWaterHeightProperty.DisplayName);
-            Assert.AreEqual("De hoogte van de dam [m+NAP].", breakWaterHeightProperty.Description);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void PropertyAttributes_SetInputInstanceWithoutDikeProfile_ReturnExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void PropertyAttributes_ReturnExpectedValues(bool withDikeProfile)
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
@@ -168,6 +124,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var calculation = new GrassCoverErosionInwardsCalculation();
             var input = new GrassCoverErosionInwardsInput();
 
+            if (withDikeProfile)
+            {
+                input.DikeProfile = new DikeProfile(new Point2D(0, 0));
+            }
+
             // Call
             var properties = new GrassCoverErosionInwardsInputContextBreakWaterProperties
             {
@@ -181,19 +142,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor useBreakWaterProperty = dynamicProperties[0];
             Assert.IsNotNull(useBreakWaterProperty);
-            Assert.IsTrue(useBreakWaterProperty.IsReadOnly);
+            Assert.AreEqual(!withDikeProfile, useBreakWaterProperty.IsReadOnly);
             Assert.AreEqual("Gebruik", useBreakWaterProperty.DisplayName);
             Assert.AreEqual("Moet de dam worden gebruikt tijdens de berekening?", useBreakWaterProperty.Description);
 
             PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
             Assert.IsNotNull(breakWaterTypeProperty);
-            Assert.IsTrue(breakWaterTypeProperty.IsReadOnly);
+            Assert.AreEqual(!withDikeProfile, breakWaterTypeProperty.IsReadOnly);
             Assert.AreEqual("Type", breakWaterTypeProperty.DisplayName);
             Assert.AreEqual("Het type van de dam.", breakWaterTypeProperty.Description);
 
             PropertyDescriptor breakWaterHeightProperty = dynamicProperties[2];
             Assert.IsNotNull(breakWaterHeightProperty);
-            Assert.IsTrue(breakWaterHeightProperty.IsReadOnly);
+            Assert.AreEqual(!withDikeProfile, breakWaterHeightProperty.IsReadOnly);
             Assert.AreEqual("Hoogte [m+NAP]", breakWaterHeightProperty.DisplayName);
             Assert.AreEqual("De hoogte van de dam [m+NAP].", breakWaterHeightProperty.Description);
             mockRepository.VerifyAll();
