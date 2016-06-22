@@ -521,7 +521,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Action action = () => { contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick(); };
 
                 // Then
-                var expectedValidationMessageCount = 2; // No surfaceline or soil profile selected for calculation
+                var expectedValidationMessageCount = 5;
                 TestHelper.AssertLogMessages(action, messages =>
                 {
                     var msgs = messages.GetEnumerator();
@@ -575,7 +575,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Action action = () => contextMenuAdapter.Items[validateContextMenuItemIndex].PerformClick();
 
                 // Then
-                var expectedValidationMessageCount = 2; // No surfaceline or soil profile selected for calculation
+                var expectedValidationMessageCount = 5; 
                 var expectedStatusMessageCount = 2;
                 var expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
                 TestHelper.AssertLogMessagesCount(action, expectedLogMessageCount);

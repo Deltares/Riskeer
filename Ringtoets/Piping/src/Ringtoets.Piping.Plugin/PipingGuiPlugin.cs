@@ -418,8 +418,10 @@ namespace Ringtoets.Piping.Plugin
                 RingtoetsCommonFormsResources.Validate_all,
                 RingtoetsCommonFormsResources.Validate_all_ToolTip,
                 RingtoetsCommonFormsResources.ValidateAllIcon,
-                (o, args) => ValidateAll(failureMechanism)
-                );
+                (o, args) =>
+                {
+                    ValidateAll(GetAllPipingCalculations(failureMechanism));
+                });
 
             if (!GetAllPipingCalculations(failureMechanism).Any())
             {
@@ -428,25 +430,6 @@ namespace Ringtoets.Piping.Plugin
             }
 
             return menuItem;
-        }
-
-        private void ValidateAll(PipingFailureMechanism failureMechanism)
-        {
-            foreach (PipingCalculation calculation in GetAllPipingCalculations(failureMechanism))
-            {
-                PipingCalculationService.Validate(calculation);
-            }
-        }
-
-        private void CalculateAll(PipingFailureMechanismContext failureMechanismContext)
-        {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             GetAllPipingCalculations(failureMechanismContext.WrappedData)
-                                                 .Select(calc => new PipingCalculationActivity(calc,
-                                                                                               failureMechanismContext.WrappedData.PipingProbabilityAssessmentInput,
-                                                                                               failureMechanismContext.Parent.FailureMechanismContribution.Norm,
-                                                                                               failureMechanismContext.WrappedData.Contribution))
-                                                 .ToList());
         }
 
         private object[] FailureMechanismEnabledChildNodeObjects(PipingFailureMechanismContext pipingFailureMechanismContext)
@@ -714,7 +697,10 @@ namespace Ringtoets.Piping.Plugin
             var menuItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Validate_all,
                 PipingFormsResources.PipingCalculationGroup_Validate_All_ToolTip,
-                RingtoetsCommonFormsResources.ValidateAllIcon, (o, args) => { ValidateAll(group); });
+                RingtoetsCommonFormsResources.ValidateAllIcon, (o, args) =>
+                {
+                    ValidateAll(group.GetCalculations().OfType<PipingCalculation>());
+                });
 
             if (!group.GetCalculations().Any())
             {
@@ -723,26 +709,6 @@ namespace Ringtoets.Piping.Plugin
             }
 
             return menuItem;
-        }
-
-        private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
-        {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             group.GetCalculations()
-                                                  .OfType<PipingCalculationScenario>()
-                                                  .Select(pc => new PipingCalculationActivity(pc,
-                                                                                              context.FailureMechanism.PipingProbabilityAssessmentInput,
-                                                                                              context.AssessmentSection.FailureMechanismContribution.Norm,
-                                                                                              context.FailureMechanism.Contribution))
-                                                  .ToList());
-        }
-
-        private static void ValidateAll(CalculationGroup group)
-        {
-            foreach (PipingCalculation calculation in group.GetCalculations().OfType<PipingCalculation>())
-            {
-                PipingCalculationService.Validate(calculation);
-            }
         }
 
         private void PipingCalculationGroupContextOnNodeRemoved(PipingCalculationGroupContext nodeData, object parentNodeData)
@@ -755,5 +721,45 @@ namespace Ringtoets.Piping.Plugin
         }
 
         #endregion
+
+        private void CalculateAll(PipingFailureMechanismContext failureMechanismContext)
+        {
+            var calculations = GetAllPipingCalculations(failureMechanismContext.WrappedData);
+            var assessmentInput = failureMechanismContext.WrappedData.PipingProbabilityAssessmentInput;
+            var norm = failureMechanismContext.Parent.FailureMechanismContribution.Norm;
+            var contribution = failureMechanismContext.WrappedData.Contribution;
+
+            CalculateAll(calculations, assessmentInput, norm, contribution);
+        }
+
+        private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
+        {
+            var calculations = group.GetCalculations().OfType<PipingCalculation>().ToArray();
+            var assessmentInput = context.FailureMechanism.PipingProbabilityAssessmentInput;
+            var norm = context.AssessmentSection.FailureMechanismContribution.Norm;
+            var contribution = context.FailureMechanism.Contribution;
+
+            CalculateAll(calculations, assessmentInput, norm, contribution);
+        }
+
+        private static void ValidateAll(IEnumerable<PipingCalculation> pipingCalculations)
+        {
+            foreach (PipingCalculation calculation in pipingCalculations)
+            {
+                PipingCalculationService.Validate(calculation);
+            }
+        }
+
+        private void CalculateAll(IEnumerable<PipingCalculation> calculations, PipingProbabilityAssessmentInput assessmentInput, int norm, double contribution)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                calculations
+                    .Select(pc => new PipingCalculationActivity(pc,
+                        assessmentInput,
+                        norm,
+                        contribution))
+                    .ToList());
+        }
     }
 }
