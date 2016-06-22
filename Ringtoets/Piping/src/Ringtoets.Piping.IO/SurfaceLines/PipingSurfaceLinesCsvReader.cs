@@ -213,8 +213,8 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <exception cref="LineParseException">Surface line geometry is invalid.</exception>
         private void CheckIfGeometryIsValid(RingtoetsPipingSurfaceLine surfaceLine)
         {
-            CheckReclinging(surfaceLine);
             CheckZeroLength(surfaceLine);
+            CheckReclinging(surfaceLine);
         }
 
         private void CheckZeroLength(RingtoetsPipingSurfaceLine surfaceLine)

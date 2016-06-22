@@ -112,14 +112,14 @@ namespace Ringtoets.Piping.Forms.Views
         /// <param name="ditchPolderSide">The <see cref="Point3D"/> for which to create <see cref="ChartData"/>.</param>
         /// <returns><see cref="ChartData"/> based on the <paramref name="ditchPolderSide"/>.</returns>
         /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="ditchPolderSide"/> is <c>null</c>.</exception>
-        public static ChartData CreateDitchPolderSide(Point3D ditchPolderSide)
+        public static ChartData CreateDitchPolderSide(RingtoetsPipingSurfaceLine surfaceLine)
         {
-            if (ditchPolderSide == null)
+            if (surfaceLine == null)
             {
-                throw new ArgumentNullException("ditchPolderSide");
+                throw new ArgumentNullException("surfaceLine");
             }
 
-            return CreatePoint(ditchPolderSide, PipingDataResources.CharacteristicPoint_DitchPolderSide, new ChartPointStyle(Color.Red, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
+            return CreateLocalPoint(surfaceLine.DitchPolderSide, surfaceLine, PipingDataResources.CharacteristicPoint_DitchPolderSide, new ChartPointStyle(Color.Red, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
         }
 
         /// <summary>
@@ -128,14 +128,14 @@ namespace Ringtoets.Piping.Forms.Views
         /// <param name="bottomDitchPolderSide">The <see cref="Point3D"/> for which to create <see cref="ChartData"/>.</param>
         /// <returns><see cref="ChartData"/> based on the <paramref name="bottomDitchPolderSide"/>.</returns>
         /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="bottomDitchPolderSide"/> is <c>null</c>.</exception>
-        public static ChartData CreateBottomDitchPolderSide(Point3D bottomDitchPolderSide)
+        public static ChartData CreateBottomDitchPolderSide(RingtoetsPipingSurfaceLine surfaceLine)
         {
-            if (bottomDitchPolderSide == null)
+            if (surfaceLine == null)
             {
-                throw new ArgumentNullException("bottomDitchPolderSide");
+                throw new ArgumentNullException("surfaceLine");
             }
 
-            return CreatePoint(bottomDitchPolderSide, PipingDataResources.CharacteristicPoint_BottomDitchPolderSide, new ChartPointStyle(Color.Blue, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
+            return CreateLocalPoint(surfaceLine.BottomDitchPolderSide, surfaceLine, PipingDataResources.CharacteristicPoint_BottomDitchPolderSide, new ChartPointStyle(Color.Blue, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
         }
 
         /// <summary>
@@ -144,14 +144,14 @@ namespace Ringtoets.Piping.Forms.Views
         /// <param name="bottomDitchDikeSide">The <see cref="Point3D"/> for which to create <see cref="ChartData"/>.</param>
         /// <returns><see cref="ChartData"/> based on the <paramref name="bottomDitchDikeSide"/>.</returns>
         /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="bottomDitchDikeSide"/> is <c>null</c>.</exception>
-        public static ChartData CreateBottomDitchDikeSide(Point3D bottomDitchDikeSide)
+        public static ChartData CreateBottomDitchDikeSide(RingtoetsPipingSurfaceLine surfaceLine)
         {
-            if (bottomDitchDikeSide == null)
+            if (surfaceLine == null)
             {
-                throw new ArgumentNullException("bottomDitchDikeSide");
+                throw new ArgumentNullException("surfaceLine");
             }
 
-            return CreatePoint(bottomDitchDikeSide, PipingDataResources.CharacteristicPoint_BottomDitchDikeSide, new ChartPointStyle(Color.Green, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
+            return CreateLocalPoint(surfaceLine.BottomDitchDikeSide, surfaceLine, PipingDataResources.CharacteristicPoint_BottomDitchDikeSide, new ChartPointStyle(Color.Green, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
         }
 
         /// <summary>
@@ -160,14 +160,14 @@ namespace Ringtoets.Piping.Forms.Views
         /// <param name="ditchDikeSide">The <see cref="Point3D"/> for which to create <see cref="ChartData"/>.</param>
         /// <returns><see cref="ChartData"/> based on the <paramref name="ditchDikeSide"/>.</returns>
         /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="ditchDikeSide"/> is <c>null</c>.</exception>
-        public static ChartData CreateDitchDikeSide(Point3D ditchDikeSide)
+        public static ChartData CreateDitchDikeSide(RingtoetsPipingSurfaceLine surfaceLine)
         {
-            if (ditchDikeSide == null)
+            if (surfaceLine == null)
             {
-                throw new ArgumentNullException("ditchDikeSide");
+                throw new ArgumentNullException("surfaceLine");
             }
 
-            return CreatePoint(ditchDikeSide, PipingDataResources.CharacteristicPoint_DitchDikeSide, new ChartPointStyle(Color.Purple, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
+            return CreateLocalPoint(surfaceLine.DitchDikeSide, surfaceLine, PipingDataResources.CharacteristicPoint_DitchDikeSide, new ChartPointStyle(Color.Purple, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
         }
 
         /// <summary>
@@ -176,14 +176,14 @@ namespace Ringtoets.Piping.Forms.Views
         /// <param name="dikeToeAtRiver">The <see cref="Point3D"/> for which to create <see cref="ChartData"/>.</param>
         /// <returns><see cref="ChartData"/> based on the <paramref name="dikeToeAtRiver"/>.</returns>
         /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="dikeToeAtRiver"/> is <c>null</c>.</exception>
-        public static ChartData CreateDikeToeAtRiver(Point3D dikeToeAtRiver)
+        public static ChartData CreateDikeToeAtRiver(RingtoetsPipingSurfaceLine surfaceLine)
         {
-            if (dikeToeAtRiver == null)
+            if (surfaceLine == null)
             {
-                throw new ArgumentNullException("dikeToeAtRiver");
+                throw new ArgumentNullException("surfaceLine");
             }
 
-            return CreatePoint(dikeToeAtRiver, PipingDataResources.CharacteristicPoint_DikeToeAtRiver, new ChartPointStyle(Color.Orange, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
+            return CreateLocalPoint(surfaceLine.DikeToeAtRiver, surfaceLine, PipingDataResources.CharacteristicPoint_DikeToeAtRiver, new ChartPointStyle(Color.Orange, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
         }
 
         /// <summary>
@@ -192,21 +192,23 @@ namespace Ringtoets.Piping.Forms.Views
         /// <param name="dikeToeAtPolder">The <see cref="Point3D"/> for which to create <see cref="ChartData"/>.</param>
         /// <returns><see cref="ChartData"/> based on the <paramref name="dikeToeAtPolder"/>.</returns>
         /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="dikeToeAtPolder"/> is <c>null</c>.</exception>
-        public static ChartData CreateDikeToeAtPolder(Point3D dikeToeAtPolder)
+        public static ChartData CreateDikeToeAtPolder(RingtoetsPipingSurfaceLine surfaceLine)
         {
-            if (dikeToeAtPolder == null)
+            if (surfaceLine == null)
             {
-                throw new ArgumentNullException("dikeToeAtPolder");
+                throw new ArgumentNullException("surfaceLine");
             }
 
-            return CreatePoint(dikeToeAtPolder, PipingDataResources.CharacteristicPoint_DikeToeAtPolder, new ChartPointStyle(Color.Silver, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
+            return CreateLocalPoint(surfaceLine.DikeToeAtPolder, surfaceLine, PipingDataResources.CharacteristicPoint_DikeToeAtPolder, new ChartPointStyle(Color.Silver, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
         }
 
-        private static ChartData CreatePoint(Point3D dikeToeAtRiver, string name, ChartPointStyle style)
+        private static ChartData CreateLocalPoint(Point3D worldPoint, RingtoetsPipingSurfaceLine surfaceLine, string name, ChartPointStyle style)
         {
+            Point2D firstPoint = Point3DToPoint2D(surfaceLine.Points.First());
+            Point2D lastPoint = Point3DToPoint2D(surfaceLine.Points.Last());
             return new ChartPointData(new[]
             {
-                Point3DToPoint2D(dikeToeAtRiver)
+                worldPoint.ProjectIntoLocalCoordinates(firstPoint, lastPoint)
             }, name)
             {
                 Style = style
@@ -215,7 +217,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private static Point2D Point3DToPoint2D(Point3D point3D)
         {
-            return new Point2D(point3D.X, point3D.Z);
+            return new Point2D(point3D.X, point3D.Y);
         }
     }
 }

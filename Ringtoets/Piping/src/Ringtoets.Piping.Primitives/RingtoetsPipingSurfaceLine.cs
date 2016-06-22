@@ -289,21 +289,16 @@ namespace Ringtoets.Piping.Primitives
                 return Enumerable.Empty<Point2D>();
             }
 
-            var localCoordinatesX = new double[count];
-            localCoordinatesX[0] = 0.0;
-            if (count > 1)
+            Point3D first = Points.First();
+            if (count == 1)
             {
-                ProjectPointsAfterFirstOntoSpanningLine(localCoordinatesX);
+                return new[] { new Point2D(0.0, first.Z)};
             }
 
-            var result = new Point2D[count];
-            for (int i = 0; i < count; i++)
-            {
-                var x = localCoordinatesX[i];
-                var y = geometryPoints[i].Z;
-                result[i] = new Point2D(x, y);
-            }
-            return result;
+            Point3D last = Points.Last();
+            Point2D firstPoint = new Point2D(first.X, first.Y);
+            Point2D lastPoint = new Point2D(last.X, last.Y);
+            return Points.Select(p => p.ProjectIntoLocalCoordinates(firstPoint, lastPoint));
         }
 
         public override string ToString()
@@ -366,41 +361,6 @@ namespace Ringtoets.Piping.Primitives
                                                       lastLocalPoint.X);
                 throw new ArgumentOutOfRangeException("localCoordinateL", outOfRangeMessage);
             }
-        }
-
-        /// <summary>
-        /// This method defines the 'spanning line' as the 2D vector going from start to end
-        /// of the surface line points. Then all except the first point is projected onto
-        /// this vector. Then the local coordinates are determined by taking the length of
-        /// each vector along the 'spanning line'.
-        /// </summary>
-        /// <param name="localCoordinatesX">The array into which the projected X-coordinate 
-        /// values should be stored. Its <see cref="Array.Length"/> should be the same as
-        /// the collection-size of <see cref="Points"/>.</param>
-        private void ProjectPointsAfterFirstOntoSpanningLine(double[] localCoordinatesX)
-        {
-            // Determine the vectors from the first coordinate to each other coordinate point 
-            // in the XY world coordinate plane:
-            Point2D[] worldCoordinates = Points.Select(p => new Point2D(p.X, p.Y)).ToArray();
-            var worldCoordinateVectors = new Vector<double>[worldCoordinates.Length - 1];
-            for (int i = 1; i < worldCoordinates.Length; i++)
-            {
-                worldCoordinateVectors[i - 1] = worldCoordinates[i] - worldCoordinates[0];
-            }
-
-            // Determine the 'spanning line' vector:
-            Vector<double> spanningVector = worldCoordinateVectors[worldCoordinateVectors.Length - 1];
-            double spanningVectorDotProduct = spanningVector.DotProduct(spanningVector);
-            double length = Math.Sqrt(spanningVectorDotProduct);
-
-            // Project each vector onto the 'spanning vector' to determine it's X coordinate in local coordinates:
-            for (int i = 0; i < worldCoordinateVectors.Length - 1; i++)
-            {
-                double projectOnSpanningVectorFactor = (worldCoordinateVectors[i].DotProduct(spanningVector)) /
-                                                       (spanningVectorDotProduct);
-                localCoordinatesX[i + 1] = projectOnSpanningVectorFactor * length;
-            }
-            localCoordinatesX[localCoordinatesX.Length - 1] = length;
         }
     }
 }

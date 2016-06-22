@@ -176,17 +176,26 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert 
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("ditchPolderSide", exception.ParamName);
+            Assert.AreEqual("surfaceLine", exception.ParamName);
         }
 
         [Test]
         public void CreateDitchPolderSide_GivenDitchPolderSide_ReturnsChartDataWithDefaultStyling()
         {
             // Setup
-            Point3D ditchPolderSide = new Point3D(1.0, 4.3, 6.4);
+            Point3D ditchPolderSide = new Point3D(1.2, 2.3, 4.0);
+            var points = new[]
+            {
+                new Point3D(1.2, 2.3, 4.0),
+                new Point3D(2.7, 2.0, 6.0)
+            };
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(points);
+            surfaceLine.SetDitchPolderSideAt(ditchPolderSide);
 
             // Call
-            ChartData data = PipingChartDataFactory.CreateDitchPolderSide(ditchPolderSide);
+            ChartData data = PipingChartDataFactory.CreateDitchPolderSide(surfaceLine);
 
             // Assert
             Assert.IsInstanceOf<ChartPointData>(data);
@@ -194,7 +203,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(1, chartPointData.Points.Count());
             Assert.AreEqual(PipingDataResources.CharacteristicPoint_DitchPolderSide, chartPointData.Name);
 
-            AssertEqualPointCollections(new[] { new Point2D(ditchPolderSide.X, ditchPolderSide.Z) }, chartPointData.Points);
+            AssertEqualLocalPointCollection(ditchPolderSide, surfaceLine, chartPointData.Points);
 
             AssertEqualStyle(chartPointData.Style, Color.Red, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
@@ -203,21 +212,30 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void CreateBottomDitchPolderSide_BottomDitchPolderSideNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingChartDataFactory.CreateDitchPolderSide(null);
+            TestDelegate call = () => PipingChartDataFactory.CreateBottomDitchPolderSide(null);
 
             // Assert 
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("ditchPolderSide", exception.ParamName);
+            Assert.AreEqual("surfaceLine", exception.ParamName);
         }
 
         [Test]
         public void CreateBottomDitchPolderSide_GivenBottomDitchPolderSide_ReturnsChartDataWithDefaultStyling()
         {
             // Setup
-            Point3D bottomDitchPolderSide = new Point3D(1.0, 4.3, 6.4);
+            Point3D bottomDitchPolderSide = new Point3D(1.2, 2.3, 4.0);
+            var points = new[]
+            {
+                new Point3D(1.2, 2.3, 4.0),
+                new Point3D(2.7, 2.0, 6.0)
+            };
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(points);
+            surfaceLine.SetBottomDitchPolderSideAt(bottomDitchPolderSide);
 
             // Call
-            ChartData data = PipingChartDataFactory.CreateBottomDitchPolderSide(bottomDitchPolderSide);
+            ChartData data = PipingChartDataFactory.CreateBottomDitchPolderSide(surfaceLine);
 
             // Assert
             Assert.IsInstanceOf<ChartPointData>(data);
@@ -225,7 +243,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(1, chartPointData.Points.Count());
             Assert.AreEqual(PipingDataResources.CharacteristicPoint_BottomDitchPolderSide, chartPointData.Name);
 
-            AssertEqualPointCollections(new[] { new Point2D(bottomDitchPolderSide.X, bottomDitchPolderSide.Z) }, chartPointData.Points);
+            AssertEqualLocalPointCollection(bottomDitchPolderSide, surfaceLine, chartPointData.Points);
 
             AssertEqualStyle(chartPointData.Style, Color.Blue, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
@@ -238,7 +256,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert 
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("bottomDitchDikeSide", exception.ParamName);
+            Assert.AreEqual("surfaceLine", exception.ParamName);
         }
 
         [Test]
@@ -246,9 +264,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             Point3D bottomDitchDikeSide = new Point3D(1.0, 4.3, 6.4);
+            var points = new[]
+            {
+                new Point3D(1.0, 4.3, 6.4),
+                new Point3D(2.7, 2.0, 6.0)
+            };
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(points);
+            surfaceLine.SetBottomDitchDikeSideAt(bottomDitchDikeSide);
 
             // Call
-            ChartData data = PipingChartDataFactory.CreateBottomDitchDikeSide(bottomDitchDikeSide);
+            ChartData data = PipingChartDataFactory.CreateBottomDitchDikeSide(surfaceLine);
 
             // Assert
             Assert.IsInstanceOf<ChartPointData>(data);
@@ -256,7 +283,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(1, chartPointData.Points.Count());
             Assert.AreEqual(PipingDataResources.CharacteristicPoint_BottomDitchDikeSide, chartPointData.Name);
 
-            AssertEqualPointCollections(new[] { new Point2D(bottomDitchDikeSide.X, bottomDitchDikeSide.Z) }, chartPointData.Points);
+            AssertEqualLocalPointCollection(bottomDitchDikeSide, surfaceLine, chartPointData.Points);
 
             AssertEqualStyle(chartPointData.Style, Color.Green, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
@@ -269,7 +296,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert 
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("ditchDikeSide", exception.ParamName);
+            Assert.AreEqual("surfaceLine", exception.ParamName);
         }
 
         [Test]
@@ -277,9 +304,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             Point3D ditchDikeSide = new Point3D(1.0, 4.3, 6.4);
+            var points = new[]
+            {
+                new Point3D(1.0, 4.3, 6.4),
+                new Point3D(2.7, 2.0, 6.0)
+            };
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(points);
+            surfaceLine.SetDitchDikeSideAt(ditchDikeSide);
 
             // Call
-            ChartData data = PipingChartDataFactory.CreateDitchDikeSide(ditchDikeSide);
+            ChartData data = PipingChartDataFactory.CreateDitchDikeSide(surfaceLine);
 
             // Assert
             Assert.IsInstanceOf<ChartPointData>(data);
@@ -287,7 +323,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(1, chartPointData.Points.Count());
             Assert.AreEqual(PipingDataResources.CharacteristicPoint_DitchDikeSide, chartPointData.Name);
 
-            AssertEqualPointCollections(new[] { new Point2D(ditchDikeSide.X, ditchDikeSide.Z) }, chartPointData.Points);
+            AssertEqualLocalPointCollection(ditchDikeSide, surfaceLine, chartPointData.Points);
 
             AssertEqualStyle(chartPointData.Style, Color.Purple, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
@@ -300,17 +336,26 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert 
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("dikeToeAtRiver", exception.ParamName);
+            Assert.AreEqual("surfaceLine", exception.ParamName);
         }
 
         [Test]
         public void CreateDikeToeAtRiver_GivenDikeToeAtRivere_ReturnsChartDataWithDefaultStyling()
         {
             // Setup
-            Point3D dikeToeAtRiver = new Point3D(1.0, 4.3, 6.4);
+            Point3D dikeToeAtRiver = new Point3D(1.2, 2.3, 4.0);
+            var points = new[]
+            {
+                new Point3D(1.2, 2.3, 4.0),
+                new Point3D(2.7, 2.0, 6.0)
+            };
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(points);
+            surfaceLine.SetDikeToeAtRiverAt(dikeToeAtRiver);
 
             // Call
-            ChartData data = PipingChartDataFactory.CreateDikeToeAtRiver(dikeToeAtRiver);
+            ChartData data = PipingChartDataFactory.CreateDikeToeAtRiver(surfaceLine);
 
             // Assert
             Assert.IsInstanceOf<ChartPointData>(data);
@@ -318,7 +363,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(1, chartPointData.Points.Count());
             Assert.AreEqual(PipingDataResources.CharacteristicPoint_DikeToeAtRiver, chartPointData.Name);
 
-            AssertEqualPointCollections(new[] { new Point2D(dikeToeAtRiver.X, dikeToeAtRiver.Z) }, chartPointData.Points);
+            AssertEqualLocalPointCollection(dikeToeAtRiver, surfaceLine, chartPointData.Points);
 
             AssertEqualStyle(chartPointData.Style, Color.Orange, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
@@ -331,7 +376,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert 
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("dikeToeAtPolder", exception.ParamName);
+            Assert.AreEqual("surfaceLine", exception.ParamName);
         }
 
         [Test]
@@ -339,9 +384,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             Point3D dikeToeAtPolder = new Point3D(1.0, 4.3, 6.4);
+            var points = new[]
+            {
+                new Point3D(1.0, 4.3, 6.4),
+                new Point3D(2.7, 2.0, 6.0)
+            };
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(points);
+            surfaceLine.SetDikeToeAtPolderAt(dikeToeAtPolder);
 
             // Call
-            ChartData data = PipingChartDataFactory.CreateDikeToeAtPolder(dikeToeAtPolder);
+            ChartData data = PipingChartDataFactory.CreateDikeToeAtPolder(surfaceLine);
 
             // Assert
             Assert.IsInstanceOf<ChartPointData>(data);
@@ -349,7 +403,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(1, chartPointData.Points.Count());
             Assert.AreEqual(PipingDataResources.CharacteristicPoint_DikeToeAtPolder, chartPointData.Name);
 
-            AssertEqualPointCollections(new[] { new Point2D(dikeToeAtPolder.X, dikeToeAtPolder.Z) }, chartPointData.Points);
+            AssertEqualLocalPointCollection(dikeToeAtPolder, surfaceLine, chartPointData.Points);
 
             AssertEqualStyle(chartPointData.Style, Color.Silver, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
@@ -357,6 +411,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private void AssertEqualPointCollections(IEnumerable<Point2D> points, IEnumerable<Point2D> chartPoints)
         {
             CollectionAssert.AreEqual(points.Select(p => new Point2D(p.X, p.Y)), chartPoints);
+        }
+
+        private void AssertEqualLocalPointCollection(Point3D point, RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<Point2D> chartPoints)
+        {
+            Point3D first = surfaceLine.Points.First();
+            Point3D last = surfaceLine.Points.Last();
+            Point2D firstPoint = new Point2D(first.X, first.Y);
+            Point2D lastPoint = new Point2D(last.X, last.Y);
+
+            AssertEqualPointCollections(new[] { point.ProjectIntoLocalCoordinates(firstPoint, lastPoint) }, chartPoints);
         }
 
         private void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, DashStyle style)
