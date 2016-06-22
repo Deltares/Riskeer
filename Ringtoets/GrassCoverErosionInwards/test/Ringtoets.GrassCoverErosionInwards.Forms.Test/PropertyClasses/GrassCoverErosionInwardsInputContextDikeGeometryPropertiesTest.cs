@@ -60,15 +60,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
             mockRepository.ReplayAll();
 
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation();
             var input = new GrassCoverErosionInwardsInput();
             var properties = new GrassCoverErosionInwardsInputContextDikeGeometryProperties();
 
             // Call
-            properties.Data = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock);
+            properties.Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionMock);
 
             // Assert
             CollectionAssert.IsEmpty(properties.Coordinates);
@@ -81,10 +81,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             mockRepository.ReplayAll();
 
-            var properties = new GrassCoverErosionInwardsInputContextDikeGeometryProperties();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -99,9 +98,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                     }
                 }
             };
+            var properties = new GrassCoverErosionInwardsInputContextDikeGeometryProperties();
 
             // Call
-            properties.Data = new GrassCoverErosionInwardsInputContext(calculation.InputParameters, calculation, failureMechanismMock, assessmentSectionMock);
+            properties.Data = new GrassCoverErosionInwardsInputContext(calculation.InputParameters, calculation, failureMechanism, assessmentSectionMock);
 
             // Assert
             var expectedCoordinates = new[]
@@ -124,16 +124,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
             mockRepository.ReplayAll();
 
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation();
             var input = new GrassCoverErosionInwardsInput();
 
             // Call
             var properties = new GrassCoverErosionInwardsInputContextDikeGeometryProperties
             {
-                Data = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock)
+                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionMock)
             };
 
             // Assert

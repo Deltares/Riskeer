@@ -61,15 +61,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
-            var inputMock = mockRepository.StrictMock<GrassCoverErosionInwardsInput>();
             mockRepository.ReplayAll();
 
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var input = new GrassCoverErosionInwardsInput();
             var properties = new GrassCoverErosionInwardsInputContextBreakWaterProperties();
 
             // Call
-            properties.Data = new GrassCoverErosionInwardsInputContext(inputMock, calculationMock, failureMechanismMock, assessmentSectionMock);
+            properties.Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionMock);
 
             // Assert
             Assert.IsFalse(properties.UseBreakWater);
@@ -86,16 +86,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             const int numberProperties = 3;
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
             mockRepository.ReplayAll();
 
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation();
             var input = new GrassCoverErosionInwardsInput();
-            input.Attach(observerMock);
             var properties = new GrassCoverErosionInwardsInputContextBreakWaterProperties
             {
-                Data = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock)
+                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionMock)
             };
+
+            input.Attach(observerMock);
 
             RoundedDouble newBreakWaterHeight = new RoundedDouble(2, 9);
             const BreakWaterType newBreakWaterType = BreakWaterType.Wall;
