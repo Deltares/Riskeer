@@ -55,6 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Assert
+            Assert.AreEqual("Dijkprofiel", properties.Name);
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, properties.Orientation.Value);
             Assert.AreSame(dikeProfile, properties.BreakWater.Data);
@@ -79,7 +80,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(6, dynamicProperties.Count);
+            Assert.AreEqual(7, dynamicProperties.Count);
+
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
+            Assert.IsNotNull(nameProperty);
+            Assert.IsTrue(nameProperty.IsReadOnly);
+            Assert.AreEqual("Algemeen", nameProperty.Category);
+            Assert.AreEqual("Naam", nameProperty.DisplayName);
+            Assert.AreEqual("Naam van het dijkprofiel.", nameProperty.Description);
 
             PropertyDescriptor orientationProperty = dynamicProperties[orientationPropertyIndex];
             Assert.IsNotNull(orientationProperty);
@@ -120,10 +128,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("De hoogte van de dijk [m+NAP].", dikeHeightProperty.Description);
         }
 
-        private const int orientationPropertyIndex = 0;
-        private const int breakWaterPropertyIndex = 1;
-        private const int foreshorePropertyIndex = 2;
-        private const int dikeGeometryPropertyIndex = 3;
-        private const int dikeHeightPropertyIndex = 4;
+        private const int namePropertyIndex = 0;
+        private const int orientationPropertyIndex = 1;
+        private const int breakWaterPropertyIndex = 2;
+        private const int foreshorePropertyIndex = 3;
+        private const int dikeGeometryPropertyIndex = 4;
+        private const int dikeHeightPropertyIndex = 5;
     }
 }

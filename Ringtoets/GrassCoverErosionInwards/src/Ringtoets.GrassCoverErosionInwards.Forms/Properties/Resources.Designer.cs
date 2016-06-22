@@ -296,6 +296,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Naam van het dijkprofiel..
+        /// </summary>
+        public static string DikeProfile_Name_Description {
+            get {
+                return ResourceManager.GetString("DikeProfile_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string DikeProfile_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("DikeProfile_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Moet het voorland worden gebruikt tijdens de berekening?.
         /// </summary>
         public static string Foreshore_UseForeshore_Description {
@@ -332,7 +350,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lijst met punten in coördinaten..
+        ///   Looks up a localized string similar to Lijst met punten in lokale coördinaten..
         /// </summary>
         public static string Geometry_Coordinates_Description {
             get {

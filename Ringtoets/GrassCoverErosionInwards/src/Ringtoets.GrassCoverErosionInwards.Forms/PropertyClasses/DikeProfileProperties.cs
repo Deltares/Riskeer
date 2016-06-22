@@ -34,11 +34,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class DikeProfileProperties : ObjectProperties<DikeProfile>
     {
-        private const int orientationPropertyIndex = 1;
-        private const int breakWaterPropertyIndex = 2;
-        private const int foreshorePropertyIndex = 3;
-        private const int dikeGeometryPropertyIndex = 4;
-        private const int dikeHeightPropertyIndex = 5;
+        private const int namePropertyIndex = 1;
+        private const int orientationPropertyIndex = 2;
+        private const int breakWaterPropertyIndex = 3;
+        private const int foreshorePropertyIndex = 4;
+        private const int dikeGeometryPropertyIndex = 5;
+        private const int dikeHeightPropertyIndex = 6;
+
+        [PropertyOrder(namePropertyIndex)]
+        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "DikeProfile_Name_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "DikeProfile_Name_Description")]
+        public string Name
+        {
+            get
+            {
+                return data.Name;
+            }
+        }
 
         [PropertyOrder(orientationPropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]

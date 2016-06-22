@@ -175,7 +175,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(coordinatesProperty);
             Assert.IsTrue(coordinatesProperty.IsReadOnly);
             Assert.AreEqual("Coördinaten [m]", coordinatesProperty.DisplayName);
-            Assert.AreEqual("Lijst met punten in coördinaten.", coordinatesProperty.Description);
+            Assert.AreEqual("Lijst met punten in lokale coördinaten.", coordinatesProperty.Description);
 
             mockRepository.VerifyAll();
         }

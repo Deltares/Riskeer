@@ -191,7 +191,7 @@
     <value>Dijkgeometrie</value>
   </data>
   <data name="Geometry_Coordinates_Description" xml:space="preserve">
-    <value>Lijst met punten in coördinaten.</value>
+    <value>Lijst met punten in lokale coördinaten.</value>
   </data>
   <data name="Geometry_Coordinates_DisplayName" xml:space="preserve">
     <value>Coördinaten [m]</value>
@@ -219,6 +219,12 @@
   </data>
   <data name="Foreshore_UseForeshore_DisplayName" xml:space="preserve">
     <value>Gebruik</value>
+  </data>
+  <data name="DikeProfile_Name_Description" xml:space="preserve">
+    <value>Naam van het dijkprofiel.</value>
+  </data>
+  <data name="DikeProfile_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
   </data>
   <data name="Orientation_Description" xml:space="preserve">
     <value>Oriëntatie van de dijk.</value>
