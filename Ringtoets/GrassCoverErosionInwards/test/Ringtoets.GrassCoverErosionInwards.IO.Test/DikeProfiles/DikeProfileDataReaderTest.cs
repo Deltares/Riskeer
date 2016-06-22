@@ -832,6 +832,30 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
+        [TestCase("faulty_dijkNotMonotonicallyIncreasingX_1.prfl", 20, "Dijk")]
+        [TestCase("faulty_dijkNotMonotonicallyIncreasingX_2.prfl", 18, "Dijk")]
+        [TestCase("faulty_voorlandNotMonotonicallyIncreasingX_1.prfl", 12, "Voorland")]
+        [TestCase("faulty_voorlandNotMonotonicallyIncreasingX_2.prfl", 11, "Voorland")]
+        public void ReadDikeProfileData_FaultyFileWithNotMonotonicallyIncreasingX_ThrowsCriticalFileReadException(
+            string faultyFileName, int expectedLineNumber, string expectedTypePrefix)
+        {
+            // Setup
+            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                               Path.Combine("DikeProfiles", faultyFileName));
+
+            var reader = new DikeProfileDataReader();
+
+            // Call
+            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
+
+            // Assert
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel {1}: {2}geometrie punten dienen X-coordinaten te hebben die monotoon strict toenemend zijn.",
+                                                   faultyFilePath, expectedLineNumber, expectedTypePrefix);
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
         [TestCase("faulty_unparsableVoorland.prfl", "oidushp9t8w uyp394hp 983 94")]
         [TestCase("faulty_unparsableVoorland_noValue1.prfl", "")]
         [TestCase("faulty_unparsableVoorland_noValue2.prfl", "")]

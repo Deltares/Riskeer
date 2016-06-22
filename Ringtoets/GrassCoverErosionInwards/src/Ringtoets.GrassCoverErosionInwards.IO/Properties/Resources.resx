@@ -252,4 +252,10 @@
   <data name="DikeProfileDataReader_ValidateNoPriorParameterDefinition_Parameter_0_already_defined" xml:space="preserve">
     <value>De parameter {0} is al eerder in het bestand gedefinieerd.</value>
   </data>
+  <data name="DikeProfileDataReader_ValidateDikePointsAreMonotonicallyIncreasing_Error_message" xml:space="preserve">
+    <value>Dijkgeometrie punten dienen X-coordinaten te hebben die monotoon strict toenemend zijn.</value>
+  </data>
+  <data name="DikeProfileDataReader_ValidateForeshorePointsAreMonotonicallyIncreasing_Error_message" xml:space="preserve">
+    <value>Voorlandgeometrie punten dienen X-coordinaten te hebben die monotoon strict toenemend zijn.</value>
+  </data>
 </root>

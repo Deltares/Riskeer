@@ -328,6 +328,25 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dijkgeometrie punten dienen X-coordinaten te hebben die monotoon strict toenemend zijn..
+        /// </summary>
+        internal static string DikeProfileDataReader_ValidateDikePointsAreMonotonicallyIncreasing_Error_message {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ValidateDikePointsAreMonotonicallyIncreasing_Error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voorlandgeometrie punten dienen X-coordinaten te hebben die monotoon strict toenemend zijn..
+        /// </summary>
+        internal static string DikeProfileDataReader_ValidateForeshorePointsAreMonotonicallyIncreasing_Error_message {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ValidateForeshorePointsAreMonotonicallyIncreasing_Error_mes" +
+                        "sage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De ingelezen Id ({0}) bevat spaties, welke niet zijn toegestaan..
         /// </summary>
         internal static string DikeProfileDataReader_ValidateId_Id_0_has_unsupported_white_space {

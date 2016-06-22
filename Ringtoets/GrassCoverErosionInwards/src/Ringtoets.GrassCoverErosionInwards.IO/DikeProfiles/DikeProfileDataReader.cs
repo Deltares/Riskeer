@@ -74,6 +74,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <item>A piece of text from the file cannot be converted in the expected variable type.</item>
         /// <item>A converted value is invalid.</item>
         /// <item>The file is incomplete.</item>
+        /// <item>A parameter is defined more then once.</item>
+        /// <item>The geometry points for either the dike or foreshore do not have monotonically
+        /// increasing X-coordinates.</item>
         /// </list></exception>
         public DikeProfileData ReadDikeProfileData(string filePath)
         {
@@ -613,9 +616,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <param name="lineNumber">The line number.</param>
         /// <returns><c>True</c> if the text matches a DIJK key-value pair and has been
         /// validated successfully; <c>false</c> otherwise.</returns>
-        /// <exception cref="CriticalFileReadException">The value after the DIJK key
-        /// does not represent a valid number or any of read the parameters in the following
-        /// data block is invalid or has already been defined.</exception>
+        /// <exception cref="CriticalFileReadException">When
+        /// <list type="bullet">
+        /// <item>The value after the DIJK key does not represent a valid number.</item>
+        /// <item>Any of read the parameters in the following data block is invalid.</item>
+        /// <item>The parameter has already been defined.</item>
+        /// <item>The X-coordinates of the dike are not monotonically increasing.</item>
+        /// </list></exception>
         private bool TryReadDikeRoughnessPoints(string text, DikeProfileData data, TextReader reader, ref int lineNumber)
         {
             Match dikeGeometryMatch = new Regex(@"^DIJK(\s+(?<dikegeometry>.+?)?)?\s*$").Match(text);
@@ -648,7 +655,15 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
 
                     RoughnessPoint roughnessPoint = ReadRoughnessPoint(text, lineNumber);
                     data.DikeGeometry[i] = roughnessPoint;
+
+                    if (i > 0)
+                    {
+                        ValidateDikePointsAreMonotonicallyIncreasing(roughnessPoint.Point,
+                                                                     data.DikeGeometry[i - 1].Point,
+                                                                     lineNumber);
+                    }
                 }
+
                 readParameters |= ParametersFoundInFile.DIJK;
                 return true;
             }
@@ -783,6 +798,22 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         }
 
         /// <summary>
+        /// Validates that two dike points are monotonically increasing.
+        /// </summary>
+        /// <param name="currentPoint">The current point.</param>
+        /// <param name="previousPoint">The previous point.</param>
+        /// <param name="lineNumber">The line number.</param>
+        /// <exception cref="CriticalFileReadException">When <paramref name="currentPoint"/>
+        /// has an X coordinate before or equal to that of <paramref name="previousPoint"/>.</exception>
+        private void ValidateDikePointsAreMonotonicallyIncreasing(Point2D currentPoint, Point2D previousPoint, int lineNumber)
+        {
+            if (currentPoint.X <= previousPoint.X)
+            {
+                throw CreateCriticalFileReadException(lineNumber, Resources.DikeProfileDataReader_ValidateDikePointsAreMonotonicallyIncreasing_Error_message);
+            }
+        }
+
+        /// <summary>
         /// Attempts to match the given text to a VOORLAND key-value pair. If a match is
         /// found, the data block is being read. If valid, the value is stored.
         /// </summary>
@@ -790,11 +821,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <param name="data">The data to be updated.</param>
         /// <param name="reader">The reader of the file.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <returns><c>True</c> if the text matches a VOORLAND key-value pair and has been
-        /// validated successfully; <c>false</c> otherwise.</returns>
-        /// <exception cref="CriticalFileReadException">The value after the VOORLAND key
-        /// does not represent a valid number or any of read the parameters in the following
-        /// data block is invalid or has already been defined.</exception>
+        /// <exception cref="CriticalFileReadException">When
+        /// <list type="bullet">
+        /// <item>The value after the VOORLAND key does not represent a valid number.</item>
+        /// <item>Any of read the parameters in the following data block is invalid.</item>
+        /// <item>The parameter has already been defined.</item>
+        /// <item>The X-coordinates of the foreshore are not monotonically increasing.</item>
+        /// </list></exception>
         private bool TryReadForeshoreRoughnessPoints(string text, DikeProfileData data, TextReader reader, ref int lineNumber)
         {
             Match foreshoreGeometryMatch = new Regex(@"^VOORLAND(\s+(?<foreshoregeometry>.+?)?)?\s*$").Match(text);
@@ -827,6 +860,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
 
                     RoughnessPoint roughnessPoint = ReadRoughnessPoint(text, lineNumber);
                     data.ForeshoreGeometry[i] = roughnessPoint;
+
+                    if (i > 0)
+                    {
+                        ValidateForeshorePointsAreMonotonicallyIncreasing(roughnessPoint.Point,
+                                                                          data.ForeshoreGeometry[i - 1].Point,
+                                                                          lineNumber);
+                    }
                 }
                 readParameters |= ParametersFoundInFile.VOORLAND;
                 return true;
@@ -876,6 +916,22 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                 string message = string.Format(Resources.DikeProfileDataReader_ReadDikeProfileData_ForeshoreCount_0_cannot_be_negative,
                                                numberOfElements);
                 throw CreateCriticalFileReadException(lineNumber, message);
+            }
+        }
+
+        /// <summary>
+        /// Validates that two foreshore points are monotonically increasing.
+        /// </summary>
+        /// <param name="currentPoint">The current point.</param>
+        /// <param name="previousPoint">The previous point.</param>
+        /// <param name="lineNumber">The line number.</param>
+        /// <exception cref="CriticalFileReadException">When <paramref name="currentPoint"/>
+        /// has an X coordinate before or equal to that of <paramref name="previousPoint"/>.</exception>
+        private void ValidateForeshorePointsAreMonotonicallyIncreasing(Point2D currentPoint, Point2D previousPoint, int lineNumber)
+        {
+            if (currentPoint.X <= previousPoint.X)
+            {
+                throw CreateCriticalFileReadException(lineNumber, Resources.DikeProfileDataReader_ValidateForeshorePointsAreMonotonicallyIncreasing_Error_message);
             }
         }
 
