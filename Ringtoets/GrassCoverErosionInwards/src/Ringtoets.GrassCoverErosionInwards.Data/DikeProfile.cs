@@ -32,8 +32,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// </summary>
     public class DikeProfile
     {
-        private readonly List<Point2D> foreshoreGeometry;
-        private readonly List<RoughnessPoint> dikeGeometry;
         private RoundedDouble orientation;
         private RoundedDouble dikeHeight;
 
@@ -53,8 +51,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
 
             Name = Resources.DikeProfile_DefaultName;
             Memo = "";
-            dikeGeometry = new List<RoughnessPoint>();
-            foreshoreGeometry = new List<Point2D>();
+            DikeGeometry = new List<RoughnessPoint>();
+            ForeshoreGeometry = new List<Point2D>();
             WorldReferencePoint = worldCoordinate;
         }
 
@@ -113,13 +111,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the geometry of the foreshore.
         /// </summary>
-        public IList<Point2D> ForeshoreGeometry
-        {
-            get
-            {
-                return foreshoreGeometry;
-            }
-        }
+        public List<Point2D> ForeshoreGeometry { get; set; }
 
         /// <summary>
         /// Gets the geometry of the dike with roughness data.
@@ -130,13 +122,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// and the succeeding <see cref="RoughnessPoint"/>. The roughness of the last
         /// point is irrelevant.
         /// </remarks>
-        public IList<RoughnessPoint> DikeGeometry
-        {
-            get
-            {
-                return dikeGeometry;
-            }
-        }
+        public List<RoughnessPoint> DikeGeometry { get; set; }
 
         /// <summary>
         /// Gets or sets the height of the dike [m+NAP].

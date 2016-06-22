@@ -119,7 +119,7 @@ namespace Core.Components.Gis.IO.Readers
         /// Adds shapefile feature attributes to a <see cref="MapFeature"/> as metadata.
         /// </summary>
         /// <param name="targetFeature">The <see cref="MapFeature"/> whose metadata will be updated.</param>
-        /// <param name="sourceFeatureIndex">The shapefile feature on which the <see cref="MapFeature"/> is based.</param>
+        /// <param name="sourceFeatureIndex">The index of the feature in the shapefile on which the <see cref="MapFeature"/> is based.</param>
         protected void CopyMetaDataIntoFeature(MapFeature targetFeature, int sourceFeatureIndex)
         {
             DataTable table = ShapeFile.GetAttributes(sourceFeatureIndex, 1);

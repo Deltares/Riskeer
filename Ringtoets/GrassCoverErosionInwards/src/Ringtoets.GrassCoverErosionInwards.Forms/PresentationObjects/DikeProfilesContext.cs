@@ -33,7 +33,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
     /// This is a presentation object for <see cref="ObservableList{T}"/> for elements
     /// of type <see cref="DikeProfile"/>.
     /// </summary>
-    public class DikeProfilesContext : WrappedObjectContextBase<ObservableList<DikeProfile>>
+    public class DikeProfilesContext : ObservableWrappedObjectContextBase<ObservableList<DikeProfile>>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DikeProfilesContext"/> class.

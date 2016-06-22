@@ -120,19 +120,62 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
+        [TestCase("Voorlanden_12-2_WithoutId.shp", "ID")]
+        [TestCase("Voorlanden_12-2_WithoutName.shp", "Naam")]
+        [TestCase("Voorlanden_12-2_WithoutX0.shp", "X0")]
+        public void Constructor_FileMissingAttributeColumn_ThrowCriticalFileReadException(
+            string fileName, string missingColumnName)
+        {
+            // Setup
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                          Path.Combine("DikeProfiles", fileName));
+
+            // Call
+            TestDelegate call = () => new DikeProfileLocationReader(invalidFilePath);
+
+            // Assert
+            var expectedMessage = string.Format("Het bestand heeft geen attribuut '{0}' welke vereist is om de locaties van de dijkprofielen in te lezen.",
+                                                missingColumnName);
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void GetLocationCount_FileWithFivePoints_GetFive()
+        {
+            // Setup
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                      Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
+
+            using (var reader = new DikeProfileLocationReader(validFilePath))
+            {
+                // Call
+                int count = reader.GetLocationCount;
+
+                // Assert
+                Assert.AreEqual(5, count);
+            }
+        }
+
+        [Test]
         [TestCase("Voorlanden 12-2.shp", 5)]
         [TestCase("Voorlanden_12-2_Alternative.shp", 9)]
-        public void GetDikeProfileLocations_FileWithNLocations_ReturnNDikeProfileLocations(
+        public void GetDikeProfileLocation_FileWithNLocations_GetNDikeProfileLocations(
             string fileName, int expectedNumberOfDikeProfileLocations)
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
                                       Path.Combine("DikeProfiles", fileName));
+            IList<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
 
             using (var reader = new DikeProfileLocationReader(validFilePath))
             {
                 // Call
-                IList<DikeProfileLocation> dikeProfileLocations = reader.GetDikeProfileLocations();
+                int count = reader.GetLocationCount;
+                for (int i = 0; i < count; i++)
+                {
+                    dikeProfileLocations.Add(reader.GetNextDikeProfileLocation());
+                }
 
                 // Assert
                 Assert.AreEqual(expectedNumberOfDikeProfileLocations, dikeProfileLocations.Count);
@@ -140,31 +183,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
-        [TestCase("Voorlanden_12-2_WithoutId.shp", "ID")]
-        [TestCase("Voorlanden_12-2_WithoutName.shp", "Naam")]
-        [TestCase("Voorlanden_12-2_WithoutX0.shp", "X0")]
-        public void GetDikeProfileLocations_FileMissingAttributeColumn_ThrowCriticalFileReadException(
-            string fileName, string missingColumnName)
-        {
-            // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                          Path.Combine("DikeProfiles", fileName));
-
-            using (var reader = new DikeProfileLocationReader(invalidFilePath))
-            {
-                // Call
-                TestDelegate call = () => reader.GetDikeProfileLocations();
-
-                // Assert
-                var expectedMessage = string.Format("Het bestand heeft geen attribuut '{0}' welke vereist is om de locaties van de dijkprofielen in te lezen.",
-                                                    missingColumnName);
-                string message = Assert.Throws<CriticalFileReadException>(call).Message;
-                Assert.AreEqual(expectedMessage, message);
-            }
-        }
-
-        [Test]
-        public void GetDikeProfileLocations_FileWithNullId_ThrowCriticalFileReadException()
+        public void GetDikeProfileLocation_FileWithNullId_ThrowCriticalFileReadException()
         {
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
@@ -173,7 +192,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             using (var reader = new DikeProfileLocationReader(invalidFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetDikeProfileLocations();
+                TestDelegate call = () => reader.GetNextDikeProfileLocation();
 
                 // Assert
                 var expectedMessage = "De locatie parameter 'Id' heeft geen waarde.";
@@ -183,7 +202,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void GetDikeProfileLocations_FileWithNullX0_ThrowCriticalFileReadException()
+        public void GetDikeProfileLocation_FileWithNullX0_ThrowCriticalFileReadException()
         {
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
@@ -192,7 +211,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             using (var reader = new DikeProfileLocationReader(invalidFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetDikeProfileLocations();
+                TestDelegate call = () => reader.GetNextDikeProfileLocation();
 
                 // Assert
                 var expectedMessage = "Het bestand heeft een attribuut 'X0' zonder geldige waarde, welke vereist is om de locaties van de dijkprofielen in te lezen.";
@@ -204,7 +223,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [Test]
         [TestCase("Voorlanden_12-2_IdWithSymbol.shp")]
         [TestCase("Voorlanden_12-2_IdWithWhitespace.shp")]
-        public void GetDikeProfileLocations_FileWithIllegalCharactersInId_ThrowCriticalFileReadException(string fileName)
+        public void GetDikeProfileLocation_FileWithIllegalCharactersInId_ThrowCriticalFileReadException(string fileName)
         {
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
@@ -213,7 +232,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             using (var reader = new DikeProfileLocationReader(invalidFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetDikeProfileLocations();
+                TestDelegate call = () => reader.GetNextDikeProfileLocation();
 
                 // Assert
                 var expectedMessage = "De locatie parameter 'Id' bevat meer dan letters en cijfers.";
@@ -223,117 +242,120 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void GetDikeProfileLocations_FileWithNullAsNameAttribute_GetLocations()
+        public void GetDikeProfileLocation_FileWithNullAsNameAttribute_GetLocations()
         {
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
                           Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyName.shp"));
+            IList<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
 
             using (var reader = new DikeProfileLocationReader(invalidFilePath))
             {
                 // Call
-                IEnumerable<DikeProfileLocation> locations = reader.GetDikeProfileLocations();
+                int count = reader.GetLocationCount;
+                for (int i = 0; i < count; i++)
+                {
+                    dikeProfileLocations.Add(reader.GetNextDikeProfileLocation());
+                }
 
                 // Assert
-                Assert.AreEqual(5, locations.Count());
+                Assert.AreEqual(5, dikeProfileLocations.Count);
             }
         }
 
         [Test]
-        public void GetDikeProfileLocations_FileWithFivePoints_GetFiveLocations()
+        public void GetDikeProfileLocation_FileWithFivePoints_GetFiveLocationsWithCorrectAtrributes()
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
                                       Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
+            IList<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
 
             using (var reader = new DikeProfileLocationReader(validFilePath))
             {
                 // Call
-                IEnumerable<DikeProfileLocation> locations = reader.GetDikeProfileLocations();
+                int count = reader.GetLocationCount;
+                for (int i = 0; i < count; i++)
+                {
+                    dikeProfileLocations.Add(reader.GetNextDikeProfileLocation());
+                }
 
                 // Assert
-                Assert.AreEqual(5, locations.Count());
+                Assert.AreEqual("profiel001", dikeProfileLocations[0].Id);
+                Assert.AreEqual("profiel002", dikeProfileLocations[1].Id);
+                Assert.AreEqual("profiel003", dikeProfileLocations[2].Id);
+                Assert.AreEqual("profiel004", dikeProfileLocations[3].Id);
+                Assert.AreEqual("profiel005", dikeProfileLocations[4].Id);
+
+                Assert.AreEqual("profiel001", dikeProfileLocations[0].Name);
+                Assert.AreEqual("profiel002", dikeProfileLocations[1].Name);
+                Assert.AreEqual("profiel003", dikeProfileLocations[2].Name);
+                Assert.AreEqual("profiel004", dikeProfileLocations[3].Name);
+                Assert.AreEqual("profiel005", dikeProfileLocations[4].Name);
+
+                Assert.AreEqual(-10.61273321, dikeProfileLocations[0].Offset);
+                Assert.AreEqual(-9.4408575, dikeProfileLocations[1].Offset);
+                Assert.AreEqual(8.25860742, dikeProfileLocations[2].Offset);
+                Assert.AreEqual(-17.93475471, dikeProfileLocations[3].Offset);
+                Assert.AreEqual(15.56165507, dikeProfileLocations[4].Offset);
             }
         }
 
         [Test]
-        public void GetDikeProfileLocations_FileWithFivePoints_GetFiveLocationsWithCorrectAtrributes()
+        public void GetDikeProfileLocation_FileWithFivePoints_GetFiveLocationsWithPoint2D()
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
                                       Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
+            IList<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
 
             using (var reader = new DikeProfileLocationReader(validFilePath))
             {
                 // Call
-                IList<DikeProfileLocation> locations = reader.GetDikeProfileLocations();
+                int count = reader.GetLocationCount;
+                for (int i = 0; i < count; i++)
+                {
+                    dikeProfileLocations.Add(reader.GetNextDikeProfileLocation());
+                }
 
                 // Assert
-                Assert.AreEqual("profiel001", locations[0].Id);
-                Assert.AreEqual("profiel002", locations[1].Id);
-                Assert.AreEqual("profiel003", locations[2].Id);
-                Assert.AreEqual("profiel004", locations[3].Id);
-                Assert.AreEqual("profiel005", locations[4].Id);
-
-                Assert.AreEqual("profiel001", locations[0].Name);
-                Assert.AreEqual("profiel002", locations[1].Name);
-                Assert.AreEqual("profiel003", locations[2].Name);
-                Assert.AreEqual("profiel004", locations[3].Name);
-                Assert.AreEqual("profiel005", locations[4].Name);
-
-                Assert.AreEqual(-10.61273321, locations[0].Offset);
-                Assert.AreEqual(-9.4408575, locations[1].Offset);
-                Assert.AreEqual(8.25860742, locations[2].Offset);
-                Assert.AreEqual(-17.93475471, locations[3].Offset);
-                Assert.AreEqual(15.56165507, locations[4].Offset);
+                Assert.IsInstanceOf(typeof(Point2D), dikeProfileLocations[0].Point);
+                Assert.IsInstanceOf(typeof(Point2D), dikeProfileLocations[1].Point);
+                Assert.IsInstanceOf(typeof(Point2D), dikeProfileLocations[2].Point);
+                Assert.IsInstanceOf(typeof(Point2D), dikeProfileLocations[3].Point);
+                Assert.IsInstanceOf(typeof(Point2D), dikeProfileLocations[4].Point);
             }
         }
 
         [Test]
-        public void GetDikeProfileLocations_FileWithFivePoints_GetFiveLocationsWithPoint2D()
+        public void GetDikeProfileLocation_FileWithFivePoints_GetFivePoint2DsWithCorrectCoordinates()
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
                                       Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
+            IList<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
 
             using (var reader = new DikeProfileLocationReader(validFilePath))
             {
                 // Call
-                IList<DikeProfileLocation> locations = reader.GetDikeProfileLocations();
+                int count = reader.GetLocationCount;
+                for (int i = 0; i < count; i++)
+                {
+                    dikeProfileLocations.Add(reader.GetNextDikeProfileLocation());
+                }
 
                 // Assert
-                Assert.IsInstanceOf(typeof(Point2D), locations[0].Point);
-                Assert.IsInstanceOf(typeof(Point2D), locations[1].Point);
-                Assert.IsInstanceOf(typeof(Point2D), locations[2].Point);
-                Assert.IsInstanceOf(typeof(Point2D), locations[3].Point);
-                Assert.IsInstanceOf(typeof(Point2D), locations[4].Point);
-            }
-        }
+                Assert.AreEqual(131223.21400000341, dikeProfileLocations[0].Point.X);
+                Assert.AreEqual(133854.31200000079, dikeProfileLocations[1].Point.X);
+                Assert.AreEqual(135561.0960000027, dikeProfileLocations[2].Point.X);
+                Assert.AreEqual(136432.12250000238, dikeProfileLocations[3].Point.X);
+                Assert.AreEqual(136039.49100000039, dikeProfileLocations[4].Point.X);
 
-        [Test]
-        public void GetDikeProfileLocations_FileWithFivePoints_GetFivePoint2DsWithCorrectCoordinates()
-        {
-            // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                      Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
-
-            using (var reader = new DikeProfileLocationReader(validFilePath))
-            {
-                // Call
-                IList<DikeProfileLocation> locations = reader.GetDikeProfileLocations();
-
-                // Assert
-                Assert.AreEqual(131223.21400000341, locations[0].Point.X);
-                Assert.AreEqual(133854.31200000079, locations[1].Point.X);
-                Assert.AreEqual(135561.0960000027, locations[2].Point.X);
-                Assert.AreEqual(136432.12250000238, locations[3].Point.X);
-                Assert.AreEqual(136039.49100000039, locations[4].Point.X);
-
-                Assert.AreEqual(548393.43800000288, locations[0].Point.Y);
-                Assert.AreEqual(545323.13749999879, locations[1].Point.Y);
-                Assert.AreEqual(541920.34149999847, locations[2].Point.Y);
-                Assert.AreEqual(538235.26300000318, locations[3].Point.Y);
-                Assert.AreEqual(533920.28050000477, locations[4].Point.Y);
+                Assert.AreEqual(548393.43800000288, dikeProfileLocations[0].Point.Y);
+                Assert.AreEqual(545323.13749999879, dikeProfileLocations[1].Point.Y);
+                Assert.AreEqual(541920.34149999847, dikeProfileLocations[2].Point.Y);
+                Assert.AreEqual(538235.26300000318, dikeProfileLocations[3].Point.Y);
+                Assert.AreEqual(533920.28050000477, dikeProfileLocations[4].Point.Y);
             }
         }
     }

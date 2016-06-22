@@ -51,7 +51,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// </summary>
         /// <param name="shapeFilePath">The shape file path.</param>
         /// <exception cref="ArgumentException"><paramref name="shapeFilePath"/> is invalid.</exception>
-        /// <exception cref="CriticalFileReadException"><paramref name="shapeFilePath"/> points to a file that does not exist.</exception>
+        /// <exception cref="CriticalFileReadException"><list type="Bullet">
+        /// <item><paramref name="shapeFilePath"/> points to a file that does not exist.</item>
+        /// <item><paramref name="shapeFilePath"/> does not only contain point features.</item>
+        /// <item><paramref name="shapeFilePath"/> does not contain all of the required attributes.</item>
+        /// </list></exception>
         public DikeProfileLocationReader(string shapeFilePath)
         {
             FileUtils.ValidateFilePath(shapeFilePath);
@@ -63,46 +67,47 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
             }
 
             pointsShapeFileReader = OpenPointsShapeFile(shapeFilePath);
+
+            CheckRequiredAttributePresence();
         }
 
         /// <summary>
-        /// Retrieve a <see cref="DikeProfileLocation"/> for each point feature in the shapefile.
+        /// Gets the number of dike profile locations present in the shapefile.
+        /// </summary>
+        public int GetLocationCount {
+            get
+            {
+                return pointsShapeFileReader.GetNumberOfLines();
+            }
+        }
+
+        /// <summary>
+        /// Retrieve a <see cref="DikeProfileLocation"/> based on the next point feature in the shapefile.
         /// </summary>
         /// <exception cref="CriticalFileReadException"><list type="bullet">
-        /// <item>Shapefile does not contain the required attributes</item>
-        /// <item>Shapefile misses values for required attributes</item>
-        /// <item>Shapefile has an attribute whose type is incorrect</item>
+        /// <item>The shapefile misses a value for a required attribute.</item>
+        /// <item>The shapefile has an attribute whose type is incorrect.</item>
         /// </list></exception>
-        /// <returns>A <see cref="List{T}"/> of <see cref="DikeProfileLocation"/> objects.</returns>
-        public IList<DikeProfileLocation> GetDikeProfileLocations()
+        /// <returns>A <see cref="DikeProfileLocation"/> based on the next point feature in the shapefile.</returns>
+        public DikeProfileLocation GetNextDikeProfileLocation()
         {
-            List<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
+            MapPointData mapPointData = (MapPointData) pointsShapeFileReader.ReadLine();
 
-            CheckRequiredAttributePresence();
+            IDictionary<string, object> attributes = mapPointData.Features.First().MetaData;
 
-            int dikeProfileLocationCount = pointsShapeFileReader.GetNumberOfLines();
-            for (int i = 0; i < dikeProfileLocationCount; i++)
+            var attributeIdValue = GetIdAttributeValue(attributes);
+            var attributeNameValue = GetNameAttributeValue(attributes);
+            var attributeX0Value = GetOffsetAttributeValue(attributes);
+
+            Point2D point = mapPointData.Features.First().MapGeometries.First().PointCollections.First().First();
+            try
             {
-                MapPointData mapPointData = (MapPointData) pointsShapeFileReader.ReadLine();
-
-                IDictionary<string, object> attributes = mapPointData.Features.First().MetaData;
-
-                var attributeIdValue = GetIdAttributeValue(attributes);
-                var attributeNameValue = GetNameAttributeValue(attributes);
-                var attributeX0Value = GetOffsetAttributeValue(attributes);
-
-                Point2D point = mapPointData.Features.First().MapGeometries.First().PointCollections.First().First();
-                try
-                {
-                    dikeProfileLocations.Add(new DikeProfileLocation(attributeIdValue, attributeNameValue, attributeX0Value, point));
-                }
-                catch (ArgumentException exception)
-                {
-                    throw new CriticalFileReadException(exception.Message);
-                }
+                return new DikeProfileLocation(attributeIdValue, attributeNameValue, attributeX0Value, point);
             }
-
-            return dikeProfileLocations;
+            catch (ArgumentException exception)
+            {
+                throw new CriticalFileReadException(exception.Message);
+            }
         }
 
         public void Dispose()
@@ -111,12 +116,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         }
 
         /// <summary>
-        /// Open a shapefile containing dike locations.
+        /// Open a shapefile containing dike locations as point features.
         /// </summary>
-        /// <param name="shapeFilePath">Filepath of the shapefile containing dike locations.</param>
+        /// <param name="shapeFilePath">Shape file path.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="shapeFilePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileReadException">Shapefile does not only contain point features.</exception>
         /// <returns>Return an instance of <see cref="PointShapeFileReader"/>.</returns>
-        private PointShapeFileReader OpenPointsShapeFile(string shapeFilePath)
+        private static PointShapeFileReader OpenPointsShapeFile(string shapeFilePath)
         {
             try
             {

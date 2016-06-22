@@ -411,7 +411,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fout bij het aanmaken van een dijk profiel locatie: offset is ongeldig..
+        ///   Looks up a localized string similar to Fout bij het aanmaken van een dijk profiel locatie: X0 is ongeldig..
         /// </summary>
         internal static string DikeProfileLocation_Constructor_Invalid_X0 {
             get {
