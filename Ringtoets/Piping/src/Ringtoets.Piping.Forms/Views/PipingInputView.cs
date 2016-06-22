@@ -127,6 +127,7 @@ namespace Ringtoets.Piping.Forms.Views
                 ditchDikeSidePointData = AddOrUpdateChartData(ditchDikeSidePointData, GetDitchDikeSideData());
                 dikeToeAtRiverPointData = AddOrUpdateChartData(dikeToeAtRiverPointData, GetDikeToeAtRiverData());
                 dikeToeAtPolderPointData = AddOrUpdateChartData(dikeToeAtPolderPointData, GetDikeToeAtPolderData());
+                exitPointData = AddOrUpdateChartData(exitPointData, GetExitPointChartData());
                 entryPointData = AddOrUpdateChartData(entryPointData, GetEntryPointChartData());
                 // Top most layer
             }
@@ -150,6 +151,15 @@ namespace Ringtoets.Piping.Forms.Views
                 return PipingChartDataFactory.CreateEmptyPointData(Resources.PipingInput_EntryPointL_DisplayName);
             }
             return PipingChartDataFactory.CreateEntryPoint(data.EntryPointL, data.SurfaceLine);
+        }
+
+        private ChartData GetExitPointChartData()
+        {
+            if (data == null || data.SurfaceLine == null)
+            {
+                return PipingChartDataFactory.CreateEmptyPointData(Resources.PipingInput_ExitPointL_DisplayName);
+            }
+            return PipingChartDataFactory.CreateExitPoint(data.ExitPointL, data.SurfaceLine);
         }
 
         private ChartData GetDitchPolderSideData()

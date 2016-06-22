@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="entryPoint"/>.
         /// </summary>
         /// <param name="entryPoint">The entry point for which to create <see cref="ChartData"/>.</param>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to get place the entry point on.</param>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to place the entry point on.</param>
         /// <returns><see cref="ChartData"/> based on the <paramref name="entryPoint"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="entryPoint"/> is <c>NaN</c>.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
@@ -107,11 +107,40 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="ditchPolderSide"/>.
+        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="exitPoint"/>.
         /// </summary>
-        /// <param name="ditchPolderSide">The <see cref="Point3D"/> for which to create <see cref="ChartData"/>.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="ditchPolderSide"/>.</returns>
-        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="ditchPolderSide"/> is <c>null</c>.</exception>
+        /// <param name="exitPoint">The entry point for which to create <see cref="ChartData"/>.</param>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to place the entry point on.</param>
+        /// <returns><see cref="ChartData"/> based on the <paramref name="exitPoint"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="exitPoint"/> is <c>NaN</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
+        public static ChartData CreateExitPoint(RoundedDouble exitPoint, RingtoetsPipingSurfaceLine surfaceLine)
+        {
+            if (double.IsNaN(exitPoint))
+            {
+                throw new ArgumentException("Exit point should have a value.", "exitPoint");
+            }
+
+            if (surfaceLine == null)
+            {
+                throw new ArgumentNullException("surfaceLine");
+            }
+
+            return new ChartPointData(new[]
+            {
+                new Point2D(exitPoint, surfaceLine.GetZAtL(exitPoint)),
+            }, Resources.PipingInput_ExitPointL_DisplayName)
+            {
+                Style = new ChartPointStyle(Color.Brown, 8, Color.Gray, 2, ChartPointSymbol.Triangle)
+            };
+        }
+
+        /// <summary>
+        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="surfaceLine.DitchPolderSide"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to place the ditch polder side on.</param>
+        /// <returns><see cref="ChartData"/> based on the <paramref name="surfaceLine.DitchPolderSide"/>.</returns>
+        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
         public static ChartData CreateDitchPolderSide(RingtoetsPipingSurfaceLine surfaceLine)
         {
             if (surfaceLine == null)
@@ -123,11 +152,11 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="bottomDitchPolderSide"/>.
+        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="surfaceLine.BottomDitchPolderSide"/>.
         /// </summary>
-        /// <param name="bottomDitchPolderSide">The <see cref="Point3D"/> for which to create <see cref="ChartData"/>.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="bottomDitchPolderSide"/>.</returns>
-        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="bottomDitchPolderSide"/> is <c>null</c>.</exception>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to place the bottom ditch polder side on.</param>
+        /// <returns><see cref="ChartData"/> based on the <paramref name="surfaceLine.BottomDitchPolderSide"/>.</returns>
+        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
         public static ChartData CreateBottomDitchPolderSide(RingtoetsPipingSurfaceLine surfaceLine)
         {
             if (surfaceLine == null)
@@ -139,11 +168,11 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="bottomDitchDikeSide"/>.
+        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="surfaceLine.BottomDitchDikeSide"/>.
         /// </summary>
-        /// <param name="bottomDitchDikeSide">The <see cref="Point3D"/> for which to create <see cref="ChartData"/>.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="bottomDitchDikeSide"/>.</returns>
-        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="bottomDitchDikeSide"/> is <c>null</c>.</exception>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to place the bottom ditch dike side on.</param>
+        /// <returns><see cref="ChartData"/> based on the <paramref name="surfaceLine.BottomDitchDikeSide"/>.</returns>
+        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
         public static ChartData CreateBottomDitchDikeSide(RingtoetsPipingSurfaceLine surfaceLine)
         {
             if (surfaceLine == null)
@@ -155,11 +184,11 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="ditchDikeSide"/>.
+        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="surfaceLine.DitchDikeSide"/>.
         /// </summary>
-        /// <param name="ditchDikeSide">The <see cref="Point3D"/> for which to create <see cref="ChartData"/>.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="ditchDikeSide"/>.</returns>
-        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="ditchDikeSide"/> is <c>null</c>.</exception>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to place the ditch dike side on.</param>
+        /// <returns><see cref="ChartData"/> based on the <paramref name="surfaceLine.DitchDikeSide"/>.</returns>
+        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
         public static ChartData CreateDitchDikeSide(RingtoetsPipingSurfaceLine surfaceLine)
         {
             if (surfaceLine == null)
@@ -171,11 +200,11 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="dikeToeAtRiver"/>.
+        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="surfaceLine.DikeToeAtRiver"/>.
         /// </summary>
-        /// <param name="dikeToeAtRiver">The <see cref="Point3D"/> for which to create <see cref="ChartData"/>.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="dikeToeAtRiver"/>.</returns>
-        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="dikeToeAtRiver"/> is <c>null</c>.</exception>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to place the dike toe at river on.</param>
+        /// <returns><see cref="ChartData"/> based on the <paramref name="surfaceLine.DikeToeAtRiver"/>.</returns>
+        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
         public static ChartData CreateDikeToeAtRiver(RingtoetsPipingSurfaceLine surfaceLine)
         {
             if (surfaceLine == null)
@@ -187,11 +216,11 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="dikeToeAtPolder"/>.
+        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="surfaceLine.DikeToeAtPolder"/>.
         /// </summary>
-        /// <param name="dikeToeAtPolder">The <see cref="Point3D"/> for which to create <see cref="ChartData"/>.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="dikeToeAtPolder"/>.</returns>
-        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="dikeToeAtPolder"/> is <c>null</c>.</exception>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to place the dike toe at polder on.</param>
+        /// <returns><see cref="ChartData"/> based on the <paramref name="surfaceLine.DikeToeAtPolder"/>.</returns>
+        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
         public static ChartData CreateDikeToeAtPolder(RingtoetsPipingSurfaceLine surfaceLine)
         {
             if (surfaceLine == null)

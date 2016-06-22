@@ -142,10 +142,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point3D(2.7, 2.0, 6.0)
             };
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Surface line name"
-            };
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(points);
 
             var input = new PipingInput(new GeneralPipingInput())
@@ -166,6 +163,61 @@ namespace Ringtoets.Piping.Forms.Test.Views
             AssertEqualPointCollections(new[] {entryPointOnLine}, chartPointData.Points);
 
             AssertEqualStyle(chartPointData.Style, Color.Blue, 8, Color.Gray, 2, ChartPointSymbol.Triangle);
+        }
+
+        [Test]
+        public void CreateExitPoint_ExitPointNaN_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate call = () => PipingChartDataFactory.CreateExitPoint((RoundedDouble)double.NaN, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("exitPoint", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateExitPoint_SurfaceLineNull_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate call = () => PipingChartDataFactory.CreateExitPoint((RoundedDouble)1.0, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("surfaceLine", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateExitPoint_GivenSurfaceLine_ReturnsChartDataWithDefaultStyling()
+        {
+            // Setup
+            var points = new[]
+            {
+                new Point3D(1.2, 2.3, 4.0),
+                new Point3D(2.7, 2.8, 6.0)
+            };
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(points);
+
+            var input = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = surfaceLine
+            };
+
+            // Call
+            ChartData data = PipingChartDataFactory.CreateExitPoint(input.ExitPointL, input.SurfaceLine);
+
+            // Assert
+            Assert.IsInstanceOf<ChartPointData>(data);
+            ChartPointData chartPointData = (ChartPointData)data;
+            Assert.AreEqual(1, chartPointData.Points.Count());
+            Assert.AreEqual(Resources.PipingInput_ExitPointL_DisplayName, chartPointData.Name);
+
+            Point2D exitPointOnLine = new Point2D(input.ExitPointL, surfaceLine.GetZAtL(input.ExitPointL));
+            AssertEqualPointCollections(new[] { exitPointOnLine }, chartPointData.Points);
+
+            AssertEqualStyle(chartPointData.Style, Color.Brown, 8, Color.Gray, 2, ChartPointSymbol.Triangle);
         }
 
         [Test]
