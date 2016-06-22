@@ -559,15 +559,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valideer alle berekeningen binnen deze berekeningsmap..
-        /// </summary>
-        public static string PipingCalculationGroup_Validate_All_ToolTip {
-            get {
-                return ResourceManager.GetString("PipingCalculationGroup_Validate_All_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Bijdrage [%].
         /// </summary>
         public static string PipingCalculationsView_InitializeDataGridView_Contribution {

@@ -50,11 +50,10 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Plugin;
 
-using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsDataResources = Ringtoets.Common.Data.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 {
@@ -328,9 +327,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             TestHelper.AssertContextMenuStripContainsItem(menu, 2, RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant, RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip, RingtoetsCommonFormsResources.Checkbox_ticked);
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, 4, RingtoetsFormsResources.Validate_all, RingtoetsFormsResources.Validate_all_ToolTip, RingtoetsFormsResources.ValidateAllIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 5, RingtoetsFormsResources.Calculate_all, RingtoetsFormsResources.Calculate_all_ToolTip, RingtoetsFormsResources.CalculateAllIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 6, RingtoetsFormsResources.Clear_all_output, RingtoetsFormsResources.Clear_all_output_ToolTip, RingtoetsFormsResources.ClearIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 4, RingtoetsCommonFormsResources.Validate_all, RingtoetsCommonFormsResources.FailureMechanism_Validate_all_ToolTip, RingtoetsCommonFormsResources.ValidateAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 5, RingtoetsCommonFormsResources.Calculate_all, RingtoetsCommonFormsResources.Calculate_all_ToolTip, RingtoetsCommonFormsResources.CalculateAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 6, RingtoetsCommonFormsResources.Clear_all_output, RingtoetsCommonFormsResources.Clear_all_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon);
 
             TestHelper.AssertContextMenuStripContainsItem(menu, 8, CoreCommonGuiResources.Import, CoreCommonGuiResources.Import_ToolTip, CoreCommonGuiResources.ImportIcon, false);
             TestHelper.AssertContextMenuStripContainsItem(menu, 9, CoreCommonGuiResources.Export, CoreCommonGuiResources.Export_ToolTip, CoreCommonGuiResources.ExportIcon, false);
@@ -418,7 +417,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 // Assert
                 ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
                 Assert.IsTrue(clearOutputItem.Enabled);
-                Assert.AreEqual(RingtoetsFormsResources.Clear_all_output_ToolTip, clearOutputItem.ToolTipText);
+                Assert.AreEqual(RingtoetsCommonFormsResources.Clear_all_output_ToolTip, clearOutputItem.ToolTipText);
             }
             mocks.VerifyAll(); // Expect no calls on arguments
         }
@@ -455,93 +454,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Assert.IsFalse(calculateItem.Enabled);
                 Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
                 Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
-            }
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void ContextMenuStrip_NoFailureMechanismSections_ContextMenuItemCalculateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput())
-                {
-                    Output = new TestPipingOutput()
-                };
-
-                var failureMechanism = new PipingFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-
-                // Call
-                ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
-
-                // Assert
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                              contextMenuCalculateAllIndex,
-                                                              RingtoetsCommonFormsResources.Calculate_all,
-                                                              RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
-                                                              RingtoetsCommonFormsResources.CalculateAllIcon,
-                                                              false);
-            }
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsSet_ContextMenuItemCalculateAllEnabled()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput())
-                {
-                    Output = new TestPipingOutput()
-                };
-
-                var failureMechanism = new PipingFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-                failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-                {
-                    new Point2D(0, 0)
-                }));
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-
-                // Call
-                ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
-
-                // Assert
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                              contextMenuCalculateAllIndex,
-                                                              RingtoetsCommonFormsResources.Calculate_all,
-                                                              RingtoetsCommonFormsResources.Calculate_all_ToolTip,
-                                                              RingtoetsCommonFormsResources.CalculateAllIcon);
             }
             mocks.VerifyAll(); // Expect no calls on arguments
         }

@@ -256,6 +256,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valideer alle berekeningen binnen deze berekeningsmap..
+        /// </summary>
+        public static string CalculationGroup_Validate_all_ToolTip {
+            get {
+                return ResourceManager.GetString("CalculationGroup_Validate_all_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resultaat.
         /// </summary>
         public static string CalculationOutput_DisplayName {
@@ -492,6 +501,15 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string FailureMechanism_Sections_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanism_Sections_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valideer alle berekeningen binnen dit toetsspoor..
+        /// </summary>
+        public static string FailureMechanism_Validate_all_ToolTip {
+            get {
+                return ResourceManager.GetString("FailureMechanism_Validate_all_ToolTip", resourceCulture);
             }
         }
         
@@ -951,20 +969,20 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valideer alle berekeningen binnen dit toetsspoor..
-        /// </summary>
-        public static string Validate_all_ToolTip {
-            get {
-                return ResourceManager.GetString("Validate_all_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Valideer de invoer voor deze berekening..
         /// </summary>
         public static string Validate_ToolTip {
             get {
                 return ResourceManager.GetString("Validate_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen berekeningen om te valideren..
+        /// </summary>
+        public static string ValidateAll_No_calculations_to_validate {
+            get {
+                return ResourceManager.GetString("ValidateAll_No_calculations_to_validate", resourceCulture);
             }
         }
         

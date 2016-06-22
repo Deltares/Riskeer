@@ -424,9 +424,6 @@
   <data name="PipingCalculationGroup_Add_PipingCalculation_ToolTip" xml:space="preserve">
     <value>Voeg een nieuwe berekening toe aan deze berekeningsmap.</value>
   </data>
-  <data name="PipingCalculationGroup_Validate_All_ToolTip" xml:space="preserve">
-    <value>Valideer alle berekeningen binnen deze berekeningsmap.</value>
-  </data>
   <data name="RingtoetsPipingSurfaceLine_BottomDitchDikeSide_Description" xml:space="preserve">
     <value>De locatie van het begin van de slootbodem wanneer deze van de kant van de dijk wordt benaderd.</value>
   </data>
