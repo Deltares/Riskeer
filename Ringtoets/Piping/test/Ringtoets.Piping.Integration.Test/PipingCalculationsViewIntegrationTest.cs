@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Integration.Test
                 // Change an input parameter of the second calculation and ensure the data grid view is updated
                 pipingCalculation2.InputParameters.ExitPointL = (RoundedDouble) 111.11;
                 pipingCalculation2.InputParameters.NotifyObservers();
-                Assert.AreEqual(string.Format("{0}", new RoundedDouble(3, 111.110)), dataGridView.Rows[1].Cells[exitPointLColumnIndex].FormattedValue);
+                Assert.AreEqual(string.Format("{0}", 111.11), dataGridView.Rows[1].Cells[exitPointLColumnIndex].FormattedValue);
             }
         }
 

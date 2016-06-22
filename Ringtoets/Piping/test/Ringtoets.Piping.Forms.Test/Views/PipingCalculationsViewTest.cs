@@ -283,8 +283,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("Location 1", cells[hydraulicBoundaryLocationsColumnIndex].FormattedValue);
             Assert.AreEqual(1.111.ToString(CultureInfo.CurrentCulture), cells[dampingFactorExitMeanColumnIndex].FormattedValue);
             Assert.AreEqual(2.222.ToString(CultureInfo.CurrentCulture), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
-            Assert.AreEqual(3.333.ToString(CultureInfo.CurrentCulture), cells[entryPointLColumnIndex].FormattedValue);
-            Assert.AreEqual(4.444.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
+            Assert.AreEqual(3.33.ToString(CultureInfo.CurrentCulture), cells[entryPointLColumnIndex].FormattedValue);
+            Assert.AreEqual(4.44.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(11, cells.Count);
@@ -296,8 +296,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("Location 2", cells[hydraulicBoundaryLocationsColumnIndex].FormattedValue);
             Assert.AreEqual(5.556.ToString(CultureInfo.CurrentCulture), cells[dampingFactorExitMeanColumnIndex].FormattedValue);
             Assert.AreEqual(6.667.ToString(CultureInfo.CurrentCulture), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
-            Assert.AreEqual(7.778.ToString(CultureInfo.CurrentCulture), cells[entryPointLColumnIndex].FormattedValue);
-            Assert.AreEqual(8.889.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
+            Assert.AreEqual(7.78.ToString(CultureInfo.CurrentCulture), cells[entryPointLColumnIndex].FormattedValue);
+            Assert.AreEqual(8.89.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
         }
 
         [Test]
