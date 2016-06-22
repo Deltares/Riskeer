@@ -29,7 +29,6 @@ using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
-
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
@@ -120,13 +119,7 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException("ditchPolderSide");
             }
 
-            return new ChartPointData(new[]
-            {
-                Point3DToPoint2D(ditchPolderSide)
-            }, PipingDataResources.CharacteristicPoint_DitchPolderSide)
-            {
-                Style = new ChartPointStyle(Color.Red, 8, Color.Transparent, 0, ChartPointSymbol.Circle)
-            };
+            return CreatePoint(ditchPolderSide, PipingDataResources.CharacteristicPoint_DitchPolderSide, new ChartPointStyle(Color.Red, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
         }
 
         /// <summary>
@@ -142,13 +135,7 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException("bottomDitchPolderSide");
             }
 
-            return new ChartPointData(new[]
-            {
-                Point3DToPoint2D(bottomDitchPolderSide)
-            }, PipingDataResources.CharacteristicPoint_BottomDitchPolderSide)
-            {
-                Style = new ChartPointStyle(Color.Blue, 8, Color.Transparent, 0, ChartPointSymbol.Circle)
-            };
+            return CreatePoint(bottomDitchPolderSide, PipingDataResources.CharacteristicPoint_BottomDitchPolderSide, new ChartPointStyle(Color.Blue, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
         }
 
         /// <summary>
@@ -164,13 +151,7 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException("bottomDitchDikeSide");
             }
 
-            return new ChartPointData(new[]
-            {
-                Point3DToPoint2D(bottomDitchDikeSide)
-            }, PipingDataResources.CharacteristicPoint_BottomDitchDikeSide)
-            {
-                Style = new ChartPointStyle(Color.Green, 8, Color.Transparent, 0, ChartPointSymbol.Circle)
-            };
+            return CreatePoint(bottomDitchDikeSide, PipingDataResources.CharacteristicPoint_BottomDitchDikeSide, new ChartPointStyle(Color.Green, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
         }
 
         /// <summary>
@@ -186,13 +167,7 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException("ditchDikeSide");
             }
 
-            return new ChartPointData(new[]
-            {
-                Point3DToPoint2D(ditchDikeSide)
-            }, PipingDataResources.CharacteristicPoint_DitchDikeSide)
-            {
-                Style = new ChartPointStyle(Color.Purple, 8, Color.Transparent, 0, ChartPointSymbol.Circle)
-            };
+            return CreatePoint(ditchDikeSide, PipingDataResources.CharacteristicPoint_DitchDikeSide, new ChartPointStyle(Color.Purple, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
         }
 
         /// <summary>
@@ -208,13 +183,7 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException("dikeToeAtRiver");
             }
 
-            return new ChartPointData(new[]
-            {
-                Point3DToPoint2D(dikeToeAtRiver)
-            }, PipingDataResources.CharacteristicPoint_DikeToeAtRiver)
-            {
-                Style = new ChartPointStyle(Color.Orange, 8, Color.Transparent, 0, ChartPointSymbol.Circle)
-            };
+            return CreatePoint(dikeToeAtRiver, PipingDataResources.CharacteristicPoint_DikeToeAtRiver, new ChartPointStyle(Color.Orange, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
         }
 
         /// <summary>
@@ -230,12 +199,17 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException("dikeToeAtPolder");
             }
 
+            return CreatePoint(dikeToeAtPolder, PipingDataResources.CharacteristicPoint_DikeToeAtPolder, new ChartPointStyle(Color.Silver, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
+        }
+
+        private static ChartData CreatePoint(Point3D dikeToeAtRiver, string name, ChartPointStyle style)
+        {
             return new ChartPointData(new[]
             {
-                Point3DToPoint2D(dikeToeAtPolder)
-            }, PipingDataResources.CharacteristicPoint_DikeToeAtPolder)
+                Point3DToPoint2D(dikeToeAtRiver)
+            }, name)
             {
-                Style = new ChartPointStyle(Color.Silver, 8, Color.Transparent, 0, ChartPointSymbol.Circle)
+                Style = style
             };
         }
 

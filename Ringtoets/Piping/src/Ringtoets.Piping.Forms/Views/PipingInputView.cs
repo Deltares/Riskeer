@@ -26,6 +26,8 @@ using Core.Components.Charting.Forms;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 
+using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
+
 namespace Ringtoets.Piping.Forms.Views
 {
     /// <summary>
@@ -39,6 +41,12 @@ namespace Ringtoets.Piping.Forms.Views
         private ChartData surfaceLineData;
         private ChartData entryPointData;
         private ChartData exitPointData;
+        private ChartData ditchPolderSideData;
+        private ChartData bottomDitchPolderSidePointData;
+        private ChartData bottomDitchDikeSidePointData;
+        private ChartData ditchDikeSidePointData;
+        private ChartData dikeToeAtRiverPointData;
+        private ChartData dikeToeAtPolderPointData;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingInputView"/>.
@@ -112,8 +120,14 @@ namespace Ringtoets.Piping.Forms.Views
             if (data != null)
             {
                 // Bottom most layer
+                ditchPolderSideData = AddOrUpdateChartData(ditchPolderSideData, GetDitchPolderSideData());
+                bottomDitchPolderSidePointData = AddOrUpdateChartData(bottomDitchPolderSidePointData, GetBottomDitchPolderSideData());
+                bottomDitchDikeSidePointData = AddOrUpdateChartData(bottomDitchDikeSidePointData, GetBottomDitchDikeSideData());
+                ditchDikeSidePointData = AddOrUpdateChartData(ditchDikeSidePointData, GetDitchDikeSideData());
+                dikeToeAtRiverPointData = AddOrUpdateChartData(dikeToeAtRiverPointData, GetDikeToeAtRiverData());
+                dikeToeAtPolderPointData = AddOrUpdateChartData(dikeToeAtPolderPointData, GetDikeToeAtPolderData());
                 entryPointData = AddOrUpdateChartData(entryPointData, GetEntryPointChartData());
-                surfaceLineData = AddOrUpdateChartData(surfaceLineData, GetSurfaceLineChartData());               
+                surfaceLineData = AddOrUpdateChartData(surfaceLineData, GetSurfaceLineChartData());
                 // Top most layer
             }
 
@@ -126,7 +140,6 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 return PipingChartDataFactory.CreateEmptyLineData(Resources.RingtoetsPipingSurfaceLine_DisplayName);
             }
-
             return PipingChartDataFactory.Create(data.SurfaceLine);
         }
 
@@ -137,6 +150,60 @@ namespace Ringtoets.Piping.Forms.Views
                 return PipingChartDataFactory.CreateEmptyPointData(Resources.PipingInput_EntryPointL_DisplayName);
             }
             return PipingChartDataFactory.CreateEntryPoint(data.EntryPointL, data.SurfaceLine);
+        }
+
+        private ChartData GetDitchPolderSideData()
+        {
+            if (data == null || data.SurfaceLine == null || data.SurfaceLine.DitchPolderSide == null)
+            {
+                return PipingChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DitchPolderSide);
+            }
+            return PipingChartDataFactory.CreateDitchPolderSide(data.SurfaceLine.DitchPolderSide);
+        }
+
+        private ChartData GetBottomDitchPolderSideData()
+        {
+            if (data == null || data.SurfaceLine == null || data.SurfaceLine.BottomDitchPolderSide == null)
+            {
+                return PipingChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_BottomDitchPolderSide);
+            }
+            return PipingChartDataFactory.CreateBottomDitchPolderSide(data.SurfaceLine.BottomDitchPolderSide);
+        }
+
+        private ChartData GetBottomDitchDikeSideData()
+        {
+            if (data == null || data.SurfaceLine == null || data.SurfaceLine.BottomDitchDikeSide == null)
+            {
+                return PipingChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_BottomDitchDikeSide);
+            }
+            return PipingChartDataFactory.CreateBottomDitchDikeSide(data.SurfaceLine.BottomDitchDikeSide);
+        }
+
+        private ChartData GetDitchDikeSideData()
+        {
+            if (data == null || data.SurfaceLine == null || data.SurfaceLine.DitchDikeSide == null)
+            {
+                return PipingChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DitchDikeSide);
+            }
+            return PipingChartDataFactory.CreateDitchDikeSide(data.SurfaceLine.DitchDikeSide);
+        }
+
+        private ChartData GetDikeToeAtRiverData()
+        {
+            if (data == null || data.SurfaceLine == null || data.SurfaceLine.DikeToeAtRiver == null)
+            {
+                return PipingChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DikeToeAtRiver);
+            }
+            return PipingChartDataFactory.CreateDikeToeAtRiver(data.SurfaceLine.DikeToeAtRiver);
+        }
+
+        private ChartData GetDikeToeAtPolderData()
+        {
+            if (data == null || data.SurfaceLine == null || data.SurfaceLine.DikeToeAtPolder == null)
+            {
+                return PipingChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DikeToeAtPolder);
+            }
+            return PipingChartDataFactory.CreateDikeToeAtPolder(data.SurfaceLine.DikeToeAtPolder);
         }
 
         private ChartData AddOrUpdateChartData(ChartData oldChartData, ChartData newChartData)
