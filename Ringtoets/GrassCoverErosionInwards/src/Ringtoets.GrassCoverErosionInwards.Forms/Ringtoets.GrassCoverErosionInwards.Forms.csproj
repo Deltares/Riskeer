@@ -32,10 +32,17 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Core.Components.Charting, Version=0.5.0.3670, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="Core.Components.OxyPlot, Version=0.5.0.3670, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="Core.Components.OxyPlot.Forms, Version=0.5.0.3670, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9" />
+    <Reference Include="OxyPlot.WindowsForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=245eacd6b5d2d338" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -83,6 +90,12 @@
     <Compile Include="Views\GrassCoverErosionInwardsDikeProfileSelectionView.Designer.cs">
       <DependentUpon>GrassCoverErosionInwardsDikeProfileSelectionView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\GrassCoverErosionInwardsInputView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\GrassCoverErosionInwardsInputView.Designer.cs">
+      <DependentUpon>GrassCoverErosionInwardsInputView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -113,6 +126,11 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Version\Core.Common.Version.csproj">
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
       <Name>Core.Common.Version</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting.Forms\Core.Components.Charting.Forms.csproj">
+      <Project>{2465CCA1-C505-4827-9454-4FD5FD9194CD}</Project>
+      <Name>Core.Components.Charting.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
@@ -147,6 +165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\GrassCoverErosionInwardsDikeProfileSelectionView.resx">
       <DependentUpon>GrassCoverErosionInwardsDikeProfileSelectionView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\GrassCoverErosionInwardsInputView.resx">
+      <DependentUpon>GrassCoverErosionInwardsInputView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

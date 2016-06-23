@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
@@ -31,6 +32,8 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
+
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.Views
@@ -47,6 +50,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IChartView>(view);
+                Assert.IsInstanceOf<IObserver>(view);
                 Assert.IsNotNull(view.Chart);
                 Assert.IsNull(view.Data);
             }
@@ -65,8 +69,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual(DockStyle.Fill, chartControl.Dock);
                 Assert.IsNotNull(chartControl.Data);
                 CollectionAssert.IsEmpty(chartControl.Data.List);
-                Assert.AreEqual(Resources.PipingInputView_Distance_DisplayName, chartControl.BottomAxisTitle);
-                Assert.AreEqual(Resources.PipingInputView_Height_DisplayName, chartControl.LeftAxisTitle);
+                Assert.AreEqual(RingtoetsCommonFormsResources.InputView_Distance_DisplayName, chartControl.BottomAxisTitle);
+                Assert.AreEqual(RingtoetsCommonFormsResources.InputView_Height_DisplayName, chartControl.LeftAxisTitle);
             }
         }
 

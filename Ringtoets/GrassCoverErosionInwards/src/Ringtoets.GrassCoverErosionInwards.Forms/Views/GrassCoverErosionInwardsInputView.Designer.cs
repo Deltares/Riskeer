@@ -1,8 +1,8 @@
 ﻿using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Forms.Views
+namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {
-    partial class PipingInputView
+    partial class GrassCoverErosionInwardsInputView
     {
         /// <summary> 
         /// Required designer variable.
@@ -35,7 +35,10 @@ namespace Ringtoets.Piping.Forms.Views
             // 
             // chartControl
             // 
+            this.chartControl.BottomAxisTitle = "L";
+            this.chartControl.ChartTitle = null;
             this.chartControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chartControl.LeftAxisTitle = "Hoogte";
             this.chartControl.Location = new System.Drawing.Point(0, 0);
             this.chartControl.MinimumSize = new System.Drawing.Size(50, 75);
             this.chartControl.Name = "chartControl";
@@ -45,12 +48,12 @@ namespace Ringtoets.Piping.Forms.Views
             this.chartControl.BottomAxisTitle = RingtoetsCommonFormsResources.InputView_Distance_DisplayName;
             this.chartControl.LeftAxisTitle = RingtoetsCommonFormsResources.InputView_Height_DisplayName;
             // 
-            // PipingInputView
+            // GrassCoverErosionInwardsInputView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.chartControl);
-            this.Name = "PipingInputView";
+            this.Name = "GrassCoverErosionInwardsInputView";
             this.ResumeLayout(false);
 
         }

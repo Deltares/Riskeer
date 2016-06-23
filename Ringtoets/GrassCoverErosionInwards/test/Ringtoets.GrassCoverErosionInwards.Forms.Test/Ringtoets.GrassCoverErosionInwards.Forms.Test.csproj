@@ -98,6 +98,7 @@
     <Compile Include="Views\GrassCoverErosionInwardsDikeProfileSelectionViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismSectionResultRowTest.cs" />
+    <Compile Include="Views\GrassCoverErosionInwardsInputViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -133,6 +134,18 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
       <Name>Core.Common.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting.Forms\Core.Components.Charting.Forms.csproj">
+      <Project>{2465CCA1-C505-4827-9454-4FD5FD9194CD}</Project>
+      <Name>Core.Components.Charting.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting\Core.Components.Charting.csproj">
+      <Project>{516ebc95-b8f2-428c-b7f6-733f01bf8fdd}</Project>
+      <Name>Core.Components.Charting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
+      <Project>{DADAA0A5-288C-49CB-9F08-337F16832C86}</Project>
+      <Name>Core.Components.OxyPlot.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
