@@ -231,5 +231,22 @@ namespace Core.Components.OxyPlot.Forms.Test
                 Assert.AreEqual(1, invalidated);
             }
         }
+
+        [Test]
+        public void ResetChartData_Always_SetsDataToNull()
+        {
+            // Setup
+            using (var chart = new ChartControl())
+            {
+                // Precondition
+                Assert.IsNotNull(chart.Data);
+
+                // Call
+                chart.ResetChartData();
+
+                // Assert
+                Assert.IsNull(chart.Data);
+            }
+        }
     }
 }

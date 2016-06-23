@@ -86,6 +86,13 @@ namespace Ringtoets.Piping.Forms.Views
 
                 DetachFromData();
                 data = newValue;
+
+                if (data == null)
+                {
+                    Chart.ResetChartData();
+                    return;
+                }
+
                 SetDataToChart();
                 AttachToData();
             }
@@ -107,12 +114,9 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void SetChartTitle()
         {
-            if (calculation != null)
-            {
-                chartControl.ChartTitle = calculation.Name;
-            }
+            chartControl.ChartTitle = calculation != null ? calculation.Name : string.Empty;
         }
-        
+
         private void SetDataToChart()
         {
             chartControl.Data.Name = Resources.PipingInputContext_NodeDisplayName;

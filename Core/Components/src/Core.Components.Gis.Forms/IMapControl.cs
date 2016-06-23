@@ -67,5 +67,10 @@ namespace Core.Components.Gis.Forms
         /// Toggles the visibility mouse coordinates of the <see cref="IMapControl"/>.
         /// </summary>
         void ToggleMouseCoordinatesVisibility();
+
+        /// <summary>
+        /// Sets the data of the map to <c>null</c>.
+        /// </summary>
+        void ResetMapData();
     }
 }

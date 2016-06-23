@@ -112,6 +112,11 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
+        public void ResetMapData()
+        {
+            Data = null;
+        }
+
         public void UpdateObserver()
         {
             DrawFeatureSets();

@@ -67,6 +67,13 @@ namespace Ringtoets.Piping.Forms.Views
 
                 DetachFromData();
                 data = newValue;
+
+                if (data == null)
+                {
+                    Map.ResetMapData();
+                    return;
+                }
+
                 SetDataToMap();
                 AttachToData();
             }

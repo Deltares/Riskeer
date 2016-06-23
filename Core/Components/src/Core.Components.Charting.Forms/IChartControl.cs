@@ -72,5 +72,10 @@ namespace Core.Components.Charting.Forms
         /// Zooms to a level so that everything is in view.
         /// </summary>
         void ZoomToAll();
+
+        /// <summary>
+        /// Sets the data of the chart to <c>null</c>.
+        /// </summary>
+        void ResetChartData();
     }
 }

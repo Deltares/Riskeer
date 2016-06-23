@@ -685,6 +685,23 @@ namespace Core.Components.DotSpatial.Forms.Test
             }
         }
 
+        [Test]
+        public void ResetMapData_Always_SetsDataToNull()
+        {
+            // Setup
+            using (var map = new MapControl())
+            {
+                // Precondition
+                Assert.IsNotNull(map.Data);
+
+                // Call
+                map.ResetMapData();
+
+                // Assert
+                Assert.IsNull(map.Data);
+            }
+        }
+
         private const double padding = 0.05;
 
         private static MapDataCollection GetTestData()

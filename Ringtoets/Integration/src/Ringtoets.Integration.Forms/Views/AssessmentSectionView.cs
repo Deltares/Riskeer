@@ -61,14 +61,34 @@ namespace Ringtoets.Integration.Forms.Views
             }
             set
             {
-                data = value as IAssessmentSection;
+                var newValue = value as IAssessmentSection;
 
-                if (data != null)
+                DetachFromData();
+                data = newValue;
+                if (data == null)
                 {
-                    data.Detach(this);
-                    SetDataToMap();
-                    data.Attach(this);
+                    Map.ResetMapData();
+                    return;
                 }
+
+                SetDataToMap();
+                AttachToData();
+            }
+        }
+
+        private void AttachToData()
+        {
+            if (data != null)
+            {
+                data.Attach(this);
+            }
+        }
+
+        private void DetachFromData()
+        {
+            if (data != null)
+            {
+                data.Detach(this);
             }
         }
 

@@ -104,6 +104,42 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        public void Data_SetToNull_ChartDataCleared()
+        {
+            // Setup
+            using (PipingInputView view = new PipingInputView())
+            {
+                var points = new[]
+                {
+                    new Point3D(1.2, 2.3, 4.0),
+                    new Point3D(2.7, 2.8, 6.0)
+                };
+
+                var surfaceLine = new RingtoetsPipingSurfaceLine
+                {
+                    Name = "Surface line name"
+                };
+                surfaceLine.SetGeometry(points);
+                var input = new PipingInput(new GeneralPipingInput())
+                {
+                    SurfaceLine = surfaceLine
+                };
+
+                view.Data = input;
+
+                // Precondition
+                Assert.AreEqual(9, view.Chart.Data.List.Count);
+
+                // Call
+                view.Data = null;
+
+                // Assert
+                Assert.IsNull(view.Data);
+                Assert.IsNull(view.Chart.Data);
+            }
+        }
+
+        [Test]
         public void Calculation_Always_SetsCalculationAndUpdateChartTitle()
         {
             // Setup
@@ -120,6 +156,32 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.AreSame(calculation, view.Calculation);
                 Assert.AreEqual(calculation.Name, view.Chart.ChartTitle);
+            }
+        }
+
+        [Test]
+        public void Calculation_SetToNull_ChartTitleCleared()
+        {
+            // Setup
+            using (PipingInputView view = new PipingInputView())
+            {
+                PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    Name = "Test name"
+                };
+
+                view.Calculation = calculation;
+
+                // Precondition
+                Assert.AreSame(calculation, view.Calculation);
+                Assert.AreEqual(calculation.Name, view.Chart.ChartTitle);
+
+                // Call
+                view.Calculation = null;
+
+                // Assert
+                Assert.IsNull(view.Calculation);
+                Assert.AreEqual(string.Empty, view.Chart.ChartTitle);
             }
         }
 
@@ -222,7 +284,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObservers_CalculationNotSet_ChartTitleNotUpdated()
+        public void UpdateObservers_CalculationNotSet_ChartTitleSetToEmptyString()
         {
             // Setup
             using (PipingInputView view = new PipingInputView())
@@ -237,7 +299,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 pipingInput.NotifyObservers();
 
                 // Assert
-                Assert.IsNull(view.Chart.ChartTitle);
+                Assert.AreEqual(string.Empty, view.Chart.ChartTitle);
             }
         }
 
@@ -322,7 +384,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Precondition
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
 
-                view.Calculation = null;
+                var calculation2 = new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    Name = initialName
+                };
+
+                view.Calculation = calculation2;
 
                 calculation.Name = updatedName;
 
@@ -479,53 +546,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual(input1, view.Data);
-            }
-        }
-
-        [Test]
-        public void UpdateObserver_DataNull_ChartDataNotUpdated()
-        {
-            // Setup
-            using (PipingInputView view = new PipingInputView())
-            {
-                var points = new[]
-                {
-                    new Point3D(1.2, 2.3, 4.0),
-                    new Point3D(2.7, 2.8, 6.0)
-                };
-
-                var surfaceLine = new RingtoetsPipingSurfaceLine
-                {
-                    Name = "Surface line name"
-                };
-                surfaceLine.SetGeometry(points);
-                var input = new PipingInput(new GeneralPipingInput())
-                {
-                    SurfaceLine = surfaceLine
-                };
-
-                view.Data = input;
-
-                ChartData dataBeforeUpdate = view.Chart.Data;
-
-                view.Data = null;
-
-                var points2 = new[]
-                {
-                    new Point3D(3.5, 2.3, 8.0),
-                    new Point3D(6.9, 2.0, 2.0)
-                };
-
-                var surfaceLine2 = new RingtoetsPipingSurfaceLine();
-                surfaceLine2.SetGeometry(points2);
-
-                input.SurfaceLine = surfaceLine2;
-
-                // Call
-                input.NotifyObservers();
-
-                // Assert
-                Assert.AreEqual(dataBeforeUpdate, view.Chart.Data);
             }
         }
 

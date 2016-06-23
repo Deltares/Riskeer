@@ -272,7 +272,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_DataNull_MapDataNotUpdated()
+        public void Data_SetToNull_MapDataCleared()
         {
             // Setup
             var view = new AssessmentSectionView();
@@ -292,22 +292,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             view.Data = assessmentSection;
 
-            MapData dataBeforeUpdate = map.Data;
-            view.Data = null;
-
-            assessmentSection.ReferenceLine = new ReferenceLine();
-            assessmentSection.ReferenceLine.SetGeometry(new List<Point2D>
-            {
-                new Point2D(2.0, 5.0),
-                new Point2D(34.0, 2.0)
-            });
+            // Precondition
+            Assert.AreEqual(assessmentSection, view.Data);
 
             // Call
-            assessmentSection.NotifyObservers();
+            view.Data = null;
 
             // Assert
             Assert.IsNull(view.Data);
-            Assert.AreEqual(dataBeforeUpdate, map.Data);
+            Assert.IsNull(view.Map.Data);
         }
 
         private class TestAssessmentSection : Observable, IAssessmentSection

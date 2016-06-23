@@ -210,6 +210,33 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        public void Data_SetToNull_MapDataCleared()
+        {
+            // Setup
+            using (var view = new PipingFailureMechanismView())
+            {
+                var mocks = new MockRepository();
+                var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+                mocks.ReplayAll();
+
+                var pipingFailureMechanism = new PipingFailureMechanism();
+                var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
+
+                view.Data = pipingContext;
+
+                // Precondition
+                Assert.AreEqual(7, view.Map.Data.List.Count);
+
+                // Call
+                view.Data = null;
+
+                // Assert
+                Assert.IsNull(view.Data);
+                Assert.IsNull(view.Map.Data);
+            }
+        }
+
+        [Test]
         public void UpdateObserver_HydraulicBoundaryDatabaseUpdated_SetNewMapData()
         {
             // Setup

@@ -159,6 +159,11 @@ namespace Core.Components.OxyPlot.Forms
             DrawSeries();
         }
 
+        public void ResetChartData()
+        {
+            Data = null;
+        }
+
         #endregion
     }
 }
