@@ -67,9 +67,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// </summary>
         /// <param name="filePath">The file path.</param>
         /// <returns>The read dike profile data.</returns>
+        /// <exception cref="ArgumentException">When <paramref name="filePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileReadException">When an error occurs like:
         /// <list type="bullet">
-        /// <item><paramref name="filePath"/> is invalid.</item>
         /// <item><paramref name="filePath"/> refers to a file that doesn't exist.</item>
         /// <item>A piece of text from the file cannot be converted in the expected variable type.</item>
         /// <item>A converted value is invalid.</item>

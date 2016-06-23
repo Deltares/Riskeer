@@ -43,7 +43,6 @@ using Ringtoets.GrassCoverErosionInwards.Forms;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
-using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.HydraRing.IO;
 
@@ -112,7 +111,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             yield return new TreeNodeInfo<DikeProfile>
             {
                 Text = dikeProfile => dikeProfile.Name,
-                Image = context => Resources.DikeProfile,
+                Image = context => GrassCoverErosionInwardsPluginResources.DikeProfile,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -128,6 +127,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
                 CalculationContextOnNodeRemoved);
+
+            yield return new TreeNodeInfo<GrassCoverErosionInwardsScenariosContext>
+            {
+                Text = context => "Scenarios",
+                Image = context => GrassCoverErosionInwardsPluginResources.ScenariosIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .Build()
+            };
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>>
             {
@@ -265,6 +273,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             return new ArrayList
             {
+                new GrassCoverErosionInwardsScenariosContext(),
                 new FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
             };
         }

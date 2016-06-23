@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="GrassCoverErosionInwardsDikeProfileSelectionDialogTest.cs" />
     <Compile Include="PresentationObjects\DikeProfilesContextTest.cs" />
+    <Compile Include="PresentationObjects\GrassCoverErosionInwardsScenariosContextTest.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -84,6 +85,7 @@
     <Compile Include="TreeNodeInfos\DikeProfileTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DikeProfilesContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassConverErosionInwardsScenariosContextTreeNodeInfosTest.cs" />
     <Compile Include="TreeNodeInfos\ProbabilityAssessmentOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyProbabilityAssessmentOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsCalculationContextTreeNodeInfoTest.cs" />
