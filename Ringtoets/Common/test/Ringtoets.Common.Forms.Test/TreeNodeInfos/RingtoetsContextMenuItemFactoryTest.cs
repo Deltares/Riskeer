@@ -678,13 +678,14 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
+            var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateCalculationItem(calculation, null, c => null);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateCalculationItem(calculationContext, null, c => null);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Validate, toolStripItem.Text);
@@ -700,15 +701,16 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
+            var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
 
             var errorMessage = "Additional check failed.";
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateCalculationItem(calculation, null, c => errorMessage);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateCalculationItem(calculationContext, null, c => errorMessage);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Validate, toolStripItem.Text);
@@ -724,13 +726,14 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
+            var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
 
             var counter = 0;
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateCalculationItem(calculation, calc => counter++, c => null);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateCalculationItem(calculationContext, calc => counter++, c => null);
 
             // Call
             toolStripItem.PerformClick();
@@ -909,7 +912,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => null);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Validate_all, toolStripItem.Text);
@@ -935,7 +938,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => null);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Validate_all, toolStripItem.Text);
@@ -967,7 +970,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var errorMessage = "Additional check failed.";
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Validate_all, toolStripItem.Text);
@@ -988,7 +991,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var errorMessage = "Additional check failed.";
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Validate_all, toolStripItem.Text);
@@ -1018,7 +1021,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
 
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, (group, context) => counter++, context => null);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(
+                calculationGroupContext, 
+                context => counter++, 
+                context => null);
 
             // Call
             toolStripItem.PerformClick();
@@ -1166,14 +1172,22 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         public void CreateValidateAllCalculationsInFailureMechanismItem_GeneralValidationTrueAdditionalValidationNull_CreatesEnabledItem()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculation = new TestCalculation();
             var failureMechanism = new TestFailureMechanism(new[]
             {
                 calculation
             });
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(failureMechanism, null, fm => null);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(
+                failureMechanismContext, 
+                null, 
+                fm => null);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Validate_all, toolStripItem.Text);
@@ -1186,10 +1200,15 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         public void CreateValidateAllCalculationsInFailureMechanismItem_GeneralValidationFalseAdditionalValidationNull_CreatesDisabledItemAndSetGeneralValidationMessageTooltip()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(failureMechanism, null, fm => null);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(failureMechanismContext, null, fm => null);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Validate_all, toolStripItem.Text);
@@ -1202,17 +1221,25 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         public void CreateValidateAllCalculationsInFailureMechanismItem_GeneralValidationTrueAdditionalValidationContainsMessage_CreatesDisabledItemAndSetMessageInTooltip()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculation = new TestCalculation();
 
             var failureMechanism = new TestFailureMechanism(new[]
             {
                 calculation
             });
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
 
             var errorMessage = "Additional check failed.";
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(failureMechanism, null, fm => errorMessage);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(
+                failureMechanismContext, 
+                null, 
+                fm => errorMessage);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Validate_all, toolStripItem.Text);
@@ -1225,12 +1252,20 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         public void CreateValidateAllCalculationsInFailureMechanismItem_GeneralValidationFalseAdditionalValidationContainsMessage_CreatesDisabledItemAndSetGeneralValidationMessageTooltip()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
 
             var errorMessage = "Additional check failed.";
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(failureMechanism, null, fm => errorMessage);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(
+                failureMechanismContext,
+                null, 
+                fm => errorMessage);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Validate_all, toolStripItem.Text);
@@ -1244,6 +1279,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var calculationMock = mocks.StrictMock<ICalculation>();
             mocks.ReplayAll();
 
@@ -1252,7 +1288,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 calculationMock
             });
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(failureMechanism, fm => counter++, fm => null);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(
+                failureMechanismContext, 
+                fm => counter++,
+                fm => null);
 
             // Call
             toolStripItem.PerformClick();

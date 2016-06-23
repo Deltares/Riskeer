@@ -667,10 +667,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
             var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
 
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
+            var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -678,7 +680,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateCalculationItem(calculation, null, c => null).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateCalculationItem(calculationContext, null, c => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -700,10 +702,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
             var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
 
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
+            var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -713,7 +717,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var errorMessage = "No valid data";
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateCalculationItem(calculation, null, c => errorMessage).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateCalculationItem(calculationContext, null, c => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -928,7 +932,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -963,7 +967,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1009,7 +1013,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var errorMessage = "Additional validation failed.";
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1047,7 +1051,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var errorMessage = "Additional validation failed.";
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1234,7 +1238,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInFailureMechanismItem(failureMechanism, null, fm => null).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInFailureMechanismItem(failureMechanismContext, null, fm => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1268,7 +1272,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInFailureMechanismItem(failureMechanism, null, fm => null).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInFailureMechanismItem(failureMechanismContext, null, fm => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1305,7 +1309,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var errorMessage = "Additional validation failed.";
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInFailureMechanismItem(failureMechanism, null, fm => errorMessage).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInFailureMechanismItem(
+                    failureMechanismContext, 
+                    null, 
+                    fm => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1342,7 +1349,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var errorMessage = "Additional validation failed.";
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInFailureMechanismItem(failureMechanism, null, fm => errorMessage).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInFailureMechanismItem(
+                    failureMechanismContext, 
+                    null, 
+                    fm => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);

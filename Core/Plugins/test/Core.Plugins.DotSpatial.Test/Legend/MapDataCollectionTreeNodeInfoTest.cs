@@ -199,10 +199,11 @@ namespace Core.Plugins.DotSpatial.Test.Legend
                 mapData1,
                 mapData2,
                 mapData3
-            }, "test data");observer.Expect(o => o.UpdateObserver());
+            }, "test data");
+            observer.Expect(o => o.UpdateObserver());
 
             mocks.ReplayAll();
-            
+
             using (var treeViewControl = new TreeViewControl())
             {
                 mapDataCollection.Attach(observer);

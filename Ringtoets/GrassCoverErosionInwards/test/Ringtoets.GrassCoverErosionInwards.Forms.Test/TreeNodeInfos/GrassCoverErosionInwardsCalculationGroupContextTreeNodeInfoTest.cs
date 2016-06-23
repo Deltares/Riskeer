@@ -177,6 +177,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
@@ -222,7 +223,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl);
 
                 // Assert
-                Assert.AreEqual(11, menu.Items.Count);
+                Assert.AreEqual(12, menu.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                               RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
                                                               RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
@@ -231,6 +232,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculationGroup_Add_Calculation,
                                                               RingtoetsFormsResources.CalculationGroup_Add_Calculation_Tooltip,
                                                               RingtoetsFormsResources.FailureMechanismIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
+                                                              RingtoetsFormsResources.Validate_all,
+                                                              RingtoetsFormsResources.ValidateAll_No_calculations_to_validate,
+                                                              RingtoetsFormsResources.ValidateIcon,
+                                                              false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
                                                               RingtoetsFormsResources.Calculate_all,
                                                               RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
@@ -266,6 +272,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -316,7 +323,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl);
 
                 // Assert
-                Assert.AreEqual(9, menu.Items.Count);
+                Assert.AreEqual(10, menu.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                               RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
@@ -327,6 +334,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculationGroup_Add_Calculation_Tooltip,
                                                               RingtoetsFormsResources.FailureMechanismIcon);
 
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
+                                                              RingtoetsFormsResources.Validate_all,
+                                                              RingtoetsFormsResources.ValidateAll_No_calculations_to_validate,
+                                                              RingtoetsFormsResources.ValidateAllIcon,
+                                                              false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexNestedGroup,
                                                               RingtoetsFormsResources.Calculate_all,
                                                               RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
@@ -612,6 +624,75 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculationGroup_Generate_Scenarios,
                                                               GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_ToolTip,
                                                               RingtoetsFormsResources.GenerateScenariosIcon);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnCalculateAllItem_ValidateAllChildCalculations()
+        {
+            // Setup
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0)
+            }));
+
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
+            {
+                Name = "A",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
+                    DikeProfile = new DikeProfile(new Point2D(0, 0))
+                }
+            });
+
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
+            {
+                Name = "B",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
+                    DikeProfile = new DikeProfile(new Point2D(0, 0))
+                }
+            });
+
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryDatabaseStub = mocks.Stub<HydraulicBoundaryDatabase>();
+            hydraulicBoundaryDatabaseStub.FilePath = validFilePath;
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
+
+            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = guiMock;
+                var contextMenu = info.ContextMenuStrip(groupContext, null, treeViewControl);
+
+                // Call
+                TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuValidateAllIndexRootGroup].PerformClick(), messages =>
+                {
+                    var messageList = messages.ToList();
+
+                    // Assert
+                    Assert.AreEqual(4, messageList.Count);
+                    StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
+                    StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
+                    StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[2]);
+                    StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[3]);
+                });
             }
             mocks.VerifyAll();
         }
@@ -1062,11 +1143,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         private const int contextMenuGenerateCalculationsIndexRootGroup = 1;
         private const int contextMenuAddCalculationGroupIndexRootGroup = 3;
         private const int contextMenuAddCalculationIndexRootGroup = 4;
-        private const int contextMenuCalculateAllIndexRootGroup = 6;
-        private const int contextMenuClearAllIndexRootGroup = 7;
+        private const int contextMenuValidateAllIndexRootGroup = 6;
+        private const int contextMenuCalculateAllIndexRootGroup = 7;
+        private const int contextMenuClearAllIndexRootGroup = 8;
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
         private const int contextMenuAddCalculationIndexNestedGroup = 1;
-        private const int contextMenuCalculateAllIndexNestedGroup = 3;
-        private const int contextMenuClearAllIndexNestedGroup = 4;
+        private const int contextMenuValidateAllIndexNestedGroup = 3;
+        private const int contextMenuCalculateAllIndexNestedGroup = 4;
+        private const int contextMenuClearAllIndexNestedGroup = 5;
     }
 }

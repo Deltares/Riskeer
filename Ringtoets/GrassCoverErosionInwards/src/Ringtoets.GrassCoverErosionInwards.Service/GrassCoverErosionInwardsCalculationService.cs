@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations for grass cover erosion inwards calculations.
     /// </summary>
-    internal static class GrassCoverErosionInwardsCalculationService
+    public static class GrassCoverErosionInwardsCalculationService
     {
         /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> for which to validate the values.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
         /// <returns><c>True</c>c> if <paramref name="calculation"/> has no validation errors; <c>False</c>c> otherwise.</returns>
-        internal static bool Validate(GrassCoverErosionInwardsCalculation calculation, IAssessmentSection assessmentSection)
+        public static bool Validate(GrassCoverErosionInwardsCalculation calculation, IAssessmentSection assessmentSection)
         {
             return CalculationServiceHelper.PerformValidation(calculation.Name, () => ValidateInput(calculation.InputParameters, assessmentSection));
         }

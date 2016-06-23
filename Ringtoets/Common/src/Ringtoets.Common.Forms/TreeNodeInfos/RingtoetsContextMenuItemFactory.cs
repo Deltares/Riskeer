@@ -135,27 +135,26 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// in a calculation group.
         /// </summary>
         /// <typeparam name="TCalculationContext">The type of the calculation group context.</typeparam>
-        /// <param name="calculationGroup">The calculation group to validate all calculations for.</param>
         /// <param name="calculationGroupContext">The calculation group context belonging to the calculation group.</param>
         /// <param name="validateAllAction">The action that validates all calculations.</param>
         /// <param name="enableMenuItemFunction">The function which determines whether the item should be enabled. If the 
-        /// item should not be enabled, then the reason for that should be returned by the function and will be shown as a tooltip. 
-        /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
+        ///     item should not be enabled, then the reason for that should be returned by the function and will be shown as a tooltip. 
+        ///     If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
         public static StrictContextMenuItem CreateValidateAllCalculationsInGroupItem<TCalculationContext>(
-            CalculationGroup calculationGroup,
-            TCalculationContext calculationGroupContext,
-            Action<CalculationGroup, TCalculationContext> validateAllAction,
+            TCalculationContext calculationGroupContext, 
+            Action<TCalculationContext> validateAllAction, 
             Func<TCalculationContext, string> enableMenuItemFunction)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
+            CalculationGroup calculationGroup = calculationGroupContext.WrappedData;
             var menuItem = new StrictContextMenuItem(
                 Resources.Validate_all,
                 Resources.CalculationGroup_Validate_all_ToolTip,
                 Resources.ValidateAllIcon,
-                (o, args) => validateAllAction(calculationGroup, calculationGroupContext));
+                (o, args) => validateAllAction(calculationGroupContext));
 
-            if (!calculationGroupContext.WrappedData.GetCalculations().Any())
+            if (!calculationGroup.GetCalculations().Any())
             {
                 menuItem.Enabled = false;
                 menuItem.ToolTipText = Resources.ValidateAll_No_calculations_to_validate;
@@ -201,18 +200,18 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of validating the input of a calculation.
         /// </summary>
-        /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
-        /// <param name="calculation">The calculation to validate.</param>
+        /// <typeparam name="TCalculationContext">The type of the calculation context.</typeparam>
+        /// <param name="calculation">The context containing the calculation to validate.</param>
         /// <param name="validateAction">The action that performs the validation.</param>
         /// <param name="enableMenuItemFunction">The function which determines whether the item should be enabled. If the 
         /// item should not be enabled, then the reason for that should be returned by the function and will be shown as a tooltip. 
         /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateValidateCalculationItem<TCalculation>(
-            TCalculation calculation,
-            Action<TCalculation> validateAction,
-            Func<TCalculation, string> enableMenuItemFunction)
-            where TCalculation : ICalculation
+        public static StrictContextMenuItem CreateValidateCalculationItem<TCalculationContext>(
+            TCalculationContext calculation,
+            Action<TCalculationContext> validateAction,
+            Func<TCalculationContext, string> enableMenuItemFunction)
+            where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
         {
             var menuItem = new StrictContextMenuItem(
                 Resources.Validate,
@@ -306,18 +305,18 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of performing all calculations in a failure mechanism.
         /// </summary>
-        /// <typeparam name="TFailureMechanism">The type of the failure mechanism.</typeparam>
+        /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism.</typeparam>
         /// <param name="failureMechanism">The failure mechanism to validate the calculations of.</param>
         /// <param name="validateAllAction">The action that validates all calculations.</param>
         /// <param name="enableMenuItemFunction">The function which determines whether the item should be enabled. If the 
         /// item should not be enabled, then the reason for that should be returned by the function and will be shown as a tooltip. 
         /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateValidateAllCalculationsInFailureMechanismItem<TFailureMechanism>(
-            TFailureMechanism failureMechanism,
-            Action<TFailureMechanism> validateAllAction,
-            Func<TFailureMechanism, string> enableMenuItemFunction)
-            where TFailureMechanism : IFailureMechanism
+        public static StrictContextMenuItem CreateValidateAllCalculationsInFailureMechanismItem<TFailureMechanismContext>(
+            TFailureMechanismContext failureMechanism,
+            Action<TFailureMechanismContext> validateAllAction,
+            Func<TFailureMechanismContext, string> enableMenuItemFunction)
+            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
             var menuItem = new StrictContextMenuItem(
                 Resources.Validate_all,
@@ -325,7 +324,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 Resources.ValidateAllIcon,
                 (o, args) => validateAllAction(failureMechanism));
 
-            if (!failureMechanism.Calculations.Any())
+            if (!failureMechanism.WrappedData.Calculations.Any())
             {
                 menuItem.Enabled = false;
                 menuItem.ToolTipText = Resources.ValidateAll_No_calculations_to_validate;

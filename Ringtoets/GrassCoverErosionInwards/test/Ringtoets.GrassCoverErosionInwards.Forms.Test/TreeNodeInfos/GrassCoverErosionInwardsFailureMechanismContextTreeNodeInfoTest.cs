@@ -179,6 +179,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
@@ -257,12 +258,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 var menu = info.ContextMenuStrip(failureMechanismContext, assessmentSectionMock, treeView);
 
                 // Assert
-                Assert.AreEqual(8, menu.Items.Count);
+                Assert.AreEqual(9, menu.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
                                                               RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
                                                               RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
                                                               RingtoetsCommonFormsResources.Checkbox_ticked);
+
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
+                                                              RingtoetsCommonFormsResources.Validate_all,
+                                                              RingtoetsCommonFormsResources.ValidateAll_No_calculations_to_validate,
+                                                              RingtoetsCommonFormsResources.ValidateAllIcon,
+                                                              false);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                               RingtoetsCommonFormsResources.Calculate_all,
@@ -420,8 +427,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             }));
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(null);
+            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
 
             var nodeData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
 
@@ -532,6 +538,160 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_NoFailureMechanismSections_ContextMenuItemValidateAllDisabledAndTooltipSet()
+        {
+            // Setup
+            var guiMock = mocksRepository.StrictMock<IGui>();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
+            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+
+            var nodeData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
+
+            var treeViewControlMock = mocksRepository.StrictMock<TreeViewControl>();
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            guiMock.Expect(g => g.Get(nodeData, treeViewControlMock)).Return(menuBuilder);
+
+            mocksRepository.ReplayAll();
+
+            plugin.Gui = guiMock;
+
+            // Call
+            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
+                                                          RingtoetsFormsResources.Validate_all,
+                                                          RingtoetsFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                          RingtoetsFormsResources.ValidateIcon,
+                                                          false);
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemValidateAllDisabledAndTooltipSet()
+        {
+            // Setup
+            var guiMock = mocksRepository.StrictMock<IGui>();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
+
+            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
+
+            var nodeData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
+
+            var treeViewControlMock = mocksRepository.StrictMock<TreeViewControl>();
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            guiMock.Expect(g => g.Get(nodeData, treeViewControlMock)).Return(menuBuilder);
+
+            mocksRepository.ReplayAll();
+
+            plugin.Gui = guiMock;
+
+            // Call
+            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndex,
+                                                          RingtoetsFormsResources.Validate_all,
+                                                          RingtoetsFormsResources.GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                          RingtoetsFormsResources.ValidateAllIcon,
+                                                          false);
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismSectionsSetHydraulicBoundaryDatabaseNotValid_ContextMenuItemValidateAllDisabledAndTooltipSet()
+        {
+            // Setup
+            var guiMock = mocksRepository.StrictMock<IGui>();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
+
+            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+            assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+
+            var nodeData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
+
+            var treeViewControlMock = mocksRepository.StrictMock<TreeViewControl>();
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            guiMock.Expect(g => g.Get(nodeData, treeViewControlMock)).Return(menuBuilder);
+
+            mocksRepository.ReplayAll();
+
+            plugin.Gui = guiMock;
+
+            // Call
+            ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+
+            // Assert
+            ToolStripItem contextMenuItem = contextMenu.Items[contextMenuValidateAllIndex];
+
+            Assert.AreEqual(RingtoetsFormsResources.Validate_all, contextMenuItem.Text);
+            StringAssert.Contains(string.Format(RingtoetsFormsResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, contextMenuItem.Image);
+            Assert.IsFalse(contextMenuItem.Enabled);
+
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismSectionsAndHydraulicDatabaseSet_ContextMenuItemValidateAllEnabled()
+        {
+            // Setup
+            var guiMock = mocksRepository.StrictMock<IGui>();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
+
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "1.0"
+            };
+
+            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+            assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
+            var nodeData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
+
+            var treeViewControlMock = mocksRepository.StrictMock<TreeViewControl>();
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            guiMock.Expect(g => g.Get(nodeData, treeViewControlMock)).Return(menuBuilder);
+
+            mocksRepository.ReplayAll();
+
+            plugin.Gui = guiMock;
+
+            // Call
+            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
+                                                          RingtoetsFormsResources.Validate_all,
+                                                          RingtoetsFormsResources.FailureMechanism_Validate_all_ToolTip,
+                                                          RingtoetsFormsResources.ValidateAllIcon);
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
         public void ContextMenuStrip_ClickOnCalculateAllItem_ScheduleAllChildCalculations()
         {
             // Setup
@@ -612,9 +772,76 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             mocksRepository.VerifyAll();
         }
 
+        [Test]
+        public void ContextMenuStrip_ClickOnValidateAllItem_ValidateAllChildCalculations()
+        {
+            // Setup
+            var guiMock = mocksRepository.StrictMock<IGui>();
+            var treeViewControlMock = mocksRepository.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var section = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0)
+            });
+            failureMechanism.AddSection(section);
+
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
+            {
+                Name = "A",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
+                    DikeProfile = new DikeProfile(new Point2D(0, 0))
+                }
+            });
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
+            {
+                Name = "B",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
+                    DikeProfile = new DikeProfile(new Point2D(0, 0))
+                }
+            });
+
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryDatabaseStub = mocksRepository.Stub<HydraulicBoundaryDatabase>();
+            hydraulicBoundaryDatabaseStub.FilePath = validFilePath;
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
+            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            guiMock.Expect(g => g.Get(failureMechanismContext, treeViewControlMock)).Return(menuBuilder);
+
+            mocksRepository.ReplayAll();
+
+            plugin.Gui = guiMock;
+            var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControlMock);
+
+            // Call
+            TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuValidateAllIndex].PerformClick(), messages =>
+            {
+                var messageList = messages.ToList();
+
+                // Assert
+                Assert.AreEqual(4, messageList.Count);
+                StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
+                StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
+                StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[2]);
+                StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[3]);
+            });
+
+            mocksRepository.VerifyAll();
+        }
+
         private const int contextMenuRelevancyIndexWhenRelevant = 1;
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
-        private const int contextMenuCalculateAllIndex = 3;
-        private const int contextMenuClearAllIndex = 4;
+        private const int contextMenuValidateAllIndex = 3;
+        private const int contextMenuCalculateAllIndex = 4;
+        private const int contextMenuClearAllIndex = 5;
     }
 }

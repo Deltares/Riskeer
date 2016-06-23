@@ -370,7 +370,9 @@ namespace Ringtoets.Piping.Plugin
                           .AddSeparator()
                           .AddToggleRelevancyOfFailureMechanismItem(pipingFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddValidateAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext.WrappedData, fm => ValidateAll(fm.Calculations.OfType<PipingCalculation>()))
+                          .AddValidateAllCalculationsInFailureMechanismItem(
+                            pipingFailureMechanismContext, 
+                            fm => ValidateAll(fm.WrappedData.Calculations.OfType<PipingCalculation>()))
                           .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll)
                           .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
                           .AddSeparator()
@@ -453,7 +455,7 @@ namespace Ringtoets.Piping.Plugin
 
             PipingCalculation calculation = nodeData.WrappedData;
 
-            return builder.AddValidateCalculationItem(calculation, c => PipingCalculationService.Validate(c))
+            return builder.AddValidateCalculationItem(nodeData, c => PipingCalculationService.Validate(c.WrappedData))
                           .AddPerformCalculationItem(calculation, nodeData, PerformCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
@@ -574,7 +576,7 @@ namespace Ringtoets.Piping.Plugin
             builder.AddCreateCalculationGroupItem(group)
                    .AddCreateCalculationItem(nodeData, AddCalculationScenario)
                    .AddSeparator()
-                   .AddValidateAllCalculationsInGroupItem(group, nodeData, (g, c) => ValidateAll(g.GetCalculations().OfType<PipingCalculation>()))
+                   .AddValidateAllCalculationsInGroupItem(nodeData, c => ValidateAll(c.WrappedData.GetCalculations().OfType<PipingCalculation>()))
                    .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll)
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddSeparator();
