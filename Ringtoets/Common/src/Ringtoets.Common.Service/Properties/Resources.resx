@@ -120,6 +120,9 @@
   <data name="CalculationService_ValidateInput_No_hydraulic_boundary_location_selected" xml:space="preserve">
     <value>Er is geen hydraulische randvoorwaarde locatie geselecteerd.</value>
   </data>
+  <data name="CalculationService_ValidateInput_No_dike_profile_selected" xml:space="preserve">
+    <value>Er is geen dijkprofiel geselecteerd.</value>
+  </data>
   <data name="Calculation_Subject_0_ended_Time_1_" xml:space="preserve">
     <value>Berekening van '{0}' beëindigd om: {1}</value>
   </data>

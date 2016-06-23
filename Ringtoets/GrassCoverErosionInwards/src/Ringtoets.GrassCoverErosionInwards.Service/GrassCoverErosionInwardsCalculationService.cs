@@ -130,6 +130,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
 
+            if (inputParameters.DikeProfile == null)
+            {
+                validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_dike_profile_selected);
+            }
+
             if (!string.IsNullOrEmpty(validationProblem))
             {
                 validationResult.Add(validationProblem);

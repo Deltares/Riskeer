@@ -45,7 +45,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
         [Test]
-        public void Run_InvalidGrassCoverErosionInwardsCalculation_LogValidationStartAndEndWithError()
+        public void Run_InvalidGrassCoverErosionInwardsCalculationNoHydraulicBoundaryDatabase_LogValidationStartAndEndWithError()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -57,7 +57,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = CreateDikeProfile()
+                }
+            };
 
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, "", assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
@@ -94,7 +100,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = CreateDikeProfile()
+                }
+            };
 
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, "", assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
@@ -115,7 +127,45 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Run_ValidGrassCoverErosionInwardsCalculationn_PerformGrassCoverErosionInwardsValidationAndCalculationAndLogStartAndEnd()
+        public void Run_InvalidGrassCoverErosionInwardsCalculationNoDikeProfile_LogValidationStartAndEndWithError()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            assessmentSection.GrassCoverErosionInwards.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                }
+            };
+
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+
+            // Call
+            Action call = () => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen dijkprofiel geselecteerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+            });
+            Assert.AreEqual(ActivityState.Failed, activity.State);
+        }
+
+        [Test]
+        public void Run_ValidGrassCoverErosionInwardsCalculation_PerformGrassCoverErosionInwardsValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -175,7 +225,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1)
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1),
+                    DikeProfile = CreateDikeProfile()
                 }
             };
 
@@ -299,7 +350,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         {
             return new DikeProfile(new Point2D(0, 0))
             {
-                Orientation = (RoundedDouble)5.5,
+                Orientation = (RoundedDouble) 5.5,
                 BreakWater = new BreakWater(BreakWaterType.Dam, 10.0),
                 DikeGeometry =
                 {
@@ -311,7 +362,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                     new Point2D(3.3, 4.4),
                     new Point2D(5.5, 6.6)
                 },
-                DikeHeight = (RoundedDouble)10
+                DikeHeight = (RoundedDouble) 10
             };
         }
     }
