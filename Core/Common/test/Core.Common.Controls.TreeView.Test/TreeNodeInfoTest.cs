@@ -228,7 +228,6 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
 
             mocks.ReplayAll();
 
@@ -274,11 +273,17 @@ namespace Core.Common.Controls.TreeView.Test
             TreeNodeInfo treeNodeInfo = genericTreeNodeInfo;
 
             // Assert
+            using (var treeViewControl = new TreeViewControl())
+            {
+                Assert.AreEqual(1, treeNodeInfo.ContextMenuStrip(0, 1, treeViewControl).Items.Count);
+                treeNodeInfo.OnDrop(0, 1, 2, 3, treeViewControl);
+                Assert.AreEqual(1, onDropCounter);
+            }
+
             Assert.AreEqual(typeof(int), treeNodeInfo.TagType);
             Assert.AreEqual("text", treeNodeInfo.Text(0));
             Assert.AreEqual(Color.Azure, treeNodeInfo.ForeColor(0));
             Assert.AreEqual(16, treeNodeInfo.Image(0).Height);
-            Assert.AreEqual(1, treeNodeInfo.ContextMenuStrip(0, 1, treeViewControl).Items.Count);
             Assert.IsTrue(treeNodeInfo.EnsureVisibleOnCreate(0, 1));
             Assert.AreEqual(1, treeNodeInfo.ChildNodeObjects(0).Length);
             Assert.IsTrue(treeNodeInfo.CanRename(0, 1));
@@ -297,9 +302,6 @@ namespace Core.Common.Controls.TreeView.Test
 
             treeNodeInfo.OnNodeChecked(0, 1);
             Assert.AreEqual(1, onNodeCheckedCounter);
-
-            treeNodeInfo.OnDrop(0, 1, 2, 3, treeViewControl);
-            Assert.AreEqual(1, onDropCounter);
         }
     }
 }

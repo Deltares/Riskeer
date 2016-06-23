@@ -121,8 +121,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             using (var plugin = new RingtoetsGuiPlugin())
+            using (var treeViewControl = new TreeViewControl())
             {
-                var treeViewControl = mocks.StrictMock<TreeViewControl>();
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
                 menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);

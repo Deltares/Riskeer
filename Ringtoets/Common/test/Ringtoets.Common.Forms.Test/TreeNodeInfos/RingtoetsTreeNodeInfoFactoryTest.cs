@@ -512,7 +512,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var newOwnerObserver = mocks.StrictMock<IObserver>();
             newOwnerObserver.Expect(o => o.UpdateObserver());
 
-
             mocks.ReplayAll();
 
             newOwnerGroup.Children.Add(sameNamedItemMock);
