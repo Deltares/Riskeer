@@ -204,21 +204,21 @@ namespace Core.Plugins.OxyPlot.Test.Legend
                 chartData3
             }, "test data");
 
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
             observer.Expect(o => o.UpdateObserver());
-
             mocks.ReplayAll();
 
             chartDataCollection.Attach(observer);
 
-            // Call
-            info.OnDrop(chartData1, chartDataCollection, chartDataCollection, position, treeViewControlMock);
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Call
+                info.OnDrop(chartData1, chartDataCollection, chartDataCollection, position, treeViewControl);
 
-            // Assert
-            var reversedIndex = 2 - position;
-            Assert.AreSame(chartData1, chartDataCollection.List.ElementAt(reversedIndex));
-
+                // Assert
+                var reversedIndex = 2 - position;
+                Assert.AreSame(chartData1, chartDataCollection.List.ElementAt(reversedIndex));
+            }
             mocks.VerifyAll(); // UpdateObserver should be called
         }
 
@@ -242,17 +242,16 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             }, "test data");
 
             chartDataCollection.Attach(observer);
-
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-
             mocks.ReplayAll();
 
-            // Call
-            TestDelegate test = () => info.OnDrop(chartData1, chartDataCollection, chartDataCollection, position, treeViewControlMock);
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Call
+                TestDelegate test = () => info.OnDrop(chartData1, chartDataCollection, chartDataCollection, position, treeViewControl);
 
-            // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(test);
-
+                // Assert
+                Assert.Throws<ArgumentOutOfRangeException>(test);
+            }
             mocks.VerifyAll(); // UpdateObserver should be not called
         }
     }

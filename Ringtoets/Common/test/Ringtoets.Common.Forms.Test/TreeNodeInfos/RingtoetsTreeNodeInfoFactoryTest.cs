@@ -378,7 +378,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
             var originalOwnerObserverMock = mocks.StrictMock<IObserver>();
             var newOwnerObserverMock = mocks.StrictMock<IObserver>();
@@ -410,15 +409,17 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
             CollectionAssert.DoesNotContain(newOwnerGroup.Children, draggedItem);
 
-            // Call
-            treeNodeInfo.OnDrop(draggedItemContext, newOwnerGroupContext, originalOwnerGroupContext, 0, treeViewControlMock);
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Call
+                treeNodeInfo.OnDrop(draggedItemContext, newOwnerGroupContext, originalOwnerGroupContext, 0, treeViewControl);
 
-            // Assert
-            CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
-            CollectionAssert.Contains(newOwnerGroup.Children, draggedItem);
-            Assert.AreSame(draggedItem, newOwnerGroup.Children.Last(),
-                           "Dragging node at the end of the target TestCalculationGroup should put the dragged data at the end of 'newOwnerGroup'.");
-
+                // Assert
+                CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
+                CollectionAssert.Contains(newOwnerGroup.Children, draggedItem);
+                Assert.AreSame(draggedItem, newOwnerGroup.Children.Last(),
+                               "Dragging node at the end of the target TestCalculationGroup should put the dragged data at the end of 'newOwnerGroup'.");
+            }
             mocks.VerifyAll();
         }
 
@@ -430,7 +431,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
             var existingItemMock = mocks.StrictMock<ICalculationBase>();
             var originalOwnerObserverMock = mocks.StrictMock<IObserver>();
@@ -461,18 +461,20 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Precondition
             CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
 
-            // Call
-            treeNodeInfo.OnDrop(draggedItemContext, originalOwnerGroupContext, originalOwnerGroupContext, newIndex, treeViewControlMock);
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Call
+                treeNodeInfo.OnDrop(draggedItemContext, originalOwnerGroupContext, originalOwnerGroupContext, newIndex, treeViewControl);
 
-            // Assert
-            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
-            Assert.AreNotSame(draggedItem, originalOwnerGroup.Children[1],
-                              "Should have removed 'draggedItem' from its original location in the collection.");
-            Assert.AreSame(draggedItem, originalOwnerGroup.Children[newIndex],
-                           "Dragging node to specific location within owning TestCalculationGroup should put the dragged data at that index.");
-            Assert.AreEqual(name, draggedItem.Name,
-                            "No renaming should occur when dragging within the same TestCalculationGroup.");
-
+                // Assert
+                CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
+                Assert.AreNotSame(draggedItem, originalOwnerGroup.Children[1],
+                                  "Should have removed 'draggedItem' from its original location in the collection.");
+                Assert.AreSame(draggedItem, originalOwnerGroup.Children[newIndex],
+                               "Dragging node to specific location within owning TestCalculationGroup should put the dragged data at that index.");
+                Assert.AreEqual(name, draggedItem.Name,
+                                "No renaming should occur when dragging within the same TestCalculationGroup.");
+            }
             mocks.VerifyAll();
         }
 
@@ -488,7 +490,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             ICalculationBase draggedItem;
             object draggedItemContext;
+
             CreateCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, failureMechanismMock);
+            treeViewControlMock.Expect(tvc => tvc.TryRenameNodeForData(draggedItemContext));
 
             CalculationGroup originalOwnerGroup;
             TestCalculationGroupContext originalOwnerGroupContext;
@@ -508,7 +512,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var newOwnerObserver = mocks.StrictMock<IObserver>();
             newOwnerObserver.Expect(o => o.UpdateObserver());
 
-            treeViewControlMock.Expect(tvc => tvc.TryRenameNodeForData(draggedItemContext));
 
             mocks.ReplayAll();
 

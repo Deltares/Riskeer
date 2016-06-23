@@ -299,82 +299,81 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
-
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, nodeData, treeViewControl);
-            gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-            viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(true);
-            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
-
-            mocks.ReplayAll();
-
-            plugin.Gui = gui;
-
-            // Call
-            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
-
-            // Assert
-            var mainCalculationGroupContextMenuItemOffset = 4;
-            Assert.AreEqual(18, menu.Items.Count);
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex + mainCalculationGroupContextMenuItemOffset,
-                                                          RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
-                                                          "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
-                                                          RingtoetsCommonFormsResources.AddFolderIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndex + mainCalculationGroupContextMenuItemOffset,
-                                                          RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
-                                                          "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
-                                                          PipingFormsResources.PipingIcon);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex + mainCalculationGroupContextMenuItemOffset,
-                                                          RingtoetsCommonFormsResources.Validate_all,
-                                                          "Valideer alle berekeningen binnen deze berekeningsmap.",
-                                                          RingtoetsCommonFormsResources.ValidateAllIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex + mainCalculationGroupContextMenuItemOffset,
-                                                          RingtoetsCommonFormsResources.Calculate_all,
-                                                          "Voer alle berekeningen binnen deze berekeningsmap uit.",
-                                                          RingtoetsCommonFormsResources.CalculateAllIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndex + mainCalculationGroupContextMenuItemOffset,
-                                                          "&Wis alle uitvoer...",
-                                                          "Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.",
-                                                          RingtoetsCommonFormsResources.ClearIcon);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, 11,
-                                                          CoreCommonGuiResources.Import,
-                                                          CoreCommonGuiResources.Import_ToolTip,
-                                                          CoreCommonGuiResources.ImportIcon,
-                                                          false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 12,
-                                                          CoreCommonGuiResources.Export,
-                                                          CoreCommonGuiResources.Export_ToolTip,
-                                                          CoreCommonGuiResources.ExportIcon,
-                                                          false);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, 14,
-                                                          CoreCommonGuiResources.Expand_all,
-                                                          CoreCommonGuiResources.Expand_all_ToolTip,
-                                                          CoreCommonGuiResources.ExpandAllIcon,
-                                                          false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 15,
-                                                          CoreCommonGuiResources.Collapse_all,
-                                                          CoreCommonGuiResources.Collapse_all_ToolTip,
-                                                          CoreCommonGuiResources.CollapseAllIcon,
-                                                          false);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, 17,
-                                                          CoreCommonGuiResources.Properties,
-                                                          CoreCommonGuiResources.Properties_ToolTip,
-                                                          CoreCommonGuiResources.PropertiesHS,
-                                                          false);
-            CollectionAssert.AllItemsAreInstancesOfType(new[]
+            using (var treeViewControl = new TreeViewControl())
             {
-                menu.Items[1],
-                menu.Items[3],
-                menu.Items[6],
-                menu.Items[10],
-                menu.Items[13],
-                menu.Items[16]
-            }, typeof(ToolStripSeparator));
+                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, nodeData, treeViewControl);
+                gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(true);
 
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+
+                // Assert
+                var mainCalculationGroupContextMenuItemOffset = 4;
+                Assert.AreEqual(18, menu.Items.Count);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex + mainCalculationGroupContextMenuItemOffset,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                              "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
+                                                              RingtoetsCommonFormsResources.AddFolderIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndex + mainCalculationGroupContextMenuItemOffset,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
+                                                              "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                              PipingFormsResources.PipingIcon);
+
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex + mainCalculationGroupContextMenuItemOffset,
+                                                              RingtoetsCommonFormsResources.Validate_all,
+                                                              "Valideer alle berekeningen binnen deze berekeningsmap.",
+                                                              RingtoetsCommonFormsResources.ValidateAllIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex + mainCalculationGroupContextMenuItemOffset,
+                                                              RingtoetsCommonFormsResources.Calculate_all,
+                                                              "Voer alle berekeningen binnen deze berekeningsmap uit.",
+                                                              RingtoetsCommonFormsResources.CalculateAllIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndex + mainCalculationGroupContextMenuItemOffset,
+                                                              "&Wis alle uitvoer...",
+                                                              "Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.",
+                                                              RingtoetsCommonFormsResources.ClearIcon);
+
+                TestHelper.AssertContextMenuStripContainsItem(menu, 11,
+                                                              CoreCommonGuiResources.Import,
+                                                              CoreCommonGuiResources.Import_ToolTip,
+                                                              CoreCommonGuiResources.ImportIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, 12,
+                                                              CoreCommonGuiResources.Export,
+                                                              CoreCommonGuiResources.Export_ToolTip,
+                                                              CoreCommonGuiResources.ExportIcon,
+                                                              false);
+
+                TestHelper.AssertContextMenuStripContainsItem(menu, 14,
+                                                              CoreCommonGuiResources.Expand_all,
+                                                              CoreCommonGuiResources.Expand_all_ToolTip,
+                                                              CoreCommonGuiResources.ExpandAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, 15,
+                                                              CoreCommonGuiResources.Collapse_all,
+                                                              CoreCommonGuiResources.Collapse_all_ToolTip,
+                                                              CoreCommonGuiResources.CollapseAllIcon,
+                                                              false);
+
+                TestHelper.AssertContextMenuStripContainsItem(menu, 17,
+                                                              CoreCommonGuiResources.Properties,
+                                                              CoreCommonGuiResources.Properties_ToolTip,
+                                                              CoreCommonGuiResources.PropertiesHS,
+                                                              false);
+                CollectionAssert.AllItemsAreInstancesOfType(new[]
+                {
+                    menu.Items[1],
+                    menu.Items[3],
+                    menu.Items[6],
+                    menu.Items[10],
+                    menu.Items[13],
+                    menu.Items[16]
+                }, typeof(ToolStripSeparator));
+            }
             mocks.VerifyAll();
         }
 
@@ -937,11 +936,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 PipingSurfaceLineSelectionDialog selectionDialog = null;
                 DataGridView grid = null;
+                int rowCount = 0;
                 DialogBoxHandler = (name, wnd) =>
                 {
                     selectionDialog = (PipingSurfaceLineSelectionDialog)new FormTester(name).TheObject;
                     grid = (DataGridView)new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
-
+                    rowCount = grid.RowCount;
                     new ButtonTester("CustomCancelButton", selectionDialog).Click();
                 };
 
@@ -953,7 +953,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.NotNull(selectionDialog);
                 Assert.NotNull(grid);
-                Assert.AreEqual(2, grid.RowCount);
+                Assert.AreEqual(2, rowCount);
             }
             mocks.VerifyAll();
         }

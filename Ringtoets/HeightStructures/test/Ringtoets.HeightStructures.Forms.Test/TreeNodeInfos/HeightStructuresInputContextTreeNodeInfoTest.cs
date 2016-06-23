@@ -123,23 +123,24 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var treeViewControlMock = mocksRepository.StrictMock<TreeViewControl>();
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
 
-            guiMock.Expect(g => g.Get(null, treeViewControlMock)).Return(menuBuilderMock);
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
 
-            menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
-            mocksRepository.ReplayAll();
+                menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                mocksRepository.ReplayAll();
 
-            plugin.Gui = guiMock;
+                plugin.Gui = guiMock;
 
-            // Call
-            info.ContextMenuStrip(null, null, treeViewControlMock);
-
+                // Call
+                info.ContextMenuStrip(null, null, treeViewControl);
+            }
             // Assert
             mocksRepository.VerifyAll();
         }

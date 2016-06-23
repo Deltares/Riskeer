@@ -561,7 +561,7 @@ namespace Ringtoets.Piping.Plugin
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var isNestedGroup = parentData is PipingCalculationGroupContext;
 
-            var generateCalculationsItem = CreateGeneratePipingCalculationsItem(nodeData);
+            StrictContextMenuItem generateCalculationsItem = CreateGeneratePipingCalculationsItem(nodeData);
 
             if (!isNestedGroup)
             {
@@ -609,12 +609,11 @@ namespace Ringtoets.Piping.Plugin
 
         private StrictContextMenuItem CreateGeneratePipingCalculationsItem(PipingCalculationGroupContext nodeData)
         {
-            var surfaceLineAvailable = nodeData.AvailablePipingSurfaceLines.Any() && nodeData.AvailableStochasticSoilModels.Any();
+            bool surfaceLineAvailable = nodeData.AvailablePipingSurfaceLines.Any() && nodeData.AvailableStochasticSoilModels.Any();
 
-            var pipingCalculationGroupGeneratePipingCalculationsToolTip =
-                surfaceLineAvailable ?
-                    PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_ToolTip :
-                    PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip;
+            string pipingCalculationGroupGeneratePipingCalculationsToolTip = surfaceLineAvailable 
+                ? PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_ToolTip 
+                : PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip;
 
             var generateCalculationsItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
@@ -628,11 +627,11 @@ namespace Ringtoets.Piping.Plugin
 
         private void ShowSurfaceLineSelectionDialog(PipingCalculationGroupContext nodeData)
         {
-            var view = new PipingSurfaceLineSelectionDialog(Gui.MainWindow, nodeData.AvailablePipingSurfaceLines);
-            view.ShowDialog();
-
-            GeneratePipingCalculations(nodeData.WrappedData, view.SelectedSurfaceLines, nodeData.AvailableStochasticSoilModels, nodeData.FailureMechanism.GeneralInput);
-
+            using (var view = new PipingSurfaceLineSelectionDialog(Gui.MainWindow, nodeData.AvailablePipingSurfaceLines))
+            {
+                view.ShowDialog();
+                GeneratePipingCalculations(nodeData.WrappedData, view.SelectedSurfaceLines, nodeData.AvailableStochasticSoilModels, nodeData.FailureMechanism.GeneralInput);
+            }
             nodeData.NotifyObservers();
         }
 

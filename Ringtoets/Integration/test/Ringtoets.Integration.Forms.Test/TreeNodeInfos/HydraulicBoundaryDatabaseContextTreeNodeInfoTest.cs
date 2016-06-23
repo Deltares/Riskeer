@@ -134,7 +134,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
 
             var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
@@ -149,21 +148,24 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
-
-            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(menuBuilderMock);
             guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
-            mocks.ReplayAll();
-
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var treeViewControl = new TreeViewControl())
             {
-                var info = GetInfo(plugin);
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
 
-                plugin.Gui = guiMock;
+                mocks.ReplayAll();
 
-                // Call
-                info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+                using (var plugin = new RingtoetsGuiPlugin())
+                {
+                    var info = GetInfo(plugin);
+
+                    plugin.Gui = guiMock;
+
+                    // Call
+                    info.ContextMenuStrip(nodeData, null, treeViewControl);
+                }
             }
             // Assert
             mocks.VerifyAll();
@@ -174,29 +176,31 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
 
             var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
-
-            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            
             guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
-            mocks.ReplayAll();
-
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var treeViewControl = new TreeViewControl())
             {
-                var info = GetInfo(plugin);
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                using (var plugin = new RingtoetsGuiPlugin())
+                {
+                    var info = GetInfo(plugin);
 
-                // Call
-                var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+                    plugin.Gui = guiMock;
 
-                const string expectedItemText = "&Toetspeilen berekenen";
-                const string expectedItemTooltip = "Er is geen hydraulische randvoorwaarden database beschikbaar om de toetspeilen te berekenen.";
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon, false);
+                    // Call
+                    var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+
+                    const string expectedItemText = "&Toetspeilen berekenen";
+                    const string expectedItemTooltip = "Er is geen hydraulische randvoorwaarden database beschikbaar om de toetspeilen te berekenen.";
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon, false);
+                }
             }
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
@@ -207,31 +211,32 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
 
             var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
             nodeData.WrappedData.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
-            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
             guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
-            mocks.ReplayAll();
-
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var treeViewControl = new TreeViewControl())
             {
-                var info = GetInfo(plugin);
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                using (var plugin = new RingtoetsGuiPlugin())
+                {
+                    var info = GetInfo(plugin);
 
-                // Call
-                nodeData.WrappedData.HydraulicBoundaryDatabase.FilePath = testDataPath;
-                var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+                    plugin.Gui = guiMock;
 
-                const string expectedItemText = "&Toetspeilen berekenen";
-                const string expectedItemTooltip = "Bereken de toetspeilen";
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon);
+                    // Call
+                    nodeData.WrappedData.HydraulicBoundaryDatabase.FilePath = testDataPath;
+                    var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+
+                    const string expectedItemText = "&Toetspeilen berekenen";
+                    const string expectedItemTooltip = "Bereken de toetspeilen";
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon);
+                }
             }
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
@@ -242,8 +247,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Given
             var gui = mocks.DynamicMock<IGui>();
-
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
             var contextMenuRunAssessmentLevelCalculationsIndex = 3;
 
@@ -270,27 +273,30 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             };
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
 
-            gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
-
-            mocks.ReplayAll();
-
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var treeViewControl = new TreeViewControl())
             {
-                var info = GetInfo(plugin);
-                plugin.Gui = gui;
+                gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
-                var contextMenuAdapter = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControlMock);
+                mocks.ReplayAll();
 
-                // When
-                Action action = () => { contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick(); };
+                using (var plugin = new RingtoetsGuiPlugin())
+                {
+                    var info = GetInfo(plugin);
+                    plugin.Gui = gui;
 
-                // Then
-                string message = string.Format("Berekeningen konden niet worden gestart. Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
-                                               hydraulicBoundaryDatabase.FilePath);
-                TestHelper.AssertLogMessageWithLevelIsGenerated(action, new Tuple<string, LogLevelConstant>(message, LogLevelConstant.Error));
+                    var contextMenuAdapter = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControl);
 
-                Assert.IsNaN(hydraulicBoundaryLocation1.DesignWaterLevel); // No result set
-                Assert.AreEqual(4.2, hydraulicBoundaryLocation2.DesignWaterLevel); // Previous result not cleared
+                    // When
+                    Action action = () => { contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick(); };
+
+                    // Then
+                    string message = string.Format("Berekeningen konden niet worden gestart. Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
+                                                   hydraulicBoundaryDatabase.FilePath);
+                    TestHelper.AssertLogMessageWithLevelIsGenerated(action, new Tuple<string, LogLevelConstant>(message, LogLevelConstant.Error));
+
+                    Assert.IsNaN(hydraulicBoundaryLocation1.DesignWaterLevel); // No result set
+                    Assert.AreEqual(4.2, hydraulicBoundaryLocation2.DesignWaterLevel); // Previous result not cleared
+                }
             }
             mocks.VerifyAll();
         }

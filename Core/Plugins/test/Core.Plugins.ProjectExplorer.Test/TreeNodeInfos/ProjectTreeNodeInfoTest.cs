@@ -111,32 +111,33 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
         {
             // Setup
             var gui = mocks.StrictMultiMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
 
-            gui.Expect(g => g.Get(null, treeViewControlMock)).Return(menuBuilderMock);
-            gui.Expect(g => g.ViewCommands).Return(viewCommandsMock);
-            gui.Expect(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
+                gui.Expect(g => g.ViewCommands).Return(viewCommandsMock);
+                gui.Expect(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
 
-            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
-            mocks.ReplayAll();
+                mocks.ReplayAll();
 
-            plugin.Gui = gui;
+                plugin.Gui = gui;
 
-            // Call
-            info.ContextMenuStrip(null, null, treeViewControlMock);
-
+                // Call
+                info.ContextMenuStrip(null, null, treeViewControl);
+            }
             // Assert
             mocks.VerifyAll();
         }
@@ -148,28 +149,31 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
             // Setup
             var project = new Project();
             var guiMock = mocks.StrictMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var projectCommandsMock = mocks.StrictMock<IProjectCommands>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
 
-            guiMock.Stub(g => g.Get(project, treeViewControlMock)).Return(menuBuilder);
             guiMock.Stub(g => g.ProjectCommands).Return(projectCommandsMock);
             guiMock.Stub(g => g.ViewCommands).Return(viewCommandsMock);
             guiMock.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
             projectCommandsMock.Expect(g => g.AddNewItem(project));
 
-            mocks.ReplayAll();
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Stub(g => g.Get(project, treeViewControl)).Return(menuBuilder);
 
-            plugin.Gui = guiMock;
+                mocks.ReplayAll();
 
-            // Call
-            var result = info.ContextMenuStrip(project, null, treeViewControlMock);
+                plugin.Gui = guiMock;
 
-            result.Items[0].PerformClick();
+                // Call
+                var result = info.ContextMenuStrip(project, null, treeViewControl);
 
-            // Assert
-            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.AddItem, Resources.AddItem_ToolTip, Resources.PlusIcon);
+                result.Items[0].PerformClick();
+
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.AddItem, Resources.AddItem_ToolTip, Resources.PlusIcon);
+            }
             mocks.VerifyAll();
         }
     }

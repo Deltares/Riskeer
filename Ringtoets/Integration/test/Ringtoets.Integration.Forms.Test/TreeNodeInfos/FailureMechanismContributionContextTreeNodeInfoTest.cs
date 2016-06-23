@@ -115,7 +115,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var context = new FailureMechanismContributionContext(contribution, assessmentSection);
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
@@ -124,20 +123,23 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
             var gui = mocks.StrictMock<IGui>();
-            gui.Expect(cmp => cmp.Get(context, treeViewControlMock)).Return(menuBuilderMock);
             gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
-            mocks.ReplayAll();
-
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var treeViewControl = new TreeViewControl())
             {
-                var info = GetInfo(plugin);
+                gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilderMock);
+                mocks.ReplayAll();
 
-                plugin.Gui = gui;
+                using (var plugin = new RingtoetsGuiPlugin())
+                {
+                    var info = GetInfo(plugin);
 
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControlMock);
+                    plugin.Gui = gui;
+
+                    // Call
+                    info.ContextMenuStrip(context, null, treeViewControl);
+                }
             }
             // Assert
             mocks.VerifyAll();

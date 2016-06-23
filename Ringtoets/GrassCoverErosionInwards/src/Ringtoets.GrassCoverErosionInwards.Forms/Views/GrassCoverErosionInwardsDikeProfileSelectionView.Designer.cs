@@ -35,7 +35,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.DikeProfileDataGrid = new System.Windows.Forms.DataGridView();
             this.UseColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.SurfaceLineNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DikeProfileNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DikeProfileDataGrid)).BeginInit();
@@ -77,7 +77,7 @@
             this.DikeProfileDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DikeProfileDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.UseColumn,
-            this.SurfaceLineNameColumn});
+            this.DikeProfileNameColumn});
             resources.ApplyResources(this.DikeProfileDataGrid, "DikeProfileDataGrid");
             this.DikeProfileDataGrid.Name = "DikeProfileDataGrid";
             this.DikeProfileDataGrid.RowHeadersVisible = false;
@@ -93,10 +93,10 @@
             // 
             // SurfaceLineNameColumn
             // 
-            this.SurfaceLineNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.SurfaceLineNameColumn.DataPropertyName = "Name";
-            resources.ApplyResources(this.SurfaceLineNameColumn, "SurfaceLineNameColumn");
-            this.SurfaceLineNameColumn.Name = "SurfaceLineNameColumn";
+            this.DikeProfileNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DikeProfileNameColumn.DataPropertyName = "Name";
+            resources.ApplyResources(this.DikeProfileNameColumn, "DikeProfileNameColumn");
+            this.DikeProfileNameColumn.Name = "DikeProfileNameColumn";
             // 
             // GrassCoverErosionInwardsDikeProfileSelectionView
             // 
@@ -120,6 +120,6 @@
         private System.Windows.Forms.Button SelectNoneButton;
         private System.Windows.Forms.Button SelectAllButton;
         private System.Windows.Forms.DataGridViewCheckBoxColumn UseColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SurfaceLineNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DikeProfileNameColumn;
     }
 }

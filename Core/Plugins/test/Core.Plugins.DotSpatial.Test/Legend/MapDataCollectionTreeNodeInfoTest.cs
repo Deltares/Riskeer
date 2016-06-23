@@ -199,23 +199,21 @@ namespace Core.Plugins.DotSpatial.Test.Legend
                 mapData1,
                 mapData2,
                 mapData3
-            }, "test data");
-
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-
-            observer.Expect(o => o.UpdateObserver());
+            }, "test data");observer.Expect(o => o.UpdateObserver());
 
             mocks.ReplayAll();
+            
+            using (var treeViewControl = new TreeViewControl())
+            {
+                mapDataCollection.Attach(observer);
 
-            mapDataCollection.Attach(observer);
+                // Call
+                info.OnDrop(mapData1, mapDataCollection, mapDataCollection, position, treeViewControl);
 
-            // Call
-            info.OnDrop(mapData1, mapDataCollection, mapDataCollection, position, treeViewControlMock);
-
-            // Assert
-            var reversedIndex = 2 - position;
-            Assert.AreSame(mapData1, mapDataCollection.List.ElementAt(reversedIndex));
-
+                // Assert
+                var reversedIndex = 2 - position;
+                Assert.AreSame(mapData1, mapDataCollection.List.ElementAt(reversedIndex));
+            }
             mocks.VerifyAll(); // UpdateObserver should be called
         }
 
@@ -239,17 +237,16 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             }, "test data");
 
             mapDataCollection.Attach(observer);
-
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-
             mocks.ReplayAll();
 
-            // Call
-            TestDelegate test = () => info.OnDrop(mapData1, mapDataCollection, mapDataCollection, position, treeViewControlMock);
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Call
+                TestDelegate test = () => info.OnDrop(mapData1, mapDataCollection, mapDataCollection, position, treeViewControl);
 
-            // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(test);
-
+                // Assert
+                Assert.Throws<ArgumentOutOfRangeException>(test);
+            }
             mocks.VerifyAll(); // UpdateObserver should not be called
         }
 
@@ -258,20 +255,20 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         {
             // Setup
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-
             var mapDataCollection = mocks.StrictMock<MapDataCollection>(Enumerable.Empty<MapData>(), "test data");
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
-            contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(mapDataCollection, treeViewControlMock)).Return(menuBuilderMock);
+            using (var treeViewControl = new TreeViewControl())
+            {
+                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(mapDataCollection, treeViewControl)).Return(menuBuilderMock);
 
-            mocks.ReplayAll();
+                mocks.ReplayAll();
 
-            // Call
-            info.ContextMenuStrip(mapDataCollection, null, treeViewControlMock);
-
+                // Call
+                info.ContextMenuStrip(mapDataCollection, null, treeViewControl);
+            }
             // Assert
             mocks.VerifyAll();
         }
@@ -282,18 +279,19 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             // Setup
             const string expectedItemText = "&Voeg kaartlaag toe...";
             const string expectedItemTooltip = "Importeer een nieuwe kaartlaag en voeg deze toe.";
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var mapDataCollection = mocks.StrictMock<MapDataCollection>(Enumerable.Empty<MapData>(), "test data");
 
-            contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(mapDataCollection, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            using (var treeViewControl = new TreeViewControl())
+            {
+                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(mapDataCollection, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
 
-            mocks.ReplayAll();
+                // Call
+                var contextMenu = info.ContextMenuStrip(mapDataCollection, null, treeViewControl);
 
-            // Call
-            var contextMenu = info.ContextMenuStrip(mapDataCollection, null, treeViewControlMock);
-
-            // Assert
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, DotSpatialResources.MapIcon);
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, DotSpatialResources.MapIcon);
+            }
             mocks.VerifyAll();
         }
     }

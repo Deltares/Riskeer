@@ -53,16 +53,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(2, surfaceLineDataGrid.ColumnCount);
             Assert.IsFalse(surfaceLineDataGrid.RowHeadersVisible);
 
-            var selectedColumn = surfaceLineDataGrid.Columns[0] as DataGridViewCheckBoxColumn;
-            var surfaceLineNameColumn = surfaceLineDataGrid.Columns[1] as DataGridViewTextBoxColumn;
+            var selectedColumn = (DataGridViewCheckBoxColumn) surfaceLineDataGrid.Columns[0];
+            var surfaceLineNameColumn = (DataGridViewTextBoxColumn) surfaceLineDataGrid.Columns[1];
 
-            Assert.NotNull(selectedColumn);
             Assert.AreEqual("Selected", selectedColumn.DataPropertyName);
             Assert.AreEqual("Gebruiken", selectedColumn.HeaderText);
             Assert.AreEqual(60, selectedColumn.Width);
             Assert.IsFalse(selectedColumn.ReadOnly);
 
-            Assert.NotNull(surfaceLineNameColumn);
             Assert.AreEqual("Name", surfaceLineNameColumn.DataPropertyName);
             Assert.AreEqual("Profielschematisatie", surfaceLineNameColumn.HeaderText);
             Assert.AreEqual(DataGridViewAutoSizeColumnMode.Fill, surfaceLineNameColumn.AutoSizeMode);

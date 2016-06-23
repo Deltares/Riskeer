@@ -361,11 +361,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(GrassCoverErosionInwardsCalculationGroupContext context, object parentData, TreeViewControl treeViewControl)
         {
-            var group = context.WrappedData;
+            CalculationGroup group = context.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
             var isNestedGroup = parentData is GrassCoverErosionInwardsCalculationGroupContext;
 
-            var generateCalculationsItem = CreateGenerateCalculationsItem(context);
+            StrictContextMenuItem generateCalculationsItem = CreateGenerateCalculationsItem(context);
 
             if (!isNestedGroup)
             {
@@ -401,12 +401,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private StrictContextMenuItem CreateGenerateCalculationsItem(GrassCoverErosionInwardsCalculationGroupContext nodeData)
         {
-            var isDikeProfileAvailable = nodeData.AvailableDikeProfiles.Any();
+            bool isDikeProfileAvailable = nodeData.AvailableDikeProfiles.Any();
 
-            var calculationGroupGenerateCalculationsToolTip =
-                isDikeProfileAvailable ?
-                    GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_ToolTip :
-                    GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip;
+            string calculationGroupGenerateCalculationsToolTip = isDikeProfileAvailable
+                ? GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_ToolTip 
+                : GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip;
 
             var generateCalculationsItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
@@ -420,11 +419,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private void ShowDikeProfileSelectionDialog(GrassCoverErosionInwardsCalculationGroupContext nodeData)
         {
-            var view = new GrassCoverErosionInwardsDikeProfileSelectionDialog(Gui.MainWindow, nodeData.AvailableDikeProfiles);
-            view.ShowDialog();
-
-            GenerateCalculations(nodeData.WrappedData, view.SelectedDikeProfiles);
-
+            using (var view = new GrassCoverErosionInwardsDikeProfileSelectionDialog(Gui.MainWindow, nodeData.AvailableDikeProfiles))
+            {
+                view.ShowDialog();
+                GenerateCalculations(nodeData.WrappedData, view.SelectedDikeProfiles);
+            }
             nodeData.NotifyObservers();
         }
 

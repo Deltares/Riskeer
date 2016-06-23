@@ -98,21 +98,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
-            var treeViewControlMock = mocksRepository.StrictMock<TreeViewControl>();
 
             menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
-            guiMock.Expect(cmp => cmp.Get(null, treeViewControlMock)).Return(menuBuilderMock);
-            mocksRepository.ReplayAll();
 
-            plugin.Gui = guiMock;
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(cmp => cmp.Get(null, treeViewControl)).Return(menuBuilderMock);
+                mocksRepository.ReplayAll();
 
-            // Call
-            info.ContextMenuStrip(null, null, treeViewControlMock);
+                plugin.Gui = guiMock;
 
+                // Call
+                info.ContextMenuStrip(null, null, treeViewControl);
+            }
             // Assert
             mocksRepository.VerifyAll();
         }

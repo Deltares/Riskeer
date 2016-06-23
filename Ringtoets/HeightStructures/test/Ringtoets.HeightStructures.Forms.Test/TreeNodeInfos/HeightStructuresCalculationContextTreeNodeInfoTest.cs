@@ -170,7 +170,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var calculation = new HeightStructuresCalculation();
@@ -191,15 +190,18 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
-            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(menuBuilderMock);
 
-            mocks.ReplayAll();
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
 
-            plugin.Gui = guiMock;
+                mocks.ReplayAll();
 
-            // Call
-            info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+                plugin.Gui = guiMock;
 
+                // Call
+                info.ContextMenuStrip(nodeData, null, treeViewControl);
+            }
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
         }
@@ -209,37 +211,38 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var calculation = new HeightStructuresCalculation();
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(menuBuilder);
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
 
-            mocks.ReplayAll();
+                mocks.ReplayAll();
 
-            plugin.Gui = guiMock;
+                plugin.Gui = guiMock;
 
-            // Call
-            var menu = info.ContextMenuStrip(nodeData, assessmentSectionMock, treeViewControlMock);
+                // Call
+                var menu = info.ContextMenuStrip(nodeData, assessmentSectionMock, treeViewControl);
 
-            // Assert
-            Assert.AreEqual(6, menu.Items.Count);
+                // Assert
+                Assert.AreEqual(6, menu.Items.Count);
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateIndex,
-                                                          RingtoetsCommonFormsResources.Calculate,
-                                                          RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
-                                                          RingtoetsCommonFormsResources.CalculateIcon,
-                                                          false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateIndex,
+                                                              RingtoetsCommonFormsResources.Calculate,
+                                                              RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                              RingtoetsCommonFormsResources.CalculateIcon,
+                                                              false);
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIndex,
-                                                          RingtoetsCommonFormsResources.Clear_output,
-                                                          RingtoetsCommonFormsResources.ClearOutput_No_output_to_clear,
-                                                          RingtoetsCommonFormsResources.ClearIcon,
-                                                          false);
-
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIndex,
+                                                              RingtoetsCommonFormsResources.Clear_output,
+                                                              RingtoetsCommonFormsResources.ClearOutput_No_output_to_clear,
+                                                              RingtoetsCommonFormsResources.ClearIcon,
+                                                              false);
+            }
             mocks.VerifyAll();
         }
 
@@ -247,29 +250,31 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_NoFailureMechanismSections_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
         {
             // Setup
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var calculation = new HeightStructuresCalculation();
 
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
             var guiMock = mocks.StrictMock<IGui>();
-            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
 
-            mocks.ReplayAll();
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
-            plugin.Gui = guiMock;
+                mocks.ReplayAll();
 
-            // Call
-            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+                plugin.Gui = guiMock;
 
-            // Assert
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
-                                                          RingtoetsCommonFormsResources.Calculate,
-                                                          RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
-                                                          RingtoetsCommonFormsResources.CalculateIcon,
-                                                          false);
+                // Call
+                var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
+                                                              RingtoetsCommonFormsResources.Calculate,
+                                                              RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                              RingtoetsCommonFormsResources.CalculateIcon,
+                                                              false);
+            }
             mocks.VerifyAll();
         }
 
@@ -278,7 +283,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
@@ -292,22 +296,24 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var calculation = new HeightStructuresCalculation();
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
-            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
-            mocks.ReplayAll();
+                mocks.ReplayAll();
 
-            plugin.Gui = guiMock;
+                plugin.Gui = guiMock;
 
-            // Call
-            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+                // Call
+                var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
-            // Assert
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
-                                                          RingtoetsCommonFormsResources.Calculate,
-                                                          RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
-                                                          RingtoetsCommonFormsResources.CalculateIcon,
-                                                          false);
-
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
+                                                              RingtoetsCommonFormsResources.Calculate,
+                                                              RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                              RingtoetsCommonFormsResources.CalculateIcon,
+                                                              false);
+            }
             mocks.VerifyAll();
         }
 
@@ -316,7 +322,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
@@ -330,23 +335,25 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var calculation = new HeightStructuresCalculation();
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
-            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
-            mocks.ReplayAll();
+                mocks.ReplayAll();
 
-            plugin.Gui = guiMock;
+                plugin.Gui = guiMock;
 
-            // Call
-            ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+                // Call
+                ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
-            // Assert
-            ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateIndex];
+                // Assert
+                ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateIndex];
 
-            Assert.AreEqual(RingtoetsCommonFormsResources.Calculate, contextMenuItem.Text);
-            StringAssert.Contains(String.Format(RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateIcon, contextMenuItem.Image);
-            Assert.IsFalse(contextMenuItem.Enabled);
-
+                Assert.AreEqual(RingtoetsCommonFormsResources.Calculate, contextMenuItem.Text);
+                StringAssert.Contains(String.Format(RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateIcon, contextMenuItem.Image);
+                Assert.IsFalse(contextMenuItem.Enabled);
+            }
             mocks.VerifyAll();
         }
 
@@ -355,7 +362,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
@@ -377,21 +383,23 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var calculation = new HeightStructuresCalculation();
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
-            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
-            mocks.ReplayAll();
+                mocks.ReplayAll();
 
-            plugin.Gui = guiMock;
+                plugin.Gui = guiMock;
 
-            // Call
-            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+                // Call
+                var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
-            // Assert
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
-                                                          RingtoetsCommonFormsResources.Calculate,
-                                                          RingtoetsCommonFormsResources.Calculate_ToolTip,
-                                                          RingtoetsCommonFormsResources.CalculateIcon);
-
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
+                                                              RingtoetsCommonFormsResources.Calculate,
+                                                              RingtoetsCommonFormsResources.Calculate_ToolTip,
+                                                              RingtoetsCommonFormsResources.CalculateIcon);
+            }
             mocks.VerifyAll();
         }
 
@@ -402,7 +410,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var gui = mocks.DynamicMock<IGui>();
             var mainWindow = mocks.DynamicMock<IMainWindow>();
             var observerMock = mocks.StrictMock<IObserver>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var calculateContextMenuItemIndex = 0;
 
             var section = new FailureMechanismSection("A", new[]
@@ -439,38 +446,40 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var calculationContext = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
-            gui.Expect(g => g.Get(calculationContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
-            gui.Expect(g => g.MainWindow).Return(mainWindow);
-
-            mocks.ReplayAll();
-
-            plugin.Gui = gui;
-
-            calculation.Attach(observerMock);
-
-            var contextMenuAdapter = info.ContextMenuStrip(calculationContext, null, treeViewControlMock);
-
-            DialogBoxHandler = (name, wnd) =>
+            using (var treeViewControl = new TreeViewControl())
             {
-                // Expect an activity dialog which is automatically closed
-            };
+                gui.Expect(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Expect(g => g.MainWindow).Return(mainWindow);
 
-            // When
-            Action action = () => { contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick(); };
+                mocks.ReplayAll();
 
-            // Then
-            TestHelper.AssertLogMessages(action, messages =>
-            {
-                var msgs = messages.ToArray();
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                StringAssert.StartsWith(String.Format("De berekening voor hoogte kunstwerk '{0}' is niet gelukt.", calculation.Name), msgs[3]);
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
-            });
+                plugin.Gui = gui;
 
-            Assert.IsNull(calculation.Output);
+                calculation.Attach(observerMock);
 
+                var contextMenuAdapter = info.ContextMenuStrip(calculationContext, null, treeViewControl);
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    // Expect an activity dialog which is automatically closed
+                };
+
+                // When
+                Action action = () => { contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick(); };
+
+                // Then
+                TestHelper.AssertLogMessages(action, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith(String.Format("De berekening voor hoogte kunstwerk '{0}' is niet gelukt.", calculation.Name), msgs[3]);
+                    StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
+                });
+
+                Assert.IsNull(calculation.Output);
+            }
             mocks.VerifyAll();
         }
 

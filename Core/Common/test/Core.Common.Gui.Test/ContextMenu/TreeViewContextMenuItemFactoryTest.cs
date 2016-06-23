@@ -24,15 +24,16 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void Constructor_WithoutDataObject_ThrowsArgumentNullException()
         {
             // Setup
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Call
+                TestDelegate test = () => new TreeViewContextMenuItemFactory(null, treeViewControl);
 
-            // Call
-            TestDelegate test = () => new TreeViewContextMenuItemFactory(null, treeViewControlMock);
-
-            // Assert
-            var message = Assert.Throws<ArgumentNullException>(test).Message;
-            StringAssert.StartsWith(Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_data, message);
-            StringAssert.EndsWith("dataObject", message);
+                // Assert
+                var message = Assert.Throws<ArgumentNullException>(test).Message;
+                StringAssert.StartsWith(Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_data, message);
+                StringAssert.EndsWith("dataObject", message);
+            }
         }
 
         [Test]
@@ -51,16 +52,16 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void Constructor_WithAllInput_DoesNotThrow()
         {
             // Setup
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            using (var treeViewControl = new TreeViewControl())
+            {
+                mocks.ReplayAll();
 
-            mocks.ReplayAll();
+                // Call
+                TestDelegate test = () => new TreeViewContextMenuItemFactory(new object(), treeViewControl);
 
-            // Call
-            TestDelegate test = () => new TreeViewContextMenuItemFactory(new object(), treeViewControlMock);
-
-            // Assert
-            Assert.DoesNotThrow(test);
-
+                // Assert
+                Assert.DoesNotThrow(test);
+            }
             mocks.VerifyAll();
         }
 

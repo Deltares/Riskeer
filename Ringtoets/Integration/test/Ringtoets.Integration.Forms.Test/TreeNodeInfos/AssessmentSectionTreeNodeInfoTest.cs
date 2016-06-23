@@ -261,9 +261,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             var gui = mocks.StrictMultiMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            gui.Expect(g => g.Get(null, treeViewControlMock)).Return(menuBuilderMock);
             gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
@@ -281,15 +279,19 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
-            mocks.ReplayAll();
-
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var treeViewControl = new TreeViewControl())
             {
-                var info = GetInfo(plugin);
-                plugin.Gui = gui;
+                gui.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
+                mocks.ReplayAll();
 
-                // Call
-                info.ContextMenuStrip(null, null, treeViewControlMock);
+                using (var plugin = new RingtoetsGuiPlugin())
+                {
+                    var info = GetInfo(plugin);
+                    plugin.Gui = gui;
+
+                    // Call
+                    info.ContextMenuStrip(null, null, treeViewControl);
+                }
             }
             // Assert
             mocks.VerifyAll();

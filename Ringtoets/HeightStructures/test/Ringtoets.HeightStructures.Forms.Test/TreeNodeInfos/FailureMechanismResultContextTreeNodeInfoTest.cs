@@ -99,22 +99,25 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+
             var failureMechanism = new HeightStructuresFailureMechanism();
             var nodeData = new FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(Enumerable.Empty<HeightStructuresFailureMechanismSectionResult>(), failureMechanism);
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
             menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
-            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(menuBuilderMock);
 
-            mocks.ReplayAll();
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
 
-            plugin.Gui = guiMock;
+                mocks.ReplayAll();
 
-            // Call
-            info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+                plugin.Gui = guiMock;
 
+                // Call
+                info.ContextMenuStrip(nodeData, null, treeViewControl);
+            }
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
         }

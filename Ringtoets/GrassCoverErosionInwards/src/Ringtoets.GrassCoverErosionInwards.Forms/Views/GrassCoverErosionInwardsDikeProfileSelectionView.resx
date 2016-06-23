@@ -201,10 +201,10 @@
   <data name="UseColumn.Width" type="System.Int32, mscorlib">
     <value>60</value>
   </data>
-  <metadata name="SurfaceLineNameColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="DikeProfileNameColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="SurfaceLineNameColumn.HeaderText" xml:space="preserve">
+  <data name="DikeProfileNameColumn.HeaderText" xml:space="preserve">
     <value>Dijkprofiel</value>
   </data>
   <data name="DikeProfileDataGrid.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -270,10 +270,10 @@
   <data name="&gt;&gt;UseColumn.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;SurfaceLineNameColumn.Name" xml:space="preserve">
-    <value>SurfaceLineNameColumn</value>
+  <data name="&gt;&gt;DikeProfileNameColumn.Name" xml:space="preserve">
+    <value>DikeProfileNameColumn</value>
   </data>
-  <data name="&gt;&gt;SurfaceLineNameColumn.Type" xml:space="preserve">
+  <data name="&gt;&gt;DikeProfileNameColumn.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
