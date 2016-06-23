@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -80,7 +81,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 GetViewData = context => context.WrappedData,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
-        }
+
+            yield return new ViewInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsInput, GrassCoverErosionInwardsInputView>
+            {
+                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                GetViewName = (view, input) => GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsInputContext_NodeDisplayName,
+                GetViewData = context => context.WrappedData,
+                CloseForData = CloseInputViewForData
+            };
+        }        
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
@@ -151,6 +160,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 Text = inputContext => GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsInputContext_NodeDisplayName,
                 Image = inputContext => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .AddSeparator()
                                                                                  .AddImportItem()
                                                                                  .AddExportItem()
                                                                                  .AddSeparator()
@@ -221,6 +232,54 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
+        }
+
+        #endregion
+
+        #region GrassCoverErosionInwardsInputView  ViewInfo
+
+        private bool CloseInputViewForData(GrassCoverErosionInwardsInputView view, object o)
+        {
+            var calculationContext = o as GrassCoverErosionInwardsCalculationContext;
+            if (calculationContext != null)
+            {
+                return ReferenceEquals(view.Data, calculationContext.WrappedData.InputParameters);
+            }
+
+            IEnumerable<GrassCoverErosionInwardsInput> calculationInputs = null;
+
+            var calculationGroupContext = o as GrassCoverErosionInwardsCalculationGroupContext;
+            if (calculationGroupContext != null)
+            {
+                calculationInputs = calculationGroupContext.WrappedData.GetCalculations()
+                                                     .OfType<GrassCoverErosionInwardsCalculation>()
+                                                     .Select(c => c.InputParameters);
+            }
+
+            var failureMechanismContext = o as GrassCoverErosionInwardsFailureMechanismContext;
+            if (failureMechanismContext != null)
+            {
+                calculationInputs = failureMechanismContext.WrappedData.CalculationsGroup.GetCalculations()
+                                                     .OfType<GrassCoverErosionInwardsCalculation>()
+                                                     .Select(c => c.InputParameters);
+            }
+
+            var assessmentSection = o as IAssessmentSection;
+            if (assessmentSection != null)
+            {
+                var failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                        .OfType<GrassCoverErosionInwardsFailureMechanism>()
+                                                        .FirstOrDefault();
+
+                if (failureMechanism != null)
+                {
+                    calculationInputs = failureMechanism.CalculationsGroup.GetCalculations()
+                                            .OfType<GrassCoverErosionInwardsCalculation>()
+                                            .Select(c => c.InputParameters);
+                }
+            }
+
+            return calculationInputs != null && calculationInputs.Any(ci => ReferenceEquals(view.Data, ci));
         }
 
         #endregion

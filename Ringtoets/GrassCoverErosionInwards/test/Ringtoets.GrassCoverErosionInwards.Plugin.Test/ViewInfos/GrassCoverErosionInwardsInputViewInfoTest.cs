@@ -26,27 +26,28 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Forms.Views;
-using Ringtoets.Piping.Primitives;
-using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
+using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 
-namespace Ringtoets.Piping.Plugin.Test.ViewInfos
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+
+namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class PipingInputViewInfoTest
+    public class GrassCoverErosionInwardsInputViewInfoTest
     {
         private MockRepository mocks;
-        private PipingGuiPlugin plugin;
+        private GrassCoverErosionInwardsGuiPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new PipingGuiPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(PipingInputView));
+            plugin = new GrassCoverErosionInwardsGuiPlugin();
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GrassCoverErosionInwardsInputView));
         }
 
         [TearDown]
@@ -59,24 +60,24 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingInputContext), info.DataType);
-            Assert.AreEqual(typeof(PipingInput), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingInputIcon, info.Image);
+            Assert.AreEqual(typeof(GrassCoverErosionInwardsInputContext), info.DataType);
+            Assert.AreEqual(typeof(GrassCoverErosionInwardsInput), info.ViewDataType);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, info.Image);
         }
 
         [Test]
         public void GetViewName_Always_ReturnsInputResourceName()
         {
             // Setup
-            using (PipingInputView view = new PipingInputView())
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView())
             {
-                PipingInput pipingInput = new PipingInput(new GeneralPipingInput());
+                GrassCoverErosionInwardsInput input = new GrassCoverErosionInwardsInput();
 
                 // Call
-                string viewName = info.GetViewName(view, pipingInput);
+                string viewName = info.GetViewName(view, input);
 
                 // Assert
-                Assert.AreEqual(PipingFormsResources.PipingInputContext_NodeDisplayName, viewName);
+                Assert.AreEqual(Resources.GrassCoverErosionInwardsInputContext_NodeDisplayName, viewName);
             }
         }
 
@@ -87,37 +88,33 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingInput pipingInput = new PipingInput(new GeneralPipingInput());
-
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            PipingInputContext calculationInputContext = new PipingInputContext(pipingInput, calculation, Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                Enumerable.Empty<StochasticSoilModel>(),
-                                                                                new PipingFailureMechanism(),
-                                                                                assessmentSection);
-
+            GrassCoverErosionInwardsInput input = new GrassCoverErosionInwardsInput();
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsInputContext context = new GrassCoverErosionInwardsInputContext(input,
+                                                                                                    calculation,
+                                                                                                    new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                                    assessmentSection);
             // Call
-            object viewData = info.GetViewData(calculationInputContext);
+            object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreEqual(pipingInput, viewData);
+            Assert.AreEqual(input, viewData);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedPipingCalculationScenarioContext_ReturnsTrue()
+        public void CloseForData_ViewCorrespondingToRemovedCalculationScenarioContext_ReturnsTrue()
         {
             // Setup
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput());
-            PipingCalculationScenarioContext pipingCalculationScenarioContext = new PipingCalculationScenarioContext(pipingCalculation,
-                                                                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                                                     Enumerable.Empty<StochasticSoilModel>(),
-                                                                                                                     new PipingFailureMechanism(),
+            GrassCoverErosionInwardsCalculation pipingCalculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsCalculationContext pipingCalculationScenarioContext = new GrassCoverErosionInwardsCalculationContext(pipingCalculation,
+                                                                                                                     new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                                      assessmentSection);
 
-            using (PipingInputView view = new PipingInputView
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = pipingCalculation.InputParameters
             })
@@ -132,22 +129,20 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedPipingCalculationScenarioContext_ReturnsFalse()
+        public void CloseForData_ViewNotCorrespondingToRemovedCalculationScenarioContext_ReturnsFalse()
         {
             // Setup
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput());
-            PipingCalculationScenario calculationToRemove = new PipingCalculationScenario(new GeneralPipingInput());
+            GrassCoverErosionInwardsCalculation pipingCalculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsCalculation calculationToRemove = new GrassCoverErosionInwardsCalculation();
 
-            PipingCalculationScenarioContext pipingCalculationScenarioContext = new PipingCalculationScenarioContext(calculationToRemove,
-                                                                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                                                     Enumerable.Empty<StochasticSoilModel>(),
-                                                                                                                     new PipingFailureMechanism(),
+            GrassCoverErosionInwardsCalculationContext pipingCalculationScenarioContext = new GrassCoverErosionInwardsCalculationContext(calculationToRemove,
+                                                                                                                     new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                                      assessmentSection);
 
-            using (PipingInputView view = new PipingInputView
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = pipingCalculation.InputParameters
             })
@@ -162,22 +157,20 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingWithRemovedPipingCalculationGroupContext_ReturnsTrue()
+        public void CloseForData_ViewCorrespondingWithRemovedCalculationGroupContext_ReturnsTrue()
         {
             // Setup
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
             CalculationGroup calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            PipingCalculationGroupContext calculationGroupContext = new PipingCalculationGroupContext(calculationGroup,
-                                                                                                      Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                                      Enumerable.Empty<StochasticSoilModel>(),
-                                                                                                      new PipingFailureMechanism(),
+            GrassCoverErosionInwardsCalculationGroupContext calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup,
+                                                                                                      new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                       assessmentSection);
-            using (PipingInputView view = new PipingInputView
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation.InputParameters
             })
@@ -192,22 +185,20 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingWithRemovedPipingCalculationGroupContext_ReturnsFalse()
+        public void CloseForData_ViewNotCorrespondingWithRemovedCalculationGroupContext_ReturnsFalse()
         {
             // Setup
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
             CalculationGroup calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            PipingCalculationGroupContext calculationGroupContext = new PipingCalculationGroupContext(new CalculationGroup(),
-                                                                                                      Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                                      Enumerable.Empty<StochasticSoilModel>(),
-                                                                                                      new PipingFailureMechanism(),
+            GrassCoverErosionInwardsCalculationGroupContext calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
+                                                                                                      new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                       assessmentSection);
-            using (PipingInputView view = new PipingInputView
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation.InputParameters
             })
@@ -222,24 +213,22 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_NestedViewCorrespondingWithRemovedParentPipingCalculationGroupContext_ReturnsTrue()
+        public void CloseForData_NestedViewCorrespondingWithRemovedParentCalculationGroupContext_ReturnsTrue()
         {
             // Setup
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
             CalculationGroup calculationGroup = new CalculationGroup();
             CalculationGroup nestedGroup = new CalculationGroup();
             nestedGroup.Children.Add(calculation);
             calculationGroup.Children.Add(nestedGroup);
 
-            PipingCalculationGroupContext calculationGroupContext = new PipingCalculationGroupContext(calculationGroup,
-                                                                                                      Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                                      Enumerable.Empty<StochasticSoilModel>(),
-                                                                                                      new PipingFailureMechanism(),
+            GrassCoverErosionInwardsCalculationGroupContext calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup,
+                                                                                                      new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                       assessmentSection);
-            using (PipingInputView view = new PipingInputView
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation.InputParameters
             })
@@ -254,24 +243,22 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_NestedViewNotCorrespondingWithRemovedParentPipingCalculationGroupContext_ReturnsFalse()
+        public void CloseForData_NestedViewNotCorrespondingWithRemovedParentCalculationGroupContext_ReturnsFalse()
         {
             // Setup
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
             CalculationGroup calculationGroup = new CalculationGroup();
             CalculationGroup nestedGroup = new CalculationGroup();
             nestedGroup.Children.Add(calculation);
             calculationGroup.Children.Add(nestedGroup);
 
-            PipingCalculationGroupContext calculationGroupContext = new PipingCalculationGroupContext(new CalculationGroup(),
-                                                                                                      Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                                      Enumerable.Empty<StochasticSoilModel>(),
-                                                                                                      new PipingFailureMechanism(),
+            GrassCoverErosionInwardsCalculationGroupContext calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
+                                                                                                      new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                       assessmentSection);
-            using (PipingInputView view = new PipingInputView
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation.InputParameters
             })
@@ -292,13 +279,13 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            PipingFailureMechanismContext failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (PipingInputView view = new PipingInputView
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation.InputParameters
             })
@@ -319,13 +306,13 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            PipingFailureMechanismContext failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
+            GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
-            using (PipingInputView view = new PipingInputView
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation.InputParameters
             })
@@ -346,16 +333,16 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
             CalculationGroup calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            PipingFailureMechanismContext failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (PipingInputView view = new PipingInputView
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation.InputParameters
             })
@@ -376,16 +363,16 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
             CalculationGroup calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            PipingFailureMechanismContext failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
+            GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
-            using (PipingInputView view = new PipingInputView
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation.InputParameters
             })
@@ -403,8 +390,8 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
@@ -415,7 +402,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (PipingInputView view = new PipingInputView
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation.InputParameters
             })
@@ -433,8 +420,8 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
@@ -445,9 +432,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (PipingInputView view = new PipingInputView
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = new PipingCalculationScenario(new GeneralPipingInput()).InputParameters
+                Data = new GrassCoverErosionInwardsCalculation().InputParameters
             })
             {
                 // Call
@@ -463,11 +450,11 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
             CalculationGroup calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
@@ -478,7 +465,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (PipingInputView view = new PipingInputView
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation.InputParameters
             })
@@ -496,11 +483,11 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
             CalculationGroup calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
@@ -511,9 +498,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (PipingInputView view = new PipingInputView
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = new PipingCalculationScenario(new GeneralPipingInput())
+                Data = new GrassCoverErosionInwardsCalculation()
             })
             {
                 // Call
@@ -521,34 +508,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void AfterCreate_Always_SetsCalculationOnView()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            PipingCalculationScenario pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput());
-            PipingInputContext context = new PipingInputContext(pipingCalculation.InputParameters, pipingCalculation,
-                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                Enumerable.Empty<StochasticSoilModel>(),
-                                                                new PipingFailureMechanism(),
-                                                                assessmentSection);
-
-            using (PipingInputView view = new PipingInputView
-            {
-                Data = pipingCalculation.InputParameters
-            })
-            {
-                // Call
-                info.AfterCreate(view, context);
-
-                // Assert
-                Assert.AreSame(pipingCalculation, view.Calculation);
                 mocks.VerifyAll();
             }
         }
