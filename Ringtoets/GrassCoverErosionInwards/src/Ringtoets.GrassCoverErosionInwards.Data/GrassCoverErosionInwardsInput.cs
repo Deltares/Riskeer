@@ -107,13 +107,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the geometry of the foreshore.
         /// </summary>
-        public IEnumerable<Point2D> ForeshoreGeometry
+        public Point2D[] ForeshoreGeometry
         {
             get
             {
                 return dikeProfile != null
-                           ? dikeProfile.ForeshoreGeometry
-                           : new List<Point2D>();
+                           ? dikeProfile.ForeshoreGeometry.ToArray()
+                           : new Point2D[0];
             }
         }
 
@@ -121,18 +121,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets the geometry of the dike with roughness data.
         /// </summary>
         /// <remarks>
-        /// The roughness of a <see cref="RoughnessPoint"/> in the collection represents
+        /// The roughness of a <see cref="RoughnessPoint"/> in the array represents
         /// the roughness of the section between this <see cref="RoughnessPoint"/>
         /// and the succeeding <see cref="RoughnessPoint"/>. The roughness of the last
         /// point is irrelevant.
         /// </remarks>
-        public IEnumerable<RoughnessPoint> DikeGeometry
+        public RoughnessPoint[] DikeGeometry
         {
             get
             {
                 return dikeProfile != null
-                           ? dikeProfile.DikeGeometry
-                           : new List<RoughnessPoint>();
+                           ? dikeProfile.DikeGeometry.ToArray()
+                           : new RoughnessPoint[0];
             }
         }
 

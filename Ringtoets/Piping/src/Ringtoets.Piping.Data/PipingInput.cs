@@ -199,7 +199,7 @@ namespace Ringtoets.Piping.Data
         #region Derived input
 
         /// <summary>
-        /// Gets or sets the outside high water level.
+        /// Gets the outside high water level.
         /// [m]
         /// </summary>
         public RoundedDouble AssessmentLevel
@@ -211,7 +211,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the piezometric head at the exit point.
+        /// Gets the piezometric head at the exit point.
         /// [m]
         /// </summary>
         public RoundedDouble PiezometricHeadExit

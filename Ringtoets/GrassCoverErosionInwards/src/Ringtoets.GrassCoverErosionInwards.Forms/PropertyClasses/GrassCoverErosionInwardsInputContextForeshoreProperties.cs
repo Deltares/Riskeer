@@ -65,7 +65,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.ForeshoreGeometry.ToArray();
+                return data.WrappedData.ForeshoreGeometry;
             }
         }
 

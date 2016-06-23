@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -36,14 +35,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         /// </summary>
         /// <param name="roughnessPoints">The roughness points that represent the dike geometry.</param>
         /// <returns>An array of roughnesses.</returns>
-        public static RoundedDouble[] GetRoughnesses(IEnumerable<RoughnessPoint> roughnessPoints)
+        public static RoundedDouble[] GetRoughnesses(RoughnessPoint[] roughnessPoints)
         {
-            RoughnessPoint[] pointArray = roughnessPoints.ToArray();
-
-            return pointArray.Length > 1
-                       ? pointArray.Take(pointArray.Length - 1)
-                                   .Select(p => p.Roughness)
-                                   .ToArray()
+            return roughnessPoints.Length > 1
+                       ? roughnessPoints.Take(roughnessPoints.Length - 1)
+                                        .Select(p => p.Roughness)
+                                        .ToArray()
                        : new RoundedDouble[0];
         }
     }

@@ -100,11 +100,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             return input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y));
         }
 
-        private static IEnumerable<HydraRingRoughnessProfilePoint> ParseProfilePoints(IEnumerable<RoughnessPoint> roughnessProfilePoints)
+        private static IEnumerable<HydraRingRoughnessProfilePoint> ParseProfilePoints(RoughnessPoint[] roughnessProfilePoints)
         {
-            for (var i = 0; i < roughnessProfilePoints.Count(); i++)
+            for (var i = 0; i < roughnessProfilePoints.Length; i++)
             {
-                var roughnessProfilePoint = roughnessProfilePoints.ElementAt(i);
+                var roughnessProfilePoint = roughnessProfilePoints[i];
 
                 if (i == 0)
                 {
@@ -112,7 +112,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 }
                 else
                 {
-                    var precedingRoughnessProfilePoint = roughnessProfilePoints.ElementAt(i - 1);
+                    var precedingRoughnessProfilePoint = roughnessProfilePoints[i - 1];
 
                     yield return new HydraRingRoughnessProfilePoint(roughnessProfilePoint.Point.X, roughnessProfilePoint.Point.Y, precedingRoughnessProfilePoint.Roughness);
                 }

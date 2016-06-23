@@ -25,6 +25,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -69,10 +70,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var input = new GrassCoverErosionInwardsInput();
-            var originalBreakWaterType = input.BreakWater.Type;
-            var originalBreakWaterHeight = input.BreakWater.Height;
-            var originalCriticalFlowRate = input.CriticalFlowRate;
-            var originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
+            BreakWaterType originalBreakWaterType = input.BreakWater.Type;
+            RoundedDouble originalBreakWaterHeight = input.BreakWater.Height;
+            LogNormalDistribution originalCriticalFlowRate = input.CriticalFlowRate;
+            HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
 
             var dikeProfile = new DikeProfile(new Point2D(0, 0))
             {
@@ -111,8 +112,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(withBreakWater ? dikeProfile.BreakWater.Type : originalBreakWaterType, input.BreakWater.Type);
             Assert.AreEqual(withBreakWater ? dikeProfile.BreakWater.Height : originalBreakWaterHeight, input.BreakWater.Height);
             Assert.AreEqual(withForeshore, input.UseForeshore);
-            Assert.AreSame(dikeProfile.ForeshoreGeometry, input.ForeshoreGeometry);
-            Assert.AreSame(dikeProfile.DikeGeometry, input.DikeGeometry);
+            CollectionAssert.AreEqual(dikeProfile.ForeshoreGeometry, input.ForeshoreGeometry);
+            CollectionAssert.AreEqual(dikeProfile.DikeGeometry, input.DikeGeometry);
             Assert.AreEqual(dikeProfile.DikeHeight, input.DikeHeight);
             Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
             Assert.AreEqual(originalCriticalFlowRate, input.CriticalFlowRate);
@@ -124,10 +125,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var input = new GrassCoverErosionInwardsInput();
-            var originalBreakWaterType = input.BreakWater.Type;
-            var originalBreakWaterHeight = input.BreakWater.Height;
-            var originalCriticalFlowRate = input.CriticalFlowRate;
-            var originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
+            BreakWaterType originalBreakWaterType = input.BreakWater.Type;
+            RoundedDouble originalBreakWaterHeight = input.BreakWater.Height;
+            LogNormalDistribution originalCriticalFlowRate = input.CriticalFlowRate;
+            HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
 
             var dikeProfile = new DikeProfile(new Point2D(0, 0))
             {

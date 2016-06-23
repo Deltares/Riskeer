@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -35,7 +34,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void GetRoughnesses_DikeGeometryWithNoPoints_ReturnsEmptyCollection()
         {
             // Setup
-            var dikeGeometry = new List<RoughnessPoint>();
+            var dikeGeometry = new RoughnessPoint[0];
 
             // Call
             RoundedDouble[] roughnesses = DikeGeometryHelper.GetRoughnesses(dikeGeometry);
@@ -48,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void GetRoughnesses_DikeGeometryWithOnePoint_ReturnsEmptyCollection()
         {
             // Setup
-            var dikeGeometry = new List<RoughnessPoint>
+            var dikeGeometry = new[]
             {
                 new RoughnessPoint(new Point2D(1.1, 2.2), 0.6)
             };
@@ -64,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void GetRoughnesses_DikeGeometryWithMultiplePoints_ReturnsCollectionOfAllButLastRoughness()
         {
             // Setup
-            var dikeGeometry = new List<RoughnessPoint>
+            var dikeGeometry = new[]
             {
                 new RoughnessPoint(new Point2D(1.1, 2.2), 0.6),
                 new RoughnessPoint(new Point2D(3.3, 4.4), 0.7),
