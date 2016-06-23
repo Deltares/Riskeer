@@ -69,7 +69,7 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void ProjectIntoLocalCoordinates_WorldCoordinateSameAsStartAndEndWordlCoordinate_ThrowsArgumentException()
+        public void ProjectIntoLocalCoordinates_WorldCoordinateSameAsStartAndEndWorldCoordinate_ThrowsArgumentException()
         {
             // Setup
             const double originalZ = 3.3;
@@ -82,6 +82,40 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "The startWorldCoordinate and endWorldCoordinate can't be the same.");
+        }
+
+        [Test]
+        public void ProjectIntoLocalCoordinates_StartAndEndWorldCoordinateLengthSmallerThanTolerance_ThrowsArgumentException()
+        {
+            // Setup
+            const double originalZ = 3.3;
+            Point3D point = new Point3D(1.1, 2.2, originalZ);
+
+            Point2D startPoint = new Point2D(point.X, point.Y);
+            Point2D endPoint = new Point2D(point.X, point.Y + 1e-7);
+
+            // Call
+            TestDelegate call = () => point.ProjectIntoLocalCoordinates(startPoint, endPoint);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "The startWorldCoordinate and endWorldCoordinate can't be the same.");
+        }
+
+        [Test]
+        public void ProjectIntoLocalCoordinates_StartAdnEndWorldCoordinateLengthBiggerThanTolerance_DoesNotThrow()
+        {
+            // Setup
+            const double originalZ = 3.3;
+            Point3D point = new Point3D(1.1, 2.2, originalZ);
+
+            Point2D startPoint = new Point2D(point.X, point.Y);
+            Point2D endPoint = new Point2D(point.X, point.Y + 1e-6);
+
+            // Call
+            TestDelegate call = () => point.ProjectIntoLocalCoordinates(startPoint, endPoint);
+
+            // Assert
+            Assert.DoesNotThrow(call);
         }
 
         [Test]

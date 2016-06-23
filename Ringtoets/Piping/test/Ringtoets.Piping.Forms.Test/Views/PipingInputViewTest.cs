@@ -31,7 +31,6 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
-
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.Views
@@ -109,17 +108,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             using (PipingInputView view = new PipingInputView())
             {
-                var points = new[]
-                {
-                    new Point3D(1.2, 2.3, 4.0),
-                    new Point3D(2.7, 2.8, 6.0)
-                };
-
-                var surfaceLine = new RingtoetsPipingSurfaceLine
-                {
-                    Name = "Surface line name"
-                };
-                surfaceLine.SetGeometry(points);
+                var surfaceLine = GetSurfaceLineWithGeometry();
                 var input = new PipingInput(new GeneralPipingInput())
                 {
                     SurfaceLine = surfaceLine
@@ -191,18 +180,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             using (PipingInputView view = new PipingInputView())
             {
-                var points = new[]
-                {
-                    new Point3D(1.2, 2.3, 4.0),
-                    new Point3D(2.7, 2.8, 6.0)
-                };
-
-                var surfaceLine = new RingtoetsPipingSurfaceLine()
-                {
-                    Name = "Surface line name"
-
-                };
-                surfaceLine.SetGeometry(points);
+                var surfaceLine = GetSurfaceLineWithGeometry();
                 surfaceLine.SetDitchDikeSideAt(new Point3D(1.2, 2.3, 4.0));
                 surfaceLine.SetBottomDitchDikeSideAt(new Point3D(1.2, 2.3, 4.0));
                 surfaceLine.SetDitchPolderSideAt(new Point3D(1.2, 2.3, 4.0));
@@ -234,7 +212,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Data_WithoutSurfaceLine_ChartDataSet()
+        public void Data_WithoutSurfaceLine_CollectionOfEmptyChartDataSet()
         {
             // Setup
             using (PipingInputView view = new PipingInputView())
@@ -368,7 +346,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [Test]
         public void UpdateObservers_CalculationUpdatedNotifyObserversOnOldData_NoUpdateInViewData()
         {
-             // Setup
+            // Setup
             using (PipingInputView view = new PipingInputView())
             {
                 var initialName = "Initial name";
@@ -408,17 +386,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (PipingInputView view = new PipingInputView())
             {
                 var characteristicPoint = new Point3D(1.2, 2.3, 4.0);
-                var points = new[]
-                {
-                    characteristicPoint,
-                    new Point3D(2.7, 2.8, 6.0)
-                };
+                var surfaceLine = GetSurfaceLineWithGeometry();
 
-                var surfaceLine = new RingtoetsPipingSurfaceLine
-                {
-                    Name = "Surface line name"
-                };
-                surfaceLine.SetGeometry(points);
                 surfaceLine.SetDitchDikeSideAt(characteristicPoint);
                 surfaceLine.SetBottomDitchDikeSideAt(characteristicPoint);
                 surfaceLine.SetDitchPolderSideAt(characteristicPoint);
@@ -433,27 +402,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 view.Data = pipingInput;
                 ChartLineData oldSurfaceLineChartData = (ChartLineData) view.Chart.Data.List[surfaceLineIndex];
-                ChartPointData oldEntryPointChartData = (ChartPointData)view.Chart.Data.List[entryPointIndex];
+                ChartPointData oldEntryPointChartData = (ChartPointData) view.Chart.Data.List[entryPointIndex];
                 ChartPointData oldExitPointChartData = (ChartPointData) view.Chart.Data.List[exitPointIndex];
-                ChartPointData oldDitchDikeSideData = (ChartPointData)view.Chart.Data.List[ditchDikeSideIndex];
-                ChartPointData oldBottomDitchDikeSideData = (ChartPointData)view.Chart.Data.List[bottomDitchDikeSideIndex];
-                ChartPointData oldDitchPolderSideData = (ChartPointData)view.Chart.Data.List[ditchPolderSideIndex];
-                ChartPointData oldBottomDitchPolderSideData = (ChartPointData)view.Chart.Data.List[bottomDitchPolderSideIndex];
-                ChartPointData oldDikeToeAtPolderData = (ChartPointData)view.Chart.Data.List[dikeToeAtPolderIndex];
-                ChartPointData oldDikeToeAtRiverData = (ChartPointData)view.Chart.Data.List[dikeToeAtRiverIndex];
+                ChartPointData oldDitchDikeSideData = (ChartPointData) view.Chart.Data.List[ditchDikeSideIndex];
+                ChartPointData oldBottomDitchDikeSideData = (ChartPointData) view.Chart.Data.List[bottomDitchDikeSideIndex];
+                ChartPointData oldDitchPolderSideData = (ChartPointData) view.Chart.Data.List[ditchPolderSideIndex];
+                ChartPointData oldBottomDitchPolderSideData = (ChartPointData) view.Chart.Data.List[bottomDitchPolderSideIndex];
+                ChartPointData oldDikeToeAtPolderData = (ChartPointData) view.Chart.Data.List[dikeToeAtPolderIndex];
+                ChartPointData oldDikeToeAtRiverData = (ChartPointData) view.Chart.Data.List[dikeToeAtRiverIndex];
 
                 var characteristicPoint2 = new Point3D(3.5, 2.3, 8.0);
-                var points2 = new[]
-                {
-                    characteristicPoint2,
-                    new Point3D(6.9, 2.0, 2.0)
-                };
+                var surfaceLine2 = GetSecondSurfaceLineWithGeometry();
 
-                var surfaceLine2 = new RingtoetsPipingSurfaceLine
-                {
-                    Name = "Surface line name"
-                };
-                surfaceLine2.SetGeometry(points2);
                 surfaceLine2.SetDitchDikeSideAt(characteristicPoint2);
                 surfaceLine2.SetBottomDitchDikeSideAt(characteristicPoint2);
                 surfaceLine2.SetDitchPolderSideAt(characteristicPoint2);
@@ -467,34 +427,34 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 pipingInput.NotifyObservers();
 
                 // Assert
-                ChartLineData newSurfaceLineChartData = (ChartLineData)view.Chart.Data.List[surfaceLineIndex];
+                ChartLineData newSurfaceLineChartData = (ChartLineData) view.Chart.Data.List[surfaceLineIndex];
                 Assert.AreNotEqual(oldSurfaceLineChartData, newSurfaceLineChartData);
                 AssertSurfaceLineChartData(surfaceLine2, newSurfaceLineChartData);
 
                 ChartPointData newEntryPointChartData = (ChartPointData) view.Chart.Data.List[entryPointIndex];
                 Assert.AreNotEqual(oldEntryPointChartData, newEntryPointChartData);
                 AssertEntryPointLPointchartData(pipingInput, surfaceLine2, newEntryPointChartData);
-                
+
                 ChartPointData newExitPointChartData = (ChartPointData) view.Chart.Data.List[exitPointIndex];
                 Assert.AreNotEqual(oldExitPointChartData, newExitPointChartData);
                 AssertExitPointLPointchartData(pipingInput, surfaceLine2, newExitPointChartData);
 
-                ChartPointData newDitchDikeSideData = (ChartPointData)view.Chart.Data.List[ditchDikeSideIndex];
+                ChartPointData newDitchDikeSideData = (ChartPointData) view.Chart.Data.List[ditchDikeSideIndex];
                 Assert.AreNotEqual(oldDitchDikeSideData, newDitchDikeSideData);
-               
-                ChartPointData newBottomDitchDikeSideData = (ChartPointData)view.Chart.Data.List[bottomDitchDikeSideIndex];
+
+                ChartPointData newBottomDitchDikeSideData = (ChartPointData) view.Chart.Data.List[bottomDitchDikeSideIndex];
                 Assert.AreNotEqual(oldBottomDitchDikeSideData, newBottomDitchDikeSideData);
-                
-                ChartPointData newDitchPolderSideData = (ChartPointData)view.Chart.Data.List[ditchPolderSideIndex];
+
+                ChartPointData newDitchPolderSideData = (ChartPointData) view.Chart.Data.List[ditchPolderSideIndex];
                 Assert.AreNotEqual(oldDitchPolderSideData, newDitchPolderSideData);
-                
-                ChartPointData newBottomDitchPolderSideData = (ChartPointData)view.Chart.Data.List[bottomDitchPolderSideIndex];
+
+                ChartPointData newBottomDitchPolderSideData = (ChartPointData) view.Chart.Data.List[bottomDitchPolderSideIndex];
                 Assert.AreNotEqual(oldBottomDitchPolderSideData, newBottomDitchPolderSideData);
-               
-                ChartPointData newDikeToeAtPolderData = (ChartPointData)view.Chart.Data.List[dikeToeAtPolderIndex];
+
+                ChartPointData newDikeToeAtPolderData = (ChartPointData) view.Chart.Data.List[dikeToeAtPolderIndex];
                 Assert.AreNotEqual(oldDikeToeAtPolderData, newDikeToeAtPolderData);
-                
-                ChartPointData newDikeToeAtRiverData = (ChartPointData)view.Chart.Data.List[dikeToeAtRiverIndex];
+
+                ChartPointData newDikeToeAtRiverData = (ChartPointData) view.Chart.Data.List[dikeToeAtRiverIndex];
                 Assert.AreNotEqual(oldDikeToeAtRiverData, newDikeToeAtRiverData);
 
                 AssertCharacteristicPoints(surfaceLine2, view.Chart.Data.List);
@@ -507,17 +467,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             using (PipingInputView view = new PipingInputView())
             {
-                var points = new[]
-                {
-                    new Point3D(1.2, 2.3, 4.0),
-                    new Point3D(2.7, 2.8, 6.0)
-                };
-
-                var surfaceLine = new RingtoetsPipingSurfaceLine
-                {
-                    Name = "Surface line name"
-                };
-                surfaceLine.SetGeometry(points);
+                var surfaceLine = GetSurfaceLineWithGeometry();
                 var input1 = new PipingInput(new GeneralPipingInput())
                 {
                     SurfaceLine = surfaceLine
@@ -530,14 +480,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 view.Data = input1;
 
-                var points2 = new[]
-                {
-                    new Point3D(3.5, 2.3, 8.0),
-                    new Point3D(6.9, 2.0, 2.0)
-                };
-
-                var surfaceLine2 = new RingtoetsPipingSurfaceLine();
-                surfaceLine2.SetGeometry(points2);
+                var surfaceLine2 = GetSecondSurfaceLineWithGeometry();
 
                 input2.SurfaceLine = surfaceLine2;
 
@@ -552,20 +495,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [Test]
         public void NotifyObservers_DataUpdatedNotifyObserversOnOldData_NoUpdateInViewData()
         {
-             // Setup
+            // Setup
             using (PipingInputView view = new PipingInputView())
             {
-                var points = new[]
-                {
-                    new Point3D(1.2, 2.3, 4.0),
-                    new Point3D(2.7, 2.8, 6.0)
-                };
+                var surfaceLine = GetSurfaceLineWithGeometry();
 
-                var surfaceLine = new RingtoetsPipingSurfaceLine
-                {
-                    Name = "Surface line name"
-                };
-                surfaceLine.SetGeometry(points);
                 var input1 = new PipingInput(new GeneralPipingInput())
                 {
                     SurfaceLine = surfaceLine
@@ -577,14 +511,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 view.Data = input2;
 
-                var points2 = new[]
-                {
-                    new Point3D(3.5, 2.3, 8.0),
-                    new Point3D(6.9, 2.0, 2.0)
-                };
-
-                var surfaceLine2 = new RingtoetsPipingSurfaceLine();
-                surfaceLine2.SetGeometry(points2);
+                var surfaceLine2 = GetSecondSurfaceLineWithGeometry();
 
                 input1.SurfaceLine = surfaceLine2;
 
@@ -606,6 +533,38 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private const int exitPointIndex = 7;
         private const int entryPointIndex = 8;
 
+        private static RingtoetsPipingSurfaceLine GetSurfaceLineWithGeometry()
+        {
+            var points = new[]
+            {
+                new Point3D(1.2, 2.3, 4.0),
+                new Point3D(2.7, 2.8, 6.0)
+            };
+
+            return GetSurfaceLine(points);
+        }
+
+        private static RingtoetsPipingSurfaceLine GetSecondSurfaceLineWithGeometry()
+        {
+            var points = new[]
+            {
+                new Point3D(3.5, 2.3, 8.0),
+                new Point3D(6.9, 2.0, 2.0)
+            };
+
+           return GetSurfaceLine(points);
+        }
+
+        private static RingtoetsPipingSurfaceLine GetSurfaceLine(Point3D[] points)
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Surface line name"
+            };
+            surfaceLine.SetGeometry(points);
+            return surfaceLine;
+        }
+        
         private void AssertSurfaceLineChartData(RingtoetsPipingSurfaceLine surfaceLine, ChartData chartData)
         {
             Assert.IsInstanceOf<ChartLineData>(chartData);
@@ -623,18 +582,24 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             Assert.AreEqual(1, entryPointChartData.Points.Count());
             Point2D entryPoint = new Point2D(pipingInput.EntryPointL, surfaceLine.GetZAtL(pipingInput.EntryPointL));
-            CollectionAssert.AreEqual(new[] { entryPoint }, entryPointChartData.Points);
+            CollectionAssert.AreEqual(new[]
+            {
+                entryPoint
+            }, entryPointChartData.Points);
             Assert.AreEqual(Resources.PipingInput_EntryPointL_DisplayName, entryPointChartData.Name);
         }
 
         private void AssertExitPointLPointchartData(PipingInput pipingInput, RingtoetsPipingSurfaceLine surfaceLine, ChartData chartData)
         {
             Assert.IsInstanceOf<ChartPointData>(chartData);
-            ChartPointData exitPointChartData = (ChartPointData)chartData;
+            ChartPointData exitPointChartData = (ChartPointData) chartData;
 
             Assert.AreEqual(1, exitPointChartData.Points.Count());
             Point2D exitPoint = new Point2D(pipingInput.ExitPointL, surfaceLine.GetZAtL(pipingInput.ExitPointL));
-            CollectionAssert.AreEqual(new[] { exitPoint }, exitPointChartData.Points);
+            CollectionAssert.AreEqual(new[]
+            {
+                exitPoint
+            }, exitPointChartData.Points);
             Assert.AreEqual(Resources.PipingInput_ExitPointL_DisplayName, exitPointChartData.Name);
         }
 
@@ -645,34 +610,52 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Point2D firstPoint = new Point2D(first.X, first.Y);
             Point2D lastPoint = new Point2D(last.X, last.Y);
 
-            var ditchDikeSideData = (ChartPointData)characteristicPoints[ditchDikeSideIndex];
+            var ditchDikeSideData = (ChartPointData) characteristicPoints[ditchDikeSideIndex];
             Assert.AreEqual(1, ditchDikeSideData.Points.Count());
-            CollectionAssert.AreEqual(new[] { surfaceLine.DitchDikeSide.ProjectIntoLocalCoordinates(firstPoint, lastPoint) }, ditchDikeSideData.Points);
+            CollectionAssert.AreEqual(new[]
+            {
+                surfaceLine.DitchDikeSide.ProjectIntoLocalCoordinates(firstPoint, lastPoint)
+            }, ditchDikeSideData.Points);
             Assert.AreEqual(PipingDataResources.CharacteristicPoint_DitchDikeSide, ditchDikeSideData.Name);
 
-            var bottomDitchDikeSideData = (ChartPointData)characteristicPoints[bottomDitchDikeSideIndex];
+            var bottomDitchDikeSideData = (ChartPointData) characteristicPoints[bottomDitchDikeSideIndex];
             Assert.AreEqual(1, bottomDitchDikeSideData.Points.Count());
-            CollectionAssert.AreEqual(new[] { surfaceLine.BottomDitchDikeSide.ProjectIntoLocalCoordinates(firstPoint, lastPoint) }, bottomDitchDikeSideData.Points);
+            CollectionAssert.AreEqual(new[]
+            {
+                surfaceLine.BottomDitchDikeSide.ProjectIntoLocalCoordinates(firstPoint, lastPoint)
+            }, bottomDitchDikeSideData.Points);
             Assert.AreEqual(PipingDataResources.CharacteristicPoint_BottomDitchDikeSide, bottomDitchDikeSideData.Name);
 
-            var ditchPolderSideData = (ChartPointData)characteristicPoints[ditchPolderSideIndex];
+            var ditchPolderSideData = (ChartPointData) characteristicPoints[ditchPolderSideIndex];
             Assert.AreEqual(1, ditchPolderSideData.Points.Count());
-            CollectionAssert.AreEqual(new[] { surfaceLine.DitchPolderSide.ProjectIntoLocalCoordinates(firstPoint, lastPoint) }, ditchPolderSideData.Points);
+            CollectionAssert.AreEqual(new[]
+            {
+                surfaceLine.DitchPolderSide.ProjectIntoLocalCoordinates(firstPoint, lastPoint)
+            }, ditchPolderSideData.Points);
             Assert.AreEqual(PipingDataResources.CharacteristicPoint_DitchPolderSide, ditchPolderSideData.Name);
 
-            var bottomDitchPolderSideData = (ChartPointData)characteristicPoints[bottomDitchPolderSideIndex];
+            var bottomDitchPolderSideData = (ChartPointData) characteristicPoints[bottomDitchPolderSideIndex];
             Assert.AreEqual(1, bottomDitchPolderSideData.Points.Count());
-            CollectionAssert.AreEqual(new[] { surfaceLine.BottomDitchPolderSide.ProjectIntoLocalCoordinates(firstPoint, lastPoint) }, bottomDitchPolderSideData.Points);
+            CollectionAssert.AreEqual(new[]
+            {
+                surfaceLine.BottomDitchPolderSide.ProjectIntoLocalCoordinates(firstPoint, lastPoint)
+            }, bottomDitchPolderSideData.Points);
             Assert.AreEqual(PipingDataResources.CharacteristicPoint_BottomDitchPolderSide, bottomDitchPolderSideData.Name);
 
-            var dikeToeAtPolderData = (ChartPointData)characteristicPoints[dikeToeAtPolderIndex];
+            var dikeToeAtPolderData = (ChartPointData) characteristicPoints[dikeToeAtPolderIndex];
             Assert.AreEqual(1, dikeToeAtPolderData.Points.Count());
-            CollectionAssert.AreEqual(new[] { surfaceLine.DikeToeAtPolder.ProjectIntoLocalCoordinates(firstPoint, lastPoint) }, dikeToeAtPolderData.Points);
+            CollectionAssert.AreEqual(new[]
+            {
+                surfaceLine.DikeToeAtPolder.ProjectIntoLocalCoordinates(firstPoint, lastPoint)
+            }, dikeToeAtPolderData.Points);
             Assert.AreEqual(PipingDataResources.CharacteristicPoint_DikeToeAtPolder, dikeToeAtPolderData.Name);
 
-            var dikeToeAtRiverData = (ChartPointData)characteristicPoints[dikeToeAtRiverIndex];
+            var dikeToeAtRiverData = (ChartPointData) characteristicPoints[dikeToeAtRiverIndex];
             Assert.AreEqual(1, dikeToeAtRiverData.Points.Count());
-            CollectionAssert.AreEqual(new[] { surfaceLine.DikeToeAtRiver.ProjectIntoLocalCoordinates(firstPoint, lastPoint) }, dikeToeAtRiverData.Points);
+            CollectionAssert.AreEqual(new[]
+            {
+                surfaceLine.DikeToeAtRiver.ProjectIntoLocalCoordinates(firstPoint, lastPoint)
+            }, dikeToeAtRiverData.Points);
             Assert.AreEqual(PipingDataResources.CharacteristicPoint_DikeToeAtRiver, dikeToeAtRiverData.Name);
         }
     }
