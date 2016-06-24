@@ -293,7 +293,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
                 var contextMenu = info.ContextMenuStrip(mapDataCollection, null, treeViewControl);
 
                 // Assert
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, DotSpatialResources.MapIcon);
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, DotSpatialResources.MapPlusIcon);
             }
         }
     }

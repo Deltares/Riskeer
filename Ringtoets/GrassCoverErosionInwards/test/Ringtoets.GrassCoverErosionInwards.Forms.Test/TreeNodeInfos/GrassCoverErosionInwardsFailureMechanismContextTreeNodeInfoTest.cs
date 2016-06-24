@@ -328,7 +328,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenNotRelevant,
                                                               RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
                                                               RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
-                                                              RingtoetsCommonFormsResources.Checkbox_ticked);
+                                                              RingtoetsCommonFormsResources.Checkbox_empty);
             }
         }
 
@@ -421,7 +421,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                               RingtoetsFormsResources.Calculate_all,
                                                               RingtoetsFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
-                                                              RingtoetsFormsResources.CalculateIcon,
+                                                              RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
         }
@@ -574,7 +574,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
                                                               RingtoetsFormsResources.Validate_all,
                                                               RingtoetsFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
-                                                              RingtoetsFormsResources.ValidateIcon,
+                                                              RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
             }
         }

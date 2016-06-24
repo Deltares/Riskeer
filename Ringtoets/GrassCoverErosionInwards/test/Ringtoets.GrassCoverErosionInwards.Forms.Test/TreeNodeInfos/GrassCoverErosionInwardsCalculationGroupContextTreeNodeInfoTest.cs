@@ -244,12 +244,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                               RingtoetsFormsResources.Validate_all,
                                                               RingtoetsFormsResources.ValidateAll_No_calculations_to_validate,
-                                                              RingtoetsFormsResources.ValidateIcon,
+                                                              RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
                                                               RingtoetsFormsResources.Calculate_all,
                                                               RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
-                                                              RingtoetsFormsResources.CalculateIcon,
+                                                              RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndexRootGroup,
                                                               RingtoetsFormsResources.Clear_all_output,
@@ -350,7 +350,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexNestedGroup,
                                                               RingtoetsFormsResources.Calculate_all,
                                                               RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
-                                                              RingtoetsFormsResources.CalculateIcon,
+                                                              RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndexNestedGroup,
                                                               RingtoetsFormsResources.Clear_all_output,
@@ -540,17 +540,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                failureMechanism,
                                                                                assessmentSectionMock);
-
-            var applicationFeatureCommandHandlerStub = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandlerStub = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandlerMock = mocks.StrictMock<IViewCommands>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandlerStub, exportImportHandlerStub, viewCommandsHandlerMock, nodeData, treeViewControl);
                 guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
-                viewCommandsHandlerMock.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(false);
 
                 mocks.ReplayAll();
 
@@ -558,10 +552,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                 // Assert
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndexRootGroup,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
                                                               RingtoetsFormsResources.Calculate_all,
                                                               RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip,
-                                                              RingtoetsFormsResources.CalculateIcon);
+                                                              RingtoetsFormsResources.CalculateAllIcon);
             }
         }
 

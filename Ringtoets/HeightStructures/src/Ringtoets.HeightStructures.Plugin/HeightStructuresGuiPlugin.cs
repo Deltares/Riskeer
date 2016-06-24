@@ -243,6 +243,10 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddSeparator()
                           .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
+                          .AddValidateAllCalculationsInFailureMechanismItem(
+                               context,
+                               c => ValidateAll(c.WrappedData.Calculations.OfType<HeightStructuresCalculation>(), c.Parent),
+                               ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddPerformAllCalculationsInFailureMechanismItem(context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddClearAllCalculationOutputInFailureMechanismItem(context.WrappedData)
                           .AddSeparator()
@@ -331,6 +335,10 @@ namespace Ringtoets.HeightStructures.Plugin
             builder.AddCreateCalculationGroupItem(group)
                    .AddCreateCalculationItem(context, AddCalculation)
                    .AddSeparator()
+                   .AddValidateAllCalculationsInGroupItem(
+                       context, 
+                       c => ValidateAll(c.WrappedData.GetCalculations().OfType<HeightStructuresCalculation>(), c.AssessmentSection), 
+                       ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddSeparator();
@@ -350,6 +358,14 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void ValidateAll(IEnumerable<HeightStructuresCalculation> heightStructuresCalculations, IAssessmentSection assessmentSection)
+        {
+            foreach (var calculation in heightStructuresCalculations)
+            {
+                HeightStructuresCalculationService.Validate(calculation, assessmentSection);
+            }
         }
 
         private static void CalculationGroupContextOnNodeRemoved(HeightStructuresCalculationGroupContext context, object parentNodeData)
@@ -413,7 +429,11 @@ namespace Ringtoets.HeightStructures.Plugin
 
             HeightStructuresCalculation calculation = context.WrappedData;
 
-            return builder.AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+            return builder.AddValidateCalculationItem(
+                                context,
+                                c => HeightStructuresCalculationService.Validate(c.WrappedData, c.AssessmentSection),
+                                ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+                          .AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
                           .AddRenameItem()

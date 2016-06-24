@@ -107,7 +107,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(Resources.GenericInputOutputIcon, image);
+            TestHelper.AssertImagesAreEqual(Resources.FailureMechanismSectionResultIcon, image);
         }
 
         [Test]

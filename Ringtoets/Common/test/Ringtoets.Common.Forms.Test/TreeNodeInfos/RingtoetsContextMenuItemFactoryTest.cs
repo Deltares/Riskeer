@@ -455,7 +455,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant, toolStripItem.Text);
             Assert.AreEqual(RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip, toolStripItem.ToolTipText);
-            var checkboxIcon = isRelevant ? RingtoetsFormsResources.Checkbox_empty : RingtoetsFormsResources.Checkbox_ticked;
+            var checkboxIcon = isRelevant ? RingtoetsFormsResources.Checkbox_ticked : RingtoetsFormsResources.Checkbox_empty;
             TestHelper.AssertImagesAreEqual(checkboxIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
             mocks.VerifyAll();
@@ -917,7 +917,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Validate_all, toolStripItem.Text);
             Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_Validate_all_ToolTip, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
         }
 

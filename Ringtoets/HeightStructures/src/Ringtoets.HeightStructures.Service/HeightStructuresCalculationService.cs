@@ -38,7 +38,7 @@ namespace Ringtoets.HeightStructures.Service
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations for height structures calculations.
     /// </summary>
-    internal static class HeightStructuresCalculationService
+    public static class HeightStructuresCalculationService
     {
         /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
@@ -47,7 +47,7 @@ namespace Ringtoets.HeightStructures.Service
         /// <param name="calculation">The <see cref="HeightStructuresCalculation"/> for which to validate the values.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
         /// <returns><c>True</c>c> if <paramref name="calculation"/> has no validation errors; <c>False</c>c> otherwise.</returns>
-        internal static bool Validate(HeightStructuresCalculation calculation, IAssessmentSection assessmentSection)
+        public static bool Validate(HeightStructuresCalculation calculation, IAssessmentSection assessmentSection)
         {
             return CalculationServiceHelper.PerformValidation(calculation.Name, () => ValidateInput(calculation.InputParameters, assessmentSection));
         }

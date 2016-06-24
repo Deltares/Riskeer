@@ -281,7 +281,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
-                var checkboxIcon = isRelevant ? RingtoetsFormsResources.Checkbox_empty : RingtoetsFormsResources.Checkbox_ticked;
+                var checkboxIcon = isRelevant ? RingtoetsFormsResources.Checkbox_ticked : RingtoetsFormsResources.Checkbox_empty;
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
                                                               RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
