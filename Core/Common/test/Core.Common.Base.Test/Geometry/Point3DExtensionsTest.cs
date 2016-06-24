@@ -102,7 +102,7 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void ProjectIntoLocalCoordinates_StartAdnEndWorldCoordinateLengthBiggerThanTolerance_DoesNotThrow()
+        public void ProjectIntoLocalCoordinates_StartAndEndWorldCoordinateLengthBiggerThanTolerance_DoesNotThrow()
         {
             // Setup
             const double originalZ = 3.3;

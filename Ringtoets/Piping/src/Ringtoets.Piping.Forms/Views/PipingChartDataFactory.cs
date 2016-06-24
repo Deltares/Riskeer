@@ -80,7 +80,8 @@ namespace Ringtoets.Piping.Forms.Views
         /// <summary>
         /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="entryPoint"/>.
         /// </summary>
-        /// <param name="entryPoint">The distance along the <paramref name="surfaceLine"/> at which to place the entry point.</param>
+        /// <param name="entryPoint">The horizontal distance from the origin at which to place the entry point
+        /// on the  <paramref name="surfaceLine"/>.</param>
         /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to place the entry point on.</param>
         /// <returns><see cref="ChartData"/> based on the <paramref name="entryPoint"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="entryPoint"/> is <c>NaN</c>.</exception>
@@ -103,7 +104,8 @@ namespace Ringtoets.Piping.Forms.Views
         /// <summary>
         /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="exitPoint"/>.
         /// </summary>
-        /// <param name="exitPoint">The distance along the <paramref name="surfaceLine"/> at which to place the exit point.</param>
+        /// <param name="exitPoint">The horizontal distance from the origin at which to place the exit point
+        /// on the  <paramref name="surfaceLine"/>.</param>
         /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to place the exit point on.</param>
         /// <returns><see cref="ChartData"/> based on the <paramref name="exitPoint"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="exitPoint"/> is <c>NaN</c>.</exception>
@@ -181,7 +183,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="surfaceLine.DitchDikeSide"/>.
         /// </summary>
         /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> which contains a point which 
-        /// characterizes the ditch at diek side, to create <see cref="ChartData"/> for.</param>
+        /// characterizes the ditch at dike side, to create <see cref="ChartData"/> for.</param>
         /// <returns><see cref="ChartData"/> based on the <paramref name="surfaceLine.DitchDikeSide"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c> or 
         /// the <see cref="RingtoetsPipingSurfaceLine"/> contains no <see cref="RingtoetsPipingSurfaceLine.DitchDikeSide"/>.</exception>
@@ -249,6 +251,7 @@ namespace Ringtoets.Piping.Forms.Views
             }
             catch (ArgumentOutOfRangeException)
             {
+                // TODO Should not have to handle when WTI-673 and WTI-396 are done.
                 pointWithZatLData = CreateEmptyPointData(name);
             }
 
