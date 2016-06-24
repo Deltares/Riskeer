@@ -97,13 +97,7 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException("surfaceLine");
             }
 
-            return new ChartPointData(new[]
-            {
-                new Point2D(entryPoint, surfaceLine.GetZAtL(entryPoint)),
-            }, Resources.PipingInput_EntryPointL_DisplayName)
-            {
-                Style = new ChartPointStyle(Color.Blue, 8, Color.Gray, 2, ChartPointSymbol.Triangle)
-            };
+            return CreatePointWithZAtL(entryPoint, surfaceLine, Resources.PipingInput_EntryPointL_DisplayName, Color.Blue);
         }
 
         /// <summary>
@@ -126,13 +120,7 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException("surfaceLine");
             }
 
-            return new ChartPointData(new[]
-            {
-                new Point2D(exitPoint, surfaceLine.GetZAtL(exitPoint)),
-            }, Resources.PipingInput_ExitPointL_DisplayName)
-            {
-                Style = new ChartPointStyle(Color.Brown, 8, Color.Gray, 2, ChartPointSymbol.Triangle)
-            };
+            return CreatePointWithZAtL(exitPoint, surfaceLine, Resources.PipingInput_ExitPointL_DisplayName, Color.Brown);
         }
 
         /// <summary>
@@ -241,6 +229,30 @@ namespace Ringtoets.Piping.Forms.Views
             }
 
             return CreateCharacteristicPoint(surfaceLine.DikeToeAtPolder, surfaceLine, PipingDataResources.CharacteristicPoint_DikeToeAtPolder, Color.Silver);
+        }
+
+        private static ChartData CreatePointWithZAtL(RoundedDouble pointL, RingtoetsPipingSurfaceLine surfaceLine, string name, Color color)
+        {
+            ChartPointData pointWithZatLData;
+
+            try
+            {
+                var pointZ = surfaceLine.GetZAtL(pointL);
+
+                pointWithZatLData = new ChartPointData(new[]
+                {
+                    new Point2D(pointL, pointZ),
+                }, name)
+                {
+                    Style = new ChartPointStyle(color, 8, Color.Gray, 2, ChartPointSymbol.Triangle)
+                };
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                pointWithZatLData = CreateEmptyPointData(name);
+            }
+
+            return pointWithZatLData;
         }
 
         private static ChartData CreateCharacteristicPoint(Point3D worldPoint, RingtoetsPipingSurfaceLine surfaceLine, string name, Color color)
