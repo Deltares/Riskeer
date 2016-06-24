@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 
 namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows

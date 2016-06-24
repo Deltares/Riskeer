@@ -41,7 +41,6 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Plugin;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using HeightStructuresFormsResources = Ringtoets.HeightStructures.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;

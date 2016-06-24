@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;

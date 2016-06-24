@@ -26,9 +26,6 @@ using System.Linq;
 
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
-
-using MathNet.Numerics.LinearAlgebra;
-
 using Ringtoets.Piping.Primitives.Exceptions;
 using Ringtoets.Piping.Primitives.Properties;
 

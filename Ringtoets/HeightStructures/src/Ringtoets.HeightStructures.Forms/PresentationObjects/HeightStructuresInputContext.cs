@@ -21,7 +21,6 @@
 
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.Properties;
 

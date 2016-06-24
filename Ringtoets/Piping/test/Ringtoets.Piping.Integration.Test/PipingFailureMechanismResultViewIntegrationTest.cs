@@ -30,7 +30,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Views;
-using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Piping.Integration.Test
 {
