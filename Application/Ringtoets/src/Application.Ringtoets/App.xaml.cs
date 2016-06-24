@@ -142,6 +142,7 @@ namespace Application.Ringtoets
 
             applicationCore.AddPlugin(new RingtoetsApplicationPlugin());
             applicationCore.AddPlugin(new PipingApplicationPlugin());
+            applicationCore.AddPlugin(new GrassCoverErosionInwardsApplicationPlugin());
 
             var settings = new GuiCoreSettings
             {
