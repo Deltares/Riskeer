@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             AssertEqualPointCollections(surfaceLine.ProjectGeometryToLZ(), chartLineData.Points);
 
-            AssertEqualStyle(chartLineData.Style, Color.SaddleBrown, 2, DashStyle.Solid);
+            AssertEqualStyle(chartLineData.Style, Color.Sienna, 2, DashStyle.Solid);
         }
 
         [Test]
@@ -148,7 +148,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 entryPointOnLine
             }, chartPointData.Points);
 
-            AssertEqualStyle(chartPointData.Style, Color.Blue, 8, Color.Gray, 2, ChartPointSymbol.Triangle);
+            AssertEqualStyle(chartPointData.Style, Color.Gold, 8, Color.Transparent, 0, ChartPointSymbol.Triangle);
         }
 
         [Test]
@@ -220,7 +220,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 exitPointOnLine
             }, chartPointData.Points);
 
-            AssertEqualStyle(chartPointData.Style, Color.Brown, 8, Color.Gray, 2, ChartPointSymbol.Triangle);
+            AssertEqualStyle(chartPointData.Style, Color.Tomato, 8, Color.Transparent, 0, ChartPointSymbol.Triangle);
         }
 
         [Test]
@@ -288,7 +288,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             AssertEqualLocalPointCollection(ditchPolderSide, surfaceLine, chartPointData.Points);
 
-            AssertEqualStyle(chartPointData.Style, Color.Red, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
+            AssertEqualStyle(chartPointData.Style, Color.IndianRed, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
 
         [Test]
@@ -335,7 +335,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             AssertEqualLocalPointCollection(bottomDitchPolderSide, surfaceLine, chartPointData.Points);
 
-            AssertEqualStyle(chartPointData.Style, Color.Blue, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
+            AssertEqualStyle(chartPointData.Style, Color.Teal, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
 
         [Test]
@@ -382,7 +382,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             AssertEqualLocalPointCollection(bottomDitchDikeSide, surfaceLine, chartPointData.Points);
 
-            AssertEqualStyle(chartPointData.Style, Color.Green, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
+            AssertEqualStyle(chartPointData.Style, Color.DarkSeaGreen, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
 
         [Test]
@@ -429,7 +429,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             AssertEqualLocalPointCollection(ditchDikeSide, surfaceLine, chartPointData.Points);
 
-            AssertEqualStyle(chartPointData.Style, Color.Purple, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
+            AssertEqualStyle(chartPointData.Style, Color.MediumPurple, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
 
         [Test]
@@ -476,7 +476,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             AssertEqualLocalPointCollection(dikeToeAtRiver, surfaceLine, chartPointData.Points);
 
-            AssertEqualStyle(chartPointData.Style, Color.Orange, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
+            AssertEqualStyle(chartPointData.Style, Color.DarkBlue, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
 
         [Test]
@@ -523,7 +523,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             AssertEqualLocalPointCollection(dikeToeAtPolder, surfaceLine, chartPointData.Points);
 
-            AssertEqualStyle(chartPointData.Style, Color.Silver, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
+            AssertEqualStyle(chartPointData.Style, Color.SlateGray, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
 
         private static RingtoetsPipingSurfaceLine GetSurfaceLineWithGeometry()

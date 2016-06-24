@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             return new ChartLineData(surfaceLine.ProjectGeometryToLZ(), surfaceLine.Name)
             {
-                Style = new ChartLineStyle(Color.SaddleBrown, 2, DashStyle.Solid)
+                Style = new ChartLineStyle(Color.Sienna, 2, DashStyle.Solid)
             };
         }
 
@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException("surfaceLine");
             }
 
-            return CreatePointWithZAtL(entryPoint, surfaceLine, Resources.PipingInput_EntryPointL_DisplayName, Color.Blue);
+            return CreatePointWithZAtL(entryPoint, surfaceLine, Resources.PipingInput_EntryPointL_DisplayName, Color.Gold);
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException("surfaceLine");
             }
 
-            return CreatePointWithZAtL(exitPoint, surfaceLine, Resources.PipingInput_ExitPointL_DisplayName, Color.Brown);
+            return CreatePointWithZAtL(exitPoint, surfaceLine, Resources.PipingInput_ExitPointL_DisplayName, Color.Tomato);
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException("surfaceLine");
             }
 
-            return CreateCharacteristicPoint(surfaceLine.DitchPolderSide, surfaceLine, PipingDataResources.CharacteristicPoint_DitchPolderSide, Color.Red);
+            return CreateCharacteristicPoint(surfaceLine.DitchPolderSide, surfaceLine, PipingDataResources.CharacteristicPoint_DitchPolderSide, Color.IndianRed);
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException("surfaceLine");
             }
 
-            return CreateCharacteristicPoint(surfaceLine.BottomDitchPolderSide, surfaceLine, PipingDataResources.CharacteristicPoint_BottomDitchPolderSide, Color.Blue);
+            return CreateCharacteristicPoint(surfaceLine.BottomDitchPolderSide, surfaceLine, PipingDataResources.CharacteristicPoint_BottomDitchPolderSide, Color.Teal);
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException("surfaceLine");
             }
 
-            return CreateCharacteristicPoint(surfaceLine.BottomDitchDikeSide, surfaceLine, PipingDataResources.CharacteristicPoint_BottomDitchDikeSide, Color.Green);
+            return CreateCharacteristicPoint(surfaceLine.BottomDitchDikeSide, surfaceLine, PipingDataResources.CharacteristicPoint_BottomDitchDikeSide, Color.DarkSeaGreen);
         }
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException("surfaceLine");
             }
 
-            return CreateCharacteristicPoint(surfaceLine.DitchDikeSide, surfaceLine, PipingDataResources.CharacteristicPoint_DitchDikeSide, Color.Purple);
+            return CreateCharacteristicPoint(surfaceLine.DitchDikeSide, surfaceLine, PipingDataResources.CharacteristicPoint_DitchDikeSide, Color.MediumPurple);
         }
 
         /// <summary>
@@ -210,7 +210,7 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException("surfaceLine");
             }
 
-            return CreateCharacteristicPoint(surfaceLine.DikeToeAtRiver, surfaceLine, PipingDataResources.CharacteristicPoint_DikeToeAtRiver, Color.Orange);
+            return CreateCharacteristicPoint(surfaceLine.DikeToeAtRiver, surfaceLine, PipingDataResources.CharacteristicPoint_DikeToeAtRiver, Color.DarkBlue);
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException("surfaceLine");
             }
 
-            return CreateCharacteristicPoint(surfaceLine.DikeToeAtPolder, surfaceLine, PipingDataResources.CharacteristicPoint_DikeToeAtPolder, Color.Silver);
+            return CreateCharacteristicPoint(surfaceLine.DikeToeAtPolder, surfaceLine, PipingDataResources.CharacteristicPoint_DikeToeAtPolder, Color.SlateGray);
         }
 
         private static ChartData CreatePointWithZAtL(RoundedDouble pointL, RingtoetsPipingSurfaceLine surfaceLine, string name, Color color)
@@ -244,7 +244,7 @@ namespace Ringtoets.Piping.Forms.Views
                     new Point2D(pointL, pointZ),
                 }, name)
                 {
-                    Style = new ChartPointStyle(color, 8, Color.Gray, 2, ChartPointSymbol.Triangle)
+                    Style = new ChartPointStyle(color, 8, Color.Transparent, 0, ChartPointSymbol.Triangle)
                 };
             }
             catch (ArgumentOutOfRangeException)
