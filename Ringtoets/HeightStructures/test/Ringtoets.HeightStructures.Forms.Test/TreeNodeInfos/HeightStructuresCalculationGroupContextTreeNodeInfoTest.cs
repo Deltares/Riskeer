@@ -40,7 +40,6 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Plugin;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Data;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -761,14 +760,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabaseStub = mocks.Stub<HydraulicBoundaryDatabase>();
             hydraulicBoundaryDatabaseStub.FilePath = validFilePath;
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
+
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
 
             var groupContext = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                            failureMechanism,
-                                                                           assessmentSection);
+                                                                           assessmentSectionMock);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -841,14 +841,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabaseStub = mocks.Stub<HydraulicBoundaryDatabase>();
             hydraulicBoundaryDatabaseStub.FilePath = validFilePath;
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
+
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
 
             var groupContext = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                            failureMechanism,
-                                                                           assessmentSection);
+                                                                           assessmentSectionMock);
 
             using (var treeViewControl = new TreeViewControl())
             {
