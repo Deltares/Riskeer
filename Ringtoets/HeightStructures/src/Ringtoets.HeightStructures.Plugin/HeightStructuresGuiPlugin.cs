@@ -139,6 +139,14 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                                                                  assessmentSection)).ToArray());
         }
 
+        private void ValidateAll(IEnumerable<HeightStructuresCalculation> heightStructuresCalculations, IAssessmentSection assessmentSection)
+        {
+            foreach (var calculation in heightStructuresCalculations)
+            {
+                HeightStructuresCalculationService.Validate(calculation, assessmentSection);
+            }
+        }
+
         private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, HeightStructuresFailureMechanism failureMechanism)
         {
             if (!failureMechanism.Sections.Any())
@@ -244,9 +252,9 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
-                               context,
-                               c => ValidateAll(c.WrappedData.Calculations.OfType<HeightStructuresCalculation>(), c.Parent),
-                               ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
+                              context,
+                              c => ValidateAll(c.WrappedData.Calculations.OfType<HeightStructuresCalculation>(), c.Parent),
+                              ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddPerformAllCalculationsInFailureMechanismItem(context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddClearAllCalculationOutputInFailureMechanismItem(context.WrappedData)
                           .AddSeparator()
@@ -336,8 +344,8 @@ namespace Ringtoets.HeightStructures.Plugin
                    .AddCreateCalculationItem(context, AddCalculation)
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
-                       context, 
-                       c => ValidateAll(c.WrappedData.GetCalculations().OfType<HeightStructuresCalculation>(), c.AssessmentSection), 
+                       context,
+                       c => ValidateAll(c.WrappedData.GetCalculations().OfType<HeightStructuresCalculation>(), c.AssessmentSection),
                        ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddClearAllCalculationOutputInGroupItem(group)
@@ -358,14 +366,6 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private void ValidateAll(IEnumerable<HeightStructuresCalculation> heightStructuresCalculations, IAssessmentSection assessmentSection)
-        {
-            foreach (var calculation in heightStructuresCalculations)
-            {
-                HeightStructuresCalculationService.Validate(calculation, assessmentSection);
-            }
         }
 
         private static void CalculationGroupContextOnNodeRemoved(HeightStructuresCalculationGroupContext context, object parentNodeData)
@@ -430,9 +430,9 @@ namespace Ringtoets.HeightStructures.Plugin
             HeightStructuresCalculation calculation = context.WrappedData;
 
             return builder.AddValidateCalculationItem(
-                                context,
-                                c => HeightStructuresCalculationService.Validate(c.WrappedData, c.AssessmentSection),
-                                ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+                context,
+                c => HeightStructuresCalculationService.Validate(c.WrappedData, c.AssessmentSection),
+                ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
