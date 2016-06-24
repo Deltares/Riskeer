@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Components.Charting.Forms;
 using Core.Components.OxyPlot.Forms;
 using NUnit.Framework;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -41,6 +43,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IChartView>(view);
+                Assert.IsInstanceOf<IObserver>(view);
                 Assert.IsNotNull(view.Chart);
                 Assert.IsNull(view.Data);
             }
@@ -61,6 +64,147 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 CollectionAssert.IsEmpty(chartControl.Data.List);
                 Assert.AreEqual(RingtoetsCommonFormsResources.InputView_Distance_DisplayName, chartControl.BottomAxisTitle);
                 Assert.AreEqual(RingtoetsCommonFormsResources.InputView_Height_DisplayName, chartControl.LeftAxisTitle);
+                Assert.IsNull(chartControl.ChartTitle);
+            }
+        }
+
+        [Test]
+        public void Data_GrassCoverErosionInwardsInput_DataSet()
+        {
+            // Setup
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView())
+            {
+                GrassCoverErosionInwardsInput input = new GrassCoverErosionInwardsInput();
+
+                // Call
+                view.Data = input;
+
+                // Assert
+                Assert.AreSame(input, view.Data);
+            }
+        }
+
+        [Test]
+        public void Data_OtherThanGrassCoverErosionInwardsInput_DataNull()
+        {
+            // Setup
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView())
+            {
+                object input = new object();
+
+                // Call
+                view.Data = input;
+
+                // Assert
+                Assert.IsNull(view.Data);
+            }
+        }
+
+        [Test]
+        public void Calculation_Always_SetsCalculationAndUpdateChartTitle()
+        {
+            // Setup
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView())
+            {
+                GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation()
+                {
+                    Name = "Test name"
+                };
+
+                // Call
+                view.Calculation = calculation;
+
+                // Assert
+                Assert.AreSame(calculation, view.Calculation);
+                Assert.AreEqual(calculation.Name, view.Chart.ChartTitle);
+            }
+        }
+
+        [Test]
+        public void Calculation_SetToNull_ChartTitleCleared()
+        {
+            // Setup
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView())
+            {
+                GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation()
+                {
+                    Name = "Test name"
+                };
+
+                view.Calculation = calculation;
+
+                // Precondition
+                Assert.AreSame(calculation, view.Calculation);
+                Assert.AreEqual(calculation.Name, view.Chart.ChartTitle);
+
+                // Call
+                view.Calculation = null;
+
+                // Assert
+                Assert.IsNull(view.Calculation);
+                Assert.AreEqual(string.Empty, view.Chart.ChartTitle);
+            }
+        }
+
+        [Test]
+        public void UpdateObservers_CalculationNameUpdated_ChartTitleUpdated()
+        {
+            // Setup
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView())
+            {
+                var initialName = "Initial name";
+                var updatedName = "Updated name";
+
+                var calculation = new GrassCoverErosionInwardsCalculation
+                {
+                    Name = initialName
+                };
+
+                view.Calculation = calculation;
+
+                // Precondition
+                Assert.AreEqual(initialName, view.Chart.ChartTitle);
+
+                calculation.Name = updatedName;
+
+                // Call
+                calculation.NotifyObservers();
+
+                // Assert
+                Assert.AreEqual(updatedName, view.Chart.ChartTitle);
+            }
+        }
+
+        [Test]
+        public void UpdateObservers_OtherCalculationNameUpdated_ChartTitleNotUpdated()
+        {
+            // Setup
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView())
+            {
+                var initialName = "Initial name";
+                var updatedName = "Updated name";
+
+                var calculation1 = new GrassCoverErosionInwardsCalculation
+                {
+                    Name = initialName
+                };
+                var calculation2 = new GrassCoverErosionInwardsCalculation
+                {
+                    Name = initialName
+                };
+
+                view.Calculation = calculation1;
+
+                // Precondition
+                Assert.AreEqual(initialName, view.Chart.ChartTitle);
+
+                calculation2.Name = updatedName;
+
+                // Call
+                calculation1.NotifyObservers();
+
+                // Assert
+                Assert.AreEqual(initialName, view.Chart.ChartTitle);
             }
         }
     }

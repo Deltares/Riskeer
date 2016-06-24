@@ -20,15 +20,20 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Components.Charting.Forms;
+using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {
     /// <summary>
     /// This class is a view to show the grass cover erosion inwards input.
     /// </summary>
-    public partial class GrassCoverErosionInwardsInputView : UserControl, IChartView
+    public partial class GrassCoverErosionInwardsInputView : UserControl, IChartView, IObserver
     {
+        private object data;
+        private GrassCoverErosionInwardsCalculation calculation;
+
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsInputView"/>.
         /// </summary>
@@ -37,13 +42,67 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             InitializeComponent();
         }
 
-        public object Data { get; set; }
+        /// <summary>
+        /// Gets or sets the calculation the input belongs to.
+        /// </summary>
+        public GrassCoverErosionInwardsCalculation Calculation
+        {
+            get
+            {
+                return calculation;
+            }
+            set
+            {
+                DetachFromData();
+                calculation = value;
+                SetChartTitle();
+                AttachToData();
+            }
+        }
+
+        public object Data
+        {
+            get
+            {
+                return data;
+            }
+            set
+            {
+                data = value as GrassCoverErosionInwardsInput;
+            }
+        }
 
         public IChartControl Chart
         {
             get
             {
                 return chartControl;
+            }
+        }
+
+        public void UpdateObserver()
+        {
+            SetChartTitle();
+        }
+
+        private void SetChartTitle()
+        {
+            chartControl.ChartTitle = calculation != null ? calculation.Name : string.Empty;
+        }
+
+        private void DetachFromData()
+        {
+            if (calculation != null)
+            {
+                calculation.Detach(this);
+            }
+        }
+
+        private void AttachToData()
+        {
+            if (calculation != null)
+            {
+                calculation.Attach(this);
             }
         }
     }

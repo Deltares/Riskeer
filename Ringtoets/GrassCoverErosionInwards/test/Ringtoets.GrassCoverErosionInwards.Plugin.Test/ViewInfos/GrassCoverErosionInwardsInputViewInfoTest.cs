@@ -109,18 +109,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation pipingCalculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsCalculationContext pipingCalculationScenarioContext = new GrassCoverErosionInwardsCalculationContext(pipingCalculation,
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsCalculationContext calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation,
                                                                                                                      new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                                      assessmentSection);
 
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = pipingCalculation.InputParameters
+                Data = calculation.InputParameters
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, pipingCalculationScenarioContext);
+                bool closeForData = info.CloseForData(view, calculationContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -135,20 +135,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation pipingCalculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
             GrassCoverErosionInwardsCalculation calculationToRemove = new GrassCoverErosionInwardsCalculation();
 
-            GrassCoverErosionInwardsCalculationContext pipingCalculationScenarioContext = new GrassCoverErosionInwardsCalculationContext(calculationToRemove,
+            GrassCoverErosionInwardsCalculationContext calculationContext = new GrassCoverErosionInwardsCalculationContext(calculationToRemove,
                                                                                                                      new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                                      assessmentSection);
 
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = pipingCalculation.InputParameters
+                Data = calculation.InputParameters
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, pipingCalculationScenarioContext);
+                bool closeForData = info.CloseForData(view, calculationContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -508,6 +508,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void AfterCreate_Always_SetsCalculationOnView()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsInputContext context = new GrassCoverErosionInwardsInputContext(calculation.InputParameters, calculation,
+                                                                new GrassCoverErosionInwardsFailureMechanism(), 
+                                                                assessmentSection);
+
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            {
+                Data = calculation.InputParameters
+            })
+            {
+                // Call
+                info.AfterCreate(view, context);
+
+                // Assert
+                Assert.AreSame(calculation, view.Calculation);
                 mocks.VerifyAll();
             }
         }

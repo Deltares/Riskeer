@@ -86,7 +86,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, input) => GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsInputContext_NodeDisplayName,
                 GetViewData = context => context.WrappedData,
-                CloseForData = CloseInputViewForData
+                CloseForData = CloseInputViewForData,
+                AfterCreate = (view, context) => view.Calculation = context.Calculation
             };
         }        
 
