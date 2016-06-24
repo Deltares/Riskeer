@@ -98,7 +98,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             TestDelegate call = () => new DikeProfileLocation(id, "aNAME", 1.1, referencePoint);
 
             // Assert
-            var expectedMessage = "De locatie parameter 'Id' bevat meer dan letters en cijfers.";
+            var expectedMessage = "De locatie parameter 'Id' mag uitsluitend uit letters en cijfers bestaan.";
             string message = Assert.Throws<ArgumentException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }

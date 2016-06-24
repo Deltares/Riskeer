@@ -161,6 +161,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shape bestand.
+        /// </summary>
+        public static string DikeProfilesImporter_FileFilter_Shapefile {
+            get {
+                return ResourceManager.GetString("DikeProfilesImporter_FileFilter_Shapefile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resultaat.
         /// </summary>
         public static string FailureMechanism_AssessmentResult_DisplayName {

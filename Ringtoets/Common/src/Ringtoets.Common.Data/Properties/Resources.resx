@@ -213,4 +213,7 @@
   <data name="VariationCoefficient_Should_be_greater_than_zero" xml:space="preserve">
     <value>Variatiecoëfficiënt moet groter zijn dan 0.</value>
   </data>
+  <data name="DikeProfilesImporter_FileFilter_Shapefile" xml:space="preserve">
+    <value>Shape bestand</value>
+  </data>
 </root>

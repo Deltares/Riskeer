@@ -26,7 +26,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
@@ -39,6 +38,9 @@ using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
 {
@@ -53,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
         {
             get
             {
-                return "Dijkprofiel locaties";
+                return Resources.DikeProfilesImporter_DisplayName;
             }
         }
 
@@ -61,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
         {
             get
             {
-                return "Algemeen";
+                return RingtoetsFormsResources.Ringtoets_Category;
             }
         }
 
@@ -77,8 +79,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
         {
             get
             {
-                return string.Format("{0} {1} (*.shp)|*.shp",
-                                     "Dijkprofiel locaties", "Shape bestand");
+                return string.Format(RingtoetsCommonIOResources.DikeProfilesImport_FileFilter_0_1_shapefile_extension,
+                                     Resources.DikeProfilesImporter_DisplayName, RingtoetsCommonDataResources.DikeProfilesImporter_FileFilter_Shapefile);
             }
         }
 
@@ -86,18 +88,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
 
         public override bool CanImportOn(object targetItem)
         {
-            return base.CanImportOn(targetItem) && IsReferenceLineAvailable(targetItem);
+            var dikeProfilesContext = (DikeProfilesContext) targetItem;
+            return base.CanImportOn(targetItem) && IsReferenceLineAvailable(dikeProfilesContext);
         }
 
         public override bool Import(object targetItem, string filePath)
         {
-            if (!IsReferenceLineAvailable(targetItem))
+            var dikeProfilesContext = (DikeProfilesContext) targetItem;
+            if (!IsReferenceLineAvailable(dikeProfilesContext))
             {
-                log.Error("Er is geen referentielijn beschikbaar. Geen data ingelezen.");
+                log.Error(Resources.DikeProfilesImporter_Import_no_referenceline_import_aborted);
                 return false;
             }
 
-            var dikeProfilesContext = (DikeProfilesContext) targetItem;
             ReferenceLine referenceLine = dikeProfilesContext.ParentAssessmentSection.ReferenceLine;
 
             ReadResult<DikeProfileLocation> importDikeProfilesResult = ReadDikeProfileLocations(filePath, referenceLine);
@@ -112,8 +115,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
                 return false;
             }
 
-            string folder = Path.GetDirectoryName(filePath);
-            ReadResult<DikeProfileData> importDikeProfileDataResult = ReadDikeProfileData(folder);
+            string folderPath = Path.GetDirectoryName(filePath);
+            ReadResult<DikeProfileData> importDikeProfileDataResult = ReadDikeProfileData(folderPath);
             if (importDikeProfileDataResult.CriticalErrorOccurred)
             {
                 return false;
@@ -125,7 +128,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
                 return false;
             }
 
-            ObservableList<DikeProfile> dikeProfiles = CreateDikeProfiles(importDikeProfilesResult.ImportedItems, importDikeProfileDataResult.ImportedItems);
+            IEnumerable<DikeProfile> dikeProfiles = CreateDikeProfiles(importDikeProfilesResult.ImportedItems, importDikeProfileDataResult.ImportedItems);
 
             foreach (DikeProfile dikeProfile in dikeProfiles)
             {
@@ -137,7 +140,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
 
         private ReadResult<DikeProfileLocation> ReadDikeProfileLocations(string filePath, ReferenceLine referenceLine)
         {
-            NotifyProgress("Inlezen van dijkprofiel locaties uit een shape bestand.", 1, 1);
+            NotifyProgress(Resources.DikeProfilesImporter_ReadDikeProfileLocations_reading_dikeprofilelocations, 1, 1);
             try
             {
                 using (var dikeProfileLocationReader = new DikeProfileLocationReader(filePath))
@@ -158,10 +161,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
 
         private ReadResult<DikeProfileLocation> GetDikeProfileLocationReadResult(DikeProfileLocationReader dikeProfileLocationReader, ReferenceLine referenceLine)
         {
-            var totalNumberOfSteps = dikeProfileLocationReader.GetLocationCount;
-            var currentStep = 1;
-
             var dikeProfileLocations = new Collection<DikeProfileLocation>();
+
+            int totalNumberOfSteps = dikeProfileLocationReader.GetLocationCount;
             for (int i = 0; i < totalNumberOfSteps; i++)
             {
                 if (ImportIsCancelled)
@@ -171,7 +173,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
 
                 try
                 {
-                    NotifyProgress("Inlezen van dijkprofiel locatie.", currentStep++, totalNumberOfSteps);
+                    NotifyProgress(Resources.DikeProfilesImporter_GetDikeProfileLocationReadResult_reading_dikeprofilelocation, i + 1, totalNumberOfSteps);
                     AddNextDikeProfileLocation(dikeProfileLocationReader, referenceLine, dikeProfileLocations);
                 }
                 catch (CriticalFileReadException exception)
@@ -186,35 +188,40 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
             };
         }
 
+        /// <summary>
+        /// Get the next DikeProfileLocation from <paramref name="dikeProfileLocationReader"/> and add to <paramref name="dikeProfileLocations"/> in case it is close enough to <paramref name="referenceLine"/>.
+        /// </summary>
+        /// <param name="dikeProfileLocationReader">Reader reading DikeProfileLocations for a shapefile.</param>
+        /// <param name="referenceLine">The reference line.</param>
+        /// <param name="dikeProfileLocations">Collection of DikeProfileLocations to which a new DikeProfileLocation is to be added.</param>
+        /// <exception cref="CriticalFileReadException"><list type="bullet">
+        /// <item>The shapefile misses a value for a required attribute.</item>
+        /// <item>The shapefile has an attribute whose type is incorrect.</item>
+        /// </list></exception>
         private void AddNextDikeProfileLocation(DikeProfileLocationReader dikeProfileLocationReader, ReferenceLine referenceLine, Collection<DikeProfileLocation> dikeProfileLocations)
         {
             DikeProfileLocation dikeProfileLocation = dikeProfileLocationReader.GetNextDikeProfileLocation();
             double distanceToReferenceLine = GetDistanceToReferenceLine(dikeProfileLocation.Point, referenceLine);
             if (distanceToReferenceLine > 1.0)
             {
-                log.Error("Een dijkprofiel locatie ligt niet op de referentielijn. Locatie wordt overgeslagen.");
+                log.Error(string.Format(Resources.DikeProfilesImporter_AddNextDikeProfileLocation_0_skipping_location_outside_referenceline, dikeProfileLocation.Id));
                 return;
             }
             dikeProfileLocations.Add(dikeProfileLocation);
         }
 
-        private ReadResult<DikeProfileData> ReadDikeProfileData(string folder)
+        private ReadResult<DikeProfileData> ReadDikeProfileData(string folderPath)
         {
-            NotifyProgress("Inlezen van voorland en dijkprofiel data uit een prfl bestand.", 1, 1);
-            var dikeProfileDataReader = new DikeProfileDataReader();
-            return GetDikeProfileDataReadResult(dikeProfileDataReader, folder);
-        }
+            NotifyProgress(Resources.DikeProfilesImporter_ReadDikeProfileData_reading_dikeprofile_data, 1, 1);
 
-        private ReadResult<DikeProfileData> GetDikeProfileDataReadResult(DikeProfileDataReader dikeProfileDataReader, string folder)
-        {
-            // No exception handling for GetFiles, as folder is derived from an existing, read file.
-            string[] prflFilePaths = Directory.GetFiles(folder, "*.prfl");
+            // No exception handling for GetFiles, as folderPath is derived from an existing, read file.
+            string[] prflFilePaths = Directory.GetFiles(folderPath, "*.prfl");
 
-            var totalNumberOfSteps = prflFilePaths.Length;
-            var currentStep = 1;
+            int totalNumberOfSteps = prflFilePaths.Length;
 
             var dikeProfileData = new Collection<DikeProfileData>();
             Dictionary<string, List<string>> duplicates = new Dictionary<string, List<string>>();
+            var dikeProfileDataReader = new DikeProfileDataReader();
 
             for (int i = 0; i < totalNumberOfSteps; i++)
             {
@@ -223,31 +230,29 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
                     return new ReadResult<DikeProfileData>(false);
                 }
 
+                string prflFilePath = prflFilePaths[i];
+
                 try
                 {
-                    NotifyProgress("Inlezen van voorland en dijkprofiel data.", currentStep++, totalNumberOfSteps);
+                    NotifyProgress(Resources.DikeProfilesImporter_ReadDikeProfileData_reading_dikeprofiledata, i + 1, totalNumberOfSteps);
 
-                    DikeProfileData data = dikeProfileDataReader.ReadDikeProfileData(prflFilePaths[i]);
+                    DikeProfileData data = dikeProfileDataReader.ReadDikeProfileData(prflFilePath);
                     if (data.ProfileType != ProfileType.Coordinates)
                     {
-                        log.Error(string.Format("Voorland en dijkprofiel data specificeert een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen: {0}", prflFilePaths[i]));
+                        log.Error(string.Format(Resources.DikeProfilesImporter_ReadDikeProfileData_sheet_piling_not_zero_skipping_0_, prflFilePath));
                         continue;
                     }
 
                     if (dikeProfileData.Any(d => d.Id.Equals(data.Id)))
                     {
-                        if (!duplicates.ContainsKey(data.Id))
-                        {
-                            duplicates.Add(data.Id, new List<string>());
-                        }
-                        duplicates[data.Id].Add(prflFilePaths[i]);
+                        UpdateDuplicates(duplicates, data, prflFilePath);
                     }
                     else
                     {
                         dikeProfileData.Add(data);
                     }
                 }
-                // No ArgumentException is caught, as prflFilePaths are valid by construction.
+                    // No need to catch ArgumentException, as prflFilePaths are valid by construction.
                 catch (CriticalFileReadException exception)
                 {
                     log.Error(exception.Message);
@@ -263,14 +268,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
             };
         }
 
+        private static void UpdateDuplicates(Dictionary<string, List<string>> duplicates, DikeProfileData data, string prflFilePath)
+        {
+            if (!duplicates.ContainsKey(data.Id))
+            {
+                duplicates.Add(data.Id, new List<string>());
+            }
+            duplicates[data.Id].Add(prflFilePath);
+        }
+
         private void LogDuplicateDikeProfileData(Dictionary<string, List<string>> duplicates)
         {
             foreach (KeyValuePair<string, List<string>> keyValuePair in duplicates)
             {
-                StringBuilder builder = new StringBuilder(string.Format("Meerdere dijkprofiel data bestanden gevonden met Id {0}. Alleen de eerste wordt gebruikt. De {1} overgeslagen bestanden zijn:", keyValuePair.Key, keyValuePair.Value.Count));
+                StringBuilder builder = new StringBuilder(
+                    string.Format(Resources.DikeProfilesImporter_LogDuplicateDikeProfileData_dikeprofiledata_file_with_id_0_used_files_1_are_skipped,
+                                  keyValuePair.Key, keyValuePair.Value.Count));
+
                 foreach (string filePath in keyValuePair.Value)
                 {
-                    if (builder.Length + filePath.Length + Environment.NewLine.Length < builder.MaxCapacity)
+                    if (BuilderNotAtMaxCapacity(builder, filePath))
                     {
                         builder.AppendLine(filePath);
                     }
@@ -280,15 +297,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
             }
         }
 
-        private ObservableList<DikeProfile> CreateDikeProfiles(ICollection<DikeProfileLocation> dikeProfileLocationCollection, ICollection<DikeProfileData> dikeProfileDataCollection)
+        private static bool BuilderNotAtMaxCapacity(StringBuilder builder, string filePath)
         {
-            ObservableList<DikeProfile> dikeProfiles = new ObservableList<DikeProfile>();
+            return builder.Length + filePath.Length + Environment.NewLine.Length < builder.MaxCapacity;
+        }
+
+        private IEnumerable<DikeProfile> CreateDikeProfiles(ICollection<DikeProfileLocation> dikeProfileLocationCollection, ICollection<DikeProfileData> dikeProfileDataCollection)
+        {
+            List<DikeProfile> dikeProfiles = new List<DikeProfile>();
             foreach (DikeProfileLocation dikeProfileLocation in dikeProfileLocationCollection)
             {
                 string id = dikeProfileLocation.Id;
 
                 var dikeProfileData = GetMatchingDikeProfileData(dikeProfileDataCollection, id);
-                if (dikeProfileData != null)
+                if (dikeProfileData == null)
+                {
+                    log.Error(string.Format(Resources.DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_, id));
+                }
+                else
                 {
                     DikeProfile dikeProfile = CreateDikeProfile(dikeProfileLocation, dikeProfileData);
                     dikeProfiles.Add(dikeProfile);
@@ -300,11 +326,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
         private DikeProfileData GetMatchingDikeProfileData(ICollection<DikeProfileData> dikeProfileDataCollection, string id)
         {
             DikeProfileData matchingDikeProfileData = dikeProfileDataCollection.FirstOrDefault(d => d.Id.Equals(id));
-            if (matchingDikeProfileData == null)
-            {
-                log.Error(string.Format("Kan geen voorland en dijkprofiel data vinden voor dijkprofiel locatie met Id: {0}", id));
-                return null;
-            }
             return matchingDikeProfileData;
         }
 
@@ -316,13 +337,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
                 Memo = dikeProfileData.Memo,
                 X0 = dikeProfileLocation.Offset,
                 Orientation = (RoundedDouble) dikeProfileData.Orientation,
-                ForeshoreGeometry = dikeProfileData.ForeshoreGeometry.Select(r => r.Point).ToList(),
-                DikeGeometry = dikeProfileData.DikeGeometry.ToList(),
                 DikeHeight = (RoundedDouble) dikeProfileData.DikeHeight
             };
 
+            List<Point2D> foreshoreGeometry = dikeProfile.ForeshoreGeometry;
+            foreshoreGeometry.Clear();
+            foreshoreGeometry.AddRange(dikeProfileData.ForeshoreGeometry.Select(r => r.Point));
+
+            List<RoughnessPoint> dikeGeometry = dikeProfile.DikeGeometry;
+            dikeGeometry.Clear();
+            dikeGeometry.AddRange(dikeProfileData.DikeGeometry);
+
             switch (dikeProfileData.DamType)
             {
+                case DamType.None:
+                    dikeProfile.BreakWater = null;
+                    break;
                 case DamType.Caisson:
                     dikeProfile.BreakWater = new BreakWater(BreakWaterType.Caisson, dikeProfileData.DamHeight);
                     break;
@@ -341,13 +371,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
 
         private void HandleUserCancellingImport()
         {
-            log.Info("Dijkprofielen importeren is afgebroken. Geen data ingelezen.");
+            log.Info(Resources.DikeProfilesImporter_HandleUserCancellingImport_dikeprofile_import_aborted);
             ImportIsCancelled = false;
         }
 
-        private static bool IsReferenceLineAvailable(object targetItem)
+        private static bool IsReferenceLineAvailable(DikeProfilesContext targetItem)
         {
-            return ((DikeProfilesContext) targetItem).ParentAssessmentSection.ReferenceLine != null;
+            return targetItem.ParentAssessmentSection.ReferenceLine != null;
         }
 
         private double GetDistanceToReferenceLine(Point2D point, ReferenceLine referenceLine)

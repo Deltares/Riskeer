@@ -24,7 +24,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
@@ -34,6 +36,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using GrassCoverErosionInwardsPluginResources = Ringtoets.GrassCoverErosionInwards.Plugin.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
 {
@@ -53,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // Prepare
+            // Setup
             var expectedFileFilter = String.Format("{0} {1} (*.shp)|*.shp",
                                                    "Dijkprofiel locaties", "Shape bestand");
 
@@ -61,10 +64,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             var importer = new DikeProfilesImporter();
 
             // Assert
+            Assert.IsInstanceOf<FileImporterBase<DikeProfilesContext>>(importer);
             Assert.AreEqual("Dijkprofiel locaties", importer.Name);
             Assert.AreEqual("Algemeen", importer.Category);
-            Assert.AreEqual(16, importer.Image.Width);
-            Assert.AreEqual(16, importer.Image.Height);
+            TestHelper.AssertImagesAreEqual(GrassCoverErosionInwardsPluginResources.DikeProfile, importer.Image);
             Assert.AreEqual(expectedFileFilter, importer.FileFilter);
         }
 
@@ -77,11 +80,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var referencePoints = new List<Point2D>
             {
-                new Point2D(131223.2,548393.4),
-                new Point2D(133854.3,545323.1),
-                new Point2D(135561.0,541920.3),
-                new Point2D(136432.1,538235.2),
-                new Point2D(136039.4,533920.2)
+                new Point2D(131223.2, 548393.4),
+                new Point2D(133854.3, 545323.1),
+                new Point2D(135561.0, 541920.3),
+                new Point2D(136432.1, 538235.2),
+                new Point2D(136039.4, 533920.2)
             };
             assessmentSection.ReferenceLine = new ReferenceLine();
             assessmentSection.ReferenceLine.SetGeometry(referencePoints);
@@ -131,8 +134,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             mockRepository.ReplayAll();
 
             var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
-            
-            //Precondition
+
             var importResult = true;
 
             // Call
@@ -154,8 +156,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         public void Import_FromPathContainingInvalidFileCharacters_FalseAndLogError()
         {
             // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
             DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter();
-            var filePath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "validFile.txt");
             var invalidFileNameChars = Path.GetInvalidFileNameChars();
             var invalidPath = filePath.Replace('d', invalidFileNameChars[0]);
 
@@ -228,7 +231,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             // Setup
             DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                shapeFileName);
+                                                         shapeFileName);
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -249,7 +252,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
                 string[] messageArray = messages.ToArray();
                 string message = new FileReaderErrorMessageBuilder(filePath)
                     .Build(string.Format("Fout bij het lezen van bestand '{0}': Het bestand mag uitsluitend punten bevatten.",
-                                                filePath));
+                                         filePath));
                 StringAssert.EndsWith(messageArray[0], message);
             });
             Assert.IsFalse(importResult);
@@ -266,7 +269,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             // Setup
             DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                Path.Combine("DikeProfiles", shapeFileName));
+                                                         Path.Combine("DikeProfiles", shapeFileName));
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -286,7 +289,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             {
                 string[] messageArray = messages.ToArray();
                 string message = string.Format("Het bestand heeft geen attribuut '{0}' welke vereist is om de locaties van de dijkprofielen in te lezen.",
-                                                missingColumnName);
+                                               missingColumnName);
                 Assert.AreEqual(message, messageArray[0]);
             });
             Assert.IsFalse(importResult);
@@ -301,7 +304,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             // Setup
             DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                Path.Combine("DikeProfiles", fileName));
+                                                         Path.Combine("DikeProfiles", fileName));
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -320,7 +323,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                string message = "De locatie parameter 'Id' bevat meer dan letters en cijfers.";
+                string message = "De locatie parameter 'Id' mag uitsluitend uit letters en cijfers bestaan.";
                 Assert.AreEqual(message, messageArray[0]);
             });
             Assert.IsFalse(importResult);
@@ -333,7 +336,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             // Setup
             DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyId.shp"));
+                                                         Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyId.shp"));
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -365,17 +368,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             // Setup
             DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                Path.Combine("DikeProfiles", "IpflWithUnmatchableId", "Voorlanden_12-2_UnmatchableId.shp"));
+                                                         Path.Combine("DikeProfiles", "IpflWithUnmatchableId", "Voorlanden_12-2_UnmatchableId.shp"));
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var referencePoints = new List<Point2D>
             {
-                new Point2D(131223.2,548393.4),
-                new Point2D(133854.3,545323.1),
-                new Point2D(135561.0,541920.3),
-                new Point2D(136432.1,538235.2),
-                new Point2D(136039.4,533920.2)
+                new Point2D(131223.2, 548393.4),
+                new Point2D(133854.3, 545323.1),
+                new Point2D(135561.0, 541920.3),
+                new Point2D(136432.1, 538235.2),
+                new Point2D(136039.4, 533920.2)
             };
             assessmentSection.ReferenceLine = new ReferenceLine();
             assessmentSection.ReferenceLine.SetGeometry(referencePoints);
@@ -406,7 +409,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             // Setup
             DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyX0.shp"));
+                                                         Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyX0.shp"));
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -438,7 +441,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             // Setup
             DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
+                                                         Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -465,18 +468,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             var observer = mockRepository.StrictMock<IObserver>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var referencePoints = new List<Point2D>
             {
-                new Point2D(141223.2,548393.4),
-                new Point2D(143854.3,545323.1),
-                new Point2D(145561.0,541920.3),
-                new Point2D(146432.1,538235.2),
-                new Point2D(146039.4,533920.2)
+                new Point2D(141223.2, 548393.4),
+                new Point2D(143854.3, 545323.1),
+                new Point2D(145561.0, 541920.3),
+                new Point2D(146432.1, 538235.2),
+                new Point2D(146039.4, 533920.2)
             };
             assessmentSection.ReferenceLine = new ReferenceLine();
             assessmentSection.ReferenceLine.SetGeometry(referencePoints);
@@ -498,8 +501,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
 
             // Assert
-            var expectedMessages = Enumerable.Repeat("Een dijkprofiel locatie ligt niet op de referentielijn. Locatie wordt overgeslagen.", 5).ToList();
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, expectedMessages.Count);
+            var expectedMessages = Enumerable.Repeat("Een dijkprofiel locatie met Id 'profiel001' ligt niet op de referentielijn. Locatie wordt overgeslagen.", 5).ToArray();
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, expectedMessages.Length);
             Assert.IsTrue(importResult);
             mockRepository.VerifyAll(); // 'observer' should not be notified
         }
@@ -509,18 +512,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             var observer = mockRepository.StrictMock<IObserver>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var referencePoints = new List<Point2D>
             {
-                new Point2D(131223.2,548393.4),
-                new Point2D(133854.3,545323.1),
-                new Point2D(135561.0,541920.3),
-                new Point2D(136432.1,538235.2),
-                new Point2D(146039.4,533920.2)
+                new Point2D(131223.2, 548393.4),
+                new Point2D(133854.3, 545323.1),
+                new Point2D(135561.0, 541920.3),
+                new Point2D(136432.1, 538235.2),
+                new Point2D(146039.4, 533920.2)
             };
             assessmentSection.ReferenceLine = new ReferenceLine();
             assessmentSection.ReferenceLine.SetGeometry(referencePoints);
@@ -542,7 +545,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
 
             // Assert
-            string expectedMessage = "Een dijkprofiel locatie ligt niet op de referentielijn. Locatie wordt overgeslagen.";
+            string expectedMessage = "Een dijkprofiel locatie met Id 'profiel005' ligt niet op de referentielijn. Locatie wordt overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
             Assert.IsTrue(importResult);
             Assert.AreEqual(4, targetContext.WrappedData.Count);
@@ -554,18 +557,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             var observer = mockRepository.StrictMock<IObserver>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var referencePoints = new List<Point2D>
             {
-                new Point2D(131223.2,548393.4),
-                new Point2D(133854.3,545323.1),
-                new Point2D(135561.0,541920.3),
-                new Point2D(136432.1,538235.2),
-                new Point2D(136039.4,533920.2)
+                new Point2D(131223.2, 548393.4),
+                new Point2D(133854.3, 545323.1),
+                new Point2D(135561.0, 541920.3),
+                new Point2D(136432.1, 538235.2),
+                new Point2D(136039.4, 533920.2)
             };
             assessmentSection.ReferenceLine = new ReferenceLine();
             assessmentSection.ReferenceLine.SetGeometry(referencePoints);
@@ -600,16 +603,54 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
                 new ProgressNotification("Inlezen van voorland en dijkprofiel data.", 4, 5),
                 new ProgressNotification("Inlezen van voorland en dijkprofiel data.", 5, 5)
             };
-            Assert.AreEqual(expectedProgressMessages.Count, progressChangeNotifications.Count);
-            for (var i = 0; i < expectedProgressMessages.Count; i++)
-            {
-                var notification = expectedProgressMessages[i];
-                var actualNotification = progressChangeNotifications[i];
-                Assert.AreEqual(notification.Text, actualNotification.Text);
-                Assert.AreEqual(notification.CurrentStep, actualNotification.CurrentStep);
-                Assert.AreEqual(notification.TotalSteps, actualNotification.TotalSteps);
-            }
+            ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications, targetContext);
             Assert.AreEqual(5, targetContext.WrappedData.Count);
+            mockRepository.VerifyAll(); // 'observer' should not be notified
+        }
+
+        [Test]
+        public void Import_AllOkTestData_CorrectDikeProfileProperties()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+
+            var observer = mockRepository.StrictMock<IObserver>();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(131223.2, 548393.4),
+                new Point2D(133854.3, 545323.1),
+                new Point2D(135561.0, 541920.3),
+                new Point2D(136432.1, 538235.2),
+                new Point2D(136039.4, 533920.2)
+            };
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            assessmentSection.ReferenceLine.SetGeometry(referencePoints);
+            mockRepository.ReplayAll();
+
+            var progressChangeNotifications = new List<ProgressNotification>();
+            DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter
+            {
+                ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
+            };
+
+            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
+            targetContext.Attach(observer);
+
+            // Call
+            bool importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            DikeProfile dikeProfile = targetContext.WrappedData[4];
+
+            // Assert
+            Assert.AreEqual(new Point2D(136039.49100000039, 533920.28050000477), dikeProfile.WorldReferencePoint);
+            Assert.AreEqual("profiel005", dikeProfile.Name);
+            StringAssert.StartsWith("Verkenning prfl format:", dikeProfile.Memo);
+            Assert.AreEqual(15.56165507, dikeProfile.X0);
+            Assert.AreEqual(new RoundedDouble(2, 330.0), dikeProfile.Orientation);
+            Assert.IsTrue(dikeProfile.HasBreakWater);
+            Assert.AreEqual(new RoundedDouble(2, 6.0), dikeProfile.DikeHeight);
             mockRepository.VerifyAll(); // 'observer' should not be notified
         }
 
@@ -618,18 +659,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                Path.Combine("DikeProfiles", "AllDamTypes", "Voorlanden 12-2.shp"));
+                                                         Path.Combine("DikeProfiles", "AllDamTypes", "Voorlanden 12-2.shp"));
 
             var observer = mockRepository.StrictMock<IObserver>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var referencePoints = new List<Point2D>
             {
-                new Point2D(131223.2,548393.4),
-                new Point2D(133854.3,545323.1),
-                new Point2D(135561.0,541920.3),
-                new Point2D(136432.1,538235.2),
-                new Point2D(136039.4,533920.2)
+                new Point2D(131223.2, 548393.4),
+                new Point2D(133854.3, 545323.1),
+                new Point2D(135561.0, 541920.3),
+                new Point2D(136432.1, 538235.2),
+                new Point2D(136039.4, 533920.2)
             };
             assessmentSection.ReferenceLine = new ReferenceLine();
             assessmentSection.ReferenceLine.SetGeometry(referencePoints);
@@ -664,15 +705,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
                 new ProgressNotification("Inlezen van voorland en dijkprofiel data.", 4, 5),
                 new ProgressNotification("Inlezen van voorland en dijkprofiel data.", 5, 5)
             };
-            Assert.AreEqual(expectedProgressMessages.Count, progressChangeNotifications.Count);
-            for (var i = 0; i < expectedProgressMessages.Count; i++)
-            {
-                var notification = expectedProgressMessages[i];
-                var actualNotification = progressChangeNotifications[i];
-                Assert.AreEqual(notification.Text, actualNotification.Text);
-                Assert.AreEqual(notification.CurrentStep, actualNotification.CurrentStep);
-                Assert.AreEqual(notification.TotalSteps, actualNotification.TotalSteps);
-            }
+            ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications, targetContext);
             Assert.AreEqual(5, targetContext.WrappedData.Count);
             mockRepository.VerifyAll(); // 'observer' should not be notified
         }
@@ -682,18 +715,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                Path.Combine("DikeProfiles", "InvalidDamType", "Voorlanden 12-2.shp"));
+                                                         Path.Combine("DikeProfiles", "InvalidDamType", "Voorlanden 12-2.shp"));
 
             var observer = mockRepository.StrictMock<IObserver>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var referencePoints = new List<Point2D>
             {
-                new Point2D(131223.2,548393.4),
-                new Point2D(133854.3,545323.1),
-                new Point2D(135561.0,541920.3),
-                new Point2D(136432.1,538235.2),
-                new Point2D(136039.4,533920.2)
+                new Point2D(131223.2, 548393.4),
+                new Point2D(133854.3, 545323.1),
+                new Point2D(135561.0, 541920.3),
+                new Point2D(136432.1, 538235.2),
+                new Point2D(136039.4, 533920.2)
             };
             assessmentSection.ReferenceLine = new ReferenceLine();
             assessmentSection.ReferenceLine.SetGeometry(referencePoints);
@@ -730,17 +763,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var referencePoints = new List<Point2D>
             {
-                new Point2D(131223.2,548393.4),
-                new Point2D(133854.3,545323.1),
-                new Point2D(135561.0,541920.3),
-                new Point2D(136432.1,538235.2),
-                new Point2D(136039.4,533920.2)
+                new Point2D(131223.2, 548393.4),
+                new Point2D(133854.3, 545323.1),
+                new Point2D(135561.0, 541920.3),
+                new Point2D(136432.1, 538235.2),
+                new Point2D(136039.4, 533920.2)
             };
             assessmentSection.ReferenceLine = new ReferenceLine();
             assessmentSection.ReferenceLine.SetGeometry(referencePoints);
@@ -768,7 +801,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter();
 
@@ -776,11 +809,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var referencePoints = new List<Point2D>
             {
-                new Point2D(131223.2,548393.4),
-                new Point2D(133854.3,545323.1),
-                new Point2D(135561.0,541920.3),
-                new Point2D(136432.1,538235.2),
-                new Point2D(136039.4,533920.2)
+                new Point2D(131223.2, 548393.4),
+                new Point2D(133854.3, 545323.1),
+                new Point2D(135561.0, 541920.3),
+                new Point2D(136432.1, 538235.2),
+                new Point2D(136039.4, 533920.2)
             };
             assessmentSection.ReferenceLine = new ReferenceLine();
             assessmentSection.ReferenceLine.SetGeometry(referencePoints);
@@ -806,7 +839,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                Path.Combine("DikeProfiles", "TwoPrflWithSameId", "profiel001.shp"));
+                                                         Path.Combine("DikeProfiles", "TwoPrflWithSameId", "profiel001.shp"));
 
             DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter();
 
@@ -814,8 +847,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var referencePoints = new List<Point2D>
             {
-                new Point2D(130074.3,543717.4),
-                new Point2D(130084.3,543727.4)
+                new Point2D(130074.3, 543717.4),
+                new Point2D(130084.3, 543727.4)
             };
             assessmentSection.ReferenceLine = new ReferenceLine();
             assessmentSection.ReferenceLine.SetGeometry(referencePoints);
@@ -829,11 +862,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             // Call
             Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
 
-
             // Assert
             Action<IEnumerable<string>> asserts = (messages) =>
             {
-                bool found = messages.Any(message => message.StartsWith("Meerdere dijkprofiel data bestanden gevonden met Id profiel001. Alleen de eerste wordt gebruikt. De 1 overgeslagen bestanden zijn:"));
+                bool found = messages.Any(message => message.StartsWith("Alleen het eerste dijkprofiel data bestand met Id profiel001 wordt gebruikt. De 1 overgeslagen bestanden zijn:"));
                 Assert.IsTrue(found);
             };
             TestHelper.AssertLogMessages(call, asserts);
@@ -846,7 +878,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                Path.Combine("DikeProfiles", "PrflWithProfileNotZero", "Voorland_12-2.shp"));
+                                                         Path.Combine("DikeProfiles", "PrflWithProfileNotZero", "Voorland_12-2.shp"));
 
             DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter();
 
@@ -854,8 +886,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var referencePoints = new List<Point2D>
             {
-                new Point2D(130074.3,543717.4),
-                new Point2D(130084.3,543727.4)
+                new Point2D(130074.3, 543717.4),
+                new Point2D(130084.3, 543727.4)
             };
             assessmentSection.ReferenceLine = new ReferenceLine();
             assessmentSection.ReferenceLine.SetGeometry(referencePoints);
@@ -868,7 +900,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
 
             // Call
             Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
-
 
             // Assert
             Action<IEnumerable<string>> asserts = (messages) =>
@@ -886,7 +917,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                Path.Combine("DikeProfiles", "PrflIsIncomplete", "Voorland_12-2.shp"));
+                                                         Path.Combine("DikeProfiles", "PrflIsIncomplete", "Voorland_12-2.shp"));
 
             DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter();
 
@@ -894,8 +925,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var referencePoints = new List<Point2D>
             {
-                new Point2D(130074.3,543717.4),
-                new Point2D(130084.3,543727.4)
+                new Point2D(130074.3, 543717.4),
+                new Point2D(130084.3, 543727.4)
             };
             assessmentSection.ReferenceLine = new ReferenceLine();
             assessmentSection.ReferenceLine.SetGeometry(referencePoints);
@@ -909,7 +940,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             // Call
             Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
 
-
             // Assert
             Action<IEnumerable<string>> asserts = (messages) =>
             {
@@ -919,6 +949,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             TestHelper.AssertLogMessages(call, asserts);
             Assert.IsFalse(importResult);
             mockRepository.VerifyAll(); // 'observer' should not be notified 
+        }
+
+        private static void ValidateProgressMessages(List<ProgressNotification> expectedProgressMessages, List<ProgressNotification> progressChangeNotifications, DikeProfilesContext targetContext)
+        {
+            Assert.AreEqual(expectedProgressMessages.Count, progressChangeNotifications.Count);
+            for (var i = 0; i < expectedProgressMessages.Count; i++)
+            {
+                var notification = expectedProgressMessages[i];
+                var actualNotification = progressChangeNotifications[i];
+                Assert.AreEqual(notification.Text, actualNotification.Text);
+                Assert.AreEqual(notification.CurrentStep, actualNotification.CurrentStep);
+                Assert.AreEqual(notification.TotalSteps, actualNotification.TotalSteps);
+            }
         }
 
         private class ProgressNotification

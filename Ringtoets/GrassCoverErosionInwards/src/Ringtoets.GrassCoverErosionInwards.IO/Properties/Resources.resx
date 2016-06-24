@@ -202,7 +202,7 @@
     <value>De locatie parameter 'Id' heeft geen waarde.</value>
   </data>
   <data name="DikeProfileLocation_DikeProfileLocation_Id_is_invalid" xml:space="preserve">
-    <value>De locatie parameter 'Id' bevat meer dan letters en cijfers.</value>
+    <value>De locatie parameter 'Id' mag uitsluitend uit letters en cijfers bestaan.</value>
   </data>
   <data name="DikeProfileLocation_DikeProfileLocation_Point_is_null" xml:space="preserve">
     <value>De locatie heeft geen coördinaten.</value>

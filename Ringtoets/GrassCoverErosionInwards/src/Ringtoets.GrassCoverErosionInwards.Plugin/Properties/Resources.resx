@@ -139,4 +139,37 @@
   <data name="GrassCoverErosionInwardsGuiPlugin_Scenarios_DisplayName" xml:space="preserve">
     <value>Scenarios</value>
   </data>
+  <data name="DikeProfilesImporter_DisplayName" xml:space="preserve">
+    <value>Dijkprofiel locaties</value>
+  </data>
+  <data name="DikeProfilesImporter_ReadDikeProfileLocations_reading_dikeprofilelocations" xml:space="preserve">
+    <value>Inlezen van dijkprofiel locaties uit een shape bestand.</value>
+  </data>
+  <data name="DikeProfilesImporter_GetDikeProfileLocationReadResult_reading_dikeprofilelocation" xml:space="preserve">
+    <value>Inlezen van dijkprofiel locatie.</value>
+  </data>
+  <data name="DikeProfilesImporter_AddNextDikeProfileLocation_0_skipping_location_outside_referenceline" xml:space="preserve">
+    <value>Een dijkprofiel locatie met Id '{0}' ligt niet op de referentielijn. Locatie wordt overgeslagen.</value>
+  </data>
+  <data name="DikeProfilesImporter_ReadDikeProfileData_reading_dikeprofile_data" xml:space="preserve">
+    <value>Inlezen van voorland en dijkprofiel data uit een prfl bestand.</value>
+  </data>
+  <data name="DikeProfilesImporter_ReadDikeProfileData_sheet_piling_not_zero_skipping_0_" xml:space="preserve">
+    <value>Voorland en dijkprofiel data specificeert een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen: {0}</value>
+  </data>
+  <data name="DikeProfilesImporter_LogDuplicateDikeProfileData_dikeprofiledata_file_with_id_0_used_files_1_are_skipped" xml:space="preserve">
+    <value>Alleen het eerste dijkprofiel data bestand met Id {0} wordt gebruikt. De {1} overgeslagen bestanden zijn:</value>
+  </data>
+  <data name="DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_" xml:space="preserve">
+    <value>Kan geen voorland en dijkprofiel data vinden voor dijkprofiel locatie met Id: {0}</value>
+  </data>
+  <data name="DikeProfilesImporter_HandleUserCancellingImport_dikeprofile_import_aborted" xml:space="preserve">
+    <value>Dijkprofielen importeren is afgebroken. Geen data ingelezen.</value>
+  </data>
+  <data name="DikeProfilesImporter_Import_no_referenceline_import_aborted" xml:space="preserve">
+    <value>Er is geen referentielijn beschikbaar. Geen data ingelezen.</value>
+  </data>
+  <data name="DikeProfilesImporter_ReadDikeProfileData_reading_dikeprofiledata" xml:space="preserve">
+    <value>Inlezen van voorland en dijkprofiel data.</value>
+  </data>
 </root>

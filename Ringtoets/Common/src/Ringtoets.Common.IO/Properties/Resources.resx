@@ -156,4 +156,7 @@ Er is geen referentielijn geïmporteerd.</value>
   <data name="ReferenceLineImporter_ProgressText_Removing_hydraulic_boundary_output" xml:space="preserve">
     <value>Verwijderen uitvoer van hydraulische randvoorwaarden.</value>
   </data>
+  <data name="DikeProfilesImport_FileFilter_0_1_shapefile_extension" xml:space="preserve">
+    <value>{0} {1} (*.shp)|*.shp</value>
+  </data>
 </root>
