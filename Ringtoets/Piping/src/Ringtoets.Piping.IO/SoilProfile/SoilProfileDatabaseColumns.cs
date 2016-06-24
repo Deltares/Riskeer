@@ -34,6 +34,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
         internal const string IntersectionX = "IntersectionX";
         internal const string Bottom = "Bottom";
         internal const string Top = "Top";
+        internal const string Color = "Color";
+        internal const string MaterialName = "MaterialName";
         internal const string LayerGeometry = "LayerGeometry";
         internal const string AbovePhreaticLevel = "AbovePhreaticLevel";
         internal const string BelowPhreaticLevel = "BelowPhreaticLevel";

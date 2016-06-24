@@ -242,16 +242,20 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 String.Format(
                     "SELECT " +
                     "mat.MA_ID, " +
+                    "mat.MA_Name as {4}, " +
                     "MAX(case when pn.PN_NAME = '{0}' then pv.PV_Value end) {0}, " +
                     "MAX(case when pn.PN_NAME = '{1}' then pv.PV_Value end) {1}, " +
-                    "MAX(case when pn.PN_NAME = '{2}' then pv.PV_Value end) {2} " +
+                    "MAX(case when pn.PN_NAME = '{2}' then pv.PV_Value end) {2}, " +
+                    "MAX(case when pn.PN_NAME = '{3}' then pv.PV_Value end) {3} " +
                     "FROM ParameterNames as pn " +
                     "JOIN ParameterValues as pv USING(PN_ID) " +
                     "JOIN Materials as mat USING(MA_ID) " +
                     "GROUP BY mat.MA_ID",
                     SoilProfileDatabaseColumns.AbovePhreaticLevel,
                     SoilProfileDatabaseColumns.BelowPhreaticLevel,
-                    SoilProfileDatabaseColumns.DryUnitWeight);
+                    SoilProfileDatabaseColumns.DryUnitWeight,
+                    SoilProfileDatabaseColumns.Color,
+                    SoilProfileDatabaseColumns.MaterialName);
             string subQueryGetLayerPropertiesOfLayer1D =
                 String.Format(
                     "SELECT " +
@@ -278,11 +282,13 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 "layerCount.{2}, " +
                 "sp1d.BottomLevel AS {3}, " +
                 "sl1d.TopLevel AS {4}, " +
-                "{5}, " +
+                "{5}, " + 
                 "{6}, " +
                 "{7}, " +
                 "{8}, " +
-                "sp1d.SP1D_ID AS {9} " +
+                "{9}, " +
+                "{10}, " +
+                "sp1d.SP1D_ID AS {11} " +
                 "FROM Mechanism AS m " +
                 "JOIN Segment AS segment USING(ME_ID) " +
                 "JOIN StochasticSoilProfile ssp USING(SSM_ID) " +
@@ -297,16 +303,18 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 "LEFT JOIN (" +
                 subQueryGetLayerPropertiesOfLayer1D +
                 ") layerProperties USING(SL1D_ID) " +
-                "WHERE m.{10} = @{10};",
+                "WHERE m.{12} = @{12};",
                 SoilProfileDatabaseColumns.Dimension,
                 SoilProfileDatabaseColumns.ProfileName,
                 SoilProfileDatabaseColumns.LayerCount,
                 SoilProfileDatabaseColumns.Bottom,
                 SoilProfileDatabaseColumns.Top,
+                SoilProfileDatabaseColumns.MaterialName,
                 SoilProfileDatabaseColumns.AbovePhreaticLevel,
                 SoilProfileDatabaseColumns.BelowPhreaticLevel,
                 SoilProfileDatabaseColumns.DryUnitWeight,
                 SoilProfileDatabaseColumns.IsAquifer,
+                SoilProfileDatabaseColumns.Color,
                 SoilProfileDatabaseColumns.SoilProfileId,
                 MechanismDatabaseColumns.MechanismName);
 
@@ -321,7 +329,9 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 "{6}, " +
                 "{7}, " +
                 "{8}, " +
-                "sp2d.SP2D_ID as {9} " +
+                "{9}, " +
+                "{10}, " +
+                "sp2d.SP2D_ID as {11} " +
                 "FROM Mechanism AS m " +
                 "JOIN Segment AS segment USING(ME_ID) " +
                 "JOIN StochasticSoilProfile ssp USING(SSM_ID) " +
@@ -337,16 +347,18 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 "LEFT JOIN (" +
                 subQueryGetLayerPropertiesOfLayer2D +
                 ") layerProperties USING(SL2D_ID) " +
-                "WHERE m.{10} = @{10};",
+                "WHERE m.{12} = @{12};",
                 SoilProfileDatabaseColumns.Dimension,
                 SoilProfileDatabaseColumns.ProfileName,
                 SoilProfileDatabaseColumns.LayerCount,
                 SoilProfileDatabaseColumns.LayerGeometry,
                 SoilProfileDatabaseColumns.IntersectionX,
+                SoilProfileDatabaseColumns.MaterialName,
                 SoilProfileDatabaseColumns.AbovePhreaticLevel,
                 SoilProfileDatabaseColumns.BelowPhreaticLevel,
                 SoilProfileDatabaseColumns.DryUnitWeight,
                 SoilProfileDatabaseColumns.IsAquifer,
+                SoilProfileDatabaseColumns.Color,
                 SoilProfileDatabaseColumns.SoilProfileId,
                 MechanismDatabaseColumns.MechanismName);
 
