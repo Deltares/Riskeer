@@ -69,6 +69,36 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
+            yield return new ViewInfo<GrassCoverErosionInwardsScenariosContext,
+                CalculationGroup,
+                GrassCoverErosionInwardsScenariosView>
+            {
+                GetViewData = context => context.WrappedData,
+                GetViewName = (view, calculationGroup) => GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_Scenarios_DisplayName,
+                AfterCreate = (view, context) =>
+                {
+                    view.SectionResults = context.ParentFailureMechanism.SectionResults;
+                },
+                CloseForData = (view, removedData) =>
+                {
+                    var assessmentSection = removedData as IAssessmentSection;
+                    if (assessmentSection != null)
+                    {
+                        return assessmentSection.GetFailureMechanisms()
+                                                .OfType<GrassCoverErosionInwardsFailureMechanism>()
+                                                .Any(fm => ReferenceEquals(view.Data, fm.CalculationsGroup));
+                    }
+
+                    var grassCoverErosionInwardsFailureMechanism = removedData as GrassCoverErosionInwardsFailureMechanism;
+                    if (grassCoverErosionInwardsFailureMechanism != null)
+                    {
+                        return ReferenceEquals(view.Data, grassCoverErosionInwardsFailureMechanism.CalculationsGroup);
+                    }
+                    return false;
+                },
+                Image = GrassCoverErosionInwardsPluginResources.ScenariosIcon
+            };
+
             yield return new ViewInfo<
                 FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>,
                 IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>,
@@ -332,7 +362,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             return new ArrayList
             {
-                new GrassCoverErosionInwardsScenariosContext(),
+                new GrassCoverErosionInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
             };
         }

@@ -99,6 +99,7 @@
     <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsInputViewTest.cs" />
+    <Compile Include="Views\GrassCoverErosionInwardsScenariosViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

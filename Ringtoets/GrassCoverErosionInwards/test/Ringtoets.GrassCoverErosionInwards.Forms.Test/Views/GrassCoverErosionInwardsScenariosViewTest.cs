@@ -19,24 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Controls.PresentationObjects;
+using Core.Common.Controls.Views;
 
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using NUnit.Framework;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
+using Ringtoets.GrassCoverErosionInwards.Forms.Views;
+
+namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 {
-    /// <summary>
-    /// Presentation object for configuration of scenarios for the Grass Cover Erosion Inwards
-    /// failure mechanism.
-    /// </summary>
-    public class GrassCoverErosionInwardsScenariosContext : WrappedObjectContextBase<CalculationGroup>
+    [TestFixture]
+    public class GrassCoverErosionInwardsScenariosViewTest
     {
-        public GrassCoverErosionInwardsScenariosContext(CalculationGroup wrappedData, GrassCoverErosionInwardsFailureMechanism failureMechanism) : base(wrappedData)
+        [Test]
+        public void Constructor_ExpectedValues()
         {
-            ParentFailureMechanism = failureMechanism;
+            // Call
+            using(var view = new GrassCoverErosionInwardsScenariosView())
+            {
+                // Assert
+                Assert.IsInstanceOf<IView>(view);
+                Assert.IsNull(view.Data);
+                Assert.IsNull(view.SectionResults);
+            }
         }
-
-        public GrassCoverErosionInwardsFailureMechanism ParentFailureMechanism { get; private set; }
     }
 }

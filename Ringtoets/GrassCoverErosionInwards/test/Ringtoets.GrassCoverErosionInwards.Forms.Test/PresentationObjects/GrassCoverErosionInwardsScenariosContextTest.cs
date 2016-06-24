@@ -19,8 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Controls.PresentationObjects;
+
 using NUnit.Framework;
 
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
@@ -31,11 +35,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculationGroup = new CalculationGroup();
+
             // Call
-            var context = new GrassCoverErosionInwardsScenariosContext();
+            var context = new GrassCoverErosionInwardsScenariosContext(calculationGroup, failureMechanism);
 
             // Assert
-            // TODO: Only need state as part of WTI-638
+            Assert.IsInstanceOf<WrappedObjectContextBase<CalculationGroup>>(context);
+            Assert.AreSame(calculationGroup, context.WrappedData);
+            Assert.AreSame(failureMechanism, context.ParentFailureMechanism);
         }
     }
 }

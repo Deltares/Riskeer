@@ -31,6 +31,8 @@ using NUnit.Framework;
 
 using Rhino.Mocks;
 
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
 using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
@@ -84,7 +86,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnScenarios()
         {
             // Setup
-            var context = new GrassCoverErosionInwardsScenariosContext();
+            var group = new CalculationGroup();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var context = new GrassCoverErosionInwardsScenariosContext(group, failureMechanism);
 
             // Call
             string text = info.Text(context);
@@ -97,7 +101,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnExpectedImage()
         {
             // Setup
-            var context = new GrassCoverErosionInwardsScenariosContext();
+            var group = new CalculationGroup();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var context = new GrassCoverErosionInwardsScenariosContext(group, failureMechanism);
 
             // Call
             Image image = info.Image(context);
@@ -112,7 +118,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var context = new GrassCoverErosionInwardsScenariosContext();
+                var group = new CalculationGroup();
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                var context = new GrassCoverErosionInwardsScenariosContext(group, failureMechanism);
 
                 var mocks = new MockRepository();
 

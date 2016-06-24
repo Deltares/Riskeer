@@ -22,7 +22,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.GrassCoverErosionInwards.Plugin.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DikeProfile {
+        public static System.Drawing.Bitmap DikeProfile {
             get {
                 object obj = ResourceManager.GetObject("DikeProfile", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,7 +73,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er zijn geen dijkprofielen beschikbaar om berekeningen voor te genereren..
         /// </summary>
-        internal static string GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip {
+        public static string GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_NoDikeLocations_" +
                         "ToolTip", resourceCulture);
@@ -83,7 +83,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Genereer scenario&apos;s op basis van geselecteerde dijkprofielen..
         /// </summary>
-        internal static string GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_ToolTip {
+        public static string GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_ToolTip {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_ToolTip", resourceCulture);
             }
@@ -92,7 +92,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Dijkprofielen.
         /// </summary>
-        internal static string GrassCoverErosionInwardsGuiPlugin_DikeProfilesContext_DisplayName {
+        public static string GrassCoverErosionInwardsGuiPlugin_DikeProfilesContext_DisplayName {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsGuiPlugin_DikeProfilesContext_DisplayName", resourceCulture);
             }
@@ -101,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de berekening..
         /// </summary>
-        internal static string GrassCoverErosionInwardsGuiPlugin_Error_during_overtopping_calculation {
+        public static string GrassCoverErosionInwardsGuiPlugin_Error_during_overtopping_calculation {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsGuiPlugin_Error_during_overtopping_calculation", resourceCulture);
             }
@@ -110,7 +110,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Scenarios.
         /// </summary>
-        internal static string GrassCoverErosionInwardsGuiPlugin_Scenarios_DisplayName {
+        public static string GrassCoverErosionInwardsGuiPlugin_Scenarios_DisplayName {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsGuiPlugin_Scenarios_DisplayName", resourceCulture);
             }
@@ -119,7 +119,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ScenariosIcon {
+        public static System.Drawing.Bitmap ScenariosIcon {
             get {
                 object obj = ResourceManager.GetObject("ScenariosIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
