@@ -87,12 +87,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocationProperties = new HydraulicBoundaryDatabaseProperties();
 
             var dynamicPropertyBag = new DynamicPropertyBag(hydraulicBoundaryLocationProperties);
-            const string expectedFilePathDisplayName = "Hydraulische randvoorwaarden database";
-            const string expectedFilePathDescription = "Locatie van het hydraulische randvoorwaarden database bestand.";
+            const string expectedFilePathDisplayName = "Hydraulische randvoorwaardendatabase";
+            const string expectedFilePathDescription = "Locatie van het hydraulische randvoorwaardendatabase bestand.";
             const string expectedFilePathCategory = "Algemeen";
 
             const string expectedLocationsDisplayName = "Locaties";
-            const string expectedLocationsDescription = "Locaties uit de hydraulische randvoorwaarden database.";
+            const string expectedLocationsDescription = "Locaties uit de hydraulische randvoorwaardendatabase.";
             const string expectedLocationsCategory = "Algemeen";
 
             // Call

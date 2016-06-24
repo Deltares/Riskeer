@@ -86,7 +86,7 @@ namespace Ringtoets.Integration.Service.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", hydraulicBoundaryLocation.Id), msgs[0]);
-                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaarden database is mislukt. Fout bij het lezen van bestand", msgs[1]);
+                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", hydraulicBoundaryLocation.Id), msgs[2]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);

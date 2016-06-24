@@ -151,7 +151,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Bereken de toetspeilen</value>
   </data>
   <data name="DesignWaterLevel_No_HRD_To_Calculate" xml:space="preserve">
-    <value>Er is geen hydraulische randvoorwaarden database beschikbaar om de toetspeilen te berekenen.</value>
+    <value>Er is geen hydraulische randvoorwaardendatabase beschikbaar om de toetspeilen te berekenen.</value>
   </data>
   <data name="HydraulicBoundaryDatabaseContext_HydraulicBoundaryDatabaseContext_The_assessment_section" xml:space="preserve">
     <value>Het traject</value>
@@ -163,25 +163,25 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>&amp;Koppel aan database...</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Connect_ToolTip" xml:space="preserve">
-    <value>Koppel aan hydraulische randvoorwaarden database.</value>
+    <value>Koppel aan hydraulische randvoorwaardendatabase.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_DisplayName" xml:space="preserve">
     <value>Hydraulische randvoorwaarden</value>
   </data>
   <data name="HydraulicBoundaryDatabase_FilePath_Description" xml:space="preserve">
-    <value>Locatie van het hydraulische randvoorwaarden database bestand.</value>
+    <value>Locatie van het hydraulische randvoorwaardendatabase bestand.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_FilePath_DisplayName" xml:space="preserve">
-    <value>Hydraulische randvoorwaarden database</value>
+    <value>Hydraulische randvoorwaardendatabase</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_Coordinates_Description" xml:space="preserve">
-    <value>Coördinaten van de hydraulische randvoorwaarden locatie.</value>
+    <value>Coördinaten van de hydraulische randvoorwaardenlocatie.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName" xml:space="preserve">
     <value>Coördinaten</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_Description" xml:space="preserve">
-    <value>Locaties uit de hydraulische randvoorwaarden database.</value>
+    <value>Locaties uit de hydraulische randvoorwaardendatabase.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_DesignWaterLevel_Description" xml:space="preserve">
     <value>Berekend toetspeil.</value>
@@ -193,13 +193,13 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Locaties</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_Id_Description" xml:space="preserve">
-    <value>Id van de hydraulische randvoorwaarden locatie in de database.</value>
+    <value>Id van de hydraulische randvoorwaardenlocatie in de database.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_Id_DisplayName" xml:space="preserve">
     <value>Id</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_Name_Description" xml:space="preserve">
-    <value>Naam van de hydraulische randvoorwaarden locatie.</value>
+    <value>Naam van de hydraulische randvoorwaardenlocatie.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
@@ -211,7 +211,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Database op pad '{0}' gekoppeld.</value>
   </data>
   <data name="SelectHydraulicBoundaryDatabaseFile_FilterName" xml:space="preserve">
-    <value>Hydraulische randvoorwaarden database</value>
+    <value>Hydraulische randvoorwaardendatabase</value>
   </data>
   <data name="SelectHydraulicBoundaryDatabaseFile_Title" xml:space="preserve">
     <value>Selecteer database</value>

@@ -207,7 +207,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                     const string expectedItemText = "&Toetspeilen berekenen";
-                    const string expectedItemTooltip = "Er is geen hydraulische randvoorwaarden database beschikbaar om de toetspeilen te berekenen.";
+                    const string expectedItemTooltip = "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de toetspeilen te berekenen.";
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon, false);
                 }
             }

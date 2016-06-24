@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan de dikte van de deklaag niet afleiden op basis van de invoer..
+        ///   Looks up a localized string similar to Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer..
         /// </summary>
         internal static string PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer {
             get {
@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaarden locatie geselecteerd..
+        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardenlocatie geselecteerd..
         /// </summary>
         internal static string PipingCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected {
             get {
@@ -134,7 +134,7 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen stochastisch ondergrondprofiel geselecteerd..
+        ///   Looks up a localized string similar to Er is geen ondergrondschematisatie geselecteerd..
         /// </summary>
         internal static string PipingCalculationService_ValidateInput_No_StochasticSoilProfile_selected {
             get {

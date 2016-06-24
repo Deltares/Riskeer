@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaarde locatie geselecteerd.", msgs[1]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
                 StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
             });
             Assert.IsFalse(isValid);

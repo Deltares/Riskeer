@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaarde locatie geselecteerd..
+        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardenlocatie geselecteerd..
         /// </summary>
         public static string CalculationService_ValidateInput_No_hydraulic_boundary_location_selected {
             get {
