@@ -50,9 +50,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsInputContext));
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+            mocksRepository.VerifyAll();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocksRepository.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(GrassCoverErosionInwardsInputContext), info.TagType);
             Assert.IsNotNull(info.Text);
@@ -92,7 +102,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsInputContext_NodeDisplayName, text);
-            mocksRepository.VerifyAll();
         }
 
         [Test]
@@ -113,8 +122,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
-
-            mocksRepository.VerifyAll();
         }
 
         [Test]
@@ -143,7 +150,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
             // Assert
-            mocksRepository.VerifyAll();
+            // Assert expectancies are called in TearDown()
         }
     }
 }

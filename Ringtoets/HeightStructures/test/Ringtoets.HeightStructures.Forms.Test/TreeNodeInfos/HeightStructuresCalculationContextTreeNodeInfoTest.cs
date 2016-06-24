@@ -67,9 +67,20 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresCalculationContext));
         }
 
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(HeightStructuresCalculationContext), info.TagType);
             Assert.IsNotNull(info.Text);
@@ -94,6 +105,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsCalculationIcon()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Call
             var image = info.Image(null);
 
@@ -127,8 +141,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var emptyOutput = children[2] as EmptyProbabilityAssessmentOutput;
             Assert.IsNotNull(emptyOutput);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -161,8 +173,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var output = children[2] as ProbabilityAssessmentOutput;
             Assert.IsNotNull(output);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -203,7 +213,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 info.ContextMenuStrip(nodeData, null, treeViewControl);
             }
             // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
+            // Assert expectancies are called in TearDown()
         }
 
         [Test]
@@ -243,7 +253,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.ClearIcon,
                                                               false);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -275,7 +284,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.CalculateIcon,
                                                               false);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -314,7 +322,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.CalculateIcon,
                                                               false);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -354,7 +361,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateIcon, contextMenuItem.Image);
                 Assert.IsFalse(contextMenuItem.Enabled);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -400,7 +406,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.Calculate_ToolTip,
                                                               RingtoetsCommonFormsResources.CalculateIcon);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -480,7 +485,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
                 Assert.IsNull(calculation.Output);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -518,7 +522,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             Assert.AreEqual(1, group.Children.Count);
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
 
-            mocks.VerifyAll();
         }
 
         private const int contextMenuCalculateIndex = 0;

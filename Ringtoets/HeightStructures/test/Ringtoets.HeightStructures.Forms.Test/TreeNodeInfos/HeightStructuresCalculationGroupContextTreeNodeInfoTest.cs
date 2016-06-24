@@ -70,9 +70,20 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresCalculationGroupContext));
         }
 
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(HeightStructuresCalculationGroupContext), info.TagType);
             Assert.IsNotNull(info.Text);
@@ -112,7 +123,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.IsEmpty(children);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -149,7 +159,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var calculationContext = (HeightStructuresCalculationContext) children[2];
             Assert.AreSame(childCalculation, calculationContext.WrappedData);
             Assert.AreSame(assessmentSectionMock, calculationContext.AssessmentSection);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -191,7 +200,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 info.ContextMenuStrip(groupContext, null, treeViewControl);
             }
             // Assert
-            mocks.VerifyAll();
+            // Assert expectancies called in TearDown()
         }
 
         [Test]
@@ -238,7 +247,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.ClearIcon,
                                                               false);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -285,7 +293,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl);
             }
             // Assert
-            mocks.VerifyAll();
+            // Assert expectancies called in TearDown()
         }
 
         [Test]
@@ -336,7 +344,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.ClearIcon,
                                                               false);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -381,7 +388,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -433,7 +439,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -486,7 +491,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, contextMenuItem.Image);
                 Assert.IsFalse(contextMenuItem.Enabled);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -545,7 +549,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip,
                                                               RingtoetsFormsResources.CalculateIcon);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -627,7 +630,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[11]);
                 });
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -673,7 +675,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
                                 "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -718,7 +719,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                 "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -752,7 +752,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -788,7 +787,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
-            mocks.VerifyAll();
         }
 
         private const int contextMenuAddCalculationGroupIndexRootGroup = 1;

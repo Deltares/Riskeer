@@ -26,9 +26,19 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingSemiProbabilisticOutput));
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(PipingSemiProbabilisticOutput), info.TagType);
             Assert.IsNull(info.ForeColor);
@@ -60,8 +70,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(RingtoetsCommonFormsResources.CalculationOutput_DisplayName, text);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -77,8 +85,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralOutputIcon, image);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -87,8 +93,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var gui = mocks.StrictMultiMock<IGui>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
-
             menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
@@ -105,7 +109,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
             // Assert
-            mocks.VerifyAll();
+            // Assert expectancies are called in TearDown()
         }
     }
 }

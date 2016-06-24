@@ -47,6 +47,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptyProbabilityAssessmentOutput));
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+
+            mocksRepository.VerifyAll();
+        }
+
         [Test]
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
@@ -70,7 +78,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
             // Assert
-            mocksRepository.VerifyAll();
+            // Assert expectancies are called in TearDown()
         }
     }
 }

@@ -56,6 +56,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
+            mocks.ReplayAll();
+
             using (var plugin = new RingtoetsGuiPlugin())
             {
                 var info = GetInfo(plugin);
@@ -76,12 +78,15 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Text_Always_ReturnsName()
         {
             // Setup
+            mocks.ReplayAll();
+
             using (var plugin = new RingtoetsGuiPlugin())
             {
                 var info = GetInfo(plugin);
@@ -92,12 +97,15 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual("Vakindeling", text);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnSectionsIcon()
         {
             // Setup
+            mocks.ReplayAll();
+
             using (var plugin = new RingtoetsGuiPlugin())
             {
                 var info = GetInfo(plugin);
@@ -108,13 +116,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.Sections, image);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);

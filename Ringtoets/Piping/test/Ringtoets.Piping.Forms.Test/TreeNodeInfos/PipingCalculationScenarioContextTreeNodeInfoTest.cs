@@ -70,9 +70,20 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingCalculationScenarioContext));
         }
 
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(PipingCalculationScenarioContext), info.TagType);
             Assert.IsNull(info.ForeColor);
@@ -87,6 +98,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsPipingIcon()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Call
             var image = info.Image(null);
 
@@ -204,7 +218,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, RingtoetsCommonFormsResources.Calculate, RingtoetsCommonFormsResources.Calculate_ToolTip, RingtoetsCommonFormsResources.CalculateIcon);
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2, RingtoetsCommonFormsResources.Clear_output, RingtoetsCommonFormsResources.ClearOutput_No_output_to_clear, RingtoetsCommonFormsResources.ClearIcon, false);
             }
-            mocks.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
@@ -245,7 +258,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, RingtoetsCommonFormsResources.Calculate, RingtoetsCommonFormsResources.Calculate_ToolTip, RingtoetsCommonFormsResources.CalculateIcon);
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2, RingtoetsCommonFormsResources.Clear_output, RingtoetsCommonFormsResources.Clear_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon);
             }
-            mocks.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
@@ -291,7 +303,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
+            // Assert expectancies are called in TearDown()
         }
 
         [Test]
@@ -335,8 +347,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, group.Children.Count);
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -392,8 +402,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreEqual(1, group.Children.Count);
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
             CollectionAssert.DoesNotContain(sectionResults[0].GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>()), elementToBeRemoved);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -460,7 +468,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 });
                 Assert.IsNull(calculation.Output);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -503,7 +510,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 var expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
                 TestHelper.AssertLogMessagesCount(action, expectedLogMessageCount);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -569,7 +575,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 });
                 Assert.IsNotNull(calculation.Output);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -633,7 +638,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Assert.AreEqual("Bevestigen", messageBoxTitle);
                 Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBoxText);
             }
-            mocks.VerifyAll();
         }
 
         /// <summary>

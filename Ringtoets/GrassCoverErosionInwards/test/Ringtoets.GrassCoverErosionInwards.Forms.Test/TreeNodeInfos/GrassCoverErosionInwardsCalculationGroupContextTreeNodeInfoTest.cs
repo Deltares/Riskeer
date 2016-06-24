@@ -73,9 +73,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationGroupContext));
         }
 
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(GrassCoverErosionInwardsCalculationGroupContext), info.TagType);
             Assert.IsNotNull(info.Text);
@@ -115,7 +126,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.IsEmpty(children);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -152,7 +162,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var calculationContext = (GrassCoverErosionInwardsCalculationContext) children[2];
             Assert.AreSame(childCalculation, calculationContext.WrappedData);
             Assert.AreSame(assessmentSectionMock, calculationContext.AssessmentSection);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -198,7 +207,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            // Assert expectancies called in TearDown()
         }
 
         [Test]
@@ -248,7 +257,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.ClearIcon,
                                                               false);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -295,7 +303,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl);
             }
             // Assert
-            mocks.VerifyAll();
+            // Assert expectancies are called in TearDown()
         }
 
         [Test]
@@ -350,7 +358,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.ClearIcon,
                                                               false);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -395,7 +402,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -447,7 +453,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -500,7 +505,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, contextMenuItem.Image);
                 Assert.IsFalse(contextMenuItem.Enabled);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -559,7 +563,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip,
                                                               RingtoetsFormsResources.CalculateIcon);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -592,7 +595,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.GenerateScenariosIcon,
                                                               false);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -625,7 +627,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_ToolTip,
                                                               RingtoetsFormsResources.GenerateScenariosIcon);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -694,7 +695,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                     StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[3]);
                 });
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -778,7 +778,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                     Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[11]);
                 });
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -823,7 +822,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
                                 "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -868,7 +866,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                 "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -932,7 +929,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 var grassCoverErosionInwardsCalculations = failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>().ToArray();
                 Assert.AreEqual(1, grassCoverErosionInwardsCalculations.Length);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -995,7 +991,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Then
                 Assert.AreEqual(0, failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>().Count());
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1067,7 +1062,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(2, grassCoverErosionInwardsCalculations.Length);
                 Assert.AreEqual(expectedNewName, grassCoverErosionInwardsCalculations[1].Name);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1101,7 +1095,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1137,7 +1130,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
-            mocks.VerifyAll();
         }
 
         private const int contextMenuGenerateCalculationsIndexRootGroup = 1;

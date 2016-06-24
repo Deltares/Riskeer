@@ -108,6 +108,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scenarios.
+        /// </summary>
+        internal static string GrassCoverErosionInwardsGuiPlugin_Scenarios_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsGuiPlugin_Scenarios_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap ScenariosIcon {

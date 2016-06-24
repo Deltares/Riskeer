@@ -9,7 +9,6 @@ using Core.Components.Charting.Data;
 using Core.Plugins.OxyPlot.Legend;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Resources = Core.Plugins.OxyPlot.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Core.Plugins.OxyPlot.Test.Legend
@@ -27,8 +26,8 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             mocks = new MockRepository();
             chartLegendView = new ChartLegendView();
 
-            var treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
-            var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
+            TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
+            Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
 
             info = treeNodeInfoLookup[typeof(ChartDataCollection)];
         }
@@ -37,11 +36,16 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void TearDown()
         {
             chartLegendView.Dispose();
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(ChartDataCollection), info.TagType);
             Assert.IsNull(info.ForeColor);
@@ -70,8 +74,6 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             Assert.AreEqual(chartDataCollection.Name, text);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -87,8 +89,6 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             TestHelper.AssertImagesAreEqual(GuiResources.folder, image);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -112,8 +112,6 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             CollectionAssert.AreEqual(new[] { chartData3, chartData2, chartData1 }, objects);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -129,8 +127,6 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             Assert.IsFalse(canDrop);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -147,8 +143,6 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             Assert.IsTrue(canDrop);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -164,8 +158,6 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             Assert.IsFalse(canInsert);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -182,8 +174,6 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             Assert.IsTrue(canInsert);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -219,7 +209,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
                 var reversedIndex = 2 - position;
                 Assert.AreSame(chartData1, chartDataCollection.List.ElementAt(reversedIndex));
             }
-            mocks.VerifyAll(); // UpdateObserver should be called
+            // Assert observer is notified in TearDown()
         }
 
         [Test]
@@ -252,7 +242,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
                 // Assert
                 Assert.Throws<ArgumentOutOfRangeException>(test);
             }
-            mocks.VerifyAll(); // UpdateObserver should be not called
+            // Assert UpdateObserver be not called by TearDown()
         }
     }
 }

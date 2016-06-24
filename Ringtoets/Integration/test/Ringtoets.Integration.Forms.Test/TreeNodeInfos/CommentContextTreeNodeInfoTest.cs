@@ -48,28 +48,31 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
+            mocks.ReplayAll();
+
             using (var plugin = new RingtoetsGuiPlugin())
             {
                 var info = GetInfo(plugin);
 
-            // Assert
-            Assert.AreEqual(typeof(CommentContext<ICommentable>), info.TagType);
-            Assert.IsNull(info.EnsureVisibleOnCreate);
-            Assert.IsNull(info.ChildNodeObjects);
-            Assert.IsNull(info.CanRename);
-            Assert.IsNull(info.OnNodeRenamed);
-            Assert.IsNull(info.CanRemove);
-            Assert.IsNull(info.OnNodeRemoved);
-            Assert.IsNull(info.CanCheck);
-            Assert.IsNull(info.IsChecked);
-            Assert.IsNull(info.OnNodeChecked);
-            Assert.IsNull(info.CanDrag);
-            Assert.IsNull(info.CanDrop);
-            Assert.IsNull(info.CanInsert);
-            Assert.IsNull(info.OnDrop);
-            Assert.IsNull(info.ForeColor);
+                // Assert
+                Assert.AreEqual(typeof(CommentContext<ICommentable>), info.TagType);
+                Assert.IsNull(info.EnsureVisibleOnCreate);
+                Assert.IsNull(info.ChildNodeObjects);
+                Assert.IsNull(info.CanRename);
+                Assert.IsNull(info.OnNodeRenamed);
+                Assert.IsNull(info.CanRemove);
+                Assert.IsNull(info.OnNodeRemoved);
+                Assert.IsNull(info.CanCheck);
+                Assert.IsNull(info.IsChecked);
+                Assert.IsNull(info.OnNodeChecked);
+                Assert.IsNull(info.CanDrag);
+                Assert.IsNull(info.CanDrop);
+                Assert.IsNull(info.CanInsert);
+                Assert.IsNull(info.OnDrop);
+                Assert.IsNull(info.ForeColor);
+            }
+            mocks.VerifyAll();
         }
-}
 
         [Test]
         public void Text_Always_ReturnsName()

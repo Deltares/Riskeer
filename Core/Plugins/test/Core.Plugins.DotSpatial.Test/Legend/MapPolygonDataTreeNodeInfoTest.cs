@@ -19,12 +19,41 @@ namespace Core.Plugins.DotSpatial.Test.Legend
     [TestFixture]
     public class MapPolygonDataTreeNodeInfoTest
     {
+        private MockRepository mocks;
         private MapLegendView mapLegendView;
         private TreeNodeInfo info;
+
+        [SetUp]
+        public void SetUp()
+        {
+            var mockRepository = new MockRepository();
+            var contextMenuBuilderProvider = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            var parentWindow = mockRepository.StrictMock<IWin32Window>();
+
+            mapLegendView = new MapLegendView(contextMenuBuilderProvider, parentWindow);
+
+            TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
+            Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
+
+            info = treeNodeInfoLookup[typeof(MapPolygonData)];
+
+            mocks = mockRepository;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            mapLegendView.Dispose();
+
+            mocks.VerifyAll();
+        }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(MapPolygonData), info.TagType);
             Assert.IsNull(info.ForeColor);
@@ -44,7 +73,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void Text_Always_ReturnsNameFromMapData()
         {
             // Setup
-            var mocks = CreateDefaultMocks();
             var mapPolygonData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<MapFeature>(), "MapPolygonData");
             mocks.ReplayAll();
 
@@ -53,12 +81,14 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
             // Assert
             Assert.AreEqual(mapPolygonData.Name, text);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnsImageFromResource()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Call
             var image = info.Image(null);
 
@@ -70,7 +100,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void CanCheck_Always_ReturnsTrue()
         {
             // Setup
-            var mocks = CreateDefaultMocks();
             var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<MapFeature>(), "test data");
 
             mocks.ReplayAll();
@@ -80,15 +109,12 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
             // Assert
             Assert.IsTrue(canCheck);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CanDrag_Always_ReturnsTrue()
         {
             // Setup
-            var mocks = CreateDefaultMocks();
             var polygonData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<MapFeature>(), "test data");
 
             mocks.ReplayAll();
@@ -98,8 +124,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
             // Assert
             Assert.IsTrue(canDrag);
-
-            mocks.VerifyAll();
         }
 
         [TestCase(true)]
@@ -107,9 +131,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void IsChecked_Always_ReturnsAccordingToVisibleStateOfLineData(bool isVisible)
         {
             // Setup
-            var mocks = CreateDefaultMocks();
             var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<MapFeature>(), "test data");
-
             lineData.IsVisible = isVisible;
 
             mocks.ReplayAll();
@@ -119,8 +141,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
             // Assert
             Assert.AreEqual(isVisible, canCheck);
-
-            mocks.VerifyAll();
         }
 
         [TestCase(true)]
@@ -128,7 +148,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void OnNodeChecked_LineDataNodeWithoutParent_SetsLineDataVisibility(bool initialVisibleState)
         {
             // Setup
-            var mocks = CreateDefaultMocks();
             var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<MapFeature>(), "test data");
 
             mocks.ReplayAll();
@@ -140,8 +159,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
             // Assert
             Assert.AreEqual(!initialVisibleState, lineData.IsVisible);
-
-            mocks.VerifyAll();
         }
 
         [TestCase(true)]
@@ -149,10 +166,9 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void OnNodeChecked_LineDataNodeWithObservableParent_SetsLineDataVisibilityAndNotifiesParentObservers(bool initialVisibleState)
         {
             // Setup
-            var mocks = CreateDefaultMocks();
-            var observable = mocks.StrictMock<IObservable>();
             var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<MapFeature>(), "test data");
 
+            var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
 
             mocks.ReplayAll();
@@ -164,25 +180,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
             // Assert
             Assert.AreEqual(!initialVisibleState, lineData.IsVisible);
-
-            mocks.VerifyAll();
-        }
-
-        private MockRepository CreateDefaultMocks()
-        {
-            var mockRepository = new MockRepository();
-            var contextMenuBuilderProvider = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var parentWindow = mockRepository.StrictMock<IWin32Window>();
-            mockRepository.ReplayAll();
-
-            mapLegendView = new MapLegendView(contextMenuBuilderProvider, parentWindow);
-
-            var treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
-            var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
-
-            info = treeNodeInfoLookup[typeof(MapPolygonData)];
-
-            return mockRepository;
         }
     }
 }

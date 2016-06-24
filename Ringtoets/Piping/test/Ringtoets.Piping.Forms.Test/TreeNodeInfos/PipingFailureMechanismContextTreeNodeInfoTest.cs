@@ -72,9 +72,20 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingFailureMechanismContext));
         }
 
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(PipingFailureMechanismContext), info.TagType);
             Assert.IsNotNull(info.ForeColor);
@@ -107,12 +118,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("Dijken en dammen - Piping", text);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnsPipingIcon()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Call
             var image = info.Image(null);
 
@@ -173,7 +186,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>)outputsFolder.Contents[0];
             Assert.AreSame(pipingFailureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(pipingFailureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -200,7 +212,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreEqual(1, children.Length);
             var commentContext = (CommentContext<ICommentable>)children[0];
             Assert.AreSame(pipingFailureMechanism, commentContext.WrappedData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -281,7 +292,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Assert.AreEqual("Bevestigen", messageBoxTitle);
                 Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -348,7 +358,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                     menu.Items[13]
                 }, typeof(ToolStripSeparator));
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -380,7 +389,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Assert.IsFalse(clearOutputItem.Enabled);
                 Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", clearOutputItem.ToolTipText);
             }
-            mocks.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
@@ -419,7 +427,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Assert.IsTrue(clearOutputItem.Enabled);
                 Assert.AreEqual(RingtoetsCommonFormsResources.Clear_all_output_ToolTip, clearOutputItem.ToolTipText);
             }
-            mocks.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
@@ -455,7 +462,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
                 Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
             }
-            mocks.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
@@ -498,7 +504,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            // Assert expectancies are called in TearDown()
         }
 
         [Test]
@@ -533,7 +539,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            // Assert expectancies are called in TearDown()
         }
 
         [Test]
@@ -583,7 +589,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                     StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", invalidCalculation.Name), msgs[8]);
                 });
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -634,7 +639,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            // Assert expectancies are called in TearDown()
         }
 
         [Test]
@@ -676,7 +681,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.IsFalse(failureMechanism.IsRelevant);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -714,7 +718,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.IsTrue(failureMechanism.IsRelevant);
             }
-            mocks.VerifyAll();
         }
 
         private const int contextMenuRelevancyIndexWhenRelevant = 1;

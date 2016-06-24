@@ -46,6 +46,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptyProbabilityAssessmentOutput));
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+            mocksRepository.VerifyAll();
+        }
+
         [Test]
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
@@ -58,7 +65,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
-
             using (var treeViewControl = new TreeViewControl())
             {
                 guiMock.Expect(cmp => cmp.Get(null, treeViewControl)).Return(menuBuilderMock);
@@ -70,7 +76,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
             // Assert
-            mocksRepository.VerifyAll();
+            // Assert expectancies are called in TearDown()
         }
     }
 }

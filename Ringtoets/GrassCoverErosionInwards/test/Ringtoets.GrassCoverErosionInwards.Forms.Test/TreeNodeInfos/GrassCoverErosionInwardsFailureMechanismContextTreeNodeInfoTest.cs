@@ -66,9 +66,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsFailureMechanismContext));
         }
 
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocksRepository.VerifyAll();
+
+            base.TearDown();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocksRepository.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismContext), info.TagType);
             Assert.IsNotNull(info.Text);
@@ -134,8 +145,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>) outputsFolder.Contents[1];
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
-
-            mocksRepository.VerifyAll();
         }
 
         [Test]
@@ -158,8 +167,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Assert.AreEqual(1, children.Length);
             var commentContext = (CommentContext<ICommentable>) children[0];
             Assert.AreSame(failureMechanism, commentContext.WrappedData);
-
-            mocksRepository.VerifyAll();
         }
 
         [Test]
@@ -201,7 +208,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
             }
             // Assert
-            mocksRepository.VerifyAll();
+            // Assert expectancies are called in TearDown()
         }
 
         [Test]
@@ -235,7 +242,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
             }
             // Assert
-            mocksRepository.VerifyAll();
+            // Assert expectancies are called in TearDown()
         }
 
         [Test]
@@ -286,8 +293,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
                                                               RingtoetsCommonFormsResources.ClearIcon,
                                                               false);
-
-                mocksRepository.VerifyAll();
             }
         }
 
@@ -324,8 +329,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
                                                               RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
                                                               RingtoetsCommonFormsResources.Checkbox_ticked);
-
-                mocksRepository.VerifyAll();
             }
         }
 
@@ -357,7 +360,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
             }
             // Assert
-            mocksRepository.VerifyAll();
+            // Assert expectancies are called in TearDown()
         }
 
         [Test]
@@ -387,7 +390,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
             }
             // Assert
-            mocksRepository.VerifyAll();
+            // Assert expectancies are called in TearDown()
         }
 
         [Test]
@@ -421,7 +424,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculateIcon,
                                                               false);
             }
-            mocksRepository.VerifyAll();
         }
 
         [Test]
@@ -459,7 +461,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
-            mocksRepository.VerifyAll();
         }
 
         [Test]
@@ -499,7 +500,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, contextMenuItem.Image);
                 Assert.IsFalse(contextMenuItem.Enabled);
             }
-            mocksRepository.VerifyAll();
         }
 
         [Test]
@@ -545,7 +545,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.Calculate_all_ToolTip,
                                                               RingtoetsFormsResources.CalculateAllIcon);
             }
-            mocksRepository.VerifyAll();
         }
 
         [Test]
@@ -578,7 +577,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.ValidateIcon,
                                                               false);
             }
-            mocksRepository.VerifyAll();
         }
 
         [Test]
@@ -616,7 +614,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
             }
-            mocksRepository.VerifyAll();
         }
 
         [Test]
@@ -656,7 +653,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, contextMenuItem.Image);
                 Assert.IsFalse(contextMenuItem.Enabled);
             }
-            mocksRepository.VerifyAll();
         }
 
         [Test]
@@ -702,7 +698,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.FailureMechanism_Validate_all_ToolTip,
                                                               RingtoetsFormsResources.ValidateAllIcon);
             }
-            mocksRepository.VerifyAll();
         }
 
         [Test]
@@ -784,7 +779,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                     Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[11]);
                 });
             }
-            mocksRepository.VerifyAll();
         }
 
         [Test]
@@ -851,7 +845,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                     StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[3]);
                 });
             }
-            mocksRepository.VerifyAll();
         }
 
         private const int contextMenuRelevancyIndexWhenRelevant = 1;

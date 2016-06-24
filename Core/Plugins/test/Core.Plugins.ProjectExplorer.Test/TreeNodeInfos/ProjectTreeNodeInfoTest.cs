@@ -27,9 +27,20 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(Project));
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(Project), info.TagType);
             Assert.IsNull(info.ForeColor);
@@ -62,8 +73,6 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(testName, text);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -79,8 +88,6 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.ProjectIcon, image);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -101,8 +108,6 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.AreEqual(new [] { object1, object2 }, objects);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -139,7 +144,7 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
             // Assert
-            mocks.VerifyAll();
+            // Assert expectancies are called in TearDown()
         }
 
         [Test]
@@ -174,7 +179,6 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.AddItem, Resources.AddItem_ToolTip, Resources.PlusIcon);
             }
-            mocks.VerifyAll();
         }
     }
 }

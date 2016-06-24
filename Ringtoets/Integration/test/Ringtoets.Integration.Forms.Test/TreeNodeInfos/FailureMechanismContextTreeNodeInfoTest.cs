@@ -62,6 +62,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
+            mocks.ReplayAll();
+
             using (var plugin = new RingtoetsGuiPlugin())
             {
                 var info = GetInfo(plugin);
@@ -81,6 +83,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -110,6 +113,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
+            mocks.ReplayAll();
+
             using (var plugin = new RingtoetsGuiPlugin())
             {
                 var info = GetInfo(plugin);
@@ -120,6 +125,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismIcon, image);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -251,6 +257,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
                 Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
             }
+            mocks.VerifyAll();
         }
 
         [Test]

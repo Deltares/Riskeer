@@ -26,9 +26,19 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLine));
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(RingtoetsPipingSurfaceLine), info.TagType);
             Assert.IsNull(info.ForeColor);
@@ -62,8 +72,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(testName, text);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -79,8 +87,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.PipingSurfaceLineIcon, image);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -104,7 +110,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
             // Assert
-            mocks.VerifyAll();
+            // Assert expectancies are called in TearDown()
         }
     }
 }

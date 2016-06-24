@@ -47,6 +47,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
+            mocks.ReplayAll();
+
             using (var plugin = new RingtoetsGuiPlugin())
             {
                 var info = GetInfo(plugin);
@@ -66,12 +68,15 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Text_Always_ReturnsName()
         {
             // Setup
+            mocks.ReplayAll();
+
             var testname = "testName";
             var categoryTreeFolder = new CategoryTreeFolder(testname, new object[0]);
             
@@ -85,12 +90,15 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(testname, text);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_TreeFolderOfCategoryGeneral_ReturnsGeneralFolderIcon()
         {
             // Setup
+            mocks.ReplayAll();
+
             var categoryTreeFolder = new CategoryTreeFolder("", new object[0]);
             
             using (var plugin = new RingtoetsGuiPlugin())
@@ -103,12 +111,15 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_TreeFolderOfCategoryInput_ReturnsInputFolderIcon()
         {
             // Setup
+            mocks.ReplayAll();
+
             var categoryTreeFolder = new CategoryTreeFolder("", new object[0], TreeFolderCategory.Input);
             
             using (var plugin = new RingtoetsGuiPlugin())
@@ -121,12 +132,15 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.InputFolderIcon, image);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_TreeFolderOfCategoryOutput_ReturnsOutputFolderIcon()
         {
             // Setup
+            mocks.ReplayAll();
+
             var categoryTreeFolder = new CategoryTreeFolder("", new object[0], TreeFolderCategory.Output);
             
             using (var plugin = new RingtoetsGuiPlugin())
@@ -139,12 +153,15 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.OutputFolderIcon, image);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ChildNodeObjects_Always_ReturnsChildsOnData()
         {
             // Setup
+            mocks.ReplayAll();
+
             var object1 = new object();
             var object2 = new object();
             var categoryTreeFolder = new CategoryTreeFolder("", new[] { object1, object2 });

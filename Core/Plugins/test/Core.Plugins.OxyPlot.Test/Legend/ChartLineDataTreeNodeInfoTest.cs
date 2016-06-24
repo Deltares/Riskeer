@@ -27,8 +27,8 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             mocks = new MockRepository();
             chartLegendView = new ChartLegendView();
 
-            var treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
-            var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
+            TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
+            Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
 
             info = treeNodeInfoLookup[typeof(ChartLineData)];
         }
@@ -37,11 +37,16 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void TearDown()
         {
             chartLegendView.Dispose();
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(ChartLineData), info.TagType);
             Assert.IsNull(info.ForeColor);
@@ -70,8 +75,6 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             Assert.AreEqual(lineData.Name, text);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -87,8 +90,6 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.LineIcon, image);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -104,8 +105,6 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             Assert.IsTrue(canDrag);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -121,8 +120,6 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             Assert.IsTrue(canCheck);
-
-            mocks.VerifyAll();
         }
 
         [TestCase(true)]
@@ -141,8 +138,6 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             Assert.AreEqual(isVisible, canCheck);
-
-            mocks.VerifyAll();
         }
 
         [TestCase(true)]
@@ -161,8 +156,6 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             Assert.AreEqual(!initialVisibleState, lineData.IsVisible);
-
-            mocks.VerifyAll();
         }
 
         [TestCase(true)]
@@ -170,9 +163,9 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void OnNodeChecked_LineDataNodeWithObservableParent_SetsLineDataVisibilityAndNotifiesParentObservers(bool initialVisibleState)
         {
             // Setup
-            var observable = mocks.StrictMock<IObservable>();
             var lineData = mocks.StrictMock<ChartLineData>(Enumerable.Empty<Point2D>(), "test data");
-
+            
+            var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
 
             mocks.ReplayAll();
@@ -184,8 +177,6 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             Assert.AreEqual(!initialVisibleState, lineData.IsVisible);
-
-            mocks.VerifyAll();
         }
     }
 }

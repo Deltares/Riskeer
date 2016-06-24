@@ -31,9 +31,19 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLinesContext));
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(RingtoetsPipingSurfaceLinesContext), info.TagType);
             Assert.IsNull(info.EnsureVisibleOnCreate);
@@ -65,8 +75,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(Resources.PipingSurfaceLinesCollection_DisplayName, text);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -84,8 +92,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -103,8 +109,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), foreColor);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -128,8 +132,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), foreColor);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -157,8 +159,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 ringtoetsPipingSurfaceLine1,
                 ringtoetsPipingSurfaceLine2
             }, objects);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -186,7 +186,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
             // Assert
-            mocks.VerifyAll();
+            // Assert expectancies are called in TearDown()
         }
     }
 }

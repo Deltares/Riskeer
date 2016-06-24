@@ -38,7 +38,7 @@ using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassConverErosionInwardsScenariosContextTreeNodeInfosTest
+    public class GrassCoverErosionInwardsScenariosContextTreeNodeInfoTest
     {
         private GrassCoverErosionInwardsGuiPlugin plugin;
         private TreeNodeInfo info;
@@ -48,6 +48,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         {
             plugin = new GrassCoverErosionInwardsGuiPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsScenariosContext));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
         }
 
         [Test]
@@ -109,13 +115,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 var context = new GrassCoverErosionInwardsScenariosContext();
 
                 var mocks = new MockRepository();
-                var gui = mocks.StrictMultiMock<IGui>();
-                var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-                gui.Expect(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                var menuBuilderMock = mocks.Stub<IContextMenuBuilder>();
                 menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Expect(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
 
                 mocks.ReplayAll();
 

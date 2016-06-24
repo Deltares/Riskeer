@@ -28,9 +28,19 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptyPipingOutput));
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(EmptyPipingOutput), info.TagType);
             Assert.IsNull(info.EnsureVisibleOnCreate);
@@ -51,6 +61,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         [Test]
         public void Text_Always_ReturnsFromResource()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Call
             var text = info.Text(null);
 
@@ -61,6 +74,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsGeneralOutputIcon()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Call
             var image = info.Image(null);
 
@@ -71,6 +87,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         [Test]
         public void ForeColor_Always_ReturnsGrayText()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Call
             var textColor = info.ForeColor(null);
 
@@ -82,9 +101,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var gui = mocks.StrictMock<IGui>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
             menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
@@ -92,6 +109,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var gui = mocks.StrictMock<IGui>();
                 gui.Expect(cmp => cmp.Get(null, treeViewControl)).Return(menuBuilderMock);
                 mocks.ReplayAll();
 
@@ -101,7 +119,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
             // Assert
-            mocks.VerifyAll();
+            // Assert expectacies are called in TearDown()
         }
     }
 }

@@ -47,9 +47,19 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityAssessmentOutput));
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+            mocksRepository.VerifyAll();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocksRepository.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(ProbabilityAssessmentOutput), info.TagType);
             Assert.IsNotNull(info.Text);
@@ -74,6 +84,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         [Test]
         public void Text_Always_ReturnsFromResource()
         {
+            // Setup
+            mocksRepository.ReplayAll();
+
             // Call
             var text = info.Text(null);
 
@@ -84,6 +97,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsGeneralOutputIcon()
         {
+            // Setup
+            mocksRepository.ReplayAll();
+
             // Call
             var image = info.Image(null);
 
@@ -114,7 +130,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
             // Assert
-            mocksRepository.VerifyAll();
+            // Assert expectancies are called in TearDown()
         }
     }
 }

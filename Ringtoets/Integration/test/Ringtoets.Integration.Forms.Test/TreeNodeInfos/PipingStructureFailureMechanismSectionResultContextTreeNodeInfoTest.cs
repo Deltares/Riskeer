@@ -49,9 +49,19 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>));
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>), info.TagType);
 
@@ -85,12 +95,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("Resultaat", text);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnsGenericInputOutputIcon()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Call
             var image = info.Image(null);
 
@@ -109,6 +121,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 gui.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
                 gui.Expect(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
 
                 menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
@@ -121,7 +134,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
             // Assert
-            mocks.VerifyAll();
+            // Assert expectancies are called in TearDown()
         }
     }
 }

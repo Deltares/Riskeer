@@ -24,25 +24,35 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         private MapLegendView mapLegendView;
         private TreeNodeInfo info;
         private IContextMenuBuilderProvider contextMenuBuilderProvider;
-        private IWin32Window parentWindow;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
             contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            parentWindow = mocks.Stub<IWin32Window>();
+            var parentWindow = mocks.Stub<IWin32Window>();
             mapLegendView = new MapLegendView(contextMenuBuilderProvider, parentWindow);
 
-            var treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
-            var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
+            TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
+            Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
 
             info = treeNodeInfoLookup[typeof(MapDataCollection)];
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            mapLegendView.Dispose();
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(MapDataCollection), info.TagType);
             Assert.IsNull(info.ForeColor);
@@ -70,12 +80,14 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
             // Assert
             Assert.AreEqual(mapDataCollection.Name, text);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnsImageFromResource()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Call
             var image = info.Image(null);
 
@@ -109,8 +121,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
                 mapData2,
                 mapData1
             }, objects);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -126,8 +136,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
             // Assert
             Assert.IsFalse(canDrop);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -144,8 +152,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
             // Assert
             Assert.IsTrue(canDrop);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -161,8 +167,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
             // Assert
             Assert.IsFalse(canInsert);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -179,8 +183,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
             // Assert
             Assert.IsTrue(canInsert);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -190,7 +192,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void OnDrop_MapDataMovedToPositionInsideRange_SetsNewReverseOrder(int position)
         {
             // Setup
-            var observer = mocks.StrictMock<IObserver>();
             var mapData1 = mocks.StrictMock<MapData>("test data");
             var mapData2 = mocks.StrictMock<MapData>("test data");
             var mapData3 = mocks.StrictMock<MapData>("test data");
@@ -200,6 +201,8 @@ namespace Core.Plugins.DotSpatial.Test.Legend
                 mapData2,
                 mapData3
             }, "test data");
+
+            var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
             mocks.ReplayAll();
@@ -215,7 +218,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
                 var reversedIndex = 2 - position;
                 Assert.AreSame(mapData1, mapDataCollection.List.ElementAt(reversedIndex));
             }
-            mocks.VerifyAll(); // UpdateObserver should be called
         }
 
         [Test]
@@ -248,16 +250,15 @@ namespace Core.Plugins.DotSpatial.Test.Legend
                 // Assert
                 Assert.Throws<ArgumentOutOfRangeException>(test);
             }
-            mocks.VerifyAll(); // UpdateObserver should not be called
         }
 
         [Test]
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             var mapDataCollection = mocks.StrictMock<MapDataCollection>(Enumerable.Empty<MapData>(), "test data");
 
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
@@ -270,8 +271,9 @@ namespace Core.Plugins.DotSpatial.Test.Legend
                 // Call
                 info.ContextMenuStrip(mapDataCollection, null, treeViewControl);
             }
+
             // Assert
-            mocks.VerifyAll();
+            // Expectancies will be asserted in TearDown()
         }
 
         [Test]
@@ -293,7 +295,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, DotSpatialResources.MapIcon);
             }
-            mocks.VerifyAll();
         }
     }
 }

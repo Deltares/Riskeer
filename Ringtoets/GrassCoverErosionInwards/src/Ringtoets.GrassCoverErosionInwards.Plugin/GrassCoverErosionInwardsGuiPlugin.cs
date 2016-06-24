@@ -139,7 +139,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsScenariosContext>
             {
-                Text = context => "Scenarios",
+                Text = context => GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_Scenarios_DisplayName,
                 Image = context => GrassCoverErosionInwardsPluginResources.ScenariosIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()

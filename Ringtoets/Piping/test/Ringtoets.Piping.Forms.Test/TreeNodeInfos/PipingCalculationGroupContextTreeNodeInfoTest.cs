@@ -71,9 +71,20 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingCalculationGroupContext));
         }
 
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Assert
             Assert.AreEqual(typeof(PipingCalculationGroupContext), info.TagType);
             Assert.IsNull(info.ForeColor);
@@ -102,7 +113,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.IsEmpty(children);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -144,7 +154,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
             Assert.AreSame(pipingFailureMechanism, returnedCalculationGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, returnedCalculationGroupContext.AssessmentSection);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -267,8 +276,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 menu.Items[12],
                 menu.Items[15]
             }, typeof(ToolStripSeparator));
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -374,7 +381,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                     menu.Items[16]
                 }, typeof(ToolStripSeparator));
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -416,7 +422,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                                               false);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -458,7 +463,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                                               false);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -502,7 +506,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                               PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_ToolTip,
                                                               RingtoetsCommonFormsResources.GenerateScenariosIcon);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -547,7 +550,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
                 Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
             }
-            mocks.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
@@ -605,7 +607,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
                                 "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -663,7 +664,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                 "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -729,7 +729,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                     StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", invalidCalculation.Name), msgs[8]);
                 });
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -799,7 +798,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
             }
             // Assert
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -890,7 +888,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Assert.AreEqual("Bevestigen", messageBoxTitle);
                 Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -955,7 +952,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Assert.NotNull(grid);
                 Assert.AreEqual(2, rowCount);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1065,7 +1061,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(pipingCalculationScenarios));
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1175,7 +1170,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                     CollectionAssert.IsEmpty(failureMechanismSectionResult.GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>()));
                 }
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1212,7 +1206,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1264,7 +1257,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
             CollectionAssert.DoesNotContain(sectionResults[0].GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>()), calculation);
-            mocks.VerifyAll();
         }
 
         private const int contextMenuAddGenerateCalculationsIndex = 1;

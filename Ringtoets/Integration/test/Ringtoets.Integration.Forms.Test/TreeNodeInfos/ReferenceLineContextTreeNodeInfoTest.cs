@@ -54,6 +54,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
+            mocks.ReplayAll();
+
             using (var plugin = new RingtoetsGuiPlugin())
             {
                 var info = GetInfo(plugin);
@@ -74,6 +76,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
