@@ -569,7 +569,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
             }
-            mocksRepository.VerifyAll();
         }
 
         [Test]
@@ -607,7 +606,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
             }
-            mocksRepository.VerifyAll();
         }
 
         [Test]
@@ -647,7 +645,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, contextMenuItem.Image);
                 Assert.IsFalse(contextMenuItem.Enabled);
             }
-            mocksRepository.VerifyAll();
         }
 
         [Test]
@@ -693,7 +690,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.FailureMechanism_Validate_all_ToolTip,
                                                               RingtoetsFormsResources.ValidateAllIcon);
             }
-            mocksRepository.VerifyAll();
         }
 
         [Test]
@@ -841,7 +837,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[3]);
                 });
             }
-            mocksRepository.VerifyAll();
         }
 
         private const int contextMenuRelevancyIndexWhenRelevant = 1;

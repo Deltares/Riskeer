@@ -442,7 +442,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.ValidateIcon,
                                                               false);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -480,7 +479,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.ValidateIcon,
                                                               false);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -520,7 +518,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ValidateIcon, contextMenuItem.Image);
                 Assert.IsFalse(contextMenuItem.Enabled);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -566,7 +563,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.Validate_ToolTip,
                                                               RingtoetsCommonFormsResources.ValidateIcon);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -708,7 +704,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
                 });
             }
-            mocks.VerifyAll();
         }
 
         [Test]
