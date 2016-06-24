@@ -96,7 +96,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of performing all calculations in a calculation group.
         /// </summary>
-        /// <typeparam name="TCalculationContext">The type of the calculation group context.</typeparam>
+        /// <typeparam name="TCalculationGroupContext">The type of the calculation group context.</typeparam>
         /// <param name="calculationGroup">The calculation group to perform all calculations for.</param>
         /// <param name="calculationGroupContext">The calculation group context belonging to the calculation group.</param>
         /// <param name="calculateAllAction">The action that performs all calculations.</param>
@@ -104,12 +104,12 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// item should not be enabled, then the reason for that should be returned by the function and will be shown as a tooltip. 
         /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreatePerformAllCalculationsInGroupItem<TCalculationContext>(
+        public static StrictContextMenuItem CreatePerformAllCalculationsInGroupItem<TCalculationGroupContext>(
             CalculationGroup calculationGroup,
-            TCalculationContext calculationGroupContext,
-            Action<CalculationGroup, TCalculationContext> calculateAllAction,
-            Func<TCalculationContext, string> enableMenuItemFunction)
-            where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
+            TCalculationGroupContext calculationGroupContext,
+            Action<CalculationGroup, TCalculationGroupContext> calculateAllAction,
+            Func<TCalculationGroupContext, string> enableMenuItemFunction)
+            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             var menuItem = new StrictContextMenuItem(
                 Resources.Calculate_all,
@@ -134,18 +134,18 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of validating the input of each calculation 
         /// in a calculation group.
         /// </summary>
-        /// <typeparam name="TCalculationContext">The type of the calculation group context.</typeparam>
+        /// <typeparam name="TCalculationGroupContext">The type of the calculation group context.</typeparam>
         /// <param name="calculationGroupContext">The calculation group context belonging to the calculation group.</param>
         /// <param name="validateAllAction">The action that validates all calculations.</param>
         /// <param name="enableMenuItemFunction">The function which determines whether the item should be enabled. If the 
-        ///     item should not be enabled, then the reason for that should be returned by the function and will be shown as a tooltip. 
-        ///     If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
+        /// item should not be enabled, then the reason for that should be returned by the function and will be shown as a tooltip. 
+        /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateValidateAllCalculationsInGroupItem<TCalculationContext>(
-            TCalculationContext calculationGroupContext, 
-            Action<TCalculationContext> validateAllAction, 
-            Func<TCalculationContext, string> enableMenuItemFunction)
-            where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
+        public static StrictContextMenuItem CreateValidateAllCalculationsInGroupItem<TCalculationGroupContext>(
+            TCalculationGroupContext calculationGroupContext,
+            Action<TCalculationGroupContext> validateAllAction,
+            Func<TCalculationGroupContext, string> enableMenuItemFunction)
+            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             CalculationGroup calculationGroup = calculationGroupContext.WrappedData;
             var menuItem = new StrictContextMenuItem(
