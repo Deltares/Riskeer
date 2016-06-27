@@ -54,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
 
             SetGeometry(dikeGeometry);
-            SetForshoreGeometry(foreshoreGeometry);
+            SetForeshoreGeometry(foreshoreGeometry);
 
             orientation = new RoundedDouble(2);
             dikeHeight = new RoundedDouble(2);
@@ -167,16 +167,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             DikeGeometry = points.ToArray();
         }
 
-        private void SetForshoreGeometry(IEnumerable<Point2D> points)
+        private void SetForeshoreGeometry(IEnumerable<Point2D> points)
         {
             if (points == null)
             {
-                throw new ArgumentNullException("points", Resources.DikeProfile_SetForshoreGeometry_Collection_of_points_for_foreshore_geometry_is_null);
+                throw new ArgumentNullException("points", Resources.DikeProfile_SetForeshoreGeometry_Collection_of_points_for_foreshore_geometry_is_null);
             }
 
             if (points.Any(p => p == null))
             {
-                throw new ArgumentException(Resources.DikeProfile_SetForshoreGeometry_A_point_in_the_collection_is_null);
+                throw new ArgumentException(Resources.DikeProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null);
             }
 
             ForeshoreGeometry = points.ToArray();

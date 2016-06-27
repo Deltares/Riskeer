@@ -99,19 +99,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Een punt in de geometrie voor het voorland heeft geen waarde..
         /// </summary>
-        public static string DikeProfile_SetForshoreGeometry_A_point_in_the_collection_is_null {
+        public static string DikeProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null {
             get {
-                return ResourceManager.GetString("DikeProfile_SetForshoreGeometry_A_point_in_the_collection_is_null", resourceCulture);
+                return ResourceManager.GetString("DikeProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De geometrie die werd opgegeven voor het voorland heeft geen waarde..
         /// </summary>
-        public static string DikeProfile_SetForshoreGeometry_Collection_of_points_for_foreshore_geometry_is_null {
+        public static string DikeProfile_SetForeshoreGeometry_Collection_of_points_for_foreshore_geometry_is_null {
             get {
-                return ResourceManager.GetString("DikeProfile_SetForshoreGeometry_Collection_of_points_for_foreshore_geometry_is_nu" +
-                        "ll", resourceCulture);
+                return ResourceManager.GetString("DikeProfile_SetForeshoreGeometry_Collection_of_points_for_foreshore_geometry_is_n" +
+                        "ull", resourceCulture);
             }
         }
         

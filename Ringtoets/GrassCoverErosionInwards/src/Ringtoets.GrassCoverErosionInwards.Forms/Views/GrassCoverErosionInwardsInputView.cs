@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Charting.Data;
@@ -37,6 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         private GrassCoverErosionInwardsInput data;
         private GrassCoverErosionInwardsCalculation calculation;
         private ChartData dikeProfileData;
+        private ChartData foreshoreData;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsInputView"/>.
@@ -109,6 +111,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             if (data != null)
             {
                 // Bottom most layer
+                foreshoreData = AddOrUpdateChartData(foreshoreData, GetForeshoreData());
                 dikeProfileData = AddOrUpdateChartData(dikeProfileData, GetDikeProfileData());
                 // Top most layer
             }
@@ -116,13 +119,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             chartControl.Data.NotifyObservers();
         }
 
+        private ChartData GetForeshoreData()
+        {
+            if (data == null || !data.ForeshoreGeometry.Any())
+            {
+                return ChartDataFactory.CreateEmptyLineData(Resources.Foreshore_DisplayName);
+            }
+
+            return GrassCoverErosionInwardsChartDataFactory.Create(data.ForeshoreGeometry);
+        }
+
         private ChartData GetDikeProfileData()
         {
-            if (data == null || data.DikeProfile == null || data.DikeProfile.DikeGeometry == null)
+            if (data == null || !data.DikeGeometry.Any())
             {
                 return ChartDataFactory.CreateEmptyLineData(Resources.DikeProfile_DisplayName);
             }
-            return GrassCoverErosionInwardsChartDataFactory.Create(data.DikeProfile.DikeGeometry);
+            return GrassCoverErosionInwardsChartDataFactory.Create(data.DikeGeometry);
         }
 
         private ChartData AddOrUpdateChartData(ChartData oldChartData, ChartData newChartData)
