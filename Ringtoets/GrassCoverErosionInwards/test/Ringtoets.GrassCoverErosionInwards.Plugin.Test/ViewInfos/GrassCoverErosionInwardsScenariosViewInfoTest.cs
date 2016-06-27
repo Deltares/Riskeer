@@ -79,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 string viewName = info.GetViewName(view, viewData);
 
                 // Assert
-                Assert.AreEqual("Scenarios", viewName);
+                Assert.AreEqual("Scenario's", viewName);
             }
         }
 

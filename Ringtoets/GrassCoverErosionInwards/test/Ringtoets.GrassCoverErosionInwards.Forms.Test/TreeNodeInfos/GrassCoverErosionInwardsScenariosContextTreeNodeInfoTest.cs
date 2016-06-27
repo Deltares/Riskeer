@@ -94,7 +94,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             string text = info.Text(context);
 
             // Assert
-            Assert.AreEqual("Scenarios", text);
+            Assert.AreEqual("Scenario's", text);
         }
 
         [Test]
