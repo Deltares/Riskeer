@@ -24,7 +24,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
     /// <summary>
     /// Specifies how a dike profile can be characterized.
     /// </summary>
-    public enum ProfileType
+    public enum SheetPileType
     {
         /// <summary>
         /// Indicates that the dike profile is characterized using coordinates.

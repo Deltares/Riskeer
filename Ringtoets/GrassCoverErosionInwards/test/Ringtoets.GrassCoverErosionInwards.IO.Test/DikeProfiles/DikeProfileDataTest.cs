@@ -46,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             Assert.AreEqual(DamType.None, dikeProfileData.DamType);
             Assert.IsNaN(dikeProfileData.DamHeight);
             Assert.IsNaN(dikeProfileData.DikeHeight);
-            Assert.AreEqual(ProfileType.Coordinates, dikeProfileData.ProfileType);
+            Assert.AreEqual(SheetPileType.Coordinates, dikeProfileData.SheetPileType);
             Assert.IsNull(dikeProfileData.Memo);
             CollectionAssert.IsEmpty(dikeProfileData.ForeshoreGeometry);
             CollectionAssert.IsEmpty(dikeProfileData.DikeGeometry);
@@ -122,18 +122,18 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void ProfileType_SetNewValue_GetsNewlySetValue([Random(0, 3, 1)]int index)
+        public void SheetPilingType_SetNewValue_GetsNewlySetValue([Random(0, 3, 1)]int index)
         {
             // Setup
             var dikeProfileData = new DikeProfileData();
 
-            ProfileType newValue = Enum.GetValues(typeof(ProfileType)).OfType<ProfileType>().ElementAt(index);
+            SheetPileType newValue = Enum.GetValues(typeof(SheetPileType)).OfType<SheetPileType>().ElementAt(index);
 
             // Call
-            dikeProfileData.ProfileType = newValue;
+            dikeProfileData.SheetPileType = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, dikeProfileData.ProfileType);
+            Assert.AreEqual(newValue, dikeProfileData.SheetPileType);
         }
 
         [Test]

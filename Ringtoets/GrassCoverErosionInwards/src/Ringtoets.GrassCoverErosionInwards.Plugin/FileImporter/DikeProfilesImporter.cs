@@ -236,7 +236,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
                     NotifyProgress(Resources.DikeProfilesImporter_ReadDikeProfileData_reading_dikeprofiledata, i + 1, totalNumberOfSteps);
 
                     DikeProfileData data = dikeProfileDataReader.ReadDikeProfileData(prflFilePath);
-                    if (data.ProfileType != ProfileType.Coordinates)
+                    if (data.SheetPileType != SheetPileType.Coordinates)
                     {
                         log.Error(string.Format(Resources.DikeProfilesImporter_ReadDikeProfileData_sheet_piling_not_zero_skipping_0_, prflFilePath));
                         continue;

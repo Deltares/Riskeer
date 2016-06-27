@@ -179,24 +179,6 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het ingelezen profiel-type ({0}) is geen geheel getal..
-        /// </summary>
-        internal static string DikeProfileDataReader_ParseProfileType_ProfileType_0_not_integer {
-            get {
-                return ResourceManager.GetString("DikeProfileDataReader_ParseProfileType_ProfileType_0_not_integer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het ingelezen profiel-type ({0}) is te groot of te klein om ingelezen te worden..
-        /// </summary>
-        internal static string DikeProfileDataReader_ParseProfileType_ProfileType_0_overflows {
-            get {
-                return ResourceManager.GetString("DikeProfileDataReader_ParseProfileType_ProfileType_0_overflows", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De ingelezen {0} ({1}) is geen getal..
         /// </summary>
         internal static string DikeProfileDataReader_ParseRoughnessPointParameter_ParameterName_0_Value_1_not_number {
@@ -213,6 +195,33 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
             get {
                 return ResourceManager.GetString("DikeProfileDataReader_ParseRoughnessPointParameter_ParameterName_0_Value_1_overfl" +
                         "ows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen damwand-type waarde ({0}) moet binnen het bereik [0, 2] vallen..
+        /// </summary>
+        internal static string DikeProfileDataReader_ParseSheetPileType_SheetPileType_0_must_be_in_range {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseSheetPileType_SheetPileType_0_must_be_in_range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het ingelezen profiel-type ({0}) is geen geheel getal..
+        /// </summary>
+        internal static string DikeProfileDataReader_ParseSheetPileType_SheetPileType_0_not_integer {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseSheetPileType_SheetPileType_0_not_integer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het ingelezen profiel-type ({0}) is te groot of te klein om ingelezen te worden..
+        /// </summary>
+        internal static string DikeProfileDataReader_ParseSheetPileType_SheetPileType_0_overflows {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseSheetPileType_SheetPileType_0_overflows", resourceCulture);
             }
         }
         
@@ -253,25 +262,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De volgende parameter(s) zijn niet aanwezig in het bestand: {0}.
-        /// </summary>
-        internal static string DikeProfileDataReader_ReadDikeProfileData_List_mising_parameters_0_ {
-            get {
-                return ResourceManager.GetString("DikeProfileDataReader_ReadDikeProfileData_List_mising_parameters_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De ingelezen damwand-type waarde ({0}) moet binnen het bereik [0, 2] vallen..
-        /// </summary>
-        internal static string DikeProfileDataReader_ReadDikeProfileData_ProfileType_0_must_be_in_range {
-            get {
-                return ResourceManager.GetString("DikeProfileDataReader_ReadDikeProfileData_ProfileType_0_must_be_in_range", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De ingelezen ruwheid ({0}) moet in het bereik [{1}, 1] vallen..
+        ///   Looks up a localized string similar to De ingelezen ruwheid ({0}) moet binnen het bereik [{1}, 1] vallen..
         /// </summary>
         internal static string DikeProfileDataReader_ReadRoughnessPoint_Roughness_0_must_be_in_range_LowerLimit_1_ {
             get {
@@ -299,11 +290,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Y coordinaat.
+        ///   Looks up a localized string similar to Z coordinaat.
         /// </summary>
-        internal static string DikeProfileDataReader_ReadRoughnessPoint_Y_DisplayName {
+        internal static string DikeProfileDataReader_ReadRoughnessPoint_Z_DisplayName {
             get {
-                return ResourceManager.GetString("DikeProfileDataReader_ReadRoughnessPoint_Y_DisplayName", resourceCulture);
+                return ResourceManager.GetString("DikeProfileDataReader_ReadRoughnessPoint_Z_DisplayName", resourceCulture);
             }
         }
         
@@ -361,6 +352,15 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         internal static string DikeProfileDataReader_ValidateId_Id_0_not_valid {
             get {
                 return ResourceManager.GetString("DikeProfileDataReader_ValidateId_Id_0_not_valid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De volgende parameter(s) zijn niet aanwezig in het bestand: {0}.
+        /// </summary>
+        internal static string DikeProfileDataReader_ValidateNoMissingKeywords_List_mising_keywords_0_ {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ValidateNoMissingKeywords_List_mising_keywords_0_", resourceCulture);
             }
         }
         

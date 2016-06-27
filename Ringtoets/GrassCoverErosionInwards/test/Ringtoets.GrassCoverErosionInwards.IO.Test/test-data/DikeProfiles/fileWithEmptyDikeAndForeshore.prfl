@@ -1,7 +1,7 @@
 VERSIE	4.0
-ID	profiel001
+ID	ikBenBestWaardeloos
 
-RICHTING	330
+RICHTING	123.456
 
 DAM	0
 DAMHOOGTE	0
@@ -10,11 +10,12 @@ VOORLAND	0
 
 DAMWAND	0
 KRUINHOOGTE	6
-DIJK	-1
+DIJK	0
 
 MEMO
 Verkenning prfl format:
 Basis:
 geen dam
 geen voorland
+geen dijk
 recht talud

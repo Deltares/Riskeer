@@ -95,20 +95,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [Test]
         public void ReadReferenceLine_ShapefileDoesntExist_ThrowCriticalFileReadException()
         {
-            // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                "I_do_not_exist.shp");
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(invalidFilePath);
-
-            // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
-                                                invalidFilePath);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = "Het bestand bestaat niet.";
+            ReadFileAndExpectCriticalFileReadException("I_do_not_exist.shp", expectedMessage);
         }
 
         [Test]
@@ -130,7 +118,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             Assert.AreEqual("profiel001", result.Id);
             Assert.AreEqual(330.0, result.Orientation);
             Assert.AreEqual(DamType.None, result.DamType);
-            Assert.AreEqual(ProfileType.Coordinates, result.ProfileType);
+            Assert.AreEqual(SheetPileType.Coordinates, result.SheetPileType);
             Assert.AreEqual(0.0, result.DamHeight);
             CollectionAssert.IsEmpty(result.ForeshoreGeometry);
             Assert.AreEqual(6.0, result.DikeHeight);
@@ -164,7 +152,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             Assert.AreEqual("profiel004", result.Id);
             Assert.AreEqual(330.0, result.Orientation);
             Assert.AreEqual(DamType.None, result.DamType);
-            Assert.AreEqual(ProfileType.Coordinates, result.ProfileType);
+            Assert.AreEqual(SheetPileType.Coordinates, result.SheetPileType);
             Assert.AreEqual(0.5, result.DamHeight);
             Assert.AreEqual(3, result.ForeshoreGeometry.Length);
             Assert.AreEqual(new Point2D(-150.0, -9.0), result.ForeshoreGeometry[0].Point);
@@ -208,7 +196,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             Assert.AreEqual("profiel001", result.Id);
             Assert.AreEqual(330.0, result.Orientation);
             Assert.AreEqual(DamType.HarborDam, result.DamType);
-            Assert.AreEqual(ProfileType.SheetPileWithNoseConstruction, result.ProfileType);
+            Assert.AreEqual(SheetPileType.SheetPileWithNoseConstruction, result.SheetPileType);
             Assert.AreEqual(0.0, result.DamHeight);
             CollectionAssert.IsEmpty(result.ForeshoreGeometry);
             Assert.AreEqual(6.0, result.DikeHeight);
@@ -227,7 +215,38 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
-        [TestCase("faulry_noId.prfl", "ID")]
+        public void ReadDikeProfileData_ValidFilePath4_ReturnDikeProfileData()
+        {
+            // Setup
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                              Path.Combine("DikeProfiles", "fileWithEmptyDikeAndForeshore.prfl"));
+
+            var reader = new DikeProfileDataReader();
+
+            // Call
+            DikeProfileData result = reader.ReadDikeProfileData(validFilePath);
+
+            // Assert
+            Assert.AreEqual("ikBenBestWaardeloos", result.Id);
+            Assert.AreEqual(123.456, result.Orientation);
+            Assert.AreEqual(DamType.None, result.DamType);
+            Assert.AreEqual(SheetPileType.Coordinates, result.SheetPileType);
+            Assert.AreEqual(0.0, result.DamHeight);
+            CollectionAssert.IsEmpty(result.ForeshoreGeometry);
+            Assert.AreEqual(6.0, result.DikeHeight);
+            CollectionAssert.IsEmpty(result.DikeGeometry);
+            var expectedMemo =
+                "Verkenning prfl format:" + Environment.NewLine +
+                "Basis:" + Environment.NewLine +
+                "geen dam" + Environment.NewLine +
+                "geen voorland" + Environment.NewLine +
+                "geen dijk" + Environment.NewLine +
+                "recht talud" + Environment.NewLine;
+            Assert.AreEqual(expectedMemo, result.Memo);
+        }
+
+        [Test]
+        [TestCase("faulty_noId.prfl", "ID")]
         [TestCase("faulty_emptyFile.prfl", "VERSIE, ID, RICHTING, DAM, DAMHOOGTE, VOORLAND, DAMWAND, KRUINHOOGTE, DIJK, MEMO")]
         [TestCase("faulty_noDam.prfl", "DAM")]
         [TestCase("faulty_noDamHoogte.prfl", "DAMHOOGTE")]
@@ -238,140 +257,72 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [TestCase("faulty_noRichting.prfl", "RICHTING")]
         [TestCase("faulty_noVersie.prfl", "VERSIE")]
         [TestCase("faulty_noVoorland.prfl", "VOORLAND")]
-        public void ReadDikeProfileData_FaultyFilesWithMissingParameters_ThrowCriticalFileReadException(
+        public void ReadDikeProfileData_FilesWithMissingParameters_ThrowCriticalFileReadException(
             string faultyFileName, string missingParameterNames)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': De volgende parameter(s) zijn niet aanwezig in het bestand: {1}",
-                                                   faultyFilePath, missingParameterNames);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("De volgende parameter(s) zijn niet aanwezig in het bestand: {0}",
+                                                   missingParameterNames);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_incorrectVersion1.prfl")]
         [TestCase("faulty_incorrectVersion2.prfl")]
-        public void ReadDikeProfileData_FaultyFileWithUnsupportedVersion_ThrowCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithUnsupportedVersion_ThrowCriticalFileReadException(
             string faultyFileName)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Enkel bestanden van versie '4.0' worden ondersteund.",
-                                                   faultyFilePath);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = @"Enkel bestanden van versie '4.0' worden ondersteund.";
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 1, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_richtingTooBig.prfl", 360.5)]
         [TestCase("faulty_richtingTooSmall.prfl", -12.36)]
-        public void ReadDikeProfileData_FaultyFileWithOrientationOutOfRange_ThrowCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithOrientationOutOfRange_ThrowCriticalFileReadException(
             string faultyFileName, double expectedOrientationInFile)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 4: De ingelezen oriëntatie waarde ({1}) moet binnen het bereik [0, 360] vallen.",
-                                                   faultyFilePath, expectedOrientationInFile);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("De ingelezen oriëntatie waarde ({0}) moet binnen het bereik [0, 360] vallen.",
+                                                   expectedOrientationInFile);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 4, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_damTooBig.prfl", 4)]
         [TestCase("faulty_damTooSmall.prfl", -1)]
-        public void ReadDikeProfileData_FaultyFileWithDamTypeOutOfRange_ThrowCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithDamTypeOutOfRange_ThrowCriticalFileReadException(
             string faultyFileName, int expectedDamInFile)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 6: De ingelezen dam-type waarde ({1}) moet binnen het bereik [0, 3] vallen.",
-                                                   faultyFilePath, expectedDamInFile);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("De ingelezen dam-type waarde ({0}) moet binnen het bereik [0, 3] vallen.",
+                                                   expectedDamInFile);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 6, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_damwandTooBig.prfl", 3)]
         [TestCase("faulty_damwandTooSmall.prfl", -1)]
-        public void ReadDikeProfileData_FaultyFileWithProfileTypeOutOfRange_ThrowCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithProfileTypeOutOfRange_ThrowCriticalFileReadException(
             string faultyFileName, int expectedDamInFile)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 11: De ingelezen damwand-type waarde ({1}) moet binnen het bereik [0, 2] vallen.",
-                                                   faultyFilePath, expectedDamInFile);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("De ingelezen damwand-type waarde ({0}) moet binnen het bereik [0, 2] vallen.",
+                                                   expectedDamInFile);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 11, expectedMessage);
         }
 
         [Test]
-        public void ReadDikeProfileData_FaultyFileWithNegativeForshorePointCount_ThrowCriticalFileReadException()
+        public void ReadDikeProfileData_FileWithNegativeForshorePointCount_ThrowCriticalFileReadException()
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", "faulty_voorlandCountNegative.prfl"));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 9: Het ingelezen aantal voorlandgeometrie punten (-1) mag niet negatief zijn.",
-                                                   faultyFilePath);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = "Het ingelezen aantal voorlandgeometrie punten (-1) mag niet negatief zijn.";
+            ReadFileAndExpectCriticalFileReadException("faulty_voorlandCountNegative.prfl", 9, expectedMessage);
         }
 
         [Test]
         [SetCulture("nl-NL")]
         [TestCase("faulty_voorlandHasRoughnessTooBig.prfl", 1.234, 11)]
         [TestCase("faulty_dijkHasRoughnessTooBig.prfl", 1.321, 15)]
-        public void ReadDikeProfileData_FaultyFileWithRoughnessOutOfRange_ThrowCriticalFileReadException_nl_NL(
-            string faultyFileName, double expectedFaultyRoughness, double expectedLineNumber)
+        public void ReadDikeProfileData_FileWithRoughnessOutOfRange_ThrowCriticalFileReadException_nl_NL(
+            string faultyFileName, double expectedFaultyRoughness, int expectedLineNumber)
         {
-            DoReadDikeProfileData_FaultyFileWithRoughnessOutOfRange_ThrowsCriticalFileReadException(
+            ReadDikeProfileData_FileWithRoughnessOutOfRange_ThrowsCriticalFileReadException(
                 faultyFileName, expectedFaultyRoughness, expectedLineNumber, "0,5");
         }
 
@@ -379,10 +330,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [SetCulture("en-US")]
         [TestCase("faulty_voorlandHasRoughnessTooSmall.prfl", -0.943, 10)]
         [TestCase("faulty_dijkHasRoughnessTooSmall.prfl", -0.123, 14)]
-        public void ReadDikeProfileData_FaultyFileWithRoughnessOutOfRange_ThrowCriticalFileReadException_en_US(
-            string faultyFileName, double expectedFaultyRoughness, double expectedLineNumber)
+        public void ReadDikeProfileData_FileWithRoughnessOutOfRange_ThrowCriticalFileReadException_en_US(
+            string faultyFileName, double expectedFaultyRoughness, int expectedLineNumber)
         {
-            DoReadDikeProfileData_FaultyFileWithRoughnessOutOfRange_ThrowsCriticalFileReadException(
+            ReadDikeProfileData_FileWithRoughnessOutOfRange_ThrowsCriticalFileReadException(
                 faultyFileName, expectedFaultyRoughness, expectedLineNumber, "0.5");
         }
 
@@ -392,443 +343,241 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [TestCase("faulty_unparsableVersie_noValue2.prfl", "")]
         [TestCase("faulty_unparsableVersie_IncorrectCharacter.prfl", "4.q")]
         [TestCase("faulty_unparsableVersie_NegativeNumber.prfl", "-4.-0")]
-        public void ReadDikeProfileData_FaultyFileWithUnparsableVersion_ThrowCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithUnparsableVersion_ThrowCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: De ingelezen versie ({1}) is geen geldige versie code.",
-                                                   faultyFilePath, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("De ingelezen versie ({0}) is geen geldige versie code.",
+                                                   expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 1, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_unparsableId_noValue1.prfl", "")]
         [TestCase("faulty_unparsableId_noValue2.prfl", "")]
-        public void ReadDikeProfileData_FaultyFileWithUnparsableId_ThrowCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithUnparsableId_ThrowCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De ingelezen Id ({1}) is geen geldig id.",
-                                                   faultyFilePath, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("De ingelezen Id ({0}) is geen geldig id.",
+                                                   expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 2, expectedMessage);
         }
 
         [Test]
-        public void ReadDikeProfileData_FaultyFileWithInvalidId_ThrowCriticalFileReadException()
+        public void ReadDikeProfileData_FileWithInvalidId_ThrowCriticalFileReadException()
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", "faulty_invalidId.prfl"));
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De ingelezen Id (Id's are not allowed to have any white space!) bevat spaties, welke niet zijn toegestaan.",
-                                                   faultyFilePath);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = @"De ingelezen Id (Id's are not allowed to have any white space!) bevat spaties, welke niet zijn toegestaan.";
+            ReadFileAndExpectCriticalFileReadException("faulty_invalidId.prfl", 2, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_unparsableVersie_Overflow.prfl", "44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444.0")]
-        public void ReadDikeProfileData_FaultyFileWithOverflowVersion_ThrowCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithOverflowVersion_ThrowCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: De ingelezen versie ({1}) bevat een versienummer die te groot is.",
-                                                   faultyFilePath, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("De ingelezen versie ({0}) bevat een versienummer die te groot is.",
+                                                   expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 1, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_unparsableRichting.prfl", "d;apwiorqu  ihk dfh")]
         [TestCase("faulty_unparsableRichting_noValue1.prfl", "")]
         [TestCase("faulty_unparsableRichting_noValue2.prfl", "")]
-        public void ReadDikeProfileData_FaultyFileWithUnparsableOrientation_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithUnparsableOrientation_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 4: De ingelezen oriëntatie ({1}) is geen getal.",
-                                                   faultyFilePath, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("De ingelezen oriëntatie ({0}) is geen getal.",
+                                                   expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 4, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_unparsableRichting_Overflow1.prfl", "-22222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222.2")]
         [TestCase("faulty_unparsableRichting_Overflow2.prfl", "22222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222.2")]
-        public void ReadDikeProfileData_FaultyFileWithOverflowOrientation_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithOverflowOrientation_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 4: De ingelezen oriëntatie ({1}) is te groot of te klein om ingelezen te worden.",
-                                                   faultyFilePath, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("De ingelezen oriëntatie ({0}) is te groot of te klein om ingelezen te worden.",
+                                                   expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 4, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_unparsableDam.prfl", "309845poevotiuwe985v le09b 38- 35thp9 -")]
         [TestCase("faulty_unparsableDam_noValue1.prfl", "")]
         [TestCase("faulty_unparsableDam_noValue2.prfl", "")]
-        public void ReadDikeProfileData_FaultyFileWithUnparsableDamType_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithUnparsableDamType_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 6: Het ingelezen dam-type ({1}) is geen geheel getal.",
-                                                   faultyFilePath, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("Het ingelezen dam-type ({0}) is geen geheel getal.",
+                                                   expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 6, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_unparsableDam_Overflow1.prfl", "-55555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555")]
         [TestCase("faulty_unparsableDam_Overflow2.prfl", "22222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222")]
-        public void ReadDikeProfileData_FaultyFileWithOverflowDamType_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithOverflowDamType_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 6: Het ingelezen dam-type ({1}) is te groot of te klein om ingelezen te worden.",
-                                                   faultyFilePath, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("Het ingelezen dam-type ({0}) is te groot of te klein om ingelezen te worden.",
+                                                   expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 6, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_unparsableDamwand.prfl", "0v9 5y8w o8p 38uy-9863")]
         [TestCase("faulty_unparsableDamwand_noValue1.prfl", "")]
         [TestCase("faulty_unparsableDamwand_noValue2.prfl", "")]
-        public void ReadDikeProfileData_FaultyFileWithUnparsableProfileType_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithUnparsableProfileType_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 11: Het ingelezen profiel-type ({1}) is geen geheel getal.",
-                                                   faultyFilePath, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("Het ingelezen profiel-type ({0}) is geen geheel getal.",
+                                                   expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 11, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_unparsableDamwand_Overflow1.prfl", "-55555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555")]
         [TestCase("faulty_unparsableDamwand_Overflow2.prfl", "33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333")]
-        public void ReadDikeProfileData_FaultyFileWithOverflowProfileType_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithOverflowProfileType_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 11: Het ingelezen profiel-type ({1}) is te groot of te klein om ingelezen te worden.",
-                                                   faultyFilePath, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("Het ingelezen profiel-type ({0}) is te groot of te klein om ingelezen te worden.",
+                                                   expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 11, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_unparsableDamhoogte.prfl", "-0 6u498y4")]
         [TestCase("faulty_unparsableDamhoogte_noValue1.prfl", "")]
         [TestCase("faulty_unparsableDamhoogte_noValue2.prfl", "")]
-        public void ReadDikeProfileData_FaultyFileWithUnparsableDamHeight_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithUnparsableDamHeight_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 7: De ingelezen damhoogte ({1}) is geen getal.",
-                                                   faultyFilePath, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("De ingelezen damhoogte ({0}) is geen getal.",
+                                                   expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 7, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_unparsableDamhoogte_Overflow1.prfl", "-11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")]
         [TestCase("faulty_unparsableDamhoogte_Overflow2.prfl", "33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333")]
-        public void ReadDikeProfileData_FaultyFileWithOverflowDamHeight_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithOverflowDamHeight_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 7: De ingelezen damhoogte ({1}) is te groot of te klein om ingelezen te worden.",
-                                                   faultyFilePath, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("De ingelezen damhoogte ({0}) is te groot of te klein om ingelezen te worden.",
+                                                   expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 7, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_unparsableKruinhoogte.prfl", "- 8ykultow9yowl;i 3-9854")]
         [TestCase("faulty_unparsableKruinhoogte_noValue1.prfl", "")]
         [TestCase("faulty_unparsableKruinhoogte_noValue2.prfl", "")]
-        public void ReadDikeProfileData_FaultyFileWithUnparsableDikeHeight_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithUnparsableDikeHeight_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 12: De ingelezen dijkhoogte ({1}) is geen getal.",
-                                                   faultyFilePath, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("De ingelezen dijkhoogte ({0}) is geen getal.",
+                                                   expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 12, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_unparsableKruinhoogte_Overflow1.prfl", "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")]
         [TestCase("faulty_unparsableKruinhoogte_Overflow2.prfl", "-33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333")]
-        public void ReadDikeProfileData_FaultyFileWithOverflowDikeHeight_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithOverflowDikeHeight_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 12: De ingelezen dijkhoogte ({1}) is te groot of te klein om ingelezen te worden.",
-                                                   faultyFilePath, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("De ingelezen dijkhoogte ({0}) is te groot of te klein om ingelezen te worden.",
+                                                   expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 12, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_unparsableDijk.prfl", "069xf837 uo uyhtwuht098y hb3loiu43597")]
         [TestCase("faulty_unparsableDijk_noValue1.prfl", "")]
         [TestCase("faulty_unparsableDijk_noValue2.prfl", "")]
-        public void ReadDikeProfileData_FaultyFileWithUnparsableDikeCount_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithUnparsableDikeCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 16: Het ingelezen aantal dijkgeometrie punten ({1}) is geen geheel getal.",
-                                                   faultyFilePath, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("Het ingelezen aantal dijkgeometrie punten ({0}) is geen geheel getal.",
+                                                   expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 16, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_unparsableDijk_Overflow1.prfl", "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")]
         [TestCase("faulty_unparsableDijk_Overflow2.prfl", "-22222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222")]
-        public void ReadDikeProfileData_FaultyFileWithOverflowDijkCount_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithOverflowDijkCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
+            string expectedMessage = string.Format("Het ingelezen aantal dijkgeometrie punten ({0}) is te groot of te klein om ingelezen te worden.",
+                                                   expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 16, expectedMessage);
+        }
 
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 16: Het ingelezen aantal dijkgeometrie punten ({1}) is te groot of te klein om ingelezen te worden.",
-                                                   faultyFilePath, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+        [Test]
+        public void ReadDikeFileName_FileWithNegativeDikeCount_ThrowsCriticalFileReadException()
+        {
+            string expectedMessage = "Het ingelezen aantal dijkgeometrie punten (-1) mag niet negatief zijn.";
+            ReadFileAndExpectCriticalFileReadException("faulty_dijkCountNegative.prfl", 13, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_unparsableDijk_X.prfl", 18, "X coordinaat", "suhf")]
         [TestCase("faulty_unparsableDijk_X_noValue1.prfl", 18, "X coordinaat", "")]
         [TestCase("faulty_unparsableDijk_X_noValue2.prfl", 18, "X coordinaat", "")]
-        [TestCase("faulty_unparsableDijk_Y.prfl", 20, "Y coordinaat", "o;jfhe;lhtvwposiu")]
-        [TestCase("faulty_unparsableDijk_Y_noValue1.prfl", 20, "Y coordinaat", "")]
-        [TestCase("faulty_unparsableDijk_Y_noValue2.prfl", 20, "Y coordinaat", "")]
+        [TestCase("faulty_unparsableDijk_Z.prfl", 20, "Z coordinaat", "o;jfhe;lhtvwposiu")]
+        [TestCase("faulty_unparsableDijk_Z_noValue1.prfl", 20, "Z coordinaat", "")]
+        [TestCase("faulty_unparsableDijk_Z_noValue2.prfl", 20, "Z coordinaat", "")]
         [TestCase("faulty_unparsableDijk_Roughness.prfl", 17, "ruwheid", "dr;tjn")]
         [TestCase("faulty_unparsableDijk_Roughness_noValue1.prfl", 17, "ruwheid", "")]
         [TestCase("faulty_unparsableDijk_Roughness_noValue2.prfl", 17, "ruwheid", "")]
         [TestCase("faulty_unparsableVoorland_X.prfl", 10, "X coordinaat", "glkjdhflgkjhsk")]
         [TestCase("faulty_unparsableVoorland_X_noValue1.prfl", 11, "X coordinaat", "")]
         [TestCase("faulty_unparsableVoorland_X_noValue2.prfl", 12, "X coordinaat", "")]
-        [TestCase("faulty_unparsableVoorland_Y.prfl", 12, "Y coordinaat", "lijfhsliufghkj")]
-        [TestCase("faulty_unparsableVoorland_Y_noValue1.prfl", 10, "Y coordinaat", "")]
-        [TestCase("faulty_unparsableVoorland_Y_noValue2.prfl", 11, "Y coordinaat", "")]
+        [TestCase("faulty_unparsableVoorland_Z.prfl", 12, "Z coordinaat", "lijfhsliufghkj")]
+        [TestCase("faulty_unparsableVoorland_Z_noValue1.prfl", 10, "Z coordinaat", "")]
+        [TestCase("faulty_unparsableVoorland_Z_noValue2.prfl", 11, "Z coordinaat", "")]
         [TestCase("faulty_unparsableVoorland_Roughness.prfl", 10, "ruwheid", ";lsduglk wab")]
         [TestCase("faulty_unparsableVoorland_Roughness_noValue1.prfl", 11, "ruwheid", "")]
         [TestCase("faulty_unparsableVoorland_Roughness_noValue2.prfl", 12, "ruwheid", "")]
-        public void ReadDikeProfileData_FaultyFileWithUnparsableRoughnessPoints_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithUnparsableRoughnessPoints_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, string expectedParameterName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel {1}: De ingelezen {2} ({3}) is geen getal.",
-                                                   faultyFilePath, expectedLineNumber, expectedParameterName, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("De ingelezen {0} ({1}) is geen getal.",
+                                                   expectedParameterName, expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_unparsableDijk_X_Overflow1.prfl", 18, "X coordinaat", "99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")]
         [TestCase("faulty_unparsableDijk_X_Overflow2.prfl", 18, "X coordinaat", "-44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444")]
-        [TestCase("faulty_unparsableDijk_Y_Overflow1.prfl", 19, "Y coordinaat", "88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888.8")]
-        [TestCase("faulty_unparsableDijk_Y_Overflow2.prfl", 20, "Y coordinaat", "-44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444.4")]
+        [TestCase("faulty_unparsableDijk_Z_Overflow1.prfl", 19, "Z coordinaat", "88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888.8")]
+        [TestCase("faulty_unparsableDijk_Z_Overflow2.prfl", 20, "Z coordinaat", "-44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444.4")]
         [TestCase("faulty_unparsableDijk_Roughness_Overflow1.prfl", 17, "ruwheid", "-44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444.4")]
         [TestCase("faulty_unparsableDijk_Roughness_Overflow2.prfl", 17, "ruwheid", "88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888.8")]
         [TestCase("faulty_unparsableVoorland_X_Overflow1.prfl", 11, "X coordinaat", "55555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555")]
         [TestCase("faulty_unparsableVoorland_X_Overflow2.prfl", 12, "X coordinaat", "-33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333")]
-        [TestCase("faulty_unparsableVoorland_Y_Overflow1.prfl", 11, "Y coordinaat", "77777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777.7")]
-        [TestCase("faulty_unparsableVoorland_Y_Overflow2.prfl", 10, "Y coordinaat", "-44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444.4")]
+        [TestCase("faulty_unparsableVoorland_Z_Overflow1.prfl", 11, "Z coordinaat", "77777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777.7")]
+        [TestCase("faulty_unparsableVoorland_Z_Overflow2.prfl", 10, "Z coordinaat", "-44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444.4")]
         [TestCase("faulty_unparsableVoorland_Roughness_Overflow1.prfl", 10, "ruwheid", "-44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444.4")]
         [TestCase("faulty_unparsableVoorland_Roughness_Overflow2.prfl", 11, "ruwheid", "-33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333")]
-        public void ReadDikeProfileData_FaultyFileWithOverflowRoughnessPoints_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithOverflowRoughnessPoints_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, string expectedParameterName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel {1}: De ingelezen {2} ({3}) is te groot of te klein om ingelezen te worden.",
-                                                   faultyFilePath, expectedLineNumber, expectedParameterName, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("De ingelezen {0} ({1}) is te groot of te klein om ingelezen te worden.",
+                                                   expectedParameterName, expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
         }
 
         [Test]
-        public void ReadDikeProfileData_FaultyFileWithMissingDikePoints_ThrowsCriticalFileReadException()
+        public void ReadDikeProfileData_FileWithMissingDikePoints_ThrowsCriticalFileReadException()
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", "faulty_unparsableDijk_missingElements.prfl"));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 19: Het aantal dijk punten in het bestand (2) komt niet overeen met de aangegeven hoeveelheid dijk punten (4).",
-                                                   faultyFilePath);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = "Het aantal dijk punten in het bestand (2) komt niet overeen met de aangegeven hoeveelheid dijk punten (4).";
+            ReadFileAndExpectCriticalFileReadException("faulty_unparsableDijk_missingElements.prfl",
+                                                       19, expectedMessage);
         }
 
         [Test]
@@ -836,87 +585,51 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [TestCase("faulty_dijkNotMonotonicallyIncreasingX_2.prfl", 18, "Dijk")]
         [TestCase("faulty_voorlandNotMonotonicallyIncreasingX_1.prfl", 12, "Voorland")]
         [TestCase("faulty_voorlandNotMonotonicallyIncreasingX_2.prfl", 11, "Voorland")]
-        public void ReadDikeProfileData_FaultyFileWithNotMonotonicallyIncreasingX_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithNotMonotonicallyIncreasingX_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, string expectedTypePrefix)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel {1}: {2}geometrie punten dienen X-coordinaten te hebben die monotoon strict toenemend zijn.",
-                                                   faultyFilePath, expectedLineNumber, expectedTypePrefix);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("{0}geometrie punten dienen X-coordinaten te hebben die monotoon strict toenemend zijn.",
+                                                   expectedTypePrefix);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_unparsableVoorland.prfl", "oidushp9t8w uyp394hp 983 94")]
         [TestCase("faulty_unparsableVoorland_noValue1.prfl", "")]
         [TestCase("faulty_unparsableVoorland_noValue2.prfl", "")]
-        public void ReadDikeProfileData_FaultyFileWithUnparsableForeshoreCount_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithUnparsableForeshoreCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 9: Het ingelezen aantal voorlandgeometrie punten ({1}) is geen geheel getal.",
-                                                   faultyFilePath, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("Het ingelezen aantal voorlandgeometrie punten ({0}) is geen geheel getal.",
+                                                   expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 9, expectedMessage);
         }
 
         [Test]
         [TestCase("faulty_unparsableVoorland_Overflow1.prfl", "33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333")]
         [TestCase("faulty_unparsableVoorland_Overflow2.prfl", "-55555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555")]
-        public void ReadDikeProfileData_FaultyFileWithOverflowForeshoreCount_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_FileWithOverflowForeshoreCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
-
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 9: Het ingelezen aantal voorlandgeometrie punten ({1}) is te groot of te klein om ingelezen te worden.",
-                                                   faultyFilePath, expectedReadText);
-            Assert.AreEqual(expectedMessage, message);
+            string expectedMessage = string.Format("Het ingelezen aantal voorlandgeometrie punten ({0}) is te groot of te klein om ingelezen te worden.",
+                                                   expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, 9, expectedMessage);
         }
 
         [Test]
-        public void ReadDikeProfileData_FaultyFileWithMissingForeshorePoints_ThrowsCriticalFileReadException()
+        public void ReadDikeProfileData_FileWithOverflowForeshoreCount_ThrowsCriticalFileReadException()
         {
-            // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", "faulty_unparsableVoorland_missingElements.prfl"));
+            string expectedMessage = "Het ingelezen aantal voorlandgeometrie punten (-1) mag niet negatief zijn.";
+            ReadFileAndExpectCriticalFileReadException("faulty_voorlandCountNegative.prfl",
+                                                       9, expectedMessage);
+        }
 
-            var reader = new DikeProfileDataReader();
-
-            // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 11: Het aantal voorland punten in het bestand (1) komt niet overeen met de aangegeven hoeveelheid voorland punten (3).",
-                                                   faultyFilePath);
-            Assert.AreEqual(expectedMessage, message);
+        [Test]
+        public void ReadDikeProfileData_FileWithMissingForeshorePoints_ThrowsCriticalFileReadException()
+        {
+            string expectedMessage = "Het aantal voorland punten in het bestand (1) komt niet overeen met de aangegeven hoeveelheid voorland punten (3).";
+            ReadFileAndExpectCriticalFileReadException("faulty_unparsableVoorland_missingElements.prfl",
+                                                       11, expectedMessage);
         }
 
         [Test]
@@ -929,12 +642,19 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [TestCase("faulty_doubleDamwand.prfl", 12, "DAMWAND")]
         [TestCase("faulty_doubleKruinhoogte.prfl", 14, "KRUINHOOGTE")]
         [TestCase("faulty_doubleDijk.prfl", 18, "DIJK")]
-        public void ReadDikeProfileData_FaultyFileWithDoubleParameter_ThrowsCriticalFileReadException(
-            string faultyFileName, int expectedLineNumber, string expectedParameter)
+        public void ReadDikeProfileData_FileWithDoubleParameter_ThrowsCriticalFileReadException(
+            string faultyFileName, int expectedLineNumber, string expectedKeyword)
+        {
+            string expectedMessage = string.Format("De parameter {0} is al eerder in het bestand gedefinieerd.",
+                                                   expectedKeyword);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
+        }
+
+        private void ReadFileAndExpectCriticalFileReadException(string fileName, int lineNumber, string errorMessage)
         {
             // Setup
             string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
+                                                               Path.Combine("DikeProfiles", fileName));
 
             var reader = new DikeProfileDataReader();
 
@@ -943,17 +663,16 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel {1}: De parameter {2} is al eerder in het bestand gedefinieerd.",
-                                                   faultyFilePath, expectedLineNumber, expectedParameter);
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel {1}: {2}",
+                                                   faultyFilePath, lineNumber, errorMessage);
             Assert.AreEqual(expectedMessage, message);
         }
 
-        private static void DoReadDikeProfileData_FaultyFileWithRoughnessOutOfRange_ThrowsCriticalFileReadException(
-            string faultyFileName, double expectedFaultyRoughness, double expectedLineNumber, string expectedLowerLimitText)
+        private void ReadFileAndExpectCriticalFileReadException(string fileName, string errorMessage)
         {
             // Setup
             string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                               Path.Combine("DikeProfiles", faultyFileName));
+                                                               Path.Combine("DikeProfiles", fileName));
 
             var reader = new DikeProfileDataReader();
 
@@ -962,9 +681,17 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel {1}: De ingelezen ruwheid ({2}) moet in het bereik [{3}, 1] vallen.",
-                                                   faultyFilePath, expectedLineNumber, expectedFaultyRoughness, expectedLowerLimitText);
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
+                                                   faultyFilePath, errorMessage);
             Assert.AreEqual(expectedMessage, message);
+        }
+
+        private void ReadDikeProfileData_FileWithRoughnessOutOfRange_ThrowsCriticalFileReadException(
+            string faultyFileName, double expectedFaultyRoughness, int expectedLineNumber, string expectedLowerLimitText)
+        {
+            string expectedMessage = string.Format("De ingelezen ruwheid ({0}) moet binnen het bereik [{1}, 1] vallen.",
+                                                   expectedFaultyRoughness, expectedLowerLimitText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
         }
     }
 }

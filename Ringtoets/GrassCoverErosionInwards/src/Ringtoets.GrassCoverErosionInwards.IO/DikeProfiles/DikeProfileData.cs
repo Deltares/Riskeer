@@ -63,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <summary>
         /// Gets or sets the descriptor value of how the profile can be characterized.
         /// </summary>
-        public ProfileType ProfileType { get; set; }
+        public SheetPileType SheetPileType { get; set; }
 
         /// <summary>
         /// Gets or sets the height of the dike profile at the crest.
