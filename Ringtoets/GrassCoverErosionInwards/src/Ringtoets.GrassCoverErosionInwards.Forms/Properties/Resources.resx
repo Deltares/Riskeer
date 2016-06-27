@@ -280,4 +280,7 @@
   <data name="Foreshore_DisplayName" xml:space="preserve">
     <value>Voorland</value>
   </data>
+  <data name="DikeHeight_ChartName" xml:space="preserve">
+    <value>Dijkhoogte</value>
+  </data>
 </root>

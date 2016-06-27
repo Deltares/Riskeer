@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
@@ -76,6 +78,44 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             return new ChartLineData(foreshoreGeometry, Resources.Foreshore_DisplayName)
             {
                 Style = new ChartLineStyle(Color.DarkOrange, 2, DashStyle.Solid)
+            };
+        }
+
+        /// <summary>
+        /// Create <see cref="ChartData"/> with default styling based on the <paramref name="dikeHeight"/>.
+        /// </summary>
+        /// <param name="dikeHeight">The dike height of the <see cref="DikeProfile"/> for which
+        /// to create <see cref="ChartData"/>.</param>
+        /// <param name="dikeGeometry">The geometry of the <see cref="DikeProfile"/> to place the
+        /// <paramref name="dikeHeight"/> on.</param>
+        /// <returns><see cref="ChartData"/> based on the <paramref name="dikeHeight"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="dikeHeight"/> is <c>NaN</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dikeGeometry"/> 
+        /// is <c>null</c>.</exception>
+        public static ChartData Create(RoundedDouble dikeHeight, RoughnessPoint[] dikeGeometry)
+        {
+            if (double.IsNaN(dikeHeight))
+            {
+                throw new ArgumentException("Dike height should have a value.", "dikeHeight");
+            }
+
+            if (dikeGeometry == null)
+            {
+                throw new ArgumentNullException("dikeGeometry");
+            }
+
+            return new ChartLineData(CreateDikeHeightData(dikeHeight, dikeGeometry), Resources.DikeHeight_ChartName)
+            {
+                Style = new ChartLineStyle(Color.MediumSeaGreen, 2, DashStyle.Dash)
+            };
+        }
+
+        private static IEnumerable<Point2D> CreateDikeHeightData(RoundedDouble dikeHeight, RoughnessPoint[] dikeGeometry)
+        {
+            return new[]
+            {
+                new Point2D(dikeGeometry.First().Point.X, dikeHeight),
+                new Point2D(dikeGeometry.Last().Point.X, dikeHeight)
             };
         }
     }

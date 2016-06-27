@@ -260,6 +260,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dijkhoogte.
+        /// </summary>
+        public static string DikeHeight_ChartName {
+            get {
+                return ResourceManager.GetString("DikeHeight_ChartName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De hoogte van de dijk [m+NAP]..
         /// </summary>
         public static string DikeHeight_Description {

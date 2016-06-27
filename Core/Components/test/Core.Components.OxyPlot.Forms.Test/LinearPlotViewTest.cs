@@ -49,8 +49,6 @@ namespace Core.Components.OxyPlot.Forms.Test
             CollectionAssert.AreEqual(new [] {Resources.ChartControl_XAxisTitle, Resources.ChartControl_YAxisTitle} , axes.Select(a => a.Title));
             CollectionAssert.AreEqual(new [] {AxisPosition.Bottom, AxisPosition.Left} , axes.Select(a => a.Position));
             CollectionAssert.AreEqual(new [] {TickStyle.None, TickStyle.None} , axes.Select(a => a.TickStyle));
-            CollectionAssert.AreEqual(new [] {new[] { 0.0 }, new[] { 0.0 }} , axes.Select(a => a.ExtraGridlines));
-            CollectionAssert.AreEqual(new [] {1, 1} , axes.Select(a => a.ExtraGridlineThickness));
             CollectionAssert.AreEqual(new [] {AxisLayer.AboveSeries, AxisLayer.AboveSeries} , axes.Select(a => a.Layer));
             CollectionAssert.AreEqual(new [] {LineStyle.Solid, LineStyle.Solid} , axes.Select(a => a.MajorGridlineStyle));
             CollectionAssert.AreEqual(new [] {LineStyle.Dot,LineStyle.Dot} , axes.Select(a => a.MinorGridlineStyle));

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
@@ -94,6 +95,54 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
             AssertEqualPointCollections(dikeProfile.ForeshoreGeometry, chartLineData.Points);
             AssertEqualStyle(chartLineData.Style, Color.DarkOrange, 2, DashStyle.Solid);
+        }
+
+        [Test]
+        public void Create_DikeHeightNaN_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create((RoundedDouble) double.NaN, new RoughnessPoint[0]);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("dikeHeight", exception.ParamName);
+        }
+
+        [Test]
+        public void Create_DikeHeightNotNaNDikeProfileGeometryNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create((RoundedDouble) 12.0, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("dikeGeometry", exception.ParamName);
+        }
+
+        [Test]
+        public void Create_GivenDikeHeightAndDikeGeometry_ReturnsChartDataWithDefaultStyling()
+        {
+            // Setup
+            var dikeGeometry = CreateDikeProfileGeometry();
+            RoundedDouble dikeHeight = (RoundedDouble) 12.0;
+
+            // Call
+            ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeHeight, dikeGeometry);
+
+            // Assert
+            Assert.IsInstanceOf<ChartLineData>(data);
+            ChartLineData chartLineData = (ChartLineData)data;
+            Assert.AreEqual(2, chartLineData.Points.Count());
+            Assert.AreEqual(Resources.DikeHeight_ChartName, data.Name);
+
+            var dikeHeightPoints = new Point2D[]
+            {
+                new Point2D(dikeGeometry.First().Point.X, 12.0),
+                new Point2D(dikeGeometry.Last().Point.X, 12.0), 
+            };
+
+            AssertEqualPointCollections(dikeHeightPoints, chartLineData.Points);
+            AssertEqualStyle(chartLineData.Style, Color.MediumSeaGreen, 2, DashStyle.Dash);
         }
 
         private void AssertEqualPointCollections(IEnumerable<Point2D> points, IEnumerable<Point2D> chartPoints)

@@ -146,11 +146,6 @@ namespace Core.Components.OxyPlot.Forms
                 Title = title,
                 Position = position,
                 TickStyle = TickStyle.None,
-                ExtraGridlines = new[]
-                {
-                    0.0
-                },
-                ExtraGridlineThickness = 1,
                 Layer = AxisLayer.AboveSeries,
                 MajorGridlineStyle = LineStyle.Solid,
                 MinorGridlineStyle = LineStyle.Dot,

@@ -328,16 +328,16 @@ namespace Ringtoets.Piping.Plugin
             if (pipingCalculationGroupContext != null)
             {
                 calculationInputs = pipingCalculationGroupContext.WrappedData.GetCalculations()
-                                                     .OfType<PipingCalculationScenario>()
-                                                     .Select(c => c.InputParameters);
+                                                                 .OfType<PipingCalculationScenario>()
+                                                                 .Select(c => c.InputParameters);
             }
 
             var pipingFailureMechanismContext = o as PipingFailureMechanismContext;
             if (pipingFailureMechanismContext != null)
             {
                 calculationInputs = pipingFailureMechanismContext.WrappedData.CalculationsGroup.GetCalculations()
-                                                     .OfType<PipingCalculationScenario>()
-                                                     .Select(c => c.InputParameters);
+                                                                 .OfType<PipingCalculationScenario>()
+                                                                 .Select(c => c.InputParameters);
             }
 
             var assessmentSection = o as IAssessmentSection;

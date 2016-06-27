@@ -39,6 +39,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         private GrassCoverErosionInwardsCalculation calculation;
         private ChartData dikeProfileData;
         private ChartData foreshoreData;
+        private ChartData dikeHeightData;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsInputView"/>.
@@ -113,6 +114,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 // Bottom most layer
                 foreshoreData = AddOrUpdateChartData(foreshoreData, GetForeshoreData());
                 dikeProfileData = AddOrUpdateChartData(dikeProfileData, GetDikeProfileData());
+                dikeHeightData = AddOrUpdateChartData(dikeHeightData, GetDikeHeightData());
                 // Top most layer
             }
 
@@ -135,7 +137,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             {
                 return ChartDataFactory.CreateEmptyLineData(Resources.DikeProfile_DisplayName);
             }
+
             return GrassCoverErosionInwardsChartDataFactory.Create(data.DikeGeometry);
+        }
+
+        private ChartData GetDikeHeightData()
+        {
+            if (data == null || !data.DikeGeometry.Any())
+            {
+                return ChartDataFactory.CreateEmptyLineData(Resources.DikeHeight_ChartName);
+            }
+
+            return GrassCoverErosionInwardsChartDataFactory.Create(data.DikeHeight, data.DikeGeometry);
         }
 
         private ChartData AddOrUpdateChartData(ChartData oldChartData, ChartData newChartData)
