@@ -39,6 +39,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public long SoilProfileEntityId { get; set; }
         public decimal Top { get; set; }
         public byte IsAquifer { get; set; }
+        public long Color { get; set; }
+        public string MaterialName { get; set; }
         public Nullable<decimal> AbovePhreaticLevel { get; set; }
         public Nullable<decimal> BelowPhreaticLevel { get; set; }
         public Nullable<decimal> DryUnitWeight { get; set; }

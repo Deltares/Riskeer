@@ -65,5 +65,20 @@ namespace Ringtoets.Piping.IO.Test.Builders
             Assert.AreEqual(materialName, result.MaterialName);
             Assert.AreEqual(Color.FromArgb(color.ToArgb()), result.Color);
         }
+
+        [Test]
+        public void AsPipingSoilLayer_PropertiesSetWithNullMaterialName_MaterialNameEmptyInPipingSoilLayer()
+        {
+            // Setup
+            var random = new Random(22);
+            var top = random.NextDouble();
+            var layer = new SoilLayer1D(top);
+
+            // Call
+            var result = layer.AsPipingSoilLayer();
+
+            // Assert
+            Assert.IsEmpty(result.MaterialName);
+        }
     }
 }

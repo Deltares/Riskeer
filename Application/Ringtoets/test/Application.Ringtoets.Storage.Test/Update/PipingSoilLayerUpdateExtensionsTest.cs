@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-
+using System.Drawing;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -140,7 +140,9 @@ namespace Application.Ringtoets.Storage.Test.Update
                 IsAquifer = true,
                 AbovePhreaticLevel = 4.4,
                 BelowPhreaticLevel = null,
-                DryUnitWeight = 5.5
+                DryUnitWeight = 5.5,
+                Color = Color.DarkKhaki,
+                MaterialName = "NewName"
             };
 
             var soilLayerEntity = new SoilLayerEntity
@@ -150,7 +152,9 @@ namespace Application.Ringtoets.Storage.Test.Update
                 IsAquifer = Convert.ToByte(false),
                 AbovePhreaticLevel = 1.1m,
                 BelowPhreaticLevel = 2.2m,
-                DryUnitWeight = null
+                DryUnitWeight = null,
+                Color = Color.MediumAquamarine.ToArgb(),
+                MaterialName = "OldName"
             };
 
             ringtoetsEntities.SoilLayerEntities.Add(soilLayerEntity);
@@ -164,6 +168,8 @@ namespace Application.Ringtoets.Storage.Test.Update
             Assert.AreEqual(pipingSoilLayer.AbovePhreaticLevel, soilLayerEntity.AbovePhreaticLevel);
             Assert.IsNull(soilLayerEntity.BelowPhreaticLevel);
             Assert.AreEqual(pipingSoilLayer.DryUnitWeight, soilLayerEntity.DryUnitWeight);
+            Assert.AreEqual(pipingSoilLayer.Color.ToArgb(), soilLayerEntity.Color);
+            Assert.AreEqual(pipingSoilLayer.MaterialName, soilLayerEntity.MaterialName);
 
             mocks.VerifyAll();
         } 

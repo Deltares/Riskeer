@@ -44,8 +44,39 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsNull(layer.BelowPhreaticLevel);
             Assert.IsNull(layer.DryUnitWeight);
             Assert.IsFalse(layer.IsAquifer);
-            Assert.IsNull(layer.MaterialName);
+            Assert.IsEmpty(layer.MaterialName);
             Assert.AreEqual(Color.Empty, layer.Color);
+        }
+
+        [Test]
+        public void MaterialName_Null_ThrowsArgumentNullException()
+        {
+            // Setup
+            var top = new Random(22).NextDouble();
+            var layer = new PipingSoilLayer(top);
+
+            // Call
+            TestDelegate test = () => layer.MaterialName = null;
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("value", paramName);
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("A name")]
+        public void MaterialName_NotNullValue_ValueSet(string materialName)
+        {
+            // Setup
+            var top = new Random(22).NextDouble();
+            var layer = new PipingSoilLayer(top);
+
+            // Call
+            layer.MaterialName = materialName;
+
+            // Assert
+            Assert.AreEqual(materialName, layer.MaterialName);
         }
     }
 }

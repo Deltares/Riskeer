@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 using Core.Common.Base.Data;
@@ -58,6 +59,9 @@ namespace Application.Ringtoets.Storage.TestUtil
             pipingSoilLayer.AbovePhreaticLevel = 1.1;
             pipingSoilLayer.BelowPhreaticLevel = 2.2;
             pipingSoilLayer.DryUnitWeight = 3.3;
+            pipingSoilLayer.Color = Color.HotPink;
+            pipingSoilLayer.MaterialName = "HotPinkLayer";
+
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 Name = "assessmentSection",

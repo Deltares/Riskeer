@@ -296,6 +296,34 @@ namespace Ringtoets.Piping.IO.Test.Builders
         }
 
         [Test]
+        public void AsPipingSoilLayer_PropertiesSetWithNullMaterialName_MaterialNameEmptyInPipingSoilLayer()
+        {
+            // Setup
+            var layer = new SoilLayer2D
+            {
+                OuterLoop = new List<Segment2D>
+                {
+                    new Segment2D(
+                        new Point2D(0, 1),
+                        new Point2D(1, 1)
+                        ),
+                    new Segment2D(
+                        new Point2D(1, 1),
+                        new Point2D(0, 1)
+                        )
+                }
+            };
+            double bottom;
+
+            // Call
+            var result = layer.AsPipingSoilLayers(0, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, result.Length);
+            Assert.IsEmpty(result[0].MaterialName);
+        }
+
+        [Test]
         public void AsPipingSoilLayers_WithOuterLoopNotIntersectingX_ReturnsEmptyCollectionWithMaxValueBottom()
         {
             // Setup

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using Application.Ringtoets.Storage.Create;
 using NUnit.Framework;
 using Ringtoets.Piping.Primitives;
@@ -55,7 +56,9 @@ namespace Application.Ringtoets.Storage.Test.Create
                 IsAquifer = isAquifer,
                 AbovePhreaticLevel = 3.3,
                 BelowPhreaticLevel = 2.2,
-                DryUnitWeight = 1.1
+                DryUnitWeight = 1.1,
+                Color = Color.AliceBlue,
+                MaterialName = "MaterialName"
             };
             var registry = new PersistenceRegistry();
 
@@ -68,6 +71,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(Convert.ToByte(isAquifer), entity.IsAquifer);
             Assert.AreEqual(soilLayer.AbovePhreaticLevel, entity.AbovePhreaticLevel);
             Assert.AreEqual(soilLayer.BelowPhreaticLevel, entity.BelowPhreaticLevel);
+            Assert.AreEqual(soilLayer.DryUnitWeight, entity.DryUnitWeight);
+            Assert.AreEqual(soilLayer.Color.ToArgb(), Convert.ToInt32(entity.Color));
             Assert.AreEqual(soilLayer.DryUnitWeight, entity.DryUnitWeight);
         }
 

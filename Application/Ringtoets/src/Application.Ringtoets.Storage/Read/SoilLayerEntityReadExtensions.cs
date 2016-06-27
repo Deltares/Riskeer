@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Piping.Primitives;
 
@@ -44,7 +45,9 @@ namespace Application.Ringtoets.Storage.Read
                 IsAquifer = Convert.ToBoolean(entity.IsAquifer),
                 AbovePhreaticLevel = entity.AbovePhreaticLevel.ToNullableDouble(),
                 BelowPhreaticLevel = entity.BelowPhreaticLevel.ToNullableDouble(),
-                DryUnitWeight = entity.DryUnitWeight.ToNullableDouble()
+                DryUnitWeight = entity.DryUnitWeight.ToNullableDouble(),
+                Color = Color.FromArgb(Convert.ToInt32(entity.Color)),
+                MaterialName = entity.MaterialName ?? string.Empty
             };
             return pipingSoilLayer;
         }

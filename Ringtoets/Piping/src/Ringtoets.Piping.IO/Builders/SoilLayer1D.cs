@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.IO.Builders
                 BelowPhreaticLevel = BelowPhreaticLevel,
                 DryUnitWeight = DryUnitWeight,
                 IsAquifer = IsAquifer.HasValue && IsAquifer.Value.Equals(1.0),
-                MaterialName = MaterialName,
+                MaterialName = MaterialName ?? string.Empty,
                 Color = SoilLayerColorConversionHelper.ColorFromNullableDouble(Color)
             };
         }

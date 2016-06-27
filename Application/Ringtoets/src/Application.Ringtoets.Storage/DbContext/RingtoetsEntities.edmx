@@ -288,6 +288,8 @@
           <Property Name="SoilProfileEntityId" Type="integer" Nullable="false" />
           <Property Name="Top" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="IsAquifer" Type="tinyint" Nullable="false" />
+          <Property Name="Color" Type="integer" Nullable="false" />
+          <Property Name="MaterialName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="AbovePhreaticLevel" Type="decimal" Precision="53" Scale="0" />
           <Property Name="BelowPhreaticLevel" Type="decimal" Precision="53" Scale="0" />
           <Property Name="DryUnitWeight" Type="decimal" Precision="53" Scale="0" />
@@ -1663,6 +1665,8 @@
           <Property Name="SoilProfileEntityId" Type="Int64" Nullable="false" />
           <Property Name="Top" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="IsAquifer" Type="Byte" Nullable="false" />
+          <Property Name="Color" Type="Int64" Nullable="false" />
+          <Property Name="MaterialName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="AbovePhreaticLevel" Type="Decimal" Precision="53" Scale="0" />
           <Property Name="BelowPhreaticLevel" Type="Decimal" Precision="53" Scale="0" />
           <Property Name="DryUnitWeight" Type="Decimal" Precision="53" Scale="0" />
@@ -2613,6 +2617,8 @@
                 <ScalarProperty Name="DryUnitWeight" ColumnName="DryUnitWeight" />
                 <ScalarProperty Name="BelowPhreaticLevel" ColumnName="BelowPhreaticLevel" />
                 <ScalarProperty Name="AbovePhreaticLevel" ColumnName="AbovePhreaticLevel" />
+                <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
                 <ScalarProperty Name="IsAquifer" ColumnName="IsAquifer" />
                 <ScalarProperty Name="Top" ColumnName="Top" />
                 <ScalarProperty Name="SoilProfileEntityId" ColumnName="SoilProfileEntityId" />

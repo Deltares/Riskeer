@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using Core.Common.Base.Storage;
 
@@ -30,6 +31,8 @@ namespace Ringtoets.Piping.Primitives
     /// </summary>
     public class PipingSoilLayer : IStorable
     {
+        private string materialName;
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingSoilLayer"/>, where the top is set to <paramref name="top"/>.
         /// </summary>
@@ -37,6 +40,7 @@ namespace Ringtoets.Piping.Primitives
         public PipingSoilLayer(double top)
         {
             Top = top;
+            MaterialName = string.Empty;
         }
 
         /// <summary>
@@ -69,7 +73,22 @@ namespace Ringtoets.Piping.Primitives
         /// <summary>
         /// Gets or sets the name of the material that was assigned to the <see cref="PipingSoilLayer"/>.
         /// </summary>
-        public string MaterialName { get; set; }
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
+        public string MaterialName
+        {
+            get
+            {
+                return materialName;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value");
+                }
+                materialName = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the <see cref="Color"/> that was used to represent the <see cref="PipingSoilLayer"/>.

@@ -66,6 +66,8 @@ namespace Application.Ringtoets.Storage.Update
             entity.AbovePhreaticLevel = layer.AbovePhreaticLevel.ToNullableDecimal();
             entity.BelowPhreaticLevel = layer.BelowPhreaticLevel.ToNullableDecimal();
             entity.DryUnitWeight = layer.DryUnitWeight.ToNullableDecimal();
+            entity.Color = layer.Color.ToArgb();
+            entity.MaterialName = layer.MaterialName;
 
             registry.Register(entity, layer);
         }

@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-
+using System.Drawing;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
@@ -42,6 +42,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             double abovePhreaticLevel = random.NextDouble();
             double belowPhreaticLevel = random.NextDouble();
             double dryUnitWeight = random.NextDouble();
+            int color = Color.AliceBlue.ToArgb();
+            string materialName = "sand";
+
             var entity = new SoilLayerEntity
             {
                 SoilLayerEntityId = entityId,
@@ -49,7 +52,9 @@ namespace Application.Ringtoets.Storage.Test.Read
                 IsAquifer = Convert.ToByte(isAquifer),
                 AbovePhreaticLevel = Convert.ToDecimal(abovePhreaticLevel),
                 BelowPhreaticLevel = Convert.ToDecimal(belowPhreaticLevel),
-                DryUnitWeight = Convert.ToDecimal(dryUnitWeight)
+                DryUnitWeight = Convert.ToDecimal(dryUnitWeight),
+                Color = color,
+                MaterialName = materialName
             };
 
             // Call
@@ -63,6 +68,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(abovePhreaticLevel, layer.AbovePhreaticLevel, 1e-6);
             Assert.AreEqual(belowPhreaticLevel, layer.BelowPhreaticLevel, 1e-6);
             Assert.AreEqual(dryUnitWeight, layer.DryUnitWeight, 1e-6);
+            Assert.AreEqual(Color.FromArgb(color), layer.Color);
+            Assert.AreEqual(materialName, layer.MaterialName);
         }
 
         [Test]

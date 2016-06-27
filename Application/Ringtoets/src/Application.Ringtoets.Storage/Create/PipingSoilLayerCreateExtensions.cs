@@ -50,7 +50,9 @@ namespace Application.Ringtoets.Storage.Create
                 Top = Convert.ToDecimal(layer.Top),
                 AbovePhreaticLevel = layer.AbovePhreaticLevel.ToNullableDecimal(),
                 BelowPhreaticLevel = layer.BelowPhreaticLevel.ToNullableDecimal(),
-                DryUnitWeight = layer.DryUnitWeight.ToNullableDecimal()
+                DryUnitWeight = layer.DryUnitWeight.ToNullableDecimal(),
+                Color = layer.Color.ToArgb(),
+                MaterialName = layer.MaterialName
             };
 
             registry.Register(entity, layer);

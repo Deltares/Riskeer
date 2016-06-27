@@ -129,7 +129,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadFrom_NullValuesForLayer_ReturnsProfileWithNullValuesOnLayer()
+        public void ReadFrom_NullValuesForLayer_ReturnsProfileWithNullValuesAndDefaultsOnLayer()
         {
             // Setup
             var bottom = 1.1;
@@ -151,7 +151,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             Assert.IsNull(pipingSoilLayer.BelowPhreaticLevel);
             Assert.IsNull(pipingSoilLayer.AbovePhreaticLevel);
             Assert.IsNull(pipingSoilLayer.DryUnitWeight);
-            Assert.IsNull(pipingSoilLayer.MaterialName);
+            Assert.IsEmpty(pipingSoilLayer.MaterialName);
             Assert.AreEqual(Color.Empty, pipingSoilLayer.Color);
             Assert.IsFalse(pipingSoilLayer.IsAquifer);
 

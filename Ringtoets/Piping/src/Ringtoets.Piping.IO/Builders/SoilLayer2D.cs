@@ -160,7 +160,7 @@ namespace Ringtoets.Piping.IO.Builders
                             BelowPhreaticLevel = BelowPhreaticLevel,
                             AbovePhreaticLevel = AbovePhreaticLevel,
                             DryUnitWeight = DryUnitWeight,
-                            MaterialName = MaterialName,
+                            MaterialName = MaterialName ?? string.Empty,
                             Color = SoilLayerColorConversionHelper.ColorFromNullableDouble(Color)
                         });
                     }
