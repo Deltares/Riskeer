@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -219,6 +220,92 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.AreEqual(testName, result);
+        }
+
+        [Test]
+        public void SetGeometry_GeometryIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0));
+
+            // Call
+            TestDelegate test = () => dikeProfile.SetGeometry(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            StringAssert.StartsWith(Resources.DikeProfile_SetGeometry_Collection_of_points_for_geometry_is_null, exception.Message);
+            Assert.AreEqual("points", exception.ParamName);
+        }
+
+        [Test]
+        public void SetGeometry_GeometryContainsNullPoint_ThrowsArgumentException()
+        {
+            // Setup
+            var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0));
+
+            // Call
+            TestDelegate test = () => dikeProfile.SetGeometry(new RoughnessPoint[]
+            {
+                null
+            });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            StringAssert.StartsWith(Resources.DikeProfile_SetGeometry_A_point_in_the_collection_was_null, exception.Message);
+        }
+
+        [Test]
+        public void SetGeomtry_Collection_SetDikeGeometry()
+        {
+            var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0));
+
+            var roughnessPoints = new[]
+            {
+                new RoughnessPoint(new Point2D(2.0, 3.0), 4.0),
+                new RoughnessPoint(new Point2D(3.0, 4.0), 4.0),
+                new RoughnessPoint(new Point2D(4.0, 5.0), 4.0)
+            };
+
+            // Call
+            dikeProfile.SetGeometry(roughnessPoints);
+
+            // Assert
+            CollectionAssert.AreEqual(roughnessPoints, dikeProfile.DikeGeometry);
+        }
+
+        [Test]
+        public void SetGeomtry_SetNewCollection_ClearsOldDikeGeometryAndSetNew()
+        {
+            var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0));
+
+            var roughnessPoints = new[]
+            {
+                new RoughnessPoint(new Point2D(2.0, 3.0), 4.0),
+                new RoughnessPoint(new Point2D(3.0, 4.0), 4.0),
+                new RoughnessPoint(new Point2D(4.0, 5.0), 4.0)
+            };
+
+            dikeProfile.SetGeometry(roughnessPoints);
+
+            // Precondition
+            CollectionAssert.AreEqual(roughnessPoints, dikeProfile.DikeGeometry);
+
+            var roughnessPoints2 = new[]
+            {
+                new RoughnessPoint(new Point2D(8.0, 10.0), 1.0),
+                new RoughnessPoint(new Point2D(9.0, 11.0), 1.0),
+                new RoughnessPoint(new Point2D(10.0, 12.0), 2.0)
+            };
+
+            // Call
+            dikeProfile.SetGeometry(roughnessPoints2);
+
+            // Assert
+            foreach (var originalPoint in roughnessPoints)
+            {
+                CollectionAssert.DoesNotContain(dikeProfile.DikeGeometry, originalPoint);
+            }
+            CollectionAssert.AreEqual(roughnessPoints2, dikeProfile.DikeGeometry);
         }
     }
 }

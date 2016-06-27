@@ -197,21 +197,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 new Point2D(1, 1)
             }));
 
+            DikeProfile dikeProfile = new DikeProfile(new Point2D(0, 0))
+            {
+                Orientation = (RoundedDouble) 5.5,
+                DikeHeight = (RoundedDouble) 10
+            };
+            dikeProfile.SetGeometry(new[]
+            {
+                new RoughnessPoint(new Point2D(1.1, 2.2), 0.6),
+                new RoughnessPoint(new Point2D(3.3, 4.4), 0.7)
+            });
+
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    DikeProfile = new DikeProfile(new Point2D(0, 0))
-                    {
-                        Orientation = (RoundedDouble) 5.5,
-                        DikeGeometry =
-                        {
-                            new RoughnessPoint(new Point2D(1.1, 2.2), 0.6),
-                            new RoughnessPoint(new Point2D(3.3, 4.4), 0.7)
-                        },
-                        DikeHeight = (RoundedDouble) 10
-                    }
+                    DikeProfile = dikeProfile
                 }
             };
 

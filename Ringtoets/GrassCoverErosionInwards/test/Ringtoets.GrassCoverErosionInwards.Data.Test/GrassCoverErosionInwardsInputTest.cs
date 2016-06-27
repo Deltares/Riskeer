@@ -78,12 +78,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var dikeProfile = new DikeProfile(new Point2D(0, 0))
             {
                 Orientation = (RoundedDouble) 1.1,
-                DikeGeometry =
-                {
-                    new RoughnessPoint(new Point2D(2.2, 3.3), 0.6)
-                },
                 DikeHeight = (RoundedDouble) 4.4
             };
+            dikeProfile.SetGeometry(new[]
+            {
+                new RoughnessPoint(new Point2D(2.2, 3.3), 0.6)
+            });
 
             if (withBreakWater)
             {
@@ -138,12 +138,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 {
                     new Point2D(3.3, 4.4)
                 },
-                DikeGeometry =
-                {
-                    new RoughnessPoint(new Point2D(5.5, 6.6), 0.7)
-                },
                 DikeHeight = (RoundedDouble) 8.8
             };
+            dikeProfile.SetGeometry(new[]
+            {
+                new RoughnessPoint(new Point2D(5.5, 6.6), 0.7)
+            });
 
             input.DikeProfile = dikeProfile;
 

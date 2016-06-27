@@ -75,6 +75,7 @@
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextProperties.cs" />
     <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextDikeProfileEditor.cs" />
     <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditor.cs" />
+    <Compile Include="Views\GrassCoverErosionInwardsChartDataFactory.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -132,6 +133,11 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting.Forms\Core.Components.Charting.Forms.csproj">
       <Project>{2465cca1-c505-4827-9454-4fd5fd9194cd}</Project>
       <Name>Core.Components.Charting.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting\Core.Components.Charting.csproj">
+      <Project>{516ebc95-b8f2-428c-b7f6-733f01bf8fdd}</Project>
+      <Name>Core.Components.Charting</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">

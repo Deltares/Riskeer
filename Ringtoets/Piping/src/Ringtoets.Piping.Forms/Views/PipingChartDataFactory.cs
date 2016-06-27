@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
@@ -38,26 +39,6 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     public static class PipingChartDataFactory
     {
-        /// <summary>
-        /// Create a <see cref="ChartLineData"/> instance with a name, but without data.
-        /// </summary>
-        /// <param name="name">The name of the <see cref="ChartLineData"/>.</param>
-        /// <returns>An empty <see cref="ChartLineData"/> object.</returns>
-        public static ChartLineData CreateEmptyLineData(string name)
-        {
-            return new ChartLineData(Enumerable.Empty<Point2D>(), name);
-        }
-
-        /// <summary>
-        /// Create a <see cref="ChartPointData"/> instance with a name, but without data.
-        /// </summary>
-        /// <param name="name">The name of the <see cref="ChartPointData"/>.</param>
-        /// <returns>An empty <see cref="ChartPointData"/> object.</returns>
-        public static ChartPointData CreateEmptyPointData(string name)
-        {
-            return new ChartPointData(Enumerable.Empty<Point2D>(), name);
-        }
-
         /// <summary>
         /// Create <see cref="ChartData"/> with default styling based on the <paramref name="surfaceLine"/>.
         /// </summary>
@@ -252,7 +233,7 @@ namespace Ringtoets.Piping.Forms.Views
             catch (ArgumentOutOfRangeException)
             {
                 // TODO Should not have to handle when WTI-673 and WTI-396 are done.
-                pointWithZatLData = CreateEmptyPointData(name);
+                pointWithZatLData = ChartDataFactory.CreateEmptyPointData(name);
             }
 
             return pointWithZatLData;

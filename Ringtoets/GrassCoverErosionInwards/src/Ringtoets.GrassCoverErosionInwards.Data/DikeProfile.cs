@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
@@ -32,10 +33,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// </summary>
     public class DikeProfile
     {
+        private readonly List<Point2D> foreshoreGeometry;
+        private RoughnessPoint[] dikeGeometry;
         private RoundedDouble orientation;
         private RoundedDouble dikeHeight;
-        private readonly List<Point2D> foreshoreGeometry;
-        private readonly List<RoughnessPoint> dikeGeometry;
 
         /// <summary>
         /// Creates a new instance of the <see cref="DikeProfile"/> class.
@@ -53,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
 
             Name = Resources.DikeProfile_DefaultName;
             Memo = "";
-            dikeGeometry = new List<RoughnessPoint>();
+            dikeGeometry = new RoughnessPoint[0];
             foreshoreGeometry = new List<Point2D>();
             WorldReferencePoint = worldCoordinate;
         }
@@ -113,7 +114,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the geometry of the foreshore.
         /// </summary>
-        public List<Point2D> ForeshoreGeometry {
+        public List<Point2D> ForeshoreGeometry
+        {
             get
             {
                 return foreshoreGeometry;
@@ -129,7 +131,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// and the succeeding <see cref="RoughnessPoint"/>. The roughness of the last
         /// point is irrelevant.
         /// </remarks>
-        public List<RoughnessPoint> DikeGeometry {
+        public RoughnessPoint[] DikeGeometry
+        {
             get
             {
                 return dikeGeometry;
@@ -154,6 +157,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public override string ToString()
         {
             return Name;
+        }
+
+        /// <summary>
+        /// Sets the geometry of the dike profile.
+        /// </summary>
+        /// <param name="points">The collection of <see cref="RoughnessPoint"/> defining the dike profile geometry.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when any element of <paramref name="points"/> is <c>null</c>.</exception>
+        public void SetGeometry(IEnumerable<RoughnessPoint> points)
+        {
+            if (points == null)
+            {
+                throw new ArgumentNullException("points", Resources.DikeProfile_SetGeometry_Collection_of_points_for_geometry_is_null);
+            }
+
+            if (points.Any(p => p == null))
+            {
+                throw new ArgumentException(Resources.DikeProfile_SetGeometry_A_point_in_the_collection_was_null);
+            }
+
+            dikeGeometry = points.ToArray();
         }
     }
 }

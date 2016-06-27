@@ -41,34 +41,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
     public class PipingChartDataFactoryTest
     {
         [Test]
-        public void CreateEmptyLineData_Always_ReturnEmptyChartLineDataWithNameSet()
-        {
-            // Setup
-            const string name = "<test>";
-
-            // Call
-            ChartLineData chartData = PipingChartDataFactory.CreateEmptyLineData(name);
-
-            // Assert
-            Assert.AreEqual(name, chartData.Name);
-            Assert.IsEmpty(chartData.Points);
-        }
-
-        [Test]
-        public void CreateEmptyPointData_Always_ReturnEmptyChartPointDataWithNameSet()
-        {
-            // Setup
-            const string name = "<test>";
-
-            // Call
-            ChartPointData chartData = PipingChartDataFactory.CreateEmptyPointData(name);
-
-            // Assert
-            Assert.AreEqual(name, chartData.Name);
-            Assert.IsEmpty(chartData.Points);
-        }
-
-        [Test]
         public void Create_NoSurfaceLine_ThrowsArgumentNullException()
         {
             // Call
@@ -541,7 +513,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private void AssertEqualPointCollections(IEnumerable<Point2D> points, IEnumerable<Point2D> chartPoints)
         {
-            CollectionAssert.AreEqual(points.Select(p => new Point2D(p.X, p.Y)), chartPoints);
+            CollectionAssert.AreEqual(points, chartPoints);
         }
 
         private void AssertEqualLocalPointCollection(Point3D point, RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<Point2D> chartPoints)

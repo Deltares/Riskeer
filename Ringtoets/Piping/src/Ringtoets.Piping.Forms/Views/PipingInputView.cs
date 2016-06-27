@@ -23,6 +23,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 
@@ -143,7 +144,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (data == null || data.SurfaceLine == null)
             {
-                return PipingChartDataFactory.CreateEmptyLineData(Resources.RingtoetsPipingSurfaceLine_DisplayName);
+                return ChartDataFactory.CreateEmptyLineData(Resources.RingtoetsPipingSurfaceLine_DisplayName);
             }
             return PipingChartDataFactory.Create(data.SurfaceLine);
         }
@@ -152,7 +153,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (data == null || data.SurfaceLine == null)
             {
-                return PipingChartDataFactory.CreateEmptyPointData(Resources.PipingInput_EntryPointL_DisplayName);
+                return ChartDataFactory.CreateEmptyPointData(Resources.PipingInput_EntryPointL_DisplayName);
             }
             return PipingChartDataFactory.CreateEntryPoint(data.EntryPointL, data.SurfaceLine);
         }
@@ -161,7 +162,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (data == null || data.SurfaceLine == null)
             {
-                return PipingChartDataFactory.CreateEmptyPointData(Resources.PipingInput_ExitPointL_DisplayName);
+                return ChartDataFactory.CreateEmptyPointData(Resources.PipingInput_ExitPointL_DisplayName);
             }
             return PipingChartDataFactory.CreateExitPoint(data.ExitPointL, data.SurfaceLine);
         }
@@ -170,7 +171,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (data == null || data.SurfaceLine == null || data.SurfaceLine.DitchPolderSide == null)
             {
-                return PipingChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DitchPolderSide);
+                return ChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DitchPolderSide);
             }
             return PipingChartDataFactory.CreateDitchPolderSide(data.SurfaceLine);
         }
@@ -179,7 +180,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (data == null || data.SurfaceLine == null || data.SurfaceLine.BottomDitchPolderSide == null)
             {
-                return PipingChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_BottomDitchPolderSide);
+                return ChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_BottomDitchPolderSide);
             }
             return PipingChartDataFactory.CreateBottomDitchPolderSide(data.SurfaceLine);
         }
@@ -188,7 +189,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (data == null || data.SurfaceLine == null || data.SurfaceLine.BottomDitchDikeSide == null)
             {
-                return PipingChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_BottomDitchDikeSide);
+                return ChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_BottomDitchDikeSide);
             }
             return PipingChartDataFactory.CreateBottomDitchDikeSide(data.SurfaceLine);
         }
@@ -197,7 +198,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (data == null || data.SurfaceLine == null || data.SurfaceLine.DitchDikeSide == null)
             {
-                return PipingChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DitchDikeSide);
+                return ChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DitchDikeSide);
             }
             return PipingChartDataFactory.CreateDitchDikeSide(data.SurfaceLine);
         }
@@ -206,7 +207,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (data == null || data.SurfaceLine == null || data.SurfaceLine.DikeToeAtRiver == null)
             {
-                return PipingChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DikeToeAtRiver);
+                return ChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DikeToeAtRiver);
             }
             return PipingChartDataFactory.CreateDikeToeAtRiver(data.SurfaceLine);
         }
@@ -215,7 +216,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (data == null || data.SurfaceLine == null || data.SurfaceLine.DikeToeAtPolder == null)
             {
-                return PipingChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DikeToeAtPolder);
+                return ChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DikeToeAtPolder);
             }
             return PipingChartDataFactory.CreateDikeToeAtPolder(data.SurfaceLine);
         }

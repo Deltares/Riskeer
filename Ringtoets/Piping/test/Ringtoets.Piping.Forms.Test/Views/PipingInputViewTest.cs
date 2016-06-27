@@ -244,15 +244,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dikeToeAtPolderData = (ChartPointData) chartData.List[dikeToeAtPolderIndex];
                 var dikeToeAtRiverData = (ChartPointData) chartData.List[dikeToeAtRiverIndex];
 
-                Assert.AreEqual(0, lineData.Points.Count());
-                Assert.AreEqual(0, entryPointData.Points.Count());
-                Assert.AreEqual(0, exitPointData.Points.Count());
-                Assert.AreEqual(0, ditchDikeSideData.Points.Count());
-                Assert.AreEqual(0, bottomDitchDikeSideData.Points.Count());
-                Assert.AreEqual(0, ditchPolderSideData.Points.Count());
-                Assert.AreEqual(0, bottomDitchPolderSideData.Points.Count());
-                Assert.AreEqual(0, dikeToeAtPolderData.Points.Count());
-                Assert.AreEqual(0, dikeToeAtRiverData.Points.Count());
+                CollectionAssert.IsEmpty(lineData.Points);
+                CollectionAssert.IsEmpty(entryPointData.Points);
+                CollectionAssert.IsEmpty(exitPointData.Points);
+                CollectionAssert.IsEmpty(ditchDikeSideData.Points);
+                CollectionAssert.IsEmpty(bottomDitchDikeSideData.Points);
+                CollectionAssert.IsEmpty(ditchPolderSideData.Points);
+                CollectionAssert.IsEmpty(bottomDitchPolderSideData.Points);
+                CollectionAssert.IsEmpty(dikeToeAtPolderData.Points);
+                CollectionAssert.IsEmpty(dikeToeAtRiverData.Points);
                 Assert.AreEqual(Resources.RingtoetsPipingSurfaceLine_DisplayName, lineData.Name);
                 Assert.AreEqual(Resources.PipingInput_EntryPointL_DisplayName, entryPointData.Name);
                 Assert.AreEqual(Resources.PipingInput_ExitPointL_DisplayName, exitPointData.Name);

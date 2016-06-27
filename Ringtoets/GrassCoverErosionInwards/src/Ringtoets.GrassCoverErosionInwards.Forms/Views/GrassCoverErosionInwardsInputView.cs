@@ -21,8 +21,11 @@
 
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {
@@ -31,8 +34,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// </summary>
     public partial class GrassCoverErosionInwardsInputView : UserControl, IChartView, IObserver
     {
-        private object data;
+        private GrassCoverErosionInwardsInput data;
         private GrassCoverErosionInwardsCalculation calculation;
+        private ChartData dikeProfileData;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsInputView"/>.
@@ -68,7 +72,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
             set
             {
-                data = value as GrassCoverErosionInwardsInput;
+                var newValue = value as GrassCoverErosionInwardsInput;
+
+                DetachFromData();
+                data = newValue;
+
+                if (data == null)
+                {
+                    Chart.ResetChartData();
+                    return;
+                }
+
+                SetDataToChart();
+                AttachToData();
             }
         }
 
@@ -83,6 +99,44 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         public void UpdateObserver()
         {
             SetChartTitle();
+            SetDataToChart();
+        }
+
+        private void SetDataToChart()
+        {
+            chartControl.Data.Name = Resources.GrassCoverErosionInwardsInputContext_NodeDisplayName;
+
+            if (data != null)
+            {
+                // Bottom most layer
+                dikeProfileData = AddOrUpdateChartData(dikeProfileData, GetDikeProfileData());
+                // Top most layer
+            }
+
+            chartControl.Data.NotifyObservers();
+        }
+
+        private ChartData GetDikeProfileData()
+        {
+            if (data == null || data.DikeProfile == null)
+            {
+                return ChartDataFactory.CreateEmptyLineData(Resources.DikeProfile_DisplayName);
+            }
+            return GrassCoverErosionInwardsChartDataFactory.Create(data.DikeProfile);
+        }
+
+        private ChartData AddOrUpdateChartData(ChartData oldChartData, ChartData newChartData)
+        {
+            if (oldChartData != null)
+            {
+                chartControl.Data.Remove(oldChartData);
+            }
+            if (newChartData != null)
+            {
+                chartControl.Data.Add(newChartData);
+            }
+
+            return newChartData;
         }
 
         private void SetChartTitle()
@@ -96,6 +150,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             {
                 calculation.Detach(this);
             }
+
+            if (data != null)
+            {
+                data.Detach(this);
+            }
         }
 
         private void AttachToData()
@@ -103,6 +162,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             if (calculation != null)
             {
                 calculation.Attach(this);
+            }
+
+            if (data != null)
+            {
+                data.Attach(this);
             }
         }
     }

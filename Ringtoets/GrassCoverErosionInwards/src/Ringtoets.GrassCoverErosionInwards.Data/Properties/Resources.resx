@@ -141,4 +141,10 @@
   <data name="DikeProfile_DefaultName" xml:space="preserve">
     <value>Dijkprofiel</value>
   </data>
+  <data name="DikeProfile_SetGeometry_Collection_of_points_for_geometry_is_null" xml:space="preserve">
+    <value>De geometrie die opgegeven werd voor het dijkprofiel heeft geen waarde.</value>
+  </data>
+  <data name="DikeProfile_SetGeometry_A_point_in_the_collection_was_null" xml:space="preserve">
+    <value>Een punt in de geometrie voor het dijkprofiel heeft geen waarde.</value>
+  </data>
 </root>

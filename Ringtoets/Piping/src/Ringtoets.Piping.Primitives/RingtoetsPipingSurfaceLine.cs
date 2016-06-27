@@ -114,6 +114,7 @@ namespace Ringtoets.Piping.Primitives
         /// Sets the geometry of the surfaceline.
         /// </summary>
         /// <param name="points">The collection of points defining the surfaceline geometry.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when any element of <paramref name="points"/> is <c>null</c>.</exception>
         public void SetGeometry(IEnumerable<Point3D> points)
         {

@@ -343,9 +343,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
             foreshoreGeometry.Clear();
             foreshoreGeometry.AddRange(dikeProfileData.ForeshoreGeometry.Select(r => r.Point));
 
-            List<RoughnessPoint> dikeGeometry = dikeProfile.DikeGeometry;
-            dikeGeometry.Clear();
-            dikeGeometry.AddRange(dikeProfileData.DikeGeometry);
+            dikeProfile.SetGeometry(dikeProfileData.DikeGeometry);
 
             switch (dikeProfileData.DamType)
             {
