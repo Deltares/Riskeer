@@ -88,8 +88,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
 
         public override bool CanImportOn(object targetItem)
         {
-            var dikeProfilesContext = (DikeProfilesContext) targetItem;
-            return base.CanImportOn(targetItem) && IsReferenceLineAvailable(dikeProfilesContext);
+            return base.CanImportOn(targetItem) && IsReferenceLineAvailable(targetItem);
         }
 
         public override bool Import(object targetItem, string filePath)
@@ -375,9 +374,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
             ImportIsCancelled = false;
         }
 
-        private static bool IsReferenceLineAvailable(DikeProfilesContext targetItem)
+        private static bool IsReferenceLineAvailable(object targetItem)
         {
-            return targetItem.ParentAssessmentSection.ReferenceLine != null;
+            return ((DikeProfilesContext)targetItem).ParentAssessmentSection.ReferenceLine != null;
         }
 
         private double GetDistanceToReferenceLine(Point2D point, ReferenceLine referenceLine)
