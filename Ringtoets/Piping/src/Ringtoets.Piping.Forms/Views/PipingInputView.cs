@@ -130,8 +130,8 @@ namespace Ringtoets.Piping.Forms.Views
                 bottomDitchPolderSidePointData = AddOrUpdateChartData(bottomDitchPolderSidePointData, GetBottomDitchPolderSideData());
                 bottomDitchDikeSidePointData = AddOrUpdateChartData(bottomDitchDikeSidePointData, GetBottomDitchDikeSideData());
                 ditchDikeSidePointData = AddOrUpdateChartData(ditchDikeSidePointData, GetDitchDikeSideData());
-                dikeToeAtRiverPointData = AddOrUpdateChartData(dikeToeAtRiverPointData, GetDikeToeAtRiverData());
                 dikeToeAtPolderPointData = AddOrUpdateChartData(dikeToeAtPolderPointData, GetDikeToeAtPolderData());
+                dikeToeAtRiverPointData = AddOrUpdateChartData(dikeToeAtRiverPointData, GetDikeToeAtRiverData());
                 exitPointData = AddOrUpdateChartData(exitPointData, GetExitPointChartData());
                 entryPointData = AddOrUpdateChartData(entryPointData, GetEntryPointChartData());
                 // Top most layer

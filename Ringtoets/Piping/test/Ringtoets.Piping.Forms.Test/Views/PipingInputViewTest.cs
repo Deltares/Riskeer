@@ -532,8 +532,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private const int bottomDitchPolderSideIndex = 2;
         private const int bottomDitchDikeSideIndex = 3;
         private const int ditchDikeSideIndex = 4;
-        private const int dikeToeAtRiverIndex = 5;
-        private const int dikeToeAtPolderIndex = 6;
+        private const int dikeToeAtPolderIndex = 5;
+        private const int dikeToeAtRiverIndex = 6;
         private const int exitPointIndex = 7;
         private const int entryPointIndex = 8;
 
