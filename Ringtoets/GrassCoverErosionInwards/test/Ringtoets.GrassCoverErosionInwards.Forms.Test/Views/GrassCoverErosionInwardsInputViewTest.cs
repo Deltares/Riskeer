@@ -223,13 +223,47 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual(Resources.GrassCoverErosionInwardsInputContext_NodeDisplayName, chartData.Name);
 
                 Assert.AreEqual(2, chartData.List.Count);
-                var dikeProfileData = (ChartLineData) chartData.List[dikeProfileIndex];
+                var dikeGeometryData = (ChartLineData) chartData.List[dikeProfileIndex];
                 var foreShoreData = (ChartLineData) chartData.List[foreshoreIndex];
 
-                CollectionAssert.IsEmpty(dikeProfileData.Points);
+                CollectionAssert.IsEmpty(dikeGeometryData.Points);
                 CollectionAssert.IsEmpty(foreShoreData.Points);
-                Assert.AreEqual(Resources.DikeProfile_DisplayName, dikeProfileData.Name);
+                Assert.AreEqual(Resources.DikeProfile_DisplayName, dikeGeometryData.Name);
                 Assert.AreEqual(Resources.Foreshore_DisplayName, foreShoreData.Name);
+            }
+        }
+
+        [Test]
+        public void Data_UseForeshoreFalse_SetEmptyForeshoreDataOnChart()
+        {
+            // Setup
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView())
+            {
+                DikeProfile dikeProfile = GetDikeProfileWithGeometry();
+                var input = new GrassCoverErosionInwardsInput
+                {
+                    DikeProfile = dikeProfile,
+                    UseForeshore = false
+                };
+
+                // Call
+                view.Data = input;
+
+                // Assert
+                Assert.AreSame(input, view.Data);
+                Assert.IsInstanceOf<ChartDataCollection>(view.Chart.Data);
+                var chartData = view.Chart.Data;
+                Assert.IsNotNull(chartData);
+                Assert.AreEqual(Resources.GrassCoverErosionInwardsInputContext_NodeDisplayName, chartData.Name);
+
+                Assert.AreEqual(2, chartData.List.Count);
+                var dikeGeometryData = (ChartLineData)chartData.List[dikeProfileIndex];
+                var foreShoreData = (ChartLineData)chartData.List[foreshoreIndex];
+
+                CollectionAssert.IsEmpty(foreShoreData.Points);
+                Assert.AreEqual(Resources.Foreshore_DisplayName, foreShoreData.Name);
+
+                AssertDikeProfileChartData(dikeProfile, dikeGeometryData);
             }
         }
 

@@ -121,7 +121,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         private ChartData GetForeshoreData()
         {
-            if (data == null || !data.ForeshoreGeometry.Any())
+            if (data == null || !data.ForeshoreGeometry.Any() || !data.UseForeshore)
             {
                 return ChartDataFactory.CreateEmptyLineData(Resources.Foreshore_DisplayName);
             }
