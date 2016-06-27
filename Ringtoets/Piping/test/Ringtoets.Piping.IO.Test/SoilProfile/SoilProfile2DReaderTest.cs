@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -116,7 +117,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             const string path = "A";
 
             reader.Expect(r => r.Path).Return(path);
-            SetExpectations(0, name, 0.0, 1.0, 0.0, 0.0, 0.0, new byte[0]);
+            SetExpectations(0, name, 0.0, 1.0, 0.0, 0.0, 0.0, new byte[0], string.Empty, 0);
 
             mocks.ReplayAll();
 
@@ -139,7 +140,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             const string path = "A";
 
             reader.Expect(r => r.Path).Return(path);
-            SetExpectations(1, name, 0.0, 1.0, 0.0, 0.0, 0.0, null);
+            SetExpectations(1, name, 0.0, 1.0, 0.0, 0.0, 0.0, null, string.Empty, 0);
 
             mocks.ReplayAll();
 
@@ -161,7 +162,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             const string name = "cool name";
             const string path = "A";
 
-            SetExpectations(1, name, 0.0, 1.0, 0.0, 0.0, 0.0, new byte[0]);
+            SetExpectations(1, name, 0.0, 1.0, 0.0, 0.0, 0.0, new byte[0], string.Empty, 0);
             reader.Expect(r => r.Path).Return(path);
 
             mocks.ReplayAll();
@@ -187,7 +188,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             reader.Expect(r => r.Path).Return(path);
             reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return(name);
             reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1).Repeat.Any();
-            reader.Expect(r => r.ReadOrNull<double>(SoilProfileDatabaseColumns.IsAquifer)).Throw(new InvalidCastException());
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.IsAquifer)).Throw(new InvalidCastException());
             mocks.ReplayAll();
 
             // Call
@@ -205,7 +206,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadFrom_NullValuesForLayer_ReturnsProfileWithNullValuesOnLayer()
         {
             // Setup
-            SetExpectations(1, "", 0.0, null, null, null, null, someGeometry);
+            SetExpectations(1, "", 0.0, null, null, null, null, someGeometry, null, null);
 
             mocks.ReplayAll();
 
@@ -223,6 +224,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             Assert.IsNull(pipingSoilLayer.AbovePhreaticLevel);
             Assert.IsNull(pipingSoilLayer.DryUnitWeight);
             Assert.IsFalse(pipingSoilLayer.IsAquifer);
+            Assert.IsNull(pipingSoilLayer.MaterialName);
+            Assert.AreEqual(Color.Empty, pipingSoilLayer.Color);
 
             mocks.VerifyAll();
         }
@@ -239,8 +242,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var abovePhreaticLevel = random.NextDouble();
             var dryUnitWeight = random.NextDouble();
             var intersectionX = 0.5;
+            var materialName = "material";
+            var color = Color.FromArgb(Color.AliceBlue.ToArgb());
 
-            SetExpectations(layerCount, "", intersectionX, 1.0, belowPhreaticLevel, abovePhreaticLevel, dryUnitWeight, someGeometry);
+            SetExpectations(layerCount, "", intersectionX, 1.0, belowPhreaticLevel, abovePhreaticLevel, dryUnitWeight, someGeometry, materialName, color.ToArgb());
 
             mocks.ReplayAll();
 
@@ -258,18 +263,22 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             Assert.AreEqual(abovePhreaticLevel, pipingSoilLayer.AbovePhreaticLevel);
             Assert.AreEqual(dryUnitWeight, pipingSoilLayer.DryUnitWeight);
             Assert.IsTrue(pipingSoilLayer.IsAquifer);
+            Assert.AreEqual(materialName, pipingSoilLayer.MaterialName);
+            Assert.AreEqual(color, pipingSoilLayer.Color);
             mocks.VerifyAll();
         }
 
-        private void SetExpectations(int layerCount, string profileName, double intersectionX, double? isAquifer, double? belowPhreaticLevel, double? abovePhreaticLevel, double? dryUnitWeight, byte[] geometry)
+        private void SetExpectations(int layerCount, string profileName, double intersectionX, double? isAquifer, double? belowPhreaticLevel, double? abovePhreaticLevel, double? dryUnitWeight, byte[] geometry, string materialName, double? color)
         {
             reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(layerCount).Repeat.Any();
             reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return(profileName).Repeat.Any();
             reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.IntersectionX)).Return(intersectionX).Repeat.Any();
-            reader.Expect(r => r.ReadOrNull<double>(SoilProfileDatabaseColumns.IsAquifer)).Return(isAquifer).Repeat.Any();
-            reader.Expect(r => r.ReadOrNull<double>(SoilProfileDatabaseColumns.BelowPhreaticLevel)).Return(belowPhreaticLevel).Repeat.Any();
-            reader.Expect(r => r.ReadOrNull<double>(SoilProfileDatabaseColumns.AbovePhreaticLevel)).Return(abovePhreaticLevel).Repeat.Any();
-            reader.Expect(r => r.ReadOrNull<double>(SoilProfileDatabaseColumns.DryUnitWeight)).Return(dryUnitWeight).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.IsAquifer)).Return(isAquifer).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.BelowPhreaticLevel)).Return(belowPhreaticLevel).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.AbovePhreaticLevel)).Return(abovePhreaticLevel).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.DryUnitWeight)).Return(dryUnitWeight).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<string>(SoilProfileDatabaseColumns.MaterialName)).Return(materialName).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.Color)).Return(color).Repeat.Any();
             reader.Expect(r => r.Read<byte[]>(SoilProfileDatabaseColumns.LayerGeometry)).Return(geometry).Repeat.Any();
         }
 

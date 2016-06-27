@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using Core.Common.Base.Storage;
 
 namespace Ringtoets.Piping.Primitives
@@ -64,6 +65,16 @@ namespace Ringtoets.Piping.Primitives
         /// Gets or sets the dry unit weight for the <see cref="PipingSoilLayer"/>.
         /// </summary>
         public double? DryUnitWeight { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the material that was assigned to the <see cref="PipingSoilLayer"/>.
+        /// </summary>
+        public string MaterialName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="Color"/> that was used to represent the <see cref="PipingSoilLayer"/>.
+        /// </summary>
+        public Color Color { get; set; }
 
         public long StorageId { get; set; }
     }

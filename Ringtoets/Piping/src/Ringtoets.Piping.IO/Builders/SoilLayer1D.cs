@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Builders
@@ -65,6 +66,16 @@ namespace Ringtoets.Piping.IO.Builders
         public double? DryUnitWeight { get; set; }
 
         /// <summary>
+        /// Gets or sets the name of the material that was assigned to the <see cref="SoilLayer1D"/>.
+        /// </summary>
+        public string MaterialName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value representing a color that was used to represent the <see cref="SoilLayer1D"/>.
+        /// </summary>
+        public double? Color { get; set; }
+
+        /// <summary>
         /// Constructs a (1D) <see cref="PipingSoilLayer"/> based on the properties set for the <see cref="SoilLayer1D"/>.
         /// </summary>
         /// <returns>The <see cref="PipingSoilLayer"/> with properties corresponding to those set on the <see cref="SoilLayer1D"/>.</returns>
@@ -75,7 +86,9 @@ namespace Ringtoets.Piping.IO.Builders
                 AbovePhreaticLevel = AbovePhreaticLevel,
                 BelowPhreaticLevel = BelowPhreaticLevel,
                 DryUnitWeight = DryUnitWeight,
-                IsAquifer = IsAquifer.HasValue && IsAquifer.Value.Equals(1.0)
+                IsAquifer = IsAquifer.HasValue && IsAquifer.Value.Equals(1.0),
+                MaterialName = MaterialName,
+                Color = SoilLayerColorConversionHelper.ColorFromNullableDouble(Color)
             };
         }
     }

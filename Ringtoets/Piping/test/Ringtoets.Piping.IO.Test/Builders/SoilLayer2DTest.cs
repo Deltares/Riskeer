@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 using Core.Common.Base.Geometry;
@@ -23,6 +24,12 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Assert
             Assert.IsNull(result.OuterLoop);
             CollectionAssert.IsEmpty(result.InnerLoops);
+            Assert.IsNull(result.AbovePhreaticLevel);
+            Assert.IsNull(result.BelowPhreaticLevel);
+            Assert.IsNull(result.DryUnitWeight);
+            Assert.IsNull(result.IsAquifer);
+            Assert.IsNull(result.MaterialName);
+            Assert.IsNull(result.Color);
         }
 
         [Test]
@@ -224,6 +231,68 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Assert
             CollectionAssert.IsEmpty(result);
             Assert.AreEqual(double.MaxValue, bottom);
+        }
+
+        [Test]
+        public void AsPipingSoilLayer_PropertiesSetWithDifferentIsAquifer_PropertiesAreSetInPipingSoilLayer()
+        {
+            // Setup
+            var random = new Random(22);
+            var y1 = random.NextDouble();
+            var y2 = y1 + random.NextDouble();
+            var x1 = 1.0;
+            var x2 = 1.1;
+            var x3 = 1.2;
+            var abovePhreaticLevel = random.NextDouble();
+            var belowPhreaticLevel = random.NextDouble();
+            var dryUnitWeight = random.NextDouble();
+            var materialName = "materialX";
+            var color = Color.DarkSeaGreen;
+            double bottom;
+
+            var layer = new SoilLayer2D
+            {
+                MaterialName = materialName,
+                IsAquifer = 1.0,
+                AbovePhreaticLevel = abovePhreaticLevel,
+                BelowPhreaticLevel = belowPhreaticLevel,
+                DryUnitWeight = dryUnitWeight,
+                Color = color.ToArgb(),
+                OuterLoop = new List<Segment2D>
+                {
+                    new Segment2D(
+                        new Point2D(x1, y1),
+                        new Point2D(x3, y1)
+                        ),
+                    new Segment2D(
+                        new Point2D(x3, y1),
+                        new Point2D(x3, y2)
+                        ),
+                    new Segment2D(
+                        new Point2D(x3, y2),
+                        new Point2D(x1, y2)
+                        ),
+                    new Segment2D(
+                        new Point2D(x1, y1),
+                        new Point2D(x1, y2)
+                        )
+                }
+            };
+
+            // Call
+            var result = layer.AsPipingSoilLayers(x2, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, result.Length);
+            Assert.AreEqual(y1, bottom, 1e-6);
+            var resultLayer = result.First();
+            Assert.AreEqual(y2, resultLayer.Top, 1e-6);
+            Assert.IsTrue(resultLayer.IsAquifer);
+            Assert.AreEqual(abovePhreaticLevel, resultLayer.AbovePhreaticLevel);
+            Assert.AreEqual(belowPhreaticLevel, resultLayer.BelowPhreaticLevel);
+            Assert.AreEqual(dryUnitWeight, resultLayer.DryUnitWeight);
+            Assert.AreEqual(materialName, resultLayer.MaterialName);
+            Assert.AreEqual(Color.FromArgb(color.ToArgb()), resultLayer.Color);
         }
 
         [Test]

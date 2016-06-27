@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using NUnit.Framework;
 using Ringtoets.Piping.Primitives;
 
@@ -39,6 +40,12 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.NotNull(layer);
             Assert.AreEqual(top, layer.Top);
+            Assert.IsNull(layer.AbovePhreaticLevel);
+            Assert.IsNull(layer.BelowPhreaticLevel);
+            Assert.IsNull(layer.DryUnitWeight);
+            Assert.IsFalse(layer.IsAquifer);
+            Assert.IsNull(layer.MaterialName);
+            Assert.AreEqual(Color.Empty, layer.Color);
         }
     }
 }

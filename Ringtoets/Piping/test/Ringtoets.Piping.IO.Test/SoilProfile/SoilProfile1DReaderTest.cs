@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -83,7 +84,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             const string profileName = "<very cool name>";
             const string path = "A";
 
-            SetExpectations(0, profileName, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0);
+            SetExpectations(0, profileName, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, string.Empty, 0);
             reader.Expect(r => r.Path).Return(path);
 
             mocks.ReplayAll();
@@ -111,7 +112,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return(profileName);
             reader.Expect(r => r.Path).Return(path);
             reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1).Repeat.Any();
-            reader.Expect(r => r.ReadOrNull<double>(SoilProfileDatabaseColumns.IsAquifer)).Throw(new InvalidCastException());
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.IsAquifer)).Throw(new InvalidCastException());
             mocks.ReplayAll();
 
             // Call
@@ -133,7 +134,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Setup
             var bottom = 1.1;
             var top = 1.1;
-            SetExpectations(1, "", bottom, top, null, null, null, null);
+            SetExpectations(1, "", bottom, top, null, null, null, null, null, null);
 
             mocks.ReplayAll();
 
@@ -150,6 +151,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             Assert.IsNull(pipingSoilLayer.BelowPhreaticLevel);
             Assert.IsNull(pipingSoilLayer.AbovePhreaticLevel);
             Assert.IsNull(pipingSoilLayer.DryUnitWeight);
+            Assert.IsNull(pipingSoilLayer.MaterialName);
+            Assert.AreEqual(Color.Empty, pipingSoilLayer.Color);
             Assert.IsFalse(pipingSoilLayer.IsAquifer);
 
             mocks.VerifyAll();
@@ -168,8 +171,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var dryUnitWeight = random.NextDouble();
             var top = random.NextDouble();
             var bottom = random.NextDouble();
+            string materialName = "material";
+            var color = Color.FromArgb(Color.DarkKhaki.ToArgb());
 
-            SetExpectations(layerCount, "", bottom, top, 1.0, belowPhreaticLevel, abovePhreaticLevel, dryUnitWeight);
+            SetExpectations(layerCount, "", bottom, top, 1.0, belowPhreaticLevel, abovePhreaticLevel, dryUnitWeight, materialName, color.ToArgb());
 
             mocks.ReplayAll();
 
@@ -187,19 +192,23 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             Assert.AreEqual(abovePhreaticLevel, pipingSoilLayer.AbovePhreaticLevel);
             Assert.AreEqual(dryUnitWeight, pipingSoilLayer.DryUnitWeight);
             Assert.IsTrue(pipingSoilLayer.IsAquifer);
+            Assert.AreEqual(materialName, pipingSoilLayer.MaterialName);
+            Assert.AreEqual(color, pipingSoilLayer.Color);
             mocks.VerifyAll();
         }
 
-        private void SetExpectations(int layerCount, string profileName, double bottom, double top, double? isAquifer, double? belowPhreaticLevel, double? abovePhreaticLevel, double? dryUnitWeight)
+        private void SetExpectations(int layerCount, string profileName, double bottom, double top, double? isAquifer, double? belowPhreaticLevel, double? abovePhreaticLevel, double? dryUnitWeight, string materialName, double? color)
         {
             reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(layerCount).Repeat.Any();
             reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return(profileName).Repeat.Any();
             reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.Bottom)).Return(bottom).Repeat.Any();
             reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.Top)).Return(top).Repeat.Any();
-            reader.Expect(r => r.ReadOrNull<double>(SoilProfileDatabaseColumns.IsAquifer)).Return(isAquifer).Repeat.Any();
-            reader.Expect(r => r.ReadOrNull<double>(SoilProfileDatabaseColumns.BelowPhreaticLevel)).Return(belowPhreaticLevel).Repeat.Any();
-            reader.Expect(r => r.ReadOrNull<double>(SoilProfileDatabaseColumns.AbovePhreaticLevel)).Return(abovePhreaticLevel).Repeat.Any();
-            reader.Expect(r => r.ReadOrNull<double>(SoilProfileDatabaseColumns.DryUnitWeight)).Return(dryUnitWeight).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.IsAquifer)).Return(isAquifer).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.BelowPhreaticLevel)).Return(belowPhreaticLevel).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.AbovePhreaticLevel)).Return(abovePhreaticLevel).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.DryUnitWeight)).Return(dryUnitWeight).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<string>(SoilProfileDatabaseColumns.MaterialName)).Return(materialName).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.Color)).Return(color).Repeat.Any();
         }
     }
 }

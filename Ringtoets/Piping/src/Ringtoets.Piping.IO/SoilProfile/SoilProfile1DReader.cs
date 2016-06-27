@@ -95,7 +95,9 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 IsAquifer = properties.IsAquifer,
                 BelowPhreaticLevel = properties.BelowPhreaticLevel,
                 AbovePhreaticLevel = properties.AbovePhreaticLevel,
-                DryUnitWeight = properties.DryUnitWeight
+                DryUnitWeight = properties.DryUnitWeight,
+                MaterialName = properties.MaterialName,
+                Color = properties.Color
             };
             return pipingSoilLayer;
         }
@@ -107,6 +109,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
             internal readonly double? BelowPhreaticLevel;
             internal readonly double? AbovePhreaticLevel;
             internal readonly double? DryUnitWeight;
+            internal readonly string MaterialName;
+            internal readonly double? Color;
 
             /// <summary>
             /// Creates a new instance of <see cref="LayerProperties"/>, which contains properties
@@ -125,16 +129,22 @@ namespace Ringtoets.Piping.IO.SoilProfile
                     Top = reader.Read<double>(readColumn);
 
                     readColumn = SoilProfileDatabaseColumns.IsAquifer;
-                    IsAquifer = reader.ReadOrNull<double>(readColumn);
+                    IsAquifer = reader.ReadOrDefault<double?>(readColumn);
 
                     readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevel;
-                    BelowPhreaticLevel = reader.ReadOrNull<double>(readColumn);
+                    BelowPhreaticLevel = reader.ReadOrDefault<double?>(readColumn);
 
                     readColumn = SoilProfileDatabaseColumns.AbovePhreaticLevel;
-                    AbovePhreaticLevel = reader.ReadOrNull<double>(readColumn);
+                    AbovePhreaticLevel = reader.ReadOrDefault<double?>(readColumn);
 
                     readColumn = SoilProfileDatabaseColumns.DryUnitWeight;
-                    DryUnitWeight = reader.ReadOrNull<double>(readColumn);
+                    DryUnitWeight = reader.ReadOrDefault<double?>(readColumn);
+
+                    readColumn = SoilProfileDatabaseColumns.MaterialName;
+                    MaterialName = reader.ReadOrDefault<string>(readColumn);
+
+                    readColumn = SoilProfileDatabaseColumns.Color;
+                    Color = reader.ReadOrDefault<double?>(readColumn);
                 }
                 catch (InvalidCastException e)
                 {

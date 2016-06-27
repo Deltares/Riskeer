@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using NUnit.Framework;
 using Ringtoets.Piping.IO.Builders;
 
@@ -19,6 +20,12 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Assert
             Assert.AreEqual(top, layer.Top);
+            Assert.IsNull(layer.AbovePhreaticLevel);
+            Assert.IsNull(layer.BelowPhreaticLevel);
+            Assert.IsNull(layer.DryUnitWeight);
+            Assert.IsNull(layer.IsAquifer);
+            Assert.IsNull(layer.MaterialName);
+            Assert.IsNull(layer.Color);
         }
 
         [Test]
@@ -30,16 +37,20 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Setup
             var random = new Random(22);
             var top = random.NextDouble();
+            var materialName = "materialX";
             var abovePhreaticLevel = random.NextDouble();
             var belowPhreaticLevel = random.NextDouble();
             var dryUnitWeight = random.NextDouble();
+            var color = Color.BlanchedAlmond;
 
             var layer = new SoilLayer1D(top)
             {
+                MaterialName = materialName,
                 IsAquifer = isAquifer,
                 AbovePhreaticLevel = abovePhreaticLevel,
                 BelowPhreaticLevel = belowPhreaticLevel,
-                DryUnitWeight = dryUnitWeight
+                DryUnitWeight = dryUnitWeight,
+                Color = color.ToArgb()
             };
 
             // Call
@@ -51,6 +62,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
             Assert.AreEqual(abovePhreaticLevel, result.AbovePhreaticLevel);
             Assert.AreEqual(belowPhreaticLevel, result.BelowPhreaticLevel);
             Assert.AreEqual(dryUnitWeight, result.DryUnitWeight);
+            Assert.AreEqual(materialName, result.MaterialName);
+            Assert.AreEqual(Color.FromArgb(color.ToArgb()), result.Color);
         }
     }
 }

@@ -49,12 +49,13 @@ namespace Core.Common.IO.Readers
 
         /// <summary>
         /// Reads the value in the column with name <paramref name="columnName"/> from the 
-        /// current row that's being pointed at.
+        /// current row that's being pointed at. If the column has a value of <see cref="DBNull.Value"/>,
+        /// then the default value for <typeparamref name="T"/> is returned.
         /// </summary>
         /// <typeparam name="T">The type of object to read.</typeparam>
         /// <param name="columnName">The name of the column to read from.</param>
         /// <returns>The value in the column, or <c>null</c> if the value was <see cref="DBNull.Value"/>.</returns>
         /// <exception cref="InvalidCastException">Thrown when the value in the column could not be casted to type <typeparamref name="T"/>.</exception>
-        T? ReadOrNull<T>(string columnName) where T : struct;
+        T ReadOrDefault<T>(string columnName);
     }
 }

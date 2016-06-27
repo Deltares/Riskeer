@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
 
 using Core.Common.Base.Geometry;
@@ -68,6 +69,16 @@ namespace Ringtoets.Piping.IO.Builders
         /// Gets or sets the dry unit weight for the <see cref="SoilLayer2D"/>.
         /// </summary>
         public double? DryUnitWeight { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the material that was assigned to the <see cref="SoilLayer2D"/>.
+        /// </summary>
+        public string MaterialName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value representing a color that was used to represent the <see cref="SoilLayer1D"/>.
+        /// </summary>
+        public double? Color { get; set; }
 
         /// <summary>
         /// Gets the outer loop of the <see cref="SoilLayer2D"/> as a <see cref="List{T}"/> of <see cref="Segment2D"/>,
@@ -148,7 +159,9 @@ namespace Ringtoets.Piping.IO.Builders
                             IsAquifer = IsAquifer.HasValue && IsAquifer.Value.Equals(1.0),
                             BelowPhreaticLevel = BelowPhreaticLevel,
                             AbovePhreaticLevel = AbovePhreaticLevel,
-                            DryUnitWeight = DryUnitWeight
+                            DryUnitWeight = DryUnitWeight,
+                            MaterialName = MaterialName,
+                            Color = SoilLayerColorConversionHelper.ColorFromNullableDouble(Color)
                         });
                     }
                     bottom = EnsureBottomOutsideInnerLoop(innerLoopIntersectionHeightPairs, currentBottom);

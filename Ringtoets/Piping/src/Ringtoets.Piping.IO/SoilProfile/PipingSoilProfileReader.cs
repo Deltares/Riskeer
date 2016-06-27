@@ -126,12 +126,12 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <param name="columnName">The name of the column to read from.</param>
         /// <returns>The value in the column, or <c>null</c> if the value was <see cref="DBNull.Value"/>.</returns>
         /// <exception cref="InvalidCastException">Thrown when the value in the column could not be casted to type <typeparamref name="T"/>.</exception>
-        public T? ReadOrNull<T>(string columnName) where T : struct
+        public T ReadOrDefault<T>(string columnName)
         {
             var valueObject = dataReader[columnName];
             if (valueObject.Equals(DBNull.Value))
             {
-                return null;
+                return default(T);
             }
             return (T)valueObject;
         }

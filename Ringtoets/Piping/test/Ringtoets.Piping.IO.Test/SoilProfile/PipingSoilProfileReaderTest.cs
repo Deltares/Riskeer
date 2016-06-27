@@ -22,6 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Core.Common.IO.Exceptions;
@@ -392,6 +394,57 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     null,
                     null
                 }, profile.Layers.Select(l => l.DryUnitWeight));
+                CollectionAssert.AreEqual(new []
+                {
+                    Color.FromArgb(128,255,128),
+                    Color.FromArgb(255,0,0),
+                    Color.FromArgb(70,130,180)
+                }, profile.Layers.Select(l => l.Color));
+            }
+        }
+
+        [Test]
+        public void ReadProfile_DatabaseWith2DProfile3Layers_ReturnsProfile()
+        {
+            // Setup
+            var testFile = "2dprofile.soil";
+            var dbFile = Path.Combine(testDataPath, testFile);
+            using (var reader = new PipingSoilProfileReader(dbFile))
+            {
+                // Call
+                var profile = reader.ReadProfile();
+
+                // Assert
+                CollectionAssert.AreEqual(new[]
+                {
+                    true,
+                    false,
+                    false
+                }, profile.Layers.Select(l => l.IsAquifer));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.001,
+                    0.001,
+                    0.001
+                }, profile.Layers.Select(l => l.AbovePhreaticLevel));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.001,
+                    0.001,
+                    0.001
+                }, profile.Layers.Select(l => l.BelowPhreaticLevel));
+                CollectionAssert.AreEqual(new double?[]
+                {
+                    null,
+                    null,
+                    null
+                }, profile.Layers.Select(l => l.DryUnitWeight));
+                CollectionAssert.AreEqual(new []
+                {
+                    Color.FromArgb(70,130,180),
+                    Color.FromArgb(255,0,0),
+                    Color.FromArgb(128,255,128)
+                }, profile.Layers.Select(l => l.Color));
             }
         }
 
