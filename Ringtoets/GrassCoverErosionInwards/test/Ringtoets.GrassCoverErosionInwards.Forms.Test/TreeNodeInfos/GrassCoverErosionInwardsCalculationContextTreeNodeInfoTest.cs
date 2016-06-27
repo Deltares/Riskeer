@@ -606,7 +606,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    DikeProfile = new DikeProfile(new Point2D(0, 0))
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
                 }
             };
 
@@ -682,7 +682,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    DikeProfile = new DikeProfile(new Point2D(0, 0))
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
                 }
             };
 

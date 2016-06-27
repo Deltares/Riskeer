@@ -182,7 +182,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView())
             {
-                var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0));
+                var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0), new RoughnessPoint[0], new Point2D[0]);
                 var input = new GrassCoverErosionInwardsInput
                 {
                     DikeProfile = dikeProfile
@@ -444,32 +444,31 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
         private DikeProfile GetDikeProfileWithGeometry()
         {
-            var points = new List<RoughnessPoint>(new[]
+            var points = new[]
             {
                 new RoughnessPoint(new Point2D(2.0, 3.0), 4.0),
                 new RoughnessPoint(new Point2D(3.0, 4.0), 4.0),
                 new RoughnessPoint(new Point2D(4.0, 5.0), 4.0)
-            });
+            };
             
             return GetDikeProfile(points);
         }
 
         private DikeProfile GetSecondDikeProfileWithGeometry()
         {
-            var points = new List<RoughnessPoint>(new[]
+            var points = new[]
             {
                 new RoughnessPoint(new Point2D(8.0, 3.0), 1.0),
                 new RoughnessPoint(new Point2D(10.0, 4.0), 1.0),
                 new RoughnessPoint(new Point2D(12.0, 5.0), 1.0)
-            });
+            };
 
             return GetDikeProfile(points);
         }
 
-        private DikeProfile GetDikeProfile(List<RoughnessPoint> points)
+        private DikeProfile GetDikeProfile(RoughnessPoint[] points)
         {
-            DikeProfile dikeProfile = new DikeProfile(new Point2D(0.0, 0.0));
-            dikeProfile.SetGeometry(points);
+            DikeProfile dikeProfile = new DikeProfile(new Point2D(0.0, 0.0), points, new Point2D[0]);
 
             return dikeProfile;
         }

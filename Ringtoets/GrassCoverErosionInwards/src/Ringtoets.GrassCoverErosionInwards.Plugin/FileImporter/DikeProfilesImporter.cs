@@ -330,7 +330,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
 
         private static DikeProfile CreateDikeProfile(DikeProfileLocation dikeProfileLocation, DikeProfileData dikeProfileData)
         {
-            var dikeProfile = new DikeProfile(dikeProfileLocation.Point)
+            var dikeProfile = new DikeProfile(dikeProfileLocation.Point, dikeProfileData.DikeGeometry, dikeProfileData.ForeshoreGeometry.Select(fg => fg.Point).ToArray())
             {
                 Name = dikeProfileData.Id,
                 Memo = dikeProfileData.Memo,
@@ -338,12 +338,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
                 Orientation = (RoundedDouble) dikeProfileData.Orientation,
                 DikeHeight = (RoundedDouble) dikeProfileData.DikeHeight
             };
-
-            List<Point2D> foreshoreGeometry = dikeProfile.ForeshoreGeometry;
-            foreshoreGeometry.Clear();
-            foreshoreGeometry.AddRange(dikeProfileData.ForeshoreGeometry.Select(r => r.Point));
-
-            dikeProfile.SetGeometry(dikeProfileData.DikeGeometry);
 
             switch (dikeProfileData.DamType)
             {

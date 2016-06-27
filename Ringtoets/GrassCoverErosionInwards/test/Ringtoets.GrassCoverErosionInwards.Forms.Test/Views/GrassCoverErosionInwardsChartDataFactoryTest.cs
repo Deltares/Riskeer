@@ -38,25 +38,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
     public class GrassCoverErosionInwardsChartDataFactoryTest
     {
         [Test]
-        public void Create_DikeProfileNull_ThrowsArgumentNullException()
+        public void Create_DikeProfileGeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create(null);
+            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create((RoughnessPoint[]) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("dikeProfile", exception.ParamName);
+            Assert.AreEqual("dikeGeometry", exception.ParamName);
         }
 
         [Test]
-        public void Create_GivenDikeProfile_ReturnsChartDataWithDefaultStyling()
+        public void Create_GivenDikeProfileGeometry_ReturnsChartDataWithDefaultStyling()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0));
-            dikeProfile.SetGeometry(CreateDikeProfileGeometry());
+            var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0), CreateDikeProfileGeometry(), new Point2D[0]);
 
             // Call
-            ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeProfile);
+            ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeProfile.DikeGeometry);
 
             // Assert
             Assert.IsInstanceOf<ChartLineData>(data);
@@ -66,6 +65,35 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
             AssertEqualPointCollections(dikeProfile.DikeGeometry.Select(dg => dg.Point), chartLineData.Points);
             AssertEqualStyle(chartLineData.Style, Color.SaddleBrown, 2, DashStyle.Solid);
+        }
+
+        [Test]
+        public void Create_DikeProfileForshoreGeometryNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create((Point2D[]) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("foreshoreGeometry", exception.ParamName);
+        }
+
+        [Test]
+        public void Create_GivenDikeProfileForshoreGeometry_ReturnsChartDataWithDefaultStyling()
+        {
+            var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0), new RoughnessPoint[0], CreateForshoreGeometry());
+
+            // Call
+            ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeProfile.ForeshoreGeometry);
+
+            // Assert
+            Assert.IsInstanceOf<ChartLineData>(data);
+            ChartLineData chartLineData = (ChartLineData)data;
+            Assert.AreEqual(3, chartLineData.Points.Count());
+            Assert.AreEqual(Resources.Foreshore_DisplayName, data.Name);
+
+            AssertEqualPointCollections(dikeProfile.ForeshoreGeometry, chartLineData.Points);
+            AssertEqualStyle(chartLineData.Style, Color.DarkOrange, 2, DashStyle.Solid);
         }
 
         private void AssertEqualPointCollections(IEnumerable<Point2D> points, IEnumerable<Point2D> chartPoints)
@@ -80,14 +108,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual(style, lineStyle.Style);
         }
 
-        private List<RoughnessPoint> CreateDikeProfileGeometry()
+        private RoughnessPoint[] CreateDikeProfileGeometry()
         {
-            return new List<RoughnessPoint>(new[]
+            return new[]
             {
                 new RoughnessPoint(new Point2D(2.0, 3.0), 4.0),
                 new RoughnessPoint(new Point2D(3.0, 4.0), 4.0),
                 new RoughnessPoint(new Point2D(4.0, 5.0), 4.0)
-            });
+            };
+        }
+
+        private Point2D[] CreateForshoreGeometry()
+        {
+            return new[]
+            {
+                new Point2D(8.0, 5.0), 
+                new Point2D(9.0, 4.0), 
+                new Point2D(10.0, 3.0), 
+            };
         }
     }
 }

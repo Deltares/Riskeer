@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         {
             // Setup
             const string profileName = "Random profile name";
-            var dikeProfile = new DikeProfile(new Point2D(0, 0))
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
             {
                 Name = profileName
             };

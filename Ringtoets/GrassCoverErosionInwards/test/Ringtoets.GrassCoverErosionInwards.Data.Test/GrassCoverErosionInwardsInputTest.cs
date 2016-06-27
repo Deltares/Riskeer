@@ -75,15 +75,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             LogNormalDistribution originalCriticalFlowRate = input.CriticalFlowRate;
             HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
 
-            var dikeProfile = new DikeProfile(new Point2D(0, 0))
+            var foreShoreGeometry = withForeshore ? new[]
+            {
+                new Point2D(6.6, 7.7)
+            } : new Point2D[0];
+
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new[] { new RoughnessPoint(new Point2D(2.2, 3.3), 0.6) }, foreShoreGeometry)
             {
                 Orientation = (RoundedDouble) 1.1,
                 DikeHeight = (RoundedDouble) 4.4
             };
-            dikeProfile.SetGeometry(new[]
-            {
-                new RoughnessPoint(new Point2D(2.2, 3.3), 0.6)
-            });
 
             if (withBreakWater)
             {
@@ -95,11 +96,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 Assert.AreNotEqual(nonDefaultBreakWaterHeight, input.BreakWater.Height);
 
                 dikeProfile.BreakWater = new BreakWater(nonDefaultBreakWaterType, nonDefaultBreakWaterHeight);
-            }
-
-            if (withForeshore)
-            {
-                dikeProfile.ForeshoreGeometry.Add(new Point2D(6.6, 7.7));
             }
 
             // Call
@@ -130,20 +126,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             LogNormalDistribution originalCriticalFlowRate = input.CriticalFlowRate;
             HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
 
-            var dikeProfile = new DikeProfile(new Point2D(0, 0))
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new[]
+            {
+                new RoughnessPoint(new Point2D(5.5, 6.6), 0.7)
+            }, new[]
+            {
+                new Point2D(3.3, 4.4)
+            })
             {
                 Orientation = (RoundedDouble) 1.1,
                 BreakWater = new BreakWater(BreakWaterType.Caisson, 2.2),
-                ForeshoreGeometry =
-                {
-                    new Point2D(3.3, 4.4)
-                },
                 DikeHeight = (RoundedDouble) 8.8
             };
-            dikeProfile.SetGeometry(new[]
-            {
-                new RoughnessPoint(new Point2D(5.5, 6.6), 0.7)
-            });
 
             input.DikeProfile = dikeProfile;
 

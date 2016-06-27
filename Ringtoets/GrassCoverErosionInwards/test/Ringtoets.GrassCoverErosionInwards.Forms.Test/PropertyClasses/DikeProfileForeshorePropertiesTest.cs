@@ -50,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var properties = new DikeProfileForeshoreProperties();
 
             // Call
-            properties.Data = new DikeProfile(new Point2D(0, 0));
+            properties.Data = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
 
             // Assert
             CollectionAssert.IsEmpty(properties.Coordinates);
@@ -60,14 +60,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Data_SetDikeProfileInstanceWithData_ReturnCorrectPropertyValues()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0))
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new[]
             {
-                ForeshoreGeometry =
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                }
-            };
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            });
 
             var properties = new DikeProfileForeshoreProperties();
 
@@ -87,7 +84,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0));
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
 
             // Call
             var properties = new DikeProfileForeshoreProperties

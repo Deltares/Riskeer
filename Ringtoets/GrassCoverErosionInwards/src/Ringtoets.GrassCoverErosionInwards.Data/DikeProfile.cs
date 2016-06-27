@@ -33,29 +33,34 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// </summary>
     public class DikeProfile
     {
-        private readonly List<Point2D> foreshoreGeometry;
-        private RoughnessPoint[] dikeGeometry;
         private RoundedDouble orientation;
         private RoundedDouble dikeHeight;
 
         /// <summary>
         /// Creates a new instance of the <see cref="DikeProfile"/> class.
         /// </summary>
-        /// <param name="worldCoordinate">The value for <see cref="WorldReferencePoint"/>.</param>
-        public DikeProfile(Point2D worldCoordinate)
+        /// <param name="worldCoordinate">worldCoordinate">The value for <see cref="WorldReferencePoint"/></param>
+        /// <param name="dikeGeometry">The geometry of the dike.</param>
+        /// <param name="foreshoreGeometry">The geometry of the dike foreshore.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dikeGeometry"/> 
+        /// or <paramref name="foreshoreGeometry"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when any element of <paramref name="dikeGeometry"/>
+        /// or <paramref name="foreshoreGeometry"/> is <c>null</c>.</exception>
+        public DikeProfile(Point2D worldCoordinate, RoughnessPoint[] dikeGeometry, Point2D[] foreshoreGeometry)
         {
             if (worldCoordinate == null)
             {
                 throw new ArgumentNullException("worldCoordinate");
             }
 
+            SetGeometry(dikeGeometry);
+            SetForshoreGeometry(foreshoreGeometry);
+
             orientation = new RoundedDouble(2);
             dikeHeight = new RoundedDouble(2);
 
             Name = Resources.DikeProfile_DefaultName;
             Memo = "";
-            dikeGeometry = new RoughnessPoint[0];
-            foreshoreGeometry = new List<Point2D>();
             WorldReferencePoint = worldCoordinate;
         }
 
@@ -114,13 +119,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the geometry of the foreshore.
         /// </summary>
-        public List<Point2D> ForeshoreGeometry
-        {
-            get
-            {
-                return foreshoreGeometry;
-            }
-        }
+        public Point2D[] ForeshoreGeometry { get; private set; }
 
         /// <summary>
         /// Gets the geometry of the dike with roughness data.
@@ -131,13 +130,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// and the succeeding <see cref="RoughnessPoint"/>. The roughness of the last
         /// point is irrelevant.
         /// </remarks>
-        public RoughnessPoint[] DikeGeometry
-        {
-            get
-            {
-                return dikeGeometry;
-            }
-        }
+        public RoughnessPoint[] DikeGeometry { get; private set; }
 
         /// <summary>
         /// Gets or sets the height of the dike [m+NAP].
@@ -159,13 +152,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             return Name;
         }
 
-        /// <summary>
-        /// Sets the geometry of the dike profile.
-        /// </summary>
-        /// <param name="points">The collection of <see cref="RoughnessPoint"/> defining the dike profile geometry.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when any element of <paramref name="points"/> is <c>null</c>.</exception>
-        public void SetGeometry(IEnumerable<RoughnessPoint> points)
+        private void SetGeometry(IEnumerable<RoughnessPoint> points)
         {
             if (points == null)
             {
@@ -174,10 +161,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
 
             if (points.Any(p => p == null))
             {
-                throw new ArgumentException(Resources.DikeProfile_SetGeometry_A_point_in_the_collection_was_null);
+                throw new ArgumentException(Resources.DikeProfile_SetGeometry_A_point_in_the_collection_is_null);
             }
 
-            dikeGeometry = points.ToArray();
+            DikeGeometry = points.ToArray();
+        }
+
+        private void SetForshoreGeometry(IEnumerable<Point2D> points)
+        {
+            if (points == null)
+            {
+                throw new ArgumentNullException("points", Resources.DikeProfile_SetForshoreGeometry_Collection_of_points_for_foreshore_geometry_is_null);
+            }
+
+            if (points.Any(p => p == null))
+            {
+                throw new ArgumentException(Resources.DikeProfile_SetForshoreGeometry_A_point_in_the_collection_is_null);
+            }
+
+            ForeshoreGeometry = points.ToArray();
         }
     }
 }

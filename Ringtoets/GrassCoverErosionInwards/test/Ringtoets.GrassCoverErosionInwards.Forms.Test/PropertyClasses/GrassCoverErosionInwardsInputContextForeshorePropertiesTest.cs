@@ -89,14 +89,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 InputParameters =
                 {
                     UseForeshore = true,
-                    DikeProfile = new DikeProfile(new Point2D(0, 0))
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new[]
                     {
-                        ForeshoreGeometry =
-                        {
-                            new Point2D(1.1, 2.2),
-                            new Point2D(3.3, 4.4)
-                        }
-                    }
+                        new Point2D(1.1, 2.2),
+                        new Point2D(3.3, 4.4)
+                    })
                 }
             };
             var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties();
@@ -158,7 +155,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             if (withDikeProfile)
             {
-                input.DikeProfile = new DikeProfile(new Point2D(0, 0));
+                input.DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
             }
 
             // Call

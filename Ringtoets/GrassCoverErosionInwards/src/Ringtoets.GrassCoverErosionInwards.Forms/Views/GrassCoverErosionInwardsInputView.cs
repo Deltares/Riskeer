@@ -118,11 +118,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         private ChartData GetDikeProfileData()
         {
-            if (data == null || data.DikeProfile == null)
+            if (data == null || data.DikeProfile == null || data.DikeProfile.DikeGeometry == null)
             {
                 return ChartDataFactory.CreateEmptyLineData(Resources.DikeProfile_DisplayName);
             }
-            return GrassCoverErosionInwardsChartDataFactory.Create(data.DikeProfile);
+            return GrassCoverErosionInwardsChartDataFactory.Create(data.DikeProfile.DikeGeometry);
         }
 
         private ChartData AddOrUpdateChartData(ChartData oldChartData, ChartData newChartData)

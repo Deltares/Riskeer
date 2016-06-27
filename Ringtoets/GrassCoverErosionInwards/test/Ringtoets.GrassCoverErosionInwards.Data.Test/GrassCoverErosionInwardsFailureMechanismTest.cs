@@ -137,9 +137,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Scenario
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var dikeProfile1 = new DikeProfile(new Point2D(0, 0));
-            var dikeProfile2 = new DikeProfile(new Point2D(1, 1));
-            var dikeProfile3 = new DikeProfile(new Point2D(2, 2));
+            var dikeProfile1 = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
+            var dikeProfile2 = new DikeProfile(new Point2D(1, 1), new RoughnessPoint[0], new Point2D[0]);
+            var dikeProfile3 = new DikeProfile(new Point2D(2, 2), new RoughnessPoint[0], new Point2D[0]);
 
             failureMechanism.DikeProfiles.Add(dikeProfile1);
 

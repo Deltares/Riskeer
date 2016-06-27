@@ -348,23 +348,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
         private static DikeProfile CreateDikeProfile()
         {
-            DikeProfile dikeProfile = new DikeProfile(new Point2D(0, 0))
-            {
-                Orientation = (RoundedDouble) 5.5,
-                BreakWater = new BreakWater(BreakWaterType.Dam, 10.0),
-                ForeshoreGeometry =
-                {
-                    new Point2D(3.3, 4.4),
-                    new Point2D(5.5, 6.6)
-                },
-                DikeHeight = (RoundedDouble) 10
-            };
-
-            dikeProfile.SetGeometry(new[]
+            DikeProfile dikeProfile = new DikeProfile(new Point2D(0, 0), new[]
             {
                 new RoughnessPoint(new Point2D(1.1, 2.2), 0.6),
                 new RoughnessPoint(new Point2D(3.3, 4.4), 0.7)
-            });
+            }, new[]
+            {
+                new Point2D(3.3, 4.4),
+                new Point2D(5.5, 6.6)
+            })
+            {
+                Orientation = (RoundedDouble) 5.5,
+                BreakWater = new BreakWater(BreakWaterType.Dam, 10.0),
+                DikeHeight = (RoundedDouble) 10
+            };
 
             return dikeProfile;
         }

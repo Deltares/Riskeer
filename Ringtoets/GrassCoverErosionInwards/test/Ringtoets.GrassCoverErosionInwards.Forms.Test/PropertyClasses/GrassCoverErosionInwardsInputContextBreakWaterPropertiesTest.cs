@@ -127,7 +127,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             if (withDikeProfile)
             {
-                input.DikeProfile = new DikeProfile(new Point2D(0, 0));
+                input.DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
             }
 
             // Call

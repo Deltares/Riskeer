@@ -56,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 Name = name,
                 InputParameters =
                 {
-                    DikeProfile = new DikeProfile(new Point2D(0, 0))
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
                 }
             };
 
@@ -96,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
-                    DikeProfile = new DikeProfile(new Point2D(0, 0))
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
                 }
             };
 
@@ -165,7 +165,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
-                    DikeProfile = new DikeProfile(new Point2D(0, 0))
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
                 }
             };
 
@@ -197,16 +197,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            DikeProfile dikeProfile = new DikeProfile(new Point2D(0, 0))
+            DikeProfile dikeProfile = new DikeProfile(new Point2D(0, 0), new[]
+            {
+                new RoughnessPoint(new Point2D(1.1, 2.2), 0.6),
+                new RoughnessPoint(new Point2D(3.3, 4.4), 0.7)
+            }, new Point2D[0])
             {
                 Orientation = (RoundedDouble) 5.5,
                 DikeHeight = (RoundedDouble) 10
             };
-            dikeProfile.SetGeometry(new[]
-            {
-                new RoughnessPoint(new Point2D(1.1, 2.2), 0.6),
-                new RoughnessPoint(new Point2D(3.3, 4.4), 0.7)
-            });
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {

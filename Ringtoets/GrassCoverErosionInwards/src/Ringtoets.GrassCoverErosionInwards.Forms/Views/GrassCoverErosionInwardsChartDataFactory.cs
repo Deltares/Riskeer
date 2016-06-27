@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -37,21 +38,44 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     public static class GrassCoverErosionInwardsChartDataFactory
     {
         /// <summary>
-        /// Create <see cref="ChartData"/> with default styling based on the <paramref name="dikeProfile"/>.
+        /// Create <see cref="ChartData"/> with default styling based on the <paramref name="dikeGeometry"/>.
         /// </summary>
-        /// <param name="dikeProfile">The <see cref="DikeProfile"/> for which to create <see cref="ChartData"/>.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="dikeProfile"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dikeProfile"/> is <c>null</c>.</exception>
-        public static ChartData Create(DikeProfile dikeProfile)
+        /// <param name="dikeGeometry">The geometry of the <see cref="DikeProfile"/> for which to create 
+        /// <see cref="ChartData"/>.</param>
+        /// <returns><see cref="ChartData"/> based on the <paramref name="dikeGeometry"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dikeGeometry"/> 
+        /// is <c>null</c>.</exception>
+        public static ChartData Create(RoughnessPoint[] dikeGeometry)
         {
-            if (dikeProfile == null)
+            if (dikeGeometry == null)
             {
-                throw new ArgumentNullException("dikeProfile");
+                throw new ArgumentNullException("dikeGeometry");
             }
 
-            return new ChartLineData(dikeProfile.DikeGeometry.Select(dg => dg.Point), Resources.DikeProfile_DisplayName)
+            return new ChartLineData(dikeGeometry.Select(dg => dg.Point), Resources.DikeProfile_DisplayName)
             {
                 Style = new ChartLineStyle(Color.SaddleBrown, 2, DashStyle.Solid)
+            };
+        }
+
+        /// <summary>
+        /// Create <see cref="ChartData"/> with default styling based on the <paramref name="foreshoreGeometry"/>.
+        /// </summary>
+        /// <param name="foreshoreGeometry">The forshore geometry of the <see cref="DikeProfile"/> 
+        /// for which to create <see cref="ChartData"/>.</param>
+        /// <returns><see cref="ChartData"/> based on the <paramref name="foreshoreGeometry"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="foreshoreGeometry"/> 
+        /// is <c>null</c>.</exception>
+        public static ChartData Create(Point2D[] foreshoreGeometry)
+        {
+            if (foreshoreGeometry == null)
+            {
+                throw new ArgumentNullException("foreshoreGeometry");
+            }
+
+            return new ChartLineData(foreshoreGeometry, Resources.Foreshore_DisplayName)
+            {
+                Style = new ChartLineStyle(Color.DarkOrange, 2, DashStyle.Solid)
             };
         }
     }

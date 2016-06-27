@@ -595,7 +595,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.DikeProfiles.Add(new DikeProfile(new Point2D(1, 2)));
+            failureMechanism.DikeProfiles.Add(new DikeProfile(new Point2D(1, 2), new RoughnessPoint[0], new Point2D[0]));
 
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(null);
@@ -641,7 +641,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
-                    DikeProfile = new DikeProfile(new Point2D(0, 0))
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
                 }
             });
 
@@ -651,7 +651,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
-                    DikeProfile = new DikeProfile(new Point2D(0, 0))
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
                 }
             });
 
@@ -711,7 +711,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
-                    DikeProfile = new DikeProfile(new Point2D(0, 0))
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
                 }
             });
 
@@ -721,7 +721,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
-                    DikeProfile = new DikeProfile(new Point2D(0, 0))
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
                 }
             });
 
@@ -871,12 +871,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
-                var dikeProfile1 = new DikeProfile(new Point2D(0.0, 0.0))
+                var dikeProfile1 = new DikeProfile(new Point2D(0.0, 0.0), new RoughnessPoint[0], new Point2D[0])
                 {
                     Name = "Dike profile 1",
                 };
 
-                var dikeProfile2 = new DikeProfile(new Point2D(5.0, 0.0))
+                var dikeProfile2 = new DikeProfile(new Point2D(5.0, 0.0), new RoughnessPoint[0], new Point2D[0])
                 {
                     Name = "Dike profile 2",
                 };
@@ -934,12 +934,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
-                var dikeProfile1 = new DikeProfile(new Point2D(0.0, 0.0))
+                var dikeProfile1 = new DikeProfile(new Point2D(0.0, 0.0), new RoughnessPoint[0], new Point2D[0])
                 {
                     Name = "Dike profile 1",
                 };
 
-                var dikeProfile2 = new DikeProfile(new Point2D(5.0, 0.0))
+                var dikeProfile2 = new DikeProfile(new Point2D(5.0, 0.0), new RoughnessPoint[0], new Point2D[0])
                 {
                     Name = "Dike profile 2",
                 };
@@ -997,7 +997,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
                 var existingCalculationName = "Dike profile";
-                var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0))
+                var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0), new RoughnessPoint[0], new Point2D[0])
                 {
                     Name = existingCalculationName,
                 };

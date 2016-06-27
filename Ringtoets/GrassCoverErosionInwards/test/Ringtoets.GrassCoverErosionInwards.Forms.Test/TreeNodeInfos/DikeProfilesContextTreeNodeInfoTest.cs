@@ -154,7 +154,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var dikeProfiles = new ObservableList<DikeProfile>
             {
-                new DikeProfile(new Point2D(0, 0))
+                new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
             };
 
             // Precondition
@@ -178,8 +178,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var dikeProfile1 = new DikeProfile(new Point2D(0, 0));
-            var dikeProfile2 = new DikeProfile(new Point2D(0, 0));
+            var dikeProfile1 = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
+            var dikeProfile2 = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
             var dikeProfiles = new ObservableList<DikeProfile>
             {
                 dikeProfile1,

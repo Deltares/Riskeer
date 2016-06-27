@@ -266,7 +266,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
         private DikeProfile CreateTestDikeProfile()
         {
-            return new DikeProfile(new Point2D(0, 0));
+            return new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
         }
 
         private void ShowPipingCalculationsView(GrassCoverErosionInwardsDikeProfileSelectionView pipingCalculationsView)

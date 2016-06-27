@@ -68,8 +68,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test
             // Given
             var dikeProfiles = new[]
             {
-                new DikeProfile(CreateTestPoint()),
-                new DikeProfile(CreateTestPoint())
+                CreateDikeProfile(),
+                CreateDikeProfile()
             };
 
             using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(new Form(), dikeProfiles))
@@ -91,11 +91,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test
         public void GivenDialogWithSelectedDikeProfiles_WhenCancelButtonClicked_ThenReturnsSelectedCollection()
         {
             // Given
-            var selectedDikeProfile = new DikeProfile(CreateTestPoint());
+            var selectedDikeProfile = CreateDikeProfile();
             var dikeProfiles = new[]
             {
                 selectedDikeProfile,
-                new DikeProfile(CreateTestPoint())
+                CreateDikeProfile()
             };
 
             using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(new Form(), dikeProfiles))
@@ -118,11 +118,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test
         public void GivenDialogWithSelectedDikeProfiles_WhenGenerateButtonClicked_ThenReturnsSelectedCollection()
         {
             // Given
-            var selectedDikeProfile = new DikeProfile(CreateTestPoint());
+            var selectedDikeProfile = CreateDikeProfile();
             var dikeProfiles = new[]
             {
                 selectedDikeProfile,
-                new DikeProfile(CreateTestPoint())
+                CreateDikeProfile()
             };
 
             using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(new Form(), dikeProfiles))
@@ -145,9 +145,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test
             }
         }
 
-        private Point2D CreateTestPoint()
+        private DikeProfile CreateDikeProfile()
         {
-            return new Point2D(0, 0);
+            return new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
         }
     }
 }
