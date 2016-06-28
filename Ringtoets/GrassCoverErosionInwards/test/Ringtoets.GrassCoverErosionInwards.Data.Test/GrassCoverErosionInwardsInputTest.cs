@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -66,7 +67,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         [Combinatorial]
         public void DikeProfile_SetNewValue_InputSyncedAccordingly(
             [Values(true, false)] bool withBreakWater,
-            [Values(true, false)] bool withForeshore)
+            [Values(true, false)] bool withValidForeshore)
         {
             // Setup
             var input = new GrassCoverErosionInwardsInput();
@@ -75,15 +76,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             LogNormalDistribution originalCriticalFlowRate = input.CriticalFlowRate;
             HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
 
-            var foreShoreGeometry = withForeshore ? new[]
+            var foreShoreGeometry = new List<Point2D>
             {
-                new Point2D(6.6, 7.7)
-            } : new Point2D[0];
+                new Point2D(2.2, 3.3)
+            };
+
+            if (withValidForeshore)
+            {
+                foreShoreGeometry.Add(new Point2D(4.4, 5.5));
+            }
 
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new[]
             {
-                new RoughnessPoint(new Point2D(2.2, 3.3), 0.6)
-            }, foreShoreGeometry)
+                new RoughnessPoint(new Point2D(6.6, 7.7), 0.8)
+            }, foreShoreGeometry.ToArray())
             {
                 Orientation = (RoundedDouble) 1.1,
                 DikeHeight = (RoundedDouble) 4.4
@@ -110,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(withBreakWater, input.UseBreakWater);
             Assert.AreEqual(withBreakWater ? dikeProfile.BreakWater.Type : originalBreakWaterType, input.BreakWater.Type);
             Assert.AreEqual(withBreakWater ? dikeProfile.BreakWater.Height : originalBreakWaterHeight, input.BreakWater.Height);
-            Assert.AreEqual(withForeshore, input.UseForeshore);
+            Assert.AreEqual(withValidForeshore, input.UseForeshore);
             CollectionAssert.AreEqual(dikeProfile.ForeshoreGeometry, input.ForeshoreGeometry);
             CollectionAssert.AreEqual(dikeProfile.DikeGeometry, input.DikeGeometry);
             Assert.AreEqual(dikeProfile.DikeHeight, input.DikeHeight);
@@ -131,15 +137,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new[]
             {
-                new RoughnessPoint(new Point2D(5.5, 6.6), 0.7)
+                new RoughnessPoint(new Point2D(7.7, 8.8), 0.6)
             }, new[]
             {
-                new Point2D(3.3, 4.4)
+                new Point2D(3.3, 4.4),
+                new Point2D(5.5, 6.6)
             })
             {
                 Orientation = (RoundedDouble) 1.1,
                 BreakWater = new BreakWater(BreakWaterType.Caisson, 2.2),
-                DikeHeight = (RoundedDouble) 8.8
+                DikeHeight = (RoundedDouble) 9.9
             };
 
             input.DikeProfile = dikeProfile;
