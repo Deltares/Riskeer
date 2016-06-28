@@ -135,8 +135,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                                        dikeHeight,
                                                                                                        modelFactorCriticalOvertopping, factorFnMean, factorFnStandardDeviation, hydraRingFactorFnMean, hydraRingFactorFnStandardDeviation,
                                                                                                        hydraRingmodelFactorOvertopping, criticalOvertoppingMean, criticalOvertoppingStandardDeviation, hydraRingModelFactorFrunupMean,
-                                                                                                       hydraRingModelFactorFrunupStandardDeviation, hydraRingExponentModelFactorShallowMean, hydraRingExponentModelFactorShallowStandardDeviation
-                                                                                                       , profilePoints, forelandPoints, breakWater));
+                                                                                                       hydraRingModelFactorFrunupStandardDeviation, hydraRingExponentModelFactorShallowMean, hydraRingExponentModelFactorShallowStandardDeviation,
+                                                                                                       profilePoints, forelandPoints, breakWater));
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                          "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +

@@ -24,6 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Core.Common.Utils.Reflection;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
@@ -44,7 +45,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-
                 return data.WrappedData.UseBreakWater;
             }
             set
@@ -92,7 +92,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            return data.WrappedData.DikeProfile == null;
+            if (data.WrappedData.DikeProfile == null)
+            {
+                return true;
+            }
+
+            if (!propertyName.Equals(TypeUtils.GetMemberName<GrassCoverErosionInwardsInputContextBreakWaterProperties>(i => i.UseBreakWater)))
+            {
+                return !UseBreakWater;
+            }
+
+            return false;
         }
 
         public override string ToString()

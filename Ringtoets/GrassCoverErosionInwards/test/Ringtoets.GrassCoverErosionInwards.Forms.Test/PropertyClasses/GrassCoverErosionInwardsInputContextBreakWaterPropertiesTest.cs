@@ -115,7 +115,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
         [TestCase(true)]
         [TestCase(false)]
-        public void PropertyAttributes_ReturnExpectedValues(bool withDikeProfile)
+        public void PropertyAttributes_WithOrWithoutDikeProfile_ReturnExpectedValues(bool withDikeProfile)
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
@@ -127,7 +127,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             if (withDikeProfile)
             {
-                input.DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
+                input.DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
+                {
+                    BreakWater = new BreakWater(BreakWaterType.Caisson, 1.1)
+                };
             }
 
             // Call
@@ -156,6 +159,61 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptor breakWaterHeightProperty = dynamicProperties[2];
             Assert.IsNotNull(breakWaterHeightProperty);
             Assert.AreEqual(!withDikeProfile, breakWaterHeightProperty.IsReadOnly);
+            Assert.AreEqual("Hoogte [m+NAP]", breakWaterHeightProperty.DisplayName);
+            Assert.AreEqual("De hoogte van de dam [m+NAP].", breakWaterHeightProperty.Description);
+            mockRepository.VerifyAll();
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void PropertyAttributes_WithDikeProfileAndSpecificUseBreakWaterState_ReturnExpectedValues(bool useBreakWaterState)
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var input = new GrassCoverErosionInwardsInput();
+
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
+
+            if (useBreakWaterState)
+            {
+                dikeProfile.BreakWater = new BreakWater(BreakWaterType.Caisson, 1.1);
+            }
+
+            input.DikeProfile = dikeProfile;
+
+            // Precondition
+            Assert.AreEqual(useBreakWaterState, input.UseBreakWater);
+
+            // Call
+            var properties = new GrassCoverErosionInwardsInputContextBreakWaterProperties
+            {
+                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionMock)
+            };
+
+            // Assert
+            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
+            Assert.AreEqual(4, dynamicProperties.Count);
+
+            PropertyDescriptor useBreakWaterProperty = dynamicProperties[0];
+            Assert.IsNotNull(useBreakWaterProperty);
+            Assert.IsFalse(useBreakWaterProperty.IsReadOnly);
+            Assert.AreEqual("Gebruik", useBreakWaterProperty.DisplayName);
+            Assert.AreEqual("Moet de dam worden gebruikt tijdens de berekening?", useBreakWaterProperty.Description);
+
+            PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
+            Assert.IsNotNull(breakWaterTypeProperty);
+            Assert.AreEqual(!useBreakWaterState, breakWaterTypeProperty.IsReadOnly);
+            Assert.AreEqual("Type", breakWaterTypeProperty.DisplayName);
+            Assert.AreEqual("Het type van de dam.", breakWaterTypeProperty.Description);
+
+            PropertyDescriptor breakWaterHeightProperty = dynamicProperties[2];
+            Assert.IsNotNull(breakWaterHeightProperty);
+            Assert.AreEqual(!useBreakWaterState, breakWaterHeightProperty.IsReadOnly);
             Assert.AreEqual("Hoogte [m+NAP]", breakWaterHeightProperty.DisplayName);
             Assert.AreEqual("De hoogte van de dam [m+NAP].", breakWaterHeightProperty.Description);
             mockRepository.VerifyAll();
