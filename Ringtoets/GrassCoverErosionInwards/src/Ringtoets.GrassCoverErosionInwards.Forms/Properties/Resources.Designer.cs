@@ -388,9 +388,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} - {1}.
         /// </summary>
-        public static string GrassCoverErosionInwardsChartDataFactory_Create_Name_format {
+        public static string GrassCoverErosionInwardsChartDataFactory_Create_DatatTypeDisplayName_0_DataIdentifier_1_ {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsChartDataFactory_Create_Name_format", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsChartDataFactory_Create_DatatTypeDisplayName_0_DataIdenti" +
+                        "fier_1_", resourceCulture);
             }
         }
         

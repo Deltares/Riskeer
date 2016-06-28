@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     public static class GrassCoverErosionInwardsChartDataFactory
     {
         /// <summary>
-        /// Create <see cref="ChartData"/> with default styling based on the <paramref name="dikeGeometry"/>.
+        /// Create <see cref="ChartData"/> with default styling for the <paramref name="dikeGeometry"/>.
         /// </summary>
         /// <param name="dikeGeometry">The geometry of the <see cref="DikeProfile"/> for which to create 
         /// <see cref="ChartData"/>.</param>
@@ -55,14 +55,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 throw new ArgumentNullException("dikeGeometry");
             }
 
-            return new ChartLineData(dikeGeometry.Select(dg => dg.Point), string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_Name_format, Resources.DikeProfile_DisplayName, name))
+            return new ChartLineData(dikeGeometry.Select(dg => dg.Point),
+                                     string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DatatTypeDisplayName_0_DataIdentifier_1_,
+                                                   Resources.DikeProfile_DisplayName,
+                                                   name))
             {
                 Style = new ChartLineStyle(Color.SaddleBrown, 2, DashStyle.Solid)
             };
         }
 
         /// <summary>
-        /// Create <see cref="ChartData"/> with default styling based on the <paramref name="foreshoreGeometry"/>.
+        /// Create <see cref="ChartData"/> with default styling for the <paramref name="foreshoreGeometry"/>.
         /// </summary>
         /// <param name="foreshoreGeometry">The forshore geometry of the <see cref="DikeProfile"/> 
         /// for which to create <see cref="ChartData"/>.</param>
@@ -77,19 +80,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 throw new ArgumentNullException("foreshoreGeometry");
             }
 
-            return new ChartLineData(foreshoreGeometry, string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_Name_format, Resources.Foreshore_DisplayName, name))
+            return new ChartLineData(foreshoreGeometry,
+                                     string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DatatTypeDisplayName_0_DataIdentifier_1_,
+                                                   Resources.Foreshore_DisplayName,
+                                                   name))
             {
                 Style = new ChartLineStyle(Color.DarkOrange, 2, DashStyle.Solid)
             };
         }
 
         /// <summary>
-        /// Create <see cref="ChartData"/> with default styling based on the <paramref name="dikeHeight"/>.
+        /// Create <see cref="ChartData"/> with default styling for the <paramref name="dikeHeight"/>.
         /// </summary>
         /// <param name="dikeHeight">The dike height of the <see cref="DikeProfile"/> for which
         /// to create <see cref="ChartData"/>.</param>
-        /// <param name="dikeGeometry">The geometry of the <see cref="DikeProfile"/> to place the
-        /// <paramref name="dikeHeight"/> on.</param>
+        /// <param name="dikeGeometry">The geometry of the <see cref="DikeProfile"/> to determine 
+        /// the position of the <paramref name="dikeHeight"/> marker.</param>
         /// <param name="name">The name of the <see cref="DikeProfile"/>.</param>
         /// <returns><see cref="ChartData"/> based on the <paramref name="dikeHeight"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="dikeHeight"/> is <c>NaN</c>.</exception>
@@ -107,7 +113,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 throw new ArgumentNullException("dikeGeometry");
             }
 
-            return new ChartLineData(CreateDikeHeightData(dikeHeight, dikeGeometry), string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_Name_format, Resources.DikeHeight_ChartName, name))
+            return new ChartLineData(CreateDikeHeightData(dikeHeight, dikeGeometry),
+                                     string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DatatTypeDisplayName_0_DataIdentifier_1_,
+                                                   Resources.DikeHeight_ChartName,
+                                                   name))
             {
                 Style = new ChartLineStyle(Color.MediumSeaGreen, 2, DashStyle.Dash)
             };

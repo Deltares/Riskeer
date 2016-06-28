@@ -61,7 +61,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(GrassCoverErosionInwardsInputContext), info.DataType);
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsInput), info.ViewDataType);
+            Assert.AreEqual(typeof(GrassCoverErosionInwardsCalculation), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, info.Image);
         }
 
@@ -71,10 +71,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             // Setup
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView())
             {
-                GrassCoverErosionInwardsInput input = new GrassCoverErosionInwardsInput();
+                GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
 
                 // Call
-                string viewName = info.GetViewName(view, input);
+                string viewName = info.GetViewName(view, calculation);
 
                 // Assert
                 Assert.AreEqual(Resources.GrassCoverErosionInwardsInputContext_NodeDisplayName, viewName);
@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsWrappedInput()
+        public void GetViewData_Always_ReturnsWrappedCalculation()
         {
             // Setup
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
@@ -98,7 +98,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreEqual(input, viewData);
+            Assert.AreEqual(calculation, viewData);
             mocks.VerifyAll();
         }
 
@@ -116,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -144,7 +144,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -172,7 +172,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                                                                                                       assessmentSection);
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -200,7 +200,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                                                                                                       assessmentSection);
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -230,7 +230,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                                                                                                       assessmentSection);
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -260,7 +260,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                                                                                                       assessmentSection);
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -287,7 +287,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -314,7 +314,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -344,7 +344,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -374,7 +374,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -396,7 +396,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -417,7 +417,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -441,7 +441,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -465,7 +465,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -494,7 +494,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -524,7 +524,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = new GrassCoverErosionInwardsCalculation().InputParameters
+                Data = new GrassCoverErosionInwardsCalculation()
             })
             {
                 // Call
@@ -557,7 +557,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -598,32 +598,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void AfterCreate_Always_SetsCalculationOnView()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsInputContext context = new GrassCoverErosionInwardsInputContext(calculation.InputParameters, calculation,
-                                                                new GrassCoverErosionInwardsFailureMechanism(), 
-                                                                assessmentSection);
-
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
-            {
-                Data = calculation.InputParameters
-            })
-            {
-                // Call
-                info.AfterCreate(view, context);
-
-                // Assert
-                Assert.AreSame(calculation, view.Calculation);
                 mocks.VerifyAll();
             }
         }

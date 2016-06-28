@@ -105,13 +105,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
 
-            yield return new ViewInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsInput, GrassCoverErosionInwardsInputView>
+            yield return new ViewInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInputView>
             {
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, input) => GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsInputContext_NodeDisplayName,
-                GetViewData = context => context.WrappedData,
-                CloseForData = CloseInputViewForData,
-                AfterCreate = (view, context) => view.Calculation = context.Calculation
+                GetViewData = context => context.Calculation,
+                CloseForData = CloseInputViewForData
             };
         }
 
@@ -267,17 +266,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             var calculationContext = o as GrassCoverErosionInwardsCalculationContext;
             if (calculationContext != null)
             {
-                return ReferenceEquals(view.Data, calculationContext.WrappedData.InputParameters);
+                return ReferenceEquals(view.Data, calculationContext.WrappedData);
             }
 
-            IEnumerable<GrassCoverErosionInwardsInput> calculationInputs = null;
+            IEnumerable<GrassCoverErosionInwardsCalculation> calculations = null;
 
             var calculationGroupContext = o as GrassCoverErosionInwardsCalculationGroupContext;
             if (calculationGroupContext != null)
             {
-                calculationInputs = calculationGroupContext.WrappedData.GetCalculations()
-                                                           .OfType<GrassCoverErosionInwardsCalculation>()
-                                                           .Select(c => c.InputParameters);
+                calculations = calculationGroupContext.WrappedData.GetCalculations()
+                                                      .OfType<GrassCoverErosionInwardsCalculation>();
             }
 
             var failureMechanism = o as GrassCoverErosionInwardsFailureMechanism;
@@ -298,12 +296,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             if (failureMechanism != null)
             {
-                calculationInputs = failureMechanism.CalculationsGroup.GetCalculations()
-                                                    .OfType<GrassCoverErosionInwardsCalculation>()
-                                                    .Select(c => c.InputParameters);
+                calculations = failureMechanism.CalculationsGroup.GetCalculations()
+                                               .OfType<GrassCoverErosionInwardsCalculation>();
             }
 
-            return calculationInputs != null && calculationInputs.Any(ci => ReferenceEquals(view.Data, ci));
+            return calculations != null && calculations.Any(ci => ReferenceEquals(view.Data, ci));
         }
 
         #endregion

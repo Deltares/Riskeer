@@ -33,10 +33,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// <summary>
     /// This class is a view to show the grass cover erosion inwards input.
     /// </summary>
-    public partial class GrassCoverErosionInwardsInputView : UserControl, IChartView, IObserver
+    public partial class GrassCoverErosionInwardsInputView : UserControl, IChartView
     {
-        private GrassCoverErosionInwardsInput data;
-        private GrassCoverErosionInwardsCalculation calculation;
+        private readonly Observer calculationObserver;
+        private readonly Observer calculationInputObserver;
+        private GrassCoverErosionInwardsCalculation data;
         private ChartData dikeProfileData;
         private ChartData foreshoreData;
         private ChartData dikeHeightData;
@@ -47,24 +48,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         public GrassCoverErosionInwardsInputView()
         {
             InitializeComponent();
-        }
 
-        /// <summary>
-        /// Gets or sets the calculation the input belongs to.
-        /// </summary>
-        public GrassCoverErosionInwardsCalculation Calculation
-        {
-            get
-            {
-                return calculation;
-            }
-            set
-            {
-                DetachFromData();
-                calculation = value;
-                SetChartTitle();
-                AttachToData();
-            }
+            calculationObserver = new Observer(SetChartTitle);
+            calculationInputObserver = new Observer(SetDataToChart);
         }
 
         public object Data
@@ -75,10 +61,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
             set
             {
-                var newValue = value as GrassCoverErosionInwardsInput;
+                data = value as GrassCoverErosionInwardsCalculation;
 
-                DetachFromData();
-                data = newValue;
+                calculationObserver.Observable = data;
+                calculationInputObserver.Observable = data != null ? data.InputParameters : null;
 
                 if (data == null)
                 {
@@ -86,8 +72,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                     return;
                 }
 
+                SetChartTitle();
                 SetDataToChart();
-                AttachToData();
             }
         }
 
@@ -99,10 +85,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
         }
 
-        public void UpdateObserver()
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
         {
-            SetChartTitle();
-            SetDataToChart();
+            calculationObserver.Dispose();
+            calculationInputObserver.Dispose();
+
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private void SetChartTitle()
+        {
+            chartControl.ChartTitle = data != null ? data.Name : string.Empty;
         }
 
         private void SetDataToChart()
@@ -123,32 +124,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         private ChartData GetForeshoreData()
         {
-            if (data == null || data.DikeProfile == null || !data.ForeshoreGeometry.Any() || !data.UseForeshore)
+            if (!HasForeshorePoints())
             {
                 return ChartDataFactory.CreateEmptyLineData(Resources.Foreshore_DisplayName);
             }
 
-            return GrassCoverErosionInwardsChartDataFactory.Create(data.ForeshoreGeometry, data.DikeProfile.Name);
+            return GrassCoverErosionInwardsChartDataFactory.Create(data.InputParameters.ForeshoreGeometry, data.InputParameters.DikeProfile.Name);
         }
 
         private ChartData GetDikeProfileData()
         {
-            if (data == null || data.DikeProfile == null || !data.DikeGeometry.Any())
+            if (!HasDikeProfilePoints())
             {
                 return ChartDataFactory.CreateEmptyLineData(Resources.DikeProfile_DisplayName);
             }
 
-            return GrassCoverErosionInwardsChartDataFactory.Create(data.DikeGeometry, data.DikeProfile.Name);
+            return GrassCoverErosionInwardsChartDataFactory.Create(data.InputParameters.DikeGeometry, data.InputParameters.DikeProfile.Name);
         }
 
         private ChartData GetDikeHeightData()
         {
-            if (data == null || data.DikeProfile == null || !data.DikeGeometry.Any())
+            if (!HasDikeProfilePoints())
             {
                 return ChartDataFactory.CreateEmptyLineData(Resources.DikeHeight_ChartName);
             }
 
-            return GrassCoverErosionInwardsChartDataFactory.Create(data.DikeHeight, data.DikeGeometry, data.DikeProfile.Name);
+            return GrassCoverErosionInwardsChartDataFactory.Create(data.InputParameters.DikeHeight, data.InputParameters.DikeGeometry, data.InputParameters.DikeProfile.Name);
         }
 
         private ChartData AddOrUpdateChartData(ChartData oldChartData, ChartData newChartData)
@@ -165,35 +166,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             return newChartData;
         }
 
-        private void SetChartTitle()
+        private bool HasForeshorePoints()
         {
-            chartControl.ChartTitle = calculation != null ? calculation.Name : string.Empty;
+            return data != null && data.InputParameters.DikeProfile != null && data.InputParameters.ForeshoreGeometry.Any() && data.InputParameters.UseForeshore;
         }
 
-        private void DetachFromData()
+
+        private bool HasDikeProfilePoints()
         {
-            if (calculation != null)
-            {
-                calculation.Detach(this);
-            }
-
-            if (data != null)
-            {
-                data.Detach(this);
-            }
-        }
-
-        private void AttachToData()
-        {
-            if (calculation != null)
-            {
-                calculation.Attach(this);
-            }
-
-            if (data != null)
-            {
-                data.Attach(this);
-            }
+            return data != null && data.InputParameters.DikeProfile != null && data.InputParameters.DikeGeometry.Any();
         }
     }
 }

@@ -50,7 +50,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IChartView>(view);
-                Assert.IsInstanceOf<IObserver>(view);
                 Assert.IsNotNull(view.Chart);
                 Assert.IsNull(view.Data);
             }
@@ -75,31 +74,31 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Data_PipingInput_DataSet()
+        public void Data_PipingCalculation_DataSet()
         {
             // Setup
             using (PipingInputView view = new PipingInputView())
             {
-                PipingInput input = new PipingInput(new GeneralPipingInput());
+                PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
                 // Call
-                view.Data = input;
+                view.Data = calculation;
 
                 // Assert
-                Assert.AreSame(input, view.Data);
+                Assert.AreSame(calculation, view.Data);
             }
         }
 
         [Test]
-        public void Data_OtherThanPipingInput_DataNull()
+        public void Data_OtherThanPipingCalculationScenario_DataNull()
         {
             // Setup
             using (PipingInputView view = new PipingInputView())
             {
-                object input = new object();
+                object calculation = new object();
 
                 // Call
-                view.Data = input;
+                view.Data = calculation;
 
                 // Assert
                 Assert.IsNull(view.Data);
@@ -113,12 +112,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (PipingInputView view = new PipingInputView())
             {
                 var surfaceLine = GetSurfaceLineWithGeometry();
-                var input = new PipingInput(new GeneralPipingInput())
+                PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {
-                    SurfaceLine = surfaceLine
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine
+                    }
                 };
 
-                view.Data = input;
+                view.Data = calculation;
 
                 // Precondition
                 Assert.AreEqual(9, view.Chart.Data.List.Count);
@@ -129,52 +131,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.IsNull(view.Data);
                 Assert.IsNull(view.Chart.Data);
-            }
-        }
-
-        [Test]
-        public void Calculation_Always_SetsCalculationAndUpdateChartTitle()
-        {
-            // Setup
-            using (PipingInputView view = new PipingInputView())
-            {
-                PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput())
-                {
-                    Name = "Test name"
-                };
-
-                // Call
-                view.Calculation = calculation;
-
-                // Assert
-                Assert.AreSame(calculation, view.Calculation);
-                Assert.AreEqual(calculation.Name, view.Chart.ChartTitle);
-            }
-        }
-
-        [Test]
-        public void Calculation_SetToNull_ChartTitleCleared()
-        {
-            // Setup
-            using (PipingInputView view = new PipingInputView())
-            {
-                PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput())
-                {
-                    Name = "Test name"
-                };
-
-                view.Calculation = calculation;
-
-                // Precondition
-                Assert.AreSame(calculation, view.Calculation);
-                Assert.AreEqual(calculation.Name, view.Chart.ChartTitle);
-
-                // Call
-                view.Calculation = null;
-
-                // Assert
-                Assert.IsNull(view.Calculation);
-                Assert.AreEqual(string.Empty, view.Chart.ChartTitle);
             }
         }
 
@@ -192,16 +148,19 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 surfaceLine.SetDikeToeAtPolderAt(new Point3D(1.2, 2.3, 4.0));
                 surfaceLine.SetDikeToeAtRiverAt(new Point3D(1.2, 2.3, 4.0));
 
-                var pipingInput = new PipingInput(new GeneralPipingInput())
+                PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {
-                    SurfaceLine = surfaceLine
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine
+                    }
                 };
 
                 // Call
-                view.Data = pipingInput;
+                view.Data = calculation;
 
                 // Assert
-                Assert.AreSame(pipingInput, view.Data);
+                Assert.AreSame(calculation, view.Data);
                 Assert.IsInstanceOf<ChartDataCollection>(view.Chart.Data);
                 var chartData = view.Chart.Data;
                 Assert.IsNotNull(chartData);
@@ -209,7 +168,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 Assert.AreEqual(9, chartData.List.Count);
                 AssertSurfaceLineChartData(surfaceLine, chartData.List[surfaceLineIndex]);
-                AssertEntryPointLPointchartData(pipingInput, surfaceLine, chartData.List[entryPointIndex]);
+                AssertEntryPointLPointchartData(calculation.InputParameters, surfaceLine, chartData.List[entryPointIndex]);
 
                 AssertCharacteristicPoints(surfaceLine, chartData.List);
             }
@@ -221,13 +180,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             using (PipingInputView view = new PipingInputView())
             {
-                var pipingInput = new PipingInput(new GeneralPipingInput());
+                PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
                 // Call
-                view.Data = pipingInput;
+                view.Data = calculation;
 
                 // Assert
-                Assert.AreSame(pipingInput, view.Data);
+                Assert.AreSame(calculation, view.Data);
                 Assert.IsInstanceOf<ChartDataCollection>(view.Chart.Data);
                 var chartData = view.Chart.Data;
                 Assert.IsNotNull(chartData);
@@ -266,26 +225,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObservers_CalculationNotSet_ChartTitleSetToEmptyString()
-        {
-            // Setup
-            using (PipingInputView view = new PipingInputView())
-            {
-                var pipingInput = new PipingInput(new GeneralPipingInput());
-                view.Data = pipingInput;
-
-                // Precondition
-                Assert.IsNull(view.Chart.ChartTitle);
-
-                // Call
-                pipingInput.NotifyObservers();
-
-                // Assert
-                Assert.AreEqual(string.Empty, view.Chart.ChartTitle);
-            }
-        }
-
-        [Test]
         public void UpdateObservers_CalculationNameUpdated_ChartTitleUpdated()
         {
             // Setup
@@ -299,7 +238,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     Name = initialName
                 };
 
-                view.Calculation = calculation;
+                view.Data = calculation;
 
                 // Precondition
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
@@ -332,7 +271,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     Name = initialName
                 };
 
-                view.Calculation = calculation1;
+                view.Data = calculation1;
 
                 // Precondition
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
@@ -361,7 +300,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     Name = initialName
                 };
 
-                view.Calculation = calculation;
+                view.Data = calculation;
 
                 // Precondition
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
@@ -371,7 +310,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     Name = initialName
                 };
 
-                view.Calculation = calculation2;
+                view.Data = calculation2;
 
                 calculation.Name = updatedName;
 
@@ -399,12 +338,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 surfaceLine.SetDikeToeAtPolderAt(characteristicPoint);
                 surfaceLine.SetDikeToeAtRiverAt(characteristicPoint);
 
-                var pipingInput = new PipingInput(new GeneralPipingInput())
+                PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {
-                    SurfaceLine = surfaceLine
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine
+                    }
                 };
 
-                view.Data = pipingInput;
+                view.Data = calculation;
                 ChartLineData oldSurfaceLineChartData = (ChartLineData) view.Chart.Data.List[surfaceLineIndex];
                 ChartPointData oldEntryPointChartData = (ChartPointData) view.Chart.Data.List[entryPointIndex];
                 ChartPointData oldExitPointChartData = (ChartPointData) view.Chart.Data.List[exitPointIndex];
@@ -425,10 +367,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 surfaceLine2.SetDikeToeAtPolderAt(characteristicPoint2);
                 surfaceLine2.SetDikeToeAtRiverAt(characteristicPoint2);
 
-                pipingInput.SurfaceLine = surfaceLine2;
+                calculation.InputParameters.SurfaceLine = surfaceLine2;
 
                 // Call
-                pipingInput.NotifyObservers();
+                calculation.InputParameters.NotifyObservers();
 
                 // Assert
                 ChartLineData newSurfaceLineChartData = (ChartLineData) view.Chart.Data.List[surfaceLineIndex];
@@ -437,11 +379,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 ChartPointData newEntryPointChartData = (ChartPointData) view.Chart.Data.List[entryPointIndex];
                 Assert.AreNotEqual(oldEntryPointChartData, newEntryPointChartData);
-                AssertEntryPointLPointchartData(pipingInput, surfaceLine2, newEntryPointChartData);
+                AssertEntryPointLPointchartData(calculation.InputParameters, surfaceLine2, newEntryPointChartData);
 
                 ChartPointData newExitPointChartData = (ChartPointData) view.Chart.Data.List[exitPointIndex];
                 Assert.AreNotEqual(oldExitPointChartData, newExitPointChartData);
-                AssertExitPointLPointchartData(pipingInput, surfaceLine2, newExitPointChartData);
+                AssertExitPointLPointchartData(calculation.InputParameters, surfaceLine2, newExitPointChartData);
 
                 ChartPointData newDitchDikeSideData = (ChartPointData) view.Chart.Data.List[ditchDikeSideIndex];
                 Assert.AreNotEqual(oldDitchDikeSideData, newDitchDikeSideData);
@@ -466,33 +408,39 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_OtherPipingInputUpdated_ChartDataNotUpdated()
+        public void UpdateObserver_OtherPipingCalculationUpdated_ChartDataNotUpdated()
         {
             // Setup
             using (PipingInputView view = new PipingInputView())
             {
                 var surfaceLine = GetSurfaceLineWithGeometry();
-                var input1 = new PipingInput(new GeneralPipingInput())
+                PipingCalculationScenario calculation1 = new PipingCalculationScenario(new GeneralPipingInput())
                 {
-                    SurfaceLine = surfaceLine
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine
+                    }
                 };
 
-                var input2 = new PipingInput(new GeneralPipingInput())
+                PipingCalculationScenario calculation2 = new PipingCalculationScenario(new GeneralPipingInput())
                 {
-                    SurfaceLine = surfaceLine
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine
+                    }
                 };
 
-                view.Data = input1;
+                view.Data = calculation1;
 
                 var surfaceLine2 = GetSecondSurfaceLineWithGeometry();
 
-                input2.SurfaceLine = surfaceLine2;
+                calculation2.InputParameters.SurfaceLine = surfaceLine2;
 
                 // Call
-                input2.NotifyObservers();
+                calculation2.InputParameters.NotifyObservers();
 
                 // Assert
-                Assert.AreEqual(input1, view.Data);
+                Assert.AreEqual(calculation1, view.Data);
             }
         }
 
@@ -503,24 +451,27 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (PipingInputView view = new PipingInputView())
             {
                 var surfaceLine = GetSurfaceLineWithGeometry();
-
-                var input1 = new PipingInput(new GeneralPipingInput())
+                PipingCalculationScenario calculation1 = new PipingCalculationScenario(new GeneralPipingInput())
                 {
-                    SurfaceLine = surfaceLine
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine
+                    }
                 };
-                var input2 = new PipingInput(new GeneralPipingInput());
 
-                view.Data = input1;
+                PipingCalculationScenario calculation2 = new PipingCalculationScenario(new GeneralPipingInput());
+
+                view.Data = calculation1;
                 ChartData dataBeforeUpdate = view.Chart.Data;
 
-                view.Data = input2;
+                view.Data = calculation2;
 
                 var surfaceLine2 = GetSecondSurfaceLineWithGeometry();
 
-                input1.SurfaceLine = surfaceLine2;
+                calculation1.InputParameters.SurfaceLine = surfaceLine2;
 
                 // Call
-                input1.NotifyObservers();
+                calculation1.InputParameters.NotifyObservers();
 
                 // Assert
                 Assert.AreEqual(dataBeforeUpdate, view.Chart.Data);

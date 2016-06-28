@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(PipingInputContext), info.DataType);
-            Assert.AreEqual(typeof(PipingInput), info.ViewDataType);
+            Assert.AreEqual(typeof(PipingCalculationScenario), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingInputIcon, info.Image);
         }
 
@@ -70,10 +70,10 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             // Setup
             using (PipingInputView view = new PipingInputView())
             {
-                PipingInput pipingInput = new PipingInput(new GeneralPipingInput());
+                PipingCalculationScenario calculationScenario = new PipingCalculationScenario(new GeneralPipingInput());
 
                 // Call
-                string viewName = info.GetViewName(view, pipingInput);
+                string viewName = info.GetViewName(view, calculationScenario);
 
                 // Assert
                 Assert.AreEqual(PipingFormsResources.PipingInputContext_NodeDisplayName, viewName);
@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsWrappedInput()
+        public void GetViewData_Always_ReturnsWrappedCalculation()
         {
             // Setup
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
@@ -99,7 +99,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             object viewData = info.GetViewData(calculationInputContext);
 
             // Assert
-            Assert.AreEqual(pipingInput, viewData);
+            Assert.AreEqual(calculation, viewData);
             mocks.VerifyAll();
         }
 
@@ -119,7 +119,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             using (PipingInputView view = new PipingInputView
             {
-                Data = pipingCalculation.InputParameters
+                Data = pipingCalculation
             })
             {
                 // Call
@@ -149,7 +149,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             using (PipingInputView view = new PipingInputView
             {
-                Data = pipingCalculation.InputParameters
+                Data = pipingCalculation
             })
             {
                 // Call
@@ -179,7 +179,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                                                                                                       assessmentSection);
             using (PipingInputView view = new PipingInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -209,7 +209,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                                                                                                       assessmentSection);
             using (PipingInputView view = new PipingInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -241,7 +241,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                                                                                                       assessmentSection);
             using (PipingInputView view = new PipingInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -273,7 +273,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                                                                                                       assessmentSection);
             using (PipingInputView view = new PipingInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -300,7 +300,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             using (PipingInputView view = new PipingInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -327,7 +327,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             using (PipingInputView view = new PipingInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -357,7 +357,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             using (PipingInputView view = new PipingInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -387,7 +387,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             using (PipingInputView view = new PipingInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -409,7 +409,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             using (PipingInputView view = new PipingInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -430,7 +430,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             using (PipingInputView view = new PipingInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -454,7 +454,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             using (PipingInputView view = new PipingInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -478,7 +478,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             using (PipingInputView view = new PipingInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -507,7 +507,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             using (PipingInputView view = new PipingInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -537,7 +537,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             using (PipingInputView view = new PipingInputView
             {
-                Data = new PipingCalculationScenario(new GeneralPipingInput()).InputParameters
+                Data = new PipingCalculationScenario(new GeneralPipingInput())
             })
             {
                 // Call
@@ -570,7 +570,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             using (PipingInputView view = new PipingInputView
             {
-                Data = calculation.InputParameters
+                Data = calculation
             })
             {
                 // Call
@@ -611,34 +611,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void AfterCreate_Always_SetsCalculationOnView()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            PipingCalculationScenario pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput());
-            PipingInputContext context = new PipingInputContext(pipingCalculation.InputParameters, pipingCalculation,
-                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                Enumerable.Empty<StochasticSoilModel>(),
-                                                                new PipingFailureMechanism(),
-                                                                assessmentSection);
-
-            using (PipingInputView view = new PipingInputView
-            {
-                Data = pipingCalculation.InputParameters
-            })
-            {
-                // Call
-                info.AfterCreate(view, context);
-
-                // Assert
-                Assert.AreSame(pipingCalculation, view.Calculation);
                 mocks.VerifyAll();
             }
         }

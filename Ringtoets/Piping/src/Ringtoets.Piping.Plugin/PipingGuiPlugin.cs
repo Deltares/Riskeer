@@ -110,16 +110,12 @@ namespace Ringtoets.Piping.Plugin
                 }
             };
 
-            yield return new ViewInfo<PipingInputContext, PipingInput, PipingInputView>
+            yield return new ViewInfo<PipingInputContext, PipingCalculationScenario, PipingInputView>
             {
-                GetViewData = context => context.WrappedData,
+                GetViewData = context => context.PipingCalculation,
                 GetViewName = (view, input) => PipingFormsResources.PipingInputContext_NodeDisplayName,
                 Image = PipingFormsResources.PipingInputIcon,
-                CloseForData = ClosePipingInputViewForData,
-                AfterCreate = (view, context) =>
-                {
-                    view.Calculation = context.PipingCalculation;
-                }
+                CloseForData = ClosePipingInputViewForData
             };
         }
 
@@ -319,17 +315,16 @@ namespace Ringtoets.Piping.Plugin
             var pipingCalculationScenarioContext = o as PipingCalculationScenarioContext;
             if (pipingCalculationScenarioContext != null)
             {
-                return ReferenceEquals(view.Data, pipingCalculationScenarioContext.WrappedData.InputParameters);
+                return ReferenceEquals(view.Data, pipingCalculationScenarioContext.WrappedData);
             }
 
-            IEnumerable<PipingInput> calculationInputs = null;
+            IEnumerable<PipingCalculationScenario> calculations = null;
 
             var pipingCalculationGroupContext = o as PipingCalculationGroupContext;
             if (pipingCalculationGroupContext != null)
             {
-                calculationInputs = pipingCalculationGroupContext.WrappedData.GetCalculations()
-                                                                 .OfType<PipingCalculationScenario>()
-                                                                 .Select(c => c.InputParameters);
+                calculations = pipingCalculationGroupContext.WrappedData.GetCalculations()
+                                                            .OfType<PipingCalculationScenario>();
             }
 
             var failureMechanism = o as PipingFailureMechanism;
@@ -350,12 +345,11 @@ namespace Ringtoets.Piping.Plugin
 
             if (failureMechanism != null)
             {
-                calculationInputs = failureMechanism.CalculationsGroup.GetCalculations()
-                                                    .OfType<PipingCalculationScenario>()
-                                                    .Select(c => c.InputParameters);
+                calculations = failureMechanism.CalculationsGroup.GetCalculations()
+                                               .OfType<PipingCalculationScenario>();
             }
 
-            return calculationInputs != null && calculationInputs.Any(ci => ReferenceEquals(view.Data, ci));
+            return calculations != null && calculations.Any(ci => ReferenceEquals(view.Data, ci));
         }
 
         #endregion

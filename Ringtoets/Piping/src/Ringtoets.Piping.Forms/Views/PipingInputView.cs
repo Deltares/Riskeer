@@ -33,10 +33,9 @@ namespace Ringtoets.Piping.Forms.Views
     /// <summary>
     /// This class is a view to show the piping input.
     /// </summary>
-    public partial class PipingInputView : UserControl, IChartView, IObserver
+    public partial class PipingInputView : UserControl, IChartView
     {
-        private PipingInput data;
-        private PipingCalculationScenario calculation;
+        private PipingCalculationScenario data;
 
         private ChartData surfaceLineData;
         private ChartData entryPointData;
@@ -48,30 +47,18 @@ namespace Ringtoets.Piping.Forms.Views
         private ChartData dikeToeAtRiverPointData;
         private ChartData dikeToeAtPolderPointData;
 
+        private readonly Observer calculationObserver;
+        private readonly Observer calculationInputObserver;
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingInputView"/>.
         /// </summary>
         public PipingInputView()
         {
             InitializeComponent();
-        }
 
-        /// <summary>
-        /// Gets or sets the calculation the input belongs to.
-        /// </summary>
-        public PipingCalculationScenario Calculation
-        {
-            get
-            {
-                return calculation;
-            }
-            set
-            {
-                DetachFromData();
-                calculation = value;
-                SetChartTitle();
-                AttachToData();
-            }
+            calculationObserver = new Observer(SetChartTitle);
+            calculationInputObserver = new Observer(SetDataToChart);
         }
 
         public object Data
@@ -82,10 +69,10 @@ namespace Ringtoets.Piping.Forms.Views
             }
             set
             {
-                var newValue = value as PipingInput;
+                data = value as PipingCalculationScenario;
 
-                DetachFromData();
-                data = newValue;
+                calculationObserver.Observable = data;
+                calculationInputObserver.Observable = data != null ? data.InputParameters : null;
 
                 if (data == null)
                 {
@@ -93,8 +80,8 @@ namespace Ringtoets.Piping.Forms.Views
                     return;
                 }
 
+                SetChartTitle();
                 SetDataToChart();
-                AttachToData();
             }
         }
 
@@ -106,15 +93,25 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        public void UpdateObserver()
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
         {
-            SetChartTitle();
-            SetDataToChart();
+            calculationObserver.Dispose();
+            calculationInputObserver.Dispose();
+
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
         private void SetChartTitle()
         {
-            chartControl.ChartTitle = calculation != null ? calculation.Name : string.Empty;
+            chartControl.ChartTitle = data != null ? data.Name : string.Empty;
         }
 
         private void SetDataToChart()
@@ -141,83 +138,83 @@ namespace Ringtoets.Piping.Forms.Views
 
         private ChartData GetSurfaceLineChartData()
         {
-            if (data == null || data.SurfaceLine == null)
+            if (data == null || data.InputParameters.SurfaceLine == null)
             {
                 return ChartDataFactory.CreateEmptyLineData(Resources.RingtoetsPipingSurfaceLine_DisplayName);
             }
-            return PipingChartDataFactory.Create(data.SurfaceLine);
+            return PipingChartDataFactory.Create(data.InputParameters.SurfaceLine);
         }
 
         private ChartData GetEntryPointChartData()
         {
-            if (data == null || data.SurfaceLine == null)
+            if (data == null || data.InputParameters.SurfaceLine == null)
             {
                 return ChartDataFactory.CreateEmptyPointData(Resources.PipingInput_EntryPointL_DisplayName);
             }
-            return PipingChartDataFactory.CreateEntryPoint(data.EntryPointL, data.SurfaceLine);
+            return PipingChartDataFactory.CreateEntryPoint(data.InputParameters.EntryPointL, data.InputParameters.SurfaceLine);
         }
 
         private ChartData GetExitPointChartData()
         {
-            if (data == null || data.SurfaceLine == null)
+            if (data == null || data.InputParameters.SurfaceLine == null)
             {
                 return ChartDataFactory.CreateEmptyPointData(Resources.PipingInput_ExitPointL_DisplayName);
             }
-            return PipingChartDataFactory.CreateExitPoint(data.ExitPointL, data.SurfaceLine);
+            return PipingChartDataFactory.CreateExitPoint(data.InputParameters.ExitPointL, data.InputParameters.SurfaceLine);
         }
 
         private ChartData GetDitchPolderSideData()
         {
-            if (data == null || data.SurfaceLine == null || data.SurfaceLine.DitchPolderSide == null)
+            if (data == null || data.InputParameters.SurfaceLine == null || data.InputParameters.SurfaceLine.DitchPolderSide == null)
             {
                 return ChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DitchPolderSide);
             }
-            return PipingChartDataFactory.CreateDitchPolderSide(data.SurfaceLine);
+            return PipingChartDataFactory.CreateDitchPolderSide(data.InputParameters.SurfaceLine);
         }
 
         private ChartData GetBottomDitchPolderSideData()
         {
-            if (data == null || data.SurfaceLine == null || data.SurfaceLine.BottomDitchPolderSide == null)
+            if (data == null || data.InputParameters.SurfaceLine == null || data.InputParameters.SurfaceLine.BottomDitchPolderSide == null)
             {
                 return ChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_BottomDitchPolderSide);
             }
-            return PipingChartDataFactory.CreateBottomDitchPolderSide(data.SurfaceLine);
+            return PipingChartDataFactory.CreateBottomDitchPolderSide(data.InputParameters.SurfaceLine);
         }
 
         private ChartData GetBottomDitchDikeSideData()
         {
-            if (data == null || data.SurfaceLine == null || data.SurfaceLine.BottomDitchDikeSide == null)
+            if (data == null || data.InputParameters.SurfaceLine == null || data.InputParameters.SurfaceLine.BottomDitchDikeSide == null)
             {
                 return ChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_BottomDitchDikeSide);
             }
-            return PipingChartDataFactory.CreateBottomDitchDikeSide(data.SurfaceLine);
+            return PipingChartDataFactory.CreateBottomDitchDikeSide(data.InputParameters.SurfaceLine);
         }
 
         private ChartData GetDitchDikeSideData()
         {
-            if (data == null || data.SurfaceLine == null || data.SurfaceLine.DitchDikeSide == null)
+            if (data == null || data.InputParameters.SurfaceLine == null || data.InputParameters.SurfaceLine.DitchDikeSide == null)
             {
                 return ChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DitchDikeSide);
             }
-            return PipingChartDataFactory.CreateDitchDikeSide(data.SurfaceLine);
+            return PipingChartDataFactory.CreateDitchDikeSide(data.InputParameters.SurfaceLine);
         }
 
         private ChartData GetDikeToeAtRiverData()
         {
-            if (data == null || data.SurfaceLine == null || data.SurfaceLine.DikeToeAtRiver == null)
+            if (data == null || data.InputParameters.SurfaceLine == null || data.InputParameters.SurfaceLine.DikeToeAtRiver == null)
             {
                 return ChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DikeToeAtRiver);
             }
-            return PipingChartDataFactory.CreateDikeToeAtRiver(data.SurfaceLine);
+            return PipingChartDataFactory.CreateDikeToeAtRiver(data.InputParameters.SurfaceLine);
         }
 
         private ChartData GetDikeToeAtPolderData()
         {
-            if (data == null || data.SurfaceLine == null || data.SurfaceLine.DikeToeAtPolder == null)
+            if (data == null || data.InputParameters.SurfaceLine == null || data.InputParameters.SurfaceLine.DikeToeAtPolder == null)
             {
                 return ChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DikeToeAtPolder);
             }
-            return PipingChartDataFactory.CreateDikeToeAtPolder(data.SurfaceLine);
+            return PipingChartDataFactory.CreateDikeToeAtPolder(data.InputParameters.SurfaceLine);
         }
 
         private ChartData AddOrUpdateChartData(ChartData oldChartData, ChartData newChartData)
@@ -232,32 +229,6 @@ namespace Ringtoets.Piping.Forms.Views
             }
 
             return newChartData;
-        }
-
-        private void DetachFromData()
-        {
-            if (calculation != null)
-            {
-                calculation.Detach(this);
-            }
-
-            if (data != null)
-            {
-                data.Detach(this);
-            }
-        }
-
-        private void AttachToData()
-        {
-            if (calculation != null)
-            {
-                calculation.Attach(this);
-            }
-
-            if (data != null)
-            {
-                data.Attach(this);
-            }
         }
     }
 }
