@@ -336,7 +336,7 @@ namespace Core.Common.TestUtil
         /// <typeparam name="T">The type of the expected exception.</typeparam>
         /// <param name="test">The test to execute and should throw exception of type <typeparamref name="T"/>.</param>
         /// <param name="expectedCustomMessage">The expected custom part of the exception message.</param>
-        public static void AssertThrowsArgumentExceptionAndTestMessage<T>(TestDelegate test, string expectedCustomMessage) where T : ArgumentException
+        public static T AssertThrowsArgumentExceptionAndTestMessage<T>(TestDelegate test, string expectedCustomMessage) where T : ArgumentException
         {
             var exception = Assert.Throws<T>(test);
             var message = exception.Message;
@@ -351,6 +351,7 @@ namespace Core.Common.TestUtil
                 message = String.Join(Environment.NewLine, customMessageParts.ToArray());
             }
             Assert.AreEqual(expectedCustomMessage, message);
+            return exception;
         }
 
         /// <summary>

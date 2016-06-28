@@ -350,8 +350,8 @@ namespace Ringtoets.Piping.Plugin
                 if (failureMechanism != null)
                 {
                     calculationInputs = failureMechanism.CalculationsGroup.GetCalculations()
-                                            .OfType<PipingCalculationScenario>()
-                                            .Select(c => c.InputParameters);
+                                                        .OfType<PipingCalculationScenario>()
+                                                        .Select(c => c.InputParameters);
                 }
             }
 

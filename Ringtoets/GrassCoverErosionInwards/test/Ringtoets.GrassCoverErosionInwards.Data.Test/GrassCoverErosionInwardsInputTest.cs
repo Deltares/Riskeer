@@ -80,7 +80,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 new Point2D(6.6, 7.7)
             } : new Point2D[0];
 
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new[] { new RoughnessPoint(new Point2D(2.2, 3.3), 0.6) }, foreShoreGeometry)
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new[]
+            {
+                new RoughnessPoint(new Point2D(2.2, 3.3), 0.6)
+            }, foreShoreGeometry)
             {
                 Orientation = (RoundedDouble) 1.1,
                 DikeHeight = (RoundedDouble) 4.4
