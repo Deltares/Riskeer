@@ -19,7 +19,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
         {
             new PipingSoilLayer(0.0)
             {
-                IsAquifer = true,
+                IsAquifer = true
             }
         }, SoilProfileType.SoilProfile1D, 0) {}
     }
