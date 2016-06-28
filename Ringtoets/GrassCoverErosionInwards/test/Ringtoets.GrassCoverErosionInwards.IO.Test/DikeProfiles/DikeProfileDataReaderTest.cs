@@ -311,7 +311,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithNegativeForshorePointCount_ThrowCriticalFileReadException()
         {
-            string expectedMessage = "Het ingelezen aantal voorlandgeometrie punten (-1) mag niet negatief zijn.";
+            string expectedMessage = "Het ingelezen aantal geometriepunten voorland (-1) mag niet negatief zijn.";
             ReadFileAndExpectCriticalFileReadException("faulty_voorlandCountNegative.prfl", 9, expectedMessage);
         }
 
@@ -501,7 +501,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableDikeCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen aantal dijkgeometrie punten ({0}) is geen geheel getal.",
+            string expectedMessage = string.Format("Het ingelezen aantal geometriepunten dijk ({0}) is geen geheel getal.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 16, expectedMessage);
         }
@@ -512,7 +512,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowDijkCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen aantal dijkgeometrie punten ({0}) is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("Het ingelezen aantal geometriepunten dijk ({0}) is te groot of te klein om ingelezen te worden.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 16, expectedMessage);
         }
@@ -520,26 +520,26 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeFileName_FileWithNegativeDikeCount_ThrowsCriticalFileReadException()
         {
-            string expectedMessage = "Het ingelezen aantal dijkgeometrie punten (-1) mag niet negatief zijn.";
+            string expectedMessage = "Het ingelezen aantal geometriepunten dijk (-1) mag niet negatief zijn.";
             ReadFileAndExpectCriticalFileReadException("faulty_dijkCountNegative.prfl", 13, expectedMessage);
         }
 
         [Test]
-        [TestCase("faulty_unparsableDijk_X.prfl", 18, "X coordinaat", "suhf")]
-        [TestCase("faulty_unparsableDijk_X_noValue1.prfl", 18, "X coordinaat", "")]
-        [TestCase("faulty_unparsableDijk_X_noValue2.prfl", 18, "X coordinaat", "")]
-        [TestCase("faulty_unparsableDijk_Z.prfl", 20, "Z coordinaat", "o;jfhe;lhtvwposiu")]
-        [TestCase("faulty_unparsableDijk_Z_noValue1.prfl", 20, "Z coordinaat", "")]
-        [TestCase("faulty_unparsableDijk_Z_noValue2.prfl", 20, "Z coordinaat", "")]
+        [TestCase("faulty_unparsableDijk_X.prfl", 18, "X coördinaat", "suhf")]
+        [TestCase("faulty_unparsableDijk_X_noValue1.prfl", 18, "X coördinaat", "")]
+        [TestCase("faulty_unparsableDijk_X_noValue2.prfl", 18, "X coördinaat", "")]
+        [TestCase("faulty_unparsableDijk_Z.prfl", 20, "Z coördinaat", "o;jfhe;lhtvwposiu")]
+        [TestCase("faulty_unparsableDijk_Z_noValue1.prfl", 20, "Z coördinaat", "")]
+        [TestCase("faulty_unparsableDijk_Z_noValue2.prfl", 20, "Z coördinaat", "")]
         [TestCase("faulty_unparsableDijk_Roughness.prfl", 17, "ruwheid", "dr;tjn")]
         [TestCase("faulty_unparsableDijk_Roughness_noValue1.prfl", 17, "ruwheid", "")]
         [TestCase("faulty_unparsableDijk_Roughness_noValue2.prfl", 17, "ruwheid", "")]
-        [TestCase("faulty_unparsableVoorland_X.prfl", 10, "X coordinaat", "glkjdhflgkjhsk")]
-        [TestCase("faulty_unparsableVoorland_X_noValue1.prfl", 11, "X coordinaat", "")]
-        [TestCase("faulty_unparsableVoorland_X_noValue2.prfl", 12, "X coordinaat", "")]
-        [TestCase("faulty_unparsableVoorland_Z.prfl", 12, "Z coordinaat", "lijfhsliufghkj")]
-        [TestCase("faulty_unparsableVoorland_Z_noValue1.prfl", 10, "Z coordinaat", "")]
-        [TestCase("faulty_unparsableVoorland_Z_noValue2.prfl", 11, "Z coordinaat", "")]
+        [TestCase("faulty_unparsableVoorland_X.prfl", 10, "X coördinaat", "glkjdhflgkjhsk")]
+        [TestCase("faulty_unparsableVoorland_X_noValue1.prfl", 11, "X coördinaat", "")]
+        [TestCase("faulty_unparsableVoorland_X_noValue2.prfl", 12, "X coördinaat", "")]
+        [TestCase("faulty_unparsableVoorland_Z.prfl", 12, "Z coördinaat", "lijfhsliufghkj")]
+        [TestCase("faulty_unparsableVoorland_Z_noValue1.prfl", 10, "Z coördinaat", "")]
+        [TestCase("faulty_unparsableVoorland_Z_noValue2.prfl", 11, "Z coördinaat", "")]
         [TestCase("faulty_unparsableVoorland_Roughness.prfl", 10, "ruwheid", ";lsduglk wab")]
         [TestCase("faulty_unparsableVoorland_Roughness_noValue1.prfl", 11, "ruwheid", "")]
         [TestCase("faulty_unparsableVoorland_Roughness_noValue2.prfl", 12, "ruwheid", "")]
@@ -552,16 +552,16 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
-        [TestCase("faulty_unparsableDijk_X_Overflow1.prfl", 18, "X coordinaat", "99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")]
-        [TestCase("faulty_unparsableDijk_X_Overflow2.prfl", 18, "X coordinaat", "-44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444")]
-        [TestCase("faulty_unparsableDijk_Z_Overflow1.prfl", 19, "Z coordinaat", "88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888.8")]
-        [TestCase("faulty_unparsableDijk_Z_Overflow2.prfl", 20, "Z coordinaat", "-44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444.4")]
+        [TestCase("faulty_unparsableDijk_X_Overflow1.prfl", 18, "X coördinaat", "99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")]
+        [TestCase("faulty_unparsableDijk_X_Overflow2.prfl", 18, "X coördinaat", "-44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444")]
+        [TestCase("faulty_unparsableDijk_Z_Overflow1.prfl", 19, "Z coördinaat", "88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888.8")]
+        [TestCase("faulty_unparsableDijk_Z_Overflow2.prfl", 20, "Z coördinaat", "-44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444.4")]
         [TestCase("faulty_unparsableDijk_Roughness_Overflow1.prfl", 17, "ruwheid", "-44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444.4")]
         [TestCase("faulty_unparsableDijk_Roughness_Overflow2.prfl", 17, "ruwheid", "88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888.8")]
-        [TestCase("faulty_unparsableVoorland_X_Overflow1.prfl", 11, "X coordinaat", "55555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555")]
-        [TestCase("faulty_unparsableVoorland_X_Overflow2.prfl", 12, "X coordinaat", "-33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333")]
-        [TestCase("faulty_unparsableVoorland_Z_Overflow1.prfl", 11, "Z coordinaat", "77777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777.7")]
-        [TestCase("faulty_unparsableVoorland_Z_Overflow2.prfl", 10, "Z coordinaat", "-44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444.4")]
+        [TestCase("faulty_unparsableVoorland_X_Overflow1.prfl", 11, "X coördinaat", "55555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555")]
+        [TestCase("faulty_unparsableVoorland_X_Overflow2.prfl", 12, "X coördinaat", "-33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333")]
+        [TestCase("faulty_unparsableVoorland_Z_Overflow1.prfl", 11, "Z coördinaat", "77777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777.7")]
+        [TestCase("faulty_unparsableVoorland_Z_Overflow2.prfl", 10, "Z coördinaat", "-44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444.4")]
         [TestCase("faulty_unparsableVoorland_Roughness_Overflow1.prfl", 10, "ruwheid", "-44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444.4")]
         [TestCase("faulty_unparsableVoorland_Roughness_Overflow2.prfl", 11, "ruwheid", "-33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333")]
         public void ReadDikeProfileData_FileWithOverflowRoughnessPoints_ThrowsCriticalFileReadException(
@@ -588,7 +588,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithNotMonotonicallyIncreasingX_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, string expectedTypePrefix)
         {
-            string expectedMessage = string.Format("{0}geometrie punten dienen X-coordinaten te hebben die monotoon strict toenemend zijn.",
+            string expectedMessage = string.Format("{0}geometrie punten dienen X-coördinaten te hebben die monotoon strikt toenemend zijn.",
                                                    expectedTypePrefix);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
         }
@@ -600,7 +600,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableForeshoreCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen aantal voorlandgeometrie punten ({0}) is geen geheel getal.",
+            string expectedMessage = string.Format("Het ingelezen aantal geometriepunten voorland ({0}) is geen geheel getal.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 9, expectedMessage);
         }
@@ -611,7 +611,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowForeshoreCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen aantal voorlandgeometrie punten ({0}) is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("Het ingelezen aantal geometriepunten voorland ({0}) is te groot of te klein om ingelezen te worden.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 9, expectedMessage);
         }
@@ -619,7 +619,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithOverflowForeshoreCount_ThrowsCriticalFileReadException()
         {
-            string expectedMessage = "Het ingelezen aantal voorlandgeometrie punten (-1) mag niet negatief zijn.";
+            string expectedMessage = "Het ingelezen aantal geometriepunten voorland (-1) mag niet negatief zijn.";
             ReadFileAndExpectCriticalFileReadException("faulty_voorlandCountNegative.prfl",
                                                        9, expectedMessage);
         }

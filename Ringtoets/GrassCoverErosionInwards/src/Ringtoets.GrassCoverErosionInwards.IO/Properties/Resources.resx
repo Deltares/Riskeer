@@ -136,10 +136,10 @@
     <value>De ingelezen dam-type waarde ({0}) moet binnen het bereik [0, 3] vallen.</value>
   </data>
   <data name="DikeProfileDataReader_ReadDikeProfileData_DikeCount_cannot_be_negative" xml:space="preserve">
-    <value>Het ingelezen aantal dijkgeometrie punten ({0}) mag niet negatief zijn.</value>
+    <value>Het ingelezen aantal geometriepunten dijk ({0}) mag niet negatief zijn.</value>
   </data>
   <data name="DikeProfileDataReader_ReadDikeProfileData_ForeshoreCount_0_cannot_be_negative" xml:space="preserve">
-    <value>Het ingelezen aantal voorlandgeometrie punten ({0}) mag niet negatief zijn.</value>
+    <value>Het ingelezen aantal geometriepunten voorland ({0}) mag niet negatief zijn.</value>
   </data>
   <data name="DikeProfileDataReader_ValidateNoMissingKeywords_List_mising_keywords_0_" xml:space="preserve">
     <value>De volgende parameter(s) zijn niet aanwezig in het bestand: {0}</value>
@@ -217,10 +217,10 @@
     <value>De ingelezen Id ({0}) bevat spaties, welke niet zijn toegestaan.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfDikeElements_DijkCount_0_not_integer" xml:space="preserve">
-    <value>Het ingelezen aantal dijkgeometrie punten ({0}) is geen geheel getal.</value>
+    <value>Het ingelezen aantal geometriepunten dijk ({0}) is geen geheel getal.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfDikeElements_DikeCount_0_overflows" xml:space="preserve">
-    <value>Het ingelezen aantal dijkgeometrie punten ({0}) is te groot of te klein om ingelezen te worden.</value>
+    <value>Het ingelezen aantal geometriepunten dijk ({0}) is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileDataReader_ParseRoughnessPointParameter_ParameterName_0_Value_1_not_number" xml:space="preserve">
     <value>De ingelezen {0} ({1}) is geen getal.</value>
@@ -229,19 +229,19 @@
     <value>De ingelezen {0} ({1}) is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_not_integer" xml:space="preserve">
-    <value>Het ingelezen aantal voorlandgeometrie punten ({0}) is geen geheel getal.</value>
+    <value>Het ingelezen aantal geometriepunten voorland ({0}) is geen geheel getal.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_overflows" xml:space="preserve">
-    <value>Het ingelezen aantal voorlandgeometrie punten ({0}) is te groot of te klein om ingelezen te worden.</value>
+    <value>Het ingelezen aantal geometriepunten voorland ({0}) is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileDataReader_TryReadForeshoreRoughnessPoints_ForeshoreCount_0_does_not_correspond_ExpectedCount_1_" xml:space="preserve">
     <value>Het aantal voorland punten in het bestand ({0}) komt niet overeen met de aangegeven hoeveelheid voorland punten ({1}).</value>
   </data>
   <data name="DikeProfileDataReader_ReadRoughnessPoint_X_DisplayName" xml:space="preserve">
-    <value>X coordinaat</value>
+    <value>X coördinaat</value>
   </data>
   <data name="DikeProfileDataReader_ReadRoughnessPoint_Z_DisplayName" xml:space="preserve">
-    <value>Z coordinaat</value>
+    <value>Z coördinaat</value>
   </data>
   <data name="DikeProfileDataReader_ReadRoughnessPoint_Roughness_DisplayName" xml:space="preserve">
     <value>ruwheid</value>
@@ -253,9 +253,9 @@
     <value>De parameter {0} is al eerder in het bestand gedefinieerd.</value>
   </data>
   <data name="DikeProfileDataReader_ValidateDikePointsAreMonotonicallyIncreasing_Error_message" xml:space="preserve">
-    <value>Dijkgeometrie punten dienen X-coordinaten te hebben die monotoon strict toenemend zijn.</value>
+    <value>Dijkgeometrie punten dienen X-coördinaten te hebben die monotoon strikt toenemend zijn.</value>
   </data>
   <data name="DikeProfileDataReader_ValidateForeshorePointsAreMonotonicallyIncreasing_Error_message" xml:space="preserve">
-    <value>Voorlandgeometrie punten dienen X-coordinaten te hebben die monotoon strict toenemend zijn.</value>
+    <value>Voorlandgeometrie punten dienen X-coördinaten te hebben die monotoon strikt toenemend zijn.</value>
   </data>
 </root>
