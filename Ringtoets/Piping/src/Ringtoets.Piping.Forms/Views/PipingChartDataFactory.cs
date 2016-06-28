@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -213,6 +214,108 @@ namespace Ringtoets.Piping.Forms.Views
 
             return CreateCharacteristicPoint(surfaceLine.DikeToeAtPolder, surfaceLine, PipingDataResources.CharacteristicPoint_DikeToeAtPolder, Color.SlateGray);
         }
+
+        /// <summary>
+        /// Create an instance of <see cref="ChartData"/> with styling based on the color of <see name="SoilLayer.Color"/> of
+        /// <paramref name="soilLayer"/>. The <paramref name="soilLayer"/> is drawn for the full width of the <paramref name="surfaceLine"/>
+        /// (as far as the <paramref name="soilLayer"/> is visible below the <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="soilLayer">The <see cref="PipingSoilLayer"/> to create <see cref="ChartData"/> for.</param>
+        /// <param name="soilProfile">The <see cref="PipingSoilProfile"/> which contains the <see cref="PipingSoilLayer"/>.</param>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> that may intersect with the 
+        /// <paramref name="soilLayer"/> and by doing that restricts the drawn height of the <paramref name="soilLayer"/>.</param>
+        /// <returns>An <see cref="ICollection{T}"/> which contains one or more (in the case of the <paramref name="surfaceLine"/> 
+        /// splitting the layer in multiple parts) instances of <see cref="ChartData"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="soilLayer"/> is <c>null</c>.</item>
+        /// <item><paramref name="surfaceLine"/> is <c>null</c>.</item>
+        /// </list></exception>
+        public static ChartData CreatePipingSoilLayer(PipingSoilLayer soilLayer, PipingSoilProfile soilProfile, RingtoetsPipingSurfaceLine surfaceLine)
+        {
+            if (surfaceLine == null)
+            {
+                throw new ArgumentNullException("surfaceLine");
+            }
+
+            var index = 1;
+            var name = string.Format("{0}_{1}", index, soilLayer.MaterialName);
+
+            var surfaceLineLocalGeometry = surfaceLine.ProjectGeometryToLZ().ToArray();
+            var surfaceLineLowestPointY = surfaceLineLocalGeometry.Select(p => p.Y).Min();
+            var surfaceLineHeighestPointY = surfaceLineLocalGeometry.Select(p => p.Y).Max();
+            var topLevel = soilLayer.Top;
+            var bottomLevel = topLevel - soilProfile.GetLayerThickness(soilLayer);
+
+            var firstSurfaceLinePoint = surfaceLineLocalGeometry.First();
+            var lastSurfaceLinePoint = surfaceLineLocalGeometry.Last();
+
+            var startX = firstSurfaceLinePoint.X;
+            var endX = lastSurfaceLinePoint.X;
+
+            if (surfaceLineLowestPointY >= topLevel)
+            {
+                return new ChartAreaData(new []
+                {
+                    new Point2D(startX, topLevel),
+                    new Point2D(endX, topLevel),
+                    new Point2D(endX, bottomLevel),
+                    new Point2D(startX, bottomLevel)
+                }, name);
+            }
+            if (surfaceLineLowestPointY > bottomLevel)
+            {
+                Point2D soilLayerTopPointA = new Point2D(
+                    startX,
+                    topLevel);
+                Point2D soilLayerTopPointB = new Point2D(
+                    endX,
+                    topLevel);
+
+                var points = new HashSet<Point2D>();
+                var addingFromSurfaceLine = firstSurfaceLinePoint.Y < topLevel;
+                if (addingFromSurfaceLine)
+                {
+                    points.Add(firstSurfaceLinePoint);
+                }
+                else
+                {
+                    points.Add(soilLayerTopPointA);
+                }
+                for (var i = 1; i < surfaceLineLocalGeometry.Length; i++)
+                {
+                    Point2D surfaceLinePointA = surfaceLineLocalGeometry[i-1];
+                    Point2D surfaceLinePointB = surfaceLineLocalGeometry[i];
+
+                    var intersection = Math2D.GetIntersectionBetweenSegments(
+                        new Segment2D(soilLayerTopPointA, soilLayerTopPointB),
+                        new Segment2D(surfaceLinePointA, surfaceLinePointB));
+
+                    if (intersection.IntersectionType == Intersection2DType.Intersects)
+                    {
+                        addingFromSurfaceLine = surfaceLinePointA.Y > surfaceLinePointB.Y;
+                        points.Add(intersection.IntersectionPoints[0]);
+                    }
+                    if (addingFromSurfaceLine)
+                    {
+                        points.Add(surfaceLinePointB);
+                    }
+                }
+                if (!addingFromSurfaceLine)
+                {
+                    points.Add(new Point2D(endX, topLevel));
+                }
+                points.Add(new Point2D(endX, bottomLevel));
+                points.Add(new Point2D(startX, bottomLevel));
+
+                return new ChartAreaData(points, name);
+            }
+            if (surfaceLineHeighestPointY > bottomLevel)
+            {
+                 
+            }
+            return new ChartAreaData(Enumerable.Empty<Point2D>(), name);
+        } 
 
         private static ChartData CreatePointWithZAtL(RoundedDouble pointL, RingtoetsPipingSurfaceLine surfaceLine, string name, Color color)
         {

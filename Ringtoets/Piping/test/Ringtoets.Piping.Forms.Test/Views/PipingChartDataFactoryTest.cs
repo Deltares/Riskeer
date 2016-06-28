@@ -498,6 +498,193 @@ namespace Ringtoets.Piping.Forms.Test.Views
             AssertEqualStyle(chartPointData.Style, Color.SlateGray, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
 
+        [Test]
+        public void CreatePipingSoilLayer_SurfaceLineOnOrAboveSoilLayer_SoilLayerAsRectangleReturned()
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new []
+            {
+                new Point3D(0, 0, 4),
+                new Point3D(0, 0, 3.2),
+                new Point3D(2, 0, 4)
+            });
+            var profile = new PipingSoilProfile("name", 2.0, new []
+            {
+                new PipingSoilLayer(3.2)
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            ChartData data = PipingChartDataFactory.CreatePipingSoilLayer(profile.Layers.First(), profile, surfaceLine);
+
+            // Assert
+            var soilLayerChartData = (ChartAreaData) data;
+            CollectionAssert.AreEqual(new []
+            {
+                new Point2D(0, 3.2),
+                new Point2D(2, 3.2),
+                new Point2D(2, 2),
+                new Point2D(0, 2)
+            }, soilLayerChartData.Points);
+        }
+
+        [Test]
+        public void CreatePipingSoilLayer_SurfaceLineBelowSoilLayer_EmptyChartDataReturned()
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 2.0),
+                new Point3D(2, 0, 2.0)
+            });
+            var profile = new PipingSoilProfile("name", 2.0, new[]
+            {
+                new PipingSoilLayer(3.2)
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            ChartData data = PipingChartDataFactory.CreatePipingSoilLayer(profile.Layers.First(), profile, surfaceLine);
+
+            // Assert
+            var soilLayerChartData = (ChartAreaData)data;
+            CollectionAssert.IsEmpty(soilLayerChartData.Points);
+        }
+
+        [Test]
+        public void CreatePipingSoilLayer_SurfaceLineThroughMiddleLayerButNotSplittingIt_SoilLayerAsRectangleFollowingSurfaceLineReturned()
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 3.0),
+                new Point3D(1, 0, 2.0),
+                new Point3D(2, 0, 3.0)
+            });
+            var bottom = 1.5;
+            var top = 2.5;
+            var profile = new PipingSoilProfile("name", bottom, new[]
+            {
+                new PipingSoilLayer(top)
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            ChartData data = PipingChartDataFactory.CreatePipingSoilLayer(profile.Layers.First(), profile, surfaceLine);
+
+            // Assert
+            var soilLayerChartData = (ChartAreaData)data;
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(0, top),
+                new Point2D(0.5, top),
+                new Point2D(1, 2.0),
+                new Point2D(1.5, top),
+                new Point2D(2, top),
+                new Point2D(2, bottom),
+                new Point2D(0, bottom)
+            }, soilLayerChartData.Points);
+        }
+
+        [Test]
+        public void CreatePipingSoilLayer_SurfaceLineThroughMiddleLayerButNotSplittingItIntersectionOnTopLevel_SoilLayerAsRectangleFollowingSurfaceLineReturned()
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 3.0),
+                new Point3D(0.5, 0, 2.5),
+                new Point3D(1, 0, 2.0),
+                new Point3D(1.5, 0, 2.5),
+                new Point3D(2, 0, 3.0)
+            });
+            var bottom = 1.5;
+            var top = 2.5;
+            var profile = new PipingSoilProfile("name", bottom, new[]
+            {
+                new PipingSoilLayer(top)
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            ChartData data = PipingChartDataFactory.CreatePipingSoilLayer(profile.Layers.First(), profile, surfaceLine);
+
+            // Assert
+            var soilLayerChartData = (ChartAreaData)data;
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(0, top),
+                new Point2D(0.5, top),
+                new Point2D(1, 2.0),
+                new Point2D(1.5, top),
+                new Point2D(2, top),
+                new Point2D(2, bottom),
+                new Point2D(0, bottom)
+            }, soilLayerChartData.Points);
+        }
+
+        [Test]
+        public void CreatePipingSoilLayer_SurfaceLineStartsBelowLayerTopButAboveBottom_SoilLayerAsRectangleFollowingSurfaceLineReturned()
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 2.0),
+                new Point3D(1, 0, 2.0),
+                new Point3D(2, 0, 3.0)
+            });
+            var bottom = 1.5;
+            var top = 2.5;
+            var profile = new PipingSoilProfile("name", bottom, new[]
+            {
+                new PipingSoilLayer(top)
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            ChartData data = PipingChartDataFactory.CreatePipingSoilLayer(profile.Layers.First(), profile, surfaceLine);
+
+            // Assert
+            var soilLayerChartData = (ChartAreaData)data;
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(0, 2.0),
+                new Point2D(1, 2.0),
+                new Point2D(1.5, top),
+                new Point2D(2, top),
+                new Point2D(2, bottom),
+                new Point2D(0, bottom)
+            }, soilLayerChartData.Points);
+        }
+
+        [Test]
+        public void CreatePipingSoilLayer_SurfaceLineEndsBelowLayerTopButAboveBottom_SoilLayerAsRectangleFollowingSurfaceLineReturned()
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 3.0),
+                new Point3D(1, 0, 2.0),
+                new Point3D(2, 0, 2.0)
+            });
+            var bottom = 1.5;
+            var top = 2.5;
+            var profile = new PipingSoilProfile("name", bottom, new[]
+            {
+                new PipingSoilLayer(top)
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            ChartData data = PipingChartDataFactory.CreatePipingSoilLayer(profile.Layers.First(), profile, surfaceLine);
+
+            // Assert
+            var soilLayerChartData = (ChartAreaData)data;
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(0, top),
+                new Point2D(0.5, top),
+                new Point2D(1, 2.0),
+                new Point2D(2, 2.0),
+                new Point2D(2, bottom),
+                new Point2D(0, bottom)
+            }, soilLayerChartData.Points);
+        }
+
         private static RingtoetsPipingSurfaceLine GetSurfaceLineWithGeometry()
         {
             var points = new[]

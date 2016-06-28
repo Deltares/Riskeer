@@ -26,7 +26,6 @@ using Core.Components.Charting.Forms;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
-
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
