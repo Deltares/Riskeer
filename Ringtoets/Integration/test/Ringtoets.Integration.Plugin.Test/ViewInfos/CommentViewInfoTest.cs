@@ -331,7 +331,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewDataIsCalculationOfDeletedFailureMechanism_ReturnTrue()
+        public void CloseForData_ViewDataIsCalculationOfDeletedFailureMechanismContext_ReturnTrue()
         {
             // Setup
             var calculation = mocks.Stub<ICalculation>();
@@ -362,7 +362,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewDataIsCalculationButNotOfDeletedFailureMechanism_ReturnFalse()
+        public void CloseForData_ViewDataIsCalculationButNotOfDeletedFailureMechanismContext_ReturnFalse()
         {
             // Setup
             var viewDataCalculation = mocks.Stub<ICalculation>();
@@ -385,7 +385,67 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, deletedfailureMechanism);
+                var closeForData = info.CloseForData(view, failureMechanismContext);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewDataIsCalculationOfDeletedFailureMechanism_ReturnTrue()
+        {
+            // Setup
+            var calculation = mocks.Stub<ICalculation>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+
+            failureMechanism.Stub(fm => fm.Calculations).Return(new[]
+            {
+                calculation
+            });
+
+            mocks.ReplayAll();
+
+            using (var view = new CommentView
+            {
+                Data = calculation
+            })
+            {
+                // Call
+                var closeForData = info.CloseForData(view, failureMechanism);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewDataIsCalculationButNotOfDeletedFailureMechanism_ReturnFalse()
+        {
+            // Setup
+            var viewDataCalculation = mocks.Stub<ICalculation>();
+            var deletedCalculation = mocks.Stub<ICalculation>();
+
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+
+            failureMechanism.Stub(fm => fm.Calculations).Return(new[]
+            {
+                deletedCalculation
+            });
+
+            mocks.ReplayAll();
+
+            using (var view = new CommentView
+            {
+                Data = viewDataCalculation
+            })
+            {
+                // Call
+                var closeForData = info.CloseForData(view, failureMechanism);
 
                 // Assert
                 Assert.IsFalse(closeForData);

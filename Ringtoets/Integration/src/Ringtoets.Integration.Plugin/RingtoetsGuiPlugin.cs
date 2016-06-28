@@ -575,10 +575,17 @@ namespace Ringtoets.Integration.Plugin
                 return ReferenceEquals(commentView.Data, calculationContext.WrappedData);
             }
 
+            var failureMechanism = o as IFailureMechanism;
+
             var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
             if (failureMechanismContext != null)
             {
-                return GetCommentableElements(failureMechanismContext.WrappedData)
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+
+            if (failureMechanism != null)
+            {
+                return GetCommentableElements(failureMechanism)
                     .Any(commentableElement => ReferenceEquals(commentView.Data, commentableElement));
             }
 
