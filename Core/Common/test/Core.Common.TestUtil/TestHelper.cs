@@ -333,9 +333,10 @@ namespace Core.Common.TestUtil
         /// Asserts that the exception is of type <typeparamref name="T"/> and that the custom part of <see cref="Exception.Message"/> 
         /// is equal to <paramref name="expectedCustomMessage"/>.
         /// </summary>
-        /// <typeparam name="T">The type of the expected exception.</typeparam>
-        /// <param name="test">The test to execute and should throw exception of type <typeparamref name="T"/>.</param>
-        /// <param name="expectedCustomMessage">The expected custom part of the exception message.</param>
+        /// <typeparam name="T">The type of the expected <see cref="ArgumentException"/>.</typeparam>
+        /// <param name="test">The test to execute and should throw <see cref="ArgumentException"/> of type <typeparamref name="T"/>.</param>
+        /// <param name="expectedCustomMessage">The expected custom part of the <see cref="ArgumentException.Message"/>.</param>
+        /// <return>The <see cref="ArgumentException"/> that was thrown while executing <paramref name="test"/>.</return>
         public static T AssertThrowsArgumentExceptionAndTestMessage<T>(TestDelegate test, string expectedCustomMessage) where T : ArgumentException
         {
             var exception = Assert.Throws<T>(test);

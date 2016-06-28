@@ -429,20 +429,23 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        [TestCase("param")]
-        [TestCase(null)]
-        public void AssertThrowsArgumentExceptionAndTestMessage_Always_ReturnsException(string argument)
+        public void AssertThrowsArgumentExceptionAndTestMessage_Always_ReturnsException()
         {
             // Setup
             var someMessage = "Exception";
-            TestDelegate t = () => { throw new ArgumentException(someMessage, argument); };
+            var argumentException = new ArgumentException(someMessage);
+
+            TestDelegate t = () =>
+            {
+                throw argumentException;
+            };
 
             // Call
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, someMessage);
 
             // Assert
             Assert.IsInstanceOf<ArgumentException>(exception);
-            Assert.AreEqual(argument, exception.ParamName);
+            Assert.AreSame(argumentException, exception);
         }
 
         private static ToolStripMenuItem CreateContextMenuItem()
