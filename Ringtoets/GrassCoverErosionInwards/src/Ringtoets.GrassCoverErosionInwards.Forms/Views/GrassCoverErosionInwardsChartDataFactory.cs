@@ -44,17 +44,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// </summary>
         /// <param name="dikeGeometry">The geometry of the <see cref="DikeProfile"/> for which to create 
         /// <see cref="ChartData"/>.</param>
+        /// <param name="name">The name of the <see cref="DikeProfile"/>.</param>
         /// <returns><see cref="ChartData"/> based on the <paramref name="dikeGeometry"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dikeGeometry"/> 
         /// is <c>null</c>.</exception>
-        public static ChartData Create(RoughnessPoint[] dikeGeometry)
+        public static ChartData Create(RoughnessPoint[] dikeGeometry, string name)
         {
             if (dikeGeometry == null)
             {
                 throw new ArgumentNullException("dikeGeometry");
             }
 
-            return new ChartLineData(dikeGeometry.Select(dg => dg.Point), Resources.DikeProfile_DisplayName)
+            return new ChartLineData(dikeGeometry.Select(dg => dg.Point), string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_Name_format, Resources.DikeProfile_DisplayName, name))
             {
                 Style = new ChartLineStyle(Color.SaddleBrown, 2, DashStyle.Solid)
             };
@@ -65,17 +66,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// </summary>
         /// <param name="foreshoreGeometry">The forshore geometry of the <see cref="DikeProfile"/> 
         /// for which to create <see cref="ChartData"/>.</param>
+        /// <param name="name">The name of the <see cref="DikeProfile"/>.</param>
         /// <returns><see cref="ChartData"/> based on the <paramref name="foreshoreGeometry"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="foreshoreGeometry"/> 
         /// is <c>null</c>.</exception>
-        public static ChartData Create(Point2D[] foreshoreGeometry)
+        public static ChartData Create(Point2D[] foreshoreGeometry, string name)
         {
             if (foreshoreGeometry == null)
             {
                 throw new ArgumentNullException("foreshoreGeometry");
             }
 
-            return new ChartLineData(foreshoreGeometry, Resources.Foreshore_DisplayName)
+            return new ChartLineData(foreshoreGeometry, string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_Name_format, Resources.Foreshore_DisplayName, name))
             {
                 Style = new ChartLineStyle(Color.DarkOrange, 2, DashStyle.Solid)
             };
@@ -88,11 +90,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// to create <see cref="ChartData"/>.</param>
         /// <param name="dikeGeometry">The geometry of the <see cref="DikeProfile"/> to place the
         /// <paramref name="dikeHeight"/> on.</param>
+        /// <param name="name">The name of the <see cref="DikeProfile"/>.</param>
         /// <returns><see cref="ChartData"/> based on the <paramref name="dikeHeight"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="dikeHeight"/> is <c>NaN</c>.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dikeGeometry"/> 
         /// is <c>null</c>.</exception>
-        public static ChartData Create(RoundedDouble dikeHeight, RoughnessPoint[] dikeGeometry)
+        public static ChartData Create(RoundedDouble dikeHeight, RoughnessPoint[] dikeGeometry, string name)
         {
             if (double.IsNaN(dikeHeight))
             {
@@ -104,7 +107,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 throw new ArgumentNullException("dikeGeometry");
             }
 
-            return new ChartLineData(CreateDikeHeightData(dikeHeight, dikeGeometry), Resources.DikeHeight_ChartName)
+            return new ChartLineData(CreateDikeHeightData(dikeHeight, dikeGeometry), string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_Name_format, Resources.DikeHeight_ChartName, name))
             {
                 Style = new ChartLineStyle(Color.MediumSeaGreen, 2, DashStyle.Dash)
             };

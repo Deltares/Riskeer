@@ -540,6 +540,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         {
             DikeProfile dikeProfile = new DikeProfile(new Point2D(0.0, 0.0), dikeGeometry, foreshoreGeometry)
             {
+                Name = "Dike profile test",
                 DikeHeight = (RoundedDouble) 10.0
             };
 
@@ -554,7 +555,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             RoughnessPoint[] dikeGeometry = dikeProfile.DikeGeometry;
             Assert.AreEqual(dikeGeometry.Length, dikeProfileChartData.Points.Count());
             CollectionAssert.AreEqual(dikeGeometry.Select(dg => dg.Point), dikeProfileChartData.Points);
-            Assert.AreEqual(Resources.DikeProfile_DisplayName, chartData.Name);
+
+            string expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_Name_format, Resources.DikeProfile_DisplayName, dikeProfile.Name);
+            Assert.AreEqual(expectedName, chartData.Name);
         }
 
         private void AssertForeshoreChartData(DikeProfile dikeProfile, ChartData chartData)
@@ -565,7 +568,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Point2D[] foreshoreGeometry = dikeProfile.ForeshoreGeometry;
             Assert.AreEqual(foreshoreGeometry.Length, foreshoreChartData.Points.Count());
             CollectionAssert.AreEqual(foreshoreGeometry, foreshoreChartData.Points);
-            Assert.AreEqual(Resources.Foreshore_DisplayName, chartData.Name);
+
+            string expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_Name_format, Resources.Foreshore_DisplayName, dikeProfile.Name);
+            Assert.AreEqual(expectedName, chartData.Name);
         }
 
         private void AssertDikeHeightChartData(DikeProfile dikeProfile, ChartData chartData)
@@ -581,7 +586,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
             Assert.AreEqual(dikeHeightGeometry.Length, dikeHeightChartData.Points.Count());
             CollectionAssert.AreEqual(dikeHeightGeometry, dikeHeightChartData.Points);
-            Assert.AreEqual(Resources.DikeHeight_ChartName, chartData.Name);
+
+            string expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_Name_format, Resources.DikeHeight_ChartName, dikeProfile.Name);
+            Assert.AreEqual(expectedName, chartData.Name);
         }
     }
 }

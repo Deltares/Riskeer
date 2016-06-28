@@ -123,32 +123,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         private ChartData GetForeshoreData()
         {
-            if (data == null || !data.ForeshoreGeometry.Any() || !data.UseForeshore)
+            if (data == null || data.DikeProfile == null || !data.ForeshoreGeometry.Any() || !data.UseForeshore)
             {
                 return ChartDataFactory.CreateEmptyLineData(Resources.Foreshore_DisplayName);
             }
 
-            return GrassCoverErosionInwardsChartDataFactory.Create(data.ForeshoreGeometry);
+            return GrassCoverErosionInwardsChartDataFactory.Create(data.ForeshoreGeometry, data.DikeProfile.Name);
         }
 
         private ChartData GetDikeProfileData()
         {
-            if (data == null || !data.DikeGeometry.Any())
+            if (data == null || data.DikeProfile == null || !data.DikeGeometry.Any())
             {
                 return ChartDataFactory.CreateEmptyLineData(Resources.DikeProfile_DisplayName);
             }
 
-            return GrassCoverErosionInwardsChartDataFactory.Create(data.DikeGeometry);
+            return GrassCoverErosionInwardsChartDataFactory.Create(data.DikeGeometry, data.DikeProfile.Name);
         }
 
         private ChartData GetDikeHeightData()
         {
-            if (data == null || !data.DikeGeometry.Any())
+            if (data == null || data.DikeProfile == null || !data.DikeGeometry.Any())
             {
                 return ChartDataFactory.CreateEmptyLineData(Resources.DikeHeight_ChartName);
             }
 
-            return GrassCoverErosionInwardsChartDataFactory.Create(data.DikeHeight, data.DikeGeometry);
+            return GrassCoverErosionInwardsChartDataFactory.Create(data.DikeHeight, data.DikeGeometry, data.DikeProfile.Name);
         }
 
         private ChartData AddOrUpdateChartData(ChartData oldChartData, ChartData newChartData)

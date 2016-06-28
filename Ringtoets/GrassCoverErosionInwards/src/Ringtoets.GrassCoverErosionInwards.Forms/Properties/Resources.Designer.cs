@@ -386,6 +386,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - {1}.
+        /// </summary>
+        public static string GrassCoverErosionInwardsChartDataFactory_Create_Name_format {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsChartDataFactory_Create_Name_format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} mag niet &apos;null&apos; zijn..
         /// </summary>
         public static string GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null {

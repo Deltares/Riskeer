@@ -283,4 +283,7 @@
   <data name="DikeHeight_ChartName" xml:space="preserve">
     <value>Dijkhoogte</value>
   </data>
+  <data name="GrassCoverErosionInwardsChartDataFactory_Create_Name_format" xml:space="preserve">
+    <value>{0} - {1}</value>
+  </data>
 </root>

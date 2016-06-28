@@ -42,7 +42,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void Create_DikeProfileGeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create((RoughnessPoint[]) null);
+            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create((RoughnessPoint[]) null, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -53,16 +53,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void Create_GivenDikeProfileGeometry_ReturnsChartDataWithDefaultStyling()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0), CreateDikeProfileGeometry(), new Point2D[0]);
+            var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0), CreateDikeProfileGeometry(), new Point2D[0])
+            {
+                Name = "dike profile"
+            };
 
             // Call
-            ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeProfile.DikeGeometry);
+            ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeProfile.DikeGeometry, dikeProfile.Name);
 
             // Assert
             Assert.IsInstanceOf<ChartLineData>(data);
             ChartLineData chartLineData = (ChartLineData)data;
             Assert.AreEqual(3, chartLineData.Points.Count());
-            Assert.AreEqual(Resources.DikeProfile_DisplayName, data.Name);
+            var expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_Name_format, Resources.DikeProfile_DisplayName, dikeProfile.Name);
+            Assert.AreEqual(expectedName, data.Name);
 
             AssertEqualPointCollections(dikeProfile.DikeGeometry.Select(dg => dg.Point), chartLineData.Points);
             AssertEqualStyle(chartLineData.Style, Color.SaddleBrown, 2, DashStyle.Solid);
@@ -72,7 +76,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void Create_DikeProfileForshoreGeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create((Point2D[]) null);
+            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create((Point2D[]) null, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -82,16 +86,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         public void Create_GivenDikeProfileForshoreGeometry_ReturnsChartDataWithDefaultStyling()
         {
-            var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0), new RoughnessPoint[0], CreateForshoreGeometry());
+            var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0), new RoughnessPoint[0], CreateForshoreGeometry())
+            {
+                Name = "dike profile"
+            };
 
             // Call
-            ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeProfile.ForeshoreGeometry);
+            ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeProfile.ForeshoreGeometry, dikeProfile.Name);
 
             // Assert
             Assert.IsInstanceOf<ChartLineData>(data);
             ChartLineData chartLineData = (ChartLineData)data;
             Assert.AreEqual(3, chartLineData.Points.Count());
-            Assert.AreEqual(Resources.Foreshore_DisplayName, data.Name);
+            var expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_Name_format, Resources.Foreshore_DisplayName, dikeProfile.Name);
+            Assert.AreEqual(expectedName, data.Name);
 
             AssertEqualPointCollections(dikeProfile.ForeshoreGeometry, chartLineData.Points);
             AssertEqualStyle(chartLineData.Style, Color.DarkOrange, 2, DashStyle.Solid);
@@ -101,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void Create_DikeHeightNaN_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create((RoundedDouble) double.NaN, new RoughnessPoint[0]);
+            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create((RoundedDouble) double.NaN, new RoughnessPoint[0], null);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -112,7 +120,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void Create_DikeHeightNotNaNDikeProfileGeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create((RoundedDouble) 12.0, null);
+            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create((RoundedDouble) 12.0, null, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -125,17 +133,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var dikeGeometry = CreateDikeProfileGeometry();
             RoundedDouble dikeHeight = (RoundedDouble) 12.0;
+            string name = "dike profile";
 
             // Call
-            ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeHeight, dikeGeometry);
+            ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeHeight, dikeGeometry, name);
 
             // Assert
             Assert.IsInstanceOf<ChartLineData>(data);
             ChartLineData chartLineData = (ChartLineData)data;
             Assert.AreEqual(2, chartLineData.Points.Count());
-            Assert.AreEqual(Resources.DikeHeight_ChartName, data.Name);
+            var expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_Name_format, Resources.DikeHeight_ChartName, name);
+            Assert.AreEqual(expectedName, data.Name);
 
-            var dikeHeightPoints = new Point2D[]
+            var dikeHeightPoints = new[]
             {
                 new Point2D(dikeGeometry.First().Point.X, 12.0),
                 new Point2D(dikeGeometry.Last().Point.X, 12.0), 
