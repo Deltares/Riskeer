@@ -394,7 +394,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation.InputParameters
