@@ -332,27 +332,27 @@ namespace Ringtoets.Piping.Plugin
                                                                  .Select(c => c.InputParameters);
             }
 
-            var pipingFailureMechanismContext = o as PipingFailureMechanismContext;
-            if (pipingFailureMechanismContext != null)
+            var failureMechanism = o as PipingFailureMechanism;
+
+            var failureMechanismContext = o as PipingFailureMechanismContext;
+            if (failureMechanismContext != null)
             {
-                calculationInputs = pipingFailureMechanismContext.WrappedData.CalculationsGroup.GetCalculations()
-                                                                 .OfType<PipingCalculationScenario>()
-                                                                 .Select(c => c.InputParameters);
+                failureMechanism = failureMechanismContext.WrappedData;
             }
 
             var assessmentSection = o as IAssessmentSection;
             if (assessmentSection != null)
             {
-                var failureMechanism = assessmentSection.GetFailureMechanisms()
-                                                        .OfType<PipingFailureMechanism>()
-                                                        .FirstOrDefault();
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<PipingFailureMechanism>()
+                                                    .FirstOrDefault();
+            }
 
-                if (failureMechanism != null)
-                {
-                    calculationInputs = failureMechanism.CalculationsGroup.GetCalculations()
-                                                        .OfType<PipingCalculationScenario>()
-                                                        .Select(c => c.InputParameters);
-                }
+            if (failureMechanism != null)
+            {
+                calculationInputs = failureMechanism.CalculationsGroup.GetCalculations()
+                                                    .OfType<PipingCalculationScenario>()
+                                                    .Select(c => c.InputParameters);
             }
 
             return calculationInputs != null && calculationInputs.Any(ci => ReferenceEquals(view.Data, ci));

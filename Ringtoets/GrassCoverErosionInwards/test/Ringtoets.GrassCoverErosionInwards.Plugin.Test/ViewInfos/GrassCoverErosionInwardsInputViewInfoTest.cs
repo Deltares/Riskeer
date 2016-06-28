@@ -273,7 +273,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
@@ -296,6 +296,115 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
                 mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+
+            GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            {
+                Data = calculation.InputParameters
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_NestedViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+            CalculationGroup calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation);
+
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
+
+            GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            {
+                Data = calculation.InputParameters
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_NestedViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+            CalculationGroup calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation);
+
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
+
+            GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            {
+                Data = calculation.InputParameters
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+        
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
+        {
+            // Setup
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+
+
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            {
+                Data = calculation.InputParameters
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanism);
+
+                // Assert
+                Assert.IsTrue(closeForData);
             }
         }
 
@@ -303,14 +412,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
             GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
             GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-
-            GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
@@ -318,11 +422,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, new GrassCoverErosionInwardsFailureMechanism());
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -330,9 +433,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
             GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
             CalculationGroup calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
@@ -340,19 +440,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
-
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation.InputParameters
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, failureMechanism);
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -360,9 +457,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
             GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
             CalculationGroup calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
@@ -370,19 +464,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
-
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation.InputParameters
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, new GrassCoverErosionInwardsFailureMechanism());
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 

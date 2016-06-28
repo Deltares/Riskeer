@@ -286,7 +286,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
@@ -309,6 +309,114 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
                 mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+
+            PipingFailureMechanismContext failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
+
+            using (PipingInputView view = new PipingInputView
+            {
+                Data = calculation.InputParameters
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_NestedViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            CalculationGroup calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation);
+
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
+
+            PipingFailureMechanismContext failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+
+            using (PipingInputView view = new PipingInputView
+            {
+                Data = calculation.InputParameters
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_NestedViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            CalculationGroup calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation);
+
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
+
+            PipingFailureMechanismContext failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
+
+            using (PipingInputView view = new PipingInputView
+            {
+                Data = calculation.InputParameters
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+        
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
+        {
+            // Setup
+            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+
+            using (PipingInputView view = new PipingInputView
+            {
+                Data = calculation.InputParameters
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanism);
+
+                // Assert
+                Assert.IsTrue(closeForData);
             }
         }
 
@@ -316,14 +424,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
             PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
             PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-
-            PipingFailureMechanismContext failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
             using (PipingInputView view = new PipingInputView
             {
@@ -331,11 +434,10 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, new PipingFailureMechanism());
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -343,9 +445,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
             PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
             CalculationGroup calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
@@ -353,19 +452,16 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            PipingFailureMechanismContext failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
-
             using (PipingInputView view = new PipingInputView
             {
                 Data = calculation.InputParameters
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, failureMechanism);
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
         }
 
@@ -373,9 +469,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
             PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
             CalculationGroup calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
@@ -383,19 +476,16 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            PipingFailureMechanismContext failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
-
             using (PipingInputView view = new PipingInputView
             {
                 Data = calculation.InputParameters
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, new PipingFailureMechanism());
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
         }
 

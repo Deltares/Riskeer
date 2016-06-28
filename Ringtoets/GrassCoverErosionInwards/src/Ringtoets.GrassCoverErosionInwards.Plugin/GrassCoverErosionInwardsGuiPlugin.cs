@@ -25,12 +25,10 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
-
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -45,7 +43,6 @@ using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.HydraRing.IO;
-
 using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
 using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
 using GrassCoverErosionInwardsPluginResources = Ringtoets.GrassCoverErosionInwards.Plugin.Properties.Resources;
@@ -75,10 +72,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, calculationGroup) => GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_Scenarios_DisplayName,
-                AfterCreate = (view, context) =>
-                {
-                    view.SectionResults = context.ParentFailureMechanism.SectionResults;
-                },
+                AfterCreate = (view, context) => { view.SectionResults = context.ParentFailureMechanism.SectionResults; },
                 CloseForData = (view, removedData) =>
                 {
                     var assessmentSection = removedData as IAssessmentSection;
@@ -119,7 +113,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 CloseForData = CloseInputViewForData,
                 AfterCreate = (view, context) => view.Calculation = context.Calculation
             };
-        }        
+        }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
@@ -282,31 +276,31 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             if (calculationGroupContext != null)
             {
                 calculationInputs = calculationGroupContext.WrappedData.GetCalculations()
-                                                     .OfType<GrassCoverErosionInwardsCalculation>()
-                                                     .Select(c => c.InputParameters);
+                                                           .OfType<GrassCoverErosionInwardsCalculation>()
+                                                           .Select(c => c.InputParameters);
             }
+
+            var failureMechanism = o as GrassCoverErosionInwardsFailureMechanism;
 
             var failureMechanismContext = o as GrassCoverErosionInwardsFailureMechanismContext;
             if (failureMechanismContext != null)
             {
-                calculationInputs = failureMechanismContext.WrappedData.CalculationsGroup.GetCalculations()
-                                                     .OfType<GrassCoverErosionInwardsCalculation>()
-                                                     .Select(c => c.InputParameters);
-            }
+                failureMechanism = failureMechanismContext.WrappedData;
+            }            
 
             var assessmentSection = o as IAssessmentSection;
             if (assessmentSection != null)
             {
-                var failureMechanism = assessmentSection.GetFailureMechanisms()
-                                                        .OfType<GrassCoverErosionInwardsFailureMechanism>()
-                                                        .FirstOrDefault();
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<GrassCoverErosionInwardsFailureMechanism>()
+                                                    .FirstOrDefault();
+            }
 
-                if (failureMechanism != null)
-                {
-                    calculationInputs = failureMechanism.CalculationsGroup.GetCalculations()
-                                            .OfType<GrassCoverErosionInwardsCalculation>()
-                                            .Select(c => c.InputParameters);
-                }
+            if (failureMechanism != null)
+            {
+                calculationInputs = failureMechanism.CalculationsGroup.GetCalculations()
+                                                    .OfType<GrassCoverErosionInwardsCalculation>()
+                                                    .Select(c => c.InputParameters);
             }
 
             return calculationInputs != null && calculationInputs.Any(ci => ReferenceEquals(view.Data, ci));
@@ -326,6 +320,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         }
 
         #endregion
+
+        private void ValidateAll(IEnumerable<GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations, IAssessmentSection assessmentSection)
+        {
+            foreach (var calculation in grassCoverErosionInwardsCalculations)
+            {
+                GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            }
+        }
 
         #region GrassCoverErosionInwardsFailureMechanismContext TreeNodeInfo
 
@@ -376,9 +378,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
-                                grassCoverErosionInwardsFailureMechanismContext,
-                                fm => ValidateAll(fm.WrappedData.Calculations.OfType<GrassCoverErosionInwardsCalculation>(), grassCoverErosionInwardsFailureMechanismContext.Parent),
-                                ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
+                              grassCoverErosionInwardsFailureMechanismContext,
+                              fm => ValidateAll(fm.WrappedData.Calculations.OfType<GrassCoverErosionInwardsCalculation>(), grassCoverErosionInwardsFailureMechanismContext.Parent),
+                              ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddPerformAllCalculationsInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
                           .AddSeparator()
@@ -472,9 +474,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                    .AddCreateCalculationItem(context, AddCalculation)
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
-                        context,
-                        c => ValidateAll(c.WrappedData.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>(), c.AssessmentSection),
-                        ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
+                       context,
+                       c => ValidateAll(c.WrappedData.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>(), c.AssessmentSection),
+                       ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddSeparator();
@@ -501,8 +503,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             bool isDikeProfileAvailable = nodeData.AvailableDikeProfiles.Any();
 
             string calculationGroupGenerateCalculationsToolTip = isDikeProfileAvailable
-                ? GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_ToolTip 
-                : GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip;
+                                                                     ? GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_ToolTip
+                                                                     : GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip;
 
             var generateCalculationsItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
@@ -541,7 +543,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static void CalculationGroupContextOnNodeRemoved(GrassCoverErosionInwardsCalculationGroupContext context, object parentNodeData)
         {
-            var parentGroupContext = (GrassCoverErosionInwardsCalculationGroupContext)parentNodeData;
+            var parentGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
             parentGroupContext.NotifyObservers();
@@ -601,9 +603,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             GrassCoverErosionInwardsCalculation calculation = context.WrappedData;
 
             return builder.AddValidateCalculationItem(
-                            context, 
-                            c => GrassCoverErosionInwardsCalculationService.Validate(c.WrappedData, c.AssessmentSection), 
-                            ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+                context,
+                c => GrassCoverErosionInwardsCalculationService.Validate(c.WrappedData, c.AssessmentSection),
+                ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
@@ -644,13 +646,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         }
 
         #endregion
-
-        private void ValidateAll(IEnumerable<GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations, IAssessmentSection assessmentSection)
-        {
-            foreach (var calculation in grassCoverErosionInwardsCalculations)
-            {
-                GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
-            }
-        }
     }
 }
