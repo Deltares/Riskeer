@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         {
             get
             {
-                return string.Format("{0} shapefile (*.shp)|*.shp", Name);
+                return string.Format("{0} shape bestand (*.shp)|*.shp", Name);
             }
         }
 

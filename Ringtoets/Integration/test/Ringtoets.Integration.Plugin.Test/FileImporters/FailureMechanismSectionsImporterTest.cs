@@ -54,7 +54,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.AreEqual("Vakindeling", importer.Name);
             Assert.AreEqual("Algemeen", importer.Category);
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.Sections, importer.Image);
-            Assert.AreEqual("Vakindeling shapefile (*.shp)|*.shp", importer.FileFilter);
+            Assert.AreEqual("Vakindeling shape bestand (*.shp)|*.shp", importer.FileFilter);
         }
 
         [Test]

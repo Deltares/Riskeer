@@ -77,8 +77,7 @@ namespace Ringtoets.Common.IO
         {
             get
             {
-                return String.Format("{0} shapefile (*.shp)|*.shp",
-                                     RingtoetsDataResources.ReferenceLine_DisplayName);
+                return String.Format("{0} shape bestand (*.shp)|*.shp", Name);
             }
         }
 

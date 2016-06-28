@@ -79,8 +79,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
         {
             get
             {
-                return string.Format(RingtoetsCommonIOResources.DikeProfilesImport_FileFilter_0_1_shapefile_extension,
-                                     Resources.DikeProfilesImporter_DisplayName, RingtoetsCommonDataResources.DikeProfilesImporter_FileFilter_Shapefile);
+                return string.Format("{0} shape bestand (*.shp)|*.shp", Name);
             }
         }
 
@@ -190,9 +189,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
         /// <summary>
         /// Get the next DikeProfileLocation from <paramref name="dikeProfileLocationReader"/> and add to <paramref name="dikeProfileLocations"/> in case it is close enough to <paramref name="referenceLine"/>.
         /// </summary>
-        /// <param name="dikeProfileLocationReader">Reader reading DikeProfileLocations for a shapefile.</param>
+        /// <param name="dikeProfileLocationReader">Reader reading <see cref="DikeProfileLocation"/>s for a shapefile.</param>
         /// <param name="referenceLine">The reference line.</param>
-        /// <param name="dikeProfileLocations">Collection of DikeProfileLocations to which a new DikeProfileLocation is to be added.</param>
+        /// <param name="dikeProfileLocations">Collection of <see cref="DikeProfileLocation"/>s to which a new <see cref="DikeProfileLocation"/> is to be added.</param>
         /// <exception cref="CriticalFileReadException"><list type="bullet">
         /// <item>The shapefile misses a value for a required attribute.</item>
         /// <item>The shapefile has an attribute whose type is incorrect.</item>
@@ -203,7 +202,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
             double distanceToReferenceLine = GetDistanceToReferenceLine(dikeProfileLocation.Point, referenceLine);
             if (distanceToReferenceLine > 1.0)
             {
-                log.Error(string.Format(Resources.DikeProfilesImporter_AddNextDikeProfileLocation_0_skipping_location_outside_referenceline, dikeProfileLocation.Id));
+                log.ErrorFormat(Resources.DikeProfilesImporter_AddNextDikeProfileLocation_0_skipping_location_outside_referenceline, dikeProfileLocation.Id);
                 return;
             }
             dikeProfileLocations.Add(dikeProfileLocation);
@@ -251,7 +250,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
                         dikeProfileData.Add(data);
                     }
                 }
-                    // No need to catch ArgumentException, as prflFilePaths are valid by construction.
+                // No need to catch ArgumentException, as prflFilePaths are valid by construction.
                 catch (CriticalFileReadException exception)
                 {
                     log.Error(exception.Message);
@@ -286,7 +285,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
 
                 foreach (string filePath in keyValuePair.Value)
                 {
-                    if (BuilderNotAtMaxCapacity(builder, filePath))
+                    if (BuilderHasCapacityForFilePath(builder, filePath))
                     {
                         builder.AppendLine(filePath);
                     }
@@ -296,7 +295,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
             }
         }
 
-        private static bool BuilderNotAtMaxCapacity(StringBuilder builder, string filePath)
+        private static bool BuilderHasCapacityForFilePath(StringBuilder builder, string filePath)
         {
             return builder.Length + filePath.Length + Environment.NewLine.Length < builder.MaxCapacity;
         }
@@ -322,10 +321,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
             return dikeProfiles;
         }
 
-        private DikeProfileData GetMatchingDikeProfileData(ICollection<DikeProfileData> dikeProfileDataCollection, string id)
+        private static DikeProfileData GetMatchingDikeProfileData(ICollection<DikeProfileData> dikeProfileDataCollection, string id)
         {
-            DikeProfileData matchingDikeProfileData = dikeProfileDataCollection.FirstOrDefault(d => d.Id.Equals(id));
-            return matchingDikeProfileData;
+            return dikeProfileDataCollection.FirstOrDefault(d => d.Id.Equals(id));
         }
 
         private static DikeProfile CreateDikeProfile(DikeProfileLocation dikeProfileLocation, DikeProfileData dikeProfileData)

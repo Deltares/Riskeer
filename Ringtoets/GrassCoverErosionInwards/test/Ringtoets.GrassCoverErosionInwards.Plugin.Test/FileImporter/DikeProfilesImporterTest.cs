@@ -58,7 +58,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         {
             // Setup
             var expectedFileFilter = String.Format("{0} {1} (*.shp)|*.shp",
-                                                   "Dijkprofiel locaties", "Shape bestand");
+                                                   "Dijkprofiel locaties", "shape bestand");
 
             // Call
             var importer = new DikeProfilesImporter();

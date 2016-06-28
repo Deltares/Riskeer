@@ -61,15 +61,6 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} {1} (*.shp)|*.shp.
-        /// </summary>
-        public static string DikeProfilesImport_FileFilter_0_1_shapefile_extension {
-            get {
-                return ResourceManager.GetString("DikeProfilesImport_FileFilter_0_1_shapefile_extension", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het bestand heeft een of meerdere multi-polylijnen, welke niet ondersteund worden..
         /// </summary>
         public static string FailureMechanismSectionReader_File_has_unsupported_multiPolyline {

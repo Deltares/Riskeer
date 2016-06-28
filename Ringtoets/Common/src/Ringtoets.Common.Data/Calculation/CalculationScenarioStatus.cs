@@ -32,7 +32,7 @@ namespace Ringtoets.Common.Data.Calculation
         Failed,
 
         /// <summary>
-        /// Value which is returned when a calculation is succesfully done.
+        /// Value which is returned when a calculation is successfully done.
         /// </summary>
         Done,
 
