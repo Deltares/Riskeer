@@ -254,4 +254,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="PipingSoilProfilesImporter_ValidateStochasticSoilModel_SoilModel_0_with_stochastic_soil_profile_without_profile" xml:space="preserve">
     <value>Het stochastische ondergrondmodel '{0}' heeft een ongespecificeerde ondergrondschematisatie. Dit model wordt overgeslagen.</value>
   </data>
+  <data name="PipingSurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_" xml:space="preserve">
+    <value>Het uittredepunt ligt niet voorbij het intredepunt voor locatie {0}</value>
+  </data>
 </root>

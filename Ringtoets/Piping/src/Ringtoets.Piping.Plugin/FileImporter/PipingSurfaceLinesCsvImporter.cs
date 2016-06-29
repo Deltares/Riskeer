@@ -174,14 +174,16 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 {
                     continue;
                 }
-                else
-                {
-                    readSurfaceLine.ReferenceLineIntersectionWorldPoint = result.IntersectionPoint;
-                }
+                readSurfaceLine.ReferenceLineIntersectionWorldPoint = result.IntersectionPoint;
 
                 CharacteristicPoints characteristicPoints = readCharacteristicPointsLocations.FirstOrDefault(cpl => cpl.Name == readSurfaceLine.Name);
                 if (characteristicPoints != null)
                 {
+                    if (!CheckCharacteristicPoints(readSurfaceLine, characteristicPoints))
+                    {
+                        continue;
+                    }
+
                     SetCharacteristicPointsOnSurfaceLine(readSurfaceLine, characteristicPoints);
                     readCharacteristicPointsLocationNames.Remove(characteristicPoints.Name);
                 }
@@ -198,6 +200,27 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                                name);
             }
             log.Info(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Finished_adding_surface_lines);
+        }
+
+        private bool CheckCharacteristicPoints(RingtoetsPipingSurfaceLine readSurfaceLine, CharacteristicPoints characteristicPoints)
+        {
+            if (characteristicPoints.DikeToeAtRiver == null || characteristicPoints.DikeToeAtPolder == null)
+            {
+                return true;
+            }
+            
+            var firstPoint = new Point2D(readSurfaceLine.Points.First().X, readSurfaceLine.Points.First().Y);
+            var lastPoint = new Point2D(readSurfaceLine.Points.Last().X, readSurfaceLine.Points.Last().Y);
+            var localDikeToeAtRiver = characteristicPoints.DikeToeAtRiver.ProjectIntoLocalCoordinates(firstPoint, lastPoint);
+            var localDikeToeAtPolder = characteristicPoints.DikeToeAtPolder.ProjectIntoLocalCoordinates(firstPoint, lastPoint);
+
+            if (localDikeToeAtPolder.X <= localDikeToeAtRiver.X)
+            {
+                log.WarnFormat(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_, characteristicPoints.Name);
+                return false;
+            }
+
+            return true;
         }
 
         private ReferenceLineIntersectionResult CheckReferenceLineInterSections(RingtoetsPipingSurfaceLine readSurfaceLine, ReferenceLine referenceLine)

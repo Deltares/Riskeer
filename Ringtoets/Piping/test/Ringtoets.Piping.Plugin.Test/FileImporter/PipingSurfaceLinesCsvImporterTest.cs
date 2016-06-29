@@ -1462,7 +1462,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 PipingPluginResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Start_adding_surface_lines,
                 PipingPluginResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Finished_adding_surface_lines
             };
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 7);
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages);
             Assert.IsTrue(importResult);
 
             Assert.AreEqual(2, context.WrappedData.SurfaceLines.Count,
@@ -1622,8 +1622,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var mesagge = "Profielschematisatie ArtifcialLocal doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
-
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
@@ -1638,6 +1636,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import(context, validFilePath);
 
             // Assert
+            var mesagge = "Profielschematisatie ArtifcialLocal doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
             TestHelper.AssertLogMessageIsGenerated(call, mesagge);
             var importTargetArray = context.WrappedData.SurfaceLines.ToArray();
             Assert.IsTrue(importResult);
@@ -1679,7 +1678,59 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
+            context.Attach(observer);
+
+            var importer = new PipingSurfaceLinesCsvImporter();
+
+            // Precondition
+            CollectionAssert.IsEmpty(context.WrappedData.SurfaceLines);
+            Assert.IsTrue(File.Exists(validFilePath));
+
+            // Call
+            var importResult = false;
+            Action call = () => importResult = importer.Import(context, validFilePath);
+
+            // Assert
             var mesagge = "Profielschematisatie Rotterdam1 doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd.";
+            TestHelper.AssertLogMessageIsGenerated(call, mesagge);
+            var importTargetArray = context.WrappedData.SurfaceLines.ToArray();
+            Assert.IsTrue(importResult);
+            Assert.AreEqual(expectedNumberOfSurfaceLines, importTargetArray.Length);
+
+            // Sample some of the imported data:
+            var firstSurfaceLine = importTargetArray[0];
+            Assert.AreEqual("ArtifcialLocal", firstSurfaceLine.Name);
+            Assert.AreEqual(3, firstSurfaceLine.Points.Length);
+            Assert.AreEqual(0.0, firstSurfaceLine.StartingWorldPoint.Y);
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(validFilePath));
+
+            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
+        }
+
+        [Test]
+        [TestCase("TwoValidSurfaceLines_CharacteristicPointsInvalidDikeToeAtRiverAndDikeToeAtPolder")]
+        [TestCase("TwoValidSurfaceLines_CharacteristicPointsDikeToeAtRiverAndDikeToeAtPolderSame")]
+        public void Import_ExitPointGreaterOrEqualToEntryPoint_SkipRowAndLog(string fileName)
+        {
+            // Setup
+            string validFilePath = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(surfaceLineFormat, fileName));
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(3.3, -1),
+                new Point2D(3.3, 1),
+                new Point2D(94270, 427775.65),
+                new Point2D(94270, 427812.08)
+            });
+            assessmentSection.ReferenceLine = referenceLine;
+            var failureMechanism = new PipingFailureMechanism();
+            mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
@@ -1695,20 +1746,20 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import(context, validFilePath);
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, mesagge);
-            var importTargetArray = context.WrappedData.SurfaceLines.ToArray();
+            var message = string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_, "ArtifcialLocal");
+            TestHelper.AssertLogMessageIsGenerated(call, message);
             Assert.IsTrue(importResult);
-            Assert.AreEqual(expectedNumberOfSurfaceLines, importTargetArray.Length);
+
+            var importTargetArray = context.WrappedData.SurfaceLines.ToArray();
+            Assert.AreEqual(1, importTargetArray.Length);
 
             // Sample some of the imported data:
             var firstSurfaceLine = importTargetArray[0];
-            Assert.AreEqual("ArtifcialLocal", firstSurfaceLine.Name);
-            Assert.AreEqual(3, firstSurfaceLine.Points.Length);
-            Assert.AreEqual(0.0, firstSurfaceLine.StartingWorldPoint.Y);
+            Assert.AreEqual("Rotterdam1", firstSurfaceLine.Name);
+            Assert.AreEqual(8, firstSurfaceLine.Points.Length);
+            Assert.AreEqual(427776.654093, firstSurfaceLine.StartingWorldPoint.Y);
 
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(validFilePath));
-
-            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
+            mocks.VerifyAll();
         }
 
         private static void AssertAreEqualPoint2D(Point2D expectedPoint, Point2D actualPoint)
