@@ -27,7 +27,6 @@ using Core.Components.Charting.Forms;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
-using Ringtoets.Piping.Primitives;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
@@ -124,6 +123,7 @@ namespace Ringtoets.Piping.Forms.Views
             if (data != null)
             {
                 // Bottom most layer
+                soilProfile = AddOrUpdateChartData(soilProfile, GetStochasticSoilProfileData());
                 surfaceLineData = AddOrUpdateChartData(surfaceLineData, GetSurfaceLineChartData());
                 ditchPolderSideData = AddOrUpdateChartData(ditchPolderSideData, GetDitchPolderSideData());
                 bottomDitchPolderSidePointData = AddOrUpdateChartData(bottomDitchPolderSidePointData, GetBottomDitchPolderSideData());
@@ -133,7 +133,6 @@ namespace Ringtoets.Piping.Forms.Views
                 dikeToeAtRiverPointData = AddOrUpdateChartData(dikeToeAtRiverPointData, GetDikeToeAtRiverData());
                 exitPointData = AddOrUpdateChartData(exitPointData, GetExitPointChartData());
                 entryPointData = AddOrUpdateChartData(entryPointData, GetEntryPointChartData());
-                soilProfile = AddOrUpdateChartData(soilProfile, GetStochasticSoilProfileData());
                 // Top most layer
             }
 
@@ -230,7 +229,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (data == null || data.InputParameters.StochasticSoilProfile == null || data.InputParameters.StochasticSoilProfile.SoilProfile == null)
             {
-                return ChartDataFactory.CreateEmptyChartDataCollection("Profiel ");
+                return ChartDataFactory.CreateEmptyChartDataCollection(Resources.StochasticSoilProfileProperties_DisplayName);
             }
             var pipingSoilProfile = data.InputParameters.StochasticSoilProfile.SoilProfile;
 

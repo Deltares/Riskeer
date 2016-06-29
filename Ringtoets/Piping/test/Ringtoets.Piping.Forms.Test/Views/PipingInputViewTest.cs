@@ -31,6 +31,7 @@ using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.Views;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -135,7 +136,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Data_SetChartData_ChartDataSet()
+        public void Data_WithSurfaceLineAndSoilProfile_ChartDataSetForSurfaceLineAndSoilProfile()
         {
             // Setup
             using (PipingInputView view = new PipingInputView())
@@ -148,11 +149,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 surfaceLine.SetDikeToeAtPolderAt(new Point3D(1.2, 2.3, 4.0));
                 surfaceLine.SetDikeToeAtRiverAt(new Point3D(1.2, 2.3, 4.0));
 
+                var stochasticSoilProfile = GetStochasticSoilProfile();
                 PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {
                     InputParameters =
                     {
-                        SurfaceLine = surfaceLine
+                        SurfaceLine = surfaceLine,
+                        StochasticSoilProfile = stochasticSoilProfile
                     }
                 };
 
@@ -167,9 +170,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual(Resources.PipingInputContext_NodeDisplayName, chartData.Name);
 
                 Assert.AreEqual(10, chartData.List.Count);
+                AssertSoilProfileChartData(stochasticSoilProfile, chartData.List[soilProfileIndex]);
                 AssertSurfaceLineChartData(surfaceLine, chartData.List[surfaceLineIndex]);
                 AssertEntryPointLPointchartData(calculation.InputParameters, surfaceLine, chartData.List[entryPointIndex]);
-
+                AssertExitPointLPointchartData(calculation.InputParameters, surfaceLine, chartData.List[exitPointIndex]);
                 AssertCharacteristicPoints(surfaceLine, chartData.List);
             }
         }
@@ -193,6 +197,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual(Resources.PipingInputContext_NodeDisplayName, chartData.Name);
 
                 Assert.AreEqual(10, chartData.List.Count);
+                var soilProfileData = (ChartDataCollection) chartData.List[soilProfileIndex];
                 var lineData = (ChartLineData) chartData.List[surfaceLineIndex];
                 var entryPointData = (ChartPointData) chartData.List[entryPointIndex];
                 var exitPointData = (ChartPointData) chartData.List[exitPointIndex];
@@ -203,6 +208,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dikeToeAtPolderData = (ChartPointData) chartData.List[dikeToeAtPolderIndex];
                 var dikeToeAtRiverData = (ChartPointData) chartData.List[dikeToeAtRiverIndex];
 
+                CollectionAssert.IsEmpty(soilProfileData.List);
                 CollectionAssert.IsEmpty(lineData.Points);
                 CollectionAssert.IsEmpty(entryPointData.Points);
                 CollectionAssert.IsEmpty(exitPointData.Points);
@@ -212,6 +218,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 CollectionAssert.IsEmpty(bottomDitchPolderSideData.Points);
                 CollectionAssert.IsEmpty(dikeToeAtPolderData.Points);
                 CollectionAssert.IsEmpty(dikeToeAtRiverData.Points);
+                Assert.AreEqual(Resources.StochasticSoilProfileProperties_DisplayName, soilProfileData.Name);
                 Assert.AreEqual(Resources.RingtoetsPipingSurfaceLine_DisplayName, lineData.Name);
                 Assert.AreEqual(Resources.PipingInput_EntryPointL_DisplayName, entryPointData.Name);
                 Assert.AreEqual(Resources.PipingInput_ExitPointL_DisplayName, exitPointData.Name);
@@ -221,6 +228,69 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual(PipingDataResources.CharacteristicPoint_BottomDitchPolderSide, bottomDitchPolderSideData.Name);
                 Assert.AreEqual(PipingDataResources.CharacteristicPoint_DikeToeAtPolder, dikeToeAtPolderData.Name);
                 Assert.AreEqual(PipingDataResources.CharacteristicPoint_DikeToeAtRiver, dikeToeAtRiverData.Name);
+            }
+        }
+
+        [Test]
+        public void Data_WithSurfaceLineWithoutStochasticSoilProfile_CollectionOfEmptyChartDataSetForSoilProfile()
+        {
+            // Setup
+            using (PipingInputView view = new PipingInputView())
+            {
+                PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = GetSurfaceLineWithGeometry()
+                    }
+                };
+
+                // Call
+                view.Data = calculation;
+
+                // Assert
+                Assert.AreSame(calculation, view.Data);
+                Assert.IsInstanceOf<ChartDataCollection>(view.Chart.Data);
+                var chartData = view.Chart.Data;
+                Assert.IsNotNull(chartData);
+                Assert.AreEqual(Resources.PipingInputContext_NodeDisplayName, chartData.Name);
+
+                Assert.AreEqual(10, chartData.List.Count);
+                var soilProfileData = (ChartDataCollection) chartData.List[soilProfileIndex];
+                CollectionAssert.IsEmpty(soilProfileData.List);
+                Assert.AreEqual(Resources.StochasticSoilProfileProperties_DisplayName, soilProfileData.Name);
+            }
+        }
+
+        [Test]
+        public void Data_WithSurfaceLineWithoutSoilProfile_CollectionOfEmptyChartDataSetForSoilProfile()
+        {
+            // Setup
+            using (PipingInputView view = new PipingInputView())
+            {
+                PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = GetSurfaceLineWithGeometry(),
+                        StochasticSoilProfile = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 1)
+                    }
+                };
+
+                // Call
+                view.Data = calculation;
+
+                // Assert
+                Assert.AreSame(calculation, view.Data);
+                Assert.IsInstanceOf<ChartDataCollection>(view.Chart.Data);
+                var chartData = view.Chart.Data;
+                Assert.IsNotNull(chartData);
+                Assert.AreEqual(Resources.PipingInputContext_NodeDisplayName, chartData.Name);
+
+                Assert.AreEqual(10, chartData.List.Count);
+                var soilProfileData = (ChartDataCollection) chartData.List[soilProfileIndex];
+                CollectionAssert.IsEmpty(soilProfileData.List);
+                Assert.AreEqual(Resources.StochasticSoilProfileProperties_DisplayName, soilProfileData.Name);
             }
         }
 
@@ -408,6 +478,48 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        public void UpdateObservers_StochasticSoilProfileUpdated_SetNewChartData()
+        {
+            // Setup
+            using (PipingInputView view = new PipingInputView())
+            {
+                var surfaceLine = GetSurfaceLineWithGeometry();
+                var soilProfile = GetStochasticSoilProfile();
+                var soilProfile2 = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 1)
+                {
+                    SoilProfile = new PipingSoilProfile("profile", 3, new[]
+                    {
+                        new PipingSoilLayer(6),
+                        new PipingSoilLayer(8),
+                        new PipingSoilLayer(9)
+                    }, SoilProfileType.SoilProfile1D, 1)
+                };
+
+                PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        StochasticSoilProfile = soilProfile
+                    }
+                };
+
+                view.Data = calculation;
+                ChartDataCollection oldSoilProfileData = (ChartDataCollection)view.Chart.Data.List[soilProfileIndex];
+
+                calculation.InputParameters.StochasticSoilProfile = soilProfile2;
+
+                // Call
+                calculation.InputParameters.NotifyObservers();
+
+                // Assert
+                ChartDataCollection newSoilProfileData = (ChartDataCollection)view.Chart.Data.List[soilProfileIndex];
+                Assert.AreNotEqual(oldSoilProfileData, newSoilProfileData);
+                AssertSoilProfileChartData(soilProfile2, newSoilProfileData);
+            }
+        }
+
+        [Test]
         public void UpdateObserver_OtherPipingCalculationUpdated_ChartDataNotUpdated()
         {
             // Setup
@@ -478,15 +590,29 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }
         }
 
-        private const int surfaceLineIndex = 0;
-        private const int ditchPolderSideIndex = 1;
-        private const int bottomDitchPolderSideIndex = 2;
-        private const int bottomDitchDikeSideIndex = 3;
-        private const int ditchDikeSideIndex = 4;
-        private const int dikeToeAtPolderIndex = 5;
-        private const int dikeToeAtRiverIndex = 6;
-        private const int exitPointIndex = 7;
-        private const int entryPointIndex = 8;
+        private const int soilProfileIndex = 0;
+        private const int surfaceLineIndex = 1;
+        private const int ditchPolderSideIndex = 2;
+        private const int bottomDitchPolderSideIndex = 3;
+        private const int bottomDitchDikeSideIndex = 4;
+        private const int ditchDikeSideIndex = 5;
+        private const int dikeToeAtPolderIndex = 6;
+        private const int dikeToeAtRiverIndex = 7;
+        private const int exitPointIndex = 8;
+        private const int entryPointIndex = 9;
+
+        private static StochasticSoilProfile GetStochasticSoilProfile()
+        {
+            return new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 1)
+            {
+                SoilProfile = new PipingSoilProfile("profile", -1, new[]
+                {
+                    new PipingSoilLayer(1),
+                    new PipingSoilLayer(3),
+                    new PipingSoilLayer(5)
+                }, SoilProfileType.SoilProfile1D, 1)
+            };
+        }
 
         private static RingtoetsPipingSurfaceLine GetSurfaceLineWithGeometry()
         {
@@ -518,6 +644,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
             };
             surfaceLine.SetGeometry(points);
             return surfaceLine;
+        }
+        
+        private void AssertSoilProfileChartData(StochasticSoilProfile soilProfile, ChartData chartData)
+        {
+            Assert.IsInstanceOf<ChartDataCollection>(chartData);
+            ChartDataCollection soilProfileChartData = (ChartDataCollection)chartData;
+
+            Assert.AreEqual(soilProfile.SoilProfile.Layers.Count(), soilProfileChartData.List.Count);
+            Assert.AreEqual(soilProfile.SoilProfile.Name, soilProfileChartData.Name);
+            Assert.AreEqual(soilProfile.SoilProfile.Layers.Count(), soilProfileChartData.List.Count);
         }
         
         private void AssertSurfaceLineChartData(RingtoetsPipingSurfaceLine surfaceLine, ChartData chartData)
