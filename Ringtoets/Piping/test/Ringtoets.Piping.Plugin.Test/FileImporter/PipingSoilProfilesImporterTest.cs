@@ -246,7 +246,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             Assert.IsTrue(importResult);
-            var expectedProfiles = 24;
+            var expectedProfiles = 26;
             var expectedModels = 3;
 
             var expectedProgressMessages = new List<ProgressNotification>
@@ -313,7 +313,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, expectedLogMessages.Length);
 
             Assert.IsTrue(importResult);
-            Assert.AreEqual(33*2, progress);
+            Assert.AreEqual(35*2, progress);
 
             mockRepository.VerifyAll();
         }
@@ -394,7 +394,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             Assert.IsTrue(importResult);
-            Assert.AreEqual(34, progress);
+            Assert.AreEqual(36, progress);
         }
 
         [Test]

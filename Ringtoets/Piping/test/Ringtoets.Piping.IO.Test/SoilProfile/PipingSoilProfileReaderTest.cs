@@ -584,10 +584,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
                 // Assert
                 Assert.AreEqual(0, skipped);
-                Assert.AreEqual(24, pipingSoilProfilesReader.Count);
-                Assert.AreEqual(24, result.Count);
+                Assert.AreEqual(26, pipingSoilProfilesReader.Count);
+                Assert.AreEqual(26, result.Count);
                 CollectionAssert.AreEqual(new[]
                 {
+                    "AD640M00_Segment_36005_1D1",
+                    "AD640M00_Segment_36005_1D2",
                     "Segment_36005_1D1",
                     "Segment_36005_1D2",
                     "Segment_36005_1D3",
@@ -632,6 +634,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     -45,
                     -45,
                     -45,
+                    -45,
+                    -45,
                     -52,
                     -52,
                     -52,
@@ -644,6 +648,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
                 CollectionAssert.AreEqual(new[]
                 {
+                    9,
+                    7,
                     8,
                     6,
                     6,
@@ -687,13 +693,16 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 CollectionAssert.AllItemsAreUnique(layerTops);
                 CollectionAssert.AreEqual(expectedFirstProfileLayersTops, layerTops, new DoubleWithToleranceComparer(1e-6));
 
-                var secondProfile = result.FirstOrDefault(l => l.Name == "Segment_36005_1D2");
+                var secondProfile = result.FirstOrDefault(l => l.Name == "AD640M00_Segment_36005_1D1");
                 Assert.NotNull(secondProfile);
                 var expectedSecondProfileLayersTops = new[]
                 {
+                    5.9075,
                     3.25,
-                    -0.5,
-                    -0.75,
+                    2.75,
+                    1.25,
+                    1,
+                    -2.5,
                     -13,
                     -17,
                     -25,

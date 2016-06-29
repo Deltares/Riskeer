@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                          "JOIN Segment AS segment USING(ME_ID) " +
                                          "JOIN StochasticSoilProfile ssp USING(SSM_ID) " +
                                          "JOIN SoilLayer2D sl2D USING(SP2D_ID) " +
-                                         "JOIN MechanismPointLocation mpl USING(ME_ID) " +
+                                         "JOIN MechanismPointLocation mpl USING(ME_ID, SP2D_ID) " +
                                          "WHERE m.ME_Name = @ME_Name" +
                                          ") AS nrOfRows;";
 
