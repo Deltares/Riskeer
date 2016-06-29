@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Charting.Data;
@@ -26,6 +27,7 @@ using Core.Components.Charting.Forms;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
+using Ringtoets.Piping.Primitives;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
@@ -46,6 +48,7 @@ namespace Ringtoets.Piping.Forms.Views
         private ChartData ditchDikeSidePointData;
         private ChartData dikeToeAtRiverPointData;
         private ChartData dikeToeAtPolderPointData;
+        private ChartData soilProfile;
 
         private readonly Observer calculationObserver;
         private readonly Observer calculationInputObserver;
@@ -130,6 +133,7 @@ namespace Ringtoets.Piping.Forms.Views
                 dikeToeAtRiverPointData = AddOrUpdateChartData(dikeToeAtRiverPointData, GetDikeToeAtRiverData());
                 exitPointData = AddOrUpdateChartData(exitPointData, GetExitPointChartData());
                 entryPointData = AddOrUpdateChartData(entryPointData, GetEntryPointChartData());
+                soilProfile = AddOrUpdateChartData(soilProfile, GetStochasticSoilProfileData());
                 // Top most layer
             }
 
@@ -220,6 +224,21 @@ namespace Ringtoets.Piping.Forms.Views
         private bool HasSurfaceLine()
         {
             return data == null || data.InputParameters.SurfaceLine == null;
+        }
+
+        private ChartData GetStochasticSoilProfileData()
+        {
+            if (data == null || data.StochasticSoilProfile == null || data.StochasticSoilProfile.SoilProfile == null)
+            {
+                return ChartDataFactory.CreateEmptyChartDataCollection("Profiel ");
+            }
+            var pipingSoilProfile = data.StochasticSoilProfile.SoilProfile;
+
+            return new ChartDataCollection(pipingSoilProfile.Layers.Select((layer, layerIndex) => 
+                PipingChartDataFactory.CreatePipingSoilLayer(
+                    layerIndex, 
+                    pipingSoilProfile, 
+                    data.SurfaceLine)).ToList(), pipingSoilProfile.Name);
         }
 
         private ChartData AddOrUpdateChartData(ChartData oldChartData, ChartData newChartData)

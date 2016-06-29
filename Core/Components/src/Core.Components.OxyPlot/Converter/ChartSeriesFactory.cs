@@ -37,6 +37,7 @@ namespace Core.Components.OxyPlot.Converter
         /// </summary>
         private readonly IEnumerable<IChartDataConverter> converters = new Collection<IChartDataConverter>
         {
+            new ChartMultipleAreaDataConverter(),
             new ChartAreaDataConverter(),
             new ChartLineDataConverter(),
             new ChartPointDataConverter(),

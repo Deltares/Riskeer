@@ -108,11 +108,22 @@ namespace Core.Plugins.OxyPlot.Legend
                 OnNodeChecked = PointBasedChartDataOnNodeChecked
             });
 
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartMultipleAreaData>
+            {
+                Text = multipleAreaData => multipleAreaData.Name,
+                Image = multipleAreaData => OxyPlotResources.AreaIcon,
+                CanDrag = (multipleAreaData, parentData) => true,
+                CanCheck = multipleAreaData => true,
+                IsChecked = multipleAreaData => multipleAreaData.IsVisible,
+                OnNodeChecked = ChartMultipleAreaDataOnNodeChecked
+            });
+
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartDataCollection>
             {
                 Text = chartControl => chartControl.Name,
                 Image = chartControl => GuiResources.folder,
                 ChildNodeObjects = chartControl => chartControl.List.Reverse().Cast<object>().ToArray(),
+                CanDrag = (multipleAreaData, parentData) => true,
                 CanDrop = ChartControlCanDrop,
                 CanInsert = ChartControlCanInsert,
                 OnDrop = ChartControlOnDrop
@@ -121,12 +132,23 @@ namespace Core.Plugins.OxyPlot.Legend
 
         # region ChartData
 
-        private static void PointBasedChartDataOnNodeChecked(PointBasedChartData pointBasedChartData, object parentData)
+        private void PointBasedChartDataOnNodeChecked(PointBasedChartData pointBasedChartData, object parentData)
         {
             pointBasedChartData.IsVisible = !pointBasedChartData.IsVisible;
-            pointBasedChartData.NotifyObservers();
+            NotifyObserversOfData(pointBasedChartData);
+        }
 
-            var observableParent = parentData as IObservable;
+        private void ChartMultipleAreaDataOnNodeChecked(ChartMultipleAreaData chartMultipleAreaData, object parentData)
+        {
+            chartMultipleAreaData.IsVisible = !chartMultipleAreaData.IsVisible;
+            NotifyObserversOfData(chartMultipleAreaData);
+        }
+
+        private void NotifyObserversOfData(ChartData chartData)
+        {
+            chartData.NotifyObservers();
+
+            var observableParent = Data as IObservable;
             if (observableParent != null)
             {
                 observableParent.NotifyObservers();

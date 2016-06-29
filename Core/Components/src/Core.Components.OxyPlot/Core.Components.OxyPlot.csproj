@@ -52,9 +52,11 @@
     <Compile Include="Converter\ChartAreaDataConverter.cs" />
     <Compile Include="Converter\ChartDataCollectionConverter.cs" />
     <Compile Include="Converter\ChartDataHelper.cs" />
+    <Compile Include="Converter\ChartMultipleAreaDataConverter.cs" />
     <Compile Include="Converter\IChartDataConverter.cs" />
     <Compile Include="Converter\ChartLineDataConverter.cs" />
     <Compile Include="Converter\ChartPointDataConverter.cs" />
+    <Compile Include="CustomSeries\MultipleAreaSeries.cs" />
     <Compile Include="DynamicPlotController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Converter\ChartDataConverter.cs" />

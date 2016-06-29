@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 view.Data = calculation;
 
                 // Precondition
-                Assert.AreEqual(9, view.Chart.Data.List.Count);
+                Assert.AreEqual(10, view.Chart.Data.List.Count);
 
                 // Call
                 view.Data = null;
@@ -166,7 +166,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsNotNull(chartData);
                 Assert.AreEqual(Resources.PipingInputContext_NodeDisplayName, chartData.Name);
 
-                Assert.AreEqual(9, chartData.List.Count);
+                Assert.AreEqual(10, chartData.List.Count);
                 AssertSurfaceLineChartData(surfaceLine, chartData.List[surfaceLineIndex]);
                 AssertEntryPointLPointchartData(calculation.InputParameters, surfaceLine, chartData.List[entryPointIndex]);
 
@@ -192,7 +192,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsNotNull(chartData);
                 Assert.AreEqual(Resources.PipingInputContext_NodeDisplayName, chartData.Name);
 
-                Assert.AreEqual(9, chartData.List.Count);
+                Assert.AreEqual(10, chartData.List.Count);
                 var lineData = (ChartLineData) chartData.List[surfaceLineIndex];
                 var entryPointData = (ChartPointData) chartData.List[entryPointIndex];
                 var exitPointData = (ChartPointData) chartData.List[exitPointIndex];

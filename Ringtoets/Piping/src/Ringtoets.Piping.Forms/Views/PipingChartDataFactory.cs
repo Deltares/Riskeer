@@ -28,6 +28,8 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
+using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
@@ -217,29 +219,33 @@ namespace Ringtoets.Piping.Forms.Views
 
         /// <summary>
         /// Create an instance of <see cref="ChartData"/> with styling based on the color of <see name="SoilLayer.Color"/> of
-        /// <paramref name="soilLayer"/>. The <paramref name="soilLayer"/> is drawn for the full width of the <paramref name="surfaceLine"/>
-        /// (as far as the <paramref name="soilLayer"/> is visible below the <paramref name="surfaceLine"/>.
+        /// the <see cref="PipingSoilLayer"/> as index <paramref name="soilLayerIndex"/>. The <see cref="PipingSoilLayer"/> is drawn 
+        /// for the full width of the <paramref name="surfaceLine"/> (as far as the <see cref="PipingSoilLayer"/> is visible below 
+        /// the <paramref name="surfaceLine"/>).
         /// </summary>
-        /// <param name="soilLayer">The <see cref="PipingSoilLayer"/> to create <see cref="ChartData"/> for.</param>
+        /// <param name="soilLayerIndex">The index of the <see cref="PipingSoilLayer"/> in the <see cref="soilProfile"/> to create <see cref="ChartData"/> for.</param>
         /// <param name="soilProfile">The <see cref="PipingSoilProfile"/> which contains the <see cref="PipingSoilLayer"/>.</param>
         /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> that may intersect with the 
-        /// <paramref name="soilLayer"/> and by doing that restricts the drawn height of the <paramref name="soilLayer"/>.</param>
+        /// <see cref="PipingSoilLayer"/> and by doing that restricts the drawn height of the <see cref="PipingSoilLayer"/>.</param>
         /// <returns>An <see cref="ICollection{T}"/> which contains one or more (in the case of the <paramref name="surfaceLine"/> 
         /// splitting the layer in multiple parts) instances of <see cref="ChartData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="soilLayer"/> is <c>null</c>.</item>
+        /// <item><paramref name="soilProfile"/> is <c>null</c>.</item>
         /// <item><paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list></exception>
-        public static ChartData CreatePipingSoilLayer(PipingSoilLayer soilLayer, PipingSoilProfile soilProfile, RingtoetsPipingSurfaceLine surfaceLine)
+        public static ChartData CreatePipingSoilLayer(int soilLayerIndex, PipingSoilProfile soilProfile, RingtoetsPipingSurfaceLine surfaceLine)
         {
+            if (soilProfile == null)
+            {
+                throw new ArgumentNullException("soilProfile");
+            }
             if (surfaceLine == null)
             {
                 throw new ArgumentNullException("surfaceLine");
             }
-
-            var index = 1;
-            var name = string.Format("{0}_{1}", index, soilLayer.MaterialName);
+            var soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);
+            var name = string.Format("{0}_{1}", soilLayerIndex, soilLayer.MaterialName);
 
             var surfaceLineLocalGeometry = surfaceLine.ProjectGeometryToLZ().ToArray();
             var surfaceLineLowestPointY = surfaceLineLocalGeometry.Select(p => p.Y).Min();
@@ -253,69 +259,69 @@ namespace Ringtoets.Piping.Forms.Views
             var startX = firstSurfaceLinePoint.X;
             var endX = lastSurfaceLinePoint.X;
 
+            var style = new ChartAreaStyle(soilLayer.Color, Color.Black, 1);
+
             if (surfaceLineLowestPointY >= topLevel)
             {
-                return new ChartAreaData(new []
+                return new ChartMultipleAreaData(new[]
                 {
-                    new Point2D(startX, topLevel),
-                    new Point2D(endX, topLevel),
-                    new Point2D(endX, bottomLevel),
-                    new Point2D(startX, bottomLevel)
-                }, name);
-            }
-            if (surfaceLineLowestPointY > bottomLevel)
-            {
-                Point2D soilLayerTopPointA = new Point2D(
-                    startX,
-                    topLevel);
-                Point2D soilLayerTopPointB = new Point2D(
-                    endX,
-                    topLevel);
-
-                var points = new HashSet<Point2D>();
-                var addingFromSurfaceLine = firstSurfaceLinePoint.Y < topLevel;
-                if (addingFromSurfaceLine)
-                {
-                    points.Add(firstSurfaceLinePoint);
-                }
-                else
-                {
-                    points.Add(soilLayerTopPointA);
-                }
-                for (var i = 1; i < surfaceLineLocalGeometry.Length; i++)
-                {
-                    Point2D surfaceLinePointA = surfaceLineLocalGeometry[i-1];
-                    Point2D surfaceLinePointB = surfaceLineLocalGeometry[i];
-
-                    var intersection = Math2D.GetIntersectionBetweenSegments(
-                        new Segment2D(soilLayerTopPointA, soilLayerTopPointB),
-                        new Segment2D(surfaceLinePointA, surfaceLinePointB));
-
-                    if (intersection.IntersectionType == Intersection2DType.Intersects)
+                    new[]
                     {
-                        addingFromSurfaceLine = surfaceLinePointA.Y > surfaceLinePointB.Y;
-                        points.Add(intersection.IntersectionPoints[0]);
+                        new Point2D(startX, topLevel),
+                        new Point2D(endX, topLevel),
+                        new Point2D(endX, bottomLevel),
+                        new Point2D(startX, bottomLevel)
                     }
-                    if (addingFromSurfaceLine)
-                    {
-                        points.Add(surfaceLinePointB);
-                    }
-                }
-                if (!addingFromSurfaceLine)
+                }, name)
                 {
-                    points.Add(new Point2D(endX, topLevel));
-                }
-                points.Add(new Point2D(endX, bottomLevel));
-                points.Add(new Point2D(startX, bottomLevel));
-
-                return new ChartAreaData(points, name);
+                    Style = style
+                };
             }
-            if (surfaceLineHeighestPointY > bottomLevel)
+            if (surfaceLineHeighestPointY <= bottomLevel)
             {
-                 
+                return new ChartMultipleAreaData(Enumerable.Empty<IList<Point2D>>(), name);
             }
-            return new ChartAreaData(Enumerable.Empty<Point2D>(), name);
-        } 
+
+            List<Coordinate> coordinates = surfaceLineLocalGeometry.Select(p => new Coordinate(p.X, p.Y)).ToList();
+            double closingSurfaceLineToPolygonBottomLevel = Math.Min(surfaceLineLowestPointY,bottomLevel) - 1;
+            coordinates.Add(new Coordinate(endX, closingSurfaceLineToPolygonBottomLevel));
+            coordinates.Add(new Coordinate(startX, closingSurfaceLineToPolygonBottomLevel));
+            coordinates.Add(new Coordinate(firstSurfaceLinePoint.X, firstSurfaceLinePoint.Y));
+
+            var surfaceLinePolygon = new Polygon(new LinearRing(coordinates.ToArray()));
+            var soilLayerPolygon = new Polygon(new LinearRing(new[]
+            {
+                new Coordinate(startX, topLevel),
+                new Coordinate(endX, topLevel),
+                new Coordinate(endX, bottomLevel),
+                new Coordinate(startX, bottomLevel),
+                new Coordinate(startX, topLevel)
+            }));
+
+            IGeometry intersection = surfaceLinePolygon.Intersection(soilLayerPolygon);
+            IEnumerable<IEnumerable<Point2D>> areas = BuildSepearteAreasFromCoordinateList(intersection.Coordinates);
+            return new ChartMultipleAreaData(areas, name)
+            {
+                Style = style
+            };
+        }
+
+        private static IEnumerable<IEnumerable<Point2D>> BuildSepearteAreasFromCoordinateList(Coordinate[] coordinates)
+        {
+            var areas = new List<IEnumerable<Point2D>>();
+            HashSet<Point2D> area = new HashSet<Point2D>();
+
+            foreach (var coordinate in coordinates)
+            {
+                var added = area.Add(new Point2D(coordinate.X, coordinate.Y));
+                if (!added)
+                {
+                    areas.Add(area);
+                    area = new HashSet<Point2D>();
+                }
+            }
+            return areas;
+        }
 
         private static ChartData CreatePointWithZAtL(RoundedDouble pointL, RingtoetsPipingSurfaceLine surfaceLine, string name, Color color)
         {

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
@@ -48,6 +49,16 @@ namespace Ringtoets.Common.Forms.Views
         public static ChartPointData CreateEmptyPointData(string name)
         {
             return new ChartPointData(Enumerable.Empty<Point2D>(), name);
+        }
+
+        /// <summary>
+        /// Create a <see cref="ChartDataCollection"/> instance with a name, but without data.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="ChartDataCollection"/>.</param>
+        /// <returns>An empty <see cref="ChartDataCollection"/> object.</returns>
+        public static ChartDataCollection CreateEmptyChartDataCollection(string name)
+        {
+            return new ChartDataCollection(new List<ChartData>(), name);
         }
     }
 }

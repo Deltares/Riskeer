@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
 using Core.Components.OxyPlot.Converter;
+using Core.Components.OxyPlot.CustomSeries;
 using NUnit.Framework;
 using OxyPlot;
 using OxyPlot.Series;
@@ -53,7 +54,6 @@ namespace Core.Components.OxyPlot.Test.Converter
             var areaSeries = ((AreaSeries)series[0]);
             CollectionAssert.AreEqual(expectedData, areaSeries.Points);
             CollectionAssert.AreEqual(new Collection<DataPoint>{expectedData.First()}, areaSeries.Points2);
-            Assert.AreNotSame(expectedData, areaSeries.ItemsSource);
         }
 
         [Test]
@@ -92,6 +92,27 @@ namespace Core.Components.OxyPlot.Test.Converter
             Assert.AreNotSame(testData, lineSeries.ItemsSource);
             Assert.AreEqual(LineStyle.None, lineSeries.LineStyle);
             Assert.AreEqual(MarkerType.Circle, lineSeries.MarkerType);
+        }
+
+        [Test]
+        public void Create_MultipleAreaData_ReturnsLinesSeriesWithAreaStyle()
+        {
+            // Setup
+            var factory = new ChartSeriesFactory();
+            var testAreaA = CreateTestData();
+            var testAreaB = CreateTestData();
+            var expectedDataA = CreateExpectedData(testAreaA);
+            var expectedDataB = CreateExpectedData(testAreaB);
+
+            // Call
+            IList<Series> series = factory.Create(new ChartMultipleAreaData(new [] { testAreaA, testAreaB }, "test data"));
+
+            // Assert
+            Assert.AreEqual(1, series.Count);
+            Assert.IsInstanceOf<IList<Series>>(series);
+            var multipleAreaSeries = ((MultipleAreaSeries)series[0]);
+            CollectionAssert.AreEqual(expectedDataA, multipleAreaSeries.Areas[0]);
+            CollectionAssert.AreEqual(expectedDataB, multipleAreaSeries.Areas[1]);
         }
 
         [Test]

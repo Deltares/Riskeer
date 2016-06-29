@@ -67,6 +67,7 @@
     <Compile Include="Legend\ChartLegendViewTest.cs" />
     <Compile Include="Legend\ChartLegendControllerTest.cs" />
     <Compile Include="Legend\ChartLineDataTreeNodeInfoTest.cs" />
+    <Compile Include="Legend\ChartMultipleAreaDataTreeNodeInfoTest.cs" />
     <Compile Include="OxyPlotGuiPluginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ChartingRibbonTest.cs" />

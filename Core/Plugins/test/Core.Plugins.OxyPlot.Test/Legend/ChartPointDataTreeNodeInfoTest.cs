@@ -17,14 +17,12 @@ namespace Core.Plugins.OxyPlot.Test.Legend
     [TestFixture]
     public class ChartPointDataTreeNodeInfoTest
     {
-        private MockRepository mocks;
         private ChartLegendView chartLegendView;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             chartLegendView = new ChartLegendView();
 
             TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
@@ -37,16 +35,11 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void TearDown()
         {
             chartLegendView.Dispose();
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Assert
             Assert.AreEqual(typeof(ChartPointData), info.TagType);
             Assert.IsNull(info.ForeColor);
@@ -66,9 +59,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void Text_Always_ReturnsNameFromChartData()
         {
             // Setup
-            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Point2D>(), "test data");
-
-            mocks.ReplayAll();
+            var pointData = new ChartPointData(Enumerable.Empty<Point2D>(), "test data");
 
             // Call
             var text = info.Text(pointData);
@@ -81,9 +72,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Point2D>(), "test data");
-
-            mocks.ReplayAll();
+            var pointData = new ChartPointData(Enumerable.Empty<Point2D>(), "test data");
 
             // Call
             var image = info.Image(pointData);
@@ -96,9 +85,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void CanDrag_Always_ReturnsTrue()
         {
             // Setup
-            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Point2D>(), "test data");
-
-            mocks.ReplayAll();
+            var pointData = new ChartPointData(Enumerable.Empty<Point2D>(), "test data");
 
             // Call
             var canDrag = info.CanDrag(pointData, null);
@@ -111,9 +98,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void CanCheck_Always_ReturnsTrue()
         {
             // Setup
-            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Point2D>(), "test data");
-
-            mocks.ReplayAll();
+            var pointData = new ChartPointData(Enumerable.Empty<Point2D>(), "test data");
 
             // Call
             var canCheck = info.CanCheck(pointData);
@@ -127,11 +112,9 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void IsChecked_Always_ReturnsAccordingToVisibleStateOfPointsData(bool isVisible)
         {
             // Setup
-            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Point2D>(), "test data");
+            var pointData = new ChartPointData(Enumerable.Empty<Point2D>(), "test data");
 
             pointData.IsVisible = isVisible;
-
-            mocks.ReplayAll();
 
             // Call
             var canCheck = info.IsChecked(pointData);
@@ -145,9 +128,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void PointDataNodeWithoutParent_SetsPointDataVisibility(bool initialVisibleState)
         {
             // Setup
-            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Point2D>(), "test data");
-
-            mocks.ReplayAll();
+            var pointData = new ChartPointData(Enumerable.Empty<Point2D>(), "test data");
 
             pointData.IsVisible = initialVisibleState;
 
@@ -163,20 +144,22 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void OnNodeChecked_PointDataNodeWithObservableParent_SetsPointDataVisibilityAndNotifiesParentObservers(bool initialVisibleState)
         {
             // Setup
-            var pointData = mocks.StrictMock<ChartPointData>(Enumerable.Empty<Point2D>(), "test data");
+            var notified = 0;
+            var observer = new Observer(() => notified++);
+            var chartData = new ChartDataCollection(new List<ChartData>(), "Collection");
+            observer.Observable = chartData;
+            chartLegendView.Data = chartData;
 
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-
-            mocks.ReplayAll();
+            var pointData = new ChartPointData(Enumerable.Empty<Point2D>(), "test data");
 
             pointData.IsVisible = initialVisibleState;
 
             // Call
-            info.OnNodeChecked(pointData, observable);
+            info.OnNodeChecked(pointData, null);
 
             // Assert
             Assert.AreEqual(!initialVisibleState, pointData.IsVisible);
+            Assert.AreEqual(1, notified);
         }
     }
 }
