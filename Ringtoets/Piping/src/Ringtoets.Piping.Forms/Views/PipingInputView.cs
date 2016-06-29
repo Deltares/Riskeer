@@ -228,17 +228,17 @@ namespace Ringtoets.Piping.Forms.Views
 
         private ChartData GetStochasticSoilProfileData()
         {
-            if (data == null || data.StochasticSoilProfile == null || data.StochasticSoilProfile.SoilProfile == null)
+            if (data == null || data.InputParameters.StochasticSoilProfile == null || data.InputParameters.StochasticSoilProfile.SoilProfile == null)
             {
                 return ChartDataFactory.CreateEmptyChartDataCollection("Profiel ");
             }
-            var pipingSoilProfile = data.StochasticSoilProfile.SoilProfile;
+            var pipingSoilProfile = data.InputParameters.StochasticSoilProfile.SoilProfile;
 
             return new ChartDataCollection(pipingSoilProfile.Layers.Select((layer, layerIndex) => 
                 PipingChartDataFactory.CreatePipingSoilLayer(
                     layerIndex, 
-                    pipingSoilProfile, 
-                    data.SurfaceLine)).ToList(), pipingSoilProfile.Name);
+                    pipingSoilProfile,
+                    data.InputParameters.SurfaceLine)).ToList(), pipingSoilProfile.Name);
         }
 
         private ChartData AddOrUpdateChartData(ChartData oldChartData, ChartData newChartData)
