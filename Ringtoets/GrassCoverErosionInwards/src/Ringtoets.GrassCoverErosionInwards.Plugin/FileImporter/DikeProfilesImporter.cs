@@ -79,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
         {
             get
             {
-                return string.Format("{0} shape bestand (*.shp)|*.shp", Name);
+                return string.Format(RingtoetsCommonIOResources.DataTypeDisplayName_0_shape_file_filter, Name);
             }
         }
 

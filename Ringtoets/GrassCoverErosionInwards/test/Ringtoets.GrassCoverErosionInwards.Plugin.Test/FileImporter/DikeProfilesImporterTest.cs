@@ -56,10 +56,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // Setup
-            var expectedFileFilter = String.Format("{0} {1} (*.shp)|*.shp",
-                                                   "Dijkprofiel locaties", "shape bestand");
-
             // Call
             var importer = new DikeProfilesImporter();
 
@@ -68,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             Assert.AreEqual("Dijkprofiel locaties", importer.Name);
             Assert.AreEqual("Algemeen", importer.Category);
             TestHelper.AssertImagesAreEqual(GrassCoverErosionInwardsPluginResources.DikeProfile, importer.Image);
-            Assert.AreEqual(expectedFileFilter, importer.FileFilter);
+            Assert.AreEqual("Dijkprofiel locaties shape bestand (*.shp)|*.shp", importer.FileFilter);
         }
 
         [Test]

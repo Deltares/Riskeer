@@ -18,6 +18,7 @@ using Ringtoets.Integration.Plugin.Properties;
 
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.FileImporters
 {
@@ -67,7 +68,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         {
             get
             {
-                return string.Format("{0} shape bestand (*.shp)|*.shp", Name);
+                return string.Format(RingtoetsCommonIOResources.DataTypeDisplayName_0_shape_file_filter, Name);
             }
         }
 

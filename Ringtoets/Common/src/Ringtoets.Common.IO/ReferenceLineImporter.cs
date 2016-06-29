@@ -36,6 +36,7 @@ using Ringtoets.Common.IO.Properties;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Common.IO
 {
@@ -77,7 +78,7 @@ namespace Ringtoets.Common.IO
         {
             get
             {
-                return String.Format("{0} shape bestand (*.shp)|*.shp", Name);
+                return String.Format(RingtoetsCommonIOResources.DataTypeDisplayName_0_shape_file_filter, Name);
             }
         }
 
