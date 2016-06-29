@@ -543,7 +543,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [TestCase("faulty_unparsableVoorland_Roughness.prfl", 10, "ruwheid", ";lsduglk wab")]
         [TestCase("faulty_unparsableVoorland_Roughness_noValue1.prfl", 11, "ruwheid", "")]
         [TestCase("faulty_unparsableVoorland_Roughness_noValue2.prfl", 12, "ruwheid", "")]
-        public void ReadDikeProfileData_FileWithUnparsableRoughnessPoints_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_UnparsableRoughnessPoints_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, string expectedParameterName, string expectedReadText)
         {
             string expectedMessage = string.Format("De ingelezen {0} ({1}) is geen getal.",
@@ -564,7 +564,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [TestCase("faulty_unparsableVoorland_Z_Overflow2.prfl", 10, "Z coördinaat", "-44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444.4")]
         [TestCase("faulty_unparsableVoorland_Roughness_Overflow1.prfl", 10, "ruwheid", "-44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444.4")]
         [TestCase("faulty_unparsableVoorland_Roughness_Overflow2.prfl", 11, "ruwheid", "-33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333")]
-        public void ReadDikeProfileData_FileWithOverflowRoughnessPoints_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_OverflowRoughnessPoints_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, string expectedParameterName, string expectedReadText)
         {
             string expectedMessage = string.Format("De ingelezen {0} ({1}) is te groot of te klein om ingelezen te worden.",
@@ -585,7 +585,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [TestCase("faulty_dijkNotMonotonicallyIncreasingX_2.prfl", 18, "Dijk")]
         [TestCase("faulty_voorlandNotMonotonicallyIncreasingX_1.prfl", 12, "Voorland")]
         [TestCase("faulty_voorlandNotMonotonicallyIncreasingX_2.prfl", 11, "Voorland")]
-        public void ReadDikeProfileData_FileWithNotMonotonicallyIncreasingX_ThrowsCriticalFileReadException(
+        public void ReadDikeProfileData_IncorrectOrderingX_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, string expectedTypePrefix)
         {
             string expectedMessage = string.Format("{0}geometrie punten dienen X-coördinaten te hebben die monotoon strikt toenemend zijn.",

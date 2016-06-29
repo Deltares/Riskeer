@@ -62,8 +62,8 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "DecimalValues_ReturnsStrengthStabilityLengthwiseConstructionSectionResultWithDoubleParameters(true)")]
+        [TestCase(false, TestName = "DecimalValues_ReturnsStrengthStabilityLengthwiseConstructionSectionResultWithDoubleParameters(false)")]
         public void Read_WithDecimalParameterValues_ReturnStrengthStabilityLengthwiseConstructionSectionResultWithDoubleParameterValues(bool layerOne)
         {
             // Setup
@@ -94,8 +94,8 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "NullValues_ReturnStrengthStabilityLengthwiseConstructionSectionResultWithNullParameters(true)")]
+        [TestCase(false, TestName = "NullValues_ReturnStrengthStabilityLengthwiseConstructionSectionResultWithNullParameters(false)")]
         public void Read_WithNullParameterValues_ReturnStrengthStabilityLengthwiseConstructionSectionResultWithNullParameters(bool layerOne)
         {
             // Setup
