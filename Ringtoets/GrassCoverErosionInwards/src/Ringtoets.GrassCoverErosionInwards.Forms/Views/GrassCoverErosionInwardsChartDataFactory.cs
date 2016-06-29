@@ -56,9 +56,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
 
             return new ChartLineData(dikeGeometry.Select(dg => dg.Point),
-                                     string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DatatTypeDisplayName_0_DataIdentifier_1_,
-                                                   Resources.DikeProfile_DisplayName,
-                                                   name))
+                                     string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+                                                   name,
+                                                   Resources.DikeProfile_DisplayName))
             {
                 Style = new ChartLineStyle(Color.SaddleBrown, 2, DashStyle.Solid)
             };
@@ -81,9 +81,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
 
             return new ChartLineData(foreshoreGeometry,
-                                     string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DatatTypeDisplayName_0_DataIdentifier_1_,
-                                                   Resources.Foreshore_DisplayName,
-                                                   name))
+                                     string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+                                                   name,
+                                                   Resources.Foreshore_DisplayName))
             {
                 Style = new ChartLineStyle(Color.DarkOrange, 2, DashStyle.Solid)
             };
@@ -113,10 +113,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 throw new ArgumentNullException("dikeGeometry");
             }
 
-            return new ChartLineData(CreateDikeHeightData(dikeHeight, dikeGeometry),
-                                     string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DatatTypeDisplayName_0_DataIdentifier_1_,
-                                                   Resources.DikeHeight_ChartName,
-                                                   name))
+            return new ChartLineData(CreateDikeHeightData(dikeHeight, dikeGeometry), Resources.DikeHeight_ChartName)
             {
                 Style = new ChartLineStyle(Color.MediumSeaGreen, 2, DashStyle.Dash)
             };

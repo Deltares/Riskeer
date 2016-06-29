@@ -65,9 +65,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Assert.IsInstanceOf<ChartLineData>(data);
             ChartLineData chartLineData = (ChartLineData) data;
             Assert.AreEqual(3, chartLineData.Points.Count());
-            var expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DatatTypeDisplayName_0_DataIdentifier_1_,
-                                             Resources.DikeProfile_DisplayName,
-                                             dikeProfile.Name);
+            var expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+                                             dikeProfile.Name,
+                                             Resources.DikeProfile_DisplayName);
             Assert.AreEqual(expectedName, data.Name);
 
             AssertEqualPointCollections(dikeProfile.DikeGeometry.Select(dg => dg.Point), chartLineData.Points);
@@ -100,9 +100,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Assert.IsInstanceOf<ChartLineData>(data);
             ChartLineData chartLineData = (ChartLineData) data;
             Assert.AreEqual(3, chartLineData.Points.Count());
-            var expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DatatTypeDisplayName_0_DataIdentifier_1_,
-                                             Resources.Foreshore_DisplayName,
-                                             dikeProfile.Name);
+            var expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+                                             dikeProfile.Name,
+                                             Resources.Foreshore_DisplayName);
             Assert.AreEqual(expectedName, data.Name);
 
             AssertEqualPointCollections(dikeProfile.ForeshoreGeometry, chartLineData.Points);
@@ -146,10 +146,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Assert.IsInstanceOf<ChartLineData>(data);
             ChartLineData chartLineData = (ChartLineData) data;
             Assert.AreEqual(2, chartLineData.Points.Count());
-            var expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DatatTypeDisplayName_0_DataIdentifier_1_,
-                                             Resources.DikeHeight_ChartName,
-                                             name);
-            Assert.AreEqual(expectedName, data.Name);
+            Assert.AreEqual(Resources.DikeHeight_ChartName, data.Name);
 
             var dikeHeightPoints = new[]
             {
