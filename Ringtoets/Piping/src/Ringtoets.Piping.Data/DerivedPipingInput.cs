@@ -87,16 +87,9 @@ namespace Ringtoets.Piping.Data
             {
                 LogNormalDistribution seepageLength = new LogNormalDistribution(2);
                 double seepageLengthMean = input.ExitPointL - input.EntryPointL;
-                if (seepageLengthMean > 0)
-                {
-                    seepageLength.Mean = (RoundedDouble) seepageLengthMean;
-                    seepageLength.StandardDeviation = (RoundedDouble) seepageLengthMean*seepageLengthStandardDeviationFraction;
-                }
-                else
-                {
-                    seepageLength.Mean = (RoundedDouble) double.NaN;
-                    seepageLength.StandardDeviation = (RoundedDouble) double.NaN;
-                }
+
+                seepageLength.Mean = (RoundedDouble) seepageLengthMean;
+                seepageLength.StandardDeviation = (RoundedDouble) seepageLengthMean*seepageLengthStandardDeviationFraction;
 
                 return seepageLength;
             }
@@ -176,10 +169,6 @@ namespace Ringtoets.Piping.Data
                 var zAtL = surfaceLine.GetZAtL(exitPointL);
                 return soilProfile.GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(zAtL);
             }
-            catch (ArgumentOutOfRangeException)
-            {
-                return double.NaN;
-            }
             catch (ArgumentException)
             {
                 return double.NaN;
@@ -190,7 +179,12 @@ namespace Ringtoets.Piping.Data
         {
             try
             {
-                thicknessCoverageLayer.Mean = (RoundedDouble) InputParameterCalculationService.CalculateThicknessCoverageLayer(input.WaterVolumetricWeight, PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), input.ExitPointL, input.SurfaceLine, input.StochasticSoilProfile.SoilProfile);
+                thicknessCoverageLayer.Mean = (RoundedDouble) InputParameterCalculationService.CalculateThicknessCoverageLayer(
+                    input.WaterVolumetricWeight,
+                    PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                    input.ExitPointL,
+                    input.SurfaceLine,
+                    input.StochasticSoilProfile.SoilProfile);
             }
             catch (ArgumentOutOfRangeException)
             {

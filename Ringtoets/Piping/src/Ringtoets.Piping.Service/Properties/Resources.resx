@@ -153,7 +153,4 @@
   <data name="PipingCalculationService_ValidateInput_No_value_for_ExitPointL" xml:space="preserve">
     <value>Er is geen waarde voor het uittredepunt opgegeven.</value>
   </data>
-  <data name="PipingCalculationService_ValidateInput_EntryPointL_greater_or_equal_to_ExitPointL" xml:space="preserve">
-    <value>Het uittredepunt ligt niet voorbij het intredepunt.</value>
-  </data>
 </root>

@@ -24,6 +24,7 @@ using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 using Rhino.Mocks;
@@ -32,6 +33,8 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
+
+using RingtoetsPipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.Views
 {
@@ -267,51 +270,101 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void EntryPointL_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
+        public void EntryPointL_OnValidChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var newValue = new Random().Next();
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var newValue = 0.1;
 
             var calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             var row = new PipingCalculationRow(calculation);
 
-            int counter = 0;
-            using (new Observer(() => counter++)
-            {
-                Observable = calculation.InputParameters
-            })
-            {
-                // Call
-                row.EntryPointL = (RoundedDouble)newValue;
+            calculation.InputParameters.Attach(observer);
 
-                // Assert
-                Assert.AreEqual(1, counter);
-                Assert.AreEqual(new RoundedDouble(2, newValue), calculation.InputParameters.EntryPointL);
-            }
+            // Call
+            row.EntryPointL = (RoundedDouble)newValue;
+
+            // Assert
+            Assert.AreEqual(new RoundedDouble(2, newValue), calculation.InputParameters.EntryPointL);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void ExitPointL_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
+        [TestCase(0.2)]
+        [TestCase(1.0)]
+        public void EntryPointL_EntryPointNotBeforeExitPoint_ThrowsArgumentOutOfRangeExceptionDoesNotNotifyObservers(double newValue)
         {
             // Setup
-            var newValue = new Random().Next();
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
 
             var calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             var row = new PipingCalculationRow(calculation);
 
-            int counter = 0;
-            using (new Observer(() => counter++)
-            {
-                Observable = calculation.InputParameters
-            })
-            {
-                // Call
-                row.ExitPointL = (RoundedDouble)newValue;
+            calculation.InputParameters.Attach(observer);
 
-                // Assert
-                Assert.AreEqual(1, counter);
-                Assert.AreEqual(new RoundedDouble(2, newValue), calculation.InputParameters.ExitPointL);
-            }
+            // Call
+            TestDelegate call = () => row.EntryPointL = (RoundedDouble) newValue;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
+                call,
+                RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ExitPointL_OnValidChange_NotifyObserverAndCalculationPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var newValue = 0.3;
+
+            var calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            var row = new PipingCalculationRow(calculation);
+
+            calculation.InputParameters.Attach(observer);
+
+            // Call
+            row.ExitPointL = (RoundedDouble)newValue;
+
+            // Assert
+            Assert.AreEqual(new RoundedDouble(2, newValue), calculation.InputParameters.ExitPointL);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(0.0)]
+        [TestCase(-0.2)]
+        public void ExitPointL_ExitPointNotBeyondEntryPoint_ThrowsArgumentOutOfRangeExceptionDoesNotNotifyObservers(double newValue)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            var row = new PipingCalculationRow(calculation);
+
+            calculation.InputParameters.Attach(observer);
+
+            // Call
+            TestDelegate call = () => row.ExitPointL = (RoundedDouble)newValue;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
+                call,
+                RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
+            mocks.VerifyAll();
         }
     }
 }

@@ -152,10 +152,36 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ExitPointL_SetToNew_ValueIsRounded()
+        public void ExitPointL_ExitPointSmallerThanEntryPoint_ThrowsArgumentOutOfRangeException()
         {
             // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput());
+            var pipingInput = new PipingInput(new GeneralPipingInput())
+            {
+                EntryPointL = (RoundedDouble) 3.5
+            };
+            const double value = 1.23456;
+
+            // Call
+            TestDelegate call = () => pipingInput.ExitPointL = (RoundedDouble)value;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
+                call, 
+                Resources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(1.0)]
+        public void ExitPointL_SetToNew_ValueIsRounded(double entryPointValue)
+        {
+            // Setup
+            var pipingInput = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = CreateSurfaceLine(),
+                EntryPointL = (RoundedDouble) entryPointValue
+            };
+
             const double value = 1.23456;
             int originalNumberOfDecimalPlaces = pipingInput.ExitPointL.NumberOfDecimalPlaces;
 
@@ -168,35 +194,22 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        [TestCase(1e-6, Description = "Invalid ExitPointL due to rounding to 0.0")]
-        [TestCase(0)]
-        [TestCase(-1e-6)]
-        [TestCase(-21)]
-        public void ExitPointL_ValueLessThanOrEqualToZero_ThrowsArgumentOutOfRangeException(double value)
+        public void EntryPointL_EntryPointGreaterThanExitPoint_ThrowsArgumentOutOfRangeException()
         {
             // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput());
+            var pipingInput = new PipingInput(new GeneralPipingInput())
+            {
+                ExitPointL = (RoundedDouble)3.5
+            };
+            const double value = 5.0;
 
             // Call
-            TestDelegate test = () => pipingInput.ExitPointL = (RoundedDouble) value;
+            TestDelegate call = () => pipingInput.EntryPointL = (RoundedDouble)value;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.PipingInput_ExitPointL_Value_must_be_greater_than_zero);
-        }
-
-        [Test]
-        [TestCase(-1e-2)]
-        [TestCase(-21)]
-        public void EntryPointL_ValueLessThanZero_ThrowsArgumentOutOfRangeException(double value)
-        {
-            // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput());
-
-            // Call
-            TestDelegate test = () => pipingInput.EntryPointL = (RoundedDouble) value;
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.PipingInput_EntryPointL_Value_must_be_greater_than_or_equal_to_zero);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
+                call,
+                Resources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
         }
 
         [Test]
@@ -555,34 +568,6 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_MeanSetExitPointSetBeyondSurfaceLine_ThicknessAquiferLayerNaN()
-        {
-            // Setup
-            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble) 3.0;
-
-            // Call
-            LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
-
-            // Assert
-            Assert.IsNaN(thicknessAquiferLayer.Mean);
-        }
-
-        [Test]
-        public void ThicknessCoverageLayer_MeanSetExitPointSetBeyondSurfaceLine_ThicknessAquiferLayerNaN()
-        {
-            // Setup
-            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble) 3.0;
-
-            // Call
-            LogNormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
-
-            // Assert
-            Assert.IsNaN(thicknessCoverageLayer.Mean);
-        }
-
-        [Test]
         public void ThicknessCoverageLayer_MeanSetSoilProfileSetToNull_ThicknessCoverageLayerNaN()
         {
             // Setup
@@ -780,23 +765,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(0.5, seepageLength.Mean.Value);
             Assert.AreEqual(0.05, seepageLength.StandardDeviation.Value);
         }
-
-        [Test]
-        public void SeepageLength_ExitPointSetBeyondEntryPoint_SeepageLengthNaN()
-        {
-            // Setup
-            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble) 2;
-            input.EntryPointL = (RoundedDouble) 3;
-
-            // Call
-            var seepageLength = input.SeepageLength;
-
-            // Assert
-            Assert.IsNaN(seepageLength.Mean);
-            Assert.IsNaN(seepageLength.StandardDeviation);
-        }
-
+            
         [Test]
         public void SeepageLength_EntryPointNaN_SeepageLengthNaN()
         {
@@ -830,6 +799,18 @@ namespace Ringtoets.Piping.Data.Test
         private static double GetErrorTolerance(RoundedDouble roundedDouble)
         {
             return Math.Pow(10.0, -roundedDouble.NumberOfDecimalPlaces);
+        }
+
+        private static RingtoetsPipingSurfaceLine CreateSurfaceLine()
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(2, 0, 2)
+            });
+
+            return surfaceLine;
         }
     }
 }

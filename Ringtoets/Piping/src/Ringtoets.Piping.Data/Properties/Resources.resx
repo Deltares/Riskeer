@@ -168,12 +168,6 @@
   <data name="PipingFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Piping</value>
   </data>
-  <data name="PipingInput_ExitPointL_Value_must_be_greater_than_zero" xml:space="preserve">
-    <value>De waarde voor het L-coördinaat van het uittredepunt moet groter zijn dan 0.</value>
-  </data>
-  <data name="PipingInput_EntryPointL_Value_must_be_greater_than_or_equal_to_zero" xml:space="preserve">
-    <value>De waarde voor het L-coördinaat van het intredepunt mag niet kleiner zijn dan 0.</value>
-  </data>
   <data name="PipingSoilProfile_GetTopAquiferLayerThicknessBelowLevel_Level_0_below_Bottom_1_" xml:space="preserve">
     <value>Level {0} is below the bottom of the soil profile {1}.</value>
   </data>
@@ -182,5 +176,8 @@
   </data>
   <data name="PipingProbabilityAssessmentInput_A_Value_must_be_between_zero_and_one" xml:space="preserve">
     <value>De waarde moet tussen 0 en 1 zijn.</value>
+  </data>
+  <data name="PipingInput_EntryPointL_greater_or_equal_to_ExitPointL" xml:space="preserve">
+    <value>Het uittredepunt ligt niet voorbij het intredepunt.</value>
   </data>
 </root>

@@ -311,36 +311,6 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_MeanSetExitPointSetBeyondSurfaceLine_ReturnMeanNaN()
-        {
-            // Setup
-            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble) 3.0;
-            var derivedInput = new DerivedPipingInput(input);
-
-            // Call
-            LogNormalDistribution thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
-
-            // Assert
-            Assert.IsNaN(thicknessAquiferLayer.Mean);
-        }
-
-        [Test]
-        public void ThicknessCoverageLayer_MeanSetExitPointSetBeyondSurfaceLine_ThicknessAquiferLayerNaN()
-        {
-            // Setup
-            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble) 3.0;
-            var derivedInput = new DerivedPipingInput(input);
-
-            // Call
-            LogNormalDistribution thicknessCoverageLayer = derivedInput.ThicknessCoverageLayer;
-
-            // Assert
-            Assert.IsNaN(thicknessCoverageLayer.Mean);
-        }
-
-        [Test]
         public void ThicknessCoverageLayer_MeanSetSoilProfileSetToNull_ThicknessCoverageLayerNaN()
         {
             // Setup
@@ -534,23 +504,6 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual(0.5, seepageLength.Mean.Value);
             Assert.AreEqual(0.05, seepageLength.StandardDeviation.Value);
-        }
-
-        [Test]
-        public void SeepageLength_ExitPointSetBeyondEntryPoint_SeepageLengthNaN()
-        {
-            // Setup
-            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble) 2;
-            input.EntryPointL = (RoundedDouble) 3;
-            var derivedInput = new DerivedPipingInput(input);
-
-            // Call
-            var seepageLength = derivedInput.SeepageLength;
-
-            // Assert
-            Assert.IsNaN(seepageLength.Mean);
-            Assert.IsNaN(seepageLength.StandardDeviation);
         }
 
         [Test]

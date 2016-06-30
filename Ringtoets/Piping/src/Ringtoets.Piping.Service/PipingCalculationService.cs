@@ -105,7 +105,6 @@ namespace Ringtoets.Piping.Service
             var isSurfaceLineMissing = inputParameters.SurfaceLine == null;
             var isExitPointLMissing = double.IsNaN(inputParameters.ExitPointL);
             var isEntryPointLMissing = double.IsNaN(inputParameters.EntryPointL);
-            var isExitPointLBeyondEntryPointL = inputParameters.ExitPointL > inputParameters.EntryPointL;
 
             if (isHydraulicBoundaryLocationMissing)
             {
@@ -130,11 +129,6 @@ namespace Ringtoets.Piping.Service
             if (isExitPointLMissing)
             {
                 validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_ExitPointL);
-            }
-
-            if (!isEntryPointLMissing && !isExitPointLMissing && !isExitPointLBeyondEntryPointL)
-            {
-                validationResult.Add(Resources.PipingCalculationService_ValidateInput_EntryPointL_greater_or_equal_to_ExitPointL);
             }
 
             if (!isHydraulicBoundaryLocationMissing)

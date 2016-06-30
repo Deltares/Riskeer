@@ -89,7 +89,6 @@ namespace Ringtoets.Piping.Data
         /// length of <see cref="PipingInput"/>.
         /// [m]
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is less than 0.</exception>
         public RoundedDouble EntryPointL
         {
             get
@@ -98,13 +97,14 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                RoundedDouble roundedValue = value.ToPrecision(entryPointL.NumberOfDecimalPlaces);
+                var newEntryPoint = value.ToPrecision(entryPointL.NumberOfDecimalPlaces);
 
-                if (roundedValue < 0.0)
+                if (!double.IsNaN(exitPointL))
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.PipingInput_EntryPointL_Value_must_be_greater_than_or_equal_to_zero);
+                    ValidateEntryExitPoint(newEntryPoint, exitPointL);
                 }
-                entryPointL = roundedValue;
+
+                entryPointL = newEntryPoint;
             }
         }
 
@@ -114,7 +114,6 @@ namespace Ringtoets.Piping.Data
         /// length of <see cref="PipingInput"/>.
         /// [m]
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is less than or equal to 0.</exception>
         public RoundedDouble ExitPointL
         {
             get
@@ -123,14 +122,22 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                RoundedDouble roundedValue = value.ToPrecision(exitPointL.NumberOfDecimalPlaces);
+                var newExitPoint = value.ToPrecision(exitPointL.NumberOfDecimalPlaces);
 
-                if (roundedValue <= 0.0)
+                if (!double.IsNaN(entryPointL))
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.PipingInput_ExitPointL_Value_must_be_greater_than_zero);
+                    ValidateEntryExitPoint(entryPointL, newExitPoint);
                 }
 
-                exitPointL = roundedValue;
+                exitPointL = newExitPoint;
+            }
+        }
+
+        private void ValidateEntryExitPoint(RoundedDouble entryPoint, RoundedDouble exitPoint)
+        {
+            if (entryPoint >= exitPoint)
+            {
+                throw new ArgumentOutOfRangeException(null, Resources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
             }
         }
 

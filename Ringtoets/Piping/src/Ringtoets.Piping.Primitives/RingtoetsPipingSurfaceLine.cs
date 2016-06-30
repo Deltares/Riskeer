@@ -347,7 +347,7 @@ namespace Ringtoets.Piping.Primitives
         /// L-coordinate being monotonically non-decreasing</param>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="localCoordinateL"/> falls outside the L-coordiante span
         /// defined by <paramref name="geometryInLocalCoordinates"/>.</exception>
-        private static void ValidateInRange(double localCoordinateL, Point2D[] geometryInLocalCoordinates)
+        public void ValidateInRange(double localCoordinateL, Point2D[] geometryInLocalCoordinates)
         {
             Point2D firstLocalPoint = geometryInLocalCoordinates.First();
             Point2D lastLocalPoint = geometryInLocalCoordinates.Last();

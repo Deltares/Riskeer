@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -38,6 +39,8 @@ using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.TypeConverters;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
+
+using RingtoetsPipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
@@ -352,56 +355,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void EntryPointL_SetResultInInvalidSeePage_SeepageLengthValueNaN()
+        [TestCase(2.0)]
+        [TestCase(-5.0)]
+        public void ExitPointL_InvalidValue_ThrowsArgumentOutOfRangeException(double newExitPoint)
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var inputObserver = mocks.StrictMock<IObserver>();
-            inputObserver.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-
-            var inputParameters = new PipingInput(new GeneralPipingInput())
-            {
-                SurfaceLine = surfaceLine
-            };
-
-            var properties = new PipingInputContextProperties
-            {
-                Data = new PipingInputContext(inputParameters,
-                                              calculationItem,
-                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<StochasticSoilModel>(),
-                                              failureMechanism,
-                                              assessmentSectionMock)
-            };
-
-            const double l = 2.0;
-            properties.ExitPointL = (RoundedDouble) l;
-
-            inputParameters.Attach(inputObserver);
-
-            // Call
-            properties.EntryPointL = (RoundedDouble) l;
-
-            // Assert
-            Assert.IsNaN(properties.SeepageLength.GetDesignValue());
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ExitPointL_SetResultInInvalidSeePage_ThrowsArgumentException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var inputObserver = mocks.StrictMock<IObserver>();
-            inputObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
@@ -427,10 +388,56 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             inputParameters.Attach(inputObserver);
 
             // Call
-            properties.ExitPointL = (RoundedDouble) l;
+            TestDelegate call = () => properties.ExitPointL = (RoundedDouble) newExitPoint;
 
             // Assert
-            Assert.IsNaN(properties.SeepageLength.GetDesignValue());
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
+                call,
+                RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(2.0)]
+        [TestCase(5.0)]
+        public void entryPointL_InvalidValue_ThrowsArgumentOutOfRangeException(double newEntryPoint)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var inputObserver = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
+            var inputParameters = new PipingInput(new GeneralPipingInput());
+            inputParameters.SurfaceLine = surfaceLine;
+
+            var properties = new PipingInputContextProperties
+            {
+                Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
+                                              failureMechanism,
+                                              assessmentSectionMock)
+            };
+
+            const double l = 2.0;
+            properties.ExitPointL = (RoundedDouble) l;
+
+            inputParameters.Attach(inputObserver);
+
+            // Call
+            TestDelegate call = () => properties.EntryPointL = (RoundedDouble) newEntryPoint;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
+                call,
+                RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
 
             mocks.VerifyAll();
         }

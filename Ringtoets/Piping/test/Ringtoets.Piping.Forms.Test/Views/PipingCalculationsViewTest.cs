@@ -41,6 +41,8 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
 
+using RingtoetsPipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
+
 namespace Ringtoets.Piping.Forms.Test.Views
 {
     [TestFixture]
@@ -441,14 +443,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [TestCase("1e-6", phreaticLevelExitMeanColumnIndex)]
         [TestCase("1e+6", phreaticLevelExitMeanColumnIndex)]
         [TestCase("14.3", phreaticLevelExitMeanColumnIndex)]
-        [TestCase("1", entryPointLColumnIndex)]
-        [TestCase("1e-6", entryPointLColumnIndex)]
-        [TestCase("1e+6", entryPointLColumnIndex)]
-        [TestCase("14.3", entryPointLColumnIndex)]
-        [TestCase("1", exitPointLColumnIndex)]
-        [TestCase("1e-2", exitPointLColumnIndex)]
-        [TestCase("1e+6", exitPointLColumnIndex)]
-        [TestCase("14.3", exitPointLColumnIndex)]
+        [TestCase("2.2", entryPointLColumnIndex)]
+        [TestCase("0.022e+2", entryPointLColumnIndex)]
+        [TestCase("220e-2", entryPointLColumnIndex)]
+        [TestCase("5.5", exitPointLColumnIndex)]
+        [TestCase("0.055e+2", exitPointLColumnIndex)]
+        [TestCase("550e-2", exitPointLColumnIndex)]
         public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(string newValue, int cellIndex)
         {
             // Setup
@@ -823,7 +823,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [TestCase(dampingFactorExitMeanColumnIndex, 1.1, 0, 1)]
         [TestCase(phreaticLevelExitMeanColumnIndex, 1.1, 0, 1)]
         [TestCase(entryPointLColumnIndex, 1.1, 0, 1)]
-        [TestCase(exitPointLColumnIndex, 1.1, 0, 1)]
+        [TestCase(exitPointLColumnIndex, 5.5, 0, 1)]
         public void PipingCalculationsView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(int cellIndex, object newValue, int expectedPipingCalculationCounter, int expectedPipingCalculationInputCounter)
         {
             // Setup
@@ -847,6 +847,37 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.AreEqual(expectedPipingCalculationCounter, pipingCalculationCounter);
             Assert.AreEqual(expectedPipingCalculationInputCounter, pipingCalculationInputCounter);
+        }
+
+        [Test]
+        [TestCase(entryPointLColumnIndex, 6.6)]
+        [TestCase(entryPointLColumnIndex, 4.44)]
+        [TestCase(exitPointLColumnIndex, 2.22)]
+        [TestCase(exitPointLColumnIndex, 1.1)]
+        public void PipingCalculationsView_InvalidEntryOrExitPoint_ShowsErrorTooltip(int cellIndex, object newValue)
+        {
+            // Setup
+            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
+
+            var data = (CalculationGroup)pipingCalculationView.Data;
+            var pipingCalculation = (PipingCalculationScenario)data.Children.First();
+            var pipingCalculationCounter = 0;
+            var pipingCalculationInputCounter = 0;
+            var pipingCalculationObserver = new Observer(() => pipingCalculationCounter++);
+            var pipingCalculationInputObserver = new Observer(() => pipingCalculationInputCounter++);
+
+            pipingCalculation.Attach(pipingCalculationObserver);
+            pipingCalculation.InputParameters.Attach(pipingCalculationInputObserver);
+
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[cellIndex].Value = newValue is double ? (RoundedDouble)(double)newValue : newValue;
+
+            // Assert
+            Assert.AreEqual(RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL, dataGridView.Rows[0].ErrorText);
+            Assert.AreEqual(0, pipingCalculationCounter);
+            Assert.AreEqual(0, pipingCalculationInputCounter);
         }
 
         private const int isRelevantColumnIndex = 0;
