@@ -26,10 +26,9 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
-using GeoAPI.Geometries;
-using NetTopologySuite.Geometries;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
@@ -244,83 +243,98 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 throw new ArgumentNullException("surfaceLine");
             }
-            var soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);
-            var name = string.Format("{0}_{1}", soilLayerIndex, soilLayer.MaterialName);
 
+            var soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);
             var surfaceLineLocalGeometry = surfaceLine.ProjectGeometryToLZ().ToArray();
+
+            var name = string.Format("{0}_{1}", soilLayerIndex, soilLayer.MaterialName);
+            var fillColor = soilLayer.Color;
+
+            IEnumerable<IEnumerable<Point2D>> soilLayerAreas;
+
+            if (IsSurfaceLineAboveSoilLayer(surfaceLineLocalGeometry, soilLayer))
+            {
+                soilLayerAreas = new List<IEnumerable<Point2D>>
+                {
+                    CreateSurfaceLineWideSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile)
+                };
+            }
+            else if (IsSurfaceLineBelowSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile))
+            {
+                soilLayerAreas = Enumerable.Empty<IEnumerable<Point2D>>();
+            }
+            else
+            {
+                soilLayerAreas = GetSoilLayerWithSurfaceLineIntersection(surfaceLineLocalGeometry, soilLayer, soilProfile);
+            }
+            return CreateSoilLayerChartData(soilLayerAreas, name, fillColor);
+        }
+
+        private static IEnumerable<IEnumerable<Point2D>> GetSoilLayerWithSurfaceLineIntersection(Point2D[] surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)
+        {
+            var surfaceLineAsPolygon = CreateSurfaceLinePolygonAroundSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile);
+            var soilLayerAsPolygon = CreateSurfaceLineWideSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile);
+
+            return AdvancedMath2D.PolygonIntersectionWithPolygon(surfaceLineAsPolygon, soilLayerAsPolygon);
+        }
+
+        private static bool IsSurfaceLineAboveSoilLayer(IEnumerable<Point2D> surfaceLineLocalGeometry, PipingSoilLayer soilLayer)
+        {
             var surfaceLineLowestPointY = surfaceLineLocalGeometry.Select(p => p.Y).Min();
-            var surfaceLineHeighestPointY = surfaceLineLocalGeometry.Select(p => p.Y).Max();
+            var topLevel = soilLayer.Top;
+
+            return surfaceLineLowestPointY >= topLevel;
+        }
+
+        private static bool IsSurfaceLineBelowSoilLayer(Point2D[] surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)
+        {
+            var topLevel = soilLayer.Top;
+            return surfaceLineLocalGeometry.Select(p => p.Y).Max() <= topLevel - soilProfile.GetLayerThickness(soilLayer);
+        }
+
+        private static IEnumerable<Point2D> CreateSurfaceLinePolygonAroundSoilLayer(Point2D[] surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)
+        {
+            var surfaceLineAsPolygon = surfaceLineLocalGeometry.ToList();
+
             var topLevel = soilLayer.Top;
             var bottomLevel = topLevel - soilProfile.GetLayerThickness(soilLayer);
+            var surfaceLineLowestPointY = surfaceLineAsPolygon.Select(p => p.Y).Min();
 
+            double closingSurfaceLineToPolygonBottomLevel = Math.Min(surfaceLineLowestPointY, bottomLevel) - 1;
+
+            surfaceLineAsPolygon.Add(new Point2D(surfaceLineAsPolygon.Last().X, closingSurfaceLineToPolygonBottomLevel));
+            surfaceLineAsPolygon.Add(new Point2D(surfaceLineAsPolygon.First().X, closingSurfaceLineToPolygonBottomLevel));
+
+            return surfaceLineAsPolygon;
+        }
+
+        private static IEnumerable<Point2D> CreateSurfaceLineWideSoilLayer(Point2D[] surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)
+        {
             var firstSurfaceLinePoint = surfaceLineLocalGeometry.First();
             var lastSurfaceLinePoint = surfaceLineLocalGeometry.Last();
 
             var startX = firstSurfaceLinePoint.X;
             var endX = lastSurfaceLinePoint.X;
 
-            var style = new ChartAreaStyle(soilLayer.Color, Color.Black, 1);
+            var topLevel = soilLayer.Top;
+            var bottomLevel = topLevel - soilProfile.GetLayerThickness(soilLayer);
 
-            if (surfaceLineLowestPointY >= topLevel)
+            var geometry = new[]
             {
-                return new ChartMultipleAreaData(new[]
-                {
-                    new[]
-                    {
-                        new Point2D(startX, topLevel),
-                        new Point2D(endX, topLevel),
-                        new Point2D(endX, bottomLevel),
-                        new Point2D(startX, bottomLevel)
-                    }
-                }, name)
-                {
-                    Style = style
-                };
-            }
-            if (surfaceLineHeighestPointY <= bottomLevel)
-            {
-                return new ChartMultipleAreaData(Enumerable.Empty<IList<Point2D>>(), name);
-            }
-
-            List<Coordinate> coordinates = surfaceLineLocalGeometry.Select(p => new Coordinate(p.X, p.Y)).ToList();
-            double closingSurfaceLineToPolygonBottomLevel = Math.Min(surfaceLineLowestPointY,bottomLevel) - 1;
-            coordinates.Add(new Coordinate(endX, closingSurfaceLineToPolygonBottomLevel));
-            coordinates.Add(new Coordinate(startX, closingSurfaceLineToPolygonBottomLevel));
-            coordinates.Add(new Coordinate(firstSurfaceLinePoint.X, firstSurfaceLinePoint.Y));
-
-            var surfaceLinePolygon = new Polygon(new LinearRing(coordinates.ToArray()));
-            var soilLayerPolygon = new Polygon(new LinearRing(new[]
-            {
-                new Coordinate(startX, topLevel),
-                new Coordinate(endX, topLevel),
-                new Coordinate(endX, bottomLevel),
-                new Coordinate(startX, bottomLevel),
-                new Coordinate(startX, topLevel)
-            }));
-
-            IGeometry intersection = surfaceLinePolygon.Intersection(soilLayerPolygon);
-            IEnumerable<IEnumerable<Point2D>> areas = BuildSepearteAreasFromCoordinateList(intersection.Coordinates);
-            return new ChartMultipleAreaData(areas, name)
-            {
-                Style = style
+                new Point2D(startX, topLevel),
+                new Point2D(endX, topLevel),
+                new Point2D(endX, bottomLevel),
+                new Point2D(startX, bottomLevel)
             };
+            return geometry;
         }
 
-        private static IEnumerable<IEnumerable<Point2D>> BuildSepearteAreasFromCoordinateList(Coordinate[] coordinates)
+        private static ChartMultipleAreaData CreateSoilLayerChartData(IEnumerable<IEnumerable<Point2D>> geometries, string name, Color color)
         {
-            var areas = new List<IEnumerable<Point2D>>();
-            HashSet<Point2D> area = new HashSet<Point2D>();
-
-            foreach (var coordinate in coordinates)
+            return new ChartMultipleAreaData(geometries, name)
             {
-                var added = area.Add(new Point2D(coordinate.X, coordinate.Y));
-                if (!added)
-                {
-                    areas.Add(area);
-                    area = new HashSet<Point2D>();
-                }
-            }
-            return areas;
+                Style = new ChartAreaStyle(color, Color.Black, 1)
+            };
         }
 
         private static ChartData CreatePointWithZAtL(RoundedDouble pointL, RingtoetsPipingSurfaceLine surfaceLine, string name, Color color)

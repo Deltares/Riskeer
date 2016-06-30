@@ -39,20 +39,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GeoAPI, Version=1.7.4.0, Culture=neutral, PublicKeyToken=a1a0da7def465678, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\GeoAPI.1.7.4\lib\net40-client\GeoAPI.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="NetTopologySuite, Version=1.14.0.0, Culture=neutral, PublicKeyToken=f580a05016ebada1, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NetTopologySuite.1.14\lib\net40-client\NetTopologySuite.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="PowerCollections, Version=1.0.0.0, Culture=neutral, PublicKeyToken=2573bf8a1bdddcd5, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NetTopologySuite.1.14\lib\net40-client\PowerCollections.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -145,6 +133,10 @@
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
       <Name>Core.Common.Controls</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Geometry\Core.Common.Geometry.csproj">
+      <Project>{88665510-CE20-4EF5-BE4A-39800720AA2C}</Project>
+      <Name>Core.Common.Geometry</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
       <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
