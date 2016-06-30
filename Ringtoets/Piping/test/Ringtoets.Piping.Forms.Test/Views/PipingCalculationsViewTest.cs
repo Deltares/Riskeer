@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -431,25 +432,25 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase("1", contributionColumnIndex)]
-        [TestCase("1e-6", contributionColumnIndex)]
-        [TestCase("1e+6", contributionColumnIndex)]
-        [TestCase("14.3", contributionColumnIndex)]
-        [TestCase("1", dampingFactorExitMeanColumnIndex)]
-        [TestCase("1e-2", dampingFactorExitMeanColumnIndex)]
-        [TestCase("1e+6", dampingFactorExitMeanColumnIndex)]
-        [TestCase("14.3", dampingFactorExitMeanColumnIndex)]
-        [TestCase("1", phreaticLevelExitMeanColumnIndex)]
-        [TestCase("1e-6", phreaticLevelExitMeanColumnIndex)]
-        [TestCase("1e+6", phreaticLevelExitMeanColumnIndex)]
-        [TestCase("14.3", phreaticLevelExitMeanColumnIndex)]
-        [TestCase("2.2", entryPointLColumnIndex)]
-        [TestCase("0.022e+2", entryPointLColumnIndex)]
-        [TestCase("220e-2", entryPointLColumnIndex)]
-        [TestCase("5.5", exitPointLColumnIndex)]
-        [TestCase("0.055e+2", exitPointLColumnIndex)]
-        [TestCase("550e-2", exitPointLColumnIndex)]
-        public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(string newValue, int cellIndex)
+        [TestCase(1, contributionColumnIndex)]
+        [TestCase(1e-6, contributionColumnIndex)]
+        [TestCase(1e+6, contributionColumnIndex)]
+        [TestCase(14.3, contributionColumnIndex)]
+        [TestCase(1, dampingFactorExitMeanColumnIndex)]
+        [TestCase(1e-2, dampingFactorExitMeanColumnIndex)]
+        [TestCase(1e+6, dampingFactorExitMeanColumnIndex)]
+        [TestCase(14.3, dampingFactorExitMeanColumnIndex)]
+        [TestCase(1, phreaticLevelExitMeanColumnIndex)]
+        [TestCase(1e-6, phreaticLevelExitMeanColumnIndex)]
+        [TestCase(1e+6, phreaticLevelExitMeanColumnIndex)]
+        [TestCase(14.3, phreaticLevelExitMeanColumnIndex)]
+        [TestCase(2.2, entryPointLColumnIndex)]
+        [TestCase(0.022e+2, entryPointLColumnIndex)]
+        [TestCase(220e-2, entryPointLColumnIndex)]
+        [TestCase(5.5, exitPointLColumnIndex)]
+        [TestCase(0.055e+2, exitPointLColumnIndex)]
+        [TestCase(550e-2, exitPointLColumnIndex)]
+        public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue, int cellIndex)
         {
             // Setup
             ShowFullyConfiguredPipingCalculationsView();
@@ -457,7 +458,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
-            dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
+            dataGridView.Rows[0].Cells[cellIndex].Value = newValue.ToString();
 
             // Assert
             Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
