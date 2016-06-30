@@ -164,8 +164,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "PropertyAttributes_WithDikeProfileAndWaterState_ReturnValues(true)")]
+        [TestCase(false, TestName = "PropertyAttributes_WithDikeProfileAndWaterState_ReturnValues(false)")]
         public void PropertyAttributes_WithDikeProfileAndSpecificUseBreakWaterState_ReturnExpectedValues(bool useBreakWaterState)
         {
             // Setup
