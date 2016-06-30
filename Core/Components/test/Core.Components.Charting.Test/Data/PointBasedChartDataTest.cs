@@ -29,6 +29,7 @@ using NUnit.Framework;
 
 namespace Core.Components.Charting.Test.Data
 {
+    [TestFixture]
     public class PointBasedChartDataTest
     {
         [Test]

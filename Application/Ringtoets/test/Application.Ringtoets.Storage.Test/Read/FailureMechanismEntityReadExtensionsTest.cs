@@ -31,6 +31,7 @@ using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
+    [TestFixture]
     public class FailureMechanismEntityReadExtensionsTest
     {
         [Test]

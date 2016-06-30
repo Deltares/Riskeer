@@ -27,6 +27,7 @@ using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create
 {
+    [TestFixture]
     public class PipingProbabilityAssessmentInputCreateExtensionsTest
     {
         [Test]

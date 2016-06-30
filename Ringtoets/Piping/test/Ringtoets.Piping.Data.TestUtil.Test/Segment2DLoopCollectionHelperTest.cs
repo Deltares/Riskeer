@@ -3,6 +3,7 @@ using NUnit.Framework;
 
 namespace Ringtoets.Piping.Data.TestUtil.Test
 {
+    [TestFixture]
     public class Segment2DLoopCollectionHelperTest
     {
         [Test]

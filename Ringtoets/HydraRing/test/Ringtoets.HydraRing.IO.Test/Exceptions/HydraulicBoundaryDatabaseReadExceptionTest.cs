@@ -25,6 +25,7 @@ using Ringtoets.HydraRing.IO.Exceptions;
 
 namespace Ringtoets.HydraRing.IO.Test.Exceptions
 {
+    [TestFixture]
     public class HydraulicBoundaryDatabaseReadExceptionTest
     {
         [Test]

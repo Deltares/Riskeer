@@ -3,6 +3,7 @@ using Ringtoets.Piping.KernelWrapper.SubCalculator;
 
 namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
 {
+    [TestFixture]
     public class PiezoHeadCalculatorTest
     {
         [Test]

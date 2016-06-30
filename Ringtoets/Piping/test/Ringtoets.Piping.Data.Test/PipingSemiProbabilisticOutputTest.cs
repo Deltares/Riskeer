@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
 {
+    [TestFixture]
     public class PipingSemiProbabilisticOutputTest
     {
         [Test]

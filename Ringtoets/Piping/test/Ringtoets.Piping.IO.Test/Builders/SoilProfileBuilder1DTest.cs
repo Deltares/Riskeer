@@ -6,6 +6,7 @@ using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Test.Builders
 {
+    [TestFixture]
     public class SoilProfileBuilder1DTest
     {
         [Test]

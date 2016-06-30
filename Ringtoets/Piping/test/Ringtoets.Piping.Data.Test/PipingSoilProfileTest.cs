@@ -30,6 +30,7 @@ using PrimitivesResources = Ringtoets.Piping.Primitives.Properties.Resources;
 
 namespace Ringtoets.Piping.Data.Test
 {
+    [TestFixture]
     public class PipingSoilProfileTest
     {
         [Test]

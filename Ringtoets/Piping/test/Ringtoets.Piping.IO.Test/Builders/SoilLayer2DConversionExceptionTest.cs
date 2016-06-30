@@ -4,6 +4,7 @@ using Ringtoets.Piping.IO.Builders;
 
 namespace Ringtoets.Piping.IO.Test.Builders
 {
+    [TestFixture]
     public class SoilLayer2DConversionExceptionTest
     {
         [Test]

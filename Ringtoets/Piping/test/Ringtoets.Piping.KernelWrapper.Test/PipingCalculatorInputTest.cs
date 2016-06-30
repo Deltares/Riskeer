@@ -4,6 +4,7 @@ using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.KernelWrapper.Test
 {
+    [TestFixture]
     public class PipingCalculatorInputTest
     {
         [Test]

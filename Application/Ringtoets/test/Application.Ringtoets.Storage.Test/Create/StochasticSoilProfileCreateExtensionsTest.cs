@@ -30,6 +30,7 @@ using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Create
 {
+    [TestFixture]
     public class StochasticSoilProfileCreateExtensionsTest
     {
         [Test]

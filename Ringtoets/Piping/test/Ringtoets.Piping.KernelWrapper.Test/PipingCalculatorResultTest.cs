@@ -3,6 +3,7 @@ using NUnit.Framework;
 
 namespace Ringtoets.Piping.KernelWrapper.Test
 {
+    [TestFixture]
     public class PipingCalculatorResultTest
     {
         [Test]

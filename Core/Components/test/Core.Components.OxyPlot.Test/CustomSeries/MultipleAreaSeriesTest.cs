@@ -27,6 +27,7 @@ using Rhino.Mocks;
 
 namespace Core.Components.OxyPlot.Test.CustomSeries
 {
+    [TestFixture]
     public class MultipleAreaSeriesTest
     {
         [Test]

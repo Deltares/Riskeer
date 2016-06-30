@@ -14,6 +14,7 @@ using Ringtoets.Piping.IO.Test.TestHelpers;
 
 namespace Ringtoets.Piping.IO.Test.SoilProfile
 {
+    [TestFixture]
     public class SoilLayer2DReaderTest
     {
         [Test]

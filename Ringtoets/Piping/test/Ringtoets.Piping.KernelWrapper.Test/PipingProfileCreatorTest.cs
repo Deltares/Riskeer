@@ -8,6 +8,7 @@ using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.KernelWrapper.Test
 {
+    [TestFixture]
     public class PipingProfileCreatorTest
     {
         [Test]

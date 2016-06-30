@@ -35,6 +35,7 @@ using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Integration.Test
 {
+    [TestFixture]
     public class ImportSoilProfileFromDatabaseTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingSoilProfilesReader");

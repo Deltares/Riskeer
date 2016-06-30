@@ -38,6 +38,7 @@ using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.Views
 {
+    [TestFixture]
     public class PipingFailureMechanismSectionResultRowTest
     {
         [Test]

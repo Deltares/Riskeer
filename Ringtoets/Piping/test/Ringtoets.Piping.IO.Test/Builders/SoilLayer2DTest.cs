@@ -13,6 +13,7 @@ using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO.Test.Builders
 {
+    [TestFixture]
     public class SoilLayer2DTest
     {
         [Test]

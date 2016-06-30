@@ -33,6 +33,7 @@ using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 
 namespace Ringtoets.Piping.Service.Test
 {
+    [TestFixture]
     public class PipingCalculationServiceTest
     {
         [Test]

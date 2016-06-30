@@ -25,6 +25,7 @@ using NUnit.Framework;
 
 namespace Ringtoets.HydraRing.Data.Test
 {
+    [TestFixture]
     public class HydraulicBoundaryDatabaseTest
     {
         [Test]

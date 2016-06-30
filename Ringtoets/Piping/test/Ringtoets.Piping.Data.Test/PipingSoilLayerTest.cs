@@ -26,6 +26,7 @@ using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.Test
 {
+    [TestFixture]
     public class PipingSoilLayerTest
     {
         [Test]

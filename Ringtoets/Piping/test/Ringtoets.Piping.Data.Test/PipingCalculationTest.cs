@@ -30,6 +30,7 @@ using Ringtoets.Piping.KernelWrapper.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
 {
+    [TestFixture]
     public class PipingCalculationTest
     {
         private MockRepository mockRepository;

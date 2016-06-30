@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Piping.Data.Test
 {
+    [TestFixture]
     public class PipingOutputTest
     {
         [Test]

@@ -27,6 +27,7 @@ using NUnit.Framework;
 
 namespace Application.Ringtoets.Storage.Test
 {
+    [TestFixture]
     public class StorageSqliteCreatorTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");

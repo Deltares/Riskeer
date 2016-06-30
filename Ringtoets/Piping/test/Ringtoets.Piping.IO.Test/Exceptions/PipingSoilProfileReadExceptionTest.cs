@@ -4,6 +4,7 @@ using Ringtoets.Piping.IO.Exceptions;
 
 namespace Ringtoets.Piping.IO.Test.Exceptions
 {
+    [TestFixture]
     public class PipingSoilProfileReadExceptionTest
     {
         [Test]
