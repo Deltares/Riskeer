@@ -649,9 +649,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsInstanceOf<ChartDataCollection>(chartData);
             ChartDataCollection soilProfileChartData = (ChartDataCollection)chartData;
 
-            Assert.AreEqual(soilProfile.SoilProfile.Layers.Count(), soilProfileChartData.List.Count);
+            var expectedLayerCount = soilProfile.SoilProfile.Layers.Count();
+            Assert.AreEqual(expectedLayerCount, soilProfileChartData.List.Count);
             Assert.AreEqual(soilProfile.SoilProfile.Name, soilProfileChartData.Name);
-            Assert.AreEqual(soilProfile.SoilProfile.Layers.Count(), soilProfileChartData.List.Count);
+
+            var pipingSoilLayers = soilProfile.SoilProfile.Layers.Select((l,i) => string.Format("{0} {1}", i + 1, l.MaterialName)).Reverse().ToArray();
+
+            for (int i = 0; i < expectedLayerCount; i++)
+            {
+                Assert.AreEqual(pipingSoilLayers[i], soilProfileChartData.List[i].Name);
+            }
         }
         
         private void AssertSurfaceLineChartData(RingtoetsPipingSurfaceLine surfaceLine, ChartData chartData)

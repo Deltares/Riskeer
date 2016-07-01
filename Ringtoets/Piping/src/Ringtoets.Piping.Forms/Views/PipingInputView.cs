@@ -237,7 +237,7 @@ namespace Ringtoets.Piping.Forms.Views
                 PipingChartDataFactory.CreatePipingSoilLayer(
                     layerIndex, 
                     pipingSoilProfile,
-                    data.InputParameters.SurfaceLine)).ToList(), pipingSoilProfile.Name);
+                    data.InputParameters.SurfaceLine)).Reverse().ToList(), pipingSoilProfile.Name);
         }
 
         private ChartData AddOrUpdateChartData(ChartData oldChartData, ChartData newChartData)

@@ -247,7 +247,7 @@ namespace Ringtoets.Piping.Forms.Views
             var soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);
             var surfaceLineLocalGeometry = surfaceLine.ProjectGeometryToLZ().ToArray();
 
-            var name = string.Format("{0}_{1}", soilLayerIndex, soilLayer.MaterialName);
+            var name = string.Format("{0} {1}", soilLayerIndex + 1, soilLayer.MaterialName);
             var fillColor = soilLayer.Color;
 
             IEnumerable<IEnumerable<Point2D>> soilLayerAreas;

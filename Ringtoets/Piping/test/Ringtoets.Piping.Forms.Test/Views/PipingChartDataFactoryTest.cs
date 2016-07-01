@@ -528,7 +528,36 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void CreatePipingSoilLayer_SurfaceLineOnOrAboveSoilLayer_SoilLayerAsRectangleReturned()
+        [TestCase("A", 0)]
+        [TestCase("B", 3)]
+        [TestCase("Random", 5)]
+        public void CreatePipingSoilLayer_Always_CreatesNameFromIndexAndMaterialName(string name, int soilLayerIndex)
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new []
+            {
+                new Point3D(0, 0, 4),
+                new Point3D(0, 0, 3.2),
+                new Point3D(2, 0, 4)
+            });
+            var layers = new List<PipingSoilLayer>();
+            for (int i = 0; i < soilLayerIndex; i++)
+            {
+                layers.Add(new PipingSoilLayer((double)i / 10));
+            }
+            layers.Add(new PipingSoilLayer(-1.0) { MaterialName = name });
+
+            var profile = new PipingSoilProfile("name", -1.0, layers, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            ChartData data = PipingChartDataFactory.CreatePipingSoilLayer(soilLayerIndex, profile, surfaceLine);
+
+            // Assert
+            Assert.AreEqual(string.Format("{0} {1}", soilLayerIndex + 1, name), data.Name);
+        }
+
+        [Test]
+        public void CreatePipingSoilLayer_SurfaceLineOnTopOrAboveSoilLayer_SoilLayerAsRectangleReturned()
         {
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new []
