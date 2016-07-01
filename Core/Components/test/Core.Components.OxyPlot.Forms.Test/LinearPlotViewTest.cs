@@ -21,6 +21,7 @@
 
 using System.Linq;
 using System.Windows.Forms;
+using Core.Components.OxyPlot.CustomSeries;
 using NUnit.Framework;
 using OxyPlot;
 using OxyPlot.Axes;
@@ -141,6 +142,67 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Assert
             Assert.AreEqual(view.LeftAxisTitle, newTitle);
             Assert.AreEqual(1, invalidated);
+        }
+
+        [Test]
+        public void GivenMultipleAreaSeriesAddedToView_WhenViewOpenedAndUpdated_ThenXYAxisIncludesSeriesValues()
+        {
+            // Given
+            var form = new Form();
+            var view = new LinearPlotView();
+            form.Controls.Add(view);
+            var maxY = 100;
+            var minY = -25;
+            var maxX = 50;
+            var minX = -10;
+            var series = new MultipleAreaSeries
+            {
+                Areas =
+                {
+                    new []
+                    {
+                        new DataPoint(minX,maxY) 
+                    },
+                    new []
+                    {
+                        new DataPoint(maxX,minY)
+                    }
+                 }
+            };
+
+            view.Model.Series.Add(series);
+
+            // When
+            form.Show();
+            view.Update();
+
+            // Then
+            Assert.AreEqual(maxX, series.XAxis.DataMaximum);
+            Assert.AreEqual(minX, series.XAxis.DataMinimum);
+            Assert.AreEqual(maxY, series.YAxis.DataMaximum);
+            Assert.AreEqual(minY, series.YAxis.DataMinimum);
+        }
+
+        [Test]
+        public void GivenEmptyMultipleAreaSeriesAddedToView_WhenViewOpenedAndUpdated_ThenXYAxisNotChanged()
+        {
+            // Given
+            var form = new Form();
+            var view = new LinearPlotView();
+            form.Controls.Add(view);
+            var series = new MultipleAreaSeries();
+
+            view.Model.Series.Add(series);
+
+            // When
+            form.Show();
+            view.Update();
+
+            // Then
+            Assert.AreEqual(double.NaN, series.XAxis.DataMaximum);
+            Assert.AreEqual(double.NaN, series.XAxis.DataMinimum);
+            Assert.AreEqual(double.NaN, series.YAxis.DataMaximum);
+            Assert.AreEqual(double.NaN, series.YAxis.DataMinimum);
         }
     }
 }

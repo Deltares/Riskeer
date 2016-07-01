@@ -94,6 +94,10 @@
       <Project>{dadaa0a5-288c-49cb-9f08-337f16832c86}</Project>
       <Name>Core.Components.OxyPlot.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Components.OxyPlot\Core.Components.OxyPlot.csproj">
+      <Project>{2344A7BD-7E25-4A1A-982E-6C674AF5167A}</Project>
+      <Name>Core.Components.OxyPlot</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core.Components.Charting.TestUtil\Core.Components.Charting.TestUtil.csproj">
       <Project>{E900A014-CA87-4374-87F0-813D653A9698}</Project>
       <Name>Core.Components.Charting.TestUtil</Name>

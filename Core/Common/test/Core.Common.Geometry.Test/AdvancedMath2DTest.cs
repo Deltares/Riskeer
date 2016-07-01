@@ -33,13 +33,7 @@ namespace Core.Common.Geometry.Test
         public void PolygonIntersectionWithPolygon_NoIntersection_ReturnsEmptyCollection()
         {
             // Setup
-            var polyA = new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(0, 4),
-                new Point2D(4, 4),
-                new Point2D(4, 0)
-            };
+            var polyA = CreateBasePolygon();
 
             var polyB = new[]
             {
@@ -60,25 +54,19 @@ namespace Core.Common.Geometry.Test
         public void PolygonIntersectionWithPolygon_WithSelfIntersectingPolygon_ThrowsInvalidPolygonException()
         {
             // Setup
-            var polyA = new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(0, 4),
-                new Point2D(2, 0), 
-                new Point2D(4, 4),
-                new Point2D(4, 0)
-            };
+            var polyA = CreateBasePolygon();
 
             var polyB = new[]
             {
-                new Point2D(5, 0),
-                new Point2D(5, 4),
-                new Point2D(9, 4),
-                new Point2D(9, 0)
+                new Point2D(4, 0),
+                new Point2D(4, 4),
+                new Point2D(6, 0), 
+                new Point2D(8, 4),
+                new Point2D(8, 0)
             };
 
             // Call
-            TestDelegate test = () => AdvancedMath2D.PolygonIntersectionWithPolygon(polyA, polyB);
+            TestDelegate test = () => AdvancedMath2D.PolygonIntersectionWithPolygon(polyB, polyA);
 
             // Assert
             Assert.Throws<InvalidPolygonException>(test);
@@ -88,13 +76,7 @@ namespace Core.Common.Geometry.Test
         public void PolygonIntersectionWithPolygon_IntersectsComplete_ReturnsIntersectionEqualToPolygon()
         {
             // Setup
-            var polyA = new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(0, 4),
-                new Point2D(4, 4),
-                new Point2D(4, 0)
-            };
+            var polyA = CreateBasePolygon();
 
             var polyB = new[]
             {
@@ -116,13 +98,7 @@ namespace Core.Common.Geometry.Test
         public void PolygonIntersectionWithPolygon_PartlyIntersects_ReturnsPartialIntersection()
         {
             // Setup
-            var polyA = new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(0, 4),
-                new Point2D(4, 4),
-                new Point2D(4, 0)
-            };
+            var polyA = CreateBasePolygon();
 
             var polyB = new[]
             {
@@ -144,13 +120,7 @@ namespace Core.Common.Geometry.Test
         public void PolygonIntersectionWithPolygon_TouchesOnSide_ReturnsEmptyCollection()
         {
             // Setup
-            var polyA = new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(0, 4),
-                new Point2D(4, 4),
-                new Point2D(4, 0)
-            };
+            var polyA = CreateBasePolygon();
 
             var polyB = new[]
             {
@@ -171,13 +141,7 @@ namespace Core.Common.Geometry.Test
         public void PolygonIntersectionWithPolygon_TouchesWithPointOnSide_ReturnsEmptyCollection()
         {
             // Setup
-            var polyA = new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(0, 4),
-                new Point2D(4, 4),
-                new Point2D(4, 0)
-            };
+            var polyA = CreateBasePolygon();
 
             var polyB = new[]
             {
@@ -199,13 +163,7 @@ namespace Core.Common.Geometry.Test
         public void PolygonIntersectionWithPolygon_PartiallyIntersectsTwice_ReturnsTwoIntersections()
         {
             // Setup
-            var polyA = new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(0, 4),
-                new Point2D(4, 4),
-                new Point2D(4, 0)
-            };
+            var polyA = CreateBasePolygon();
 
             var polyB = new[]
             {
@@ -238,6 +196,17 @@ namespace Core.Common.Geometry.Test
                 new Point2D(2,0),
                 new Point2D(2,1)
             }, intersections.ElementAt(1));
+        }
+
+        private static Point2D[] CreateBasePolygon()
+        {
+            return new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(0, 4),
+                new Point2D(4, 4),
+                new Point2D(4, 0)
+            };
         }
     }
 }

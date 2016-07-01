@@ -10,7 +10,6 @@ using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
 using Core.Plugins.OxyPlot.Legend;
 using NUnit.Framework;
-using Rhino.Mocks;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Core.Plugins.OxyPlot.Test.Legend

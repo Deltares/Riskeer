@@ -10,7 +10,6 @@ using Core.Components.Charting.Data;
 using Core.Plugins.OxyPlot.Legend;
 using Core.Plugins.OxyPlot.Properties;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Plugins.OxyPlot.Test.Legend
 {

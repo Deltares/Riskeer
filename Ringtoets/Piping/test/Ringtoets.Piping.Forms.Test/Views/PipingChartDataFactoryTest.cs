@@ -499,6 +499,35 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        public void CreatePipingSoilLayer_SurfaceLineNull_ThrowsArgumentNullException()
+        {
+            var profile = new PipingSoilProfile("name", 2.0, new[]
+            {
+                new PipingSoilLayer(3.2)
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            TestDelegate test = () => PipingChartDataFactory.CreatePipingSoilLayer(0, profile, null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("surfaceLine", paramName);
+        }
+
+        [Test]
+        public void CreatePipingSoilLayer_SoilProfileNull_ThrowsArgumentException()
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            TestDelegate test = () => PipingChartDataFactory.CreatePipingSoilLayer(0, null, surfaceLine);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("soilProfile", paramName);
+        }
+
+        [Test]
         public void CreatePipingSoilLayer_SurfaceLineOnOrAboveSoilLayer_SoilLayerAsRectangleReturned()
         {
             var surfaceLine = new RingtoetsPipingSurfaceLine();

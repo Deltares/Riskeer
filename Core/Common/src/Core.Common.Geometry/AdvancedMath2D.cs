@@ -27,7 +27,10 @@ using NetTopologySuite.Geometries;
 
 namespace Core.Common.Geometry
 {
-    public class AdvancedMath2D
+    /// <summary>
+    /// This class contains more advanced mathematical routines for 2D geometries.
+    /// </summary>
+    public static class AdvancedMath2D
     {
         /// <summary>
         /// Calculates the intersection between two polygons, which can result in any number of polygons which represent the intersecting area. Polygons
@@ -56,9 +59,11 @@ namespace Core.Common.Geometry
         private static Polygon PointsToPolygon(IEnumerable<Point2D> points)
         {
             var pointList = points.ToList();
-            if (!pointList.First().Equals(pointList.Last()))
+            var firstPoint = pointList.First();
+
+            if (!firstPoint.Equals(pointList.Last()))
             {
-                pointList.Add(pointList.First());
+                pointList.Add(firstPoint);
             }
             var coordinates = pointList.Select(p => new Coordinate(p.X, p.Y)).ToArray();
 

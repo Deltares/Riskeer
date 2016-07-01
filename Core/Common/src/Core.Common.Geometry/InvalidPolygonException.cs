@@ -23,6 +23,9 @@ using System;
 
 namespace Core.Common.Geometry
 {
+    /// <summary>
+    /// This exception can be used for when a polygon is not correctly defined.
+    /// </summary>
     public class InvalidPolygonException : Exception
     {
         /// <summary>

@@ -27,8 +27,20 @@ using Core.Components.Charting.Styles;
 
 namespace Core.Components.Charting.Data
 {
+    /// <summary>
+    /// This class represents data in 2D space which forms multiple closed areas.
+    /// </summary>
     public class ChartMultipleAreaData : ChartData
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="ChartMultipleAreaData"/>.
+        /// </summary>
+        /// <param name="areas">A <see cref="IEnumerable{T}"/> of <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> as (X,Y) points.</param>
+        /// <param name="name">The name of the <see cref="ChartMultipleAreaData"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="areas"/> is 
+        /// <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c> or only whitespace.</exception>
         public ChartMultipleAreaData(IEnumerable<IEnumerable<Point2D>> areas, string name)
             : base(name)
         {
