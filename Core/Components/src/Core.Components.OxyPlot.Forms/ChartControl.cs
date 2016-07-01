@@ -60,7 +60,11 @@ namespace Core.Components.OxyPlot.Forms
         /// </summary>
         private void InitializePlotView()
         {
-            view = new LinearPlotView();
+            view = new LinearPlotView
+            {
+                BackColor = Color.White
+            };
+
             controller = new DynamicPlotController();
             view.Controller = controller;
             Controls.Add(view);

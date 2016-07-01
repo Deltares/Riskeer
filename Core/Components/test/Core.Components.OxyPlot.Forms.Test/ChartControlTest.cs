@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
@@ -46,6 +47,9 @@ namespace Core.Components.OxyPlot.Forms.Test
                 CollectionAssert.IsEmpty(chart.Data.List);
                 Assert.IsTrue(chart.IsPanningEnabled);
                 Assert.IsFalse(chart.IsRectangleZoomingEnabled);
+
+                var view = TypeUtils.GetField<PlotView>(chart, "view");
+                Assert.AreEqual(Color.White, view.BackColor);
             }
         }
 
