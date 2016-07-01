@@ -153,6 +153,13 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            // Necessary to correctly load the content of the dropdown lists of the comboboxes...
+            UpdateDataGridViewDataSource();
+            base.OnLoad(e);
+        }
+
         protected override void Dispose(bool disposing)
         {
             assessmentSectionObserver.Dispose();

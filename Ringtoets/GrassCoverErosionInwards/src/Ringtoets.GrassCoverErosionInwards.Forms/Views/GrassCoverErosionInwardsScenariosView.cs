@@ -45,21 +45,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         private readonly Observer failureMechanismObserver;
         private GrassCoverErosionInwardsFailureMechanism failureMechanism;
         private object data;
-
         private DataGridViewControl dataGridViewControl;
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="GrassCoverErosionInwardsScenariosView"/> class.
+        /// </summary>
         public GrassCoverErosionInwardsScenariosView()
         {
             InitializeComponent();
+
+            AddDataGridColumns();
 
             failureMechanismObserver = new Observer(UpdateDataGridViewDataSource);
 
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculation>().Select(c => c.GetObservableInput())));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children);
-
-            AddDataGridColumns();
         }
 
+        /// <summary>
+        /// Gets or sets the failure mechanism.
+        /// </summary>
         public GrassCoverErosionInwardsFailureMechanism FailureMechanism
         {
             get
@@ -93,6 +98,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            // Necessary to correctly load the content of the dropdown lists of the comboboxes...
+            UpdateDataGridViewDataSource();
+            base.OnLoad(e);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (failureMechanismObserver != null)
@@ -110,45 +122,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void PrefillComboBoxColumnItems()
-        {
-            var dataGridViewColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex);
-            using (new SuspendDataGridViewColumnResizes(dataGridViewColumn))
-            {
-                var calculationGroup = data as CalculationGroup;
-                if (calculationGroup != null)
-                {
-                    dataGridViewColumn.Items.Clear();
-                    dataGridViewColumn.Items.Add(new DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>(null));
-                    dataGridViewColumn.Items.AddRange(calculationGroup
-                                                          .GetCalculations()
-                                                          .OfType<GrassCoverErosionInwardsCalculation>()
-                                                          .Select(c => new DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>(c))
-                                                          .Cast<object>()
-                                                          .ToArray());
-                }
-            }
-        }
-
         private void UpdateDataGridViewDataComboBoxesContent()
         {
-            if (FailureMechanism.SectionResults != null)
-            {
-                UpdateCalculationsColumn();
-            }
-            dataGridViewControl.RefreshDataGridView();
+            UpdateCalculationsColumn();
         }
 
         private void UpdateCalculationsColumn()
         {
-            var dataGridViewColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex);
-            using (new SuspendDataGridViewColumnResizes(dataGridViewColumn))
+            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegmentName = MapCalculationsToSegments();
+            foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.GetRows())
             {
-                Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegmentName = MapCalculationsToSegments();
-                foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.GetRows())
-                {
-                    FillAvailableCalculationsList(dataGridViewRow, calculationsPerSegmentName);
-                }
+                FillAvailableCalculationsList(dataGridViewRow, calculationsPerSegmentName);
             }
         }
 
@@ -203,12 +187,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             string sectionName = rowData.Name;
 
             var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[calculationsColumnIndex];
-            cell.Items.Clear();
-            cell.Items.Add(new DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>(null));
+            var items = new List<DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>>
+            {
+                new DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>(null)
+            };
+
             if (calculationsPerSegmentName.ContainsKey(sectionName))
             {
-                cell.Items.AddRange(calculationsPerSegmentName[sectionName].Select(c => new DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>(c)).Cast<object>().ToArray());
+                items.AddRange(calculationsPerSegmentName[sectionName].Select(c => new DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>(c)));
             }
+            cell.DataSource = items;
+            cell.Value = rowData.Calculation;
         }
 
         private void AddDataGridColumns()
@@ -229,20 +218,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         private void UpdateDataGridViewDataSource()
         {
             dataGridViewControl.EndEdit();
-            if (FailureMechanism.SectionResults == null)
+
+            if (FailureMechanism == null || FailureMechanism.SectionResults == null)
             {
                 dataGridViewControl.SetDataSource(null);
-                var dataGridViewColumn = (DataGridViewComboBoxColumn)dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex);
-                dataGridViewColumn.Items.Clear();
-                dataGridViewColumn.Items.Add(new DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>(null));
-            }
-            else
-            {
-                dataGridViewControl.SetDataSource(FailureMechanism.SectionResults.Select(CreateGrassCoverErosionInwardsSectionResultRow).ToList());
-                PrefillComboBoxColumnItems();
-                UpdateDataGridViewDataComboBoxesContent();
+                return;
             }
 
+            dataGridViewControl.SetDataSource(FailureMechanism.SectionResults.Select(CreateGrassCoverErosionInwardsSectionResultRow).ToList());
+
+            UpdateDataGridViewDataComboBoxesContent();
         }
 
         private GrassCoverErosionInwardsSectionResultRow CreateGrassCoverErosionInwardsSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
@@ -250,31 +235,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             return new GrassCoverErosionInwardsSectionResultRow()
             {
                 Name = sectionResult.Section.Name,
-                Calculation = null  // sectionResult.Calculation
+                Calculation = null
             };
-        }
-
-        /// <summary>
-        /// This class makes it easier to temporarily disable automatic resizing of a column,
-        /// for example when its data is being changed or you are replacing the list items
-        /// available in a combo-box for that column.
-        /// </summary>
-        private class SuspendDataGridViewColumnResizes : IDisposable
-        {
-            private readonly DataGridViewColumn column;
-            private readonly DataGridViewAutoSizeColumnMode originalValue;
-
-            public SuspendDataGridViewColumnResizes(DataGridViewColumn columnToSuspend)
-            {
-                column = columnToSuspend;
-                originalValue = columnToSuspend.AutoSizeMode;
-                columnToSuspend.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            }
-
-            public void Dispose()
-            {
-                column.AutoSizeMode = originalValue;
-            }
         }
     }
 }

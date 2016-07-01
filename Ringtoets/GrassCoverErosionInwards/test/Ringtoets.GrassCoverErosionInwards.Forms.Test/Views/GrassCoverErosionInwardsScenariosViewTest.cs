@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -48,33 +49,35 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_DefaultValues()
-        {
-            // Call
-            using(var view = new GrassCoverErosionInwardsScenariosView())
-            {
-                // Assert
-                Assert.IsInstanceOf<IView>(view);
-                Assert.IsNull(view.Data);
-            }
-        }
-
-        [Test]
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Call
-            using (ShowScenariosView())
+            using (var view = ShowScenariosView())
             {
-                // Assert
+                var dataGridViewControl = (DataGridViewControl)new ControlTester("dataGridViewControl").TheObject;
                 var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
-                Assert.AreEqual(2, dataGridView.ColumnCount);
-                Assert.IsTrue(dataGridView.Columns[assessmentSectionNameColumnIndex].ReadOnly);
-                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[calculationColumnIndex]);
+                // Assert
+                Assert.IsInstanceOf<IView>(view);
+                Assert.IsNull(view.Data);
+                Assert.IsNull(view.FailureMechanism);
+                Assert.IsNotNull(dataGridViewControl);
 
-                DataGridViewComboBoxColumn column = (DataGridViewComboBoxColumn) dataGridView.Columns[calculationColumnIndex];
-                Assert.AreEqual("WrappedObject", column.ValueMember);
-                Assert.AreEqual("DisplayName", column.DisplayMember);
+                Assert.AreEqual(0, dataGridView.RowCount);
+                Assert.AreEqual(2, dataGridView.ColumnCount);
+
+                Assert.AreEqual("Vak", dataGridViewControl.GetColumnFromIndex(0).HeaderText);
+                Assert.AreEqual("Berekening", dataGridViewControl.GetColumnFromIndex(1).HeaderText);
+
+                // TODO How to test that rows are of type GrassCoverErosionInwardsSectionResultRow?
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridViewControl.GetColumnFromIndex(0));
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridViewControl.GetColumnFromIndex(1));
+
+                Assert.IsTrue(dataGridViewControl.GetColumnFromIndex(0).ReadOnly);
+
+                DataGridViewComboBoxColumn comboBoxColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(1);
+                Assert.AreEqual("WrappedObject", comboBoxColumn.ValueMember);
+                Assert.AreEqual("DisplayName", comboBoxColumn.DisplayMember);
             }
         }
 
