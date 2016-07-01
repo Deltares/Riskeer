@@ -802,7 +802,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             // Assert
             Action<IEnumerable<string>> asserts = (messages) =>
             {
-                bool found = messages.Any(message => message.StartsWith("Meerdere dijkprofieldata definities gevonden voor dijkprofiel 'profiel001'. Bestand 'D:\\repos\\WettelijkToetsInstrumentarium\\Ringtoets\\GrassCoverErosionInwards\\test\\Ringtoets.GrassCoverErosionInwards.IO.Test\\test-data\\DikeProfiles\\TwoPrflWithSameId\\profiel001_2.prfl' wordt overgeslagen."));
+                var start = "Meerdere dijkprofieldata definities gevonden voor dijkprofiel 'profiel001'. Bestand '";
+                var end = "' wordt overgeslagen.";
+                bool found = messages.Any(m => m.StartsWith(start) && m.EndsWith(end));
                 Assert.IsTrue(found);
             };
             TestHelper.AssertLogMessages(call, asserts);
