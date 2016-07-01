@@ -7,19 +7,6 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         #region Component Designer generated code
 
         /// <summary> 
@@ -28,30 +15,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridViewControl1 = new Core.Common.Controls.DataGrid.DataGridViewControl();
+            this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.SuspendLayout();
             // 
-            // dataGridViewControl1
+            // dataGridViewControl
             // 
-            this.dataGridViewControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewControl1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewControl1.Name = "dataGridViewControl1";
-            this.dataGridViewControl1.Size = new System.Drawing.Size(498, 451);
-            this.dataGridViewControl1.TabIndex = 0;
+            this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewControl.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewControl.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.dataGridViewControl.MinimumSize = new System.Drawing.Size(667, 369);
+            this.dataGridViewControl.Name = "dataGridViewControl";
+            this.dataGridViewControl.Size = new System.Drawing.Size(667, 555);
+            this.dataGridViewControl.TabIndex = 0;
             // 
             // GrassCoverErosionInwardsScenariosView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.dataGridViewControl1);
+            this.Controls.Add(this.dataGridViewControl);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "GrassCoverErosionInwardsScenariosView";
-            this.Size = new System.Drawing.Size(498, 451);
+            this.Size = new System.Drawing.Size(664, 555);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl1;
     }
 }

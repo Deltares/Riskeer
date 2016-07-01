@@ -19,8 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Forms;
 using Core.Common.Controls.Views;
-
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
@@ -30,8 +31,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
     [TestFixture]
     public class GrassCoverErosionInwardsScenariosViewTest
     {
+        private Form testForm;
+        private const int assessmentSectionNameColumnIndex = 0;
+        private const int calculationColumnIndex = 1;
+
+        [SetUpAttribute]
+        public void Setup()
+        {
+            testForm = new Form();
+        }
+
+        [TearDownAttribute]
+        public void TearDown()
+        {
+            testForm.Dispose();
+        }
+
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_DefaultValues()
         {
             // Call
             using(var view = new GrassCoverErosionInwardsScenariosView())
@@ -39,8 +56,35 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
-                Assert.IsNull(view.SectionResults);
             }
+        }
+
+        [Test]
+        public void Constructor_DataGridViewCorrectlyInitialized()
+        {
+            // Call
+            using (ShowScenariosView())
+            {
+                // Assert
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                Assert.AreEqual(2, dataGridView.ColumnCount);
+                Assert.IsTrue(dataGridView.Columns[assessmentSectionNameColumnIndex].ReadOnly);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[calculationColumnIndex]);
+
+                DataGridViewComboBoxColumn column = (DataGridViewComboBoxColumn) dataGridView.Columns[calculationColumnIndex];
+                Assert.AreEqual("WrappedObject", column.ValueMember);
+                Assert.AreEqual("DisplayName", column.DisplayMember);
+            }
+        }
+
+        private GrassCoverErosionInwardsScenariosView ShowScenariosView()
+        {
+            var scenariosView = new GrassCoverErosionInwardsScenariosView();
+            testForm.Controls.Add(scenariosView);
+            testForm.Show();
+
+            return scenariosView;
         }
     }
 }

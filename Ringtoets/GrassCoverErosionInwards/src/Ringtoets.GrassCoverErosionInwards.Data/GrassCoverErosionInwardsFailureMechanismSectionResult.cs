@@ -64,5 +64,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public bool AssessmentLayerOne { get; set; }
 
         public long StorageId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the single relevant <see cref="GrassCoverErosionInwardsCalculation"/>.
+        /// </summary>
+        public GrassCoverErosionInwardsCalculation Calculation { get; set; }
     }
 }

@@ -534,6 +534,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekening.
+        /// </summary>
+        public static string GrassCoverErosionInwardsScenariosView_AddDataGridColumns_Calculation {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsScenariosView_AddDataGridColumns_Calculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden..
         /// </summary>
         public static string HydraulicBoundaryLocation_Description {

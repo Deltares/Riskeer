@@ -286,4 +286,7 @@
   <data name="GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_" xml:space="preserve">
     <value>{0} - {1}</value>
   </data>
+  <data name="GrassCoverErosionInwardsScenariosView_AddDataGridColumns_Calculation" xml:space="preserve">
+    <value>Berekening</value>
+  </data>
 </root>

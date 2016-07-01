@@ -72,7 +72,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, calculationGroup) => GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_Scenarios_DisplayName,
-                AfterCreate = (view, context) => { view.SectionResults = context.ParentFailureMechanism.SectionResults; },
+                AfterCreate = (view, context) => { view.FailureMechanism = context.ParentFailureMechanism; },
                 CloseForData = (view, removedData) =>
                 {
                     var assessmentSection = removedData as IAssessmentSection;

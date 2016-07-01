@@ -54,9 +54,9 @@ namespace Ringtoets.Piping.Forms.Views
             DataGridViewControl.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
 
             // The concat is needed to observe the input of calculations in child groups.
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(UpdataDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.GetObservableInput())));
-            calculationOutputObserver = new RecursiveObserver<CalculationGroup, ICalculationOutput>(UpdataDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.GetObservableOutput())));
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdataDataGridViewDataSource, c => c.Children);
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.GetObservableInput())));
+            calculationOutputObserver = new RecursiveObserver<CalculationGroup, ICalculationOutput>(UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.GetObservableOutput())));
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children);
 
             AddDataGridColumns();
         }

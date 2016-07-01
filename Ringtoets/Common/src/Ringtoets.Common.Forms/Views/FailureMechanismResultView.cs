@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             InitializeComponent();
 
-            failureMechanismObserver = new Observer(UpdataDataGridViewDataSource);
+            failureMechanismObserver = new Observer(UpdateDataGridViewDataSource);
             failureMechanismSectionResultObservers = new List<Observer>();
         }
 
@@ -79,7 +79,7 @@ namespace Ringtoets.Common.Forms.Views
                 failureMechanismObserver.Observable = failureMechanism;
                 if (failureMechanism != null)
                 {
-                    UpdataDataGridViewDataSource();
+                    UpdateDataGridViewDataSource();
                 }
             }
         }
@@ -96,7 +96,7 @@ namespace Ringtoets.Common.Forms.Views
 
                 if (failureMechanismSectionResult != null)
                 {
-                    UpdataDataGridViewDataSource();
+                    UpdateDataGridViewDataSource();
                 }
                 else
                 {
@@ -137,7 +137,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Updates the data source of the data grid view with the current known failure mechanism section results.
         /// </summary>
-        protected void UpdataDataGridViewDataSource()
+        protected void UpdateDataGridViewDataSource()
         {
             UpdateFailureMechanismSectionResultsObservers();
             DataGridViewControl.EndEdit();

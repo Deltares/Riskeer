@@ -242,7 +242,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 info.AfterCreate(view, context);
 
                 // Assert
-                Assert.AreSame(failureMechanism.SectionResults, view.SectionResults);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
         }
     }
