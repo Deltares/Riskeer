@@ -90,6 +90,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fout bij het lezen van dijkprofiel op regel {0}. {1} Dit dijkprofiel wordt overgeslagen..
+        /// </summary>
+        internal static string DikeProfilesImporter_GetDikeProfileLocationReadResult_Error_reading_DikeProfile_LineNumber_0_Error_1_The_DikeProfile_is_skipped {
+            get {
+                return ResourceManager.GetString("DikeProfilesImporter_GetDikeProfileLocationReadResult_Error_reading_DikeProfile_L" +
+                        "ineNumber_0_Error_1_The_DikeProfile_is_skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inlezen van dijkprofiel locatie..
         /// </summary>
         internal static string DikeProfilesImporter_GetDikeProfileLocationReadResult_reading_dikeprofilelocation {
@@ -128,12 +138,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alleen het eerste dijkprofiel data bestand met Id {0} wordt gebruikt. De {1} overgeslagen bestanden zijn:.
+        ///   Looks up a localized string similar to Meerdere dijkprofieldata definities gevonden voor dijkprofiel &apos;{0}&apos;. Bestand &apos;{1}&apos; wordt overgeslagen..
         /// </summary>
-        internal static string DikeProfilesImporter_LogDuplicateDikeProfileData_dikeprofiledata_file_with_id_0_used_files_1_are_skipped {
+        internal static string DikeProfilesImporter_LogDuplicateDikeProfileData_Multiple_DikeProfileData_found_for_DikeProfile_0_File_1_skipped {
             get {
-                return ResourceManager.GetString("DikeProfilesImporter_LogDuplicateDikeProfileData_dikeprofiledata_file_with_id_0_u" +
-                        "sed_files_1_are_skipped", resourceCulture);
+                return ResourceManager.GetString("DikeProfilesImporter_LogDuplicateDikeProfileData_Multiple_DikeProfileData_found_f" +
+                        "or_DikeProfile_0_File_1_skipped", resourceCulture);
             }
         }
         

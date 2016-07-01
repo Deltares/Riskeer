@@ -174,6 +174,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
                     NotifyProgress(Resources.DikeProfilesImporter_GetDikeProfileLocationReadResult_reading_dikeprofilelocation, i + 1, totalNumberOfSteps);
                     AddNextDikeProfileLocation(dikeProfileLocationReader, referenceLine, dikeProfileLocations);
                 }
+                catch (LineParseException exception)
+                {
+                    var message = string.Format(
+                        Resources.DikeProfilesImporter_GetDikeProfileLocationReadResult_Error_reading_DikeProfile_LineNumber_0_Error_1_The_DikeProfile_is_skipped,
+                        i + 1,
+                        exception.Message);
+                    log.Warn(message);
+                }
                 catch (CriticalFileReadException exception)
                 {
                     log.Error(exception.Message);
@@ -192,7 +200,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
         /// <param name="dikeProfileLocationReader">Reader reading <see cref="DikeProfileLocation"/>s for a shapefile.</param>
         /// <param name="referenceLine">The reference line.</param>
         /// <param name="dikeProfileLocations">Collection of <see cref="DikeProfileLocation"/>s to which a new <see cref="DikeProfileLocation"/> is to be added.</param>
-        /// <exception cref="CriticalFileReadException"><list type="bullet">
+        /// <exception cref="LineParseException"><list type="bullet">
         /// <item>The shapefile misses a value for a required attribute.</item>
         /// <item>The shapefile has an attribute whose type is incorrect.</item>
         /// </list></exception>
@@ -218,7 +226,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
             int totalNumberOfSteps = prflFilePaths.Length;
 
             var dikeProfileData = new Collection<DikeProfileData>();
-            Dictionary<string, List<string>> duplicates = new Dictionary<string, List<string>>();
             var dikeProfileDataReader = new DikeProfileDataReader();
 
             for (int i = 0; i < totalNumberOfSteps; i++)
@@ -243,7 +250,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
 
                     if (dikeProfileData.Any(d => d.Id.Equals(data.Id)))
                     {
-                        UpdateDuplicates(duplicates, data, prflFilePath);
+                        LogDuplicate(data, prflFilePath);
                     }
                     else
                     {
@@ -254,11 +261,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
                 catch (CriticalFileReadException exception)
                 {
                     log.Error(exception.Message);
-                    return new ReadResult<DikeProfileData>(true);
                 }
             }
-
-            LogDuplicateDikeProfileData(duplicates);
 
             return new ReadResult<DikeProfileData>(false)
             {
@@ -266,38 +270,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
             };
         }
 
-        private static void UpdateDuplicates(Dictionary<string, List<string>> duplicates, DikeProfileData data, string prflFilePath)
+        private void LogDuplicate(DikeProfileData data, string prflFilePath)
         {
-            if (!duplicates.ContainsKey(data.Id))
-            {
-                duplicates.Add(data.Id, new List<string>());
-            }
-            duplicates[data.Id].Add(prflFilePath);
-        }
-
-        private void LogDuplicateDikeProfileData(Dictionary<string, List<string>> duplicates)
-        {
-            foreach (KeyValuePair<string, List<string>> keyValuePair in duplicates)
-            {
-                StringBuilder builder = new StringBuilder(
-                    string.Format(Resources.DikeProfilesImporter_LogDuplicateDikeProfileData_dikeprofiledata_file_with_id_0_used_files_1_are_skipped,
-                                  keyValuePair.Key, keyValuePair.Value.Count));
-
-                foreach (string filePath in keyValuePair.Value)
-                {
-                    if (BuilderHasCapacityForFilePath(builder, filePath))
-                    {
-                        builder.AppendLine(filePath);
-                    }
-                }
-                string message = builder.ToString();
-                log.Error(message);
-            }
-        }
-
-        private static bool BuilderHasCapacityForFilePath(StringBuilder builder, string filePath)
-        {
-            return builder.Length + filePath.Length + Environment.NewLine.Length < builder.MaxCapacity;
+            var message = string.Format(
+                Resources.DikeProfilesImporter_LogDuplicateDikeProfileData_Multiple_DikeProfileData_found_for_DikeProfile_0_File_1_skipped,
+                data.Id,
+                prflFilePath);
+            log.Error(message);
         }
 
         private IEnumerable<DikeProfile> CreateDikeProfiles(ICollection<DikeProfileLocation> dikeProfileLocationCollection, ICollection<DikeProfileData> dikeProfileDataCollection)

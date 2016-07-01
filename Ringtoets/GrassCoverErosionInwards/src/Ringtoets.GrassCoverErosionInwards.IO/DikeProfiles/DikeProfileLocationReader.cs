@@ -84,7 +84,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <summary>
         /// Retrieve a <see cref="DikeProfileLocation"/> based on the next point feature in the shapefile.
         /// </summary>
-        /// <exception cref="CriticalFileReadException"><list type="bullet">
+        /// <exception cref="LineParseException">Thrown when either:
+        /// <list type="bullet">
         /// <item>The shapefile misses a value for a required attribute.</item>
         /// <item>The shapefile has an attribute whose type is incorrect.</item>
         /// </list></exception>
@@ -106,7 +107,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
             }
             catch (ArgumentException exception)
             {
-                throw new CriticalFileReadException(exception.Message);
+                throw new LineParseException(exception.Message);
             }
         }
 
@@ -141,7 +142,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
             var attributeX0Value = attributes[offsetAttributeName] as double?;
             if (attributeX0Value == null)
             {
-                throw new CriticalFileReadException(GrasCoverErosionInwardsIoResources.DikeProfileLocationReader_GetDikeProfileLocations_Invalid_X0);
+                throw new LineParseException(GrasCoverErosionInwardsIoResources.DikeProfileLocationReader_GetDikeProfileLocations_Invalid_X0);
             }
             return attributeX0Value.Value;
         }

@@ -195,7 +195,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
                 // Assert
                 var expectedMessage = "De locatie parameter 'Id' heeft geen waarde.";
-                string message = Assert.Throws<CriticalFileReadException>(call).Message;
+                string message = Assert.Throws<LineParseException>(call).Message;
                 Assert.AreEqual(expectedMessage, message);
             }
         }
@@ -213,8 +213,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
                 TestDelegate call = () => reader.GetNextDikeProfileLocation();
 
                 // Assert
-                var expectedMessage = "Het bestand heeft een attribuut 'X0' zonder geldige waarde, welke vereist is om de locaties van de dijkprofielen in te lezen.";
-                string message = Assert.Throws<CriticalFileReadException>(call).Message;
+                var expectedMessage = "Het dijkprofiel heeft geen geldige waarde voor attribuut 'X0'.";
+                string message = Assert.Throws<LineParseException>(call).Message;
                 Assert.AreEqual(expectedMessage, message);
             }
         }
@@ -235,7 +235,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
                 // Assert
                 var expectedMessage = "De locatie parameter 'Id' mag uitsluitend uit letters en cijfers bestaan.";
-                string message = Assert.Throws<CriticalFileReadException>(call).Message;
+                string message = Assert.Throws<LineParseException>(call).Message;
                 Assert.AreEqual(expectedMessage, message);
             }
         }

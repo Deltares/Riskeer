@@ -157,8 +157,8 @@
   <data name="DikeProfilesImporter_ReadDikeProfileData_sheet_piling_not_zero_skipping_0_" xml:space="preserve">
     <value>Voorland en dijkprofiel data specificeert een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen: {0}</value>
   </data>
-  <data name="DikeProfilesImporter_LogDuplicateDikeProfileData_dikeprofiledata_file_with_id_0_used_files_1_are_skipped" xml:space="preserve">
-    <value>Alleen het eerste dijkprofiel data bestand met Id {0} wordt gebruikt. De {1} overgeslagen bestanden zijn:</value>
+  <data name="DikeProfilesImporter_LogDuplicateDikeProfileData_Multiple_DikeProfileData_found_for_DikeProfile_0_File_1_skipped" xml:space="preserve">
+    <value>Meerdere dijkprofieldata definities gevonden voor dijkprofiel '{0}'. Bestand '{1}' wordt overgeslagen.</value>
   </data>
   <data name="DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_" xml:space="preserve">
     <value>Kan geen voorland en dijkprofiel data vinden voor dijkprofiel locatie met Id: {0}</value>
@@ -171,5 +171,8 @@
   </data>
   <data name="DikeProfilesImporter_ReadDikeProfileData_reading_dikeprofiledata" xml:space="preserve">
     <value>Inlezen van voorland en dijkprofiel data.</value>
+  </data>
+  <data name="DikeProfilesImporter_GetDikeProfileLocationReadResult_Error_reading_DikeProfile_LineNumber_0_Error_1_The_DikeProfile_is_skipped" xml:space="preserve">
+    <value>Fout bij het lezen van dijkprofiel op regel {0}. {1} Dit dijkprofiel wordt overgeslagen.</value>
   </data>
 </root>

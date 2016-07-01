@@ -130,7 +130,7 @@
     <value>Fout bij het aanmaken van een dijk profiel locatie: X0 is ongeldig.</value>
   </data>
   <data name="DikeProfileLocationReader_GetDikeProfileLocations_Invalid_X0" xml:space="preserve">
-    <value>Het bestand heeft een attribuut 'X0' zonder geldige waarde, welke vereist is om de locaties van de dijkprofielen in te lezen.</value>
+    <value>Het dijkprofiel heeft geen geldige waarde voor attribuut 'X0'.</value>
   </data>
   <data name="DikeProfileDataReader_ParseDamType_DamType_0_must_be_in_range" xml:space="preserve">
     <value>De ingelezen dam-type waarde ({0}) moet binnen het bereik [0, 3] vallen.</value>
