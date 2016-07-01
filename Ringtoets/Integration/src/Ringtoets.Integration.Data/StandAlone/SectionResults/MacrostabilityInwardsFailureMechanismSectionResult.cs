@@ -44,7 +44,8 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         public MacrostabilityInwardsFailureMechanismSectionResult(FailureMechanismSection section)
             : base(section)
         {
-            AssessmentLayerTwoA = (RoundedDouble)1.0;
+            AssessmentLayerTwoA = (RoundedDouble)double.NaN;
+            AssessmentLayerThree = (RoundedDouble)double.NaN;
         }
 
         /// <summary>

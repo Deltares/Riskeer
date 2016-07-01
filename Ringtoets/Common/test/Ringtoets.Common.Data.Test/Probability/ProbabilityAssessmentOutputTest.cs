@@ -22,6 +22,8 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
+
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
@@ -36,9 +38,9 @@ namespace Ringtoets.Common.Data.Test.Probability
         {
             // Setup
             var random = new Random(5);
-            var requiredProbability = new RoundedDouble(2, random.NextDouble());
+            var requiredProbability = random.NextDouble();
             var requiredReliability = new RoundedDouble(3, random.NextDouble());
-            var probability = new RoundedDouble(2, random.NextDouble());
+            var probability = random.NextDouble();
             var reliability = new RoundedDouble(3, random.NextDouble());
             var factorOfSafety = new RoundedDouble(3, random.NextDouble());
 
@@ -54,6 +56,114 @@ namespace Ringtoets.Common.Data.Test.Probability
             Assert.AreEqual(probability, output.Probability);
             Assert.AreEqual(reliability, output.Reliability);
             Assert.AreEqual(factorOfSafety, output.FactorOfSafety);
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(0.0)]
+        [TestCase(0.123456789)]
+        [TestCase(1.0)]
+        public void RequiredProbability_SetToValidValue_GetValidValue(double requiredProbability)
+        {
+            // Setup
+            var random = new Random(5);
+            var requiredReliability = random.NextDouble();
+            var probability = random.NextDouble();
+            var reliability = random.NextDouble();
+            var factorOfSafety = random.NextDouble();
+
+            // Call
+            var output = new ProbabilityAssessmentOutput(requiredProbability,
+                                                         requiredReliability,
+                                                         probability,
+                                                         reliability,
+                                                         factorOfSafety);
+
+            // Assert
+            Assert.AreEqual(requiredProbability, output.RequiredProbability);
+        }
+
+        [Test]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(-1e-6)]
+        [TestCase(-346587.456)]
+        [TestCase(1.0 + 1e-6)]
+        [TestCase(346587.456)]
+        public void RequiredProbability_SetToInvalidValue_ThrowArgumentOutOfRangeException(double requiredProbability)
+        {
+            // Setup
+            var random = new Random(5);
+            var requiredReliability = random.NextDouble();
+            var probability = random.NextDouble();
+            var reliability = random.NextDouble();
+            var factorOfSafety = random.NextDouble();
+
+            // Call
+            TestDelegate call = () => new ProbabilityAssessmentOutput(requiredProbability,
+                                                                      requiredReliability,
+                                                                      probability,
+                                                                      reliability,
+                                                                      factorOfSafety);
+
+            // Assert
+            var expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call,
+                                                                                                expectedMessage);
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(0.0)]
+        [TestCase(0.123456789)]
+        [TestCase(1.0)]
+        public void Probability_SetToValidValue_GetValidValue(double probability)
+        {
+            // Setup
+            var random = new Random(5);
+            var requiredProbability = random.NextDouble();
+            var requiredReliability = random.NextDouble();
+            var reliability = random.NextDouble();
+            var factorOfSafety = random.NextDouble();
+
+            // Call
+            var output = new ProbabilityAssessmentOutput(requiredProbability,
+                                                         requiredReliability,
+                                                         probability,
+                                                         reliability,
+                                                         factorOfSafety);
+
+            // Assert
+            Assert.AreEqual(requiredProbability, output.RequiredProbability);
+        }
+
+        [Test]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(-1e-6)]
+        [TestCase(-346587.456)]
+        [TestCase(1.0+1e-6)]
+        [TestCase(346587.456)]
+        public void Probability_SetToInvalidValue_ThrowArgumentOutOfRangeException(double probability)
+        {
+            // Setup
+            var random = new Random(5);
+            var requiredProbability = random.NextDouble();
+            var requiredReliability = random.NextDouble();
+            var reliability = random.NextDouble();
+            var factorOfSafety = random.NextDouble();
+
+            // Call
+            TestDelegate call = () => new ProbabilityAssessmentOutput(requiredProbability,
+                                                                      requiredReliability,
+                                                                      probability,
+                                                                      reliability,
+                                                                      factorOfSafety);
+
+            // Assert
+            var expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call,
+                                                                                                expectedMessage);
         }
     }
 }

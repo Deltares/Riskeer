@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Data
 
         public RoundedDouble Contribution { get; set; }
 
-        public RoundedDouble Probability
+        public double Probability
         {
             get
             {

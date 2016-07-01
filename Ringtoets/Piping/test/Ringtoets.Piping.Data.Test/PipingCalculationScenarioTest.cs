@@ -85,7 +85,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Probability_PipingOutputSet_ReturnsPipingOutputProbability()
         {
             // Setup
-            RoundedDouble expectedProbability = new RoundedDouble(0, 49862180);
+            var expectedProbability = 1.0 / 49862180;
 
             var scenario = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            RoundedDouble probability = scenario.Probability;
+            double probability = scenario.Probability;
 
             // Assert
             Assert.AreEqual(expectedProbability, probability);
@@ -107,7 +107,7 @@ namespace Ringtoets.Piping.Data.Test
             var scenario = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call
-            RoundedDouble probability;
+            double probability;
             TestDelegate call = () => probability = scenario.Probability;
 
             // Assert
@@ -148,7 +148,7 @@ namespace Ringtoets.Piping.Data.Test
         public void CalculationScenarioStatus_PipingOutputSet_ReturnsStatusDone()
         {
             // Setup
-            RoundedDouble expectedProbability = new RoundedDouble(0, 49862180);
+            var expectedProbability = 1.0/49862180;
 
             var scenario = new PipingCalculationScenario(new GeneralPipingInput())
             {

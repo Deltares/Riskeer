@@ -23,12 +23,15 @@ using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Utils.Reflection;
+
 using NUnit.Framework;
 
 using Rhino.Mocks;
 
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 
@@ -63,6 +66,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
+
+            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionOutwardsSectionResultRow,
+                              FailureMechanismSectionResultNoValueRoundedDoubleConverter>(
+                                  r => r.AssessmentLayerThree));
         }
 
         [Test]

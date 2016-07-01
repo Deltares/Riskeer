@@ -24,12 +24,14 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Utils.Reflection;
+
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
@@ -66,6 +68,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(section.Name, row.Name);
             Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
+
+            Assert.IsTrue(TypeUtils.HasTypeConverter<PipingFailureMechanismSectionResultRow,
+                              FailureMechanismSectionResultNoProbabilityValueRoundedDoubleConverter>(
+                                  r => r.AssessmentLayerTwoA));
+            Assert.IsTrue(TypeUtils.HasTypeConverter<PipingFailureMechanismSectionResultRow,
+                              FailureMechanismSectionResultNoValueRoundedDoubleConverter>(
+                                  r => r.AssessmentLayerThree));
         }
 
         [Test]
@@ -95,7 +104,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void AssessmentLayerTwoA_NoScenarios_ShowDash()
+        public void AssessmentLayerTwoA_NoScenarios_ReturnNaN()
         {
             // Setup
             var section = CreateSection();
@@ -105,7 +114,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var row = new PipingFailureMechanismSectionResultRow(result, Enumerable.Empty<PipingCalculationScenario>());
 
             // Assert
-            Assert.AreEqual(Resources.FailureMechanismSectionResultRow_AssessmentLayerTwoA_No_result_dash, row.AssessmentLayerTwoA);
+            Assert.IsNaN(row.AssessmentLayerTwoA);
         }
 
         [Test]
@@ -114,7 +123,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [TestCase(0.3,0.7+1e-5)]
         [TestCase(-5,-8)]
         [TestCase(13,2)]
-        public void AssessmentLayerTwoA_RelevantScenarioContributionDontAddUpTo1_NaN(double contributionA, double contributionB)
+        public void AssessmentLayerTwoA_RelevantScenarioContributionDontAddUpTo1_ReturnNaN(double contributionA, double contributionB)
         {
             // Setup
             var section = CreateSection();
@@ -131,13 +140,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var assessmentLayerTwoA = row.AssessmentLayerTwoA;
 
             // Assert
-            Assert.AreEqual(string.Format("{0}", double.NaN), assessmentLayerTwoA);
+            Assert.IsNaN(assessmentLayerTwoA);
         }
 
         [Test]
         [TestCase(CalculationScenarioStatus.NotCalculated)]
         [TestCase(CalculationScenarioStatus.Failed)]
-        public void AssessmentLayerTwoA_NoRelevantScenariosDone_Dash(CalculationScenarioStatus status)
+        public void AssessmentLayerTwoA_NoRelevantScenariosDone_ReturnNaN(CalculationScenarioStatus status)
         {
             // Setup
             var section = CreateSection();
@@ -153,7 +162,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var assessmentLayerTwoA = row.AssessmentLayerTwoA;
 
             // Assert
-            Assert.AreEqual(Resources.FailureMechanismSectionResultRow_AssessmentLayerTwoA_No_result_dash, assessmentLayerTwoA);
+            Assert.IsNaN(assessmentLayerTwoA);
         }
 
         [Test]
@@ -171,8 +180,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var assessmentLayerTwoA = row.AssessmentLayerTwoA;
 
             // Assert
-            var expected = string.Format(CommonBaseResources.ProbabilityPerYearFormat, result.GetAssessmentLayerTwoA(new[] { scenario }));
-            Assert.AreEqual(expected, assessmentLayerTwoA);
+            var expected = result.GetAssessmentLayerTwoA(new[] { scenario });
+            Assert.AreEqual(expected, assessmentLayerTwoA, 1e-6);
         }
 
         [Test]

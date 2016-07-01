@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             Assert.AreSame(section, result.Section);
             Assert.IsFalse(result.AssessmentLayerOne);
             Assert.AreEqual(AssessmentLayerTwoAResult.NotCalculated, result.AssessmentLayerTwoA);
-            Assert.AreEqual(0, result.AssessmentLayerThree.Value);
+            Assert.IsNaN(result.AssessmentLayerThree.Value);
             Assert.AreEqual(0, result.StorageId);
         }
     }

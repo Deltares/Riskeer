@@ -47,10 +47,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(22);
-            var bigFactor = 1000000;
-            double requiredProbability = random.NextDouble()*bigFactor;
+            double requiredProbability = random.NextDouble();
             double requiredReliability = random.NextDouble();
-            double probability = random.NextDouble()*bigFactor;
+            double probability = random.NextDouble();
             double reliability = random.NextDouble();
             double factorOfSafety = random.NextDouble();
 
@@ -64,36 +63,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             var probabilityFormat = "1/{0:n0}";
-            Assert.AreEqual(string.Format(probabilityFormat, requiredProbability), properties.RequiredProbability);
+            Assert.AreEqual(string.Format(probabilityFormat, 1.0/requiredProbability), properties.RequiredProbability);
             Assert.AreEqual(requiredReliability, properties.RequiredReliability, 1e-3);
-            Assert.AreEqual(string.Format(probabilityFormat, probability), properties.Probability);
+            Assert.AreEqual(string.Format(probabilityFormat, 1.0/probability), properties.Probability);
             Assert.AreEqual(reliability, properties.Reliability, 1e-3);
             Assert.AreEqual(factorOfSafety, properties.FactorOfSafety, 1e-3);
-        }
-
-        [Test]
-        public void GetProperties_WithInfinityValues_ReturnTranslatedFormat()
-        {
-            // Setup
-            var random = new Random(22);
-            double requiredProbability = double.PositiveInfinity;
-            double requiredReliability = random.NextDouble();
-            double probability = double.PositiveInfinity;
-            double reliability = random.NextDouble();
-            double factorOfSafety = random.NextDouble();
-
-            var output = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
-
-            // Call
-            var properties = new ProbabilityAssessmentOutputProperties
-            {
-                Data = output
-            };
-
-            // Assert
-            var expectedProbabilityText = "1/Oneindig";
-            Assert.AreEqual(expectedProbabilityText, properties.RequiredProbability);
-            Assert.AreEqual(expectedProbabilityText, properties.Probability);
         }
 
         [Test]

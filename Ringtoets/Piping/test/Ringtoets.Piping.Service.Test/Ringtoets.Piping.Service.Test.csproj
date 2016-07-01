@@ -85,14 +85,6 @@
       <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Forms\Ringtoets.Piping.Forms.csproj">
-      <Project>{7CD038E1-E111-4969-ACED-22C5BD2974E1}</Project>
-      <Name>Ringtoets.Piping.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.InputParameterCalculation\Ringtoets.Piping.InputParameterCalculation.csproj">
-      <Project>{97F6406A-6338-4863-92A6-0D5C00A5F7C9}</Project>
-      <Name>Ringtoets.Piping.InputParameterCalculation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj">
       <Project>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</Project>
       <Name>Ringtoets.Piping.KernelWrapper</Name>

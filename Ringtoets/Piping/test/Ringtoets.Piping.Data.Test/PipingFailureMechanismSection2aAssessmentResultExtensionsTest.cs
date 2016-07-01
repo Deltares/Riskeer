@@ -41,8 +41,8 @@ namespace Ringtoets.Piping.Data.Test
 
             var contribution1 = 0.2;
             var contribution2 = 0.8;
-            var probability1 = 1.0 / 1000000;
-            var probability2 = 1.0 / 2000000;
+            var probability1 = 1.0 / 1000000.0;
+            var probability2 = 1.0 / 2000000.0;
 
             var pipingCalculationScenario1 = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(probability1, section);
             var pipingCalculationScenario2 = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(probability2, section);
@@ -65,10 +65,11 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            RoundedDouble? assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(calculations);
+            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(calculations);
 
             // Assert
-            Assert.AreEqual(1.0 / ((probability1) * contribution1 + (probability2) * contribution2), assessmentLayerTwoA, 1e-8);
+            double expectedProbability = probability1 * contribution1 + probability2 * contribution2;
+            Assert.AreEqual(expectedProbability, assessmentLayerTwoA, 1e-8);
         }
 
         [Test]
@@ -82,10 +83,10 @@ namespace Ringtoets.Piping.Data.Test
             pipingCalculationScenario.Contribution = (RoundedDouble)1.0;
 
             // Call
-            RoundedDouble assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new[] { pipingCalculationScenario });
+            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new[] { pipingCalculationScenario });
 
             // Assert
-            Assert.AreEqual((RoundedDouble)0, assessmentLayerTwoA);
+            Assert.IsNaN(assessmentLayerTwoA);
         }
 
         [Test]
@@ -96,10 +97,10 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            RoundedDouble? assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(Enumerable.Empty<PipingCalculationScenario>());
+            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(Enumerable.Empty<PipingCalculationScenario>());
 
             // Assert
-            Assert.AreEqual((RoundedDouble)0.0, assessmentLayerTwoA);
+            Assert.IsNaN(assessmentLayerTwoA);
         }
 
         [Test]
@@ -115,10 +116,10 @@ namespace Ringtoets.Piping.Data.Test
             var calculationScenarios = new[] { calculationScenarioMock, calculationScenarioMock2 };
 
             // Call
-            RoundedDouble assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(calculationScenarios);
+            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(calculationScenarios);
 
             // Assert
-            Assert.AreEqual((RoundedDouble)0.0, assessmentLayerTwoA);
+            Assert.IsNaN(assessmentLayerTwoA);
         }
 
         [Test]
@@ -131,10 +132,10 @@ namespace Ringtoets.Piping.Data.Test
             var pipingCalculationScenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
 
             // Call
-            RoundedDouble assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new[] { pipingCalculationScenario });
+            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new[] { pipingCalculationScenario });
 
             // Assert
-            Assert.AreEqual((RoundedDouble)0, assessmentLayerTwoA);
+            Assert.IsNaN(assessmentLayerTwoA);
         }
 
         [Test]
@@ -223,7 +224,7 @@ namespace Ringtoets.Piping.Data.Test
             FailureMechanismSection section = CreateSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
-            var expectedProbability = 41661830;
+            var expectedProbability = 0.1;
             var pipingCalculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(expectedProbability, section);
             pipingCalculationScenario.Contribution = (RoundedDouble)1.0;
 

@@ -263,10 +263,10 @@ namespace Ringtoets.HeightStructures.Data.Test
             var input = new HeightStructuresInput();
 
             // Call
-            input.FailureProbabilityOfStructureGivenErosion = (RoundedDouble)failureProbabilityOfStructureGivenErosion;
+            input.FailureProbabilityOfStructureGivenErosion = failureProbabilityOfStructureGivenErosion;
 
             // Assert
-            AssertAreEqual(failureProbabilityOfStructureGivenErosion, input.FailureProbabilityOfStructureGivenErosion);
+            Assert.AreEqual(failureProbabilityOfStructureGivenErosion, input.FailureProbabilityOfStructureGivenErosion);
         }
 
         [Test]

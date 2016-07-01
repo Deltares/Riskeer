@@ -154,8 +154,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(18, inputParameters.WidthOfFlowApertures.Mean.Value);
             Assert.AreEqual(2, inputParameters.DeviationOfTheWaveDirection.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, inputParameters.DeviationOfTheWaveDirection.Value);
-            Assert.AreEqual(RoundedDouble.MaximumNumberOfDecimalPlaces, inputParameters.FailureProbabilityOfStructureGivenErosion.NumberOfDecimalPlaces);
-            Assert.AreEqual(1, inputParameters.FailureProbabilityOfStructureGivenErosion.Value);
+            Assert.AreEqual(1, inputParameters.FailureProbabilityOfStructureGivenErosion);
         }
 
         private class TestHeightStructuresOutput : ProbabilityAssessmentOutput

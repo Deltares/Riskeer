@@ -24,6 +24,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
@@ -42,7 +43,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return ToProbabilityFormat(data.RequiredProbability);
+                return ProbabilityFormattingHelper.Format(data.RequiredProbability);
             }
         }
 
@@ -66,7 +67,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return ToProbabilityFormat(data.Probability);
+                return ProbabilityFormattingHelper.Format(data.Probability);
             }
         }
 
@@ -92,11 +93,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 return data.FactorOfSafety;
             }
-        }
-
-        private static string ToProbabilityFormat(RoundedDouble probability)
-        {
-            return string.Format(CommonBaseResources.ProbabilityPerYearFormat, probability);
         }
     }
 }

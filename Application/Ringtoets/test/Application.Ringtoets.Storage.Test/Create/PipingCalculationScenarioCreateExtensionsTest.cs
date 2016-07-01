@@ -351,11 +351,11 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            var newOutput = new PipingSemiProbabilisticOutput(1, 2, 3,
-                                                              4, 5, 6,
-                                                              7, 8, 9,
-                                                              10, 11,
-                                                              12, 13, 14);
+            var newOutput = new PipingSemiProbabilisticOutput(1, 2, 0.3,
+                                                              4, 5, 0.6,
+                                                              7, 8, 0.9,
+                                                              1.0, 11,
+                                                              0.2, 13, 14);
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 SemiProbabilisticOutput = newOutput

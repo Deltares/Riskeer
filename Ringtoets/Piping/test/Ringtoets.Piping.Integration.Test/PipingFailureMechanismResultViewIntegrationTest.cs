@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.Integration.Test
                 // Add another, nested calculation and ensure the data grid view is updated
                 nestedPipingCalculationGroup.Children.Add(pipingCalculation2);
                 nestedPipingCalculationGroup.NotifyObservers();
-                Assert.AreEqual(double.NaN.ToString(CultureInfo.InvariantCulture), dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak is opgeteld niet gelijk aan 100%.", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Set the second calculation to not relevant and ensure the data grid view is updated
@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.Integration.Test
                 Assert.AreEqual("Niet alle berekeningen voor dit vak zijn uitgevoerd.", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Execute the first calculation and ensure the data grid view is updated
-                const double probability = 31846382;
+                const double probability = 1.0/31846382.0;
                 pipingCalculation1.Output = new PipingOutput(0, 0, 0, 0, 0, 0);
                 pipingCalculation1.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, probability, 0, 0);
                 pipingCalculation1.NotifyObservers();
@@ -122,13 +122,13 @@ namespace Ringtoets.Piping.Integration.Test
 
                 pipingCalculation3.InputParameters.SurfaceLine = assessmentSection.PipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
                 pipingCalculation3.InputParameters.NotifyObservers();
-                Assert.AreEqual(double.NaN.ToString(CultureInfo.InvariantCulture), dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak is opgeteld niet gelijk aan 100%.", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Change the contribution of the calculation and make sure the data grid view is updated
                 pipingCalculation3.Contribution = (RoundedDouble) 0.3;
                 pipingCalculation3.NotifyObservers();
-                Assert.AreEqual(double.NaN.ToString(CultureInfo.InvariantCulture), dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak is opgeteld niet gelijk aan 100%.", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 pipingCalculation1.Contribution = (RoundedDouble) 0.7;
@@ -139,7 +139,7 @@ namespace Ringtoets.Piping.Integration.Test
                 // Remove a calculation and make sure the data grid view is updated
                 nestedPipingCalculationGroup.Children.Remove(pipingCalculation3);
                 nestedPipingCalculationGroup.NotifyObservers();
-                Assert.AreEqual(double.NaN.ToString(CultureInfo.InvariantCulture), dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak is opgeteld niet gelijk aan 100%.", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Set contribution again so we have a probability.

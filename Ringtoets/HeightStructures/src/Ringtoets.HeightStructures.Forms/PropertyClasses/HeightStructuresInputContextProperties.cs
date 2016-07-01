@@ -27,6 +27,8 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -81,12 +83,6 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
         {
             return data.AvailableHydraulicBoundaryLocations;
-        }
-
-        private static string ToProbabilityFormat(RoundedDouble probability)
-        {
-            var d = (RoundedDouble) (1/probability);
-            return string.Format(CoreCommonBasePropertiesResources.ProbabilityPerYearFormat, d);
         }
 
         #region Schematisation
@@ -212,7 +208,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return ToProbabilityFormat(data.WrappedData.FailureProbabilityOfStructureGivenErosion);
+                return ProbabilityFormattingHelper.Format(data.WrappedData.FailureProbabilityOfStructureGivenErosion);
             }
             set
             {

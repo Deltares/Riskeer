@@ -21,9 +21,9 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
 
         [Test]
         [TestCase(double.NaN)]
-        [TestCase(3.0)]
-        [TestCase(115.2)]
-        [TestCase(0.2)]
+        [TestCase(0.0)]
+        [TestCase(0.8)]
+        [TestCase(1.0)]
         public void CreatePipingCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(double probability)
         {
             // Setup

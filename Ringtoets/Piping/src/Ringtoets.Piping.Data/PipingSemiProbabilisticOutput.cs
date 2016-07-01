@@ -1,5 +1,9 @@
-﻿using Core.Common.Base.Data;
+﻿using System;
+
+using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
+
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Data
 {
@@ -9,6 +13,12 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingSemiProbabilisticOutput : IStorable
     {
+        private double requiredProbability;
+        private double pipingProbability;
+        private double upliftProbability;
+        private double heaveProbability;
+        private double sellmeijerProbability;
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingSemiProbabilisticOutput"/>.
         /// </summary>
@@ -26,6 +36,8 @@ namespace Ringtoets.Piping.Data
         /// <param name="pipingProbability">The calculated probability of failing due to piping.</param>
         /// <param name="pipingReliability">The calculated reliability of the piping failure mechanism.</param>
         /// <param name="pipingFactorOfSafety">The factor of safety for the piping failure mechanism.</param>
+        /// <exception cref="ArgumentOutOfRangeException">When setting a probability that falls
+        /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
         public PipingSemiProbabilisticOutput(double upliftFactorOfSafety, double upliftReliability, double upliftProbability,
                                              double heaveFactorOfSafety, double heaveReliability, double heaveProbability,
                                              double sellmeijerFactorOfSafety, double sellmeijerReliability, double sellmeijerProbability,
@@ -34,17 +46,17 @@ namespace Ringtoets.Piping.Data
         {
             UpliftFactorOfSafety = new RoundedDouble(3, upliftFactorOfSafety);
             UpliftReliability = new RoundedDouble(3, upliftReliability);
-            UpliftProbability = (RoundedDouble) upliftProbability;
+            UpliftProbability = upliftProbability;
             HeaveFactorOfSafety = new RoundedDouble(3, heaveFactorOfSafety);
             HeaveReliability = new RoundedDouble(3, heaveReliability);
-            HeaveProbability = (RoundedDouble) heaveProbability;
+            HeaveProbability = heaveProbability;
             SellmeijerFactorOfSafety = new RoundedDouble(3, sellmeijerFactorOfSafety);
             SellmeijerReliability = new RoundedDouble(3, sellmeijerReliability);
-            SellmeijerProbability = (RoundedDouble) sellmeijerProbability;
+            SellmeijerProbability = sellmeijerProbability;
 
-            RequiredProbability = (RoundedDouble) requiredProbability;
+            RequiredProbability = requiredProbability;
             RequiredReliability = new RoundedDouble(3, requiredReliability);
-            PipingProbability = (RoundedDouble) pipingProbability;
+            PipingProbability = pipingProbability;
             PipingReliability = new RoundedDouble(3, pipingReliability);
             PipingFactorOfSafety = new RoundedDouble(3, pipingFactorOfSafety);
         }
@@ -53,7 +65,27 @@ namespace Ringtoets.Piping.Data
         /// Gets the required probability of the piping failure mechanism,
         /// which value in range [0,1].
         /// </summary>
-        public RoundedDouble RequiredProbability { get; private set; }
+        /// <exception cref="ArgumentOutOfRangeException">When setting a value that falls
+        /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
+        public double RequiredProbability
+        {
+            get
+            {
+                return requiredProbability;
+            }
+            private set
+            {
+                if (double.IsNaN(value) || (0.0 <= value && value <= 1.0))
+                {
+                    requiredProbability = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("value",
+                                                          RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
+                }
+            }
+        }
 
         /// <summary>
         /// Get the required reliability of the piping failure mechanism,
@@ -77,7 +109,27 @@ namespace Ringtoets.Piping.Data
         /// Gets the probability of failing due to the piping failure mechanism,
         /// which value in range [0,1].
         /// </summary>
-        public RoundedDouble PipingProbability { get; private set; }
+        /// <exception cref="ArgumentOutOfRangeException">When setting a value that falls
+        /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
+        public double PipingProbability
+        {
+            get
+            {
+                return pipingProbability;
+            }
+            private set
+            {
+                if (double.IsNaN(value) || (0.0 <= value && value <= 1.0))
+                {
+                    pipingProbability = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("value",
+                                                          RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
+                }
+            }
+        }
 
         /// <summary>
         /// Gets the factor of safety for the uplift sub-mechanism,
@@ -95,7 +147,27 @@ namespace Ringtoets.Piping.Data
         /// Gets the probability of failing due to the uplift failure sub-mechanism,
         /// which value in range [0,1].
         /// </summary>
-        public RoundedDouble UpliftProbability { get; private set; }
+        /// <exception cref="ArgumentOutOfRangeException">When setting a value that falls
+        /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
+        public double UpliftProbability
+        {
+            get
+            {
+                return upliftProbability;
+            }
+            private set
+            {
+                if (double.IsNaN(value) || (0.0 <= value && value <= 1.0))
+                {
+                    upliftProbability = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("value",
+                                                          RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
+                }
+            }
+        }
 
         /// <summary>
         /// Gets the factor of safety for the heave sub-mechanism,
@@ -113,7 +185,27 @@ namespace Ringtoets.Piping.Data
         /// Gets the probability of failing due to the heave failure sub-mechanism,
         /// which value in range [0,1].
         /// </summary>
-        public RoundedDouble HeaveProbability { get; private set; }
+        /// <exception cref="ArgumentOutOfRangeException">When setting a value that falls
+        /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
+        public double HeaveProbability
+        {
+            get
+            {
+                return heaveProbability;
+            }
+            private set
+            {
+                if (double.IsNaN(value) || (0.0 <= value && value <= 1.0))
+                {
+                    heaveProbability = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("value",
+                                                          RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
+                }
+            }
+        }
 
         /// <summary>
         /// Gets the factor of safety for the Sellmeijer sub-mechanism,
@@ -131,7 +223,27 @@ namespace Ringtoets.Piping.Data
         /// Gets the probability of failing due to the Sellmeijer failure sub-mechanism,
         /// which value in range [0,1].
         /// </summary>
-        public RoundedDouble SellmeijerProbability { get; private set; }
+        /// <exception cref="ArgumentOutOfRangeException">When setting a value that falls
+        /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
+        public double SellmeijerProbability
+        {
+            get
+            {
+                return sellmeijerProbability;
+            }
+            private set
+            {
+                if (double.IsNaN(value) || (0.0 <= value && value <= 1.0))
+                {
+                    sellmeijerProbability = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("value",
+                                                          RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
+                }
+            }
+        }
 
         public long StorageId { get; set; }
     }

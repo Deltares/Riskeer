@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="pipingFailureMechanismSectionResult">The result to get the result for.</param>
         /// <param name="calculations">All calculations in the failure mechanism.</param>
-        public static RoundedDouble GetAssessmentLayerTwoA(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult, IEnumerable<PipingCalculationScenario> calculations)
+        public static double GetAssessmentLayerTwoA(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult, IEnumerable<PipingCalculationScenario> calculations)
         {
             var calculationScenarios = pipingFailureMechanismSectionResult
                 .GetCalculationScenarios(calculations)
@@ -43,8 +43,8 @@ namespace Ringtoets.Piping.Data
                 .ToList();
 
             return calculationScenarios.Any()
-                       ? (RoundedDouble) (1.0/calculationScenarios.Sum(scenario => (scenario.Probability.Value)*scenario.Contribution.Value))
-                       : (RoundedDouble) 0.0;
+                       ? calculationScenarios.Sum(scenario => scenario.Probability*scenario.Contribution.Value)
+                       : double.NaN;
         }
 
         /// <summary>

@@ -20,8 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.HeightStructures.Data;
 
 namespace Ringtoets.HeightStructures.Forms.Views
@@ -77,6 +80,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         /// <summary>
         /// Gets the assessment layer two a of the <see cref="sectionResult"/>.
         /// </summary>
+        [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueRoundedDoubleConverter))]
         public RoundedDouble AssessmentLayerTwoA
         {
             get
@@ -88,6 +92,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         /// <summary>
         /// Gets or sets the assessment layer three of the <see cref="sectionResult"/>.
         /// </summary>
+        [TypeConverter(typeof(FailureMechanismSectionResultNoValueRoundedDoubleConverter))]
         public RoundedDouble AssessmentLayerThree
         {
             get

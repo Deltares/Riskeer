@@ -29,7 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -124,8 +124,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             };
             AssertLogNormalDistributionVariationProperties(criticalOvertoppingDischargeProperties, properties.CriticalOvertoppingDischarge);
 
-            var expectedFailureProbabilityOfStructureGivenErosion = string.Format(CoreCommonBasePropertiesResources.ProbabilityPerYearFormat,
-                                                                                  input.FailureProbabilityOfStructureGivenErosion);
+            var expectedFailureProbabilityOfStructureGivenErosion = ProbabilityFormattingHelper.Format(input.FailureProbabilityOfStructureGivenErosion);
             Assert.AreEqual(expectedFailureProbabilityOfStructureGivenErosion, properties.FailureProbabilityOfStructureGivenErosion);
 
             Assert.AreEqual(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
@@ -171,7 +170,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newOrientationOfTheNormalOfTheStructure, properties.OrientationOfTheNormalOfTheStructure);
-            Assert.AreEqual(0.01, input.FailureProbabilityOfStructureGivenErosion, input.FailureProbabilityOfStructureGivenErosion.GetAccuracy());
+            Assert.AreEqual(0.01, input.FailureProbabilityOfStructureGivenErosion);
             Assert.AreEqual("1/100", properties.FailureProbabilityOfStructureGivenErosion);
             Assert.AreSame(hydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
             mockRepository.VerifyAll();

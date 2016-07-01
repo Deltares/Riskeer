@@ -40,8 +40,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var output = new PipingSemiProbabilisticOutput(1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7,
-                                                           8.8, 9.9, 10.10, 11.11, 12.12, 
+            var output = new PipingSemiProbabilisticOutput(1.1, 2.2, 0.3, 4.4, 5.5, 0.6, 7.7,
+                                                           8.8, 0.9, 0.10, 11.11, 0.12, 
                                                            13.13, 14.14);
 
             // Call
@@ -56,8 +56,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithValidValues_ReturnEntity()
         {
             // Setup
-            var output = new PipingSemiProbabilisticOutput(1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7,
-                                                           8.8, 9.9, 10.10, 11.11, 12.12,
+            var output = new PipingSemiProbabilisticOutput(1.1, 2.2, 0.3, 4.4, 5.5, 0.6, 7.7,
+                                                           8.8, 0.9, 0.10, 11.11, 0.12,
                                                            13.13, 14.14);
             var registry = new PersistenceRegistry();
 
@@ -82,6 +82,15 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             Assert.AreEqual(0, entity.PipingSemiProbabilisticOutputEntityId);
             CollectionAssert.IsEmpty(entity.PipingCalculationEntities);
+        }
+
+        private static void AssertAreEqual(double expectedValue, decimal? actualValue)
+        {
+            if (double.IsNaN(expectedValue))
+            {
+                Assert.IsNull(actualValue);
+            }
+            Assert.AreEqual(expectedValue, Convert.ToDouble(actualValue));
         }
 
         private static void AssertAreEqual(RoundedDouble expectedValue, decimal? actualValue)

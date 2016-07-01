@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Integration.Data.StandAlone.SectionResults
 {
@@ -38,7 +41,10 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
         /// <see cref="MicrostabilityFailureMechanismSectionResult"/> will hold the result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public MicrostabilityFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
+        public MicrostabilityFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        {
+            AssessmentLayerThree = (RoundedDouble)double.NaN;
+        }
 
         /// <summary>
         /// Gets or sets the value representing whether the simple assessment of safety passed.
@@ -54,6 +60,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <summary>
         /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
+        [TypeConverter(typeof(FailureMechanismSectionResultNoValueRoundedDoubleConverter))]
         public RoundedDouble AssessmentLayerThree { get; set; }
 
         public long StorageId { get; set; }

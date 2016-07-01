@@ -20,8 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultRows
@@ -73,6 +76,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets or sets the value representing the result of the <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult.AssessmentLayerThree"/>.
         /// </summary>
+        [TypeConverter(typeof(FailureMechanismSectionResultNoValueRoundedDoubleConverter))]
         public RoundedDouble AssessmentLayerThree
         {
             get

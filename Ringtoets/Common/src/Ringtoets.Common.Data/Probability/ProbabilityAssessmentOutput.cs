@@ -19,9 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 using Core.Common.Base;
 using Core.Common.Base.Data;
+
 using Ringtoets.Common.Data.Calculation;
+
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Common.Data.Probability
 {
@@ -30,6 +35,9 @@ namespace Ringtoets.Common.Data.Probability
     /// </summary>
     public class ProbabilityAssessmentOutput : Observable, ICalculationOutput
     {
+        private double requiredProbability;
+        private double probability;
+
         /// <summary>
         /// Creates a new instance of <see cref="ProbabilityAssessmentOutput"/>.
         /// </summary>
@@ -38,11 +46,13 @@ namespace Ringtoets.Common.Data.Probability
         /// <param name="probability">The probability of failure.</param>
         /// <param name="reliability">The reliability of the failure mechanism.</param>
         /// <param name="factorOfSafety">The factor of safety of the failure mechanism.</param>
+        /// <exception cref="ArgumentOutOfRangeException">When setting a probability that falls
+        /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
         public ProbabilityAssessmentOutput(double requiredProbability, double requiredReliability, double probability, double reliability, double factorOfSafety)
         {
-            RequiredProbability = new RoundedDouble(2, requiredProbability);
+            RequiredProbability = requiredProbability;
             RequiredReliability = new RoundedDouble(3, requiredReliability);
-            Probability = new RoundedDouble(2, probability);
+            Probability = probability;
             Reliability = new RoundedDouble(3, reliability);
             FactorOfSafety = new RoundedDouble(3, factorOfSafety);
         }
@@ -50,7 +60,27 @@ namespace Ringtoets.Common.Data.Probability
         /// <summary>
         /// Gets the required (maximum allowed) probability of failure.
         /// </summary>
-        public RoundedDouble RequiredProbability { get; private set; }
+        /// <exception cref="ArgumentOutOfRangeException">When setting a value that falls
+        /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
+        public double RequiredProbability
+        {
+            get
+            {
+                return requiredProbability;
+            }
+            private set
+            {
+                if (double.IsNaN(value) || (0.0 <= value && value <= 1.0))
+                {
+                    requiredProbability = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("value",
+                                                          RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
+                }
+            }
+        }
 
         /// <summary>
         /// Get the required (maximum allowed) reliability of the failure mechanism.
@@ -60,7 +90,27 @@ namespace Ringtoets.Common.Data.Probability
         /// <summary>
         /// Gets the probability of failure.
         /// </summary>
-        public RoundedDouble Probability { get; private set; }
+        /// <exception cref="ArgumentOutOfRangeException">When setting a value that falls
+        /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
+        public double Probability
+        {
+            get
+            {
+                return probability;
+            }
+            private set
+            {
+                if (double.IsNaN(value) || (0.0 <= value && value <= 1.0))
+                {
+                    probability = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("value",
+                                                          RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
+                }
+            }
+        }
 
         /// <summary>
         /// Gets the reliability of the failure mechanism.

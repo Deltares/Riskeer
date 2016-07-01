@@ -20,14 +20,18 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultRows
 {
     /// <summary>
-    /// Class for displaying <see cref="MicrostabilityFailureMechanismSectionResult"/>  as a row in a grid view.
+    /// Class for displaying <see cref="MicrostabilityFailureMechanismSectionResult"/>
+    /// as a row in a grid view.
     /// </summary>
     public class MicrostabilitySectionResultRow : FailureMechanismSectionResultRow<MicrostabilityFailureMechanismSectionResult>
     {
@@ -73,6 +77,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets or sets the value representing the result of the <see cref="MicrostabilityFailureMechanismSectionResult.AssessmentLayerThree"/>.
         /// </summary>
+        [TypeConverter(typeof(FailureMechanismSectionResultNoValueRoundedDoubleConverter))]
         public RoundedDouble AssessmentLayerThree
         {
             get

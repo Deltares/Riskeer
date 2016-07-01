@@ -23,18 +23,18 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 PipingSemiProbabilisticOutputEntityId = 5867,
                 HeaveFactorOfSafety = 1.1m,
-                HeaveProbability = 2.2m,
+                HeaveProbability = 0.2m,
                 HeaveReliability = 3.3m,
                 PipingFactorOfSafety = 4.4m,
-                PipingProbability = 5.5m,
+                PipingProbability = 0.5m,
                 PipingReliability = 6.6m,
                 UpliftFactorOfSafety = 7.7m,
-                UpliftProbability = 8.8m,
+                UpliftProbability = 0.8m,
                 UpliftReliability = 9.9m,
                 SellmeijerFactorOfSafety = 10.10m,
-                SellmeijerProbability = 11.11m,
+                SellmeijerProbability = 0.11m,
                 SellmeijerReliability = 12.12m,
-                RequiredProbability = 13.13m,
+                RequiredProbability = 0.13m,
                 RequiredReliability = 14.14m
             };
 
@@ -101,6 +101,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNaN(pipingSemiProbabilisticOutput.SellmeijerReliability);
             Assert.IsNaN(pipingSemiProbabilisticOutput.RequiredProbability);
             Assert.IsNaN(pipingSemiProbabilisticOutput.RequiredReliability);
+        }
+
+        private static void AssertAreEqual(decimal? expectedParamterValue, double actualParameterValue)
+        {
+            Assert.AreEqual(Convert.ToDouble(expectedParamterValue), actualParameterValue);
         }
 
         private static void AssertAreEqual(decimal? expectedParamterValue, RoundedDouble actualParameterValue)

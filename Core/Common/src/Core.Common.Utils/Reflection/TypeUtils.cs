@@ -20,8 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+
 using Core.Common.Utils.Properties;
 
 namespace Core.Common.Utils.Reflection
@@ -81,21 +84,6 @@ namespace Core.Common.Utils.Reflection
         public static string GetMemberName<T>(Expression<Action<T>> expression)
         {
             return GetMemberName(expression, expression.Body);
-        }
-
-        private static string GetMemberName(Expression originalExpression, Expression expressionBody)
-        {
-            try
-            {
-                return GetMemberNameFromExpression(expressionBody);
-            }
-            catch (ArgumentException)
-            {
-                var message = string.Format(Resources.TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method,
-                                            originalExpression);
-                throw new ArgumentException(message);
-            }
-            
         }
 
         /// <summary>
@@ -169,7 +157,7 @@ namespace Core.Common.Utils.Reflection
                 throw new ArgumentOutOfRangeException("methodName");
             }
 
-            return (T) methodInfo.Invoke(instance, arguments);
+            return (T)methodInfo.Invoke(instance, arguments);
         }
 
         /// <summary>
@@ -224,6 +212,52 @@ namespace Core.Common.Utils.Reflection
             }
 
             propertyInfo.SetValue(instance, value, null);
+        }
+
+        /// <summary>
+        /// Determines whether a property is decorated with a <see cref="TypeConverterAttribute"/>
+        /// of a given type.
+        /// </summary>
+        /// <typeparam name="TTarget">The type of the target to retrieve the property from.</typeparam>
+        /// <typeparam name="TTypeConverter">The type of <see cref="TypeConverter"/> to check
+        /// for on the property of <typeparamref name="TTarget"/>.</typeparam>
+        /// <param name="expression">The expression that resolves to the property to be checked.</param>
+        /// <returns><c>True</c> if the property is decorated with the given <see cref="TypeConverter"/>,
+        /// <c>false</c> otherwise.</returns>
+        /// <exception cref="System.ArgumentException">When <paramref name="expression"/> 
+        /// is not an expression with a property, such as a expression calling multiple methods.</exception>
+        /// <exception cref="AmbiguousMatchException">More then one property is found with
+        /// name specified in <paramref name="expression"/>.</exception>
+        /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded.</exception>
+        /// <exception cref="InvalidOperationException">The property in <paramref name="expression"/>
+        /// belongs to a type that is loaded into the reflection-only context. See How to: 
+        /// Load Assemblies into the Reflection-Only Context on MSDN for more information.</exception>
+        public static bool HasTypeConverter<TTarget, TTypeConverter>(Expression<Func<TTarget, object>> expression) where TTypeConverter : TypeConverter
+        {
+            var typeConverterAttributes = typeof(TTarget)
+                .GetProperty(GetMemberName(expression))
+                .GetCustomAttributes(typeof(TypeConverterAttribute), false)
+                .OfType<TypeConverterAttribute>()
+                .ToArray();
+            if (typeConverterAttributes.Length == 0)
+            {
+                return false;
+            }
+            return typeConverterAttributes[0].ConverterTypeName == typeof(TTypeConverter).AssemblyQualifiedName;
+        }
+
+        private static string GetMemberName(Expression originalExpression, Expression expressionBody)
+        {
+            try
+            {
+                return GetMemberNameFromExpression(expressionBody);
+            }
+            catch (ArgumentException)
+            {
+                var message = string.Format(Resources.TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method,
+                                            originalExpression);
+                throw new ArgumentException(message);
+            }
         }
 
         /// <summary>

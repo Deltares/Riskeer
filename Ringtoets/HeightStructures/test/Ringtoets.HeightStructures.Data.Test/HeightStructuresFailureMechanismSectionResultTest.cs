@@ -45,8 +45,8 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.IsInstanceOf<IStorable>(sectionResult);
             Assert.AreSame(section, sectionResult.Section);
             Assert.IsFalse(sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(0, sectionResult.AssessmentLayerTwoA.Value);
-            Assert.AreEqual(0, sectionResult.AssessmentLayerThree.Value);
+            Assert.IsNaN(sectionResult.AssessmentLayerTwoA);
+            Assert.IsNaN(sectionResult.AssessmentLayerThree);
             Assert.AreEqual(0, sectionResult.StorageId);
         }
 

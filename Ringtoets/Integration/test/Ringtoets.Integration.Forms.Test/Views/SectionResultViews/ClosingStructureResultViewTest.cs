@@ -28,6 +28,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
@@ -125,13 +126,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                     Assert.AreEqual(4, cells.Count);
                     Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                     Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                    var expectedAssessmentLayer2AValue1 = (RoundedDouble) (1/result1.AssessmentLayerTwoA);
-                    var expectedAssessmentLayer2AString1 = string.Format(
-                        CoreCommonBaseResources.ProbabilityPerYearFormat, 
-                        expectedAssessmentLayer2AValue1
-                    );
+                    var expectedAssessmentLayer2AString1 = ProbabilityFormattingHelper.Format(result1.AssessmentLayerTwoA);
+                    
                     Assert.AreEqual(expectedAssessmentLayer2AString1, cells[assessmentLayerTwoAIndex].FormattedValue);
-                    Assert.AreEqual(string.Format("{0}", result1.AssessmentLayerThree), cells[assessmentLayerThreeIndex].FormattedValue);
+                    Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
                     AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
                     AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
@@ -140,13 +138,9 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                     Assert.AreEqual(4, cells.Count);
                     Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
                     Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                    var expectedAssessmentLayer2AValue2 = (RoundedDouble)(1 / result2.AssessmentLayerTwoA);
-                    var expectedAssessmentLayer2AString2 = string.Format(
-                        CoreCommonBaseResources.ProbabilityPerYearFormat,
-                        expectedAssessmentLayer2AValue2
-                    );
+                    var expectedAssessmentLayer2AString2 = ProbabilityFormattingHelper.Format(result2.AssessmentLayerTwoA);
                     Assert.AreEqual(expectedAssessmentLayer2AString2, cells[assessmentLayerTwoAIndex].FormattedValue);
-                    Assert.AreEqual(string.Format("{0}", result2.AssessmentLayerThree), cells[assessmentLayerThreeIndex].FormattedValue);
+                    Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
                     AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
                     AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);

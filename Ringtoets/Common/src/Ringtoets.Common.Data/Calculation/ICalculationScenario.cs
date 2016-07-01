@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Data.Calculation
         /// </summary>
         /// <remarks>Implementers should throw <see cref="InvalidOperationException"/>
         /// when the getter is called while the <see cref="Status"/> does not return Done.</remarks>
-        RoundedDouble Probability { get; }
+        double Probability { get; }
 
         /// <summary>
         /// Gets the status of the scenario.

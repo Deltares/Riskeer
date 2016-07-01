@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Reflection;
 
 using Core.Common.Utils.Reflection;
@@ -127,7 +128,6 @@ namespace Core.Common.Utils.Test.Reflection
             // Assert
             Assert.AreEqual(22, privateIntValue);
         }
-
 
         [Test]
         public void GetField_PrivateFieldOfDerivedClass_ReturnFieldValue()
@@ -384,6 +384,36 @@ namespace Core.Common.Utils.Test.Reflection
             Assert.Throws<ArgumentOutOfRangeException>(call);
         }
 
+        [Test]
+        public void HasTypeConverter_PropertyWithoutTypeConverterAttribute_ReturnFalse()
+        {
+            // Call
+            bool hasTypeConverter = TypeUtils.HasTypeConverter<TestClass, Int32Converter>(c => c.PublicPropertyPrivateSetter);
+
+            // Assert
+            Assert.IsFalse(hasTypeConverter);
+        }
+
+        [Test]
+        public void HasTypeConverter_PropertyWithDifferentTypeConverterAttribute_ReturnFalse()
+        {
+            // Call
+            bool hasTypeConverter = TypeUtils.HasTypeConverter<TestClass, Int32Converter>(c => c.PropertyWithTypeConverter);
+
+            // Assert
+            Assert.IsFalse(hasTypeConverter);
+        }
+
+        [Test]
+        public void HasTypeConverter_PropertyWithMatchingTypeConverterAttribute_ReturnTrue()
+        {
+            // Call
+            bool hasTypeConverter = TypeUtils.HasTypeConverter<TestClass, DoubleConverter>(c => c.PropertyWithTypeConverter);
+
+            // Assert
+            Assert.IsTrue(hasTypeConverter);
+        }
+
         private class TestClass
         {
             /// <summary>
@@ -404,6 +434,9 @@ namespace Core.Common.Utils.Test.Reflection
             }
 
             public double PublicPropertyPrivateSetter { get; private set; }
+
+            [TypeConverter(typeof(DoubleConverter))]
+            public double PropertyWithTypeConverter { get; private set; }
 
             /// <summary>
             /// Method used in reflection for tests above

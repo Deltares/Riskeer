@@ -28,21 +28,21 @@ namespace Ringtoets.Common.Service.Test
     public class ProbabilityAssessmentServiceTest
     {
         [Test]
-        [TestCase(30000, 100, 2, 60000)]
-        [TestCase(30000, 100, 1, 30000)]
-        [TestCase(30000, 24, 2, 250000)]
-        [TestCase(30000, 24, 1, 125000)]
-        [TestCase(20000, 100, 2, 40000)]
-        [TestCase(20000, 100, 1, 20000)]
-        [TestCase(20000, 24, 2, 166666.6667)]
-        [TestCase(20000, 24, 1, 83333.33)]
+        [TestCase(30000, 100, 2, 0.00001666667)]
+        [TestCase(30000, 100, 1, 0.00003333333)]
+        [TestCase(30000, 24, 2, 0.00000400000)]
+        [TestCase(30000, 24, 1, 0.00000800000)]
+        [TestCase(20000, 100, 2, 0.00002500000)]
+        [TestCase(20000, 100, 1, 0.00005000000)]
+        [TestCase(20000, 24, 2, 0.00000600000)]
+        [TestCase(20000, 24, 1, 0.00001200000)]
         public void RequiredProbability_DifferentInputs_ReturnsExpectedValue(int norm, double contribution, int lengthEffectN, double expectedResult)
         {
             // Call
             var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(norm, contribution, lengthEffectN, double.NaN);
 
             // Assert
-            Assert.AreEqual(expectedResult, probabilityAssessmentOutput.RequiredProbability, probabilityAssessmentOutput.RequiredProbability.GetAccuracy());
+            Assert.AreEqual(expectedResult, probabilityAssessmentOutput.RequiredProbability, 1e-6);
         }
 
         [Test]
@@ -76,15 +76,15 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        [TestCase(4, 31574.3855346)]
-        [TestCase(5, 3488555.78723)]
+        [TestCase(4, 0.00003167124)]
+        [TestCase(5, 0.00000028665)]
         public void Probability_DifferentInputs_ReturnsExpectedValue(double reliability, double expectedResult)
         {
             // Call
             var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(int.MinValue, double.NaN, double.NaN, reliability);
 
             // Assert
-            Assert.AreEqual(expectedResult, probabilityAssessmentOutput.Probability, probabilityAssessmentOutput.Probability.GetAccuracy());
+            Assert.AreEqual(expectedResult, probabilityAssessmentOutput.Probability, 1e-6);
         }
 
         [Test]

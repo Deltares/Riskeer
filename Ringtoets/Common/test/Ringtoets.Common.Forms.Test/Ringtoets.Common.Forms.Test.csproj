@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\NamingHelperTest.cs" />
+    <Compile Include="Helpers\ProbabilityFormattingHelperTest.cs" />
     <Compile Include="PresentationObjects\CommentContextTest.cs" />
     <Compile Include="PresentationObjects\FailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\CategoryTreeFolderTest.cs" />
@@ -75,6 +76,8 @@
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilderTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactoryTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuItemFactoryTest.cs" />
+    <Compile Include="TypeConverters\FailureMechanismSectionResultNoProbabilityValueRoundedDoubleConverterTest.cs" />
+    <Compile Include="TypeConverters\FailureMechanismSectionResultNoValueRoundedDoubleConverterTest.cs" />
     <Compile Include="UITypeEditors\SelectionEditorTest.cs" />
     <Compile Include="Views\ChartDataFactoryTest.cs" />
     <Compile Include="Views\CommentViewTest.cs" />
@@ -104,10 +107,6 @@
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>Core.Common.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj">
-      <Project>{26214BD0-DAFB-4CFC-8EB2-80C5D53C859E}</Project>
-      <Name>Core.Common.Gui.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
@@ -115,10 +114,6 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting\Core.Components.Charting.csproj">
       <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
       <Name>Core.Components.Charting</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Forms\Ringtoets.GrassCoverErosionInwards.Forms.csproj">
-      <Project>{C540E627-B95B-4CC0-A1B6-A0BDF74936C7}</Project>
-      <Name>Ringtoets.GrassCoverErosionInwards.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>

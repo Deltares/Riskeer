@@ -262,7 +262,7 @@
   <data name="FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_valid_output" xml:space="preserve">
     <value>Niet alle berekeningen voor dit vak hebben een geldige uitkomst.</value>
   </data>
-  <data name="FailureMechanismSectionResultRow_AssessmentLayerTwoA_No_result_dash" xml:space="preserve">
+  <data name="FailureMechanismSectionResult_No_result_dash" xml:space="preserve">
     <value>-</value>
   </data>
   <data name="FailureMechanismIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -324,15 +324,6 @@
   </data>
   <data name="GeneralOutputIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\table.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Could_not_parse_string_to_double_value" xml:space="preserve">
-    <value>De waarde voor toetslaag 2a kon niet geïnterpreteerd worden als een getal.</value>
-  </data>
-  <data name="ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_too_large" xml:space="preserve">
-    <value>De waarde voor toetslaag 2a is te groot of te klein.</value>
-  </data>
-  <data name="ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_cannot_be_null" xml:space="preserve">
-    <value>De waarde voor toetslaag 2a moet ingevuld zijn.</value>
   </data>
   <data name="LogNormalDistribution_Mean_Description" xml:space="preserve">
     <value>De gemiddelde waarde van de lognormale verdeling.</value>
@@ -429,5 +420,8 @@
   </data>
   <data name="InputView_Height_DisplayName" xml:space="preserve">
     <value>Hoogte [m+NAP]</value>
+  </data>
+  <data name="ProbabilityPerYearFormat" xml:space="preserve">
+    <value>1/{0:n0}</value>
   </data>
 </root>

@@ -56,8 +56,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.IsInstanceOf<IStorable>(result);
             Assert.AreSame(section, result.Section);
-            Assert.AreEqual(1, result.AssessmentLayerTwoA.Value);
-            Assert.AreEqual(0, result.AssessmentLayerThree.Value);
+            Assert.IsNaN(result.AssessmentLayerTwoA);
+            Assert.IsNaN(result.AssessmentLayerThree);
             Assert.AreEqual(0, result.StorageId);
         }
 

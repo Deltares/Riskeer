@@ -157,15 +157,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.IsFalse((bool)cells[assessmentLayerOneIndex].FormattedValue);
-                Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoAIndex].FormattedValue);
-                Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerThreeIndex].FormattedValue);
+                Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
                 Assert.IsFalse((bool)cells[assessmentLayerOneIndex].FormattedValue);
-                Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoAIndex].FormattedValue);
-                Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerThreeIndex].FormattedValue);
+                Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
             }
         }
 
@@ -192,8 +192,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 var cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
 
                 Assert.AreEqual(checkBoxSelected, (bool)cells[assessmentLayerOneIndex].FormattedValue);
-                Assert.AreEqual(string.Format("{0}", 0), cellAssessmentLayerTwoA.FormattedValue);
-                Assert.AreEqual(string.Format("{0}", 0), cellAssessmentLayerThree.FormattedValue);
+                Assert.AreEqual("-", cellAssessmentLayerTwoA.FormattedValue);
+                Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
 
                 var cellAssessmentLayerTwoABackColor = cellAssessmentLayerTwoA.Style.BackColor;
                 var cellAssessmentLayerTwoAForeColor = cellAssessmentLayerTwoA.Style.ForeColor;

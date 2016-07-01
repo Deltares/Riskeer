@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Piping.Data;
 
 using CommonBaseResources = Core.Common.Base.Properties.Resources;
@@ -67,7 +68,8 @@ namespace Ringtoets.Piping.Forms.Views
         /// <summary>
         /// Gets the value representing the result of the layer 2a assessment.
         /// </summary>
-        public string AssessmentLayerTwoA
+        [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueRoundedDoubleConverter))]
+        public RoundedDouble AssessmentLayerTwoA
         {
             get
             {
@@ -76,23 +78,22 @@ namespace Ringtoets.Piping.Forms.Views
 
                 if (relevantScenarioAvailable && Math.Abs(SectionResult.GetTotalContribution(calculations) - 1.0) > tolerance)
                 {
-                    return string.Format("{0}", double.NaN);
+                    return (RoundedDouble)double.NaN;
                 }
 
                 if (!relevantScenarioAvailable || SectionResult.GetCalculationScenarioStatus(calculations) != CalculationScenarioStatus.Done)
                 {
-                    return Resources.FailureMechanismSectionResultRow_AssessmentLayerTwoA_No_result_dash;
+                    return (RoundedDouble)double.NaN;
                 }
 
-                var layerTwoA = SectionResult.GetAssessmentLayerTwoA(calculations).Value;
-
-                return string.Format(CommonBaseResources.ProbabilityPerYearFormat, layerTwoA);
+                return (RoundedDouble)SectionResult.GetAssessmentLayerTwoA(calculations);
             }
         }
 
         /// <summary>
         /// Gets or sets the value representing the result of the layer 3 assessment.
         /// </summary>
+        [TypeConverter(typeof(FailureMechanismSectionResultNoValueRoundedDoubleConverter))]
         public RoundedDouble AssessmentLayerThree
         {
             get

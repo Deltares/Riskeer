@@ -45,10 +45,10 @@ namespace Ringtoets.Piping.Service.Test
             PipingSemiProbabilisticCalculationService.Calculate(calculation, new PipingProbabilityAssessmentInput(), norm, double.NaN);
 
             // Call
-            RoundedDouble result = calculation.SemiProbabilisticOutput.UpliftProbability;
+            double result = calculation.SemiProbabilisticOutput.UpliftProbability;
 
             // Assert
-            Assert.AreEqual(expectedResult, result, result.GetAccuracy());
+            Assert.AreEqual(expectedResult, result, 1e-6);
         }
 
         [Test]
@@ -65,10 +65,10 @@ namespace Ringtoets.Piping.Service.Test
             PipingSemiProbabilisticCalculationService.Calculate(calculation, new PipingProbabilityAssessmentInput(), norm, double.NaN);
 
             // Call
-            RoundedDouble result = calculation.SemiProbabilisticOutput.HeaveProbability;
+            double result = calculation.SemiProbabilisticOutput.HeaveProbability;
 
             // Assert
-            Assert.AreEqual(expectedResult, result, result.GetAccuracy());
+            Assert.AreEqual(expectedResult, result, 1e-6);
         }
 
         [Test]
@@ -85,10 +85,10 @@ namespace Ringtoets.Piping.Service.Test
             PipingSemiProbabilisticCalculationService.Calculate(calculation, new PipingProbabilityAssessmentInput(), norm, double.NaN);
 
             // Call
-            RoundedDouble result = calculation.SemiProbabilisticOutput.SellmeijerProbability;
+            double result = calculation.SemiProbabilisticOutput.SellmeijerProbability;
 
             // Assert
-            Assert.AreEqual(expectedResult, result, result.GetAccuracy());
+            Assert.AreEqual(expectedResult, result, 1e-6);
         }
 
         [Test]

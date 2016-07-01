@@ -38,7 +38,11 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
         /// <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/> will hold the result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
+        public WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        {
+            AssessmentLayerTwoA = (RoundedDouble)double.NaN;
+            AssessmentLayerThree = (RoundedDouble)double.NaN;
+        }
 
         /// <summary>
         /// Gets or sets the value representing whether the simple assessment of safety passed.

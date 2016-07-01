@@ -38,7 +38,9 @@ namespace Ringtoets.Piping.Data
         /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public PipingFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
-        {}
+        {
+            AssessmentLayerThree = (RoundedDouble)double.NaN;
+        }
 
         /// <summary>
         /// Gets or sets the value of assessment layer three.

@@ -45,9 +45,9 @@ namespace Ringtoets.Common.Service
             var requiredReliability = ProbabilityToReliability(requiredProbability);
             var factorOfSafety = FactorOfSafety(reliability, requiredReliability);
 
-            return new ProbabilityAssessmentOutput(1/requiredProbability,
+            return new ProbabilityAssessmentOutput(requiredProbability,
                                                    requiredReliability,
-                                                   1/probability,
+                                                   probability,
                                                    reliability,
                                                    factorOfSafety);
         }

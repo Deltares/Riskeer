@@ -168,9 +168,6 @@
   <data name="Point2D_AddVector_Vector_must_be_2D_but_has_Dimensionality_0_" xml:space="preserve">
     <value>Vector moet 2 dimensies hebben, maar heeft er {0}.</value>
   </data>
-  <data name="ProbabilityPerYearFormat" xml:space="preserve">
-    <value>1/{0:n0}</value>
-  </data>
   <data name="RoundedDoubleConverter_ConvertFrom_String_cannot_be_empty" xml:space="preserve">
     <value>De tekst mag niet leeg zijn.</value>
   </data>

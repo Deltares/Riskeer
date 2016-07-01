@@ -23,6 +23,8 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
+using Core.Common.TestUtil;
+
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -45,8 +47,8 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<IStorable>(sectionResult);
             Assert.AreSame(section, sectionResult.Section);
             Assert.IsFalse(sectionResult.AssessmentLayerOne);
-            Assert.AreEqual((RoundedDouble) 0, sectionResult.GetAssessmentLayerTwoA(new PipingCalculationScenario[0]));
-            Assert.AreEqual((RoundedDouble)0, sectionResult.AssessmentLayerThree);
+            Assert.IsNaN(sectionResult.GetAssessmentLayerTwoA(new PipingCalculationScenario[0]));
+            Assert.IsNaN(sectionResult.AssessmentLayerThree);
             Assert.AreEqual(0, sectionResult.StorageId);
         }
 

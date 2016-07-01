@@ -39,7 +39,11 @@ namespace Ringtoets.HeightStructures.Data
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public HeightStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
+        public HeightStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        {
+            assessmentLayerTwoA = (RoundedDouble)double.NaN;
+            AssessmentLayerThree = (RoundedDouble)double.NaN;
+        }
 
         /// <summary>
         /// Gets the value of assessment layer two a.

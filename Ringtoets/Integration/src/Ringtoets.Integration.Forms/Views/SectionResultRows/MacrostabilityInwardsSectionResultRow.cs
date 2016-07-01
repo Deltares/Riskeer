@@ -20,8 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+
 using Core.Common.Base.Data;
 using Core.Common.Base.Properties;
+
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultRows
@@ -58,44 +62,25 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets or sets the value representing the result of the <see cref="MacrostabilityInwardsFailureMechanismSectionResult.AssessmentLayerTwoA"/>.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="value"/> is not in the range [0,1].</item>
-        /// <item><paramref name="value"/> doesn't represent a value which can be parsed to a double value.</item>
-        /// </list>
-        /// </exception>
-        public string AssessmentLayerTwoA
+        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is
+        /// not in the range [0,1].</exception>
+        [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueRoundedDoubleConverter))]
+        public RoundedDouble AssessmentLayerTwoA
         {
             get
             {
-                var d = (RoundedDouble) (1/SectionResult.AssessmentLayerTwoA);
-                return string.Format(Resources.ProbabilityPerYearFormat, d);
+                return SectionResult.AssessmentLayerTwoA;
             }
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value",Common.Forms.Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_cannot_be_null);
-                }
-                try
-                {
-                    SectionResult.AssessmentLayerTwoA = (RoundedDouble) double.Parse(value);
-                }
-                catch (OverflowException)
-                {
-                    throw new ArgumentException(Common.Forms.Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Value_too_large);
-                }
-                catch (FormatException)
-                {
-                    throw new ArgumentException(Common.Forms.Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResultRow_AssessmentLayerTwoA_Could_not_parse_string_to_double_value);
-                }
+                SectionResult.AssessmentLayerTwoA = value;
             }
         }
 
         /// <summary>
         /// Gets or sets the value representing the result of the <see cref="MacrostabilityInwardsFailureMechanismSectionResult.AssessmentLayerThree"/>.
         /// </summary>
+        [TypeConverter(typeof(FailureMechanismSectionResultNoValueRoundedDoubleConverter))]
         public RoundedDouble AssessmentLayerThree
         {
             get

@@ -161,14 +161,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
-                Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerThreeIndex].FormattedValue);
+                Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
                 Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
-                Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerThreeIndex].FormattedValue);
+                Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
             }
         }
 
@@ -195,7 +195,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 Assert.AreEqual(checkBoxSelected, (bool) cells[assessmentLayerOneIndex].FormattedValue);
                 Assert.AreEqual("-", cellAssessmentLayerTwoA.FormattedValue);
-                Assert.AreEqual(string.Format("{0}", 0), cellAssessmentLayerThree.FormattedValue);
+                Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
 
                 var cellAssessmentLayerTwoABackColor = cellAssessmentLayerTwoA.Style.BackColor;
                 var cellAssessmentLayerTwoAForeColor = cellAssessmentLayerTwoA.Style.ForeColor;
@@ -303,7 +303,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (var view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
                 var calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
-                    1000,
+                    1.0/1000.0,
                     pipingFailureMechanism.Sections.First()
                 );
                 calculationScenario.Contribution = (RoundedDouble)0.3;
@@ -320,7 +320,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak is opgeteld niet gelijk aan 100%.", dataGridViewCell.ErrorText);
-                Assert.AreEqual(double.NaN.ToString(CultureInfo.InvariantCulture), formattedValue);
+                Assert.AreEqual("-", formattedValue);
             }
         }
 

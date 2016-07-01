@@ -2,6 +2,8 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using CoreCommonResources = Core.Common.Base.Properties.Resources;
@@ -42,7 +44,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return ToProbabilityFormat(data.UpliftProbability);
+                return ProbabilityFormattingHelper.Format(data.UpliftProbability);
             }
         }
 
@@ -78,7 +80,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return ToProbabilityFormat(data.HeaveProbability);
+                return ProbabilityFormattingHelper.Format(data.HeaveProbability);
             }
         }
 
@@ -114,7 +116,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return ToProbabilityFormat(data.SellmeijerProbability);
+                return ProbabilityFormattingHelper.Format(data.SellmeijerProbability);
             }
         }
 
@@ -126,7 +128,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return ToProbabilityFormat(data.RequiredProbability);
+                return ProbabilityFormattingHelper.Format(data.RequiredProbability);
             }
         }
 
@@ -150,7 +152,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return ToProbabilityFormat(data.PipingProbability);
+                return ProbabilityFormattingHelper.Format(data.PipingProbability);
             }
         }
 
@@ -176,11 +178,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 return data.PipingFactorOfSafety;
             }
-        }
-
-        private static string ToProbabilityFormat(RoundedDouble probability)
-        {
-            return string.Format(CoreCommonResources.ProbabilityPerYearFormat, (RoundedDouble) (1.0 / probability));
         }
     }
 }
