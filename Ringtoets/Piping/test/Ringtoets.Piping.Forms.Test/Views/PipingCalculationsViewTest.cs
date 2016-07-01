@@ -444,12 +444,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [TestCase(1e-6, phreaticLevelExitMeanColumnIndex)]
         [TestCase(1e+6, phreaticLevelExitMeanColumnIndex)]
         [TestCase(14.3, phreaticLevelExitMeanColumnIndex)]
-        [TestCase(2.2, entryPointLColumnIndex)]
-        [TestCase(0.022e+2, entryPointLColumnIndex)]
-        [TestCase(220e-2, entryPointLColumnIndex)]
-        [TestCase(5.5, exitPointLColumnIndex)]
-        [TestCase(0.055e+2, exitPointLColumnIndex)]
-        [TestCase(550e-2, exitPointLColumnIndex)]
+        [TestCase(2.2, entryPointLColumnIndex, TestName = "FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(2.2)")]
+        [TestCase(0.022e+2, entryPointLColumnIndex, TestName = "FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(0.022e+2)")]
+        [TestCase(220e-2, entryPointLColumnIndex, TestName = "FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(220e-2)")]
+        [TestCase(5.5, exitPointLColumnIndex, TestName = "FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(5.5)")]
+        [TestCase(0.055e+2, exitPointLColumnIndex, TestName = "FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(0.055e+2)")]
+        [TestCase(550e-2, exitPointLColumnIndex, TestName = "FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(550e-2)")]
         public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue, int cellIndex)
         {
             // Setup
