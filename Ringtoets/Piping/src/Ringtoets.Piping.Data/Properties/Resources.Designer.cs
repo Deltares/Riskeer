@@ -187,67 +187,12 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} L moet in het bereik [{1}, {2}] liggen..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Een punt in de geometrie voor de profielschematisatie heeft geen waarde..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_A_point_in_the_collection_was_null {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_A_point_in_the_collection_was_null", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan geen hoogte bepalen op het punt L={0}, omdat de profielschematisatie verticaal loopt op dat punt..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_verti" +
-                        "cal_in_l", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De geometrie die opgegeven werd voor de profielschematisatie heeft geen waarde..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_Collection_of_points_for_geometry_is_null {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_Collection_of_points_for_geometry_is_null", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan geen hoogte bepalen..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De geometrie bevat geen punt op locatie {0} om als &apos;{1}&apos; in te stellen..
         /// </summary>
         public static string RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_ {
             get {
                 return ResourceManager.GetString("RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_poi" +
                         "nt_at_0_to_assign_as_characteristic_point_1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De profielschematisatie heeft geen geometrie..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_SurfaceLine_has_no_Geometry {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_SurfaceLine_has_no_Geometry", resourceCulture);
             }
         }
     }

@@ -30,6 +30,8 @@ using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.Exceptions;
 
+using PipingPrimitivesResources = Ringtoets.Piping.Primitives.Properties.Resources;
+
 namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
@@ -202,7 +204,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            StringAssert.StartsWith(Resources.RingtoetsPipingSurfaceLine_Collection_of_points_for_geometry_is_null, exception.Message);
+            StringAssert.StartsWith(PipingPrimitivesResources.RingtoetsPipingSurfaceLine_Collection_of_points_for_geometry_is_null, exception.Message);
         }
 
         [Test]
@@ -219,7 +221,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
-            StringAssert.StartsWith(Resources.RingtoetsPipingSurfaceLine_A_point_in_the_collection_was_null, exception.Message);
+            StringAssert.StartsWith(PipingPrimitivesResources.RingtoetsPipingSurfaceLine_A_point_in_the_collection_was_null, exception.Message);
         }
 
         [Test]
@@ -234,7 +236,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var exceptionMessage = Assert.Throws<InvalidOperationException>(test).Message;
-            Assert.AreEqual(Resources.RingtoetsPipingSurfaceLine_SurfaceLine_has_no_Geometry, exceptionMessage);
+            Assert.AreEqual(PipingPrimitivesResources.RingtoetsPipingSurfaceLine_SurfaceLine_has_no_Geometry, exceptionMessage);
         }
 
         [Test]
@@ -281,7 +283,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.GetZAtL(l);
 
             // Assert
-            var expectedMessage = string.Format("Kan geen hoogte bepalen. L moet in het bereik [{0}, {1}] liggen.",
+            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.",
                                                 0, 3.1);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
@@ -307,7 +309,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var exception = Assert.Throws<RingtoetsPipingSurfaceLineException>(test);
-            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l, l);
+            var message = string.Format(PipingPrimitivesResources.RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l, l);
             Assert.AreEqual(message, exception.Message);
         }
 
