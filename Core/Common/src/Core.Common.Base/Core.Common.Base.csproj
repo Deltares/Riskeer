@@ -88,6 +88,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Data\RoundedDouble.cs" />
+    <Compile Include="Data\RoundedPoint2DCollection.cs" />
     <Compile Include="Geometry\Intersection2DType.cs" />
     <Compile Include="Geometry\Math2D.cs" />
     <Compile Include="Data\ProjectComparer.cs" />
