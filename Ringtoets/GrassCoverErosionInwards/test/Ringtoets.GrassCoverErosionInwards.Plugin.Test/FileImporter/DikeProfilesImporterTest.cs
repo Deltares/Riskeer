@@ -295,7 +295,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         [Test]
         [TestCase("Voorlanden_12-2_IdWithSymbol.shp")]
         [TestCase("Voorlanden_12-2_IdWithWhitespace.shp")]
-        public void Import_FromFileWithIllegalCharactersInId_FalseAndLogError(string fileName)
+        public void Import_FromFileWithIllegalCharactersInId_TrueAndLogError(string fileName)
         {
             // Setup
             DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter();
@@ -327,7 +327,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void Import_FromFileWithEmptyEntryForId_FalseAndLogError()
+        public void Import_FromFileWithEmptyEntryForId_TrueAndLogError()
         {
             // Setup
             DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter();
@@ -395,7 +395,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void Import_FromFileWithEmptyEntryForX0_FalseAndLogError()
+        public void Import_FromFileWithEmptyEntryForX0_TrueAndLogError()
         {
             // Setup
             DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter();
@@ -675,7 +675,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void Import_InvalidDamType_FalseAndLogMessage()
+        public void Import_InvalidDamType_TrueAndLogMessage()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
@@ -879,7 +879,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void Import_PrflIsIncomplete_FalseAndErrorLog()
+        public void Import_PrflIsIncomplete_TrueAndErrorLog()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
