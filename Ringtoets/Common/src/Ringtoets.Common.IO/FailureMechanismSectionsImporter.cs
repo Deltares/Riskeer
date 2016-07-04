@@ -1,26 +1,41 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
-
 using log4net;
-
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.IO;
-using Ringtoets.Integration.Plugin.Properties;
-
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.FileImporters
+namespace Ringtoets.Common.IO
 {
     /// <summary>
     /// Imports <see cref="FailureMechanismSection"/> instances from a shapefile that contains
@@ -84,7 +99,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             var context = (FailureMechanismSectionsContext)targetItem;
             if (!IsReferenceLineAvailable(targetItem))
             {
-                LogCriticalFileReadError(Resources.FailureMechanismSectionsImporter_Import_Required_referenceline_missing);
+                LogCriticalFileReadError((string) RingtoetsCommonIOResources.FailureMechanismSectionsImporter_Import_Required_referenceline_missing);
                 return false;
             }
 
@@ -94,7 +109,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 return false;
             }
 
-            NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Reading_file, 1, 3);
+            NotifyProgress(RingtoetsCommonIOResources.FailureMechanismSectionsImporter_ProgressText_Reading_file, 1, 3);
             ReadResult<FailureMechanismSection> readResults = ReadFailureMechanismSections(filePath);
             if (readResults.CriticalErrorOccurred)
             {
@@ -107,12 +122,12 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 return false;
             }
 
-            NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Validating_imported_sections, 2, 3);
+            NotifyProgress(RingtoetsCommonIOResources.FailureMechanismSectionsImporter_ProgressText_Validating_imported_sections, 2, 3);
             ReferenceLine referenceLine = context.ParentAssessmentSection.ReferenceLine;
             ICollection<FailureMechanismSection> readFailureMechanismSections = readResults.ImportedItems;
             if (!SectionsCorrespondToReferenceLine(referenceLine, readFailureMechanismSections))
             {
-                LogCriticalFileReadError(Resources.FailureMechanismSectionsImporter_Import_Imported_sections_do_not_correspond_to_current_referenceline);
+                LogCriticalFileReadError((string)RingtoetsCommonIOResources.FailureMechanismSectionsImporter_Import_Imported_sections_do_not_correspond_to_current_referenceline);
                 return false;
             }
 
@@ -122,7 +137,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 return false;
             }
 
-            NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMechanism, 3, 3);
+            NotifyProgress(RingtoetsCommonIOResources.FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMechanism, 3, 3);
             AddImportedDataToModel(readFailureMechanismSections, context.WrappedData, referenceLine);
             return true;
         }
@@ -134,7 +149,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         private void HandleUserCancellingImport()
         {
-            log.Info(Resources.FailureMechanismSectionsImporter_Import_cancelled_no_data_read);
+            log.Info(RingtoetsCommonIOResources.FailureMechanismSectionsImporter_Import_cancelled_no_data_read);
             ImportIsCancelled = false;
         }
 
@@ -175,7 +190,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 var count = reader.GetFailureMechanismSectionCount();
                 if (count == 0)
                 {
-                    LogCriticalFileReadError(Resources.FailureMechanismSectionsImporter_ReadFile_File_is_empty);
+                    LogCriticalFileReadError((string)RingtoetsCommonIOResources.FailureMechanismSectionsImporter_ReadFile_File_is_empty);
                     return new ReadResult<FailureMechanismSection>(true);
                 }
 
@@ -204,7 +219,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         private void LogCriticalFileReadError(string message)
         {
-            var errorMessage = String.Format(Resources.FailureMechanismSectionsImporter_CriticalErrorMessage_0_No_sections_imported,
+            var errorMessage = String.Format((string)RingtoetsCommonIOResources.FailureMechanismSectionsImporter_CriticalErrorMessage_0_No_sections_imported,
                                              message);
             log.Error(errorMessage);
         }
