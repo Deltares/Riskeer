@@ -813,6 +813,39 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         }
 
         [Test]
+        public void Import_FromFileWithDupplicateId_TrueAndLogWarnings()
+        {
+            // Setup
+            DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter();
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                         Path.Combine("DikeProfiles", "Voorlanden_12-2_same_id_3_times.shp"));
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = CreateMatchingReferenceLine();
+            mockRepository.ReplayAll();
+
+            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
+
+            //Precondition
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] messageArray = messages.ToArray();
+                string message = "Dijkprofiel locatie met ID 'profiel001' is opnieuw ingelezen.";
+                Assert.AreEqual(message, messageArray[0]);
+                Assert.AreEqual(message, messageArray[1]);
+            });
+            Assert.IsTrue(importResult);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Import_PrflWithProfileNotZero_TrueAndErrorLog()
         {
             // Setup

@@ -175,4 +175,7 @@
   <data name="DikeProfilesImporter_GetDikeProfileLocationReadResult_Error_reading_DikeProfile_LineNumber_0_Error_1_The_DikeProfile_is_skipped" xml:space="preserve">
     <value>Fout bij het lezen van dijkprofiel op regel {0}. {1} Dit dijkprofiel wordt overgeslagen.</value>
   </data>
+  <data name="DikeProfilesImporter_AddNextDikeProfileLocation_DikeLocation_with_id_0_already_read" xml:space="preserve">
+    <value>Dijkprofiel locatie met ID '{0}' is opnieuw ingelezen.</value>
+  </data>
 </root>

@@ -213,6 +213,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
                 log.ErrorFormat(Resources.DikeProfilesImporter_AddNextDikeProfileLocation_0_skipping_location_outside_referenceline, dikeProfileLocation.Id);
                 return;
             }
+            if (dikeProfileLocations.Any(dpl => dpl.Id.Equals(dikeProfileLocation.Id)))
+            {
+                log.WarnFormat(Resources.DikeProfilesImporter_AddNextDikeProfileLocation_DikeLocation_with_id_0_already_read, dikeProfileLocation.Id);
+            }
             dikeProfileLocations.Add(dikeProfileLocation);
         }
 

@@ -81,6 +81,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dijkprofiel locatie met ID &apos;{0}&apos; is opnieuw ingelezen..
+        /// </summary>
+        internal static string DikeProfilesImporter_AddNextDikeProfileLocation_DikeLocation_with_id_0_already_read {
+            get {
+                return ResourceManager.GetString("DikeProfilesImporter_AddNextDikeProfileLocation_DikeLocation_with_id_0_already_re" +
+                        "ad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dijkprofiel locaties.
         /// </summary>
         internal static string DikeProfilesImporter_DisplayName {
