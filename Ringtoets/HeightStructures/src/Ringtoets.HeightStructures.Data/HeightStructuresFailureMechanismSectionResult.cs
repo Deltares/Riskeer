@@ -32,7 +32,7 @@ namespace Ringtoets.HeightStructures.Data
     /// </summary>
     public class HeightStructuresFailureMechanismSectionResult : FailureMechanismSectionResult, IStorable
     {
-        private readonly RoundedDouble assessmentLayerTwoA;
+        private readonly double assessmentLayerTwoA;
 
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismSectionResult"/>.
@@ -41,14 +41,14 @@ namespace Ringtoets.HeightStructures.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public HeightStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
-            assessmentLayerTwoA = (RoundedDouble)double.NaN;
+            assessmentLayerTwoA = double.NaN;
             AssessmentLayerThree = (RoundedDouble)double.NaN;
         }
 
         /// <summary>
         /// Gets the value of assessment layer two a.
         /// </summary>
-        public RoundedDouble AssessmentLayerTwoA
+        public double AssessmentLayerTwoA
         {
             get
             {

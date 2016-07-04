@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             Assert.IsTrue(TypeUtils.HasTypeConverter<PipingFailureMechanismSectionResultRow,
-                              FailureMechanismSectionResultNoProbabilityValueRoundedDoubleConverter>(
+                              FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
                                   r => r.AssessmentLayerTwoA));
             Assert.IsTrue(TypeUtils.HasTypeConverter<PipingFailureMechanismSectionResultRow,
                               FailureMechanismSectionResultNoValueRoundedDoubleConverter>(

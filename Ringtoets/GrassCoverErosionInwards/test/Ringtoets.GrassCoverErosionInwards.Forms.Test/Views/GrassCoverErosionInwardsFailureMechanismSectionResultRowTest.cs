@@ -68,7 +68,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsFailureMechanismSectionResultRow,
-                  FailureMechanismSectionResultNoProbabilityValueRoundedDoubleConverter>(
+                  FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
                       r => r.AssessmentLayerTwoA));
             Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsFailureMechanismSectionResultRow,
                   FailureMechanismSectionResultNoValueRoundedDoubleConverter>(

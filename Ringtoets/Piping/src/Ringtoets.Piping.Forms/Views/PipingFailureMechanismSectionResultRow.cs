@@ -68,25 +68,25 @@ namespace Ringtoets.Piping.Forms.Views
         /// <summary>
         /// Gets the value representing the result of the layer 2a assessment.
         /// </summary>
-        [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueRoundedDoubleConverter))]
-        public RoundedDouble AssessmentLayerTwoA
+        [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
+        public double AssessmentLayerTwoA
         {
             get
             {
                 var relevantScenarios = SectionResult.GetCalculationScenarios(calculations).ToArray();
                 bool relevantScenarioAvailable = relevantScenarios.Length != 0;
 
-                if (relevantScenarioAvailable && Math.Abs(SectionResult.GetTotalContribution(calculations) - 1.0) > tolerance)
+                if (relevantScenarioAvailable && Math.Abs(SectionResult.GetTotalContribution(relevantScenarios) - 1.0) > tolerance)
                 {
-                    return (RoundedDouble)double.NaN;
+                    return double.NaN;
                 }
 
-                if (!relevantScenarioAvailable || SectionResult.GetCalculationScenarioStatus(calculations) != CalculationScenarioStatus.Done)
+                if (!relevantScenarioAvailable || SectionResult.GetCalculationScenarioStatus(relevantScenarios) != CalculationScenarioStatus.Done)
                 {
-                    return (RoundedDouble)double.NaN;
+                    return double.NaN;
                 }
 
-                return (RoundedDouble)SectionResult.GetAssessmentLayerTwoA(calculations);
+                return SectionResult.GetAssessmentLayerTwoA(relevantScenarios);
             }
         }
 

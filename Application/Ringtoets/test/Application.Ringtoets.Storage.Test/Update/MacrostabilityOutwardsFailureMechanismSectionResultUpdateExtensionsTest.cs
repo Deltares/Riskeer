@@ -153,7 +153,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             // Assert
             Assert.AreEqual(Convert.ToByte(true), sectionResultEntity.LayerOne);
-            Assert.AreEqual(sectionResult.AssessmentLayerTwoA.Value.ToNullableDecimal(), sectionResultEntity.LayerTwoA);
+            Assert.AreEqual(sectionResult.AssessmentLayerTwoA.ToNullableDecimal(), sectionResultEntity.LayerTwoA);
             Assert.AreEqual(sectionResult.AssessmentLayerThree.Value.ToNullableDecimal(), sectionResultEntity.LayerThree);
 
             mocks.VerifyAll();

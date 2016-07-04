@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             Assert.IsTrue(TypeUtils.HasTypeConverter<MacrostabilityOutwardsSectionResultRow,
-                  FailureMechanismSectionResultNoProbabilityValueRoundedDoubleConverter>(
+                  FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
                       r => r.AssessmentLayerTwoA));
             Assert.IsTrue(TypeUtils.HasTypeConverter<MacrostabilityOutwardsSectionResultRow,
                   FailureMechanismSectionResultNoValueRoundedDoubleConverter>(
@@ -107,16 +107,15 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void AssessmentLayerTwoA_ForValidValues_ResultPropertyChanged(double value)
         {
             // Setup
-            var newValue = (RoundedDouble) value;
             var section = CreateSection();
             var result = new MacrostabilityOutwardsFailureMechanismSectionResult(section);
             var row = new MacrostabilityOutwardsSectionResultRow(result);
 
             // Call
-            row.AssessmentLayerTwoA = newValue;
+            row.AssessmentLayerTwoA = value;
 
             // Assert
-            Assert.AreEqual(newValue, row.AssessmentLayerTwoA);
+            Assert.AreEqual(value, row.AssessmentLayerTwoA);
         }
 
         [Test]
@@ -127,13 +126,12 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void AssessmentLayerTwoA_ForInvalidValues_ThrowsArgumentException(double value)
         {
             // Setup
-            var newValue = (RoundedDouble)value;
             var section = CreateSection();
             var result = new MacrostabilityOutwardsFailureMechanismSectionResult(section);
             var row = new MacrostabilityOutwardsSectionResultRow(result);
 
             // Call
-            TestDelegate test = () => row.AssessmentLayerTwoA = newValue;
+            TestDelegate test = () => row.AssessmentLayerTwoA = value;
 
             // Assert
             var message = Assert.Throws<ArgumentException>(test).Message;

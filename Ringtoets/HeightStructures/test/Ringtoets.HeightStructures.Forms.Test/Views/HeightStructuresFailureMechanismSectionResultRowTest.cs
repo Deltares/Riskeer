@@ -68,7 +68,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             Assert.IsTrue(TypeUtils.HasTypeConverter<HeightStructuresFailureMechanismSectionResultRow,
-                              FailureMechanismSectionResultNoProbabilityValueRoundedDoubleConverter>(
+                              FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
                                   r => r.AssessmentLayerTwoA));
             Assert.IsTrue(TypeUtils.HasTypeConverter<HeightStructuresFailureMechanismSectionResultRow,
                               FailureMechanismSectionResultNoValueRoundedDoubleConverter>(

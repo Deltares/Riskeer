@@ -150,7 +150,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             sectionResult.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
-            Assert.AreEqual(sectionResult.AssessmentLayerTwoA.Value.ToNullableDecimal(), sectionResultEntity.LayerTwoA);
+            Assert.AreEqual(sectionResult.AssessmentLayerTwoA.ToNullableDecimal(), sectionResultEntity.LayerTwoA);
             Assert.AreEqual(sectionResult.AssessmentLayerThree.Value.ToNullableDecimal(), sectionResultEntity.LayerThree);
 
             mocks.VerifyAll();

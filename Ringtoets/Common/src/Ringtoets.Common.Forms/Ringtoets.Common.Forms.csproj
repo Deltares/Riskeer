@@ -72,7 +72,7 @@
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilder.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactory.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuItemFactory.cs" />
-    <Compile Include="TypeConverters\FailureMechanismSectionResultNoProbabilityValueRoundedDoubleConverter.cs" />
+    <Compile Include="TypeConverters\FailureMechanismSectionResultNoProbabilityValueDoubleConverter.cs" />
     <Compile Include="TypeConverters\FailureMechanismSectionResultNoValueRoundedDoubleConverter.cs" />
     <Compile Include="UITypeEditors\SelectionEditor.cs" />
     <Compile Include="Views\ChartDataFactory.cs" />

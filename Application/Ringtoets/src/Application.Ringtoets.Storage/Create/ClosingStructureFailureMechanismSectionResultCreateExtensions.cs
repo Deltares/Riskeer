@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Create
             var sectionResultEntity = new ClosingStructureSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerTwoA = result.AssessmentLayerTwoA.Value.ToNullableDecimal(),
+                LayerTwoA = result.AssessmentLayerTwoA.ToNullableDecimal(),
                 LayerThree = result.AssessmentLayerThree.Value.ToNullableDecimal()
             };
 

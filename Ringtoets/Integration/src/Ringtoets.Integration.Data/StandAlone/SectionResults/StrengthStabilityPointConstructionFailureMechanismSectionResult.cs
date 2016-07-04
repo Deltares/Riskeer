@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
     /// </summary>
     public class StrengthStabilityPointConstructionFailureMechanismSectionResult : FailureMechanismSectionResult, IStorable
     {
-        private RoundedDouble assessmentLayerTwoA;
+        private double assessmentLayerTwoA;
 
         /// <summary>
         /// Creates a new instance of <see cref="StrengthStabilityPointConstructionFailureMechanismSectionResult"/>.
@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         public StrengthStabilityPointConstructionFailureMechanismSectionResult(FailureMechanismSection section)
             : base(section)
         {
-            AssessmentLayerTwoA = (RoundedDouble)double.NaN;
+            AssessmentLayerTwoA = double.NaN;
             AssessmentLayerThree = (RoundedDouble)double.NaN;
         }
 
@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// Gets or sets the value for the detailed assessment of safety per failure mechanism section as a probability.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
-        public RoundedDouble AssessmentLayerTwoA
+        public double AssessmentLayerTwoA
         {
             get
             {

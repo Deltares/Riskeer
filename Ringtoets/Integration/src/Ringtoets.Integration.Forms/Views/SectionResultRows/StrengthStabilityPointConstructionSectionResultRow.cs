@@ -47,8 +47,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is
         /// not in the range [0,1].</exception>
-        [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueRoundedDoubleConverter))]
-        public RoundedDouble AssessmentLayerTwoA
+        [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
+        public double AssessmentLayerTwoA
         {
             get
             {

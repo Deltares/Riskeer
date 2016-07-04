@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             var result = new MacrostabilityOutwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate test = () => result.AssessmentLayerTwoA = (RoundedDouble)a;
+            TestDelegate test = () => result.AssessmentLayerTwoA = a;
 
             // Assert
             var message = Assert.Throws<ArgumentException>(test).Message;
@@ -96,13 +96,11 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
             var result = new MacrostabilityOutwardsFailureMechanismSectionResult(section);
 
-            var assessmentLayerTwoAValue = (RoundedDouble)a;
-
             // Call
-            result.AssessmentLayerTwoA = assessmentLayerTwoAValue;
+            result.AssessmentLayerTwoA = a;
 
             // Assert
-            Assert.AreEqual(assessmentLayerTwoAValue, result.AssessmentLayerTwoA);
+            Assert.AreEqual(a, result.AssessmentLayerTwoA);
         }
     }
 }
