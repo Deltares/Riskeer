@@ -231,6 +231,15 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .Build()
             };
 
+            yield return new TreeNodeInfo<PipingScenariosContext>
+            {
+                Text = context => RingtoetsCommonFormsResources.Scenarios_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.ScenariosIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .Build()
+            };
+
             yield return new TreeNodeInfo<EmptyPipingOutput>
             {
                 Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
@@ -435,6 +444,7 @@ namespace Ringtoets.Piping.Plugin
         {
             return new ArrayList
             {
+                new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
             };
         }

@@ -60,6 +60,7 @@
       <DependentUpon>PipingSurfaceLineSelectionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="PresentationObjects\EmptyPipingOutput.cs" />
+    <Compile Include="PresentationObjects\PipingScenariosContext.cs" />
     <Compile Include="PresentationObjects\PipingCalculationScenarioContext.cs" />
     <Compile Include="PresentationObjects\PipingCalculationGroupContext.cs" />
     <Compile Include="PresentationObjects\PipingContext.cs" />

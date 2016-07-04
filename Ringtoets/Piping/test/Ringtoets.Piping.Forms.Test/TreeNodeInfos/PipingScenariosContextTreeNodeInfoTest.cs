@@ -21,35 +21,31 @@
 
 using System.Drawing;
 using System.Linq;
-
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Plugin;
-using Resources = Ringtoets.Common.Forms.Properties.Resources;
+using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Plugin;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
+namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsScenariosContextTreeNodeInfoTest
+    public class PipingScenariosContextTreeNodeInfoTest
     {
-        private GrassCoverErosionInwardsGuiPlugin plugin;
+        private PipingGuiPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new GrassCoverErosionInwardsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsScenariosContext));
+            plugin = new PipingGuiPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingScenariosContext));
         }
 
         [TearDown]
@@ -62,7 +58,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsScenariosContext), info.TagType);
+            Assert.AreEqual(typeof(PipingScenariosContext), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ContextMenuStrip);
@@ -87,8 +83,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         {
             // Setup
             var group = new CalculationGroup();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var context = new GrassCoverErosionInwardsScenariosContext(group, failureMechanism);
+            var failureMechanism = new PipingFailureMechanism();
+            var context = new PipingScenariosContext(group, failureMechanism);
 
             // Call
             string text = info.Text(context);
@@ -102,8 +98,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         {
             // Setup
             var group = new CalculationGroup();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var context = new GrassCoverErosionInwardsScenariosContext(group, failureMechanism);
+            var failureMechanism = new PipingFailureMechanism();
+            var context = new PipingScenariosContext(group, failureMechanism);
 
             // Call
             Image image = info.Image(context);
@@ -119,8 +115,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var group = new CalculationGroup();
-                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-                var context = new GrassCoverErosionInwardsScenariosContext(group, failureMechanism);
+                var failureMechanism = new PipingFailureMechanism();
+                var context = new PipingScenariosContext(group, failureMechanism);
 
                 var mocks = new MockRepository();
 

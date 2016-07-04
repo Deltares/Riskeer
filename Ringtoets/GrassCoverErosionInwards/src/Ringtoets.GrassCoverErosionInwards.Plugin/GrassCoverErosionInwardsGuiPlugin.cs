@@ -71,7 +71,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 GrassCoverErosionInwardsScenariosView>
             {
                 GetViewData = context => context.WrappedData,
-                GetViewName = (view, calculationGroup) => GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_Scenarios_DisplayName,
+                GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
                 AfterCreate = (view, context) => { view.FailureMechanism = context.ParentFailureMechanism; },
                 CloseForData = (view, removedData) =>
                 {
@@ -90,7 +90,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                     }
                     return false;
                 },
-                Image = GrassCoverErosionInwardsPluginResources.ScenariosIcon
+                Image = RingtoetsCommonFormsResources.ScenariosIcon
             };
 
             yield return new ViewInfo<
@@ -162,8 +162,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsScenariosContext>
             {
-                Text = context => GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_Scenarios_DisplayName,
-                Image = context => GrassCoverErosionInwardsPluginResources.ScenariosIcon,
+                Text = context => RingtoetsCommonFormsResources.Scenarios_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.ScenariosIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()

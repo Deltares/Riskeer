@@ -229,24 +229,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
                 return ResourceManager.GetString("GrassCoverErosionInwardsGuiPlugin_Error_during_overtopping_calculation", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scenario&apos;s.
-        /// </summary>
-        internal static string GrassCoverErosionInwardsGuiPlugin_Scenarios_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsGuiPlugin_Scenarios_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ScenariosIcon {
-            get {
-                object obj = ResourceManager.GetObject("ScenariosIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }
