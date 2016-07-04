@@ -110,21 +110,22 @@ namespace Core.Plugins.OxyPlot.Test.Legend
                 innerCollection
             }, "test data");
 
-            var chartLegendView = new ChartLegendView
+            using (var chartLegendView = new ChartLegendView
             {
                 Data = rootCollection
-            };
+            })
+            {
+                TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
+                Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
+                var info = treeNodeInfoLookup[typeof(ChartDataCollection)];
 
-            TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
-            Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
-            var info = treeNodeInfoLookup[typeof(ChartDataCollection)];
+                // When
+                info.OnDrop(chartLineData, rootCollection, innerCollection, 0, treeViewControl);
 
-            // When
-            info.OnDrop(chartLineData, rootCollection, innerCollection, 0, treeViewControl);
-
-            // Then
-            CollectionAssert.DoesNotContain(innerCollection.List, chartLineData);
-            CollectionAssert.Contains(rootCollection.List, chartLineData);
+                // Then
+                CollectionAssert.DoesNotContain(innerCollection.List, chartLineData);
+                CollectionAssert.Contains(rootCollection.List, chartLineData);
+            }
         }
 
         [Test]
@@ -143,21 +144,22 @@ namespace Core.Plugins.OxyPlot.Test.Legend
                 innerCollection
             }, "test data");
 
-            var chartLegendView = new ChartLegendView
+            using (var chartLegendView = new ChartLegendView
             {
                 Data = rootCollection
-            };
+            })
+            {
+                TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
+                Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
+                var info = treeNodeInfoLookup[typeof(ChartDataCollection)];
 
-            TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
-            Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
-            var info = treeNodeInfoLookup[typeof(ChartDataCollection)];
+                // When
+                info.OnDrop(chartLineData, innerCollection, rootCollection, 0, treeViewControl);
 
-            // When
-            info.OnDrop(chartLineData, innerCollection, rootCollection, 0, treeViewControl);
-
-            // Then
-            CollectionAssert.DoesNotContain(rootCollection.List, chartLineData);
-            CollectionAssert.Contains(innerCollection.List, chartLineData);
+                // Then
+                CollectionAssert.DoesNotContain(rootCollection.List, chartLineData);
+                CollectionAssert.Contains(innerCollection.List, chartLineData);
+            }
         }
 
         [Test]
@@ -176,20 +178,21 @@ namespace Core.Plugins.OxyPlot.Test.Legend
                 CreateChartLineData()
             }, "test data");
 
-            var chartLegendView = new ChartLegendView
+            using (var chartLegendView = new ChartLegendView
             {
                 Data = rootCollection
-            };
+            })
+            {
+                TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
+                Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
+                var info = treeNodeInfoLookup[typeof(ChartDataCollection)];
 
-            TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
-            Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
-            var info = treeNodeInfoLookup[typeof(ChartDataCollection)];
+                // When
+                info.OnDrop(chartLineData, rootCollection, rootCollection, index, treeViewControl);
 
-            // When
-            info.OnDrop(chartLineData, rootCollection, rootCollection, index, treeViewControl);
-
-            // Then
-            Assert.AreEqual(2 - index, rootCollection.List.IndexOf(chartLineData));
+                // Then
+                Assert.AreEqual(2 - index, rootCollection.List.IndexOf(chartLineData));
+            }
         }
 
         private ChartData CreateChartLineData()
