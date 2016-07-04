@@ -338,7 +338,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De ingelezen Id ({0}) bevat spaties, welke niet zijn toegestaan..
+        ///   Looks up a localized string similar to De ingelezen ID ({0}) bevat spaties, welke niet zijn toegestaan..
         /// </summary>
         internal static string DikeProfileDataReader_ValidateId_Id_0_has_unsupported_white_space {
             get {
@@ -347,7 +347,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De ingelezen Id ({0}) is geen geldig id..
+        ///   Looks up a localized string similar to De ingelezen ID ({0}) is geen geldig id..
         /// </summary>
         internal static string DikeProfileDataReader_ValidateId_Id_0_not_valid {
             get {
@@ -393,7 +393,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fout bij het aanmaken van een dijk profiel locatie: Id is ongeldig..
+        ///   Looks up a localized string similar to Fout bij het aanmaken van een dijk profiel locatie: ID is ongeldig..
         /// </summary>
         internal static string DikeProfileLocation_Constructor_Invalid_Id {
             get {
@@ -420,7 +420,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De locatie parameter &apos;Id&apos; mag uitsluitend uit letters en cijfers bestaan..
+        ///   Looks up a localized string similar to De locatie parameter &apos;ID&apos; mag uitsluitend uit letters en cijfers bestaan..
         /// </summary>
         internal static string DikeProfileLocation_DikeProfileLocation_Id_is_invalid {
             get {
@@ -429,7 +429,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De locatie parameter &apos;Id&apos; heeft geen waarde..
+        ///   Looks up a localized string similar to De locatie parameter &apos;ID&apos; heeft geen waarde..
         /// </summary>
         internal static string DikeProfileLocation_DikeProfileLocation_Id_is_null {
             get {

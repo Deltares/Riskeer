@@ -357,7 +357,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableId_ThrowCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("De ingelezen Id ({0}) is geen geldig id.",
+            string expectedMessage = string.Format("De ingelezen ID ({0}) is geen geldig id.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 2, expectedMessage);
         }
@@ -365,7 +365,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithInvalidId_ThrowCriticalFileReadException()
         {
-            string expectedMessage = @"De ingelezen Id (Id's are not allowed to have any white space!) bevat spaties, welke niet zijn toegestaan.";
+            string expectedMessage = @"De ingelezen ID (Id's are not allowed to have any white space!) bevat spaties, welke niet zijn toegestaan.";
             ReadFileAndExpectCriticalFileReadException("faulty_invalidId.prfl", 2, expectedMessage);
         }
 

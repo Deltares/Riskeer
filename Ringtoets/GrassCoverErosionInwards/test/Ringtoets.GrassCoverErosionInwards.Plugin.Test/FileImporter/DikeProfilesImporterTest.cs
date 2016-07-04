@@ -319,7 +319,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                string message = "Fout bij het lezen van dijkprofiel op regel 1. De locatie parameter 'Id' mag uitsluitend uit letters en cijfers bestaan. Dit dijkprofiel wordt overgeslagen.";
+                string message = "Fout bij het lezen van dijkprofiel op regel 1. De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan. Dit dijkprofiel wordt overgeslagen.";
                 Assert.AreEqual(message, messageArray[0]);
             });
             Assert.IsTrue(importResult);
@@ -351,9 +351,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                string message1 = "Fout bij het lezen van dijkprofiel op regel 1. De locatie parameter 'Id' heeft geen waarde. Dit dijkprofiel wordt overgeslagen.";
-                string message2 = "Fout bij het lezen van dijkprofiel op regel 2. De locatie parameter 'Id' heeft geen waarde. Dit dijkprofiel wordt overgeslagen.";
-                string message3 = "Fout bij het lezen van dijkprofiel op regel 4. De locatie parameter 'Id' heeft geen waarde. Dit dijkprofiel wordt overgeslagen.";
+                string message1 = "Fout bij het lezen van dijkprofiel op regel 1. De locatie parameter 'ID' heeft geen waarde. Dit dijkprofiel wordt overgeslagen.";
+                string message2 = "Fout bij het lezen van dijkprofiel op regel 2. De locatie parameter 'ID' heeft geen waarde. Dit dijkprofiel wordt overgeslagen.";
+                string message3 = "Fout bij het lezen van dijkprofiel op regel 4. De locatie parameter 'ID' heeft geen waarde. Dit dijkprofiel wordt overgeslagen.";
                 Assert.AreEqual(message1, messageArray[0]);
                 Assert.AreEqual(message2, messageArray[1]);
                 Assert.AreEqual(message3, messageArray[2]);
@@ -387,7 +387,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                string message = "Kan geen voorland en dijkprofiel data vinden voor dijkprofiel locatie met Id: unmatchable";
+                string message = "Kan geen voorland- en dijkprofieldata vinden voor dijkprofiel locatie met ID: unmatchable";
                 Assert.AreEqual(message, messageArray[0]);
             });
             Assert.IsTrue(importResult);
@@ -492,7 +492,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
 
             // Assert
-            var expectedMessages = Enumerable.Repeat("Een dijkprofiel locatie met Id 'profiel001' ligt niet op de referentielijn. Locatie wordt overgeslagen.", 5).ToArray();
+            var expectedMessages = Enumerable.Repeat("Een dijkprofiel locatie met ID 'profiel001' ligt niet op de referentielijn. Locatie wordt overgeslagen.", 5).ToArray();
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, expectedMessages.Length);
             Assert.IsTrue(importResult);
             mockRepository.VerifyAll(); // 'observer' should not be notified
@@ -536,7 +536,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
 
             // Assert
-            string expectedMessage = "Een dijkprofiel locatie met Id 'profiel005' ligt niet op de referentielijn. Locatie wordt overgeslagen.";
+            string expectedMessage = "Een dijkprofiel locatie met ID 'profiel005' ligt niet op de referentielijn. Locatie wordt overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
             Assert.IsTrue(importResult);
             Assert.AreEqual(4, targetContext.WrappedData.Count);
@@ -578,12 +578,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
                 new ProgressNotification("Inlezen van dijkprofiel locatie.", 3, 5),
                 new ProgressNotification("Inlezen van dijkprofiel locatie.", 4, 5),
                 new ProgressNotification("Inlezen van dijkprofiel locatie.", 5, 5),
-                new ProgressNotification("Inlezen van voorland en dijkprofiel data uit een prfl bestand.", 1, 1),
-                new ProgressNotification("Inlezen van voorland en dijkprofiel data.", 1, 5),
-                new ProgressNotification("Inlezen van voorland en dijkprofiel data.", 2, 5),
-                new ProgressNotification("Inlezen van voorland en dijkprofiel data.", 3, 5),
-                new ProgressNotification("Inlezen van voorland en dijkprofiel data.", 4, 5),
-                new ProgressNotification("Inlezen van voorland en dijkprofiel data.", 5, 5)
+                new ProgressNotification("Inlezen van voorland- en dijkprofieldata uit een prfl bestand.", 1, 1),
+                new ProgressNotification("Inlezen van voorland- en dijkprofieldata.", 1, 5),
+                new ProgressNotification("Inlezen van voorland- en dijkprofieldata.", 2, 5),
+                new ProgressNotification("Inlezen van voorland- en dijkprofieldata.", 3, 5),
+                new ProgressNotification("Inlezen van voorland- en dijkprofieldata.", 4, 5),
+                new ProgressNotification("Inlezen van voorland- en dijkprofieldata.", 5, 5)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications, targetContext);
             Assert.AreEqual(5, targetContext.WrappedData.Count);
@@ -662,12 +662,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
                 new ProgressNotification("Inlezen van dijkprofiel locatie.", 3, 5),
                 new ProgressNotification("Inlezen van dijkprofiel locatie.", 4, 5),
                 new ProgressNotification("Inlezen van dijkprofiel locatie.", 5, 5),
-                new ProgressNotification("Inlezen van voorland en dijkprofiel data uit een prfl bestand.", 1, 1),
-                new ProgressNotification("Inlezen van voorland en dijkprofiel data.", 1, 5),
-                new ProgressNotification("Inlezen van voorland en dijkprofiel data.", 2, 5),
-                new ProgressNotification("Inlezen van voorland en dijkprofiel data.", 3, 5),
-                new ProgressNotification("Inlezen van voorland en dijkprofiel data.", 4, 5),
-                new ProgressNotification("Inlezen van voorland en dijkprofiel data.", 5, 5)
+                new ProgressNotification("Inlezen van voorland- en dijkprofieldata uit een prfl bestand.", 1, 1),
+                new ProgressNotification("Inlezen van voorland- en dijkprofieldata.", 1, 5),
+                new ProgressNotification("Inlezen van voorland- en dijkprofieldata.", 2, 5),
+                new ProgressNotification("Inlezen van voorland- en dijkprofieldata.", 3, 5),
+                new ProgressNotification("Inlezen van voorland- en dijkprofieldata.", 4, 5),
+                new ProgressNotification("Inlezen van voorland- en dijkprofieldata.", 5, 5)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications, targetContext);
             Assert.AreEqual(5, targetContext.WrappedData.Count);
@@ -837,7 +837,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             // Assert
             Action<IEnumerable<string>> asserts = (messages) =>
             {
-                bool found = messages.Any(message => message.StartsWith("Voorland en dijkprofiel data specificeert een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen:"));
+                bool found = messages.Any(message => message.StartsWith("Voorland- en dijkprofieldata specificeert een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen:"));
                 Assert.IsTrue(found);
             };
             TestHelper.AssertLogMessages(call, asserts);

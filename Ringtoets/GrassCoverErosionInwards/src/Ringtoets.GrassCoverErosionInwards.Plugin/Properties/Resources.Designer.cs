@@ -71,7 +71,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een dijkprofiel locatie met Id &apos;{0}&apos; ligt niet op de referentielijn. Locatie wordt overgeslagen..
+        ///   Looks up a localized string similar to Een dijkprofiel locatie met ID &apos;{0}&apos; ligt niet op de referentielijn. Locatie wordt overgeslagen..
         /// </summary>
         internal static string DikeProfilesImporter_AddNextDikeProfileLocation_0_skipping_location_outside_referenceline {
             get {
@@ -110,7 +110,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan geen voorland en dijkprofiel data vinden voor dijkprofiel locatie met Id: {0}.
+        ///   Looks up a localized string similar to Kan geen voorland- en dijkprofieldata vinden voor dijkprofiel locatie met ID: {0}.
         /// </summary>
         internal static string DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_ {
             get {
@@ -148,7 +148,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inlezen van voorland en dijkprofiel data uit een prfl bestand..
+        ///   Looks up a localized string similar to Inlezen van voorland- en dijkprofieldata uit een prfl bestand..
         /// </summary>
         internal static string DikeProfilesImporter_ReadDikeProfileData_reading_dikeprofile_data {
             get {
@@ -157,7 +157,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inlezen van voorland en dijkprofiel data..
+        ///   Looks up a localized string similar to Inlezen van voorland- en dijkprofieldata..
         /// </summary>
         internal static string DikeProfilesImporter_ReadDikeProfileData_reading_dikeprofiledata {
             get {
@@ -166,7 +166,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voorland en dijkprofiel data specificeert een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen: {0}.
+        ///   Looks up a localized string similar to Voorland- en dijkprofieldata specificeert een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen: {0}.
         /// </summary>
         internal static string DikeProfilesImporter_ReadDikeProfileData_sheet_piling_not_zero_skipping_0_ {
             get {

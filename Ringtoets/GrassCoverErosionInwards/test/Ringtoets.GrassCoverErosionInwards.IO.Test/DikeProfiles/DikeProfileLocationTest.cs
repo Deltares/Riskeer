@@ -67,7 +67,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             TestDelegate call = () => new DikeProfileLocation(null, "aNAME", 1.1, referencePoint);
 
             // Assert
-            var expectedMessage = "De locatie parameter 'Id' heeft geen waarde.";
+            var expectedMessage = "De locatie parameter 'ID' heeft geen waarde.";
             string message = Assert.Throws<ArgumentException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
@@ -98,7 +98,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             TestDelegate call = () => new DikeProfileLocation(id, "aNAME", 1.1, referencePoint);
 
             // Assert
-            var expectedMessage = "De locatie parameter 'Id' mag uitsluitend uit letters en cijfers bestaan.";
+            var expectedMessage = "De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan.";
             string message = Assert.Throws<ArgumentException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }

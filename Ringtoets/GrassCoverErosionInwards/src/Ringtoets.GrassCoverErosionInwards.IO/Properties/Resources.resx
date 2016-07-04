@@ -121,7 +121,7 @@
     <value>Het bestand mag uitsluitend punten bevatten.</value>
   </data>
   <data name="DikeProfileLocation_Constructor_Invalid_Id" xml:space="preserve">
-    <value>Fout bij het aanmaken van een dijk profiel locatie: Id is ongeldig.</value>
+    <value>Fout bij het aanmaken van een dijk profiel locatie: ID is ongeldig.</value>
   </data>
   <data name="DikeProfileLocation_Constructor_Invalid_Point" xml:space="preserve">
     <value>Fout bij het aanmaken van een dijk profiel locatie: Punt is ongeldig.</value>
@@ -199,10 +199,10 @@
     <value>Het bestand bevat een ongeldig punt als locatie.</value>
   </data>
   <data name="DikeProfileLocation_DikeProfileLocation_Id_is_null" xml:space="preserve">
-    <value>De locatie parameter 'Id' heeft geen waarde.</value>
+    <value>De locatie parameter 'ID' heeft geen waarde.</value>
   </data>
   <data name="DikeProfileLocation_DikeProfileLocation_Id_is_invalid" xml:space="preserve">
-    <value>De locatie parameter 'Id' mag uitsluitend uit letters en cijfers bestaan.</value>
+    <value>De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan.</value>
   </data>
   <data name="DikeProfileLocation_DikeProfileLocation_Point_is_null" xml:space="preserve">
     <value>De locatie heeft geen coördinaten.</value>
@@ -211,10 +211,10 @@
     <value>De locatie parameter 'X0' bevat een ongeldig getal.</value>
   </data>
   <data name="DikeProfileDataReader_ValidateId_Id_0_not_valid" xml:space="preserve">
-    <value>De ingelezen Id ({0}) is geen geldig id.</value>
+    <value>De ingelezen ID ({0}) is geen geldig id.</value>
   </data>
   <data name="DikeProfileDataReader_ValidateId_Id_0_has_unsupported_white_space" xml:space="preserve">
-    <value>De ingelezen Id ({0}) bevat spaties, welke niet zijn toegestaan.</value>
+    <value>De ingelezen ID ({0}) bevat spaties, welke niet zijn toegestaan.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfDikeElements_DijkCount_0_not_integer" xml:space="preserve">
     <value>Het ingelezen aantal geometriepunten dijk ({0}) is geen geheel getal.</value>
