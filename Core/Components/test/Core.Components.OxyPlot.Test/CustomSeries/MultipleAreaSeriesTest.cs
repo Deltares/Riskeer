@@ -23,7 +23,6 @@ using System;
 using Core.Components.OxyPlot.CustomSeries;
 using NUnit.Framework;
 using OxyPlot;
-using OxyPlot.Axes;
 using Rhino.Mocks;
 
 namespace Core.Components.OxyPlot.Test.CustomSeries
