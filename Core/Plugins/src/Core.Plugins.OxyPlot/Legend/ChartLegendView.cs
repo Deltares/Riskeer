@@ -120,9 +120,9 @@ namespace Core.Plugins.OxyPlot.Legend
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartDataCollection>
             {
-                Text = chartControl => chartControl.Name,
-                Image = chartControl => GuiResources.folder,
-                ChildNodeObjects = chartControl => chartControl.List.Reverse().Cast<object>().ToArray(),
+                Text = collection => collection.Name,
+                Image = collection => GuiResources.folder,
+                ChildNodeObjects = collection => collection.List.Reverse().Cast<object>().ToArray(),
                 CanDrag = (multipleAreaData, parentData) => true,
                 CanDrop = ChartControlCanDrop,
                 CanInsert = ChartControlCanInsert,
@@ -172,10 +172,11 @@ namespace Core.Plugins.OxyPlot.Legend
         private static void ChartControlOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
         {
             var chartData = (ChartData) droppedData;
+            var source = (ChartDataCollection)oldParentData;
             var target = (ChartDataCollection) newParentData;
 
-            target.List.Remove(chartData);
-            target.List.Insert(target.List.Count - position, chartData); // Note: target is the same as the previous parent in this case
+            source.List.Remove(chartData);
+            target.List.Insert(target.List.Count - position, chartData);
             target.NotifyObservers();
         }
 
