@@ -33,8 +33,8 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         /// </summary>
         /// <param name="hrdLocationId">HrdLocationId of the <see cref="HrdLocation"/>.</param>
         /// <param name="name">Name of the <see cref="HrdLocation"/>.</param>
-        /// <param name="coordinateX">X coordinate of the <see cref="HrdLocation"/>.</param>
-        /// <param name="coordinateY">Y coordinate of the <see cref="HrdLocation"/>.</param>
+        /// <param name="coordinateX">X-coordinate of the <see cref="HrdLocation"/>.</param>
+        /// <param name="coordinateY">Y-coordinate of the <see cref="HrdLocation"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public HrdLocation(long hrdLocationId, string name, double coordinateX, double coordinateY)
         {
@@ -59,12 +59,12 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         public string Name { get; private set; }
 
         /// <summary>
-        /// Gets the X coordinate of <see cref="HrdLocation"/>.
+        /// Gets the X-coordinate of <see cref="HrdLocation"/>.
         /// </summary>
         public double LocationX { get; private set; }
 
         /// <summary>
-        /// Gets the Y coordinate of <see cref="HrdLocation"/>.
+        /// Gets the Y-coordinate of <see cref="HrdLocation"/>.
         /// </summary>
         public double LocationY { get; private set; }
     }

@@ -387,7 +387,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                string message = "Kan geen voorland- en dijkprofieldata vinden voor dijkprofiel locatie met ID: unmatchable";
+                string message = "Kan geen geldige voorland- en dijkprofieldata vinden voor dijkprofiel locatie met ID: unmatchable";
                 Assert.AreEqual(message, messageArray[0]);
             });
             Assert.IsTrue(importResult);
@@ -476,11 +476,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             assessmentSection.ReferenceLine.SetGeometry(referencePoints);
             mockRepository.ReplayAll();
 
-            var progressChangeNotifications = new List<ProgressNotification>();
-            var dikeProfilesImporter = new DikeProfilesImporter
-            {
-                ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
-            };
+            var dikeProfilesImporter = new DikeProfilesImporter();
 
             var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
             targetContext.Attach(observer);
@@ -520,11 +516,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             assessmentSection.ReferenceLine.SetGeometry(referencePoints);
             mockRepository.ReplayAll();
 
-            var progressChangeNotifications = new List<ProgressNotification>();
-            var dikeProfilesImporter = new DikeProfilesImporter
-            {
-                ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
-            };
+            var dikeProfilesImporter = new DikeProfilesImporter();
 
             var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
             targetContext.Attach(observer);
@@ -585,7 +577,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
                 new ProgressNotification("Inlezen van voorland- en dijkprofieldata.", 4, 5),
                 new ProgressNotification("Inlezen van voorland- en dijkprofieldata.", 5, 5)
             };
-            ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications, targetContext);
+            ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
             Assert.AreEqual(5, targetContext.WrappedData.Count);
             mockRepository.VerifyAll(); // 'observer' should not be notified
         }
@@ -603,17 +595,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             assessmentSection.ReferenceLine = CreateMatchingReferenceLine();
             mockRepository.ReplayAll();
 
-            var progressChangeNotifications = new List<ProgressNotification>();
-            DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter
-            {
-                ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
-            };
+            DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter();
 
             var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
             targetContext.Attach(observer);
 
             // Call
-            bool importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            dikeProfilesImporter.Import(targetContext, filePath);
             DikeProfile dikeProfile = targetContext.WrappedData[4];
 
             // Assert
@@ -669,7 +657,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
                 new ProgressNotification("Inlezen van voorland- en dijkprofieldata.", 4, 5),
                 new ProgressNotification("Inlezen van voorland- en dijkprofieldata.", 5, 5)
             };
-            ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications, targetContext);
+            ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
             Assert.AreEqual(5, targetContext.WrappedData.Count);
             mockRepository.VerifyAll(); // 'observer' should not be notified
         }
@@ -687,11 +675,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             assessmentSection.ReferenceLine = CreateMatchingReferenceLine();
             mockRepository.ReplayAll();
 
-            var progressChangeNotifications = new List<ProgressNotification>();
-            DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter
-            {
-                ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
-            };
+            DikeProfilesImporter dikeProfilesImporter = new DikeProfilesImporter();
 
             var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
             targetContext.Attach(observer);
@@ -703,9 +687,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
 
             // Assert
-            Action<IEnumerable<string>> asserts = (messages) =>
+            Action<IEnumerable<string>> asserts = messages =>
             {
-                bool found = messages.Any(message => message.EndsWith(": De ingelezen dam-type waarde (4) moet binnen het bereik [0, 3] vallen."));
+                bool found = messages.Any(message => message.EndsWith(": Het ingelezen damtype ('4') moet in het bereik {0, 1, 2, 3} vallen."));
                 Assert.IsTrue(found);
             };
             TestHelper.AssertLogMessages(call, asserts);
@@ -800,7 +784,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
 
             // Assert
-            Action<IEnumerable<string>> asserts = (messages) =>
+            Action<IEnumerable<string>> asserts = messages =>
             {
                 var start = "Meerdere dijkprofieldata definities gevonden voor dijkprofiel 'profiel001'. Bestand '";
                 var end = "' wordt overgeslagen.";
@@ -868,7 +852,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
 
             // Assert
-            Action<IEnumerable<string>> asserts = (messages) =>
+            Action<IEnumerable<string>> asserts = messages =>
             {
                 bool found = messages.Any(message => message.StartsWith("Voorland- en dijkprofieldata specificeert een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen:"));
                 Assert.IsTrue(found);
@@ -907,9 +891,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
 
             // Assert
-            Action<IEnumerable<string>> asserts = (messages) =>
+            Action<IEnumerable<string>> asserts = messages =>
             {
-                bool found = messages.First().Contains(": De volgende parameter(s) zijn niet aanwezig in het bestand: VOORLAND, DAMWAND, KRUINHOOGTE, DIJK, MEMO");
+                bool found = messages.First().Contains(": De volgende parameters zijn niet aanwezig in het bestand: VOORLAND, DAMWAND, KRUINHOOGTE, DIJK, MEMO");
                 Assert.IsTrue(found);
             };
             TestHelper.AssertLogMessages(call, asserts);
@@ -930,7 +914,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             return referenceLine;
         }
 
-        private static void ValidateProgressMessages(List<ProgressNotification> expectedProgressMessages, List<ProgressNotification> progressChangeNotifications, DikeProfilesContext targetContext)
+        private static void ValidateProgressMessages(List<ProgressNotification> expectedProgressMessages, List<ProgressNotification> progressChangeNotifications)
         {
             Assert.AreEqual(expectedProgressMessages.Count, progressChangeNotifications.Count);
             for (var i = 0; i < expectedProgressMessages.Count; i++)

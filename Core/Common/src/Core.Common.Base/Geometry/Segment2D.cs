@@ -72,11 +72,14 @@ namespace Core.Common.Base.Geometry
 
         /// <summary>
         /// This method determines whether <paramref name="x"/> is contained by the <see cref="FirstPoint"/>
-        /// and <see cref="SecondPoint"/> x coordinates.
+        /// and <see cref="SecondPoint"/> X-coordinates.
         /// </summary>
         /// <param name="x">The x for which to find out whether it is contained by the <see cref="FirstPoint"/>
         /// and <see cref="SecondPoint"/>.</param>
-        /// <returns><c>true</c> if x is on or between the points' x coordinates. <c>false</c> otherwise.</returns>
+        /// <returns>
+        /// <c>true</c> if <paramref name="x"/> is on or between the points' X-coordinates.
+        /// <c>false</c> otherwise.
+        /// </returns>
         public bool ContainsX(double x)
         {
             var distanceFirstPoint = FirstPoint.X - x;

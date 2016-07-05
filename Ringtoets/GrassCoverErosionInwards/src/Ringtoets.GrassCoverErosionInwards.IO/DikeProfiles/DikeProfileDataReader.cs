@@ -205,20 +205,17 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
             }
             catch (FormatException e)
             {
-                var message = string.Format(Resources.DikeProfileDataReader_ParseVersion_Invalid_version_0_,
-                                            readVersionText);
+                var message = Resources.DikeProfileDataReader_ValidateVersion_Only_version_four_zero_supported;
                 throw CreateCriticalFileReadException(lineNumber, message, e);
             }
             catch (OverflowException e)
             {
-                var message = string.Format(Resources.DikeProfileDataReader_ParseVersion_Version_0_overflows,
-                                            readVersionText);
+                var message = Resources.DikeProfileDataReader_ValidateVersion_Only_version_four_zero_supported;
                 throw CreateCriticalFileReadException(lineNumber, message, e);
             }
             catch (ArgumentException e)
             {
-                var message = string.Format(Resources.DikeProfileDataReader_ParseVersion_Invalid_version_0_,
-                                            readVersionText);
+                var message = Resources.DikeProfileDataReader_ValidateVersion_Only_version_four_zero_supported;
                 throw CreateCriticalFileReadException(lineNumber, message, e);
             }
         }
@@ -412,13 +409,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
             }
             catch (FormatException e)
             {
-                var message = string.Format(Resources.DikeProfileDataReader_ParseDamType_DamType_0_is_not_integer,
+                var message = string.Format(Resources.DikeProfileDataReader_ParseDamType_DamType_0_must_be_in_range,
                                             readDamTypeText);
                 throw CreateCriticalFileReadException(lineNumber, message, e);
             }
             catch (OverflowException e)
             {
-                var message = string.Format(Resources.DikeProfileDataReader_ParseDamType_DamType_0_overflows,
+                var message = string.Format(Resources.DikeProfileDataReader_ParseDamType_DamType_0_must_be_in_range,
                                             readDamTypeText);
                 throw CreateCriticalFileReadException(lineNumber, message, e);
             }
@@ -477,13 +474,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
             }
             catch (FormatException e)
             {
-                string message = string.Format(Resources.DikeProfileDataReader_ParseSheetPileType_SheetPileType_0_not_integer,
+                string message = string.Format(Resources.DikeProfileDataReader_ParseSheetPileType_SheetPileType_0_must_be_in_range,
                                                readSheetPileTypeText);
                 throw CreateCriticalFileReadException(lineNumber, message, e);
             }
             catch (OverflowException e)
             {
-                string message = string.Format(Resources.DikeProfileDataReader_ParseSheetPileType_SheetPileType_0_overflows,
+                string message = string.Format(Resources.DikeProfileDataReader_ParseSheetPileType_SheetPileType_0_must_be_in_range,
                                                readSheetPileTypeText);
                 throw CreateCriticalFileReadException(lineNumber, message, e);
             }
@@ -807,7 +804,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <param name="previousPoint">The previous point.</param>
         /// <param name="lineNumber">The line number.</param>
         /// <exception cref="CriticalFileReadException">When <paramref name="currentPoint"/>
-        /// has an X coordinate before or equal to that of <paramref name="previousPoint"/>.</exception>
+        /// has an X-coordinate before or equal to that of <paramref name="previousPoint"/>.</exception>
         private void ValidateDikePointsAreMonotonicallyIncreasing(Point2D currentPoint, Point2D previousPoint, int lineNumber)
         {
             if (currentPoint.X <= previousPoint.X)
@@ -929,7 +926,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <param name="previousPoint">The previous point.</param>
         /// <param name="lineNumber">The line number.</param>
         /// <exception cref="CriticalFileReadException">When <paramref name="currentPoint"/>
-        /// has an X coordinate before or equal to that of <paramref name="previousPoint"/>.</exception>
+        /// has an X-coordinate before or equal to that of <paramref name="previousPoint"/>.</exception>
         private void ValidateForeshorePointsAreMonotonicallyIncreasing(Point2D currentPoint, Point2D previousPoint, int lineNumber)
         {
             if (currentPoint.X <= previousPoint.X)

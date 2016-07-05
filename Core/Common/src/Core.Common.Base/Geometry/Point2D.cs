@@ -37,8 +37,8 @@ namespace Core.Common.Base.Geometry
         /// Creates a new instance of <see cref="Point2D"/>, with <see cref="X"/> set to <paramref name="x"/>
         /// and <see cref="Y"/> set to <paramref name="y"/>.
         /// </summary>
-        /// <param name="x">The x coordinate to set.</param>
-        /// <param name="y">The y coordinate to set.</param>
+        /// <param name="x">The X-coordinate to set.</param>
+        /// <param name="y">The Y-coordinate to set.</param>
         public Point2D(double x, double y)
         {
             X = x;

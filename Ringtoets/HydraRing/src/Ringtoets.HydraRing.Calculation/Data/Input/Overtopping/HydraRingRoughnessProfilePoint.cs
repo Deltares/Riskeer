@@ -31,8 +31,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
         /// <summary>
         ///  Creates a new instance of the <see cref="HydraRingRoughnessProfilePoint"/> class.
         /// </summary>
-        /// <param name="x">The x coordinate.</param>
-        /// <param name="z">The z coordinate.</param>
+        /// <param name="x">The X-coordinate.</param>
+        /// <param name="z">The Z-coordinate.</param>
         /// <param name="roughness">The reduction factor.</param>
         public HydraRingRoughnessProfilePoint(double x, double z, double roughness) : base(x, z)
         {

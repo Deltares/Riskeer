@@ -33,8 +33,8 @@ namespace Core.Common.Utils.Drawing
         /// </summary>
         /// <param name="originalImage">The image to be changed.</param>
         /// <param name="overlayImage">The image that should be drawn over <paramref name="originalImage"/>.</param>
-        /// <param name="xOffSet">The X coordinate of the upper-left corner for defining overlay placement.</param>
-        /// <param name="yOffSet">The Y coordinate of the upper-left corner for defining overlay placement.</param>
+        /// <param name="xOffSet">The X-coordinate of the upper-left corner for defining overlay placement.</param>
+        /// <param name="yOffSet">The Y-coordinate of the upper-left corner for defining overlay placement.</param>
         /// <param name="width">The width of the overlay.</param>
         /// <param name="height">The height of the overlay.</param>
         public static T AddOverlayImage<T>(this T originalImage, Image overlayImage, int xOffSet, int yOffSet, int width, int height) where T : Image

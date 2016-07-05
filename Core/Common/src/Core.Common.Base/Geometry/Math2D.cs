@@ -154,7 +154,7 @@ namespace Core.Common.Base.Geometry
         /// </summary>
         /// <param name="segments">A collection of segments that possibly intersect with the
         /// vertical line at x=<paramref name="verticalLineX"/>.</param>
-        /// <param name="verticalLineX">The x coordinate of the vertical line.</param>
+        /// <param name="verticalLineX">The X-coordinate of the vertical line.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> with all intersection points of the 
         /// <paramref name="segments"/> with the vertical line at x=<paramref name="verticalLineX"/>.</returns>
         /// <remark>Segments which have length=0 or which are vertical, will not return an intersection point.</remark>
@@ -458,7 +458,7 @@ namespace Core.Common.Base.Geometry
         /// </summary>
         /// <param name="point1">A <see cref="Point2D"/> which the line passes through.</param>
         /// <param name="point2">Another <see cref="Point2D"/> which the line passes through.</param>
-        /// <param name="x">The x coordinate of the vertical line.</param>
+        /// <param name="x">The X-coordinate of the vertical line.</param>
         /// <returns>The intersection point between the line through <paramref name="point1"/> and
         /// <paramref name="point2"/> and the vertical line at x=<paramref name="x"/>; or null if
         /// the line through <paramref name="point1"/> and <paramref name="point2"/> is vertical or

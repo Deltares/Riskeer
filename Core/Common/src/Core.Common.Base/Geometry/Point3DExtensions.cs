@@ -74,7 +74,7 @@ namespace Core.Common.Base.Geometry
                 throw new ArgumentException("The startWorldCoordinate and endWorldCoordinate can't be the same.");
             }
 
-            // Project vector onto the 'spanning vector' to determine its X coordinate in local coordinates:
+            // Project vector onto the 'spanning vector' to determine its X-coordinate in local coordinates:
             double projectOnSpanningVectorFactor = (vectorToPoint.DotProduct(spanningVector)) / spanningVectorDotProduct;
             double localCoordinateX = projectOnSpanningVectorFactor * length;
 

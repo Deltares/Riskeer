@@ -29,8 +29,8 @@ namespace Ringtoets.HydraRing.Calculation.Data
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingForelandPoint"/> class.
         /// </summary>
-        /// <param name="x">The x coordinate.</param>
-        /// <param name="z">The z coordinate.</param>
+        /// <param name="x">The X-coordinate.</param>
+        /// <param name="z">The Z-coordinate.</param>
         public HydraRingForelandPoint(double x, double z)
         {
             X = x;
@@ -38,12 +38,12 @@ namespace Ringtoets.HydraRing.Calculation.Data
         }
 
         /// <summary>
-        /// Gets the x coordinate.
+        /// Gets the X-coordinate.
         /// </summary>
         public double X { get; private set; }
 
         /// <summary>
-        /// Gets the z coordinate.
+        /// Gets the Z-coordinate.
         /// </summary>
         public double Z { get; private set; }
     }

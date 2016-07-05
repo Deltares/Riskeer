@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.KernelWrapper
         /// <param name="thicknessAquiferLayer">The thickness of the aquifer layer. [m]</param>
         /// <param name="meanDiameter70">The mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit. [m]</param>
         /// <param name="beddingAngle">The angle of the force balance representing the amount in which sand grains resist rolling. [°]</param>
-        /// <param name="exitPointXCoordinate">The x coordinate of the exit point. [m]</param>
+        /// <param name="exitPointXCoordinate">The X-coordinate of the exit point. [m]</param>
         /// <param name="surfaceLine">The surface line.</param>
         /// <param name="soilProfile">The profile which contains a 1 dimensional definition of soil layers with properties.</param>
         public PipingCalculatorInput(double waterVolumetricWeight, double saturatedVolumicWeightOfCoverageLayer, double upliftModelFactor, double assessmentLevel, double piezometricHeadExit, double dampingFactorExit, double phreaticLevelExit, double criticalHeaveGradient, double thicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate, RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile soilProfile)
@@ -346,7 +346,7 @@ namespace Ringtoets.Piping.KernelWrapper
         }
 
         /// <summary>
-        /// Gets the x coordinate of the exit point.
+        /// Gets the X-coordinate of the exit point.
         /// [m]
         /// </summary>
         public double ExitPointXCoordinate

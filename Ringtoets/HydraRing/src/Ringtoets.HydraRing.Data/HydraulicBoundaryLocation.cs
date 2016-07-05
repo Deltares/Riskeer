@@ -36,8 +36,8 @@ namespace Ringtoets.HydraRing.Data
         /// </summary>
         /// <param name="id">Id of the <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="name">Name of the <see cref="HydraulicBoundaryLocation"/>.</param>
-        /// <param name="coordinateX">X coordinate of the <see cref="HydraulicBoundaryLocation"/>.</param>
-        /// <param name="coordinateY">Y coordinate of the <see cref="HydraulicBoundaryLocation"/>.</param>
+        /// <param name="coordinateX">X-coordinate of the <see cref="HydraulicBoundaryLocation"/>.</param>
+        /// <param name="coordinateY">Y-coordinate of the <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public HydraulicBoundaryLocation(long id, string name, double coordinateX, double coordinateY)
         {
