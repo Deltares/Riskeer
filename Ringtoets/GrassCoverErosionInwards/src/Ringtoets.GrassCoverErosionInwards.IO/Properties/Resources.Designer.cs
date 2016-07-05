@@ -208,6 +208,15 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De ingelezen regel (&apos;{0}&apos;) is geen &apos;X Y ruwheid&apos; definitie..
+        /// </summary>
+        internal static string DikeProfileDataReader_ReadRoughnessPoint_Line_0_not_x_y_roughness_definition {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ReadRoughnessPoint_Line_0_not_x_y_roughness_definition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De ingelezen ruwheid (&apos;{0}&apos;) moet binnen het bereik [{1}, 1] vallen..
         /// </summary>
         internal static string DikeProfileDataReader_ReadRoughnessPoint_Roughness_0_must_be_in_range_LowerLimit_1_ {
@@ -284,7 +293,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De ingelezen ID ({&apos;0&apos;}) bevat spaties, welke niet zijn toegestaan..
+        ///   Looks up a localized string similar to De ingelezen ID (&apos;{0}&apos;) bevat spaties, welke niet zijn toegestaan..
         /// </summary>
         internal static string DikeProfileDataReader_ValidateId_Id_0_has_unsupported_white_space {
             get {

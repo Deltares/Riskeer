@@ -524,28 +524,36 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
         [Test]
         [TestCase("faulty_unparsableDijk_X.prfl", 18, "X-coördinaat", "suhf")]
-        [TestCase("faulty_unparsableDijk_X_noValue1.prfl", 18, "X-coördinaat", "")]
-        [TestCase("faulty_unparsableDijk_X_noValue2.prfl", 18, "X-coördinaat", "")]
         [TestCase("faulty_unparsableDijk_Z.prfl", 20, "Z-coördinaat", "o;jfhe;lhtvwposiu")]
-        [TestCase("faulty_unparsableDijk_Z_noValue1.prfl", 20, "Z-coördinaat", "")]
-        [TestCase("faulty_unparsableDijk_Z_noValue2.prfl", 20, "Z-coördinaat", "")]
         [TestCase("faulty_unparsableDijk_Roughness.prfl", 17, "ruwheid", "dr;tjn")]
-        [TestCase("faulty_unparsableDijk_Roughness_noValue1.prfl", 17, "ruwheid", "")]
-        [TestCase("faulty_unparsableDijk_Roughness_noValue2.prfl", 17, "ruwheid", "")]
         [TestCase("faulty_unparsableVoorland_X.prfl", 10, "X-coördinaat", "glkjdhflgkjhsk")]
-        [TestCase("faulty_unparsableVoorland_X_noValue1.prfl", 11, "X-coördinaat", "")]
-        [TestCase("faulty_unparsableVoorland_X_noValue2.prfl", 12, "X-coördinaat", "")]
         [TestCase("faulty_unparsableVoorland_Z.prfl", 12, "Z-coördinaat", "lijfhsliufghkj")]
-        [TestCase("faulty_unparsableVoorland_Z_noValue1.prfl", 10, "Z-coördinaat", "")]
-        [TestCase("faulty_unparsableVoorland_Z_noValue2.prfl", 11, "Z-coördinaat", "")]
-        [TestCase("faulty_unparsableVoorland_Roughness.prfl", 10, "ruwheid", ";lsduglk wab")]
-        [TestCase("faulty_unparsableVoorland_Roughness_noValue1.prfl", 11, "ruwheid", "")]
-        [TestCase("faulty_unparsableVoorland_Roughness_noValue2.prfl", 12, "ruwheid", "")]
+        [TestCase("faulty_unparsableVoorland_Roughness.prfl", 10, "ruwheid", ";lsduglkwab")]
         public void ReadDikeProfileData_UnparsableRoughnessPoints_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, string expectedParameterName, string expectedReadText)
         {
             string expectedMessage = string.Format("De ingelezen {0} ('{1}') is geen getal.",
                                                    expectedParameterName, expectedReadText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
+        }
+
+        [Test]
+        [TestCase("faulty_unparsableDijk_Z_noValue1.prfl", 20, "18.000\t\t\t")]
+        [TestCase("faulty_unparsableDijk_Z_noValue2.prfl", 20, "18.000")]
+        [TestCase("faulty_unparsableDijk_Roughness_noValue1.prfl", 17, "-18.000\t-6.000\t\t\t")]
+        [TestCase("faulty_unparsableDijk_Roughness_noValue2.prfl", 17, "-18.000\t-6.000")]
+        [TestCase("faulty_unparsableDijk_tooManyValues.prfl", 14, "0.000\t0.000\t1.000\t12.34")]
+        [TestCase("faulty_unparsableVoorland_X_noValue1.prfl", 11, "\t\t\t\t\t")]
+        [TestCase("faulty_unparsableVoorland_X_noValue2.prfl", 12, "")]
+        [TestCase("faulty_unparsableVoorland_Z_noValue1.prfl", 10, "-150.000\t\t\t\t")]
+        [TestCase("faulty_unparsableVoorland_Z_noValue2.prfl", 11, "-100.000")]
+        [TestCase("faulty_unparsableVoorland_Roughness_noValue1.prfl", 11, "-100.000\t-6.000\t\t\t\t")]
+        [TestCase("faulty_unparsableVoorland_Roughness_noValue2.prfl", 12, "-18.000\t-6.000")]
+        [TestCase("faulty_unparsableVoorland_tooManyValues.prfl", 11, "18.000\t6.000\t1.000\t985.345")]
+        public void ReadDikeProfileData_NoRoughnessPointDefinition_ThrowsCriticalFileReadException(
+            string faultyFileName, int expectedLineNumber, string expectedReadText)
+        {
+            string expectedMessage = string.Format("De ingelezen regel ('{0}') is geen 'X Y ruwheid' definitie.", expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
         }
 
@@ -571,11 +579,16 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void ReadDikeProfileData_FileWithMissingDikePoints_ThrowsCriticalFileReadException()
+        [TestCase("faulty_unparsableDijk_missingElements.prfl", 19, 2, 4)]
+        [TestCase("faulty_unparsableDijk_X_noValue1.prfl", 18, 1, 4)]
+        [TestCase("faulty_unparsableDijk_X_noValue2.prfl", 18, 1, 4)]
+        public void ReadDikeProfileData_FileWithMissingDikePoints_ThrowsCriticalFileReadException(
+            string faultyFileName, int expectedLineNumber, int actualCount, int expectedCount)
         {
-            string expectedMessage = "Het aantal dijk punten in het bestand ('2') komt niet overeen met de aangegeven hoeveelheid dijk punten (4).";
-            ReadFileAndExpectCriticalFileReadException("faulty_unparsableDijk_missingElements.prfl",
-                                                       19, expectedMessage);
+            string expectedMessage = string.Format("Het aantal dijk punten in het bestand ('{0}') komt niet overeen met de aangegeven hoeveelheid dijk punten ({1}).",
+                                                   actualCount, expectedCount);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName,
+                                                       expectedLineNumber, expectedMessage);
         }
 
         [Test]
@@ -615,9 +628,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void ReadDikeProfileData_FileWithOverflowForeshoreCount_ThrowsCriticalFileReadException()
+        public void ReadDikeProfileData_FileWithNegativeForeshoreCount_ThrowsCriticalFileReadException()
         {
-            string expectedMessage = "Het ingelezen aantal geometriepunten voorland (-1) mag niet negatief zijn.";
+            string expectedMessage = "Het ingelezen aantal geometriepunten voorland ('-1') mag niet negatief zijn.";
             ReadFileAndExpectCriticalFileReadException("faulty_voorlandCountNegative.prfl",
                                                        9, expectedMessage);
         }

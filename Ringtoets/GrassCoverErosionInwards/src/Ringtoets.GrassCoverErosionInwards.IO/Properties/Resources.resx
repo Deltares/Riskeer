@@ -240,4 +240,7 @@
   <data name="DikeProfileDataReader_ValidateForeshorePointsAreMonotonicallyIncreasing_Error_message" xml:space="preserve">
     <value>Voorlandgeometrie punten dienen X-coördinaten te hebben die monotoon strikt toenemend zijn.</value>
   </data>
+  <data name="DikeProfileDataReader_ReadRoughnessPoint_Line_0_not_x_y_roughness_definition" xml:space="preserve">
+    <value>De ingelezen regel ('{0}') is geen 'X Y ruwheid' definitie.</value>
+  </data>
 </root>

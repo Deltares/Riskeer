@@ -646,7 +646,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                 {
                     lineNumber++;
                     text = ReadLineAndHandleIOExceptions(reader, lineNumber);
-                    if (text == null)
+                    if (string.IsNullOrWhiteSpace(text))
                     {
                         string message = string.Format(Resources.DikeProfileDataReader_TryReadDikeRoughnessPoints_DikeCount_0_does_not_correspond_ExpectedCount_1_,
                                                        i, numberOfPoints);
@@ -729,7 +729,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// not valid.</exception>
         private RoughnessPoint ReadRoughnessPoint(string text, int lineNumber)
         {
-            Match roughnessSectionDataMatch = new Regex(@"^(\s*)?(?<localx>.+?)?(\s+(?<localz>.+?)?(\s+(?<roughness>.+?)?)?)?\s*$").Match(text);
+            Match roughnessSectionDataMatch = new Regex(@"^(\s*)?(?<localx>\S+)\s+(?<localz>\S+)\s+(?<roughness>\S+)\s*$").Match(text);
+            if (!roughnessSectionDataMatch.Success)
+            {
+                string message = string.Format(Resources.DikeProfileDataReader_ReadRoughnessPoint_Line_0_not_x_y_roughness_definition,
+                                               text);
+                throw CreateCriticalFileReadException(lineNumber, message);
+            }
 
             string readLocalXText = roughnessSectionDataMatch.Groups["localx"].Value;
             double localX = ParseRoughnessPointParameter(readLocalXText, 
