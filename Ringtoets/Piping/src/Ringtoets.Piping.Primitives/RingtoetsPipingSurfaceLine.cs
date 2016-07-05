@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
 using Ringtoets.Piping.Primitives.Exceptions;
@@ -138,8 +138,8 @@ namespace Ringtoets.Piping.Primitives
         /// <summary>
         /// Sets the <see cref="DitchPolderSide"/> at the given point.
         /// </summary>
-        /// <param name="point">The location as a <see cref="Core.Common.Base.Geometry.Point3D"/> which to set as the <see cref="DitchPolderSide"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Core.Common.Base.Geometry.Point3D"/> at 
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DitchPolderSide"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetDitchPolderSideAt(Point3D point)
@@ -155,8 +155,8 @@ namespace Ringtoets.Piping.Primitives
         /// <summary>
         /// Sets the <see cref="BottomDitchPolderSide"/> at the given point.
         /// </summary>
-        /// <param name="point">The location as a <see cref="Core.Common.Base.Geometry.Point3D"/> which to set as the <see cref="BottomDitchPolderSide"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Core.Common.Base.Geometry.Point3D"/> at 
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="BottomDitchPolderSide"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetBottomDitchPolderSideAt(Point3D point)
@@ -172,8 +172,8 @@ namespace Ringtoets.Piping.Primitives
         /// <summary>
         /// Sets the <see cref="BottomDitchDikeSide"/> at the given point.
         /// </summary>
-        /// <param name="point">The location as a <see cref="Core.Common.Base.Geometry.Point3D"/> which to set as the <see cref="BottomDitchDikeSide"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Core.Common.Base.Geometry.Point3D"/> at 
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="BottomDitchDikeSide"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetBottomDitchDikeSideAt(Point3D point)
@@ -189,8 +189,8 @@ namespace Ringtoets.Piping.Primitives
         /// <summary>
         /// Sets the <see cref="DitchDikeSide"/> at the given point.
         /// </summary>
-        /// <param name="point">The location as a <see cref="Core.Common.Base.Geometry.Point3D"/> which to set as the <see cref="DitchDikeSide"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Core.Common.Base.Geometry.Point3D"/> at 
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DitchDikeSide"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetDitchDikeSideAt(Point3D point)
@@ -206,8 +206,8 @@ namespace Ringtoets.Piping.Primitives
         /// <summary>
         /// Sets the <see cref="DikeToeAtRiver"/> at the given point.
         /// </summary>
-        /// <param name="point">The location as a <see cref="Core.Common.Base.Geometry.Point3D"/> which to set as the <see cref="DikeToeAtRiver"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Core.Common.Base.Geometry.Point3D"/> at 
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DikeToeAtRiver"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetDikeToeAtRiverAt(Point3D point)
@@ -223,8 +223,8 @@ namespace Ringtoets.Piping.Primitives
         /// <summary>
         /// Sets the <see cref="DikeToeAtPolder"/> at the given point.
         /// </summary>
-        /// <param name="point">The location as a <see cref="Core.Common.Base.Geometry.Point3D"/> which to set as the <see cref="DikeToeAtPolder"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Core.Common.Base.Geometry.Point3D"/> at 
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DikeToeAtPolder"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetDikeToeAtPolderAt(Point3D point)
@@ -246,7 +246,7 @@ namespace Ringtoets.Piping.Primitives
         /// intersection point at <paramref name="l"/> have a significant difference in their y coordinate.</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="l"/> is not in range of the LZ-projected <see cref="Points"/>.</exception>
         /// <exception cref="InvalidOperationException"><see cref="Points"/> is empty.</exception>
-        public double GetZAtL(double l)
+        public RoundedDouble GetZAtL(double l)
         {
             ValidateHasPoints();
 
@@ -267,7 +267,7 @@ namespace Ringtoets.Piping.Primitives
 
             if (equalIntersections)
             {
-                return intersectionPoints.First().Y;
+                return new RoundedDouble(2, intersectionPoints.First().Y);
             }
 
             var message = string.Format(Resources.RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l, l);
@@ -279,24 +279,25 @@ namespace Ringtoets.Piping.Primitives
         /// Z-values are retained, and the first point is put a L=0.
         /// </summary>
         /// <returns>Collection of 2D points in the LZ-plane.</returns>
-        public IEnumerable<Point2D> ProjectGeometryToLZ()
+        public RoundedPoint2DCollection ProjectGeometryToLZ()
         {
+            var numberOfDecimalPlaces = 2;
             var count = geometryPoints.Length;
             if (count == 0)
             {
-                return Enumerable.Empty<Point2D>();
+                return new RoundedPoint2DCollection(numberOfDecimalPlaces, Enumerable.Empty<Point2D>());
             }
 
             Point3D first = Points.First();
             if (count == 1)
             {
-                return new[] { new Point2D(0.0, first.Z)};
+                return new RoundedPoint2DCollection(numberOfDecimalPlaces, new[] { new Point2D(0.0, first.Z)});
             }
 
             Point3D last = Points.Last();
             Point2D firstPoint = new Point2D(first.X, first.Y);
             Point2D lastPoint = new Point2D(last.X, last.Y);
-            return Points.Select(p => p.ProjectIntoLocalCoordinates(firstPoint, lastPoint));
+            return new RoundedPoint2DCollection(numberOfDecimalPlaces, Points.Select(p => p.ProjectIntoLocalCoordinates(firstPoint, lastPoint)));
         }
 
         public override string ToString()
@@ -308,7 +309,7 @@ namespace Ringtoets.Piping.Primitives
         /// Finds a point from <see cref="Points"/> which is at the same position as <paramref name="point"/>.
         /// </summary>
         /// <param name="point">The location of a point from <see cref="Points"/>.</param>
-        /// <returns>The <see cref="Core.Common.Base.Geometry.Point3D"/> from <see cref="Points"/> at the same location as <paramref name="point"/>.</returns>
+        /// <returns>The <see cref="Point3D"/> from <see cref="Points"/> at the same location as <paramref name="point"/>.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         private Point3D GetPointFromGeometry(Point3D point)
         {
@@ -347,7 +348,7 @@ namespace Ringtoets.Piping.Primitives
         /// L-coordinate being monotonically non-decreasing</param>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="localCoordinateL"/> falls outside the L-coordiante span
         /// defined by <paramref name="geometryInLocalCoordinates"/>.</exception>
-        public void ValidateInRange(double localCoordinateL, Point2D[] geometryInLocalCoordinates)
+        private void ValidateInRange(double localCoordinateL, Point2D[] geometryInLocalCoordinates)
         {
             Point2D firstLocalPoint = geometryInLocalCoordinates.First();
             Point2D lastLocalPoint = geometryInLocalCoordinates.Last();

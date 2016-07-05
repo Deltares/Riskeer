@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Deltares.WTIPiping;
 using NUnit.Framework;
 using Ringtoets.Piping.Primitives;
@@ -60,7 +61,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Assert
             var expectedCoordinatesX = surfaceLine.Points.Select(p => p.X - firstX).ToArray();
             Assert.AreEqual(name, actual.Name);
-            CollectionAssert.AreEqual(expectedCoordinatesX, actual.Points.Select(p => p.X).ToArray());
+            CollectionAssert.AreEqual(expectedCoordinatesX, actual.Points.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(1e-6));
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Y).ToArray(), actual.Points.Select(p => p.Y).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Points.Select(p => p.Z).ToArray());
             CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Length), actual.Points.Select(p => p.Type));
@@ -95,7 +96,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 length
             };
             Assert.AreEqual(name, actual.Name);
-            CollectionAssert.AreEqual(expectedCoordinatesX, actual.Points.Select(p => p.X).ToArray());
+            CollectionAssert.AreEqual(expectedCoordinatesX, actual.Points.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(1e-2));
             CollectionAssert.AreEqual(Enumerable.Repeat(0, surfaceLine.Points.Length).ToArray(), actual.Points.Select(p => p.Y).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Points.Select(p => p.Z).ToArray());
             CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Length), actual.Points.Select(p => p.Type));

@@ -171,6 +171,22 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void ExitPointL_Always_SameNumberOfDecimalsAsSurfaceLineLocalGeometry()
+        {
+            // Setup
+            var pipingInput = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = CreateSurfaceLine()
+            };
+
+            // Call
+            RoundedPoint2DCollection localGeometry = pipingInput.SurfaceLine.ProjectGeometryToLZ();
+
+            // Assert
+            Assert.AreEqual(pipingInput.ExitPointL.NumberOfDecimalPlaces, localGeometry.NumberOfDecimalPlaces);
+        }
+
+        [Test]
         [TestCase(double.NaN)]
         [TestCase(1.0)]
         public void ExitPointL_SetToNew_ValueIsRounded(double entryPointValue)
@@ -227,6 +243,22 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual(originalNumberOfDecimalPlaces, pipingInput.EntryPointL.NumberOfDecimalPlaces);
             Assert.AreEqual(new RoundedDouble(originalNumberOfDecimalPlaces, value), pipingInput.EntryPointL);
+        }
+
+        [Test]
+        public void EntryPointL_Always_SameNumberOfDecimalsAsSurfaceLineLocalGeometry()
+        {
+            // Setup
+            var pipingInput = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = CreateSurfaceLine()
+            };
+
+            // Call
+            RoundedPoint2DCollection localGeometry = pipingInput.SurfaceLine.ProjectGeometryToLZ();
+
+            // Assert
+            Assert.AreEqual(pipingInput.EntryPointL.NumberOfDecimalPlaces, localGeometry.NumberOfDecimalPlaces);
         }
 
         [Test]

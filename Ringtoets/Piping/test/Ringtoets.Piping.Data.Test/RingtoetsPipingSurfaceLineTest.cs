@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
@@ -174,7 +175,7 @@ namespace Ringtoets.Piping.Data.Test
             {
                 new Point3D(1.0, 1.0, 2.2),
                 new Point3D(2.0, 3.0, 4.4), // Outlier from line specified by extrema
-                new Point3D(3.0, 4.0, 7.7),
+                new Point3D(3.0, 4.0, 7.7)
             });
 
             // Call
@@ -189,7 +190,7 @@ namespace Ringtoets.Piping.Data.Test
                 secondCoordinateFactor*length,
                 length
             };
-            CollectionAssert.AreEqual(expectedCoordinatesX, actual.Select(p => p.X).ToArray());
+            CollectionAssert.AreEqual(expectedCoordinatesX, actual.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(1e-2));
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Select(p => p.Y).ToArray());
         }
 
@@ -251,14 +252,14 @@ namespace Ringtoets.Piping.Data.Test
             {
                 new Point3D(0.0, 0.0, 2.2),
                 new Point3D(l, 0.0, testZ),
-                new Point3D(3.0, 0.0, 7.7),
+                new Point3D(3.0, 0.0, 7.7)
             });
 
             // Call
             var result = surfaceLine.GetZAtL(l);
 
             // Assert
-            Assert.AreEqual(testZ, result);
+            Assert.AreEqual(testZ, result, 1e-3);
         }
 
         [Test]
@@ -276,7 +277,7 @@ namespace Ringtoets.Piping.Data.Test
             {
                 new Point3D(1.0, 0.0, 2.2),
                 new Point3D(2.0, 0.0, testZ),
-                new Point3D(4.1, 0.0, 7.7),
+                new Point3D(4.1, 0.0, 7.7)
             });
 
             // Call

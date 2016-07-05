@@ -222,9 +222,9 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             {
                 Assert.Fail("Expected value for otherPoint.");
             }
-            Assert.AreEqual(point.X, otherPoint.X);
-            Assert.AreEqual(point.Y, otherPoint.Y);
-            Assert.AreEqual(point.Z, otherPoint.Z);
+            Assert.AreEqual(point.X, otherPoint.X, 1e-6);
+            Assert.AreEqual(point.Y, otherPoint.Y, 1e-6);
+            Assert.AreEqual(point.Z, otherPoint.Z, 1e-6);
         }
 
         private static void AssertEqualSoilProfiles(PipingSoilProfile pipingProfile, PipingProfile otherPipingProfile)
