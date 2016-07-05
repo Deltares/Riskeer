@@ -31,15 +31,14 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// Parser for the output of a Hydra-Ring type II calculation:
     /// Iterate towards a target probability, provided as reliability index.
     /// </summary>
-    internal static class TargetProbabilityCalculationParser
+    internal class TargetProbabilityCalculationParser
     {
         /// <summary>
         /// Tries to parse a <see cref="TargetProbabilityCalculationOutput"/> object from the provided <paramref name="outputFilePath"/> for the provided <paramref name="sectionId"/>.
         /// </summary>
         /// <param name="outputFilePath">The path to the file which contains the output of the Hydra-Ring type II calculation.</param>
         /// <param name="sectionId">The section id to get the <see cref="TargetProbabilityCalculationOutput"/> object for.</param>
-        /// <returns>A <see cref="TargetProbabilityCalculationOutput"/> corresponding to the section id or <c>null</c> otherwise.</returns>
-        public static TargetProbabilityCalculationOutput Parse(string outputFilePath, int sectionId)
+        public void Parse(string outputFilePath, int sectionId)
         {
             try
             {
@@ -54,18 +53,23 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
                         if (results.ElementAt(0) == sectionId.ToString())
                         {
-                            return new TargetProbabilityCalculationOutput(GetDoubleValueFromElement(results.ElementAt(results.Length - 2)), GetDoubleValueFromElement(results.ElementAt(results.Length - 1)));
+                            Output = new TargetProbabilityCalculationOutput(GetDoubleValueFromElement(results.ElementAt(results.Length - 2)), GetDoubleValueFromElement(results.ElementAt(results.Length - 1)));
                         }
                     }
                 }
             }
-            catch (Exception)
+            catch
             {
-                return null;
+                // ignored
             }
-
-            return null;
         }
+
+        /// <summary>
+        /// Gets the output of a successful parse of the output file.
+        /// </summary>
+        /// <returns>A <see cref="TargetProbabilityCalculationOutput"/> corresponding to the section id if <see cref="Parse"/> executed
+        /// successfully; or <c>null</c> otherwise.</returns>
+        public TargetProbabilityCalculationOutput Output { get; private set; }
 
         private static double GetDoubleValueFromElement(string element)
         {

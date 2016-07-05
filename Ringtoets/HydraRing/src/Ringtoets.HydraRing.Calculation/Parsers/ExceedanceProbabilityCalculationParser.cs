@@ -31,8 +31,10 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// Parser for the output of a Hydra-Ring type I calculation via Hydra-Ring:
     /// Given a set of random variables, compute the probability of failure.
     /// </summary>
-    internal static class ExceedanceProbabilityCalculationParser
+    internal class ExceedanceProbabilityCalculationParser
     {
+        private ExceedanceProbabilityCalculationOutput output;
+
         private const string betaResultQuery = "SELECT BetaId, RingCombinMethod, PresentationSectionId, MainMechanismId, MainMechanismCombinMethod, MechanismId, LayerId, AlternativeId, Beta " +
                                                "FROM BetaResults " +
                                                "WHERE SectionId = @SectionId " +
@@ -48,18 +50,24 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         /// </summary>
         /// <param name="outputFilePath">The path to the file which contains the output of the Hydra-Ring type I calculation.</param>
         /// <param name="sectionId">The section id to get the <see cref="ExceedanceProbabilityCalculationOutput"/> object for.</param>
-        /// <returns>A <see cref="ExceedanceProbabilityCalculationOutput"/> corresponding to the section id or <c>null</c> otherwise.</returns>
-        public static ExceedanceProbabilityCalculationOutput Parse(string outputFilePath, int sectionId)
+        public void Parse(string outputFilePath, int sectionId)
         {
             try
             {
-                return DoParse(outputFilePath, sectionId);
+                Output = DoParse(outputFilePath, sectionId);
             }
             catch
             {
-                return null;
+                // ignored
             }
         }
+
+        /// <summary>
+        /// Gets the output of a successful parse of the output file.
+        /// </summary>
+        /// <returns>A <see cref="ExceedanceProbabilityCalculationOutput"/> corresponding to the section id if <see cref="Parse"/> executed
+        /// successfully; or <c>null</c> otherwise.</returns>
+        public ExceedanceProbabilityCalculationOutput Output { get; private set; }
 
         private static ExceedanceProbabilityCalculationOutput DoParse(string outputFilePath, int sectionId)
         {

@@ -84,6 +84,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DirectoryDisposeHelper.cs" />
     <Compile Include="DoubleWithToleranceComparer.cs" />
     <Compile Include="FileDisposeHelper.cs" />
     <Compile Include="GuiTestHelper.cs" />
@@ -130,6 +131,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
+      <Link>Copying.Lesser.licenseheader</Link>
+    </None>
     <None Include="packages.config" />
     <None Include="Resources\database.png" />
   </ItemGroup>

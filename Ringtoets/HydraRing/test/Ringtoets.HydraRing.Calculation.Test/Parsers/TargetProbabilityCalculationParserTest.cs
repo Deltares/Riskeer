@@ -32,23 +32,29 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "TargetProbabilityCalculationParser");
 
         [Test]
-        public void Parse_NotExistingOutputFile_ReturnsNull()
+        public void Parse_NotExistingOutputFile_OutputNull()
         {
+            // Setup
+            var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
+
             // Call
-            var targetProbabilityCalculationOutput = TargetProbabilityCalculationParser.Parse(Path.Combine(testDataPath, "notExisting.txt"), 1);
+            targetProbabilityCalculationParser.Parse(Path.Combine(testDataPath, "notExisting.txt"), 1);
 
             // Assert
-            Assert.IsNull(targetProbabilityCalculationOutput);
+            Assert.IsNull(targetProbabilityCalculationParser.Output);
         }
 
         [Test]
-        public void Parse_EmptyOutputFile_ReturnsNull()
+        public void Parse_EmptyOutputFile_OutputNull()
         {
+            // Setup
+            var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
+
             // Call
-            var targetProbabilityCalculationOutput = TargetProbabilityCalculationParser.Parse(Path.Combine(testDataPath, "empty.txt"), 1);
+            targetProbabilityCalculationParser.Parse(Path.Combine(testDataPath, "empty.txt"), 1);
 
             // Assert
-            Assert.IsNull(targetProbabilityCalculationOutput);
+            Assert.IsNull(targetProbabilityCalculationParser.Output);
         }
 
         [Test]
@@ -58,24 +64,29 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         {
             // Setup
             var outputFilePath = Path.Combine(testDataPath, "exampleOutputTable.txt");
+            var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
 
             // Call
-            var targetProbabilityCalculationOutput = TargetProbabilityCalculationParser.Parse(outputFilePath, sectionId);
+            targetProbabilityCalculationParser.Parse(outputFilePath, sectionId);
 
             // Assert
+            var targetProbabilityCalculationOutput = targetProbabilityCalculationParser.Output;
             Assert.IsNotNull(targetProbabilityCalculationOutput);
             Assert.AreEqual(result, targetProbabilityCalculationOutput.Result);
             Assert.AreEqual(actual, targetProbabilityCalculationOutput.ActualTargetProbability);
         }
 
         [Test]
-        public void Parse_ExampleHydraRingOutputFileNotContainingSectionId_ReturnsNull()
+        public void Parse_ExampleHydraRingOutputFileNotContainingSectionId_OutputNull()
         {
+            // Setup
+            var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
+
             // Call
-            var targetProbabilityCalculationOutput = TargetProbabilityCalculationParser.Parse(Path.Combine(testDataPath, "exampleOutputTable.txt"), 2);
+            targetProbabilityCalculationParser.Parse(Path.Combine(testDataPath, "exampleOutputTable.txt"), 2);
 
             // Assert
-            Assert.IsNull(targetProbabilityCalculationOutput);
+            Assert.IsNull(targetProbabilityCalculationParser.Output);
         }
     }
 }

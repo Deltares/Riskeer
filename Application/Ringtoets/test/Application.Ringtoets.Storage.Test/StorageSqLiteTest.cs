@@ -277,8 +277,6 @@ namespace Application.Ringtoets.Storage.Test
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
             {
-                fileDisposeHelper.Create();
-
                 // Call
                 TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile, project);
 
@@ -383,19 +381,16 @@ namespace Application.Ringtoets.Storage.Test
             var expectedInnerMessage = "Het bestand bestaat niet.";
             var storage = new StorageSqLite();
 
-            using (new FileDisposeHelper(tempFile))
-            {
-                // Call
-                TestDelegate test = () => storage.SaveProject(tempFile, project);
+            // Call
+            TestDelegate test = () => storage.SaveProject(tempFile, project);
 
-                // Assert
-                StorageException exception = Assert.Throws<StorageException>(test);
-                Assert.IsInstanceOf<Exception>(exception);
-                Assert.AreEqual(expectedMessage, exception.Message);
+            // Assert
+            StorageException exception = Assert.Throws<StorageException>(test);
+            Assert.IsInstanceOf<Exception>(exception);
+            Assert.AreEqual(expectedMessage, exception.Message);
 
-                Assert.IsInstanceOf<CouldNotConnectException>(exception.InnerException);
-                Assert.AreEqual(expectedInnerMessage, exception.InnerException.Message);
-            }
+            Assert.IsInstanceOf<CouldNotConnectException>(exception.InnerException);
+            Assert.AreEqual(expectedInnerMessage, exception.InnerException.Message);
         }
 
         [Test]
@@ -452,8 +447,6 @@ namespace Application.Ringtoets.Storage.Test
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
             {
-                fileDisposeHelper.Create();
-
                 TestDelegate precondition = () => SqLiteDatabaseHelper.CreateDatabaseFile(tempRingtoetsFile, SqLiteDatabaseHelper.GetCorruptSchema());
                 Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
 
@@ -646,8 +639,6 @@ namespace Application.Ringtoets.Storage.Test
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
             {
-                fileDisposeHelper.Create();
-
                 // Precondition, required to set the connection string
                 TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile, projectMock);
                 Assert.DoesNotThrow(precondition, "Precondition failed: creating database file failed");

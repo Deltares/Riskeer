@@ -48,7 +48,6 @@ namespace Core.Common.IO.Test.Readers
             // Call
             using (var fileDisposeHelper = new FileDisposeHelper(localPath))
             {
-                fileDisposeHelper.Create();
                 using (var reader = new TestReader(uncPath))
                 {
                     // Assert

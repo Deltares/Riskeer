@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -32,6 +34,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
     [TestFixture]
     public class HydraRingConfigurationServiceTest
     {
+        private static string hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"HydraRing");
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -134,11 +138,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "DELETE FROM [Breakwaters];" + Environment.NewLine +
                                          "INSERT INTO [Breakwaters] VALUES (1, 1, 99.9);" + Environment.NewLine;
 
-            // Call
-            var creationScript = hydraRingConfigurationService.GenerateDataBaseCreationScript();
+            var databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+            using (new FileDisposeHelper(databaseFilePath))
+            {
+                // Call
+                hydraRingConfigurationService.WriteDataBaseCreationScript(databaseFilePath);
 
-            // Assert
-            Assert.AreEqual(expectedCreationScript, creationScript);
+                // Assert
+                var creationScript = File.ReadAllText(databaseFilePath);
+                Assert.AreEqual(expectedCreationScript, creationScript);
+            }
         }
 
         [Test]
@@ -252,11 +261,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "INSERT INTO [Breakwaters] VALUES (2, 1, 99.9);" + Environment.NewLine +
                                          "INSERT INTO [Breakwaters] VALUES (3, 1, 99.9);" + Environment.NewLine;
 
-            // Call
-            var creationScript = hydraRingConfigurationService.GenerateDataBaseCreationScript();
+            var databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+            using (new FileDisposeHelper(databaseFilePath))
+            {
+                // Call
+                hydraRingConfigurationService.WriteDataBaseCreationScript(databaseFilePath);
 
-            // Assert
-            Assert.AreEqual(expectedCreationScript, creationScript);
+                // Assert
+                var creationScript = File.ReadAllText(databaseFilePath);
+                Assert.AreEqual(expectedCreationScript, creationScript);
+            }
         }
 
         private class HydraRingCalculationInputImplementation : HydraRingCalculationInput

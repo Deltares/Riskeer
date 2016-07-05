@@ -51,6 +51,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DirectoryDisposeHelperTest.cs" />
     <Compile Include="DoubleWithToleranceComparerTest.cs" />
     <Compile Include="FileDisposeHelperTest.cs" />
     <Compile Include="Point2DComparerWithToleranceTest.cs" />
@@ -64,6 +65,9 @@
     <Compile Include="WindowsFormsTestHelperTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
+      <Link>Copying.Lesser.licenseheader</Link>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Diagnostics;
 using System.IO;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -32,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations.
     /// </summary>
-    public class HydraRingCalculationService
+    public static class HydraRingCalculationService
     {
         private static Process hydraRingProcess;
 
@@ -51,10 +50,24 @@ namespace Ringtoets.HydraRing.Calculation.Services
                                                                              HydraRingUncertaintiesType uncertaintiesType,
                                                                              TargetProbabilityCalculationInput targetProbabilityCalculationInput)
         {
-            return PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType,
-                                      targetProbabilityCalculationInput, (outputFilePath, outputDatabasePath) =>
-                                                                         TargetProbabilityCalculationParser.Parse(
-                                                                             outputFilePath, targetProbabilityCalculationInput.Section.SectionId));
+            var sectionId = targetProbabilityCalculationInput.Section.SectionId;
+
+            // Create a working directory
+            var workingDirectory = CreateWorkingDirectory();
+
+            var hydraRingInitializationService = new HydraRingInitializationService(targetProbabilityCalculationInput.FailureMechanismType, sectionId, hlcdDirectory, workingDirectory);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(ringId, timeIntegrationSchemeType, uncertaintiesType);
+            hydraRingConfigurationService.AddHydraRingCalculationInput(targetProbabilityCalculationInput);
+
+            hydraRingInitializationService.WriteInitializationScript();
+            hydraRingConfigurationService.WriteDataBaseCreationScript(hydraRingInitializationService.DatabaseCreationScriptFilePath);
+
+            PerformCalculation(workingDirectory, hydraRingInitializationService);
+
+            // Parse and return the output
+            var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
+            targetProbabilityCalculationParser.Parse(hydraRingInitializationService.OutputFilePath, targetProbabilityCalculationInput.Section.SectionId);
+            return targetProbabilityCalculationParser.Output;
         }
 
         /// <summary>
@@ -72,10 +85,24 @@ namespace Ringtoets.HydraRing.Calculation.Services
                                                                                  HydraRingUncertaintiesType uncertaintiesType,
                                                                                  ExceedanceProbabilityCalculationInput exceedanceProbabilityCalculationInput)
         {
-            return PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType,
-                                      exceedanceProbabilityCalculationInput, (outputFilePath, outputDatabasePath) =>
-                                                                             ExceedanceProbabilityCalculationParser.Parse(
-                                                                                 outputDatabasePath, exceedanceProbabilityCalculationInput.Section.SectionId));
+            var sectionId = exceedanceProbabilityCalculationInput.Section.SectionId;
+
+            // Create a working directory
+            var workingDirectory = CreateWorkingDirectory();
+
+            // Write the initialization script
+            var hydraRingInitializationService = new HydraRingInitializationService(exceedanceProbabilityCalculationInput.FailureMechanismType, sectionId, hlcdDirectory, workingDirectory);
+            hydraRingInitializationService.WriteInitializationScript();
+
+            var hydraRingConfigurationService = new HydraRingConfigurationService(ringId, timeIntegrationSchemeType, uncertaintiesType);
+            hydraRingConfigurationService.AddHydraRingCalculationInput(exceedanceProbabilityCalculationInput);
+            hydraRingConfigurationService.WriteDataBaseCreationScript(hydraRingInitializationService.DatabaseCreationScriptFilePath);
+
+            PerformCalculation(workingDirectory, hydraRingInitializationService);
+
+            var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
+            exceedanceProbabilityCalculationParser.Parse(hydraRingInitializationService.OutputDataBasePath, exceedanceProbabilityCalculationInput.Section.SectionId);
+            return exceedanceProbabilityCalculationParser.Output;
         }
 
         /// <summary>
@@ -89,31 +116,14 @@ namespace Ringtoets.HydraRing.Calculation.Services
             }
         }
 
-        private static T PerformCalculation<T>(string hlcdDirectory, string ringId,
-                                               HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType,
-                                               HydraRingCalculationInput hydraRingCalculationInput, Func<string, string, T> parseFunction)
+        private static void PerformCalculation(string workingDirectory, HydraRingInitializationService hydraRingInitializationService)
         {
-            var sectionId = hydraRingCalculationInput.Section.SectionId;
-
-            // Create a working directory
-            var workingDirectory = CreateWorkingDirectory();
-
-            // Write the initialization script
-            var hydraRingInitializationService = new HydraRingInitializationService(hydraRingCalculationInput.FailureMechanismType, sectionId, hlcdDirectory, workingDirectory);
-            File.WriteAllText(hydraRingInitializationService.IniFilePath, hydraRingInitializationService.GenerateInitializationScript());
-
-            // Write the database creation script
-            var hydraRingConfigurationService = new HydraRingConfigurationService(ringId, timeIntegrationSchemeType, uncertaintiesType);
-            hydraRingConfigurationService.AddHydraRingCalculationInput(hydraRingCalculationInput);
-            File.WriteAllText(hydraRingInitializationService.DataBaseCreationScriptFilePath, hydraRingConfigurationService.GenerateDataBaseCreationScript());
-
-            // Perform the calculation
-            hydraRingProcess = HydraRingProcessFactory.Create(hydraRingInitializationService.MechanismComputationExeFilePath, hydraRingInitializationService.IniFilePath, workingDirectory);
+            hydraRingProcess = HydraRingProcessFactory.Create(
+                hydraRingInitializationService.MechanismComputationExeFilePath,
+                hydraRingInitializationService.IniFilePath,
+                workingDirectory);
             hydraRingProcess.Start();
             hydraRingProcess.WaitForExit();
-
-            // Parse and return the output
-            return parseFunction(hydraRingInitializationService.OutputFilePath, hydraRingInitializationService.OutputDataBasePath);
         }
 
         private static string CreateWorkingDirectory()

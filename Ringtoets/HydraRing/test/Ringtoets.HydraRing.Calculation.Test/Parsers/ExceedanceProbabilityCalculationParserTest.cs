@@ -34,39 +34,47 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "ExceedanceProbabilityCalculationParser");
 
         [Test]
-        public void Parse_NotExistingOutputFile_ReturnsNull()
+        public void DefaultConstructor_SetDefaultValues()
         {
-            // Setup
-            ExceedanceProbabilityCalculationOutput exceedanceProbabilityCalculationOutput = null;
-            var filePath = Path.Combine(testDataPath, "notExisting.sqlite");
-
             // Call
-            TestDelegate test = () => exceedanceProbabilityCalculationOutput = ExceedanceProbabilityCalculationParser.Parse(filePath, 1);
+            var parser = new ExceedanceProbabilityCalculationParser();
 
             // Assert
-            Assert.DoesNotThrow(test);
-            Assert.IsNull(exceedanceProbabilityCalculationOutput);
+            Assert.IsNull(parser.Output);
+        }
+
+        [Test]
+        public void Parse_NotExistingOutputFile_OutputNull()
+        {
+            // Setup
+            var filePath = Path.Combine(testDataPath, "notExisting.sqlite");
+            var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
+
+            // Call
+            exceedanceProbabilityCalculationParser.Parse(filePath, 1);
+
+            // Assert
+            Assert.IsNull(exceedanceProbabilityCalculationParser.Output);
             Assert.IsFalse(File.Exists(testDataPath));
         }
 
         [Test]
-        public void Parse_EmptyOutputFile_ReturnsNull()
+        public void Parse_EmptyOutputFile_OutputNull()
         {
             // Setup
-            ExceedanceProbabilityCalculationOutput exceedanceProbabilityCalculationOutput = null;
             var filePath = Path.Combine(testDataPath, "empty.sqlite");
+            var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
 
             // Call
-            TestDelegate test = () => exceedanceProbabilityCalculationOutput = ExceedanceProbabilityCalculationParser.Parse(filePath, 1);
+            exceedanceProbabilityCalculationParser.Parse(filePath, 1);
 
             // Assert
-            Assert.DoesNotThrow(test);
-            Assert.IsNull(exceedanceProbabilityCalculationOutput);
+            Assert.IsNull(exceedanceProbabilityCalculationParser.Output);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(filePath));
         }
 
         [Test]
-        public void Parse_ExampleCompleteOutputFile_ReturnsExpectedExceedanceProbabilityCalculationOutput()
+        public void Parse_ExampleCompleteOutputFile_ExpectedExceedanceProbabilityCalculationOutputSet()
         {
             // Setup
             var filePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -90,10 +98,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
                 new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 17, 0, 0.0470275786268176)
             };
 
+            var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
+
             // Call
-            ExceedanceProbabilityCalculationOutput exceedanceProbabilityCalculationOutput = ExceedanceProbabilityCalculationParser.Parse(filePath, sectionId);
+            exceedanceProbabilityCalculationParser.Parse(filePath, sectionId);
 
             // Assert
+            ExceedanceProbabilityCalculationOutput exceedanceProbabilityCalculationOutput = exceedanceProbabilityCalculationParser.Output;
             Assert.IsNotNull(exceedanceProbabilityCalculationOutput);
             Assert.AreEqual(ringCombinMethod, exceedanceProbabilityCalculationOutput.RingCombinMethod);
             Assert.AreEqual(presentationSectionId, exceedanceProbabilityCalculationOutput.PresentationSectionId);
@@ -126,35 +137,33 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_FileWithoutTableAlphaResults_ReturnsNull()
+        public void Parse_FileWithoutTableAlphaResults_OutputNull()
         {
             // Setup
-            ExceedanceProbabilityCalculationOutput exceedanceProbabilityCalculationOutput = null;
             var filePath = Path.Combine(testDataPath, "withoutAlphaResults.sqlite");
+            var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
 
             // Call
-            TestDelegate test = () => exceedanceProbabilityCalculationOutput = ExceedanceProbabilityCalculationParser.Parse(filePath, 1);
+            exceedanceProbabilityCalculationParser.Parse(filePath, 1);
 
             // Assert
-            Assert.DoesNotThrow(test);
-            Assert.IsNull(exceedanceProbabilityCalculationOutput);
+            Assert.IsNull(exceedanceProbabilityCalculationParser.Output);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(filePath));
         }
 
         [Test]
-        public void Parse_ExampleHydraRingOutputFileNotContainingSectionId_ReturnsNull()
+        public void Parse_ExampleHydraRingOutputFileNotContainingSectionId_OutputNull()
         {
             // Setup
             var sectionId = 1;
             var filePath = Path.Combine(testDataPath, "complete.sqlite");
-            ExceedanceProbabilityCalculationOutput exceedanceProbabilityCalculationOutput = null;
+            var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
 
             // Call
-            TestDelegate test = () => exceedanceProbabilityCalculationOutput = ExceedanceProbabilityCalculationParser.Parse(filePath, sectionId);
+            exceedanceProbabilityCalculationParser.Parse(filePath, sectionId);
 
             // Assert
-            Assert.DoesNotThrow(test);
-            Assert.IsNull(exceedanceProbabilityCalculationOutput);
+            Assert.IsNull(exceedanceProbabilityCalculationParser.Output);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(filePath));
         }
     }

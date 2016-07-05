@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
@@ -136,7 +137,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// Generates the database creation script necessary for performing Hydra-Ring calculations.
         /// </summary>
         /// <returns>The database creation script.</returns>
-        public string GenerateDataBaseCreationScript()
+        public void WriteDataBaseCreationScript(string databaseFilePath)
         {
             var configurationDictionary = new Dictionary<string, IList<OrderedDictionary>>();
 
@@ -163,7 +164,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             configurationDictionary["Projects"] = GetProjectsConfiguration();
             configurationDictionary["Breakwaters"] = GetBreakWatersConfiguration();
 
-            return GenerateDataBaseCreationScript(configurationDictionary);
+            File.WriteAllText(databaseFilePath, GenerateDataBaseCreationScript(configurationDictionary));
         }
 
         private IList<OrderedDictionary> GetHydraulicModelsConfiguration()

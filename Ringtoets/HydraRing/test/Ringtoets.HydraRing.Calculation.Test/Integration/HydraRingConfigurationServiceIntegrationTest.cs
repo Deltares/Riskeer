@@ -21,6 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
@@ -33,6 +36,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
     [TestFixture]
     public class HydraRingConfigurationServiceIntegrationTest
     {
+        private static string hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"HydraRing");
+
         [Test]
         public void GenerateDataBaseCreationScript_HydraRingConfigurationWithAssessmentLevelCalculation_ReturnsExpectedCreationScript()
         {
@@ -93,11 +98,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          Environment.NewLine +
                                          "DELETE FROM [Breakwaters];" + Environment.NewLine;
 
-            // Call
-            var creationScript = hydraRingConfigurationService.GenerateDataBaseCreationScript();
+            var databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+            using (new FileDisposeHelper(databaseFilePath))
+            {
+                // Call
+                hydraRingConfigurationService.WriteDataBaseCreationScript(databaseFilePath);
 
-            // Assert
-            Assert.AreEqual(expectedCreationScript, creationScript);
+                // Assert
+                var creationScript = File.ReadAllText(databaseFilePath);
+                Assert.AreEqual(expectedCreationScript, creationScript);
+            }
         }
 
         [Test]
@@ -204,11 +214,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          "DELETE FROM [Breakwaters];" + Environment.NewLine +
                                          "INSERT INTO [Breakwaters] VALUES (1, 1, 2.2);" + Environment.NewLine;
 
-            // Call
-            var creationScript = hydraRingConfigurationService.GenerateDataBaseCreationScript();
+            var databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+            using (new FileDisposeHelper(databaseFilePath))
+            {
+                // Call
+                hydraRingConfigurationService.WriteDataBaseCreationScript(databaseFilePath);
 
-            // Assert
-            Assert.AreEqual(expectedCreationScript, creationScript);
+                // Assert
+                var creationScript = File.ReadAllText(databaseFilePath);
+                Assert.AreEqual(expectedCreationScript, creationScript);
+            }
         }
 
         [Test]
@@ -261,11 +276,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                                                  widthOfFlowAperturesMean, widthOfFlowAperturesStandardDeviation,
                                                                                                                  deviationOfTheWaveDirection,
                                                                                                                  stormDurationMean, stormDurationStandardDeviation));
-
-            // Call
-            var creationScript = hydraRingConfigurationService.GenerateDataBaseCreationScript();
-
-            // Assert
             var expectedCreationScript =
                 "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                 "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
@@ -335,7 +345,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 Environment.NewLine +
                 "DELETE FROM [Breakwaters];" + Environment.NewLine;
 
-            Assert.AreEqual(expectedCreationScript, creationScript);
+            var databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+            using (new FileDisposeHelper(databaseFilePath))
+            {
+                // Call
+                hydraRingConfigurationService.WriteDataBaseCreationScript(databaseFilePath);
+
+                // Assert
+                var creationScript = File.ReadAllText(databaseFilePath);
+                Assert.AreEqual(expectedCreationScript, creationScript);
+            }
         }
     }
 }

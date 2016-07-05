@@ -92,6 +92,7 @@
     <Compile Include="Data\HydraRingTimeIntegrationSchemeType.cs" />
     <Compile Include="Data\HydraRingUncertaintiesType.cs" />
     <Compile Include="Parsers\TargetProbabilityCalculationParser.cs" />
+    <Compile Include="Services\HydraRingFileName.cs" />
     <Compile Include="Services\HydraRingInitializationService.cs" />
     <Compile Include="Services\HydraRingProcessFactory.cs" />
   </ItemGroup>

@@ -22,6 +22,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Services;
@@ -39,7 +40,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
 
             // Assert
             Assert.AreEqual("D:\\work\\700001.ini", hydraRingInitializationService.IniFilePath);
-            Assert.AreEqual("D:\\work\\700001.sql", hydraRingInitializationService.DataBaseCreationScriptFilePath);
+            Assert.AreEqual("D:\\work\\700001.sql", hydraRingInitializationService.DatabaseCreationScriptFilePath);
             Assert.AreEqual("D:\\work\\700001.log", hydraRingInitializationService.LogFilePath);
             Assert.AreEqual("D:\\work\\designTable.txt", hydraRingInitializationService.OutputFilePath);
             Assert.AreEqual("D:\\work\\temp.sqlite", hydraRingInitializationService.OutputDataBasePath);
@@ -53,8 +54,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         public void GenerateInitializationScript_ReturnsExpectedInitializationScript()
         {
             // Setup
-            var hydraRingInitializationService = new HydraRingInitializationService(HydraRingFailureMechanismType.DikesPiping, 700001, "D:\\hlcd", "D:\\work");
             var hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"HydraRing");
+            var workingDirectory = Path.Combine(hydraRingDirectory, "temp");
+
+            var hydraRingInitializationService = new HydraRingInitializationService(HydraRingFailureMechanismType.DikesPiping, 700001, "D:\\hlcd", workingDirectory);
             var configurationDatabaseFilePath = Path.Combine(hydraRingDirectory, "config.sqlite");
 
             var expectedInitializationScript = "section             = 700001" + Environment.NewLine +
@@ -69,11 +72,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                                "configdbfilename    = " + configurationDatabaseFilePath + Environment.NewLine +
                                                "hydraulicdbfilename = D:\\hlcd\\HLCD.sqlite";
 
-            // Call
-            var initializationScript = hydraRingInitializationService.GenerateInitializationScript();
+            using (new DirectoryDisposeHelper(workingDirectory))
+            {
+                // Call
+                hydraRingInitializationService.WriteInitializationScript();
 
-            // Assert
-            Assert.AreEqual(expectedInitializationScript, initializationScript);
+                // Assert
+                var initializationScript = File.ReadAllText(hydraRingInitializationService.IniFilePath);
+                Assert.AreEqual(expectedInitializationScript, initializationScript);
+            }
         }
     }
 }

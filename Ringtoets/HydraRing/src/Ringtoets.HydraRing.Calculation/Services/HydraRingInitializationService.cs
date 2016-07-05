@@ -40,19 +40,17 @@ namespace Ringtoets.HydraRing.Calculation.Services
     /// </summary>
     internal class HydraRingInitializationService
     {
+        private const string iniFileExtension = ".ini";
+        private const string databaseFileExtension = ".sql";
+        private const string logFileExtension = ".log";
+
         private readonly int mechanismId;
         private readonly int sectionId;
-        private readonly string iniFilePath;
-        private readonly string dataBaseCreationScriptFileName;
-        private readonly string dataBaseCreationScriptFilePath;
-        private readonly string logFileName;
-        private readonly string logFilePath;
-        private readonly string outputFileName;
-        private readonly string outputFilePath;
-        private readonly string outputDataBasePath;
-        private readonly string hlcdFilePath;
-        private readonly string mechanismComputationExeFilePath;
-        private readonly string configurationDatabaseFilePath;
+
+        // Working directories
+        private readonly string temporaryWorkingDirectory;
+        private readonly string hydraRingDirectory;
+        private readonly string hlcdDirectory;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingInitializationService"/> class.
@@ -60,28 +58,15 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <param name="failureMechanismType">The failure mechanism type.</param>
         /// <param name="sectionId">The section id.</param>
         /// <param name="hlcdDirectory">The HLCD directory.</param>
-        /// <param name="workingDirectory">The working directory.</param>
-        public HydraRingInitializationService(HydraRingFailureMechanismType failureMechanismType, int sectionId, string hlcdDirectory, string workingDirectory)
+        /// <param name="temporaryWorkingDirectory">The working directory.</param>
+        public HydraRingInitializationService(HydraRingFailureMechanismType failureMechanismType, int sectionId, string hlcdDirectory, string temporaryWorkingDirectory)
         {
             mechanismId = new FailureMechanismDefaultsProvider().GetFailureMechanismDefaults(failureMechanismType).MechanismId;
             this.sectionId = sectionId;
 
-            // Initialize input/output file paths
-            var iniFileName = sectionId + ".ini";
-            iniFilePath = Path.Combine(workingDirectory, iniFileName);
-            dataBaseCreationScriptFileName = sectionId + ".sql";
-            dataBaseCreationScriptFilePath = Path.Combine(workingDirectory, dataBaseCreationScriptFileName);
-            logFileName = sectionId + ".log";
-            logFilePath = Path.Combine(workingDirectory, logFileName);
-            outputFileName = "designTable.txt";
-            outputFilePath = Path.Combine(workingDirectory, outputFileName);
-            outputDataBasePath = Path.Combine(workingDirectory, "temp.sqlite");
-            hlcdFilePath = Path.Combine(hlcdDirectory, "HLCD.sqlite");
-
-            // Initialize Hydra-Ring file paths
-            var hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"HydraRing");
-            mechanismComputationExeFilePath = Path.Combine(hydraRingDirectory, "MechanismComputation.exe");
-            configurationDatabaseFilePath = Path.Combine(hydraRingDirectory, "config.sqlite");
+            this.temporaryWorkingDirectory = temporaryWorkingDirectory;
+            this.hlcdDirectory = hlcdDirectory;
+            hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"HydraRing");
         }
 
         /// <summary>
@@ -91,18 +76,18 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             get
             {
-                return iniFilePath;
+                return Path.Combine(temporaryWorkingDirectory, sectionId + iniFileExtension);
             }
         }
 
         /// <summary>
         /// Gets the database creation script file path.
         /// </summary>
-        public string DataBaseCreationScriptFilePath
+        public string DatabaseCreationScriptFilePath
         {
             get
             {
-                return dataBaseCreationScriptFilePath;
+                return Path.Combine(temporaryWorkingDirectory, sectionId + databaseFileExtension);
             }
         }
 
@@ -113,7 +98,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             get
             {
-                return logFilePath;
+                return Path.Combine(temporaryWorkingDirectory, sectionId + logFileExtension);
             }
         }
 
@@ -124,7 +109,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             get
             {
-                return outputFilePath;
+                return Path.Combine(temporaryWorkingDirectory, HydraRingFileName.DesignTablesFileName);
             }
         }
 
@@ -135,7 +120,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             get
             {
-                return outputDataBasePath;
+                return Path.Combine(temporaryWorkingDirectory, HydraRingFileName.OutputDatabaseFileName);
             }
         }
 
@@ -146,7 +131,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             get
             {
-                return hlcdFilePath;
+                return Path.Combine(hlcdDirectory, HydraRingFileName.HlcdDatabaseFileName);
             }
         }
 
@@ -157,7 +142,18 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             get
             {
-                return mechanismComputationExeFilePath;
+                return Path.Combine(hydraRingDirectory, HydraRingFileName.HydraRingExecutableFileName);
+            }
+        }
+
+        /// <summary>
+        /// Gets the path of the configuration database file.
+        /// </summary>
+        public string ConfigurationDatabaseFilePath
+        {
+            get
+            {
+                return Path.Combine(hydraRingDirectory, HydraRingFileName.ConfigurationDatabaseFileName);
             }
         }
 
@@ -165,20 +161,22 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// Generates the initialization script necessary for performing Hydra-Ring calculations.
         /// </summary>
         /// <returns>The initialization script.</returns>
-        public string GenerateInitializationScript()
+        public void WriteInitializationScript()
         {
-            return string.Join(Environment.NewLine,
+            var initializationFileContent = string.Join(Environment.NewLine,
                                "section             = " + sectionId,
                                "mechanism           = " + mechanismId,
                                "alternative         = 1", // Fixed: no support for piping
                                "layer               = 1", // Fixed: no support for revetments
-                               "logfile             = " + logFileName,
+                               "logfile             = " + (sectionId + logFileExtension),
                                "outputverbosity     = basic",
                                "outputtofile        = file",
-                               "projectdbfilename   = " + dataBaseCreationScriptFileName,
-                               "outputfilename      = " + outputFileName,
-                               "configdbfilename    = " + configurationDatabaseFilePath,
-                               "hydraulicdbfilename = " + hlcdFilePath);
+                               "projectdbfilename   = " + (sectionId + databaseFileExtension),
+                               "outputfilename      = " + HydraRingFileName.DesignTablesFileName,
+                               "configdbfilename    = " + ConfigurationDatabaseFilePath,
+                               "hydraulicdbfilename = " + HlcdFilePath);
+
+            File.WriteAllText(IniFilePath, initializationFileContent);
         }
     }
 }

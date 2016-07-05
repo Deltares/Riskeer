@@ -30,19 +30,19 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
     public class TargetProbabilityCalculationInputTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        [TestCase(2, 10000)]
+        [TestCase(-50, 1)]
+        [TestCase(0, -90)]
+        [TestCase(200000, double.NaN)]
+        public void Constructed_UsingDifferentNormAndLocationId_ReturnDifferentBetaAndDefaultValues(int locationId, double norm)
         {
             // Call
-            var norm = 10000;
             var expectedBeta = -Normal.InvCDF(0.0, 1.0, 1.0/norm);
-            var targetProbabilityCalculationInputImplementation = new TargetProbabilityCalculationInputImplementation(1, norm);
+            var targetProbabilityCalculationInputImplementation = new SimpleTargetProbabilityCalculationInput(locationId, norm);
 
             // Assert
-            Assert.AreEqual(1, targetProbabilityCalculationInputImplementation.HydraulicBoundaryLocationId);
-            Assert.AreEqual(HydraRingFailureMechanismType.DikesPiping, targetProbabilityCalculationInputImplementation.FailureMechanismType);
+            Assert.AreEqual(locationId, targetProbabilityCalculationInputImplementation.HydraulicBoundaryLocationId);
             Assert.AreEqual(2, targetProbabilityCalculationInputImplementation.CalculationTypeId);
-            Assert.AreEqual(5, targetProbabilityCalculationInputImplementation.VariableId);
-            Assert.AreEqual(1, targetProbabilityCalculationInputImplementation.Section.SectionId);
             CollectionAssert.IsEmpty(targetProbabilityCalculationInputImplementation.Variables);
             CollectionAssert.IsEmpty(targetProbabilityCalculationInputImplementation.ProfilePoints);
             CollectionAssert.IsEmpty(targetProbabilityCalculationInputImplementation.ForelandsPoints);
@@ -50,15 +50,18 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
             Assert.AreEqual(expectedBeta, targetProbabilityCalculationInputImplementation.Beta);
         }
 
-        private class TargetProbabilityCalculationInputImplementation : TargetProbabilityCalculationInput
+        private class SimpleTargetProbabilityCalculationInput : TargetProbabilityCalculationInput
         {
-            public TargetProbabilityCalculationInputImplementation(int hydraulicBoundaryLocationId, double beta) : base(hydraulicBoundaryLocationId, beta) {}
+            public SimpleTargetProbabilityCalculationInput(int i, double norm)
+                : base(i, norm)
+            {
+            }
 
             public override HydraRingFailureMechanismType FailureMechanismType
             {
                 get
                 {
-                    return HydraRingFailureMechanismType.DikesPiping;
+                    throw new System.NotImplementedException();
                 }
             }
 
@@ -66,7 +69,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
             {
                 get
                 {
-                    return 5;
+                    throw new System.NotImplementedException();
                 }
             }
 
@@ -74,7 +77,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
             {
                 get
                 {
-                    return new HydraRingSection(1, "Name", 2.2, 3.3);
+                    throw new System.NotImplementedException();
                 }
             }
         }

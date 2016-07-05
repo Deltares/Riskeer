@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
+using Core.Common.Utils;
 
 namespace Core.Common.TestUtil
 {
@@ -37,63 +37,42 @@ namespace Core.Common.TestUtil
     /// }
     /// </code>
     /// </example>
-    public class FileDisposeHelper : IDisposable
+    public class DirectoryDisposeHelper : IDisposable
     {
-        private readonly IEnumerable<string> files;
+        private string directory;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FileDisposeHelper"/>.
+        /// Creates a new instance of <see cref="DirectoryDisposeHelper"/>.
         /// </summary>
-        /// <param name="filePaths">Path of the files that will be used.</param>
-        public FileDisposeHelper(IEnumerable<string> filePaths)
+        /// <param name="directory">Path of the files that will be used.</param>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="directory"/> is invalid.</exception>
+        public DirectoryDisposeHelper(string directory)
         {
-            files = filePaths;
+            this.directory = directory;
             Create();
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="FileDisposeHelper"/>.
-        /// </summary>
-        /// <param name="filePath">Path of the single file that will be used.</param>
-        public FileDisposeHelper(string filePath) : this(new [] { filePath })
-        {
-        }
-
-        /// <summary>
-        /// Creates the temporary files.
-        /// </summary>
-        private void Create()
-        {
-            foreach (var file in files)
-            {
-                CreateFile(file);
-            }
-        }
-
-        /// <summary>
-        /// Disposes the <see cref="FileDisposeHelper"/> instance.
+        /// Disposes the <see cref="DirectoryDisposeHelper"/> instance.
         /// </summary>
         public void Dispose()
         {
-            foreach (var file in files)
+            if (directory != null)
             {
-                Dispose(file);
+                Directory.Delete(directory, true);
             }
         }
 
-        private static void CreateFile(string filename)
+        private void Create()
         {
-            if (!string.IsNullOrWhiteSpace(filename))
+            try
             {
-                using (File.Create(filename)) {}
+                FileUtils.ValidateFilePath(directory);
+                Directory.CreateDirectory(directory);
             }
-        }
-
-        private static void Dispose(string filename)
-        {
-            if (!string.IsNullOrWhiteSpace(filename))
+            catch (ArgumentException)
             {
-                File.Delete(filename);
+                directory = null;
             }
         }
     }

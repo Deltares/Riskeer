@@ -104,8 +104,6 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             using (var fileDisposeHelper = new FileDisposeHelper(validPath))
             {
-                fileDisposeHelper.Create();
-
                 // Call
                 TestDelegate test = () => SqLiteDatabaseHelper.CreateDatabaseFile(validPath, validScript);
 
