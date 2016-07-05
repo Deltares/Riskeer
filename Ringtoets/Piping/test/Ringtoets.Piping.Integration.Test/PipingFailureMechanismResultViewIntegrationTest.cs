@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
@@ -54,7 +53,7 @@ namespace Ringtoets.Piping.Integration.Test
                 failureMechanismResultView.Data = assessmentSection.PipingFailureMechanism.SectionResults;
                 failureMechanismResultView.FailureMechanism = assessmentSection.PipingFailureMechanism;
 
-                // Import failure mechanisn sections and ensure the data grid view is updated
+                // Import failure mechanism sections and ensure the data grid view is updated
                 IntegrationTestHelper.ImportReferenceLine(assessmentSection);
                 IntegrationTestHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.PipingFailureMechanism);
                 Assert.AreEqual(283, dataGridView.Rows.Count);
