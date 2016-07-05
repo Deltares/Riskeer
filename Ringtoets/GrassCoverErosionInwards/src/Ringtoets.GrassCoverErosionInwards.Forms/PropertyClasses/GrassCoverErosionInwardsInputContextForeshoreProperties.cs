@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
@@ -64,14 +65,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.ForeshoreGeometry;
+                return data.WrappedData.ForeshoreGeometry.ToArray();
             }
         }
 
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            return data.WrappedData.DikeProfile == null || data.WrappedData.ForeshoreGeometry.Length < 2;
+            return data.WrappedData.DikeProfile == null || data.WrappedData.ForeshoreGeometry.Count() < 2;
         }
 
         public override string ToString()

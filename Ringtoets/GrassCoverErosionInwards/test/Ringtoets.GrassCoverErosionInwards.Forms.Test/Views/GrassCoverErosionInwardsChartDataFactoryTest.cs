@@ -78,7 +78,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void Create_DikeProfileForshoreGeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create((Point2D[]) null, "dike profile name");
+            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create((RoundedPoint2DCollection) null, "dike profile name");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -94,7 +94,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             };
 
             // Call
-            ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeProfile.ForeshoreGeometry.ToArray(), dikeProfile.Name);
+            ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeProfile.ForeshoreGeometry, dikeProfile.Name);
 
             // Assert
             Assert.IsInstanceOf<ChartLineData>(data);

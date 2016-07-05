@@ -486,8 +486,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Assert.IsInstanceOf<ChartLineData>(chartData);
             ChartLineData foreshoreChartData = (ChartLineData) chartData;
 
-            Point2D[] foreshoreGeometry = dikeProfile.ForeshoreGeometry.ToArray();
-            Assert.AreEqual(foreshoreGeometry.Length, foreshoreChartData.Points.Count());
+            RoundedPoint2DCollection foreshoreGeometry = dikeProfile.ForeshoreGeometry;
+            Assert.AreEqual(foreshoreGeometry.Count(), foreshoreChartData.Points.Count());
             CollectionAssert.AreEqual(foreshoreGeometry, foreshoreChartData.Points);
 
             string expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,

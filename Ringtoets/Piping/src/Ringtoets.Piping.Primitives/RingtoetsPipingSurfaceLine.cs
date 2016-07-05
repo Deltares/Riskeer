@@ -246,7 +246,7 @@ namespace Ringtoets.Piping.Primitives
         /// intersection point at <paramref name="l"/> have a significant difference in their y coordinate.</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="l"/> is not in range of the LZ-projected <see cref="Points"/>.</exception>
         /// <exception cref="InvalidOperationException"><see cref="Points"/> is empty.</exception>
-        public RoundedDouble GetZAtL(double l)
+        public double GetZAtL(double l)
         {
             ValidateHasPoints();
 
@@ -267,7 +267,7 @@ namespace Ringtoets.Piping.Primitives
 
             if (equalIntersections)
             {
-                return new RoundedDouble(2, intersectionPoints.First().Y);
+                return intersectionPoints.First().Y;
             }
 
             var message = string.Format(Resources.RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l, l);

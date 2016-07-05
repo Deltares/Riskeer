@@ -67,6 +67,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             CollectionAssert.AreEqual(foreshoreGeometry, dikeProfile.ForeshoreGeometry);
             Assert.AreEqual(0.0, dikeProfile.DikeHeight.Value);
             Assert.AreEqual(2, dikeProfile.DikeHeight.NumberOfDecimalPlaces);
+            Assert.AreEqual(2, dikeProfile.ForeshoreGeometry.NumberOfDecimalPlaces);
         }
 
         [Test]

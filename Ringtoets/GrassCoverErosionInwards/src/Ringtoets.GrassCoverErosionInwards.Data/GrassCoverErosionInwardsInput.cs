@@ -106,13 +106,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the geometry of the foreshore.
         /// </summary>
-        public Point2D[] ForeshoreGeometry
+        public RoundedPoint2DCollection ForeshoreGeometry
         {
             get
             {
                 return dikeProfile != null
-                           ? dikeProfile.ForeshoreGeometry.ToArray()
-                           : new Point2D[0];
+                           ? dikeProfile.ForeshoreGeometry
+                           : new RoundedPoint2DCollection(2, Enumerable.Empty<Point2D>());
             }
         }
 

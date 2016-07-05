@@ -61,7 +61,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Assert
             var expectedCoordinatesX = surfaceLine.Points.Select(p => p.X - firstX).ToArray();
             Assert.AreEqual(name, actual.Name);
-            CollectionAssert.AreEqual(expectedCoordinatesX, actual.Points.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(1e-6));
+            CollectionAssert.AreEqual(expectedCoordinatesX, actual.Points.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(1e-2));
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Y).ToArray(), actual.Points.Select(p => p.Y).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Points.Select(p => p.Z).ToArray());
             CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Length), actual.Points.Select(p => p.Type));

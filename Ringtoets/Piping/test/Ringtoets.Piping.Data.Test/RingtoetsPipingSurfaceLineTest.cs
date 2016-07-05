@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
@@ -138,10 +139,11 @@ namespace Ringtoets.Piping.Data.Test
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
-            IEnumerable<Point2D> lzCoordinates = surfaceLine.ProjectGeometryToLZ();
+            RoundedPoint2DCollection lzCoordinates = surfaceLine.ProjectGeometryToLZ();
 
             // Assert
             CollectionAssert.IsEmpty(lzCoordinates);
+            Assert.AreEqual(2, lzCoordinates.NumberOfDecimalPlaces);
         }
 
         [Test]
@@ -156,13 +158,14 @@ namespace Ringtoets.Piping.Data.Test
             });
 
             // Call
-            Point2D[] lzCoordinates = surfaceLine.ProjectGeometryToLZ().ToArray();
+            RoundedPoint2DCollection lzCoordinates = surfaceLine.ProjectGeometryToLZ();
 
             // Assert
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(0.0, originalZ)
             }, lzCoordinates);
+            Assert.AreEqual(2, lzCoordinates.NumberOfDecimalPlaces);
         }
 
         [Test]
@@ -178,7 +181,7 @@ namespace Ringtoets.Piping.Data.Test
             });
 
             // Call
-            Point2D[] actual = surfaceLine.ProjectGeometryToLZ().ToArray();
+            RoundedPoint2DCollection actual = surfaceLine.ProjectGeometryToLZ();
 
             // Assert
             var length = Math.Sqrt(2*2 + 3*3);
@@ -189,8 +192,9 @@ namespace Ringtoets.Piping.Data.Test
                 secondCoordinateFactor*length,
                 length
             };
-            CollectionAssert.AreEqual(expectedCoordinatesX, actual.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(1e-2));
+            CollectionAssert.AreEqual(expectedCoordinatesX, actual.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(Math.Pow(10.0, -actual.NumberOfDecimalPlaces)));
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Select(p => p.Y).ToArray());
+            Assert.AreEqual(2, actual.NumberOfDecimalPlaces);
         }
 
         [Test]
@@ -258,7 +262,7 @@ namespace Ringtoets.Piping.Data.Test
             var result = surfaceLine.GetZAtL(l);
 
             // Assert
-            Assert.AreEqual(testZ, result, 1e-3);
+            Assert.AreEqual(testZ, result, 1e-2);
         }
 
         [Test]

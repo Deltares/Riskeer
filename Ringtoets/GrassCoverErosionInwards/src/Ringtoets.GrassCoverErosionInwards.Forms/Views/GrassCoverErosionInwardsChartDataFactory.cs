@@ -73,7 +73,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <returns><see cref="ChartData"/> based on the <paramref name="foreshoreGeometry"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="foreshoreGeometry"/> 
         /// is <c>null</c>.</exception>
-        public static ChartData Create(Point2D[] foreshoreGeometry, string name)
+        public static ChartData Create(RoundedPoint2DCollection foreshoreGeometry, string name)
         {
             if (foreshoreGeometry == null)
             {

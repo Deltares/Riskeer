@@ -51,7 +51,7 @@ namespace Core.Common.Base.Test.Data
                 new Point2D(4.63, 2.10),
                 new Point2D(6.74, 1.59),
             };
-            CollectionAssert.AreEqual(expectedPoints, collection.ToList());
+            CollectionAssert.AreEqual(expectedPoints, collection);
         }
 
         [Test]
