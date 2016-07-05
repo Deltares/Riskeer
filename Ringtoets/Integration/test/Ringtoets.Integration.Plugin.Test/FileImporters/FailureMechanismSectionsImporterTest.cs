@@ -32,9 +32,11 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.IO;
+using Ringtoets.Integration.Plugin.FileImporters;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Common.IO.Test
+namespace Ringtoets.Integration.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class FailureMechanismSectionsImporterTest
