@@ -167,7 +167,7 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bevat 1 multi-polylijn, welke niet ondersteund is.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bevat een multi-polylijn. Multi-polylijnen worden niet ondersteund.",
                                                 invalidFilePath);
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);

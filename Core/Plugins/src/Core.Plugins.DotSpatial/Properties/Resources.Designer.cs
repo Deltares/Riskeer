@@ -154,7 +154,7 @@ namespace Core.Plugins.DotSpatial.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het shapebestand bevat data welke niet wordt ondersteund..
+        ///   Looks up a localized string similar to De data in het shapebestand wordt niet ondersteund..
         /// </summary>
         public static string MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data {
             get {

@@ -212,7 +212,7 @@
     <value>Shape file</value>
   </data>
   <data name="MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data" xml:space="preserve">
-    <value>Het shapebestand bevat data welke niet wordt ondersteund.</value>
+    <value>De data in het shapebestand wordt niet ondersteund.</value>
   </data>
   <data name="MapLegendView_CheckDataFormat_Shapefile_Is_Imported" xml:space="preserve">
     <value>Het shapebestand is geïmporteerd.</value>

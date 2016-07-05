@@ -284,7 +284,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                string message = string.Format("Het bestand heeft geen attribuut '{0}' welke vereist is om de locaties van de dijkprofielen in te lezen.",
+                string message = string.Format("Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.",
                                                missingColumnName);
                 Assert.AreEqual(message, messageArray[0]);
             });

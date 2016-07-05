@@ -157,7 +157,7 @@
     <value>De ingelezen ruwheid ('{0}') moet binnen het bereik [{1}, 1] vallen.</value>
   </data>
   <data name="DikeProfileLocationReader_CheckRequiredAttributePresence_Missing_attribute_0_" xml:space="preserve">
-    <value>Het bestand heeft geen attribuut '{0}' welke vereist is om de locaties van de dijkprofielen in te lezen.</value>
+    <value>Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.</value>
   </data>
   <data name="DikeProfileDataReader_ParseOrientation_Orientation_0_not_double" xml:space="preserve">
     <value>De ingelezen oriëntatie ('{0}') is geen getal.</value>
@@ -196,7 +196,7 @@
     <value>De ingelezen ID ('{0}') is ongeldig.</value>
   </data>
   <data name="DikeProfileDataReader_ValidateId_Id_0_has_unsupported_white_space" xml:space="preserve">
-    <value>De ingelezen ID ('{0}') bevat spaties, welke niet zijn toegestaan.</value>
+    <value>De ingelezen ID ('{0}') bevat spaties. Spaties zijn niet toegestaan.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfDikeElements_DijkCount_0_not_integer" xml:space="preserve">
     <value>Het ingelezen aantal geometriepunten dijk ('{0}') is geen geheel getal.</value>

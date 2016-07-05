@@ -133,7 +133,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             TestDelegate call = () => new DikeProfileLocationReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Het bestand heeft geen attribuut '{0}' welke vereist is om de locaties van de dijkprofielen in te lezen.",
+            var expectedMessage = string.Format("Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.",
                                                 missingColumnName);
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);

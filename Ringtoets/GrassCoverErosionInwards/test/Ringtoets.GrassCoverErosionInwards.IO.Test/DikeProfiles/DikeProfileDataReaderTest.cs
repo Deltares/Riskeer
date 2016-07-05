@@ -364,7 +364,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithInvalidId_ThrowCriticalFileReadException()
         {
-            string expectedMessage = @"De ingelezen ID ('Id's are not allowed to have any white space!') bevat spaties, welke niet zijn toegestaan.";
+            string expectedMessage = @"De ingelezen ID ('Id's are not allowed to have any white spaces!') bevat spaties. Spaties zijn niet toegestaan.";
             ReadFileAndExpectCriticalFileReadException("faulty_invalidId.prfl", 2, expectedMessage);
         }
 

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ReferenceLineReader_File_contains_unsupported_multi_polyline" xml:space="preserve">
-    <value>Het bestand bevat 1 multi-polylijn, welke niet ondersteund is.</value>
+    <value>Het bestand bevat een multi-polylijn. Multi-polylijnen worden niet ondersteund.</value>
   </data>
   <data name="ReferenceLineReader_File_must_contain_1_polyline" xml:space="preserve">
     <value>Het bestand moet exact 1 gehele polylijn bevatten.</value>
@@ -127,10 +127,10 @@
     <value>Het bestand mag uitsluitend polylijnen bevatten.</value>
   </data>
   <data name="FailureMechanismSectionReader_File_lacks_required_Attribute_0_" xml:space="preserve">
-    <value>Het bestand heeft geen attribuut '{0}' welke vereist is om een vakindeling te importeren.</value>
+    <value>Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.</value>
   </data>
   <data name="FailureMechanismSectionReader_File_has_unsupported_multiPolyline" xml:space="preserve">
-    <value>Het bestand heeft een of meerdere multi-polylijnen, welke niet ondersteund worden.</value>
+    <value>Het bestand bevat een of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund.</value>
   </data>
   <data name="ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_data_when_performed" xml:space="preserve">
     <value>Als u de referentielijn vervangt, zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd.
