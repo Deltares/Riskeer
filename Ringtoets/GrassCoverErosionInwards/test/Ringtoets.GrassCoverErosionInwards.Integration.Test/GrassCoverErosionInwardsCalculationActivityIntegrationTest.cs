@@ -289,8 +289,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             activity.Finish();
 
             // Assert
+            Assert.IsNotNull(calculation.Output);
             Assert.AreEqual((RoundedDouble) 0.625, calculation.Output.FactorOfSafety);
-            Assert.AreEqual(0.0026175033274158377, calculation.Output.Probability);
+            Assert.AreEqual(0.002617555933643434d, calculation.Output.Probability);
             Assert.AreEqual((RoundedDouble) 2.792, calculation.Output.Reliability);
             Assert.AreEqual(1.0/250000.0, calculation.Output.RequiredProbability);
             Assert.AreEqual((RoundedDouble) 4.465, calculation.Output.RequiredReliability);

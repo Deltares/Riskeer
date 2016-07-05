@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         public void GetVersionQuery_Always_ReturnsExpectedValues()
         {
             // Setup
-            string expectedQuery = "SELECT (NameRegion || CreationDate) as GeneratedVersion FROM General LIMIT 0,1;";
+            string expectedQuery = "SELECT (NameRegion || CreationDate || TrackId) as GeneratedVersion FROM General LIMIT 0,1;";
 
             // Call
             string query = HydraulicBoundaryDatabaseQueryBuilder.GetVersionQuery();
@@ -41,13 +41,13 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         }
 
         [Test]
-        public void GetRegionIdQuery_Always_ReturnsExpectedValues()
+        public void GetTrackIdQuery_Always_ReturnsExpectedValues()
         {
             // Setup
-            string expectedQuery = "SELECT GeneralId FROM General LIMIT 0,1;";
+            string expectedQuery = "SELECT TrackId FROM General LIMIT 0,1;";
 
             // Call
-            string query = HydraulicBoundaryDatabaseQueryBuilder.GetRegionIdQuery();
+            string query = HydraulicBoundaryDatabaseQueryBuilder.GetTrackIdQuery();
 
             // Assert
             Assert.AreEqual(expectedQuery, query);

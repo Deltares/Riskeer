@@ -33,23 +33,24 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         public static string GetVersionQuery()
         {
             return string.Format(
-                "SELECT ({0} || {1}) as {2} FROM {3} LIMIT 0,1;",
+                "SELECT ({0} || {1} || {2}) as {3} FROM {4} LIMIT 0,1;",
                 GeneralTableDefinitions.RegionName,
                 GeneralTableDefinitions.CreationDate,
+                GeneralTableDefinitions.TrackId,
                 GeneralTableDefinitions.GeneratedVersion,
                 GeneralTableDefinitions.TableName
                 );
         }
 
         /// <summary>
-        /// Returns the query to get the region id from the database.
+        /// Returns the query to get the track id from the database.
         /// </summary>
-        /// <returns>The query to get the region id from the database.</returns>
-        public static string GetRegionIdQuery()
+        /// <returns>The query to get the track id from the database.</returns>
+        public static string GetTrackIdQuery()
         {
             return string.Format(
                 "SELECT {0} FROM {1} LIMIT 0,1;",
-                GeneralTableDefinitions.RegionId,
+                GeneralTableDefinitions.TrackId,
                 GeneralTableDefinitions.TableName
                 );
         }

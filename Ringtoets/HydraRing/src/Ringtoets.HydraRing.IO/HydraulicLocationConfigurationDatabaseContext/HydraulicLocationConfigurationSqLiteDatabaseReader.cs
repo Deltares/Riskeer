@@ -52,25 +52,25 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
         public HydraulicLocationConfigurationSqLiteDatabaseReader(string databaseFilePath) : base(databaseFilePath) {}
 
         /// <summary>
-        /// Gets the location ids from the database, based upon <paramref name="regionId"/>.
+        /// Gets the location ids from the database, based upon <paramref name="trackId"/>.
         /// </summary>
-        /// <param name="regionId">Hydraulic boundary region id.</param>
+        /// <param name="trackId">Hydraulic boundary track id.</param>
         /// <returns>List of location id and Hrd location id found in the database.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
         /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
-        public Dictionary<long, long> GetLocationsIdByRegionId(long regionId)
+        public Dictionary<long, long> GetLocationsIdByTrackId(long trackId)
         {
-            var regionParameter = new SQLiteParameter
+            var trackParameter = new SQLiteParameter
             {
                 DbType = DbType.String,
-                ParameterName = LocationsTableDefinitions.RegionId,
-                Value = regionId
+                ParameterName = LocationsTableDefinitions.TrackId,
+                Value = trackId
             };
 
             try
             {
-                return GetLocationIdsFromDatabase(regionParameter);
+                return GetLocationIdsFromDatabase(trackParameter);
             }
             catch (InvalidCastException exception)
             {
@@ -84,11 +84,11 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
             }
         }
 
-        private Dictionary<long, long> GetLocationIdsFromDatabase(SQLiteParameter regionParameter)
+        private Dictionary<long, long> GetLocationIdsFromDatabase(SQLiteParameter trackParameter)
         {
             var dictionary = new Dictionary<long, long>();
-            var locationIdQuery = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsIdByRegionIdQuery();
-            using (SQLiteDataReader dataReader = CreateDataReader(locationIdQuery, regionParameter))
+            var locationIdQuery = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsIdByTrackIdQuery();
+            using (SQLiteDataReader dataReader = CreateDataReader(locationIdQuery, trackParameter))
             {
                 while (MoveNext(dataReader))
                 {

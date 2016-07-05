@@ -32,13 +32,13 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
         /// Returns the query to get the LocationIds from the database.
         /// </summary>
         /// <returns>The query to get the locationIds from the database.</returns>
-        public static string GetLocationsIdByRegionIdQuery()
+        public static string GetLocationsIdByTrackIdQuery()
         {
             return String.Format("SELECT {0}, {1} FROM {2} WHERE {3} = @{3} ORDER BY {1};",
                                  LocationsTableDefinitions.LocationId,
                                  LocationsTableDefinitions.HrdLocationId,
                                  LocationsTableDefinitions.TableName,
-                                 LocationsTableDefinitions.RegionId);
+                                 LocationsTableDefinitions.TrackId);
         }
     }
 }

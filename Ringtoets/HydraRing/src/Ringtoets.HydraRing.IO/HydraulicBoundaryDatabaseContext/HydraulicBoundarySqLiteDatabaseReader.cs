@@ -120,25 +120,25 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         }
 
         /// <summary>
-        /// Gets the region id from the metadata table.
+        /// Gets the track id from the metadata table.
         /// </summary>
-        /// <returns>The region id found in the database, or 0 if the region id
+        /// <returns>The track id found in the database, or 0 if the track id
         /// cannot be found.</returns>
         /// <exception cref="InvalidCastException">Thrown when the database returned incorrect 
         /// values for required properties.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when a query could not be executed on the database schema.</exception>
-        public long GetRegionId()
+        public long GetTrackId()
         {
-            string versionQuery = HydraulicBoundaryDatabaseQueryBuilder.GetRegionIdQuery();
+            string trackQuery = HydraulicBoundaryDatabaseQueryBuilder.GetTrackIdQuery();
             var sqliteParameter = new SQLiteParameter
             {
                 DbType = DbType.String
             };
             try
             {
-                using (SQLiteDataReader dataReader = CreateDataReader(versionQuery, sqliteParameter))
+                using (SQLiteDataReader dataReader = CreateDataReader(trackQuery, sqliteParameter))
                 {
-                    return !dataReader.Read() ? 0 : Convert.ToInt64(dataReader[GeneralTableDefinitions.RegionId]);
+                    return !dataReader.Read() ? 0 : Convert.ToInt64(dataReader[GeneralTableDefinitions.TrackId]);
                 }
             }
             catch (InvalidCastException exception)

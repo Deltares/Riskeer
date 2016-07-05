@@ -43,32 +43,6 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         private HydraulicLocationConfigurationSqLiteDatabaseReader hydraulicLocationConfigurationDatabaseReader;
 
         /// <summary>
-        /// Validates the file and opens a connection.
-        /// </summary>
-        /// <param name="filePath">The path to the file to read.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when: 
-        /// <list type="bullet">
-        /// <item>The given file at <paramref name="filePath"/> cannot be read.</item>
-        /// <item>The file 'HLCD.sqlite' in the same folder as <paramref name="filePath"/> cannot be read.</item>
-        /// </list>
-        /// </exception>
-        private void ValidateAndConnectTo(string filePath)
-        {
-            hydraulicBoundaryDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(filePath);
-
-            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(filePath), "hlcd.sqlite");
-            try
-            {
-                hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(hlcdFilePath);
-            }
-            catch (CriticalFileReadException)
-            {
-                var message = new FileReaderErrorMessageBuilder(filePath).Build(Resources.HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found);
-                throw new CriticalFileReadException(message);
-            }
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>, based upon the data read from 
         /// the hydraulic boundary database file, and saved into <paramref name="targetItem"/>.
         /// </summary>
@@ -107,11 +81,6 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             return true;
         }
 
-        private bool IsImportRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
-        {
-            return hydraulicBoundaryDatabase == null || hydraulicBoundaryDatabaseReader.GetVersion() != hydraulicBoundaryDatabase.Version;
-        }
-
         public void Dispose()
         {
             if (hydraulicBoundaryDatabaseReader != null)
@@ -126,6 +95,37 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
         }
 
+        /// <summary>
+        /// Validates the file and opens a connection.
+        /// </summary>
+        /// <param name="filePath">The path to the file to read.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when: 
+        /// <list type="bullet">
+        /// <item>The given file at <paramref name="filePath"/> cannot be read.</item>
+        /// <item>The file 'HLCD.sqlite' in the same folder as <paramref name="filePath"/> cannot be read.</item>
+        /// </list>
+        /// </exception>
+        private void ValidateAndConnectTo(string filePath)
+        {
+            hydraulicBoundaryDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(filePath);
+
+            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(filePath), "hlcd.sqlite");
+            try
+            {
+                hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(hlcdFilePath);
+            }
+            catch (CriticalFileReadException)
+            {
+                var message = new FileReaderErrorMessageBuilder(filePath).Build(Resources.HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found);
+                throw new CriticalFileReadException(message);
+            }
+        }
+
+        private bool IsImportRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        {
+            return hydraulicBoundaryDatabase == null || hydraulicBoundaryDatabaseReader.GetVersion() != hydraulicBoundaryDatabase.Version;
+        }
+
         private void HandleException(Exception e)
         {
             var message = string.Format(Resources.HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped, e.Message);
@@ -134,9 +134,8 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         private HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase()
         {
-            // Get region
-            var regionId = GetRegionId();
-            if (regionId == 0)
+            var trackId = GetTrackId();
+            if (trackId == 0)
             {
                 return null;
             }
@@ -150,7 +149,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 };
 
                 // Locations directory of HLCD location ids and HRD location ids
-                var locationidsDictionary = hydraulicLocationConfigurationDatabaseReader.GetLocationsIdByRegionId(regionId);
+                var locationidsDictionary = hydraulicLocationConfigurationDatabaseReader.GetLocationsIdByTrackId(trackId);
 
                 // Prepare query to fetch hrd locations
                 hydraulicBoundaryDatabaseReader.PrepareReadLocation();
@@ -181,11 +180,11 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
         }
 
-        private long GetRegionId()
+        private long GetTrackId()
         {
             try
             {
-                return hydraulicBoundaryDatabaseReader.GetRegionId();
+                return hydraulicBoundaryDatabaseReader.GetTrackId();
             }
             catch (Exception e)
             {
