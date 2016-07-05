@@ -184,7 +184,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             else
             {
                 Orientation = dikeProfile.Orientation;
-                UseForeshore = dikeProfile.ForeshoreGeometry.Length > 1;
+                UseForeshore = dikeProfile.ForeshoreGeometry.Count() > 1;
                 UseBreakWater = dikeProfile.HasBreakWater;
                 BreakWater = dikeProfile.HasBreakWater
                                  ? new BreakWater(dikeProfile.BreakWater.Type, dikeProfile.BreakWater.Height)

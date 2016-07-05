@@ -119,7 +119,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the geometry of the foreshore.
         /// </summary>
-        public Point2D[] ForeshoreGeometry { get; private set; }
+        public RoundedPoint2DCollection ForeshoreGeometry { get; private set; }
 
         /// <summary>
         /// Gets the geometry of the dike with roughness data.
@@ -179,7 +179,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 throw new ArgumentException(Resources.DikeProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null);
             }
 
-            ForeshoreGeometry = points.ToArray();
+            ForeshoreGeometry = new RoundedPoint2DCollection(2, points);
         }
     }
 }

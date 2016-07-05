@@ -94,7 +94,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             };
 
             // Call
-            ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeProfile.ForeshoreGeometry, dikeProfile.Name);
+            ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeProfile.ForeshoreGeometry.ToArray(), dikeProfile.Name);
 
             // Assert
             Assert.IsInstanceOf<ChartLineData>(data);

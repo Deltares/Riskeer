@@ -43,7 +43,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 throw new ArgumentNullException("point");
             }
 
-            Point = point;
+            Point = new Point2D(
+                new RoundedDouble(2, point.X),
+                new RoundedDouble(2, point.Y));
+
             Roughness = new RoundedDouble(2, roughness);
         }
 

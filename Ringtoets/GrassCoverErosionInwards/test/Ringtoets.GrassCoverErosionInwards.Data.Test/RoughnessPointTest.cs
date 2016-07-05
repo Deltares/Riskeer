@@ -34,13 +34,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             const double roughness = 1.23456789;
-            var point = new Point2D(1.1, 2.2);
+            var point = new Point2D(1.1826, 2.2692);
 
             // Call
             var roughnessPoint = new RoughnessPoint(point, roughness);
 
             // Assert
-            Assert.AreEqual(point, roughnessPoint.Point);
+            Assert.AreEqual(new Point2D(1.18, 2.27), roughnessPoint.Point);
             Assert.AreEqual(2, roughnessPoint.Roughness.NumberOfDecimalPlaces);
             Assert.AreEqual(new RoundedDouble(2, roughness), roughnessPoint.Roughness);
         }
