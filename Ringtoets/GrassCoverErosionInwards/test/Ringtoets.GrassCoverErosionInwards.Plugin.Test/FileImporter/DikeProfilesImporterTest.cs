@@ -854,7 +854,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             // Assert
             Action<IEnumerable<string>> asserts = messages =>
             {
-                bool found = messages.Any(message => message.StartsWith("Voorland- en dijkprofieldata specificeert een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen:"));
+                bool found = messages.Any(message => message.StartsWith("Voorland- en dijkprofieldata specificeren een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen:"));
                 Assert.IsTrue(found);
             };
             TestHelper.AssertLogMessages(call, asserts);

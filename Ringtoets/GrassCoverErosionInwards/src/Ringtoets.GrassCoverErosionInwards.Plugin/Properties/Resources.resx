@@ -149,7 +149,7 @@
     <value>Inlezen van voorland- en dijkprofieldata uit een prfl bestand.</value>
   </data>
   <data name="DikeProfilesImporter_ReadDikeProfileData_sheet_piling_not_zero_skipping_0_" xml:space="preserve">
-    <value>Voorland- en dijkprofieldata specificeert een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen: {0}</value>
+    <value>Voorland- en dijkprofieldata specificeren een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen: {0}</value>
   </data>
   <data name="DikeProfilesImporter_LogDuplicateDikeProfileData_Multiple_DikeProfileData_found_for_DikeProfile_0_File_1_skipped" xml:space="preserve">
     <value>Meerdere dijkprofieldata definities gevonden voor dijkprofiel '{0}'. Bestand '{1}' wordt overgeslagen.</value>
