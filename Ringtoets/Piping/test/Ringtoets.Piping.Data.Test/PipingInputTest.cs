@@ -187,6 +187,22 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void ExitPointL_ExitPointNotOnSurfaceLine_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            const double value = 5.4;
+
+            // Call
+            TestDelegate call = () => input.ExitPointL = (RoundedDouble) value;
+
+            // Assert
+            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.",
+                                               0, 1);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+        }
+
+        [Test]
         [TestCase(double.NaN)]
         [TestCase(1.0)]
         public void ExitPointL_SetToNew_ValueIsRounded(double entryPointValue)
@@ -227,6 +243,22 @@ namespace Ringtoets.Piping.Data.Test
                 call,
                 Resources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
         }
+
+        [Test]
+        public void EntryPointL_EntryPointNotOnSurfaceLine_ThrowsArgumentOutOfRangeException()
+        {
+             // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            const double value = -3.0;
+
+            // Call
+            TestDelegate call = () => input.EntryPointL = (RoundedDouble)value;
+
+            // Assert
+            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.",
+                                               0, 1);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+         }
 
         [Test]
         [TestCase(-1e-3, Description = "Valid EntryPointL due to rounding to 0.0")]

@@ -881,6 +881,38 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(0, pipingCalculationInputCounter);
         }
 
+        [Test]
+        [TestCase(entryPointLColumnIndex, -0.1)]
+        [TestCase(entryPointLColumnIndex, -1.0)]
+        [TestCase(exitPointLColumnIndex, 10.1)]
+        [TestCase(exitPointLColumnIndex, 11.0)]
+        public void PipingCalculationsView_EntryOrExitPointNotOnSurfaceLine_ShowsErrorToolTip(int cellIndex, object newValue)
+        {
+            // Setup
+            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
+
+            var data = (CalculationGroup)pipingCalculationView.Data;
+            var pipingCalculation = (PipingCalculationScenario)data.Children.First();
+            var pipingCalculationCounter = 0;
+            var pipingCalculationInputCounter = 0;
+            var pipingCalculationObserver = new Observer(() => pipingCalculationCounter++);
+            var pipingCalculationInputObserver = new Observer(() => pipingCalculationInputCounter++);
+
+            pipingCalculation.Attach(pipingCalculationObserver);
+            pipingCalculation.InputParameters.Attach(pipingCalculationInputObserver);
+
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[cellIndex].Value = newValue is double ? (RoundedDouble)(double)newValue : newValue;
+
+            // Assert
+            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.", 0, 10);
+            Assert.AreEqual(expectedMessage, dataGridView.Rows[0].ErrorText);
+            Assert.AreEqual(0, pipingCalculationCounter);
+            Assert.AreEqual(0, pipingCalculationInputCounter);
+        }
+
         private const int isRelevantColumnIndex = 0;
         private const int contributionColumnIndex = 1;
         private const int nameColumnIndex = 2;

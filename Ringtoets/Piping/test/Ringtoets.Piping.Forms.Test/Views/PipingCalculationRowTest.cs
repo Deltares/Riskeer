@@ -319,6 +319,30 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        public void EntryPointL_NotOnSurfaceLine_ThrowsArgumentOutOfRangeExceptionAndDoesNotNotifyObservers()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+  
+            var calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            var row = new PipingCalculationRow(calculation);
+  
+            calculation.InputParameters.Attach(observer);
+  
+            var newValue = -3.0;
+  
+            // Call
+            TestDelegate call = () => row.EntryPointL = (RoundedDouble) newValue;
+  
+            // Assert
+            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.", 0, 1);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void ExitPointL_OnValidChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
@@ -364,6 +388,30 @@ namespace Ringtoets.Piping.Forms.Test.Views
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
                 call,
                 RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ExitPointL_NotOnSurfaceLine_ThrowsArgumentOutOfRangeExceptionAndDoesNotNotifyObservers()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            var row = new PipingCalculationRow(calculation);
+
+            calculation.InputParameters.Attach(observer);
+
+            var newValue = 3.0;
+
+            // Call
+            TestDelegate call = () => row.ExitPointL = (RoundedDouble)newValue;
+
+            // Assert
+            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.", 0, 1);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
             mocks.VerifyAll();
         }
     }

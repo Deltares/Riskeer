@@ -124,27 +124,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void CreateEntryPoint_EntryPointNotOnSurfaceLine_ReturnsEmptyChartData()
-        {
-            // Setup
-            var surfaceLine = GetSurfaceLineWithGeometry();
-
-            var input = new PipingInput(new GeneralPipingInput())
-            {
-                SurfaceLine = surfaceLine
-            };
-
-            // Call
-            ChartData data = PipingChartDataFactory.CreateEntryPoint((RoundedDouble)10, input.SurfaceLine);
-
-            // Assert
-            Assert.IsInstanceOf<ChartPointData>(data);
-            ChartPointData chartPointData = (ChartPointData)data;
-            Assert.AreEqual(Resources.PipingInput_EntryPointL_DisplayName, data.Name);
-            Assert.IsEmpty(chartPointData.Points);
-        }
-
-        [Test]
         public void CreateExitPoint_ExitPointNaN_ThrowsArgumentException()
         {
             // Call
@@ -193,27 +172,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }, chartPointData.Points);
 
             AssertEqualStyle(chartPointData.Style, Color.Tomato, 8, Color.Transparent, 0, ChartPointSymbol.Triangle);
-        }
-
-        [Test]
-        public void CreateExitPoint_ExitPointNotOnSurfaceLine_ReturnsEmptyChartData()
-        {
-            // Setup
-            var surfaceLine = GetSurfaceLineWithGeometry();
-
-            var input = new PipingInput(new GeneralPipingInput())
-            {
-                SurfaceLine = surfaceLine
-            };
-
-            // Call
-            ChartData data = PipingChartDataFactory.CreateExitPoint((RoundedDouble) 10, input.SurfaceLine);
-            
-            // Assert
-            Assert.IsInstanceOf<ChartPointData>(data);
-            ChartPointData chartPointData = (ChartPointData) data;
-            Assert.AreEqual(Resources.PipingInput_ExitPointL_DisplayName, data.Name);
-            Assert.IsEmpty(chartPointData.Points);
         }
 
         [Test]

@@ -89,6 +89,12 @@ namespace Ringtoets.Piping.Data
         /// length of <see cref="PipingInput"/>.
         /// [m]
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="value"/> is smaller or equal to <see cref="EntryPointL"/>.</item>
+        /// <item><paramref name="value"/> is not on the <see cref="RingtoetsPipingSurfaceLine"/>.</item>
+        /// </list>
+        /// </exception>
         public RoundedDouble EntryPointL
         {
             get
@@ -104,6 +110,7 @@ namespace Ringtoets.Piping.Data
                     ValidateEntryExitPoint(newEntryPoint, exitPointL);
                 }
 
+                ValidatePointOnSurfaceLine(newEntryPoint);
                 entryPointL = newEntryPoint;
             }
         }
@@ -114,6 +121,12 @@ namespace Ringtoets.Piping.Data
         /// length of <see cref="PipingInput"/>.
         /// [m]
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="value"/> is smaller or equal to <see cref="EntryPointL"/>.</item>
+        /// <item><paramref name="value"/> is not on the <see cref="RingtoetsPipingSurfaceLine"/>.</item>
+        /// </list>
+        /// </exception>
         public RoundedDouble ExitPointL
         {
             get
@@ -129,6 +142,7 @@ namespace Ringtoets.Piping.Data
                     ValidateEntryExitPoint(entryPointL, newExitPoint);
                 }
 
+                ValidatePointOnSurfaceLine(newExitPoint);
                 exitPointL = newExitPoint;
             }
         }
@@ -138,6 +152,14 @@ namespace Ringtoets.Piping.Data
             if (entryPoint >= exitPoint)
             {
                 throw new ArgumentOutOfRangeException(null, Resources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
+            }
+        }
+
+        private void ValidatePointOnSurfaceLine(RoundedDouble newPoint)
+        {
+            if (surfaceLine != null)
+            {
+                surfaceLine.ValidateInRange(newPoint, surfaceLine.ProjectGeometryToLZ().ToArray());
             }
         }
 

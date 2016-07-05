@@ -624,6 +624,43 @@ namespace Ringtoets.Piping.Data.Test
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot find a point in geometry using a null point.");
         }
 
+        [Test]
+        public void ValidateInRange_PointNotInRange_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup
+            var testX = 1.0;
+            var testY = 2.2;
+            var testZ = 4.4;
+            Point3D testPoint = new Point3D(testX, testY, testZ);
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            CreateTestGeometry(testPoint, surfaceLine);
+
+            // Call
+            TestDelegate call = () => surfaceLine.ValidateInRange(5.0, surfaceLine.ProjectGeometryToLZ().ToArray());
+
+            // Assert
+            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.", 0, 1.37);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void ValidateInRange_PointInRange_DoesNotThrow()
+        {
+            // Setup
+            var testX = 1.0;
+            var testY = 2.2;
+            var testZ = 4.4;
+            Point3D testPoint = new Point3D(testX, testY, testZ);
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            CreateTestGeometry(testPoint, surfaceLine);
+
+            // Call
+            TestDelegate call = () => surfaceLine.ValidateInRange(1.12, surfaceLine.ProjectGeometryToLZ().ToArray());
+
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
+
         private static void CreateTestGeometry(Point3D testPoint, RingtoetsPipingSurfaceLine surfaceLine)
         {
             var random = new Random(21);

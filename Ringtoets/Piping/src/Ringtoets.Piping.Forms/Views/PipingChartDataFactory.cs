@@ -339,27 +339,15 @@ namespace Ringtoets.Piping.Forms.Views
 
         private static ChartData CreatePointWithZAtL(RoundedDouble pointL, RingtoetsPipingSurfaceLine surfaceLine, string name, Color color)
         {
-            ChartPointData pointWithZatLData;
+            var pointZ = surfaceLine.GetZAtL(pointL);
 
-            try
+            return new ChartPointData(new[]
             {
-                var pointZ = surfaceLine.GetZAtL(pointL);
-
-                pointWithZatLData = new ChartPointData(new[]
-                {
-                    new Point2D(pointL, pointZ),
-                }, name)
-                {
-                    Style = new ChartPointStyle(color, 8, Color.Transparent, 0, ChartPointSymbol.Triangle)
-                };
-            }
-            catch (ArgumentOutOfRangeException)
+                new Point2D(pointL, pointZ),
+            }, name)
             {
-                // TODO Should not have to handle when WTI-673 and WTI-396 are done.
-                pointWithZatLData = ChartDataFactory.CreateEmptyPointData(name);
-            }
-
-            return pointWithZatLData;
+                Style = new ChartPointStyle(color, 8, Color.Transparent, 0, ChartPointSymbol.Triangle)
+            };
         }
 
         private static ChartData CreateCharacteristicPoint(Point3D worldPoint, RingtoetsPipingSurfaceLine surfaceLine, string name, Color color)

@@ -443,6 +443,90 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void entryPointL_NotOnSurfaceline_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var inputObserver = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
+            var inputParameters = new PipingInput(new GeneralPipingInput());
+            inputParameters.SurfaceLine = surfaceLine;
+
+            var properties = new PipingInputContextProperties
+            {
+                Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
+                                              failureMechanism,
+                                              assessmentSectionMock)
+            };
+
+            const double entryPoint = -15.0;
+            const double exitPoint = 2.0;
+            properties.ExitPointL = (RoundedDouble)exitPoint;
+
+            inputParameters.Attach(inputObserver);
+
+            // Call
+            TestDelegate call = () => properties.EntryPointL = (RoundedDouble)entryPoint;
+
+            // Assert
+            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.", 0, 4);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void exitPointL_NotOnSurfaceline_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var inputObserver = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
+            var inputParameters = new PipingInput(new GeneralPipingInput());
+            inputParameters.SurfaceLine = surfaceLine;
+
+            var properties = new PipingInputContextProperties
+            {
+                Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
+                                              failureMechanism,
+                                              assessmentSectionMock)
+            };
+
+            const double entryPoint = 2.0;
+            const double exitPoint = 10.0;
+            properties.EntryPointL = (RoundedDouble) entryPoint;
+
+            inputParameters.Attach(inputObserver);
+
+            // Call
+            TestDelegate call = () => properties.ExitPointL = (RoundedDouble) exitPoint;
+
+            // Assert
+            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.", 0, 4);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void HydraulicBoundaryLocation_DesignWaterLevelIsNaN_AssessmentLevelSetToNaN()
         {
             // Setup
