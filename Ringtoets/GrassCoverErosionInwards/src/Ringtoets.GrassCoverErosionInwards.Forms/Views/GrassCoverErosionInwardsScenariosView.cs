@@ -225,18 +225,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 return;
             }
 
-            dataGridViewControl.SetDataSource(FailureMechanism.SectionResults.Select(CreateGrassCoverErosionInwardsSectionResultRow).ToList());
+            dataGridViewControl.SetDataSource(FailureMechanism.SectionResults.Select(sectionResult => new GrassCoverErosionInwardsSectionResultRow(sectionResult)).ToList());
 
             UpdateDataGridViewDataComboBoxesContent();
-        }
-
-        private GrassCoverErosionInwardsSectionResultRow CreateGrassCoverErosionInwardsSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
-        {
-            return new GrassCoverErosionInwardsSectionResultRow()
-            {
-                Name = sectionResult.Section.Name,
-                Calculation = null
-            };
         }
     }
 }
