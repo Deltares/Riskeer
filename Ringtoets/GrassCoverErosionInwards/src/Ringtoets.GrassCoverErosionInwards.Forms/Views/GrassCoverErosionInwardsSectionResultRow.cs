@@ -50,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Gets the name of the <see cref="FailureMechanismSection"/>.
         /// </summary>
-        internal string Name
+        public string Name
         {
             get
             {
@@ -61,7 +61,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Gets or sets the normative calculation for the section.
         /// </summary>
-        internal GrassCoverErosionInwardsCalculation Calculation
+        public GrassCoverErosionInwardsCalculation Calculation
         {
             get
             {
