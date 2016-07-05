@@ -104,6 +104,7 @@ namespace Ringtoets.Piping.KernelWrapper
                 .Concat(soilProfileValidationResults)
                 .Concat(heaveCalculatorValidationResults)
                 .Concat(sellmeijerCalculatorValidationResults)
+                .Distinct()
                 .ToList();
         }
 

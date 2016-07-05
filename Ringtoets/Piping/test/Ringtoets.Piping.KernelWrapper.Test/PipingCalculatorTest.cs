@@ -149,9 +149,8 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             List<string> validationMessages = calculation.Validate();
 
             // Assert
-            Assert.AreEqual(2, validationMessages.Count);
+            Assert.AreEqual(1, validationMessages.Count);
             Assert.AreEqual("Het verschil tussen de parameters 'PhiExit' (Stijghoogte bij uittredepunt) en 'HExit' (Freatische waterstand bij uittredepunt) mag niet nul zijn.", validationMessages[0]);
-            Assert.AreEqual("Het verschil tussen de parameters 'PhiExit' (Stijghoogte bij uittredepunt) en 'HExit' (Freatische waterstand bij uittredepunt) mag niet nul zijn.", validationMessages[1]);
         }
 
         [Test]
@@ -170,9 +169,8 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             List<string> validationMessages = calculation.Validate();
 
             // Assert
-            Assert.AreEqual(2, validationMessages.Count);
+            Assert.AreEqual(1, validationMessages.Count);
             Assert.AreEqual("Parameter 'Rexit' (Dempingsfactor bij uittredepunt) mag niet nul zijn.", validationMessages[0]);
-            Assert.AreEqual("Parameter 'Rexit' (Dempingsfactor bij uittredepunt) mag niet nul zijn.", validationMessages[1]);
         }
 
         [Test]
