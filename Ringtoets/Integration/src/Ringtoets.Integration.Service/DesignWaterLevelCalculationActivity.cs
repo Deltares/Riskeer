@@ -57,17 +57,23 @@ namespace Ringtoets.Integration.Service
 
         protected override void OnRun()
         {
-            PerformRun(() => DesignWaterLevelCalculationService.Validate(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryLocation),
-                       () => hydraulicBoundaryLocation.DesignWaterLevel = double.NaN,
-                       () => DesignWaterLevelCalculationService.Calculate(assessmentSection,
-                                                                          assessmentSection.HydraulicBoundaryDatabase,
-                                                                          hydraulicBoundaryLocation,
-                                                                          assessmentSection.Name)); // TODO: Provide name of reference line instead
+            if (double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel))
+            {
+                PerformRun(() => DesignWaterLevelCalculationService.Validate(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryLocation),
+                           () => hydraulicBoundaryLocation.DesignWaterLevel = double.NaN,
+                           () => DesignWaterLevelCalculationService.Calculate(assessmentSection,
+                                                                              assessmentSection.HydraulicBoundaryDatabase,
+                                                                              hydraulicBoundaryLocation,
+                                                                              assessmentSection.Name)); // TODO: Provide name of reference line instead
+            }
         }
 
         protected override void OnFinish()
         {
-            PerformFinish(() => hydraulicBoundaryLocation.DesignWaterLevel = Output.Result, hydraulicBoundaryLocation);
+            if (double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel))
+            {
+                PerformFinish(() => hydraulicBoundaryLocation.DesignWaterLevel = Output.Result, hydraulicBoundaryLocation);
+            }
         }
     }
 }

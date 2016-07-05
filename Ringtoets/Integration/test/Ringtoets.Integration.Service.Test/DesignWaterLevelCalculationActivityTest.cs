@@ -149,6 +149,32 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
+        public void Run_CalculationAlreadyRan_ValidationAndCalculationNotPerformed()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            var designWaterLevel = 3.0;
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1)
+            {
+                DesignWaterLevel = designWaterLevel
+            };
+
+            var activity = new DesignWaterLevelCalculationActivity(assessmentSection, hydraulicBoundaryLocation);
+
+            // Call
+            Action call = () => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(0, msgs.Length);
+            });
+        }
+
+        [Test]
         public void Finish_ValidCalculationAndRun_SetsDesignWaterLevelAndNotifyObservers()
         {
             // Setup
@@ -199,6 +225,30 @@ namespace Ringtoets.Integration.Service.Test
             // Assert
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Finish_CalculationAlreadyRan_FinishNotPerformed()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            var designWaterLevel = 3.0;
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1)
+            {
+                DesignWaterLevel = designWaterLevel
+            };
+
+            var activity = new DesignWaterLevelCalculationActivity(assessmentSection, hydraulicBoundaryLocation);
+
+            activity.Run();
+
+            // Call
+            activity.Finish();
+
+            // Assert
+            Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel);
         }
 
         private void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)

@@ -48,7 +48,7 @@ namespace Ringtoets.HydraRing.Data
             Id = id;
             Name = name;
             Location = new Point2D(coordinateX, coordinateY);
-            DesignWaterLevel = Double.NaN;
+            DesignWaterLevel = double.NaN;
         }
 
         /// <summary>
