@@ -25,7 +25,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Threading;
 using Application.Ringtoets.Storage.TestUtil;
-
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -242,7 +241,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                 Assert.AreEqual(expectedAssessmentSection.StorageId, actualAssessmentSection.StorageId);
                 Assert.AreEqual(expectedAssessmentSection.Name, actualAssessmentSection.Name);
-                
+
                 AssertHydraulicBoundaryDatabase(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);
                 AssertReferenceLine(expectedAssessmentSection.ReferenceLine, actualAssessmentSection.ReferenceLine);
                 AssertPipingFailureMechanism(expectedAssessmentSection.PipingFailureMechanism, actualAssessmentSection.PipingFailureMechanism);
@@ -255,7 +254,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 }
 
                 AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.PipingFailureMechanism.SectionResults, 
+                    expectedAssessmentSection.PipingFailureMechanism.SectionResults,
                     actualAssessmentSection.PipingFailureMechanism.SectionResults);
                 AssertFailureMechanismSectionResults(
                     expectedAssessmentSection.GrassCoverErosionInwards.SectionResults,
@@ -312,7 +311,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         private void AssertFailureMechanismSectionResults(
-            IEnumerable<PipingFailureMechanismSectionResult> expectedSectionResults, 
+            IEnumerable<PipingFailureMechanismSectionResult> expectedSectionResults,
             IEnumerable<PipingFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
@@ -699,7 +698,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.Less(0, actualModels.Count);
 
             Assert.AreEqual(expectedModels.Count, actualModels.Count);
-            
+
             for (int i = 0; i < expectedModels.Count; i++)
             {
                 StochasticSoilModel expectedModel = expectedModels[i];
@@ -801,12 +800,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 var expectedChildGroup = expectedChild as CalculationGroup;
                 if (expectedChildGroup != null)
                 {
-                    AssertCalculationGroup(expectedChildGroup, (CalculationGroup)actualChild);
+                    AssertCalculationGroup(expectedChildGroup, (CalculationGroup) actualChild);
                 }
                 var expectedPipingCalculation = expectedChild as PipingCalculationScenario;
                 if (expectedPipingCalculation != null)
                 {
-                    AssertPipingCalculationScenario(expectedPipingCalculation, (PipingCalculationScenario)actualChild);
+                    AssertPipingCalculationScenario(expectedPipingCalculation, (PipingCalculationScenario) actualChild);
                 }
             }
         }

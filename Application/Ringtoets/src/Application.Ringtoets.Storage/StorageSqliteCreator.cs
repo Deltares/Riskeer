@@ -58,7 +58,6 @@ namespace Application.Ringtoets.Storage
                         command.CommandText = Resources.DatabaseStructure;
                         command.ExecuteNonQuery();
                     }
-
                     dbContext.Close();
                 }
             }
