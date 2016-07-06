@@ -67,12 +67,15 @@
     <Compile Include="Data\Input\HydraRingCalculationInputTest.cs" />
     <Compile Include="Data\Input\Overtopping\OvertoppingCalculationInputTest.cs" />
     <Compile Include="Data\Input\Structures\StructuresOvertoppingCalculationInputTest.cs" />
+    <Compile Include="Data\Output\WaveHeightCalculationOutputTest.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationAlphaOutputTest.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputBaseTest.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputTest.cs" />
     <Compile Include="Data\Output\TargetProbabilityCalculationOutputTest.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParserTest.cs" />
     <Compile Include="Parsers\TargetProbabilityCalculationParserTest.cs" />
+    <Compile Include="Parsers\TestDataCopyHelper.cs" />
+    <Compile Include="Parsers\WaveHeightCalculationParserTest.cs" />
     <Compile Include="Services\HydraRingConfigurationServiceTest.cs" />
     <Compile Include="Data\HydraRingSectionTest.cs" />
     <Compile Include="Data\HydraRingProfilePointTest.cs" />

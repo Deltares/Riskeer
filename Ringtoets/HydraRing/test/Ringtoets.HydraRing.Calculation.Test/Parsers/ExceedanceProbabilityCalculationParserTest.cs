@@ -52,7 +52,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Setup
             var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
 
-            using (new DirectoryDisposeHelper(workingDirectory))
+            using (new TestDataCopyHelper(testDataPath, workingDirectory))
             {
                 // Call
                 exceedanceProbabilityCalculationParser.Parse(workingDirectory, 1);
@@ -69,9 +69,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
             var testFile = "empty.sqlite";
 
-            using (new DirectoryDisposeHelper(workingDirectory))
+            using (var copyHelper = new TestDataCopyHelper(testDataPath, workingDirectory))
             {
-                CopyTestInputToTemporaryOutput(testFile);
+                copyHelper.CopyToTemporaryOutput(testFile, HydraRingFileName.OutputDatabaseFileName);
 
                 // Call
                 exceedanceProbabilityCalculationParser.Parse(workingDirectory, 1);
@@ -109,9 +109,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
             var testFile = "complete.sqlite";
 
-            using (new DirectoryDisposeHelper(workingDirectory))
+            using (var copyHelper = new TestDataCopyHelper(testDataPath, workingDirectory))
             {
-                CopyTestInputToTemporaryOutput(testFile);
+                copyHelper.CopyToTemporaryOutput(testFile, HydraRingFileName.OutputDatabaseFileName);
 
                 // Call
                 exceedanceProbabilityCalculationParser.Parse(workingDirectory, sectionId);
@@ -157,7 +157,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             var testFile = "withoutAlphaResults.sqlite";
             var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
 
-            using (new DirectoryDisposeHelper(workingDirectory))
+            using (new TestDataCopyHelper(testDataPath, workingDirectory))
             {
                 // Call
                 exceedanceProbabilityCalculationParser.Parse(workingDirectory, 1);
@@ -176,8 +176,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             var testFile = "complete.sqlite";
             var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
 
-            using (new DirectoryDisposeHelper(workingDirectory))
+            using (var copyHelper = new TestDataCopyHelper(testDataPath, workingDirectory))
             {
+                copyHelper.CopyToTemporaryOutput(testFile, HydraRingFileName.OutputDatabaseFileName);
+
                 // Call
                 exceedanceProbabilityCalculationParser.Parse(workingDirectory, sectionId);
 
@@ -185,19 +187,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
                 Assert.IsNull(exceedanceProbabilityCalculationParser.Output);
                 Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, testFile)));
             }
-        }
-
-        /// <summary>
-        /// Copies the testfile from the test directory to the working directory.
-        /// </summary>
-        /// <param name="testFile">The name of the test's input file.</param>
-        /// <remarks>The copied file is removed from the working directory by using the <see cref="DirectoryDisposeHelper"/>,
-        /// which recursively removes all files in the directory.</remarks>
-        private void CopyTestInputToTemporaryOutput(string testFile)
-        {
-            var inputFilePath = Path.Combine(testDataPath, testFile);
-            var outputFilePath = Path.Combine(workingDirectory, HydraRingFileName.OutputDatabaseFileName);
-            File.Copy(inputFilePath, outputFilePath);
         }
     }
 }

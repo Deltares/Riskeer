@@ -150,7 +150,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            assessmentSection.HeightStructures.AddSection(new FailureMechanismSection("test section", new[]
+            assessmentSection.HeightStructures.AddSection(new FailureMechanismSection("/", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)

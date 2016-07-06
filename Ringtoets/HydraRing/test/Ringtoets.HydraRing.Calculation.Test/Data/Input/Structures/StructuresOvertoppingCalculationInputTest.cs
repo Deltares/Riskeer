@@ -36,7 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             // Setup
             const int hydraulicBoundaryLocationId = 1000;
 
-            HydraRingSection hydraRingSection = new HydraRingSection(1, "1000", double.NaN, double.NaN);
+            HydraRingSection hydraRingSection = new HydraRingSection(1, double.NaN, double.NaN);
             const double gravitationalAcceleration = 9.81;
             const double modelFactorOvertoppingMean = 0.09;
             const double modelFactorOvertoppingStandardDeviation = 0.06;

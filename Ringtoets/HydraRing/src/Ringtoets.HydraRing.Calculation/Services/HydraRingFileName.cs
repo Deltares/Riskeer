@@ -2,6 +2,7 @@
 {
     public static class HydraRingFileName
     {
+        public const string OutputFileSuffix = "-output.txt";
         public const string DesignTablesFileName = "designTable.txt";
         public const string OutputDatabaseFileName = "temp.sqlite";
 

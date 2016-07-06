@@ -106,7 +106,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         private static OvertoppingCalculationInput CreateInput(GrassCoverErosionInwardsCalculation calculation, FailureMechanismSection failureMechanismSection, GeneralGrassCoverErosionInwardsInput generalInput)
         {
             return new OvertoppingCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                                                   new HydraRingSection(1, failureMechanismSection.Name, failureMechanismSection.GetSectionLength(), calculation.InputParameters.Orientation),
+                                                   new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.Orientation),
                                                    calculation.InputParameters.DikeHeight,
                                                    generalInput.CriticalOvertoppingModelFactor,
                                                    generalInput.FbFactor.Mean, generalInput.FbFactor.StandardDeviation,

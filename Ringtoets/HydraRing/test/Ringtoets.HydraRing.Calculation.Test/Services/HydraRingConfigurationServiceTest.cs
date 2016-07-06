@@ -77,7 +77,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "INSERT INTO [HydraulicModels] VALUES (3, 2, 'WTI 2017');" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Sections];" + Environment.NewLine +
-                                         "INSERT INTO [Sections] VALUES (1, 1, 1, 'LocationName', 'LocationName', 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
+                                         "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [DesignTables];" + Environment.NewLine +
                                          "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 4, 5, 0, 0, 0, 0, 5, 15, 1.1);" + Environment.NewLine +
@@ -164,9 +164,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "INSERT INTO [HydraulicModels] VALUES (3, 2, 'WTI 2017');" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Sections];" + Environment.NewLine +
-                                         "INSERT INTO [Sections] VALUES (1, 1, 1, 'LocationName', 'LocationName', 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
-                                         "INSERT INTO [Sections] VALUES (2, 1, 1, 'LocationName', 'LocationName', 0, 0, 0, 0, 700005, 700005, 100, 3.3, 2.2);" + Environment.NewLine +
-                                         "INSERT INTO [Sections] VALUES (3, 1, 1, 'LocationName', 'LocationName', 0, 0, 0, 0, 700006, 700006, 100, 3.3, 2.2);" + Environment.NewLine +
+                                         "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
+                                         "INSERT INTO [Sections] VALUES (2, 1, 1, 2, 2, 0, 0, 0, 0, 700005, 700005, 100, 3.3, 2.2);" + Environment.NewLine +
+                                         "INSERT INTO [Sections] VALUES (3, 1, 1, 3, 3, 0, 0, 0, 0, 700006, 700006, 100, 3.3, 2.2);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [DesignTables];" + Environment.NewLine +
                                          "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 4, 5, 0, 0, 0, 0, 5, 15, 1.1);" + Environment.NewLine +
@@ -310,7 +310,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             {
                 get
                 {
-                    return new HydraRingSection(sectionId, "LocationName", 2.2, 3.3);
+                    return new HydraRingSection(sectionId, 2.2, 3.3);
                 }
             }
 

@@ -52,7 +52,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
 
             var hydraRingSection = assessmentLevelCalculationInput.Section;
             Assert.AreEqual(1, hydraRingSection.SectionId);
-            Assert.AreEqual("1", hydraRingSection.SectionName);
             Assert.IsNaN(hydraRingSection.SectionLength);
             Assert.IsNaN(hydraRingSection.CrossSectionNormal);
 

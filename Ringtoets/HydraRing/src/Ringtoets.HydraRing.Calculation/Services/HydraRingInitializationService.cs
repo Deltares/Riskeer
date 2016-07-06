@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Calculation.Providers;
 
 namespace Ringtoets.HydraRing.Calculation.Services
@@ -42,6 +40,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
     /// </summary>
     internal class HydraRingInitializationService
     {
+        private const string hydraRingBinariesSubDirectory = "HydraRing";
+
         private const string iniFileExtension = ".ini";
         private const string databaseFileExtension = ".sql";
         private const string logFileExtension = ".log";
@@ -68,7 +68,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             TemporaryWorkingDirectory = temporaryTemporaryWorkingDirectory;
 
             this.hlcdDirectory = hlcdDirectory;
-            hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"HydraRing");
+            hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), hydraRingBinariesSubDirectory);
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <summary>
         /// Gets the path of the configuration database file.
         /// </summary>
-        public string ConfigurationDatabaseFilePath
+        private string ConfigurationDatabaseFilePath
         {
             get
             {

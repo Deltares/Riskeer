@@ -206,10 +206,10 @@ namespace Ringtoets.HydraRing.Calculation.Services
                         "MainMechanismId", 1 // Fixed: no support for combination of multiple sections
                     },
                     {
-                        "Name", hydraRingSection.SectionName
+                        "Name", hydraRingSection.SectionId // Just use the section id
                     },
                     {
-                        "Description", hydraRingSection.SectionName // Just use the section name
+                        "Description", hydraRingSection.SectionId // Just use the section id
                     },
                     {
                         "RingCoordinateBegin", defaultHydraRingValue // No support for coordinates

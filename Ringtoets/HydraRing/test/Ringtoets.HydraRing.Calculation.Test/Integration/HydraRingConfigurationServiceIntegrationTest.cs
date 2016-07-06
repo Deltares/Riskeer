@@ -50,7 +50,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Sections];" + Environment.NewLine +
-                                         "INSERT INTO [Sections] VALUES (1, 1, 1, '1', '1', 0, 0, 0, 0, 700004, 700004, 100, 0, 0);" + Environment.NewLine +
+                                         "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 0, 0);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [DesignTables];" + Environment.NewLine +
                                          "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 2, 26, 0, 0, 0, 0, 5, 15, 3.71901648545568);" + Environment.NewLine +
@@ -117,7 +117,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta, HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
-            var hydraRingSection = new HydraRingSection(1, "700004", 2.2, 3.3);
+            var hydraRingSection = new HydraRingSection(1, 2.2, 3.3);
             const double dikeHeight = 11.11;
             const double modelFactorCriticalOvertopping = 1;
             const double factorFnMean = 4.75;
@@ -152,7 +152,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Sections];" + Environment.NewLine +
-                                         "INSERT INTO [Sections] VALUES (1, 1, 1, '700004', '700004', 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
+                                         "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [DesignTables];" + Environment.NewLine +
                                          "INSERT INTO [DesignTables] VALUES (1, 101, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
@@ -233,7 +233,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta, HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
-            var hydraRingSection = new HydraRingSection(1, "700004", 2.2, 3.3);
+            var hydraRingSection = new HydraRingSection(1, 2.2, 3.3);
             const double gravitationalAcceleration = 9.81;
             const double modelFactorOvertoppingMean = 0.09;
             const double modelFactorOvertoppingStandardDeviation = 0.06;
@@ -281,7 +281,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
                 Environment.NewLine +
                 "DELETE FROM [Sections];" + Environment.NewLine +
-                "INSERT INTO [Sections] VALUES (1, 1, 1, '700004', '700004', 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
+                "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
                 Environment.NewLine +
                 "DELETE FROM [DesignTables];" + Environment.NewLine +
                 "INSERT INTO [DesignTables] VALUES (1, 110, 1, 1, 1, 60, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +

@@ -19,24 +19,29 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Output;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Data
+namespace Ringtoets.HydraRing.Calculation.Test.Data.Output
 {
     [TestFixture]
-    public class HydraRingSectionTest
+    public class WaveHeightCalculationOutputTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_WithParameters_ExpectedValues()
         {
+            // Setup
+            var random = new Random(21);
+            var value = random.NextDouble();
+            var isDominant = Convert.ToBoolean(random.Next(0, 2));
+
             // Call
-            var hydraRingSection = new HydraRingSection(1, 2.2, 3.3);
+            var targetProbabilityCalculationOutput = new WaveHeightCalculationOutput(value, isDominant);
 
             // Assert
-            Assert.AreEqual(1, hydraRingSection.SectionId);
-            Assert.AreEqual(2.2, hydraRingSection.SectionLength);
-            Assert.AreEqual(3.3, hydraRingSection.CrossSectionNormal);
+            Assert.AreEqual(value, targetProbabilityCalculationOutput.WaveHeight);
+            Assert.AreEqual(isDominant, targetProbabilityCalculationOutput.IsOvertoppingDominant);
         }
     }
 }

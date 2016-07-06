@@ -27,7 +27,6 @@ namespace Ringtoets.HydraRing.Calculation.Data
     public class HydraRingSection
     {
         private readonly int sectionId;
-        private readonly string sectionName;
         private readonly double sectionLength;
         private readonly double crossSectionNormal;
 
@@ -35,13 +34,11 @@ namespace Ringtoets.HydraRing.Calculation.Data
         /// Creates a new instance of the <see cref="HydraRingSection"/> class.
         /// </summary>
         /// <param name="sectionId">The unique identifier of the section.</param>
-        /// <param name="sectionName">The name of the section.</param>
         /// <param name="sectionLength">The length of the section.</param>
         /// <param name="crossSectionNormal">The normal of the cross section.</param>
-        public HydraRingSection(int sectionId, string sectionName, double sectionLength, double crossSectionNormal)
+        public HydraRingSection(int sectionId, double sectionLength, double crossSectionNormal)
         {
             this.sectionId = sectionId;
-            this.sectionName = sectionName;
             this.sectionLength = sectionLength;
             this.crossSectionNormal = crossSectionNormal;
         }
@@ -54,20 +51,6 @@ namespace Ringtoets.HydraRing.Calculation.Data
             get
             {
                 return sectionId;
-            }
-        }
-
-        /// <summary>
-        /// Gets the name of the section.
-        /// </summary>
-        /// <remarks>
-        /// This name is used in the input file and the output file of Hydra-Ring calculations.
-        /// </remarks>
-        public string SectionName
-        {
-            get
-            {
-                return sectionName;
             }
         }
 
