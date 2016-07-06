@@ -127,7 +127,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         private static IEnumerable<HydraRingForelandPoint> ParseForeshore(GrassCoverErosionInwardsInput input)
         {
-            return input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y));
+            return input.UseForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0];
         }
 
         private static IEnumerable<HydraRingRoughnessProfilePoint> ParseProfilePoints(RoughnessPoint[] roughnessProfilePoints)
