@@ -66,12 +66,21 @@
     <Content Include="Banner_493x77.bmp" />
     <Content Include="GenerateVariables.wxi" />
     <Content Include="GenerateVariables.wxi.svn" />
+    <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.dbf" />
+    <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.prj" />
+    <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.qpj" />
+    <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.shp" />
+    <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.shx" />
     <Content Include="Licentie.rtf" />
     <Content Include="Ringtoets.ico" />
     <Content Include="Start_493x312.bmp" />
     <Content Include="Variables.wxi" />
   </ItemGroup>
   <ItemGroup>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
     <WixExtension Include="WixUIExtension">
       <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
       <Name>WixUIExtension</Name>
@@ -88,6 +97,7 @@
   <ItemGroup>
     <Folder Include="Installer UI" />
     <Folder Include="licenses\" />
+    <Folder Include="IHW" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application.Ringtoets\Application.Ringtoets.csproj">

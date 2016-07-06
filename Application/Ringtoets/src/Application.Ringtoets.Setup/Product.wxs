@@ -29,6 +29,9 @@
       <![CDATA[Installed OR NETFRAMEWORK40FULL OR NETFRAMEWORK40CLIENT]]>
     </Condition>
 
+    <!-- Request the common documents folder path -->
+    <PropertyRef Id="WIX_DIR_COMMON_DOCUMENTS"/>
+
     <!-- File System hierarchy -->
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder" Name="PFiles">
@@ -119,7 +122,31 @@
         </Component>
 
       </Directory>
+
+      <!-- Common documents -->
+      <Directory Id="WIX_DIR_COMMON_DOCUMENTS">
+        <Directory Id="CommonDocumentsApplicationGroup" Name="!(loc.ApplicationGroupShortName)">
+          <Directory Id="CommonDocumentsApplication" Name="!(loc.ApplicationShortName)">
+            <Directory Id="CommonDocumentsNBPW" Name="NBPW">
+              
+              <Component Id="IHWFile" Guid="911042BC-FE0E-4A5A-819D-B43CCA0B9544">
+                <File Source="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.dbf" ></File>
+                <File Source="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.prj"></File>
+                <File Source="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.qpj"></File>
+                <File Source="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.shp"></File>
+                <File Source="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.shx"></File>
+                
+                <RemoveFolder Id="RemoveCommonDocumentsNBPW" Directory="CommonDocumentsNBPW" On="uninstall" />
+                <RemoveFolder Id="RemoveCommonDocumentsApplication" Directory="CommonDocumentsApplication" On="uninstall" />
+              </Component>
+              
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+
     </Directory>
+    
     
 		<Feature Id="CompleteInstallation" Title="!(loc.ApplicationLongName)" Level="1" Absent="disallow" ConfigurableDirectory="INSTALLDIR" AllowAdvertise="no">
       <ComponentGroupRef Id="RingtoetsApplicationComponents"/>
@@ -128,6 +155,7 @@
       <ComponentRef Id="ProgramMenuShortcut"/>
       <ComponentRef Id="DesktopShortcut"/>
       <ComponentRef Id="LicenseFile"/>
+      <ComponentRef Id="IHWFile"/>
       <ComponentRef Id="FileAssociation"/>
 		</Feature>
 
