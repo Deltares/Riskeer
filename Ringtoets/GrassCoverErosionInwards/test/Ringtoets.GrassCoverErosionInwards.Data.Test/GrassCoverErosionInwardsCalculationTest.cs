@@ -157,7 +157,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void GetObservableOutput_Always_ReturnsOutput()
         {
             // Setup
-            var output = new ProbabilityAssessmentOutput(0.2, 3.0, 0.4, 50.3, 16.3);
+            var output = new TestGrassCoverErosionInwardsOutput();
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = output
@@ -170,9 +170,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreSame(output, calculationOutput);
         }
 
-        private class TestGrassCoverErosionInwardsOutput : ProbabilityAssessmentOutput
+        private class TestGrassCoverErosionInwardsOutput : GrassCoverErosionInwardsOutput
         {
-            public TestGrassCoverErosionInwardsOutput() : base(0, 0, 0, 0, 0) {}
+            public TestGrassCoverErosionInwardsOutput() : base(0.0, true, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)) {}
         }
     }
 }

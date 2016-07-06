@@ -421,6 +421,17 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .AddOpenItem()
                                                                                  .Build()
             };
+
+            yield return new TreeNodeInfo<ProbabilityAssessmentOutput>
+            {
+                Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddExportItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
         }
 
         private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IEnumerable<TResult>, TView>

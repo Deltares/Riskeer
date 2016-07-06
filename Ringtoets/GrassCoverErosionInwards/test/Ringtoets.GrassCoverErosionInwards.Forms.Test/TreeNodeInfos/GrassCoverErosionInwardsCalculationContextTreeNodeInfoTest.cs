@@ -150,7 +150,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new GrassCoverErosionInwardsOutput(0, true, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0))
             };
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
@@ -169,7 +169,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Assert.IsNotNull(grassCoverErosionInwardsInputContext);
             Assert.AreSame(calculationContext.WrappedData.InputParameters, grassCoverErosionInwardsInputContext.WrappedData);
 
-            var output = children[2] as ProbabilityAssessmentOutput;
+            var output = children[2] as GrassCoverErosionInwardsOutput;
             Assert.IsNotNull(output);
         }
 
@@ -602,7 +602,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN),
+                Output = new GrassCoverErosionInwardsOutput(0, true, new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN)),
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,

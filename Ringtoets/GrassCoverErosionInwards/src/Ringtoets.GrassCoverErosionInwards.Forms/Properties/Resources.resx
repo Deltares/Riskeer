@@ -289,4 +289,16 @@
   <data name="GrassCoverErosionInwardsScenariosView_AddDataGridColumns_Calculation" xml:space="preserve">
     <value>Berekening</value>
   </data>
+  <data name="GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Description" xml:space="preserve">
+    <value>Is het resultaat van de overtopping deelberekening dominant over de overflow deelberekening.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Displayname" xml:space="preserve">
+    <value>Overtopping dominant [-]</value>
+  </data>
+  <data name="GrassCoverErosionInwardsOutput_WaveHeight_Description" xml:space="preserve">
+    <value>De golfhoogte van de overtopping deelberekening.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsOutput_WaveHeight_Displayname" xml:space="preserve">
+    <value>Golfhoogte (Hs) [-]</value>
+  </data>
 </root>

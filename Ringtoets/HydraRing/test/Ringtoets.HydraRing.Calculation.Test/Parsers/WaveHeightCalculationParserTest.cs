@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -31,8 +30,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
     [TestFixture]
     public class WaveHeightCalculationParserTest
     {
-        private readonly string workingDirectory = "tempDir";
+        private string workingDirectory;
         private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "WaveHeightCalculationParser");
+
+        [SetUp]
+        public void SetUp()
+        {
+            workingDirectory = Path.GetRandomFileName();
+        }
 
         [Test]
         public void DefaultConstructor_SetDefaultValues()

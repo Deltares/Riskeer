@@ -64,6 +64,7 @@
     <Compile Include="PropertyClasses\DikeProfileProperties.cs" />
     <Compile Include="PropertyClasses\DikeProfileDikeGeometryProperties.cs" />
     <Compile Include="PropertyClasses\DikeProfileBreakWaterProperties.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionInwardsOutputProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextBreakWaterProperties.cs" />
     <Compile Include="PropertyClasses\DikeProfileForeshoreProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextDikeGeometryProperties.cs" />

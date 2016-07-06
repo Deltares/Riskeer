@@ -32,8 +32,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
     [TestFixture]
     public class ExceedanceProbabilityCalculationParserTest
     {
-        private const string workingDirectory = "tempDir";
+        private string workingDirectory;
         private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "ExceedanceProbabilityCalculationParser");
+
+        [SetUp]
+        public void SetUp()
+        {
+            workingDirectory = Path.GetRandomFileName();
+        }
 
         [Test]
         public void DefaultConstructor_SetDefaultValues()

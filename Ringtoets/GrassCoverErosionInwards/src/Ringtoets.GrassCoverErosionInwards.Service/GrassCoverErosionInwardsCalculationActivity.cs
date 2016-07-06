@@ -32,7 +32,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
     /// <summary>
     /// <see cref="Activity"/> for running a grass cover erosion inwards calculation.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculationActivity : HydraRingActivity<ExceedanceProbabilityCalculationOutput>
+    public class GrassCoverErosionInwardsCalculationActivity : HydraRingActivity<GrassCoverErosionInwardsCalculationServiceOutput>
     {
         private readonly GrassCoverErosionInwardsCalculation calculation;
         private readonly string hlcdDirectory;
@@ -80,10 +80,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         {
             PerformFinish(() =>
             {
-                calculation.Output = ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm,
-                                                                            failureMechanism.Contribution,
-                                                                            failureMechanism.GeneralInput.N,
-                                                                            Output.Beta);
+                calculation.Output = new GrassCoverErosionInwardsOutput(
+                    Output.WaveHeight,
+                    Output.IsOvertoppingDominant,
+                    ProbabilityAssessmentService.Calculate(
+                        assessmentSection.FailureMechanismContribution.Norm,
+                        failureMechanism.Contribution,
+                        failureMechanism.GeneralInput.N,
+                        Output.Beta)
+                );
             }, calculation);
         }
     }

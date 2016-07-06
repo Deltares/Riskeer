@@ -63,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(3, propertyInfos.Length);
+                Assert.AreEqual(4, propertyInfos.Length);
 
                 var failureMechanismContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(GrassCoverErosionInwardsFailureMechanismContext));
                 Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismContextProperties), failureMechanismContextProperties.PropertyObjectType);
@@ -82,6 +82,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.IsNull(inputContextProperties.AdditionalDataCheck);
                 Assert.IsNull(inputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(inputContextProperties.AfterCreate);
+
+                var outputProperties = propertyInfos.Single(pi => pi.DataType == typeof(GrassCoverErosionInwardsOutput));
+                Assert.AreEqual(typeof(GrassCoverErosionInwardsOutputProperties), outputProperties.PropertyObjectType);
+                Assert.IsNull(outputProperties.AdditionalDataCheck);
+                Assert.IsNull(outputProperties.GetObjectPropertiesData);
+                Assert.IsNull(outputProperties.AfterCreate);
 
                 mocks.VerifyAll();
             }
@@ -118,7 +124,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsInputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyProbabilityAssessmentOutput)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilityAssessmentOutput)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsOutput)));
             }
             mocks.VerifyAll();
         }

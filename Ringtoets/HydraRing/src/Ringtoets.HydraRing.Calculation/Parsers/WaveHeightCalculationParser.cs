@@ -28,6 +28,9 @@ using Ringtoets.HydraRing.Calculation.Services;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
+    /// <summary>
+    /// Class for parsing wave height results from a Grass Cover Erosion Inwards calculation.
+    /// </summary>
     public class WaveHeightCalculationParser : IHydraRingFileParser
     {
         private class GeneralResult
@@ -60,12 +63,18 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         private readonly List<GeneralResult> overflowResults;
         private int governingWindDirection;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="WaveHeightCalculationParser"/>.
+        /// </summary>
         public WaveHeightCalculationParser()
         {
             overtoppingResults = new List<OvertoppingResult>();
             overflowResults = new List<GeneralResult>();
         }
 
+        /// <summary>
+        /// Gets the output that was parsed from the output file.
+        /// </summary>
         public WaveHeightCalculationOutput Output { get; private set; }
 
         public void Parse(string workingDirectory, int sectionId)

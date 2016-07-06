@@ -66,6 +66,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyClasses\GrassCoverErosionInwardsOutputPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DikeGeometryHelperTest.cs" />
     <Compile Include="PropertyClasses\DikeProfilePropertiesTest.cs" />
     <Compile Include="PropertyClasses\DikeProfileDikeGeometryPropertiesTest.cs" />
@@ -86,12 +87,12 @@
     <Compile Include="TreeNodeInfos\DikeProfilesContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsScenariosContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\ProbabilityAssessmentOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyProbabilityAssessmentOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsInputContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsOutputTreeNodeInfoTest.cs" />
     <Compile Include="TypeConverters\EnumTypeConverterTest.cs" />
     <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextDikeProfileEditorTest.cs" />
     <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditorTest.cs" />

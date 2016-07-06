@@ -224,7 +224,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             };
 
             var failureMechanismSection = assessmentSection.GrassCoverErosionInwards.Sections.First();
-            ExceedanceProbabilityCalculationOutput output = null;
+            GrassCoverErosionInwardsCalculationServiceOutput output = null;
 
             // Call
             Action call = () => output = GrassCoverErosionInwardsCalculationService.Calculate(calculation,
@@ -266,7 +266,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             };
 
             var failureMechanismSection = assessmentSection.GrassCoverErosionInwards.Sections.First();
-            ExceedanceProbabilityCalculationOutput output = null;
+            GrassCoverErosionInwardsCalculationServiceOutput output = null;
 
             // Call
             Action call = () => output = GrassCoverErosionInwardsCalculationService.Calculate(calculation,

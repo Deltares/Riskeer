@@ -43,6 +43,7 @@
     <Compile Include="DikeProfile.cs" />
     <Compile Include="GeneralGrassCoverErosionInwardsInput.cs" />
     <Compile Include="GrassCoverErosionInwardsFailureMechanismSectionResult.cs" />
+    <Compile Include="GrassCoverErosionInwardsOutput.cs" />
     <Compile Include="RoughnessPoint.cs" />
     <Compile Include="GrassCoverErosionInwardsCalculation.cs" />
     <Compile Include="GrassCoverErosionInwardsFailureMechanism.cs" />

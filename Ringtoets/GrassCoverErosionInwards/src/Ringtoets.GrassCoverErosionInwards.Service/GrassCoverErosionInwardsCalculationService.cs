@@ -66,12 +66,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
         /// <returns>A <see cref="ExceedanceProbabilityCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
-        internal static ExceedanceProbabilityCalculationOutput Calculate(GrassCoverErosionInwardsCalculation calculation,
+        internal static GrassCoverErosionInwardsCalculationServiceOutput Calculate(GrassCoverErosionInwardsCalculation calculation,
                                                                          string hlcdDirectory, FailureMechanismSection failureMechanismSection,
                                                                          string ringId, GeneralGrassCoverErosionInwardsInput generalInput)
         {
             OvertoppingCalculationInput input = CreateInput(calculation, failureMechanismSection, generalInput);
             var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
+            var waveHeightCalculationParser = new WaveHeightCalculationParser();
 
             CalculationServiceHelper.PerformCalculation(
                 calculation.Name,
@@ -83,20 +84,29 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                         HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta,
                         HydraRingUncertaintiesType.All,
                         input,
-                        new[]
+                        new IHydraRingFileParser[]
                         {
-                            exceedanceProbabilityCalculationParser
+                            exceedanceProbabilityCalculationParser,
+                            waveHeightCalculationParser
                         });
 
-                    VerifyOutput(exceedanceProbabilityCalculationParser.Output, calculation.Name);
+                    VerifyOutput(exceedanceProbabilityCalculationParser.Output, waveHeightCalculationParser.Output, calculation.Name);
                 });
 
-            return exceedanceProbabilityCalculationParser.Output;
+            if (exceedanceProbabilityCalculationParser.Output == null || waveHeightCalculationParser.Output == null)
+            {
+                return null;
+            }
+
+            return new GrassCoverErosionInwardsCalculationServiceOutput(
+                exceedanceProbabilityCalculationParser.Output.Beta,
+                waveHeightCalculationParser.Output.WaveHeight,
+                waveHeightCalculationParser.Output.IsOvertoppingDominant);
         }
 
-        private static void VerifyOutput(ExceedanceProbabilityCalculationOutput output, string name)
+        private static void VerifyOutput(ExceedanceProbabilityCalculationOutput exceedanceOutput, WaveHeightCalculationOutput waveHeightOutput, string name)
         {
-            if (output == null)
+            if (exceedanceOutput == null || waveHeightOutput == null)
             {
                 log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation, name);
             }

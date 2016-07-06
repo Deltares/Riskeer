@@ -35,6 +35,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms;
@@ -62,6 +63,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             yield return new PropertyInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanismContextProperties>();
             yield return new PropertyInfo<DikeProfile, DikeProfileProperties>();
             yield return new PropertyInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsInputContextProperties>();
+            yield return new PropertyInfo<GrassCoverErosionInwardsOutput, GrassCoverErosionInwardsOutputProperties>();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -192,7 +194,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<ProbabilityAssessmentOutput>
+            yield return new TreeNodeInfo<GrassCoverErosionInwardsOutput>
             {
                 Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,

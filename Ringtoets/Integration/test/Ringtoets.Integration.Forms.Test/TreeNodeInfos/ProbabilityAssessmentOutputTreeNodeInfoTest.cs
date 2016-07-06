@@ -27,24 +27,23 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.GrassCoverErosionInwards.Plugin;
-using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
+using Ringtoets.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
+namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
     public class ProbabilityAssessmentOutputTreeNodeInfoTest
     {
         private MockRepository mocksRepository;
-        private GrassCoverErosionInwardsGuiPlugin plugin;
+        private RingtoetsGuiPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocksRepository = new MockRepository();
-            plugin = new GrassCoverErosionInwardsGuiPlugin();
+            plugin = new RingtoetsGuiPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityAssessmentOutput));
         }
 
@@ -113,6 +112,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
+            guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
 
             menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
