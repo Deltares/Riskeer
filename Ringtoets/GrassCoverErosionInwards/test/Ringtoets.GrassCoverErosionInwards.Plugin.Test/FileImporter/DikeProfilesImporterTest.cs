@@ -689,7 +689,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             // Assert
             Action<IEnumerable<string>> asserts = messages =>
             {
-                bool found = messages.Any(message => message.EndsWith(": Het ingelezen damtype ('4') moet in het bereik {0, 1, 2, 3} vallen."));
+                bool found = messages.Any(message => message.EndsWith(": Het ingelezen damtype ('4') moet 0, 1, 2 of 3 zijn."));
                 Assert.IsTrue(found);
             };
             TestHelper.AssertLogMessages(call, asserts);
