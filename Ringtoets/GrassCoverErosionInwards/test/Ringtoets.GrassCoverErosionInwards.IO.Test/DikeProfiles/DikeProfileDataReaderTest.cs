@@ -292,7 +292,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithDamTypeOutOfRange_ThrowCriticalFileReadException(
             string faultyFileName, int expectedDamInFile)
         {
-            string expectedMessage = string.Format("Het ingelezen damtype ('{0}') moet in het bereik {{0, 1, 2, 3}} vallen.",
+            string expectedMessage = string.Format("Het ingelezen damtype ('{0}') moet 0, 1, 2 of 3 zijn.",
                                                    expectedDamInFile);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 6, expectedMessage);
         }
@@ -303,7 +303,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithProfileTypeOutOfRange_ThrowCriticalFileReadException(
             string faultyFileName, int expectedDamInFile)
         {
-            string expectedMessage = string.Format("Het ingelezen damwandtype ('{0}') moet in het bereik {{0, 1, 2}} vallen.",
+            string expectedMessage = string.Format("Het ingelezen damwandtype ('{0}') moet 0, 1 of 2 zijn.",
                                                    expectedDamInFile);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 11, expectedMessage);
         }
@@ -407,7 +407,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableDamType_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen damtype ('{0}') moet in het bereik {{0, 1, 2, 3}} vallen.",
+            string expectedMessage = string.Format("Het ingelezen damtype ('{0}') moet 0, 1, 2 of 3 zijn.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 6, expectedMessage);
         }
@@ -418,7 +418,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowDamType_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen damtype ('{0}') moet in het bereik {{0, 1, 2, 3}} vallen.",
+            string expectedMessage = string.Format("Het ingelezen damtype ('{0}') moet 0, 1, 2 of 3 zijn.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 6, expectedMessage);
         }
@@ -430,7 +430,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableProfileType_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen damwandtype ('{0}') moet in het bereik {{0, 1, 2}} vallen.",
+            string expectedMessage = string.Format("Het ingelezen damwandtype ('{0}') moet 0, 1 of 2 zijn.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 11, expectedMessage);
         }
@@ -441,7 +441,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowProfileType_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen damwandtype ('{0}') moet in het bereik {{0, 1, 2}} vallen.",
+            string expectedMessage = string.Format("Het ingelezen damwandtype ('{0}') moet 0, 1 of 2 zijn.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 11, expectedMessage);
         }
@@ -638,7 +638,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithMissingForeshorePoints_ThrowsCriticalFileReadException()
         {
-            string expectedMessage = "Het aantal voorlandpunten gevonden in het bestand ('1') komt niet overeen met de daarin aangegeven hoeveelheid (3).";
+            string expectedMessage = "Het aantal voorlandpunten gevonden in het bestand ('1') komt niet overeen met de daarin aangegeven hoeveelheid ('3').";
             ReadFileAndExpectCriticalFileReadException("faulty_unparsableVoorland_missingElements.prfl",
                                                        11, expectedMessage);
         }
