@@ -79,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het ingelezen damtype (&apos;{0}&apos;) moet in het bereik {{0, 1, 2, 3}} vallen..
+        ///   Looks up a localized string similar to Het ingelezen damtype (&apos;{0}&apos;) moet 0, 1, 2 of 3 zijn..
         /// </summary>
         internal static string DikeProfileDataReader_ParseDamType_DamType_0_must_be_in_range {
             get {
@@ -181,7 +181,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het ingelezen damwandtype (&apos;{0}&apos;) moet in het bereik {{0, 1, 2}} vallen..
+        ///   Looks up a localized string similar to Het ingelezen damwandtype (&apos;{0}&apos;) moet 0, 1 of 2 zijn..
         /// </summary>
         internal static string DikeProfileDataReader_ParseSheetPileType_SheetPileType_0_must_be_in_range {
             get {
@@ -254,7 +254,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het aantal dijk punten in het bestand (&apos;{0}&apos;) komt niet overeen met de aangegeven hoeveelheid dijk punten ({1})..
+        ///   Looks up a localized string similar to Het aantal dijkpunten gevonden in het bestand (&apos;{0}&apos;) komt niet overeen met de daarin aangegeven hoeveelheid (&apos;{1}&apos;)..
         /// </summary>
         internal static string DikeProfileDataReader_TryReadDikeRoughnessPoints_DikeCount_0_does_not_correspond_ExpectedCount_1_ {
             get {
@@ -264,7 +264,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het aantal voorland punten in het bestand (&apos;{0}&apos;) komt niet overeen met de aangegeven hoeveelheid voorland punten ({1})..
+        ///   Looks up a localized string similar to Het aantal voorlandpunten gevonden in het bestand (&apos;{0}&apos;) komt niet overeen met de daarin aangegeven hoeveelheid (&apos;{1}&apos;)..
         /// </summary>
         internal static string DikeProfileDataReader_TryReadForeshoreRoughnessPoints_ForeshoreCount_0_does_not_correspond_ExpectedCount_1_ {
             get {
@@ -274,7 +274,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijkgeometrie punten dienen X-coördinaten te hebben die monotoon strikt toenemend zijn..
+        ///   Looks up a localized string similar to De X-coördinaten van de dijkgeometrie punten moeten strikt toenemend zijn..
         /// </summary>
         internal static string DikeProfileDataReader_ValidateDikePointsAreMonotonicallyIncreasing_Error_message {
             get {
@@ -283,7 +283,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voorlandgeometrie punten dienen X-coördinaten te hebben die monotoon strikt toenemend zijn..
+        ///   Looks up a localized string similar to De X-coördinaten van de voorlandgeometrie punten moeten strikt toenemend zijn..
         /// </summary>
         internal static string DikeProfileDataReader_ValidateForeshorePointsAreMonotonicallyIncreasing_Error_message {
             get {

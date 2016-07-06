@@ -585,21 +585,21 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithMissingDikePoints_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, int actualCount, int expectedCount)
         {
-            string expectedMessage = string.Format("Het aantal dijk punten in het bestand ('{0}') komt niet overeen met de aangegeven hoeveelheid dijk punten ({1}).",
+            string expectedMessage = string.Format("Het aantal dijkpunten gevonden in het bestand ('{0}') komt niet overeen met de daarin aangegeven hoeveelheid ('{1}').",
                                                    actualCount, expectedCount);
             ReadFileAndExpectCriticalFileReadException(faultyFileName,
                                                        expectedLineNumber, expectedMessage);
         }
 
         [Test]
-        [TestCase("faulty_dijkNotMonotonicallyIncreasingX_1.prfl", 20, "Dijk")]
-        [TestCase("faulty_dijkNotMonotonicallyIncreasingX_2.prfl", 18, "Dijk")]
-        [TestCase("faulty_voorlandNotMonotonicallyIncreasingX_1.prfl", 12, "Voorland")]
-        [TestCase("faulty_voorlandNotMonotonicallyIncreasingX_2.prfl", 11, "Voorland")]
+        [TestCase("faulty_dijkNotMonotonicallyIncreasingX_1.prfl", 20, "dijk")]
+        [TestCase("faulty_dijkNotMonotonicallyIncreasingX_2.prfl", 18, "dijk")]
+        [TestCase("faulty_voorlandNotMonotonicallyIncreasingX_1.prfl", 12, "voorland")]
+        [TestCase("faulty_voorlandNotMonotonicallyIncreasingX_2.prfl", 11, "voorland")]
         public void ReadDikeProfileData_IncorrectOrderingX_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, string expectedTypePrefix)
         {
-            string expectedMessage = string.Format("{0}geometrie punten dienen X-coördinaten te hebben die monotoon strikt toenemend zijn.",
+            string expectedMessage = string.Format("De X-coördinaten van de {0}geometrie punten moeten strikt toenemend zijn.",
                                                    expectedTypePrefix);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
         }
@@ -638,7 +638,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithMissingForeshorePoints_ThrowsCriticalFileReadException()
         {
-            string expectedMessage = "Het aantal voorland punten in het bestand ('1') komt niet overeen met de aangegeven hoeveelheid voorland punten (3).";
+            string expectedMessage = "Het aantal voorlandpunten gevonden in het bestand ('1') komt niet overeen met de daarin aangegeven hoeveelheid (3).";
             ReadFileAndExpectCriticalFileReadException("faulty_unparsableVoorland_missingElements.prfl",
                                                        11, expectedMessage);
         }
