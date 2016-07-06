@@ -969,9 +969,13 @@ namespace Ringtoets.Integration.Plugin
             var isClearConfirmationRequired = isHydraulicBoundaryDatabaseSet && !HydraulicDatabaseHelper.HaveEqualVersion(hydraulicBoundaryDatabase, databaseFile);
             var isClearConfirmationGiven = isClearConfirmationRequired && IsClearCalculationConfirmationGiven();
 
-            if (!isHydraulicBoundaryDatabaseSet || !isClearConfirmationRequired || isClearConfirmationGiven)
+            if (isHydraulicBoundaryDatabaseSet && isClearConfirmationRequired && !isClearConfirmationGiven)
             {
-                var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryDatabaseImporter();
+                return;
+            }
+
+            using (var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryDatabaseImporter())
+            {
                 if (hydraulicBoundaryLocationsImporter.Import(assessmentSection, databaseFile))
                 {
                     if (isClearConfirmationRequired)
@@ -979,7 +983,8 @@ namespace Ringtoets.Integration.Plugin
                         ClearCalculations(assessmentSection);
                     }
                     assessmentSection.NotifyObservers();
-                    log.InfoFormat(RingtoetsFormsResources.RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked, assessmentSection.HydraulicBoundaryDatabase.FilePath);
+                    log.InfoFormat(RingtoetsFormsResources.RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,
+                                   assessmentSection.HydraulicBoundaryDatabase.FilePath);
                 }
             }
         }

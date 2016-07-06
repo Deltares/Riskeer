@@ -34,9 +34,8 @@ namespace Application.Ringtoets.Storage.Test
             StringAssert.Contains("read only=False", connectionString);
             StringAssert.Contains("foreign keys=True", connectionString);
             StringAssert.Contains("version=3", connectionString);
-            StringAssert.Contains("pooling=True", connectionString);
+            StringAssert.Contains("pooling=False", connectionString);
         }
-
 
         [Test]
         public void BuildSqLiteEntityConnectionString_ValidUncPathToSqLiteFile_ValidConnectionString()
@@ -56,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test
             StringAssert.Contains("read only=False", connectionString);
             StringAssert.Contains("foreign keys=True", connectionString);
             StringAssert.Contains("version=3", connectionString);
-            StringAssert.Contains("pooling=True", connectionString);
+            StringAssert.Contains("pooling=False", connectionString);
         }
 
         [Test]
@@ -88,7 +87,7 @@ namespace Application.Ringtoets.Storage.Test
             StringAssert.Contains("read only=False", connectionString);
             StringAssert.Contains("foreign keys=True", connectionString);
             StringAssert.Contains("version=3", connectionString);
-            StringAssert.Contains("pooling=True", connectionString);
+            StringAssert.Contains("pooling=False", connectionString);
         }
 
         [Test]
@@ -109,7 +108,7 @@ namespace Application.Ringtoets.Storage.Test
             StringAssert.Contains("read only=False", connectionString);
             StringAssert.Contains("foreign keys=True", connectionString);
             StringAssert.Contains("version=3", connectionString);
-            StringAssert.Contains("pooling=True", connectionString);
+            StringAssert.Contains("pooling=False", connectionString);
         }
 
         private const string pathToSqLiteFile = @"C:\SqLiteFile.sqlite";

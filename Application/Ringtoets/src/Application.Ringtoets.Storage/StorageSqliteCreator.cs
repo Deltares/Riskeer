@@ -52,26 +52,24 @@ namespace Application.Ringtoets.Storage
             {
                 using (var dbContext = new SQLiteConnection(connectionString, true))
                 {
+                    dbContext.Open();
                     using (var command = dbContext.CreateCommand())
                     {
-                        dbContext.Open();
-                        try
-                        {
-                            command.CommandText = Resources.DatabaseStructure;
-                            command.ExecuteNonQuery();
-                        }
-                        finally
-                        {
-                            SQLiteConnection.ClearAllPools();
-                        }
-                        dbContext.Close();
+                        command.CommandText = Resources.DatabaseStructure;
+                        command.ExecuteNonQuery();
                     }
+
+                    dbContext.Close();
                 }
             }
             catch (SQLiteException exception)
             {
                 var message = new FileWriterErrorMessageBuilder(databaseFilePath).Build(Resources.Error_Write_Structure_to_Database);
                 throw new StorageException(message, new UpdateStorageException("", exception));
+            }
+            finally
+            {
+                SQLiteConnection.ClearAllPools();
             }
         }
     }

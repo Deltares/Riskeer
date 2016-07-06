@@ -50,9 +50,9 @@ namespace Application.Ringtoets.Storage.TestUtil
             var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(databaseFilePath);
             using (var dbContext = new SQLiteConnection(connectionString, true))
             {
+                dbContext.Open();
                 using (var command = dbContext.CreateCommand())
                 {
-                    dbContext.Open();
                     try
                     {
                         command.CommandText = databaseSchemaQuery;
@@ -63,6 +63,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                         SQLiteConnection.ClearAllPools();
                     }
                 }
+                dbContext.Close();
             }
         }
 

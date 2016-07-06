@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage
                 ReadOnly = false,
                 ForeignKeys = true,
                 Version = 3,
-                Pooling = true
+                Pooling = false
             }.ConnectionString;
         }
 
