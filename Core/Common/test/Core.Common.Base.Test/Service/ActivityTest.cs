@@ -197,21 +197,49 @@ namespace Core.Common.Base.Test.Service
             Assert.AreEqual(ActivityState.Failed, activity.State);
         }
 
+        [Test]
+        public void Finish_SkippedActivityWithcSuccessfulFinish_MessageIsSendToLogAndPreviousStateIsPreserved()
+        {
+            // Setup
+            var activity = new SimpleActivity(false, false, false, true) { Name = "Activity" };
+
+            activity.Run();
+
+            // Precondition
+            Assert.AreEqual(ActivityState.Skipped, activity.State);
+
+            // Call / Assert
+            TestHelper.AssertLogMessagesAreGenerated(() => activity.Finish(), new[]
+            {
+                "Uitvoeren van 'Activity' is overgeslagen."
+            });
+
+            Assert.AreEqual(ActivityState.Skipped, activity.State);
+        }
+
         private class SimpleActivity : Activity
         {
             private readonly bool throwOnRun;
             private readonly bool throwOnCancel;
             private readonly bool throwOnFinish;
+            private readonly bool skipped;
 
-            public SimpleActivity(bool throwOnRun, bool throwOnCancel, bool throwOnFinish)
+            public SimpleActivity(bool throwOnRun, bool throwOnCancel, bool throwOnFinish, bool skipped = false)
             {
                 this.throwOnRun = throwOnRun;
                 this.throwOnCancel = throwOnCancel;
                 this.throwOnFinish = throwOnFinish;
+                this.skipped = skipped;
             }
 
             protected override void OnRun()
             {
+                if (skipped)
+                {
+                    State = ActivityState.Skipped;
+                    return;
+                }
+
                 if (throwOnRun)
                 {
                     throw new Exception("Error during run");

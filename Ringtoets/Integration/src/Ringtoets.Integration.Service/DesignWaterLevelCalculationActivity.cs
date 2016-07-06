@@ -57,23 +57,24 @@ namespace Ringtoets.Integration.Service
 
         protected override void OnRun()
         {
-            if (double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel))
+            if (!double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel))
             {
-                PerformRun(() => DesignWaterLevelCalculationService.Validate(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryLocation),
+                State = ActivityState.Skipped;
+                return;
+            }
+
+            PerformRun(() => DesignWaterLevelCalculationService.Validate(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryLocation),
                            () => hydraulicBoundaryLocation.DesignWaterLevel = double.NaN,
                            () => DesignWaterLevelCalculationService.Calculate(assessmentSection,
                                                                               assessmentSection.HydraulicBoundaryDatabase,
                                                                               hydraulicBoundaryLocation,
                                                                               assessmentSection.Name)); // TODO: Provide name of reference line instead
-            }
+            
         }
 
         protected override void OnFinish()
         {
-            if (double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel))
-            {
-                PerformFinish(() => hydraulicBoundaryLocation.DesignWaterLevel = Output.Result, hydraulicBoundaryLocation);
-            }
+            PerformFinish(() => hydraulicBoundaryLocation.DesignWaterLevel = Output.Result, hydraulicBoundaryLocation);
         }
     }
 }

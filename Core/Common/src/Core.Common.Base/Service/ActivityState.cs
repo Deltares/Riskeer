@@ -54,6 +54,12 @@ namespace Core.Common.Base.Service
         /// The state of an <see cref="Activity"/> that is successfully finished.
         /// <seealso cref="Activity.Finish"/>
         /// </summary>
-        Finished
+        Finished,
+
+        /// <summary>
+        /// The state of an <see cref="Activity"/> that is skipped.
+        /// <seealso cref="Activity.Finish"/>
+        /// </summary>
+        Skipped
     }
 }

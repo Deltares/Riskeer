@@ -171,4 +171,7 @@
   <data name="RoundedDoubleConverter_ConvertFrom_String_cannot_be_empty" xml:space="preserve">
     <value>De tekst mag niet leeg zijn.</value>
   </data>
+  <data name="Activity_Finish_Execution_of_ActivityName_0_has_been_skipped" xml:space="preserve">
+    <value>Uitvoeren van '{0}' is overgeslagen.</value>
+  </data>
 </root>

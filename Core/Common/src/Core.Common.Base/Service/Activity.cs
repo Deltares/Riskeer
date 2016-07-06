@@ -138,6 +138,11 @@ namespace Core.Common.Base.Service
             {
                 log.ErrorFormat(Resources.Activity_Finish_Execution_of_ActivityName_0_has_failed, Name);
             }
+
+            if (State == ActivityState.Skipped)
+            {
+                log.InfoFormat(Resources.Activity_Finish_Execution_of_ActivityName_0_has_been_skipped, Name);
+            }
         }
 
         /// <summary>
@@ -182,7 +187,7 @@ namespace Core.Common.Base.Service
             {
                 transitionAction();
 
-                if (State == ActivityState.Failed || State == ActivityState.Cancelled)
+                if (State == ActivityState.Failed || State == ActivityState.Cancelled || State == ActivityState.Skipped)
                 {
                     return;
                 }

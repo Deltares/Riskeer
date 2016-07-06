@@ -149,7 +149,7 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void Run_CalculationAlreadyRan_ValidationAndCalculationNotPerformed()
+        public void Run_CalculationAlreadyRan_ValidationAndCalculationNotPerformedAndStateSkipped()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -172,6 +172,7 @@ namespace Ringtoets.Integration.Service.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(0, msgs.Length);
             });
+            Assert.AreEqual(ActivityState.Skipped, activity.State);
         }
 
         [Test]
