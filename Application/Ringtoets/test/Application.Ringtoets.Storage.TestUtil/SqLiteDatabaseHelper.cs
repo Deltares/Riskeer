@@ -61,9 +61,9 @@ namespace Application.Ringtoets.Storage.TestUtil
                     finally
                     {
                         SQLiteConnection.ClearAllPools();
+                        dbContext.Close();
                     }
                 }
-                dbContext.Close();
             }
         }
 
