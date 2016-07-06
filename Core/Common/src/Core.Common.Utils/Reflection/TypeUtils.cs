@@ -67,7 +67,7 @@ namespace Core.Common.Utils.Reflection
         /// <param name="expression">The expression.</param>
         /// <returns>The string name of the member.</returns>
         /// <exception cref="System.ArgumentException">When <paramref name="expression"/> 
-        /// is not an expression with a member, such as a expression calling multiple methods.</exception>
+        /// is not an expression with a member, such as an expression calling multiple methods.</exception>
         public static string GetMemberName<T>(Expression<Func<T, object>> expression)
         {
             return GetMemberName(expression, expression.Body);
@@ -80,7 +80,7 @@ namespace Core.Common.Utils.Reflection
         /// <param name="expression">The expression.</param>
         /// <returns>The string name of the member.</returns>
         /// <exception cref="System.ArgumentException">When <paramref name="expression"/> 
-        /// is not an expression with a member, such as a expression calling multiple methods.</exception>
+        /// is not an expression with a member, such as an expression calling multiple methods.</exception>
         public static string GetMemberName<T>(Expression<Action<T>> expression)
         {
             return GetMemberName(expression, expression.Body);
@@ -225,7 +225,7 @@ namespace Core.Common.Utils.Reflection
         /// <returns><c>True</c> if the property is decorated with the given <see cref="TypeConverter"/>,
         /// <c>false</c> otherwise.</returns>
         /// <exception cref="System.ArgumentException">When <paramref name="expression"/> 
-        /// is not an expression with a property, such as a expression calling multiple methods.</exception>
+        /// is not an expression with a property, such as an expression calling multiple methods.</exception>
         /// <exception cref="AmbiguousMatchException">More then one property is found with
         /// name specified in <paramref name="expression"/>.</exception>
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded.</exception>

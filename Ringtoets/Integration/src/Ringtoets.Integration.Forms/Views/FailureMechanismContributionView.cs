@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -276,7 +277,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (string.IsNullOrEmpty(normInput.Text))
             {
-                normInput.Text = string.Format("{0}", normInput.Value);
+                normInput.Text = normInput.Value.ToString(CultureInfo.CurrentCulture);
             }
         }
 

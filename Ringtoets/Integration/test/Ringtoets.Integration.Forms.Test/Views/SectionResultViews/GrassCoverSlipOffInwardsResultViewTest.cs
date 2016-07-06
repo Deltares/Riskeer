@@ -120,7 +120,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                     Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                     Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
                     Assert.AreEqual(result1.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
-                    Assert.AreEqual(string.Format("{0}", result1.AssessmentLayerThree), cells[assessmentLayerThreeIndex].FormattedValue);
+                    Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
                     AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
                     AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
@@ -130,7 +130,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                     Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
                     Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
                     Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
-                    Assert.AreEqual(string.Format("{0}", result2.AssessmentLayerThree), cells[assessmentLayerThreeIndex].FormattedValue);
+                    Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
                     AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
                     AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);

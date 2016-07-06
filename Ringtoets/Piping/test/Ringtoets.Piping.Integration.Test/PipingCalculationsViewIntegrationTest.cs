@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
@@ -125,7 +126,7 @@ namespace Ringtoets.Piping.Integration.Test
                 // Change an input parameter of the second calculation and ensure the data grid view is updated
                 pipingCalculation2.InputParameters.ExitPointL = (RoundedDouble) 111.11;
                 pipingCalculation2.InputParameters.NotifyObservers();
-                Assert.AreEqual(string.Format("{0}", 111.11), dataGridView.Rows[1].Cells[exitPointLColumnIndex].FormattedValue);
+                Assert.AreEqual(111.11.ToString(CultureInfo.CurrentCulture), dataGridView.Rows[1].Cells[exitPointLColumnIndex].FormattedValue);
             }
         }
 

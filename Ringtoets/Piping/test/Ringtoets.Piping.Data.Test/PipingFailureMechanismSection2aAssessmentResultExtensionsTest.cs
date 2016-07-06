@@ -224,8 +224,7 @@ namespace Ringtoets.Piping.Data.Test
             FailureMechanismSection section = CreateSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
-            var expectedProbability = 0.1;
-            var pipingCalculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(expectedProbability, section);
+            var pipingCalculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(0.1, section);
             pipingCalculationScenario.Contribution = (RoundedDouble)1.0;
 
             // Call

@@ -20,12 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Integration.Data.StandAlone.SectionResults
 {
@@ -60,7 +58,6 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <summary>
         /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
-        [TypeConverter(typeof(FailureMechanismSectionResultNoValueRoundedDoubleConverter))]
         public RoundedDouble AssessmentLayerThree { get; set; }
 
         public long StorageId { get; set; }
