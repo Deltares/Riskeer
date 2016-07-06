@@ -78,6 +78,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <item>A keyword is defined more then once.</item>
         /// <item>The geometry points for either the dike or foreshore do not have monotonically
         /// increasing X-coordinates.</item>
+        /// <item>An unexpected piece of text has been encountered in the file.</item>
         /// </list></exception>
         public DikeProfileData ReadDikeProfileData(string filePath)
         {
@@ -152,6 +153,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                     {
                         continue;
                     }
+
+                    HandleUnexpectedText(text, lineNumber);
                 }
             }
 
@@ -1015,6 +1018,20 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
             var message = new FileReaderErrorMessageBuilder(fileBeingRead).WithLocation(locationDescription)
                                                                           .Build(criticalErrorMessage);
             return new CriticalFileReadException(message, innerException);
+        }
+
+        /// <summary>
+        /// Handles the error-case that the file has unexpected text.
+        /// </summary>
+        /// <param name="text">The unexpected text.</param>
+        /// <param name="lineNumber">The line number.</param>
+        /// <exception cref="CriticalFileReadException">When calling this method, due to
+        /// having read an unexpected piece of text from the file.</exception>
+        private void HandleUnexpectedText(string text, int lineNumber)
+        {
+            string message = string.Format(Resources.DikeProfileDataReader_HandleUnexpectedText_Line_0_is_invalid,
+                                           text);
+            throw CreateCriticalFileReadException(lineNumber, message);
         }
 
         private void ValidateNoMissingKeywords()

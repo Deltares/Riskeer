@@ -243,4 +243,7 @@
   <data name="DikeProfileDataReader_ReadRoughnessPoint_Line_0_not_x_y_roughness_definition" xml:space="preserve">
     <value>De ingelezen regel ('{0}') is geen 'X Y ruwheid' definitie.</value>
   </data>
+  <data name="DikeProfileDataReader_HandleUnexpectedText_Line_0_is_invalid" xml:space="preserve">
+    <value>De regel ('{0}') bevat ongeldige tekst.</value>
+  </data>
 </root>

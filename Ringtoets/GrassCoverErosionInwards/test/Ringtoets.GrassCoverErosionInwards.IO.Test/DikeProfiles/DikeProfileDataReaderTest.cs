@@ -661,6 +661,22 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
         }
 
+        [Test]
+        [TestCase("faulty_unexpectedText1.prfl", 5, "Nobody expects the Spanish inquisition!")]
+        [TestCase("faulty_unexpectedText2.prfl", 10, "0.000\t0.000\t1.000")]
+        [TestCase("faulty_unexpectedText3.prfl", 11, "18.000\t6.000\t1.000")]
+        [TestCase("faulty_unexpectedText4.prfl", 17, "-18.000\t-6.000\t1.000")]
+        [TestCase("faulty_unexpectedText5.prfl", 20, "18.000\t6.000\t1.000")]
+        [TestCase("faulty_unexpectedText6.prfl", 16, "haha hihi hoho hehe")]
+        [TestCase("faulty_unexpectedText7.prfl", 13, "Niemand weet, wat repelsteeltje eet!")]
+        public void ReadDikeProfileData_FileWithUnexpectedText_ThrowsCriticalFileReadException(
+            string faultyFileName, int expectedLineNumber, string expectedText)
+        {
+            string expectedMessage = string.Format("De regel ('{0}') bevat ongeldige tekst.",
+                                                   expectedText);
+            ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
+        }
+
         private void ReadFileAndExpectCriticalFileReadException(string fileName, int lineNumber, string errorMessage)
         {
             // Setup
