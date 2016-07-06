@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -44,15 +45,17 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the calculation.</param>
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="targetProbabilityCalculationInput">The input of the calculation to perform.</param>
+        /// <param name="parsers">Parsers that will be invoked after the Hydra-Ring calculation has ran.</param>
         /// <returns>A <see cref="TargetProbabilityCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
-        public static TargetProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId,
-                                                                             HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
-                                                                             HydraRingUncertaintiesType uncertaintiesType,
-                                                                             TargetProbabilityCalculationInput targetProbabilityCalculationInput)
+        public static void PerformCalculation(
+            string hlcdDirectory,
+            string ringId,
+            HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
+            HydraRingUncertaintiesType uncertaintiesType,
+            HydraRingCalculationInput targetProbabilityCalculationInput,
+            IEnumerable<IHydraRingFileParser> parsers)
         {
             var sectionId = targetProbabilityCalculationInput.Section.SectionId;
-
-            // Create a working directory
             var workingDirectory = CreateWorkingDirectory();
 
             var hydraRingInitializationService = new HydraRingInitializationService(targetProbabilityCalculationInput.FailureMechanismType, sectionId, hlcdDirectory, workingDirectory);
@@ -64,45 +67,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
 
             PerformCalculation(workingDirectory, hydraRingInitializationService);
 
-            // Parse and return the output
-            var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
-            targetProbabilityCalculationParser.Parse(hydraRingInitializationService.OutputFilePath, targetProbabilityCalculationInput.Section.SectionId);
-            return targetProbabilityCalculationParser.Output;
-        }
-
-        /// <summary>
-        /// This method performs a type I calculation via Hydra-Ring:
-        /// Given a set of random variables, compute the probability of failure.
-        /// </summary>
-        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
-        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
-        /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the calculation.</param>
-        /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
-        /// <param name="exceedanceProbabilityCalculationInput">The input of the calculation to perform.</param>
-        /// <returns>A <see cref="ExceedanceProbabilityCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
-        public static ExceedanceProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId,
-                                                                                 HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
-                                                                                 HydraRingUncertaintiesType uncertaintiesType,
-                                                                                 ExceedanceProbabilityCalculationInput exceedanceProbabilityCalculationInput)
-        {
-            var sectionId = exceedanceProbabilityCalculationInput.Section.SectionId;
-
-            // Create a working directory
-            var workingDirectory = CreateWorkingDirectory();
-
-            // Write the initialization script
-            var hydraRingInitializationService = new HydraRingInitializationService(exceedanceProbabilityCalculationInput.FailureMechanismType, sectionId, hlcdDirectory, workingDirectory);
-            hydraRingInitializationService.WriteInitializationScript();
-
-            var hydraRingConfigurationService = new HydraRingConfigurationService(ringId, timeIntegrationSchemeType, uncertaintiesType);
-            hydraRingConfigurationService.AddHydraRingCalculationInput(exceedanceProbabilityCalculationInput);
-            hydraRingConfigurationService.WriteDataBaseCreationScript(hydraRingInitializationService.DatabaseCreationScriptFilePath);
-
-            PerformCalculation(workingDirectory, hydraRingInitializationService);
-
-            var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
-            exceedanceProbabilityCalculationParser.Parse(hydraRingInitializationService.OutputDataBasePath, exceedanceProbabilityCalculationInput.Section.SectionId);
-            return exceedanceProbabilityCalculationParser.Output;
+            ExecuteParsers(parsers, hydraRingInitializationService.TemporaryWorkingDirectory, targetProbabilityCalculationInput.Section.SectionId);
         }
 
         /// <summary>
@@ -113,6 +78,14 @@ namespace Ringtoets.HydraRing.Calculation.Services
             if (hydraRingProcess != null && !hydraRingProcess.HasExited)
             {
                 hydraRingProcess.StandardInput.WriteLine("b");
+            }
+        }
+
+        private static void ExecuteParsers(IEnumerable<IHydraRingFileParser> parsers, string workingDirectory, int sectionId)
+        {
+            foreach (var parser in parsers)
+            {
+                parser.Parse(workingDirectory, sectionId);
             }
         }
 

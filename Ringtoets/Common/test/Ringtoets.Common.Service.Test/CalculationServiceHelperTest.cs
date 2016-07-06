@@ -80,40 +80,15 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void PerformCalculation_CalculationFuncReturnsNull_WritesStartAndEndAndErrorLogMessagesAndReturnsNull()
+        public void PerformCalculation_WithCalculation_ExecutesCalculationActionAndWritesStartAndEndAndErrorLogMessages()
         {
             // Setup
             string name = "Test name";
-            string errorMessage = "There was an error: {0}";
 
-            object output = null;
-
-            // Call
-            Action call = () => output = CalculationServiceHelper.PerformCalculation<object>(name, () => null, errorMessage);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", name), msgs[0]);
-                StringAssert.StartsWith(string.Format(errorMessage, name), msgs[1]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", name), msgs[2]);
-            });
-            Assert.IsNull(output);
-        }
-
-        [Test]
-        public void PerformCalculation_CalculationFuncReturnsOutput_WritesStartAndEndLogMessagesAndReturnsOutput()
-        {
-            // Setup
-            string name = "Test name";
-            double outputValue = 4.0;
-
-            double output = double.NaN;
+            int called = 0;
 
             // Call
-            Action call = () => output = CalculationServiceHelper.PerformCalculation(name, () => outputValue, string.Empty);
+            Action call = () => CalculationServiceHelper.PerformCalculation(name, () => called++);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -123,7 +98,7 @@ namespace Ringtoets.Common.Service.Test
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", name), msgs[0]);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", name), msgs[1]);
             });
-            Assert.AreEqual(outputValue, output);
+            Assert.AreEqual(1, called);
         }
 
         [Test]

@@ -23,7 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.IO;
 using Ringtoets.HydraRing.Calculation.Data.Output;
+using Ringtoets.HydraRing.Calculation.Services;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
@@ -31,10 +33,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// Parser for the output of a Hydra-Ring type I calculation via Hydra-Ring:
     /// Given a set of random variables, compute the probability of failure.
     /// </summary>
-    internal class ExceedanceProbabilityCalculationParser
+    public class ExceedanceProbabilityCalculationParser : IHydraRingFileParser
     {
-        private ExceedanceProbabilityCalculationOutput output;
-
         private const string betaResultQuery = "SELECT BetaId, RingCombinMethod, PresentationSectionId, MainMechanismId, MainMechanismCombinMethod, MechanismId, LayerId, AlternativeId, Beta " +
                                                "FROM BetaResults " +
                                                "WHERE SectionId = @SectionId " +
@@ -46,28 +46,23 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                                                  "ORDER BY BetaId, VariableId, LoadVariableId;";
 
         /// <summary>
-        /// Tries to parse an <see cref="ExceedanceProbabilityCalculationOutput"/> object from the provided <paramref name="outputFilePath"/> and <paramref name="sectionId"/>.
+        /// Gets the output of a successful parse of the output file.
         /// </summary>
-        /// <param name="outputFilePath">The path to the file which contains the output of the Hydra-Ring type I calculation.</param>
-        /// <param name="sectionId">The section id to get the <see cref="ExceedanceProbabilityCalculationOutput"/> object for.</param>
-        public void Parse(string outputFilePath, int sectionId)
+        /// <returns>A <see cref="ExceedanceProbabilityCalculationOutput"/> corresponding to the section id if <see cref="Parse"/> executed
+        /// successfully; or <c>null</c> otherwise.</returns>
+        public ExceedanceProbabilityCalculationOutput Output { get; private set; }
+
+        public void Parse(string workingDirectory, int sectionId)
         {
             try
             {
-                Output = DoParse(outputFilePath, sectionId);
+                Output = DoParse(Path.Combine(workingDirectory, HydraRingFileName.OutputDatabaseFileName), sectionId);
             }
             catch
             {
                 // ignored
             }
         }
-
-        /// <summary>
-        /// Gets the output of a successful parse of the output file.
-        /// </summary>
-        /// <returns>A <see cref="ExceedanceProbabilityCalculationOutput"/> corresponding to the section id if <see cref="Parse"/> executed
-        /// successfully; or <c>null</c> otherwise.</returns>
-        public ExceedanceProbabilityCalculationOutput Output { get; private set; }
 
         private static ExceedanceProbabilityCalculationOutput DoParse(string outputFilePath, int sectionId)
         {

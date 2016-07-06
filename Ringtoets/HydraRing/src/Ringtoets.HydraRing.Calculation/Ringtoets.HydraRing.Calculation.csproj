@@ -65,6 +65,7 @@
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputBase.cs" />
     <Compile Include="Data\Output\TargetProbabilityCalculationOutput.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParser.cs" />
+    <Compile Include="Parsers\IHydraRingFileParser.cs" />
     <Compile Include="Services\HydraRingCalculationService.cs" />
     <Compile Include="Data\Input\Hydraulics\AssessmentLevelCalculationInput.cs" />
     <Compile Include="Data\Input\HydraRingCalculationInput.cs" />

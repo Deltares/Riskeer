@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Calculation.Providers;
 
 namespace Ringtoets.HydraRing.Calculation.Services
@@ -48,7 +50,6 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private readonly int sectionId;
 
         // Working directories
-        private readonly string temporaryWorkingDirectory;
         private readonly string hydraRingDirectory;
         private readonly string hlcdDirectory;
 
@@ -58,13 +59,14 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <param name="failureMechanismType">The failure mechanism type.</param>
         /// <param name="sectionId">The section id.</param>
         /// <param name="hlcdDirectory">The HLCD directory.</param>
-        /// <param name="temporaryWorkingDirectory">The working directory.</param>
-        public HydraRingInitializationService(HydraRingFailureMechanismType failureMechanismType, int sectionId, string hlcdDirectory, string temporaryWorkingDirectory)
+        /// <param name="temporaryTemporaryWorkingDirectory">The working directory.</param>
+        public HydraRingInitializationService(HydraRingFailureMechanismType failureMechanismType, int sectionId, string hlcdDirectory, string temporaryTemporaryWorkingDirectory)
         {
             mechanismId = new FailureMechanismDefaultsProvider().GetFailureMechanismDefaults(failureMechanismType).MechanismId;
             this.sectionId = sectionId;
 
-            this.temporaryWorkingDirectory = temporaryWorkingDirectory;
+            TemporaryWorkingDirectory = temporaryTemporaryWorkingDirectory;
+
             this.hlcdDirectory = hlcdDirectory;
             hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"HydraRing");
         }
@@ -76,7 +78,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             get
             {
-                return Path.Combine(temporaryWorkingDirectory, sectionId + iniFileExtension);
+                return Path.Combine(TemporaryWorkingDirectory, sectionId + iniFileExtension);
             }
         }
 
@@ -87,7 +89,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             get
             {
-                return Path.Combine(temporaryWorkingDirectory, sectionId + databaseFileExtension);
+                return Path.Combine(TemporaryWorkingDirectory, sectionId + databaseFileExtension);
             }
         }
 
@@ -98,7 +100,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             get
             {
-                return Path.Combine(temporaryWorkingDirectory, sectionId + logFileExtension);
+                return Path.Combine(TemporaryWorkingDirectory, sectionId + logFileExtension);
             }
         }
 
@@ -109,7 +111,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             get
             {
-                return Path.Combine(temporaryWorkingDirectory, HydraRingFileName.DesignTablesFileName);
+                return Path.Combine(TemporaryWorkingDirectory, HydraRingFileName.DesignTablesFileName);
             }
         }
 
@@ -120,7 +122,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             get
             {
-                return Path.Combine(temporaryWorkingDirectory, HydraRingFileName.OutputDatabaseFileName);
+                return Path.Combine(TemporaryWorkingDirectory, HydraRingFileName.OutputDatabaseFileName);
             }
         }
 
@@ -156,6 +158,12 @@ namespace Ringtoets.HydraRing.Calculation.Services
                 return Path.Combine(hydraRingDirectory, HydraRingFileName.ConfigurationDatabaseFileName);
             }
         }
+
+        /// <summary>
+        /// Gets the directory in which HydraRing will place temporary input and output files created during a
+        /// calculation.
+        /// </summary>
+        public string TemporaryWorkingDirectory { get; private set; }
 
         /// <summary>
         /// Generates the initialization script necessary for performing Hydra-Ring calculations.

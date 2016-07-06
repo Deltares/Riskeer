@@ -60,26 +60,16 @@ namespace Ringtoets.Common.Service
         /// Method for performing calculations. Error and status information is logged during
         /// the execution of the operation.
         /// </summary>
-        /// <typeparam name="T">The output type.</typeparam>
         /// <param name="name">The name of the calculation.</param>
         /// <param name="calculationFunc">The method used to perform the calculation.</param>
-        /// <param name="outputIsNullErrorMessage">The error message to show when the output is <c>null</c>.</param>
-        /// <returns><typeparamref name="T"/> on a successful calculation, <c>null</c> otherwise.</returns>
-        /// <remarks>When <paramref name="calculationFunc"/> throws an exception, this will not be catched in this method.</remarks>
-        public static T PerformCalculation<T>(string name, Func<T> calculationFunc, string outputIsNullErrorMessage)
+        /// <remarks>When <paramref name="calculationFunc"/> throws an exception, this will not be caught in this method.</remarks>
+        public static void PerformCalculation(string name, Action calculationFunc)
         {
             LogCalculationBeginTime(name);
 
             try
             {
-                var output = calculationFunc();
-
-                if (output == null)
-                {
-                    LogMessagesAsError(outputIsNullErrorMessage, name);
-                }
-
-                return output;
+                calculationFunc();
             }
             finally
             {

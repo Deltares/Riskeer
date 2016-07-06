@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Service;
@@ -29,6 +30,7 @@ using Ringtoets.GrassCoverErosionInwards.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
 using Ringtoets.HydraRing.Calculation.Data.Output;
+using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Calculation.Services;
 using Ringtoets.HydraRing.IO;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
@@ -40,6 +42,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
     /// </summary>
     public static class GrassCoverErosionInwardsCalculationService
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionInwardsCalculationService));
+
         /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
         /// the execution of the operation.
@@ -67,11 +71,37 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                          string ringId, GeneralGrassCoverErosionInwardsInput generalInput)
         {
             OvertoppingCalculationInput input = CreateInput(calculation, failureMechanismSection, generalInput);
+            var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
 
-            return CalculationServiceHelper.PerformCalculation(calculation.Name,
-                                                               () => HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta, HydraRingUncertaintiesType.All, input),
-                                                               Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation);
+            CalculationServiceHelper.PerformCalculation(
+                calculation.Name,
+                () =>
+                {
+                    HydraRingCalculationService.PerformCalculation(
+                        hlcdDirectory,
+                        ringId,
+                        HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta,
+                        HydraRingUncertaintiesType.All,
+                        input,
+                        new[]
+                        {
+                            exceedanceProbabilityCalculationParser
+                        });
+
+                    VerifyOutput(exceedanceProbabilityCalculationParser.Output, calculation.Name);
+                });
+
+            return exceedanceProbabilityCalculationParser.Output;
         }
+
+        private static void VerifyOutput(ExceedanceProbabilityCalculationOutput output, string name)
+        {
+            if (output == null)
+            {
+                log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation, name);
+            }
+        }
+
 
         private static OvertoppingCalculationInput CreateInput(GrassCoverErosionInwardsCalculation calculation, FailureMechanismSection failureMechanismSection, GeneralGrassCoverErosionInwardsInput generalInput)
         {

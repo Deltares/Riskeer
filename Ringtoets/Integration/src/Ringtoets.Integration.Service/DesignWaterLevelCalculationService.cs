@@ -20,11 +20,13 @@
 // All rights reserved.
 
 using System.IO;
+using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Output;
+using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Calculation.Services;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
@@ -38,8 +40,10 @@ namespace Ringtoets.Integration.Service
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations for design water level.
     /// </summary>
-    internal static class DesignWaterLevelCalculationService 
+    internal static class DesignWaterLevelCalculationService
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(DesignWaterLevelCalculationService));
+
         /// <summary>
         /// Performs validation over the values on the given <paramref name="hydraulicBoundaryDatabase"/>. Error information is logged during
         /// the execution of the operation.
@@ -79,10 +83,32 @@ namespace Ringtoets.Integration.Service
         {
             var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabase.FilePath);
             var input = CreateInput(assessmentSection, hydraulicBoundaryLocation);
+            var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
 
-            return CalculationServiceHelper.PerformCalculation(hydraulicBoundaryLocation.Id.ToString(),
-                                                               () => HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta, HydraRingUncertaintiesType.All, input),
-                                                               Resources.DesignWaterLevelCalculationService_Calculate_Error_in_design_water_level_0_calculation);
+            CalculationServiceHelper.PerformCalculation(
+                hydraulicBoundaryLocation.Id.ToString(),
+                () =>
+                {
+                    HydraRingCalculationService.PerformCalculation(
+                              hlcdDirectory, 
+                              ringId, 
+                              HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta, 
+                              HydraRingUncertaintiesType.All, 
+                              input,
+                              new[] { targetProbabilityCalculationParser });
+
+                    VerifyOutput(targetProbabilityCalculationParser.Output, hydraulicBoundaryLocation.Id.ToString());
+                });
+
+            return targetProbabilityCalculationParser.Output;
+        }
+
+        private static void VerifyOutput(TargetProbabilityCalculationOutput output, string name)
+        {
+            if (output == null)
+            {
+                log.ErrorFormat(Resources.DesignWaterLevelCalculationService_Calculate_Error_in_design_water_level_0_calculation, name);
+            }
         }
 
         private static AssessmentLevelCalculationInput CreateInput(IAssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation)

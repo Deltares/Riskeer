@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probabilistics;
@@ -29,6 +30,7 @@ using Ringtoets.HeightStructures.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Data.Output;
+using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Calculation.Services;
 using Ringtoets.HydraRing.IO;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
@@ -40,6 +42,8 @@ namespace Ringtoets.HeightStructures.Service
     /// </summary>
     public static class HeightStructuresCalculationService
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(HeightStructuresCalculationService));
+
         /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
         /// the execution of the operation.
@@ -66,10 +70,35 @@ namespace Ringtoets.HeightStructures.Service
                                                                          string hlcdDirectory, FailureMechanismSection failureMechanismSection,
                                                                          string ringId, GeneralHeightStructuresInput generalInput)
         {
-            var input = CreateInput(calculation, failureMechanismSection, generalInput);
-            return CalculationServiceHelper.PerformCalculation(calculation.Name,
-                                                               () => HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta, HydraRingUncertaintiesType.All, input),
-                                                               Resources.HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation);
+            StructuresOvertoppingCalculationInput input = CreateInput(calculation, failureMechanismSection, generalInput);
+            var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
+
+            CalculationServiceHelper.PerformCalculation(
+                calculation.Name,
+                () => {
+                    HydraRingCalculationService.PerformCalculation(
+                        hlcdDirectory, 
+                        ringId, 
+                        HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta, 
+                        HydraRingUncertaintiesType.All, 
+                        input,
+                        new []
+                        {
+                            exceedanceProbabilityCalculationParser
+                        });
+
+                    VerifyOutput(exceedanceProbabilityCalculationParser.Output, calculation.Name);
+                });
+
+            return exceedanceProbabilityCalculationParser.Output;
+        }
+
+        private static void VerifyOutput(ExceedanceProbabilityCalculationOutput output, string name)
+        {
+            if (output == null)
+            {
+                log.ErrorFormat(Resources.HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation, name);
+            }
         }
 
         private static StructuresOvertoppingCalculationInput CreateInput(HeightStructuresCalculation calculation, FailureMechanismSection failureMechanismSection, GeneralHeightStructuresInput generalInput)

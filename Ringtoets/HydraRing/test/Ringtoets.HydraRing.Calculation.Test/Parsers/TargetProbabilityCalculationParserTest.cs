@@ -23,13 +23,26 @@ using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Parsers;
+using Ringtoets.HydraRing.Calculation.Services;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 {
     [TestFixture]
     public class TargetProbabilityCalculationParserTest
     {
+        private const string workingDirectory = "tempDir";
         private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "TargetProbabilityCalculationParser");
+
+        [Test]
+        public void DefaultConstructor_SetDefaultValues()
+        {
+            // Call
+            var parser = new TargetProbabilityCalculationParser();
+
+            // Assert
+            Assert.IsInstanceOf<IHydraRingFileParser>(parser);
+            Assert.IsNull(parser.Output);
+        }
 
         [Test]
         public void Parse_NotExistingOutputFile_OutputNull()
@@ -37,8 +50,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Setup
             var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
 
-            // Call
-            targetProbabilityCalculationParser.Parse(Path.Combine(testDataPath, "notExisting.txt"), 1);
+            using (new DirectoryDisposeHelper(workingDirectory))
+            {
+                // Call
+                targetProbabilityCalculationParser.Parse(workingDirectory, 1);
+            }
 
             // Assert
             Assert.IsNull(targetProbabilityCalculationParser.Output);
@@ -50,8 +66,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Setup
             var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
 
-            // Call
-            targetProbabilityCalculationParser.Parse(Path.Combine(testDataPath, "empty.txt"), 1);
+            using (new DirectoryDisposeHelper(workingDirectory))
+            {
+                CopyTestInputToTemporaryOutput("empty.txt");
+
+                // Call
+                targetProbabilityCalculationParser.Parse(workingDirectory, 1);
+            }
 
             // Assert
             Assert.IsNull(targetProbabilityCalculationParser.Output);
@@ -63,11 +84,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_ExampleHydraRingOutputFileContainingSectionIds_ReturnsExpectedTargetProbabilityCalculationResult(int sectionId, double result, double actual)
         {
             // Setup
-            var outputFilePath = Path.Combine(testDataPath, "exampleOutputTable.txt");
             var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
 
-            // Call
-            targetProbabilityCalculationParser.Parse(outputFilePath, sectionId);
+            using (new DirectoryDisposeHelper(workingDirectory))
+            {
+                CopyTestInputToTemporaryOutput("exampleOutputTable.txt");
+
+                // Call
+                targetProbabilityCalculationParser.Parse(workingDirectory, sectionId);
+            }
 
             // Assert
             var targetProbabilityCalculationOutput = targetProbabilityCalculationParser.Output;
@@ -82,11 +107,29 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Setup
             var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
 
-            // Call
-            targetProbabilityCalculationParser.Parse(Path.Combine(testDataPath, "exampleOutputTable.txt"), 2);
+            using (new DirectoryDisposeHelper(workingDirectory))
+            {
+                CopyTestInputToTemporaryOutput("exampleOutputTable.txt");
+
+                // Call
+                targetProbabilityCalculationParser.Parse(workingDirectory, 2);
+            }
 
             // Assert
             Assert.IsNull(targetProbabilityCalculationParser.Output);
+        }
+
+        /// <summary>
+        /// Copies the testfile from the test directory to the working directory.
+        /// </summary>
+        /// <param name="testFile">The name of the test's input file.</param>
+        /// <remarks>The copied file is removed from the working directory by using the <see cref="DirectoryDisposeHelper"/>,
+        /// which recursively removes all files in the directory.</remarks>
+        private void CopyTestInputToTemporaryOutput(string testFile)
+        {
+            var inputFilePath = Path.Combine(testDataPath, testFile);
+            var outputFilePath = Path.Combine(workingDirectory, HydraRingFileName.DesignTablesFileName);
+            File.Copy(inputFilePath, outputFilePath);
         }
     }
 }
