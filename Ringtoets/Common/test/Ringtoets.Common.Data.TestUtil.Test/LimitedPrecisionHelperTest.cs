@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 
@@ -58,6 +60,22 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
             // Call
             var accuracy = distribution.GetAccuracy();
+
+            // Assert
+            var expectedPrecision = Math.Pow(10.0, -precision);
+            Assert.AreEqual(expectedPrecision, accuracy);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(2)]
+        public void GetAccuracy_RoundedPoint2DCollection_ReturnsAccuracy(int precision)
+        {
+            // Setup
+            var roundedCollectoin = new RoundedPoint2DCollection(precision, Enumerable.Empty<Point2D>());
+
+            // Call
+            var accuracy = roundedCollectoin.GetAccuracy();
 
             // Assert
             var expectedPrecision = Math.Pow(10.0, -precision);

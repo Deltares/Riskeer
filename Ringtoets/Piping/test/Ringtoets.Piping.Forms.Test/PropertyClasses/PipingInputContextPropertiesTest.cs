@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new PipingInputContextProperties();
+            PipingInputContextProperties properties = new PipingInputContextProperties();
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<PipingInputContext>>(properties);
@@ -68,8 +68,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var random = new Random(22);
 
-            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            StochasticSoilProfile stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
                 {
@@ -82,9 +82,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             StochasticSoilModel stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
-            var testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(0.0);
+            HydraulicBoundaryLocation testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(0.0);
 
-            var inputParameters = new PipingInput(new GeneralPipingInput())
+            PipingInput inputParameters = new PipingInput(new GeneralPipingInput())
             {
                 HydraulicBoundaryLocation = testHydraulicBoundaryLocation
             };
@@ -92,10 +92,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             inputParameters.StochasticSoilModel = stochasticSoilModel;
             inputParameters.StochasticSoilProfile = (stochasticSoilProfile);
 
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
+            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
-            var properties = new PipingInputContextProperties
+            PipingInputContextProperties properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
                                               calculationItem,
@@ -142,13 +142,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
+            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
-            var inputParameters = new PipingInput(new GeneralPipingInput());
+            PipingInput inputParameters = new PipingInput(new GeneralPipingInput());
             inputParameters.Attach(projectObserver);
 
-            var properties = new PipingInputContextProperties
+            PipingInputContextProperties properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
                                               calculationItem,
@@ -179,33 +179,33 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput())
+            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
                 {
                     SurfaceLine = ValidSurfaceLine(0.0, 4.0)
                 }
             };
-            var failureMechanism = new PipingFailureMechanism();
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
-            var inputParameters = calculationItem.InputParameters;
+            PipingInput inputParameters = calculationItem.InputParameters;
             inputParameters.Attach(projectObserver);
 
             Random random = new Random(22);
 
             double assessmentLevel = random.NextDouble();
 
-            var dampingFactorExit = new LogNormalDistribution(3);
-            var phreaticLevelExit = new NormalDistribution(2);
-            var diameter70 = new LogNormalDistribution(2);
-            var darcyPermeability = new LogNormalDistribution(3);
-            var saturatedVolumicWeightOfCoverageLoayer = new ShiftedLogNormalDistribution(2);
+            LogNormalDistribution dampingFactorExit = new LogNormalDistribution(3);
+            NormalDistribution phreaticLevelExit = new NormalDistribution(2);
+            LogNormalDistribution diameter70 = new LogNormalDistribution(2);
+            LogNormalDistribution darcyPermeability = new LogNormalDistribution(3);
+            ShiftedLogNormalDistribution saturatedVolumicWeightOfCoverageLoayer = new ShiftedLogNormalDistribution(2);
 
-            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             StochasticSoilModel stochasticSoilModel1 = ValidStochasticSoilModel(0.0, 4.0);
 
             StochasticSoilModel stochasticSoilModel2 = ValidStochasticSoilModel(0.0, 4.0);
-            var stochasticSoilProfile2 = stochasticSoilModel2.StochasticSoilProfiles.First();
+            StochasticSoilProfile stochasticSoilProfile2 = stochasticSoilModel2.StochasticSoilProfiles.First();
             stochasticSoilModel2.StochasticSoilProfiles.Add(new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 1234));
 
             // Call
@@ -285,17 +285,17 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
-            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
+            RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
-            var inputParameters = new PipingInput(new GeneralPipingInput())
+            PipingInput inputParameters = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = surfaceLine
             };
             inputParameters.Attach(inputObserver);
 
-            var properties = new PipingInputContextProperties
+            PipingInputContextProperties properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
                                               calculationItem,
@@ -326,15 +326,15 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
-            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
+            RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
-            var inputParameters = new PipingInput(new GeneralPipingInput());
+            PipingInput inputParameters = new PipingInput(new GeneralPipingInput());
             inputParameters.SurfaceLine = surfaceLine;
             inputParameters.Attach(inputObserver);
 
-            var properties = new PipingInputContextProperties
+            PipingInputContextProperties properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
                                               calculationItem,
@@ -365,14 +365,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var inputObserver = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
+            RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
-            var inputParameters = new PipingInput(new GeneralPipingInput());
+            PipingInput inputParameters = new PipingInput(new GeneralPipingInput());
             inputParameters.SurfaceLine = surfaceLine;
 
-            var properties = new PipingInputContextProperties
+            PipingInputContextProperties properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
                                               calculationItem,
@@ -382,8 +382,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               assessmentSectionMock)
             };
 
-            const double l = 2.0;
-            properties.EntryPointL = (RoundedDouble) l;
+            properties.EntryPointL = (RoundedDouble) 2.0;
 
             inputParameters.Attach(inputObserver);
 
@@ -395,13 +394,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 call,
                 RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
 
-            mocks.VerifyAll();
+            mocks.VerifyAll(); // No observer notified
         }
 
         [Test]
         [TestCase(2.0)]
         [TestCase(5.0)]
-        public void entryPointL_InvalidValue_ThrowsArgumentOutOfRangeException(double newEntryPoint)
+        public void EntryPointL_InvalidValue_ThrowsArgumentOutOfRangeException(double newEntryPoint)
         {
             // Setup
             var mocks = new MockRepository();
@@ -409,14 +408,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var inputObserver = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
+            RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
-            var inputParameters = new PipingInput(new GeneralPipingInput());
+            PipingInput inputParameters = new PipingInput(new GeneralPipingInput());
             inputParameters.SurfaceLine = surfaceLine;
 
-            var properties = new PipingInputContextProperties
+            PipingInputContextProperties properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
                                               calculationItem,
@@ -426,8 +425,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               assessmentSectionMock)
             };
 
-            const double l = 2.0;
-            properties.ExitPointL = (RoundedDouble) l;
+            properties.ExitPointL = (RoundedDouble) 2.0;
 
             inputParameters.Attach(inputObserver);
 
@@ -439,11 +437,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 call,
                 RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
 
-            mocks.VerifyAll();
+            mocks.VerifyAll(); // No observer notified
         }
 
         [Test]
-        public void entryPointL_NotOnSurfaceline_ThrowsArgumentOutOfRangeException()
+        public void EntryPointL_NotOnSurfaceline_ThrowsArgumentOutOfRangeException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -451,11 +449,51 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var inputObserver = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
+            RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
-            var inputParameters = new PipingInput(new GeneralPipingInput());
+            PipingInput inputParameters = new PipingInput(new GeneralPipingInput());
+            inputParameters.SurfaceLine = surfaceLine;
+
+            PipingInputContextProperties properties = new PipingInputContextProperties
+            {
+                Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
+                                              failureMechanism,
+                                              assessmentSectionMock)
+            };
+
+            properties.ExitPointL = (RoundedDouble) 2.0;
+
+            inputParameters.Attach(inputObserver);
+
+            // Call
+            TestDelegate call = () => properties.EntryPointL = (RoundedDouble)(-15.0);
+
+            // Assert
+            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.", 0, 4);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+
+            mocks.VerifyAll(); // No observer notified
+        }
+
+        [Test]
+        public void ExitPointL_NotOnSurfaceline_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var inputObserver = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+
+            PipingInput inputParameters = new PipingInput(new GeneralPipingInput());
             inputParameters.SurfaceLine = surfaceLine;
 
             var properties = new PipingInputContextProperties
@@ -468,62 +506,18 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               assessmentSectionMock)
             };
 
-            const double entryPoint = -15.0;
-            const double exitPoint = 2.0;
-            properties.ExitPointL = (RoundedDouble)exitPoint;
+            properties.EntryPointL = (RoundedDouble) 2.0;
 
             inputParameters.Attach(inputObserver);
 
             // Call
-            TestDelegate call = () => properties.EntryPointL = (RoundedDouble)entryPoint;
+            TestDelegate call = () => properties.ExitPointL = (RoundedDouble) 10.0;
 
             // Assert
             var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.", 0, 4);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
 
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void exitPointL_NotOnSurfaceline_ThrowsArgumentOutOfRangeException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var inputObserver = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-
-            var inputParameters = new PipingInput(new GeneralPipingInput());
-            inputParameters.SurfaceLine = surfaceLine;
-
-            var properties = new PipingInputContextProperties
-            {
-                Data = new PipingInputContext(inputParameters,
-                                              calculationItem,
-                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<StochasticSoilModel>(),
-                                              failureMechanism,
-                                              assessmentSectionMock)
-            };
-
-            const double entryPoint = 2.0;
-            const double exitPoint = 10.0;
-            properties.EntryPointL = (RoundedDouble) entryPoint;
-
-            inputParameters.Attach(inputObserver);
-
-            // Call
-            TestDelegate call = () => properties.ExitPointL = (RoundedDouble) exitPoint;
-
-            // Assert
-            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.", 0, 4);
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-
-            mocks.VerifyAll();
+            mocks.VerifyAll(); // No observer notified
         }
 
         [Test]
@@ -537,10 +531,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             double assessmentLevel = new Random(21).NextDouble();
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
+            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
-            var inputParameters = new PipingInput(new GeneralPipingInput())
+            PipingInput inputParameters = new PipingInput(new GeneralPipingInput())
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, String.Empty, 0.0, 0.0)
                 {
@@ -549,7 +543,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
             inputParameters.Attach(projectObserver);
 
-            var properties = new PipingInputContextProperties
+            PipingInputContextProperties properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
                                               calculationItem,
@@ -560,7 +554,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             string testName = "TestName";
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, testName, 0, 0)
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, testName, 0, 0)
             {
                 DesignWaterLevel = double.NaN
             };
@@ -584,13 +578,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(1);
             mocks.ReplayAll();
 
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
+            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
-            var inputParameters = new PipingInput(new GeneralPipingInput());
+            PipingInput inputParameters = new PipingInput(new GeneralPipingInput());
             inputParameters.Attach(projectObserver);
 
-            var properties = new PipingInputContextProperties
+            PipingInputContextProperties properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
                                               calculationItem,
@@ -601,7 +595,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             double testLevel = new Random(21).NextDouble();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0)
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0)
             {
                 DesignWaterLevel = testLevel
             };
@@ -623,17 +617,17 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput())
+            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
                 {
                     SurfaceLine = ValidSurfaceLine(0.0, 4.0)
                 }
             };
-            var failureMechanism = new PipingFailureMechanism();
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
-            var inputParameters = calculationItem.InputParameters;
-            var properties = new PipingInputContextProperties
+            PipingInput inputParameters = calculationItem.InputParameters;
+            PipingInputContextProperties properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
                                               calculationItem,
@@ -663,24 +657,24 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var testSurfaceLine = ValidSurfaceLine(0, 2);
-            var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            RingtoetsPipingSurfaceLine testSurfaceLine = ValidSurfaceLine(0, 2);
+            StochasticSoilProfile stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = new TestPipingSoilProfile()
             };
-            var stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName");
+            StochasticSoilModel stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
+            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
-            var inputParameters = new PipingInput(new GeneralPipingInput())
+            PipingInput inputParameters = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = testSurfaceLine,
                 StochasticSoilModel = stochasticSoilModel,
                 StochasticSoilProfile = stochasticSoilProfile
             };
-            var properties = new PipingInputContextProperties
+            PipingInputContextProperties properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
                                               calculationItem,
@@ -709,13 +703,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var testPipingSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            StochasticSoilProfile testPipingSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = new TestPipingSoilProfile()
             };
-            var stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName");
+            StochasticSoilModel stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName");
             stochasticSoilModel.StochasticSoilProfiles.Add(testPipingSoilProfile);
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput())
+            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -725,10 +719,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 }
             };
 
-            var inputParameters = calculationItem.InputParameters;
-            var failureMechanism = new PipingFailureMechanism();
+            PipingInput inputParameters = calculationItem.InputParameters;
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
-            var properties = new PipingInputContextProperties
+            PipingInputContextProperties properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
                                               calculationItem,
@@ -757,31 +751,31 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var testSurfaceLine = ValidSurfaceLine(0, 2);
-            var stochasticSoilProfile1 = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            RingtoetsPipingSurfaceLine testSurfaceLine = ValidSurfaceLine(0, 2);
+            StochasticSoilProfile stochasticSoilProfile1 = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = new TestPipingSoilProfile()
             };
-            var stochasticSoilModel1 = new StochasticSoilModel(0, "StochasticSoilModel1Name", "StochasticSoilModelSegment1Name");
+            StochasticSoilModel stochasticSoilModel1 = new StochasticSoilModel(0, "StochasticSoilModel1Name", "StochasticSoilModelSegment1Name");
             stochasticSoilModel1.StochasticSoilProfiles.Add(stochasticSoilProfile1);
 
-            var stochasticSoilProfile2 = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            StochasticSoilProfile stochasticSoilProfile2 = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = new TestPipingSoilProfile()
             };
-            var stochasticSoilModel2 = new StochasticSoilModel(0, "StochasticSoilModel2Name", "StochasticSoilModelSegment2Name");
+            StochasticSoilModel stochasticSoilModel2 = new StochasticSoilModel(0, "StochasticSoilModel2Name", "StochasticSoilModelSegment2Name");
             stochasticSoilModel1.StochasticSoilProfiles.Add(stochasticSoilProfile2);
 
-            var inputParameters = new PipingInput(new GeneralPipingInput())
+            PipingInput inputParameters = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = testSurfaceLine,
                 StochasticSoilModel = stochasticSoilModel1,
                 StochasticSoilProfile = stochasticSoilProfile1
             };
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
+            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
-            var properties = new PipingInputContextProperties
+            PipingInputContextProperties properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
                                               calculationItem,
@@ -808,11 +802,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var typeDescriptorContextMock = mocks.StrictMock<ITypeDescriptorContext>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
+            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
-            var inputParameters = new PipingInput(new GeneralPipingInput());
-            var contextProperties = new PipingInputContextProperties
+            PipingInput inputParameters = new PipingInput(new GeneralPipingInput());
+            PipingInputContextProperties contextProperties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
                                               calculationItem,
@@ -827,7 +821,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             DesignVariable<NormalDistribution> phreaticLevelExitProperty = contextProperties.PhreaticLevelExit;
-            var dynamicPropertyBag = new DynamicPropertyBag(contextProperties);
+            DynamicPropertyBag dynamicPropertyBag = new DynamicPropertyBag(contextProperties);
             typeDescriptorContextMock.Expect(tdc => tdc.Instance).Return(dynamicPropertyBag).Repeat.Twice();
             typeDescriptorContextMock.Stub(tdc => tdc.PropertyDescriptor).Return(dynamicPropertyBag.GetProperties()["PhreaticLevelExit"]);
             mocks.ReplayAll();
@@ -845,7 +839,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
         private static StochasticSoilModel ValidStochasticSoilModel(double xMin, double xMax)
         {
-            var stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName");
+            StochasticSoilModel stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName");
             stochasticSoilModel.StochasticSoilProfiles.Add(new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 1234)
             {
                 SoilProfile = new TestPipingSoilProfile()
@@ -857,7 +851,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
         private static RingtoetsPipingSurfaceLine ValidSurfaceLine(double xMin, double xMax)
         {
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(xMin, 0.0, 0.0),

@@ -134,7 +134,7 @@ namespace Ringtoets.Piping.Data
                 StochasticSoilProfile stochasticSoilProfile = input.StochasticSoilProfile;
 
                 RingtoetsPipingSurfaceLine surfaceLine = input.SurfaceLine;
-                double exitPointL = input.ExitPointL;
+                RoundedDouble exitPointL = input.ExitPointL;
 
                 if (stochasticSoilProfile != null && stochasticSoilProfile.SoilProfile != null && surfaceLine != null && !double.IsNaN(exitPointL))
                 {
@@ -162,7 +162,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        private static double GetThicknessTopAquiferLayer(PipingSoilProfile soilProfile, RingtoetsPipingSurfaceLine surfaceLine, double exitPointL)
+        private static double GetThicknessTopAquiferLayer(PipingSoilProfile soilProfile, RingtoetsPipingSurfaceLine surfaceLine, RoundedDouble exitPointL)
         {
             try
             {

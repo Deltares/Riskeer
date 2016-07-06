@@ -816,26 +816,38 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsFalse(button.Enabled);
         }
 
-        [TestCase(isRelevantColumnIndex, true, 1, 0)]
-        [TestCase(contributionColumnIndex, 30.0, 1, 0)]
-        [TestCase(nameColumnIndex, "New name", 1, 0)]
-        [TestCase(stochasticSoilProfilesColumnIndex, null, 0, 1)]
-        [TestCase(hydraulicBoundaryLocationsColumnIndex, null, 0, 1)]
-        [TestCase(dampingFactorExitMeanColumnIndex, 1.1, 0, 1)]
-        [TestCase(phreaticLevelExitMeanColumnIndex, 1.1, 0, 1)]
-        [TestCase(entryPointLColumnIndex, 1.1, 0, 1)]
-        [TestCase(exitPointLColumnIndex, 5.5, 0, 1)]
-        public void PipingCalculationsView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(int cellIndex, object newValue, int expectedPipingCalculationCounter, int expectedPipingCalculationInputCounter)
+        [TestCase(isRelevantColumnIndex, true, true, false)]
+        [TestCase(contributionColumnIndex, 30.0, true, false)]
+        [TestCase(nameColumnIndex, "New name", true, false)]
+        [TestCase(stochasticSoilProfilesColumnIndex, null, false, true)]
+        [TestCase(hydraulicBoundaryLocationsColumnIndex, null, false, true)]
+        [TestCase(dampingFactorExitMeanColumnIndex, 1.1, false, true)]
+        [TestCase(phreaticLevelExitMeanColumnIndex, 1.1, false, true)]
+        [TestCase(entryPointLColumnIndex, 1.1, false, true)]
+        [TestCase(exitPointLColumnIndex, 5.5, false, true)]
+        public void PipingCalculationsView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(int cellIndex, object newValue, bool expectPipingCalculationNotify, bool expectPipingCalculationInputNotify)
         {
             // Setup
+            var mocks = new MockRepository();
+            var pipingCalculationObserver = mocks.StrictMock<IObserver>();
+            var pipingCalculationInputObserver = mocks.StrictMock<IObserver>();
+
+            if (expectPipingCalculationNotify)
+            {
+                pipingCalculationObserver.Expect(o => o.UpdateObserver());
+            }
+
+            if (expectPipingCalculationInputNotify)
+            {
+                pipingCalculationInputObserver.Expect(o => o.UpdateObserver());
+            }
+
+            mocks.ReplayAll();
+
             var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
 
             var data = (CalculationGroup) pipingCalculationView.Data;
             var pipingCalculation = (PipingCalculationScenario) data.Children.First();
-            var pipingCalculationCounter = 0;
-            var pipingCalculationInputCounter = 0;
-            var pipingCalculationObserver = new Observer(() => pipingCalculationCounter++);
-            var pipingCalculationInputObserver = new Observer(() => pipingCalculationInputCounter++);
 
             pipingCalculation.Attach(pipingCalculationObserver);
             pipingCalculation.InputParameters.Attach(pipingCalculationInputObserver);
@@ -846,8 +858,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             dataGridView.Rows[0].Cells[cellIndex].Value = newValue is double ? (RoundedDouble) (double) newValue : newValue;
 
             // Assert
-            Assert.AreEqual(expectedPipingCalculationCounter, pipingCalculationCounter);
-            Assert.AreEqual(expectedPipingCalculationInputCounter, pipingCalculationInputCounter);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -855,17 +866,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [TestCase(entryPointLColumnIndex, 4.44)]
         [TestCase(exitPointLColumnIndex, 2.22)]
         [TestCase(exitPointLColumnIndex, 1.1)]
-        public void PipingCalculationsView_InvalidEntryOrExitPoint_ShowsErrorTooltip(int cellIndex, object newValue)
+        public void PipingCalculationsView_InvalidEntryOrExitPoint_ShowsErrorTooltip(int cellIndex, double newValue)
         {
             // Setup
+            var mocks = new MockRepository();
+            var pipingCalculationObserver = mocks.StrictMock<IObserver>();
+            var pipingCalculationInputObserver = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
             var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
 
             var data = (CalculationGroup)pipingCalculationView.Data;
             var pipingCalculation = (PipingCalculationScenario)data.Children.First();
-            var pipingCalculationCounter = 0;
-            var pipingCalculationInputCounter = 0;
-            var pipingCalculationObserver = new Observer(() => pipingCalculationCounter++);
-            var pipingCalculationInputObserver = new Observer(() => pipingCalculationInputCounter++);
 
             pipingCalculation.Attach(pipingCalculationObserver);
             pipingCalculation.InputParameters.Attach(pipingCalculationInputObserver);
@@ -873,12 +885,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
             // Call
-            dataGridView.Rows[0].Cells[cellIndex].Value = newValue is double ? (RoundedDouble)(double)newValue : newValue;
+            dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble) newValue;
 
             // Assert
             Assert.AreEqual(RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL, dataGridView.Rows[0].ErrorText);
-            Assert.AreEqual(0, pipingCalculationCounter);
-            Assert.AreEqual(0, pipingCalculationInputCounter);
+            mocks.VerifyAll(); // No observer notified
         }
 
         [Test]
@@ -886,17 +897,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [TestCase(entryPointLColumnIndex, -1.0)]
         [TestCase(exitPointLColumnIndex, 10.1)]
         [TestCase(exitPointLColumnIndex, 11.0)]
-        public void PipingCalculationsView_EntryOrExitPointNotOnSurfaceLine_ShowsErrorToolTip(int cellIndex, object newValue)
+        public void PipingCalculationsView_EntryOrExitPointNotOnSurfaceLine_ShowsErrorToolTip(int cellIndex, double newValue)
         {
             // Setup
+            var mocks = new MockRepository();
+            var pipingCalculationObserver = mocks.StrictMock<IObserver>();
+            var pipingCalculationInputObserver = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
             var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
 
             var data = (CalculationGroup)pipingCalculationView.Data;
             var pipingCalculation = (PipingCalculationScenario)data.Children.First();
-            var pipingCalculationCounter = 0;
-            var pipingCalculationInputCounter = 0;
-            var pipingCalculationObserver = new Observer(() => pipingCalculationCounter++);
-            var pipingCalculationInputObserver = new Observer(() => pipingCalculationInputCounter++);
 
             pipingCalculation.Attach(pipingCalculationObserver);
             pipingCalculation.InputParameters.Attach(pipingCalculationInputObserver);
@@ -904,13 +916,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
             // Call
-            dataGridView.Rows[0].Cells[cellIndex].Value = newValue is double ? (RoundedDouble)(double)newValue : newValue;
+            dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble)newValue;
 
             // Assert
             var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.", 0, 10);
             Assert.AreEqual(expectedMessage, dataGridView.Rows[0].ErrorText);
-            Assert.AreEqual(0, pipingCalculationCounter);
-            Assert.AreEqual(0, pipingCalculationInputCounter);
+            mocks.VerifyAll(); // No observer notified
         }
 
         private const int isRelevantColumnIndex = 0;

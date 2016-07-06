@@ -315,7 +315,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
                 call,
                 RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
-            mocks.VerifyAll();
+            mocks.VerifyAll(); // No observer notified
         }
 
         [Test]
@@ -339,7 +339,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.", 0, 1);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-            mocks.VerifyAll();
+            mocks.VerifyAll(); // No observer notified
         }
 
         [Test]
@@ -388,7 +388,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
                 call,
                 RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
-            mocks.VerifyAll();
+            mocks.VerifyAll(); // No observer notified
         }
 
         [Test]
@@ -412,7 +412,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.", 0, 1);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-            mocks.VerifyAll();
+            mocks.VerifyAll(); // No observer notified
         }
     }
 }

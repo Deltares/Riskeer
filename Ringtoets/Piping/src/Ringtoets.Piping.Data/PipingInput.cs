@@ -91,8 +91,8 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="value"/> is smaller or equal to <see cref="EntryPointL"/>.</item>
-        /// <item><paramref name="value"/> is not on the <see cref="RingtoetsPipingSurfaceLine"/>.</item>
+        /// <item><paramref name="value"/> is smaller or equal to <see cref="ExitPointL"/>.</item>
+        /// <item><paramref name="value"/> does not fall within the local X-coordinate range of <see cref="SurfaceLine"/></item>
         /// </list>
         /// </exception>
         public RoundedDouble EntryPointL
@@ -103,10 +103,15 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                var newEntryPoint = value.ToPrecision(entryPointL.NumberOfDecimalPlaces);
-                ValidateEntryExitPoint(newEntryPoint, exitPointL);
-                ValidatePointOnSurfaceLine(newEntryPoint);
-                entryPointL = newEntryPoint;
+                var newEntryPointL = value.ToPrecision(entryPointL.NumberOfDecimalPlaces);
+
+                if (!double.IsNaN(newEntryPointL) && !double.IsNaN(exitPointL))
+                {
+                    ValidateEntryExitPoint(newEntryPointL, exitPointL);
+                }
+
+                ValidatePointOnSurfaceLine(newEntryPointL);
+                entryPointL = newEntryPointL;
             }
         }
 
@@ -119,7 +124,7 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentOutOfRangeException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="value"/> is smaller or equal to <see cref="EntryPointL"/>.</item>
-        /// <item><paramref name="value"/> is not on the <see cref="RingtoetsPipingSurfaceLine"/>.</item>
+        /// <item><paramref name="value"/> does not fall within the local X-coordinate range of <see cref="SurfaceLine"/></item>
         /// </list>
         /// </exception>
         public RoundedDouble ExitPointL
@@ -130,26 +135,31 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                var newExitPoint = value.ToPrecision(exitPointL.NumberOfDecimalPlaces);
-                ValidateEntryExitPoint(entryPointL, newExitPoint);
-                ValidatePointOnSurfaceLine(newExitPoint);
-                exitPointL = newExitPoint;
+                var newExitPointL = value.ToPrecision(exitPointL.NumberOfDecimalPlaces);
+                
+                if (!double.IsNaN(entryPointL) && !double.IsNaN(newExitPointL))
+                {
+                    ValidateEntryExitPoint(entryPointL, newExitPointL);
+                }
+
+                ValidatePointOnSurfaceLine(newExitPointL);
+                exitPointL = newExitPointL;
             }
         }
 
-        private void ValidateEntryExitPoint(RoundedDouble entryPoint, RoundedDouble exitPoint)
+        private void ValidateEntryExitPoint(RoundedDouble entryPointLocalXCoordinate, RoundedDouble exitPointLocalXCoordinate)
         {
-            if (!double.IsNaN(entryPoint) && !double.IsNaN(exitPoint) && entryPoint >= exitPoint)
+            if (entryPointLocalXCoordinate >= exitPointLocalXCoordinate)
             {
                 throw new ArgumentOutOfRangeException(null, Resources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
             }
         }
 
-        private void ValidatePointOnSurfaceLine(RoundedDouble newPoint)
+        private void ValidatePointOnSurfaceLine(RoundedDouble newLocalXCoordinate)
         {
             if (surfaceLine != null)
             {
-                surfaceLine.ValidateInRange(newPoint, surfaceLine.ProjectGeometryToLZ().ToArray());
+                surfaceLine.ValidateInRange(newLocalXCoordinate, surfaceLine.ProjectGeometryToLZ().ToArray());
             }
         }
 

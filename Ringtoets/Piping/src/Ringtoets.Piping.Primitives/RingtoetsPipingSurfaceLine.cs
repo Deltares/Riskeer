@@ -36,6 +36,7 @@ namespace Ringtoets.Piping.Primitives
     /// </summary>
     public class RingtoetsPipingSurfaceLine : IStorable
     {
+        private const int numberOfDecimalPlaces = 2;
         private Point3D[] geometryPoints;
 
         /// <summary>
@@ -246,7 +247,7 @@ namespace Ringtoets.Piping.Primitives
         /// intersection point at <paramref name="l"/> have a significant difference in their y coordinate.</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="l"/> is not in range of the LZ-projected <see cref="Points"/>.</exception>
         /// <exception cref="InvalidOperationException"><see cref="Points"/> is empty.</exception>
-        public double GetZAtL(double l)
+        public double GetZAtL(RoundedDouble l)
         {
             ValidateHasPoints();
 
@@ -281,7 +282,6 @@ namespace Ringtoets.Piping.Primitives
         /// <returns>Collection of 2D points in the LZ-plane.</returns>
         public RoundedPoint2DCollection ProjectGeometryToLZ()
         {
-            var numberOfDecimalPlaces = 2;
             var count = geometryPoints.Length;
             if (count == 0)
             {
@@ -348,7 +348,7 @@ namespace Ringtoets.Piping.Primitives
         /// L-coordinate being monotonically non-decreasing</param>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="localCoordinateL"/> falls outside the L-coordiante span
         /// defined by <paramref name="geometryInLocalCoordinates"/>.</exception>
-        public void ValidateInRange(double localCoordinateL, Point2D[] geometryInLocalCoordinates)
+        public void ValidateInRange(RoundedDouble localCoordinateL, Point2D[] geometryInLocalCoordinates)
         {
             Point2D firstLocalPoint = geometryInLocalCoordinates.First();
             Point2D lastLocalPoint = geometryInLocalCoordinates.Last();

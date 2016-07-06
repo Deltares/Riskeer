@@ -46,5 +46,13 @@ namespace Ringtoets.Common.Data.TestUtil
         {
             return distribution.Mean.GetAccuracy();
         }
+
+        /// <summary>
+        /// Gets the accuracy for a <see cref="RoundedPoint2DCollection"/>.
+        /// </summary>
+        public static double GetAccuracy(this RoundedPoint2DCollection collection)
+        {
+            return Math.Pow(10.0, -collection.NumberOfDecimalPlaces);
+        }
     }
 }

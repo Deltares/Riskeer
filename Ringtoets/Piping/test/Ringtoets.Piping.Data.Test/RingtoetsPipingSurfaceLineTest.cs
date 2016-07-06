@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.Exceptions;
@@ -192,7 +192,7 @@ namespace Ringtoets.Piping.Data.Test
                 secondCoordinateFactor*length,
                 length
             };
-            CollectionAssert.AreEqual(expectedCoordinatesX, actual.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(Math.Pow(10.0, -actual.NumberOfDecimalPlaces)));
+            CollectionAssert.AreEqual(expectedCoordinatesX, actual.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(actual.GetAccuracy()));
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Select(p => p.Y).ToArray());
             Assert.AreEqual(2, actual.NumberOfDecimalPlaces);
         }
@@ -233,7 +233,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
-            var l = new Random(21).NextDouble();
+            RoundedDouble l = (RoundedDouble) new Random(21).NextDouble();
 
             // Call
             TestDelegate test = () => surfaceLine.GetZAtL(l);
@@ -250,7 +250,7 @@ namespace Ringtoets.Piping.Data.Test
             var testZ = new Random(22).NextDouble();
 
             var surfaceLine = new RingtoetsPipingSurfaceLine();
-            var l = 2.0;
+            RoundedDouble l = (RoundedDouble) 2.0;
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0.0, 0.0, 2.2),
@@ -284,11 +284,11 @@ namespace Ringtoets.Piping.Data.Test
             });
 
             // Call
-            TestDelegate test = () => surfaceLine.GetZAtL(l);
+            TestDelegate test = () => surfaceLine.GetZAtL((RoundedDouble) l);
 
             // Assert
-            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.",
-                                                0, 3.1);
+            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [0, {0}] liggen.",
+                                                3.1);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -299,7 +299,7 @@ namespace Ringtoets.Piping.Data.Test
             var testZ = new Random(22).NextDouble();
 
             var surfaceLine = new RingtoetsPipingSurfaceLine();
-            var l = 2.0;
+            RoundedDouble l = (RoundedDouble) 2.0;
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0.0, 0.0, 2.2),
@@ -629,7 +629,11 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ValidateInRange_PointNotInRange_ThrowsArgumentOutOfRangeException()
+        [TestCase(5.0)]
+        [TestCase(1.375)]
+        [TestCase(-0.005)]
+        [TestCase(-5)]
+        public void ValidateInRange_PointNotInRange_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
             var testX = 1.0;
@@ -640,15 +644,18 @@ namespace Ringtoets.Piping.Data.Test
             CreateTestGeometry(testPoint, surfaceLine);
 
             // Call
-            TestDelegate call = () => surfaceLine.ValidateInRange(5.0, surfaceLine.ProjectGeometryToLZ().ToArray());
+            TestDelegate call = () => surfaceLine.ValidateInRange((RoundedDouble) invalidValue, surfaceLine.ProjectGeometryToLZ().ToArray());
 
             // Assert
-            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.", 0, 1.37);
+            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [0, {0}] liggen.", 1.37);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
-        public void ValidateInRange_PointInRange_DoesNotThrow()
+        [TestCase(-0e-3)]
+        [TestCase(1.37)]
+        [TestCase(1.0)]
+        public void ValidateInRange_PointInRange_DoesNotThrow(double validValue)
         {
             // Setup
             var testX = 1.0;
@@ -659,7 +666,7 @@ namespace Ringtoets.Piping.Data.Test
             CreateTestGeometry(testPoint, surfaceLine);
 
             // Call
-            TestDelegate call = () => surfaceLine.ValidateInRange(1.12, surfaceLine.ProjectGeometryToLZ().ToArray());
+            TestDelegate call = () => surfaceLine.ValidateInRange((RoundedDouble) validValue, surfaceLine.ProjectGeometryToLZ().ToArray());
 
             // Assert
             Assert.DoesNotThrow(call);

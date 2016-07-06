@@ -1759,7 +1759,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(8, firstSurfaceLine.Points.Length);
             Assert.AreEqual(427776.654093, firstSurfaceLine.StartingWorldPoint.Y);
 
-            mocks.VerifyAll();
+            mocks.VerifyAll(); // No observer notified
         }
 
         private static void AssertAreEqualPoint2D(Point2D expectedPoint, Point2D actualPoint)
