@@ -1112,7 +1112,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De kans dat het toetsspoor piping optreedt voor deze berekening..
+        ///   Looks up a localized string similar to De benaderde kans dat het toetsspoor piping optreedt voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_PipingProbability_Description {
             get {
@@ -1121,7 +1121,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalkans [1/jaar].
+        ///   Looks up a localized string similar to Benaderde faalkans [1/jaar].
         /// </summary>
         public static string PipingSemiProbabilisticOutput_PipingProbability_DisplayName {
             get {

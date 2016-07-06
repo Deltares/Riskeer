@@ -42,27 +42,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// </summary>
     public class PipingInputContextProperties : ObjectProperties<PipingInputContext>
     {
-        #region Model Settings
-
-        [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInput_DampingFactorExit_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInput_DampingFactorExit_Description")]
-        public DesignVariable<LogNormalDistribution> DampingFactorExit
-        {
-            get
-            {
-                return PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(data.WrappedData);
-            }
-            set
-            {
-                data.WrappedData.DampingFactorExit = value.Distribution;
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
-        #endregion
-
         /// <summary>
         /// Gets the available surface lines on <see cref="PipingCalculationScenarioContext"/>.
         /// </summary>
@@ -133,6 +112,23 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 return data.WrappedData.PiezometricHeadExit;
+            }
+        }
+
+        [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
+        [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_DampingFactorExit_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_DampingFactorExit_Description")]
+        public DesignVariable<LogNormalDistribution> DampingFactorExit
+        {
+            get
+            {
+                return PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(data.WrappedData);
+            }
+            set
+            {
+                data.WrappedData.DampingFactorExit = value.Distribution;
+                data.WrappedData.NotifyObservers();
             }
         }
 
