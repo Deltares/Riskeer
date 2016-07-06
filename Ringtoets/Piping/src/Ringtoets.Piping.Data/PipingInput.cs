@@ -104,12 +104,7 @@ namespace Ringtoets.Piping.Data
             set
             {
                 var newEntryPoint = value.ToPrecision(entryPointL.NumberOfDecimalPlaces);
-
-                if (!double.IsNaN(exitPointL))
-                {
-                    ValidateEntryExitPoint(newEntryPoint, exitPointL);
-                }
-
+                ValidateEntryExitPoint(newEntryPoint, exitPointL);
                 ValidatePointOnSurfaceLine(newEntryPoint);
                 entryPointL = newEntryPoint;
             }
@@ -136,12 +131,7 @@ namespace Ringtoets.Piping.Data
             set
             {
                 var newExitPoint = value.ToPrecision(exitPointL.NumberOfDecimalPlaces);
-
-                if (!double.IsNaN(entryPointL))
-                {
-                    ValidateEntryExitPoint(entryPointL, newExitPoint);
-                }
-
+                ValidateEntryExitPoint(entryPointL, newExitPoint);
                 ValidatePointOnSurfaceLine(newExitPoint);
                 exitPointL = newExitPoint;
             }
@@ -149,7 +139,7 @@ namespace Ringtoets.Piping.Data
 
         private void ValidateEntryExitPoint(RoundedDouble entryPoint, RoundedDouble exitPoint)
         {
-            if (entryPoint >= exitPoint)
+            if (!double.IsNaN(entryPoint) && !double.IsNaN(exitPoint) && entryPoint >= exitPoint)
             {
                 throw new ArgumentOutOfRangeException(null, Resources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
             }
