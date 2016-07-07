@@ -294,7 +294,7 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het uittredepunt ligt niet voorbij het intredepunt voor locatie {0}.
+        ///   Looks up a localized string similar to Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie {0}..
         /// </summary>
         public static string PipingSurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_ {
             get {

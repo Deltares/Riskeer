@@ -951,7 +951,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble)newValue;
 
             // Assert
-            var expectedMessage = "De lengte van de lokale coördinaat moet in het bereik [0, 10] liggen.";
+            var expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 10]).";
             Assert.AreEqual(expectedMessage, dataGridView.Rows[0].ErrorText);
             mocks.VerifyAll(); // No observer notified
         }

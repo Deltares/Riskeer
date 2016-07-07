@@ -200,7 +200,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => input.ExitPointL = (RoundedDouble) value;
 
             // Assert
-            var expectedMessage = "De lengte van de lokale coördinaat moet in het bereik [0, 1] liggen.";
+            var expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 1]).";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
@@ -259,7 +259,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => input.EntryPointL = (RoundedDouble)value;
 
             // Assert
-            var expectedMessage = "De lengte van de lokale coördinaat moet in het bereik [0, 1] liggen.";
+            var expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 1]).";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
          }
 
