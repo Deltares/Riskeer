@@ -179,6 +179,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Indicatieve golfhoogte.
+        /// </summary>
+        public static string Categories_Indicative_WaveHeight {
+            get {
+                return ResourceManager.GetString("Categories_Indicative_WaveHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lengte-effect parameters.
         /// </summary>
         public static string Categories_LengthEffect {
@@ -552,7 +561,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is het resultaat van de overtopping deelberekening dominant over de overflow deelberekening..
+        ///   Looks up a localized string similar to Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening..
         /// </summary>
         public static string GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Description {
             get {
@@ -561,7 +570,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overtopping dominant [-].
+        ///   Looks up a localized string similar to Overslag dominant [-].
         /// </summary>
         public static string GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Displayname {
             get {
@@ -570,7 +579,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De golfhoogte van de overtopping deelberekening..
+        ///   Looks up a localized string similar to De golfhoogte van de overslag deelberekening..
         /// </summary>
         public static string GrassCoverErosionInwardsOutput_WaveHeight_Description {
             get {
@@ -579,7 +588,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfhoogte (Hs) [-].
+        ///   Looks up a localized string similar to Golfhoogte (Hs) [m].
         /// </summary>
         public static string GrassCoverErosionInwardsOutput_WaveHeight_Displayname {
             get {

@@ -16,7 +16,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
         public void Constructed_UsingDifferentNormAndLocationId_ReturnDifferentBetaAndDefaultValues(int locationId, double norm)
         {
             // Setup
-            var expectedBeta = -Normal.InvCDF(0.0, 1.0, 1.0 / norm);
+            double expectedBeta = -Normal.InvCDF(0.0, 1.0, 1.0 / norm);
 
             // Call
             var testInput = new TestTargetProbabilityCalculationInput(locationId, norm);

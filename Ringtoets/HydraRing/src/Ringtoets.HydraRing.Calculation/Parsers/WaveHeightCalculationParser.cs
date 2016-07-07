@@ -35,9 +35,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     {
         private class GeneralResult
         {
-            public int WindDirection;
-            public int ClosingSituation;
-            public double Beta;
+            public int WindDirection { get; set; }
+            public int ClosingSituation { get; set; }
+            public double Beta { get; set; }
 
             public GeneralResult()
             {
@@ -47,7 +47,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         private class OvertoppingResult : GeneralResult
         {
-            public double WaveHeight;
+            public double WaveHeight { get; set; }
         }
         
         private const string overtoppingStart = "Submechanism = Overtopping RTO";
@@ -79,8 +79,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            var fileName = string.Format("{0}{1}", sectionId, HydraRingFileName.OutputFileSuffix);
-            var filePath = Path.Combine(workingDirectory, fileName);
+            string fileName = string.Format("{0}{1}", sectionId, HydraRingFileName.OutputFileSuffix);
+            string filePath = Path.Combine(workingDirectory, fileName);
 
             try
             {
@@ -95,12 +95,17 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         private void SetOutputs()
         {
-            if (overtoppingResults.Any() && overflowResults.Any())
+            OvertoppingResult relevantOvertoppingResult = null;
+            foreach (OvertoppingResult overtoppingResult in overtoppingResults.Where(o => o.WindDirection == governingWindDirection))
             {
-                OvertoppingResult[] governingOvertoppingResults = overtoppingResults.Where(o => o.WindDirection == governingWindDirection).ToArray();
-                double minBeta = governingOvertoppingResults.Min(o => o.Beta);
+                if (relevantOvertoppingResult == null || overtoppingResult.Beta < relevantOvertoppingResult.Beta)
+                {
+                    relevantOvertoppingResult = overtoppingResult;
+                }
+            }
 
-                OvertoppingResult relevantOvertoppingResult = governingOvertoppingResults.First(o => o.Beta.Equals(minBeta));
+            if (relevantOvertoppingResult != null && overflowResults.Any())
+            {
                 GeneralResult governingOverflowResult = overflowResults
                     .First(o => o.WindDirection == governingWindDirection && o.ClosingSituation == relevantOvertoppingResult.ClosingSituation);
 
@@ -118,7 +123,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                 {
                     while (!file.EndOfStream)
                     {
-                        var currentLine = file.ReadLine();
+                        string currentLine = file.ReadLine();
                         TryParseOvertoppingSection(currentLine, file);
                         TryParseOverflowSection(currentLine, file);
                         TryParseGoverningWindDirection(currentLine, file);
@@ -134,7 +139,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                 var overtoppingResult = new OvertoppingResult();
                 while (!file.EndOfStream && double.IsNaN(overtoppingResult.Beta))
                 {
-                    var readLine = file.ReadLine();
+                    string readLine = file.ReadLine();
                     TryParseWaveHeight(readLine, overtoppingResult);
                     TryParseWindDirection(readLine, overtoppingResult);
                     TryParseClosingSituation(readLine, overtoppingResult);
@@ -151,7 +156,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                 var overflowResult = new GeneralResult();
                 while (!file.EndOfStream && double.IsNaN(overflowResult.Beta))
                 {
-                    var readLine = file.ReadLine();
+                    string readLine = file.ReadLine();
                     TryParseWindDirection(readLine, overflowResult);
                     TryParseClosingSituation(readLine, overflowResult);
                     TryParseBeta(readLine, overflowResult);
@@ -164,8 +169,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         {
             if (startLine.Contains(combineWindDirectionStart))
             {
-                var line = file.ReadLine();
-                var governingWindDirectionString = line.Split(equalsCharacter)[1].Trim();
+                string line = file.ReadLine();
+                string governingWindDirectionString = line.Split(equalsCharacter)[1].Trim();
                 governingWindDirection = int.Parse(governingWindDirectionString);
             }
         }
@@ -174,7 +179,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         {
             if (line.Contains(overtoppingWaveHeight))
             {
-                var resultAsString = line.Split(equalsCharacter)[1].Trim();
+                string resultAsString = line.Split(equalsCharacter)[1].Trim();
                 overtoppingResult.WaveHeight = double.Parse(resultAsString, CultureInfo.InvariantCulture);
             }
         }
@@ -183,7 +188,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         {
             if (line.Contains(windDirection))
             {
-                var resultAsString = line.Split(equalsCharacter)[1].Trim();
+                string resultAsString = line.Split(equalsCharacter)[1].Trim();
                 generalResult.WindDirection = int.Parse(resultAsString, CultureInfo.InvariantCulture);
             }
         }
@@ -192,7 +197,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         {
             if (line.Contains(closingSituation))
             {
-                var resultAsString = line.Split(equalsCharacter)[1].Trim();
+                string resultAsString = line.Split(equalsCharacter)[1].Trim();
                 generalResult.ClosingSituation = int.Parse(resultAsString, CultureInfo.InvariantCulture);
             }
         }
@@ -201,7 +206,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         {
             if (line.Contains(beta))
             {
-                var resultAsString = line.Split(equalsCharacter)[1].Trim();
+                string resultAsString = line.Split(equalsCharacter)[1].Trim();
                 generalResult.Beta = double.Parse(resultAsString, CultureInfo.InvariantCulture);
             }
         }

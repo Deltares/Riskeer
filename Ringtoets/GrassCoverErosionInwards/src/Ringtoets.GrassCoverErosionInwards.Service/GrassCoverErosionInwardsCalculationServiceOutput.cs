@@ -31,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// </summary>
         /// <param name="beta">The beta result of the calculation.</param>
         /// <param name="waveHeight">The wave height result of the calculation.</param>
-        /// <param name="isOvertoppingDominant">The value indicating wheter overtopping was dominant in the calculation.</param>
+        /// <param name="isOvertoppingDominant">The value indicating whether overtopping was dominant in the calculation.</param>
         public GrassCoverErosionInwardsCalculationServiceOutput(double beta, double waveHeight, bool isOvertoppingDominant)
         {
             Beta = beta;

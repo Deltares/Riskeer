@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
@@ -84,10 +85,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(3, properties.FactorOfSafety.NumberOfDecimalPlaces);
             Assert.AreEqual(factorOfSafety, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
 
-            var probabilityFormat = "1/{0:n0}";
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / requiredProbability), properties.RequiredProbability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(requiredProbability), properties.RequiredProbability);
             Assert.AreEqual(requiredReliability, properties.RequiredReliability, 1e-3);
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / probability), properties.Probability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), properties.Probability);
 
             Assert.AreEqual(isOvertoppingDominant, properties.IsOvertoppingDominant);
 
@@ -147,15 +147,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightIndex];
             Assert.IsTrue(waveHeightProperty.IsReadOnly);
-            Assert.AreEqual("Resultaat", waveHeightProperty.Category);
-            Assert.AreEqual("Golfhoogte (Hs) [-]", waveHeightProperty.DisplayName);
-            Assert.AreEqual("De golfhoogte van de overtopping deelberekening.", waveHeightProperty.Description);
+            Assert.AreEqual("Indicatieve golfhoogte", waveHeightProperty.Category);
+            Assert.AreEqual("Golfhoogte (Hs) [m]", waveHeightProperty.DisplayName);
+            Assert.AreEqual("De golfhoogte van de overslag deelberekening.", waveHeightProperty.Description);
 
             PropertyDescriptor isDominantProperty = dynamicProperties[isDominantIndex];
             Assert.IsTrue(isDominantProperty.IsReadOnly);
-            Assert.AreEqual("Resultaat", isDominantProperty.Category);
-            Assert.AreEqual("Overtopping dominant [-]", isDominantProperty.DisplayName);
-            Assert.AreEqual("Is het resultaat van de overtopping deelberekening dominant over de overflow deelberekening.", isDominantProperty.Description);
+            Assert.AreEqual("Indicatieve golfhoogte", isDominantProperty.Category);
+            Assert.AreEqual("Overslag dominant [-]", isDominantProperty.DisplayName);
+            Assert.AreEqual("Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening.", isDominantProperty.Description);
         }
 
         private const int requiredProbabilityPropertyIndex = 0;

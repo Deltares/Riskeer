@@ -1,5 +1,8 @@
 ﻿namespace Ringtoets.HydraRing.Calculation.Parsers
 {
+    /// <summary>
+    /// This interface describes components that obtain results from the output files of a Hydra-Ring calculation.
+    /// </summary>
     public interface IHydraRingFileParser
     {
         /// <summary>

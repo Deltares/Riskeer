@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -31,7 +32,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// </summary>
     public class GrassCoverErosionInwardsOutput : Observable, ICalculationOutput
     {
-        private ProbabilityAssessmentOutput probabilityAssessmentOutput;
+        private readonly ProbabilityAssessmentOutput probabilityAssessmentOutput;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsOutput"/>.
@@ -47,9 +48,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             this.probabilityAssessmentOutput = probabilityAssessmentOutput;
         }
 
+        /// <summary>
+        /// The height of the wave that was calculated in the overtopping sub failure mechanism.
+        /// </summary>
         public RoundedDouble WaveHeight { get; private set; }
+
+        /// <summary>
+        /// Value indicating whether the overtopping sub failure mechanism was dominant over the overflow
+        /// sub failure mechanism.
+        /// </summary>
         public bool IsOvertoppingDominant { get; private set; }
 
+        /// <summary>
+        /// Gets the factor of safety of the failure mechanism.
+        /// </summary>
         public RoundedDouble FactorOfSafety
         {
             get
@@ -58,6 +70,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
         }
 
+        /// <summary>
+        /// Gets the probability of failure.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">When setting a value that falls
+        /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
         public double Probability
         {
             get
@@ -66,6 +83,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
         }
 
+        /// <summary>
+        /// Gets the reliability of the failure mechanism.
+        /// </summary>
         public RoundedDouble Reliability
         {
             get
@@ -74,6 +94,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
         }
 
+        /// <summary>
+        /// Gets the required (maximum allowed) probability of failure.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">When setting a value that falls
+        /// outside the [0.0, 1.0] range and isn't <see cref="double.NaN"/>.</exception>
         public double RequiredProbability
         {
             get
@@ -82,6 +107,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
         }
 
+        /// <summary>
+        /// Get the required (maximum allowed) reliability of the failure mechanism.
+        /// </summary>
         public RoundedDouble RequiredReliability
         {
             get

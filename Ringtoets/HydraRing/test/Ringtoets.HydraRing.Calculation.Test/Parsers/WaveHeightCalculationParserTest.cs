@@ -138,6 +138,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             Assert.IsNull(parser.Output);
         }
+
         private string GetOutputFileName(int sectionId)
         {
             return string.Format("{0}{1}", sectionId, HydraRingFileName.OutputFileSuffix);

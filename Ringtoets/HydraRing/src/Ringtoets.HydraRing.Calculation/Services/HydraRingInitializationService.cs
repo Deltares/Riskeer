@@ -59,13 +59,13 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <param name="failureMechanismType">The failure mechanism type.</param>
         /// <param name="sectionId">The section id.</param>
         /// <param name="hlcdDirectory">The HLCD directory.</param>
-        /// <param name="temporaryTemporaryWorkingDirectory">The working directory.</param>
-        public HydraRingInitializationService(HydraRingFailureMechanismType failureMechanismType, int sectionId, string hlcdDirectory, string temporaryTemporaryWorkingDirectory)
+        /// <param name="temporaryWorkingDirectory">The working directory.</param>
+        public HydraRingInitializationService(HydraRingFailureMechanismType failureMechanismType, int sectionId, string hlcdDirectory, string temporaryWorkingDirectory)
         {
             mechanismId = new FailureMechanismDefaultsProvider().GetFailureMechanismDefaults(failureMechanismType).MechanismId;
             this.sectionId = sectionId;
 
-            TemporaryWorkingDirectory = temporaryTemporaryWorkingDirectory;
+            TemporaryWorkingDirectory = temporaryWorkingDirectory;
 
             this.hlcdDirectory = hlcdDirectory;
             hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), hydraRingBinariesSubDirectory);
@@ -176,10 +176,10 @@ namespace Ringtoets.HydraRing.Calculation.Services
                                "mechanism           = " + mechanismId,
                                "alternative         = 1", // Fixed: no support for piping
                                "layer               = 1", // Fixed: no support for revetments
-                               "logfile             = " + (sectionId + logFileExtension),
+                               "logfile             = " + sectionId + logFileExtension,
                                "outputverbosity     = basic",
                                "outputtofile        = file",
-                               "projectdbfilename   = " + (sectionId + databaseFileExtension),
+                               "projectdbfilename   = " + sectionId + databaseFileExtension,
                                "outputfilename      = " + HydraRingFileName.DesignTablesFileName,
                                "configdbfilename    = " + ConfigurationDatabaseFilePath,
                                "hydraulicdbfilename = " + HlcdFilePath);

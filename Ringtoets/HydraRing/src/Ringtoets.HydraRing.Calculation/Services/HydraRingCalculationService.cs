@@ -58,10 +58,10 @@ namespace Ringtoets.HydraRing.Calculation.Services
             var sectionId = targetProbabilityCalculationInput.Section.SectionId;
             var workingDirectory = CreateWorkingDirectory();
 
-            var hydraRingInitializationService = new HydraRingInitializationService(targetProbabilityCalculationInput.FailureMechanismType, sectionId, hlcdDirectory, workingDirectory);
             var hydraRingConfigurationService = new HydraRingConfigurationService(ringId, timeIntegrationSchemeType, uncertaintiesType);
             hydraRingConfigurationService.AddHydraRingCalculationInput(targetProbabilityCalculationInput);
 
+            var hydraRingInitializationService = new HydraRingInitializationService(targetProbabilityCalculationInput.FailureMechanismType, sectionId, hlcdDirectory, workingDirectory);
             hydraRingInitializationService.WriteInitializationScript();
             hydraRingConfigurationService.WriteDataBaseCreationScript(hydraRingInitializationService.DatabaseCreationScriptFilePath);
 

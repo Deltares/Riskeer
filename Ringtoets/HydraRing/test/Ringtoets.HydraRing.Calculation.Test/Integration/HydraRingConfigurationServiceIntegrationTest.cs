@@ -46,7 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new AssessmentLevelCalculationInput(1, 700004, 10000));
 
-            var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
+            string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                          "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Sections];" + Environment.NewLine +
@@ -98,14 +98,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          Environment.NewLine +
                                          "DELETE FROM [Breakwaters];" + Environment.NewLine;
 
-            var databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+            string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
                 hydraRingConfigurationService.WriteDataBaseCreationScript(databaseFilePath);
 
                 // Assert
-                var creationScript = File.ReadAllText(databaseFilePath);
+                string creationScript = File.ReadAllText(databaseFilePath);
                 Assert.AreEqual(expectedCreationScript, creationScript);
             }
         }
@@ -148,7 +148,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                                        hydraRingModelFactorFrunupStandardDeviation, hydraRingExponentModelFactorShallowMean, hydraRingExponentModelFactorShallowStandardDeviation,
                                                                                                        profilePoints, forelandPoints, breakWater));
 
-            var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
+            string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                          "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Sections];" + Environment.NewLine +
@@ -214,14 +214,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          "DELETE FROM [Breakwaters];" + Environment.NewLine +
                                          "INSERT INTO [Breakwaters] VALUES (1, 1, 2.2);" + Environment.NewLine;
 
-            var databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+            string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
                 hydraRingConfigurationService.WriteDataBaseCreationScript(databaseFilePath);
 
                 // Assert
-                var creationScript = File.ReadAllText(databaseFilePath);
+                string creationScript = File.ReadAllText(databaseFilePath);
                 Assert.AreEqual(expectedCreationScript, creationScript);
             }
         }
@@ -391,7 +391,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                                                  widthOfFlowAperturesMean, widthOfFlowAperturesStandardDeviation,
                                                                                                                  deviationOfTheWaveDirection,
                                                                                                                  stormDurationMean, stormDurationStandardDeviation));
-            var expectedCreationScript =
+            string expectedCreationScript =
                 "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                 "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
                 Environment.NewLine +
@@ -460,14 +460,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 Environment.NewLine +
                 "DELETE FROM [Breakwaters];" + Environment.NewLine;
 
-            var databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+            string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
                 hydraRingConfigurationService.WriteDataBaseCreationScript(databaseFilePath);
 
                 // Assert
-                var creationScript = File.ReadAllText(databaseFilePath);
+                string creationScript = File.ReadAllText(databaseFilePath);
                 Assert.AreEqual(expectedCreationScript, creationScript);
             }
         }

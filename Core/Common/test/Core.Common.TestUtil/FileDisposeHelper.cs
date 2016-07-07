@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Core.Common.Utils;
 
 namespace Core.Common.TestUtil
 {
@@ -44,7 +45,7 @@ namespace Core.Common.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="FileDisposeHelper"/>.
         /// </summary>
-        /// <param name="filePaths">Path of the files that will be used.</param>
+        /// <param name="filePaths">Paths of the files that will be created, if the path is valid.</param>
         public FileDisposeHelper(IEnumerable<string> filePaths)
         {
             files = filePaths;
@@ -54,7 +55,7 @@ namespace Core.Common.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="FileDisposeHelper"/>.
         /// </summary>
-        /// <param name="filePath">Path of the single file that will be used.</param>
+        /// <param name="filePath">Path of the single file that will be created, if valid.</param>
         public FileDisposeHelper(string filePath) : this(new [] { filePath })
         {
         }
@@ -70,31 +71,48 @@ namespace Core.Common.TestUtil
             }
         }
 
-        /// <summary>
-        /// Disposes the <see cref="FileDisposeHelper"/> instance.
-        /// </summary>
         public void Dispose()
         {
             foreach (var file in files)
             {
-                Dispose(file);
+                DeleteFile(file);
             }
         }
 
-        private static void CreateFile(string filename)
+        /// <summary>
+        /// Creates a file at at the given file path. If the <see cref="filePath"/> is
+        /// invalid, no file is created.
+        /// </summary>
+        /// <param name="filePath">Path of the new file.</param>
+        private static void CreateFile(string filePath)
         {
-            if (!string.IsNullOrWhiteSpace(filename))
+            try
             {
-                using (File.Create(filename)) {}
+                FileUtils.ValidateFilePath(filePath);
             }
+            catch (ArgumentException)
+            {
+                return;
+            }
+            using (File.Create(filePath)) {}
         }
 
-        private static void Dispose(string filename)
+        /// <summary>
+        /// Delets a file at at the given file path. If the <see cref="filePath"/> is
+        /// invalid, no file is deleted (obviously).
+        /// </summary>
+        /// <param name="filePath">Path of the file to delete.</param>
+        private static void DeleteFile(string filePath)
         {
-            if (!string.IsNullOrWhiteSpace(filename))
+            try
             {
-                File.Delete(filename);
+                FileUtils.ValidateFilePath(filePath);
             }
+            catch (ArgumentException)
+            {
+                return;
+            }
+            File.Delete(filePath);
         }
     }
 }

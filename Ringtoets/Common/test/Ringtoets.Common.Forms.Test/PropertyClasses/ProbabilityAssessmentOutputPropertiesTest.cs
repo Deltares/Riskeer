@@ -24,6 +24,7 @@ using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
@@ -62,10 +63,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Assert
-            var probabilityFormat = "1/{0:n0}";
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0/requiredProbability), properties.RequiredProbability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(requiredProbability), properties.RequiredProbability);
             Assert.AreEqual(requiredReliability, properties.RequiredReliability, 1e-3);
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0/probability), properties.Probability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), properties.Probability);
             Assert.AreEqual(reliability, properties.Reliability, 1e-3);
             Assert.AreEqual(factorOfSafety, properties.FactorOfSafety, 1e-3);
         }

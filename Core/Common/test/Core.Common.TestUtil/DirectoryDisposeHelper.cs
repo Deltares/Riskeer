@@ -26,14 +26,14 @@ using Core.Common.Utils;
 namespace Core.Common.TestUtil
 {
     /// <summary>
-    /// This class can be used to set temporary files while testing. 
-    /// Disposing an instance of this class will delete the files.
+    /// This class can be used to create a temporary directory while testing. 
+    /// Disposing an instance of this class will delete the directory and its contents.
     /// </summary>
     /// <example>
     /// The following is an example for how to use this class:
     /// <code>
-    /// using(new FileDisposeHelper(new[]{"pathToFile"})) {
-    ///     // Perform tests with files
+    /// using(new DirectoryDisposeHelper("pathToDirectory")) {
+    ///     // Perform tests with directory
     /// }
     /// </code>
     /// </example>
@@ -45,16 +45,12 @@ namespace Core.Common.TestUtil
         /// Creates a new instance of <see cref="DirectoryDisposeHelper"/>.
         /// </summary>
         /// <param name="directory">Path of the files that will be used.</param>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="directory"/> is invalid.</exception>
         public DirectoryDisposeHelper(string directory)
         {
             this.directory = directory;
             Create();
         }
 
-        /// <summary>
-        /// Disposes the <see cref="DirectoryDisposeHelper"/> instance.
-        /// </summary>
         public void Dispose()
         {
             if (directory != null)
