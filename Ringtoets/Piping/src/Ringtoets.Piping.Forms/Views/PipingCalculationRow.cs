@@ -29,7 +29,7 @@ using Ringtoets.Piping.Data;
 namespace Ringtoets.Piping.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="PipingCalculationScenario"/>.
+    /// This class represents a row of <see cref="PipingCalculationScenario"/> in the <see cref="PipingCalculationsView"/>.
     /// </summary>
     internal class PipingCalculationRow
     {
@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets and sets the <see cref="PipingCalculationScenario"/> is relevant.
+        /// Gets or sets the <see cref="PipingCalculationScenario"/> is relevant.
         /// </summary>
         public bool IsRelevant
         {
@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets and sets the contribution of the <see cref="PipingCalculationScenario"/>.
+        /// Gets or sets the contribution of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         public RoundedDouble Contribution
         {
@@ -88,13 +88,13 @@ namespace Ringtoets.Piping.Forms.Views
             }
             set
             {
-                pipingCalculation.Contribution = new RoundedDouble(2, value / 100);
+                pipingCalculation.Contribution = (RoundedDouble)(value / 100);
                 pipingCalculation.NotifyObservers();
             }
         }
 
         /// <summary>
-        /// Gets and sets the name of the <see cref="PipingCalculationScenario"/>.
+        /// Gets or sets the name of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         public string Name
         {
@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets and sets the stochastic soil model of the <see cref="PipingCalculationScenario"/>.
+        /// Gets or sets the stochastic soil model of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         public DataGridViewComboBoxItemWrapper<StochasticSoilModel> StochasticSoilModel
         {
@@ -129,7 +129,7 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets and sets the stochastic soil profile of the <see cref="PipingCalculationScenario"/>.
+        /// Gets or sets the stochastic soil profile of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         public DataGridViewComboBoxItemWrapper<StochasticSoilProfile> StochasticSoilProfile
         {
@@ -161,7 +161,7 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets and sets the hydraulic boundary location of the <see cref="PipingCalculationScenario"/>.
+        /// Gets or sets the hydraulic boundary location of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         public DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation> HydraulicBoundaryLocation
         {
@@ -180,7 +180,7 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets and sets the damping factory exit mean of the <see cref="PipingCalculationScenario"/>.
+        /// Gets or sets the damping factory exit mean of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         public RoundedDouble DampingFactorExitMean
         {
@@ -197,7 +197,7 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets and sets the phreatic level exit mean of the <see cref="PipingCalculationScenario"/>.
+        /// Gets or sets the phreatic level exit mean of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         public RoundedDouble PhreaticLevelExitMean
         {
@@ -214,7 +214,7 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets and sets the entry point l of the <see cref="PipingCalculationScenario"/>.
+        /// Gets or sets the entry point l of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         public RoundedDouble EntryPointL
         {
@@ -231,7 +231,7 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets and sets the exit point l of the <see cref="PipingCalculationScenario"/>.
+        /// Gets or sets the exit point l of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         public RoundedDouble ExitPointL
         {

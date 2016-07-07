@@ -1004,6 +1004,42 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kans op Heave [-].
+        /// </summary>
+        public static string PipingScenarioView_PipingScenarioRow_FailureProbabiltyHeave {
+            get {
+                return ResourceManager.GetString("PipingScenarioView_PipingScenarioRow_FailureProbabiltyHeave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalkans [1/jaar].
+        /// </summary>
+        public static string PipingScenarioView_PipingScenarioRow_FailureProbabiltyPiping {
+            get {
+                return ResourceManager.GetString("PipingScenarioView_PipingScenarioRow_FailureProbabiltyPiping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kans op terugschrijdende erosie [-].
+        /// </summary>
+        public static string PipingScenarioView_PipingScenarioRow_FailureProbabiltySellmeijer {
+            get {
+                return ResourceManager.GetString("PipingScenarioView_PipingScenarioRow_FailureProbabiltySellmeijer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kans op opbarsten [-].
+        /// </summary>
+        public static string PipingScenarioView_PipingScenarioRow_FailureProbabiltyUplift {
+            get {
+                return ResourceManager.GetString("PipingScenarioView_PipingScenarioRow_FailureProbabiltyUplift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Heave.
         /// </summary>
         public static string PipingSemiProbabilisticOutput_Categories_Heave {

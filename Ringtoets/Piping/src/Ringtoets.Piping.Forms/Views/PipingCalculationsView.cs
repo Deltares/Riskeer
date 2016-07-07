@@ -255,7 +255,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void InitializeListBox()
         {
-            listBox.DisplayMember = "Name";
+            listBox.DisplayMember = TypeUtils.GetMemberName<FailureMechanismSection>(s => s.Name);
             listBox.SelectedValueChanged += ListBoxOnSelectedValueChanged;
         }
 

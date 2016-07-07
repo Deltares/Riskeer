@@ -117,6 +117,19 @@ namespace Ringtoets.Piping.Plugin
                 Image = PipingFormsResources.PipingInputIcon,
                 CloseForData = ClosePipingInputViewForData
             };
+
+            yield return new ViewInfo<PipingScenariosContext, CalculationGroup, PipingScenariosView>
+            {
+                GetViewData = context => context.WrappedData,
+                GetViewName = (view, calculationGroup) => calculationGroup.Name,
+                Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
+                AdditionalDataCheck = context => context.WrappedData == context.ParentFailureMechanism.CalculationsGroup,
+                CloseForData = ClosePipingScenariosViewForData,
+                AfterCreate = (view, context) =>
+                {
+                    view.PipingFailureMechanism = context.ParentFailureMechanism;
+                }
+            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
@@ -296,6 +309,30 @@ namespace Ringtoets.Piping.Plugin
         # region PipingCalculationsView ViewInfo
 
         private static bool ClosePipingCalculationsViewForData(PipingCalculationsView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var pipingFailureMechanism = o as PipingFailureMechanism;
+            var pipingFailureMechanismContext = o as PipingFailureMechanismContext;
+
+            if (pipingFailureMechanismContext != null)
+            {
+                pipingFailureMechanism = pipingFailureMechanismContext.WrappedData;
+            }
+            if (assessmentSection != null)
+            {
+                pipingFailureMechanism = assessmentSection.GetFailureMechanisms()
+                                                          .OfType<PipingFailureMechanism>()
+                                                          .FirstOrDefault();
+            }
+
+            return pipingFailureMechanism != null && ReferenceEquals(view.Data, pipingFailureMechanism.CalculationsGroup);
+        }
+
+        #endregion endregion
+
+        # region PipingScenariosView ViewInfo
+
+        private static bool ClosePipingScenariosViewForData(PipingScenariosView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
             var pipingFailureMechanism = o as PipingFailureMechanism;
