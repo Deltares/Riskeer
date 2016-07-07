@@ -29,7 +29,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
-using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
@@ -357,20 +356,13 @@ namespace Ringtoets.Piping.Forms.Views
 
         private static ChartData CreateLocalPoint(Point3D worldPoint, RingtoetsPipingSurfaceLine surfaceLine, string name, ChartPointStyle style)
         {
-            Point2D firstPoint = Point3DToPoint2D(surfaceLine.Points.First());
-            Point2D lastPoint = Point3DToPoint2D(surfaceLine.Points.Last());
             return new ChartPointData(new[]
             {
-                worldPoint.ProjectIntoLocalCoordinates(firstPoint, lastPoint)
+                surfaceLine.GetLocalPointFromGeometry(worldPoint)
             }, name)
             {
                 Style = style
             };
-        }
-
-        private static Point2D Point3DToPoint2D(Point3D point3D)
-        {
-            return new Point2D(point3D.X, point3D.Y);
         }
     }
 }

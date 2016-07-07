@@ -209,12 +209,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return true;
             }
 
-            var firstPoint = readSurfaceLine.Points.First();
-            var lastPoint = readSurfaceLine.Points.Last();
-            var firstLocalPoint = new Point2D(firstPoint.X, firstPoint.Y);
-            var lastLocalPoint = new Point2D(lastPoint.X, lastPoint.Y);
-            var localDikeToeAtRiver = characteristicPoints.DikeToeAtRiver.ProjectIntoLocalCoordinates(firstLocalPoint, lastLocalPoint);
-            var localDikeToeAtPolder = characteristicPoints.DikeToeAtPolder.ProjectIntoLocalCoordinates(firstLocalPoint, lastLocalPoint);
+            var localDikeToeAtRiver = readSurfaceLine.GetLocalPointFromGeometry(characteristicPoints.DikeToeAtRiver);
+            var localDikeToeAtPolder = readSurfaceLine.GetLocalPointFromGeometry(characteristicPoints.DikeToeAtPolder);
 
             if (localDikeToeAtPolder.X <= localDikeToeAtRiver.X)
             {

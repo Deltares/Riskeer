@@ -770,9 +770,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Point2D firstPoint = new Point2D(first.X, first.Y);
             Point2D lastPoint = new Point2D(last.X, last.Y);
 
+            var localCoordinate = point.ProjectIntoLocalCoordinates(firstPoint, lastPoint);
             AssertEqualPointCollections(new[]
             {
-                point.ProjectIntoLocalCoordinates(firstPoint, lastPoint)
+                new Point2D(new RoundedDouble(2, localCoordinate.X), new RoundedDouble(2, localCoordinate.Y))
             }, chartPoints);
         }
 

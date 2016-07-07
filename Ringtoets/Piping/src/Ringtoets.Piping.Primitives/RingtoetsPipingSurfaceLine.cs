@@ -268,7 +268,7 @@ namespace Ringtoets.Piping.Primitives
             }
 
             var segments = new Collection<Segment2D>();
-            for (int i = 1; i < localGeometry.Length; i++)
+            for (int i = 1; i < LocalGeometry.Length; i++)
             {
                 segments.Add(new Segment2D(LocalGeometry[i - 1], LocalGeometry[i]));
             }
@@ -327,6 +327,29 @@ namespace Ringtoets.Piping.Primitives
             Point2D lastLocalPoint = LocalGeometry.Last();
             RoundedDouble roundedLocalCoordinateL = new RoundedDouble(numberOfDecimalPlaces, localCoordinateL);
             return !(firstLocalPoint.X > roundedLocalCoordinateL) && !(lastLocalPoint.X < roundedLocalCoordinateL);
+        }
+
+        /// <summary>
+        /// Gets the local coordinate with rounded values based on the geometry of the surface line and the given world coordinate.
+        /// </summary>
+        /// <param name="worldCoordinate">The world coordinate to get the local coordinate for.</param>
+        /// <returns>The local coordinate.</returns>
+        public Point2D GetLocalPointFromGeometry(Point3D worldCoordinate)
+        {
+            var count = Points.Length;
+            if (count <= 1)
+            {
+                return new Point2D(double.NaN, double.NaN);
+            }
+
+            Point3D first = Points.First();
+            Point3D last = Points.Last();
+            Point2D firstPoint = new Point2D(first.X, first.Y);
+            Point2D lastPoint = new Point2D(last.X, last.Y);
+
+            Point2D localCoordinate = worldCoordinate.ProjectIntoLocalCoordinates(firstPoint, lastPoint);
+            return new Point2D(new RoundedDouble(numberOfDecimalPlaces, localCoordinate.X),
+                               new RoundedDouble(numberOfDecimalPlaces, localCoordinate.Y));
         }
 
         public override string ToString()

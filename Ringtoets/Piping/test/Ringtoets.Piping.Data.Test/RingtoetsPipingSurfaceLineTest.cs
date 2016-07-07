@@ -648,13 +648,6 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsFalse(valid);
-
-//            // Call
-//            TestDelegate call = () => surfaceLine.ValidateInRange((RoundedDouble) invalidValue, surfaceLine.ProjectGeometryToLZ().ToArray());
-//
-//            // Assert
-//            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [0, {0}] liggen.", 1.37);
-//            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
@@ -676,6 +669,58 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsTrue(valid);
+        }
+
+        [Test]
+        public void GetLocalPointFromGeometry_ValidSurfaceLine_ReturnsLocalPoint()
+        {
+            // Setup
+            var testX = 1.0;
+            var testY = 2.2;
+            var testZ = 4.4;
+            Point3D testPoint = new Point3D(testX, testY, testZ);
+            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+            CreateTestGeometry(testPoint, surfaceLine);
+
+            // Call
+            Point2D localPoint = surfaceLine.GetLocalPointFromGeometry(testPoint);
+
+            // Assert
+            Assert.AreEqual(new Point2D(0.04, 4.4), localPoint);
+        }
+
+        [Test]
+        public void GetLocalPointFromGeometry_NoPointsOnSurfaceLine_ReturnsPointWithNanValues()
+        {
+            // Setup
+            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            Point2D localPoint = surfaceLine.GetLocalPointFromGeometry(new Point3D(1.0, 2.2, 4.4));
+
+            // Assert
+            Assert.AreEqual(new Point2D(double.NaN, double.NaN), localPoint);
+        }
+
+        [Test]
+        public void GetLocalPointFromGeometry_OnePointOnSurfaceLine_ReturnsPointWithNanValues()
+        {
+            // Setup
+            var testX = 1.0;
+            var testY = 2.2;
+            var testZ = 4.4;
+            Point3D testPoint = new Point3D(testX, testY, testZ);
+            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                testPoint
+            });
+
+            // Call
+            Point2D localPoint = surfaceLine.GetLocalPointFromGeometry(testPoint);
+
+            // Assert
+            Assert.AreEqual(new Point2D(double.NaN, double.NaN), localPoint);
         }
 
         private static void CreateTestGeometry(Point3D testPoint, RingtoetsPipingSurfaceLine surfaceLine)
