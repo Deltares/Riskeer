@@ -21,9 +21,12 @@
 
 using System;
 
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 
 using NUnit.Framework;
+
+using Rhino.Mocks;
 
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -87,6 +90,34 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Assert
             Assert.AreSame(calculation, row.Calculation);
             Assert.AreSame(calculation, sectionResult.Calculation);
+        }
+
+        [Test]
+        public void Calculation_SetNewValue_NotifyObserversOnSectionResult()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var section = new FailureMechanismSection("haha", new[]
+            {
+                new Point2D(1.1, 2.2),
+                new Point2D(3.3, 4.4)
+            });
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            sectionResult.Attach(observer);
+
+            var row = new GrassCoverErosionInwardsSectionResultRow(sectionResult);
+
+            var calculation = new GrassCoverErosionInwardsCalculation();
+
+            // Call
+            row.Calculation = calculation;
+
+            // Assert
+            mocks.VerifyAll(); // Assert observer is notified
         }
     }
 }

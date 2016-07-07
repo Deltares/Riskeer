@@ -52,7 +52,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             get
             {
-                return assessmentLayerTwoA;
+                if (Calculation == null || !Calculation.HasOutput)
+                {
+                    return double.NaN;
+                }
+                return Calculation.Output.Probability;
             }
         }
 

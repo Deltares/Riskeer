@@ -20,10 +20,12 @@
 // All rights reserved.
 
 using System;
+
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -54,10 +56,91 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.IsInstanceOf<IStorable>(result);
             Assert.AreSame(section, result.Section);
+            Assert.IsNull(result.Calculation);
             Assert.IsFalse(result.AssessmentLayerOne);
             Assert.IsNaN(result.AssessmentLayerTwoA);
             Assert.IsNaN(result.AssessmentLayerThree);
             Assert.AreEqual(0, result.StorageId);
+        }
+
+        [Test]
+        public void Calculation_SetNewValue_GetNewlySetValue()
+        {
+            // Setup
+            var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
+
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+
+            var calculation = new GrassCoverErosionInwardsCalculation();
+
+            // Call
+            result.Calculation = calculation;
+
+            // Assert
+            Assert.AreSame(calculation, result.Calculation);
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_CalculationNull_ReturnZero()
+        {
+            // Setup
+            var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
+
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+            {
+                Calculation = null
+            };
+
+            // Call
+            double twoAValue = result.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.IsNaN(twoAValue);
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_FailedCalculation_ReturnNaN()
+        {
+            // Setup
+            var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
+
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+            {
+                Calculation = new GrassCoverErosionInwardsCalculation
+                {
+                    Output = new GrassCoverErosionInwardsOutput(1.0, false, probabilityAssessmentOutput)
+                }
+            };
+
+            // Call
+            double twoAValue = result.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.IsNaN(twoAValue);
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_SuccessfulCalculation_ReturnInverseProbability()
+        {
+            // Setup
+            var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
+
+            double probability = 0.65;
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+            {
+                Calculation = new GrassCoverErosionInwardsCalculation
+                {
+                    Output = new GrassCoverErosionInwardsOutput(1.0, false, probabilityAssessmentOutput)
+                }
+            };
+
+            // Call
+            double twoAValue = result.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.AreEqual(probability, twoAValue);
         }
     }
 }

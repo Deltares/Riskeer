@@ -425,6 +425,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De maatgevende berekening voor dit vak is niet uitgevoerd..
+        /// </summary>
+        public static string GrassCoverErosionInwardsFailureMechanismResultView_Calculation_not_calculated {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsFailureMechanismResultView_Calculation_not_calculated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De maatgevende berekening voor dit vak heeft geen geldige uitkomst..
+        /// </summary>
+        public static string GrassCoverErosionInwardsFailureMechanismResultView_Calculation_not_successful {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsFailureMechanismResultView_Calculation_not_successful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De parameter &apos;Fb&apos; die gebruikt wordt in de berekening..
         /// </summary>
         public static string GrassCoverErosionInwardsInput_FbFactor_Description {

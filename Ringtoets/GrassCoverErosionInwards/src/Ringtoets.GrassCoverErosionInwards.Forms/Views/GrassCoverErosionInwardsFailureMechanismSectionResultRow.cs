@@ -25,6 +25,7 @@ using System.ComponentModel;
 using Core.Common.Base.Data;
 
 using Ringtoets.Common.Forms.TypeConverters;
+
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
@@ -106,6 +107,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             {
                 sectionResult.AssessmentLayerThree = value;
             }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="GrassCoverErosionInwardsCalculation"/> of the wrapped
+        /// <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
+        /// </summary>
+        /// <returns><c>null</c> if the wrapped section result does not have a calculation
+        /// set. Otherwise the calculation of the wrapped section result is returned.</returns>
+        public GrassCoverErosionInwardsCalculation GetSectionResultCalculation()
+        {
+            return sectionResult.Calculation;
         }
     }
 }

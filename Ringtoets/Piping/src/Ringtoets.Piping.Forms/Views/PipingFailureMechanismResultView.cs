@@ -22,12 +22,15 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+
 using Core.Common.Base;
 using Core.Common.Utils.Reflection;
+
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
+
 using CoreCommonResources = Core.Common.Base.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -88,28 +91,6 @@ namespace Ringtoets.Piping.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void AddDataGridColumns()
-        {
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingFailureMechanismSectionResultRow>(sr => sr.Name),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
-                true
-            );
-            DataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<PipingFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerOne),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one
-            );
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
-                true
-            );
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three
-            );
-        }
-
         protected override object CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)
         {
             if (FailureMechanism == null)
@@ -117,6 +98,24 @@ namespace Ringtoets.Piping.Forms.Views
                 return null;
             }
             return new PipingFailureMechanismSectionResultRow(sectionResult, FailureMechanism.Calculations.OfType<PipingCalculationScenario>());
+        }
+
+        private void AddDataGridColumns()
+        {
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<PipingFailureMechanismSectionResultRow>(sr => sr.Name),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
+                true);
+            DataGridViewControl.AddCheckBoxColumn(
+                TypeUtils.GetMemberName<PipingFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerOne),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<PipingFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
+                true);
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<PipingFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 
         #region Event handling
@@ -142,10 +141,10 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 return;
             }
-            
+
             var currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
-            
-            PipingFailureMechanismSectionResultRow resultRow = (PipingFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
+
+            PipingFailureMechanismSectionResultRow resultRow = (PipingFailureMechanismSectionResultRow)GetDataAtRow(e.RowIndex);
 
             if (resultRow != null && e.ColumnIndex == assessmentLayerTwoAIndex)
             {
@@ -167,19 +166,16 @@ namespace Ringtoets.Piping.Forms.Views
                 }
 
                 var calculationScenarioStatus = rowObject.GetCalculationScenarioStatus(FailureMechanism.Calculations.OfType<PipingCalculationScenario>());
-
                 if (calculationScenarioStatus == CalculationScenarioStatus.NotCalculated)
                 {
                     currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_are_executed;
                     return;
                 }
-
                 if (calculationScenarioStatus == CalculationScenarioStatus.Failed)
                 {
                     currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_valid_output;
                     return;
                 }
-
                 currentDataGridViewCell.ErrorText = string.Empty;
             }
         }

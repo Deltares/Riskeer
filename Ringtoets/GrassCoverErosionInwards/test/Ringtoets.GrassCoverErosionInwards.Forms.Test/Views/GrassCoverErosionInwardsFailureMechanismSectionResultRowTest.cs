@@ -29,7 +29,9 @@ using NUnit.Framework;
 
 using Rhino.Mocks;
 
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -64,7 +66,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Assert
             Assert.AreEqual(section.Name, row.Name);
             Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
-            Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsFailureMechanismSectionResultRow,
@@ -102,6 +103,93 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
+        public void AssessmentLayerTwoA_NoCalculationSet_ReturnHyphen()
+        {
+            // Setup
+            var geometryPoints = new []
+            {
+                new Point2D(1.1, 2.2), 
+                new Point2D(3.3, 4.4)
+            };
+            var section = new FailureMechanismSection("A", geometryPoints);
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+
+            // Precondition
+            Assert.IsNull(sectionResult.Calculation);
+
+            var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult);
+
+            // Call
+            double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.IsNaN(assessmentLayerTwoA);
+        }
+
+        [Test]
+        [TestCase(CalculationScenarioStatus.Failed)]
+        [TestCase(CalculationScenarioStatus.NotCalculated)]
+        public void AssessmentLayerTwoA_CalculationNotDone_ReturnHyphen(CalculationScenarioStatus status)
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            if (status == CalculationScenarioStatus.Failed)
+            {
+                var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(0.9, 1.0, double.NaN, 1.0, 1.0);
+                calculation.Output = new GrassCoverErosionInwardsOutput(1.1, false, probabilityAssessmentOutput);
+            }
+
+            var geometryPoints = new[]
+            {
+                new Point2D(1.1, 2.2), 
+                new Point2D(3.3, 4.4)
+            };
+            var section = new FailureMechanismSection("A", geometryPoints);
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+            {
+                Calculation = calculation
+            };
+
+            var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult);
+
+            // Call
+            double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.IsNaN(assessmentLayerTwoA);
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_CalculationSuccessful_ReturnAssessmentLayerTwoA()
+        {
+            // Setup
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(0.9, 1.0, 0.95, 1.0, 1.0);
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new GrassCoverErosionInwardsOutput(0.5, true, probabilityAssessmentOutput)
+            };
+
+            var geometryPoints = new[]
+            {
+                new Point2D(1.1, 2.2), 
+                new Point2D(3.3, 4.4)
+            };
+            var section = new FailureMechanismSection("A", geometryPoints);
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+            {
+                Calculation = calculation
+            };
+
+            var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult);
+
+            // Call
+            double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.AreEqual(calculation.Output.Probability, assessmentLayerTwoA);
+        }
+
+        [Test]
         public void AssessmentLayerThree_AlwaysOnChange_ResultPropertyChanged()
         {
             // Setup
@@ -116,6 +204,46 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
+        }
+
+        [Test]
+        public void GetSectionResultCalculation_NoCalculationSetOnSectionResult_ReturnNull()
+        {
+            // Setup
+            var section = CreateSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+
+            // Precondition
+            Assert.IsNull(result.Calculation);
+
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result);
+
+            // Call
+            GrassCoverErosionInwardsCalculation calculation = row.GetSectionResultCalculation();
+
+            // Assert
+            Assert.IsNull(calculation);
+        }
+
+        [Test]
+        public void GetSectionResultCalculation_WithCalculationSetOnSectionResult_ReturnCalculation()
+        {
+            // Setup
+            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
+
+            var section = CreateSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+            {
+                Calculation = grassCoverErosionInwardsCalculation
+            };
+
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result);
+
+            // Call
+            GrassCoverErosionInwardsCalculation calculation = row.GetSectionResultCalculation();
+
+            // Assert
+            Assert.AreSame(grassCoverErosionInwardsCalculation, calculation);
         }
 
         private static FailureMechanismSection CreateSection()

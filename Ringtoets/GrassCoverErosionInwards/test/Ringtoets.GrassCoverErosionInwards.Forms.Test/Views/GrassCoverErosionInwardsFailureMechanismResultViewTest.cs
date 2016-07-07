@@ -29,6 +29,8 @@ using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
@@ -292,6 +294,212 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenSectionResultWithoutCalculation_ThenLayerTwoANoError()
+        {
+            // Setup
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var section = new FailureMechanismSection("A",
+                                                          new[]
+                                                          {
+                                                              new Point2D(1, 2),
+                                                              new Point2D(3, 4)
+                                                          });
+                var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+                view.Data = new[]
+                {
+                    sectionResult
+                };
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+
+                // Call
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Assert
+                Assert.AreEqual("-", formattedValue);
+                Assert.IsEmpty(dataGridViewCell.ErrorText);
+            }
+        }
+
+        [Test]
+        public void GivenSectionResultAndCalculationNotCalculated_ThenLayerTwoAErrorTooltip()
+        {
+            // Setup
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var calculation = new GrassCoverErosionInwardsCalculation();
+                var section = new FailureMechanismSection("A",
+                                                          new[]
+                                                          {
+                                                              new Point2D(1, 2),
+                                                              new Point2D(3, 4)
+                                                          });
+                var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+                {
+                    Calculation = calculation
+                };
+
+                view.Data = new[]
+                {
+                    sectionResult
+                };
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+
+                // Call
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Assert
+                Assert.AreEqual("-", formattedValue);
+                Assert.AreEqual("De maatgevende berekening voor dit vak is niet uitgevoerd.", dataGridViewCell.ErrorText);
+            }
+        }
+
+        [Test]
+        public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip()
+        {
+            // Setup
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
+                var calculation = new GrassCoverErosionInwardsCalculation
+                {
+                    Output = new GrassCoverErosionInwardsOutput(1.0, false, probabilityAssessmentOutput)
+                };
+                var section = new FailureMechanismSection("A",
+                                                          new[]
+                                                          {
+                                                              new Point2D(1, 2),
+                                                              new Point2D(3, 4)
+                                                          });
+                var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+                {
+                    Calculation = calculation
+                };
+
+                view.Data = new[]
+                {
+                    sectionResult
+                };
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+
+                // Call
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Assert
+                Assert.AreEqual("-", formattedValue);
+                Assert.AreEqual("De maatgevende berekening voor dit vak heeft geen geldige uitkomst.", dataGridViewCell.ErrorText);
+            }
+        }
+
+        [Test]
+        public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError()
+        {
+            // Setup
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                const double probability = 0.56789;
+                var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);
+                var calculation = new GrassCoverErosionInwardsCalculation
+                {
+                    Output = new GrassCoverErosionInwardsOutput(1.1, true, probabilityAssessmentOutput)
+                };
+                var section = new FailureMechanismSection("A",
+                                                          new[]
+                                                          {
+                                                              new Point2D(1, 2),
+                                                              new Point2D(3, 4)
+                                                          });
+                var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+                {
+                    Calculation = calculation
+                };
+
+                view.Data = new[]
+                {
+                    sectionResult
+                };
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+
+                // Call
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Assert
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
+                Assert.IsEmpty(dataGridViewCell.ErrorText);
+            }
+        }
+
+        [Test]
+        public void GivenSectionResultAndSuccessfulCalculation_WhenCalculation_ThenLayerTwoANoError()
+        {
+            // Setup
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                const double probability = 0.56789;
+                var successfulCalculationOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);
+                var successfulCalculation = new GrassCoverErosionInwardsCalculation
+                {
+                    Output = new GrassCoverErosionInwardsOutput(1.1, true, successfulCalculationOutput)
+                };
+
+                var failedCalculationOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
+                var failedCalculation = new GrassCoverErosionInwardsCalculation
+                {
+                    Output = new GrassCoverErosionInwardsOutput(1.1, true, failedCalculationOutput)
+                };
+                var section = new FailureMechanismSection("A",
+                                                          new[]
+                                                          {
+                                                              new Point2D(1, 2),
+                                                              new Point2D(3, 4)
+                                                          });
+                var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+                {
+                    Calculation = successfulCalculation
+                };
+
+                view.Data = new[]
+                {
+                    sectionResult
+                };
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+
+                // Precondition
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
+                Assert.IsEmpty(dataGridViewCell.ErrorText);
+
+                // Call
+                sectionResult.Calculation = failedCalculation;
+                formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Assert
+                Assert.AreEqual("-", formattedValue);
+                Assert.AreEqual("De maatgevende berekening voor dit vak heeft geen geldige uitkomst.", dataGridViewCell.ErrorText);
+            }
+        }
+        
         private const int nameColumnIndex = 0;
         private const int assessmentLayerOneIndex = 1;
         private const int assessmentLayerTwoAIndex = 2;

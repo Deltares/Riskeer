@@ -70,6 +70,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             set
             {
                 sectionResult.Calculation = value;
+                sectionResult.NotifyObservers();
             }
         }
     }

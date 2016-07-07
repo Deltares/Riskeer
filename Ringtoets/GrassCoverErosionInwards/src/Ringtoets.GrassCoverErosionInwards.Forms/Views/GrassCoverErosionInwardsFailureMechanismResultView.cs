@@ -21,12 +21,16 @@
 
 using System.Linq;
 using System.Windows.Forms;
+
 using Core.Common.Base;
 using Core.Common.Utils.Reflection;
+
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
+
 using CoreCommonResources = Core.Common.Base.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -40,35 +44,37 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
+        private const int assessmentLayerTwoAIndex = 2;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismResultView"/>.
         /// </summary>
         public GrassCoverErosionInwardsFailureMechanismResultView()
         {
+            DataGridViewControl.AddCellFormattingHandler(ShowAssementLayerTwoAErrors);
             DataGridViewControl.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
-                UpdateDataGridViewDataSource, 
+                UpdateDataGridViewDataSource,
                 cg => cg.Children.Concat<object>(
                     cg.Children
-                        .OfType<ICalculation>()
-                        .Select(c => c.GetObservableInput())
-                )
-            );
+                      .OfType<ICalculation>()
+                      .Select(c => c.GetObservableInput())
+                          )
+                );
             calculationOutputObserver = new RecursiveObserver<CalculationGroup, ICalculationOutput>(
-                UpdateDataGridViewDataSource, 
+                UpdateDataGridViewDataSource,
                 cg => cg.Children.Concat<object>(
                     cg.Children
-                        .OfType<ICalculation>()
-                        .Select(c => c.GetObservableOutput())
-                )
-            );
+                      .OfType<ICalculation>()
+                      .Select(c => c.GetObservableOutput())
+                          )
+                );
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
-                UpdateDataGridViewDataSource, 
+                UpdateDataGridViewDataSource,
                 c => c.Children
-            );
+                );
 
             AddDataGridColumns();
         }
@@ -90,6 +96,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
+            DataGridViewControl.RemoveCellFormattingHandler(ShowAssementLayerTwoAErrors);
             DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
 
             calculationInputObserver.Dispose();
@@ -99,31 +106,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void AddDataGridColumns()
-        {
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(sr => sr.Name), 
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name, 
-                true
-                );
-            DataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerOne), 
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one
-                );
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
-                true
-                );
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three
-                );
-        }
-
         protected override object CreateFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
         {
             return new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult);
+        }
+
+        private void AddDataGridColumns()
+        {
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(sr => sr.Name),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
+                true);
+            DataGridViewControl.AddCheckBoxColumn(
+                TypeUtils.GetMemberName<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerOne),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
+                true);
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
@@ -139,6 +142,54 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                     DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
             }
+        }
+
+        private void ShowAssementLayerTwoAErrors(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex <= 0)
+            {
+                return;
+            }
+
+            DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
+
+            var resultRow = (GrassCoverErosionInwardsFailureMechanismSectionResultRow)GetDataAtRow(e.RowIndex);
+            if (resultRow != null && e.ColumnIndex == assessmentLayerTwoAIndex)
+            {
+                GrassCoverErosionInwardsCalculation normativeCalculation = resultRow.GetSectionResultCalculation();
+
+                if (resultRow.AssessmentLayerOne || normativeCalculation == null)
+                {
+                    currentDataGridViewCell.ErrorText = string.Empty;
+                    return;
+                }
+
+                CalculationScenarioStatus calculationScenarioStatus = GetCalculationStatus(normativeCalculation);
+                if (calculationScenarioStatus == CalculationScenarioStatus.NotCalculated)
+                {
+                    currentDataGridViewCell.ErrorText = Resources.GrassCoverErosionInwardsFailureMechanismResultView_Calculation_not_calculated;
+                    return;
+                }
+                if (calculationScenarioStatus == CalculationScenarioStatus.Failed)
+                {
+                    currentDataGridViewCell.ErrorText = Resources.GrassCoverErosionInwardsFailureMechanismResultView_Calculation_not_successful;
+                    return;
+                }
+                currentDataGridViewCell.ErrorText = string.Empty;
+            }
+        }
+
+        private static CalculationScenarioStatus GetCalculationStatus(GrassCoverErosionInwardsCalculation calculation)
+        {
+            if (calculation.HasOutput)
+            {
+                if (double.IsNaN(calculation.Output.Probability))
+                {
+                    return CalculationScenarioStatus.Failed;
+                }
+                return CalculationScenarioStatus.Done;
+            }
+            return CalculationScenarioStatus.NotCalculated;
         }
     }
 }

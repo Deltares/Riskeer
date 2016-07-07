@@ -301,4 +301,10 @@
   <data name="GrassCoverErosionInwardsOutput_WaveHeight_Displayname" xml:space="preserve">
     <value>Golfhoogte (Hs) [-]</value>
   </data>
+  <data name="GrassCoverErosionInwardsFailureMechanismResultView_Calculation_not_calculated" xml:space="preserve">
+    <value>De maatgevende berekening voor dit vak is niet uitgevoerd.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsFailureMechanismResultView_Calculation_not_successful" xml:space="preserve">
+    <value>De maatgevende berekening voor dit vak heeft geen geldige uitkomst.</value>
+  </data>
 </root>
