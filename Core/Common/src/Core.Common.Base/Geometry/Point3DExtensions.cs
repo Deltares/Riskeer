@@ -44,8 +44,6 @@ namespace Core.Common.Base.Geometry
         /// <item><paramref name="endWorldCoordinate"/> is <c>null</c>.</item>
         /// </list>
         /// </exception>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="startWorldCoordinate"/> 
-        /// and the <paramref name="endWorldCoordinate"/> are the same.</exception>
         public static Point2D ProjectIntoLocalCoordinates(this Point3D worldCoordinate, Point2D startWorldCoordinate, Point2D endWorldCoordinate)
         {
             if (worldCoordinate == null)
@@ -71,11 +69,11 @@ namespace Core.Common.Base.Geometry
 
             if (Math.Abs(length) < 1e-6)
             {
-                throw new ArgumentException("The startWorldCoordinate and endWorldCoordinate can't be the same.");
+                return new Point2D(0.0, worldCoordinate.Z);
             }
 
             // Project vector onto the 'spanning vector' to determine its X-coordinate in local coordinates:
-            double projectOnSpanningVectorFactor = (vectorToPoint.DotProduct(spanningVector)) / spanningVectorDotProduct;
+            double projectOnSpanningVectorFactor = vectorToPoint.DotProduct(spanningVector) / spanningVectorDotProduct;
             double localCoordinateX = projectOnSpanningVectorFactor * length;
 
             return new Point2D(localCoordinateX, worldCoordinate.Z);

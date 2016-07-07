@@ -162,4 +162,7 @@
   <data name="RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_" xml:space="preserve">
     <value>De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.</value>
   </data>
+  <data name="PipingInput_ValidatePointOnSurfaceLine_Length_must_be_in_range_LowerLimit_0_UpperLimit_1_" xml:space="preserve">
+    <value>De lengte van de lokale coördinaat moet in het bereik [{0}, {1}] liggen.</value>
+  </data>
 </root>

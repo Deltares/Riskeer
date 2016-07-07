@@ -78,10 +78,11 @@ namespace Core.Common.Base.Test.Geometry
             Point2D startAndEndPoint = new Point2D(point.X, point.Y);
 
             // Call
-            TestDelegate call = () => point.ProjectIntoLocalCoordinates(startAndEndPoint, startAndEndPoint);
+            Point2D convertedPoint = point.ProjectIntoLocalCoordinates(startAndEndPoint, startAndEndPoint);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "The startWorldCoordinate and endWorldCoordinate can't be the same.");
+            Assert.AreEqual(0.0, convertedPoint.X);
+            Assert.AreEqual(originalZ, convertedPoint.Y);
         }
 
         [Test]
@@ -95,10 +96,11 @@ namespace Core.Common.Base.Test.Geometry
             Point2D endPoint = new Point2D(point.X, point.Y + 1e-7);
 
             // Call
-            TestDelegate call = () => point.ProjectIntoLocalCoordinates(startPoint, endPoint);
+            Point2D convertedPoint = point.ProjectIntoLocalCoordinates(startPoint, endPoint);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "The startWorldCoordinate and endWorldCoordinate can't be the same.");
+            Assert.AreEqual(0.0, convertedPoint.X);
+            Assert.AreEqual(originalZ, convertedPoint.Y);
         }
 
         [Test]

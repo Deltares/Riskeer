@@ -21,9 +21,11 @@
 
 using System;
 using System.Linq;
+
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
@@ -70,14 +72,14 @@ namespace Ringtoets.Piping.Data
             phreaticLevelExit = new NormalDistribution(3);
             dampingFactorExit = new LogNormalDistribution(3)
             {
-                Mean = (RoundedDouble) 0.7,
-                StandardDeviation = (RoundedDouble) 0.0
+                Mean = (RoundedDouble)0.7,
+                StandardDeviation = (RoundedDouble)0.0
             };
             saturatedVolumicWeightOfCoverageLayer = new ShiftedLogNormalDistribution(2)
             {
-                Shift = (RoundedDouble) 10,
-                Mean = (RoundedDouble) 17.5,
-                StandardDeviation = (RoundedDouble) 0
+                Shift = (RoundedDouble)10,
+                Mean = (RoundedDouble)17.5,
+                StandardDeviation = (RoundedDouble)0
             };
             diameter70 = new LogNormalDistribution(2);
             darcyPermeability = new LogNormalDistribution(3);
@@ -143,7 +145,7 @@ namespace Ringtoets.Piping.Data
             set
             {
                 var newExitPointL = value.ToPrecision(exitPointL.NumberOfDecimalPlaces);
-                
+
                 if (!double.IsNaN(newExitPointL))
                 {
                     if (!double.IsNaN(entryPointL))
@@ -158,25 +160,6 @@ namespace Ringtoets.Piping.Data
                 }
 
                 exitPointL = newExitPointL;
-            }
-        }
-
-        private void ValidateEntryExitPoint(RoundedDouble entryPointLocalXCoordinate, RoundedDouble exitPointLocalXCoordinate)
-        {
-            if (entryPointLocalXCoordinate >= exitPointLocalXCoordinate)
-            {
-                throw new ArgumentOutOfRangeException(null, Resources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
-            }
-        }
-
-        private void ValidatePointOnSurfaceLine(RoundedDouble newLocalXCoordinate)
-        {
-            if (!surfaceLine.ValidateInRange(newLocalXCoordinate))
-            {
-                var outOfRangeMessage = string.Format("De lengte van de lokale coördinaat moet in het bereik [{0}, {1}] liggen.",
-                                                surfaceLine.LocalGeometry.First().X,
-                                                surfaceLine.LocalGeometry.Last().X);
-                throw new ArgumentOutOfRangeException(null, outOfRangeMessage);
             }
         }
 
@@ -211,11 +194,30 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
+        private void ValidateEntryExitPoint(RoundedDouble entryPointLocalXCoordinate, RoundedDouble exitPointLocalXCoordinate)
+        {
+            if (entryPointLocalXCoordinate >= exitPointLocalXCoordinate)
+            {
+                throw new ArgumentOutOfRangeException(null, Resources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
+            }
+        }
+
+        private void ValidatePointOnSurfaceLine(RoundedDouble newLocalXCoordinate)
+        {
+            if (!surfaceLine.ValidateInRange(newLocalXCoordinate))
+            {
+                var outOfRangeMessage = string.Format(Resources.PipingInput_ValidatePointOnSurfaceLine_Length_must_be_in_range_LowerLimit_0_UpperLimit_1_,
+                                                      surfaceLine.LocalGeometry.First().X,
+                                                      surfaceLine.LocalGeometry.Last().X);
+                throw new ArgumentOutOfRangeException(null, outOfRangeMessage);
+            }
+        }
+
         private void UpdateEntryAndExitPoint()
         {
             if (SurfaceLine == null)
             {
-                ExitPointL = (RoundedDouble) double.NaN;
+                ExitPointL = (RoundedDouble)double.NaN;
             }
             else
             {
@@ -237,8 +239,8 @@ namespace Ringtoets.Piping.Data
                     tempEntryPointL = localGeometry.ElementAt(entryPointIndex).X;
                 }
 
-                ExitPointL = (RoundedDouble) tempExitPointL;
-                EntryPointL = (RoundedDouble) tempEntryPointL;
+                ExitPointL = (RoundedDouble)tempExitPointL;
+                EntryPointL = (RoundedDouble)tempEntryPointL;
             }
         }
 

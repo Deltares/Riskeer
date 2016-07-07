@@ -23,9 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
+
 using Ringtoets.Piping.Primitives.Exceptions;
 using Ringtoets.Piping.Primitives.Properties;
 
@@ -46,6 +48,7 @@ namespace Ringtoets.Piping.Primitives
         {
             Name = string.Empty;
             Points = new Point3D[0];
+            localGeometry = new Point2D[0];
         }
 
         /// <summary>
@@ -106,11 +109,11 @@ namespace Ringtoets.Piping.Primitives
         /// <summary>
         /// Gets the 2D points describing the local geometry of the surface line.
         /// </summary>
-        public Point2D[] LocalGeometry
+        public IEnumerable<Point2D> LocalGeometry
         {
             get
             {
-                return localGeometry ?? (localGeometry = ProjectGeometryToLZ().ToArray());
+                return localGeometry;
             }
         }
 
@@ -140,7 +143,7 @@ namespace Ringtoets.Piping.Primitives
                 EndingWorldPoint = Points[Points.Length - 1];
             }
 
-            localGeometry = null;
+            localGeometry = ProjectGeometryToLZ().ToArray();
         }
 
         /// <summary>
@@ -268,9 +271,9 @@ namespace Ringtoets.Piping.Primitives
             }
 
             var segments = new Collection<Segment2D>();
-            for (int i = 1; i < LocalGeometry.Length; i++)
+            for (int i = 1; i < localGeometry.Length; i++)
             {
-                segments.Add(new Segment2D(LocalGeometry[i - 1], LocalGeometry[i]));
+                segments.Add(new Segment2D(localGeometry[i - 1], localGeometry[i]));
             }
 
             IEnumerable<Point2D> intersectionPoints = Math2D.SegmentsIntersectionWithVerticalLine(segments, l).OrderBy(p => p.Y).ToArray();
