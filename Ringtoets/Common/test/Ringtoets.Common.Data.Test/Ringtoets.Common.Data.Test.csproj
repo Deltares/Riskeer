@@ -57,6 +57,7 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssessmentSection\ReferenceLineMetaTest.cs" />
     <Compile Include="AssessmentSection\ReferenceLineTest.cs" />
     <Compile Include="Calculation\CalculationGroupTest.cs" />
     <Compile Include="Probability\ProbabilityAssessmentOutputTest.cs" />

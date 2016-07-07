@@ -183,5 +183,32 @@ namespace Ringtoets.Common.IO.Properties {
                 return ResourceManager.GetString("ReferenceLineReader_File_must_contain_1_polyline", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand heeft geen attribuut &apos;{0}&apos;. Dit attribuut is vereist..
+        /// </summary>
+        public static string ReferenceLinesMetaReader_File_lacks_required_Attribute_0_ {
+            get {
+                return ResourceManager.GetString("ReferenceLinesMetaReader_File_lacks_required_Attribute_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand heeft de attributen &apos;{0}&apos; niet. Deze attributen zijn vereist..
+        /// </summary>
+        public static string ReferenceLinesMetaReader_File_lacks_required_Attributes_0_ {
+            get {
+                return ResourceManager.GetString("ReferenceLinesMetaReader_File_lacks_required_Attributes_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand bevat geen waarde voor &apos;TrackID&apos;..
+        /// </summary>
+        public static string ReferenceLinesMetaReader_TrajectId_is_empty {
+            get {
+                return ResourceManager.GetString("ReferenceLinesMetaReader_TrajectId_is_empty", resourceCulture);
+            }
+        }
     }
 }

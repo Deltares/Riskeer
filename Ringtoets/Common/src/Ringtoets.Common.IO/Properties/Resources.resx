@@ -159,4 +159,13 @@ Er is geen referentielijn geïmporteerd.</value>
   <data name="DataTypeDisplayName_0_shape_file_filter" xml:space="preserve">
     <value>{0} shape bestand (*.shp)|*.shp</value>
   </data>
+  <data name="ReferenceLinesMetaReader_File_lacks_required_Attributes_0_" xml:space="preserve">
+    <value>Het bestand heeft de attributen '{0}' niet. Deze attributen zijn vereist.</value>
+  </data>
+  <data name="ReferenceLinesMetaReader_File_lacks_required_Attribute_0_" xml:space="preserve">
+    <value>Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.</value>
+  </data>
+  <data name="ReferenceLinesMetaReader_TrajectId_is_empty" xml:space="preserve">
+    <value>Het bestand bevat geen waarde voor 'TrackID'.</value>
+  </data>
 </root>

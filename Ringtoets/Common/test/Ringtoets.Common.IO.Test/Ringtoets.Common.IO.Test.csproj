@@ -49,6 +49,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ReferenceLinesMetaReaderTest.cs" />
     <Compile Include="FailureMechanismSectionReaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReferenceLineImporterTest.cs" />
