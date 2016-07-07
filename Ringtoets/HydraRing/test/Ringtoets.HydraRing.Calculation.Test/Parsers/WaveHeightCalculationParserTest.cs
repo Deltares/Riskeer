@@ -86,12 +86,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        [TestCase("6-3_0-output.txt", 0.91641)]
-        [TestCase("304432-fdir-output.txt", 2.78346)]
-        [TestCase("304432-form-output.txt", 2.78347)]
-        [TestCase("700003-fdir-output.txt", 1.04899)]
-        [TestCase("700003-form-output.txt", 1.04899)]
-        public void Parse_ExampleHydraRingOutputFileContainingSectionIds_ReturnsExpectedTargetProbabilityCalculationResult(string testFile, double expected)
+        [TestCase("6-3_0-output.txt", 0.91641, true)]
+        [TestCase("6-3_0-output-not-dominant.txt", 0.91641, false)]
+        [TestCase("304432-fdir-output.txt", 2.78346, true)]
+        [TestCase("304432-form-output.txt", 2.78347, true)]
+        [TestCase("304432-form-output-not-dominant.txt", 2.78347, false)]
+        [TestCase("700003-fdir-output.txt", 1.04899, true)]
+        [TestCase("700003-form-output.txt", 1.04899, true)]
+        [TestCase("700003-form-output-not-dominant.txt", 1.04899, false)]
+        public void Parse_ExampleHydraRingOutputFileContainingSectionIds_OutputSetWithExpectedCalculationResult(string testFile, double expected, bool isOvertoppingDominant)
         {
             // Setup
             var parser = new WaveHeightCalculationParser();
@@ -107,9 +110,34 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 
             // Assert
             Assert.AreEqual(expected, parser.Output.WaveHeight);
-            Assert.IsTrue(parser.Output.IsOvertoppingDominant);
+            Assert.AreEqual(isOvertoppingDominant, parser.Output.IsOvertoppingDominant);
         }
 
+        [Test]
+        [TestCase("6-3_0-output-no-overtopping.txt")]
+        [TestCase("6-3_0-output-no-overflow.txt")]
+        [TestCase("6-3_0-output-invalid-hs.txt")]
+        [TestCase("6-3_0-output-invalid-closing.txt")]
+        [TestCase("6-3_0-output-invalid-wind.txt")]
+        [TestCase("6-3_0-output-invalid-beta.txt")]
+        [TestCase("6-3_0-output-no-relevant-overflow.txt")]
+        public void Parse_InvalidHydraRingOutputFile_OutputNull(string testFile)
+        {
+            // Setup
+            var parser = new WaveHeightCalculationParser();
+            var sectionId = 1;
+
+            using (var copyHelper = new TestDataCopyHelper(testDataPath, workingDirectory))
+            {
+                copyHelper.CopyToTemporaryOutput(testFile, GetOutputFileName(sectionId));
+
+                // Call
+                parser.Parse(workingDirectory, sectionId);
+            }
+
+            // Assert
+            Assert.IsNull(parser.Output);
+        }
         private string GetOutputFileName(int sectionId)
         {
             return string.Format("{0}{1}", sectionId, HydraRingFileName.OutputFileSuffix);

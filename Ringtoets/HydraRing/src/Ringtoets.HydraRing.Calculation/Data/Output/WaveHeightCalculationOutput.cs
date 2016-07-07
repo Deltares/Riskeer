@@ -22,7 +22,7 @@
 namespace Ringtoets.HydraRing.Calculation.Data.Output
 {
     /// <summary>
-    /// Class containing the results of a hydraring calculation for the sub failure mechanisms
+    /// Class containing the results of a Hydra-Ring calculation for the sub failure mechanisms
     /// overtopping and overflow.
     /// </summary>
     public class WaveHeightCalculationOutput
