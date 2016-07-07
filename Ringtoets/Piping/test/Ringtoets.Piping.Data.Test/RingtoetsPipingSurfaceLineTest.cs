@@ -267,8 +267,8 @@ namespace Ringtoets.Piping.Data.Test
 
         [Test]
         [TestCase(-1)]
-        [TestCase(-1e-6)]
-        [TestCase(3.1 + 1e-6)]
+        [TestCase(-5e-3)]
+        [TestCase(3.1 + 5e-3)]
         [TestCase(4.0)]
         public void GetZAtL_SurfaceLineDoesNotContainsPointAtL_ThrowsArgumentOutOfRange(double l)
         {
@@ -633,7 +633,7 @@ namespace Ringtoets.Piping.Data.Test
         [TestCase(1.375)]
         [TestCase(-0.005)]
         [TestCase(-5)]
-        public void ValidateInRange_PointNotInRange_ThrowsArgumentOutOfRangeException(double invalidValue)
+        public void ValidateInRange_PointNotInRange_ReturnsFalse(double invalidValue)
         {
             // Setup
             var testX = 1.0;
@@ -644,18 +644,24 @@ namespace Ringtoets.Piping.Data.Test
             CreateTestGeometry(testPoint, surfaceLine);
 
             // Call
-            TestDelegate call = () => surfaceLine.ValidateInRange((RoundedDouble) invalidValue, surfaceLine.ProjectGeometryToLZ().ToArray());
+            bool valid = surfaceLine.ValidateInRange(invalidValue);
 
             // Assert
-            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [0, {0}] liggen.", 1.37);
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            Assert.IsFalse(valid);
+
+//            // Call
+//            TestDelegate call = () => surfaceLine.ValidateInRange((RoundedDouble) invalidValue, surfaceLine.ProjectGeometryToLZ().ToArray());
+//
+//            // Assert
+//            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [0, {0}] liggen.", 1.37);
+//            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
         [TestCase(-0e-3)]
         [TestCase(1.37)]
         [TestCase(1.0)]
-        public void ValidateInRange_PointInRange_DoesNotThrow(double validValue)
+        public void ValidateInRange_PointInRange_ReturnsTrue(double validValue)
         {
             // Setup
             var testX = 1.0;
@@ -666,10 +672,10 @@ namespace Ringtoets.Piping.Data.Test
             CreateTestGeometry(testPoint, surfaceLine);
 
             // Call
-            TestDelegate call = () => surfaceLine.ValidateInRange((RoundedDouble) validValue, surfaceLine.ProjectGeometryToLZ().ToArray());
+            bool valid = surfaceLine.ValidateInRange(validValue);
 
             // Assert
-            Assert.DoesNotThrow(call);
+            Assert.IsTrue(valid);
         }
 
         private static void CreateTestGeometry(Point3D testPoint, RingtoetsPipingSurfaceLine surfaceLine)

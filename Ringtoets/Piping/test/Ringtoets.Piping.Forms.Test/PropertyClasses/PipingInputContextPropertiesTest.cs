@@ -474,7 +474,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.EntryPointL = (RoundedDouble)(-15.0);
 
             // Assert
-            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.", 0, 4);
+            var expectedMessage = "De lengte van de lokale coördinaat moet in het bereik [0, 4] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
 
             mocks.VerifyAll(); // No observer notified
@@ -514,7 +514,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.ExitPointL = (RoundedDouble) 10.0;
 
             // Assert
-            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.", 0, 4);
+            var expectedMessage = "De lengte van de lokale coördinaat moet in het bereik [0, 4] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
 
             mocks.VerifyAll(); // No observer notified

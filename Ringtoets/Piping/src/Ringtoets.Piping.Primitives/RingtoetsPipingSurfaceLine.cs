@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Primitives
     public class RingtoetsPipingSurfaceLine : IStorable
     {
         private const int numberOfDecimalPlaces = 2;
-        private Point3D[] geometryPoints;
+        private Point2D[] localGeometry;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RingtoetsPipingSurfaceLine"/> class.
@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.Primitives
         public RingtoetsPipingSurfaceLine()
         {
             Name = string.Empty;
-            geometryPoints = new Point3D[0];
+            Points = new Point3D[0];
         }
 
         /// <summary>
@@ -56,13 +56,7 @@ namespace Ringtoets.Piping.Primitives
         /// <summary>
         /// Gets the 3D points describing its geometry.
         /// </summary>
-        public Point3D[] Points
-        {
-            get
-            {
-                return geometryPoints;
-            }
-        }
+        public Point3D[] Points { get; private set; }
 
         /// <summary>
         /// Gets or sets the first 3D geometry point defining the surfaceline in world coordinates.
@@ -109,6 +103,17 @@ namespace Ringtoets.Piping.Primitives
         /// </summary>
         public Point2D ReferenceLineIntersectionWorldPoint { get; set; }
 
+        /// <summary>
+        /// Gets the 2D points describing the local geometry of the surface line.
+        /// </summary>
+        public Point2D[] LocalGeometry
+        {
+            get
+            {
+                return localGeometry ?? (localGeometry = ProjectGeometryToLZ().ToArray());
+            }
+        }
+
         public long StorageId { get; set; }
 
         /// <summary>
@@ -127,13 +132,15 @@ namespace Ringtoets.Piping.Primitives
             {
                 throw new ArgumentException(Resources.RingtoetsPipingSurfaceLine_A_point_in_the_collection_was_null);
             }
-            geometryPoints = points.ToArray();
+            Points = points.ToArray();
 
-            if (geometryPoints.Length > 0)
+            if (Points.Length > 0)
             {
-                StartingWorldPoint = geometryPoints[0];
-                EndingWorldPoint = geometryPoints[geometryPoints.Length - 1];
+                StartingWorldPoint = Points[0];
+                EndingWorldPoint = Points[Points.Length - 1];
             }
+
+            localGeometry = null;
         }
 
         /// <summary>
@@ -251,19 +258,24 @@ namespace Ringtoets.Piping.Primitives
         {
             ValidateHasPoints();
 
-            Point2D[] pointsInLocalCoordinates = ProjectGeometryToLZ().ToArray();
-
-            ValidateInRange(l, pointsInLocalCoordinates);
+            if (!ValidateInRange(l))
+            {
+                var outOfRangeMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range,
+                                                      Resources.RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height,
+                                                      LocalGeometry.First().X,
+                                                      LocalGeometry.Last().X);
+                throw new ArgumentOutOfRangeException(null, outOfRangeMessage);
+            }
 
             var segments = new Collection<Segment2D>();
-            for (int i = 1; i < pointsInLocalCoordinates.Length; i++)
+            for (int i = 1; i < localGeometry.Length; i++)
             {
-                segments.Add(new Segment2D(pointsInLocalCoordinates[i - 1], pointsInLocalCoordinates[i]));
+                segments.Add(new Segment2D(LocalGeometry[i - 1], LocalGeometry[i]));
             }
 
             IEnumerable<Point2D> intersectionPoints = Math2D.SegmentsIntersectionWithVerticalLine(segments, l).OrderBy(p => p.Y).ToArray();
 
-            const double intersectionTolerance = 1e-6;
+            const double intersectionTolerance = 1e-2;
             bool equalIntersections = Math.Abs(intersectionPoints.First().Y - intersectionPoints.Last().Y) < intersectionTolerance;
 
             if (equalIntersections)
@@ -282,7 +294,7 @@ namespace Ringtoets.Piping.Primitives
         /// <returns>Collection of 2D points in the LZ-plane.</returns>
         public RoundedPoint2DCollection ProjectGeometryToLZ()
         {
-            var count = geometryPoints.Length;
+            var count = Points.Length;
             if (count == 0)
             {
                 return new RoundedPoint2DCollection(numberOfDecimalPlaces, Enumerable.Empty<Point2D>());
@@ -291,13 +303,30 @@ namespace Ringtoets.Piping.Primitives
             Point3D first = Points.First();
             if (count == 1)
             {
-                return new RoundedPoint2DCollection(numberOfDecimalPlaces, new[] { new Point2D(0.0, first.Z)});
+                return new RoundedPoint2DCollection(numberOfDecimalPlaces, new[]
+                {
+                    new Point2D(0.0, first.Z)
+                });
             }
 
             Point3D last = Points.Last();
             Point2D firstPoint = new Point2D(first.X, first.Y);
             Point2D lastPoint = new Point2D(last.X, last.Y);
             return new RoundedPoint2DCollection(numberOfDecimalPlaces, Points.Select(p => p.ProjectIntoLocalCoordinates(firstPoint, lastPoint)));
+        }
+
+        /// <summary>
+        /// Checks whether <paramref name="localCoordinateL"/> is in range of the geometry projected in local coordinate system 
+        /// where the points are ordered on the L-coordinate being monotonically non-decreasing.
+        /// </summary>
+        /// <param name="localCoordinateL">The local L-coordinate value to check for.</param>
+        /// <returns><c>true</c> when local L-coordinate is in range of the local geometry. <c>false</c> otherwise.</returns>
+        public bool ValidateInRange(double localCoordinateL)
+        {
+            Point2D firstLocalPoint = LocalGeometry.First();
+            Point2D lastLocalPoint = LocalGeometry.Last();
+            RoundedDouble roundedLocalCoordinateL = new RoundedDouble(numberOfDecimalPlaces, localCoordinateL);
+            return !(firstLocalPoint.X > roundedLocalCoordinateL) && !(lastLocalPoint.X < roundedLocalCoordinateL);
         }
 
         public override string ToString()
@@ -337,28 +366,6 @@ namespace Ringtoets.Piping.Primitives
             if (!Points.Any())
             {
                 throw new InvalidOperationException(Resources.RingtoetsPipingSurfaceLine_SurfaceLine_has_no_Geometry);
-            }
-        }
-
-        /// <summary>
-        /// Checks whether <paramref name="localCoordinateL"/> is in range of the <paramref name="geometryInLocalCoordinates"/>.
-        /// </summary>
-        /// <param name="localCoordinateL">The value to check for.</param>
-        /// <param name="geometryInLocalCoordinates">Geometry projected in local coordinate system where the points are ordered on the
-        /// L-coordinate being monotonically non-decreasing</param>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="localCoordinateL"/> falls outside the L-coordiante span
-        /// defined by <paramref name="geometryInLocalCoordinates"/>.</exception>
-        public void ValidateInRange(RoundedDouble localCoordinateL, Point2D[] geometryInLocalCoordinates)
-        {
-            Point2D firstLocalPoint = geometryInLocalCoordinates.First();
-            Point2D lastLocalPoint = geometryInLocalCoordinates.Last();
-            if (firstLocalPoint.X > localCoordinateL || lastLocalPoint.X < localCoordinateL)
-            {
-                var outOfRangeMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range,
-                                                      Resources.RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height,
-                                                      firstLocalPoint.X,
-                                                      lastLocalPoint.X);
-                throw new ArgumentOutOfRangeException(null, outOfRangeMessage);
             }
         }
     }

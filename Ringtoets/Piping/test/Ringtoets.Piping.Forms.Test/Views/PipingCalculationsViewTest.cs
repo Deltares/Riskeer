@@ -919,7 +919,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble)newValue;
 
             // Assert
-            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [{0}, {1}] liggen.", 0, 10);
+            var expectedMessage = "De lengte van de lokale coördinaat moet in het bereik [0, 10] liggen.";
             Assert.AreEqual(expectedMessage, dataGridView.Rows[0].ErrorText);
             mocks.VerifyAll(); // No observer notified
         }

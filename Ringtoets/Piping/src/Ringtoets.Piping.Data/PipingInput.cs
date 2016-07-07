@@ -105,12 +105,19 @@ namespace Ringtoets.Piping.Data
             {
                 var newEntryPointL = value.ToPrecision(entryPointL.NumberOfDecimalPlaces);
 
-                if (!double.IsNaN(newEntryPointL) && !double.IsNaN(exitPointL))
+                if (!double.IsNaN(newEntryPointL))
                 {
-                    ValidateEntryExitPoint(newEntryPointL, exitPointL);
+                    if (!double.IsNaN(exitPointL))
+                    {
+                        ValidateEntryExitPoint(newEntryPointL, exitPointL);
+                    }
+
+                    if (surfaceLine != null)
+                    {
+                        ValidatePointOnSurfaceLine(newEntryPointL);
+                    }
                 }
 
-                ValidatePointOnSurfaceLine(newEntryPointL);
                 entryPointL = newEntryPointL;
             }
         }
@@ -137,12 +144,19 @@ namespace Ringtoets.Piping.Data
             {
                 var newExitPointL = value.ToPrecision(exitPointL.NumberOfDecimalPlaces);
                 
-                if (!double.IsNaN(entryPointL) && !double.IsNaN(newExitPointL))
+                if (!double.IsNaN(newExitPointL))
                 {
-                    ValidateEntryExitPoint(entryPointL, newExitPointL);
+                    if (!double.IsNaN(entryPointL))
+                    {
+                        ValidateEntryExitPoint(entryPointL, newExitPointL);
+                    }
+
+                    if (surfaceLine != null)
+                    {
+                        ValidatePointOnSurfaceLine(newExitPointL);
+                    }
                 }
 
-                ValidatePointOnSurfaceLine(newExitPointL);
                 exitPointL = newExitPointL;
             }
         }
@@ -157,9 +171,12 @@ namespace Ringtoets.Piping.Data
 
         private void ValidatePointOnSurfaceLine(RoundedDouble newLocalXCoordinate)
         {
-            if (surfaceLine != null)
+            if (!surfaceLine.ValidateInRange(newLocalXCoordinate))
             {
-                surfaceLine.ValidateInRange(newLocalXCoordinate, surfaceLine.ProjectGeometryToLZ().ToArray());
+                var outOfRangeMessage = string.Format("De lengte van de lokale coördinaat moet in het bereik [{0}, {1}] liggen.",
+                                                surfaceLine.LocalGeometry.First().X,
+                                                surfaceLine.LocalGeometry.Last().X);
+                throw new ArgumentOutOfRangeException(null, outOfRangeMessage);
             }
         }
 

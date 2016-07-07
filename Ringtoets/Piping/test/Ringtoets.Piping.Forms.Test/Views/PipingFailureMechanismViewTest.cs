@@ -362,7 +362,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 surfaceLine.SetGeometry(new Collection<Point3D>
                 {
                     new Point3D(1, 2, 3),
-                    new Point3D(1, 2, 3)
+                    new Point3D(4, 5, 6)
                 });
                 pipingFailureMechanism.SurfaceLines.Add(surfaceLine);
 

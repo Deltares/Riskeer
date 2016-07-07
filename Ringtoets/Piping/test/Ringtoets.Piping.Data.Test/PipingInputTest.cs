@@ -200,14 +200,14 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => input.ExitPointL = (RoundedDouble) value;
 
             // Assert
-            var expectedMessage = "Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [0, 1] liggen.";
+            var expectedMessage = "De lengte van de lokale coördinaat moet in het bereik [0, 1] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
         [TestCase(double.NaN)]
         [TestCase(-1e-3, Description = "Valid ExitPointL due to rounding to 0.0")]
-        [TestCase(0.994)]
+        [TestCase(0.1004)]
         [TestCase(0.50)]
         public void ExitPointL_SetToNew_ValueIsRounded(double exitPointValue)
         {
@@ -259,7 +259,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => input.EntryPointL = (RoundedDouble)value;
 
             // Assert
-            var expectedMessage = "Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [0, 1] liggen.";
+            var expectedMessage = "De lengte van de lokale coördinaat moet in het bereik [0, 1] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
          }
 
@@ -267,7 +267,7 @@ namespace Ringtoets.Piping.Data.Test
         [TestCase(double.NaN)]
         [TestCase(-1e-3, Description = "Valid EntryPointL due to rounding to 0.0")]
         [TestCase(0.005)]
-        [TestCase(0.994)]
+        [TestCase(0.1004)]
         [TestCase(0.50)]
         public void EntryPointL_SetToNew_ValueIsRounded(double entryPointValue)
         {
