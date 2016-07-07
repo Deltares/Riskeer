@@ -131,6 +131,17 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     }
                 },
                 {
+                    HydraRingFailureMechanismType.DikesHeight, new Dictionary<int, SubMechanismSettings>
+                    {
+                        {
+                            102, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                        },
+                        {
+                            103, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                        }
+                    }
+                },
+                {
                     HydraRingFailureMechanismType.DikesPiping, new Dictionary<int, SubMechanismSettings>
                     {
                         {

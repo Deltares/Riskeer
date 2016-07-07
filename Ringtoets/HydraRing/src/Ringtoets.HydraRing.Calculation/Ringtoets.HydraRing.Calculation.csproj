@@ -56,6 +56,7 @@
     <Compile Include="Data\HydraRingSection.cs" />
     <Compile Include="Data\HydraRingForelandPoint.cs" />
     <Compile Include="Data\HydraRingProfilePoint.cs" />
+    <Compile Include="Data\Input\Hydraulics\DikeHeightCalculationInput.cs" />
     <Compile Include="Data\Input\Overtopping\HydraRingRoughnessProfilePoint.cs" />
     <Compile Include="Data\Input\ExceedanceProbabilityCalculationInput.cs" />
     <Compile Include="Data\Input\Overtopping\OvertoppingCalculationInput.cs" />

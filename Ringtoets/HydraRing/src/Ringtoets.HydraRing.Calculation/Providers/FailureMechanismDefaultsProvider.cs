@@ -84,6 +84,13 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     })
                 },
                 {
+                    HydraRingFailureMechanismType.DikesHeight, new FailureMechanismDefaults(101, new[]
+                    {
+                        102,
+                        103
+                    })
+                },
+                {
                     HydraRingFailureMechanismType.DikesPiping, new FailureMechanismDefaults(103, new[]
                     {
                         311,

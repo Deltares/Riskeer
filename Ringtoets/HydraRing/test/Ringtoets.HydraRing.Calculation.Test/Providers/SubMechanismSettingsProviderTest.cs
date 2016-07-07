@@ -66,6 +66,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, 16, 1, 4)]
         [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 102, 1, 4)]
         [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 103, 1, 4)]
+        [TestCase(HydraRingFailureMechanismType.DikesHeight, 102, 1, 4)]
+        [TestCase(HydraRingFailureMechanismType.DikesHeight, 103, 1, 4)]
         [TestCase(HydraRingFailureMechanismType.DikesPiping, 311, 1, 4)]
         [TestCase(HydraRingFailureMechanismType.DikesPiping, 313, 1, 4)]
         [TestCase(HydraRingFailureMechanismType.DikesPiping, 314, 1, 4)]

@@ -64,6 +64,10 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     new FailureMechanismSettings(double.NaN, double.NaN, 1017)
                 },
                 {
+                    HydraRingFailureMechanismType.DikesHeight,
+                    new FailureMechanismSettings(5, 15, 1017)
+                },
+                {
                     HydraRingFailureMechanismType.DikesPiping,
                     new FailureMechanismSettings(double.NaN, double.NaN, 3015)
                 },
