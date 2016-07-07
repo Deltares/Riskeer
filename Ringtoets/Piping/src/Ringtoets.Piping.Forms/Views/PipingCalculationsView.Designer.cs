@@ -23,10 +23,9 @@
             this.labelFailureMechanismSections = new System.Windows.Forms.Label();
             this.tableLayoutPanelDataGrid = new System.Windows.Forms.TableLayoutPanel();
             this.labelCalculations = new System.Windows.Forms.Label();
+            this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonGenerateScenarios = new System.Windows.Forms.Button();
-            this.buttonNavigateToSelectedCalculation = new System.Windows.Forms.Button();
-            this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.tableLayoutPanelUserControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -88,11 +87,15 @@
             resources.ApplyResources(this.labelCalculations, "labelCalculations");
             this.labelCalculations.Name = "labelCalculations";
             // 
+            // dataGridViewControl
+            // 
+            resources.ApplyResources(this.dataGridViewControl, "dataGridViewControl");
+            this.dataGridViewControl.Name = "dataGridViewControl";
+            // 
             // tableLayoutPanel1
             // 
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
             this.tableLayoutPanel1.Controls.Add(this.buttonGenerateScenarios, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.buttonNavigateToSelectedCalculation, 1, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
             // buttonGenerateScenarios
@@ -101,17 +104,6 @@
             this.buttonGenerateScenarios.Name = "buttonGenerateScenarios";
             this.buttonGenerateScenarios.UseVisualStyleBackColor = true;
             this.buttonGenerateScenarios.Click += new System.EventHandler(this.OnGenerateScenariosButtonClick);
-            // 
-            // buttonNavigateToSelectedCalculation
-            // 
-            resources.ApplyResources(this.buttonNavigateToSelectedCalculation, "buttonNavigateToSelectedCalculation");
-            this.buttonNavigateToSelectedCalculation.Name = "buttonNavigateToSelectedCalculation";
-            this.buttonNavigateToSelectedCalculation.UseVisualStyleBackColor = true;
-            // 
-            // dataGridViewControl
-            // 
-            resources.ApplyResources(this.dataGridViewControl, "dataGridViewControl");
-            this.dataGridViewControl.Name = "dataGridViewControl";
             // 
             // PipingCalculationsView
             // 
@@ -144,7 +136,6 @@
         private System.Windows.Forms.Label labelCalculations;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button buttonGenerateScenarios;
-        private System.Windows.Forms.Button buttonNavigateToSelectedCalculation;
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
     }
 }
