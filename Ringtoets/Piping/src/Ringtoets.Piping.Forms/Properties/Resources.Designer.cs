@@ -985,15 +985,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde van het L-coördinaat voor het intredepunt mag niet kleiner zijn dan 0..
-        /// </summary>
-        public static string PipingInputExtensions_SetEntryPointL_Value_must_be_greater_than_or_equal_to_zero {
-            get {
-                return ResourceManager.GetString("PipingInputExtensions_SetEntryPointL_Value_must_be_greater_than_or_equal_to_zero", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap PipingInputIcon {
