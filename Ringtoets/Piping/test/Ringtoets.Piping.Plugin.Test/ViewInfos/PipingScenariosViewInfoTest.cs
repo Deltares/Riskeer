@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(PipingScenariosContext), info.DataType);
             Assert.AreEqual(typeof(CalculationGroup), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, info.Image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ScenariosIcon, info.Image);
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_Always_ReturnsCalculationGroupName()
+        public void GetViewName_Always_ReturnsScenarios()
         {
             // Setup
             var viewMock = mocks.StrictMock<PipingScenariosView>();
@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             pipingCalculationsGroupMock.Name = "Test";
 
             // Call & Assert
-            Assert.AreEqual("Test", info.GetViewName(viewMock, pipingCalculationsGroupMock));
+            Assert.AreEqual(RingtoetsCommonFormsResources.Scenarios_DisplayName, info.GetViewName(viewMock, pipingCalculationsGroupMock));
         }
 
         [Test]

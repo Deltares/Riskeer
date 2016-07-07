@@ -121,8 +121,8 @@ namespace Ringtoets.Piping.Plugin
             yield return new ViewInfo<PipingScenariosContext, CalculationGroup, PipingScenariosView>
             {
                 GetViewData = context => context.WrappedData,
-                GetViewName = (view, calculationGroup) => calculationGroup.Name,
-                Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
+                GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
+                Image = RingtoetsCommonFormsResources.ScenariosIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.ParentFailureMechanism.CalculationsGroup,
                 CloseForData = ClosePipingScenariosViewForData,
                 AfterCreate = (view, context) =>
