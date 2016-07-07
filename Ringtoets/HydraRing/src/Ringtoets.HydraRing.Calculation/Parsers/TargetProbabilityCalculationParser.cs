@@ -52,9 +52,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
                     foreach (var resultLine in lines.Skip(3)) // Skip the header lines
                     {
-                        var results = resultLine.Split((char[]) null, StringSplitOptions.RemoveEmptyEntries);
+                        var results = resultLine.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
 
-                        if (results.ElementAt(0) == sectionId.ToString())
+                        if (results.Any() && results.ElementAt(0) == sectionId.ToString())
                         {
                             Output = new TargetProbabilityCalculationOutput(GetDoubleValueFromElement(results.ElementAt(results.Length - 2)), GetDoubleValueFromElement(results.ElementAt(results.Length - 1)));
                         }

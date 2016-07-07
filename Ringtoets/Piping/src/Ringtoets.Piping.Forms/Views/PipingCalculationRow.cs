@@ -62,38 +62,6 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="PipingCalculationScenario"/> is relevant.
-        /// </summary>
-        public bool IsRelevant
-        {
-            get
-            {
-                return pipingCalculation.IsRelevant;
-            }
-            set
-            {
-                pipingCalculation.IsRelevant = value;
-                pipingCalculation.NotifyObservers();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the contribution of the <see cref="PipingCalculationScenario"/>.
-        /// </summary>
-        public RoundedDouble Contribution
-        {
-            get
-            {
-                return new RoundedDouble(0, pipingCalculation.Contribution * 100);
-            }
-            set
-            {
-                pipingCalculation.Contribution = (RoundedDouble)(value / 100);
-                pipingCalculation.NotifyObservers();
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the name of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         public string Name

@@ -47,9 +47,9 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     public partial class PipingCalculationsView : UserControl, IView
     {
-        private const int stochasticSoilModelColumnIndex = 3;
-        private const int stochasticSoilProfileColumnIndex = 4;
-        private const int hydraulicBoundaryLocationColumnIndex = 6;
+        private const int stochasticSoilModelColumnIndex = 1;
+        private const int stochasticSoilProfileColumnIndex = 2;
+        private const int hydraulicBoundaryLocationColumnIndex = 4;
         private readonly Observer assessmentSectionObserver;
         private readonly RecursiveObserver<CalculationGroup, PipingInput> pipingInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> pipingCalculationGroupObserver;
@@ -181,14 +181,6 @@ namespace Ringtoets.Piping.Forms.Views
         {
             dataGridViewControl.AddCellClickHandler(DataGridViewOnCellClick);
 
-            dataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<PipingCalculationRow>(row => row.IsRelevant),
-                Resources.PipingCalculationsView_InitializeDataGridView_In_final_rating
-                );
-            dataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingCalculationRow>(row => row.Contribution),
-                Resources.PipingCalculationsView_InitializeDataGridView_Contribution
-                );
             dataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingCalculationRow>(row => row.Name),
                 Resources.PipingCalculation_Name_DisplayName

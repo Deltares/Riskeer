@@ -64,8 +64,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.AreSame(calculation, row.PipingCalculation);
             Assert.AreEqual(calculation.Name, row.Name);
-            Assert.AreEqual(calculation.IsRelevant, row.IsRelevant);
-            Assert.AreEqual(new RoundedDouble(1, calculation.Contribution), new RoundedDouble(1, row.Contribution / 100));
             Assert.AreEqual(calculation.InputParameters.StochasticSoilModel, row.StochasticSoilModel.WrappedObject);
             Assert.AreEqual(calculation.InputParameters.StochasticSoilProfile, row.StochasticSoilProfile.WrappedObject);
             Assert.AreEqual(calculation.InputParameters.StochasticSoilProfile.Probability.ToString(CultureInfo.CurrentCulture), row.StochasticSoilProfileProbability);
@@ -74,55 +72,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(calculation.InputParameters.PhreaticLevelExit.Mean, row.PhreaticLevelExitMean);
             Assert.AreEqual(calculation.InputParameters.EntryPointL, row.EntryPointL);
             Assert.AreEqual(calculation.InputParameters.ExitPointL, row.ExitPointL);
-        }
-
-        [Test]
-        [TestCase(false)]
-        [TestCase(true)]
-        public void IsRelevant_AlwaysOnChange_NotifyObserversAndCalculationPropertyChanged(bool newValue)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
-            calculation.Attach(observer);
-
-            var row = new PipingCalculationRow(calculation);
-
-            // Call
-            row.IsRelevant = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, calculation.IsRelevant);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Contribution_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
-        {
-            // Setup
-            var newValue = new Random().Next(0, 100);
-
-            var calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
-            var row = new PipingCalculationRow(calculation);
-
-            int counter = 0;
-            using (new Observer(() => counter++)
-            {
-                Observable = calculation
-            })
-            {
-                // Call
-                row.Contribution = (RoundedDouble) newValue;
-
-                // Assert
-                Assert.AreEqual(1, counter);
-                Assert.AreEqual(new RoundedDouble(2, newValue), calculation.Contribution * 100);
-            }
         }
 
         [Test]

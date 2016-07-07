@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -105,6 +106,27 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             Assert.IsNotNull(targetProbabilityCalculationOutput);
             Assert.AreEqual(result, targetProbabilityCalculationOutput.Result);
             Assert.AreEqual(actual, targetProbabilityCalculationOutput.ActualTargetProbability);
+        }
+
+        [Test]
+        public void Parse_ExampleHydraRingOutputFileContainingExtraWhiteLine_ReturnsExpectedTargetProbabilityCalculationResult()
+        {
+            // Setup
+            var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
+            Console.WriteLine(workingDirectory);
+            using (var copyHelper = new TestDataCopyHelper(testDataPath, workingDirectory))
+            {
+                copyHelper.CopyToTemporaryOutput("exampleOutputTableWithWhiteLine.txt", HydraRingFileName.DesignTablesFileName);
+
+                // Call
+                targetProbabilityCalculationParser.Parse(workingDirectory, 1);
+            }
+
+            // Assert
+            var targetProbabilityCalculationOutput = targetProbabilityCalculationParser.Output;
+            Assert.IsNotNull(targetProbabilityCalculationOutput);
+            Assert.AreEqual(1.1, targetProbabilityCalculationOutput.Result);
+            Assert.AreEqual(11.11, targetProbabilityCalculationOutput.ActualTargetProbability);
         }
 
         [Test]

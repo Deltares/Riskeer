@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -93,7 +92,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsFalse(dataGridView.AutoGenerateColumns);
-            Assert.AreEqual(11, dataGridView.ColumnCount);
+            Assert.AreEqual(9, dataGridView.ColumnCount);
 
             foreach (var column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
             {
@@ -277,12 +276,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(2, rows.Count);
 
             var cells = rows[0].Cells;
-            Assert.AreEqual(11, cells.Count);
-            Assert.IsTrue((bool) cells[isRelevantColumnIndex].FormattedValue);
-            Assert.AreEqual(100.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
+            Assert.AreEqual(9, cells.Count);
             Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("Model A", cells[stochasticSoilModelsColumnIndex].FormattedValue);
             Assert.AreEqual("<geen>", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+            Assert.AreEqual("0", cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
             Assert.AreEqual("Location 1", cells[hydraulicBoundaryLocationsColumnIndex].FormattedValue);
             Assert.AreEqual(1.111.ToString(CultureInfo.CurrentCulture), cells[dampingFactorExitMeanColumnIndex].FormattedValue);
             Assert.AreEqual(2.222.ToString(CultureInfo.CurrentCulture), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
@@ -290,12 +288,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(4.44.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
-            Assert.AreEqual(11, cells.Count);
-            Assert.IsTrue((bool) cells[isRelevantColumnIndex].FormattedValue);
-            Assert.AreEqual(100.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
+            Assert.AreEqual(9, cells.Count);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("Model E", cells[stochasticSoilModelsColumnIndex].FormattedValue);
             Assert.AreEqual("Profile 5", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+            Assert.AreEqual("30", cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
             Assert.AreEqual("Location 2", cells[hydraulicBoundaryLocationsColumnIndex].FormattedValue);
             Assert.AreEqual(5.556.ToString(CultureInfo.CurrentCulture), cells[dampingFactorExitMeanColumnIndex].FormattedValue);
             Assert.AreEqual(6.667.ToString(CultureInfo.CurrentCulture), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
@@ -407,12 +404,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase("test", contributionColumnIndex)]
         [TestCase("test", dampingFactorExitMeanColumnIndex)]
         [TestCase("test", phreaticLevelExitMeanColumnIndex)]
         [TestCase("test", entryPointLColumnIndex)]
         [TestCase("test", exitPointLColumnIndex)]
-        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", contributionColumnIndex)]
         [TestCase(";/[].,~!@#$%^&*()_-+={}|?", dampingFactorExitMeanColumnIndex)]
         [TestCase(";/[].,~!@#$%^&*()_-+={}|?", phreaticLevelExitMeanColumnIndex)]
         [TestCase(";/[].,~!@#$%^&*()_-+={}|?", entryPointLColumnIndex)]
@@ -432,10 +427,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(1, contributionColumnIndex)]
-        [TestCase(1e-6, contributionColumnIndex)]
-        [TestCase(1e+6, contributionColumnIndex)]
-        [TestCase(14.3, contributionColumnIndex)]
         [TestCase(1, dampingFactorExitMeanColumnIndex)]
         [TestCase(1e-2, dampingFactorExitMeanColumnIndex)]
         [TestCase(1e+6, dampingFactorExitMeanColumnIndex)]
@@ -816,8 +807,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsFalse(button.Enabled);
         }
 
-        [TestCase(isRelevantColumnIndex, true, true, false)]
-        [TestCase(contributionColumnIndex, 30.0, true, false)]
         [TestCase(nameColumnIndex, "New name", true, false)]
         [TestCase(stochasticSoilProfilesColumnIndex, null, false, true)]
         [TestCase(hydraulicBoundaryLocationsColumnIndex, null, false, true)]
@@ -924,17 +913,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
             mocks.VerifyAll(); // No observer notified
         }
 
-        private const int isRelevantColumnIndex = 0;
-        private const int contributionColumnIndex = 1;
-        private const int nameColumnIndex = 2;
-        private const int stochasticSoilModelsColumnIndex = 3;
-        private const int stochasticSoilProfilesColumnIndex = 4;
-        private const int stochasticSoilProfilesProbabilityColumnIndex = 5;
-        private const int hydraulicBoundaryLocationsColumnIndex = 6;
-        private const int dampingFactorExitMeanColumnIndex = 7;
-        private const int phreaticLevelExitMeanColumnIndex = 8;
-        private const int entryPointLColumnIndex = 9;
-        private const int exitPointLColumnIndex = 10;
+        private const int nameColumnIndex = 0;
+        private const int stochasticSoilModelsColumnIndex = 1;
+        private const int stochasticSoilProfilesColumnIndex = 2;
+        private const int stochasticSoilProfilesProbabilityColumnIndex = 3;
+        private const int hydraulicBoundaryLocationsColumnIndex = 4;
+        private const int dampingFactorExitMeanColumnIndex = 5;
+        private const int phreaticLevelExitMeanColumnIndex = 6;
+        private const int entryPointLColumnIndex = 7;
+        private const int exitPointLColumnIndex = 8;
 
         private PipingCalculationsView ShowFullyConfiguredPipingCalculationsView()
         {
