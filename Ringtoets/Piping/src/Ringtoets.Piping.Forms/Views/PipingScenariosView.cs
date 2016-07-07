@@ -25,7 +25,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
-using Core.Common.Gui.Selection;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;

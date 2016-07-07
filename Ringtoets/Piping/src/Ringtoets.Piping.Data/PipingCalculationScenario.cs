@@ -33,6 +33,8 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingCalculationScenario : PipingCalculation, ICalculationScenario, IStorable
     {
+        private RoundedDouble contribution;
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationScenario"/> with default values set for some of the parameters.
         /// </summary>
@@ -43,12 +45,22 @@ namespace Ringtoets.Piping.Data
             : base(generalInputParameters)
         {
             IsRelevant = true;
-            Contribution = new RoundedDouble(2, 1.0);
+            contribution = new RoundedDouble(2, 1.0);
         }
 
         public bool IsRelevant { get; set; }
 
-        public RoundedDouble Contribution { get; set; }
+        public RoundedDouble Contribution
+        {
+            get
+            {
+                return contribution;
+            }
+            set
+            {
+                contribution = value.ToPrecision(contribution.NumberOfDecimalPlaces); ;
+            }
+        }
 
         public double Probability
         {

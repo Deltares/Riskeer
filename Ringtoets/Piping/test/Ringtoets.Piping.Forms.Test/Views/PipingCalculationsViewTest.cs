@@ -523,6 +523,49 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        public void GivenPipingScenariosViewWithPipingFailureMechanism_WhenSectionsAddedAndPipingFailureMechanismNotified_ThenSectionsListBoxCorrectlyUpdated()
+        {
+            // Setup
+            var pipingFailureMechanismWithSections = new PipingFailureMechanism();
+            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new List<Point2D>
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            });
+            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new List<Point2D>
+            {
+                new Point2D(5.0, 0.0),
+                new Point2D(10.0, 0.0)
+            });
+            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new List<Point2D>
+            {
+                new Point2D(10.0, 0.0),
+                new Point2D(15.0, 0.0)
+            });
+
+            var PipingScenarioView = ShowPipingCalculationsView();
+            PipingScenarioView.PipingFailureMechanism = pipingFailureMechanismWithSections;
+
+            var listBox = (ListBox)new ControlTester("listBox").TheObject;
+
+            // Precondition
+            Assert.AreEqual(0, listBox.Items.Count);
+
+            pipingFailureMechanismWithSections.AddSection(failureMechanismSection1);
+            pipingFailureMechanismWithSections.AddSection(failureMechanismSection2);
+            pipingFailureMechanismWithSections.AddSection(failureMechanismSection3);
+
+            // Call
+            pipingFailureMechanismWithSections.NotifyObservers();
+
+            // Assert
+            Assert.AreEqual(3, listBox.Items.Count);
+            Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
+            Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
+            Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
+        }
+
+        [Test]
         public void GivenPipingCalculationsView_WhenGenerateScenariosButtonClicked_ThenShowViewWithSurfaceLines()
         {
             // Given
