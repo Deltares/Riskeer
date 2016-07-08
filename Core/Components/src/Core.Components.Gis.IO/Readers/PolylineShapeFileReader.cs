@@ -30,7 +30,6 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Data;
 using DotSpatial.Topology;
-
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
 
@@ -102,6 +101,16 @@ namespace Core.Components.Gis.IO.Readers
             return ConvertMultiLineFeatureToMapLineData(featureList, !string.IsNullOrWhiteSpace(name) ? name : GisIOResources.PolylineShapeFileReader_ReadLine_Line);
         }
 
+        /// <summary>
+        /// Gets the single line feature at the given index.
+        /// </summary>
+        /// <param name="index">The index of which feature to retrieve.</param>
+        /// <returns>The feature that consists out of 1 whole polyline.</returns>
+        public override IFeature GetFeature(int index)
+        {
+            return ShapeFile.Features[index];
+        }
+
         private IFeature ReadFeatureLine()
         {
             try
@@ -114,22 +123,15 @@ namespace Core.Components.Gis.IO.Readers
             }
         }
 
-        /// <summary>
-        /// Gets the single line feature at the given index.
-        /// </summary>
-        /// <param name="index">The index of which feature to retrieve.</param>
-        /// <returns>The feature that consists out of 1 whole polyline.</returns>
-        public override IFeature GetFeature(int index)
-        {
-            return ShapeFile.Features[index];
-        }
-
         private MapLineData ConvertSingleLineFeatureToMapLineData(IFeature lineFeature, string name)
         {
             MapFeature feature = CreateMapFeatureForLineFeature(lineFeature);
             CopyMetaDataIntoFeature(feature, readIndex);
 
-            IEnumerable<MapFeature> mapFeatures = new[] { feature };
+            IEnumerable<MapFeature> mapFeatures = new[]
+            {
+                feature
+            };
             return new MapLineData(mapFeatures, name);
         }
 

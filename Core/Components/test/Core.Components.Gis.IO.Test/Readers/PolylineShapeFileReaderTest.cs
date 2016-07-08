@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
@@ -132,7 +131,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                MapLineData line = (MapLineData)reader.ReadLine(name);
+                MapLineData line = (MapLineData) reader.ReadLine(name);
 
                 // Assert
                 Assert.AreEqual(name, line.Name);
@@ -151,7 +150,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                MapLineData line = (MapLineData)reader.ReadLine(name);
+                MapLineData line = (MapLineData) reader.ReadLine(name);
 
                 // Assert
                 Assert.AreEqual("Lijn", line.Name);
@@ -167,11 +166,11 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                MapLineData line = (MapLineData)reader.ReadLine();
+                MapLineData line = (MapLineData) reader.ReadLine();
 
                 // Assert
                 Assert.IsNotNull(line);
-                
+
                 MapFeature[] features = line.Features.ToArray();
                 Assert.AreEqual(1, features.Length);
 
@@ -208,10 +207,10 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(4, reader.GetNumberOfLines());
 
                 // Call
-                MapLineData line1 = (MapLineData)reader.ReadLine();
-                MapLineData line2 = (MapLineData)reader.ReadLine();
-                MapLineData line3 = (MapLineData)reader.ReadLine();
-                MapLineData line4 = (MapLineData)reader.ReadLine();
+                MapLineData line1 = (MapLineData) reader.ReadLine();
+                MapLineData line2 = (MapLineData) reader.ReadLine();
+                MapLineData line3 = (MapLineData) reader.ReadLine();
+                MapLineData line4 = (MapLineData) reader.ReadLine();
 
                 // Assert
 
@@ -312,7 +311,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                MapLineData line = (MapLineData)reader.ReadShapeFile(name);
+                MapLineData line = (MapLineData) reader.ReadShapeFile(name);
 
                 // Assert
                 Assert.AreEqual(name, line.Name);
@@ -331,7 +330,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                MapLineData line = (MapLineData)reader.ReadShapeFile(name);
+                MapLineData line = (MapLineData) reader.ReadShapeFile(name);
 
                 // Assert
                 Assert.AreEqual("Lijn", line.Name);
@@ -347,7 +346,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                MapLineData line = (MapLineData)reader.ReadShapeFile();
+                MapLineData line = (MapLineData) reader.ReadShapeFile();
 
                 // Assert
                 Assert.IsNotNull(line);
@@ -388,7 +387,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(4, reader.GetNumberOfLines());
 
                 // Call
-                MapLineData lines = (MapLineData)reader.ReadShapeFile();
+                MapLineData lines = (MapLineData) reader.ReadShapeFile();
 
                 // Assert
                 MapFeature[] features = lines.Features.ToArray();
@@ -497,7 +496,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapefileFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Multiple_PolyLine_with_ID.shp");
+                                                                  "Multiple_PolyLine_with_ID.shp");
             using (var reader = new PolylineShapeFileReader(shapefileFilePath))
             {
                 // Call
@@ -518,7 +517,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapefileFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Multiple_PolyLine_with_ID.shp");
+                                                                  "Multiple_PolyLine_with_ID.shp");
             using (var reader = new PolylineShapeFileReader(shapefileFilePath))
             {
                 // Call

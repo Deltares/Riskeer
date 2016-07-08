@@ -41,7 +41,7 @@ namespace Ringtoets.Common.IO
     /// </summary>
     public class ReferenceLinesMetaReader : IDisposable
     {
-        private const string referenceLineIdAttributeKey = "TRAJECT_ID";
+        private const string assessmentsectionIdAttributeKey = "TRAJECT_ID";
         private const string signalingValueAttributeKey = "NORM_SW";
         private const string lowerLimitValueAttributeKey = "NORM_OG";
         private readonly PolylineShapeFileReader polylineShapeFileReader;
@@ -71,14 +71,6 @@ namespace Ringtoets.Common.IO
         }
 
         /// <summary>
-        /// Gets the number of reference lines in the shape file.
-        /// </summary>
-        public int GetReferenceLinesCount()
-        {
-            return polylineShapeFileReader.GetNumberOfLines();
-        }
-
-        /// <summary>
         /// Reads the current feature in the shape file into a <see cref="ReferenceLineMeta"/>.
         /// </summary>
         /// <returns>The created <see cref="ReferenceLineMeta"/>.</returns>
@@ -101,7 +93,7 @@ namespace Ringtoets.Common.IO
 
         private void ValidateExistenceOfRequiredAttributes()
         {
-            var hasAssessmentSectionIdAttribute = polylineShapeFileReader.HasAttribute(referenceLineIdAttributeKey);
+            var hasAssessmentSectionIdAttribute = polylineShapeFileReader.HasAttribute(assessmentsectionIdAttributeKey);
             var hasSignalingValueAttribute = polylineShapeFileReader.HasAttribute(signalingValueAttributeKey);
             var hasLowerLimitValueAttribute = polylineShapeFileReader.HasAttribute(lowerLimitValueAttributeKey);
 
@@ -110,7 +102,7 @@ namespace Ringtoets.Common.IO
                 return;
             }
 
-            var message = "";
+            string message;
             if (hasAssessmentSectionIdAttribute && hasSignalingValueAttribute)
             {
                 // No low limit
@@ -131,7 +123,7 @@ namespace Ringtoets.Common.IO
             {
                 // No Assessment Section Id
                 message = string.Format(RingtoetsCommonIOResources.ReferenceLinesMetaReader_File_lacks_required_Attribute_0_,
-                                        referenceLineIdAttributeKey);
+                                        assessmentsectionIdAttributeKey);
                 throw new CriticalFileReadException(message);
             }
 
@@ -139,7 +131,7 @@ namespace Ringtoets.Common.IO
             var missingAttributes = new List<string>();
             if (!hasAssessmentSectionIdAttribute)
             {
-                missingAttributes.Add(referenceLineIdAttributeKey);
+                missingAttributes.Add(assessmentsectionIdAttributeKey);
             }
             if (!hasSignalingValueAttribute)
             {
@@ -176,14 +168,14 @@ namespace Ringtoets.Common.IO
 
             var feature = features[0];
 
-            var referenceLineId = GetReferenceLineId(feature);
+            var assessmentSectionId = GetAssessmentSectionId(feature);
             var signalingValue = GetSignalingValueAttributeKey(feature);
             var lowerLimitValue = GetLowerLimitValueAttribute(feature);
             IEnumerable<Point2D> geometryPoints = GetSectionGeometry(feature);
 
             var referenceLineMeta = new ReferenceLineMeta
             {
-                ReferenceLineId = referenceLineId
+                AssessmentSectionId = assessmentSectionId
             };
             if (lowerLimitValue != null)
             {
@@ -209,9 +201,9 @@ namespace Ringtoets.Common.IO
             return mapGeometries[0].PointCollections.First().Select(p => new Point2D(p.X, p.Y));
         }
 
-        private static string GetReferenceLineId(MapFeature lineFeature)
+        private static string GetAssessmentSectionId(MapFeature lineFeature)
         {
-            var referenceLineId = Convert.ToString(lineFeature.MetaData[referenceLineIdAttributeKey]);
+            var referenceLineId = Convert.ToString(lineFeature.MetaData[assessmentsectionIdAttributeKey]);
             if (String.IsNullOrEmpty(referenceLineId))
             {
                 throw new CriticalFileReadException(RingtoetsCommonIOResources.ReferenceLinesMetaReader_TrajectId_is_empty);

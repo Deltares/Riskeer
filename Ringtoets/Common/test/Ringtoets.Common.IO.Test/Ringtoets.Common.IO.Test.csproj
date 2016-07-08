@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="AssessmentSectionSettingsReaderTest.cs" />
     <Compile Include="AssessmentSectionSettingsTest.cs" />
+    <Compile Include="ReferenceLineMetaImporterTest.cs" />
     <Compile Include="ReferenceLinesMetaReaderTest.cs" />
     <Compile Include="FailureMechanismSectionReaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

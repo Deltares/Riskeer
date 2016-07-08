@@ -159,24 +159,6 @@ namespace Ringtoets.Common.IO.Test
         }
 
         [Test]
-        [TestCase("NBPW.shp", 20)]
-        public void GetReferenceLinesCount_ValidFilePath_ReturnElementCount(string shapeFileName, int expectedElementCount)
-        {
-            // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              shapeFileName);
-
-            using (var reader = new ReferenceLinesMetaReader(validFilePath))
-            {
-                // Call
-                int count = reader.GetReferenceLinesCount();
-
-                // Assert
-                Assert.AreEqual(expectedElementCount, count);
-            }
-        }
-
-        [Test]
         [TestCase("NBPW_missingTrajectId.shp", "TRAJECT_ID")]
         [TestCase("NBPW_missingNORM_SW.shp", "NORM_SW")]
         [TestCase("NBPW_missingNORM_OG.shp", "NORM_OG")]
@@ -214,7 +196,7 @@ namespace Ringtoets.Common.IO.Test
         }
 
         [Test]
-        public void ReadReferenceLinesMeta_ValidFilePath1_ReturnsElement()
+        public void ReadReferenceLinesMeta_ValidFilePath_ReturnsElement()
         {
             // Setup
             var validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -226,7 +208,7 @@ namespace Ringtoets.Common.IO.Test
                 ReferenceLineMeta referenceLineMeta = reader.ReadReferenceLinesMeta();
 
                 // Assert
-                Assert.AreEqual("205", referenceLineMeta.ReferenceLineId);
+                Assert.AreEqual("205", referenceLineMeta.AssessmentSectionId);
                 Assert.AreEqual(3000, referenceLineMeta.SignalingValue);
                 Assert.AreEqual(1000, referenceLineMeta.LowerLimitValue);
                 Point2D[] geometryPoints = referenceLineMeta.Points.ToArray();
@@ -235,7 +217,7 @@ namespace Ringtoets.Common.IO.Test
                 Assert.AreEqual(160892.075100, geometryPoints[1].X, 1e-6);
 
                 ReferenceLineMeta referenceLineMeta2 = reader.ReadReferenceLinesMeta();
-                Assert.AreEqual("11-1", referenceLineMeta2.ReferenceLineId);
+                Assert.AreEqual("11-1", referenceLineMeta2.AssessmentSectionId);
             }
         }
 
@@ -252,7 +234,7 @@ namespace Ringtoets.Common.IO.Test
                 ReferenceLineMeta referenceLineMeta = reader.ReadReferenceLinesMeta();
 
                 // Assert
-                Assert.AreEqual("46-1", referenceLineMeta.ReferenceLineId);
+                Assert.AreEqual("46-1", referenceLineMeta.AssessmentSectionId);
                 Assert.IsNull(referenceLineMeta.SignalingValue);
                 Assert.IsNull(referenceLineMeta.LowerLimitValue);
             }
@@ -286,11 +268,11 @@ namespace Ringtoets.Common.IO.Test
 
             using (var reader = new ReferenceLinesMetaReader(validFilePath))
             {
-                int count = reader.GetReferenceLinesCount();
-                for (int i = 0; i < count; i++)
+                ReferenceLineMeta line;
+                do
                 {
-                    reader.ReadReferenceLinesMeta();
-                }
+                    line = reader.ReadReferenceLinesMeta();
+                } while (line != null);
 
                 // Call
                 var resultBeyondEndOfFile = reader.ReadReferenceLinesMeta();

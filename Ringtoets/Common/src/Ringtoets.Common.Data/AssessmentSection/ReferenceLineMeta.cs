@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <summary>
         /// Gets or sets the unique identifier within a registration.
         /// </summary>
-        public string ReferenceLineId { get; set; }
+        public string AssessmentSectionId { get; set; }
 
         /// <summary>
         /// Gets or sets the signaling value for the assessment section.
