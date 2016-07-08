@@ -34,12 +34,10 @@ namespace Ringtoets.Common.IO.Test
         public void ReadSettigns_FromValidFile_ReturnAllAssessmentSectionSettings()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("IHW", "20160624v3 N-waarden voor GEKB en HTKW.csv"));
             var reader = new AssessmentSectionSettingsReader();
 
             // Call
-            AssessmentSectionSettings[] settingDefinitions = reader.ReadSettings(filePath);
+            AssessmentSectionSettings[] settingDefinitions = reader.ReadSettings();
 
             // Assert
             Assert.AreEqual(237, settingDefinitions.Length);

@@ -24,11 +24,12 @@ using System.Collections.Generic;
 using System.IO;
 
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO
 {
     /// <summary>
-    /// Reads the settings file defined at <see cref="IAssessmentSection"/> level.
+    /// Reads the settings defined at <see cref="IAssessmentSection"/> level.
     /// </summary>
     public class AssessmentSectionSettingsReader
     {
@@ -38,44 +39,21 @@ namespace Ringtoets.Common.IO
         private const string duneAssessmentSectionFlag = "Duin";
 
         /// <summary>
-        /// Reads the settings.
+        /// Reads the settings from <see cref="Resources.IHW_filecontents"/>.
         /// </summary>
-        /// <param name="filePath">The file path.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">When <paramref name="filePath"/> is null.</exception>
-        /// <exception cref="ArgumentException">When <paramref name="filePath"/> is an empty string.</exception>
-        /// <exception cref="FileNotFoundException">When <paramref name="filePath"/> points
-        /// to a file that doesn't exist.</exception>
-        /// <exception cref="DirectoryNotFoundException">When <paramref name="filePath"/> is invalid.</exception>
-        /// <exception cref="IOException">When either
-        /// <list type="bullet">
-        /// <item><paramref name="filePath"/> includes an incorrect
-        /// or invalid syntax for file name, directory name, or volume label.</item>
-        /// <item>When an I/O error occurs while reading the file.</item>
-        /// </list></exception>
-        /// <exception cref="OutOfMemoryException">When there is insufficient memory to allocate
-        /// a buffer to a line in the file.</exception>
-        /// <exception cref="IndexOutOfRangeException">When reading a line that does not have
-        /// at least 2 columns or when the line doesn't have columns aren't separated by a ';'.</exception>
-        /// <exception cref="FormatException">When reading a line where the second column text
-        /// doesn't represent a number.</exception>
-        /// <exception cref="OverflowException">When reading a line where the second column text
-        /// represents a number that is too big or too small to be stored in a <see cref="double"/>.</exception>
-        public AssessmentSectionSettings[] ReadSettings(string filePath)
+        /// <returns>The fully initialized settings.</returns>
+        public AssessmentSectionSettings[] ReadSettings()
         {
-            using (var reader = new StreamReader(filePath))
+            string[] ihwFileLines = Resources.IHW_filecontents.Split(new[]
             {
-                reader.ReadLine();// Skip header
-
-                var list = new List<AssessmentSectionSettings>();
-                string currentLine;
-                while (null != (currentLine = reader.ReadLine()))
-                {
-                    AssessmentSectionSettings settingsDefinition = ReadAssessmentSectionSettings(currentLine);
-                    list.Add(settingsDefinition);
-                }
-                return list.ToArray();
+                Environment.NewLine
+            }, StringSplitOptions.None);
+            var resultArray = new AssessmentSectionSettings[ihwFileLines.Length - 1];
+            for (int i = 1; i < ihwFileLines.Length; i++)
+            {
+                resultArray[i-1] = ReadAssessmentSectionSettings(ihwFileLines[i]);
             }
+            return resultArray;
         }
 
         /// <summary>
