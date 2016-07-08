@@ -33,12 +33,13 @@ namespace Ringtoets.Common.IO.Test
     [TestFixture]
     public class ReferenceLinesMetaReaderTest
     {
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "IHW");
+
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "NBPW.shp");
+            string validFilePath = Path.Combine(testDataPath, "NBPW.shp");
 
             // Call
             using (var reader = new ReferenceLinesMetaReader(validFilePath))
@@ -71,8 +72,7 @@ namespace Ringtoets.Common.IO.Test
             // Setup
             char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
 
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "NBPW.shp");
+            string validFilePath = Path.Combine(testDataPath, "NBPW.shp");
             string invalidFilePath = validFilePath.Replace("P", invalidFileNameChars[1].ToString());
 
             // Call
@@ -88,8 +88,7 @@ namespace Ringtoets.Common.IO.Test
         public void Constructor_FilePathIsActuallyDirectoryPath_ThrowArgumentException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                Path.DirectorySeparatorChar.ToString());
+            string invalidFilePath = Path.Combine(testDataPath, Path.DirectorySeparatorChar.ToString());
 
             // Call
             TestDelegate call = () => new ReferenceLinesMetaReader(invalidFilePath);
@@ -104,8 +103,7 @@ namespace Ringtoets.Common.IO.Test
         public void Constructor_ShapefileDoesntExist_ThrowCriticalFileReadException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                "I_do_not_exist.shp");
+            string invalidFilePath = Path.Combine(testDataPath, "I_do_not_exist.shp");
 
             // Call
             TestDelegate call = () => new ReferenceLinesMetaReader(invalidFilePath);
@@ -126,8 +124,7 @@ namespace Ringtoets.Common.IO.Test
         public void Constructor_ShapefileDoesNotHaveSinglePolyline_ThrowCriticalFileReadException(string shapeFileName)
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                shapeFileName);
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, shapeFileName);
 
             TestDelegate call = () => new ReferenceLinesMetaReader(invalidFilePath);
 
@@ -143,8 +140,7 @@ namespace Ringtoets.Common.IO.Test
         public void ReadReferenceLinesMeta_ShapefileHasMultiplePolylines_ThrowCriticalFileReadException(string shapeFileName)
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                shapeFileName);
+            string invalidFilePath = Path.Combine(testDataPath, shapeFileName);
 
             using (var reader = new ReferenceLinesMetaReader(invalidFilePath))
             {
@@ -165,7 +161,7 @@ namespace Ringtoets.Common.IO.Test
         public void Constructor_FileLacksAttribute_ThrowCriticalFileReadException(string shapeFileName, string missingAttribute)
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, shapeFileName);
+            string validFilePath = Path.Combine(testDataPath, shapeFileName);
 
             TestDelegate call = () => new ReferenceLinesMetaReader(validFilePath);
 
@@ -184,7 +180,7 @@ namespace Ringtoets.Common.IO.Test
         public void Constructor_FileLacksAttributes_ThrowCriticalFileReadException(string shapeFileName, string missingAttributes)
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, shapeFileName);
+            string validFilePath = Path.Combine(testDataPath, shapeFileName);
 
             TestDelegate call = () => new ReferenceLinesMetaReader(validFilePath);
 
@@ -199,8 +195,7 @@ namespace Ringtoets.Common.IO.Test
         public void ReadReferenceLinesMeta_ValidFilePath_ReturnsElement()
         {
             // Setup
-            var validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                           "NBPW.shp");
+            var validFilePath = Path.Combine(testDataPath, "NBPW.shp");
 
             using (var reader = new ReferenceLinesMetaReader(validFilePath))
             {
@@ -225,8 +220,7 @@ namespace Ringtoets.Common.IO.Test
         public void ReadReferenceLinesMeta_EmptyNormOgAndNormSw_ReturnsElement()
         {
             // Setup
-            var validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                           "NBPW_EmptyNormOGAndNormSW.shp");
+            var validFilePath = Path.Combine(testDataPath, "NBPW_EmptyNormOGAndNormSW.shp");
 
             using (var reader = new ReferenceLinesMetaReader(validFilePath))
             {
@@ -244,8 +238,7 @@ namespace Ringtoets.Common.IO.Test
         public void ReadReferenceLinesMeta_EmptyTrackId_ThrowCriticalFileReadException()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "NBPW_EmptyTrackId.shp");
+            string validFilePath = Path.Combine(testDataPath, "NBPW_EmptyTrackId.shp");
 
             using (var reader = new ReferenceLinesMetaReader(validFilePath))
             {
@@ -263,8 +256,7 @@ namespace Ringtoets.Common.IO.Test
         public void ReadReferenceLinesMeta_ReadingToEndOfFile_ReturnNull()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "NBPW.shp");
+            string validFilePath = Path.Combine(testDataPath, "NBPW.shp");
 
             using (var reader = new ReferenceLinesMetaReader(validFilePath))
             {
