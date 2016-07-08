@@ -61,7 +61,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void CollectCalculationsPerSegment_NullParameters_EmptyDictionary()
         {
             // Call
-            var collectCalculationsPerSegment = GrassCoverErosionInwardsViewHelper.CollectCalculationsPerSegment(null, null);
+            var collectCalculationsPerSegment = GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(null, null);
 
             // Assert
             Assert.AreEqual(0, collectCalculationsPerSegment.Count);
@@ -74,7 +74,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var calculations = new GrassCoverErosionInwardsCalculation[0];
 
             // Call
-            var collectCalculationsPerSegment = GrassCoverErosionInwardsViewHelper.CollectCalculationsPerSegment(null, calculations);
+            var collectCalculationsPerSegment = GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(null, calculations);
 
             // Assert
             Assert.AreEqual(0, collectCalculationsPerSegment.Count);
@@ -84,7 +84,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void CollectCalculationsPerSegment_SecondParameterNull_EmptyDictionary()
         {
             // Call
-            var collectCalculationsPerSegment = GrassCoverErosionInwardsViewHelper.CollectCalculationsPerSegment(oneSectionResult, null);
+            var collectCalculationsPerSegment = GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(oneSectionResult, null);
 
             // Assert
             Assert.AreEqual(0, collectCalculationsPerSegment.Count);
@@ -97,7 +97,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var calculations = new GrassCoverErosionInwardsCalculation[0];
 
             // Call
-            var collectCalculationsPerSegment = GrassCoverErosionInwardsViewHelper.CollectCalculationsPerSegment(oneSectionResult, calculations);
+            var collectCalculationsPerSegment = GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(oneSectionResult, calculations);
 
             // Assert
             Assert.AreEqual(0, collectCalculationsPerSegment.Count);
@@ -126,7 +126,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             };
 
             // Call
-            var collectCalculationsPerSegment = GrassCoverErosionInwardsViewHelper.CollectCalculationsPerSegment(twoSectionResults, calculations);
+            var collectCalculationsPerSegment = GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(twoSectionResults, calculations);
 
             // Assert
             Assert.AreEqual(1, collectCalculationsPerSegment.Count);
@@ -157,7 +157,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             };
 
             // Call
-            var collectCalculationsPerSegment = GrassCoverErosionInwardsViewHelper.CollectCalculationsPerSegment(twoSectionResults, calculations);
+            var collectCalculationsPerSegment = GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(twoSectionResults, calculations);
 
             // Assert
             Assert.AreEqual(2, collectCalculationsPerSegment.Count);

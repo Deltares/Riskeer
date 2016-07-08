@@ -94,6 +94,10 @@
       <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.GrassCoverErosionInwards.Forms\Ringtoets.GrassCoverErosionInwards.Forms.csproj">
+      <Project>{C540E627-B95B-4CC0-A1B6-A0BDF74936C7}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Forms</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

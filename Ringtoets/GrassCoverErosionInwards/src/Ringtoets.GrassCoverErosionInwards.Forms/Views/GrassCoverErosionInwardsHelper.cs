@@ -29,7 +29,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// <summary>
     /// Class holds a method to help <see cref="GrassCoverErosionInwardsScenariosView"/>. 
     /// </summary>
-    public static class GrassCoverErosionInwardsViewHelper
+    public static class GrassCoverErosionInwardsHelper
     {
         /// <summary>
         /// Determine which <see cref="GrassCoverErosionInwardsCalculation"/> objects are available for a <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.

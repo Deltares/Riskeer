@@ -165,7 +165,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         private void UpdateDataGridViewDataComboBoxesContent()
         {
             Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegmentName =
-                GrassCoverErosionInwardsViewHelper.CollectCalculationsPerSegment(failureMechanism.SectionResults, data.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>());
+                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(failureMechanism.SectionResults, data.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>());
 
             foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.GetRows())
             {

@@ -714,7 +714,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var section = new FailureMechanismSection("A", new[]
             {
-                new Point2D(0, 0)
+                new Point2D(0, 0),
+                new Point2D(1.0, 1.0)
             });
             failureMechanism.AddSection(section);
 

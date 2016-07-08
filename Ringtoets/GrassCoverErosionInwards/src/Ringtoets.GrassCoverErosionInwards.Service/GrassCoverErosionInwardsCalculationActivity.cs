@@ -19,13 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 using Ringtoets.HydraRing.Calculation.Activities;
-using Ringtoets.HydraRing.Calculation.Data.Output;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service
 {
@@ -65,7 +66,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         protected override void OnRun()
         {
-            var failureMechanismSection = failureMechanism.Sections.First(); // TODO: Obtain dike section based on cross section of dike profile with reference line
+            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegmentName =
+                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(failureMechanism.SectionResults, new[]{calculation});
+
+            var failureMechanismSection = failureMechanism.Sections.FirstOrDefault(section => section.Name.Equals(calculationsPerSegmentName.Keys.FirstOrDefault()));
 
             PerformRun(() => GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection),
                        () => calculation.ClearOutput(),
