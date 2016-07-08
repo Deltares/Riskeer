@@ -1,4 +1,6 @@
-﻿namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
+﻿using Core.Common.Controls.DataGrid;
+
+namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {
     partial class GrassCoverErosionInwardsScenariosView
     {
@@ -6,6 +8,8 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+
+        private DataGridViewControl dataGridViewControl;
 
         #region Component Designer generated code
 
@@ -22,7 +26,7 @@
             // 
             this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewControl.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewControl.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.dataGridViewControl.Margin = new System.Windows.Forms.Padding(5);
             this.dataGridViewControl.MinimumSize = new System.Drawing.Size(667, 369);
             this.dataGridViewControl.Name = "dataGridViewControl";
             this.dataGridViewControl.Size = new System.Drawing.Size(667, 555);
@@ -33,7 +37,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dataGridViewControl);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GrassCoverErosionInwardsScenariosView";
             this.Size = new System.Drawing.Size(664, 555);
             this.ResumeLayout(false);

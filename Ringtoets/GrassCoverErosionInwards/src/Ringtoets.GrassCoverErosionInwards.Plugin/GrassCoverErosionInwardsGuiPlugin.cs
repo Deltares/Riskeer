@@ -68,30 +68,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<GrassCoverErosionInwardsScenariosContext,
+            yield return new ViewInfo<
+                GrassCoverErosionInwardsScenariosContext,
                 CalculationGroup,
                 GrassCoverErosionInwardsScenariosView>
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
-                AfterCreate = (view, context) => { view.FailureMechanism = context.ParentFailureMechanism; },
-                CloseForData = (view, removedData) =>
-                {
-                    var assessmentSection = removedData as IAssessmentSection;
-                    if (assessmentSection != null)
-                    {
-                        return assessmentSection.GetFailureMechanisms()
-                                                .OfType<GrassCoverErosionInwardsFailureMechanism>()
-                                                .Any(fm => ReferenceEquals(view.Data, fm.CalculationsGroup));
-                    }
-
-                    var grassCoverErosionInwardsFailureMechanism = removedData as GrassCoverErosionInwardsFailureMechanism;
-                    if (grassCoverErosionInwardsFailureMechanism != null)
-                    {
-                        return ReferenceEquals(view.Data, grassCoverErosionInwardsFailureMechanism.CalculationsGroup);
-                    }
-                    return false;
-                },
+                AfterCreate = (view, context) => view.FailureMechanism = context.ParentFailureMechanism,
+                CloseForData = CloseScenariosViewForData,
                 Image = RingtoetsCommonFormsResources.ScenariosIcon
             };
 
@@ -209,6 +194,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 EmptyProbabilityAssessmentOutputContextMenuStrip);
         }
 
+        private static bool CloseScenariosViewForData(GrassCoverErosionInwardsScenariosView view, object removedData)
+        {
+            var assessmentSection = removedData as IAssessmentSection;
+            if (assessmentSection != null)
+            {
+                return assessmentSection.GetFailureMechanisms()
+                                        .OfType<GrassCoverErosionInwardsFailureMechanism>()
+                                        .Any(fm => ReferenceEquals(view.Data, fm.CalculationsGroup));
+            }
+
+            var coverErosionInwardsFailureMechanism = removedData as GrassCoverErosionInwardsFailureMechanism;
+            if (coverErosionInwardsFailureMechanism != null)
+            {
+                return ReferenceEquals(view.Data, coverErosionInwardsFailureMechanism.CalculationsGroup);
+            }
+
+            var coverErosionInwardsFailureMechanismContext = removedData as GrassCoverErosionInwardsFailureMechanismContext;
+            return coverErosionInwardsFailureMechanismContext != null && ReferenceEquals(view.Data, coverErosionInwardsFailureMechanismContext.WrappedData.CalculationsGroup);
+        }
+
         private void CalculateAll(GrassCoverErosionInwardsFailureMechanism failureMechanism, IEnumerable<GrassCoverErosionInwardsCalculation> calculations, IAssessmentSection assessmentSection)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations.Select(calc => new GrassCoverErosionInwardsCalculationActivity(calc,
@@ -286,7 +291,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
-            }            
+            }
 
             var assessmentSection = o as IAssessmentSection;
             if (assessmentSection != null)

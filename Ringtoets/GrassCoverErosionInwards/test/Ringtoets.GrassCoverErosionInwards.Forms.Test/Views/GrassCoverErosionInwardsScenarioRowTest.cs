@@ -35,13 +35,13 @@ using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsSectionResultRowTest
+    public class GrassCoverErosionInwardsScenarioRowTest
     {
         [Test]
-        public void Constructor_ValidValue_ExpectedValues()
+        public void ParameteredConstructor_ValidValue_ExpectedValues()
         {
             // Setup
-            var section = new FailureMechanismSection("haha", new[]
+            var section = new FailureMechanismSection("testName", new[]
             {
                 new Point2D(1.1, 2.2),
                 new Point2D(3.3, 4.4)
@@ -49,24 +49,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
             // Call
-            var row = new GrassCoverErosionInwardsSectionResultRow(sectionResult);
+            var row = new GrassCoverErosionInwardsScenarioRow(sectionResult);
 
             // Assert
-            Assert.AreEqual(sectionResult.Section.Name, row.Name);
-            Assert.AreEqual(sectionResult.Calculation, row.Calculation);
+            Assert.AreSame(sectionResult.Section.Name, row.Name);
+            Assert.AreSame(sectionResult.Calculation, row.Calculation);
         }
 
         [Test]
-        public void Constructor_SectionResultIsNull_ThrowArgumentNullException()
+        public void ParameterdConstructor_SectionResultIsNull_ThrowArgumentNullException()
         {
             // Setup
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsSectionResultRow(null);
+            TestDelegate call = () => new GrassCoverErosionInwardsScenarioRow(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("sectionResult", paramName);
+            Assert.AreSame("sectionResult", paramName);
         }
 
         [Test]
@@ -80,7 +80,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             });
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
-            var row = new GrassCoverErosionInwardsSectionResultRow(sectionResult);
+            var row = new GrassCoverErosionInwardsScenarioRow(sectionResult);
 
             var calculation = new GrassCoverErosionInwardsCalculation();
 
@@ -101,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var section = new FailureMechanismSection("haha", new[]
+            var section = new FailureMechanismSection("testSection", new[]
             {
                 new Point2D(1.1, 2.2),
                 new Point2D(3.3, 4.4)
@@ -109,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
             sectionResult.Attach(observer);
 
-            var row = new GrassCoverErosionInwardsSectionResultRow(sectionResult);
+            var row = new GrassCoverErosionInwardsScenarioRow(sectionResult);
 
             var calculation = new GrassCoverErosionInwardsCalculation();
 

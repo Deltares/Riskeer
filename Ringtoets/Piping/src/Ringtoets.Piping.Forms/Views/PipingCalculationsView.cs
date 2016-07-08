@@ -32,6 +32,7 @@ using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -340,29 +341,6 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         #region Nested types
-
-        /// <summary>
-        /// This class makes it easier to temporarily disable automatic resizing of a column,
-        /// for example when its data is being changed or you are replacing the list items
-        /// available in a combo-box for that column.
-        /// </summary>
-        private class SuspendDataGridViewColumnResizes : IDisposable
-        {
-            private readonly DataGridViewColumn column;
-            private readonly DataGridViewAutoSizeColumnMode originalValue;
-
-            public SuspendDataGridViewColumnResizes(DataGridViewColumn columnToSuspend)
-            {
-                column = columnToSuspend;
-                originalValue = columnToSuspend.AutoSizeMode;
-                columnToSuspend.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            }
-
-            public void Dispose()
-            {
-                column.AutoSizeMode = originalValue;
-            }
-        }
 
         #endregion
 

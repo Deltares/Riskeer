@@ -30,15 +30,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// Container of a <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>,
     /// which takes care of the representation of properties in a grid.
     /// </summary>
-    internal class GrassCoverErosionInwardsSectionResultRow
+    internal class GrassCoverErosionInwardsScenarioRow
     {
         private readonly GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsSectionResultRow"/> class.
+        /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsScenarioRow"/> class.
         /// </summary>
         /// <param name="sectionResult">The section result.</param>
-        internal GrassCoverErosionInwardsSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
+        public GrassCoverErosionInwardsScenarioRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)
             {

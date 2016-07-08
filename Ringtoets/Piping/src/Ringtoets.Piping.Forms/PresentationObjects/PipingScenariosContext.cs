@@ -30,6 +30,11 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     /// </summary>
     public class PipingScenariosContext : WrappedObjectContextBase<CalculationGroup>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingScenariosContext"/>.
+        /// </summary>
+        /// <param name="wrappedData">The wrapped <see cref="CalculationGroup"/>.</param>
+        /// <param name="failureMechanism">A <see cref="PipingFailureMechanism"/> forming the context.</param>
         public PipingScenariosContext(CalculationGroup wrappedData, PipingFailureMechanism failureMechanism)
             : base(wrappedData)
         {

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Controls.PresentationObjects;
-
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -32,7 +31,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
     /// </summary>
     public class GrassCoverErosionInwardsScenariosContext : WrappedObjectContextBase<CalculationGroup>
     {
-        public GrassCoverErosionInwardsScenariosContext(CalculationGroup wrappedData, GrassCoverErosionInwardsFailureMechanism failureMechanism) : base(wrappedData)
+        /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsScenariosContext"/>.
+        /// </summary>
+        /// <param name="wrappedData">The wrapped <see cref="CalculationGroup"/>.</param>
+        /// <param name="failureMechanism">A <see cref="GrassCoverErosionInwardsFailureMechanism"/> forming the context.</param>
+        public GrassCoverErosionInwardsScenariosContext(CalculationGroup wrappedData,
+                                                        GrassCoverErosionInwardsFailureMechanism failureMechanism)
+            : base(wrappedData)
         {
             ParentFailureMechanism = failureMechanism;
         }

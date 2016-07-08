@@ -24,11 +24,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -44,8 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
         private readonly Observer failureMechanismObserver;
         private GrassCoverErosionInwardsFailureMechanism failureMechanism;
-        private object data;
-        private DataGridViewControl dataGridViewControl;
+        private CalculationGroup data;
 
         /// <summary>
         /// Creates a new instance of the <see cref="GrassCoverErosionInwardsScenariosView"/> class.
@@ -58,6 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
             failureMechanismObserver = new Observer(UpdateDataGridViewDataSource);
 
+            // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculation>().Select(c => c.GetObservableInput())));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children);
         }
@@ -87,14 +87,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
             set
             {
-                data = value;
+                data = value as CalculationGroup;
 
-                CalculationGroup observableGroup = data as CalculationGroup;
-                if (observableGroup != null)
-                {
-                    calculationInputObserver.Observable = observableGroup;
-                    calculationGroupObserver.Observable = observableGroup;
-                }
+                calculationInputObserver.Observable = data;
+                calculationGroupObserver.Observable = data;
+                UpdateDataGridViewDataSource();
             }
         }
 
@@ -122,92 +119,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void UpdateDataGridViewDataComboBoxesContent()
-        {
-            UpdateCalculationsColumn();
-        }
-
-        private void UpdateCalculationsColumn()
-        {
-            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegmentName = MapCalculationsToSegments();
-            foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.GetRows())
-            {
-                FillAvailableCalculationsList(dataGridViewRow, calculationsPerSegmentName);
-            }
-        }
-
-        private Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> MapCalculationsToSegments()
-        {
-            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> map = new Dictionary<string, IList<GrassCoverErosionInwardsCalculation>>();
-
-            Dictionary<string, IEnumerable<Segment2D>> sectionSegments = new Dictionary<string, IEnumerable<Segment2D>>();
-            foreach (var sectionResult in FailureMechanism.SectionResults)
-            {
-                IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(sectionResult.Section.Points);
-                sectionSegments.Add(sectionResult.Section.Name, lineSegments);
-            }
-
-            CalculationGroup calculationGroup = data as CalculationGroup;
-            if (calculationGroup != null)
-            {
-                IEnumerable<GrassCoverErosionInwardsCalculation> calculations = calculationGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>();
-                foreach (var calculation in calculations)
-                {
-                    var minimumDistance = double.PositiveInfinity;
-                    string sectionName = null;
-                    foreach (KeyValuePair<string, IEnumerable<Segment2D>> keyValuePair in sectionSegments)
-                    {
-                        if (calculation.InputParameters.DikeProfile != null)
-                        {
-                            var distance = keyValuePair.Value.Min(segment => segment.GetEuclideanDistanceToPoint(calculation.InputParameters.DikeProfile.WorldReferencePoint));
-                            if (distance < minimumDistance)
-                            {
-                                minimumDistance = distance;
-                                sectionName = keyValuePair.Key;
-                            }
-                        }
-                    }
-
-                    if (sectionName != null)
-                    {
-                        if (!map.ContainsKey(sectionName))
-                        {
-                            map.Add(sectionName, new List<GrassCoverErosionInwardsCalculation>());
-                        }
-                        map[sectionName].Add(calculation);
-                    }
-                }
-            }
-            return map;
-        }
-
-        private void FillAvailableCalculationsList(DataGridViewRow dataGridViewRow, Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegmentName)
-        {
-            var rowData = (GrassCoverErosionInwardsSectionResultRow) dataGridViewRow.DataBoundItem;
-            string sectionName = rowData.Name;
-
-            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[calculationsColumnIndex];
-            var items = new List<DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>>
-            {
-                new DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>(null)
-            };
-
-            if (calculationsPerSegmentName.ContainsKey(sectionName))
-            {
-                items.AddRange(calculationsPerSegmentName[sectionName].Select(c => new DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>(c)));
-            }
-            cell.DataSource = items;
-            cell.Value = rowData.Calculation;
-        }
+        //private DataGridViewControl DataGridViewControl { get; set; }
 
         private void AddDataGridColumns()
         {
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<GrassCoverErosionInwardsSectionResultRow>(sr => sr.Name),
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<GrassCoverErosionInwardsScenarioRow>(sr => sr.Name),
                                                  Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                                                  true);
 
             dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>>(
-                TypeUtils.GetMemberName<GrassCoverErosionInwardsSectionResultRow>(sr => sr.Calculation),
+                TypeUtils.GetMemberName<GrassCoverErosionInwardsScenarioRow>(sr => sr.Calculation),
                 Properties.Resources.GrassCoverErosionInwardsScenariosView_AddDataGridColumns_Calculation,
                 null,
                 TypeUtils.GetMemberName<DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>>(wrapper => wrapper.WrappedObject),
@@ -219,15 +140,57 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             dataGridViewControl.EndEdit();
 
-            if (FailureMechanism == null || FailureMechanism.SectionResults == null)
+            if (FailureMechanism == null || FailureMechanism.SectionResults == null || data == null || data.Children == null)
             {
                 dataGridViewControl.SetDataSource(null);
                 return;
             }
 
-            dataGridViewControl.SetDataSource(FailureMechanism.SectionResults.Select(sectionResult => new GrassCoverErosionInwardsSectionResultRow(sectionResult)).ToList());
+            using (new SuspendDataGridViewColumnResizes(dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex)))
+            {
+                var columnItems = ((DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex)).Items;
+                columnItems.Clear();
+                var items = data.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>().Select(c => new DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>(c));
+                columnItems.AddRange(items.Cast<object>().ToArray());
+            }
 
-            UpdateDataGridViewDataComboBoxesContent();
+            dataGridViewControl.SetDataSource(FailureMechanism.SectionResults.Select(sectionResult => new GrassCoverErosionInwardsScenarioRow(sectionResult)).ToList());
+
+            using (new SuspendDataGridViewColumnResizes(dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex)))
+            {
+                UpdateDataGridViewDataComboBoxesContent();
+            }
+        }
+
+        private void UpdateDataGridViewDataComboBoxesContent()
+        {
+            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegmentName =
+                GrassCoverErosionInwardsViewHelper.CollectCalculationsPerSegment(failureMechanism.SectionResults, data.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>());
+
+            foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.GetRows())
+            {
+                FillAvailableCalculationsList(dataGridViewRow, calculationsPerSegmentName);
+            }
+        }
+
+        private void FillAvailableCalculationsList(DataGridViewRow dataGridViewRow, Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegmentName)
+        {
+            var rowData = (GrassCoverErosionInwardsScenarioRow) dataGridViewRow.DataBoundItem;
+            string sectionName = rowData.Name;
+
+            var items = new List<DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>>
+            {
+                new DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>(null)
+            };
+            if (calculationsPerSegmentName.ContainsKey(sectionName))
+            {
+                items.AddRange(calculationsPerSegmentName[sectionName].Select(c => new DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>(c)));
+            }
+
+            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[calculationsColumnIndex];
+
+            cell.Items.Clear();
+            cell.Items.AddRange(items.Cast<object>().ToArray());
         }
     }
 }

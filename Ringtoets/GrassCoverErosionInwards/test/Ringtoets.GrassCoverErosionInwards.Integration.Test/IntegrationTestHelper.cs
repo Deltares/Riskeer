@@ -28,7 +28,7 @@ using Ringtoets.Common.IO;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
 
-namespace Ringtoets.Piping.Integration.Test
+namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 {
     /// <summary>
     /// Helper methods related to integration tests.

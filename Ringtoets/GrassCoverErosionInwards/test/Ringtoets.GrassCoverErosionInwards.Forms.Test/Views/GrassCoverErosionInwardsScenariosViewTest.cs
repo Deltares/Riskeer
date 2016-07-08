@@ -20,11 +20,13 @@
 // All rights reserved.
 
 using System.Windows.Forms;
-using Core.Common.Controls.DataGrid;
+using Core.Common.Base;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-
+using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
@@ -33,51 +35,124 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
     public class GrassCoverErosionInwardsScenariosViewTest
     {
         private Form testForm;
-        private const int assessmentSectionNameColumnIndex = 0;
-        private const int calculationColumnIndex = 1;
+        private MockRepository mocks;
 
-        [SetUpAttribute]
+        [SetUp]
         public void Setup()
         {
             testForm = new Form();
+            mocks = new MockRepository();
         }
 
-        [TearDownAttribute]
+        [TearDown]
         public void TearDown()
         {
             testForm.Dispose();
         }
 
         [Test]
-        public void Constructor_DataGridViewCorrectlyInitialized()
+        public void DefaultConstructor_DataGridViewCorrectlyInitialized()
         {
             // Call
             using (var view = ShowScenariosView())
             {
-                var dataGridViewControl = (DataGridViewControl)new ControlTester("dataGridViewControl").TheObject;
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Assert
+                Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
                 Assert.IsNull(view.FailureMechanism);
-                Assert.IsNotNull(dataGridViewControl);
 
                 Assert.AreEqual(0, dataGridView.RowCount);
                 Assert.AreEqual(2, dataGridView.ColumnCount);
 
-                Assert.AreEqual("Vak", dataGridViewControl.GetColumnFromIndex(0).HeaderText);
-                Assert.AreEqual("Berekening", dataGridViewControl.GetColumnFromIndex(1).HeaderText);
+                var sectionColumn = dataGridView.Columns[0];
+                var calculationColumn = dataGridView.Columns[1];
 
-                // TODO How to test that rows are of type GrassCoverErosionInwardsSectionResultRow?
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridViewControl.GetColumnFromIndex(0));
-                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridViewControl.GetColumnFromIndex(1));
+                Assert.AreEqual("Vak", sectionColumn.HeaderText);
+                Assert.AreEqual("Berekening", calculationColumn.HeaderText);
 
-                Assert.IsTrue(dataGridViewControl.GetColumnFromIndex(0).ReadOnly);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(sectionColumn);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(calculationColumn);
 
-                DataGridViewComboBoxColumn comboBoxColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(1);
+                Assert.IsTrue(sectionColumn.ReadOnly);
+
+                DataGridViewComboBoxColumn comboBoxColumn = (DataGridViewComboBoxColumn) calculationColumn;
                 Assert.AreEqual("WrappedObject", comboBoxColumn.ValueMember);
                 Assert.AreEqual("DisplayName", comboBoxColumn.DisplayMember);
+            }
+        }
+
+        [Test]
+        public void Data_ValidDataSet_ValidData()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var calculationsGroupMock = new CalculationGroup();
+
+                // Call
+                view.Data = calculationsGroupMock;
+
+                mocks.ReplayAll();
+
+                // Assert
+                Assert.AreSame(calculationsGroupMock, view.Data);
+            }
+        }
+
+        [Test]
+        public void Data_NullifyValidData_DataIsNull()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var calculationsGroupMock = mocks.StrictMock<CalculationGroup>();
+
+                // Call
+                view.Data = calculationsGroupMock;
+
+                mocks.ReplayAll();
+
+                // Assert
+                Assert.AreSame(calculationsGroupMock, view.Data);
+            }
+        }
+
+        [Test]
+        public void FailureMechanism_ValidFailureMechanismSet_ValidFailureMechanism()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+
+                // Call
+                view.FailureMechanism = failureMechanismMock;
+
+                mocks.ReplayAll();
+
+                // Assert
+                Assert.AreSame(failureMechanismMock, view.FailureMechanism);
+            }
+        }
+
+        [Test]
+        public void FailureMechanism_NullifyValidFailureMechanism_FailureMechanismIsNull()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+
+                // Call
+                view.FailureMechanism = failureMechanismMock;
+
+                mocks.ReplayAll();
+
+                // Assert
+                Assert.AreSame(failureMechanismMock, view.FailureMechanism);
             }
         }
 

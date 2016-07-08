@@ -97,7 +97,8 @@
     <Compile Include="Views\GrassCoverErosionInwardsScenariosView.Designer.cs">
       <DependentUpon>GrassCoverErosionInwardsScenariosView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\GrassCoverErosionInwardsSectionResultRow.cs" />
+    <Compile Include="Views\GrassCoverErosionInwardsScenarioRow.cs" />
+    <Compile Include="Views\GrassCoverErosionInwardsViewHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
