@@ -146,7 +146,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         private void ShowAssementLayerTwoAErrors(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex <= 0)
+            if (e.ColumnIndex != assessmentLayerTwoAIndex)
             {
                 return;
             }
@@ -154,7 +154,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
 
             var resultRow = (GrassCoverErosionInwardsFailureMechanismSectionResultRow)GetDataAtRow(e.RowIndex);
-            if (resultRow != null && e.ColumnIndex == assessmentLayerTwoAIndex)
+            if (resultRow != null)
             {
                 GrassCoverErosionInwardsCalculation normativeCalculation = resultRow.GetSectionResultCalculation();
 

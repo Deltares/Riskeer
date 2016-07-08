@@ -81,7 +81,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void AssessmentLayerTwoA_CalculationNull_ReturnZero()
+        public void AssessmentLayerTwoA_CalculationNull_ReturnNaN()
         {
             // Setup
             var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
@@ -121,7 +121,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void AssessmentLayerTwoA_SuccessfulCalculation_ReturnInverseProbability()
+        public void AssessmentLayerTwoA_SuccessfulCalculation_ReturnProbability()
         {
             // Setup
             var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });

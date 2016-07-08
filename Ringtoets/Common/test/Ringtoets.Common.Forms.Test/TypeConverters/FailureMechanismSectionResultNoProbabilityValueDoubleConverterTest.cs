@@ -203,7 +203,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         }
 
         [Test]
-        public void ConvertTo_PositiveInfinityToString_ReturnHyphen()
+        public void ConvertTo_PositiveInfinityToString_ReturnInfinity()
         {
             // Setup
             var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
@@ -216,7 +216,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         }
 
         [Test]
-        public void ConvertTo_NegativeInfinityToString_ReturnHyphen()
+        public void ConvertTo_NegativeInfinityToString_ReturnNegativeInfinity()
         {
             // Setup
             var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();

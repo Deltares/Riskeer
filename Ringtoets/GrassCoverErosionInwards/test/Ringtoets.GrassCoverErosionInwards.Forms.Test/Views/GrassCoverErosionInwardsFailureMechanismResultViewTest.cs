@@ -24,10 +24,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
@@ -97,13 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             {
                 var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
-                var points = new[]
-                {
-                    new Point2D(1, 2),
-                    new Point2D(3, 4)
-                };
-
-                var section = new FailureMechanismSection("test", points);
+                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
                 var testData = new List<GrassCoverErosionInwardsFailureMechanismSectionResult>
                 {
@@ -300,12 +297,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var section = new FailureMechanismSection("A",
-                                                          new[]
-                                                          {
-                                                              new Point2D(1, 2),
-                                                              new Point2D(3, 4)
-                                                          });
+                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
                 view.Data = new[]
                 {
@@ -333,12 +325,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var calculation = new GrassCoverErosionInwardsCalculation();
-                var section = new FailureMechanismSection("A",
-                                                          new[]
-                                                          {
-                                                              new Point2D(1, 2),
-                                                              new Point2D(3, 4)
-                                                          });
+                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
                 {
                     Calculation = calculation
@@ -374,12 +361,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 {
                     Output = new GrassCoverErosionInwardsOutput(1.0, false, probabilityAssessmentOutput)
                 };
-                var section = new FailureMechanismSection("A",
-                                                          new[]
-                                                          {
-                                                              new Point2D(1, 2),
-                                                              new Point2D(3, 4)
-                                                          });
+                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
                 {
                     Calculation = calculation
@@ -416,12 +398,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 {
                     Output = new GrassCoverErosionInwardsOutput(1.1, true, probabilityAssessmentOutput)
                 };
-                var section = new FailureMechanismSection("A",
-                                                          new[]
-                                                          {
-                                                              new Point2D(1, 2),
-                                                              new Point2D(3, 4)
-                                                          });
+                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
                 {
                     Calculation = calculation
@@ -447,7 +424,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenSectionResultAndSuccessfulCalculation_WhenCalculation_ThenLayerTwoANoError()
+        public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError()
         {
             // Setup
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
@@ -464,12 +441,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 {
                     Output = new GrassCoverErosionInwardsOutput(1.1, true, failedCalculationOutput)
                 };
-                var section = new FailureMechanismSection("A",
-                                                          new[]
-                                                          {
-                                                              new Point2D(1, 2),
-                                                              new Point2D(3, 4)
-                                                          });
+                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
                 {
                     Calculation = successfulCalculation
@@ -499,7 +471,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual("De maatgevende berekening voor dit vak heeft geen geldige uitkomst.", dataGridViewCell.ErrorText);
             }
         }
-        
+
+        private static FailureMechanismSection CreateSimpleFailureMechanismSection()
+        {
+            var section = new FailureMechanismSection("A",
+                                                      new[]
+                                                      {
+                                                          new Point2D(1, 2),
+                                                          new Point2D(3, 4)
+                                                      });
+            return section;
+        }
+
         private const int nameColumnIndex = 0;
         private const int assessmentLayerOneIndex = 1;
         private const int assessmentLayerTwoAIndex = 2;
