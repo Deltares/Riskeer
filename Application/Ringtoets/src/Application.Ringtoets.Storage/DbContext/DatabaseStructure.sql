@@ -153,6 +153,7 @@ CREATE TABLE 'ProjectEntity'
 CREATE TABLE 'AssessmentSectionEntity'
 (
 	'AssessmentSectionEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	'Id' TEXT,
 	'ProjectEntityId' INTEGER NOT NULL,
 	'Name' VARCHAR (260),
 	'Comments' TEXT,

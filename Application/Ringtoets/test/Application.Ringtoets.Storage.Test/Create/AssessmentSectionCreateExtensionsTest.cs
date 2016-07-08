@@ -58,11 +58,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithCollector_ReturnsAssessmentSectionEntityWithCompositionAndFailureMechanisms(AssessmentSectionComposition assessmentSectionComposition)
         {
             // Setup
+            const string testId = "testId";
             const string testName = "testName";
             const string comments = "Some text";
             const int norm = int.MaxValue;
             var assessmentSection = new AssessmentSection(assessmentSectionComposition)
             {
+                Id = testId,
                 Name = testName,
                 Comments = comments,
                 FailureMechanismContribution =
@@ -78,6 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) assessmentSectionComposition, entity.Composition);
+            Assert.AreEqual(testId, entity.Id);
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(comments, entity.Comments);
             Assert.AreEqual(norm, entity.Norm);

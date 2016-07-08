@@ -717,6 +717,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private class TestAssessmentSection : Observable, IAssessmentSection
         {
+            public string Id { get; set; }
             public string Name { get; set; }
             public string Comments { get; set; }
             public AssessmentSectionComposition Composition { get; private set; }

@@ -46,6 +46,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var entity = new AssessmentSectionEntity
             {
+                Id = section.Id,
                 Name = section.Name,
                 Composition = (short) section.Composition,
                 Comments = section.Comments,

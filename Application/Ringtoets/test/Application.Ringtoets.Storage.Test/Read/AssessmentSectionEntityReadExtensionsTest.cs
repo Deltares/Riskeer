@@ -55,6 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithCollector_ReturnsNewAssessmentSection(AssessmentSectionComposition assessmentSectionComposition)
         {
             // Setup
+            const string testId = "testId";
             const string testName = "testName";
             const string comments = "Some text";
             const int norm = int.MaxValue;
@@ -62,6 +63,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new AssessmentSectionEntity
             {
                 AssessmentSectionEntityId = entityId,
+                Id = testId,
                 Name = testName,
                 Composition = (short) assessmentSectionComposition,
                 Comments = comments,
@@ -75,6 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(section);
             Assert.AreEqual(entityId, section.StorageId);
+            Assert.AreEqual(testId, section.Id);
             Assert.AreEqual(testName, section.Name);
             Assert.AreEqual(comments, section.Comments);
             Assert.AreEqual(norm, section.FailureMechanismContribution.Norm);

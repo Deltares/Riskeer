@@ -137,11 +137,13 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
+            const string newId = "newId";
             const string newName = "newName";
             const string comments = "Some text";
             const int norm = int.MaxValue;
             var composition = AssessmentSectionComposition.Dune;
             var section = InitializeCreatedDikeAssessmentSection(AssessmentSectionComposition.Dune);
+            section.Id = newId;
             section.Name = newName;
             section.Comments = comments;
             section.FailureMechanismContribution.Norm = norm;
@@ -149,6 +151,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var entity = new AssessmentSectionEntity
             {
                 AssessmentSectionEntityId = 1,
+                Id = string.Empty,
                 Name = string.Empty,
                 Composition = (short) AssessmentSectionComposition.Dike
             };
@@ -168,6 +171,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             section.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
+            Assert.AreEqual(newId, entity.Id);
             Assert.AreEqual(newName, entity.Name);
             Assert.AreEqual(comments, entity.Comments);
             Assert.AreEqual(norm, entity.Norm);

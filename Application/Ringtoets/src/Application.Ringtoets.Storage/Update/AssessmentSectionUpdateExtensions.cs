@@ -62,6 +62,7 @@ namespace Application.Ringtoets.Storage.Update
             }
 
             AssessmentSectionEntity entity = section.GetCorrespondingEntity(context.AssessmentSectionEntities, o => o.AssessmentSectionEntityId);
+            entity.Id = section.Id;
             entity.Name = section.Name;
             entity.Composition = (short) section.Composition;
             entity.Comments = section.Comments;

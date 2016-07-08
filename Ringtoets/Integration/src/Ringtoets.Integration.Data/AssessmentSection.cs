@@ -165,6 +165,8 @@ namespace Ringtoets.Integration.Data
         /// </summary>
         public TechnicalInnovationFailureMechanism TechnicalInnovation { get; private set; }
 
+        public string Id { get; set; }
+
         public string Name { get; set; }
 
         public string Comments { get; set; }

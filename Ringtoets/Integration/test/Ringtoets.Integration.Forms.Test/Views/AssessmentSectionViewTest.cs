@@ -156,7 +156,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             view.Data = assessmentSection;
             var mapData = map.Data;
 
-            var mapDataElementBeforeUpdate = (MapPointData)mapData.List.First();
+            var mapDataElementBeforeUpdate = (MapPointData) mapData.List.First();
             var geometryBeforeUpdate = mapDataElementBeforeUpdate.Features.First().MapGeometries.First().PointCollections.First();
 
             // Precondition
@@ -173,7 +173,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(mapData, map.Data);
             CollectionAssert.AreEquivalent(mapData.List, map.Data.List);
 
-            var mapDataElementAfterUpdate = (MapPointData)map.Data.List.First();
+            var mapDataElementAfterUpdate = (MapPointData) map.Data.List.First();
             var geometryAfterUpdate = mapDataElementAfterUpdate.Features.First().MapGeometries.First().PointCollections.First();
 
             Assert.AreEqual(new Point2D(2.0, 3.0), geometryAfterUpdate.First());
@@ -207,7 +207,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             view.Data = assessmentSection;
             var mapData = map.Data;
 
-            var mapDataElementBeforeUpdate = (MapLineData)mapData.List.ElementAt(1);
+            var mapDataElementBeforeUpdate = (MapLineData) mapData.List.ElementAt(1);
             var geometryBeforeUpdate = mapDataElementBeforeUpdate.Features.First().MapGeometries.First().PointCollections.First();
 
             // Precondition
@@ -224,7 +224,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(mapData, map.Data);
             CollectionAssert.AreEquivalent(mapData.List, map.Data.List);
 
-            var mapDataElementAfterUpdate = (MapLineData)map.Data.List.ElementAt(1);
+            var mapDataElementAfterUpdate = (MapLineData) map.Data.List.ElementAt(1);
             var geometryAfterUpdate = mapDataElementAfterUpdate.Features.First().MapGeometries.First().PointCollections.First();
 
             CollectionAssert.AreEquivalent(geometryAfterUpdate, pointsUpdate);
@@ -305,6 +305,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private class TestAssessmentSection : Observable, IAssessmentSection
         {
+            public string Id { get; set; }
             public string Name { get; set; }
             public AssessmentSectionComposition Composition { get; private set; }
             public string Comments { get; set; }

@@ -51,6 +51,7 @@ namespace Application.Ringtoets.Storage.Read
             var assessmentSection = new AssessmentSection((AssessmentSectionComposition) entity.Composition)
             {
                 StorageId = entity.AssessmentSectionEntityId,
+                Id = entity.Id,
                 Name = entity.Name,
                 Comments = entity.Comments,
                 FailureMechanismContribution =
@@ -202,7 +203,7 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadGrassCoverErosionOutwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var grassCoverErosionOutwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.GrassRevetmentErosionOutwards);
+            var grassCoverErosionOutwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.GrassRevetmentErosionOutwards);
             if (grassCoverErosionOutwardsFailureMechanismEntity != null)
             {
                 grassCoverErosionOutwardsFailureMechanismEntity.ReadAsGrassCoverErosionOutwardsFailureMechanism(assessmentSection.GrassCoverErosionOutwards, collector);
@@ -211,7 +212,7 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadGrassCoverSlipOffInwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var grassCoverSlipOffInwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.GrassRevetmentSlidingInwards);
+            var grassCoverSlipOffInwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.GrassRevetmentSlidingInwards);
             if (grassCoverSlipOffInwardsFailureMechanismEntity != null)
             {
                 grassCoverSlipOffInwardsFailureMechanismEntity.ReadAsGrassCoverSlipOffInwardsFailureMechanism(assessmentSection.GrassCoverSlipOffInwards, collector);
@@ -220,7 +221,7 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadGrassCoverSlipOffOutwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var grassCoverSlipOffOutwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.GrassRevetmentSlidingOutwards);
+            var grassCoverSlipOffOutwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.GrassRevetmentSlidingOutwards);
             if (grassCoverSlipOffOutwardsFailureMechanismEntity != null)
             {
                 grassCoverSlipOffOutwardsFailureMechanismEntity.ReadAsGrassCoverSlipOffOutwardsFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards, collector);
@@ -229,7 +230,7 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadMicrostabilityFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var microstabilityFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.Microstability);
+            var microstabilityFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.Microstability);
             if (microstabilityFailureMechanismEntity != null)
             {
                 microstabilityFailureMechanismEntity.ReadAsMicrostabilityFailureMechanism(assessmentSection.Microstability, collector);
@@ -238,7 +239,7 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadPipingStructureFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var pipingStructureFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.PipingAtStructure);
+            var pipingStructureFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.PipingAtStructure);
             if (pipingStructureFailureMechanismEntity != null)
             {
                 pipingStructureFailureMechanismEntity.ReadAsPipingStructureFailureMechanism(assessmentSection.PipingStructure, collector);
@@ -247,7 +248,7 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadDuneErosionFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var duneErosionFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.DuneErosion);
+            var duneErosionFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.DuneErosion);
             if (duneErosionFailureMechanismEntity != null)
             {
                 duneErosionFailureMechanismEntity.ReadAsDuneErosionFailureMechanism(assessmentSection.DuneErosion, collector);
@@ -256,7 +257,7 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadStabilityStoneCoverFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var stabilityStoneCoverFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.StabilityStoneRevetment);
+            var stabilityStoneCoverFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.StabilityStoneRevetment);
             if (stabilityStoneCoverFailureMechanismEntity != null)
             {
                 stabilityStoneCoverFailureMechanismEntity.ReadAsStabilityStoneCoverFailureMechanism(assessmentSection.StabilityStoneCover, collector);
@@ -265,7 +266,7 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadStrengthStabilityPointConstructionFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var strengthStabilityPointConstructionFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.StrengthAndStabilityPointConstruction);
+            var strengthStabilityPointConstructionFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.StrengthAndStabilityPointConstruction);
             if (strengthStabilityPointConstructionFailureMechanismEntity != null)
             {
                 strengthStabilityPointConstructionFailureMechanismEntity.ReadAsStrengthStabilityPointConstructionFailureMechanism(assessmentSection.StrengthStabilityPointConstruction, collector);
