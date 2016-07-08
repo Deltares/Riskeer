@@ -49,6 +49,8 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssessmentSectionSettingsReaderTest.cs" />
+    <Compile Include="AssessmentSectionSettingsTest.cs" />
     <Compile Include="ReferenceLinesMetaReaderTest.cs" />
     <Compile Include="FailureMechanismSectionReaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
