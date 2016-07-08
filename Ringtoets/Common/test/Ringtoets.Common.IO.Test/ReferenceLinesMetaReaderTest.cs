@@ -235,7 +235,7 @@ namespace Ringtoets.Common.IO.Test
         }
 
         [Test]
-        public void ReadReferenceLinesMeta_EmptyTrackId_ThrowCriticalFileReadException()
+        public void ReadReferenceLinesMeta_EmptyTrackId_ReturnsElement()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "NBPW_EmptyTrackId.shp");
@@ -243,12 +243,10 @@ namespace Ringtoets.Common.IO.Test
             using (var reader = new ReferenceLinesMetaReader(validFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadReferenceLinesMeta();
+                ReferenceLineMeta referenceLineMeta = reader.ReadReferenceLinesMeta();
 
                 // Assert
-                var message = Assert.Throws<CriticalFileReadException>(call).Message;
-                var expectedMessage = "Het bestand bevat geen waarde voor 'TrackID'.";
-                Assert.AreEqual(expectedMessage, message);
+                Assert.AreEqual(string.Empty,referenceLineMeta.AssessmentSectionId);
             }
         }
 

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security;
+using System.Windows.Forms;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
 using Core.Common.Utils.Properties;
@@ -77,6 +78,8 @@ namespace Ringtoets.Common.IO
 
             targetItem.WrappedData.Id = assessmentSectionId;
             targetItem.WrappedData.ReferenceLine = selectedReferenceLineMeta;
+
+            targetItem.WrappedData.NotifyObservers();
 
             return true;
         }
@@ -162,6 +165,33 @@ namespace Ringtoets.Common.IO
                         referenceLineMetas.Add(referenceLinesMeta);
                     }
                 } while (referenceLinesMeta != null);
+            }
+
+            ValidateReferenceLineMetas();
+        }
+
+        private void ValidateReferenceLineMetas()
+        {
+            var referenceLineMetasCount = referenceLineMetas.Select(rlm => rlm.AssessmentSectionId).Count();
+            var referenceLineMetasDistinctCount = referenceLineMetas.Select(rlm => rlm.AssessmentSectionId).Distinct().Count();
+
+            if (referenceLineMetasCount != referenceLineMetasDistinctCount)
+            {
+                var message = new FileReaderErrorMessageBuilder(shapeFilePath)
+                    .Build("De trajectid's niet uniek.");
+                log.Warn(message);
+
+                MessageBox.Show(message, "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (referenceLineMetas.Any(rlm => String.IsNullOrEmpty(rlm.AssessmentSectionId)))
+            {
+                var message = new FileReaderErrorMessageBuilder(shapeFilePath)
+                    .Build("De trajectid's zijn niet allemaal ingevuld.");
+                log.Warn(message);
+
+                MessageBox.Show(message, "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

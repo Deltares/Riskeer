@@ -203,12 +203,7 @@ namespace Ringtoets.Common.IO
 
         private static string GetAssessmentSectionId(MapFeature lineFeature)
         {
-            var referenceLineId = Convert.ToString(lineFeature.MetaData[assessmentsectionIdAttributeKey]);
-            if (String.IsNullOrEmpty(referenceLineId))
-            {
-                throw new CriticalFileReadException(RingtoetsCommonIOResources.ReferenceLinesMetaReader_TrajectId_is_empty);
-            }
-            return referenceLineId;
+            return Convert.ToString(lineFeature.MetaData[assessmentsectionIdAttributeKey]);
         }
 
         private static int? GetSignalingValueAttributeKey(MapFeature lineFeature)

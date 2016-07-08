@@ -25,6 +25,7 @@ using System.IO;
 using System.Linq;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -33,7 +34,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 namespace Ringtoets.Common.IO.Test
 {
     [TestFixture]
-    public class ReferenceLineMetaImporterTest
+    public class ReferenceLineMetaImporterTest : NUnitFormsAssertTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "ReferenceLineMetaImporter");
 
@@ -196,6 +197,27 @@ namespace Ringtoets.Common.IO.Test
             Assert.True(importsuccesful);
             Assert.AreEqual(validReferenceId, assessmentSectionMock.Id);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_FileWithNonUniqueTrajectIds_ThrowsException()
+        {
+            // Setup
+            string pathToFolder = Path.Combine(testDataPath, "NonUniqueTrajectIds");
+
+            // Call
+            Action call = () => new ReferenceLineMetaImporter(pathToFolder);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBoxTester = new MessageBoxTester(wnd);
+                messageBoxTester.ClickOk();
+            };
+
+            // Assert
+            var shapeFile = Path.Combine(pathToFolder, "NonUniqueTrajectIds.shp");
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': De trajectid's niet uniek.", shapeFile);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
         }
     }
 }
