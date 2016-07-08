@@ -57,6 +57,9 @@
     <Compile Include="SubCalculator\UpliftCalculatorStubTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
