@@ -37,7 +37,8 @@ namespace Ringtoets.Common.IO.Test
         public void ReadReferenceLine_FileHasOneValidLineInShape_ReturnReferenceLine()
         {
             // Setup
-            var validReferenceLineShapeFile = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+            var validReferenceLineShapeFile = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                         Path.Combine("ReferenceLine", "traject_10-2.shp"));
             var reader = new ReferenceLineReader();
 
             // Call

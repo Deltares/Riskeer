@@ -38,7 +38,7 @@ namespace Ringtoets.Common.IO.Test
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "traject_1-1_vakken.shp");
+                                                              Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
 
             // Call
             using (var reader = new FailureMechanismSectionReader(validFilePath))
@@ -144,7 +144,7 @@ namespace Ringtoets.Common.IO.Test
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              shapeFileName);
+                                                              Path.Combine("FailureMechanismSections", shapeFileName));
 
             using (var reader = new FailureMechanismSectionReader(validFilePath))
             {
@@ -161,7 +161,7 @@ namespace Ringtoets.Common.IO.Test
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "traject_227_vakken_LacksVaknaamAttribute.shp");
+                                                              Path.Combine("FailureMechanismSections", "traject_227_vakken_LacksVaknaamAttribute.shp"));
 
             using (var reader = new FailureMechanismSectionReader(validFilePath))
             {
@@ -179,7 +179,7 @@ namespace Ringtoets.Common.IO.Test
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "traject_1-1_vakken.shp");
+                                                              Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
 
             using (var reader = new FailureMechanismSectionReader(validFilePath))
             {
@@ -200,7 +200,7 @@ namespace Ringtoets.Common.IO.Test
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "traject_227_vakken.shp");
+                                                              Path.Combine("FailureMechanismSections", "traject_227_vakken.shp"));
 
             using (var reader = new FailureMechanismSectionReader(validFilePath))
             {
@@ -223,7 +223,7 @@ namespace Ringtoets.Common.IO.Test
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "traject_1-1_vakken.shp");
+                                                              Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
 
             using (var reader = new FailureMechanismSectionReader(validFilePath))
             {
@@ -248,7 +248,7 @@ namespace Ringtoets.Common.IO.Test
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              shapeFileName);
+                                                              Path.Combine("FailureMechanismSections", shapeFileName));
 
             using (var reader = new FailureMechanismSectionReader(validFilePath))
             {
@@ -271,7 +271,7 @@ namespace Ringtoets.Common.IO.Test
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "traject_227_vakken_LacksVaknaamAttribute.shp");
+                                                              Path.Combine("FailureMechanismSections", "traject_227_vakken_LacksVaknaamAttribute.shp"));
 
             using (var reader = new FailureMechanismSectionReader(validFilePath))
             {
@@ -289,7 +289,7 @@ namespace Ringtoets.Common.IO.Test
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "Artificial_MultiPolyline_vakken.shp");
+                                                              Path.Combine("FailureMechanismSections", "Artificial_MultiPolyline_vakken.shp"));
 
             using (var reader = new FailureMechanismSectionReader(validFilePath))
             {

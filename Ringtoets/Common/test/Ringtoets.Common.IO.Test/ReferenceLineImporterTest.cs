@@ -62,7 +62,8 @@ namespace Ringtoets.Common.IO.Test
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                  Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
@@ -89,7 +90,8 @@ namespace Ringtoets.Common.IO.Test
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                  Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
@@ -281,7 +283,8 @@ namespace Ringtoets.Common.IO.Test
             });
             mocks.ReplayAll();
 
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                  Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
@@ -344,7 +347,8 @@ namespace Ringtoets.Common.IO.Test
             });
             mocks.ReplayAll();
 
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                  Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
@@ -475,7 +479,8 @@ namespace Ringtoets.Common.IO.Test
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                  Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
@@ -548,7 +553,8 @@ namespace Ringtoets.Common.IO.Test
 
             mocks.ReplayAll();
 
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                  Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
             referenceLineContext.Attach(contextObserver);
@@ -587,7 +593,8 @@ namespace Ringtoets.Common.IO.Test
             assessmentSection.Expect(section => section.NotifyObservers());
             mocks.ReplayAll();
 
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                  Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
             referenceLineContext.WrappedData.Attach(observer);
@@ -714,7 +721,8 @@ namespace Ringtoets.Common.IO.Test
 
             mocks.ReplayAll();
 
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                  Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
             referenceLineContext.Attach(contextObserver);

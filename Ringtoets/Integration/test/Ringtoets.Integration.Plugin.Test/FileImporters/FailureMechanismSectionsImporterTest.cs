@@ -105,8 +105,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_ValidFileCorrespondingToReferenceLineAndNoSectionImportedYet_ImportSections()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1.shp");
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1_vakken.shp");
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                   Path.Combine("ReferenceLine", "traject_1-1.shp"));
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -138,8 +140,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_ValidFileCorrespondingToReferenceLineAndHasSectionImported_ReplaceSections()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1.shp");
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1_vakken.shp");
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                   Path.Combine("ReferenceLine", "traject_1-1.shp"));
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -172,8 +176,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_ValidArtificialFileImperfectlyCorrespondingToReferenceLineAndNoSectionImportedYet_ImportSections()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA.shp");
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA_ValidVakken.shp");
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                   Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("FailureMechanismSections", "Artificial_referencelijn_testA_ValidVakken.shp"));
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -205,8 +211,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_ValidImport_GenerateExpectedProgressMessages()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA.shp");
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA_ValidVakken.shp");
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                   Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("FailureMechanismSections", "Artificial_referencelijn_testA_ValidVakken.shp"));
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -254,7 +262,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_FilePathIsDirectory_CancelImportWithErrorMessage()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1.shp");
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                   Path.Combine("ReferenceLine", "traject_1-1.shp"));
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.DirectorySeparatorChar.ToString());
 
             var mocks = new MockRepository();
@@ -288,7 +297,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_FileDoesNotExist_CancelImportWithErrorMessage()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1.shp");
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                   Path.Combine("ReferenceLine", "traject_1-1.shp"));
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "I_dont_exist.shp");
 
             var mocks = new MockRepository();
@@ -351,8 +361,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_EmptyArtificialFile_CancelImportWithErrorMessage()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA.shp");
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA_EmptyVakken.shp");
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                   Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("FailureMechanismSections", "Artificial_referencelijn_testA_EmptyVakken.shp"));
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -387,9 +399,11 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_InvalidArtificialFileBecauseOfStartEndPointsTooFarFromReferenceLine_CancelImportWithErrorMessage(string shapeCondition)
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA.shp");
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                   Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
             var shapeFileName = String.Format("Artificial_referencelijn_testA_InvalidVakken_Section{0}.shp", shapeCondition);
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, shapeFileName);
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("FailureMechanismSections", shapeFileName));
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -424,9 +438,11 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_InvalidArtificialFileBecauseOfStartEndPointsTooFarFromStartEndOfReferenceLine_CancelImportWithErrorMessage(string shapeCondition)
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA.shp");
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                   Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
             var shapeFileName = String.Format("Artificial_referencelijn_testA_InvalidVakken_{0}.shp", shapeCondition);
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, shapeFileName);
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("FailureMechanismSections", shapeFileName));
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -459,8 +475,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_InvalidArtificialFileBecauseSectionsDoNotFullyCoverReferenceLine_CancelImportWithErrorMessage()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA.shp");
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA_InvalidVakken_NotCoveringWholeReferenceLine.shp");
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                   Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("FailureMechanismSections", "Artificial_referencelijn_testA_InvalidVakken_NotCoveringWholeReferenceLine.shp"));
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -493,8 +511,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_InvalidArtificialFileBecauseSomePointsNotOnReferenceLine_CancelImportWithErrorMessage()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA.shp");
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA_InvalidVakken_PointsTooFarFromReferenceLine.shp");
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                   Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("FailureMechanismSections", "Artificial_referencelijn_testA_InvalidVakken_PointsTooFarFromReferenceLine.shp"));
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -527,8 +547,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_ValidFileImportBeingCancelled_CancelImportWithInfoMessage()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1.shp");
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1_vakken.shp");
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                   Path.Combine("ReferenceLine", "traject_1-1.shp"));
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
