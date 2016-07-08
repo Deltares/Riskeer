@@ -23,21 +23,16 @@ using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Parsers;
-using Ringtoets.HydraRing.Calculation.Services;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 {
     [TestFixture]
     public class WaveHeightCalculationParserTest
     {
-        private string workingDirectory;
-        private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "WaveHeightCalculationParser");
+        private const int sectionId = 1;
 
-        [SetUp]
-        public void SetUp()
-        {
-            workingDirectory = Path.GetRandomFileName();
-        }
+        private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "WaveHeightCalculationParser");
+        private readonly string outputFileName = sectionId + "-output.txt";
 
         [Test]
         public void DefaultConstructor_SetDefaultValues()
@@ -56,11 +51,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Setup
             var parser = new WaveHeightCalculationParser();
 
-            using (new TestDataCopyHelper(testDataPath, workingDirectory))
-            {
-                // Call
-                parser.Parse(workingDirectory, 1);
-            }
+            // Call
+            parser.Parse(testDataPath, 1);
 
             // Assert
             Assert.IsNull(parser.Output);
@@ -71,77 +63,60 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         {
             // Setup
             var parser = new WaveHeightCalculationParser();
-            var sectionId = 1;
+            var workingDirectory = Path.Combine(testDataPath, "empty");
 
-            using (var copyHelper = new TestDataCopyHelper(testDataPath, workingDirectory))
-            {
-                copyHelper.CopyToTemporaryOutput("empty.txt", GetOutputFileName(sectionId));
-
-                // Call
-                parser.Parse(workingDirectory, sectionId);
-            }
+            // Call
+            parser.Parse(workingDirectory, sectionId);
 
             // Assert
             Assert.IsNull(parser.Output);
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
         }
 
         [Test]
-        [TestCase("6-3_0-output.txt", 0.91641, true)]
-        [TestCase("6-3_0-output-not-dominant.txt", 0.91641, false)]
-        [TestCase("304432-fdir-output.txt", 2.78346, true)]
-        [TestCase("304432-form-output.txt", 2.78347, true)]
-        [TestCase("304432-form-output-not-dominant.txt", 2.78347, false)]
-        [TestCase("700003-fdir-output.txt", 1.04899, true)]
-        [TestCase("700003-form-output.txt", 1.04899, true)]
-        [TestCase("700003-form-output-not-dominant.txt", 1.04899, false)]
-        public void Parse_ExampleHydraRingOutputFileContainingSectionIds_OutputSetWithExpectedCalculationResult(string testFile, double expected, bool isOvertoppingDominant)
+        [TestCase("6-3_0-output", 0.91641, true)]
+        [TestCase("6-3_0-output-not-dominant", 0.91641, false)]
+        [TestCase("304432-fdir-output", 2.78346, true)]
+        [TestCase("304432-form-output", 2.78347, true)]
+        [TestCase("304432-form-output-not-dominant", 2.78347, false)]
+        [TestCase("700003-fdir-output", 1.04899, true)]
+        [TestCase("700003-form-output", 1.04899, true)]
+        [TestCase("700003-form-output-not-dominant", 1.04899, false)]
+        public void Parse_ExampleHydraRingOutputFileContainingSectionIds_OutputSetWithExpectedCalculationResult(string testDir, double expected, bool isOvertoppingDominant)
         {
             // Setup
             var parser = new WaveHeightCalculationParser();
-            var sectionId = 1;
+            var workingDirectory = Path.Combine(testDataPath, testDir);
 
-            using (var copyHelper = new TestDataCopyHelper(testDataPath, workingDirectory))
-            {
-                copyHelper.CopyToTemporaryOutput(testFile, GetOutputFileName(sectionId));
-
-                // Call
-                parser.Parse(workingDirectory, sectionId);
-            }
+            // Call
+            parser.Parse(workingDirectory, sectionId);
 
             // Assert
             Assert.AreEqual(expected, parser.Output.WaveHeight);
             Assert.AreEqual(isOvertoppingDominant, parser.Output.IsOvertoppingDominant);
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
         }
 
         [Test]
-        [TestCase("6-3_0-output-no-overtopping.txt")]
-        [TestCase("6-3_0-output-no-overflow.txt")]
-        [TestCase("6-3_0-output-invalid-hs.txt")]
-        [TestCase("6-3_0-output-invalid-closing.txt")]
-        [TestCase("6-3_0-output-invalid-wind.txt")]
-        [TestCase("6-3_0-output-invalid-beta.txt")]
-        [TestCase("6-3_0-output-no-relevant-overflow.txt")]
-        public void Parse_InvalidHydraRingOutputFile_OutputNull(string testFile)
+        [TestCase("6-3_0-output-no-overtopping")]
+        [TestCase("6-3_0-output-no-overflow")]
+        [TestCase("6-3_0-output-invalid-hs")]
+        [TestCase("6-3_0-output-invalid-closing")]
+        [TestCase("6-3_0-output-invalid-wind")]
+        [TestCase("6-3_0-output-invalid-beta")]
+        [TestCase("6-3_0-output-no-relevant-overflow")]
+        public void Parse_InvalidHydraRingOutputFile_OutputNull(string testDir)
         {
             // Setup
             var parser = new WaveHeightCalculationParser();
-            var sectionId = 1;
+            var workingDirectory = Path.Combine(testDataPath, testDir);
 
-            using (var copyHelper = new TestDataCopyHelper(testDataPath, workingDirectory))
-            {
-                copyHelper.CopyToTemporaryOutput(testFile, GetOutputFileName(sectionId));
-
-                // Call
-                parser.Parse(workingDirectory, sectionId);
-            }
-
+            // Call
+            parser.Parse(workingDirectory, sectionId);
+        
             // Assert
             Assert.IsNull(parser.Output);
-        }
-
-        private string GetOutputFileName(int sectionId)
-        {
-            return string.Format("{0}{1}", sectionId, HydraRingFileName.OutputFileSuffix);
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
         }
     }
 }

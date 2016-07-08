@@ -208,7 +208,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             {
                 string[] messageArray = messages.ToArray();
                 string message = new FileReaderErrorMessageBuilder(folderPath)
-                    .Build(CoreCommonUtilsResources.Error_Path_must_not_point_to_folder);
+                    .Build(CoreCommonUtilsResources.Error_Path_must_not_point_to_empty_file_name);
                 StringAssert.StartsWith(messageArray[0], message);
             });
             Assert.IsFalse(importResult);

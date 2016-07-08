@@ -104,7 +104,7 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet naar een map verwijzen.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet verwijzen naar een lege bestandsnaam.",
                                                 invalidFilePath);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }

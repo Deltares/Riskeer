@@ -276,7 +276,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Action call = () => importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
 
             // Assert
-            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Bestandspad mag niet naar een map verwijzen. ", sectionsFilePath) + Environment.NewLine +
+            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Bestandspad mag niet verwijzen naar een lege bestandsnaam. ", sectionsFilePath) + Environment.NewLine +
                                   "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);

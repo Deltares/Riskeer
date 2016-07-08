@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = new FileReaderErrorMessageBuilder(testDataPath).Build(UtilsResources.Error_Path_must_not_point_to_folder);
+            var expectedMessage = new FileReaderErrorMessageBuilder(testDataPath).Build(UtilsResources.Error_Path_must_not_point_to_empty_file_name);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 

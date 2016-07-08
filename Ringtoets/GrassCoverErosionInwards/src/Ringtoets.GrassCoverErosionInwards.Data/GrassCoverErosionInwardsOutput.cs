@@ -73,8 +73,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the probability of failure.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">When setting a value that falls
-        /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
         public double Probability
         {
             get
@@ -97,8 +95,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the required (maximum allowed) probability of failure.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">When setting a value that falls
-        /// outside the [0.0, 1.0] range and isn't <see cref="double.NaN"/>.</exception>
         public double RequiredProbability
         {
             get

@@ -84,7 +84,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DirectoryDisposeHelper.cs" />
     <Compile Include="DoubleWithToleranceComparer.cs" />
     <Compile Include="FileDisposeHelper.cs" />
     <Compile Include="GuiTestHelper.cs" />

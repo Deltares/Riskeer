@@ -36,6 +36,13 @@ namespace Core.Common.Utils
         /// </summary>
         /// <param name="path">The file path to be validated.</param>
         /// <exception cref="System.ArgumentException"><paramref name="path"/> is invalid.</exception>
+        /// <remarks>A valid path:
+        /// <list type="bullet">
+        /// <item>is not empty or <c>null</c>,</item>
+        /// <item>contains not only whitespace,</item>
+        /// <item>does not contain an invalid character,</item>
+        /// <item>does not end with a directory or path separator (empty file name).</item>
+        /// </list></remarks>
         public static void ValidateFilePath(string path)
         {
             if (String.IsNullOrWhiteSpace(path))
@@ -58,9 +65,34 @@ namespace Core.Common.Utils
             }
             if (String.Empty == name)
             {
-                var message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_not_point_to_folder);
+                var message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_not_point_to_empty_file_name);
                 throw new ArgumentException(message);
             }
+        }
+
+        /// <summary>
+        /// Validates the file path.
+        /// </summary>
+        /// <param name="path">The file path to be validated.</param>
+        /// <returns><c>true</c> if the file path is valid, <c>false</c> otherwise.</returns>
+        /// <remarks>A valid path:
+        /// <list type="bullet">
+        /// <item>contains not only whitespace,</item>
+        /// <item>does not contain an invalid character,</item>
+        /// <item>is not empty or <c>null</c>,</item>
+        /// <item>does not end with a directory or path separator (empty file name).</item>
+        /// </list></remarks>
+        public static bool IsValidFilePath(string path)
+        {
+            try
+            {
+                ValidateFilePath(path);
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

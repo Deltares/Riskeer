@@ -143,7 +143,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             mocks.ReplayAll();
 
             string filePath = Path.Combine(testDataPath, "/");
-            var expectedExceptionMessage = String.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet naar een map verwijzen.", filePath);
+            var expectedExceptionMessage = String.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet verwijzen naar een lege bestandsnaam.", filePath);
 
             // Call
             TestDelegate test = () => importer.Import(assessmentSection, filePath);

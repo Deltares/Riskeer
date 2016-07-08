@@ -143,7 +143,7 @@ namespace Ringtoets.Common.IO.Test
             Action call = () => importSuccesful = importer.Import(referenceLineContext, path);
 
             // Assert
-            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Bestandspad mag niet naar een map verwijzen. ", path) + Environment.NewLine +
+            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Bestandspad mag niet verwijzen naar een lege bestandsnaam. ", path) + Environment.NewLine +
                                   "Er is geen referentielijn geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccesful);

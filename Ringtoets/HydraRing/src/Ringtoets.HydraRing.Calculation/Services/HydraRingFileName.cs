@@ -29,31 +29,31 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <summary>
         /// The tail and extension of the file containing output generated during a calculation.
         /// </summary>
-        public const string OutputFileSuffix = "-output.txt";
+        internal const string OutputFileSuffix = "-output.txt";
 
         /// <summary>
         /// The file name of the file containing the output of a calculation.
         /// </summary>
-        public const string DesignTablesFileName = "designTable.txt";
+        internal const string DesignTablesFileName = "designTable.txt";
 
         /// <summary>
         /// The file name of the working database which contains input and output.
         /// </summary>
-        public const string OutputDatabaseFileName = "temp.sqlite";
+        internal const string OutputDatabaseFileName = "temp.sqlite";
 
         /// <summary>
         /// The file name of the HLCD database.
         /// </summary>
-        public const string HlcdDatabaseFileName = "HLCD.sqlite";
+        internal const string HlcdDatabaseFileName = "HLCD.sqlite";
 
         /// <summary>
         /// The file name of the executable of Hydra-Ring.
         /// </summary>
-        public const string HydraRingExecutableFileName = "MechanismComputation.exe";
+        internal const string HydraRingExecutableFileName = "MechanismComputation.exe";
 
         /// <summary>
         /// The database which contains configuration paramters.
         /// </summary>
-        public const string ConfigurationDatabaseFileName = "config.sqlite";
+        internal const string ConfigurationDatabaseFileName = "config.sqlite";
     }
 }

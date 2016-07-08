@@ -22,7 +22,6 @@
 using System;
 using System.IO;
 using System.Reflection;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Services;
@@ -32,6 +31,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
     [TestFixture]
     public class HydraRingInitializationServiceTest
     {
+        private string hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"HydraRing");
+
         [Test]
         public void ParameteredConstructor_ExpectedValues()
         {
@@ -46,7 +47,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             Assert.AreEqual("D:\\work\\temp.sqlite", hydraRingInitializationService.OutputDataBasePath);
             Assert.AreEqual("D:\\hlcd\\HLCD.sqlite", hydraRingInitializationService.HlcdFilePath);
 
-            var hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"HydraRing");
             Assert.AreEqual(Path.Combine(hydraRingDirectory, "MechanismComputation.exe"), hydraRingInitializationService.MechanismComputationExeFilePath);
         }
 
@@ -54,10 +54,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         public void GenerateInitializationScript_ReturnsExpectedInitializationScript()
         {
             // Setup
-            var hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"HydraRing");
-            var workingDirectory = Path.Combine(hydraRingDirectory, "temp");
-
-            var hydraRingInitializationService = new HydraRingInitializationService(HydraRingFailureMechanismType.DikesPiping, 700001, "D:\\hlcd", workingDirectory);
+            var hydraRingInitializationService = new HydraRingInitializationService(HydraRingFailureMechanismType.DikesPiping, 700001, "D:\\hlcd", "");
             var configurationDatabaseFilePath = Path.Combine(hydraRingDirectory, "config.sqlite");
 
             var expectedInitializationScript = "section             = 700001" + Environment.NewLine +
@@ -72,15 +69,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                                "configdbfilename    = " + configurationDatabaseFilePath + Environment.NewLine +
                                                "hydraulicdbfilename = D:\\hlcd\\HLCD.sqlite";
 
-            using (new DirectoryDisposeHelper(workingDirectory))
-            {
-                // Call
-                hydraRingInitializationService.WriteInitializationScript();
+            // Call
+            hydraRingInitializationService.WriteInitializationScript();
 
-                // Assert
-                var initializationScript = File.ReadAllText(hydraRingInitializationService.IniFilePath);
-                Assert.AreEqual(expectedInitializationScript, initializationScript);
-            }
+            // Assert
+            var initializationScript = File.ReadAllText(hydraRingInitializationService.IniFilePath);
+            Assert.AreEqual(expectedInitializationScript, initializationScript);
+            File.Delete(hydraRingInitializationService.IniFilePath);
         }
     }
 }

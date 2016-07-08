@@ -89,7 +89,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new TestShapeFileReaderBase(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet naar een map verwijzen.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet verwijzen naar een lege bestandsnaam.",
                                                 invalidFilePath);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }

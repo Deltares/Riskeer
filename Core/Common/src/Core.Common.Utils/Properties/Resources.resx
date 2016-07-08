@@ -135,8 +135,8 @@
   <data name="Error_Path_must_be_specified" xml:space="preserve">
     <value>Bestandspad mag niet leeg of ongedefinieerd zijn.</value>
   </data>
-  <data name="Error_Path_must_not_point_to_folder" xml:space="preserve">
-    <value>Bestandspad mag niet naar een map verwijzen.</value>
+  <data name="Error_Path_must_not_point_to_empty_file_name" xml:space="preserve">
+    <value>Bestandspad mag niet verwijzen naar een lege bestandsnaam.</value>
   </data>
   <data name="TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method" xml:space="preserve">
     <value>'{0}' is geen geldige expressie voor deze methode.</value>

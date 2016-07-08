@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -31,14 +30,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
     [TestFixture]
     public class TargetProbabilityCalculationParserTest
     {
-        private string workingDirectory;
         private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "TargetProbabilityCalculationParser");
-
-        [SetUp]
-        public void SetUp()
-        {
-            workingDirectory = Path.GetRandomFileName();
-        }
 
         [Test]
         public void DefaultConstructor_SetDefaultValues()
@@ -57,11 +49,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Setup
             var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
 
-            using (new TestDataCopyHelper(testDataPath, workingDirectory))
-            {
-                // Call
-                targetProbabilityCalculationParser.Parse(workingDirectory, 1);
-            }
+            // Call
+            targetProbabilityCalculationParser.Parse(testDataPath, 1);
 
             // Assert
             Assert.IsNull(targetProbabilityCalculationParser.Output);
@@ -72,17 +61,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         {
             // Setup
             var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
+            var workingDirectory = Path.Combine(testDataPath, "empty");
 
-            using (var copyHelper = new TestDataCopyHelper(testDataPath, workingDirectory))
-            {
-                copyHelper.CopyToTemporaryOutput("empty.txt", HydraRingFileName.DesignTablesFileName);
-
-                // Call
-                targetProbabilityCalculationParser.Parse(workingDirectory, 1);
-            }
+            // Call
+            targetProbabilityCalculationParser.Parse(workingDirectory, 1);
 
             // Assert
             Assert.IsNull(targetProbabilityCalculationParser.Output);
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.DesignTablesFileName)));
         }
 
         [Test]
@@ -92,20 +78,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         {
             // Setup
             var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
+            var workingDirectory = Path.Combine(testDataPath, "exampleOutputTable");
 
-            using (var copyHelper = new TestDataCopyHelper(testDataPath, workingDirectory))
-            {
-                copyHelper.CopyToTemporaryOutput("exampleOutputTable.txt", HydraRingFileName.DesignTablesFileName);
-
-                // Call
-                targetProbabilityCalculationParser.Parse(workingDirectory, sectionId);
-            }
+            // Call
+            targetProbabilityCalculationParser.Parse(workingDirectory, sectionId);
 
             // Assert
             var targetProbabilityCalculationOutput = targetProbabilityCalculationParser.Output;
             Assert.IsNotNull(targetProbabilityCalculationOutput);
             Assert.AreEqual(result, targetProbabilityCalculationOutput.Result);
             Assert.AreEqual(actual, targetProbabilityCalculationOutput.ActualTargetProbability);
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.DesignTablesFileName)));
         }
 
         [Test]
@@ -113,20 +96,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         {
             // Setup
             var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
-            Console.WriteLine(workingDirectory);
-            using (var copyHelper = new TestDataCopyHelper(testDataPath, workingDirectory))
-            {
-                copyHelper.CopyToTemporaryOutput("exampleOutputTableWithWhiteLine.txt", HydraRingFileName.DesignTablesFileName);
+            var workingDirectory = Path.Combine(testDataPath, "exampleOutputTableWithWhiteLine");
 
-                // Call
-                targetProbabilityCalculationParser.Parse(workingDirectory, 1);
-            }
+            // Call
+            targetProbabilityCalculationParser.Parse(workingDirectory, 1);
 
             // Assert
             var targetProbabilityCalculationOutput = targetProbabilityCalculationParser.Output;
             Assert.IsNotNull(targetProbabilityCalculationOutput);
             Assert.AreEqual(1.1, targetProbabilityCalculationOutput.Result);
             Assert.AreEqual(11.11, targetProbabilityCalculationOutput.ActualTargetProbability);
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.DesignTablesFileName)));
         }
 
         [Test]
@@ -134,17 +114,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         {
             // Setup
             var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
+            var workingDirectory = Path.Combine(testDataPath, "exampleOutputTable");
 
-            using (var copyHelper = new TestDataCopyHelper(testDataPath, workingDirectory))
-            {
-                copyHelper.CopyToTemporaryOutput("exampleOutputTable.txt", HydraRingFileName.DesignTablesFileName);
-
-                // Call
-                targetProbabilityCalculationParser.Parse(workingDirectory, 2);
-            }
+            // Call
+            targetProbabilityCalculationParser.Parse(workingDirectory, 2);
 
             // Assert
             Assert.IsNull(targetProbabilityCalculationParser.Output);
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.DesignTablesFileName)));
         }
     }
 }

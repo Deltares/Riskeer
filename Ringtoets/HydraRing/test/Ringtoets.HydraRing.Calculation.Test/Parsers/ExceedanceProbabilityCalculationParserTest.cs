@@ -32,14 +32,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
     [TestFixture]
     public class ExceedanceProbabilityCalculationParserTest
     {
-        private string workingDirectory;
         private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "ExceedanceProbabilityCalculationParser");
-
-        [SetUp]
-        public void SetUp()
-        {
-            workingDirectory = Path.GetRandomFileName();
-        }
 
         [Test]
         public void DefaultConstructor_SetDefaultValues()
@@ -58,11 +51,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Setup
             var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
 
-            using (new TestDataCopyHelper(testDataPath, workingDirectory))
-            {
-                // Call
-                exceedanceProbabilityCalculationParser.Parse(workingDirectory, 1);
-            }
+            // Call
+            exceedanceProbabilityCalculationParser.Parse(testDataPath, 1);
 
             // Assert
             Assert.IsNull(exceedanceProbabilityCalculationParser.Output);
@@ -73,19 +63,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         {
             // Setup
             var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
-            var testFile = "empty.sqlite";
+            var workingDirectory = Path.Combine(testDataPath, "empty");
 
-            using (var copyHelper = new TestDataCopyHelper(testDataPath, workingDirectory))
-            {
-                copyHelper.CopyToTemporaryOutput(testFile, HydraRingFileName.OutputDatabaseFileName);
+            // Call
+            exceedanceProbabilityCalculationParser.Parse(workingDirectory, 1);
 
-                // Call
-                exceedanceProbabilityCalculationParser.Parse(workingDirectory, 1);
-
-                // Assert
-                Assert.IsNull(exceedanceProbabilityCalculationParser.Output);
-                Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, testFile)));
-            }
+            // Assert
+            Assert.IsNull(exceedanceProbabilityCalculationParser.Output);
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.OutputDatabaseFileName)));
         }
 
         [Test]
@@ -113,65 +98,57 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             };
 
             var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
-            var testFile = "complete.sqlite";
+            var workingDirectory = Path.Combine(testDataPath, "complete");
 
-            using (var copyHelper = new TestDataCopyHelper(testDataPath, workingDirectory))
+            // Call
+            exceedanceProbabilityCalculationParser.Parse(workingDirectory, sectionId);
+
+            // Assert
+            ExceedanceProbabilityCalculationOutput exceedanceProbabilityCalculationOutput = exceedanceProbabilityCalculationParser.Output;
+            Assert.IsNotNull(exceedanceProbabilityCalculationOutput);
+            Assert.AreEqual(ringCombinMethod, exceedanceProbabilityCalculationOutput.RingCombinMethod);
+            Assert.AreEqual(presentationSectionId, exceedanceProbabilityCalculationOutput.PresentationSectionId);
+            Assert.AreEqual(mainMechanismId, exceedanceProbabilityCalculationOutput.MainMechanismId);
+            Assert.AreEqual(mainMechanismCombinMethod, exceedanceProbabilityCalculationOutput.MainMechanismCombinMethod);
+            Assert.AreEqual(mechanismId, exceedanceProbabilityCalculationOutput.MechanismId);
+            Assert.AreEqual(layerId, exceedanceProbabilityCalculationOutput.LayerId);
+            Assert.AreEqual(alternativeId, exceedanceProbabilityCalculationOutput.AlternativeId);
+            Assert.AreEqual(beta, exceedanceProbabilityCalculationOutput.Beta);
+
+            Assert.AreEqual(alphaValues.Count, exceedanceProbabilityCalculationOutput.Alphas.Count);
+            for (var i = 0; i < alphaValues.Count; i++)
             {
-                copyHelper.CopyToTemporaryOutput(testFile, HydraRingFileName.OutputDatabaseFileName);
+                var expectedAlpha = alphaValues[i];
+                var actualAlpha = exceedanceProbabilityCalculationOutput.Alphas[i];
 
-                // Call
-                exceedanceProbabilityCalculationParser.Parse(workingDirectory, sectionId);
-
-                // Assert
-                ExceedanceProbabilityCalculationOutput exceedanceProbabilityCalculationOutput = exceedanceProbabilityCalculationParser.Output;
-                Assert.IsNotNull(exceedanceProbabilityCalculationOutput);
-                Assert.AreEqual(ringCombinMethod, exceedanceProbabilityCalculationOutput.RingCombinMethod);
-                Assert.AreEqual(presentationSectionId, exceedanceProbabilityCalculationOutput.PresentationSectionId);
-                Assert.AreEqual(mainMechanismId, exceedanceProbabilityCalculationOutput.MainMechanismId);
-                Assert.AreEqual(mainMechanismCombinMethod, exceedanceProbabilityCalculationOutput.MainMechanismCombinMethod);
-                Assert.AreEqual(mechanismId, exceedanceProbabilityCalculationOutput.MechanismId);
-                Assert.AreEqual(layerId, exceedanceProbabilityCalculationOutput.LayerId);
-                Assert.AreEqual(alternativeId, exceedanceProbabilityCalculationOutput.AlternativeId);
-                Assert.AreEqual(beta, exceedanceProbabilityCalculationOutput.Beta);
-
-                Assert.AreEqual(alphaValues.Count, exceedanceProbabilityCalculationOutput.Alphas.Count);
-                for (var i = 0; i < alphaValues.Count; i++)
-                {
-                    var expectedAlpha = alphaValues[i];
-                    var actualAlpha = exceedanceProbabilityCalculationOutput.Alphas[i];
-
-                    Assert.AreEqual(expectedAlpha.RingCombinMethod, actualAlpha.RingCombinMethod);
-                    Assert.AreEqual(expectedAlpha.PresentationSectionId, actualAlpha.PresentationSectionId);
-                    Assert.AreEqual(expectedAlpha.MainMechanismId, actualAlpha.MainMechanismId);
-                    Assert.AreEqual(expectedAlpha.MainMechanismCombinMethod, actualAlpha.MainMechanismCombinMethod);
-                    Assert.AreEqual(expectedAlpha.MechanismId, actualAlpha.MechanismId);
-                    Assert.AreEqual(expectedAlpha.LayerId, actualAlpha.LayerId);
-                    Assert.AreEqual(expectedAlpha.AlternativeId, actualAlpha.AlternativeId);
-                    Assert.AreEqual(expectedAlpha.VariableId, actualAlpha.VariableId);
-                    Assert.AreEqual(expectedAlpha.LoadVariableId, actualAlpha.LoadVariableId);
-                    Assert.AreEqual(expectedAlpha.Alpha, actualAlpha.Alpha);
-                }
-
-                Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, testFile)));
+                Assert.AreEqual(expectedAlpha.RingCombinMethod, actualAlpha.RingCombinMethod);
+                Assert.AreEqual(expectedAlpha.PresentationSectionId, actualAlpha.PresentationSectionId);
+                Assert.AreEqual(expectedAlpha.MainMechanismId, actualAlpha.MainMechanismId);
+                Assert.AreEqual(expectedAlpha.MainMechanismCombinMethod, actualAlpha.MainMechanismCombinMethod);
+                Assert.AreEqual(expectedAlpha.MechanismId, actualAlpha.MechanismId);
+                Assert.AreEqual(expectedAlpha.LayerId, actualAlpha.LayerId);
+                Assert.AreEqual(expectedAlpha.AlternativeId, actualAlpha.AlternativeId);
+                Assert.AreEqual(expectedAlpha.VariableId, actualAlpha.VariableId);
+                Assert.AreEqual(expectedAlpha.LoadVariableId, actualAlpha.LoadVariableId);
+                Assert.AreEqual(expectedAlpha.Alpha, actualAlpha.Alpha);
             }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.OutputDatabaseFileName)));
         }
 
         [Test]
         public void Parse_FileWithoutTableAlphaResults_OutputNull()
         {
             // Setup
-            var testFile = "withoutAlphaResults.sqlite";
             var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
+            var workingDirectory = Path.Combine(testDataPath, "withoutAlphaResults");
 
-            using (new TestDataCopyHelper(testDataPath, workingDirectory))
-            {
-                // Call
-                exceedanceProbabilityCalculationParser.Parse(workingDirectory, 1);
+            // Call
+            exceedanceProbabilityCalculationParser.Parse(workingDirectory, 1);
 
-                // Assert
-                Assert.IsNull(exceedanceProbabilityCalculationParser.Output);
-                Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, testFile)));
-            }
+            // Assert
+            Assert.IsNull(exceedanceProbabilityCalculationParser.Output);
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.OutputDatabaseFileName)));
         }
 
         [Test]
@@ -179,20 +156,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         {
             // Setup
             var sectionId = 1;
-            var testFile = "complete.sqlite";
             var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
+            var workingDirectory = Path.Combine(testDataPath, "complete");
 
-            using (var copyHelper = new TestDataCopyHelper(testDataPath, workingDirectory))
-            {
-                copyHelper.CopyToTemporaryOutput(testFile, HydraRingFileName.OutputDatabaseFileName);
+            // Call
+            exceedanceProbabilityCalculationParser.Parse(workingDirectory, sectionId);
 
-                // Call
-                exceedanceProbabilityCalculationParser.Parse(workingDirectory, sectionId);
-
-                // Assert
-                Assert.IsNull(exceedanceProbabilityCalculationParser.Output);
-                Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, testFile)));
-            }
+            // Assert
+            Assert.IsNull(exceedanceProbabilityCalculationParser.Output);
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.OutputDatabaseFileName)));
         }
     }
 }
