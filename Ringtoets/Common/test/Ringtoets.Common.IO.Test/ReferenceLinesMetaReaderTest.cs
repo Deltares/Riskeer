@@ -33,7 +33,7 @@ namespace Ringtoets.Common.IO.Test
     [TestFixture]
     public class ReferenceLinesMetaReaderTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "IHW");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "NBPW");
 
         [Test]
         public void Constructor_ExpectedValues()

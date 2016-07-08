@@ -193,7 +193,8 @@ namespace Ringtoets.Common.IO.Test
             bool importsuccesful = importer.Import(referecenLineContext, validReferenceId);
 
             // Assert
-            Assert.True(importsuccesful); //TODO add assert for trackid if moved to referenceLine
+            Assert.True(importsuccesful);
+            Assert.AreEqual(validReferenceId, assessmentSectionMock.Id);
             mockRepository.VerifyAll();
         }
     }

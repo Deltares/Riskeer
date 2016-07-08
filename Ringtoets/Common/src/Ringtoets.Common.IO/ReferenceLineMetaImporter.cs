@@ -34,7 +34,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 namespace Ringtoets.Common.IO
 {
     /// <summary>
-    /// Imports a <see cref="ReferenceLine"/> and stores in on a <see cref="IAssessmentSection"/>,
+    /// Imports a <see cref="ReferenceLineMeta"/> and stores in on a <see cref="IAssessmentSection"/>,
     /// taking data from a shapefile containing a polylines.
     /// </summary>
     public class ReferenceLineMetaImporter
@@ -45,9 +45,12 @@ namespace Ringtoets.Common.IO
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReferenceLineMetaImporter"/> class and reads the file.
-        /// Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "NBPW");
         /// </summary>
         /// <param name="folderpath">The path to the folder where a shape file should be read.</param>
+        /// <remarks>
+        /// The <paramref name="folderpath"/> is usually <c>
+        /// Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "NBPW");</c>.
+        /// </remarks>
         public ReferenceLineMetaImporter(string folderpath)
         {
             ValidateAndConnectTo(folderpath);
@@ -72,6 +75,7 @@ namespace Ringtoets.Common.IO
                 return false;
             }
 
+            targetItem.WrappedData.Id = assessmentSectionId;
             targetItem.WrappedData.ReferenceLine = selectedReferenceLineMeta;
 
             return true;
