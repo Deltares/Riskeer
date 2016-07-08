@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                contribution = value.ToPrecision(contribution.NumberOfDecimalPlaces); ;
+                contribution = value.ToPrecision(contribution.NumberOfDecimalPlaces);
             }
         }
 
