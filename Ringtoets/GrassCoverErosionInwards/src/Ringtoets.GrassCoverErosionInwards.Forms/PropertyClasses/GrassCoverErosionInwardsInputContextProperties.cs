@@ -48,6 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int dikeHeightPropertyIndex = 6;
         private const int criticalFlowRatePropertyIndex = 7;
         private const int hydraulicBoundaryLocationPropertyIndex = 8;
+        private const int calculateDikeHeightPropertyIndex = 9;
 
         [PropertyOrder(dikeProfilePropertyIndex)]
         [Editor(typeof(GrassCoverErosionInwardsInputContextDikeProfileEditor), typeof(UITypeEditor))]
@@ -181,6 +182,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             set
             {
                 data.WrappedData.HydraulicBoundaryLocation = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(calculateDikeHeightPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesDisplayName(typeof(Resources), "CalculateDikeHeight_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "CalculateDikeHeight_Description")]
+        public bool CalculateDikeHeight
+        {
+            get
+            {
+                return data.WrappedData.CalculateDikeHeight;
+            }
+            set
+            {
+                data.WrappedData.CalculateDikeHeight = value;
                 data.WrappedData.NotifyObservers();
             }
         }

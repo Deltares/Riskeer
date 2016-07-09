@@ -171,6 +171,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
+        /// <summary>
+        /// Gets or sets whether the dike height should be calculated.
+        /// </summary>
+        public bool CalculateDikeHeight { get; set; }
+
         private void UpdateProfileParameters()
         {
             if (dikeProfile == null)

@@ -53,6 +53,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             CollectionAssert.IsEmpty(input.DikeGeometry);
             Assert.AreEqual(new RoundedDouble(2), input.DikeHeight);
             Assert.IsNull(input.HydraulicBoundaryLocation);
+            Assert.IsFalse(input.CalculateDikeHeight);
 
             var criticalFlowRate = new LogNormalDistribution(4)
             {

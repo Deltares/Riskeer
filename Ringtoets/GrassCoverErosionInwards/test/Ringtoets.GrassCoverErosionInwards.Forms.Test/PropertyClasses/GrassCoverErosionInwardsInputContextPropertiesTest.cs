@@ -90,6 +90,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.CriticalFlowRate.Mean, properties.CriticalFlowRate.Mean);
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
             Assert.AreSame(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
+            Assert.AreEqual(input.CalculateDikeHeight, properties.CalculateDikeHeight);
             mockRepository.VerifyAll();
         }
 
@@ -98,7 +99,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var observerMock = mockRepository.StrictMock<IObserver>();
-            const int numberProperties = 4;
+            const int numberProperties = 5;
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
@@ -116,18 +117,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var newDikeHeight = new RoundedDouble(2, 9);
             var newOrientation = new RoundedDouble(2, 5);
             var newHydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1);
+            var newCalculateDikeHeight = true;
 
             // Call
             properties.DikeProfile = newDikeProfile;
             properties.Orientation = newOrientation;
             properties.DikeHeight = newDikeHeight;
             properties.HydraulicBoundaryLocation = newHydraulicBoundaryLocation;
+            properties.CalculateDikeHeight = newCalculateDikeHeight;
 
             // Assert
             Assert.AreSame(newDikeProfile, input.DikeProfile);
             Assert.AreEqual(newOrientation, input.Orientation);
             Assert.AreEqual(newDikeHeight, input.DikeHeight);
             Assert.AreSame(newHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
+            Assert.AreEqual(newCalculateDikeHeight, input.CalculateDikeHeight);
             mockRepository.VerifyAll();
         }
 
@@ -157,7 +161,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(9, dynamicProperties.Count);
+            Assert.AreEqual(10, dynamicProperties.Count);
 
             PropertyDescriptor dikeProfileProperty = dynamicProperties[dikeProfilePropertyIndex];
             Assert.IsNotNull(dikeProfileProperty);
@@ -218,6 +222,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Hydraulische gegevens", hydraulicBoundaryLocationProperty.Category);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", hydraulicBoundaryLocationProperty.DisplayName);
             Assert.AreEqual("De locatie met hydraulische randvoorwaarden.", hydraulicBoundaryLocationProperty.Description);
+
+            PropertyDescriptor calculateDikeHeightProperty = dynamicProperties[calculateDikeHeightPropertyIndex];
+            Assert.IsNotNull(calculateDikeHeightProperty);
+            Assert.AreEqual("Schematisatie", calculateDikeHeightProperty.Category);
+            Assert.AreEqual("Bereken dijkhoogte", calculateDikeHeightProperty.DisplayName);
+            Assert.AreEqual("Bereken de dijkhoogte in hydra ring.", calculateDikeHeightProperty.Description);
             mockRepository.VerifyAll();
         }
 
@@ -229,5 +239,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int dikeHeightPropertyIndex = 5;
         private const int criticalFlowRatePropertyIndex = 6;
         private const int hydraulicBoundaryLocationPropertyIndex = 7;
+        private const int calculateDikeHeightPropertyIndex = 8;
     }
 }

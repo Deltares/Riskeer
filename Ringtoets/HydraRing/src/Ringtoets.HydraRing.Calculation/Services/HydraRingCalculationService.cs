@@ -44,7 +44,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the calculation.</param>
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
-        /// <param name="targetProbabilityCalculationInput">The input of the calculation to perform.</param>
+        /// <param name="hydraRingCalculationInput">The input of the calculation to perform.</param>
         /// <param name="parsers">Parsers that will be invoked after the Hydra-Ring calculation has ran.</param>
         /// <returns>A <see cref="TargetProbabilityCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
         public static void PerformCalculation(
@@ -52,22 +52,22 @@ namespace Ringtoets.HydraRing.Calculation.Services
             string ringId,
             HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
             HydraRingUncertaintiesType uncertaintiesType,
-            HydraRingCalculationInput targetProbabilityCalculationInput,
+            HydraRingCalculationInput hydraRingCalculationInput,
             IEnumerable<IHydraRingFileParser> parsers)
         {
-            var sectionId = targetProbabilityCalculationInput.Section.SectionId;
+            var sectionId = hydraRingCalculationInput.Section.SectionId;
             var workingDirectory = CreateWorkingDirectory();
 
             var hydraRingConfigurationService = new HydraRingConfigurationService(ringId, timeIntegrationSchemeType, uncertaintiesType);
-            hydraRingConfigurationService.AddHydraRingCalculationInput(targetProbabilityCalculationInput);
+            hydraRingConfigurationService.AddHydraRingCalculationInput(hydraRingCalculationInput);
 
-            var hydraRingInitializationService = new HydraRingInitializationService(targetProbabilityCalculationInput.FailureMechanismType, sectionId, hlcdDirectory, workingDirectory);
+            var hydraRingInitializationService = new HydraRingInitializationService(hydraRingCalculationInput.FailureMechanismType, sectionId, hlcdDirectory, workingDirectory);
             hydraRingInitializationService.WriteInitializationScript();
             hydraRingConfigurationService.WriteDataBaseCreationScript(hydraRingInitializationService.DatabaseCreationScriptFilePath);
 
             PerformCalculation(workingDirectory, hydraRingInitializationService);
 
-            ExecuteParsers(parsers, hydraRingInitializationService.TemporaryWorkingDirectory, targetProbabilityCalculationInput.Section.SectionId);
+            ExecuteParsers(parsers, hydraRingInitializationService.TemporaryWorkingDirectory, hydraRingCalculationInput.Section.SectionId);
         }
 
         /// <summary>
