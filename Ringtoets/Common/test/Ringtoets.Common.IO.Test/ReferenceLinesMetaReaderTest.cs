@@ -206,7 +206,7 @@ namespace Ringtoets.Common.IO.Test
                 Assert.AreEqual("205", referenceLineMeta.AssessmentSectionId);
                 Assert.AreEqual(3000, referenceLineMeta.SignalingValue);
                 Assert.AreEqual(1000, referenceLineMeta.LowerLimitValue);
-                Point2D[] geometryPoints = referenceLineMeta.Points.ToArray();
+                Point2D[] geometryPoints = referenceLineMeta.ReferenceLine.Points.ToArray();
                 Assert.AreEqual(2, geometryPoints.Length);
                 Assert.AreEqual(475072.583000, geometryPoints[0].Y, 1e-6);
                 Assert.AreEqual(160892.075100, geometryPoints[1].X, 1e-6);
@@ -246,7 +246,7 @@ namespace Ringtoets.Common.IO.Test
                 ReferenceLineMeta referenceLineMeta = reader.ReadReferenceLinesMeta();
 
                 // Assert
-                Assert.AreEqual(string.Empty,referenceLineMeta.AssessmentSectionId);
+                Assert.AreEqual(string.Empty, referenceLineMeta.AssessmentSectionId);
             }
         }
 

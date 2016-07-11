@@ -30,7 +30,8 @@ using Core.Common.Utils.Builders;
 using Core.Common.Utils.Properties;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.PresentationObjects;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Common.IO
 {
@@ -41,56 +42,44 @@ namespace Ringtoets.Common.IO
     public class ReferenceLineMetaImporter
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ReferenceLineMetaImporter));
-        private readonly List<ReferenceLineMeta> referenceLineMetas = new List<ReferenceLineMeta>();
         private string shapeFilePath;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReferenceLineMetaImporter"/> class and reads the file.
+        /// Initializes a new instance of the <see cref="ReferenceLineMetaImporter"/> class.
         /// </summary>
         /// <param name="folderpath">The path to the folder where a shape file should be read.</param>
         /// <remarks>
-        /// The <paramref name="folderpath"/> is usually <c>
+        /// The <paramref name="folderpath"/> is typically <c>
         /// Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "NBPW");</c>.
         /// </remarks>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="folderpath"/> points to an invalid directory.</item>
+        /// <item>The path <paramref name="folderpath"/> does not contain any shape files.</item>
+        /// </list></exception>
         public ReferenceLineMetaImporter(string folderpath)
         {
             ValidateAndConnectTo(folderpath);
-
-            ReadReferenceLineMetas();
         }
 
         /// <summary>
-        /// This method imports the data to an item from a file at the given location.
+        /// Reads and validates the <see cref="ReferenceLineMeta"/> objects from the shape file.
         /// </summary>
-        /// <param name="targetItem">The item to perform the import on.</param>
-        /// <param name="assessmentSectionId"></param>
-        /// <returns></returns>
-        public bool Import(ReferenceLineContext targetItem, string assessmentSectionId)
+        /// <returns>The read <see cref="ReferenceLineMeta"/> objects.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The shape file does not contain the required attributes.</item>
+        /// <item>The assessment section ids in the shape file are not unique or are missing.</item>
+        /// <item>The shape file does not contain poly lines.</item>
+        /// <item>The shape file contains multiple poly lines.</item>
+        /// </list></exception>
+        public IEnumerable<ReferenceLineMeta> GetReferenceLineMetas()
         {
-            var selectedReferenceLineMeta = referenceLineMetas.FirstOrDefault(rlm => rlm.AssessmentSectionId == assessmentSectionId);
-            if (selectedReferenceLineMeta == null)
-            {
-                var message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(string.Format("De geselecteerde referentielijn '{0}' is niet gevonden.", assessmentSectionId));
-                log.Error(message);
-                return false;
-            }
+            var referenceLineMetas = ReadReferenceLineMetas();
 
-            targetItem.WrappedData.Id = assessmentSectionId;
-            targetItem.WrappedData.ReferenceLine = selectedReferenceLineMeta;
+            ValidateReferenceLineMetas(referenceLineMetas);
 
-            targetItem.WrappedData.NotifyObservers();
-
-            return true;
-        }
-
-        /// <summary>
-        /// Gets all the assessment section ids from the shape file.
-        /// </summary>
-        /// <returns>A list of all assessment section ids read.</returns>
-        public IEnumerable<string> GetAssessmentSectionIds()
-        {
-            return referenceLineMetas.Select(rlm => rlm.AssessmentSectionId);
+            return referenceLineMetas;
         }
 
         private void ValidateAndConnectTo(string folderpath)
@@ -102,14 +91,14 @@ namespace Ringtoets.Common.IO
             {
                 var message = new FileReaderErrorMessageBuilder(
                     Path.Combine(folderpath, "*.shp"))
-                    .Build(@"Er is geen shape file gevonden.");
+                    .Build(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found);
                 throw new CriticalFileReadException(message);
             }
 
             shapeFilePath = files.First();
             if (files.Length > 1)
             {
-                log.Warn(string.Format(@"Er zijn meerdere shape files gevonden in '{0}'. '{1}' is gekozen.",
+                log.Warn(string.Format(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_Multiple_shape_files_found_0_Selected_1,
                                        Path.GetDirectoryName(shapeFilePath), Path.GetFileName(shapeFilePath)));
             }
         }
@@ -137,22 +126,15 @@ namespace Ringtoets.Common.IO
             {
                 if (e is IOException || e is SecurityException)
                 {
-                    HandleException(e);
                     var message = new FileReaderErrorMessageBuilder(path)
-                        .Build("Ongeldig pad.");
+                        .Build(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateDirectory_Directory_Invalid);
                     throw new CriticalFileReadException(message, e);
                 }
                 throw;
             }
         }
 
-        private static void HandleException(Exception e)
-        {
-            var message = string.Format("{0} Het bestand wordt overgeslagen.", e.Message);
-            log.Error(message);
-        }
-
-        private void ReadReferenceLineMetas()
+        private IEnumerable<ReferenceLineMeta> ReadReferenceLineMetas()
         {
             using (var reader = new ReferenceLinesMetaReader(shapeFilePath))
             {
@@ -162,15 +144,13 @@ namespace Ringtoets.Common.IO
                     referenceLinesMeta = reader.ReadReferenceLinesMeta();
                     if (referenceLinesMeta != null)
                     {
-                        referenceLineMetas.Add(referenceLinesMeta);
+                        yield return referenceLinesMeta;
                     }
                 } while (referenceLinesMeta != null);
             }
-
-            ValidateReferenceLineMetas();
         }
 
-        private void ValidateReferenceLineMetas()
+        private void ValidateReferenceLineMetas(IEnumerable<ReferenceLineMeta> referenceLineMetas)
         {
             var referenceLineMetasCount = referenceLineMetas.Select(rlm => rlm.AssessmentSectionId).Count();
             var referenceLineMetasDistinctCount = referenceLineMetas.Select(rlm => rlm.AssessmentSectionId).Distinct().Count();
@@ -178,20 +158,21 @@ namespace Ringtoets.Common.IO
             if (referenceLineMetasCount != referenceLineMetasDistinctCount)
             {
                 var message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build("De trajectid's niet uniek.");
+                    .Build(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateReferenceLineMetas_AssessmentSection_Ids_Not_Unique);
                 log.Warn(message);
 
-                MessageBox.Show(message, "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                MessageBox.Show(message, CoreCommonBaseResources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new CriticalFileReadException(message);
             }
 
-            if (referenceLineMetas.Any(rlm => String.IsNullOrEmpty(rlm.AssessmentSectionId)))
+            if (referenceLineMetas.Any(rlm => string.IsNullOrEmpty(rlm.AssessmentSectionId)))
             {
                 var message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build("De trajectid's zijn niet allemaal ingevuld.");
+                    .Build(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateReferenceLineMetas_Missing_AssessmentSection_Ids);
                 log.Warn(message);
 
-                MessageBox.Show(message, "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(message, CoreCommonBaseResources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new CriticalFileReadException(message);
             }
         }
     }

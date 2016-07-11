@@ -22,10 +22,18 @@
 namespace Ringtoets.Common.Data.AssessmentSection
 {
     /// <summary>
-    /// Class representing the reference line with meta data used as a basis for assessment.
+    /// Wrapper class representing the reference line with meta data used as a basis for assessment.
     /// </summary>
-    public class ReferenceLineMeta : ReferenceLine
+    public class ReferenceLineMeta
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReferenceLineMeta"/> class.
+        /// </summary>
+        public ReferenceLineMeta()
+        {
+            ReferenceLine = new ReferenceLine();
+        }
+
         /// <summary>
         /// Gets or sets the unique identifier within a registration.
         /// </summary>
@@ -40,5 +48,10 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// Gets or sets the lower limit of the assessment section.
         /// </summary>
         public int? LowerLimitValue { get; set; }
+
+        /// <summary>
+        /// Gets the reference line.
+        /// </summary>
+        public ReferenceLine ReferenceLine { get; private set; }
     }
 }

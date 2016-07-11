@@ -185,7 +185,7 @@ namespace Ringtoets.Common.IO
             {
                 referenceLineMeta.SignalingValue = signalingValue.Value;
             }
-            referenceLineMeta.SetGeometry(geometryPoints);
+            referenceLineMeta.ReferenceLine.SetGeometry(geometryPoints);
 
             return referenceLineMeta;
         }

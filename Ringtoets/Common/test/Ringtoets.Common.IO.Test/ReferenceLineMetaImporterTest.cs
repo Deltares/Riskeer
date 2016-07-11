@@ -27,9 +27,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.Common.IO.Test
 {
@@ -42,7 +40,7 @@ namespace Ringtoets.Common.IO.Test
         [TestCase("")]
         [TestCase("      ")]
         [TestCase(null)]
-        public void Constructor_NoFilePath_ThrowArgumentException(string invalidFilePath)
+        public void Constructor_NoFilePath_ThrowsArgumentException(string invalidFilePath)
         {
             // Call
             TestDelegate call = () => new ReferenceLineMetaImporter(invalidFilePath);
@@ -54,7 +52,7 @@ namespace Ringtoets.Common.IO.Test
         }
 
         [Test]
-        public void Constructor_FilePathHasInvalidPathCharacter_ThrowArgumentException()
+        public void Constructor_FilePathHasInvalidPathCharacter_ThrowsArgumentException()
         {
             // Setup
             char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
@@ -82,7 +80,7 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => new ReferenceLineMetaImporter(pathToEmptyFolder);
 
             // Assert
-            var expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': Ongeldig pad.",
+            var expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': De folder locatie is ongeldig.",
                                                          pathToEmptyFolder);
             CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
             Assert.AreEqual(expectedExceptionMessage, exception.Message);
@@ -111,33 +109,88 @@ namespace Ringtoets.Common.IO.Test
             string pathToFolder = Path.Combine(testDataPath, "TwoShapeFiles");
 
             // Call
-            var referenceIds = new List<string>();
-            Action call = () =>
-            {
-                var importer = new ReferenceLineMetaImporter(pathToFolder);
-                referenceIds.AddRange(importer.GetAssessmentSectionIds());
-            };
+            Action call = () => new ReferenceLineMetaImporter(pathToFolder);
 
             // Assert
             var expectedMessage = string.Format("Er zijn meerdere shape files gevonden in '{0}'. 'NBPW_A.shp' is gekozen.", pathToFolder);
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
-            Assert.AreEqual(1, referenceIds.Count);
-            Assert.AreEqual("A", referenceIds.First());
         }
 
         [Test]
-        public void GetReferenceLineIds_ValidDirectoryWithOneShapeFile_ReturnsReadReferenceIds()
+        public void GetReferenceLineMetas_InvalidShapeFile_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string pathToEmptyFolder = Path.Combine(testDataPath, "InvalidShapeFile");
+            ReferenceLineMetaImporter importer = new ReferenceLineMetaImporter(pathToEmptyFolder);
+
+            // Call
+            TestDelegate call = () => importer.GetReferenceLineMetas();
+
+            // Assert
+            var expectedExceptionMessage = "Het bestand heeft de attributen 'TRAJECT_ID', 'NORM_SW', 'NORM_OG' niet. Deze attributen zijn vereist.";
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+            Assert.AreEqual(expectedExceptionMessage, exception.Message);
+        }
+
+        [Test]
+        public void GetReferenceLineMetas_FileWithNonUniqueTrajectIds_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string pathToFolder = Path.Combine(testDataPath, "NonUniqueTrajectIds");
+            ReferenceLineMetaImporter importer = new ReferenceLineMetaImporter(pathToFolder);
+
+            // Call
+            TestDelegate call = () => importer.GetReferenceLineMetas();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBoxTester = new MessageBoxTester(wnd);
+                messageBoxTester.ClickOk();
+            };
+
+            // Assert
+            var shapeFile = Path.Combine(pathToFolder, "NonUniqueTrajectIds.shp");
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': De trajectid's zijn niet uniek.", shapeFile);
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void GetReferenceLineMetas_FileWithEmptyTrajectIds_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string pathToFolder = Path.Combine(testDataPath, "EmptyTrackId");
+            ReferenceLineMetaImporter importer = new ReferenceLineMetaImporter(pathToFolder);
+
+            // Call
+            TestDelegate call = () => importer.GetReferenceLineMetas();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBoxTester = new MessageBoxTester(wnd);
+                messageBoxTester.ClickOk();
+            };
+
+            // Assert
+            var shapeFile = Path.Combine(pathToFolder, "EmptyTrackId.shp");
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': De trajectid's zijn niet allemaal ingevuld.", shapeFile);
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void GetReferenceLineMetas_ValidDirectoryWithOneShapeFile_ReturnsReadReadGetReferenceLineMetas()
         {
             // Setup
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
             var importer = new ReferenceLineMetaImporter(pathValidFolder);
 
             // Call
-            var referenceIds = importer.GetAssessmentSectionIds().ToArray();
+            var referenceLineMetas = importer.GetReferenceLineMetas().ToArray();
 
             // Assert
-            Assert.AreEqual(10, referenceIds.Length);
-            var expectedReferenceIds = new[]
+            Assert.AreEqual(10, referenceLineMetas.Length);
+            var expectedAssessmentSectionIds = new[]
             {
                 "1-1",
                 "2-2",
@@ -150,74 +203,22 @@ namespace Ringtoets.Common.IO.Test
                 "9-9",
                 "10-10",
             };
-            Assert.AreEqual(expectedReferenceIds, referenceIds);
+            var assessmentSectionIds = referenceLineMetas.Select(rlm => rlm.AssessmentSectionId);
+            Assert.AreEqual(expectedAssessmentSectionIds, assessmentSectionIds);
         }
 
         [Test]
-        public void Import_IncorrectReferenceId_LogsWarningAndReturnsFalse()
+        public void GetReferenceLineMetas_EmptyShapeFile_ReturnsEmptyList()
         {
             // Setup
-            MockRepository mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            string pathToValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
-            var importer = new ReferenceLineMetaImporter(pathToValidFolder);
-            const string invalidReferenceId = "B";
-            var referecenLineContext = new ReferenceLineContext(assessmentSectionMock);
+            string pathValidFolder = Path.Combine(testDataPath, "EmptyShapeFile");
+            var importer = new ReferenceLineMetaImporter(pathValidFolder);
 
             // Call
-            Action call = () => importer.Import(referecenLineContext, invalidReferenceId);
+            IEnumerable<ReferenceLineMeta> referenceIds = importer.GetReferenceLineMetas();
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': De geselecteerde referentielijn '{1}' is niet gevonden.",
-                                                Path.Combine(pathToValidFolder, "validShapeFile.shp")
-                                                , invalidReferenceId);
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Import_ValidReferenceId_ImportsReferenceLineAndRetunsTrue()
-        {
-            // Setup
-            MockRepository mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            string pathToValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
-            var importer = new ReferenceLineMetaImporter(pathToValidFolder);
-            const string validReferenceId = "1-1";
-            var referecenLineContext = new ReferenceLineContext(assessmentSectionMock);
-
-            // Call
-            bool importsuccesful = importer.Import(referecenLineContext, validReferenceId);
-
-            // Assert
-            Assert.True(importsuccesful);
-            Assert.AreEqual(validReferenceId, assessmentSectionMock.Id);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FileWithNonUniqueTrajectIds_ThrowsException()
-        {
-            // Setup
-            string pathToFolder = Path.Combine(testDataPath, "NonUniqueTrajectIds");
-
-            // Call
-            Action call = () => new ReferenceLineMetaImporter(pathToFolder);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBoxTester = new MessageBoxTester(wnd);
-                messageBoxTester.ClickOk();
-            };
-
-            // Assert
-            var shapeFile = Path.Combine(pathToFolder, "NonUniqueTrajectIds.shp");
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': De trajectid's niet uniek.", shapeFile);
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+            Assert.AreEqual(0, referenceIds.Count());
         }
     }
 }

@@ -34,8 +34,8 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             var referenceLine = new ReferenceLineMeta();
 
             // Assert
-            Assert.IsInstanceOf<ReferenceLine>(referenceLine);
-            CollectionAssert.IsEmpty(referenceLine.Points);
+            Assert.IsInstanceOf<ReferenceLine>(referenceLine.ReferenceLine);
+            CollectionAssert.IsEmpty(referenceLine.ReferenceLine.Points);
         }
     }
 }
