@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using Core.Common.IO.Exceptions;
@@ -353,7 +352,27 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
                 var message = new FileReaderErrorMessageBuilder(databaseFilePath)
                     .WithSubject("ondergrondschematisatie 'Profile'")
-                    .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, "DryUnitWeight"));
+                    .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, "Color"));
+                Assert.AreEqual(message, exceptionMessage);
+            }
+        }
+
+        [Test]
+        public void ReadProfile_DatabaseProfileWithLayerWithInvalidStochastProperty_ReturnsNoProfile()
+        {
+            // Setup
+            var testFile = "incorrectValue2dStochastProperty.soil";
+            string databaseFilePath = Path.Combine(testDataPath, testFile);
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(databaseFilePath))
+            {
+                // Call
+                TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
+
+                // Assert
+                var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
+                var message = new FileReaderErrorMessageBuilder(databaseFilePath)
+                    .WithSubject("ondergrondschematisatie 'Profile'")
+                    .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, "BelowPhreaticLevelMean"));
                 Assert.AreEqual(message, exceptionMessage);
             }
         }
@@ -382,24 +401,24 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     0.001,
                     0.001
                 }, profile.Layers.Select(l => l.AbovePhreaticLevel));
-                CollectionAssert.AreEqual(new[]
-                {
-                    0.001,
-                    0.001,
-                    0.001
-                }, profile.Layers.Select(l => l.BelowPhreaticLevel));
                 CollectionAssert.AreEqual(new double?[]
                 {
-                    null,
-                    null,
-                    null
+                    0.805,
+                    0.015,
+                    0.005
                 }, profile.Layers.Select(l => l.DryUnitWeight));
-                CollectionAssert.AreEqual(new []
+                CollectionAssert.AreEqual(new[]
                 {
                     Color.FromArgb(128,255,128),
                     Color.FromArgb(255,0,0),
                     Color.FromArgb(70,130,180)
                 }, profile.Layers.Select(l => l.Color));
+                CollectionAssert.AreEqual(new[]
+                {
+                    3.88,
+                    0.71,
+                    0.21
+                }, profile.Layers.Select(l => l.BelowPhreaticLevel));
             }
         }
 
@@ -427,17 +446,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     0.001,
                     0.001
                 }, profile.Layers.Select(l => l.AbovePhreaticLevel));
-                CollectionAssert.AreEqual(new[]
-                {
-                    0.001,
-                    0.001,
-                    0.001
-                }, profile.Layers.Select(l => l.BelowPhreaticLevel));
                 CollectionAssert.AreEqual(new double?[]
                 {
-                    null,
-                    null,
-                    null
+                    0.005,
+                    0.015,
+                    0.805
                 }, profile.Layers.Select(l => l.DryUnitWeight));
                 CollectionAssert.AreEqual(new []
                 {
@@ -445,6 +458,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     Color.FromArgb(255,0,0),
                     Color.FromArgb(128,255,128)
                 }, profile.Layers.Select(l => l.Color));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.21,
+                    0.71,
+                    3.88
+                }, profile.Layers.Select(l => l.BelowPhreaticLevel));
             }
         }
 

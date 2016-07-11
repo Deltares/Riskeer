@@ -241,38 +241,62 @@ namespace Ringtoets.Piping.IO.SoilProfile
             string subQueryGetMaterialPropertiesOfLayer =
                 String.Format(
                     "SELECT " +
-                    "mat.MA_ID, " +
-                    "mat.MA_Name as {4}, " +
-                    "MAX(case when pn.PN_NAME = '{0}' then pv.PV_Value end) {0}, " +
-                    "MAX(case when pn.PN_NAME = '{1}' then pv.PV_Value end) {1}, " +
-                    "MAX(case when pn.PN_NAME = '{2}' then pv.PV_Value end) {2}, " +
-                    "MAX(case when pn.PN_NAME = '{3}' then pv.PV_Value end) {3} " +
-                    "FROM ParameterNames as pn " +
-                    "JOIN ParameterValues as pv USING(PN_ID) " +
-                    "JOIN Materials as mat USING(MA_ID) " +
-                    "GROUP BY mat.MA_ID",
-                    SoilProfileDatabaseColumns.AbovePhreaticLevel,
-                    SoilProfileDatabaseColumns.BelowPhreaticLevel,
-                    SoilProfileDatabaseColumns.DryUnitWeight,
+	                "mat.MA_ID, " +
+                    "mat.MA_Name as {0}, " +
+		            "max(case when pn.PN_Name = 'Color' then pv.PV_Value end) {1}, " +
+		            "max(case when pn.PN_Name = 'AbovePhreaticLevel' then pv.PV_Value end) {2}, " +
+		            "max(case when pn.PN_Name = 'DryUnitWeight' then pv.PV_Value end) {3}, " +
+                    "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Dist_Type end) {4}, " +
+                    "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Shift end) {5}, " +
+                    "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Mean end) {6}, " +
+                    "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Deviation end) {7}, " +
+                    "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Dist_Type end) {8}, " +
+                    "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Shift end) {9}, " +
+                    "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Mean end) {10}, " +
+                    "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Deviation end) {11}, " +
+                    "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Dist_Type end) {12}, " +
+                    "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Shift end) {13}, " +
+                    "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Mean end) {14}, " +
+                    "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Deviation end) {15} " +
+                    "FROM ParameterNames AS pn " +
+                    "LEFT JOIN ParameterValues AS pv USING(PN_ID) " +
+                    "LEFT JOIN Stochast AS s USING(PN_ID) " +
+                    "JOIN Materials AS mat WHERE pv.MA_ID = mat.MA_ID OR s.MA_ID = mat.MA_ID " +
+                    "GROUP BY mat.MA_ID ",
+                    SoilProfileDatabaseColumns.MaterialName,
                     SoilProfileDatabaseColumns.Color,
-                    SoilProfileDatabaseColumns.MaterialName);
+                    SoilProfileDatabaseColumns.AbovePhreaticLevel,
+                    SoilProfileDatabaseColumns.DryUnitWeight,
+                    SoilProfileDatabaseColumns.BelowPhreaticLevelDistribution,
+                    SoilProfileDatabaseColumns.BelowPhreaticLevelShift,
+                    SoilProfileDatabaseColumns.BelowPhreaticLevelMean,
+                    SoilProfileDatabaseColumns.BelowPhreaticLevelDeviation,
+                    SoilProfileDatabaseColumns.PermeabilityDistribution,
+                    SoilProfileDatabaseColumns.PermeabilityShift,
+                    SoilProfileDatabaseColumns.PermeabilityMean,
+                    SoilProfileDatabaseColumns.PermeabilityDeviation,
+                    SoilProfileDatabaseColumns.DiameterD70Distribution,
+                    SoilProfileDatabaseColumns.DiameterD70Shift,
+                    SoilProfileDatabaseColumns.DiameterD70Mean,
+                    SoilProfileDatabaseColumns.DiameterD70Deviation
+                    );
             string subQueryGetLayerPropertiesOfLayer1D =
                 String.Format(
                     "SELECT " +
                     "SL1D_ID, " +
-                    "MAX(case when pn.PN_NAME = '{0}' then pv.PV_Value end) {0} " +
-                    "FROM ParameterNames as pn " +
-                    "JOIN LayerParameterValues as pv USING(PN_ID) " +
-                    "GROUP BY pv.SL1D_ID",
+                    "PV_Value as {0} " +
+                    "FROM ParameterNames " +
+                    "JOIN LayerParameterValues USING(PN_ID) " +
+                    "WHERE PN_NAME = '{0}'",
                     SoilProfileDatabaseColumns.IsAquifer);
             string subQueryGetLayerPropertiesOfLayer2D =
                 String.Format(
                     "SELECT " +
                     "SL2D_ID, " +
-                    "MAX(case when pn.PN_NAME = '{0}' then pv.PV_Value end) {0} " +
-                    "FROM ParameterNames as pn " +
-                    "JOIN LayerParameterValues as pv USING(PN_ID) " +
-                    "GROUP BY pv.SL2D_ID",
+                    "PV_Value as {0} " +
+                    "FROM ParameterNames " +
+                    "JOIN LayerParameterValues USING(PN_ID) " +
+                    "WHERE PN_NAME = '{0}'",
                     SoilProfileDatabaseColumns.IsAquifer);
 
             var query1D = string.Format(
@@ -283,12 +307,23 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 "sp1d.BottomLevel AS {3}, " +
                 "sl1d.TopLevel AS {4}, " +
                 "{5}, " + 
-                "{6}, " +
-                "{7}, " +
+                "{6}, " + 
+                "{7}, " + 
                 "{8}, " +
                 "{9}, " +
                 "{10}, " +
-                "sp1d.SP1D_ID AS {11} " +
+                "{11}, " +
+                "{12}, " +
+                "{13}, " +
+                "{14}, " +
+                "{15}, " +
+                "{16}, " +
+                "{17}, " +
+                "{18}, " +
+                "{19}, " +
+                "{20}, " +
+                "{21}, " +
+                "sp1d.SP1D_ID AS {22} " +
                 "FROM Mechanism AS m " +
                 "JOIN Segment AS segment USING(ME_ID) " +
                 "JOIN StochasticSoilProfile ssp USING(SSM_ID) " +
@@ -303,23 +338,34 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 "LEFT JOIN (" +
                 subQueryGetLayerPropertiesOfLayer1D +
                 ") layerProperties USING(SL1D_ID) " +
-                "WHERE m.{12} = @{12};",
+                "WHERE m.{23} = @{23};",
                 SoilProfileDatabaseColumns.Dimension,
                 SoilProfileDatabaseColumns.ProfileName,
                 SoilProfileDatabaseColumns.LayerCount,
                 SoilProfileDatabaseColumns.Bottom,
                 SoilProfileDatabaseColumns.Top,
                 SoilProfileDatabaseColumns.MaterialName,
-                SoilProfileDatabaseColumns.AbovePhreaticLevel,
-                SoilProfileDatabaseColumns.BelowPhreaticLevel,
-                SoilProfileDatabaseColumns.DryUnitWeight,
                 SoilProfileDatabaseColumns.IsAquifer,
                 SoilProfileDatabaseColumns.Color,
+                SoilProfileDatabaseColumns.AbovePhreaticLevel,
+                SoilProfileDatabaseColumns.DryUnitWeight,
+                SoilProfileDatabaseColumns.BelowPhreaticLevelDistribution,
+                SoilProfileDatabaseColumns.BelowPhreaticLevelShift,
+                SoilProfileDatabaseColumns.BelowPhreaticLevelMean,
+                SoilProfileDatabaseColumns.BelowPhreaticLevelDeviation,
+                SoilProfileDatabaseColumns.DiameterD70Distribution,
+                SoilProfileDatabaseColumns.DiameterD70Shift,
+                SoilProfileDatabaseColumns.DiameterD70Mean,
+                SoilProfileDatabaseColumns.DiameterD70Deviation,
+                SoilProfileDatabaseColumns.PermeabilityDistribution,
+                SoilProfileDatabaseColumns.PermeabilityShift,
+                SoilProfileDatabaseColumns.PermeabilityMean,
+                SoilProfileDatabaseColumns.PermeabilityDeviation,
                 SoilProfileDatabaseColumns.SoilProfileId,
                 MechanismDatabaseColumns.MechanismName);
 
             var query2D = string.Format(
-                "Select " +
+                "SELECT " +
                 "2 as {0}, " +
                 "sp2d.SP2D_Name as {1}, " +
                 "layerCount.{2}, " +
@@ -331,7 +377,18 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 "{8}, " +
                 "{9}, " +
                 "{10}, " +
-                "sp2d.SP2D_ID as {11} " +
+                "{11}, " +
+                "{12}, " +
+                "{13}, " +
+                "{14}, " +
+                "{15}, " +
+                "{16}, " +
+                "{17}, " +
+                "{18}, " +
+                "{19}, " +
+                "{20}, " +
+                "{21}, " +
+                "sp2d.SP2D_ID as {22} " +
                 "FROM Mechanism AS m " +
                 "JOIN Segment AS segment USING(ME_ID) " +
                 "JOIN StochasticSoilProfile ssp USING(SSM_ID) " +
@@ -347,18 +404,29 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 "LEFT JOIN (" +
                 subQueryGetLayerPropertiesOfLayer2D +
                 ") layerProperties USING(SL2D_ID) " +
-                "WHERE m.{12} = @{12};",
+                "WHERE m.{23} = @{23};",
                 SoilProfileDatabaseColumns.Dimension,
                 SoilProfileDatabaseColumns.ProfileName,
                 SoilProfileDatabaseColumns.LayerCount,
                 SoilProfileDatabaseColumns.LayerGeometry,
                 SoilProfileDatabaseColumns.IntersectionX,
                 SoilProfileDatabaseColumns.MaterialName,
-                SoilProfileDatabaseColumns.AbovePhreaticLevel,
-                SoilProfileDatabaseColumns.BelowPhreaticLevel,
-                SoilProfileDatabaseColumns.DryUnitWeight,
                 SoilProfileDatabaseColumns.IsAquifer,
                 SoilProfileDatabaseColumns.Color,
+                SoilProfileDatabaseColumns.AbovePhreaticLevel,
+                SoilProfileDatabaseColumns.DryUnitWeight,
+                SoilProfileDatabaseColumns.BelowPhreaticLevelDistribution,
+                SoilProfileDatabaseColumns.BelowPhreaticLevelShift,
+                SoilProfileDatabaseColumns.BelowPhreaticLevelMean,
+                SoilProfileDatabaseColumns.BelowPhreaticLevelDeviation,
+                SoilProfileDatabaseColumns.DiameterD70Distribution,
+                SoilProfileDatabaseColumns.DiameterD70Shift,
+                SoilProfileDatabaseColumns.DiameterD70Mean,
+                SoilProfileDatabaseColumns.DiameterD70Deviation,
+                SoilProfileDatabaseColumns.PermeabilityDistribution,
+                SoilProfileDatabaseColumns.PermeabilityShift,
+                SoilProfileDatabaseColumns.PermeabilityMean,
+                SoilProfileDatabaseColumns.PermeabilityDeviation,
                 SoilProfileDatabaseColumns.SoilProfileId,
                 MechanismDatabaseColumns.MechanismName);
 

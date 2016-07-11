@@ -78,11 +78,16 @@ namespace Ringtoets.Piping.Integration.Test
             }, pipingProfile.Layers.Select(l => l.AbovePhreaticLevel));
             CollectionAssert.AreEqual(new[]
             {
-                0.001,
-                0.001,
-                0.001
+                3.88,
+                0.71,
+                0.21
             }, pipingProfile.Layers.Select(l => l.BelowPhreaticLevel));
-            CollectionAssert.AreEqual(Enumerable.Repeat(defaultPipingLayer.DryUnitWeight, 3), pipingProfile.Layers.Select(l => l.DryUnitWeight));
+            CollectionAssert.AreEqual(new double?[]
+            {
+                0.805,
+                0.015,
+                0.005
+            }, profile.Layers.Select(l => l.DryUnitWeight));
             CollectionAssert.AreEqual(new[]
             {
                 false,
@@ -140,8 +145,8 @@ namespace Ringtoets.Piping.Integration.Test
             CollectionAssert.AreEqual(new[]
             {
                 0.0,
-                0.001,
-                0.009
+                0.0,
+                0.0
             }, pipingProfile.Layers.Select(l => l.BelowPhreaticLevel));
             CollectionAssert.AreEqual(new[]
             {

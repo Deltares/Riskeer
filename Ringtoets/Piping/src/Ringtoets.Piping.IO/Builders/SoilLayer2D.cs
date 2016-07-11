@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Linq;
 
 using Core.Common.Base.Geometry;
@@ -61,9 +60,83 @@ namespace Ringtoets.Piping.IO.Builders
         public double? AbovePhreaticLevel { get; set; }
 
         /// <summary>
-        /// Gets or sets the below phreatic level for the <see cref="SoilLayer2D"/>.
+        /// Gets or sets the distribution for the volumic weight of the <see cref="SoilLayer2D"/> below the 
+        /// phreatic level.
+        /// [kN/m³]
         /// </summary>
-        public double? BelowPhreaticLevel { get; set; }
+        public double? BelowPhreaticLevelDistribution { get; set; }
+
+        /// <summary>
+        /// Gets or sets the shift of the distribution for the volumic weight of the <see cref="SoilLayer2D"/> 
+        /// below the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public double? BelowPhreaticLevelShift { get; set; }
+
+        /// <summary>
+        /// Gets or sets the mean of the distribution for the volumic weight of the <see cref="SoilLayer2D"/> 
+        /// below the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public double? BelowPhreaticLevelMean { get; set; }
+
+        /// <summary>
+        /// Gets or sets the deviation of the distribution for the volumic weight of the <see cref="SoilLayer2D"/> below the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public double? BelowPhreaticLevelDeviation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the distribution for the mean diameter of small scale tests applied to different kinds of sand, on which the 
+        /// formula of Sellmeijer has been fit.
+        /// [m]
+        /// </summary>
+        public double? DiameterD70Distribution { get; set; }
+
+        /// <summary>
+        /// Gets or sets the shift of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
+        /// on which the formula of Sellmeijer has been fit.
+        /// [m]
+        /// </summary>
+        public double? DiameterD70Shift { get; set; }
+
+        /// <summary>
+        /// Gets or sets the mean of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
+        /// on which the formula of Sellmeijer has been fit.
+        /// [m]
+        /// </summary>
+        public double? DiameterD70Mean { get; set; }
+
+        /// <summary>
+        /// Gets or sets the deviation of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
+        /// on which the formula of Sellmeijer has been fit.
+        /// [m]
+        /// </summary>
+        public double? DiameterD70Deviation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the distribution for the Darcy-speed with which water flows through the aquifer layer.
+        /// [m/s]
+        /// </summary>
+        public double? PermeabilityDistribution { get; set; }
+
+        /// <summary>
+        /// Gets or sets the shift of the distribution for the Darcy-speed with which water flows through the aquifer layer.
+        /// [m/s]
+        /// </summary>
+        public double? PermeabilityShift { get; set; }
+
+        /// <summary>
+        /// Gets or sets the mean of the distribution for the the Darcy-speed with which water flows through the aquifer layer.
+        /// [m/s]
+        /// </summary>
+        public double? PermeabilityMean { get; set; }
+
+        /// <summary>
+        /// Gets or sets the deviation of the distribution for the Darcy-speed with which water flows through the aquifer layer.
+        /// [m/s]
+        /// </summary>
+        public double? PermeabilityDeviation { get; set; }
 
         /// <summary>
         /// Gets or sets the dry unit weight for the <see cref="SoilLayer2D"/>.
@@ -76,7 +149,7 @@ namespace Ringtoets.Piping.IO.Builders
         public string MaterialName { get; set; }
 
         /// <summary>
-        /// Gets or sets the value representing a color that was used to represent the <see cref="SoilLayer1D"/>.
+        /// Gets or sets the value representing a color that was used to represent the <see cref="SoilLayer2D"/>.
         /// </summary>
         public double? Color { get; set; }
 
@@ -157,7 +230,7 @@ namespace Ringtoets.Piping.IO.Builders
                         result.Add(new PipingSoilLayer(height)
                         {
                             IsAquifer = IsAquifer.HasValue && IsAquifer.Value.Equals(1.0),
-                            BelowPhreaticLevel = BelowPhreaticLevel,
+                            BelowPhreaticLevel = BelowPhreaticLevelMean,
                             AbovePhreaticLevel = AbovePhreaticLevel,
                             DryUnitWeight = DryUnitWeight,
                             MaterialName = MaterialName ?? string.Empty,

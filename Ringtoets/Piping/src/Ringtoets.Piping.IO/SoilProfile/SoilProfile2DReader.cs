@@ -21,7 +21,6 @@
 
 using System;
 using System.Data.SQLite;
-using System.Drawing;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.Piping.IO.Builders;
@@ -109,11 +108,26 @@ namespace Ringtoets.Piping.IO.SoilProfile
             if (pipingSoilLayer != null)
             {
                 pipingSoilLayer.IsAquifer = properties.IsAquifer;
-                pipingSoilLayer.BelowPhreaticLevel = properties.BelowPhreaticLevel;
                 pipingSoilLayer.AbovePhreaticLevel = properties.AbovePhreaticLevel;
                 pipingSoilLayer.DryUnitWeight = properties.DryUnitWeight;
                 pipingSoilLayer.MaterialName = properties.MaterialName;
                 pipingSoilLayer.Color = properties.Color;
+
+                pipingSoilLayer.BelowPhreaticLevelDistribution = properties.BelowPhreaticLevelDistribution;
+                pipingSoilLayer.BelowPhreaticLevelShift = properties.BelowPhreaticLevelShift;
+                pipingSoilLayer.BelowPhreaticLevelMean = properties.BelowPhreaticLevelMean;
+                pipingSoilLayer.BelowPhreaticLevelDeviation = properties.BelowPhreaticLevelDeviation;
+
+                pipingSoilLayer.DiameterD70Distribution = properties.DiameterD70Distribution;
+                pipingSoilLayer.DiameterD70Shift = properties.DiameterD70Shift;
+                pipingSoilLayer.DiameterD70Mean = properties.DiameterD70Mean;
+                pipingSoilLayer.DiameterD70Deviation = properties.DiameterD70Deviation;
+
+                pipingSoilLayer.PermeabilityDistribution = properties.PermeabilityDistribution;
+                pipingSoilLayer.PermeabilityShift = properties.PermeabilityShift;
+                pipingSoilLayer.PermeabilityMean = properties.PermeabilityMean;
+                pipingSoilLayer.PermeabilityDeviation = properties.PermeabilityDeviation;
+
             }
             return pipingSoilLayer;
         }
@@ -155,11 +169,26 @@ namespace Ringtoets.Piping.IO.SoilProfile
         private class LayerProperties
         {
             internal readonly double? IsAquifer;
-            internal readonly double? BelowPhreaticLevel;
-            internal readonly double? AbovePhreaticLevel;
-            internal readonly double? DryUnitWeight;
             internal readonly string MaterialName;
             internal readonly double? Color;
+            internal readonly double? AbovePhreaticLevel;
+            internal readonly double? DryUnitWeight;
+
+            internal readonly double? BelowPhreaticLevelDistribution;
+            internal readonly double? BelowPhreaticLevelShift;
+            internal readonly double? BelowPhreaticLevelMean;
+            internal readonly double? BelowPhreaticLevelDeviation;
+
+            internal readonly double? DiameterD70Distribution;
+            internal readonly double? DiameterD70Shift;
+            internal readonly double? DiameterD70Mean;
+            internal readonly double? DiameterD70Deviation;
+
+            internal readonly double? PermeabilityDistribution;
+            internal readonly double? PermeabilityShift;
+            internal readonly double? PermeabilityMean;
+            internal readonly double? PermeabilityDeviation;
+
 
             /// <summary>
             /// Creates a new instance of <see cref="LayerProperties"/>, which contains properties
@@ -177,20 +206,43 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 {
                     IsAquifer = reader.ReadOrDefault<double?>(readColumn);
 
-                    readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevel;
-                    BelowPhreaticLevel = reader.ReadOrDefault<double?>(readColumn);
-
-                    readColumn = SoilProfileDatabaseColumns.AbovePhreaticLevel;
-                    AbovePhreaticLevel = reader.ReadOrDefault<double?>(readColumn);
-
-                    readColumn = SoilProfileDatabaseColumns.DryUnitWeight;
-                    DryUnitWeight = reader.ReadOrDefault<double?>(readColumn);
-
                     readColumn = SoilProfileDatabaseColumns.MaterialName;
                     MaterialName = reader.ReadOrDefault<string>(readColumn);
 
                     readColumn = SoilProfileDatabaseColumns.Color;
                     Color = reader.ReadOrDefault<double?>(readColumn);
+
+                    readColumn = SoilProfileDatabaseColumns.AbovePhreaticLevel;
+                    AbovePhreaticLevel = reader.ReadOrDefault<double?>(readColumn);
+                    readColumn = SoilProfileDatabaseColumns.DryUnitWeight;
+                    DryUnitWeight = reader.ReadOrDefault<double?>(readColumn);
+
+                    readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevelDistribution;
+                    BelowPhreaticLevelDistribution = reader.ReadOrDefault<long?>(readColumn);
+                    readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevelShift;
+                    BelowPhreaticLevelShift = reader.ReadOrDefault<double?>(readColumn);
+                    readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevelMean;
+                    BelowPhreaticLevelMean = reader.ReadOrDefault<double?>(readColumn);
+                    readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevelDeviation;
+                    BelowPhreaticLevelDeviation = reader.ReadOrDefault<double?>(readColumn);
+
+                    readColumn = SoilProfileDatabaseColumns.DiameterD70Distribution;
+                    DiameterD70Distribution = reader.ReadOrDefault<long?>(readColumn);
+                    readColumn = SoilProfileDatabaseColumns.DiameterD70Shift;
+                    DiameterD70Shift = reader.ReadOrDefault<double?>(readColumn);
+                    readColumn = SoilProfileDatabaseColumns.DiameterD70Mean;
+                    DiameterD70Mean = reader.ReadOrDefault<double?>(readColumn);
+                    readColumn = SoilProfileDatabaseColumns.DiameterD70Deviation;
+                    DiameterD70Deviation = reader.ReadOrDefault<double?>(readColumn);
+
+                    readColumn = SoilProfileDatabaseColumns.PermeabilityDistribution;
+                    PermeabilityDistribution = reader.ReadOrDefault<long?>(readColumn);
+                    readColumn = SoilProfileDatabaseColumns.PermeabilityShift;
+                    PermeabilityShift = reader.ReadOrDefault<double?>(readColumn);
+                    readColumn = SoilProfileDatabaseColumns.PermeabilityMean;
+                    PermeabilityMean = reader.ReadOrDefault<double?>(readColumn);
+                    readColumn = SoilProfileDatabaseColumns.PermeabilityDeviation;
+                    PermeabilityDeviation = reader.ReadOrDefault<double?>(readColumn);
                 }
                 catch (InvalidCastException e)
                 {

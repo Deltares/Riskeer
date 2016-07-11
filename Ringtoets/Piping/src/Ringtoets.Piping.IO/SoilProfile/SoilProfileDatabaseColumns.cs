@@ -38,8 +38,19 @@ namespace Ringtoets.Piping.IO.SoilProfile
         internal const string MaterialName = "MaterialName";
         internal const string LayerGeometry = "LayerGeometry";
         internal const string AbovePhreaticLevel = "AbovePhreaticLevel";
-        internal const string BelowPhreaticLevel = "BelowPhreaticLevel";
         internal const string DryUnitWeight = "DryUnitWeight";
+        internal const string BelowPhreaticLevelDistribution = "BelowPhreaticLevelDistribution";
+        internal const string BelowPhreaticLevelShift = "BelowPhreaticLevelShift";
+        internal const string BelowPhreaticLevelMean = "BelowPhreaticLevelMean";
+        internal const string BelowPhreaticLevelDeviation = "BelowPhreaticLevelDeviation";
+        internal const string PermeabilityDistribution = "PermeabKxDistribution";
+        internal const string PermeabilityShift = "PermeabKxShift";
+        internal const string PermeabilityMean = "PermeabKxMean";
+        internal const string PermeabilityDeviation = "PermeabKxDeviation";
+        internal const string DiameterD70Distribution = "DiameterD70Distribution";
+        internal const string DiameterD70Shift = "DiameterD70Shift";
+        internal const string DiameterD70Mean = "DiameterD70Mean";
+        internal const string DiameterD70Deviation = "DiameterD70Deviation";
         internal const string LayerCount = "LayerCount";
     }
 }

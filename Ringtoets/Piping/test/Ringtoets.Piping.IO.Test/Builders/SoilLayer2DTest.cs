@@ -1,4 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -26,11 +47,25 @@ namespace Ringtoets.Piping.IO.Test.Builders
             Assert.IsNull(result.OuterLoop);
             CollectionAssert.IsEmpty(result.InnerLoops);
             Assert.IsNull(result.AbovePhreaticLevel);
-            Assert.IsNull(result.BelowPhreaticLevel);
             Assert.IsNull(result.DryUnitWeight);
             Assert.IsNull(result.IsAquifer);
             Assert.IsNull(result.MaterialName);
             Assert.IsNull(result.Color);
+
+            Assert.IsNull(result.BelowPhreaticLevelDistribution);
+            Assert.IsNull(result.BelowPhreaticLevelShift);
+            Assert.IsNull(result.BelowPhreaticLevelMean);
+            Assert.IsNull(result.BelowPhreaticLevelDeviation);
+
+            Assert.IsNull(result.DiameterD70Distribution);
+            Assert.IsNull(result.DiameterD70Shift);
+            Assert.IsNull(result.DiameterD70Mean);
+            Assert.IsNull(result.DiameterD70Deviation);
+
+            Assert.IsNull(result.PermeabilityDistribution);
+            Assert.IsNull(result.PermeabilityShift);
+            Assert.IsNull(result.PermeabilityMean);
+            Assert.IsNull(result.PermeabilityDeviation);
         }
 
         [Test]
@@ -245,20 +280,49 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var x2 = 1.1;
             var x3 = 1.2;
             var abovePhreaticLevel = random.NextDouble();
-            var belowPhreaticLevel = random.NextDouble();
             var dryUnitWeight = random.NextDouble();
             var materialName = "materialX";
             var color = Color.DarkSeaGreen;
             double bottom;
+
+            var belowPhreaticLevelDistribution = random.Next();
+            var belowPhreaticLevelShift = random.NextDouble();
+            var belowPhreaticLevelMean = random.NextDouble();
+            var belowPhreaticLevelDeviation = random.NextDouble();
+
+            var diameterD70Distribution = random.Next();
+            var diameterD70Shift = random.NextDouble();
+            var diameterD70Mean = random.NextDouble();
+            var diameterD70Deviation = random.NextDouble();
+
+            var permeabilityDistribution = random.Next();
+            var permeabilityShift = random.NextDouble();
+            var permeabilityMean = random.NextDouble();
+            var permeabilityDeviation = random.NextDouble();
 
             var layer = new SoilLayer2D
             {
                 MaterialName = materialName,
                 IsAquifer = 1.0,
                 AbovePhreaticLevel = abovePhreaticLevel,
-                BelowPhreaticLevel = belowPhreaticLevel,
                 DryUnitWeight = dryUnitWeight,
                 Color = color.ToArgb(),
+
+                BelowPhreaticLevelDistribution = belowPhreaticLevelDistribution,
+                BelowPhreaticLevelShift = belowPhreaticLevelShift,
+                BelowPhreaticLevelMean = belowPhreaticLevelMean,
+                BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
+
+                DiameterD70Distribution = diameterD70Distribution,
+                DiameterD70Shift = diameterD70Shift,
+                DiameterD70Mean = diameterD70Mean,
+                DiameterD70Deviation = diameterD70Deviation,
+
+                PermeabilityDistribution = permeabilityDistribution,
+                PermeabilityShift = permeabilityShift,
+                PermeabilityMean = permeabilityMean,
+                PermeabilityDeviation = permeabilityDeviation,
+
                 OuterLoop = new List<Segment2D>
                 {
                     new Segment2D(
@@ -290,7 +354,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             Assert.AreEqual(y2, resultLayer.Top, 1e-6);
             Assert.IsTrue(resultLayer.IsAquifer);
             Assert.AreEqual(abovePhreaticLevel, resultLayer.AbovePhreaticLevel);
-            Assert.AreEqual(belowPhreaticLevel, resultLayer.BelowPhreaticLevel);
+            Assert.AreEqual(belowPhreaticLevelMean, resultLayer.BelowPhreaticLevel);
             Assert.AreEqual(dryUnitWeight, resultLayer.DryUnitWeight);
             Assert.AreEqual(materialName, resultLayer.MaterialName);
             Assert.AreEqual(Color.FromArgb(color.ToArgb()), resultLayer.Color);
