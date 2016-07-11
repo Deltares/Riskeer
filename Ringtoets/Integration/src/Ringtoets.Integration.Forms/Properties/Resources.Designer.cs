@@ -70,6 +70,24 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Id van het traject..
+        /// </summary>
+        public static string AssessmentSection_Id_Description {
+            get {
+                return ResourceManager.GetString("AssessmentSection_Id_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id.
+        /// </summary>
+        public static string AssessmentSection_Id_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentSection_Id_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Naam van het toetstraject..
         /// </summary>
         public static string AssessmentSection_Name_Description {

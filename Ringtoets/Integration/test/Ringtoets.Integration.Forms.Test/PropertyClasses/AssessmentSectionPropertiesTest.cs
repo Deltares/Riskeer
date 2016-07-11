@@ -28,6 +28,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
+                Id = "TestId",
                 Name = "Test"
             };
 
@@ -37,6 +38,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Call & Assert
+            Assert.AreEqual(assessmentSection.Id, properties.Id);
             Assert.AreEqual(assessmentSection.Name, properties.Name);
         }
 

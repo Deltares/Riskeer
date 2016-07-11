@@ -248,4 +248,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="FailureMechanismContributionView_InitializeAssessmentSectionCompositionComboBox_DikeAndDune" xml:space="preserve">
     <value>Dijk / Duin</value>
   </data>
+  <data name="AssessmentSection_Id_Description" xml:space="preserve">
+    <value>Id van het traject.</value>
+  </data>
+  <data name="AssessmentSection_Id_DisplayName" xml:space="preserve">
+    <value>Id</value>
+  </data>
 </root>
