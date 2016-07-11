@@ -226,8 +226,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptor calculateDikeHeightProperty = dynamicProperties[calculateDikeHeightPropertyIndex];
             Assert.IsNotNull(calculateDikeHeightProperty);
             Assert.AreEqual("Schematisatie", calculateDikeHeightProperty.Category);
-            Assert.AreEqual("Bereken dijkhoogte", calculateDikeHeightProperty.DisplayName);
-            Assert.AreEqual("Bereken de dijkhoogte in hydra ring.", calculateDikeHeightProperty.Description);
+            Assert.AreEqual("Bereken HBN", calculateDikeHeightProperty.DisplayName);
+            Assert.AreEqual("Bereken de HBN.", calculateDikeHeightProperty.Description);
             mockRepository.VerifyAll();
         }
 

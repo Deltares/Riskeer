@@ -151,7 +151,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bereken de dijkhoogte in hydra ring..
+        ///   Looks up a localized string similar to Bereken de HBN..
         /// </summary>
         public static string CalculateDikeHeight_Description {
             get {
@@ -160,7 +160,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bereken dijkhoogte.
+        ///   Looks up a localized string similar to Bereken HBN.
         /// </summary>
         public static string CalculateDikeHeight_DisplayName {
             get {
@@ -575,6 +575,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string GrassCoverErosionInwardsInputContext_NodeDisplayName {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsInputContext_NodeDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De HBN van de overslag deelberekening..
+        /// </summary>
+        public static string GrassCoverErosionInwardsOutput_DikeHeight_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsOutput_DikeHeight_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HBN [m+NAP].
+        /// </summary>
+        public static string GrassCoverErosionInwardsOutput_DikeHeight_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsOutput_DikeHeight_DisplayName", resourceCulture);
             }
         }
         

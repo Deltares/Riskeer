@@ -311,9 +311,15 @@
     <value>Indicatieve golfhoogte</value>
   </data>
   <data name="CalculateDikeHeight_Description" xml:space="preserve">
-    <value>Bereken de dijkhoogte in hydra ring.</value>
+    <value>Bereken de HBN.</value>
   </data>
   <data name="CalculateDikeHeight_DisplayName" xml:space="preserve">
-    <value>Bereken dijkhoogte</value>
+    <value>Bereken HBN</value>
+  </data>
+  <data name="GrassCoverErosionInwardsOutput_DikeHeight_Description" xml:space="preserve">
+    <value>De HBN van de overslag deelberekening.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsOutput_DikeHeight_DisplayName" xml:space="preserve">
+    <value>HBN [m+NAP]</value>
   </data>
 </root>

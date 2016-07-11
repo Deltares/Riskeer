@@ -66,8 +66,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             double probability = random.NextDouble();
             double reliability = random.NextDouble();
             double factorOfSafety = random.NextDouble();
+            double dikeHeight = random.NextDouble();
             ProbabilityAssessmentOutput probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
-            var output = new GrassCoverErosionInwardsOutput(waveHeight, isOvertoppingDominant, probabilityAssessmentOutput);
+            var output = new GrassCoverErosionInwardsOutput(waveHeight, isOvertoppingDominant, probabilityAssessmentOutput, dikeHeight);
 
             // Call
             var properties = new GrassCoverErosionInwardsOutputProperties
@@ -91,15 +92,88 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             Assert.AreEqual(isOvertoppingDominant, properties.IsOvertoppingDominant);
 
+            Assert.AreEqual(2, properties.DikeHeight.NumberOfDecimalPlaces);
+            Assert.AreEqual(dikeHeight, properties.DikeHeight, properties.DikeHeight.GetAccuracy());
+
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void PropertyAttributes_ReturnExpectedValues()
+        public void PropertyAttributes_WithDikeHeightCalculated_ReturnExpectedValues()
         {
             // Setup
             ProbabilityAssessmentOutput probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var output = new GrassCoverErosionInwardsOutput(double.NaN, true, probabilityAssessmentOutput);
+            var output = new GrassCoverErosionInwardsOutput(double.NaN, true, probabilityAssessmentOutput, double.NaN, true);
+
+            // Call
+            var properties = new GrassCoverErosionInwardsOutputProperties
+            {
+                Data = output
+            };
+
+            // Assert
+            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
+            {
+                new BrowsableAttribute(true)
+            });
+            Assert.AreEqual(8, dynamicProperties.Count);
+
+            PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
+            Assert.IsTrue(requiredProbabilityProperty.IsReadOnly);
+            Assert.AreEqual("Resultaat", requiredProbabilityProperty.Category);
+            Assert.AreEqual("Faalkanseis [1/jaar]", requiredProbabilityProperty.DisplayName);
+            Assert.AreEqual("De maximaal toegestane faalkanseis voor het toetsspoor.", requiredProbabilityProperty.Description);
+
+            PropertyDescriptor requiredReliabilityProperty = dynamicProperties[requiredReliabilityPropertyIndex];
+            Assert.IsTrue(requiredReliabilityProperty.IsReadOnly);
+            Assert.AreEqual("Resultaat", requiredReliabilityProperty.Category);
+            Assert.AreEqual("Betrouwbaarheidsindex faalkanseis [-]", requiredReliabilityProperty.DisplayName);
+            Assert.AreEqual("De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor.", requiredReliabilityProperty.Description);
+
+            PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
+            Assert.IsTrue(probabilityProperty.IsReadOnly);
+            Assert.AreEqual("Resultaat", probabilityProperty.Category);
+            Assert.AreEqual("Faalkans [1/jaar]", probabilityProperty.DisplayName);
+            Assert.AreEqual("De kans dat het toetsspoor optreedt voor deze berekening.", probabilityProperty.Description);
+
+            PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];
+            Assert.IsTrue(reliabilityProperty.IsReadOnly);
+            Assert.AreEqual("Resultaat", reliabilityProperty.Category);
+            Assert.AreEqual("Betrouwbaarheidsindex faalkans [-]", reliabilityProperty.DisplayName);
+            Assert.AreEqual("De betrouwbaarheidsindex van de faalkans voor deze berekening.", reliabilityProperty.Description);
+
+            PropertyDescriptor factorOfSafetyProperty = dynamicProperties[factorOfSafetyPropertyIndex];
+            Assert.IsTrue(factorOfSafetyProperty.IsReadOnly);
+            Assert.AreEqual("Resultaat", factorOfSafetyProperty.Category);
+            Assert.AreEqual("Veiligheidsfactor [-]", factorOfSafetyProperty.DisplayName);
+            Assert.AreEqual("De veiligheidsfactor voor deze berekening.", factorOfSafetyProperty.Description);
+
+            PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightIndex];
+            Assert.IsTrue(waveHeightProperty.IsReadOnly);
+            Assert.AreEqual("Indicatieve golfhoogte", waveHeightProperty.Category);
+            Assert.AreEqual("Golfhoogte (Hs) [m]", waveHeightProperty.DisplayName);
+            Assert.AreEqual("De golfhoogte van de overslag deelberekening.", waveHeightProperty.Description);
+
+            PropertyDescriptor isDominantProperty = dynamicProperties[isDominantIndex];
+            Assert.IsTrue(isDominantProperty.IsReadOnly);
+            Assert.AreEqual("Indicatieve golfhoogte", isDominantProperty.Category);
+            Assert.AreEqual("Overslag dominant [-]", isDominantProperty.DisplayName);
+            Assert.AreEqual("Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening.", isDominantProperty.Description);
+            
+            PropertyDescriptor dikeHeightProperty = dynamicProperties[dikeHeightIndex];
+            Assert.IsTrue(dikeHeightProperty.IsReadOnly);
+            Assert.AreEqual("Resultaat", dikeHeightProperty.Category);
+            Assert.AreEqual("HBN [m+NAP]", dikeHeightProperty.DisplayName);
+            Assert.AreEqual("De HBN van de overslag deelberekening.", dikeHeightProperty.Description);
+        }
+
+        [Test]
+        public void PropertyAttributes_WithoutDikeHeightCalculated_ReturnExpectedValues()
+        {
+            // Setup
+            ProbabilityAssessmentOutput probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            var output = new GrassCoverErosionInwardsOutput(double.NaN, true, probabilityAssessmentOutput, double.NaN);
 
             // Call
             var properties = new GrassCoverErosionInwardsOutputProperties
@@ -165,5 +239,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int factorOfSafetyPropertyIndex = 4;
         private const int waveHeightIndex = 5;
         private const int isDominantIndex = 6;
+        private const int dikeHeightIndex = 7;
     }
 }

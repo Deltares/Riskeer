@@ -118,5 +118,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
                 return data.IsOvertoppingDominant;
             }
         }
+
+        [PropertyOrder(8)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(CommonFormsResources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(GrassCoverErosionInwardsFormsResources), "GrassCoverErosionInwardsOutput_DikeHeight_DisplayName")]
+        [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), "GrassCoverErosionInwardsOutput_DikeHeight_Description")]
+        public RoundedDouble DikeHeight
+        {
+            get
+            {
+                return data.DikeHeight;
+            }
+        }
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            return data.DikeHeightCalculated;
+        }
     }
 }

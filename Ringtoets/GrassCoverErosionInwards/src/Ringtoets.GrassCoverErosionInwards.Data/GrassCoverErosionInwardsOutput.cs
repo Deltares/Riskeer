@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -41,11 +40,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <param name="isOvertoppingDominant">The value indicating whether overtopping was dominant in the calculation.</param>
         /// <param name="probabilityAssessmentOutput">The probabilistic assessment output based on the grass cover erosion 
         /// inwards calculation output.</param>
-        public GrassCoverErosionInwardsOutput(double waveHeight, bool isOvertoppingDominant, ProbabilityAssessmentOutput probabilityAssessmentOutput)
+        /// <param name="dikeHeight">The calculated dike height.</param>
+        public GrassCoverErosionInwardsOutput(double waveHeight, bool isOvertoppingDominant, ProbabilityAssessmentOutput probabilityAssessmentOutput, double dikeHeight, bool dikeHeightCalculated = false)
         {
-            IsOvertoppingDominant = isOvertoppingDominant;
+            IsOvertoppingDominant = isOvertoppingDominant;            
             WaveHeight = new RoundedDouble(2, waveHeight);
             this.probabilityAssessmentOutput = probabilityAssessmentOutput;
+            DikeHeight = new RoundedDouble(2, dikeHeight);
+            DikeHeightCalculated = dikeHeightCalculated;
         }
 
         /// <summary>
@@ -58,6 +60,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// sub failure mechanism.
         /// </summary>
         public bool IsOvertoppingDominant { get; private set; }
+
+        /// <summary>
+        /// The height of the dike that was calculated in the overtopping sub failure mechanism.
+        /// </summary>
+        public RoundedDouble DikeHeight { get; private set; }
+
+        /// <summary>
+        /// Value indicating whether the dike height is calculated in the overtopping sub failure mechanism.
+        /// </summary>
+        public bool DikeHeightCalculated { get; private set; }
 
         /// <summary>
         /// Gets the factor of safety of the failure mechanism.

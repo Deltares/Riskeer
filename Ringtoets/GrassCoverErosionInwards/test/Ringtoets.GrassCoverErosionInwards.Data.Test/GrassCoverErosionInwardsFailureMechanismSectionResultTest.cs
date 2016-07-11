@@ -109,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             {
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(1.0, false, probabilityAssessmentOutput)
+                    Output = new GrassCoverErosionInwardsOutput(1.0, false, probabilityAssessmentOutput, 0.0)
                 }
             };
 
@@ -132,7 +132,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             {
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(1.0, false, probabilityAssessmentOutput)
+                    Output = new GrassCoverErosionInwardsOutput(1.0, false, probabilityAssessmentOutput, 0.0)
                 }
             };
 

@@ -132,7 +132,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             if (status == CalculationScenarioStatus.Failed)
             {
                 var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(0.9, 1.0, double.NaN, 1.0, 1.0);
-                calculation.Output = new GrassCoverErosionInwardsOutput(1.1, false, probabilityAssessmentOutput);
+                calculation.Output = new GrassCoverErosionInwardsOutput(1.1, false, probabilityAssessmentOutput, 0.0);
             }
 
             FailureMechanismSection section = CreateSimpleFailureMechanismSection();
@@ -157,7 +157,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(0.9, 1.0, 0.95, 1.0, 1.0);
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(0.5, true, probabilityAssessmentOutput)
+                Output = new GrassCoverErosionInwardsOutput(0.5, true, probabilityAssessmentOutput, 0.0)
             };
 
             FailureMechanismSection section = CreateSimpleFailureMechanismSection();
