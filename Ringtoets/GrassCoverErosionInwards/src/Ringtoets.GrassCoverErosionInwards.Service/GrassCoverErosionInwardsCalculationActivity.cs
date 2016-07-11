@@ -73,6 +73,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             PerformRun(() => GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection),
                        () => calculation.ClearOutput(),
                        () => GrassCoverErosionInwardsCalculationService.Calculate(calculation,
+                                                                                  assessmentSection,
                                                                                   hlcdDirectory,
                                                                                   failureMechanismSection,
                                                                                   failureMechanismSection.Name, // TODO: Provide name of reference line instead

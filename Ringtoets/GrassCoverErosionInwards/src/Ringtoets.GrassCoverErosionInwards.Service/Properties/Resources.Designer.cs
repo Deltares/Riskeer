@@ -69,5 +69,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
                         "_inwards_0_calculation", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De HBN berekening voor grasbekleding erosie kruin en binnentalud &apos;{0}&apos; is niet gelukt..
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_ero" +
+                        "sion_inwards_0_calculation", resourceCulture);
+            }
+        }
     }
 }

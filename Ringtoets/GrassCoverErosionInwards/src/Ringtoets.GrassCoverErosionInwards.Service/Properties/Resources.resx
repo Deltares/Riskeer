@@ -120,4 +120,7 @@
   <data name="GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation" xml:space="preserve">
     <value>De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.</value>
   </data>
+  <data name="GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation" xml:space="preserve">
+    <value>De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.</value>
+  </data>
 </root>

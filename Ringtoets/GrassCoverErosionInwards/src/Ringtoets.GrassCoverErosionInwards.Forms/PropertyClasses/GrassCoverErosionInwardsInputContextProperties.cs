@@ -152,6 +152,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(calculateDikeHeightPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesDisplayName(typeof(Resources), "CalculateDikeHeight_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "CalculateDikeHeight_Description")]
+        public bool CalculateDikeHeight
+        {
+            get
+            {
+                return data.WrappedData.CalculateDikeHeight;
+            }
+            set
+            {
+                data.WrappedData.CalculateDikeHeight = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+
         [PropertyOrder(criticalFlowRatePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_CriticalValues")]
@@ -182,23 +200,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             set
             {
                 data.WrappedData.HydraulicBoundaryLocation = value;
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
-        [PropertyOrder(calculateDikeHeightPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
-        [ResourcesDisplayName(typeof(Resources), "CalculateDikeHeight_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "CalculateDikeHeight_Description")]
-        public bool CalculateDikeHeight
-        {
-            get
-            {
-                return data.WrappedData.CalculateDikeHeight;
-            }
-            set
-            {
-                data.WrappedData.CalculateDikeHeight = value;
                 data.WrappedData.NotifyObservers();
             }
         }

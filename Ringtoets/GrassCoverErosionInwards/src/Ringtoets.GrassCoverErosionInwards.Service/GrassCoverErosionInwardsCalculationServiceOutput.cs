@@ -32,11 +32,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="beta">The beta result of the calculation.</param>
         /// <param name="waveHeight">The wave height result of the calculation.</param>
         /// <param name="isOvertoppingDominant">The value indicating whether overtopping was dominant in the calculation.</param>
-        public GrassCoverErosionInwardsCalculationServiceOutput(double beta, double waveHeight, bool isOvertoppingDominant)
+        /// <param name="dikeHeight">The dike height result of the calculation.</param>
+        public GrassCoverErosionInwardsCalculationServiceOutput(double beta, double waveHeight, bool isOvertoppingDominant, double dikeHeight = double.NaN)
         {
             Beta = beta;
             WaveHeight = waveHeight;
             IsOvertoppingDominant = isOvertoppingDominant;
+            DikeHeight = dikeHeight;
         }
 
         /// <summary>
@@ -54,5 +56,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// the overflow sub failure mechanism.
         /// </summary>
         public bool IsOvertoppingDominant { get; private set; }
+
+        /// <summary>
+        /// Gets the dike height that was a result of the dike height calculation.
+        /// </summary>
+        public double DikeHeight { get; private set; }
     }
 }
