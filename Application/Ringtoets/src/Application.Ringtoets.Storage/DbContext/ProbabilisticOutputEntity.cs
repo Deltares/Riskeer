@@ -33,34 +33,25 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class CalculationGroupEntity
+    public partial class ProbabilisticOutputEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CalculationGroupEntity()
+        public ProbabilisticOutputEntity()
         {
-            this.CalculationGroupEntity1 = new HashSet<CalculationGroupEntity>();
-            this.FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
             this.GrassCoverErosionInwardsCalculationEntities = new HashSet<GrassCoverErosionInwardsCalculationEntity>();
             this.HeightStructuresCalculationEntities = new HashSet<HeightStructuresCalculationEntity>();
-            this.PipingCalculationEntities = new HashSet<PipingCalculationEntity>();
         }
     
-        public long CalculationGroupEntityId { get; set; }
-        public Nullable<long> ParentCalculationGroupEntityId { get; set; }
-        public string Name { get; set; }
-        public byte IsEditable { get; set; }
-        public int Order { get; set; }
+        public long ProbabilisticOutputEntityId { get; set; }
+        public Nullable<decimal> RequiredProbability { get; set; }
+        public Nullable<decimal> RequiredReliability { get; set; }
+        public Nullable<decimal> Probability { get; set; }
+        public Nullable<decimal> Reliability { get; set; }
+        public Nullable<decimal> FactorOfSafety { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CalculationGroupEntity> CalculationGroupEntity1 { get; set; }
-        public virtual CalculationGroupEntity CalculationGroupEntity2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FailureMechanismEntity> FailureMechanismEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionInwardsCalculationEntity> GrassCoverErosionInwardsCalculationEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HeightStructuresCalculationEntity> HeightStructuresCalculationEntities { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }
     }
 }

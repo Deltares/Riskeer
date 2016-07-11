@@ -38,10 +38,27 @@ namespace Application.Ringtoets.Storage.DbContext
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public FailureMechanismEntity()
         {
+            this.ClosingStructureFailureMechanismMetaEntities = new HashSet<ClosingStructureFailureMechanismMetaEntity>();
+            this.DuneErosionFailureMechanismMetaEntities = new HashSet<DuneErosionFailureMechanismMetaEntity>();
             this.FailureMechanismSectionEntities = new HashSet<FailureMechanismSectionEntity>();
+            this.GrassCoverErosionInwardsFailureMechanismMetaEntities = new HashSet<GrassCoverErosionInwardsFailureMechanismMetaEntity>();
+            this.GrassCoverErosionOutwardsFailureMechanismMetaEntities = new HashSet<GrassCoverErosionOutwardsFailureMechanismMetaEntity>();
+            this.GrassCoverSlipOffInwardsFailureMechanismMetaEntities = new HashSet<GrassCoverSlipOffInwardsFailureMechanismMetaEntity>();
+            this.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities = new HashSet<GrassCoverSlipOffOutwardsFailureMechanismMetaEntity>();
+            this.HeightStructuresFailureMechanismMetaEntities = new HashSet<HeightStructuresFailureMechanismMetaEntity>();
+            this.MacrostabilityInwardsFailureMechanismMetaEntities = new HashSet<MacrostabilityInwardsFailureMechanismMetaEntity>();
+            this.MacrostabilityOutwardsFailureMechanismMetaEntities = new HashSet<MacrostabilityOutwardsFailureMechanismMetaEntity>();
+            this.MicrostabilityFailureMechanismMetaEntities = new HashSet<MicrostabilityFailureMechanismMetaEntity>();
             this.PipingFailureMechanismMetaEntities = new HashSet<PipingFailureMechanismMetaEntity>();
+            this.PipingStructureFailureMechanismMetaEntities = new HashSet<PipingStructureFailureMechanismMetaEntity>();
+            this.StabilityStoneCoverFailureMechanismMetaEntities = new HashSet<StabilityStoneCoverFailureMechanismMetaEntity>();
             this.StochasticSoilModelEntities = new HashSet<StochasticSoilModelEntity>();
+            this.StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities = new HashSet<StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity>();
+            this.StrengthStabilityPointConstructionFailureMechanismMetaEntities = new HashSet<StrengthStabilityPointConstructionFailureMechanismMetaEntity>();
             this.SurfaceLineEntities = new HashSet<SurfaceLineEntity>();
+            this.TechnicalInnovationFailureMechanismMetaEntities = new HashSet<TechnicalInnovationFailureMechanismMetaEntity>();
+            this.WaterPressureAsphaltCoverFailureMechanismMetaEntities = new HashSet<WaterPressureAsphaltCoverFailureMechanismMetaEntity>();
+            this.WaveImpactAsphaltCoverFailureMechanismMetaEntities = new HashSet<WaveImpactAsphaltCoverFailureMechanismMetaEntity>();
         }
     
         public long FailureMechanismEntityId { get; set; }
@@ -54,12 +71,46 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClosingStructureFailureMechanismMetaEntity> ClosingStructureFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DuneErosionFailureMechanismMetaEntity> DuneErosionFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GrassCoverErosionInwardsFailureMechanismMetaEntity> GrassCoverErosionInwardsFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GrassCoverErosionOutwardsFailureMechanismMetaEntity> GrassCoverErosionOutwardsFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GrassCoverSlipOffInwardsFailureMechanismMetaEntity> GrassCoverSlipOffInwardsFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GrassCoverSlipOffOutwardsFailureMechanismMetaEntity> GrassCoverSlipOffOutwardsFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HeightStructuresFailureMechanismMetaEntity> HeightStructuresFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MacrostabilityInwardsFailureMechanismMetaEntity> MacrostabilityInwardsFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MacrostabilityOutwardsFailureMechanismMetaEntity> MacrostabilityOutwardsFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MicrostabilityFailureMechanismMetaEntity> MicrostabilityFailureMechanismMetaEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingFailureMechanismMetaEntity> PipingFailureMechanismMetaEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PipingStructureFailureMechanismMetaEntity> PipingStructureFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StabilityStoneCoverFailureMechanismMetaEntity> StabilityStoneCoverFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StochasticSoilModelEntity> StochasticSoilModelEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity> StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StrengthStabilityPointConstructionFailureMechanismMetaEntity> StrengthStabilityPointConstructionFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurfaceLineEntity> SurfaceLineEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TechnicalInnovationFailureMechanismMetaEntity> TechnicalInnovationFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WaterPressureAsphaltCoverFailureMechanismMetaEntity> WaterPressureAsphaltCoverFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WaveImpactAsphaltCoverFailureMechanismMetaEntity> WaveImpactAsphaltCoverFailureMechanismMetaEntities { get; set; }
     }
 }
