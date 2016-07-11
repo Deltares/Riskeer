@@ -261,11 +261,12 @@ namespace Ringtoets.HeightStructures.Integration.Test
         }
 
         [Test]
-        public void Finish_InValidHeightStructuresCalculationAndRan_DoesNotSetOutputAndDoesNotNotifyObserversOfHeightStructuresCalculation()
+        public void Finish_InValidHeightStructuresCalculationAndRan_DoesNotSetOutputAndNotifyObserversOfHeightStructuresCalculation()
         {
             // Setup
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);

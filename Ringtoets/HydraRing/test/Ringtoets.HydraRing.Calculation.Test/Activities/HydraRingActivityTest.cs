@@ -110,16 +110,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
         }
 
         [Test]
-        public void Finish_OutputNull_DoesNotSetOutputAndDoesNotNotifyObservers()
+        public void Finish_OutputNull_DoesNotSetOutputAndNotifyObservers()
         {
             // Setup
             var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
             var observableMock = mocks.StrictMock<IObservable>();
-            observableMock.Expect(o => o.Attach(observerMock));
+            observableMock.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
-
-            observableMock.Attach(observerMock);
 
             TestHydraRingActivity activity = new TestHydraRingActivity(true, () => null, observableMock);
 

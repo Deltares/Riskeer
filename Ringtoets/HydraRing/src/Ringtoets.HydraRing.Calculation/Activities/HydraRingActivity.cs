@@ -74,7 +74,7 @@ namespace Ringtoets.HydraRing.Calculation.Activities
         }
 
         /// <summary>
-        /// Method for performing the finish of the activity. If the calculation is successfull
+        /// Method for performing the finish of the activity. If the calculation is successful
         /// executed, the output will be set on the calculation. After that the observers of 
         /// <paramref name="observableObject"/> will be notified.
         /// </summary>
@@ -85,8 +85,8 @@ namespace Ringtoets.HydraRing.Calculation.Activities
             if (State == ActivityState.Executed)
             {
                 setOutputAction();
-                observableObject.NotifyObservers();
             }
+            observableObject.NotifyObservers();
         }
     }
 }

@@ -299,11 +299,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Finish_InvalidGrassCoverErosionInwardsCalculationAndRan_DoesNotSetOutputAndDoesNotNotifyObserversOfGrassCoverErosionInwardsCalculation()
+        public void Finish_InvalidGrassCoverErosionInwardsCalculationAndRan_DoesNotSetOutputAndNotifyObserversOfGrassCoverErosionInwardsCalculation()
         {
             // Setup
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);

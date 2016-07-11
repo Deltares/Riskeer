@@ -203,11 +203,12 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void Finish_InvalidCalculationAndRun_DoesNotSetDesignWaterlevelAndDoesNotNotifyObservers()
+        public void Finish_InvalidCalculationAndRun_DoesNotSetDesignWaterlevelAndUpdateObserver()
         {
             // Setup
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
