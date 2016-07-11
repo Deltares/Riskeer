@@ -84,9 +84,7 @@ namespace Ringtoets.Common.IO
 
         private void ValidateAndConnectTo(string folderpath)
         {
-            ValidateDirectory(folderpath);
-
-            var files = Directory.GetFiles(folderpath, "*.shp");
+            var files = GetShapeFilesInFolder(folderpath);
             if (files.Length == 0)
             {
                 var message = new FileReaderErrorMessageBuilder(
@@ -103,7 +101,7 @@ namespace Ringtoets.Common.IO
             }
         }
 
-        private static void ValidateDirectory(string path)
+        private static string[] GetShapeFilesInFolder(string path)
         {
             if (String.IsNullOrWhiteSpace(path))
             {
@@ -113,7 +111,7 @@ namespace Ringtoets.Common.IO
 
             try
             {
-                Path.GetFullPath(path);
+                return Directory.GetFiles(path, "*.shp");
             }
             catch (ArgumentException e)
             {

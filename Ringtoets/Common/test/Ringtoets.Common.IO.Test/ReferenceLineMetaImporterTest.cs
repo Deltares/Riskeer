@@ -74,14 +74,33 @@ namespace Ringtoets.Common.IO.Test
         public void Constructor_FilePathTooLong_ThrowsCriticalFileReadException()
         {
             // Setup
-            string pathToEmptyFolder = Path.Combine(testDataPath, new string('A', 260));
+            string pathTooLong = Path.Combine(testDataPath, new string('A', 260));
 
             // Call
-            TestDelegate call = () => new ReferenceLineMetaImporter(pathToEmptyFolder);
+            TestDelegate call = () => new ReferenceLineMetaImporter(pathTooLong);
 
             // Assert
             var expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': De folder locatie is ongeldig.",
-                                                         pathToEmptyFolder);
+                                                         pathTooLong);
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+            Assert.AreEqual(expectedExceptionMessage, exception.Message);
+        }
+
+        [Test]
+        public void Constructor_FilePathDoesNotExist_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string pathToNonExistingFolder = Path.Combine(testDataPath, "I do not exist");
+
+            // Precondition
+            Assert.IsFalse(Directory.Exists(pathToNonExistingFolder));
+
+            // Call
+            TestDelegate call = () => new ReferenceLineMetaImporter(pathToNonExistingFolder);
+
+            // Assert
+            var expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': De folder locatie is ongeldig.",
+                                                         pathToNonExistingFolder);
             CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
             Assert.AreEqual(expectedExceptionMessage, exception.Message);
         }
