@@ -45,26 +45,20 @@ namespace Core.Common.Base.Plugin
 
         /// <summary>
         /// This method adds an <see cref="ApplicationPlugin"/> to the <see cref="ApplicationCore"/>.
-        /// Additionally, the provided <see cref="ApplicationPlugin"/> is activated.
         /// </summary>
-        /// <param name="applicationPlugin">The <see cref="ApplicationPlugin"/> to add and activate.</param>
+        /// <param name="applicationPlugin">The <see cref="ApplicationPlugin"/> to add.</param>
         public void AddPlugin(ApplicationPlugin applicationPlugin)
         {
             plugins.Add(applicationPlugin);
-
-            applicationPlugin.Activate();
         }
 
         /// <summary>
         /// This method removes an <see cref="ApplicationPlugin"/> from the <see cref="ApplicationCore"/>.
-        /// Additionally, the provided <see cref="ApplicationPlugin"/> is deactivated.
         /// </summary>
-        /// <param name="applicationPlugin">The <see cref="ApplicationPlugin"/> to remove and deactivate.</param>
+        /// <param name="applicationPlugin">The <see cref="ApplicationPlugin"/> to remove.</param>
         public void RemovePlugin(ApplicationPlugin applicationPlugin)
         {
             plugins.Remove(applicationPlugin);
-
-            applicationPlugin.Deactivate();
         }
 
         /// <summary>

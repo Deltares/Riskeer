@@ -30,22 +30,6 @@ namespace Core.Common.Base.Plugin
     public abstract class ApplicationPlugin
     {
         /// <summary>
-        /// This method activates the <see cref="ApplicationPlugin"/>.
-        /// </summary>
-        public virtual void Activate()
-        {
-
-        }
-
-        /// <summary>
-        /// This method deactivates the <see cref="ApplicationPlugin"/>.
-        /// </summary>
-        public virtual void Deactivate()
-        {
-
-        }
-
-        /// <summary>
         /// This method returns an enumeration of <see cref="IFileImporter"/>.
         /// </summary>
         /// <returns>The enumeration of <see cref="IFileImporter"/> provided by the <see cref="ApplicationPlugin"/>.</returns>

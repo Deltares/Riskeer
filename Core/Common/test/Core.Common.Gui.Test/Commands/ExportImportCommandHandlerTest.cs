@@ -20,13 +20,10 @@
 // All rights reserved.
 
 using System.Windows.Forms;
-
 using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
 using Core.Common.Gui.Commands;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test.Commands
@@ -66,7 +63,6 @@ namespace Core.Common.Gui.Test.Commands
             objectImporter.Stub(i => i.CanImportOn(target)).Return(true);
 
             var objectApplicationPluginMock = mocks.Stub<ApplicationPlugin>();
-            objectApplicationPluginMock.Stub(p => p.Activate());
             objectApplicationPluginMock.Expect(p => p.GetFileImporters())
                                        .Return(new[]
                                        {
@@ -99,7 +95,6 @@ namespace Core.Common.Gui.Test.Commands
             objectImporter.Stub(i => i.CanImportOn(target)).Return(false);
 
             var objectApplicationPluginMock = mocks.Stub<ApplicationPlugin>();
-            objectApplicationPluginMock.Stub(p => p.Activate());
             objectApplicationPluginMock.Expect(p => p.GetFileImporters())
                                        .Return(new[]
                                        {
@@ -134,7 +129,6 @@ namespace Core.Common.Gui.Test.Commands
             objectImporter2.Stub(i => i.CanImportOn(target)).Return(true);
 
             var objectApplicationPluginMock = mocks.Stub<ApplicationPlugin>();
-            objectApplicationPluginMock.Stub(p => p.Activate());
             objectApplicationPluginMock.Expect(p => p.GetFileImporters())
                                        .Return(new[]
                                        {
@@ -170,7 +164,6 @@ namespace Core.Common.Gui.Test.Commands
             objectImporter2.Stub(i => i.CanImportOn(target)).Return(false);
 
             var objectApplicationPluginMock = mocks.Stub<ApplicationPlugin>();
-            objectApplicationPluginMock.Stub(p => p.Activate());
             objectApplicationPluginMock.Expect(p => p.GetFileImporters())
                                        .Return(new[]
                                        {
@@ -225,7 +218,6 @@ namespace Core.Common.Gui.Test.Commands
                           .Return(target.GetType());
 
             var objectApplicationPluginMock = mocks.Stub<ApplicationPlugin>();
-            objectApplicationPluginMock.Stub(p => p.Activate());
             objectApplicationPluginMock.Expect(p => p.GetFileExporters())
                                        .Return(new[]
                                        {
@@ -262,7 +254,6 @@ namespace Core.Common.Gui.Test.Commands
                            .Return(target.GetType());
 
             var objectApplicationPluginMock = mocks.Stub<ApplicationPlugin>();
-            objectApplicationPluginMock.Stub(p => p.Activate());
             objectApplicationPluginMock.Expect(p => p.GetFileExporters())
                                        .Return(new[]
                                        {

@@ -44,23 +44,6 @@ namespace Core.Common.Base.Test.Plugin
         }
 
         [Test]
-        public void AddPlugin_ApplicationPlugin_ShouldActivatePlugin()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var applicationCore = new ApplicationCore();
-            var applicationPlugin = mocks.Stub<ApplicationPlugin>();
-            applicationPlugin.Expect(ap => ap.Activate());
-            mocks.ReplayAll();
-
-            // Call
-            applicationCore.AddPlugin(applicationPlugin);
-
-            // Assert
-            mocks.VerifyAll(); // Asserts that the Activate method is called
-        }
-
-        [Test]
         public void AddPlugin_SimpleApplicationPluginWithImporter_ShouldExposePluginDefinitions()
         {
             // Setup
@@ -92,30 +75,13 @@ namespace Core.Common.Base.Test.Plugin
         }
 
         [Test]
-        public void RemovePlugin_ApplicationPlugin_ShouldDeactivatePlugin()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var applicationCore = new ApplicationCore();
-            var applicationPlugin = mocks.Stub<ApplicationPlugin>();
-            applicationPlugin.Expect(ap => ap.Deactivate());
-            mocks.ReplayAll();
-
-            // Call
-            applicationCore.RemovePlugin(applicationPlugin);
-
-            // Assert
-            mocks.VerifyAll(); // Asserts that the Deactivate method is called
-        }
-
-        [Test]
         public void RemovePlugin_SimpleApplicationPluginWithImport_ShouldNoLongerExposePluginDefinitions()
         {
             // Setup
             var targetItem = new object();
 
             var mocks = new MockRepository();
-            
+
             var fileImporter = mocks.Stub<IFileImporter>();
             fileImporter.Stub(i => i.CanImportOn(targetItem)).Return(true);
 
@@ -260,7 +226,10 @@ namespace Core.Common.Base.Test.Plugin
             IEnumerable<IFileImporter> supportedImporters = applicationCore.GetSupportedFileImporters(targetObject);
 
             // Assert
-            CollectionAssert.AreEqual(new[]{fileImporter}, supportedImporters);
+            CollectionAssert.AreEqual(new[]
+            {
+                fileImporter
+            }, supportedImporters);
         }
 
         [Test]
@@ -385,30 +354,6 @@ namespace Core.Common.Base.Test.Plugin
 
             // Call / Assert
             CollectionAssert.IsEmpty(applicationCore.GetSupportedDataItemInfos(null));
-        }
-
-        [Test]
-        public void Dispose_TwoApplicationPluginsAdded_ShouldRemoveAllAddedPlugins()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var applicationCore = new ApplicationCore();
-            var applicationPlugin1 = mocks.Stub<ApplicationPlugin>();
-            var applicationPlugin2 = mocks.Stub<ApplicationPlugin>();
-            applicationPlugin1.Expect(ap => ap.Activate());
-            applicationPlugin1.Expect(ap => ap.Deactivate());
-            applicationPlugin2.Expect(ap => ap.Activate());
-            applicationPlugin2.Expect(ap => ap.Deactivate());
-            mocks.ReplayAll();
-
-            applicationCore.AddPlugin(applicationPlugin1);
-            applicationCore.AddPlugin(applicationPlugin2);
-
-            // Call
-            applicationCore.Dispose();
-
-            // Assert
-            mocks.VerifyAll(); // Asserts that the Deactivate methods are called
         }
 
         private class SimpleApplicationPlugin : ApplicationPlugin
