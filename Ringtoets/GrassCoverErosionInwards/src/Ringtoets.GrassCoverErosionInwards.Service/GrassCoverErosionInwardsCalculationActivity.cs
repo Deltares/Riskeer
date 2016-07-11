@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
@@ -66,10 +67,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         protected override void OnRun()
         {
-            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegmentName =
-                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(failureMechanism.SectionResults, new[]{calculation});
-
-            var failureMechanismSection = failureMechanism.Sections.FirstOrDefault(section => section.Name.Equals(calculationsPerSegmentName.Keys.FirstOrDefault()));
+            FailureMechanismSection failureMechanismSection = 
+                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(failureMechanism.SectionResults, calculation);
 
             PerformRun(() => GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection),
                        () => calculation.ClearOutput(),
