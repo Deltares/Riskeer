@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
@@ -37,11 +38,12 @@ namespace Core.Common.Gui.Test.Commands
             // Setup
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
+            var fileImporters = new List<IFileImporter>();
             mocks.ReplayAll();
 
             var applicationCore = new ApplicationCore();
 
-            var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore);
+            var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore, fileImporters);
 
             // Call
             var isImportPossible = commandHandler.CanImportOn(new object());
@@ -61,19 +63,15 @@ namespace Core.Common.Gui.Test.Commands
             var dialogParent = mocks.Stub<IWin32Window>();
             var objectImporter = mocks.Stub<IFileImporter>();
             objectImporter.Stub(i => i.CanImportOn(target)).Return(true);
-
-            var objectApplicationPluginMock = mocks.Stub<ApplicationPlugin>();
-            objectApplicationPluginMock.Expect(p => p.GetFileImporters())
-                                       .Return(new[]
-                                       {
-                                           objectImporter
-                                       });
             mocks.ReplayAll();
 
-            var applicationCore = new ApplicationCore();
-            applicationCore.AddPlugin(objectApplicationPluginMock);
+            var fileImporters = new List<IFileImporter>
+            {
+                objectImporter
+            };
 
-            var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore);
+            var applicationCore = new ApplicationCore();
+            var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore, fileImporters);
 
             // Call
             var isImportPossible = commandHandler.CanImportOn(target);
@@ -88,24 +86,19 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             var target = new object();
-
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var objectImporter = mocks.Stub<IFileImporter>();
             objectImporter.Stub(i => i.CanImportOn(target)).Return(false);
-
-            var objectApplicationPluginMock = mocks.Stub<ApplicationPlugin>();
-            objectApplicationPluginMock.Expect(p => p.GetFileImporters())
-                                       .Return(new[]
-                                       {
-                                           objectImporter
-                                       });
             mocks.ReplayAll();
 
-            var applicationCore = new ApplicationCore();
-            applicationCore.AddPlugin(objectApplicationPluginMock);
+            var fileImporters = new List<IFileImporter>
+            {
+                objectImporter
+            };
 
-            var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore);
+            var applicationCore = new ApplicationCore();
+            var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore, fileImporters);
 
             // Call
             var isImportPossible = commandHandler.CanImportOn(target);
@@ -120,27 +113,21 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             var target = new object();
-
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var objectImporter1 = mocks.Stub<IFileImporter>();
             objectImporter1.Stub(i => i.CanImportOn(target)).Return(false);
             var objectImporter2 = mocks.Stub<IFileImporter>();
             objectImporter2.Stub(i => i.CanImportOn(target)).Return(true);
-
-            var objectApplicationPluginMock = mocks.Stub<ApplicationPlugin>();
-            objectApplicationPluginMock.Expect(p => p.GetFileImporters())
-                                       .Return(new[]
-                                       {
-                                           objectImporter1,
-                                           objectImporter2
-                                       });
             mocks.ReplayAll();
 
-            var applicationCore = new ApplicationCore();
-            applicationCore.AddPlugin(objectApplicationPluginMock);
+            var fileImporters = new List<IFileImporter>
+            {
+                objectImporter1, objectImporter2
+            };
 
-            var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore);
+            var applicationCore = new ApplicationCore();
+            var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore, fileImporters);
 
             // Call
             var isImportPossible = commandHandler.CanImportOn(target);
@@ -155,27 +142,21 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             var target = new object();
-
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var objectImporter1 = mocks.Stub<IFileImporter>();
             objectImporter1.Stub(i => i.CanImportOn(target)).Return(false);
             var objectImporter2 = mocks.Stub<IFileImporter>();
             objectImporter2.Stub(i => i.CanImportOn(target)).Return(false);
-
-            var objectApplicationPluginMock = mocks.Stub<ApplicationPlugin>();
-            objectApplicationPluginMock.Expect(p => p.GetFileImporters())
-                                       .Return(new[]
-                                       {
-                                           objectImporter1,
-                                           objectImporter2
-                                       });
             mocks.ReplayAll();
 
-            var applicationCore = new ApplicationCore();
-            applicationCore.AddPlugin(objectApplicationPluginMock);
+            var fileImporters = new List<IFileImporter>
+            {
+                objectImporter1, objectImporter2
+            };
 
-            var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore);
+            var applicationCore = new ApplicationCore();
+            var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore, fileImporters);
 
             // Call
             var isImportPossible = commandHandler.CanImportOn(target);
@@ -193,9 +174,11 @@ namespace Core.Common.Gui.Test.Commands
             var dialogParent = mocks.Stub<IWin32Window>();
             mocks.ReplayAll();
 
+            var fileImporters = new List<IFileImporter>();
+
             var applicationCore = new ApplicationCore();
 
-            var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore);
+            var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore, fileImporters);
 
             // Call
             var isExportPossible = commandHandler.CanExportFrom(new object());
@@ -210,7 +193,7 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             var target = new object();
-
+            var fileImporters = new List<IFileImporter>();
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var objectExporter = mocks.Stub<IFileExporter>();
@@ -228,7 +211,7 @@ namespace Core.Common.Gui.Test.Commands
             var applicationCore = new ApplicationCore();
             applicationCore.AddPlugin(objectApplicationPluginMock);
 
-            var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore);
+            var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore, fileImporters);
 
             // Call
             var isExportPossible = commandHandler.CanExportFrom(new object());
@@ -243,7 +226,7 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             var target = new object();
-
+            var fileImporters = new List<IFileImporter>();
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var objectExporter1 = mocks.Stub<IFileExporter>();
@@ -265,7 +248,7 @@ namespace Core.Common.Gui.Test.Commands
             var applicationCore = new ApplicationCore();
             applicationCore.AddPlugin(objectApplicationPluginMock);
 
-            var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore);
+            var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore, fileImporters);
 
             // Call
             var isExportPossible = commandHandler.CanExportFrom(new object());

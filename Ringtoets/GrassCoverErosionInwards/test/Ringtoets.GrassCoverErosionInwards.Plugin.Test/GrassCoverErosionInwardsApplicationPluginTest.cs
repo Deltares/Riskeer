@@ -18,18 +18,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
             Assert.IsInstanceOf<ApplicationPlugin>(applicationPlugin);
         }
 
-        [Test]
-        public void GetFileImporters_Always_ReturnExpectedFileImporter()
-        {
-            // Setup
-            var plugin = new GrassCoverErosionInwardsApplicationPlugin();
-
-            // Call
-            var importers = plugin.GetFileImporters().ToArray();
-
-            // Assert
-            Assert.AreEqual(1, importers.Length);
-            Assert.IsInstanceOf<DikeProfilesImporter>(importers[0]);
-        }
+        
     }
 }

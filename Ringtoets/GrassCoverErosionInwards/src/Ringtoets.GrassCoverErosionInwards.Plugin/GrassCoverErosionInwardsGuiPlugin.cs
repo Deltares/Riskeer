@@ -25,6 +25,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
@@ -35,13 +36,13 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
+using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.HydraRing.IO;
 using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
@@ -99,6 +100,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 GetViewData = context => context.Calculation,
                 CloseForData = CloseInputViewForData
             };
+        }
+
+        public override IEnumerable<IFileImporter> GetFileImporters()
+        {
+            yield return new DikeProfilesImporter();
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()

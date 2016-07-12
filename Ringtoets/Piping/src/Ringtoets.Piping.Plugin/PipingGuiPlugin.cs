@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
@@ -40,6 +41,7 @@ using Ringtoets.Piping.Forms;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.Views;
+using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
@@ -71,6 +73,12 @@ namespace Ringtoets.Piping.Plugin
             yield return new PropertyInfo<RingtoetsPipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>();
             yield return new PropertyInfo<StochasticSoilModel, StochasticSoilModelProperties>();
             yield return new PropertyInfo<StochasticSoilProfile, StochasticSoilProfileProperties>();
+        }
+
+        public override IEnumerable<IFileImporter> GetFileImporters()
+        {
+            yield return new PipingSurfaceLinesCsvImporter();
+            yield return new PipingSoilProfilesImporter();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -125,10 +133,7 @@ namespace Ringtoets.Piping.Plugin
                 Image = RingtoetsCommonFormsResources.ScenariosIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.ParentFailureMechanism.CalculationsGroup,
                 CloseForData = ClosePipingScenariosViewForData,
-                AfterCreate = (view, context) =>
-                {
-                    view.PipingFailureMechanism = context.ParentFailureMechanism;
-                }
+                AfterCreate = (view, context) => { view.PipingFailureMechanism = context.ParentFailureMechanism; }
             };
         }
 
@@ -400,6 +405,46 @@ namespace Ringtoets.Piping.Plugin
 
         #endregion
 
+        private void CalculateAll(PipingFailureMechanismContext failureMechanismContext)
+        {
+            var calculations = GetAllPipingCalculations(failureMechanismContext.WrappedData);
+            var assessmentInput = failureMechanismContext.WrappedData.PipingProbabilityAssessmentInput;
+            var norm = failureMechanismContext.Parent.FailureMechanismContribution.Norm;
+            var contribution = failureMechanismContext.WrappedData.Contribution;
+
+            CalculateAll(calculations, assessmentInput, norm, contribution);
+        }
+
+        private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
+        {
+            var calculations = group.GetCalculations().OfType<PipingCalculation>().ToArray();
+            var assessmentInput = context.FailureMechanism.PipingProbabilityAssessmentInput;
+            var norm = context.AssessmentSection.FailureMechanismContribution.Norm;
+            var contribution = context.FailureMechanism.Contribution;
+
+            CalculateAll(calculations, assessmentInput, norm, contribution);
+        }
+
+        private static void ValidateAll(IEnumerable<PipingCalculation> pipingCalculations)
+        {
+            foreach (PipingCalculation calculation in pipingCalculations)
+            {
+                PipingCalculationService.Validate(calculation);
+            }
+        }
+
+        private void CalculateAll(IEnumerable<PipingCalculation> calculations, PipingProbabilityAssessmentInput assessmentInput, int norm, double contribution)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                calculations
+                    .Select(pc => new PipingCalculationActivity(pc,
+                                                                assessmentInput,
+                                                                norm,
+                                                                contribution))
+                    .ToList());
+        }
+
         # region Piping TreeNodeInfo
 
         private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
@@ -411,8 +456,8 @@ namespace Ringtoets.Piping.Plugin
                           .AddToggleRelevancyOfFailureMechanismItem(pipingFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
-                            pipingFailureMechanismContext, 
-                            fm => ValidateAll(fm.WrappedData.Calculations.OfType<PipingCalculation>()))
+                              pipingFailureMechanismContext,
+                              fm => ValidateAll(fm.WrappedData.Calculations.OfType<PipingCalculation>()))
                           .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll)
                           .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
                           .AddSeparator()
@@ -425,7 +470,7 @@ namespace Ringtoets.Piping.Plugin
                           .AddPropertiesItem()
                           .Build();
         }
-        
+
         private void RemoveAllViewsForItem(PipingFailureMechanismContext failureMechanismContext)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
@@ -654,9 +699,9 @@ namespace Ringtoets.Piping.Plugin
         {
             bool surfaceLineAvailable = nodeData.AvailablePipingSurfaceLines.Any() && nodeData.AvailableStochasticSoilModels.Any();
 
-            string pipingCalculationGroupGeneratePipingCalculationsToolTip = surfaceLineAvailable 
-                ? PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_ToolTip 
-                : PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip;
+            string pipingCalculationGroupGeneratePipingCalculationsToolTip = surfaceLineAvailable
+                                                                                 ? PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_ToolTip
+                                                                                 : PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip;
 
             var generateCalculationsItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
@@ -696,45 +741,5 @@ namespace Ringtoets.Piping.Plugin
         }
 
         #endregion
-
-        private void CalculateAll(PipingFailureMechanismContext failureMechanismContext)
-        {
-            var calculations = GetAllPipingCalculations(failureMechanismContext.WrappedData);
-            var assessmentInput = failureMechanismContext.WrappedData.PipingProbabilityAssessmentInput;
-            var norm = failureMechanismContext.Parent.FailureMechanismContribution.Norm;
-            var contribution = failureMechanismContext.WrappedData.Contribution;
-
-            CalculateAll(calculations, assessmentInput, norm, contribution);
-        }
-
-        private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
-        {
-            var calculations = group.GetCalculations().OfType<PipingCalculation>().ToArray();
-            var assessmentInput = context.FailureMechanism.PipingProbabilityAssessmentInput;
-            var norm = context.AssessmentSection.FailureMechanismContribution.Norm;
-            var contribution = context.FailureMechanism.Contribution;
-
-            CalculateAll(calculations, assessmentInput, norm, contribution);
-        }
-
-        private static void ValidateAll(IEnumerable<PipingCalculation> pipingCalculations)
-        {
-            foreach (PipingCalculation calculation in pipingCalculations)
-            {
-                PipingCalculationService.Validate(calculation);
-            }
-        }
-
-        private void CalculateAll(IEnumerable<PipingCalculation> calculations, PipingProbabilityAssessmentInput assessmentInput, int norm, double contribution)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow,
-                calculations
-                    .Select(pc => new PipingCalculationActivity(pc,
-                        assessmentInput,
-                        norm,
-                        contribution))
-                    .ToList());
-        }
     }
 }

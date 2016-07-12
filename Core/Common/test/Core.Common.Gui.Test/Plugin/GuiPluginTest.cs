@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Gui.Plugin;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test.Plugin
@@ -69,7 +67,10 @@ namespace Core.Common.Gui.Test.Plugin
             var gui = mocks.StrictMock<IGui>();
             mocks.ReplayAll();
 
-            using (var plugin = new SimpleGuiPlugin { Gui = gui })
+            using (var plugin = new SimpleGuiPlugin
+            {
+                Gui = gui
+            })
             {
                 // Call
                 TestDelegate call = () => plugin.Activate();
@@ -88,7 +89,10 @@ namespace Core.Common.Gui.Test.Plugin
             var gui = mocks.StrictMock<IGui>();
             mocks.ReplayAll();
 
-            using (var plugin = new SimpleGuiPlugin { Gui = gui })
+            using (var plugin = new SimpleGuiPlugin
+            {
+                Gui = gui
+            })
             {
                 // Call
                 TestDelegate call = () => plugin.Deactivate();
@@ -100,14 +104,17 @@ namespace Core.Common.Gui.Test.Plugin
         }
 
         [Test]
-        public void GetPropertyInfos_ReturnEmpty()
+        public void GetPropertyInfos_ReturnsEmpty()
         {
             // Setup
             var mocks = new MockRepository();
             var gui = mocks.StrictMock<IGui>();
             mocks.ReplayAll();
 
-            using (var plugin = new SimpleGuiPlugin { Gui = gui })
+            using (var plugin = new SimpleGuiPlugin
+            {
+                Gui = gui
+            })
             {
                 // Call
                 var infos = plugin.GetPropertyInfos();
@@ -119,14 +126,17 @@ namespace Core.Common.Gui.Test.Plugin
         }
 
         [Test]
-        public void GetViewInfos_ReturnEmpty()
+        public void GetViewInfos_ReturnsEmpty()
         {
             // Setup
             var mocks = new MockRepository();
             var gui = mocks.StrictMock<IGui>();
             mocks.ReplayAll();
 
-            using (var plugin = new SimpleGuiPlugin { Gui = gui })
+            using (var plugin = new SimpleGuiPlugin
+            {
+                Gui = gui
+            })
             {
                 // Call
                 var infos = plugin.GetViewInfos();
@@ -138,14 +148,17 @@ namespace Core.Common.Gui.Test.Plugin
         }
 
         [Test]
-        public void GetTreeNodeInfos_ReturnEmpty()
+        public void GetTreeNodeInfos_ReturnsEmpty()
         {
             // Setup
             var mocks = new MockRepository();
             var gui = mocks.StrictMock<IGui>();
             mocks.ReplayAll();
 
-            using (var plugin = new SimpleGuiPlugin { Gui = gui })
+            using (var plugin = new SimpleGuiPlugin
+            {
+                Gui = gui
+            })
             {
                 // Call
                 var infos = plugin.GetTreeNodeInfos();
@@ -157,17 +170,42 @@ namespace Core.Common.Gui.Test.Plugin
         }
 
         [Test]
-        public void GetChildDataWithViewDefinitions_ReturnEmpty()
+        public void GetChildDataWithViewDefinitions_ReturnsEmpty()
         {
             // Setup
             var mocks = new MockRepository();
             var gui = mocks.StrictMock<IGui>();
             mocks.ReplayAll();
 
-            using (var plugin = new SimpleGuiPlugin { Gui = gui })
+            using (var plugin = new SimpleGuiPlugin
+            {
+                Gui = gui
+            })
             {
                 // Call
                 var infos = plugin.GetChildDataWithViewDefinitions(null);
+
+                // Assert
+                CollectionAssert.IsEmpty(infos);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetFileImporters_ReturnsEmpty()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var gui = mocks.StrictMock<IGui>();
+            mocks.ReplayAll();
+
+            using (var plugin = new SimpleGuiPlugin
+            {
+                Gui = gui
+            })
+            {
+                // Call
+                var infos = plugin.GetFileImporters();
 
                 // Assert
                 CollectionAssert.IsEmpty(infos);
@@ -183,7 +221,10 @@ namespace Core.Common.Gui.Test.Plugin
             var gui = mocks.Stub<IGui>();
             mocks.ReplayAll();
 
-            using (var plugin = new SimpleGuiPlugin { Gui = gui })
+            using (var plugin = new SimpleGuiPlugin
+            {
+                Gui = gui
+            })
             {
                 // Call
                 plugin.Dispose();
@@ -194,9 +235,6 @@ namespace Core.Common.Gui.Test.Plugin
             mocks.VerifyAll();
         }
 
-        private class SimpleGuiPlugin : GuiPlugin
-        {
-            
-        }
+        private class SimpleGuiPlugin : GuiPlugin {}
     }
 }

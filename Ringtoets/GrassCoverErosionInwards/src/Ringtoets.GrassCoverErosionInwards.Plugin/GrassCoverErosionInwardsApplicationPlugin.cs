@@ -19,21 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
-using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin
 {
     /// <summary>
     /// The application plugin for the GEKB failure mechanism.
     /// </summary>
-    public class GrassCoverErosionInwardsApplicationPlugin : ApplicationPlugin
-    {
-        public override IEnumerable<IFileImporter> GetFileImporters()
-        {
-            yield return new DikeProfilesImporter();
-        }
-    }
+    public class GrassCoverErosionInwardsApplicationPlugin : ApplicationPlugin {}
 }

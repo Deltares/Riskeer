@@ -20,13 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
 using Core.Common.Gui.Properties;
-
 using log4net;
 
 namespace Core.Common.Gui.Commands
@@ -39,7 +38,7 @@ namespace Core.Common.Gui.Commands
         private static readonly ILog log = LogManager.GetLogger(typeof(ExportImportCommandHandler));
 
         private readonly ApplicationCore applicationCore;
-
+        private readonly IEnumerable<IFileImporter> fileImporters;
         private readonly GuiImportHandler importHandler;
         private readonly GuiExportHandler exportHandler;
 
@@ -48,16 +47,18 @@ namespace Core.Common.Gui.Commands
         /// </summary>
         /// <param name="dialogParent">The parent window onto which dialogs should be shown.</param>
         /// <param name="applicationCore">The host of all application plugins.</param>
-        public ExportImportCommandHandler(IWin32Window dialogParent, ApplicationCore applicationCore)
+        /// <param name="fileImporters">An enumeration of <see cref="IFileImporter"/>.</param>
+        public ExportImportCommandHandler(IWin32Window dialogParent, ApplicationCore applicationCore, IEnumerable<IFileImporter> fileImporters)
         {
             this.applicationCore = applicationCore;
-            importHandler = new GuiImportHandler(dialogParent, this.applicationCore);
+            this.fileImporters = fileImporters;
+            importHandler = new GuiImportHandler(dialogParent, this.fileImporters);
             exportHandler = new GuiExportHandler(dialogParent, this.applicationCore);
         }
 
-        public bool CanImportOn(object obj)
+        public bool CanImportOn(object target)
         {
-            return applicationCore.GetSupportedFileImporters(obj).Any();
+            return fileImporters.Any(fileImporter => fileImporter.CanImportOn(target));
         }
 
         public void ImportOn(object target, IFileImporter importer = null)

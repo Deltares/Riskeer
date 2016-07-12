@@ -25,6 +25,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Threading;
 using Core.Common.Base.Data;
+using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
@@ -44,6 +45,7 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.IO;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
@@ -51,6 +53,7 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
+using Ringtoets.Integration.Plugin.FileImporters;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -82,16 +85,18 @@ namespace Ringtoets.Integration.Plugin.Test
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
-            using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
             {
-                ringtoetsGuiPlugin.Gui = gui;
-                gui.Run();
+                using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
+                {
+                    ringtoetsGuiPlugin.Gui = gui;
+                    gui.Run();
 
-                // Call
-                Action action = () => gui.Project = new Project();
+                    // Call
+                    Action action = () => gui.Project = new Project();
 
-                // Assert
-                TestHelper.AssertLogMessagesCount(action, 0);
+                    // Assert
+                    TestHelper.AssertLogMessagesCount(action, 0);
+                }
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
@@ -110,29 +115,28 @@ namespace Ringtoets.Integration.Plugin.Test
             var testDataPath = Path.Combine(testDataDir, "complete.sqlite");
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
-            using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
             {
-                ringtoetsGuiPlugin.Gui = gui;
-                gui.Run();
-
-                var project = new Project();
-                IAssessmentSection section = new AssessmentSection(AssessmentSectionComposition.Dike)
+                using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
                 {
-                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                    ringtoetsGuiPlugin.Gui = gui;
+                    gui.Run();
+
+                    var project = new Project();
+                    IAssessmentSection section = new AssessmentSection(AssessmentSectionComposition.Dike)
                     {
-                        FilePath = testDataPath
-                    }
-                };
-                project.Items.Add(section);
+                        HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                        {
+                            FilePath = testDataPath
+                        }
+                    };
+                    project.Items.Add(section);
 
-                // Call
-                Action action = () =>
-                {
-                    gui.Project = project;
-                };
+                    // Call
+                    Action action = () => { gui.Project = project; };
 
-                // Assert
-                TestHelper.AssertLogMessagesCount(action, 0);
+                    // Assert
+                    TestHelper.AssertLogMessagesCount(action, 0);
+                }
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
@@ -148,35 +152,34 @@ namespace Ringtoets.Integration.Plugin.Test
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
-            using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
             {
-                var project = new Project();
-                var notExistingFile = "not_existing_file";
-
-                IAssessmentSection section = new AssessmentSection(AssessmentSectionComposition.Dike)
+                using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
                 {
-                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                    var project = new Project();
+                    var notExistingFile = "not_existing_file";
+
+                    IAssessmentSection section = new AssessmentSection(AssessmentSectionComposition.Dike)
                     {
-                        FilePath = notExistingFile
-                    }
-                };
-                project.Items.Add(section);
+                        HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                        {
+                            FilePath = notExistingFile
+                        }
+                    };
+                    project.Items.Add(section);
 
-                ringtoetsGuiPlugin.Gui = gui;
-                gui.Run();
+                    ringtoetsGuiPlugin.Gui = gui;
+                    gui.Run();
 
-                // Call
-                Action action = () =>
-                {
-                    gui.Project = project;
-                };
+                    // Call
+                    Action action = () => { gui.Project = project; };
 
-                // Assert
-                var fileMissingMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", notExistingFile);
-                string message = string.Format(
-                    RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_,
-                    fileMissingMessage);
-                TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(message, LogLevelConstant.Warn));
+                    // Assert
+                    var fileMissingMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", notExistingFile);
+                    string message = string.Format(
+                        RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_,
+                        fileMissingMessage);
+                    TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(message, LogLevelConstant.Warn));
+                }
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
@@ -416,6 +419,21 @@ namespace Ringtoets.Integration.Plugin.Test
 
             // Assert
             CollectionAssert.IsEmpty(childrenWithViewDefinitions);
+        }
+
+        [Test]
+        public void GetFileImporters_ReturnsExpectedFileImporters()
+        {
+            // Setup
+            var plugin = new RingtoetsGuiPlugin();
+
+            // Call
+            IFileImporter[] importers = plugin.GetFileImporters().ToArray();
+
+            // Assert
+            Assert.AreEqual(2, importers.Length);
+            Assert.AreEqual(1, importers.Count(i => i is ReferenceLineImporter));
+            Assert.AreEqual(1, importers.Count(i => i is FailureMechanismSectionsImporter));
         }
     }
 }

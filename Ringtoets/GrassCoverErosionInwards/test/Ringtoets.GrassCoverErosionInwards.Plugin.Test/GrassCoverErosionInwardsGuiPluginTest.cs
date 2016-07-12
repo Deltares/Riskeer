@@ -33,6 +33,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
+using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
 {
@@ -157,6 +158,34 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsFailureMechanismResultView)));
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsInputView)));
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsScenariosView)));
+            }
+        }
+
+        [Test]
+        public void GetFileImporters_Always_ReturnsExpectedFileImporter()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationCore = new ApplicationCore();
+
+            var guiStub = mocks.Stub<IGui>();
+            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
+
+            guiStub.Stub(g => g.ApplicationCore).Return(applicationCore);
+
+            mocks.ReplayAll();
+
+            using (var guiPlugin = new GrassCoverErosionInwardsGuiPlugin
+            {
+                Gui = guiStub
+            })
+            {
+                // Call
+                var importers = guiPlugin.GetFileImporters().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, importers.Length);
+                Assert.IsInstanceOf<DikeProfilesImporter>(importers[0]);
             }
         }
     }

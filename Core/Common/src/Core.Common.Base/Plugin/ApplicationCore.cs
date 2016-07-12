@@ -62,22 +62,6 @@ namespace Core.Common.Base.Plugin
         }
 
         /// <summary>
-        /// This method returns an enumeration of <see cref="IFileImporter"/> that support the <paramref name="target"/>.
-        /// </summary>
-        /// <param name="target">The target to get the enumeration of supported <see cref="IFileImporter"/> for.</param>
-        /// <returns>The enumeration of supported <see cref="IFileImporter"/>.</returns>
-        public IEnumerable<IFileImporter> GetSupportedFileImporters(object target)
-        {
-            if (target == null)
-            {
-                return Enumerable.Empty<IFileImporter>();
-            }
-
-            return plugins.SelectMany(plugin => plugin.GetFileImporters())
-                          .Where(fileImporter => fileImporter.CanImportOn(target));
-        }
-
-        /// <summary>
         /// This method returns an enumeration of <see cref="IFileExporter"/> that support the <paramref name="source"/>.
         /// </summary>
         /// <param name="source">The source to get the enumeration of supported <see cref="IFileExporter"/> for.</param>

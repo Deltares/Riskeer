@@ -26,6 +26,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
+using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
@@ -45,6 +46,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.IO;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
@@ -306,6 +308,12 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.EditDocumentIcon,
                 CloseForData = CloseCommentViewForData
             };
+        }
+
+        public override IEnumerable<IFileImporter> GetFileImporters()
+        {
+            yield return new ReferenceLineImporter();
+            yield return new FailureMechanismSectionsImporter();
         }
 
         /// <summary>

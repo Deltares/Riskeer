@@ -33,6 +33,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.Views;
+using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
 using GuiPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
@@ -181,6 +182,35 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(PipingFailureMechanismResultView)));
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(PipingInputView)));
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(PipingScenariosView)));
+            }
+        }
+
+        [Test]
+        public void GetFileImporters_Always_ReturnsExpectedFileImporters()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationCore = new ApplicationCore();
+
+            var guiStub = mocks.Stub<IGui>();
+            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
+
+            guiStub.Stub(g => g.ApplicationCore).Return(applicationCore);
+
+            mocks.ReplayAll();
+
+            using (var guiPlugin = new PipingGuiPlugin
+            {
+                Gui = guiStub
+            })
+            {
+                // Call
+                var importers = guiPlugin.GetFileImporters().ToArray();
+
+                // Assert
+                Assert.AreEqual(2, importers.Length);
+                Assert.IsInstanceOf<PipingSurfaceLinesCsvImporter>(importers[0]);
+                Assert.IsInstanceOf<PipingSoilProfilesImporter>(importers[1]);
             }
         }
     }

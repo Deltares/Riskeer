@@ -30,15 +30,6 @@ namespace Core.Common.Base.Plugin
     public abstract class ApplicationPlugin
     {
         /// <summary>
-        /// This method returns an enumeration of <see cref="IFileImporter"/>.
-        /// </summary>
-        /// <returns>The enumeration of <see cref="IFileImporter"/> provided by the <see cref="ApplicationPlugin"/>.</returns>
-        public virtual IEnumerable<IFileImporter> GetFileImporters()
-        {
-            yield break;
-        }
-
-        /// <summary>
         /// This method returns an enumeration of <see cref="IFileExporter"/>.
         /// </summary>
         /// <returns>The enumeration of <see cref="IFileExporter"/> provided by the <see cref="ApplicationPlugin"/>.</returns>

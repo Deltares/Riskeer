@@ -20,7 +20,8 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Plugin;
+using System.Collections.Generic;
+using Core.Common.Base.IO;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow;
 using NUnit.Extensions.Forms;
@@ -33,11 +34,10 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
     public class GuiImportHandlerTest : NUnitFormTest
     {
         [Test]
-        public void NoImporterAvailableGivesMessageBox()
+        public void Constructor_NoImporterAvailable_GivesMessageBox()
         {
             // Setup
-            var applicationCore = new ApplicationCore();
-            
+            var fileImporters = new List<IFileImporter>();
             var mocks = new MockRepository();
             var mainWindow = mocks.Stub<IMainWindow>();
             mocks.ReplayAll();
@@ -53,7 +53,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
                 messageBox.ClickOk();
             };
 
-            var importHandler = new GuiImportHandler(mainWindow, applicationCore);
+            var importHandler = new GuiImportHandler(mainWindow, fileImporters);
 
             // Call
             importHandler.ImportDataTo(typeof(Int64));

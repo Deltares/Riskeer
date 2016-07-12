@@ -122,7 +122,7 @@ namespace Core.Common.Gui
 
             viewCommandHandler = new ViewCommandHandler(this, this, this, this);
             storageCommandHandler = new StorageCommandHandler(projectStore, this, this, this, this, viewCommandHandler);
-            exportImportCommandHandler = new ExportImportCommandHandler(MainWindow, ApplicationCore);
+            exportImportCommandHandler = new ExportImportCommandHandler(MainWindow, ApplicationCore, Plugins.SelectMany(p => p.GetFileImporters()));
             projectCommandHandler = new ProjectCommandHandler(this, MainWindow, ApplicationCore, this, this);
 
             WindowsApplication.EnableVisualStyles();
@@ -461,6 +461,8 @@ namespace Core.Common.Gui
             InitializeWindows();
 
             InitializeGuiPlugins();
+
+            
 
             CopyDefaultViewsFromUserSettings();
 
@@ -867,7 +869,7 @@ namespace Core.Common.Gui
         private ApplicationFeatureCommandHandler applicationFeatureCommands;
         private readonly ViewCommandHandler viewCommandHandler;
         private readonly ProjectCommandHandler projectCommandHandler;
-        private readonly ExportImportCommandHandler exportImportCommandHandler;
+        private ExportImportCommandHandler exportImportCommandHandler;
         private StorageCommandHandler storageCommandHandler;
 
         public IApplicationFeatureCommands ApplicationCommands

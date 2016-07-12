@@ -19,16 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Base.IO;
-using Core.Common.Base.Plugin;
 using Core.Common.Base.Service;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Properties;
-
 using log4net;
 
 namespace Core.Common.Gui.Commands
@@ -41,17 +39,17 @@ namespace Core.Common.Gui.Commands
         private static readonly ILog log = LogManager.GetLogger(typeof(GuiImportHandler));
 
         private readonly IWin32Window dialogParent;
-        private readonly ApplicationCore applicationCore;
+        private readonly IEnumerable<IFileImporter> fileImporters;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuiImportHandler"/> class.
         /// </summary>
         /// <param name="dialogParent">The parent window to show dialogs on top.</param>
-        /// <param name="applicationCore">The application-plugins host.</param>
-        public GuiImportHandler(IWin32Window dialogParent, ApplicationCore applicationCore)
+        /// <param name="fileImporters">An enumeration of <see cref="IFileImporter"/>.</param>
+        public GuiImportHandler(IWin32Window dialogParent, IEnumerable<IFileImporter> fileImporters)
         {
             this.dialogParent = dialogParent;
-            this.applicationCore = applicationCore;
+            this.fileImporters = fileImporters;
         }
 
         /// <summary>
@@ -78,8 +76,8 @@ namespace Core.Common.Gui.Commands
 
         private IFileImporter GetSupportedImporterForTargetType(object target)
         {
-            var importers = applicationCore.GetSupportedFileImporters(target).ToArray();
-            if (importers.Length == 0)
+            var importers = fileImporters.Where(fileImporter => fileImporter.CanImportOn(target)).ToArray();
+            if (!importers.Any())
             {
                 MessageBox.Show(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item,
                                 Resources.GuiImportHandler_GetSupportedImporterForTargetType_Error);
