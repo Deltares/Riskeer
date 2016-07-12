@@ -165,6 +165,11 @@ namespace Application.Ringtoets.Storage.Test.Update
                 PipingFailureMechanismMetaEntityId = section.PipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId,
                 FailureMechanismEntityId = section.PipingFailureMechanism.StorageId
             });
+            ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
+            {
+                GrassCoverErosionInwardsFailureMechanismMetaEntityId = section.GrassCoverErosionInwards.GeneralInput.StorageId,
+                FailureMechanismEntityId = section.GrassCoverErosionInwards.StorageId
+            });
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
             // Call
@@ -214,6 +219,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 PipingFailureMechanismMetaEntityId = section.PipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId,
                 FailureMechanismEntityId = section.PipingFailureMechanism.StorageId
+            });
+            ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
+            {
+                GrassCoverErosionInwardsFailureMechanismMetaEntityId = section.GrassCoverErosionInwards.GeneralInput.StorageId,
+                FailureMechanismEntityId = section.GrassCoverErosionInwards.StorageId
             });
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
@@ -265,6 +275,11 @@ namespace Application.Ringtoets.Storage.Test.Update
                 PipingFailureMechanismMetaEntityId = section.PipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId,
                 FailureMechanismEntityId = section.PipingFailureMechanism.StorageId
             });
+            ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
+            {
+                GrassCoverErosionInwardsFailureMechanismMetaEntityId = section.GrassCoverErosionInwards.GeneralInput.StorageId,
+                FailureMechanismEntityId = section.GrassCoverErosionInwards.StorageId
+            });
             ringtoetsEntities.ReferenceLinePointEntities.Add(referenceLinePointEntity);
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
@@ -313,6 +328,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 PipingFailureMechanismMetaEntityId = section.PipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId,
                 FailureMechanismEntityId = section.PipingFailureMechanism.StorageId
+            });
+            ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
+            {
+                GrassCoverErosionInwardsFailureMechanismMetaEntityId = section.GrassCoverErosionInwards.GeneralInput.StorageId,
+                FailureMechanismEntityId = section.GrassCoverErosionInwards.StorageId
             });
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
@@ -377,6 +397,11 @@ namespace Application.Ringtoets.Storage.Test.Update
                 PipingFailureMechanismMetaEntityId = section.PipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId,
                 FailureMechanismEntityId = section.PipingFailureMechanism.StorageId
             });
+            ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
+            {
+                GrassCoverErosionInwardsFailureMechanismMetaEntityId = section.GrassCoverErosionInwards.GeneralInput.StorageId,
+                FailureMechanismEntityId = section.GrassCoverErosionInwards.StorageId
+            });
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
             ringtoetsEntities.HydraulicLocationEntities.Add(hydraulicLocationEntity);
 
@@ -431,6 +456,11 @@ namespace Application.Ringtoets.Storage.Test.Update
                 PipingFailureMechanismMetaEntityId = section.PipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId,
                 FailureMechanismEntityId = section.PipingFailureMechanism.StorageId
             });
+            ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
+            {
+                GrassCoverErosionInwardsFailureMechanismMetaEntityId = section.GrassCoverErosionInwards.GeneralInput.StorageId,
+                FailureMechanismEntityId = section.GrassCoverErosionInwards.StorageId
+            });
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
@@ -481,6 +511,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 PipingFailureMechanismMetaEntityId = section.PipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId,
                 FailureMechanismEntityId = section.PipingFailureMechanism.StorageId
+            });
+            ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
+            {
+                GrassCoverErosionInwardsFailureMechanismMetaEntityId = section.GrassCoverErosionInwards.GeneralInput.StorageId,
+                FailureMechanismEntityId = section.GrassCoverErosionInwards.StorageId
             });
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
@@ -562,6 +597,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 PipingFailureMechanismMetaEntityId = section.PipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId,
                 FailureMechanismEntityId = section.PipingFailureMechanism.StorageId
+            });
+            ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
+            {
+                GrassCoverErosionInwardsFailureMechanismMetaEntityId = section.GrassCoverErosionInwards.GeneralInput.StorageId,
+                FailureMechanismEntityId = section.GrassCoverErosionInwards.StorageId
             });
 
             ringtoetsEntities.FailureMechanismEntities.Add(macrostabilityInwardsEntity);
@@ -645,7 +685,11 @@ namespace Application.Ringtoets.Storage.Test.Update
                 },
                 GrassCoverErosionInwards =
                 {
-                    StorageId = failureMechanismId++
+                    StorageId = failureMechanismId++,
+                    GeneralInput =
+                    {
+                        StorageId = 12
+                    }
                 },
                 MacrostabilityInwards =
                 {

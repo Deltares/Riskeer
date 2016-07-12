@@ -55,7 +55,11 @@ namespace Application.Ringtoets.Storage.Test.Create
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 IsRelevant = isRelevant,
-                Comments = "Some text"
+                Comments = "Some text",
+                GeneralInput =
+                {
+                    N = 12
+                }
             };
             var registry = new PersistenceRegistry();
 
@@ -67,6 +71,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual((short) FailureMechanismType.GrassRevetmentTopErosionAndInwards, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.Comments, entity.Comments);
+
+            Assert.AreEqual(1, entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Count);
+            GrassCoverErosionInwardsFailureMechanismMetaEntity generalInputEntity = entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.First();
+            Assert.AreEqual(failureMechanism.GeneralInput.N, generalInputEntity.N);
         }
 
         [Test]

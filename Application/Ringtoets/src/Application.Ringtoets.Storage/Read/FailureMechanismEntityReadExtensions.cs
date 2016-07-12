@@ -103,7 +103,14 @@ namespace Application.Ringtoets.Storage.Read
         internal static void ReadAsGrassCoverErosionInwardsFailureMechanism(this FailureMechanismEntity entity, GrassCoverErosionInwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+            entity.ReadGeneralCalculationInput(failureMechanism.GeneralInput);
             entity.ReadGrassCoverErosionInwardsMechanismSectionResults(failureMechanism, collector);
+        }
+
+        private static void ReadGeneralCalculationInput(this FailureMechanismEntity entity, GeneralGrassCoverErosionInwardsInput input)
+        {
+            GrassCoverErosionInwardsFailureMechanismMetaEntity t = entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Single();
+            t.Read(input);
         }
 
         private static void ReadGrassCoverErosionInwardsMechanismSectionResults(this FailureMechanismEntity entity, GrassCoverErosionInwardsFailureMechanism failureMechanism, ReadConversionCollector collector)

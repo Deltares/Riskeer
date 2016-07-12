@@ -382,7 +382,15 @@ namespace Application.Ringtoets.Storage.Test.Read
                     CalculationGroupEntityId = 1
                 },
                 IsRelevant = Convert.ToByte(isRelevant),
-                Comments = comments
+                Comments = comments,
+                GrassCoverErosionInwardsFailureMechanismMetaEntities =
+                {
+                    new GrassCoverErosionInwardsFailureMechanismMetaEntity
+                    {
+                        GrassCoverErosionInwardsFailureMechanismMetaEntityId = 2,
+                        N = 1
+                    }
+                }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
 
@@ -408,7 +416,15 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 FailureMechanismEntityId = entityId,
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards,
-                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
+                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities(),
+                GrassCoverErosionInwardsFailureMechanismMetaEntities =
+                {
+                    new GrassCoverErosionInwardsFailureMechanismMetaEntity
+                    {
+                        GrassCoverErosionInwardsFailureMechanismMetaEntityId = 2,
+                        N = 1
+                    }
+                }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
 

@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 using Application.Ringtoets.Storage.DbContext;
 
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -37,13 +39,17 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="GrassCoverErosionInwardsFailureMechanismMetaEntity"/>
         /// to create <see cref="GeneralGrassCoverErosionInwardsInput"/> for.</param>
+        /// <param name="input">The <see cref="GeneralGrassCoverErosionInwardsInput"/> to be updated.</param>
         /// <returns>A new <see cref="GeneralGrassCoverErosionInwardsInput"/>.</returns>
-        internal static GeneralGrassCoverErosionInwardsInput Read(this GrassCoverErosionInwardsFailureMechanismMetaEntity entity)
+        /// <exception cref="ArgumentNullException">When <paramref name="input"/> is <c>null</c>.</exception>
+        internal static void Read(this GrassCoverErosionInwardsFailureMechanismMetaEntity entity, GeneralGrassCoverErosionInwardsInput input)
         {
-            return new GeneralGrassCoverErosionInwardsInput
+            if (input == null)
             {
-                N = entity.N
-            };
+                throw new ArgumentNullException("input");
+            }
+            input.StorageId = entity.GrassCoverErosionInwardsFailureMechanismMetaEntityId;
+            input.N = entity.N;
         }
     }
 }

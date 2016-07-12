@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.IO;
 
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.Properties;
@@ -80,7 +78,7 @@ namespace Ringtoets.Common.IO
                 return AssessmentSectionSettings.CreateDuneAssessmentSectionSettings(assessmentSectionId);
             }
 
-            double n = Double.Parse(nValue);
+            double n = double.Parse(nValue);
             return AssessmentSectionSettings.CreateDikeAssessmentSectionSettings(assessmentSectionId, n);
         }
     }

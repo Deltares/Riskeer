@@ -41,10 +41,17 @@ namespace Application.Ringtoets.Storage.Create
         internal static FailureMechanismEntity Create(this GrassCoverErosionInwardsFailureMechanism mechanism, PersistenceRegistry registry)
         {
             var entity = mechanism.Create(FailureMechanismType.GrassRevetmentTopErosionAndInwards, registry);
+            AddEntitiesForGeneralInput(mechanism, registry, entity);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             registry.Register(entity, mechanism);
             return entity;
+        }
+
+        private static void AddEntitiesForGeneralInput(GrassCoverErosionInwardsFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)
+        {
+            GrassCoverErosionInwardsFailureMechanismMetaEntity generalInputEntity = mechanism.GeneralInput.Create(registry);
+            entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(generalInputEntity);
         }
 
         private static void AddEntitiesForSectionResults(

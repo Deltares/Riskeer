@@ -251,7 +251,11 @@ namespace Application.Ringtoets.Storage.Test.Update
                 },
                 GrassCoverErosionInwards =
                 {
-                    StorageId = 1
+                    StorageId = 1,
+                    GeneralInput =
+                    {
+                        StorageId = 3
+                    }
                 },
                 MacrostabilityInwards =
                 {
@@ -353,6 +357,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(new PipingFailureMechanismMetaEntity
             {
                 PipingFailureMechanismMetaEntityId = section.PipingFailureMechanism.PipingProbabilityAssessmentInput.StorageId
+            });
+            ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
+            {
+                GrassCoverErosionInwardsFailureMechanismMetaEntityId = section.GrassCoverErosionInwards.GeneralInput.StorageId
             });
 
             // Call

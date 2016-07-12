@@ -136,22 +136,38 @@ namespace Application.Ringtoets.Storage.Test.Update
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 StorageId = 1,
-                IsRelevant = true
+                IsRelevant = true,
+                GeneralInput =
+                {
+                    StorageId = 62981,
+                    N = 13
+                }
             };
 
+            var generalInputEntity = new GrassCoverErosionInwardsFailureMechanismMetaEntity
+            {
+                GrassCoverErosionInwardsFailureMechanismMetaEntityId = failureMechanism.GeneralInput.StorageId,
+                N = 2
+            };
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = 1,
-                IsRelevant = Convert.ToByte(false)
+                FailureMechanismEntityId = failureMechanism.StorageId,
+                IsRelevant = Convert.ToByte(false),
+                GrassCoverErosionInwardsFailureMechanismMetaEntities =
+                {
+                    generalInputEntity
+                }
             };
 
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(generalInputEntity);
 
             // Call
             failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(Convert.ToByte(true), failureMechanismEntity.IsRelevant);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, generalInputEntity.N);
 
             mocks.VerifyAll();
         }
@@ -167,7 +183,11 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
-                StorageId = 1
+                StorageId = 1,
+                GeneralInput =
+                {
+                    StorageId = 2
+                }
             };
             failureMechanism.AddSection(new FailureMechanismSection("", new[]
             {
@@ -176,10 +196,14 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = 1,
+                FailureMechanismEntityId = failureMechanism.StorageId,
             };
 
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
+            {
+                GrassCoverErosionInwardsFailureMechanismMetaEntityId = failureMechanism.GeneralInput.StorageId
+            });
 
             // Call
             failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
@@ -202,7 +226,11 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
-                StorageId = 1
+                StorageId = 1,
+                GeneralInput =
+                {
+                    StorageId = 2
+                }
             };
             var testName = "testName";
             failureMechanism.AddSection(new FailureMechanismSection(testName, new[]
@@ -227,6 +255,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
 
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
+            {
+                GrassCoverErosionInwardsFailureMechanismMetaEntityId = failureMechanism.GeneralInput.StorageId
+            });
             ringtoetsEntities.FailureMechanismSectionEntities.Add(failureMechanismSectionEntity);
 
             // Call

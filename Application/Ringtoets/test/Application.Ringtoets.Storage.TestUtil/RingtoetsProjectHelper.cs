@@ -51,8 +51,70 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// <returns>A new complete instance of <see cref="Project"/>.</returns>
         public static Project GetFullTestProject()
         {
-            ReferenceLine referenceLine = GetReferenceLine();
-            Point2D[] referenceLineGeometryPoints = referenceLine.Points.ToArray();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                Name = "assessmentSection",
+                HydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase(),
+                ReferenceLine = GetReferenceLine()
+            };
+            PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
+            ConfigurePipingFailureMechanism(pipingFailureMechanism, assessmentSection);
+            AddSections(pipingFailureMechanism);
+            SetSectionResults(pipingFailureMechanism.SectionResults);
+
+            GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
+            ConfigureGrassCoverErosionInwardsFailureMechanism(grassCoverErosionInwardsFailureMechanism);
+            AddSections(grassCoverErosionInwardsFailureMechanism);
+            SetSectionResults(grassCoverErosionInwardsFailureMechanism.SectionResults);
+
+            AddSections(assessmentSection.MacrostabilityInwards);
+            SetSectionResults(assessmentSection.MacrostabilityInwards.SectionResults);
+            AddSections(assessmentSection.MacrostabilityOutwards);
+            SetSectionResults(assessmentSection.MacrostabilityOutwards.SectionResults);
+            AddSections(assessmentSection.Microstability);
+            SetSectionResults(assessmentSection.Microstability.SectionResults);
+            AddSections(assessmentSection.StabilityStoneCover);
+            SetSectionResults(assessmentSection.StabilityStoneCover.SectionResults);
+            AddSections(assessmentSection.WaveImpactAsphaltCover);
+            SetSectionResults(assessmentSection.WaveImpactAsphaltCover.SectionResults);
+            AddSections(assessmentSection.WaterPressureAsphaltCover);
+            SetSectionResults(assessmentSection.WaterPressureAsphaltCover.SectionResults);
+            AddSections(assessmentSection.GrassCoverErosionOutwards);
+            SetSectionResults(assessmentSection.GrassCoverErosionOutwards.SectionResults);
+            AddSections(assessmentSection.GrassCoverSlipOffInwards);
+            SetSectionResults(assessmentSection.GrassCoverSlipOffInwards.SectionResults);
+            AddSections(assessmentSection.GrassCoverSlipOffOutwards);
+            SetSectionResults(assessmentSection.GrassCoverSlipOffOutwards.SectionResults);
+            AddSections(assessmentSection.HeightStructures);
+            SetSectionResults(assessmentSection.HeightStructures.SectionResults);
+            AddSections(assessmentSection.ClosingStructure);
+            SetSectionResults(assessmentSection.ClosingStructure.SectionResults);
+            AddSections(assessmentSection.StrengthStabilityPointConstruction);
+            SetSectionResults(assessmentSection.StrengthStabilityPointConstruction.SectionResults);
+            AddSections(assessmentSection.StrengthStabilityLengthwiseConstruction);
+            SetSectionResults(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults);
+            AddSections(assessmentSection.PipingStructure);
+            SetSectionResults(assessmentSection.PipingStructure.SectionResults);
+            AddSections(assessmentSection.DuneErosion);
+            SetSectionResults(assessmentSection.DuneErosion.SectionResults);
+            AddSections(assessmentSection.TechnicalInnovation);
+            SetSectionResults(assessmentSection.TechnicalInnovation.SectionResults);
+
+            var fullTestProject = new Project
+            {
+                Name = "tempProjectFile",
+                Description = "description",
+                Items =
+                {
+                    assessmentSection
+                }
+            };
+            return fullTestProject;
+        }
+
+        private static void ConfigurePipingFailureMechanism(PipingFailureMechanism pipingFailureMechanism, AssessmentSection assessmentSection)
+        {
+            var referenceLineGeometryPoints = assessmentSection.ReferenceLine.Points.ToArray();
 
             PipingSoilProfile pipingSoilProfile = new TestPipingSoilProfile();
             PipingSoilLayer pipingSoilLayer = pipingSoilProfile.Layers.First();
@@ -62,16 +124,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             pipingSoilLayer.Color = Color.HotPink;
             pipingSoilLayer.MaterialName = "HotPinkLayer";
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                Name = "assessmentSection",
-                HydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase(),
-                ReferenceLine = referenceLine,
-                PipingFailureMechanism =
-                {
-                    StochasticSoilModels =
-                    {
-                        new StochasticSoilModel(-1, "modelName", "modelSegmentName")
+            pipingFailureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(-1, "modelName", "modelSegmentName")
                         {
                             Geometry =
                             {
@@ -90,15 +143,9 @@ namespace Application.Ringtoets.Storage.TestUtil
                                     SoilProfile = new TestPipingSoilProfile()
                                 }
                             }
-                        }
-                    },
-                    SurfaceLines =
-                    {
-                        GetSurfaceLine()
-                    }
-                }
-            };
-            PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
+                        });
+            pipingFailureMechanism.SurfaceLines.Add(GetSurfaceLine());
+
             CalculationGroup pipingCalculationGroup = pipingFailureMechanism.CalculationsGroup;
             pipingCalculationGroup.Children.Add(new CalculationGroup
             {
@@ -205,55 +252,11 @@ namespace Application.Ringtoets.Storage.TestUtil
                 Output = null,
                 SemiProbabilisticOutput = null
             });
+        }
 
-            var fullTestProject = new Project
-            {
-                Name = "tempProjectFile",
-                Description = "description",
-                Items =
-                {
-                    assessmentSection
-                }
-            };
-
-            AddSections(pipingFailureMechanism);
-            SetSectionResults(pipingFailureMechanism.SectionResults);
-            AddSections(assessmentSection.GrassCoverErosionInwards);
-            SetSectionResults(assessmentSection.GrassCoverErosionInwards.SectionResults);
-            AddSections(assessmentSection.MacrostabilityInwards);
-            SetSectionResults(assessmentSection.MacrostabilityInwards.SectionResults);
-            AddSections(assessmentSection.MacrostabilityOutwards);
-            SetSectionResults(assessmentSection.MacrostabilityOutwards.SectionResults);
-            AddSections(assessmentSection.Microstability);
-            SetSectionResults(assessmentSection.Microstability.SectionResults);
-            AddSections(assessmentSection.StabilityStoneCover);
-            SetSectionResults(assessmentSection.StabilityStoneCover.SectionResults);
-            AddSections(assessmentSection.WaveImpactAsphaltCover);
-            SetSectionResults(assessmentSection.WaveImpactAsphaltCover.SectionResults);
-            AddSections(assessmentSection.WaterPressureAsphaltCover);
-            SetSectionResults(assessmentSection.WaterPressureAsphaltCover.SectionResults);
-            AddSections(assessmentSection.GrassCoverErosionOutwards);
-            SetSectionResults(assessmentSection.GrassCoverErosionOutwards.SectionResults);
-            AddSections(assessmentSection.GrassCoverSlipOffInwards);
-            SetSectionResults(assessmentSection.GrassCoverSlipOffInwards.SectionResults);
-            AddSections(assessmentSection.GrassCoverSlipOffOutwards);
-            SetSectionResults(assessmentSection.GrassCoverSlipOffOutwards.SectionResults);
-            AddSections(assessmentSection.HeightStructures);
-            SetSectionResults(assessmentSection.HeightStructures.SectionResults);
-            AddSections(assessmentSection.ClosingStructure);
-            SetSectionResults(assessmentSection.ClosingStructure.SectionResults);
-            AddSections(assessmentSection.StrengthStabilityPointConstruction);
-            SetSectionResults(assessmentSection.StrengthStabilityPointConstruction.SectionResults);
-            AddSections(assessmentSection.StrengthStabilityLengthwiseConstruction);
-            SetSectionResults(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults);
-            AddSections(assessmentSection.PipingStructure);
-            SetSectionResults(assessmentSection.PipingStructure.SectionResults);
-            AddSections(assessmentSection.DuneErosion);
-            SetSectionResults(assessmentSection.DuneErosion.SectionResults);
-            AddSections(assessmentSection.TechnicalInnovation);
-            SetSectionResults(assessmentSection.TechnicalInnovation.SectionResults);
-
-            return fullTestProject;
+        private static void ConfigureGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        {
+            failureMechanism.GeneralInput.N = 15;
         }
 
         private static void SetSectionResults(IEnumerable<PipingFailureMechanismSectionResult> sectionResults)

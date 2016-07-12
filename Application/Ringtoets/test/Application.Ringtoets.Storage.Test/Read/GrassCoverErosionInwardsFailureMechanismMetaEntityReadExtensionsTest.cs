@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 
@@ -32,20 +34,38 @@ namespace Application.Ringtoets.Storage.Test.Read
     public class GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
+        public void Read_GeneralInputIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var entity = new GrassCoverErosionInwardsFailureMechanismMetaEntity();
+
+            // Call
+            TestDelegate call = () => entity.Read(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("input", paramName);
+        }
+
+        [Test]
         public void Read_ValidEntity_ReturnGeneralGrassCoverErosionInwardsInput(
-            [Random(0, 20, 1)]int n)
+            [Random(1, 20, 1)]int n,
+            [Random(1, 56, 1)]int id)
         {
             // Setup
             var entity = new GrassCoverErosionInwardsFailureMechanismMetaEntity
             {
+                GrassCoverErosionInwardsFailureMechanismMetaEntityId = id,
                 N = n
             };
+            var inputToUpdate = new GeneralGrassCoverErosionInwardsInput();
 
             // Call
-            GeneralGrassCoverErosionInwardsInput generalInput = entity.Read();
+            entity.Read(inputToUpdate);
 
             // Assert
-            Assert.AreEqual(n, generalInput.N);
+            Assert.AreEqual(n, inputToUpdate.N);
+            Assert.AreEqual(id, inputToUpdate.StorageId);
         }
     }
 }

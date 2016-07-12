@@ -47,6 +47,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("failureMechanism", parameter);
         }
+        
         [Test]
         public void ReadAsPipingFailureMechanism_WithoutCollector_ThrowsArgumentNullException()
         {
@@ -262,12 +263,22 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsGrassCoverErosionInwardsFailureMechanism_WithCollector_ReturnsNewGrassCoverErosionInwardsFailureMechanismWithPropertiesSet(bool isRelevant)
         {
             // Setup
-            var entityId = new Random(21).Next(1, 502);
+            var random = new Random(21);
+            var entityId = random.Next(1, 502);
+            var inputId = random.Next(1, 57893);
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = entityId,
                 IsRelevant = Convert.ToByte(isRelevant),
-                Comments = "Some comment"
+                Comments = "Some comment",
+                GrassCoverErosionInwardsFailureMechanismMetaEntities =
+                {
+                    new GrassCoverErosionInwardsFailureMechanismMetaEntity
+                    {
+                        GrassCoverErosionInwardsFailureMechanismMetaEntityId = inputId,
+                        N = 3
+                    }
+                }
             };
             var collector = new ReadConversionCollector();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -281,6 +292,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
             Assert.AreEqual(entity.Comments, failureMechanism.Comments);
             Assert.IsEmpty(failureMechanism.Sections);
+
+            Assert.AreEqual(inputId, failureMechanism.GeneralInput.StorageId);
+            Assert.AreEqual(3, failureMechanism.GeneralInput.N);
         }
 
         [Test]
@@ -308,6 +322,14 @@ namespace Application.Ringtoets.Storage.Test.Read
                 FailureMechanismSectionEntities =
                 {
                     failureMechanismSectionEntity
+                },
+                GrassCoverErosionInwardsFailureMechanismMetaEntities =
+                {
+                    new GrassCoverErosionInwardsFailureMechanismMetaEntity
+                    {
+                        GrassCoverErosionInwardsFailureMechanismMetaEntityId = 2,
+                        N = 1
+                    }
                 }
             };
             var collector = new ReadConversionCollector();
