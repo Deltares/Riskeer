@@ -370,6 +370,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HydraRing.Calcula
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosionInwards.Utils", "Ringtoets\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Utils\Ringtoets.GrassCoverErosionInwards.Utils.csproj", "{99573570-EE00-4264-8147-26A1B25DB23F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosionInwards.Utils.Test", "Ringtoets\GrassCoverErosionInwards\test\Ringtoets.GrassCoverErosionInwards.Utils.Test\Ringtoets.GrassCoverErosionInwards.Utils.Test.csproj", "{5C19638A-3CC5-496F-8552-385785E728E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -1469,6 +1471,14 @@ Global
 		{99573570-EE00-4264-8147-26A1B25DB23F}.Release|x86.Build.0 = Release|x86
 		{99573570-EE00-4264-8147-26A1B25DB23F}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{99573570-EE00-4264-8147-26A1B25DB23F}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{5C19638A-3CC5-496F-8552-385785E728E3}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{5C19638A-3CC5-496F-8552-385785E728E3}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{5C19638A-3CC5-496F-8552-385785E728E3}.Debug|x86.ActiveCfg = Debug|x86
+		{5C19638A-3CC5-496F-8552-385785E728E3}.Debug|x86.Build.0 = Debug|x86
+		{5C19638A-3CC5-496F-8552-385785E728E3}.Release|x86.ActiveCfg = Release|x86
+		{5C19638A-3CC5-496F-8552-385785E728E3}.Release|x86.Build.0 = Release|x86
+		{5C19638A-3CC5-496F-8552-385785E728E3}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{5C19638A-3CC5-496F-8552-385785E728E3}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1617,6 +1627,7 @@ Global
 		{632403D0-E54F-4718-A694-8AD47C4CB301} = {1C1E8754-CF61-4858-9CEE-3E5DE344474F}
 		{BB9D13C5-2672-4F61-93B3-8EA361399BDD} = {1C1E8754-CF61-4858-9CEE-3E5DE344474F}
 		{D7801688-3DD7-407F-9302-F4FD82B1F499} = {1C1E8754-CF61-4858-9CEE-3E5DE344474F}
+		{5C19638A-3CC5-496F-8552-385785E728E3} = {1C1E8754-CF61-4858-9CEE-3E5DE344474F}
 		{2A2E6519-A2B8-4A6B-8849-4873578D7C8C} = {195014EB-9F92-4638-B88F-B20B380BCA9F}
 		{E550D725-9C80-4242-8A3F-C1A3E020DEA2} = {195014EB-9F92-4638-B88F-B20B380BCA9F}
 		{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99} = {2A2E6519-A2B8-4A6B-8849-4873578D7C8C}

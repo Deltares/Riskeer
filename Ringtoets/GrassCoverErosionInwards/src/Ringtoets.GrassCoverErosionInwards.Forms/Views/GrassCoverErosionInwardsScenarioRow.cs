@@ -38,6 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsScenarioRow"/> class.
         /// </summary>
         /// <param name="sectionResult">The section result.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
         public GrassCoverErosionInwardsScenarioRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)

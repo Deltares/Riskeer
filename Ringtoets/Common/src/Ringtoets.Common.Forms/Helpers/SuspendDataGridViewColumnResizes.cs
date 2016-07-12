@@ -17,6 +17,10 @@ namespace Ringtoets.Common.Forms.Helpers
         private readonly DataGridViewColumn column;
         private readonly DataGridViewAutoSizeColumnMode originalValue;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="SuspendDataGridViewColumnResizes"/>.
+        /// </summary>
+        /// <param name="columnToSuspend">The column to suspend.</param>
         public SuspendDataGridViewColumnResizes(DataGridViewColumn columnToSuspend)
         {
             column = columnToSuspend;

@@ -200,26 +200,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 EmptyProbabilityAssessmentOutputContextMenuStrip);
         }
 
-        private static bool CloseScenariosViewForData(GrassCoverErosionInwardsScenariosView view, object removedData)
-        {
-            var assessmentSection = removedData as IAssessmentSection;
-            if (assessmentSection != null)
-            {
-                return assessmentSection.GetFailureMechanisms()
-                                        .OfType<GrassCoverErosionInwardsFailureMechanism>()
-                                        .Any(fm => ReferenceEquals(view.Data, fm.CalculationsGroup));
-            }
-
-            var coverErosionInwardsFailureMechanism = removedData as GrassCoverErosionInwardsFailureMechanism;
-            if (coverErosionInwardsFailureMechanism != null)
-            {
-                return ReferenceEquals(view.Data, coverErosionInwardsFailureMechanism.CalculationsGroup);
-            }
-
-            var coverErosionInwardsFailureMechanismContext = removedData as GrassCoverErosionInwardsFailureMechanismContext;
-            return coverErosionInwardsFailureMechanismContext != null && ReferenceEquals(view.Data, coverErosionInwardsFailureMechanismContext.WrappedData.CalculationsGroup);
-        }
-
         private void CalculateAll(GrassCoverErosionInwardsFailureMechanism failureMechanism, IEnumerable<GrassCoverErosionInwardsCalculation> calculations, IAssessmentSection assessmentSection)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations.Select(calc => new GrassCoverErosionInwardsCalculationActivity(calc,
@@ -248,6 +228,31 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             return null;
         }
+
+        #region GrassCoverErosionInwardsScenariosView ViewInfo
+
+        private static bool CloseScenariosViewForData(GrassCoverErosionInwardsScenariosView view, object removedData)
+        {
+            var failureMechanism = removedData as GrassCoverErosionInwardsFailureMechanism;
+
+            var failureMechanismContext = removedData as GrassCoverErosionInwardsFailureMechanismContext;
+            if (failureMechanismContext != null)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+
+            var assessmentSection = removedData as IAssessmentSection; 
+            if (assessmentSection != null)
+            {
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<GrassCoverErosionInwardsFailureMechanism>()
+                                                    .FirstOrDefault();
+            }
+
+            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
+        }
+
+        #endregion
 
         #region GrassCoverErosionInwardsFailureMechanismResultView ViewInfo
 

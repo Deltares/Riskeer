@@ -340,10 +340,6 @@ namespace Ringtoets.Piping.Forms.Views
             objectCollection.AddRange(comboBoxItems);
         }
 
-        #region Nested types
-
-        #endregion
-
         #region Data sources
 
         private void UpdateDataGridViewDataSource()

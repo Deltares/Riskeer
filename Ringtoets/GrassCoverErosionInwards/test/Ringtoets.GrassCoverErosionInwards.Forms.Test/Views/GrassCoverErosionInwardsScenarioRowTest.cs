@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
     public class GrassCoverErosionInwardsScenarioRowTest
     {
         [Test]
-        public void ParameteredConstructor_ValidValue_ExpectedValues()
+        public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
             var section = new FailureMechanismSection("testName", new[]
@@ -59,8 +59,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         public void ParameterdConstructor_SectionResultIsNull_ThrowArgumentNullException()
         {
-            // Setup
-
             // Call
             TestDelegate call = () => new GrassCoverErosionInwardsScenarioRow(null);
 
@@ -90,6 +88,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Assert
             Assert.AreSame(calculation, row.Calculation);
             Assert.AreSame(calculation, sectionResult.Calculation);
+
+
         }
 
         [Test]

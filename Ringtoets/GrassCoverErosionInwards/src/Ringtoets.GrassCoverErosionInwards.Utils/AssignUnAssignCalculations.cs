@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -38,8 +39,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/> containing the 
         /// <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects.</param>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/>.</param>
+        /// <exception cref="ArgumentNullException">When any input parameter is <c>null</c>.</exception>
         public static void Update(GrassCoverErosionInwardsFailureMechanism failureMechanism, GrassCoverErosionInwardsCalculation calculation)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+            if (calculation == null)
+            {
+                throw new ArgumentNullException("calculation");
+            }
+
             // The FailureMechanismSection which contains the calculation whose dikeprofile has been updated.
             FailureMechanismSection failureMechanismSection = GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(failureMechanism.SectionResults, calculation);
 

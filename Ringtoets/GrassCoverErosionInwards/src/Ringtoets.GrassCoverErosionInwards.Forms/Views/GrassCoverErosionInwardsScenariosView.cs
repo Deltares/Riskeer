@@ -120,8 +120,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             base.Dispose(disposing);
         }
 
-        //private DataGridViewControl DataGridViewControl { get; set; }
-
         private void AddDataGridColumns()
         {
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<GrassCoverErosionInwardsScenarioRow>(sr => sr.Name),
@@ -150,9 +148,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             using (new SuspendDataGridViewColumnResizes(dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex)))
             {
                 var columnItems = ((DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex)).Items;
-                columnItems.Clear();
                 var items = data.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>().Select(c => new DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>(c));
-                columnItems.AddRange(items.Cast<object>().ToArray());
+                SetItemsOnObjectCollection(columnItems, items.Cast<object>().ToArray());
             }
 
             dataGridViewControl.SetDataSource(FailureMechanism.SectionResults.Select(sectionResult => new GrassCoverErosionInwardsScenarioRow(sectionResult)).ToList());
@@ -189,9 +186,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
 
             var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[calculationsColumnIndex];
+            SetItemsOnObjectCollection(cell.Items, items.Cast<object>().ToArray());
+        }
 
-            cell.Items.Clear();
-            cell.Items.AddRange(items.Cast<object>().ToArray());
+        private static void SetItemsOnObjectCollection(DataGridViewComboBoxCell.ObjectCollection objectCollection, object[] comboBoxItems)
+        {
+            objectCollection.Clear();
+            objectCollection.AddRange(comboBoxItems);
         }
     }
 }

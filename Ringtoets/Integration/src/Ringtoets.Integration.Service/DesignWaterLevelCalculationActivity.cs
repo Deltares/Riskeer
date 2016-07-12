@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Calculation.Activities;
@@ -49,8 +50,18 @@ namespace Ringtoets.Integration.Service
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> data which is used for the calculation.</param>
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryDatabase"/> to perform the calculation for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public DesignWaterLevelCalculationActivity(IAssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException("assessmentSection");
+            }
+            if (hydraulicBoundaryLocation == null)
+            {
+                throw new ArgumentNullException("hydraulicBoundaryLocation");
+            }
+
             this.assessmentSection = assessmentSection;
             this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
         }

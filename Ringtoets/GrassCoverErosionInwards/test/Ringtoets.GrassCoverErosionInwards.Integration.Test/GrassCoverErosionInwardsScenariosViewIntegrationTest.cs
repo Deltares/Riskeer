@@ -87,9 +87,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 IntegrationTestHelper.ImportReferenceLine(assessmentSection);
                 IntegrationTestHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.GrassCoverErosionInwards);
 
+                CalculationGroup calculationsGroup = assessmentSection.GrassCoverErosionInwards.CalculationsGroup;
                 var view = new GrassCoverErosionInwardsScenariosView()
                 {
-                    Data = assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
+                    Data = calculationsGroup,
                     FailureMechanism = assessmentSection.GrassCoverErosionInwards
                 };
                 form.Controls.Add(view);
@@ -104,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 // Call
                 foreach (var profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
                 {
-                    assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
+                    calculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
                     {
                         Name = NamingHelper.GetUniqueName(((CalculationGroup) view.Data).Children, profile.Name, c => c.Name),
                         InputParameters =
@@ -113,12 +114,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                         }
                     });
                 }
-                assessmentSection.GrassCoverErosionInwards.CalculationsGroup.NotifyObservers();
+                calculationsGroup.NotifyObservers();
 
                 // Assert
-                Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridView.Rows[13].Cells[1]).Items.Count);
-                Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridView.Rows[13].Cells[1]).Items[0].ToString());
-                Assert.AreEqual("profiel63p1ID", ((DataGridViewComboBoxCell) dataGridView.Rows[13].Cells[1]).Items[1].ToString());
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[13].Cells[1];
+                Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridViewCell).Items.Count);
+                Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
+                Assert.AreEqual("profiel63p1ID", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
             }
         }
 
@@ -132,9 +134,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 IntegrationTestHelper.ImportReferenceLine(assessmentSection);
                 IntegrationTestHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.GrassCoverErosionInwards);
 
+                CalculationGroup calculationsGroup = assessmentSection.GrassCoverErosionInwards.CalculationsGroup;
                 var view = new GrassCoverErosionInwardsScenariosView()
                 {
-                    Data = assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
+                    Data = calculationsGroup,
                     FailureMechanism = assessmentSection.GrassCoverErosionInwards
                 };
                 form.Controls.Add(view);
@@ -148,28 +151,29 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
                 foreach (var profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
                 {
-                    assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
+                    calculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
                     {
-                        Name = NamingHelper.GetUniqueName(assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children, profile.Name, c => c.Name),
+                        Name = NamingHelper.GetUniqueName(calculationsGroup.Children, profile.Name, c => c.Name),
                         InputParameters =
                         {
                             DikeProfile = profile
                         }
                     });
                 }
-                assessmentSection.GrassCoverErosionInwards.CalculationsGroup.NotifyObservers();
+                calculationsGroup.NotifyObservers();
 
                 // Call
-                foreach (var calculationBase in assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children)
+                foreach (var calculationBase in calculationsGroup.Children)
                 {
                     var calculation = (GrassCoverErosionInwardsCalculation) calculationBase;
                     calculation.Name += "_changed";
                 }
 
                 // Assert
-                Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridView.Rows[13].Cells[1]).Items.Count);
-                Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridView.Rows[13].Cells[1]).Items[0].ToString());
-                Assert.AreEqual("profiel63p1ID_changed", ((DataGridViewComboBoxCell) dataGridView.Rows[13].Cells[1]).Items[1].ToString());
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[13].Cells[1];
+                Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridViewCell).Items.Count);
+                Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
+                Assert.AreEqual("profiel63p1ID_changed", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
             }
         }
 
@@ -216,10 +220,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 calculationsGroup.NotifyObservers();
 
                 // Assert
-                Assert.AreEqual(3, ((DataGridViewComboBoxCell) dataGridView.Rows[13].Cells[1]).Items.Count);
-                Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridView.Rows[13].Cells[1]).Items[0].ToString());
-                Assert.AreEqual("profiel63p1ID", ((DataGridViewComboBoxCell) dataGridView.Rows[13].Cells[1]).Items[1].ToString());
-                Assert.AreEqual("profiel63p2ID", ((DataGridViewComboBoxCell) dataGridView.Rows[13].Cells[1]).Items[2].ToString());
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[13].Cells[1];
+                Assert.AreEqual(3, ((DataGridViewComboBoxCell) dataGridViewCell).Items.Count);
+                Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
+                Assert.AreEqual("profiel63p1ID", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
+                Assert.AreEqual("profiel63p2ID", ((DataGridViewComboBoxCell) dataGridViewCell).Items[2].ToString());
             }
         }
     }

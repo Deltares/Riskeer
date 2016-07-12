@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Service;
 using Ringtoets.Piping.Data;
 
@@ -43,8 +44,18 @@ namespace Ringtoets.Piping.Service
         /// <param name="norm">The return period to assess for.</param>
         /// <param name="contribution">The contribution of piping as a percentage (0-100) to the total of the failure probability
         /// of the assessment section.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public PipingCalculationActivity(PipingCalculation calculation, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput, int norm, double contribution)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException("calculation");
+            }
+            if (pipingProbabilityAssessmentInput == null)
+            {
+                throw new ArgumentNullException("pipingProbabilityAssessmentInput");
+            }
+
             this.calculation = calculation;
             this.pipingProbabilityAssessmentInput = pipingProbabilityAssessmentInput;
             this.norm = norm;

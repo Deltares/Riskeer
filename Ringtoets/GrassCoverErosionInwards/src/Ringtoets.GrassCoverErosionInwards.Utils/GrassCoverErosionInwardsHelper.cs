@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -41,18 +42,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// <returns>A <see cref="Dictionary{K, V}"/> containing a <see cref="IList{T}"/> 
         /// of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects 
         /// for each section name which has calculations.</returns>
+        /// <exception cref="ArgumentNullException">When any input parameter is <c>null</c>.</exception>
         public static Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> CollectCalculationsPerSegment(
             IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
             IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
-            var calculationsPerSegment = new Dictionary<string, IList<GrassCoverErosionInwardsCalculation>>();
-
-            if (sectionResults == null || calculations == null)
+            if (sectionResults == null)
             {
-                return calculationsPerSegment;
+                throw new ArgumentNullException("sectionResults");
+            }
+
+            if (calculations == null)
+            {
+                throw new ArgumentNullException("calculations");
             }
 
             SectionSegments[] sectionSegments = MakeSectionSegments(sectionResults);
+
+            var calculationsPerSegment = new Dictionary<string, IList<GrassCoverErosionInwardsCalculation>>();
 
             foreach (var calculation in calculations)
             {
@@ -74,13 +81,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// whose <see cref="FailureMechanismSection"/> are considered.</param>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/>.</param>
         /// <returns>The containing <see cref="FailureMechanismSection"/>, or <c>null</c>.</returns>
+        /// <exception cref="ArgumentNullException">When any input parameter is <c>null</c>.</exception>
         public static FailureMechanismSection FailureMechanismSectionForCalculation(
             IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
             GrassCoverErosionInwardsCalculation calculation)
         {
-            if (sectionResults == null || calculation == null)
+            if (sectionResults == null)
             {
-                return null;
+                throw new ArgumentNullException("sectionResults");
+            }
+
+            if (calculation == null)
+            {
+                throw new ArgumentNullException("calculation");
             }
 
             SectionSegments[] sectionSegments = MakeSectionSegments(sectionResults);
