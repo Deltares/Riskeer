@@ -103,12 +103,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
 
         private static SectionSegments[] MakeSectionSegments(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults)
         {
-            SectionSegments[] sectionSegments =
-                (from sectionResult in sectionResults
-                 let section = sectionResult.Section
-                 select new SectionSegments(section)
-                ).ToArray();
-            return sectionSegments;
+            return sectionResults.Select(sr => new SectionSegments(sr.Section)).ToArray();
         }
 
         private static FailureMechanismSection FindSectionForCalculation(SectionSegments[] sectionSegmentsCollection, GrassCoverErosionInwardsCalculation calculation)

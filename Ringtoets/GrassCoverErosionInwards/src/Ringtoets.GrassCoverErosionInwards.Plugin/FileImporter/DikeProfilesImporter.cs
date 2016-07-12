@@ -25,7 +25,6 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
@@ -261,7 +260,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
                         dikeProfileData.Add(data);
                     }
                 }
-                // No need to catch ArgumentException, as prflFilePaths are valid by construction.
+                    // No need to catch ArgumentException, as prflFilePaths are valid by construction.
                 catch (CriticalFileReadException exception)
                 {
                     log.Error(exception.Message);
@@ -349,7 +348,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
 
         private static bool IsReferenceLineAvailable(object targetItem)
         {
-            return ((DikeProfilesContext)targetItem).ParentAssessmentSection.ReferenceLine != null;
+            return ((DikeProfilesContext) targetItem).ParentAssessmentSection.ReferenceLine != null;
         }
 
         private double GetDistanceToReferenceLine(Point2D point, ReferenceLine referenceLine)
