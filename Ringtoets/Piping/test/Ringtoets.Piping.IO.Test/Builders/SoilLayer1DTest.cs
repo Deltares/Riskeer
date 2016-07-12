@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         [TestCase(1.0)]
         [TestCase(1.0+1e-12)]
         [TestCase(2.0)]
-        public void AsPipingSoilLayer_PropertiesSetWithDifferentIsAquifer_PropertiesAreSetInPipingSoilLayer(double isAquifer)
+        public void AsPipingSoilLayer_PropertiesSetWithDifferentLayerParameters_PropertiesAreSetInPipingSoilLayer(double isAquifer)
         {
             // Setup
             var random = new Random(22);
@@ -77,18 +77,18 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var dryUnitWeight = random.NextDouble();
             var color = Color.BlanchedAlmond;
 
-            var belowPhreaticLevelDistribution = random.Next();
-            var belowPhreaticLevelShift = random.NextDouble();
+            var belowPhreaticLevelDistribution = 3;
+            var belowPhreaticLevelShift = 0;
             var belowPhreaticLevelMean = random.NextDouble();
             var belowPhreaticLevelDeviation = random.NextDouble();
 
-            var diameterD70Distribution = random.Next();
-            var diameterD70Shift = random.NextDouble();
+            var diameterD70Distribution = 3;
+            var diameterD70Shift = 0;
             var diameterD70Mean = random.NextDouble();
             var diameterD70Deviation = random.NextDouble();
 
-            var permeabilityDistribution = random.Next();
-            var permeabilityShift = random.NextDouble();
+            var permeabilityDistribution = 3;
+            var permeabilityShift = 0;
             var permeabilityMean = random.NextDouble();
             var permeabilityDeviation = random.NextDouble();
 
@@ -123,7 +123,12 @@ namespace Ringtoets.Piping.IO.Test.Builders
             Assert.AreEqual(top, result.Top);
             Assert.AreEqual(isAquifer.Equals(1.0), result.IsAquifer);
             Assert.AreEqual(abovePhreaticLevel, result.AbovePhreaticLevel);
-            Assert.AreEqual(belowPhreaticLevelMean, result.BelowPhreaticLevel);
+            Assert.AreEqual(belowPhreaticLevelMean, result.BelowPhreaticLevelMean);
+            Assert.AreEqual(belowPhreaticLevelDeviation, result.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(diameterD70Mean, result.DiameterD70Mean);
+            Assert.AreEqual(diameterD70Deviation, result.DiameterD70Deviation);
+            Assert.AreEqual(permeabilityMean, result.PermeabilityMean);
+            Assert.AreEqual(permeabilityDeviation, result.PermeabilityDeviation);
             Assert.AreEqual(dryUnitWeight, result.DryUnitWeight);
             Assert.AreEqual(materialName, result.MaterialName);
             Assert.AreEqual(Color.FromArgb(color.ToArgb()), result.Color);

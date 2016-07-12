@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.IO.Builders
                     layers.Add(layer);
                 }
             }
-            catch (SoilLayer2DConversionException e)
+            catch (SoilLayerConversionException e)
             {
                 throw new SoilProfileBuilderException(e.Message, e);
             }

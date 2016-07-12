@@ -105,7 +105,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             const string profileName = "<very cool name>";
             const string path = "A";
 
-            SetExpectations(0, profileName, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, string.Empty, 0);
+            SetExpectations(0, profileName, 0.0, 0.0, 1.0, string.Empty, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
             reader.Expect(r => r.Path).Return(path);
 
             mocks.ReplayAll();
@@ -155,7 +155,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Setup
             var bottom = 1.1;
             var top = 1.1;
-            SetExpectations(1, "", bottom, top, null, null, null, null, null, null);
+            SetExpectations(1, "", bottom, top, null, null, null, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 
             mocks.ReplayAll();
 
@@ -169,9 +169,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var pipingSoilLayer = profile.Layers.First();
 
             Assert.AreEqual(top, pipingSoilLayer.Top);
-            Assert.IsNull(pipingSoilLayer.BelowPhreaticLevel);
-            Assert.IsNull(pipingSoilLayer.AbovePhreaticLevel);
-            Assert.IsNull(pipingSoilLayer.DryUnitWeight);
             Assert.IsEmpty(pipingSoilLayer.MaterialName);
             Assert.AreEqual(Color.Empty, pipingSoilLayer.Color);
             Assert.IsFalse(pipingSoilLayer.IsAquifer);
@@ -187,15 +184,36 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             var random = new Random(22);
-            var belowPhreaticLevel = random.NextDouble();
             var abovePhreaticLevel = random.NextDouble();
             var dryUnitWeight = random.NextDouble();
-            var top = random.NextDouble();
             var bottom = random.NextDouble();
+            var top = bottom + random.NextDouble();
             string materialName = "material";
             var color = Color.FromArgb(Color.DarkKhaki.ToArgb());
 
-            SetExpectations(layerCount, "", bottom, top, 1.0, belowPhreaticLevel, abovePhreaticLevel, dryUnitWeight, materialName, color.ToArgb());
+            var belowPhreaticLevelMean = random.NextDouble();
+            var belowPhreaticLevelDeviation = random.NextDouble();
+            var diameterD70Mean = random.NextDouble();
+            var diameterD70Deviation = random.NextDouble();
+            var permeabilityMean = random.NextDouble();
+            var permeabilityDeviation = random.NextDouble();
+
+            SetExpectations(
+                layerCount, 
+                "", 
+                bottom, 
+                top, 
+                1.0, 
+                materialName, 
+                color.ToArgb(), 
+                abovePhreaticLevel, 
+                dryUnitWeight, 
+                belowPhreaticLevelMean, 
+                belowPhreaticLevelDeviation,
+                diameterD70Mean,
+                diameterD70Deviation,
+                permeabilityMean, 
+                permeabilityDeviation);
 
             mocks.ReplayAll();
 
@@ -209,29 +227,49 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             var pipingSoilLayer = profile.Layers.First();
             Assert.AreEqual(top, pipingSoilLayer.Top);
-            Assert.AreEqual(belowPhreaticLevel, pipingSoilLayer.BelowPhreaticLevel);
             Assert.AreEqual(abovePhreaticLevel, pipingSoilLayer.AbovePhreaticLevel);
             Assert.AreEqual(dryUnitWeight, pipingSoilLayer.DryUnitWeight);
             Assert.IsTrue(pipingSoilLayer.IsAquifer);
             Assert.AreEqual(materialName, pipingSoilLayer.MaterialName);
             Assert.AreEqual(color, pipingSoilLayer.Color);
+
+            Assert.AreEqual(belowPhreaticLevelMean, pipingSoilLayer.BelowPhreaticLevelMean);
+            Assert.AreEqual(belowPhreaticLevelDeviation, pipingSoilLayer.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(diameterD70Mean, pipingSoilLayer.DiameterD70Mean);
+            Assert.AreEqual(diameterD70Deviation, pipingSoilLayer.DiameterD70Deviation);
+            Assert.AreEqual(permeabilityMean, pipingSoilLayer.PermeabilityMean);
+            Assert.AreEqual(permeabilityDeviation, pipingSoilLayer.PermeabilityDeviation);
+
             mocks.VerifyAll();
         }
 
-        private void SetExpectations(int layerCount, string profileName, double bottom, double top, double? isAquifer, double? belowPhreaticLevel, double? abovePhreaticLevel, double? dryUnitWeight, string materialName, double? color)
+        private void SetExpectations(int layerCount, string profileName, double bottom, double top, double? isAquifer, string materialName, double? color, double abovePhreaticLevel, double dryUnitWeight, double belowPhreaticLevelMean, double belowPhreaticLevelDeviation, double diameterD70Mean, double diameterD70Deviation, double permeabilityMean, double permeabilityDeviation)
         {
             reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(layerCount).Repeat.Any();
             reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return(profileName).Repeat.Any();
             reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.Bottom)).Return(bottom).Repeat.Any();
             reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.Top)).Return(top).Repeat.Any();
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.IsAquifer)).Return(isAquifer).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.AbovePhreaticLevel)).Return(abovePhreaticLevel).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.DryUnitWeight)).Return(dryUnitWeight).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.BelowPhreaticLevelMean)).Return(belowPhreaticLevel).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.DiameterD70Mean)).Return(abovePhreaticLevel).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.PermeabilityMean)).Return(dryUnitWeight).Repeat.Any();
             reader.Expect(r => r.ReadOrDefault<string>(SoilProfileDatabaseColumns.MaterialName)).Return(materialName).Repeat.Any();
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.Color)).Return(color).Repeat.Any();
+
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.AbovePhreaticLevel)).Return(abovePhreaticLevel).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.DryUnitWeight)).Return(dryUnitWeight).Repeat.Any();
+
+            var logNormalDistribution = 3;
+            var logNormalShift = 0;
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.BelowPhreaticLevelDistribution)).Return(logNormalDistribution).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.BelowPhreaticLevelShift)).Return(logNormalShift).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.BelowPhreaticLevelMean)).Return(belowPhreaticLevelMean).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.BelowPhreaticLevelDeviation)).Return(belowPhreaticLevelDeviation).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.DiameterD70Distribution)).Return(logNormalDistribution).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.DiameterD70Shift)).Return(logNormalShift).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.DiameterD70Mean)).Return(diameterD70Mean).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.DiameterD70Deviation)).Return(diameterD70Deviation).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.PermeabilityDistribution)).Return(logNormalDistribution).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.PermeabilityShift)).Return(logNormalShift).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.PermeabilityMean)).Return(permeabilityMean).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.PermeabilityDeviation)).Return(permeabilityDeviation).Repeat.Any();
         }
     }
 }

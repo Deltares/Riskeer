@@ -41,6 +41,14 @@ namespace Ringtoets.Piping.Primitives
         {
             Top = top;
             MaterialName = string.Empty;
+            AbovePhreaticLevel = double.NaN;
+            DryUnitWeight = double.NaN;
+            BelowPhreaticLevelMean = double.NaN;
+            BelowPhreaticLevelDeviation = double.NaN;
+            DiameterD70Mean = double.NaN;
+            DiameterD70Deviation = double.NaN;
+            PermeabilityMean = double.NaN;
+            PermeabilityDeviation = double.NaN;
         }
 
         /// <summary>
@@ -57,18 +65,50 @@ namespace Ringtoets.Piping.Primitives
         /// Gets or sets the volumic weight of the <see cref="PipingSoilLayer"/> above the phreatic level.
         /// [kN/m³]
         /// </summary>
-        public double? AbovePhreaticLevel { get; set; }
-
-        /// <summary>
-        /// Gets or sets the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
-        /// [kN/m³]
-        /// </summary>
-        public double? BelowPhreaticLevel { get; set; }
+        public double AbovePhreaticLevel { get; set; }
 
         /// <summary>
         /// Gets or sets the dry unit weight for the <see cref="PipingSoilLayer"/>.
         /// </summary>
-        public double? DryUnitWeight { get; set; }
+        public double DryUnitWeight { get; set; }
+
+        /// <summary>
+        /// Gets or sets mean of the distrubtion for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public double BelowPhreaticLevelMean { get; set; }
+
+        /// <summary>
+        /// Gets or sets deviation of the distrubtion for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public double BelowPhreaticLevelDeviation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the mean of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
+        /// on which the formula of Sellmeijer has been fit.
+        /// [m]
+        /// </summary>
+        public double DiameterD70Mean { get; set; }
+
+        /// <summary>
+        /// Gets or sets the deviation of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
+        /// on which the formula of Sellmeijer has been fit.
+        /// [m]
+        /// </summary>
+        public double DiameterD70Deviation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the mean of the distribution for the the Darcy-speed with which water flows through the aquifer layer.
+        /// [m/s]
+        /// </summary>
+        public double PermeabilityMean { get; set; }
+
+        /// <summary>
+        /// Gets or sets the deviation of the distribution for the Darcy-speed with which water flows through the aquifer layer.
+        /// [m/s]
+        /// </summary>
+        public double PermeabilityDeviation { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the material that was assigned to the <see cref="PipingSoilLayer"/>.

@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => reader.Read(xmlDoc);
 
             // Assert
-            var exception = Assert.Throws<SoilLayer2DConversionException>(test);
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, exception.Message);
         }
 
@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => reader.Read(xmlDoc);
 
             // Assert
-            var exception = Assert.Throws<SoilLayer2DConversionException>(test);
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, exception.Message);
         }
 
@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => reader.Read(xmlDoc);
 
             // Assert
-            var exception = Assert.Throws<SoilLayer2DConversionException>(test);
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, exception.Message);
         }
 
@@ -104,7 +104,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => reader.Read(xmlDoc);
 
             // Assert
-            var exception = Assert.Throws<SoilLayer2DConversionException>(test);
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, exception.Message);
         }
 
@@ -142,7 +142,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => reader.Read(xmlDoc);
 
             // Assert
-            var exception = Assert.Throws<SoilLayer2DConversionException>(test);
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(Resources.SoilLayer2DReader_Could_not_parse_point_location, exception.Message);
         }
 
@@ -161,7 +161,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => reader.Read(xmlDoc);
 
             // Assert
-            var exception = Assert.Throws<SoilLayer2DConversionException>(test);
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(Resources.SoilLayer2DReader_Could_not_parse_point_location, exception.Message);
         }
 
@@ -268,7 +268,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => { reader.Read(xmlDoc); };
 
             // Assert
-            Assert.Throws<SoilLayer2DConversionException>(test);
+            Assert.Throws<SoilLayerConversionException>(test);
         }
 
         [Test]
@@ -282,7 +282,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => { reader.Read(xmlDoc); };
 
             // Assert
-            Assert.Throws<SoilLayer2DConversionException>(test);
+            Assert.Throws<SoilLayerConversionException>(test);
         }
 
         [Test]

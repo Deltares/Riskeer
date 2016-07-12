@@ -41,12 +41,22 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.NotNull(layer);
             Assert.AreEqual(top, layer.Top);
-            Assert.IsNull(layer.AbovePhreaticLevel);
-            Assert.IsNull(layer.BelowPhreaticLevel);
-            Assert.IsNull(layer.DryUnitWeight);
             Assert.IsFalse(layer.IsAquifer);
             Assert.IsEmpty(layer.MaterialName);
             Assert.AreEqual(Color.Empty, layer.Color);
+
+            Assert.IsNaN(layer.AbovePhreaticLevel);
+            Assert.IsNaN(layer.DryUnitWeight);
+
+            Assert.IsNaN(layer.BelowPhreaticLevelMean);
+            Assert.IsNaN(layer.BelowPhreaticLevelDeviation);
+
+            Assert.IsNaN(layer.DiameterD70Mean);
+            Assert.IsNaN(layer.DiameterD70Deviation);
+
+            Assert.IsNaN(layer.PermeabilityMean);
+            Assert.IsNaN(layer.PermeabilityDeviation);
+
         }
 
         [Test]

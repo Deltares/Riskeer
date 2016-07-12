@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Assert
             var exception = Assert.Throws<SoilProfileBuilderException>(test);
-            Assert.IsInstanceOf<SoilLayer2DConversionException>(exception.InnerException);
+            Assert.IsInstanceOf<SoilLayerConversionException>(exception.InnerException);
             var message = string.Format("Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {0}.", atX);
             Assert.AreEqual(message, exception.Message);
         }

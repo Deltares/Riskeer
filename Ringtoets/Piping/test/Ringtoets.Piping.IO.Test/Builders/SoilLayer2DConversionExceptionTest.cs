@@ -32,10 +32,10 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void DefaultConstructor_InnerExceptionNullAndMessageDefault()
         {
             // Setup
-            var expectedMessage = String.Format("Exception of type '{0}' was thrown.", typeof(SoilLayer2DConversionException).FullName);
+            var expectedMessage = String.Format("Exception of type '{0}' was thrown.", typeof(SoilLayerConversionException).FullName);
 
             // Call
-            var exception = new SoilLayer2DConversionException();
+            var exception = new SoilLayerConversionException();
 
             // Assert
             Assert.IsNull(exception.InnerException);
@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var expectedMessage = "Some exception message";
 
             // Call
-            var exception = new SoilLayer2DConversionException(expectedMessage);
+            var exception = new SoilLayerConversionException(expectedMessage);
 
             // Assert
             Assert.IsNull(exception.InnerException);
@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var expectedInnerException = new Exception();
 
             // Call
-            var exception = new SoilLayer2DConversionException(expectedMessage, expectedInnerException);
+            var exception = new SoilLayerConversionException(expectedMessage, expectedInnerException);
 
             // Assert
             Assert.AreSame(expectedInnerException, exception.InnerException);

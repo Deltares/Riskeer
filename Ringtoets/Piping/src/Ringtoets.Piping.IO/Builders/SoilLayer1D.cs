@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Drawing;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Builders
@@ -28,7 +27,7 @@ namespace Ringtoets.Piping.IO.Builders
     /// This class represents objects which were imported from a DSoilModel database. Instances of this class are transient and are not to be used
     /// once the DSoilModel database has been imported.
     /// </summary>
-    internal class SoilLayer1D
+    internal class SoilLayer1D : GenericSoilLayerParameters
     {
         /// <summary>
         /// Creates a new instance of <see cref="SoilLayer1D"/>.
@@ -49,120 +48,23 @@ namespace Ringtoets.Piping.IO.Builders
         public double? IsAquifer { get; set; }
 
         /// <summary>
-        /// Gets or sets the volumic weight of the <see cref="SoilLayer1D"/> above the phreatic level.
-        /// [kN/m³]
-        /// </summary>
-        public double? AbovePhreaticLevel { get; set; }
-
-        /// <summary>
-        /// Gets or sets the dry unit weight for the <see cref="SoilLayer1D"/>.
-        /// </summary>
-        public double? DryUnitWeight { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the material that was assigned to the <see cref="SoilLayer1D"/>.
-        /// </summary>
-        public string MaterialName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value representing a color that was used to represent the <see cref="SoilLayer1D"/>.
-        /// </summary>
-        public double? Color { get; set; }
-
-        /// <summary>
-        /// Gets or sets the distribution for the volumic weight of the <see cref="SoilLayer1D"/> below the 
-        /// phreatic level.
-        /// [kN/m³]
-        /// </summary>
-        public double? BelowPhreaticLevelDistribution { get; set; }
-
-        /// <summary>
-        /// Gets or sets the shift of the distribution for the volumic weight of the <see cref="SoilLayer1D"/> 
-        /// below the phreatic level.
-        /// [kN/m³]
-        /// </summary>
-        public double? BelowPhreaticLevelShift { get; set; }
-
-        /// <summary>
-        /// Gets or sets the mean of the distribution for the volumic weight of the <see cref="SoilLayer1D"/> 
-        /// below the phreatic level.
-        /// [kN/m³]
-        /// </summary>
-        public double? BelowPhreaticLevelMean { get; set; }
-
-        /// <summary>
-        /// Gets or sets the deviation of the distribution for the volumic weight of the <see cref="SoilLayer1D"/> below the phreatic level.
-        /// [kN/m³]
-        /// </summary>
-        public double? BelowPhreaticLevelDeviation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the distribution for the mean diameter of small scale tests applied to different kinds of sand, on which the 
-        /// formula of Sellmeijer has been fit.
-        /// [m]
-        /// </summary>
-        public double? DiameterD70Distribution { get; set; }
-
-        /// <summary>
-        /// Gets or sets the shift of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
-        /// on which the formula of Sellmeijer has been fit.
-        /// [m]
-        /// </summary>
-        public double? DiameterD70Shift { get; set; }
-
-        /// <summary>
-        /// Gets or sets the mean of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
-        /// on which the formula of Sellmeijer has been fit.
-        /// [m]
-        /// </summary>
-        public double? DiameterD70Mean { get; set; }
-
-        /// <summary>
-        /// Gets or sets the deviation of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
-        /// on which the formula of Sellmeijer has been fit.
-        /// [m]
-        /// </summary>
-        public double? DiameterD70Deviation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the distribution for the Darcy-speed with which water flows through the aquifer layer.
-        /// [m/s]
-        /// </summary>
-        public double? PermeabilityDistribution { get; set; }
-
-        /// <summary>
-        /// Gets or sets the shift of the distribution for the Darcy-speed with which water flows through the aquifer layer.
-        /// [m/s]
-        /// </summary>
-        public double? PermeabilityShift { get; set; }
-
-        /// <summary>
-        /// Gets or sets the mean of the distribution for the the Darcy-speed with which water flows through the aquifer layer.
-        /// [m/s]
-        /// </summary>
-        public double? PermeabilityMean { get; set; }
-
-        /// <summary>
-        /// Gets or sets the deviation of the distribution for the Darcy-speed with which water flows through the aquifer layer.
-        /// [m/s]
-        /// </summary>
-        public double? PermeabilityDeviation { get; set; }
-
-        /// <summary>
         /// Constructs a (1D) <see cref="PipingSoilLayer"/> based on the properties set for the <see cref="SoilLayer1D"/>.
         /// </summary>
         /// <returns>The <see cref="PipingSoilLayer"/> with properties corresponding to those set on the <see cref="SoilLayer1D"/>.</returns>
         internal PipingSoilLayer AsPipingSoilLayer()
         {
-            return new PipingSoilLayer(Top)
+            ValidateFieldsForPiping();
+
+            var pipingSoilLayer = new PipingSoilLayer(Top)
             {
-                AbovePhreaticLevel = AbovePhreaticLevel,
-                BelowPhreaticLevel = BelowPhreaticLevelMean,
-                DryUnitWeight = DryUnitWeight,
                 IsAquifer = IsAquifer.HasValue && IsAquifer.Value.Equals(1.0),
                 MaterialName = MaterialName ?? string.Empty,
                 Color = SoilLayerColorConversionHelper.ColorFromNullableDouble(Color)
             };
+
+            SetOptionalFields(pipingSoilLayer);
+
+            return pipingSoilLayer;
         }
     }
 }

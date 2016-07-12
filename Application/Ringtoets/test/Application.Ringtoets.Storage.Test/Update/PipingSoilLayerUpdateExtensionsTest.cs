@@ -139,7 +139,7 @@ namespace Application.Ringtoets.Storage.Test.Update
                 StorageId = 1,
                 IsAquifer = true,
                 AbovePhreaticLevel = 4.4,
-                BelowPhreaticLevel = null,
+                BelowPhreaticLevelMean = double.NaN,
                 DryUnitWeight = 5.5,
                 Color = Color.DarkKhaki,
                 MaterialName = "NewName"

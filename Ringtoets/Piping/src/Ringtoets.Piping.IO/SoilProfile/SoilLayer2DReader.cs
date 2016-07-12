@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <summary>
         /// Constructs an instance of <see cref="SoilLayer2DReader"/>.
         /// </summary>
-        /// <exception cref="SoilLayer2DConversionException">Thrown when the XML-schema 
+        /// <exception cref="SoilLayerConversionException">Thrown when the XML-schema 
         /// could not be loaded.</exception>
         internal SoilLayer2DReader()
         {
@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// of a <see cref="PipingSoilLayer"/> in an XML document.</param>
         /// <returns>A new <see cref="SoilLayer2D"/> with information taken from the XML document.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is null.</exception>
-        /// <exception cref="SoilLayer2DConversionException">Thrown when:
+        /// <exception cref="SoilLayerConversionException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="geometry"/> is not valid XML.</item>
         /// <item><paramref name="geometry"/> does not pass schema validation.</item>
@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (XmlException e)
             {
-                throw new SoilLayer2DConversionException(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, e);
+                throw new SoilLayerConversionException(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, e);
             }
         }
 
@@ -101,7 +101,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// in an XML document.</param>
         /// <returns>A new <see cref="SoilLayer2D"/> with information taken from the XML document.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is null.</exception>
-        /// <exception cref="SoilLayer2DConversionException">Thrown when:
+        /// <exception cref="SoilLayerConversionException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="geometry"/> is not valid XML.</item>
         /// <item><paramref name="geometry"/> does not pass schema validation.</item>
@@ -119,7 +119,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// Validates the <paramref name="document"/> to the <see cref="schema"/>.
         /// </summary>
         /// <param name="document">The <see cref="XDocument"/> to validate.</param>
-        /// <exception cref="SoilLayer2DConversionException">Thrown when the validation failed.
+        /// <exception cref="SoilLayerConversionException">Thrown when the validation failed.
         /// </exception>
         private void ValidateToSchema(XDocument document)
         {
@@ -129,7 +129,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (XmlSchemaValidationException e)
             {
-                throw new SoilLayer2DConversionException(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, e);
+                throw new SoilLayerConversionException(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, e);
             }
         }
 
@@ -146,7 +146,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// Parses the XML element to create a 2D soil layer.
         /// </summary>
         /// <param name="geometry">The geometry.</param>
-        /// <exception cref="SoilLayer2DConversionException">XML for inner or outer geometry loops is invalid.</exception>
+        /// <exception cref="SoilLayerConversionException">XML for inner or outer geometry loops is invalid.</exception>
         private SoilLayer2D ParseLayer(XDocument geometry)
         {
             var pipingSoilLayer = new SoilLayer2D();
@@ -170,7 +170,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// a geometric loop.
         /// </summary>
         /// <param name="loop">The geometric loop element.</param>
-        /// <exception cref="SoilLayer2DConversionException">XML for any geometry curve is invalid.</exception>
+        /// <exception cref="SoilLayerConversionException">XML for any geometry curve is invalid.</exception>
         private IEnumerable<Segment2D> ParseGeometryLoop(XElement loop)
         {
             var loops = new Collection<Segment2D>();
@@ -187,7 +187,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// Parses the XML element to create a <see cref="Segment2D"/>.
         /// </summary>
         /// <param name="curve">The geometry curve element.</param>
-        /// <exception cref="SoilLayer2DConversionException">XML for geometry curve is invalid.</exception>
+        /// <exception cref="SoilLayerConversionException">XML for geometry curve is invalid.</exception>
         private Segment2D ParseGeometryCurve(XElement curve)
         {
             var headDefinition = curve.Element(headPointElementName);
@@ -199,14 +199,14 @@ namespace Ringtoets.Piping.IO.SoilProfile
                     ParsePoint(endDefinition)
                     );
             }
-            throw new SoilLayer2DConversionException(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml);
+            throw new SoilLayerConversionException(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml);
         }
 
         /// <summary>
         /// Parses the XML element to create a <see cref="Point2D"/>.
         /// </summary>
         /// <param name="point">The 2D point element.</param>
-        /// <exception cref="SoilLayer2DConversionException">When any of the following occurs:
+        /// <exception cref="SoilLayerConversionException">When any of the following occurs:
         /// <list type="bullet">
         /// <item>A coordinate value cannot be parsed.</item>
         /// <item>XML for 2D point is invalid.</item>
@@ -225,18 +225,18 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 }
                 catch (ArgumentNullException e)
                 {
-                    throw new SoilLayer2DConversionException(Resources.SoilLayer2DReader_Could_not_parse_point_location, e);
+                    throw new SoilLayerConversionException(Resources.SoilLayer2DReader_Could_not_parse_point_location, e);
                 }
                 catch (FormatException e)
                 {
-                    throw new SoilLayer2DConversionException(Resources.SoilLayer2DReader_Could_not_parse_point_location, e);
+                    throw new SoilLayerConversionException(Resources.SoilLayer2DReader_Could_not_parse_point_location, e);
                 }
                 catch (OverflowException e)
                 {
-                    throw new SoilLayer2DConversionException(Resources.SoilLayer2DReader_Could_not_parse_point_location, e);
+                    throw new SoilLayerConversionException(Resources.SoilLayer2DReader_Could_not_parse_point_location, e);
                 }
             }
-            throw new SoilLayer2DConversionException(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml);
+            throw new SoilLayerConversionException(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml);
         }
     }
 }

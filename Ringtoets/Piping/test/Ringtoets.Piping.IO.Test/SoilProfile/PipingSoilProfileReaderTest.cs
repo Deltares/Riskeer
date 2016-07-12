@@ -290,10 +290,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 const int expectedNumberOfLayers = 3;
                 Assert.AreEqual(expectedNumberOfLayers, profile.Layers.Count());
                 CollectionAssert.AreEqual(Enumerable.Repeat(false, expectedNumberOfLayers), profile.Layers.Select(l => l.IsAquifer));
-                IEnumerable<double?> nullValues = Enumerable.Repeat((double?) null, expectedNumberOfLayers).ToArray();
-                CollectionAssert.AreEqual(nullValues, profile.Layers.Select(l => l.AbovePhreaticLevel));
-                CollectionAssert.AreEqual(nullValues, profile.Layers.Select(l => l.BelowPhreaticLevel));
-                CollectionAssert.AreEqual(nullValues, profile.Layers.Select(l => l.DryUnitWeight));
+                IEnumerable<double> nanValues = Enumerable.Repeat(double.NaN, expectedNumberOfLayers).ToArray();
+                CollectionAssert.AreEqual(nanValues, profile.Layers.Select(l => l.AbovePhreaticLevel));
+                CollectionAssert.AreEqual(nanValues, profile.Layers.Select(l => l.BelowPhreaticLevelMean));
+                CollectionAssert.AreEqual(nanValues, profile.Layers.Select(l => l.DryUnitWeight));
             }
         }
 
@@ -418,7 +418,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     3.88,
                     0.71,
                     0.21
-                }, profile.Layers.Select(l => l.BelowPhreaticLevel));
+                }, profile.Layers.Select(l => l.BelowPhreaticLevelMean));
             }
         }
 
@@ -463,7 +463,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     0.21,
                     0.71,
                     3.88
-                }, profile.Layers.Select(l => l.BelowPhreaticLevel));
+                }, profile.Layers.Select(l => l.BelowPhreaticLevelMean));
             }
         }
 

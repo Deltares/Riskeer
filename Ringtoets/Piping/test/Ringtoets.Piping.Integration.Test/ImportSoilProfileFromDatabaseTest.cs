@@ -144,9 +144,9 @@ namespace Ringtoets.Piping.Integration.Test
             }, pipingProfile.Layers.Select(l => l.AbovePhreaticLevel));
             CollectionAssert.AreEqual(new[]
             {
-                0.0,
-                0.0,
-                0.0
+                double.NaN,
+                double.NaN,
+                double.NaN
             }, pipingProfile.Layers.Select(l => l.BelowPhreaticLevel));
             CollectionAssert.AreEqual(new[]
             {
@@ -195,14 +195,13 @@ namespace Ringtoets.Piping.Integration.Test
             PipingSoilProfile profile = pipingFailureMechanism.StochasticSoilModels[0].StochasticSoilProfiles[0].SoilProfile;
 
             PipingProfile pipingProfile = PipingProfileCreator.Create(profile);
-            var defaultPipingLayer = new PipingLayer();
 
             Assert.AreEqual(-2.1, pipingProfile.BottomLevel);
             Assert.AreEqual(3, pipingProfile.Layers.Count);
-            CollectionAssert.AreEqual(Enumerable.Repeat(defaultPipingLayer.AbovePhreaticLevel, 3), pipingProfile.Layers.Select(l => l.AbovePhreaticLevel));
-            CollectionAssert.AreEqual(Enumerable.Repeat(defaultPipingLayer.BelowPhreaticLevel, 3), pipingProfile.Layers.Select(l => l.BelowPhreaticLevel));
-            CollectionAssert.AreEqual(Enumerable.Repeat(defaultPipingLayer.DryUnitWeight, 3), pipingProfile.Layers.Select(l => l.DryUnitWeight));
-            CollectionAssert.AreEqual(Enumerable.Repeat(defaultPipingLayer.IsAquifer, 3), pipingProfile.Layers.Select(l => l.IsAquifer));
+            CollectionAssert.AreEqual(Enumerable.Repeat(double.NaN, 3), pipingProfile.Layers.Select(l => l.AbovePhreaticLevel));
+            CollectionAssert.AreEqual(Enumerable.Repeat(double.NaN, 3), pipingProfile.Layers.Select(l => l.BelowPhreaticLevel));
+            CollectionAssert.AreEqual(Enumerable.Repeat(double.NaN, 3), pipingProfile.Layers.Select(l => l.DryUnitWeight));
+            CollectionAssert.AreEqual(Enumerable.Repeat(false, 3), pipingProfile.Layers.Select(l => l.IsAquifer));
             CollectionAssert.AreEqual(new[]
             {
                 3.3,

@@ -270,7 +270,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         }
 
         [Test]
-        public void AsPipingSoilLayer_PropertiesSetWithDifferentIsAquifer_PropertiesAreSetInPipingSoilLayer()
+        public void AsPipingSoilLayer_PropertiesSetWithDifferentLayerParameters_PropertiesAreSetInPipingSoilLayer()
         {
             // Setup
             var random = new Random(22);
@@ -285,18 +285,15 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var color = Color.DarkSeaGreen;
             double bottom;
 
-            var belowPhreaticLevelDistribution = random.Next();
-            var belowPhreaticLevelShift = random.NextDouble();
+            var logNormalDistribution = 3;
+            var logNormalShift = 0;
+
             var belowPhreaticLevelMean = random.NextDouble();
             var belowPhreaticLevelDeviation = random.NextDouble();
 
-            var diameterD70Distribution = random.Next();
-            var diameterD70Shift = random.NextDouble();
             var diameterD70Mean = random.NextDouble();
             var diameterD70Deviation = random.NextDouble();
 
-            var permeabilityDistribution = random.Next();
-            var permeabilityShift = random.NextDouble();
             var permeabilityMean = random.NextDouble();
             var permeabilityDeviation = random.NextDouble();
 
@@ -308,18 +305,18 @@ namespace Ringtoets.Piping.IO.Test.Builders
                 DryUnitWeight = dryUnitWeight,
                 Color = color.ToArgb(),
 
-                BelowPhreaticLevelDistribution = belowPhreaticLevelDistribution,
-                BelowPhreaticLevelShift = belowPhreaticLevelShift,
+                BelowPhreaticLevelDistribution = logNormalDistribution,
+                BelowPhreaticLevelShift = logNormalShift,
                 BelowPhreaticLevelMean = belowPhreaticLevelMean,
                 BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
 
-                DiameterD70Distribution = diameterD70Distribution,
-                DiameterD70Shift = diameterD70Shift,
+                DiameterD70Distribution = logNormalDistribution,
+                DiameterD70Shift = logNormalShift,
                 DiameterD70Mean = diameterD70Mean,
                 DiameterD70Deviation = diameterD70Deviation,
 
-                PermeabilityDistribution = permeabilityDistribution,
-                PermeabilityShift = permeabilityShift,
+                PermeabilityDistribution = logNormalDistribution,
+                PermeabilityShift = logNormalShift,
                 PermeabilityMean = permeabilityMean,
                 PermeabilityDeviation = permeabilityDeviation,
 
@@ -354,10 +351,16 @@ namespace Ringtoets.Piping.IO.Test.Builders
             Assert.AreEqual(y2, resultLayer.Top, 1e-6);
             Assert.IsTrue(resultLayer.IsAquifer);
             Assert.AreEqual(abovePhreaticLevel, resultLayer.AbovePhreaticLevel);
-            Assert.AreEqual(belowPhreaticLevelMean, resultLayer.BelowPhreaticLevel);
             Assert.AreEqual(dryUnitWeight, resultLayer.DryUnitWeight);
             Assert.AreEqual(materialName, resultLayer.MaterialName);
             Assert.AreEqual(Color.FromArgb(color.ToArgb()), resultLayer.Color);
+
+            Assert.AreEqual(belowPhreaticLevelMean, resultLayer.BelowPhreaticLevelMean);
+            Assert.AreEqual(belowPhreaticLevelDeviation, resultLayer.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(diameterD70Mean, resultLayer.DiameterD70Mean);
+            Assert.AreEqual(diameterD70Deviation, resultLayer.DiameterD70Deviation);
+            Assert.AreEqual(permeabilityMean, resultLayer.PermeabilityMean);
+            Assert.AreEqual(permeabilityDeviation, resultLayer.PermeabilityDeviation);
         }
 
         [Test]
@@ -826,7 +829,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             TestDelegate test = () => layer.AsPipingSoilLayers(atX, out bottom);
 
             // Assert
-            var exception = Assert.Throws<SoilLayer2DConversionException>(test);
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX), exception.Message);
         }
 
@@ -864,7 +867,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             TestDelegate test = () => layer.AsPipingSoilLayers(atX, out bottom);
 
             // Assert
-            var exception = Assert.Throws<SoilLayer2DConversionException>(test);
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX), exception.Message);
         }
     }

@@ -750,11 +750,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             int expectedNumberOfLayers = expectedLayerTops.Length;
             CollectionAssert.AreEqual(Enumerable.Repeat(false, expectedNumberOfLayers),
                                       profile.Layers.Select(l => l.IsAquifer));
-            CollectionAssert.AreEqual(Enumerable.Repeat<double?>(null, expectedNumberOfLayers),
+            CollectionAssert.AreEqual(Enumerable.Repeat(double.NaN, expectedNumberOfLayers),
                                       profile.Layers.Select(l => l.AbovePhreaticLevel));
-            CollectionAssert.AreEqual(Enumerable.Repeat<double?>(null, expectedNumberOfLayers),
-                                      profile.Layers.Select(l => l.BelowPhreaticLevel));
-            CollectionAssert.AreEqual(Enumerable.Repeat<double?>(null, expectedNumberOfLayers),
+            CollectionAssert.AreEqual(Enumerable.Repeat(double.NaN, expectedNumberOfLayers),
+                                      profile.Layers.Select(l => l.BelowPhreaticLevelMean));
+            CollectionAssert.AreEqual(Enumerable.Repeat(double.NaN, expectedNumberOfLayers),
                                       profile.Layers.Select(l => l.DryUnitWeight));
 
             Assert.AreEqual(6, progress);
@@ -859,8 +859,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 40.4
             };
             CollectionAssert.AreEqual(expectedBelowPhreaticLevelValues,
-                                      profile.Layers.Select(l => l.BelowPhreaticLevel));
-            CollectionAssert.AreEqual(Enumerable.Repeat<double?>(null, expectedNumberOfLayers),
+                                      profile.Layers.Select(l => l.BelowPhreaticLevelMean));
+            CollectionAssert.AreEqual(Enumerable.Repeat(double.NaN, expectedNumberOfLayers),
                                       profile.Layers.Select(l => l.DryUnitWeight));
 
             Assert.AreEqual(6, progress);

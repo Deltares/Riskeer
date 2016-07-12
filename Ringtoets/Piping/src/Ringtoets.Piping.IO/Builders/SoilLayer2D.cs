@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.IO.Builders
     /// Instances of this class are transient and are not to be used once the DSoilModel
     /// database has been imported.
     /// </summary>
-    internal class SoilLayer2D
+    internal class SoilLayer2D : GenericSoilLayerParameters
     {
         private readonly Collection<Segment2D[]> innerLoops;
         private Segment2D[] outerLoop;
@@ -53,105 +53,6 @@ namespace Ringtoets.Piping.IO.Builders
         /// whether the <see cref="SoilLayer2D"/> is an aquifer.
         /// </summary>
         public double? IsAquifer { get; set; }
-
-        /// <summary>
-        /// Gets or sets the above phreatic level for the <see cref="SoilLayer2D"/>.
-        /// </summary>
-        public double? AbovePhreaticLevel { get; set; }
-
-        /// <summary>
-        /// Gets or sets the distribution for the volumic weight of the <see cref="SoilLayer2D"/> below the 
-        /// phreatic level.
-        /// [kN/m³]
-        /// </summary>
-        public double? BelowPhreaticLevelDistribution { get; set; }
-
-        /// <summary>
-        /// Gets or sets the shift of the distribution for the volumic weight of the <see cref="SoilLayer2D"/> 
-        /// below the phreatic level.
-        /// [kN/m³]
-        /// </summary>
-        public double? BelowPhreaticLevelShift { get; set; }
-
-        /// <summary>
-        /// Gets or sets the mean of the distribution for the volumic weight of the <see cref="SoilLayer2D"/> 
-        /// below the phreatic level.
-        /// [kN/m³]
-        /// </summary>
-        public double? BelowPhreaticLevelMean { get; set; }
-
-        /// <summary>
-        /// Gets or sets the deviation of the distribution for the volumic weight of the <see cref="SoilLayer2D"/> below the phreatic level.
-        /// [kN/m³]
-        /// </summary>
-        public double? BelowPhreaticLevelDeviation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the distribution for the mean diameter of small scale tests applied to different kinds of sand, on which the 
-        /// formula of Sellmeijer has been fit.
-        /// [m]
-        /// </summary>
-        public double? DiameterD70Distribution { get; set; }
-
-        /// <summary>
-        /// Gets or sets the shift of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
-        /// on which the formula of Sellmeijer has been fit.
-        /// [m]
-        /// </summary>
-        public double? DiameterD70Shift { get; set; }
-
-        /// <summary>
-        /// Gets or sets the mean of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
-        /// on which the formula of Sellmeijer has been fit.
-        /// [m]
-        /// </summary>
-        public double? DiameterD70Mean { get; set; }
-
-        /// <summary>
-        /// Gets or sets the deviation of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
-        /// on which the formula of Sellmeijer has been fit.
-        /// [m]
-        /// </summary>
-        public double? DiameterD70Deviation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the distribution for the Darcy-speed with which water flows through the aquifer layer.
-        /// [m/s]
-        /// </summary>
-        public double? PermeabilityDistribution { get; set; }
-
-        /// <summary>
-        /// Gets or sets the shift of the distribution for the Darcy-speed with which water flows through the aquifer layer.
-        /// [m/s]
-        /// </summary>
-        public double? PermeabilityShift { get; set; }
-
-        /// <summary>
-        /// Gets or sets the mean of the distribution for the the Darcy-speed with which water flows through the aquifer layer.
-        /// [m/s]
-        /// </summary>
-        public double? PermeabilityMean { get; set; }
-
-        /// <summary>
-        /// Gets or sets the deviation of the distribution for the Darcy-speed with which water flows through the aquifer layer.
-        /// [m/s]
-        /// </summary>
-        public double? PermeabilityDeviation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the dry unit weight for the <see cref="SoilLayer2D"/>.
-        /// </summary>
-        public double? DryUnitWeight { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the material that was assigned to the <see cref="SoilLayer2D"/>.
-        /// </summary>
-        public string MaterialName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value representing a color that was used to represent the <see cref="SoilLayer2D"/>.
-        /// </summary>
-        public double? Color { get; set; }
 
         /// <summary>
         /// Gets the outer loop of the <see cref="SoilLayer2D"/> as a <see cref="List{T}"/> of <see cref="Segment2D"/>,
@@ -204,10 +105,12 @@ namespace Ringtoets.Piping.IO.Builders
         /// <param name="atX">The point from which to take a 1D profile.</param>
         /// <param name="bottom">The bottom level of the <see cref="PipingSoilLayer"/>.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="PipingSoilLayer"/>.</returns>
-        /// <exception cref="SoilLayer2DConversionException">Thrown when any of the <see cref="InnerLoops"/> or
+        /// <exception cref="SoilLayerConversionException">Thrown when any of the <see cref="InnerLoops"/> or
         /// <see cref="OuterLoop"/> contain a vertical line at <paramref name="atX"/>.</exception>
         internal IEnumerable<PipingSoilLayer> AsPipingSoilLayers(double atX, out double bottom)
         {
+            ValidateFieldsForPiping();
+
             bottom = Double.MaxValue;
             var result = new Collection<PipingSoilLayer>();
             if (OuterLoop != null)
@@ -227,15 +130,16 @@ namespace Ringtoets.Piping.IO.Builders
 
                     foreach (var height in heights.Where(height => !innerLoopIntersectionHeightPairs.Any(tuple => HeightInInnerLoop(tuple, height))))
                     {
-                        result.Add(new PipingSoilLayer(height)
+                        var pipingSoilLayer = new PipingSoilLayer(height)
                         {
                             IsAquifer = IsAquifer.HasValue && IsAquifer.Value.Equals(1.0),
-                            BelowPhreaticLevel = BelowPhreaticLevelMean,
-                            AbovePhreaticLevel = AbovePhreaticLevel,
-                            DryUnitWeight = DryUnitWeight,
                             MaterialName = MaterialName ?? string.Empty,
                             Color = SoilLayerColorConversionHelper.ColorFromNullableDouble(Color)
-                        });
+                        };
+
+                        SetOptionalFields(pipingSoilLayer);
+
+                        result.Add(pipingSoilLayer);
                     }
                     bottom = EnsureBottomOutsideInnerLoop(innerLoopIntersectionHeightPairs, currentBottom);
                 }
@@ -328,7 +232,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// <param name="atX">The point on the x-axis where the vertical line is constructed do determine intersections with.</param>
         /// <returns>A <see cref="Collection{T}"/> of <see cref="double"/>, representing the height at which the 
         /// <paramref name="loop"/> intersects the vertical line at <paramref name="atX"/>.</returns>
-        /// <exception cref="SoilLayer2DConversionException">Thrown when a segment is vertical at <see cref="atX"/> and thus
+        /// <exception cref="SoilLayerConversionException">Thrown when a segment is vertical at <see cref="atX"/> and thus
         /// no deterministic intersection points can be determined.</exception>
         private IEnumerable<double> GetLoopIntersectionHeights(IEnumerable<Segment2D> loop, double atX)
         {
@@ -336,7 +240,7 @@ namespace Ringtoets.Piping.IO.Builders
             if (segment2Ds.Any(segment => IsVerticalAtX(segment, atX)))
             {
                 var message = string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX);
-                throw new SoilLayer2DConversionException(message);
+                throw new SoilLayerConversionException(message);
             }
             return Math2D.SegmentsIntersectionWithVerticalLine(segment2Ds, atX).Select(p => p.Y);
         }

@@ -213,4 +213,16 @@
   <data name="StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value" xml:space="preserve">
     <value>De ondergrondschematisatie verwijst naar een ongeldige waarde.</value>
   </data>
+  <data name="SoilLayer_BelowPhreaticLevelDistribution_Description" xml:space="preserve">
+    <value>Verzadigd gewicht</value>
+  </data>
+  <data name="SoilLayer_DiameterD70Distribution_Description" xml:space="preserve">
+    <value>Korrelgrootte</value>
+  </data>
+  <data name="SoilLayer_PermeabilityDistribution_Description" xml:space="preserve">
+    <value>Doorlatendheid</value>
+  </data>
+  <data name="SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution" xml:space="preserve">
+    <value>De parameter '{0}' is niet lognormaal verdeeld.</value>
+  </data>
 </root>

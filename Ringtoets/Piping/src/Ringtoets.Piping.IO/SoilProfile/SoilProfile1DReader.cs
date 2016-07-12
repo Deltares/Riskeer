@@ -21,6 +21,7 @@
 
 using System;
 using System.Data.SQLite;
+using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.Piping.IO.Builders;
@@ -41,7 +42,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// </summary>
         /// <param name="reader">A <see cref="IRowBasedDatabaseReader"/> which is used to read row values from.</param>
         /// <returns>A new <see cref="PipingSoilProfile"/>, which is based on the information from the database.</returns>
-        /// <exception cref="Core.Common.IO.Exceptions.CriticalFileReadException">Thrown when reading the profile encountered an unrecoverable error.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when reading the profile encountered an unrecoverable error.</exception>
         /// <exception cref="PipingSoilProfileReadException">Thrown when reading the profile encountered a recoverable error.</exception>
         internal static PipingSoilProfile ReadFrom(IRowBasedDatabaseReader reader)
         {
@@ -53,14 +54,21 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
             var soilProfileBuilder = new SoilProfileBuilder1D(profileName, requiredProperties.Bottom, profileId);
 
-            for (var i = 1; i <= criticalProperties.LayerCount; i++)
+            try
             {
-                SoilLayer1D soilLayer = ReadSoilLayerFrom(reader, profileName);
-                soilProfileBuilder.Add(soilLayer.AsPipingSoilLayer());
-                reader.MoveNext();
-            }
+                for (var i = 1; i <= criticalProperties.LayerCount; i++)
+                {
+                    SoilLayer1D soilLayer = ReadSoilLayerFrom(reader, profileName);
+                    soilProfileBuilder.Add(soilLayer.AsPipingSoilLayer());
+                    reader.MoveNext();
+                }
 
-            return Build(soilProfileBuilder, reader.Path, profileName);
+                return Build(soilProfileBuilder, reader.Path, profileName);
+            }
+            catch (SoilLayerConversionException e)
+            {
+                throw CreatePipingSoilProfileReadException(reader.Path, profileName, e);
+            }
         }
 
         /// <summary>
@@ -88,7 +96,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <exception cref="PipingSoilProfileReadException">Thrown when reading properties of the layers failed.</exception>
         private static SoilLayer1D ReadSoilLayerFrom(IRowBasedDatabaseReader reader, string profileName)
         {
-            var properties = new LayerProperties(reader, profileName);
+            var properties = new Layer1DProperties(reader, profileName);
 
             var pipingSoilLayer = new SoilLayer1D(properties.Top)
             {
@@ -116,32 +124,12 @@ namespace Ringtoets.Piping.IO.SoilProfile
             return pipingSoilLayer;
         }
 
-        private class LayerProperties
+        private class Layer1DProperties : LayerProperties
         {
             internal readonly double Top;
-            internal readonly double? IsAquifer;
-            internal readonly string MaterialName;
-            internal readonly double? Color;
-            internal readonly double? AbovePhreaticLevel;
-            internal readonly double? DryUnitWeight;
-
-            internal readonly double? BelowPhreaticLevelDistribution;
-            internal readonly double? BelowPhreaticLevelShift;
-            internal readonly double? BelowPhreaticLevelMean;
-            internal readonly double? BelowPhreaticLevelDeviation;
-
-            internal readonly double? DiameterD70Distribution;
-            internal readonly double? DiameterD70Shift;
-            internal readonly double? DiameterD70Mean;
-            internal readonly double? DiameterD70Deviation;
-
-            internal readonly double? PermeabilityDistribution;
-            internal readonly double? PermeabilityShift;
-            internal readonly double? PermeabilityMean;
-            internal readonly double? PermeabilityDeviation;
 
             /// <summary>
-            /// Creates a new instance of <see cref="LayerProperties"/>, which contains properties
+            /// Creates a new instance of <see cref="Layer1DProperties"/>, which contains properties
             /// that are required to create a complete <see cref="SoilLayer1D"/>. If these properties
             /// cannot be read, then the reader can proceed to the next profile.
             /// </summary>
@@ -149,62 +137,36 @@ namespace Ringtoets.Piping.IO.SoilProfile
             /// <param name="profileName">The profile name used in generating exceptions messages if casting failed.</param>
             /// <exception cref="PipingSoilProfileReadException">Thrown when the values in the database could not be 
             /// casted to the expected column types.</exception>
-            internal LayerProperties(IRowBasedDatabaseReader reader, string profileName)
+            internal Layer1DProperties(IRowBasedDatabaseReader reader, string profileName)
+                : base(reader, profileName)
             {
                 string readColumn = SoilProfileDatabaseColumns.Top;
                 try
                 {
                     Top = reader.Read<double>(readColumn);
-
-                    readColumn = SoilProfileDatabaseColumns.IsAquifer;
-                    IsAquifer = reader.ReadOrDefault<double?>(readColumn);
-
-                    readColumn = SoilProfileDatabaseColumns.MaterialName;
-                    MaterialName = reader.ReadOrDefault<string>(readColumn);
-
-                    readColumn = SoilProfileDatabaseColumns.Color;
-                    Color = reader.ReadOrDefault<double?>(readColumn);
-
-                    readColumn = SoilProfileDatabaseColumns.AbovePhreaticLevel;
-                    AbovePhreaticLevel = reader.ReadOrDefault<double?>(readColumn);
-                    readColumn = SoilProfileDatabaseColumns.DryUnitWeight;
-                    DryUnitWeight = reader.ReadOrDefault<double?>(readColumn);
-
-                    readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevelDistribution;
-                    BelowPhreaticLevelDistribution = reader.ReadOrDefault<long?>(readColumn);
-                    readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevelShift;
-                    BelowPhreaticLevelShift = reader.ReadOrDefault<double?>(readColumn);
-                    readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevelMean;
-                    BelowPhreaticLevelMean = reader.ReadOrDefault<double?>(readColumn);
-                    readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevelDeviation;
-                    BelowPhreaticLevelDeviation = reader.ReadOrDefault<double?>(readColumn);
-
-                    readColumn = SoilProfileDatabaseColumns.DiameterD70Distribution;
-                    DiameterD70Distribution = reader.ReadOrDefault<long?>(readColumn);
-                    readColumn = SoilProfileDatabaseColumns.DiameterD70Shift;
-                    DiameterD70Shift = reader.ReadOrDefault<double?>(readColumn);
-                    readColumn = SoilProfileDatabaseColumns.DiameterD70Mean;
-                    DiameterD70Mean = reader.ReadOrDefault<double?>(readColumn);
-                    readColumn = SoilProfileDatabaseColumns.DiameterD70Deviation;
-                    DiameterD70Deviation = reader.ReadOrDefault<double?>(readColumn);
-
-                    readColumn = SoilProfileDatabaseColumns.PermeabilityDistribution;
-                    PermeabilityDistribution = reader.ReadOrDefault<long?>(readColumn);
-                    readColumn = SoilProfileDatabaseColumns.PermeabilityShift;
-                    PermeabilityShift = reader.ReadOrDefault<double?>(readColumn);
-                    readColumn = SoilProfileDatabaseColumns.PermeabilityMean;
-                    PermeabilityMean = reader.ReadOrDefault<double?>(readColumn);
-                    readColumn = SoilProfileDatabaseColumns.PermeabilityDeviation;
-                    PermeabilityDeviation = reader.ReadOrDefault<double?>(readColumn);
                 }
                 catch (InvalidCastException e)
                 {
-                    var message = new FileReaderErrorMessageBuilder(reader.Path)
-                        .WithSubject(String.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
-                        .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, readColumn));
-                    throw new PipingSoilProfileReadException(profileName, message, e);
+                    var message = string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, readColumn);
+                    throw CreatePipingSoilProfileReadException(reader.Path, profileName, message, e);
                 }
             }
+        }
+
+        private static PipingSoilProfileReadException CreatePipingSoilProfileReadException(string filePath, string profileName, string errorMessage, Exception innerException)
+        {
+            var message = new FileReaderErrorMessageBuilder(filePath)
+                .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
+                .Build(errorMessage);
+            return new PipingSoilProfileReadException(profileName, message, innerException);
+        }
+
+        private static PipingSoilProfileReadException CreatePipingSoilProfileReadException(string filePath, string profileName, Exception innerException)
+        {
+            var message = new FileReaderErrorMessageBuilder(filePath)
+                .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
+                .Build(innerException.Message);
+            return new PipingSoilProfileReadException(profileName, message, innerException);
         }
 
         private class RequiredProfileProperties

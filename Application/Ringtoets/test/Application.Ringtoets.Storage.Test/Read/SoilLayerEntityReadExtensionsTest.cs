@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(top, layer.Top, 1e-6);
             Assert.AreEqual(isAquifer, layer.IsAquifer);
             Assert.AreEqual(abovePhreaticLevel, layer.AbovePhreaticLevel, 1e-6);
-            Assert.AreEqual(belowPhreaticLevel, layer.BelowPhreaticLevel, 1e-6);
+            Assert.AreEqual(belowPhreaticLevel, layer.BelowPhreaticLevelMean, 1e-6);
             Assert.AreEqual(dryUnitWeight, layer.DryUnitWeight, 1e-6);
             Assert.AreEqual(Color.FromArgb(color), layer.Color);
             Assert.AreEqual(materialName, layer.MaterialName);
@@ -87,9 +87,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             var layer = entity.Read();
 
             // Assert
-            Assert.IsNull(layer.AbovePhreaticLevel);
-            Assert.IsNull(layer.BelowPhreaticLevel);
-            Assert.IsNull(layer.DryUnitWeight);
+            Assert.IsNaN(layer.AbovePhreaticLevel);
+            Assert.IsNaN(layer.BelowPhreaticLevelMean);
+            Assert.IsNaN(layer.DryUnitWeight);
         }
     }
 }

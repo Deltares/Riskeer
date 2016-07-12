@@ -43,9 +43,9 @@ namespace Application.Ringtoets.Storage.Read
             {
                 StorageId = entity.SoilLayerEntityId,
                 IsAquifer = Convert.ToBoolean(entity.IsAquifer),
-                AbovePhreaticLevel = entity.AbovePhreaticLevel.ToNullableDouble(),
-                BelowPhreaticLevel = entity.BelowPhreaticLevel.ToNullableDouble(),
-                DryUnitWeight = entity.DryUnitWeight.ToNullableDouble(),
+                AbovePhreaticLevel = entity.AbovePhreaticLevel.ToNanableDouble(),
+                BelowPhreaticLevelMean = entity.BelowPhreaticLevel.ToNanableDouble(),
+                DryUnitWeight = entity.DryUnitWeight.ToNanableDouble(),
                 Color = Color.FromArgb(Convert.ToInt32(entity.Color)),
                 MaterialName = entity.MaterialName ?? string.Empty
             };
