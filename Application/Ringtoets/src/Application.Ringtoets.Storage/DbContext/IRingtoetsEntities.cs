@@ -61,6 +61,12 @@ namespace Application.Ringtoets.Storage.DbContext
         DbSet<PipingSectionResultEntity> PipingSectionResultEntities { get; }
 
         /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="DikeProfileEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<DikeProfileEntity> DikeProfileEntities { get; }
+
+        /// <summary>
         /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="GrassCoverErosionInwardsFailureMechanismMetaEntity"/> containing
         /// every entity found in the database.
         /// </summary>

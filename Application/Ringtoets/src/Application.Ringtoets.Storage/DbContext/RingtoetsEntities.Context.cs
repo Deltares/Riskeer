@@ -57,6 +57,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<CharacteristicPointEntity> CharacteristicPointEntities { get; set; }
         public virtual DbSet<ClosingStructureFailureMechanismMetaEntity> ClosingStructureFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<ClosingStructureSectionResultEntity> ClosingStructureSectionResultEntities { get; set; }
+        public virtual DbSet<DikeProfileEntity> DikeProfileEntities { get; set; }
         public virtual DbSet<DuneErosionFailureMechanismMetaEntity> DuneErosionFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<DuneErosionSectionResultEntity> DuneErosionSectionResultEntities { get; set; }
         public virtual DbSet<FailureMechanismEntity> FailureMechanismEntities { get; set; }
