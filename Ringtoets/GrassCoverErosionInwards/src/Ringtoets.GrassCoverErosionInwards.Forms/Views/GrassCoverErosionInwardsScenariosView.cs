@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Utils;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {

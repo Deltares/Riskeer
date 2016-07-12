@@ -25,10 +25,11 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
+namespace Ringtoets.GrassCoverErosionInwards.Utils
 {
     /// <summary>
-    /// Class holds a helper method to help <see cref="GrassCoverErosionInwardsScenariosView"/>. 
+    /// Class holds helper methods to match <see cref="GrassCoverErosionInwardsCalculation"/> objects 
+    /// with <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects. 
     /// </summary>
     public static class GrassCoverErosionInwardsHelper
     {

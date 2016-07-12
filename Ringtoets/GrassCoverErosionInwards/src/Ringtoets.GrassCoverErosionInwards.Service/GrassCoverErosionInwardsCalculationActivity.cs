@@ -19,14 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.Views;
+using Ringtoets.GrassCoverErosionInwards.Utils;
 using Ringtoets.HydraRing.Calculation.Activities;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service

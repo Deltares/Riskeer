@@ -31,6 +31,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.UITypeEditors;
+using Ringtoets.GrassCoverErosionInwards.Utils;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
@@ -65,6 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             {
                 data.WrappedData.DikeProfile = value;
                 data.WrappedData.NotifyObservers();
+                //AssignUnAssignCalculations.Update(data.FailureMechanism, data.Calculation);
             }
         }
 

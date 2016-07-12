@@ -184,6 +184,10 @@
       <Project>{20955E2A-8CEB-46B0-ADC4-A97D4C6BBDF5}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Plugin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionInwards.Utils\Ringtoets.GrassCoverErosionInwards.Utils.csproj">
+      <Project>{99573570-EE00-4264-8147-26A1B25DB23F}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
