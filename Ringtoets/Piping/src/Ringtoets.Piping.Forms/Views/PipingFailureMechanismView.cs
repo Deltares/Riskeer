@@ -139,9 +139,9 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (oldMapData != null)
             {
-                mapControl.Data.Remove(oldMapData);
+                mapControl.Data.Replace(oldMapData, newMapData);
             }
-            if (newMapData != null)
+            else
             {
                 mapControl.Data.Add(newMapData);
             }

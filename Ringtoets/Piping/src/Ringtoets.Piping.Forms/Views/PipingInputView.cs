@@ -244,9 +244,9 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (oldChartData != null)
             {
-                chartControl.Data.Remove(oldChartData);
+                chartControl.Data.Replace(oldChartData, newChartData);
             }
-            if (newChartData != null)
+            else
             {
                 chartControl.Data.Add(newChartData);
             }

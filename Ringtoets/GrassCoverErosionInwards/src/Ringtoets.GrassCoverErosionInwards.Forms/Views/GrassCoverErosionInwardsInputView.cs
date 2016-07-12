@@ -156,9 +156,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             if (oldChartData != null)
             {
-                chartControl.Data.Remove(oldChartData);
+                chartControl.Data.Replace(oldChartData, newChartData);
             }
-            if (newChartData != null)
+            else
             {
                 chartControl.Data.Add(newChartData);
             }
@@ -170,7 +170,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             return data != null && data.InputParameters.DikeProfile != null && data.InputParameters.ForeshoreGeometry.Any() && data.InputParameters.UseForeshore;
         }
-
 
         private bool HasDikeProfilePoints()
         {
