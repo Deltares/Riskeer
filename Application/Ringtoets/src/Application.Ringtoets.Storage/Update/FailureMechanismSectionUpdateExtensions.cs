@@ -30,6 +30,10 @@ using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Application.Ringtoets.Storage.Update
 {
+    /// <summary>
+    /// Extension methods for <see cref="FailureMechanismSection"/> related to updating a
+    /// <see cref="FailureMechanismSectionEntity"/>.
+    /// </summary>
     internal static class FailureMechanismSectionUpdateExtensions
     {
         /// <summary>

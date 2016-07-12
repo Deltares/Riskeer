@@ -54,6 +54,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<FailureMechanismEntity, IFailureMechanism> failureMechanisms = new Dictionary<FailureMechanismEntity, IFailureMechanism>(new ReferenceEqualityComparer<FailureMechanismEntity>());
         private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections = new Dictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
         private readonly Dictionary<PipingSectionResultEntity, PipingFailureMechanismSectionResult> pipingFailureMechanismSectionResults = new Dictionary<PipingSectionResultEntity, PipingFailureMechanismSectionResult>();
+        private readonly Dictionary<GrassCoverErosionInwardsFailureMechanismMetaEntity, GeneralGrassCoverErosionInwardsInput> generalGrassCoverErosionInwardsInputs = new Dictionary<GrassCoverErosionInwardsFailureMechanismMetaEntity, GeneralGrassCoverErosionInwardsInput>();
         private readonly Dictionary<GrassCoverErosionInwardsSectionResultEntity, GrassCoverErosionInwardsFailureMechanismSectionResult> grassCoverErosionInwardsFailureMechanismSectionResults = new Dictionary<GrassCoverErosionInwardsSectionResultEntity, GrassCoverErosionInwardsFailureMechanismSectionResult>();
         private readonly Dictionary<HeightStructuresSectionResultEntity, HeightStructuresFailureMechanismSectionResult> heightStructuresFailureMechanismSectionResults = new Dictionary<HeightStructuresSectionResultEntity, HeightStructuresFailureMechanismSectionResult>();
         private readonly Dictionary<StrengthStabilityLengthwiseConstructionSectionResultEntity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> strengthStabilityLengthwiseConstructionFailureMechanismSectionResults = new Dictionary<StrengthStabilityLengthwiseConstructionSectionResultEntity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
@@ -115,6 +116,22 @@ namespace Application.Ringtoets.Storage.Create
         public void Register(PipingSectionResultEntity entity, PipingFailureMechanismSectionResult model)
         {
             Register(pipingFailureMechanismSectionResults, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="GrassCoverErosionInwardsFailureMechanismMetaEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="FailureMechanismSection"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(GrassCoverErosionInwardsFailureMechanismMetaEntity entity, GeneralGrassCoverErosionInwardsInput model)
+        {
+            Register(generalGrassCoverErosionInwardsInputs, entity, model);
         }
 
         /// <summary>
@@ -864,6 +881,11 @@ namespace Application.Ringtoets.Storage.Create
                 pipingFailureMechanismSectionResults[entity].StorageId = entity.PipingSectionResultEntityId;
             }
 
+            foreach (var entity in generalGrassCoverErosionInwardsInputs.Keys)
+            {
+                generalGrassCoverErosionInwardsInputs[entity].StorageId = entity.GrassCoverErosionInwardsFailureMechanismMetaEntityId;
+            }
+
             foreach (var entity in grassCoverErosionInwardsFailureMechanismSectionResults.Keys)
             {
                 grassCoverErosionInwardsFailureMechanismSectionResults[entity].StorageId = entity.GrassCoverErosionInwardsSectionResultEntityId;
@@ -1065,7 +1087,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedPipingSectionResultEntities = new List<PipingSectionResultEntity>();
             foreach (PipingSectionResultEntity pipingSectionResultEntity in dbContext.PipingSectionResultEntities
-                                                                                             .Where(e => e.PipingSectionResultEntityId > 0))
+                                                                                     .Where(e => e.PipingSectionResultEntityId > 0))
             {
                 if (!pipingFailureMechanismSectionResults.ContainsKey(pipingSectionResultEntity))
                 {
@@ -1074,9 +1096,20 @@ namespace Application.Ringtoets.Storage.Create
             }
             dbContext.PipingSectionResultEntities.RemoveRange(orphanedPipingSectionResultEntities);
 
+            var orphanedGrassCoverErosionInwardsFailureMechanismMetaEntities = new List<GrassCoverErosionInwardsFailureMechanismMetaEntity>();
+            foreach (GrassCoverErosionInwardsFailureMechanismMetaEntity inputEntity in dbContext.GrassCoverErosionInwardsFailureMechanismMetaEntities
+                                                                                                .Where(e => e.GrassCoverErosionInwardsFailureMechanismMetaEntityId > 0))
+            {
+                if (!generalGrassCoverErosionInwardsInputs.ContainsKey(inputEntity))
+                {
+                    orphanedGrassCoverErosionInwardsFailureMechanismMetaEntities.Add(inputEntity);
+                }
+            }
+            dbContext.GrassCoverErosionInwardsFailureMechanismMetaEntities.RemoveRange(orphanedGrassCoverErosionInwardsFailureMechanismMetaEntities);
+
             var orphanedGrassCoverErosionInwardsSectionResultEntities = new List<GrassCoverErosionInwardsSectionResultEntity>();
             foreach (GrassCoverErosionInwardsSectionResultEntity sectionResultEntity in dbContext.GrassCoverErosionInwardsSectionResultEntities
-                                                                                             .Where(e => e.GrassCoverErosionInwardsSectionResultEntityId > 0))
+                                                                                                 .Where(e => e.GrassCoverErosionInwardsSectionResultEntityId > 0))
             {
                 if (!grassCoverErosionInwardsFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
                 {
@@ -1087,7 +1120,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedHeightStructuresSectionResultEntities = new List<HeightStructuresSectionResultEntity>();
             foreach (HeightStructuresSectionResultEntity sectionResultEntity in dbContext.HeightStructuresSectionResultEntities
-                                                                                             .Where(e => e.HeightStructuresSectionResultEntityId > 0))
+                                                                                         .Where(e => e.HeightStructuresSectionResultEntityId > 0))
             {
                 if (!heightStructuresFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
                 {
@@ -1098,7 +1131,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedStrengthStabilityLengthwiseConstructionSectionResultEntities = new List<StrengthStabilityLengthwiseConstructionSectionResultEntity>();
             foreach (StrengthStabilityLengthwiseConstructionSectionResultEntity sectionResultEntity in dbContext.StrengthStabilityLengthwiseConstructionSectionResultEntities
-                                                                                             .Where(e => e.StrengthStabilityLengthwiseConstructionSectionResultEntityId > 0))
+                                                                                                                .Where(e => e.StrengthStabilityLengthwiseConstructionSectionResultEntityId > 0))
             {
                 if (!strengthStabilityLengthwiseConstructionFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
                 {
@@ -1109,7 +1142,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedTechnicalInnovationSectionResultEntities = new List<TechnicalInnovationSectionResultEntity>();
             foreach (TechnicalInnovationSectionResultEntity sectionResultEntity in dbContext.TechnicalInnovationSectionResultEntities
-                                                                                             .Where(e => e.TechnicalInnovationSectionResultEntityId > 0))
+                                                                                            .Where(e => e.TechnicalInnovationSectionResultEntityId > 0))
             {
                 if (!technicalInnovationFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
                 {
@@ -1120,7 +1153,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedWaterPressureAsphaltCoverSectionResultEntities = new List<WaterPressureAsphaltCoverSectionResultEntity>();
             foreach (WaterPressureAsphaltCoverSectionResultEntity sectionResultEntity in dbContext.WaterPressureAsphaltCoverSectionResultEntities
-                                                                                             .Where(e => e.WaterPressureAsphaltCoverSectionResultEntityId > 0))
+                                                                                                  .Where(e => e.WaterPressureAsphaltCoverSectionResultEntityId > 0))
             {
                 if (!waterPressureAsphaltCoverFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
                 {
@@ -1131,7 +1164,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedClosingStructureSectionResultEntities = new List<ClosingStructureSectionResultEntity>();
             foreach (ClosingStructureSectionResultEntity sectionResultEntity in dbContext.ClosingStructureSectionResultEntities
-                                                                                             .Where(e => e.ClosingStructureSectionResultEntityId > 0))
+                                                                                         .Where(e => e.ClosingStructureSectionResultEntityId > 0))
             {
                 if (!closingStructureFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
                 {
@@ -1142,7 +1175,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedMacrostabilityInwardsSectionResultEntities = new List<MacrostabilityInwardsSectionResultEntity>();
             foreach (MacrostabilityInwardsSectionResultEntity sectionResultEntity in dbContext.MacrostabilityInwardsSectionResultEntities
-                                                                                             .Where(e => e.MacrostabilityInwardsSectionResultEntityId > 0))
+                                                                                              .Where(e => e.MacrostabilityInwardsSectionResultEntityId > 0))
             {
                 if (!macrostabilityInwardsFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
                 {
@@ -1153,7 +1186,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedMacrostabilityOutwardsSectionResultEntities = new List<MacrostabilityOutwardsSectionResultEntity>();
             foreach (MacrostabilityOutwardsSectionResultEntity sectionResultEntity in dbContext.MacrostabilityOutwardsSectionResultEntities
-                                                                                             .Where(e => e.MacrostabilityOutwardsSectionResultEntityId > 0))
+                                                                                               .Where(e => e.MacrostabilityOutwardsSectionResultEntityId > 0))
             {
                 if (!macrostabilityOutwardsFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
                 {
@@ -1164,7 +1197,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedWaveImpactAsphaltCoverSectionResultEntities = new List<WaveImpactAsphaltCoverSectionResultEntity>();
             foreach (WaveImpactAsphaltCoverSectionResultEntity sectionResultEntity in dbContext.WaveImpactAsphaltCoverSectionResultEntities
-                                                                                             .Where(e => e.WaveImpactAsphaltCoverSectionResultEntityId > 0))
+                                                                                               .Where(e => e.WaveImpactAsphaltCoverSectionResultEntityId > 0))
             {
                 if (!waveImpactAsphaltCoverFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
                 {
@@ -1175,7 +1208,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedGrassCoverErosionOutwardsSectionResultEntities = new List<GrassCoverErosionOutwardsSectionResultEntity>();
             foreach (GrassCoverErosionOutwardsSectionResultEntity sectionResultEntity in dbContext.GrassCoverErosionOutwardsSectionResultEntities
-                                                                                             .Where(e => e.GrassCoverErosionOutwardsSectionResultEntityId > 0))
+                                                                                                  .Where(e => e.GrassCoverErosionOutwardsSectionResultEntityId > 0))
             {
                 if (!grassCoverErosionOutwardsFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
                 {
@@ -1186,7 +1219,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedGrassCoverSlipOffInwardsSectionResultEntities = new List<GrassCoverSlipOffInwardsSectionResultEntity>();
             foreach (GrassCoverSlipOffInwardsSectionResultEntity sectionResultEntity in dbContext.GrassCoverSlipOffInwardsSectionResultEntities
-                                                                                             .Where(e => e.GrassCoverSlipOffInwardsSectionResultEntityId > 0))
+                                                                                                 .Where(e => e.GrassCoverSlipOffInwardsSectionResultEntityId > 0))
             {
                 if (!grassCoverSlipOffInwardsFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
                 {
@@ -1197,7 +1230,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedGrassCoverSlipOffOutwardsSectionResultEntities = new List<GrassCoverSlipOffOutwardsSectionResultEntity>();
             foreach (GrassCoverSlipOffOutwardsSectionResultEntity sectionResultEntity in dbContext.GrassCoverSlipOffOutwardsSectionResultEntities
-                                                                                             .Where(e => e.GrassCoverSlipOffOutwardsSectionResultEntityId > 0))
+                                                                                                  .Where(e => e.GrassCoverSlipOffOutwardsSectionResultEntityId > 0))
             {
                 if (!grassCoverSlipOffOutwardsFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
                 {
@@ -1208,7 +1241,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedMicrostabilitySectionResultEntities = new List<MicrostabilitySectionResultEntity>();
             foreach (MicrostabilitySectionResultEntity sectionResultEntity in dbContext.MicrostabilitySectionResultEntities
-                                                                                             .Where(e => e.MicrostabilitySectionResultEntityId > 0))
+                                                                                       .Where(e => e.MicrostabilitySectionResultEntityId > 0))
             {
                 if (!microstabilityFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
                 {
@@ -1219,7 +1252,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedPipingStructureSectionResultEntities = new List<PipingStructureSectionResultEntity>();
             foreach (PipingStructureSectionResultEntity sectionResultEntity in dbContext.PipingStructureSectionResultEntities
-                                                                                             .Where(e => e.PipingStructureSectionResultEntityId > 0))
+                                                                                        .Where(e => e.PipingStructureSectionResultEntityId > 0))
             {
                 if (!pipingStructureFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
                 {
@@ -1230,7 +1263,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedDuneErosionSectionResultEntities = new List<DuneErosionSectionResultEntity>();
             foreach (DuneErosionSectionResultEntity sectionResultEntity in dbContext.DuneErosionSectionResultEntities
-                                                                                             .Where(e => e.DuneErosionSectionResultEntityId > 0))
+                                                                                    .Where(e => e.DuneErosionSectionResultEntityId > 0))
             {
                 if (!duneErosionFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
                 {
@@ -1241,7 +1274,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedStabilityStoneCoverSectionResultEntities = new List<StabilityStoneCoverSectionResultEntity>();
             foreach (StabilityStoneCoverSectionResultEntity sectionResultEntity in dbContext.StabilityStoneCoverSectionResultEntities
-                                                                                             .Where(e => e.StabilityStoneCoverSectionResultEntityId > 0))
+                                                                                            .Where(e => e.StabilityStoneCoverSectionResultEntityId > 0))
             {
                 if (!stabilityStoneCoverFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
                 {
@@ -1252,7 +1285,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedStrengthStabilityPointConstructionSectionResultEntities = new List<StrengthStabilityPointConstructionSectionResultEntity>();
             foreach (StrengthStabilityPointConstructionSectionResultEntity sectionResultEntity in dbContext.StrengthStabilityPointConstructionSectionResultEntities
-                                                                                             .Where(e => e.StrengthStabilityPointConstructionSectionResultEntityId > 0))
+                                                                                                           .Where(e => e.StrengthStabilityPointConstructionSectionResultEntityId > 0))
             {
                 if (!strengthStabilityPointConstructionFailureMechanismSectionResults.ContainsKey(sectionResultEntity))
                 {

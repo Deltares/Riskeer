@@ -85,6 +85,7 @@
     <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructureFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructureFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\GeneralGrassCoverErosionInwardsInputCreateExtensionsTest.cs" />
     <Compile Include="Create\StrengthStabilityPointConstructionFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\StrengthStabilityPointConstructionFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\StabilityStoneCoverFailureMechanismCreateExtensionsTest.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Read\AssessmentSectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentionsTest.cs" />
     <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StrengthStabilityPointConstructionSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityStoneCoverSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\DuneErosionSectionResultEntityReadExtensionsTest.cs" />
@@ -188,6 +190,7 @@
     <Compile Include="Update\CalculationGroupUpdateExtensionsTest.cs" />
     <Compile Include="Update\ClosingStructureFailureMechanismSectionResultUpdateExtensionsTest.cs" />
     <Compile Include="Update\ClosingStructureFailureMechanismUpdateExtensionsTest.cs" />
+    <Compile Include="Update\GeneralGrassCoverErosionInwardsInputUpdateExtensionsTest.cs" />
     <Compile Include="Update\StrengthStabilityPointConstructionFailureMechanismSectionResultUpdateExtensionsTest.cs" />
     <Compile Include="Update\StrengthStabilityPointConstructionFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\StabilityStoneCoverFailureMechanismSectionResultUpdateExtensionsTest.cs" />
