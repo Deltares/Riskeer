@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
     public interface IAssessmentSection : ICommentable, IObservable, IStorable
     {
         /// <summary>
-        /// Gets or sets the name of the assessment section.
+        /// Gets or sets the identifier of the assessment section.
         /// </summary>
         string Id { get; }
 

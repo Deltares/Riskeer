@@ -75,7 +75,7 @@ namespace Ringtoets.Common.IO
         /// </list></exception>
         public IEnumerable<ReferenceLineMeta> GetReferenceLineMetas()
         {
-            var referenceLineMetas = ReadReferenceLineMetas();
+            ICollection<ReferenceLineMeta> referenceLineMetas = ReadReferenceLineMetas();
 
             ValidateReferenceLineMetas(referenceLineMetas);
 
@@ -87,8 +87,7 @@ namespace Ringtoets.Common.IO
             var files = GetShapeFilesInFolder(folderpath);
             if (files.Length == 0)
             {
-                var message = new FileReaderErrorMessageBuilder(
-                    Path.Combine(folderpath, "*.shp"))
+                var message = new FileReaderErrorMessageBuilder(folderpath)
                     .Build(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found);
                 throw new CriticalFileReadException(message);
             }
@@ -132,8 +131,9 @@ namespace Ringtoets.Common.IO
             }
         }
 
-        private IEnumerable<ReferenceLineMeta> ReadReferenceLineMetas()
+        private ICollection<ReferenceLineMeta> ReadReferenceLineMetas()
         {
+            var referenceLinesMetas = new List<ReferenceLineMeta>();
             using (var reader = new ReferenceLinesMetaReader(shapeFilePath))
             {
                 ReferenceLineMeta referenceLinesMeta;
@@ -142,15 +142,16 @@ namespace Ringtoets.Common.IO
                     referenceLinesMeta = reader.ReadReferenceLinesMeta();
                     if (referenceLinesMeta != null)
                     {
-                        yield return referenceLinesMeta;
+                        referenceLinesMetas.Add(referenceLinesMeta);
                     }
                 } while (referenceLinesMeta != null);
             }
+            return referenceLinesMetas;
         }
 
-        private void ValidateReferenceLineMetas(IEnumerable<ReferenceLineMeta> referenceLineMetas)
+        private void ValidateReferenceLineMetas(ICollection<ReferenceLineMeta> referenceLineMetas)
         {
-            var referenceLineMetasCount = referenceLineMetas.Select(rlm => rlm.AssessmentSectionId).Count();
+            var referenceLineMetasCount = referenceLineMetas.Count;
             var referenceLineMetasDistinctCount = referenceLineMetas.Select(rlm => rlm.AssessmentSectionId).Distinct().Count();
 
             if (referenceLineMetasCount != referenceLineMetasDistinctCount)

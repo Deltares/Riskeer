@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -115,7 +116,7 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => new ReferenceLineMetaImporter(pathToEmptyFolder);
 
             // Assert
-            var expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}\\*.shp': Er is geen shape file gevonden.",
+            var expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': Er is geen shape file gevonden.",
                                                          pathToEmptyFolder);
             CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
             Assert.AreEqual(expectedExceptionMessage, exception.Message);
@@ -208,22 +209,46 @@ namespace Ringtoets.Common.IO.Test
             var referenceLineMetas = importer.GetReferenceLineMetas().ToArray();
 
             // Assert
-            Assert.AreEqual(10, referenceLineMetas.Length);
-            var expectedAssessmentSectionIds = new[]
+            Assert.AreEqual(3, referenceLineMetas.Length);
+
+            var expectedReferenceLineMeta1 = new ReferenceLineMeta
             {
-                "1-1",
-                "2-2",
-                "3-3",
-                "4-4",
-                "5-5",
-                "6-6",
-                "7-7",
-                "8-8",
-                "9-9",
-                "10-10",
+                AssessmentSectionId = "1-1",
+                LowerLimitValue = 1000,
+                SignalingValue = 3000
             };
-            var assessmentSectionIds = referenceLineMetas.Select(rlm => rlm.AssessmentSectionId);
-            Assert.AreEqual(expectedAssessmentSectionIds, assessmentSectionIds);
+            expectedReferenceLineMeta1.ReferenceLine.SetGeometry(new[]
+            {
+                new Point2D(160679.9250, 475072.583),
+                new Point2D(160892.0751, 474315.4917)
+            });
+            AssertReferenceLineMetas(expectedReferenceLineMeta1, referenceLineMetas[0]);
+
+            var expectedReferenceLineMeta2 = new ReferenceLineMeta
+            {
+                AssessmentSectionId = "2-2",
+                LowerLimitValue = 100,
+                SignalingValue = 300
+            };
+            expectedReferenceLineMeta2.ReferenceLine.SetGeometry(new[]
+            {
+                new Point2D(155556.9191, 464341.1281),
+                new Point2D(155521.4761, 464360.7401)
+            });
+            AssertReferenceLineMetas(expectedReferenceLineMeta2, referenceLineMetas[1]);
+
+            var expectedReferenceLineMeta3 = new ReferenceLineMeta
+            {
+                AssessmentSectionId = "3-3",
+                LowerLimitValue = 100,
+                SignalingValue = 300
+            };
+            expectedReferenceLineMeta3.ReferenceLine.SetGeometry(new[]
+            {
+                new Point2D(147367.321899, 476902.915710),
+                new Point2D(147410.0515, 476938.9447)
+            });
+            AssertReferenceLineMetas(expectedReferenceLineMeta3, referenceLineMetas[2]);
         }
 
         [Test]
@@ -234,10 +259,28 @@ namespace Ringtoets.Common.IO.Test
             var importer = new ReferenceLineMetaImporter(pathValidFolder);
 
             // Call
-            IEnumerable<ReferenceLineMeta> referenceIds = importer.GetReferenceLineMetas();
+            IEnumerable<ReferenceLineMeta> referenceLineMetas = importer.GetReferenceLineMetas();
 
             // Assert
-            Assert.AreEqual(0, referenceIds.Count());
+            Assert.AreEqual(0, referenceLineMetas.Count());
+        }
+
+        private static void AssertReferenceLineMetas(ReferenceLineMeta expectedReferenceLineMeta, ReferenceLineMeta actualReferenceLineMeta)
+        {
+            Assert.AreEqual(expectedReferenceLineMeta.AssessmentSectionId, actualReferenceLineMeta.AssessmentSectionId);
+            Assert.AreEqual(expectedReferenceLineMeta.SignalingValue, actualReferenceLineMeta.SignalingValue);
+            Assert.AreEqual(expectedReferenceLineMeta.LowerLimitValue, actualReferenceLineMeta.LowerLimitValue);
+
+            var expectedPoints = expectedReferenceLineMeta.ReferenceLine.Points.ToArray();
+            var actualPoints = actualReferenceLineMeta.ReferenceLine.Points.ToArray();
+            var errorMessage = String.Format("Unexpected geometry found in ReferenceLineMeta with id '{0}'", actualReferenceLineMeta.AssessmentSectionId);
+            Assert.AreEqual(expectedPoints.Length, actualPoints.Length, errorMessage);
+
+            for (var i = 0; i < expectedPoints.Length; i++)
+            {
+                Assert.AreEqual(expectedPoints[i].X, actualPoints[i].X, 1e-6, errorMessage);
+                Assert.AreEqual(expectedPoints[i].Y, actualPoints[i].Y, 1e-6, errorMessage);
+            }
         }
     }
 }

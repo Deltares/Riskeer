@@ -50,6 +50,7 @@ namespace Ringtoets.Common.IO
         /// Initializes a new instance of the <see cref="PolylineShapeFileReader"/> class and validates the file.
         /// </summary>
         /// <param name="shapeFilePath">The file path to the shape file.</param>
+        /// <exception cref="ArgumentException">When <paramref name="shapeFilePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="shapeFilePath"/> points to a file that does not exist.</item>
@@ -93,59 +94,37 @@ namespace Ringtoets.Common.IO
 
         private void ValidateExistenceOfRequiredAttributes()
         {
-            var hasAssessmentSectionIdAttribute = polylineShapeFileReader.HasAttribute(assessmentsectionIdAttributeKey);
-            var hasSignalingValueAttribute = polylineShapeFileReader.HasAttribute(signalingValueAttributeKey);
-            var hasLowerLimitValueAttribute = polylineShapeFileReader.HasAttribute(lowerLimitValueAttributeKey);
-
-            if (hasAssessmentSectionIdAttribute && hasSignalingValueAttribute && hasLowerLimitValueAttribute)
+            IList<string> missingAttributes = GetMissingAttributes();
+            if (missingAttributes.Count == 1)
             {
-                return;
-            }
-
-            string message;
-            if (hasAssessmentSectionIdAttribute && hasSignalingValueAttribute)
-            {
-                // No low limit
-                message = string.Format(RingtoetsCommonIOResources.ReferenceLinesMetaReader_File_lacks_required_Attribute_0_,
-                                        lowerLimitValueAttributeKey);
+                var message = string.Format(RingtoetsCommonIOResources.ReferenceLinesMetaReader_File_lacks_required_Attribute_0_,
+                                            missingAttributes[0]);
                 throw new CriticalFileReadException(message);
             }
-
-            if (hasAssessmentSectionIdAttribute && hasLowerLimitValueAttribute)
+            if (missingAttributes.Count > 1)
             {
-                // No signaling value
-                message = string.Format(RingtoetsCommonIOResources.ReferenceLinesMetaReader_File_lacks_required_Attribute_0_,
-                                        signalingValueAttributeKey);
+                var message = string.Format(RingtoetsCommonIOResources.ReferenceLinesMetaReader_File_lacks_required_Attributes_0_,
+                                            string.Join("', '", missingAttributes));
                 throw new CriticalFileReadException(message);
             }
+        }
 
-            if (hasSignalingValueAttribute && hasLowerLimitValueAttribute)
+        private IList<string> GetMissingAttributes()
+        {
+            var list = new List<string>(3);
+            if (!polylineShapeFileReader.HasAttribute(assessmentsectionIdAttributeKey))
             {
-                // No Assessment Section Id
-                message = string.Format(RingtoetsCommonIOResources.ReferenceLinesMetaReader_File_lacks_required_Attribute_0_,
-                                        assessmentsectionIdAttributeKey);
-                throw new CriticalFileReadException(message);
+                list.Add(assessmentsectionIdAttributeKey);
             }
-
-            // Multiple attributes not found
-            var missingAttributes = new List<string>();
-            if (!hasAssessmentSectionIdAttribute)
+            if (!polylineShapeFileReader.HasAttribute(signalingValueAttributeKey))
             {
-                missingAttributes.Add(assessmentsectionIdAttributeKey);
+                list.Add(signalingValueAttributeKey);
             }
-            if (!hasSignalingValueAttribute)
+            if (!polylineShapeFileReader.HasAttribute(lowerLimitValueAttributeKey))
             {
-                missingAttributes.Add(signalingValueAttributeKey);
+                list.Add(lowerLimitValueAttributeKey);
             }
-            if (!hasLowerLimitValueAttribute)
-            {
-                missingAttributes.Add(lowerLimitValueAttributeKey);
-            }
-
-            message = string.Format(RingtoetsCommonIOResources.ReferenceLinesMetaReader_File_lacks_required_Attributes_0_,
-                                    string.Join("', '", missingAttributes));
-
-            throw new CriticalFileReadException(message);
+            return list;
         }
 
         private static PolylineShapeFileReader OpenPolyLineShapeFile(string shapeFilePath)
@@ -153,13 +132,9 @@ namespace Ringtoets.Common.IO
             return new PolylineShapeFileReader(shapeFilePath);
         }
 
-        /// <summary>
-        /// Reads a new <see cref="MapLineData"/> from the file.
-        /// </summary>
-        /// <returns></returns>
         private MapLineData ReadMapLineData()
         {
-            return polylineShapeFileReader.ReadLine() as MapLineData;
+            return (MapLineData) polylineShapeFileReader.ReadLine();
         }
 
         private static ReferenceLineMeta CreateReferenceLineMeta(MapLineData lineData)
@@ -168,9 +143,9 @@ namespace Ringtoets.Common.IO
 
             var feature = features[0];
 
-            var assessmentSectionId = GetAssessmentSectionId(feature);
-            var signalingValue = GetSignalingValueAttributeKey(feature);
-            var lowerLimitValue = GetLowerLimitValueAttribute(feature);
+            string assessmentSectionId = GetAssessmentSectionId(feature);
+            int? signalingValue = GetSignalingValueAttributeKey(feature);
+            int? lowerLimitValue = GetLowerLimitValueAttribute(feature);
             IEnumerable<Point2D> geometryPoints = GetSectionGeometry(feature);
 
             var referenceLineMeta = new ReferenceLineMeta

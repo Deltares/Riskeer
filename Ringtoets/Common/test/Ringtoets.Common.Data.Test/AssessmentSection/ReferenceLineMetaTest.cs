@@ -37,5 +37,49 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             Assert.IsInstanceOf<ReferenceLine>(referenceLine.ReferenceLine);
             CollectionAssert.IsEmpty(referenceLine.ReferenceLine.Points);
         }
+
+        [Test]
+        public void SetAssessmentSectionId_ExpectedValue()
+        {
+            // Setup
+            const string assessmentSectionId = "SomeStringValue";
+            var referenceLine = new ReferenceLineMeta();
+
+            // Call
+            referenceLine.AssessmentSectionId = assessmentSectionId;
+
+            // Assert
+            Assert.AreEqual(assessmentSectionId, referenceLine.AssessmentSectionId);
+        }
+
+        [Test]
+        [TestCase(1234)]
+        [TestCase(null)]
+        public void SetSignalingValue_ExpectedValue(int? signalingValue)
+        {
+            // Setup
+            var referenceLine = new ReferenceLineMeta();
+
+            // Call
+            referenceLine.SignalingValue = signalingValue;
+
+            // Assert
+            Assert.AreEqual(signalingValue, referenceLine.SignalingValue);
+        }
+
+        [Test]
+        [TestCase(1234)]
+        [TestCase(null)]
+        public void SetLowerLimitValue_ExpectedValue(int? lowerLimitValue)
+        {
+            // Setup
+            var referenceLine = new ReferenceLineMeta();
+
+            // Call
+            referenceLine.LowerLimitValue = lowerLimitValue;
+
+            // Assert
+            Assert.AreEqual(lowerLimitValue, referenceLine.LowerLimitValue);
+        }
     }
 }

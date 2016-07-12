@@ -30,7 +30,6 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.Exceptions;
-
 using PipingPrimitivesResources = Ringtoets.Piping.Primitives.Properties.Resources;
 
 namespace Ringtoets.Piping.Data.Test
