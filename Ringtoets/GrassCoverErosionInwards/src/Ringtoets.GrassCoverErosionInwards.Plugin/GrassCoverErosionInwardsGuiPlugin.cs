@@ -44,6 +44,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter;
 using Ringtoets.GrassCoverErosionInwards.Service;
+using Ringtoets.GrassCoverErosionInwards.Utils;
 using Ringtoets.HydraRing.IO;
 using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
 using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
@@ -536,23 +537,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             using (var view = new GrassCoverErosionInwardsDikeProfileSelectionDialog(Gui.MainWindow, nodeData.AvailableDikeProfiles))
             {
                 view.ShowDialog();
-                GenerateCalculations(nodeData.WrappedData, view.SelectedDikeProfiles);
+                GenerateCalculations(nodeData.WrappedData, nodeData.FailureMechanism, view.SelectedDikeProfiles);
             }
             nodeData.NotifyObservers();
         }
 
-        private void GenerateCalculations(CalculationGroup target, IEnumerable<DikeProfile> dikeProfiles)
+        private void GenerateCalculations(CalculationGroup target, GrassCoverErosionInwardsFailureMechanism failureMechanism, IEnumerable<DikeProfile> dikeProfiles)
         {
             foreach (var profile in dikeProfiles)
             {
-                target.Children.Add(new GrassCoverErosionInwardsCalculation
+                var calculation = new GrassCoverErosionInwardsCalculation
                 {
                     Name = NamingHelper.GetUniqueName(target.Children, profile.Name, c => c.Name),
                     InputParameters =
                     {
                         DikeProfile = profile
                     }
-                });
+                };
+                target.Children.Add(calculation);
+                AssignUnassignCalculations.Update(failureMechanism, calculation);
             }
         }
 

@@ -31,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
     /// Utility class for data synchronization of the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult.Calculation"/> 
     /// of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects.
     /// </summary>
-    public static class AssignUnAssignCalculations
+    public static class AssignUnassignCalculations
     {
         /// <summary>
         /// Update <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects which used or can use the <see cref="GrassCoverErosionInwardsCalculation"/>.
@@ -55,20 +55,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
             FailureMechanismSection failureMechanismSection = GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(failureMechanism.SectionResults, calculation);
 
             // All SectionResults (0 or 1) which don't contain the calculation, but do have it assigned, have their calculation set to null.
-            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResultsUsingCalculation = failureMechanism.SectionResults.Where(sr => sr.Calculation.Equals(calculation));
+            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResultsUsingCalculation = failureMechanism.SectionResults.Where(sr => sr.Calculation != null && sr.Calculation.Equals(calculation));
             foreach (var sectionResult in sectionResultsUsingCalculation)
             {
                 if (!sectionResult.Section.Equals(failureMechanismSection))
                 {
                     sectionResult.Calculation = null;
                 }
-                else
+            }
+
+            // Assign the calculation to the SectionResult which contains it, if that SectionResult currently has no calculation set.
+            foreach (var sectionResult in failureMechanism.SectionResults)
+            {
+                if (sectionResult.Section.Equals(failureMechanismSection) && sectionResult.Calculation == null)
                 {
-                    // Assign the calculation to the SectionResult which contains it, if that SectionResult currently has no calculation set.
-                    if (sectionResult.Calculation == null)
-                    {
-                        sectionResult.Calculation = calculation;
-                    }
+                    sectionResult.Calculation = calculation;
                 }
             }
         }
