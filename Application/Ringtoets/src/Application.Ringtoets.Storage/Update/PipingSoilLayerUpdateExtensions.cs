@@ -67,6 +67,7 @@ namespace Application.Ringtoets.Storage.Update
             entity.MaterialName = layer.MaterialName;
             entity.BelowPhreaticLevelMean = layer.BelowPhreaticLevelMean.ToNaNAsNull();
             entity.BelowPhreaticLevelDeviation = layer.BelowPhreaticLevelDeviation.ToNaNAsNull();
+            entity.BelowPhreaticLevelShift = layer.BelowPhreaticLevelShift.ToNaNAsNull();
             entity.DiameterD70Mean = layer.DiameterD70Mean.ToNaNAsNull();
             entity.DiameterD70Deviation = layer.DiameterD70Deviation.ToNaNAsNull();
             entity.PermeabilityMean = layer.PermeabilityMean.ToNaNAsNull();

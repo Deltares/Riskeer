@@ -60,16 +60,22 @@ namespace Ringtoets.Piping.Primitives
         public bool IsAquifer { get; set; }
 
         /// <summary>
-        /// Gets or sets mean of the distrubtion for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
+        /// Gets or sets the mean of the distrubtion for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
         /// [kN/m³]
         /// </summary>
         public double BelowPhreaticLevelMean { get; set; }
 
         /// <summary>
-        /// Gets or sets deviation of the distrubtion for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
+        /// Gets or sets the deviation of the distrubtion for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
         /// [kN/m³]
         /// </summary>
         public double BelowPhreaticLevelDeviation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the shift of the distrubtion for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public double BelowPhreaticLevelShift { get; set; }
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 

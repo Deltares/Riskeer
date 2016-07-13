@@ -51,12 +51,20 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             double top = new Random(21).NextDouble();
+            var random = new Random(21);
             var soilLayer = new PipingSoilLayer(top)
             {
                 IsAquifer = isAquifer,
-                BelowPhreaticLevelMean = 2.2,
                 Color = Color.AliceBlue,
-                MaterialName = "MaterialName"
+                MaterialName = "MaterialName",
+                BelowPhreaticLevelMean = random.NextDouble(),
+                BelowPhreaticLevelDeviation = random.NextDouble(),
+                BelowPhreaticLevelShift = random.NextDouble(),
+                DiameterD70Mean = double.NaN,
+                DiameterD70Deviation = double.NaN,
+                PermeabilityMean = random.NextDouble(),
+                PermeabilityDeviation = random.NextDouble()
+
             };
             var registry = new PersistenceRegistry();
 
@@ -70,6 +78,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(soilLayer.Color.ToArgb(), Convert.ToInt32(entity.Color));
             Assert.AreEqual(soilLayer.BelowPhreaticLevelMean.ToNaNAsNull(), entity.BelowPhreaticLevelMean);
             Assert.AreEqual(soilLayer.BelowPhreaticLevelDeviation.ToNaNAsNull(), entity.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(soilLayer.BelowPhreaticLevelShift.ToNaNAsNull(), entity.BelowPhreaticLevelShift);
             Assert.AreEqual(soilLayer.DiameterD70Mean.ToNaNAsNull(), entity.DiameterD70Mean);
             Assert.AreEqual(soilLayer.DiameterD70Deviation.ToNaNAsNull(), entity.DiameterD70Deviation);
             Assert.AreEqual(soilLayer.PermeabilityMean.ToNaNAsNull(), entity.PermeabilityMean);

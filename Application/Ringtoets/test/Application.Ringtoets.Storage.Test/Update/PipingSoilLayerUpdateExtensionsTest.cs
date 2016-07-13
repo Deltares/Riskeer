@@ -140,6 +140,7 @@ namespace Application.Ringtoets.Storage.Test.Update
                 IsAquifer = true,
                 BelowPhreaticLevelMean = random.NextDouble(),
                 BelowPhreaticLevelDeviation = random.NextDouble(),
+                BelowPhreaticLevelShift = random.NextDouble(),
                 DiameterD70Mean = double.NaN,
                 DiameterD70Deviation = double.NaN,
                 PermeabilityMean = random.NextDouble(),
@@ -155,6 +156,7 @@ namespace Application.Ringtoets.Storage.Test.Update
                 IsAquifer = Convert.ToByte(false),
                 BelowPhreaticLevelMean = 2.2,
                 BelowPhreaticLevelDeviation = 8.5,
+                BelowPhreaticLevelShift = 1.5,
                 DiameterD70Mean = 5.5,
                 DiameterD70Deviation = 3.8,
                 PermeabilityMean = 1.2,
@@ -173,6 +175,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             Assert.AreEqual(Convert.ToByte(true), soilLayerEntity.IsAquifer);
             Assert.AreEqual(pipingSoilLayer.BelowPhreaticLevelMean, soilLayerEntity.BelowPhreaticLevelMean);
             Assert.AreEqual(pipingSoilLayer.BelowPhreaticLevelDeviation, soilLayerEntity.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(pipingSoilLayer.BelowPhreaticLevelShift, soilLayerEntity.BelowPhreaticLevelShift);
             Assert.IsNull(soilLayerEntity.DiameterD70Mean);
             Assert.IsNull(soilLayerEntity.DiameterD70Deviation);
             Assert.AreEqual(pipingSoilLayer.PermeabilityMean, soilLayerEntity.PermeabilityMean);

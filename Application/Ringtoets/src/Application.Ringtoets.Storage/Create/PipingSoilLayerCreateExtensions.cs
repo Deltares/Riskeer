@@ -50,6 +50,7 @@ namespace Application.Ringtoets.Storage.Create
                 Top = layer.Top,
                 BelowPhreaticLevelMean = layer.BelowPhreaticLevelMean.ToNaNAsNull(),
                 BelowPhreaticLevelDeviation = layer.BelowPhreaticLevelDeviation.ToNaNAsNull(),
+                BelowPhreaticLevelShift = layer.BelowPhreaticLevelShift.ToNaNAsNull(),
                 DiameterD70Mean = layer.DiameterD70Mean.ToNaNAsNull(),
                 DiameterD70Deviation = layer.DiameterD70Deviation.ToNaNAsNull(),
                 PermeabilityMean = layer.PermeabilityMean.ToNaNAsNull(),

@@ -225,4 +225,7 @@
   <data name="SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution" xml:space="preserve">
     <value>De parameter '{0}' is niet lognormaal verdeeld.</value>
   </data>
+  <data name="SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution" xml:space="preserve">
+    <value>De parameter '{0}' is niet verschoven lognormaal verdeeld.</value>
+  </data>
 </root>

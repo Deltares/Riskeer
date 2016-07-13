@@ -320,6 +320,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1);
+            reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.IntersectionX)).Return(0.0).Repeat.Any();
+            reader.Expect(r => r.Read<byte[]>(SoilProfileDatabaseColumns.LayerGeometry)).Return(someGeometry).Repeat.Any();
             reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileDatabaseColumns.BelowPhreaticLevelDistribution)).Return(1);
             mocks.ReplayAll();
 
@@ -327,24 +329,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            Assert.Throws<PipingSoilProfileReadException>(test);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ReadFrom_InvalidBelowPhreaticLevelShiftValue_ThrowsPipingSoilProfileReadException()
-        {
-            // Setup
-            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1);
-            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileDatabaseColumns.BelowPhreaticLevelDistribution)).Return(SoilLayerConstants.LogNormalDistributionValue);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.BelowPhreaticLevelShift)).Return(1);
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
-
-            // Assert
-            Assert.Throws<PipingSoilProfileReadException>(test);
+            var message = Assert.Throws<PipingSoilProfileReadException>(test).Message;
+            var expected = string.Format(
+                "Fout bij het lezen van bestand '' (ondergrondschematisatie ''): De parameter '{0}' is niet verschoven lognormaal verdeeld.", 
+                "Verzadigd gewicht");
+            Assert.AreEqual(expected, message);
             mocks.VerifyAll();
         }
 
@@ -353,6 +342,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1);
+            reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.IntersectionX)).Return(0.0).Repeat.Any();
+            reader.Expect(r => r.Read<byte[]>(SoilProfileDatabaseColumns.LayerGeometry)).Return(someGeometry).Repeat.Any();
             reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileDatabaseColumns.DiameterD70Distribution)).Return(1);
             mocks.ReplayAll();
 
@@ -360,7 +351,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            Assert.Throws<PipingSoilProfileReadException>(test);
+            var message = Assert.Throws<PipingSoilProfileReadException>(test).Message;
+            var expected = string.Format(
+                "Fout bij het lezen van bestand '' (ondergrondschematisatie ''): De parameter '{0}' is niet lognormaal verdeeld.", 
+                "Korrelgrootte");
+            Assert.AreEqual(expected, message);
             mocks.VerifyAll();
         }
 
@@ -369,6 +364,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1);
+            reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.IntersectionX)).Return(0.0).Repeat.Any();
+            reader.Expect(r => r.Read<byte[]>(SoilProfileDatabaseColumns.LayerGeometry)).Return(someGeometry).Repeat.Any();
             reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileDatabaseColumns.DiameterD70Distribution)).Return(SoilLayerConstants.LogNormalDistributionValue);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.DiameterD70Shift)).Return(1);
             mocks.ReplayAll();
@@ -377,7 +374,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            Assert.Throws<PipingSoilProfileReadException>(test);
+            var message = Assert.Throws<PipingSoilProfileReadException>(test).Message;
+            var expected = string.Format(
+                "Fout bij het lezen van bestand '' (ondergrondschematisatie ''): De parameter '{0}' is niet lognormaal verdeeld.", 
+                "Korrelgrootte");
+            Assert.AreEqual(expected, message);
             mocks.VerifyAll();
         }
 
@@ -386,6 +387,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1);
+            reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.IntersectionX)).Return(0.0).Repeat.Any();
+            reader.Expect(r => r.Read<byte[]>(SoilProfileDatabaseColumns.LayerGeometry)).Return(someGeometry).Repeat.Any();
             reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileDatabaseColumns.PermeabilityDistribution)).Return(1);
             mocks.ReplayAll();
 
@@ -393,7 +396,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            Assert.Throws<PipingSoilProfileReadException>(test);
+            var message = Assert.Throws<PipingSoilProfileReadException>(test).Message;
+            var expected = string.Format(
+                "Fout bij het lezen van bestand '' (ondergrondschematisatie ''): De parameter '{0}' is niet lognormaal verdeeld.", 
+                "Doorlatendheid");
+            Assert.AreEqual(expected, message);
             mocks.VerifyAll();
         }
 
@@ -402,6 +409,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1);
+            reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.IntersectionX)).Return(0.0).Repeat.Any();
+            reader.Expect(r => r.Read<byte[]>(SoilProfileDatabaseColumns.LayerGeometry)).Return(someGeometry).Repeat.Any();
             reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileDatabaseColumns.PermeabilityDistribution)).Return(SoilLayerConstants.LogNormalDistributionValue);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.PermeabilityShift)).Return(1);
             mocks.ReplayAll();
@@ -410,7 +419,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            Assert.Throws<PipingSoilProfileReadException>(test);
+            var message = Assert.Throws<PipingSoilProfileReadException>(test).Message;
+            var expected = string.Format(
+                "Fout bij het lezen van bestand '' (ondergrondschematisatie ''): De parameter '{0}' is niet lognormaal verdeeld.", 
+                "Doorlatendheid");
+            Assert.AreEqual(expected, message);
             mocks.VerifyAll();
         }
 

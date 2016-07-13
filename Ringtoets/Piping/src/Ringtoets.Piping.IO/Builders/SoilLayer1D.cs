@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// </summary>
         /// <returns>The <see cref="PipingSoilLayer"/> with properties corresponding to those set on the <see cref="SoilLayer1D"/>.</returns>
         /// <exception cref="SoilLayerConversionException">Thrown when any of the distributions of the
-        /// stochastic parameters is not defined as lognormal.</exception>
+        /// stochastic parameters is not defined as lognormal or is shifted when it should not be.</exception>
         internal PipingSoilLayer AsPipingSoilLayer()
         {
             ValidateStochasticParametersForPiping();

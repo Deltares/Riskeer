@@ -110,7 +110,8 @@ namespace Ringtoets.Piping.IO.Builders
         /// <list type="bullet">
         /// <item>any of the <see cref="InnerLoops"/> or <see cref="OuterLoop"/> contain a vertical 
         /// line at <paramref name="atX"/></item>
-        /// <item>any of the distributions of the stochastic parameters is not defined as lognormal</item>
+        /// <item>any of the distributions of the stochastic parameters is not defined as lognormal 
+        /// or is shifted when it should not be</item>
         /// </list>
         /// </exception>
         internal IEnumerable<PipingSoilLayer> AsPipingSoilLayers(double atX, out double bottom)

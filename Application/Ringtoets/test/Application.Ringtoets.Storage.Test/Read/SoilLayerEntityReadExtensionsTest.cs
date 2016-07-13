@@ -45,6 +45,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             var belowPhreaticLevelMean = random.NextDouble();
             var belowPhreaticLevelDeviation = random.NextDouble();
+            var belowPhreaticLevelShift = random.NextDouble();
             var diameterD70Mean = random.NextDouble();
             var diameterD70Deviation = random.NextDouble();
             var permeabilityMean = random.NextDouble();
@@ -59,6 +60,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 MaterialName = materialName,
                 BelowPhreaticLevelMean = belowPhreaticLevelMean,
                 BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
+                BelowPhreaticLevelShift = belowPhreaticLevelShift,
                 DiameterD70Mean = diameterD70Mean,
                 DiameterD70Deviation = diameterD70Deviation,
                 PermeabilityMean = permeabilityMean,
@@ -78,6 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             Assert.AreEqual(belowPhreaticLevelMean, layer.BelowPhreaticLevelMean);
             Assert.AreEqual(belowPhreaticLevelDeviation, layer.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(belowPhreaticLevelShift, layer.BelowPhreaticLevelShift);
             Assert.AreEqual(diameterD70Mean, layer.DiameterD70Mean);
             Assert.AreEqual(diameterD70Deviation, layer.DiameterD70Deviation);
             Assert.AreEqual(permeabilityMean, layer.PermeabilityMean);

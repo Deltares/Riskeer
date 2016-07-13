@@ -130,6 +130,10 @@ namespace Ringtoets.Piping.IO.Builders
             {
                 pipingSoilLayer.BelowPhreaticLevelDeviation = BelowPhreaticLevelDeviation.Value;
             }
+            if (BelowPhreaticLevelShift.HasValue)
+            {
+                pipingSoilLayer.BelowPhreaticLevelShift = BelowPhreaticLevelShift.Value;
+            }
             if (DiameterD70Mean.HasValue)
             {
                 pipingSoilLayer.DiameterD70Mean = DiameterD70Mean.Value;
@@ -153,29 +157,38 @@ namespace Ringtoets.Piping.IO.Builders
         /// are correct for creating a <see cref="PipingSoilLayer"/>.
         /// </summary>
         /// <exception cref="SoilLayerConversionException">Thrown when any of the distributions of the
-        /// stochastic parameters is not defined as lognormal.</exception>
+        /// stochastic parameters is not defined as lognormal or is shifted when it should not be.</exception>
         protected void ValidateStochasticParametersForPiping()
         {
             ValidateIsLogNormal(
-                BelowPhreaticLevelDistribution, 
-                BelowPhreaticLevelShift,
+                BelowPhreaticLevelDistribution,
                 Resources.SoilLayer_BelowPhreaticLevelDistribution_Description);
-            ValidateIsLogNormal(
+            ValidateIsNonShiftedLogNormal(
                 DiameterD70Distribution, 
                 DiameterD70Shift,
                 Resources.SoilLayer_DiameterD70Distribution_Description);
-            ValidateIsLogNormal(
+            ValidateIsNonShiftedLogNormal(
                 PermeabilityDistribution, 
                 PermeabilityShift,
                 Resources.SoilLayer_PermeabilityDistribution_Description);
         }
 
-        private static void ValidateIsLogNormal(long? distribution, double? shift, string incorrectDistibutionParameter)
+        private static void ValidateIsNonShiftedLogNormal(long? distribution, double? shift, string incorrectDistibutionParameter)
         {
             if (distribution.HasValue && (distribution != SoilLayerConstants.LogNormalDistributionValue || shift != 0.0))
             {
                 throw new SoilLayerConversionException(string.Format(
                     Resources.SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution,
+                    incorrectDistibutionParameter));
+            }
+        }
+
+        private static void ValidateIsLogNormal(long? distribution, string incorrectDistibutionParameter)
+        {
+            if (distribution.HasValue && distribution != SoilLayerConstants.LogNormalDistributionValue)
+            {
+                throw new SoilLayerConversionException(string.Format(
+                    Resources.SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution,
                     incorrectDistibutionParameter));
             }
         }

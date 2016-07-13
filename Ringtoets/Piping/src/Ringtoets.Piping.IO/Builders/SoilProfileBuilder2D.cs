@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// <item>the <paramref name="soilLayer"/>'s geometry contains vertical segments at the 
         /// X-coordinate given for the construction of the <see cref="SoilProfileBuilder2D(string,double,long)"/>.</item>
         /// <item>any of the distributions of the stochastic parameters for <paramref name="soilLayer"/> is not defined 
-        /// as lognormal</item>
+        /// as lognormal or is shifted when it should not be</item>
         /// </list></exception>
         internal SoilProfileBuilder2D Add(SoilLayer2D soilLayer)
         {

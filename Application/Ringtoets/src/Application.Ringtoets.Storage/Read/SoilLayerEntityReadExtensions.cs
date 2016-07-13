@@ -47,6 +47,7 @@ namespace Application.Ringtoets.Storage.Read
                 MaterialName = entity.MaterialName ?? string.Empty,
                 BelowPhreaticLevelMean = entity.BelowPhreaticLevelMean.ToNullAsNaN(),
                 BelowPhreaticLevelDeviation = entity.BelowPhreaticLevelDeviation.ToNullAsNaN(),
+                BelowPhreaticLevelShift = entity.BelowPhreaticLevelShift.ToNullAsNaN(),
                 DiameterD70Mean = entity.DiameterD70Mean.ToNullAsNaN(),
                 DiameterD70Deviation = entity.DiameterD70Deviation.ToNullAsNaN(),
                 PermeabilityMean = entity.PermeabilityMean.ToNullAsNaN(),

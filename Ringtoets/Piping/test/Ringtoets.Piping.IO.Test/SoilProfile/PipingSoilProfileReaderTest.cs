@@ -376,7 +376,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadProfile_DatabaseProfileWithLayerWithIncorrectDistributionForStochastProperty_ReturnsNoProfile()
+        public void ReadProfile_DatabaseProfileWithLayerWithIncorrectDistributionForBelowPhreaticLevelProperty_ReturnsNoProfile()
         {
             // Setup
             var testFile = "incorrect2dStochastDistributionProperty.soil";
@@ -390,7 +390,28 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
                 var message = new FileReaderErrorMessageBuilder(databaseFilePath)
                     .WithSubject("ondergrondschematisatie 'Profile'")
-                    .Build(string.Format(Resources.SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution, Resources.SoilLayer_BelowPhreaticLevelDistribution_Description));
+                    .Build(string.Format(Resources.SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution, Resources.SoilLayer_BelowPhreaticLevelDistribution_Description));
+                Assert.AreEqual(message, exceptionMessage);
+            }
+        }
+
+
+        [Test]
+        public void ReadProfile_DatabaseProfileWithLayerWithIncorrectShiftForDiameterD70Property_ReturnsNoProfile()
+        {
+            // Setup
+            var testFile = "incorrect2dStochastShiftProperty.soil";
+            string databaseFilePath = Path.Combine(testDataPath, testFile);
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(databaseFilePath))
+            {
+                // Call
+                TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
+
+                // Assert
+                var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
+                var message = new FileReaderErrorMessageBuilder(databaseFilePath)
+                    .WithSubject("ondergrondschematisatie 'Profile'")
+                    .Build(string.Format(Resources.SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution, Resources.SoilLayer_DiameterD70Distribution_Description));
                 Assert.AreEqual(message, exceptionMessage);
             }
         }
@@ -431,6 +452,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     0.02,
                     0.001
                 }, profile.Layers.Select(l => l.BelowPhreaticLevelDeviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.4,
+                    0.32,
+                    0.3
+                }, profile.Layers.Select(l => l.BelowPhreaticLevelShift));
                 CollectionAssert.AreEqual(new[]
                 {
                     11.3,
@@ -494,6 +521,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     0.02,
                     0.08
                 }, profile.Layers.Select(l => l.BelowPhreaticLevelDeviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.3,
+                    0.32,
+                    0.4
+                }, profile.Layers.Select(l => l.BelowPhreaticLevelShift));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.51,

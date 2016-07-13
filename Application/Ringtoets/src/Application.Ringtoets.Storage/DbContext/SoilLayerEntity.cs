@@ -45,6 +45,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> BelowPhreaticLevelDeviation { get; set; }
         public Nullable<double> DiameterD70Mean { get; set; }
         public Nullable<double> DiameterD70Deviation { get; set; }
+        public Nullable<double> BelowPhreaticLevelShift { get; set; }
         public Nullable<double> PermeabilityMean { get; set; }
         public Nullable<double> PermeabilityDeviation { get; set; }
     
