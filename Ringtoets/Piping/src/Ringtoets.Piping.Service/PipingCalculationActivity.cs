@@ -44,7 +44,8 @@ namespace Ringtoets.Piping.Service
         /// <param name="norm">The return period to assess for.</param>
         /// <param name="contribution">The contribution of piping as a percentage (0-100) to the total of the failure probability
         /// of the assessment section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any <paramref name="calculation"/> 
+        /// or <paramref name="pipingProbabilityAssessmentInput"/> is <c>null</c>.</exception>
         public PipingCalculationActivity(PipingCalculation calculation, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput, int norm, double contribution)
         {
             if (calculation == null)

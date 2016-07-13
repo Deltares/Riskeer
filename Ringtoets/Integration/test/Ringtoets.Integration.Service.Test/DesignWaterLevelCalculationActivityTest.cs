@@ -63,6 +63,36 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
+        public void ParameteredConstructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0);
+
+            // Call
+            TestDelegate call = () => new DesignWaterLevelCalculationActivity(null, hydraulicBoundaryLocation);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void ParameteredConstructor_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new DesignWaterLevelCalculationActivity(assessmentSectionMock, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("hydraulicBoundaryLocation", exception.ParamName);
+        }
+
+        [Test]
         public void Run_InvalidHydraulicBoundaryDatabase_PerformValidationAndLogStartAndEndAndError()
         {
             // Setup

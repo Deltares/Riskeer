@@ -32,16 +32,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
     public class GrassCoverErosionInwardsHelperTest
     {
         [Test]
-        public void CollectCalculationsPerSegment_SectionResultsAndCalculationsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(null, null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(call);
-        }
-
-        [Test]
         public void CollectCalculationsPerSegment_SectionResultsNull_ThrowsArgumentNullException()
         {
             // Setup

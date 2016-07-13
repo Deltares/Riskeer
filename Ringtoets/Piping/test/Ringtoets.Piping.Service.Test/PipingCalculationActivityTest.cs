@@ -52,6 +52,31 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
+        public void ParameteredConstructor_CalculationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new PipingCalculationActivity(null, new PipingProbabilityAssessmentInput(), int.MinValue, double.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculation", exception.ParamName);
+        }
+
+        [Test]
+        public void ParameteredConstructor_PipingProbabilityAssessmentInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var calculation = new PipingCalculation(new GeneralPipingInput());
+
+            // Call
+            TestDelegate call = () => new PipingCalculationActivity(calculation, null, int.MinValue, double.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("pipingProbabilityAssessmentInput", exception.ParamName);
+        }
+
+        [Test]
         public void Run_InvalidPipingCalculationWithOutput_LogValidationStartAndEndWithErrors()
         {
             // Setup

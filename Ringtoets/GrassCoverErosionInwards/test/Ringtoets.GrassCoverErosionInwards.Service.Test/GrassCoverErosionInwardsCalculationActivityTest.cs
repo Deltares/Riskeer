@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Service;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -51,6 +52,79 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             Assert.AreEqual(ActivityState.None, activity.State);
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ParameteredConstructor_CalculationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            // Call
+            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(null, "", failureMechanism, assessmentSectionMock);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculation", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ParameteredConstructor_HlcdDirectoryNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+
+            // Call
+            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(calculation, null, failureMechanism, assessmentSectionMock);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("hlcdDirectory", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ParameteredConstructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation();
+
+            // Call
+            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(calculation, "", null, assessmentSectionMock);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ParameteredConstructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+
+            // Call
+            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(calculation, "", failureMechanism, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }
 }
