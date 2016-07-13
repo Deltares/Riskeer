@@ -82,6 +82,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BinaryConverters\Point2DBinaryConverterTest.cs" />
+    <Compile Include="BinaryConverters\RoughnessPointBinaryConverterTest.cs" />
     <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructureFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructureFailureMechanismSectionResultCreateExtensionsTest.cs" />
