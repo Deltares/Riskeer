@@ -27,7 +27,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
     public class GrassCoverErosionInwardsCalculationServiceOutputTest
     {
         [Test]
-        public void ParameteredConstructor_WithDikeHeight_ExpectedValues()
+        public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
             double beta = 3.452;
@@ -43,24 +43,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             Assert.AreEqual(waveHeight, output.WaveHeight);
             Assert.AreEqual(isOvertoppingDominant, output.IsOvertoppingDominant);
             Assert.AreEqual(dikeHeight, output.DikeHeight);
-        }
-        
-        [Test]
-        public void ParameteredConstructor_WithoutDikeHeight_ExpectedValues()
-        {
-            // Setup
-            double beta = 3.452;
-            double waveHeight = 8.261;
-            bool isOvertoppingDominant = false;
-
-            // Call
-            GrassCoverErosionInwardsCalculationServiceOutput output = new GrassCoverErosionInwardsCalculationServiceOutput(beta, waveHeight, isOvertoppingDominant);
-
-            // Assert
-            Assert.AreEqual(beta, output.Beta);
-            Assert.AreEqual(waveHeight, output.WaveHeight);
-            Assert.AreEqual(isOvertoppingDominant, output.IsOvertoppingDominant);
-            Assert.IsNaN(output.DikeHeight);
         }
     }
 }

@@ -311,7 +311,7 @@
     <value>Indicatieve golfhoogte</value>
   </data>
   <data name="CalculateDikeHeight_Description" xml:space="preserve">
-    <value>Bereken de HBN.</value>
+    <value>Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend.</value>
   </data>
   <data name="CalculateDikeHeight_DisplayName" xml:space="preserve">
     <value>Bereken HBN</value>

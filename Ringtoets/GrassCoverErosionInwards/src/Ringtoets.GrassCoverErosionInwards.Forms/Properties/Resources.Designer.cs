@@ -151,7 +151,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bereken de HBN..
+        ///   Looks up a localized string similar to Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend..
         /// </summary>
         public static string CalculateDikeHeight_Description {
             get {

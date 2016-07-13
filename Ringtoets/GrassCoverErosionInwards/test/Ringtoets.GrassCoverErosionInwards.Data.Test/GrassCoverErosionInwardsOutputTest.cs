@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             ProbabilityAssessmentOutput probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
 
             // Call
-            GrassCoverErosionInwardsOutput output = new GrassCoverErosionInwardsOutput(waveHeight, isOvertoppingDominant, probabilityAssessmentOutput, dikeHeight, true);
+            GrassCoverErosionInwardsOutput output = new GrassCoverErosionInwardsOutput(waveHeight, isOvertoppingDominant, probabilityAssessmentOutput, dikeHeight);
 
             // Assert
             Assert.IsInstanceOf<ICalculationOutput>(output);
@@ -63,6 +63,46 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(probability, output.Probability);
             Assert.AreEqual(reliability, output.Reliability, output.Reliability.GetAccuracy());
             Assert.AreEqual(factorOfSafety, output.FactorOfSafety, output.FactorOfSafety.GetAccuracy());
+        }
+
+        [Test]
+        public void DikeHeightCalculated_DikeHeightNull_ReturnsFalse()
+        {
+            // Call
+            GrassCoverErosionInwardsOutput output = new GrassCoverErosionInwardsOutput(double.NaN, false, new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN), null);
+
+            // Assert
+            Assert.IsFalse(output.DikeHeightCalculated);
+        }
+
+        [Test]
+        public void DikeHeightCalculated_DikeHeightNotNull_ReturnsTrue()
+        {
+            // Call
+            GrassCoverErosionInwardsOutput output = new GrassCoverErosionInwardsOutput(double.NaN, false, new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN), 12.0);
+
+            // Assert
+            Assert.IsTrue(output.DikeHeightCalculated);
+        }
+
+        [Test]
+        public void DikeHeight_DikeHeightNull_ReturnNaN()
+        {
+            // Call
+            GrassCoverErosionInwardsOutput output = new GrassCoverErosionInwardsOutput(double.NaN, false, new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN), null);
+
+            // Assert
+            Assert.IsNaN(output.DikeHeight);
+        }
+
+        [Test]
+        public void DikeHeight_DikeHeightSet_ReturnsRoundedValue()
+        {
+            // Call
+            GrassCoverErosionInwardsOutput output = new GrassCoverErosionInwardsOutput(double.NaN, false, new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN), 12.8276);
+
+            // Assert
+            Assert.AreEqual((RoundedDouble)12.83, output.DikeHeight);
         }
     }
 }

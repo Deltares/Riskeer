@@ -116,27 +116,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                     }
                 });
 
-            if (exceedanceProbabilityCalculationParser.Output != null && waveHeightCalculationParser.Output != null)
+            if (exceedanceProbabilityCalculationParser.Output == null || waveHeightCalculationParser.Output == null)
             {
-                if (!calculateDikeHeight || (calculateDikeHeight && targetProbabiltyCalculationParser.Output == null))
-                {
-                    return new GrassCoverErosionInwardsCalculationServiceOutput(
-                        exceedanceProbabilityCalculationParser.Output.Beta,
-                        waveHeightCalculationParser.Output.WaveHeight,
-                        waveHeightCalculationParser.Output.IsOvertoppingDominant);
-                }
-
-                if (calculateDikeHeight && targetProbabiltyCalculationParser.Output != null)
-                {
-                    return new GrassCoverErosionInwardsCalculationServiceOutput(
-                        exceedanceProbabilityCalculationParser.Output.Beta,
-                        waveHeightCalculationParser.Output.WaveHeight,
-                        waveHeightCalculationParser.Output.IsOvertoppingDominant,
-                        targetProbabiltyCalculationParser.Output.Result);
-                }
+                return null;
             }
 
-            return null;
+            double? dikeHeightOutput = null;
+
+            if (calculateDikeHeight && targetProbabiltyCalculationParser.Output != null)
+            {
+                dikeHeightOutput = targetProbabiltyCalculationParser.Output.Result;
+            }
+
+            return new GrassCoverErosionInwardsCalculationServiceOutput(
+                exceedanceProbabilityCalculationParser.Output.Beta,
+                waveHeightCalculationParser.Output.WaveHeight,
+                waveHeightCalculationParser.Output.IsOvertoppingDominant,
+                dikeHeightOutput);
         }
 
         private static void VerifyOvertoppingCalculationOutput(ExceedanceProbabilityCalculationOutput exceedanceOutput, WaveHeightCalculationOutput waveHeightOutput, string name)
@@ -159,28 +155,45 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         {
             return new OvertoppingCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
                                                    new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.Orientation),
-                                                   calculation.InputParameters.DikeHeight, generalInput.CriticalOvertoppingModelFactor,
-                                                   generalInput.FbFactor.Mean, generalInput.FbFactor.StandardDeviation,
-                                                   generalInput.FnFactor.Mean, generalInput.FnFactor.StandardDeviation,
-                                                   generalInput.OvertoppingModelFactor, calculation.InputParameters.CriticalFlowRate.Mean,
-                                                   calculation.InputParameters.CriticalFlowRate.StandardDeviation, generalInput.FrunupModelFactor.Mean, 
-                                                   generalInput.FrunupModelFactor.StandardDeviation, generalInput.FshallowModelFactor.Mean, 
-                                                   generalInput.FshallowModelFactor.StandardDeviation, ParseProfilePoints(calculation.InputParameters.DikeGeometry),
-                                                   ParseForeshore(calculation.InputParameters), ParseBreakWater(calculation.InputParameters));
+                                                   calculation.InputParameters.DikeHeight, 
+                                                   generalInput.CriticalOvertoppingModelFactor,
+                                                   generalInput.FbFactor.Mean, 
+                                                   generalInput.FbFactor.StandardDeviation,
+                                                   generalInput.FnFactor.Mean, 
+                                                   generalInput.FnFactor.StandardDeviation,
+                                                   generalInput.OvertoppingModelFactor, 
+                                                   calculation.InputParameters.CriticalFlowRate.Mean,
+                                                   calculation.InputParameters.CriticalFlowRate.StandardDeviation, 
+                                                   generalInput.FrunupModelFactor.Mean, 
+                                                   generalInput.FrunupModelFactor.StandardDeviation, 
+                                                   generalInput.FshallowModelFactor.Mean, 
+                                                   generalInput.FshallowModelFactor.StandardDeviation, 
+                                                   ParseProfilePoints(calculation.InputParameters.DikeGeometry),
+                                                   ParseForeshore(calculation.InputParameters), 
+                                                   ParseBreakWater(calculation.InputParameters));
         }
 
         private static DikeHeightCalculationInput CreateDikeHeightInput(GrassCoverErosionInwardsCalculation calculation, IAssessmentSection assessmentSection,
                                                                         FailureMechanismSection failureMechanismSection, GeneralGrassCoverErosionInwardsInput generalInput)
         {
-            return new DikeHeightCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id, assessmentSection.FailureMechanismContribution.Norm,
+            return new DikeHeightCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
+                                                  assessmentSection.FailureMechanismContribution.Norm,
                                                   new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.Orientation),
-                                                  generalInput.CriticalOvertoppingModelFactor, generalInput.FbFactor.Mean, generalInput.FbFactor.StandardDeviation,
-                                                  generalInput.FnFactor.Mean, generalInput.FnFactor.StandardDeviation, generalInput.OvertoppingModelFactor,
-                                                  calculation.InputParameters.CriticalFlowRate.Mean, calculation.InputParameters.CriticalFlowRate.StandardDeviation,
-                                                  generalInput.FrunupModelFactor.Mean, generalInput.FrunupModelFactor.StandardDeviation,
-                                                  generalInput.FshallowModelFactor.Mean, generalInput.FshallowModelFactor.StandardDeviation,
-                                                  ParseProfilePoints(calculation.InputParameters.DikeGeometry), ParseForeshore(calculation.InputParameters),
-                                                  ParseBreakWater(calculation.InputParameters));
+                                                  generalInput.CriticalOvertoppingModelFactor,
+                                                  generalInput.FbFactor.Mean,
+                                                  generalInput.FbFactor.StandardDeviation,
+                                                  generalInput.FnFactor.Mean,
+                                                  generalInput.FnFactor.StandardDeviation,
+                                                  generalInput.OvertoppingModelFactor,
+                                                  calculation.InputParameters.CriticalFlowRate.Mean,
+                                                  calculation.InputParameters.CriticalFlowRate.StandardDeviation,
+                                                  generalInput.FrunupModelFactor.Mean,
+                                                  generalInput.FrunupModelFactor.StandardDeviation,
+                                                  generalInput.FshallowModelFactor.Mean,
+                                                  generalInput.FshallowModelFactor.StandardDeviation,
+                                                  ParseProfilePoints(calculation.InputParameters.DikeGeometry),
+                                                  ParseForeshore(calculation.InputParameters),
+                                                  ParseBreakWater(calculation.InputParameters)); 
         }
 
         private static HydraRingBreakWater ParseBreakWater(GrassCoverErosionInwardsInput input)

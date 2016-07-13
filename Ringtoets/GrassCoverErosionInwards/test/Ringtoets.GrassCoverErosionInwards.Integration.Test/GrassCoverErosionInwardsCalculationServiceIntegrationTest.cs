@@ -318,7 +318,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
             });
             Assert.IsNotNull(output);
-            Assert.IsNaN(output.DikeHeight);
+            Assert.IsNull(output.DikeHeight);
         }
 
         [Test]

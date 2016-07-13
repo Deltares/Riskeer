@@ -32,6 +32,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     public class GrassCoverErosionInwardsOutput : Observable, ICalculationOutput
     {
         private readonly ProbabilityAssessmentOutput probabilityAssessmentOutput;
+        private readonly double? dikeHeight;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsOutput"/>.
@@ -41,13 +42,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <param name="probabilityAssessmentOutput">The probabilistic assessment output based on the grass cover erosion 
         /// inwards calculation output.</param>
         /// <param name="dikeHeight">The calculated dike height.</param>
-        public GrassCoverErosionInwardsOutput(double waveHeight, bool isOvertoppingDominant, ProbabilityAssessmentOutput probabilityAssessmentOutput, double dikeHeight, bool dikeHeightCalculated = false)
+        public GrassCoverErosionInwardsOutput(double waveHeight, bool isOvertoppingDominant, ProbabilityAssessmentOutput probabilityAssessmentOutput, double? dikeHeight)
         {
             IsOvertoppingDominant = isOvertoppingDominant;            
             WaveHeight = new RoundedDouble(2, waveHeight);
             this.probabilityAssessmentOutput = probabilityAssessmentOutput;
-            DikeHeight = new RoundedDouble(2, dikeHeight);
-            DikeHeightCalculated = dikeHeightCalculated;
+            this.dikeHeight = dikeHeight;
         }
 
         /// <summary>
@@ -64,12 +64,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// The height of the dike that was calculated in the overtopping sub failure mechanism.
         /// </summary>
-        public RoundedDouble DikeHeight { get; private set; }
+        public RoundedDouble DikeHeight
+        {
+            get
+            {
+                return new RoundedDouble(2, dikeHeight ?? double.NaN);
+            }
+        }
 
         /// <summary>
         /// Value indicating whether the dike height is calculated in the overtopping sub failure mechanism.
         /// </summary>
-        public bool DikeHeightCalculated { get; private set; }
+        public bool DikeHeightCalculated
+        {
+            get
+            {
+                return dikeHeight != null;
+            }
+        }
 
         /// <summary>
         /// Gets the factor of safety of the failure mechanism.

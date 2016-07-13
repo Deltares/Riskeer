@@ -109,8 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                         failureMechanism.Contribution,
                         failureMechanism.GeneralInput.N,
                         Output.Beta),
-                    Output.DikeHeight,
-                    calculation.InputParameters.CalculateDikeHeight);
+                    Output.DikeHeight);
             }, calculation);
         }
     }

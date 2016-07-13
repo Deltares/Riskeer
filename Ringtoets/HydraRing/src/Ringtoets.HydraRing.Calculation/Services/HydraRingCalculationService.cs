@@ -46,7 +46,6 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="hydraRingCalculationInput">The input of the calculation to perform.</param>
         /// <param name="parsers">Parsers that will be invoked after the Hydra-Ring calculation has ran.</param>
-        /// <returns>A <see cref="TargetProbabilityCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
         public static void PerformCalculation(
             string hlcdDirectory,
             string ringId,
