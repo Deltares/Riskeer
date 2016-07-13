@@ -46,6 +46,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double DikeHeight { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
+        public double X0 { get; set; }
     
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }
