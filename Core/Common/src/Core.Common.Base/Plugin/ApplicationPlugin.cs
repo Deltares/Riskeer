@@ -25,19 +25,10 @@ using Core.Common.Base.IO;
 namespace Core.Common.Base.Plugin
 {
     /// <summary>
-    /// Class that provides application plugin objects (file importers, file exporters and data items).
+    /// Class that provides application plugin objects (data items).
     /// </summary>
     public abstract class ApplicationPlugin
     {
-        /// <summary>
-        /// This method returns an enumeration of <see cref="IFileExporter"/>.
-        /// </summary>
-        /// <returns>The enumeration of <see cref="IFileExporter"/> provided by the <see cref="ApplicationPlugin"/>.</returns>
-        public virtual IEnumerable<IFileExporter> GetFileExporters()
-        {
-            yield break;
-        }
-
         /// <summary>
         /// This method returns an enumeration of <see cref="DataItemInfo"/>.
         /// </summary>

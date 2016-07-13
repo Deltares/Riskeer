@@ -29,19 +29,6 @@ namespace Core.Common.Base.Test.Plugin
     public class ApplicationPluginTest
     {
         [Test]
-        public void GetFileExporters_ReturnEmptyEnumerable()
-        {
-            // Setup
-            var applicationPlugin = new SimpleApplicationPlugin();
-
-            // Call
-            var importers = applicationPlugin.GetFileExporters().ToArray();
-
-            // Assert
-            CollectionAssert.IsEmpty(importers);
-        }
-
-        [Test]
         public void GetDataItemInfos_ReturnEmptyEnumerable()
         {
             // Setup

@@ -44,70 +44,6 @@ namespace Core.Common.Base.Test.Plugin
         }
 
         [Test]
-        public void GetSupportedFileExporters_SimpleApplicationPluginWithExportersAdded_ShouldOnlyProvideSupportedExporters()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var targetItem = new B();
-            var supportedFileExporter1 = mocks.Stub<IFileExporter>();
-            var supportedFileExporter2 = mocks.Stub<IFileExporter>();
-            var unsupportedFileExporter = mocks.Stub<IFileExporter>();
-
-            supportedFileExporter1.Stub(i => i.SupportedItemType).Return(typeof(B));
-            supportedFileExporter2.Stub(i => i.SupportedItemType).Return(typeof(A));
-            unsupportedFileExporter.Stub(i => i.SupportedItemType).Return(typeof(C)); // Wrong type
-
-            mocks.ReplayAll();
-
-            var applicationCore = new ApplicationCore();
-            var applicationPlugin = new SimpleApplicationPlugin
-            {
-                FileExporters = new[]
-                {
-                    supportedFileExporter1,
-                    supportedFileExporter2,
-                    unsupportedFileExporter
-                }
-            };
-
-            applicationCore.AddPlugin(applicationPlugin);
-
-            // Call
-            var supportedExporters = applicationCore.GetSupportedFileExporters(targetItem).ToArray();
-
-            // Assert
-            Assert.AreEqual(2, supportedExporters.Length);
-            Assert.AreSame(supportedFileExporter1, supportedExporters[0]);
-            Assert.AreSame(supportedFileExporter2, supportedExporters[1]);
-        }
-
-        [Test]
-        public void GetSupportedFileExporters_SimpleApplicationPluginWithExportersAdded_ShouldProvideNoExportersWhenSourceEqualsNull()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var fileExporter = mocks.Stub<IFileExporter>();
-
-            fileExporter.Stub(e => e.SupportedItemType).Return(null);
-
-            mocks.ReplayAll();
-
-            var applicationCore = new ApplicationCore();
-            var applicationPlugin = new SimpleApplicationPlugin
-            {
-                FileExporters = new[]
-                {
-                    fileExporter
-                }
-            };
-
-            applicationCore.AddPlugin(applicationPlugin);
-
-            // Call / Assert
-            CollectionAssert.IsEmpty(applicationCore.GetSupportedFileExporters(null));
-        }
-
-        [Test]
         public void GetSupportedDataItemInfos_SimpleApplicationPluginWithDataItemInfosAdded_ShouldOnlyProvideSupportedDataItemInfos()
         {
             // Setup
@@ -172,11 +108,6 @@ namespace Core.Common.Base.Test.Plugin
             public IEnumerable<IFileExporter> FileExporters { private get; set; }
 
             public IEnumerable<DataItemInfo> DataItemInfos { private get; set; }
-
-            public override IEnumerable<IFileExporter> GetFileExporters()
-            {
-                return FileExporters;
-            }
 
             public override IEnumerable<DataItemInfo> GetDataItemInfos()
             {

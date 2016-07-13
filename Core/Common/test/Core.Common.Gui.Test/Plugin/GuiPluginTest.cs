@@ -214,6 +214,28 @@ namespace Core.Common.Gui.Test.Plugin
         }
 
         [Test]
+        public void GetFileExporters_ReturnsEmptyEnumerable()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var gui = mocks.StrictMock<IGui>();
+            mocks.ReplayAll();
+
+            using (var plugin = new SimpleGuiPlugin
+            {
+                Gui = gui
+            })
+            {
+                // Call
+                var infos = plugin.GetFileExporters();
+
+                // Assert
+                CollectionAssert.IsEmpty(infos);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Dispose_SetGuiToNull()
         {
             // Setup

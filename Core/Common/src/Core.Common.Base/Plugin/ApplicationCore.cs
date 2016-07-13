@@ -23,8 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Core.Common.Base.IO;
-using Core.Common.Utils.Reflection;
 
 namespace Core.Common.Base.Plugin
 {
@@ -59,24 +57,6 @@ namespace Core.Common.Base.Plugin
         public void RemovePlugin(ApplicationPlugin applicationPlugin)
         {
             plugins.Remove(applicationPlugin);
-        }
-
-        /// <summary>
-        /// This method returns an enumeration of <see cref="IFileExporter"/> that support the <paramref name="source"/>.
-        /// </summary>
-        /// <param name="source">The source to get the enumeration of supported <see cref="IFileExporter"/> for.</param>
-        /// <returns>The enumeration of supported <see cref="IFileExporter"/>.</returns>
-        public IEnumerable<IFileExporter> GetSupportedFileExporters(object source)
-        {
-            if (source == null)
-            {
-                return Enumerable.Empty<IFileExporter>();
-            }
-
-            var sourceType = source.GetType();
-
-            return plugins.SelectMany(plugin => plugin.GetFileExporters())
-                          .Where(fileExporter => (fileExporter.SupportedItemType == sourceType || sourceType.Implements(fileExporter.SupportedItemType)));
         }
 
         /// <summary>

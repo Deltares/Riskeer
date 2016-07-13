@@ -69,6 +69,15 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
+        /// This method returns an enumeration of <see cref="IFileExporter"/>.
+        /// </summary>
+        /// <returns>The enumeration of <see cref="IFileExporter"/> provided by the <see cref="GuiPlugin"/>.</returns>
+        public virtual IEnumerable<IFileExporter> GetFileExporters()
+        {
+            yield break;
+        }
+
+        /// <summary>
         /// Returns all <see cref="PropertyInfo"/> instances provided for data of this plugin.
         /// </summary>
         public virtual IEnumerable<PropertyInfo> GetPropertyInfos()

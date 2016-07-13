@@ -19,15 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Base.IO;
-using Core.Common.Base.Plugin;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Properties;
-
+using Core.Common.Utils.Reflection;
 using log4net;
 
 namespace Core.Common.Gui.Commands
@@ -41,17 +40,17 @@ namespace Core.Common.Gui.Commands
         private static readonly Bitmap brickImage = Resources.brick;
 
         private readonly IWin32Window dialogParent;
-        private readonly ApplicationCore applicationCore;
+        private readonly IEnumerable<IFileExporter> fileExporter;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuiExportHandler"/> class.
         /// </summary>
         /// <param name="dialogParent">The parent window to show dialogs on top.</param>
-        /// <param name="applicationCore">The application-plugins host.</param>
-        public GuiExportHandler(IWin32Window dialogParent, ApplicationCore applicationCore)
+        /// <param name="fileExporter">An enumeration of <see cref="IFileExporter"/>.</param>
+        public GuiExportHandler(IWin32Window dialogParent, IEnumerable<IFileExporter> fileExporter)
         {
             this.dialogParent = dialogParent;
-            this.applicationCore = applicationCore;
+            this.fileExporter = fileExporter;
         }
 
         /// <summary>
@@ -83,7 +82,7 @@ namespace Core.Common.Gui.Commands
 
         private IFileExporter GetSupportedExporterForItemUsingDialog(object itemToExport)
         {
-            var fileExporters = applicationCore.GetSupportedFileExporters(itemToExport).ToArray();
+            var fileExporters = GetSupportedFileExporters(itemToExport).ToArray();
 
             if (fileExporters.Length == 0)
             {
@@ -111,6 +110,18 @@ namespace Core.Common.Gui.Commands
                 }
             }
             return null;
+        }
+
+        private IEnumerable<IFileExporter> GetSupportedFileExporters(object source)
+        {
+            if (source == null)
+            {
+                return Enumerable.Empty<IFileExporter>();
+            }
+
+            var sourceType = source.GetType();
+
+            return fileExporter.Where(fe => (fe.SupportedItemType == sourceType || sourceType.Implements(fe.SupportedItemType)));
         }
 
         private void ExporterItemUsingFileOpenDialog(IFileExporter exporter, object item)
