@@ -435,5 +435,49 @@ namespace Ringtoets.Integration.Plugin.Test
             Assert.AreEqual(1, importers.Count(i => i is ReferenceLineImporter));
             Assert.AreEqual(1, importers.Count(i => i is FailureMechanismSectionsImporter));
         }
+
+        [Test]
+        public void GetDataItemInfos_ReturnsExpectedDataItemDefinitions()
+        {
+            // Setup
+            var plugin = new RingtoetsGuiPlugin();
+
+            // Call
+            var dataItemDefinitions = plugin.GetDataItemInfos().ToArray();
+
+            // Assert
+            Assert.AreEqual(1, dataItemDefinitions.Length);
+
+            DataItemInfo assessmentSectionDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(AssessmentSection));
+            Assert.AreEqual("Traject", assessmentSectionDataItemDefinition.Name);
+            Assert.AreEqual("Algemeen", assessmentSectionDataItemDefinition.Category);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AssessmentSectionFolderIcon, assessmentSectionDataItemDefinition.Image);
+            Assert.IsNull(assessmentSectionDataItemDefinition.AdditionalOwnerCheck);
+            Assert.IsInstanceOf<AssessmentSection>(assessmentSectionDataItemDefinition.CreateData(new Project()));
+        }
+
+        [Test]
+        public void WhenAddingAssessmentSection_GivenProjectHasAssessmentSection_ThenAddedAssessmentSectionHasUniqueName()
+        {
+            // Setup
+            var project = new Project();
+            var plugin = new RingtoetsGuiPlugin();
+            AddAssessmentSectionToProject(project, plugin);
+
+            // Call
+            AddAssessmentSectionToProject(project, plugin);
+
+            // Assert
+            CollectionAssert.AllItemsAreUnique(project.Items.Cast<IAssessmentSection>().Select(section => section.Name));
+        }
+
+        private void AddAssessmentSectionToProject(Project project, RingtoetsGuiPlugin plugin)
+        {
+            var itemToAdd = plugin.GetDataItemInfos()
+                                  .First(di => di.ValueType == typeof(AssessmentSection))
+                                  .CreateData(project);
+
+            project.Items.Add(itemToAdd);
+        }
     }
 }

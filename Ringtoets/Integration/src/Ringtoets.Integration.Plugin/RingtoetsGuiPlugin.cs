@@ -27,6 +27,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
+using Core.Common.Base.Plugin;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
@@ -42,6 +43,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -53,6 +55,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -314,6 +317,23 @@ namespace Ringtoets.Integration.Plugin
         {
             yield return new ReferenceLineImporter();
             yield return new FailureMechanismSectionsImporter();
+        }
+
+        public override IEnumerable<DataItemInfo> GetDataItemInfos()
+        {
+            yield return new DataItemInfo<AssessmentSection>
+            {
+                Name = RingtoetsFormsResources.AssessmentSection_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsFormsResources.AssessmentSectionFolderIcon,
+                CreateData = owner =>
+                {
+                    var project = (Project)owner;
+                    var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+                    assessmentSection.Name = GetUniqueForAssessmentSectionName(project, assessmentSection.Name);
+                    return assessmentSection;
+                }
+            };
         }
 
         /// <summary>
@@ -644,6 +664,11 @@ namespace Ringtoets.Integration.Plugin
         #endregion
 
         #region AssessmentSection
+
+        private static string GetUniqueForAssessmentSectionName(Project project, string baseName)
+        {
+            return NamingHelper.GetUniqueName(project.Items.OfType<IAssessmentSection>(), baseName, a => a.Name);
+        }
 
         private object[] AssessmentSectionChildNodeObjects(IAssessmentSection nodeData)
         {

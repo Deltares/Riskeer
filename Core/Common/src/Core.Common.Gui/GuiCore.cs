@@ -125,7 +125,7 @@ namespace Core.Common.Gui
             exportImportCommandHandler = new ExportImportCommandHandler(MainWindow,
                                                                         Plugins.SelectMany(p => p.GetFileImporters()),
                                                                         Plugins.SelectMany(p => p.GetFileExporters()));
-            projectCommandHandler = new ProjectCommandHandler(this, MainWindow, ApplicationCore, this, this);
+            projectCommandHandler = new ProjectCommandHandler(this, MainWindow, Plugins.SelectMany(p => p.GetDataItemInfos()), this, this);
 
             WindowsApplication.EnableVisualStyles();
             ViewPropertyEditor.ViewCommands = ViewCommands;

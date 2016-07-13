@@ -19,13 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
-using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Data;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test
@@ -41,51 +36,6 @@ namespace Ringtoets.Integration.Plugin.Test
 
             // assert
             Assert.IsInstanceOf<ApplicationPlugin>(ringtoetsApplicationPlugin);
-        }
-
-        [Test]
-        public void GetDataItemInfos_ReturnsExpectedDataItemDefinitions()
-        {
-            // setup
-            var plugin = new RingtoetsApplicationPlugin();
-
-            // call
-            var dataItemDefinitions = plugin.GetDataItemInfos().ToArray();
-
-            // assert
-            Assert.AreEqual(1, dataItemDefinitions.Length);
-
-            DataItemInfo assessmentSectionDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(AssessmentSection));
-            Assert.AreEqual("Traject", assessmentSectionDataItemDefinition.Name);
-            Assert.AreEqual("Algemeen", assessmentSectionDataItemDefinition.Category);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AssessmentSectionFolderIcon, assessmentSectionDataItemDefinition.Image);
-            Assert.IsNull(assessmentSectionDataItemDefinition.AdditionalOwnerCheck);
-            Assert.IsInstanceOf<AssessmentSection>(assessmentSectionDataItemDefinition.CreateData(new Project()));
-        }
-
-        [Test]
-        public void WhenAddingAssessmentSection_GivenProjectHasAssessmentSection_ThenAddedAssessmentSectionHasUniqueName()
-        {
-            // Setup
-            var project = new Project();
-
-            var plugin = new RingtoetsApplicationPlugin();
-            AddAssessmentSectionToProject(project, plugin);
-
-            // Call
-            AddAssessmentSectionToProject(project, plugin);
-
-            // Assert
-            CollectionAssert.AllItemsAreUnique(project.Items.Cast<IAssessmentSection>().Select(section => section.Name));
-        }
-
-        private void AddAssessmentSectionToProject(Project project, RingtoetsApplicationPlugin plugin)
-        {
-            var itemToAdd = plugin.GetDataItemInfos()
-                                  .First(di => di.ValueType == typeof(AssessmentSection))
-                                  .CreateData(project);
-
-            project.Items.Add(itemToAdd);
         }
     }
 }

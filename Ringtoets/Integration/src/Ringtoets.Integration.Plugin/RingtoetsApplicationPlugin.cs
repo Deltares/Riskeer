@@ -19,13 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Integration.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
@@ -34,28 +28,5 @@ namespace Ringtoets.Integration.Plugin
     /// <summary>
     /// The application plugin for Ringtoets.
     /// </summary>
-    public class RingtoetsApplicationPlugin : ApplicationPlugin
-    {
-        public override IEnumerable<DataItemInfo> GetDataItemInfos()
-        {
-            yield return new DataItemInfo<AssessmentSection>
-            {
-                Name = RingtoetsFormsResources.AssessmentSection_DisplayName,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsFormsResources.AssessmentSectionFolderIcon,
-                CreateData = owner =>
-                {
-                    var project = (Project) owner;
-                    var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                    assessmentSection.Name = GetUniqueForAssessmentSectionName(project, assessmentSection.Name);
-                    return assessmentSection;
-                }
-            };
-        }
-
-        private static string GetUniqueForAssessmentSectionName(Project project, string baseName)
-        {
-            return NamingHelper.GetUniqueName(project.Items.OfType<IAssessmentSection>(), baseName, a => a.Name);
-        }
-    }
+    public class RingtoetsApplicationPlugin : ApplicationPlugin {}
 }

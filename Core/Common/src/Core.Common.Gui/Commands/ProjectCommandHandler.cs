@@ -22,13 +22,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Properties;
 using Core.Common.Gui.Selection;
-
 using log4net;
 
 namespace Core.Common.Gui.Commands
@@ -42,25 +40,25 @@ namespace Core.Common.Gui.Commands
 
         private readonly IProjectOwner projectOwner;
         private readonly IWin32Window dialogOwner;
-        private readonly ApplicationCore applicationCore;
         private readonly IApplicationSelection applicationSelection;
         private readonly IDocumentViewController documentViewController;
+        private readonly IEnumerable<DataItemInfo> dataItemInfos;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectCommandHandler"/> class.
         /// </summary>
         /// <param name="projectOwner">Class owning the application's <see cref="Project"/> instance.</param>
         /// <param name="dialogParent">The window on which dialogs should be shown on top.</param>
-        /// <param name="applicationCore">The application-plugins host.</param>
+        /// <param name="dataItemInfos">An enumeration of <see cref="DataItemInfo"/>.</param>
         /// <param name="applicationSelection">The application selection mechanism.</param>
         /// <param name="documentViewController">The controller for Document Views.</param>
         public ProjectCommandHandler(IProjectOwner projectOwner, IWin32Window dialogParent,
-                                      ApplicationCore applicationCore, IApplicationSelection applicationSelection,
-                                      IDocumentViewController documentViewController)
+                                     IEnumerable<DataItemInfo> dataItemInfos, IApplicationSelection applicationSelection,
+                                     IDocumentViewController documentViewController)
         {
             this.projectOwner = projectOwner;
             dialogOwner = dialogParent;
-            this.applicationCore = applicationCore;
+            this.dataItemInfos = dataItemInfos;
             this.applicationSelection = applicationSelection;
             this.documentViewController = documentViewController;
         }
@@ -72,7 +70,7 @@ namespace Core.Common.Gui.Commands
                 log.Error(Resources.ProjectCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item);
             }
 
-            using (var selectDataDialog = CreateSelectionDialogWithItems(applicationCore.GetSupportedDataItemInfos(parent).ToArray()))
+            using (var selectDataDialog = CreateSelectionDialogWithItems(GetSupportedDataItemInfos(parent).ToArray()))
             {
                 if (selectDataDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -94,11 +92,11 @@ namespace Core.Common.Gui.Commands
             projectOwner.Project.NotifyObservers();
         }
 
-        private SelectItemDialog CreateSelectionDialogWithItems(IEnumerable<DataItemInfo> dataItemInfos)
+        private SelectItemDialog CreateSelectionDialogWithItems(IEnumerable<DataItemInfo> supportedDataItemInfos)
         {
             var selectDataDialog = new SelectItemDialog(dialogOwner);
 
-            foreach (var dataItemInfo in dataItemInfos)
+            foreach (var dataItemInfo in supportedDataItemInfos)
             {
                 selectDataDialog.AddItemType(dataItemInfo.Name, dataItemInfo.Category, dataItemInfo.Image, dataItemInfo);
             }
@@ -114,6 +112,22 @@ namespace Core.Common.Gui.Commands
             }
 
             return dataItemInfo.CreateData != null ? dataItemInfo.CreateData(parent) : null;
+        }
+
+        /// <summary>
+        /// This method returns an enumeration of <see cref="DataItemInfo"/> that are supported for <paramref name="parent"/>.
+        /// </summary>
+        /// <param name="parent">The owner to get the enumeration of supported <see cref="DataItemInfo"/> for.</param>
+        /// <returns>The enumeration of supported <see cref="DataItemInfo"/>.</returns>
+        private IEnumerable<DataItemInfo> GetSupportedDataItemInfos(object parent)
+        {
+            if (parent == null)
+            {
+                return Enumerable.Empty<DataItemInfo>();
+            }
+
+            return dataItemInfos
+                .Where(dataItemInfo => dataItemInfo.AdditionalOwnerCheck == null || dataItemInfo.AdditionalOwnerCheck(parent));
         }
     }
 }

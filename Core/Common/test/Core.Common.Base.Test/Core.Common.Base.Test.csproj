@@ -97,7 +97,6 @@
     <Compile Include="Plugin\ApplicationCoreTest.cs" />
     <Compile Include="RecursiveObserverTest.cs" />
     <Compile Include="Service\ActivityTest.cs" />
-    <Compile Include="Plugin\ApplicationPluginTest.cs" />
     <Compile Include="Plugin\DataItemInfoTest.cs" />
     <Compile Include="ObservableListTest.cs" />
     <Compile Include="Data\ProjectTest.cs" />

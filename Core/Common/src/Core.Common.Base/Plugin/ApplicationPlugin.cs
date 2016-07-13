@@ -19,23 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using Core.Common.Base.IO;
-
 namespace Core.Common.Base.Plugin
 {
     /// <summary>
     /// Class that provides application plugin objects (data items).
     /// </summary>
-    public abstract class ApplicationPlugin
-    {
-        /// <summary>
-        /// This method returns an enumeration of <see cref="DataItemInfo"/>.
-        /// </summary>
-        /// <returns>The enumeration of <see cref="DataItemInfo"/> provided by the <see cref="ApplicationPlugin"/>.</returns>
-        public virtual IEnumerable<DataItemInfo> GetDataItemInfos()
-        {
-            yield break;
-        }
-    }
+    public abstract class ApplicationPlugin {}
 }

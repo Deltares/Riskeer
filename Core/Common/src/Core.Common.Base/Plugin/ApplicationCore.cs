@@ -64,17 +64,6 @@ namespace Core.Common.Base.Plugin
         /// </summary>
         /// <param name="owner">The owner to get the enumeration of supported <see cref="DataItemInfo"/> for.</param>
         /// <returns>The enumeration of supported <see cref="DataItemInfo"/>.</returns>
-        public IEnumerable<DataItemInfo> GetSupportedDataItemInfos(object owner)
-        {
-            if (owner == null)
-            {
-                return Enumerable.Empty<DataItemInfo>();
-            }
-
-            return plugins.SelectMany(p => p.GetDataItemInfos())
-                          .Where(dataItemInfo => dataItemInfo.AdditionalOwnerCheck == null || dataItemInfo.AdditionalOwnerCheck(owner));
-        }
-
         public virtual void Dispose()
         {
             foreach (var plugin in plugins.ToArray())

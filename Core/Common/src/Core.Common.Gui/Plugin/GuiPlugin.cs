@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Base.Plugin;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Forms;
 
@@ -73,6 +74,15 @@ namespace Core.Common.Gui.Plugin
         /// </summary>
         /// <returns>The enumeration of <see cref="IFileExporter"/> provided by the <see cref="GuiPlugin"/>.</returns>
         public virtual IEnumerable<IFileExporter> GetFileExporters()
+        {
+            yield break;
+        }
+
+        /// <summary>
+        /// This method returns an enumeration of <see cref="DataItemInfo"/>.
+        /// </summary>
+        /// <returns>The enumeration of <see cref="DataItemInfo"/> provided by the <see cref="GuiPlugin"/>.</returns>
+        public virtual IEnumerable<DataItemInfo> GetDataItemInfos()
         {
             yield break;
         }
