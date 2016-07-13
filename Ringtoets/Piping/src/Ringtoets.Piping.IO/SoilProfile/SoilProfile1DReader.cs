@@ -101,8 +101,6 @@ namespace Ringtoets.Piping.IO.SoilProfile
             var pipingSoilLayer = new SoilLayer1D(properties.Top)
             {
                 IsAquifer = properties.IsAquifer,
-                AbovePhreaticLevel = properties.AbovePhreaticLevel,
-                DryUnitWeight = properties.DryUnitWeight,
                 MaterialName = properties.MaterialName,
                 Color = properties.Color,
 

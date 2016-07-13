@@ -39,9 +39,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             var random = new Random(21);
             var entityId = random.Next(1, 502);
             double top = random.NextDouble();
-            double abovePhreaticLevel = random.NextDouble();
-            double belowPhreaticLevel = random.NextDouble();
-            double dryUnitWeight = random.NextDouble();
             int color = Color.AliceBlue.ToArgb();
             string materialName = "sand";
 
@@ -50,9 +47,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                 SoilLayerEntityId = entityId,
                 Top = Convert.ToDecimal(top),
                 IsAquifer = Convert.ToByte(isAquifer),
-                AbovePhreaticLevel = Convert.ToDecimal(abovePhreaticLevel),
-                BelowPhreaticLevel = Convert.ToDecimal(belowPhreaticLevel),
-                DryUnitWeight = Convert.ToDecimal(dryUnitWeight),
                 Color = color,
                 MaterialName = materialName
             };
@@ -65,9 +59,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entityId, layer.StorageId);
             Assert.AreEqual(top, layer.Top, 1e-6);
             Assert.AreEqual(isAquifer, layer.IsAquifer);
-            Assert.AreEqual(abovePhreaticLevel, layer.AbovePhreaticLevel, 1e-6);
-            Assert.AreEqual(belowPhreaticLevel, layer.BelowPhreaticLevelMean, 1e-6);
-            Assert.AreEqual(dryUnitWeight, layer.DryUnitWeight, 1e-6);
             Assert.AreEqual(Color.FromArgb(color), layer.Color);
             Assert.AreEqual(materialName, layer.MaterialName);
         }
@@ -76,20 +67,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithNullParameterValues_ReturnPipingSoilLayerWithNullParameters()
         {
             // Setup
-            var entity = new SoilLayerEntity
-            {
-                AbovePhreaticLevel = null,
-                BelowPhreaticLevel = null,
-                DryUnitWeight = null
-            };
+            var entity = new SoilLayerEntity();
 
             // Call
             var layer = entity.Read();
 
             // Assert
-            Assert.IsNaN(layer.AbovePhreaticLevel);
             Assert.IsNaN(layer.BelowPhreaticLevelMean);
-            Assert.IsNaN(layer.DryUnitWeight);
         }
     }
 }

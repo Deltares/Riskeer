@@ -18,30 +18,13 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var random = new Random(22);
             var expectedTop = random.NextDouble();
             var expectedBottom = expectedTop - random.NextDouble();
-            var abovePhreaticLevel = random.NextDouble();
-            var dryUnitWeight = random.NextDouble();
             const long pipingSoilProfileId = 1234L;
-
-            var belowPhreaticLevelMean = random.NextDouble();
-            var belowPhreaticLevelDeviation = random.NextDouble();
-            var diameterD70Mean = random.NextDouble();
-            var diameterD70Deviation = random.NextDouble();
-            var permeabilityMean = random.NextDouble();
-            var permeabilityDeviation = random.NextDouble();
 
             IEnumerable<PipingSoilLayer> layers = new[]
             {
                 new PipingSoilLayer(expectedTop)
                 {
-                    IsAquifer = true,
-                    AbovePhreaticLevel = abovePhreaticLevel,
-                    DryUnitWeight = dryUnitWeight,
-                    BelowPhreaticLevelMean = belowPhreaticLevelMean,
-                    BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
-                    DiameterD70Mean = diameterD70Mean,
-                    DiameterD70Deviation = diameterD70Deviation,
-                    PermeabilityMean = permeabilityMean,
-                    PermeabilityDeviation = permeabilityDeviation
+                    IsAquifer = true
                 },
             };
             var soilProfile = new PipingSoilProfile(String.Empty, expectedBottom, layers, SoilProfileType.SoilProfile1D, pipingSoilProfileId);
@@ -60,16 +43,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             PipingLayer pipingLayer = actual.Layers.First();
             Assert.IsTrue(pipingLayer.IsAquifer);
-            Assert.AreEqual(abovePhreaticLevel, pipingLayer.AbovePhreaticLevel);
-            Assert.AreEqual(dryUnitWeight, pipingLayer.DryUnitWeight);
             Assert.AreEqual(pipingSoilProfileId, soilProfile.PipingSoilProfileId);
-
-            Assert.AreEqual(belowPhreaticLevelMean, pipingLayer.BelowPhreaticLevel);
-//            Assert.AreEqual(belowPhreaticLevelDeviation, pipingLayer.BelowPhreaticLevelDeviation);
-//            Assert.AreEqual(diameterD70Mean, pipingLayer.DiameterD70Mean);
-//            Assert.AreEqual(diameterD70Deviation, pipingLayer.DiameterD70Deviation);
-//            Assert.AreEqual(permeabilityMean, pipingLayer.PermeabilityMean);
-//            Assert.AreEqual(permeabilityDeviation, pipingLayer.PermeabilityDeviation);
         }
 
         [Test]
@@ -163,117 +137,6 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             }, actual.Layers.Select(l => l.TopLevel));
             Assert.AreEqual(expectedBottom, actual.BottomLevel);
             Assert.AreEqual(pipingSoilProfileId, soilProfile.PipingSoilProfileId);
-        }
-
-        [Test]
-        public void Create_ProfileWithLayerBelowPhreaticLevelSet_ReturnsLayersWithBelowPhreaticLevel()
-        {
-            // Setup
-            var random = new Random(22);
-            var levelA = random.NextDouble();
-            var levelB = random.NextDouble();
-            var levelC = random.NextDouble();
-
-            IEnumerable<PipingSoilLayer> layers = new[]
-            {
-                new PipingSoilLayer(1)
-                {
-                    BelowPhreaticLevelMean = levelA
-                },
-                new PipingSoilLayer(0)
-                {
-                    BelowPhreaticLevelMean = levelB
-                },
-                new PipingSoilLayer(-1)
-                {
-                    BelowPhreaticLevelMean = levelC
-                }
-            };
-            var soilProfile = new PipingSoilProfile(string.Empty, -2, layers, SoilProfileType.SoilProfile1D, 0);
-
-            // Call
-            PipingProfile actual = PipingProfileCreator.Create(soilProfile);
-
-            CollectionAssert.AreEqual(new[]
-            {
-                levelA,
-                levelB,
-                levelC
-            }, actual.Layers.Select(l => l.BelowPhreaticLevel));
-        }
-
-        [Test]
-        public void Create_ProfileWithLayerAbovePhreaticLevelSet_ReturnsLayersWithBelowPhreaticLevel()
-        {
-            // Setup
-            var random = new Random(22);
-            var levelA = random.NextDouble();
-            var levelB = random.NextDouble();
-            var levelC = random.NextDouble();
-
-            IEnumerable<PipingSoilLayer> layers = new[]
-            {
-                new PipingSoilLayer(1)
-                {
-                    AbovePhreaticLevel = levelA
-                },
-                new PipingSoilLayer(0)
-                {
-                    AbovePhreaticLevel = levelB
-                },
-                new PipingSoilLayer(-1)
-                {
-                    AbovePhreaticLevel = levelC
-                }
-            };
-            var soilProfile = new PipingSoilProfile(string.Empty, -2, layers, SoilProfileType.SoilProfile1D, 0);
-
-            // Call
-            PipingProfile actual = PipingProfileCreator.Create(soilProfile);
-
-            CollectionAssert.AreEqual(new[]
-            {
-                levelA,
-                levelB,
-                levelC
-            }, actual.Layers.Select(l => l.AbovePhreaticLevel));
-        }
-
-        [Test]
-        public void Create_ProfileWithLayerDryUnitWeightSet_ReturnsLayersWithBelowPhreaticLevel()
-        {
-            // Setup
-            var random = new Random(22);
-            var weightA = random.NextDouble();
-            var weightB = random.NextDouble();
-            var weightC = random.NextDouble();
-
-            IEnumerable<PipingSoilLayer> layers = new[]
-            {
-                new PipingSoilLayer(1)
-                {
-                    DryUnitWeight = weightA
-                },
-                new PipingSoilLayer(0)
-                {
-                    DryUnitWeight = weightB
-                },
-                new PipingSoilLayer(-1)
-                {
-                    DryUnitWeight = weightC
-                }
-            };
-            var soilProfile = new PipingSoilProfile(string.Empty, -2, layers, SoilProfileType.SoilProfile1D, 0);
-
-            // Call
-            PipingProfile actual = PipingProfileCreator.Create(soilProfile);
-
-            CollectionAssert.AreEqual(new[]
-            {
-                weightA,
-                weightB,
-                weightC
-            }, actual.Layers.Select(l => l.DryUnitWeight));
         }
     }
 }

@@ -86,14 +86,6 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
             }
         }
 
-        public double EffectiveStress
-        {
-            get
-            {
-                return wrappedCalculator.EffectiveStress;
-            }
-        }
-
         public void Calculate()
         {
             wrappedCalculator.Calculate();

@@ -36,8 +36,6 @@ namespace Ringtoets.Piping.IO.SoilProfile
         internal readonly double? IsAquifer;
         internal readonly string MaterialName;
         internal readonly double? Color;
-        internal readonly double? AbovePhreaticLevel;
-        internal readonly double? DryUnitWeight;
 
         internal readonly long? BelowPhreaticLevelDistribution;
         internal readonly double? BelowPhreaticLevelShift;
@@ -75,11 +73,6 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
                 readColumn = SoilProfileDatabaseColumns.Color;
                 Color = reader.ReadOrDefault<double?>(readColumn);
-
-                readColumn = SoilProfileDatabaseColumns.AbovePhreaticLevel;
-                AbovePhreaticLevel = reader.ReadOrDefault<double?>(readColumn);
-                readColumn = SoilProfileDatabaseColumns.DryUnitWeight;
-                DryUnitWeight = reader.ReadOrDefault<double?>(readColumn);
 
                 readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevelDistribution;
                 BelowPhreaticLevelDistribution = reader.ReadOrDefault<long?>(readColumn);

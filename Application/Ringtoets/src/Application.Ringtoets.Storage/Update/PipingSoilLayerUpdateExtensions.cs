@@ -63,9 +63,7 @@ namespace Application.Ringtoets.Storage.Update
 
             entity.IsAquifer = Convert.ToByte(layer.IsAquifer);
             entity.Top = Convert.ToDecimal(layer.Top);
-            entity.AbovePhreaticLevel = layer.AbovePhreaticLevel.ToNullableDecimal();
             entity.BelowPhreaticLevel = layer.BelowPhreaticLevelMean.ToNullableDecimal();
-            entity.DryUnitWeight = layer.DryUnitWeight.ToNullableDecimal();
             entity.Color = layer.Color.ToArgb();
             entity.MaterialName = layer.MaterialName;
 

@@ -36,17 +36,6 @@ namespace Ringtoets.Piping.IO.Builders
         public double? Color { get; set; }
 
         /// <summary>
-        /// Gets or sets the volumic weight of the <see cref="SoilLayer1D"/> above the phreatic level.
-        /// [kN/m³]
-        /// </summary>
-        public double? AbovePhreaticLevel { get; set; }
-
-        /// <summary>
-        /// Gets or sets the dry unit weight for the <see cref="SoilLayer1D"/>.
-        /// </summary>
-        public double? DryUnitWeight { get; set; }
-
-        /// <summary>
         /// Gets or sets the distribution for the volumic weight of the <see cref="SoilLayer1D"/> below the 
         /// phreatic level.
         /// [kN/m³]
@@ -127,14 +116,6 @@ namespace Ringtoets.Piping.IO.Builders
 
         protected void SetOptionalFields(PipingSoilLayer pipingSoilLayer)
         {
-            if (AbovePhreaticLevel.HasValue)
-            {
-                pipingSoilLayer.AbovePhreaticLevel = AbovePhreaticLevel.Value;
-            }
-            if (DryUnitWeight.HasValue)
-            {
-                pipingSoilLayer.DryUnitWeight = DryUnitWeight.Value;
-            }
             if (BelowPhreaticLevelMean.HasValue)
             {
                 pipingSoilLayer.BelowPhreaticLevelMean = BelowPhreaticLevelMean.Value;

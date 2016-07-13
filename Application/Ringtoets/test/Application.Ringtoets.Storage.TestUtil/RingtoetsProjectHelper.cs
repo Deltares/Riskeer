@@ -118,9 +118,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
             PipingSoilProfile pipingSoilProfile = new TestPipingSoilProfile();
             PipingSoilLayer pipingSoilLayer = pipingSoilProfile.Layers.First();
-            pipingSoilLayer.AbovePhreaticLevel = 1.1;
             pipingSoilLayer.BelowPhreaticLevelMean = 2.2;
-            pipingSoilLayer.DryUnitWeight = 3.3;
             pipingSoilLayer.Color = Color.HotPink;
             pipingSoilLayer.MaterialName = "HotPinkLayer";
 

@@ -48,9 +48,6 @@ namespace Ringtoets.Piping.KernelWrapper
                     TopLevel = layer.Top,
                     IsAquifer = layer.IsAquifer
                 };
-                pipingLayer.AbovePhreaticLevel = layer.AbovePhreaticLevel;
-                pipingLayer.BelowPhreaticLevel = layer.BelowPhreaticLevelMean;
-                pipingLayer.DryUnitWeight = layer.DryUnitWeight;
                 
                 profile.Layers.Add(pipingLayer);
             }

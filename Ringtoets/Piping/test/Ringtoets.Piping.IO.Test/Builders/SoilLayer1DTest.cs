@@ -41,8 +41,6 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Assert
             Assert.AreEqual(top, layer.Top);
-            Assert.IsNull(layer.AbovePhreaticLevel);
-            Assert.IsNull(layer.DryUnitWeight);
             Assert.IsNull(layer.IsAquifer);
             Assert.IsNull(layer.MaterialName);
             Assert.IsNull(layer.Color);
@@ -73,8 +71,6 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var random = new Random(22);
             var top = random.NextDouble();
             var materialName = "materialX";
-            var abovePhreaticLevel = random.NextDouble();
-            var dryUnitWeight = random.NextDouble();
             var color = Color.BlanchedAlmond;
 
             var belowPhreaticLevelDistribution = 3;
@@ -96,8 +92,6 @@ namespace Ringtoets.Piping.IO.Test.Builders
             {
                 MaterialName = materialName,
                 IsAquifer = isAquifer,
-                AbovePhreaticLevel = abovePhreaticLevel,
-                DryUnitWeight = dryUnitWeight,
                 Color = color.ToArgb(),
 
                 BelowPhreaticLevelDistribution = belowPhreaticLevelDistribution,
@@ -122,14 +116,12 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Assert
             Assert.AreEqual(top, result.Top);
             Assert.AreEqual(isAquifer.Equals(1.0), result.IsAquifer);
-            Assert.AreEqual(abovePhreaticLevel, result.AbovePhreaticLevel);
             Assert.AreEqual(belowPhreaticLevelMean, result.BelowPhreaticLevelMean);
             Assert.AreEqual(belowPhreaticLevelDeviation, result.BelowPhreaticLevelDeviation);
             Assert.AreEqual(diameterD70Mean, result.DiameterD70Mean);
             Assert.AreEqual(diameterD70Deviation, result.DiameterD70Deviation);
             Assert.AreEqual(permeabilityMean, result.PermeabilityMean);
             Assert.AreEqual(permeabilityDeviation, result.PermeabilityDeviation);
-            Assert.AreEqual(dryUnitWeight, result.DryUnitWeight);
             Assert.AreEqual(materialName, result.MaterialName);
             Assert.AreEqual(Color.FromArgb(color.ToArgb()), result.Color);
         }

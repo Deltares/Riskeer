@@ -751,11 +751,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             CollectionAssert.AreEqual(Enumerable.Repeat(false, expectedNumberOfLayers),
                                       profile.Layers.Select(l => l.IsAquifer));
             CollectionAssert.AreEqual(Enumerable.Repeat(double.NaN, expectedNumberOfLayers),
-                                      profile.Layers.Select(l => l.AbovePhreaticLevel));
-            CollectionAssert.AreEqual(Enumerable.Repeat(double.NaN, expectedNumberOfLayers),
                                       profile.Layers.Select(l => l.BelowPhreaticLevelMean));
-            CollectionAssert.AreEqual(Enumerable.Repeat(double.NaN, expectedNumberOfLayers),
-                                      profile.Layers.Select(l => l.DryUnitWeight));
 
             Assert.AreEqual(6, progress);
         }
@@ -832,20 +828,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             CollectionAssert.AreEqual(expectedIsAquiferValues,
                                       profile.Layers.Select(l => l.IsAquifer));
             CollectionAssert.AreEqual(expectedLayerTops, profile.Layers.Select(l => l.Top));
-            var expectedAbovePhreaticLevelValues = new[]
-            {
-                1.1,
-                2.2,
-                3.3,
-                4.4,
-                7.7,
-                9.9,
-                11.11,
-                13.13,
-                14.14
-            };
-            CollectionAssert.AreEqual(expectedAbovePhreaticLevelValues,
-                                      profile.Layers.Select(l => l.AbovePhreaticLevel));
             var expectedBelowPhreaticLevelValues = new[]
             {
                 27.27,
@@ -860,8 +842,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
             CollectionAssert.AreEqual(expectedBelowPhreaticLevelValues,
                                       profile.Layers.Select(l => l.BelowPhreaticLevelMean));
-            CollectionAssert.AreEqual(Enumerable.Repeat(double.NaN, expectedNumberOfLayers),
-                                      profile.Layers.Select(l => l.DryUnitWeight));
 
             Assert.AreEqual(6, progress);
         }

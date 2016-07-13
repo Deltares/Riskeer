@@ -45,9 +45,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsEmpty(layer.MaterialName);
             Assert.AreEqual(Color.Empty, layer.Color);
 
-            Assert.IsNaN(layer.AbovePhreaticLevel);
-            Assert.IsNaN(layer.DryUnitWeight);
-
             Assert.IsNaN(layer.BelowPhreaticLevelMean);
             Assert.IsNaN(layer.BelowPhreaticLevelDeviation);
 

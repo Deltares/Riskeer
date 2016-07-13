@@ -46,8 +46,6 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Assert
             Assert.IsNull(result.OuterLoop);
             CollectionAssert.IsEmpty(result.InnerLoops);
-            Assert.IsNull(result.AbovePhreaticLevel);
-            Assert.IsNull(result.DryUnitWeight);
             Assert.IsNull(result.IsAquifer);
             Assert.IsNull(result.MaterialName);
             Assert.IsNull(result.Color);
@@ -279,8 +277,6 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var x1 = 1.0;
             var x2 = 1.1;
             var x3 = 1.2;
-            var abovePhreaticLevel = random.NextDouble();
-            var dryUnitWeight = random.NextDouble();
             var materialName = "materialX";
             var color = Color.DarkSeaGreen;
             double bottom;
@@ -301,8 +297,6 @@ namespace Ringtoets.Piping.IO.Test.Builders
             {
                 MaterialName = materialName,
                 IsAquifer = 1.0,
-                AbovePhreaticLevel = abovePhreaticLevel,
-                DryUnitWeight = dryUnitWeight,
                 Color = color.ToArgb(),
 
                 BelowPhreaticLevelDistribution = logNormalDistribution,
@@ -350,8 +344,6 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var resultLayer = result.First();
             Assert.AreEqual(y2, resultLayer.Top, 1e-6);
             Assert.IsTrue(resultLayer.IsAquifer);
-            Assert.AreEqual(abovePhreaticLevel, resultLayer.AbovePhreaticLevel);
-            Assert.AreEqual(dryUnitWeight, resultLayer.DryUnitWeight);
             Assert.AreEqual(materialName, resultLayer.MaterialName);
             Assert.AreEqual(Color.FromArgb(color.ToArgb()), resultLayer.Color);
 

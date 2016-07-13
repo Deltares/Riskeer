@@ -41,8 +41,6 @@ namespace Ringtoets.Piping.Primitives
         {
             Top = top;
             MaterialName = string.Empty;
-            AbovePhreaticLevel = double.NaN;
-            DryUnitWeight = double.NaN;
             BelowPhreaticLevelMean = double.NaN;
             BelowPhreaticLevelDeviation = double.NaN;
             DiameterD70Mean = double.NaN;
@@ -60,17 +58,6 @@ namespace Ringtoets.Piping.Primitives
         /// Gets or sets a value indicating whether or not the <see cref="PipingSoilLayer"/> is an aquifer.
         /// </summary>
         public bool IsAquifer { get; set; }
-
-        /// <summary>
-        /// Gets or sets the volumic weight of the <see cref="PipingSoilLayer"/> above the phreatic level.
-        /// [kN/m³]
-        /// </summary>
-        public double AbovePhreaticLevel { get; set; }
-
-        /// <summary>
-        /// Gets or sets the dry unit weight for the <see cref="PipingSoilLayer"/>.
-        /// </summary>
-        public double DryUnitWeight { get; set; }
 
         /// <summary>
         /// Gets or sets mean of the distrubtion for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.

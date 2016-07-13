@@ -108,8 +108,6 @@ namespace Ringtoets.Piping.IO.SoilProfile
             if (pipingSoilLayer != null)
             {
                 pipingSoilLayer.IsAquifer = properties.IsAquifer;
-                pipingSoilLayer.AbovePhreaticLevel = properties.AbovePhreaticLevel;
-                pipingSoilLayer.DryUnitWeight = properties.DryUnitWeight;
                 pipingSoilLayer.MaterialName = properties.MaterialName;
                 pipingSoilLayer.Color = properties.Color;
 

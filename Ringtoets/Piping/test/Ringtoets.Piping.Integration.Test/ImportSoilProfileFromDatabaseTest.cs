@@ -66,28 +66,8 @@ namespace Ringtoets.Piping.Integration.Test
 
             PipingProfile pipingProfile = PipingProfileCreator.Create(profile);
 
-            var defaultPipingLayer = new PipingLayer();
-
             Assert.AreEqual(-2.1, pipingProfile.BottomLevel);
             Assert.AreEqual(3, pipingProfile.Layers.Count);
-            CollectionAssert.AreEqual(new[]
-            {
-                0.001,
-                0.001,
-                0.001
-            }, pipingProfile.Layers.Select(l => l.AbovePhreaticLevel));
-            CollectionAssert.AreEqual(new[]
-            {
-                3.88,
-                0.71,
-                0.21
-            }, pipingProfile.Layers.Select(l => l.BelowPhreaticLevel));
-            CollectionAssert.AreEqual(new double?[]
-            {
-                0.805,
-                0.015,
-                0.005
-            }, profile.Layers.Select(l => l.DryUnitWeight));
             CollectionAssert.AreEqual(new[]
             {
                 false,
@@ -138,24 +118,6 @@ namespace Ringtoets.Piping.Integration.Test
             Assert.AreEqual(3, pipingProfile.Layers.Count);
             CollectionAssert.AreEqual(new[]
             {
-                0.02,
-                0.002,
-                0.3
-            }, pipingProfile.Layers.Select(l => l.AbovePhreaticLevel));
-            CollectionAssert.AreEqual(new[]
-            {
-                double.NaN,
-                double.NaN,
-                double.NaN
-            }, pipingProfile.Layers.Select(l => l.BelowPhreaticLevel));
-            CollectionAssert.AreEqual(new[]
-            {
-                0.15,
-                0.25,
-                0.35
-            }, pipingProfile.Layers.Select(l => l.DryUnitWeight));
-            CollectionAssert.AreEqual(new[]
-            {
                 false,
                 false,
                 false
@@ -198,9 +160,6 @@ namespace Ringtoets.Piping.Integration.Test
 
             Assert.AreEqual(-2.1, pipingProfile.BottomLevel);
             Assert.AreEqual(3, pipingProfile.Layers.Count);
-            CollectionAssert.AreEqual(Enumerable.Repeat(double.NaN, 3), pipingProfile.Layers.Select(l => l.AbovePhreaticLevel));
-            CollectionAssert.AreEqual(Enumerable.Repeat(double.NaN, 3), pipingProfile.Layers.Select(l => l.BelowPhreaticLevel));
-            CollectionAssert.AreEqual(Enumerable.Repeat(double.NaN, 3), pipingProfile.Layers.Select(l => l.DryUnitWeight));
             CollectionAssert.AreEqual(Enumerable.Repeat(false, 3), pipingProfile.Layers.Select(l => l.IsAquifer));
             CollectionAssert.AreEqual(new[]
             {

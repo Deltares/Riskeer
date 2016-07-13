@@ -54,9 +54,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var soilLayer = new PipingSoilLayer(top)
             {
                 IsAquifer = isAquifer,
-                AbovePhreaticLevel = 3.3,
                 BelowPhreaticLevelMean = 2.2,
-                DryUnitWeight = 1.1,
                 Color = Color.AliceBlue,
                 MaterialName = "MaterialName"
             };
@@ -69,11 +67,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNotNull(entity);
             Assert.AreEqual(Convert.ToDecimal(top), entity.Top);
             Assert.AreEqual(Convert.ToByte(isAquifer), entity.IsAquifer);
-            Assert.AreEqual(soilLayer.AbovePhreaticLevel, entity.AbovePhreaticLevel);
             Assert.AreEqual(soilLayer.BelowPhreaticLevelMean, entity.BelowPhreaticLevel);
-            Assert.AreEqual(soilLayer.DryUnitWeight, entity.DryUnitWeight);
             Assert.AreEqual(soilLayer.Color.ToArgb(), Convert.ToInt32(entity.Color));
-            Assert.AreEqual(soilLayer.DryUnitWeight, entity.DryUnitWeight);
         }
     }
 }

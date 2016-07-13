@@ -21,8 +21,6 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
             }
         }
 
-        public double EffectiveStress { get; private set; }
-
         public void Calculate() {}
     }
 }

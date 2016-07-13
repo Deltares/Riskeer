@@ -59,11 +59,6 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
         double EffectiveHeight { get; }
 
         /// <summary>
-        /// Gets the EffectiveStress property of the effective thickness calculation.
-        /// </summary>
-        double EffectiveStress { get; }
-
-        /// <summary>
         /// Performs the effective thickness calculation.
         /// </summary>
         void Calculate();

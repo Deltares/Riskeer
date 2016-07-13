@@ -291,9 +291,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 Assert.AreEqual(expectedNumberOfLayers, profile.Layers.Count());
                 CollectionAssert.AreEqual(Enumerable.Repeat(false, expectedNumberOfLayers), profile.Layers.Select(l => l.IsAquifer));
                 IEnumerable<double> nanValues = Enumerable.Repeat(double.NaN, expectedNumberOfLayers).ToArray();
-                CollectionAssert.AreEqual(nanValues, profile.Layers.Select(l => l.AbovePhreaticLevel));
                 CollectionAssert.AreEqual(nanValues, profile.Layers.Select(l => l.BelowPhreaticLevelMean));
-                CollectionAssert.AreEqual(nanValues, profile.Layers.Select(l => l.DryUnitWeight));
             }
         }
 
@@ -397,18 +395,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 }, profile.Layers.Select(l => l.IsAquifer));
                 CollectionAssert.AreEqual(new[]
                 {
-                    0.001,
-                    0.001,
-                    0.001
-                }, profile.Layers.Select(l => l.AbovePhreaticLevel));
-                CollectionAssert.AreEqual(new double?[]
-                {
-                    0.805,
-                    0.015,
-                    0.005
-                }, profile.Layers.Select(l => l.DryUnitWeight));
-                CollectionAssert.AreEqual(new[]
-                {
                     Color.FromArgb(128,255,128),
                     Color.FromArgb(255,0,0),
                     Color.FromArgb(70,130,180)
@@ -440,18 +426,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     false,
                     false
                 }, profile.Layers.Select(l => l.IsAquifer));
-                CollectionAssert.AreEqual(new[]
-                {
-                    0.001,
-                    0.001,
-                    0.001
-                }, profile.Layers.Select(l => l.AbovePhreaticLevel));
-                CollectionAssert.AreEqual(new double?[]
-                {
-                    0.005,
-                    0.015,
-                    0.805
-                }, profile.Layers.Select(l => l.DryUnitWeight));
                 CollectionAssert.AreEqual(new []
                 {
                     Color.FromArgb(70,130,180),

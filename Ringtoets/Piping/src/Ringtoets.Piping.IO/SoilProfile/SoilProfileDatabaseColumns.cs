@@ -37,8 +37,6 @@ namespace Ringtoets.Piping.IO.SoilProfile
         internal const string Color = "Color";
         internal const string MaterialName = "MaterialName";
         internal const string LayerGeometry = "LayerGeometry";
-        internal const string AbovePhreaticLevel = "AbovePhreaticLevel";
-        internal const string DryUnitWeight = "DryUnitWeight";
         internal const string BelowPhreaticLevelDistribution = "BelowPhreaticLevelDistribution";
         internal const string BelowPhreaticLevelShift = "BelowPhreaticLevelShift";
         internal const string BelowPhreaticLevelMean = "BelowPhreaticLevelMean";

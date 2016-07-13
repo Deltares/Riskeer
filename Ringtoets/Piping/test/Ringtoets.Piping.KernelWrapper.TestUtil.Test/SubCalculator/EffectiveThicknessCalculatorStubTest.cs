@@ -20,7 +20,6 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
             Assert.AreEqual(0, stub.VolumicWeightOfWater);
 
             Assert.AreEqual(0.1, stub.EffectiveHeight);
-            Assert.AreEqual(0, stub.EffectiveStress);
         }
 
         [Test]

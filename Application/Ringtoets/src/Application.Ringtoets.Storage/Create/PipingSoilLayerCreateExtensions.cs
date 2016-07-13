@@ -48,9 +48,7 @@ namespace Application.Ringtoets.Storage.Create
             {
                 IsAquifer = Convert.ToByte(layer.IsAquifer),
                 Top = Convert.ToDecimal(layer.Top),
-                AbovePhreaticLevel = layer.AbovePhreaticLevel.ToNullableDecimal(),
                 BelowPhreaticLevel = layer.BelowPhreaticLevelMean.ToNullableDecimal(),
-                DryUnitWeight = layer.DryUnitWeight.ToNullableDecimal(),
                 Color = layer.Color.ToArgb(),
                 MaterialName = layer.MaterialName
             };

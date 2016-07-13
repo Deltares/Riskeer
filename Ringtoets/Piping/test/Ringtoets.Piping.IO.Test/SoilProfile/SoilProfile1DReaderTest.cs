@@ -105,7 +105,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             const string profileName = "<very cool name>";
             const string path = "A";
 
-            SetExpectations(0, profileName, 0.0, 0.0, 1.0, string.Empty, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+            SetExpectations(0, profileName, 0.0, 0.0, 1.0, string.Empty, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
             reader.Expect(r => r.Path).Return(path);
 
             mocks.ReplayAll();
@@ -155,7 +155,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Setup
             var bottom = 1.1;
             var top = 1.1;
-            SetExpectations(1, "", bottom, top, null, null, null, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+            SetExpectations(1, "", bottom, top, null, null, null, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 
             mocks.ReplayAll();
 
@@ -184,8 +184,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             var random = new Random(22);
-            var abovePhreaticLevel = random.NextDouble();
-            var dryUnitWeight = random.NextDouble();
             var bottom = random.NextDouble();
             var top = bottom + random.NextDouble();
             string materialName = "material";
@@ -206,8 +204,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 1.0, 
                 materialName, 
                 color.ToArgb(), 
-                abovePhreaticLevel, 
-                dryUnitWeight, 
                 belowPhreaticLevelMean, 
                 belowPhreaticLevelDeviation,
                 diameterD70Mean,
@@ -227,8 +223,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             var pipingSoilLayer = profile.Layers.First();
             Assert.AreEqual(top, pipingSoilLayer.Top);
-            Assert.AreEqual(abovePhreaticLevel, pipingSoilLayer.AbovePhreaticLevel);
-            Assert.AreEqual(dryUnitWeight, pipingSoilLayer.DryUnitWeight);
             Assert.IsTrue(pipingSoilLayer.IsAquifer);
             Assert.AreEqual(materialName, pipingSoilLayer.MaterialName);
             Assert.AreEqual(color, pipingSoilLayer.Color);
@@ -243,7 +237,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             mocks.VerifyAll();
         }
 
-        private void SetExpectations(int layerCount, string profileName, double bottom, double top, double? isAquifer, string materialName, double? color, double abovePhreaticLevel, double dryUnitWeight, double belowPhreaticLevelMean, double belowPhreaticLevelDeviation, double diameterD70Mean, double diameterD70Deviation, double permeabilityMean, double permeabilityDeviation)
+        private void SetExpectations(int layerCount, string profileName, double bottom, double top, double? isAquifer, string materialName, double? color, double? belowPhreaticLevelMean, double? belowPhreaticLevelDeviation, double? diameterD70Mean, double? diameterD70Deviation, double? permeabilityMean, double? permeabilityDeviation)
         {
             reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(layerCount).Repeat.Any();
             reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return(profileName).Repeat.Any();
@@ -252,9 +246,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.IsAquifer)).Return(isAquifer).Repeat.Any();
             reader.Expect(r => r.ReadOrDefault<string>(SoilProfileDatabaseColumns.MaterialName)).Return(materialName).Repeat.Any();
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.Color)).Return(color).Repeat.Any();
-
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.AbovePhreaticLevel)).Return(abovePhreaticLevel).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.DryUnitWeight)).Return(dryUnitWeight).Repeat.Any();
 
             var logNormalDistribution = 3;
             var logNormalShift = 0;
