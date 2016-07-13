@@ -233,7 +233,7 @@ namespace Ringtoets.Common.IO.Test
             };
             expectedReferenceLineMeta3.ReferenceLine.SetGeometry(new[]
             {
-                new Point2D(147367.321899, 476902.915710),
+                new Point2D(147367.321899, 476902.9157103),
                 new Point2D(147410.0515, 476938.9447)
             });
             AssertReferenceLineMetas(expectedReferenceLineMeta3, referenceLineMetas[2]);
@@ -259,16 +259,11 @@ namespace Ringtoets.Common.IO.Test
             Assert.AreEqual(expectedReferenceLineMeta.SignalingValue, actualReferenceLineMeta.SignalingValue);
             Assert.AreEqual(expectedReferenceLineMeta.LowerLimitValue, actualReferenceLineMeta.LowerLimitValue);
 
-            var expectedPoints = expectedReferenceLineMeta.ReferenceLine.Points.ToArray();
-            var actualPoints = actualReferenceLineMeta.ReferenceLine.Points.ToArray();
-            var errorMessage = String.Format("Unexpected geometry found in ReferenceLineMeta with id '{0}'", actualReferenceLineMeta.AssessmentSectionId);
-            Assert.AreEqual(expectedPoints.Length, actualPoints.Length, errorMessage);
-
-            for (var i = 0; i < expectedPoints.Length; i++)
-            {
-                Assert.AreEqual(expectedPoints[i].X, actualPoints[i].X, 1e-6, errorMessage);
-                Assert.AreEqual(expectedPoints[i].Y, actualPoints[i].Y, 1e-6, errorMessage);
-            }
+            Point2D[] expectedPoints = expectedReferenceLineMeta.ReferenceLine.Points.ToArray();
+            Point2D[] actualPoints = actualReferenceLineMeta.ReferenceLine.Points.ToArray();
+            CollectionAssert.AreEqual(expectedPoints, actualPoints,
+                                      new Point2DComparerWithTolerance(1e-6),
+                                      String.Format("Unexpected geometry found in ReferenceLineMeta with id '{0}'", actualReferenceLineMeta.AssessmentSectionId));
         }
     }
 }

@@ -66,5 +66,26 @@ namespace Ringtoets.Common.IO.Test.Exceptions
             Assert.IsNull(exception.StackTrace);
             Assert.IsNull(exception.TargetSite);
         }
+
+        [Test]
+        public void MessageAndInnerExceptionConstructor_ExpectedValues()
+        {
+            // Setup
+            var innerException = new Exception();
+            const string messageText = "<insert exception message>";
+
+            // Call
+            var exception = new CriticalFileValidationException(messageText, innerException);
+
+            // Assert
+            Assert.IsInstanceOf<Exception>(exception);
+            Assert.AreEqual(messageText, exception.Message);
+            CollectionAssert.IsEmpty(exception.Data);
+            Assert.IsNull(exception.HelpLink);
+            Assert.AreSame(innerException, exception.InnerException);
+            Assert.IsNull(exception.Source);
+            Assert.IsNull(exception.StackTrace);
+            Assert.IsNull(exception.TargetSite);
+        }
     }
 }
