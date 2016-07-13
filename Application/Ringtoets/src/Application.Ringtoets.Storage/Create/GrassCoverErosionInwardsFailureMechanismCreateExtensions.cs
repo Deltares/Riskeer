@@ -50,8 +50,7 @@ namespace Application.Ringtoets.Storage.Create
 
         private static void AddEntitiesForGeneralInput(GrassCoverErosionInwardsFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)
         {
-            GrassCoverErosionInwardsFailureMechanismMetaEntity generalInputEntity = mechanism.GeneralInput.Create(registry);
-            entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(generalInputEntity);
+            entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(mechanism.GeneralInput.Create(registry));
         }
 
         private static void AddEntitiesForSectionResults(
