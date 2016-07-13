@@ -51,9 +51,11 @@ namespace Ringtoets.Piping.IO.Builders
         /// Constructs a (1D) <see cref="PipingSoilLayer"/> based on the properties set for the <see cref="SoilLayer1D"/>.
         /// </summary>
         /// <returns>The <see cref="PipingSoilLayer"/> with properties corresponding to those set on the <see cref="SoilLayer1D"/>.</returns>
+        /// <exception cref="SoilLayerConversionException">Thrown when any of the distributions of the
+        /// stochastic parameters is not defined as lognormal.</exception>
         internal PipingSoilLayer AsPipingSoilLayer()
         {
-            ValidateFieldsForPiping();
+            ValidateStochasticParametersForPiping();
 
             var pipingSoilLayer = new PipingSoilLayer(Top)
             {
@@ -62,7 +64,7 @@ namespace Ringtoets.Piping.IO.Builders
                 Color = SoilLayerColorConversionHelper.ColorFromNullableDouble(Color)
             };
 
-            SetOptionalFields(pipingSoilLayer);
+            SetOptionalStochasticParameters(pipingSoilLayer);
 
             return pipingSoilLayer;
         }

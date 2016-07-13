@@ -27,6 +27,7 @@ using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.SoilProfile;
 
@@ -105,7 +106,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             const string profileName = "<very cool name>";
             const string path = "A";
 
-            SetExpectations(0, profileName, 0.0, 0.0, 1.0, string.Empty, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+            SetExpectations(0, profileName, 0.0, 0.0, null, null, null, null, null, null, null, null, null);
             reader.Expect(r => r.Path).Return(path);
 
             mocks.ReplayAll();
@@ -150,12 +151,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadFrom_NullValuesForLayer_ReturnsProfileWithNullValuesAndDefaultsOnLayer()
+        public void ReadFrom_NullValuesForLayer_ReturnsProfileWithNaNValuesAndDefaultsOnLayer()
         {
             // Setup
             var bottom = 1.1;
             var top = 1.1;
-            SetExpectations(1, "", bottom, top, null, null, null, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+            SetExpectations(1, "", bottom, top, null, null, null, null, null, null, null, null, null);
 
             mocks.ReplayAll();
 
@@ -173,6 +174,112 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             Assert.AreEqual(Color.Empty, pipingSoilLayer.Color);
             Assert.IsFalse(pipingSoilLayer.IsAquifer);
 
+            Assert.IsNaN(pipingSoilLayer.BelowPhreaticLevelMean);
+            Assert.IsNaN(pipingSoilLayer.BelowPhreaticLevelDeviation);
+            Assert.IsNaN(pipingSoilLayer.DiameterD70Mean);
+            Assert.IsNaN(pipingSoilLayer.DiameterD70Deviation);
+            Assert.IsNaN(pipingSoilLayer.PermeabilityMean);
+            Assert.IsNaN(pipingSoilLayer.PermeabilityDeviation);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ReadFrom_InvalidBelowPhreaticLevelDistributionValue_ThrowsPipingSoilProfileReadException()
+        {
+            // Setup
+            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1);
+            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileDatabaseColumns.BelowPhreaticLevelDistribution)).Return(1);
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => SoilProfile1DReader.ReadFrom(reader);
+
+            // Assert
+            Assert.Throws<PipingSoilProfileReadException>(test);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ReadFrom_InvalidBelowPhreaticLevelShiftValue_ThrowsPipingSoilProfileReadException()
+        {
+            // Setup
+            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1);
+            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileDatabaseColumns.BelowPhreaticLevelDistribution)).Return(SoilLayerConstants.LogNormalDistributionValue);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.BelowPhreaticLevelShift)).Return(1);
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => SoilProfile1DReader.ReadFrom(reader);
+
+            // Assert
+            Assert.Throws<PipingSoilProfileReadException>(test);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ReadFrom_InvalidDiameterD70DistributionValue_ThrowsPipingSoilProfileReadException()
+        {
+            // Setup
+            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1);
+            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileDatabaseColumns.DiameterD70Distribution)).Return(1);
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => SoilProfile1DReader.ReadFrom(reader);
+
+            // Assert
+            Assert.Throws<PipingSoilProfileReadException>(test);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ReadFrom_InvalidDiameterD70ShiftValue_ThrowsPipingSoilProfileReadException()
+        {
+            // Setup
+            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1);
+            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileDatabaseColumns.DiameterD70Distribution)).Return(SoilLayerConstants.LogNormalDistributionValue);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.DiameterD70Shift)).Return(1);
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => SoilProfile1DReader.ReadFrom(reader);
+
+            // Assert
+            Assert.Throws<PipingSoilProfileReadException>(test);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ReadFrom_InvalidPermeabilityDistributionValue_ThrowsPipingSoilProfileReadException()
+        {
+            // Setup
+            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1);
+            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileDatabaseColumns.PermeabilityDistribution)).Return(1);
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => SoilProfile1DReader.ReadFrom(reader);
+
+            // Assert
+            Assert.Throws<PipingSoilProfileReadException>(test);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ReadFrom_InvalidPermeabilityShiftValue_ThrowsPipingSoilProfileReadException()
+        {
+            // Setup
+            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1);
+            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileDatabaseColumns.PermeabilityDistribution)).Return(SoilLayerConstants.LogNormalDistributionValue);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.PermeabilityShift)).Return(1);
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => SoilProfile1DReader.ReadFrom(reader);
+
+            // Assert
+            Assert.Throws<PipingSoilProfileReadException>(test);
             mocks.VerifyAll();
         }
 

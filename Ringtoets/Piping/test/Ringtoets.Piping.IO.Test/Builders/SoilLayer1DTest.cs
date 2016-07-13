@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using NUnit.Framework;
 using Ringtoets.Piping.IO.Builders;
+using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO.Test.Builders
 {
@@ -65,7 +66,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         [TestCase(1.0)]
         [TestCase(1.0+1e-12)]
         [TestCase(2.0)]
-        public void AsPipingSoilLayer_PropertiesSetWithDifferentLayerParameters_PropertiesAreSetInPipingSoilLayer(double isAquifer)
+        public void AsPipingSoilLayer_PropertiesSetWithCorrectDistributionsAndDifferentLayerParameters_PropertiesAreSetInPipingSoilLayer(double isAquifer)
         {
             // Setup
             var random = new Random(22);
@@ -124,6 +125,66 @@ namespace Ringtoets.Piping.IO.Test.Builders
             Assert.AreEqual(permeabilityDeviation, result.PermeabilityDeviation);
             Assert.AreEqual(materialName, result.MaterialName);
             Assert.AreEqual(Color.FromArgb(color.ToArgb()), result.Color);
+        }
+
+        [Test]
+        [TestCase(false, true, true, "Verzadigd gewicht")]
+        [TestCase(true, false, true, "Korrelgrootte")]
+        [TestCase(true, true, false, "Doorlatendheid")]
+        public void AsPipingSoilLayer_IncorrectDistributionType_ThrowsSoilLayerConversionException(
+            bool isBelowPhreaticLevelDistributionValid,
+            bool isDiameterD70DistributionValid,
+            bool isPermeabilityDistributionValid,
+            string expectedParameter)
+        {
+            // Setup
+            var validShift = 0.0;
+            var layer = new SoilLayer1D(0.0)
+            {
+                BelowPhreaticLevelDistribution = isBelowPhreaticLevelDistributionValid ? SoilLayerConstants.LogNormalDistributionValue : -1,
+                BelowPhreaticLevelShift = validShift,
+                DiameterD70Distribution = isDiameterD70DistributionValid ? SoilLayerConstants.LogNormalDistributionValue : -1,
+                DiameterD70Shift = validShift,
+                PermeabilityDistribution = isPermeabilityDistributionValid ? SoilLayerConstants.LogNormalDistributionValue : -1,
+                PermeabilityShift = validShift
+            };
+
+            // Call
+            TestDelegate test = () => layer.AsPipingSoilLayer();
+
+            // Assert
+            var message = Assert.Throws<SoilLayerConversionException>(test).Message;
+            Assert.AreEqual(string.Format("De parameter '{0}' is niet lognormaal verdeeld.", expectedParameter), message);
+        }
+
+        [Test]
+        [TestCase(1e-6,0.0,0.0,"Verzadigd gewicht")]
+        [TestCase(0.0,-1e-6,0.0,"Korrelgrootte")]
+        [TestCase(0.0,0.0,9,"Doorlatendheid")]
+        public void AsPipingSoilLayer_ShiftNotZero_ThrowsSoilLayerConversionException(
+            double belowPhreaticLevelShift,
+            double diameterD70Shift,
+            double permeabilityShift,
+            string expectedParameter)
+        {
+            // Setup
+            var validDistribution = SoilLayerConstants.LogNormalDistributionValue;
+            var layer = new SoilLayer1D(1.0)
+            {
+                BelowPhreaticLevelDistribution = validDistribution,
+                BelowPhreaticLevelShift = belowPhreaticLevelShift,
+                DiameterD70Distribution = validDistribution,
+                DiameterD70Shift = diameterD70Shift,
+                PermeabilityDistribution = validDistribution,
+                PermeabilityShift = permeabilityShift
+            };
+
+            // Call
+            TestDelegate test = () => layer.AsPipingSoilLayer();
+
+            // Assert
+            var message = Assert.Throws<SoilLayerConversionException>(test).Message;
+            Assert.AreEqual(string.Format("De parameter '{0}' is niet lognormaal verdeeld.", expectedParameter), message);
         }
 
         [Test]

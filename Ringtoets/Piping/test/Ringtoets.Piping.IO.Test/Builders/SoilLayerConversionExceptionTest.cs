@@ -26,7 +26,7 @@ using Ringtoets.Piping.IO.Builders;
 namespace Ringtoets.Piping.IO.Test.Builders
 {
     [TestFixture]
-    public class SoilLayer2DConversionExceptionTest
+    public class SoilLayerConversionExceptionTest
     {
         [Test]
         public void DefaultConstructor_InnerExceptionNullAndMessageDefault()

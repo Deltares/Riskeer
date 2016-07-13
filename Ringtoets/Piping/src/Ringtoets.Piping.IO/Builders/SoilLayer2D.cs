@@ -100,16 +100,22 @@ namespace Ringtoets.Piping.IO.Builders
         }
 
         /// <summary>
-        /// Constructs a (1D) <see cref="PipingSoilLayer"/> based on the <see cref="InnerLoops"/> and <see cref="OuterLoop"/> set for the <see cref="SoilLayer2D"/>.
+        /// Constructs a (1D) <see cref="PipingSoilLayer"/> based on the <see cref="InnerLoops"/> and 
+        /// <see cref="OuterLoop"/> set for the <see cref="SoilLayer2D"/>.
         /// </summary>
         /// <param name="atX">The point from which to take a 1D profile.</param>
         /// <param name="bottom">The bottom level of the <see cref="PipingSoilLayer"/>.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="PipingSoilLayer"/>.</returns>
-        /// <exception cref="SoilLayerConversionException">Thrown when any of the <see cref="InnerLoops"/> or
-        /// <see cref="OuterLoop"/> contain a vertical line at <paramref name="atX"/>.</exception>
+        /// <exception cref="SoilLayerConversionException">Thrown when either:
+        /// <list type="bullet">
+        /// <item>any of the <see cref="InnerLoops"/> or <see cref="OuterLoop"/> contain a vertical 
+        /// line at <paramref name="atX"/></item>
+        /// <item>any of the distributions of the stochastic parameters is not defined as lognormal</item>
+        /// </list>
+        /// </exception>
         internal IEnumerable<PipingSoilLayer> AsPipingSoilLayers(double atX, out double bottom)
         {
-            ValidateFieldsForPiping();
+            ValidateStochasticParametersForPiping();
 
             bottom = Double.MaxValue;
             var result = new Collection<PipingSoilLayer>();
@@ -137,7 +143,7 @@ namespace Ringtoets.Piping.IO.Builders
                             Color = SoilLayerColorConversionHelper.ColorFromNullableDouble(Color)
                         };
 
-                        SetOptionalFields(pipingSoilLayer);
+                        SetOptionalStochasticParameters(pipingSoilLayer);
 
                         result.Add(pipingSoilLayer);
                     }

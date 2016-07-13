@@ -862,5 +862,69 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX), exception.Message);
         }
+
+        [Test]
+        [TestCase(false, true, true, "Verzadigd gewicht")]
+        [TestCase(true, false, true, "Korrelgrootte")]
+        [TestCase(true, true, false, "Doorlatendheid")]
+        public void AsPipingSoilLayer_IncorrectDistributionType_ThrowsSoilLayerConversionException(
+            bool isBelowPhreaticLevelDistributionValid,
+            bool isDiameterD70DistributionValid,
+            bool isPermeabilityDistributionValid,
+            string expectedParameter)
+        {
+            // Setup
+            var validShift = 0.0;
+            var layer = new SoilLayer2D
+            {
+                BelowPhreaticLevelDistribution = isBelowPhreaticLevelDistributionValid ? SoilLayerConstants.LogNormalDistributionValue : -1,
+                BelowPhreaticLevelShift = validShift,
+                DiameterD70Distribution = isDiameterD70DistributionValid ? SoilLayerConstants.LogNormalDistributionValue : -1,
+                DiameterD70Shift = validShift,
+                PermeabilityDistribution = isPermeabilityDistributionValid ? SoilLayerConstants.LogNormalDistributionValue : -1,
+                PermeabilityShift = validShift
+            };
+
+            double bottom;
+
+            // Call
+            TestDelegate test = () => layer.AsPipingSoilLayers(0, out bottom);
+
+            // Assert
+            var message = Assert.Throws<SoilLayerConversionException>(test).Message;
+            Assert.AreEqual(string.Format("De parameter '{0}' is niet lognormaal verdeeld.", expectedParameter), message);
+        }
+
+        [Test]
+        [TestCase(1e-6, 0.0, 0.0, "Verzadigd gewicht")]
+        [TestCase(0.0, -1e-6, 0.0, "Korrelgrootte")]
+        [TestCase(0.0, 0.0, 9, "Doorlatendheid")]
+        public void AsPipingSoilLayer_ShiftNotZero_ThrowsSoilLayerConversionException(
+            double belowPhreaticLevelShift,
+            double diameterD70Shift,
+            double permeabilityShift,
+            string expectedParameter)
+        {
+            // Setup
+            var validDistribution = SoilLayerConstants.LogNormalDistributionValue;
+            var layer = new SoilLayer2D
+            {
+                BelowPhreaticLevelDistribution = validDistribution,
+                BelowPhreaticLevelShift = belowPhreaticLevelShift,
+                DiameterD70Distribution = validDistribution,
+                DiameterD70Shift = diameterD70Shift,
+                PermeabilityDistribution = validDistribution,
+                PermeabilityShift = permeabilityShift
+            };
+
+            double bottom;
+
+            // Call
+            TestDelegate test = () => layer.AsPipingSoilLayers(0, out bottom);
+
+            // Assert
+            var message = Assert.Throws<SoilLayerConversionException>(test).Message;
+            Assert.AreEqual(string.Format("De parameter '{0}' is niet lognormaal verdeeld.", expectedParameter), message);
+        }
     }
 }

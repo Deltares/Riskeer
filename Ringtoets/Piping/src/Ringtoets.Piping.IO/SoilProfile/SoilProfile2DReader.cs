@@ -47,7 +47,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <item>a layer's geometry could not be parsed as XML;</item>
         /// <item>the parsed geometry did not contain loops;</item>
         /// <item>after reading the layers, no layers were added to be build;</item>
-        /// <item>unexpected values were encountered for layer properties</item>
+        /// <item>unexpected values were encountered for layer properties;</item>
+        /// <item>stochastic layer properties were not defined with a lognormal distribution</item>
         /// </list> 
         /// </exception>
         internal static PipingSoilProfile ReadFrom(IRowBasedDatabaseReader reader)

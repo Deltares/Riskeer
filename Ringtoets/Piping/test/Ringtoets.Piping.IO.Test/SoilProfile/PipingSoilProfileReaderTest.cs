@@ -376,6 +376,26 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
+        public void ReadProfile_DatabaseProfileWithLayerWithIncorrectDistributionForStochastProperty_ReturnsNoProfile()
+        {
+            // Setup
+            var testFile = "incorrect2dStochastDistributionProperty.soil";
+            string databaseFilePath = Path.Combine(testDataPath, testFile);
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(databaseFilePath))
+            {
+                // Call
+                TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
+
+                // Assert
+                var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
+                var message = new FileReaderErrorMessageBuilder(databaseFilePath)
+                    .WithSubject("ondergrondschematisatie 'Profile'")
+                    .Build(string.Format(Resources.SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution, Resources.SoilLayer_BelowPhreaticLevelDistribution_Description));
+                Assert.AreEqual(message, exceptionMessage);
+            }
+        }
+
+        [Test]
         public void ReadProfile_DatabaseWith1DProfile3Layers_ReturnsProfile()
         {
             // Setup
@@ -405,6 +425,36 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     0.71,
                     0.21
                 }, profile.Layers.Select(l => l.BelowPhreaticLevelMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.08,
+                    0.02,
+                    0.001
+                }, profile.Layers.Select(l => l.BelowPhreaticLevelDeviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    11.3,
+                    0.01,
+                    0.51
+                }, profile.Layers.Select(l => l.DiameterD70Mean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.2,
+                    0.001,
+                    0.015
+                }, profile.Layers.Select(l => l.DiameterD70Deviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    5.21,
+                    9.99,
+                    1.01
+                }, profile.Layers.Select(l => l.PermeabilityMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.3,
+                    0.1,
+                    0.025
+                }, profile.Layers.Select(l => l.PermeabilityDeviation));
             }
         }
 
@@ -438,6 +488,36 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     0.71,
                     3.88
                 }, profile.Layers.Select(l => l.BelowPhreaticLevelMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.001,
+                    0.02,
+                    0.08
+                }, profile.Layers.Select(l => l.BelowPhreaticLevelDeviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.51,
+                    0.01,
+                    11.3
+                }, profile.Layers.Select(l => l.DiameterD70Mean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.015,
+                    0.001,
+                    0.2
+                }, profile.Layers.Select(l => l.DiameterD70Deviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    1.01,
+                    9.99,
+                    5.21
+                }, profile.Layers.Select(l => l.PermeabilityMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.025,
+                    0.1,
+                    0.3
+                }, profile.Layers.Select(l => l.PermeabilityDeviation));
             }
         }
 

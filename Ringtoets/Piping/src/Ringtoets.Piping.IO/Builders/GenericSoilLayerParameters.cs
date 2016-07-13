@@ -28,93 +28,99 @@ namespace Ringtoets.Piping.IO.Builders
         /// <summary>
         /// Gets or sets the name of the material that was assigned to the <see cref="SoilLayer1D"/>.
         /// </summary>
-        public string MaterialName { get; set; }
+        internal string MaterialName { get; set; }
 
         /// <summary>
         /// Gets or sets the value representing a color that was used to represent the <see cref="SoilLayer1D"/>.
         /// </summary>
-        public double? Color { get; set; }
+        internal double? Color { get; set; }
 
         /// <summary>
         /// Gets or sets the distribution for the volumic weight of the <see cref="SoilLayer1D"/> below the 
         /// phreatic level.
         /// [kN/m³]
         /// </summary>
-        public long? BelowPhreaticLevelDistribution { get; set; }
+        internal long? BelowPhreaticLevelDistribution { get; set; }
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the volumic weight of the <see cref="SoilLayer1D"/> 
         /// below the phreatic level.
         /// [kN/m³]
         /// </summary>
-        public double? BelowPhreaticLevelShift { get; set; }
+        internal double? BelowPhreaticLevelShift { get; set; }
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the volumic weight of the <see cref="SoilLayer1D"/> 
         /// below the phreatic level.
         /// [kN/m³]
         /// </summary>
-        public double? BelowPhreaticLevelMean { get; set; }
+        internal double? BelowPhreaticLevelMean { get; set; }
 
         /// <summary>
         /// Gets or sets the deviation of the distribution for the volumic weight of the <see cref="SoilLayer1D"/> below the phreatic level.
         /// [kN/m³]
         /// </summary>
-        public double? BelowPhreaticLevelDeviation { get; set; }
+        internal double? BelowPhreaticLevelDeviation { get; set; }
 
         /// <summary>
         /// Gets or sets the distribution for the mean diameter of small scale tests applied to different kinds of sand, on which the 
         /// formula of Sellmeijer has been fit.
         /// [m]
         /// </summary>
-        public long? DiameterD70Distribution { get; set; }
+        internal long? DiameterD70Distribution { get; set; }
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
         /// on which the formula of Sellmeijer has been fit.
         /// [m]
         /// </summary>
-        public double? DiameterD70Shift { get; set; }
+        internal double? DiameterD70Shift { get; set; }
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
         /// on which the formula of Sellmeijer has been fit.
         /// [m]
         /// </summary>
-        public double? DiameterD70Mean { get; set; }
+        internal double? DiameterD70Mean { get; set; }
 
         /// <summary>
         /// Gets or sets the deviation of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
         /// on which the formula of Sellmeijer has been fit.
         /// [m]
         /// </summary>
-        public double? DiameterD70Deviation { get; set; }
+        internal double? DiameterD70Deviation { get; set; }
 
         /// <summary>
         /// Gets or sets the distribution for the Darcy-speed with which water flows through the aquifer layer.
         /// [m/s]
         /// </summary>
-        public long? PermeabilityDistribution { get; set; }
+        internal long? PermeabilityDistribution { get; set; }
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the Darcy-speed with which water flows through the aquifer layer.
         /// [m/s]
         /// </summary>
-        public double? PermeabilityShift { get; set; }
+        internal double? PermeabilityShift { get; set; }
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the the Darcy-speed with which water flows through the aquifer layer.
         /// [m/s]
         /// </summary>
-        public double? PermeabilityMean { get; set; }
+        internal double? PermeabilityMean { get; set; }
 
         /// <summary>
         /// Gets or sets the deviation of the distribution for the Darcy-speed with which water flows through the aquifer layer.
         /// [m/s]
         /// </summary>
-        public double? PermeabilityDeviation { get; set; }
+        internal double? PermeabilityDeviation { get; set; }
 
-        protected void SetOptionalFields(PipingSoilLayer pipingSoilLayer)
+        /// <summary>
+        /// Sets the values of the optional stochastic parameters for the given <see cref="PipingSoilLayer"/>.
+        /// </summary>
+        /// <param name="pipingSoilLayer">The <see cref="PipingSoilLayer"/> to set the property values for.</param>
+        /// <remarks>This method does not perform validation. Use <see cref="ValidateStochasticParametersForPiping"/> to 
+        /// verify whether the distributions for the stochastic parameters are correctly defined.</remarks>
+        protected void SetOptionalStochasticParameters(PipingSoilLayer pipingSoilLayer)
         {
             if (BelowPhreaticLevelMean.HasValue)
             {
@@ -142,7 +148,13 @@ namespace Ringtoets.Piping.IO.Builders
             }
         }
 
-        protected void ValidateFieldsForPiping()
+        /// <summary>
+        /// Validates whether the values of the distribution and shift for the stochastic parameters 
+        /// are correct for creating a <see cref="PipingSoilLayer"/>.
+        /// </summary>
+        /// <exception cref="SoilLayerConversionException">Thrown when any of the distributions of the
+        /// stochastic parameters is not defined as lognormal.</exception>
+        protected void ValidateStochasticParametersForPiping()
         {
             ValidateIsLogNormal(
                 BelowPhreaticLevelDistribution, 

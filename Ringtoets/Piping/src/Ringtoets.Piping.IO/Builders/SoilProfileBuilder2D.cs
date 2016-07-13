@@ -85,9 +85,13 @@ namespace Ringtoets.Piping.IO.Builders
         /// </summary>
         /// <param name="soilLayer">The <see cref="SoilLayer2D"/> to add to the profile.</param>
         /// <returns>The <see cref="SoilProfileBuilder2D"/>.</returns>
-        /// <exception cref="SoilProfileBuilderException">Thrown when the <paramref name="soilLayer"/>'s geometry
-        /// contains vertical segments at the X-coordinate given for the construction of the 
-        /// <see cref="SoilProfileBuilder2D(string,double,long)"/>.</exception>
+        /// <exception cref="SoilProfileBuilderException">Thrown when either:
+        /// <list type="bullet">
+        /// <item>the <paramref name="soilLayer"/>'s geometry contains vertical segments at the 
+        /// X-coordinate given for the construction of the <see cref="SoilProfileBuilder2D(string,double,long)"/>.</item>
+        /// <item>any of the distributions of the stochastic parameters for <paramref name="soilLayer"/> is not defined 
+        /// as lognormal</item>
+        /// </list></exception>
         internal SoilProfileBuilder2D Add(SoilLayer2D soilLayer)
         {
             double newBottom;
