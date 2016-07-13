@@ -60,5 +60,37 @@ namespace Application.Ringtoets.Storage
             }
             return null;
         }
+
+        /// <summary>
+        /// Converts a <see cref="double"/> to a <see cref="Nullable{T}"/> <see cref="double"/>. If
+        /// <paramref name="value"/> is <see cref="double.NaN"/>, the result is <c>null</c>.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        /// <returns><c>null</c> if <paramref name="value"/> is <see cref="double.NaN"/>, the value
+        /// of <paramref name="value"/> otherwise.</returns>
+        public static double? ToNaNAsNull(this double value)
+        {
+            if (double.IsNaN(value))
+            {
+                return null;
+            }
+            return value;
+        }
+
+        /// <summary>
+        /// Converts a <see cref="Nullable{T}"/> <see cref="double"/> to a <see cref="double"/>. If
+        /// <paramref name="value"/> is <c>null</c>, the result is <see cref="double.NaN"/>.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        /// <returns><see cref="double.NaN"/> if <paramref name="value"/> is <c>null</c>, the value
+        /// of <paramref name="value"/> otherwise.</returns>
+        public static double ToNullAsNaN(this double? value)
+        {
+            if (value == null)
+            {
+                return double.NaN;
+            }
+            return value.Value;
+        }
     }
 }

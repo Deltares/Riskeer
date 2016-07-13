@@ -60,8 +60,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 Bottom = Convert.ToDecimal(bottom),
                 SoilLayerEntities =
                 {
-                    new SoilLayerEntity{ Top = Convert.ToDecimal(bottom + 0.5) },
-                    new SoilLayerEntity{ Top = Convert.ToDecimal(bottom + 1.2) }
+                    new SoilLayerEntity{ Top = bottom + 0.5 },
+                    new SoilLayerEntity{ Top = bottom + 1.2 }
                 }
             };
             var collector = new ReadConversionCollector();
@@ -104,8 +104,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 Bottom = Convert.ToDecimal(bottom),
                 SoilLayerEntities =
                 {
-                    new SoilLayerEntity{ Top = Convert.ToDecimal(bottom + 0.5) },
-                    new SoilLayerEntity{ Top = Convert.ToDecimal(bottom + 1.2) }
+                    new SoilLayerEntity{ Top = bottom + 0.5 },
+                    new SoilLayerEntity{ Top = bottom + 1.2 }
                 }
             };
             var collector = new ReadConversionCollector();

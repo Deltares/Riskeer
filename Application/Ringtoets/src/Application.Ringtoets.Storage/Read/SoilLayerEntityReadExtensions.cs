@@ -43,9 +43,14 @@ namespace Application.Ringtoets.Storage.Read
             {
                 StorageId = entity.SoilLayerEntityId,
                 IsAquifer = Convert.ToBoolean(entity.IsAquifer),
-                BelowPhreaticLevelMean = entity.BelowPhreaticLevel.ToNanableDouble(),
                 Color = Color.FromArgb(Convert.ToInt32(entity.Color)),
-                MaterialName = entity.MaterialName ?? string.Empty
+                MaterialName = entity.MaterialName ?? string.Empty,
+                BelowPhreaticLevelMean = entity.BelowPhreaticLevelMean.ToNullAsNaN(),
+                BelowPhreaticLevelDeviation = entity.BelowPhreaticLevelDeviation.ToNullAsNaN(),
+                DiameterD70Mean = entity.DiameterD70Mean.ToNullAsNaN(),
+                DiameterD70Deviation = entity.DiameterD70Deviation.ToNullAsNaN(),
+                PermeabilityMean = entity.PermeabilityMean.ToNullAsNaN(),
+                PermeabilityDeviation = entity.PermeabilityDeviation.ToNullAsNaN()
             };
             return pipingSoilLayer;
         }

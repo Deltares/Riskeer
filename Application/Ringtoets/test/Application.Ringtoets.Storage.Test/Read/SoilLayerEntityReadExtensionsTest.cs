@@ -24,6 +24,7 @@ using System.Drawing;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
@@ -33,7 +34,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithDecimalParameterValues_ReturnPipingSoilLayerWithDoubleParameterValues(bool isAquifer)
+        public void Read_WithValues_ReturnPipingSoilLayerWithDoubleParameterValues(bool isAquifer)
         {
             // Setup
             var random = new Random(21);
@@ -42,17 +43,30 @@ namespace Application.Ringtoets.Storage.Test.Read
             int color = Color.AliceBlue.ToArgb();
             string materialName = "sand";
 
+            var belowPhreaticLevelMean = random.NextDouble();
+            var belowPhreaticLevelDeviation = random.NextDouble();
+            var diameterD70Mean = random.NextDouble();
+            var diameterD70Deviation = random.NextDouble();
+            var permeabilityMean = random.NextDouble();
+            var permeabilityDeviation = random.NextDouble();
+
             var entity = new SoilLayerEntity
             {
                 SoilLayerEntityId = entityId,
-                Top = Convert.ToDecimal(top),
+                Top = top,
                 IsAquifer = Convert.ToByte(isAquifer),
                 Color = color,
-                MaterialName = materialName
+                MaterialName = materialName,
+                BelowPhreaticLevelMean = belowPhreaticLevelMean,
+                BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
+                DiameterD70Mean = diameterD70Mean,
+                DiameterD70Deviation = diameterD70Deviation,
+                PermeabilityMean = permeabilityMean,
+                PermeabilityDeviation = permeabilityDeviation
             };
 
             // Call
-            var layer = entity.Read();
+            PipingSoilLayer layer = entity.Read();
 
             // Assert
             Assert.IsNotNull(layer);
@@ -61,19 +75,13 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(isAquifer, layer.IsAquifer);
             Assert.AreEqual(Color.FromArgb(color), layer.Color);
             Assert.AreEqual(materialName, layer.MaterialName);
-        }
 
-        [Test]
-        public void Read_WithNullParameterValues_ReturnPipingSoilLayerWithNullParameters()
-        {
-            // Setup
-            var entity = new SoilLayerEntity();
-
-            // Call
-            var layer = entity.Read();
-
-            // Assert
-            Assert.IsNaN(layer.BelowPhreaticLevelMean);
+            Assert.AreEqual(belowPhreaticLevelMean, layer.BelowPhreaticLevelMean);
+            Assert.AreEqual(belowPhreaticLevelDeviation, layer.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(diameterD70Mean, layer.DiameterD70Mean);
+            Assert.AreEqual(diameterD70Deviation, layer.DiameterD70Deviation);
+            Assert.AreEqual(permeabilityMean, layer.PermeabilityMean);
+            Assert.AreEqual(permeabilityDeviation, layer.PermeabilityDeviation);
         }
     }
 }

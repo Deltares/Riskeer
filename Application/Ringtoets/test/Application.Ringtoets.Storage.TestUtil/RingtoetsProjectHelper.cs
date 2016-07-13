@@ -123,25 +123,25 @@ namespace Application.Ringtoets.Storage.TestUtil
             pipingSoilLayer.MaterialName = "HotPinkLayer";
 
             pipingFailureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(-1, "modelName", "modelSegmentName")
-                        {
-                            Geometry =
-                            {
-                                referenceLineGeometryPoints[1],
-                                referenceLineGeometryPoints[2],
-                                referenceLineGeometryPoints[3]
-                            },
-                            StochasticSoilProfiles =
-                            {
-                                new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, -1)
-                                {
-                                    SoilProfile = pipingSoilProfile
-                                },
-                                new StochasticSoilProfile(0.8, SoilProfileType.SoilProfile1D, -1)
-                                {
-                                    SoilProfile = new TestPipingSoilProfile()
-                                }
-                            }
-                        });
+            {
+                Geometry =
+                {
+                    referenceLineGeometryPoints[1],
+                    referenceLineGeometryPoints[2],
+                    referenceLineGeometryPoints[3]
+                },
+                StochasticSoilProfiles =
+                {
+                    new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, -1)
+                    {
+                        SoilProfile = pipingSoilProfile
+                    },
+                    new StochasticSoilProfile(0.8, SoilProfileType.SoilProfile1D, -1)
+                    {
+                        SoilProfile = new TestPipingSoilProfile()
+                    }
+                }
+            });
             pipingFailureMechanism.SurfaceLines.Add(GetSurfaceLine());
 
             CalculationGroup pipingCalculationGroup = pipingFailureMechanism.CalculationsGroup;

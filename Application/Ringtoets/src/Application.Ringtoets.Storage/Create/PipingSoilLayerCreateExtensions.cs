@@ -47,8 +47,13 @@ namespace Application.Ringtoets.Storage.Create
             var entity = new SoilLayerEntity
             {
                 IsAquifer = Convert.ToByte(layer.IsAquifer),
-                Top = Convert.ToDecimal(layer.Top),
-                BelowPhreaticLevel = layer.BelowPhreaticLevelMean.ToNullableDecimal(),
+                Top = layer.Top,
+                BelowPhreaticLevelMean = layer.BelowPhreaticLevelMean.ToNaNAsNull(),
+                BelowPhreaticLevelDeviation = layer.BelowPhreaticLevelDeviation.ToNaNAsNull(),
+                DiameterD70Mean = layer.DiameterD70Mean.ToNaNAsNull(),
+                DiameterD70Deviation = layer.DiameterD70Deviation.ToNaNAsNull(),
+                PermeabilityMean = layer.PermeabilityMean.ToNaNAsNull(),
+                PermeabilityDeviation = layer.PermeabilityDeviation.ToNaNAsNull(),
                 Color = layer.Color.ToArgb(),
                 MaterialName = layer.MaterialName
             };

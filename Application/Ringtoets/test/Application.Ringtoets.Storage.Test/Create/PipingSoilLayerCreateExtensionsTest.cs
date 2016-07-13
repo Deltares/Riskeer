@@ -67,8 +67,13 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNotNull(entity);
             Assert.AreEqual(Convert.ToDecimal(top), entity.Top);
             Assert.AreEqual(Convert.ToByte(isAquifer), entity.IsAquifer);
-            Assert.AreEqual(soilLayer.BelowPhreaticLevelMean, entity.BelowPhreaticLevel);
             Assert.AreEqual(soilLayer.Color.ToArgb(), Convert.ToInt32(entity.Color));
+            Assert.AreEqual(soilLayer.BelowPhreaticLevelMean.ToNaNAsNull(), entity.BelowPhreaticLevelMean);
+            Assert.AreEqual(soilLayer.BelowPhreaticLevelDeviation.ToNaNAsNull(), entity.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(soilLayer.DiameterD70Mean.ToNaNAsNull(), entity.DiameterD70Mean);
+            Assert.AreEqual(soilLayer.DiameterD70Deviation.ToNaNAsNull(), entity.DiameterD70Deviation);
+            Assert.AreEqual(soilLayer.PermeabilityMean.ToNaNAsNull(), entity.PermeabilityMean);
+            Assert.AreEqual(soilLayer.PermeabilityDeviation.ToNaNAsNull(), entity.PermeabilityDeviation);
         }
     }
 }

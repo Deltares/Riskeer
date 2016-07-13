@@ -62,10 +62,15 @@ namespace Application.Ringtoets.Storage.Update
                 o => o.SoilLayerEntityId);
 
             entity.IsAquifer = Convert.ToByte(layer.IsAquifer);
-            entity.Top = Convert.ToDecimal(layer.Top);
-            entity.BelowPhreaticLevel = layer.BelowPhreaticLevelMean.ToNullableDecimal();
+            entity.Top = layer.Top;
             entity.Color = layer.Color.ToArgb();
             entity.MaterialName = layer.MaterialName;
+            entity.BelowPhreaticLevelMean = layer.BelowPhreaticLevelMean.ToNaNAsNull();
+            entity.BelowPhreaticLevelDeviation = layer.BelowPhreaticLevelDeviation.ToNaNAsNull();
+            entity.DiameterD70Mean = layer.DiameterD70Mean.ToNaNAsNull();
+            entity.DiameterD70Deviation = layer.DiameterD70Deviation.ToNaNAsNull();
+            entity.PermeabilityMean = layer.PermeabilityMean.ToNaNAsNull();
+            entity.PermeabilityDeviation = layer.PermeabilityDeviation.ToNaNAsNull();
 
             registry.Register(entity, layer);
         }

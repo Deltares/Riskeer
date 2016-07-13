@@ -138,7 +138,12 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 StorageId = 1,
                 IsAquifer = true,
-                BelowPhreaticLevelMean = double.NaN,
+                BelowPhreaticLevelMean = random.NextDouble(),
+                BelowPhreaticLevelDeviation = random.NextDouble(),
+                DiameterD70Mean = double.NaN,
+                DiameterD70Deviation = double.NaN,
+                PermeabilityMean = random.NextDouble(),
+                PermeabilityDeviation = random.NextDouble(),
                 Color = Color.DarkKhaki,
                 MaterialName = "NewName"
             };
@@ -148,7 +153,12 @@ namespace Application.Ringtoets.Storage.Test.Update
                 SoilLayerEntityId = pipingSoilLayer.StorageId,
                 Top = 0,
                 IsAquifer = Convert.ToByte(false),
-                BelowPhreaticLevel = 2.2m,
+                BelowPhreaticLevelMean = 2.2,
+                BelowPhreaticLevelDeviation = 8.5,
+                DiameterD70Mean = 5.5,
+                DiameterD70Deviation = 3.8,
+                PermeabilityMean = 1.2,
+                PermeabilityDeviation = 2.2,
                 Color = Color.MediumAquamarine.ToArgb(),
                 MaterialName = "OldName"
             };
@@ -159,9 +169,14 @@ namespace Application.Ringtoets.Storage.Test.Update
             pipingSoilLayer.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
-            Assert.AreEqual(Convert.ToDouble(newTop), Convert.ToDouble(soilLayerEntity.Top), 1e-6);
+            Assert.AreEqual(newTop, soilLayerEntity.Top, 1e-6);
             Assert.AreEqual(Convert.ToByte(true), soilLayerEntity.IsAquifer);
-            Assert.IsNull(soilLayerEntity.BelowPhreaticLevel);
+            Assert.AreEqual(pipingSoilLayer.BelowPhreaticLevelMean, soilLayerEntity.BelowPhreaticLevelMean);
+            Assert.AreEqual(pipingSoilLayer.BelowPhreaticLevelDeviation, soilLayerEntity.BelowPhreaticLevelDeviation);
+            Assert.IsNull(soilLayerEntity.DiameterD70Mean);
+            Assert.IsNull(soilLayerEntity.DiameterD70Deviation);
+            Assert.AreEqual(pipingSoilLayer.PermeabilityMean, soilLayerEntity.PermeabilityMean);
+            Assert.AreEqual(pipingSoilLayer.PermeabilityDeviation, soilLayerEntity.PermeabilityDeviation);
             Assert.AreEqual(pipingSoilLayer.Color.ToArgb(), soilLayerEntity.Color);
             Assert.AreEqual(pipingSoilLayer.MaterialName, soilLayerEntity.MaterialName);
 
