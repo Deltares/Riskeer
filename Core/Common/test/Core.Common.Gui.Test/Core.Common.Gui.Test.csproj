@@ -101,6 +101,8 @@
     <Compile Include="Attributes\TestCaseClasses\DynamicVisibilityTestCases.cs" />
     <Compile Include="Commands\ApplicationFeatureCommandHandlerTest.cs" />
     <Compile Include="Commands\ExportImportCommandHandlerTest.cs" />
+    <Compile Include="Commands\GuiExportHandlerTest.cs" />
+    <Compile Include="Commands\GuiImportHandlerTest.cs" />
     <Compile Include="Commands\ProjectCommandHandlerTest.cs" />
     <Compile Include="Commands\StorageCommandHandlerTest.cs" />
     <Compile Include="Commands\ViewCommandHandlerTest.cs" />

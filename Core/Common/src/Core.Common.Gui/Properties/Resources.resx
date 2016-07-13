@@ -694,4 +694,7 @@
   <data name="FailureMechanismContributionView_GridColumn_AssessmentCode" xml:space="preserve">
     <value>Label</value>
   </data>
+  <data name="GuiExportHandler_GetSupportedExporterForItemUsingDialog_Error" xml:space="preserve">
+    <value>Fout</value>
+  </data>
 </root>

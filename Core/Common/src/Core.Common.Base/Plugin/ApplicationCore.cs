@@ -27,7 +27,7 @@ using System.Linq;
 namespace Core.Common.Base.Plugin
 {
     /// <summary>
-    /// Class that manages <see cref="ApplicationPlugin"/> plugins and exposes their contents (file importers, file exporters and data items).
+    /// Class that manages <see cref="ApplicationPlugin"/> plugins and exposes their contents (data items).
     /// </summary>
     public class ApplicationCore : IDisposable
     {

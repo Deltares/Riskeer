@@ -86,8 +86,10 @@ namespace Core.Common.Gui.Commands
 
             if (fileExporters.Length == 0)
             {
-                MessageBox.Show(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_available);
-                log.Warn(string.Format(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_0_available, itemToExport.GetType()));
+                MessageBox.Show(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_available,
+                                Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_Error);
+                var itemToExportType = itemToExport == null ? "null" : itemToExport.GetType().FullName;
+                log.Warn(string.Format(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_0_available, itemToExportType));
                 return null;
             }
 
