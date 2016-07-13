@@ -37,13 +37,16 @@ namespace Application.Ringtoets.Storage.DbContext
     {
         public long SoilLayerEntityId { get; set; }
         public long SoilProfileEntityId { get; set; }
-        public decimal Top { get; set; }
+        public double Top { get; set; }
         public byte IsAquifer { get; set; }
         public long Color { get; set; }
         public string MaterialName { get; set; }
-        public Nullable<decimal> AbovePhreaticLevel { get; set; }
-        public Nullable<decimal> BelowPhreaticLevel { get; set; }
-        public Nullable<decimal> DryUnitWeight { get; set; }
+        public Nullable<double> BelowPhreaticLevelMean { get; set; }
+        public Nullable<double> BelowPhreaticLevelDeviation { get; set; }
+        public Nullable<double> DiameterD70Mean { get; set; }
+        public Nullable<double> DiameterD70Deviation { get; set; }
+        public Nullable<double> PermeabilityMean { get; set; }
+        public Nullable<double> PermeabilityDeviation { get; set; }
     
         public virtual SoilProfileEntity SoilProfileEntity { get; set; }
     }

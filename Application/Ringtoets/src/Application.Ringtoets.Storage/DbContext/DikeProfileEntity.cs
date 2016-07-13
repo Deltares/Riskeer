@@ -44,6 +44,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public byte[] ForeShoreData { get; set; }
         public byte[] DikeGeometryData { get; set; }
         public double DikeHeight { get; set; }
+        public double X { get; set; }
+        public double Y { get; set; }
     
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }
