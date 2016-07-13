@@ -99,12 +99,14 @@ namespace Core.Common.Gui.Test.Commands
             mockRepository.VerifyAll();
         }
 
-        private class UnsupportedFileImporter : IFileImporter {
+        private class UnsupportedFileImporter : IFileImporter
+        {
             public string Name { get; private set; }
             public string Category { get; private set; }
             public Bitmap Image { get; private set; }
             public string FileFilter { get; private set; }
             public ProgressChangedDelegate ProgressChanged { get; set; }
+
             public bool CanImportOn(object targetItem)
             {
                 return false;
@@ -115,13 +117,8 @@ namespace Core.Common.Gui.Test.Commands
                 return false;
             }
 
-            public void Cancel()
-            {
-            }
-
-            public void DoPostImportUpdates(object targetItem)
-            {
-            }
+            public void Cancel() {}
+            public void DoPostImportUpdates(object targetItem) {}
         }
     }
 }

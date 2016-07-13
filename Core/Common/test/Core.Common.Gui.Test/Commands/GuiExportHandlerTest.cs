@@ -74,11 +74,9 @@ namespace Core.Common.Gui.Test.Commands
         public void ExportFrom_NoSupportedExporterAvailable_GivesMessageBoxAndLogsMessage()
         {
             // Setup
-            var fileImporters = new List<IFileExporter>
-            {
-                new UnsupportedFileExporter()
-            };
             var mockRepository = new MockRepository();
+            var unsupportedFileExporter = mockRepository.Stub<IFileExporter>();
+            unsupportedFileExporter.Stub(i => i.SupportedItemType).Return(typeof(String)); // Wrong type
             var mainWindow = mockRepository.Stub<IMainWindow>();
             mockRepository.ReplayAll();
 
@@ -93,6 +91,10 @@ namespace Core.Common.Gui.Test.Commands
                 messageBox.ClickOk();
             };
 
+            var fileImporters = new List<IFileExporter>
+            {
+                unsupportedFileExporter
+            };
             var exportHandler = new GuiExportHandler(mainWindow, fileImporters);
 
             // Call
@@ -110,10 +112,6 @@ namespace Core.Common.Gui.Test.Commands
         public void ExportFrom_SupportedExporterAvailableCancelClicked_AbortsExportAndLogsMessage()
         {
             // Setup
-            var fileImporters = new List<IFileExporter>
-            {
-                new IntegerFileExporter()
-            };
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.Stub<IMainWindow>();
             mockRepository.ReplayAll();
@@ -124,6 +122,10 @@ namespace Core.Common.Gui.Test.Commands
                 messageBox.ClickCancel();
             };
 
+            var fileImporters = new List<IFileExporter>
+            {
+                new IntegerFileExporter()
+            };
             var exportHandler = new GuiExportHandler(mainWindow, fileImporters);
 
             // Call
@@ -134,18 +136,76 @@ namespace Core.Common.Gui.Test.Commands
             mockRepository.VerifyAll();
         }
 
-        private class UnsupportedFileExporter : IFileExporter
+        [Test]
+        [RequiresSTA]
+        public void ExportFrom_SupportedExporterAvailableSaveClicked_ExportsAndLogsMessages()
         {
-            public string Name { get; private set; }
-            public string Category { get; private set; }
-            public Bitmap Image { get; private set; }
-            public Type SupportedItemType { get; private set; }
-            public string FileFilter { get; private set; }
+            // Setup
+            var mockRepository = new MockRepository();
+            var mainWindow = mockRepository.Stub<IMainWindow>();
+            mockRepository.ReplayAll();
 
-            public bool Export(object sourceItem, string filePath)
+            var exportFile = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Gui, "exportFile.txt");
+            ModalFormHandler = (name, wnd, form) =>
             {
-                return false;
-            }
+                var messageBox = new SaveFileDialogTester(wnd);
+                messageBox.SaveFile(exportFile);
+            };
+
+            var fileImporters = new List<IFileExporter>
+            {
+                new IntegerFileExporter()
+            };
+
+            var exportHandler = new GuiExportHandler(mainWindow, fileImporters);
+
+            // Call
+            Action call = () => exportHandler.ExportFrom(1234);
+
+            // Assert
+            TestHelper.AssertLogMessagesAreGenerated(call, new[]
+            {
+                "Exporteren gestart.",
+                "Exporteren afgerond."
+            });
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void ExportFrom_SupportedAndUnsupportedExporterAvailableSaveClicked_ExportsAndLogsMessages()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var mainWindow = mockRepository.Stub<IMainWindow>();
+            var unsupportedFileExporter = mockRepository.Stub<IFileExporter>();
+            unsupportedFileExporter.Stub(i => i.SupportedItemType).Return(typeof(String)); // Wrong type
+            mockRepository.ReplayAll();
+
+            var exportFile = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Gui, "exportFile.txt");
+            ModalFormHandler = (name, wnd, form) =>
+            {
+                var messageBox = new SaveFileDialogTester(wnd);
+                messageBox.SaveFile(exportFile);
+            };
+
+            var fileImporters = new List<IFileExporter>
+            {
+                unsupportedFileExporter,
+                new IntegerFileExporter()
+            };
+            var exportHandler = new GuiExportHandler(mainWindow, fileImporters);
+
+            // Call
+            Action call = () => exportHandler.ExportFrom(1234);
+
+            // Assert
+            TestHelper.AssertLogMessagesAreGenerated(call, new[]
+            {
+                "Exporteren gestart.",
+                "Exporteren afgerond."
+            });
+            mockRepository.VerifyAll();
         }
 
         private class IntegerFileExporter : IFileExporter
@@ -169,7 +229,13 @@ namespace Core.Common.Gui.Test.Commands
                 }
             }
 
-            public string FileFilter { get; private set; }
+            public string FileFilter
+            {
+                get
+                {
+                    return "Text files (*.txt)|*.txt";
+                }
+            }
 
             public bool Export(object sourceItem, string filePath)
             {
