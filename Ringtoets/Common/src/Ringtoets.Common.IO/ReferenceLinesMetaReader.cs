@@ -39,24 +39,67 @@ namespace Ringtoets.Common.IO
     /// <summary>
     /// Shape file reader that reads <see cref="ReferenceLineMeta"/> objects based on the line feature in the file.
     /// </summary>
-    public class ReferenceLinesMetaReader : IDisposable
+    public static class ReferenceLinesMetaReader
     {
         private const string assessmentsectionIdAttributeKey = "TRAJECT_ID";
         private const string signalingValueAttributeKey = "NORM_SW";
         private const string lowerLimitValueAttributeKey = "NORM_OG";
-        private readonly PolylineShapeFileReader polylineShapeFileReader;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolylineShapeFileReader"/> class and validates the file.
+        /// Reads the current features in the shape file into a collection of <see cref="ReferenceLineMeta"/> objects.
         /// </summary>
         /// <param name="shapeFilePath">The file path to the shape file.</param>
-        /// <exception cref="ArgumentException">When <paramref name="shapeFilePath"/> is invalid.</exception>
-        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <returns>The created collection of <see cref="ReferenceLineMeta"/> objects.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="shapeFilePath"/> is invalid.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when current feature in the shape file:
         /// <list type="bullet">
         /// <item><paramref name="shapeFilePath"/> points to a file that does not exist.</item>
-        /// <item>The shape file does not contain the required attributes.</item>
+        /// <item>The shape file does not contain the mandatory attributes.</item>
+        /// <item>Has an empty <see cref="assessmentsectionIdAttributeKey"/> attribute.</item>
+        /// <item>The shape file has non-line geometries in it.</item>
+        /// <item>Contains multiple poly lines.</item>
         /// </list></exception>
-        public ReferenceLinesMetaReader(string shapeFilePath)
+        public static List<ReferenceLineMeta> ReadReferenceLinesMetas(string shapeFilePath)
+        {
+            ValidateFilePath(shapeFilePath);
+
+            using (var reader = OpenPolyLineShapeFile(shapeFilePath))
+            {
+                ValidateExistenceOfRequiredAttributes(reader);
+
+                return ReadReferenceLinesMetas(reader);
+            }
+        }
+
+        private static List<ReferenceLineMeta> ReadReferenceLinesMetas(PolylineShapeFileReader reader)
+        {
+            var referenceLinesMetas = new List<ReferenceLineMeta>();
+            ReferenceLineMeta referenceLinesMeta;
+            do
+            {
+                referenceLinesMeta = ReadReferenceLinesMeta(reader);
+                if (referenceLinesMeta != null)
+                {
+                    referenceLinesMetas.Add(referenceLinesMeta);
+                }
+            } while (referenceLinesMeta != null);
+
+            return referenceLinesMetas;
+        }
+
+        private static ReferenceLineMeta ReadReferenceLinesMeta(PolylineShapeFileReader reader)
+        {
+            var lineData = ReadMapLineData(reader);
+            return lineData == null ? null : CreateReferenceLineMeta(lineData);
+        }
+
+        /// <summary>
+        /// Validates the <paramref name="shapeFilePath"/>.
+        /// </summary>
+        /// <param name="shapeFilePath">The file path to the shape file.</param>
+        /// <exception cref="System.ArgumentException">Thrown when <paramref name="shapeFilePath"/> is invalid.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="shapeFilePath"/> does not exist.</exception>
+        private static void ValidateFilePath(string shapeFilePath)
         {
             FileUtils.ValidateFilePath(shapeFilePath);
             if (!File.Exists(shapeFilePath))
@@ -65,36 +108,16 @@ namespace Ringtoets.Common.IO
                     .Build(Resources.Error_File_does_not_exist);
                 throw new CriticalFileReadException(message);
             }
-
-            polylineShapeFileReader = OpenPolyLineShapeFile(shapeFilePath);
-
-            ValidateExistenceOfRequiredAttributes();
         }
 
         /// <summary>
-        /// Reads the current feature in the shape file into a <see cref="ReferenceLineMeta"/>.
+        /// Validates the file by checking if all mandatory attributes are present in the shape file.
         /// </summary>
-        /// <returns>The created <see cref="ReferenceLineMeta"/>.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when current feature in the shape file:
-        /// <list type="bullet">
-        /// <item>Has an empty track id.</item>
-        /// <item>Does not contain poly lines.</item>
-        /// <item>Contains multiple poly lines.</item>
-        /// </list></exception>
-        public ReferenceLineMeta ReadReferenceLinesMeta()
+        /// <param name="polylineShapeFileReader">The opened shape file reader.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when the shape file lacks one of the mandatory attributes. </exception>
+        private static void ValidateExistenceOfRequiredAttributes(PolylineShapeFileReader polylineShapeFileReader)
         {
-            var lineData = ReadMapLineData();
-            return lineData == null ? null : CreateReferenceLineMeta(lineData);
-        }
-
-        public void Dispose()
-        {
-            polylineShapeFileReader.Dispose();
-        }
-
-        private void ValidateExistenceOfRequiredAttributes()
-        {
-            IList<string> missingAttributes = GetMissingAttributes();
+            IList<string> missingAttributes = GetMissingAttributes(polylineShapeFileReader);
             if (missingAttributes.Count == 1)
             {
                 var message = string.Format(RingtoetsCommonIOResources.ReferenceLinesMetaReader_File_lacks_required_Attribute_0_,
@@ -109,7 +132,7 @@ namespace Ringtoets.Common.IO
             }
         }
 
-        private IList<string> GetMissingAttributes()
+        private static IList<string> GetMissingAttributes(PolylineShapeFileReader polylineShapeFileReader)
         {
             var list = new List<string>(3);
             if (!polylineShapeFileReader.HasAttribute(assessmentsectionIdAttributeKey))
@@ -127,16 +150,34 @@ namespace Ringtoets.Common.IO
             return list;
         }
 
+        /// <summary>
+        /// Opens a new <see cref="PolylineShapeFileReader"/> to <paramref name="shapeFilePath"/>.
+        /// </summary>
+        /// <param name="shapeFilePath">Path to the shape file to read.</param>
+        /// <returns>A new instance of the <see cref="PolylineShapeFileReader"/> class.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="shapeFilePath"/> is invalid.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="shapeFilePath"/> points to a file that does not exist.</item>
+        /// <item>The shape file has non-line geometries in it.</item>
+        /// </list>
+        /// </exception>
         private static PolylineShapeFileReader OpenPolyLineShapeFile(string shapeFilePath)
         {
             return new PolylineShapeFileReader(shapeFilePath);
         }
 
-        private MapLineData ReadMapLineData()
+        private static MapLineData ReadMapLineData(PolylineShapeFileReader polylineShapeFileReader)
         {
             return (MapLineData) polylineShapeFileReader.ReadLine();
         }
 
+        /// <summary>
+        /// Creates a new <see cref="ReferenceLineMeta"/> from the <paramref name="lineData"/>.
+        /// </summary>
+        /// <param name="lineData">The <see cref="MapFeature"/> to create a <see cref="ReferenceLineMeta"/> from.</param>
+        /// <returns>The newly created <see cref="ReferenceLineMeta"/>.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the shape file contains multiple poly lines.</exception>
         private static ReferenceLineMeta CreateReferenceLineMeta(MapLineData lineData)
         {
             var features = lineData.Features.ToArray();
@@ -165,6 +206,12 @@ namespace Ringtoets.Common.IO
             return referenceLineMeta;
         }
 
+        /// <summary>
+        /// Gets the geometry from the <paramref name="lineFeature"/>.
+        /// </summary>
+        /// <param name="lineFeature">The <see cref="MapFeature"/> to get the geometry from.</param>
+        /// <returns>A <see cref="Point2D"/> collection that represents the <paramref name="lineFeature"/>'s geometry.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the shape file contains multiple poly lines.</exception>
         private static IEnumerable<Point2D> GetSectionGeometry(MapFeature lineFeature)
         {
             var mapGeometries = lineFeature.MapGeometries.ToArray();

@@ -241,10 +241,10 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er zijn meerdere shape files gevonden in &apos;{0}&apos;. &apos;{1}&apos; is gekozen..
         /// </summary>
-        public static string ReferenceLineMetaImporter_ValidateAndConnectTo_Multiple_shape_files_found_0_Selected_1 {
+        public static string ReferenceLineMetaImporter_ValidateAndConnectTo_Multiple_shape_files_found_FilePath_0_SelectedFilePath_1 {
             get {
-                return ResourceManager.GetString("ReferenceLineMetaImporter_ValidateAndConnectTo_Multiple_shape_files_found_0_Selec" +
-                        "ted_1", resourceCulture);
+                return ResourceManager.GetString("ReferenceLineMetaImporter_ValidateAndConnectTo_Multiple_shape_files_found_FilePat" +
+                        "h_0_SelectedFilePath_1", resourceCulture);
             }
         }
         
@@ -258,7 +258,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De folder locatie is ongeldig..
+        ///   Looks up a localized string similar to De map locatie is ongeldig..
         /// </summary>
         public static string ReferenceLineMetaImporter_ValidateDirectory_Directory_Invalid {
             get {
@@ -267,7 +267,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De trajectid&apos;s zijn niet uniek..
+        ///   Looks up a localized string similar to De identificatiecodes van de trajecten (het attribuut &apos;TRAJECT_ID&apos; in het shape bestand) zijn niet uniek..
         /// </summary>
         public static string ReferenceLineMetaImporter_ValidateReferenceLineMetas_AssessmentSection_Ids_Not_Unique {
             get {
@@ -277,7 +277,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De trajectid&apos;s zijn niet allemaal ingevuld..
+        ///   Looks up a localized string similar to De identificatiecodes van de trajecten (het attribuut &apos;TRAJECT_ID&apos; in het shape bestand) zijn niet allemaal ingevuld..
         /// </summary>
         public static string ReferenceLineMetaImporter_ValidateReferenceLineMetas_Missing_AssessmentSection_Ids {
             get {
@@ -323,7 +323,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand bevat geen waarde voor &apos;TrackID&apos;..
+        ///   Looks up a localized string similar to Het bestand bevat geen waarde voor het attribuut &apos;TRAJECT_ID&apos; in het shape bestand..
         /// </summary>
         public static string ReferenceLinesMetaReader_TrajectId_is_empty {
             get {

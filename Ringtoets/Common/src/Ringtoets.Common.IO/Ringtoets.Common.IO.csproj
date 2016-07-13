@@ -49,6 +49,7 @@
     </Compile>
     <Compile Include="AssessmentSectionSettings.cs" />
     <Compile Include="AssessmentSectionSettingsReader.cs" />
+    <Compile Include="Exceptions\CriticalFileValidationException.cs" />
     <Compile Include="ReferenceLineMetaImporter.cs" />
     <Compile Include="ReferenceLinesMetaReader.cs" />
     <Compile Include="FailureMechanismSectionReader.cs" />

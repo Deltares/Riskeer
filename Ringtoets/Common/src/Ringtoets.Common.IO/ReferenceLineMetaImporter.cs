@@ -24,12 +24,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security;
-using System.Windows.Forms;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
 using Core.Common.Utils.Properties;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.Exceptions;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
@@ -37,7 +37,7 @@ namespace Ringtoets.Common.IO
 {
     /// <summary>
     /// Imports a <see cref="ReferenceLineMeta"/> and stores in on a <see cref="IAssessmentSection"/>,
-    /// taking data from a shapefile containing a polylines.
+    /// taking data from a shape file containing a poly lines.
     /// </summary>
     public class ReferenceLineMetaImporter
     {
@@ -68,14 +68,17 @@ namespace Ringtoets.Common.IO
         /// <returns>The read <see cref="ReferenceLineMeta"/> objects.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>The shape file does not contain the required attributes.</item>
-        /// <item>The assessment section ids in the shape file are not unique or are missing.</item>
         /// <item>The shape file does not contain poly lines.</item>
         /// <item>The shape file contains multiple poly lines.</item>
         /// </list></exception>
+        /// <exception cref="CriticalFileValidationException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The shape file does not contain the required attributes.</item>
+        /// <item>The assessment section ids in the shape file are not unique or are missing.</item>
+        /// </list></exception>
         public IEnumerable<ReferenceLineMeta> GetReferenceLineMetas()
         {
-            ICollection<ReferenceLineMeta> referenceLineMetas = ReadReferenceLineMetas();
+            ICollection<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(shapeFilePath);
 
             ValidateReferenceLineMetas(referenceLineMetas);
 
@@ -95,7 +98,7 @@ namespace Ringtoets.Common.IO
             shapeFilePath = files.First();
             if (files.Length > 1)
             {
-                log.Warn(string.Format(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_Multiple_shape_files_found_0_Selected_1,
+                log.Warn(string.Format(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_Multiple_shape_files_found_FilePath_0_SelectedFilePath_1,
                                        Path.GetDirectoryName(shapeFilePath), Path.GetFileName(shapeFilePath)));
             }
         }
@@ -131,24 +134,6 @@ namespace Ringtoets.Common.IO
             }
         }
 
-        private ICollection<ReferenceLineMeta> ReadReferenceLineMetas()
-        {
-            var referenceLinesMetas = new List<ReferenceLineMeta>();
-            using (var reader = new ReferenceLinesMetaReader(shapeFilePath))
-            {
-                ReferenceLineMeta referenceLinesMeta;
-                do
-                {
-                    referenceLinesMeta = reader.ReadReferenceLinesMeta();
-                    if (referenceLinesMeta != null)
-                    {
-                        referenceLinesMetas.Add(referenceLinesMeta);
-                    }
-                } while (referenceLinesMeta != null);
-            }
-            return referenceLinesMetas;
-        }
-
         private void ValidateReferenceLineMetas(ICollection<ReferenceLineMeta> referenceLineMetas)
         {
             var referenceLineMetasCount = referenceLineMetas.Count;
@@ -158,20 +143,14 @@ namespace Ringtoets.Common.IO
             {
                 var message = new FileReaderErrorMessageBuilder(shapeFilePath)
                     .Build(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateReferenceLineMetas_AssessmentSection_Ids_Not_Unique);
-                log.Warn(message);
-
-                MessageBox.Show(message, CoreCommonBaseResources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw new CriticalFileReadException(message);
+                throw new CriticalFileValidationException(message);
             }
 
             if (referenceLineMetas.Any(rlm => string.IsNullOrEmpty(rlm.AssessmentSectionId)))
             {
                 var message = new FileReaderErrorMessageBuilder(shapeFilePath)
                     .Build(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateReferenceLineMetas_Missing_AssessmentSection_Ids);
-                log.Warn(message);
-
-                MessageBox.Show(message, CoreCommonBaseResources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw new CriticalFileReadException(message);
+                throw new CriticalFileValidationException(message);
             }
         }
     }

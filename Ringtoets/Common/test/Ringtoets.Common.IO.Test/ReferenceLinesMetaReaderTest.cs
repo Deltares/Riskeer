@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -36,29 +37,13 @@ namespace Ringtoets.Common.IO.Test
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "NBPW");
 
         [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            string validFilePath = Path.Combine(testDataPath, "NBPW.shp");
-
-            // Call
-            using (var reader = new ReferenceLinesMetaReader(validFilePath))
-            {
-                // Assert
-                Assert.IsInstanceOf<IDisposable>(reader);
-            }
-
-            Assert.True(TestHelper.CanOpenFileForWrite(validFilePath));
-        }
-
-        [Test]
         [TestCase("")]
         [TestCase("      ")]
         [TestCase(null)]
-        public void Constructor_NoFilePath_ThrowArgumentException(string invalidFilePath)
+        public void ReadReferenceLinesMetas_NoFilePath_ThrowArgumentException(string invalidFilePath)
         {
             // Call
-            TestDelegate call = () => new ReferenceLinesMetaReader(invalidFilePath);
+            TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet leeg of ongedefinieerd zijn.",
@@ -67,7 +52,7 @@ namespace Ringtoets.Common.IO.Test
         }
 
         [Test]
-        public void Constructor_FilePathHasInvalidPathCharacter_ThrowArgumentException()
+        public void ReadReferenceLinesMetas_FilePathHasInvalidPathCharacter_ThrowArgumentException()
         {
             // Setup
             char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
@@ -76,7 +61,7 @@ namespace Ringtoets.Common.IO.Test
             string invalidFilePath = validFilePath.Replace("P", invalidFileNameChars[1].ToString());
 
             // Call
-            TestDelegate call = () => new ReferenceLinesMetaReader(invalidFilePath);
+            TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet de volgende tekens bevatten: {1}",
@@ -85,13 +70,13 @@ namespace Ringtoets.Common.IO.Test
         }
 
         [Test]
-        public void Constructor_FilePathIsActuallyDirectoryPath_ThrowArgumentException()
+        public void ReadReferenceLinesMetas_FilePathIsActuallyDirectoryPath_ThrowArgumentException()
         {
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, Path.DirectorySeparatorChar.ToString());
 
             // Call
-            TestDelegate call = () => new ReferenceLinesMetaReader(invalidFilePath);
+            TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet verwijzen naar een lege bestandsnaam.",
@@ -100,13 +85,13 @@ namespace Ringtoets.Common.IO.Test
         }
 
         [Test]
-        public void Constructor_ShapefileDoesntExist_ThrowCriticalFileReadException()
+        public void ReadReferenceLinesMetas_ShapefileDoesntExist_ThrowCriticalFileReadException()
         {
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, "I_do_not_exist.shp");
 
             // Call
-            TestDelegate call = () => new ReferenceLinesMetaReader(invalidFilePath);
+            TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
@@ -121,12 +106,12 @@ namespace Ringtoets.Common.IO.Test
         [TestCase("Single_Multi-Polygon_with_ID.shp")]
         [TestCase("Single_Point_with_ID.shp")]
         [TestCase("Single_Polygon_with_ID.shp")]
-        public void Constructor_ShapefileDoesNotHaveSinglePolyline_ThrowCriticalFileReadException(string shapeFileName)
+        public void ReadReferenceLinesMetas_ShapefileDoesNotHaveSinglePolyline_ThrowCriticalFileReadException(string shapeFileName)
         {
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, shapeFileName);
 
-            TestDelegate call = () => new ReferenceLinesMetaReader(invalidFilePath);
+            TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert .
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestand bevat geometrieën die geen lijn zijn.",
@@ -142,28 +127,25 @@ namespace Ringtoets.Common.IO.Test
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, shapeFileName);
 
-            using (var reader = new ReferenceLinesMetaReader(invalidFilePath))
-            {
-                // Call
-                TestDelegate call = () => reader.ReadReferenceLinesMeta();
+            // Call
+            TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
-                // Assert
-                var expectedMessage = "Het bestand bevat een multi-polylijn. Multi-polylijnen worden niet ondersteund.";
-                var message = Assert.Throws<CriticalFileReadException>(call).Message;
-                Assert.AreEqual(expectedMessage, message);
-            }
+            // Assert
+            var expectedMessage = "Het bestand bevat een multi-polylijn. Multi-polylijnen worden niet ondersteund.";
+            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            Assert.AreEqual(expectedMessage, message);
         }
 
         [Test]
         [TestCase("NBPW_missingTrajectId.shp", "TRAJECT_ID")]
         [TestCase("NBPW_missingNORM_SW.shp", "NORM_SW")]
         [TestCase("NBPW_missingNORM_OG.shp", "NORM_OG")]
-        public void Constructor_FileLacksAttribute_ThrowCriticalFileReadException(string shapeFileName, string missingAttribute)
+        public void ReadReferenceLinesMetas_FileLacksAttribute_ThrowCriticalFileReadException(string shapeFileName, string missingAttribute)
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, shapeFileName);
 
-            TestDelegate call = () => new ReferenceLinesMetaReader(validFilePath);
+            TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
 
             // Assert
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
@@ -177,12 +159,12 @@ namespace Ringtoets.Common.IO.Test
         [TestCase("NBPW_missingTrajectIdAndNORM_SW.shp", "TRAJECT_ID', 'NORM_SW")]
         [TestCase("NBPW_missingTrajectIdAndNORM_OG.shp", "TRAJECT_ID', 'NORM_OG")]
         [TestCase("NBPW_missingNORM_SWAndNORM_OG.shp", "NORM_SW', 'NORM_OG")]
-        public void Constructor_FileLacksAttributes_ThrowCriticalFileReadException(string shapeFileName, string missingAttributes)
+        public void ReadReferenceLinesMetas_FileLacksAttributes_ThrowCriticalFileReadException(string shapeFileName, string missingAttributes)
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, shapeFileName);
 
-            TestDelegate call = () => new ReferenceLinesMetaReader(validFilePath);
+            TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
 
             // Assert
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
@@ -197,23 +179,50 @@ namespace Ringtoets.Common.IO.Test
             // Setup
             var validFilePath = Path.Combine(testDataPath, "NBPW.shp");
 
-            using (var reader = new ReferenceLinesMetaReader(validFilePath))
+            // Call
+            List<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
+
+            // Assert
+            Assert.AreEqual(3, referenceLineMetas.Count);
+
+            var expectedReferenceLineMeta1 = new ReferenceLineMeta
             {
-                // Call
-                ReferenceLineMeta referenceLineMeta = reader.ReadReferenceLinesMeta();
+                AssessmentSectionId = "1-1",
+                LowerLimitValue = 1000,
+                SignalingValue = 3000
+            };
+            expectedReferenceLineMeta1.ReferenceLine.SetGeometry(new[]
+            {
+                new Point2D(160679.9250, 475072.583),
+                new Point2D(160892.0751, 474315.4917)
+            });
+            AssertReferenceLineMetas(expectedReferenceLineMeta1, referenceLineMetas[0]);
 
-                // Assert
-                Assert.AreEqual("205", referenceLineMeta.AssessmentSectionId);
-                Assert.AreEqual(3000, referenceLineMeta.SignalingValue);
-                Assert.AreEqual(1000, referenceLineMeta.LowerLimitValue);
-                Point2D[] geometryPoints = referenceLineMeta.ReferenceLine.Points.ToArray();
-                Assert.AreEqual(2, geometryPoints.Length);
-                Assert.AreEqual(475072.583000, geometryPoints[0].Y, 1e-6);
-                Assert.AreEqual(160892.075100, geometryPoints[1].X, 1e-6);
+            var expectedReferenceLineMeta2 = new ReferenceLineMeta
+            {
+                AssessmentSectionId = "2-2",
+                LowerLimitValue = 100,
+                SignalingValue = 300
+            };
+            expectedReferenceLineMeta2.ReferenceLine.SetGeometry(new[]
+            {
+                new Point2D(155556.9191, 464341.1281),
+                new Point2D(155521.4761, 464360.7401)
+            });
+            AssertReferenceLineMetas(expectedReferenceLineMeta2, referenceLineMetas[1]);
 
-                ReferenceLineMeta referenceLineMeta2 = reader.ReadReferenceLinesMeta();
-                Assert.AreEqual("11-1", referenceLineMeta2.AssessmentSectionId);
-            }
+            var expectedReferenceLineMeta3 = new ReferenceLineMeta
+            {
+                AssessmentSectionId = "3-3",
+                LowerLimitValue = 100,
+                SignalingValue = 300
+            };
+            expectedReferenceLineMeta3.ReferenceLine.SetGeometry(new[]
+            {
+                new Point2D(147367.321899, 476902.915710),
+                new Point2D(147410.0515, 476938.9447)
+            });
+            AssertReferenceLineMetas(expectedReferenceLineMeta3, referenceLineMetas[2]);
         }
 
         [Test]
@@ -222,16 +231,16 @@ namespace Ringtoets.Common.IO.Test
             // Setup
             var validFilePath = Path.Combine(testDataPath, "NBPW_EmptyNormOGAndNormSW.shp");
 
-            using (var reader = new ReferenceLinesMetaReader(validFilePath))
-            {
-                // Call
-                ReferenceLineMeta referenceLineMeta = reader.ReadReferenceLinesMeta();
+            // Call
+            List<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
 
-                // Assert
-                Assert.AreEqual("46-1", referenceLineMeta.AssessmentSectionId);
-                Assert.IsNull(referenceLineMeta.SignalingValue);
-                Assert.IsNull(referenceLineMeta.LowerLimitValue);
-            }
+            // Assert
+            Assert.AreEqual(1, referenceLineMetas.Count);
+
+            var referenceLineMeta = referenceLineMetas.First();
+            Assert.AreEqual("46-1", referenceLineMeta.AssessmentSectionId);
+            Assert.IsNull(referenceLineMeta.SignalingValue);
+            Assert.IsNull(referenceLineMeta.LowerLimitValue);
         }
 
         [Test]
@@ -240,35 +249,30 @@ namespace Ringtoets.Common.IO.Test
             // Setup
             string validFilePath = Path.Combine(testDataPath, "NBPW_EmptyTrackId.shp");
 
-            using (var reader = new ReferenceLinesMetaReader(validFilePath))
-            {
-                // Call
-                ReferenceLineMeta referenceLineMeta = reader.ReadReferenceLinesMeta();
+            // Call
+            List<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
 
-                // Assert
-                Assert.AreEqual(string.Empty, referenceLineMeta.AssessmentSectionId);
-            }
+            // Assert
+            Assert.AreEqual(1, referenceLineMetas.Count);
+            var referenceLineMeta = referenceLineMetas.First();
+            Assert.AreEqual(string.Empty, referenceLineMeta.AssessmentSectionId);
         }
 
-        [Test]
-        public void ReadReferenceLinesMeta_ReadingToEndOfFile_ReturnNull()
+        private static void AssertReferenceLineMetas(ReferenceLineMeta expectedReferenceLineMeta, ReferenceLineMeta actualReferenceLineMeta)
         {
-            // Setup
-            string validFilePath = Path.Combine(testDataPath, "NBPW.shp");
+            Assert.AreEqual(expectedReferenceLineMeta.AssessmentSectionId, actualReferenceLineMeta.AssessmentSectionId);
+            Assert.AreEqual(expectedReferenceLineMeta.SignalingValue, actualReferenceLineMeta.SignalingValue);
+            Assert.AreEqual(expectedReferenceLineMeta.LowerLimitValue, actualReferenceLineMeta.LowerLimitValue);
 
-            using (var reader = new ReferenceLinesMetaReader(validFilePath))
+            var expectedPoints = expectedReferenceLineMeta.ReferenceLine.Points.ToArray();
+            var actualPoints = actualReferenceLineMeta.ReferenceLine.Points.ToArray();
+            var errorMessage = String.Format("Unexpected geometry found in ReferenceLineMeta with id '{0}'", actualReferenceLineMeta.AssessmentSectionId);
+            Assert.AreEqual(expectedPoints.Length, actualPoints.Length, errorMessage);
+
+            for (var i = 0; i < expectedPoints.Length; i++)
             {
-                ReferenceLineMeta line;
-                do
-                {
-                    line = reader.ReadReferenceLinesMeta();
-                } while (line != null);
-
-                // Call
-                var resultBeyondEndOfFile = reader.ReadReferenceLinesMeta();
-
-                // Assert
-                Assert.IsNull(resultBeyondEndOfFile);
+                Assert.AreEqual(expectedPoints[i].X, actualPoints[i].X, 1e-6, errorMessage);
+                Assert.AreEqual(expectedPoints[i].Y, actualPoints[i].Y, 1e-6, errorMessage);
             }
         }
     }

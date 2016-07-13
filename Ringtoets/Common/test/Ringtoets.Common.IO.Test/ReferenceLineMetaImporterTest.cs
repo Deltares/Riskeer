@@ -26,14 +26,14 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
-using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.Exceptions;
 
 namespace Ringtoets.Common.IO.Test
 {
     [TestFixture]
-    public class ReferenceLineMetaImporterTest : NUnitFormsAssertTest
+    public class ReferenceLineMetaImporterTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "ReferenceLineMetaImporter");
 
@@ -81,7 +81,7 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => new ReferenceLineMetaImporter(pathTooLong);
 
             // Assert
-            var expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': De folder locatie is ongeldig.",
+            var expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': De map locatie is ongeldig.",
                                                          pathTooLong);
             CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
             Assert.AreEqual(expectedExceptionMessage, exception.Message);
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => new ReferenceLineMetaImporter(pathToNonExistingFolder);
 
             // Assert
-            var expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': De folder locatie is ongeldig.",
+            var expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': De map locatie is ongeldig.",
                                                          pathToNonExistingFolder);
             CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
             Assert.AreEqual(expectedExceptionMessage, exception.Message);
@@ -153,7 +153,7 @@ namespace Ringtoets.Common.IO.Test
         }
 
         [Test]
-        public void GetReferenceLineMetas_FileWithNonUniqueTrajectIds_ThrowsCriticalFileReadException()
+        public void GetReferenceLineMetas_FileWithNonUniqueTrajectIds_ThrowsCriticalFileValidationException()
         {
             // Setup
             string pathToFolder = Path.Combine(testDataPath, "NonUniqueTrajectIds");
@@ -162,21 +162,15 @@ namespace Ringtoets.Common.IO.Test
             // Call
             TestDelegate call = () => importer.GetReferenceLineMetas();
 
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBoxTester = new MessageBoxTester(wnd);
-                messageBoxTester.ClickOk();
-            };
-
             // Assert
             var shapeFile = Path.Combine(pathToFolder, "NonUniqueTrajectIds.shp");
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': De trajectid's zijn niet uniek.", shapeFile);
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': De identificatiecodes van de trajecten (het attribuut 'TRAJECT_ID' in het shape bestand) zijn niet uniek.", shapeFile);
+            CriticalFileValidationException exception = Assert.Throws<CriticalFileValidationException>(call);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
-        public void GetReferenceLineMetas_FileWithEmptyTrajectIds_ThrowsCriticalFileReadException()
+        public void GetReferenceLineMetas_FileWithEmptyTrajectIds_ThrowsCriticalFileValidationException()
         {
             // Setup
             string pathToFolder = Path.Combine(testDataPath, "EmptyTrackId");
@@ -185,16 +179,10 @@ namespace Ringtoets.Common.IO.Test
             // Call
             TestDelegate call = () => importer.GetReferenceLineMetas();
 
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBoxTester = new MessageBoxTester(wnd);
-                messageBoxTester.ClickOk();
-            };
-
             // Assert
             var shapeFile = Path.Combine(pathToFolder, "EmptyTrackId.shp");
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': De trajectid's zijn niet allemaal ingevuld.", shapeFile);
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': De identificatiecodes van de trajecten (het attribuut 'TRAJECT_ID' in het shape bestand) zijn niet allemaal ingevuld.", shapeFile);
+            CriticalFileValidationException exception = Assert.Throws<CriticalFileValidationException>(call);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
