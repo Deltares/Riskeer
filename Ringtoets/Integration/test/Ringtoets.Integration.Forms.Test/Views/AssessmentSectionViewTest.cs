@@ -44,257 +44,317 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void DefaultConstructor_DefaultValues()
         {
             // Call
-            var view = new AssessmentSectionView();
-
-            // Assert
-            Assert.IsInstanceOf<UserControl>(view);
-            Assert.IsInstanceOf<IView>(view);
-            Assert.IsInstanceOf<IObserver>(view);
-            Assert.IsNotNull(view.Map);
-            Assert.IsNull(view.Data);
+            using (var view = new AssessmentSectionView())
+            {
+                // Assert
+                Assert.IsInstanceOf<UserControl>(view);
+                Assert.IsInstanceOf<IView>(view);
+                Assert.IsInstanceOf<IObserver>(view);
+                Assert.IsNotNull(view.Map);
+                Assert.IsNull(view.Data);
+            }
         }
 
         [Test]
         public void DefaultConstructor_Always_AddsMapControl()
         {
             // Call
-            var view = new AssessmentSectionView();
-
-            // Assert
-            Assert.AreEqual(1, view.Controls.Count);
-            var mapObject = view.Controls[0] as MapControl;
-            Assert.NotNull(mapObject);
-            Assert.AreEqual(DockStyle.Fill, mapObject.Dock);
-            Assert.IsNotNull(mapObject.Data);
-            CollectionAssert.IsEmpty(mapObject.Data.List);
+            using (var view = new AssessmentSectionView())
+            {
+                // Assert
+                Assert.AreEqual(1, view.Controls.Count);
+                var mapObject = view.Controls[0] as MapControl;
+                Assert.NotNull(mapObject);
+                Assert.AreEqual(DockStyle.Fill, mapObject.Dock);
+                Assert.IsNotNull(mapObject.Data);
+                CollectionAssert.IsEmpty(mapObject.Data.List);
+            }
         }
 
         [Test]
-        public void Data_EmptyAssessmentSection_NoMapDataSet()
+        public void Data_EmptyAssessmentSection_EmptyMapDataSet()
         {
             // Setup
-            var view = new AssessmentSectionView();
+            using (var view = new AssessmentSectionView())
+            {
+                var assessmentSection = new TestAssessmentSection();
 
-            var assessmentSection = new TestAssessmentSection();
+                // Call
+                view.Data = assessmentSection;
 
-            // Call
-            view.Data = assessmentSection;
+                // Assert
+                MapDataCollection mapData = view.Map.Data;
 
-            // Assert
-            MapDataCollection mapData = view.Map.Data;
+                Assert.AreEqual(2, mapData.List.Count);
 
-            Assert.AreEqual(2, mapData.List.Count);
+                var hrLocationsMapData = (MapPointData) mapData.List[0];
+                CollectionAssert.IsEmpty(hrLocationsMapData.Features);
+                Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
+                Assert.IsTrue(hrLocationsMapData.IsVisible);
 
-            var hrLocationsMapData = (MapPointData) mapData.List[0];
-            CollectionAssert.IsEmpty(hrLocationsMapData.Features);
-            Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
-            Assert.IsTrue(hrLocationsMapData.IsVisible);
-
-            var referenceLineMapData = (MapLineData) mapData.List[1];
-            CollectionAssert.IsEmpty(referenceLineMapData.Features);
-            Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
-            Assert.IsTrue(referenceLineMapData.IsVisible);
+                var referenceLineMapData = (MapLineData) mapData.List[1];
+                CollectionAssert.IsEmpty(referenceLineMapData.Features);
+                Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
+                Assert.IsTrue(referenceLineMapData.IsVisible);
+            }
         }
 
         [Test]
         public void Data_SetMapData_MapDataSet()
         {
             // Setup
-            var view = new AssessmentSectionView();
-
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
+            using (var view = new AssessmentSectionView())
             {
-                new Point2D(1.0, 2.0),
-                new Point2D(2.0, 1.0)
-            });
+                var referenceLine = new ReferenceLine();
+                referenceLine.SetGeometry(new[]
+                {
+                    new Point2D(1.0, 2.0),
+                    new Point2D(2.0, 1.0)
+                });
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
+                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+                hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
 
-            var assessmentSection = new TestAssessmentSection
-            {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase,
-                ReferenceLine = referenceLine
-            };
+                var assessmentSection = new TestAssessmentSection
+                {
+                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase,
+                    ReferenceLine = referenceLine
+                };
 
-            // Call
-            view.Data = assessmentSection;
+                // Call
+                view.Data = assessmentSection;
 
-            // Assert
-            Assert.AreSame(assessmentSection, view.Data);
-            Assert.IsInstanceOf<MapDataCollection>(view.Map.Data);
-            MapDataCollection mapData = view.Map.Data;
-            Assert.IsNotNull(mapData);
+                // Assert
+                Assert.AreSame(assessmentSection, view.Data);
+                Assert.IsInstanceOf<MapDataCollection>(view.Map.Data);
+                MapDataCollection mapData = view.Map.Data;
+                Assert.IsNotNull(mapData);
 
-            var hrLocationsMapData = (MapPointData) mapData.List[0];
-            CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations.Select(l => l.Location), hrLocationsMapData.Features.First().MapGeometries.First().PointCollections.First());
-            Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
-            Assert.IsTrue(hrLocationsMapData.IsVisible);
+                var hrLocationsMapData = (MapPointData) mapData.List[0];
+                CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations.Select(l => l.Location), hrLocationsMapData.Features.First().MapGeometries.First().PointCollections.First());
+                Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
+                Assert.IsTrue(hrLocationsMapData.IsVisible);
 
-            var referenceLineMapData = (MapLineData) mapData.List[1];
-            CollectionAssert.AreEqual(referenceLine.Points, referenceLineMapData.Features.First().MapGeometries.First().PointCollections.First());
-            Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
-            Assert.IsTrue(referenceLineMapData.IsVisible);
+                var referenceLineMapData = (MapLineData) mapData.List[1];
+                CollectionAssert.AreEqual(referenceLine.Points, referenceLineMapData.Features.First().MapGeometries.First().PointCollections.First());
+                Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
+                Assert.IsTrue(referenceLineMapData.IsVisible);
+            }
         }
 
         [Test]
         public void UpdateObserver_HydraulicBoundaryDatabaseUpdated_SetNewMapDataData()
         {
             // Setup
-            var view = new AssessmentSectionView();
-
-            var assessmentSection = new TestAssessmentSection
+            using (var view = new AssessmentSectionView())
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
-            };
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
+                var assessmentSection = new TestAssessmentSection
+                {
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                };
+                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
 
-            view.Data = assessmentSection;
-            var mapData = view.Map.Data;
+                view.Data = assessmentSection;
+                var mapData = view.Map.Data;
 
-            var mapDataElementBeforeUpdate = (MapPointData) mapData.List.First();
-            var geometryBeforeUpdate = mapDataElementBeforeUpdate.Features.First().MapGeometries.First().PointCollections.First();
+                var mapDataElementBeforeUpdate = (MapPointData) mapData.List.First();
+                var geometryBeforeUpdate = mapDataElementBeforeUpdate.Features.First().MapGeometries.First().PointCollections.First();
 
-            // Precondition
-            Assert.AreEqual(new Point2D(1.0, 2.0), geometryBeforeUpdate.First());
+                // Precondition
+                Assert.AreEqual(new Point2D(1.0, 2.0), geometryBeforeUpdate.First());
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
 
-            // Call
-            assessmentSection.NotifyObservers();
+                // Call
+                assessmentSection.NotifyObservers();
 
-            // Assert
-            Assert.IsInstanceOf<MapDataCollection>(view.Map.Data);
-            Assert.AreEqual(mapData, view.Map.Data);
-            CollectionAssert.AreEquivalent(mapData.List, view.Map.Data.List);
+                // Assert
+                Assert.IsInstanceOf<MapDataCollection>(view.Map.Data);
+                Assert.AreEqual(mapData, view.Map.Data);
+                CollectionAssert.AreEquivalent(mapData.List, view.Map.Data.List);
 
-            var mapDataElementAfterUpdate = (MapPointData)view.Map.Data.List.First();
-            var geometryAfterUpdate = mapDataElementAfterUpdate.Features.First().MapGeometries.First().PointCollections.First();
+                var mapDataElementAfterUpdate = (MapPointData) view.Map.Data.List.First();
+                var geometryAfterUpdate = mapDataElementAfterUpdate.Features.First().MapGeometries.First().PointCollections.First();
 
-            Assert.AreEqual(new Point2D(2.0, 3.0), geometryAfterUpdate.First());
+                Assert.AreEqual(new Point2D(2.0, 3.0), geometryAfterUpdate.First());
+            }
         }
 
         [Test]
         public void UpdateObserver_ReferenceLineUpdated_SetNewMapDataData()
         {
             // Setup
-            var view = new AssessmentSectionView();
-
-            var points = new List<Point2D>
+            using (var view = new AssessmentSectionView())
             {
-                new Point2D(1.0, 2.0),
-                new Point2D(2.0, 1.0)
-            };
+                var points = new List<Point2D>
+                {
+                    new Point2D(1.0, 2.0),
+                    new Point2D(2.0, 1.0)
+                };
 
-            var pointsUpdate = new List<Point2D>
-            {
-                new Point2D(2.0, 5.0),
-                new Point2D(4.0, 3.0)
-            };
+                var pointsUpdate = new List<Point2D>
+                {
+                    new Point2D(2.0, 5.0),
+                    new Point2D(4.0, 3.0)
+                };
 
-            var assessmentSection = new TestAssessmentSection
-            {
-                ReferenceLine = new ReferenceLine()
-            };
-            assessmentSection.ReferenceLine.SetGeometry(points);
+                var assessmentSection = new TestAssessmentSection
+                {
+                    ReferenceLine = new ReferenceLine()
+                };
+                assessmentSection.ReferenceLine.SetGeometry(points);
 
-            view.Data = assessmentSection;
-            var mapData = view.Map.Data;
+                view.Data = assessmentSection;
+                var mapData = view.Map.Data;
 
-            var mapDataElementBeforeUpdate = (MapLineData) mapData.List.ElementAt(1);
-            var geometryBeforeUpdate = mapDataElementBeforeUpdate.Features.First().MapGeometries.First().PointCollections.First();
+                var mapDataElementBeforeUpdate = (MapLineData) mapData.List.ElementAt(1);
+                var geometryBeforeUpdate = mapDataElementBeforeUpdate.Features.First().MapGeometries.First().PointCollections.First();
 
-            // Precondition
-            CollectionAssert.AreEquivalent(geometryBeforeUpdate, points);
+                // Precondition
+                CollectionAssert.AreEquivalent(geometryBeforeUpdate, points);
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            assessmentSection.ReferenceLine.SetGeometry(pointsUpdate);
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+                assessmentSection.ReferenceLine.SetGeometry(pointsUpdate);
 
-            // Call
-            assessmentSection.NotifyObservers();
+                // Call
+                assessmentSection.NotifyObservers();
 
-            // Assert
-            Assert.IsInstanceOf<MapDataCollection>(view.Map.Data);
-            Assert.AreEqual(mapData, view.Map.Data);
-            CollectionAssert.AreEquivalent(mapData.List, view.Map.Data.List);
+                // Assert
+                Assert.IsInstanceOf<MapDataCollection>(view.Map.Data);
+                Assert.AreEqual(mapData, view.Map.Data);
+                CollectionAssert.AreEquivalent(mapData.List, view.Map.Data.List);
 
-            var mapDataElementAfterUpdate = (MapLineData)view.Map.Data.List.ElementAt(1);
-            var geometryAfterUpdate = mapDataElementAfterUpdate.Features.First().MapGeometries.First().PointCollections.First();
+                var mapDataElementAfterUpdate = (MapLineData) view.Map.Data.List.ElementAt(1);
+                var geometryAfterUpdate = mapDataElementAfterUpdate.Features.First().MapGeometries.First().PointCollections.First();
 
-            CollectionAssert.AreEquivalent(geometryAfterUpdate, pointsUpdate);
+                CollectionAssert.AreEquivalent(geometryAfterUpdate, pointsUpdate);
+            }
         }
 
         [Test]
         public void UpdateObserver_OtherAssessmentSectionUpdated_MapDataNotUpdated()
         {
             // Setup
-            var view = new AssessmentSectionView();
-
-            var assessmentSection = new TestAssessmentSection
+            using (var view = new AssessmentSectionView())
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(),
-                ReferenceLine = new ReferenceLine()
-            };
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
-            assessmentSection.ReferenceLine.SetGeometry(new List<Point2D>
-            {
-                new Point2D(1.0, 2.0),
-                new Point2D(2.0, 1.0)
-            });
+                var assessmentSection = new TestAssessmentSection
+                {
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(),
+                    ReferenceLine = new ReferenceLine()
+                };
+                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
+                assessmentSection.ReferenceLine.SetGeometry(new List<Point2D>
+                {
+                    new Point2D(1.0, 2.0),
+                    new Point2D(2.0, 1.0)
+                });
 
-            view.Data = assessmentSection;
+                view.Data = assessmentSection;
 
-            var assessmentSection2 = new TestAssessmentSection
-            {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(),
-                ReferenceLine = new ReferenceLine()
-            };
-            assessmentSection2.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
-            assessmentSection2.ReferenceLine.SetGeometry(new List<Point2D>
-            {
-                new Point2D(2.0, 1.0),
-                new Point2D(4.0, 3.0)
-            });
+                var assessmentSection2 = new TestAssessmentSection
+                {
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(),
+                    ReferenceLine = new ReferenceLine()
+                };
+                assessmentSection2.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
+                assessmentSection2.ReferenceLine.SetGeometry(new List<Point2D>
+                {
+                    new Point2D(2.0, 1.0),
+                    new Point2D(4.0, 3.0)
+                });
 
-            // Call
-            assessmentSection2.NotifyObservers();
+                // Call
+                assessmentSection2.NotifyObservers();
 
-            // Assert
-            Assert.AreEqual(assessmentSection, view.Data);
-            Assert.IsInstanceOf<MapDataCollection>(view.Map.Data);
+                // Assert
+                Assert.AreEqual(assessmentSection, view.Data);
+                Assert.IsInstanceOf<MapDataCollection>(view.Map.Data);
+            }
         }
 
         [Test]
         public void Data_SetToNull_MapDataCleared()
         {
             // Setup
-            var view = new AssessmentSectionView();
-
-            var assessmentSection = new TestAssessmentSection
+            using (var view = new AssessmentSectionView())
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(),
-                ReferenceLine = new ReferenceLine()
-            };
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
-            assessmentSection.ReferenceLine.SetGeometry(new List<Point2D>
+                var assessmentSection = new TestAssessmentSection
+                {
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(),
+                    ReferenceLine = new ReferenceLine()
+                };
+                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
+                assessmentSection.ReferenceLine.SetGeometry(new List<Point2D>
+                {
+                    new Point2D(1.0, 2.0),
+                    new Point2D(2.0, 1.0)
+                });
+
+                view.Data = assessmentSection;
+
+                // Precondition
+                Assert.AreEqual(assessmentSection, view.Data);
+
+                // Call
+                view.Data = null;
+
+                // Assert
+                Assert.IsNull(view.Data);
+                Assert.IsNull(view.Map.Data);
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_DataUpdated_MapLayersSameOrder()
+        {
+            // Setup
+            using (var view = new AssessmentSectionView())
             {
-                new Point2D(1.0, 2.0),
-                new Point2D(2.0, 1.0)
-            });
+                var referenceLine = new ReferenceLine();
+                referenceLine.SetGeometry(new[]
+                {
+                    new Point2D(1.0, 2.0),
+                    new Point2D(2.0, 1.0)
+                });
 
-            view.Data = assessmentSection;
+                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+                hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
 
-            // Precondition
-            Assert.AreEqual(assessmentSection, view.Data);
+                var assessmentSection = new TestAssessmentSection
+                {
+                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase,
+                    ReferenceLine = referenceLine
+                };
 
-            // Call
-            view.Data = null;
+                view.Data = assessmentSection;
 
-            // Assert
-            Assert.IsNull(view.Data);
-            Assert.IsNull(view.Map.Data);
+                MapDataCollection mapData = view.Map.Data;
+
+                var dataToMove = (MapPointData) mapData.List[0];
+                mapData.Remove(dataToMove);
+                mapData.Add(dataToMove);
+
+                // Precondition
+                var referenceLineMapData = (MapLineData) mapData.List[0];
+                Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
+
+                var hrLocationsMapData = (MapPointData) mapData.List[1];
+                Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
+
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
+
+                // Call
+                assessmentSection.NotifyObservers();
+
+                // Assert
+                var actualReferenceLineMapData = (MapLineData) mapData.List[0];
+                Assert.AreEqual("Referentielijn", actualReferenceLineMapData.Name);
+
+                var actualHrLocationsMapData = (MapPointData) mapData.List[1];
+                Assert.AreEqual("Hydraulische randvoorwaarden", actualHrLocationsMapData.Name);
+            }
         }
 
         private class TestAssessmentSection : Observable, IAssessmentSection

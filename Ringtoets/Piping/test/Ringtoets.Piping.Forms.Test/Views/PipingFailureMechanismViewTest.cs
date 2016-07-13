@@ -100,37 +100,37 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 Assert.AreEqual(7, mapData.List.Count);
 
-                var referenceLineData = mapData.List[referenceLineLayerIndex] as FeatureBasedMapData;
+                var referenceLineData = mapData.List[referenceLineLayerIndex] as MapLineData;
                 Assert.NotNull(referenceLineData);
                 Assert.IsEmpty(referenceLineData.Features);
                 Assert.AreEqual("Referentielijn", referenceLineData.Name);
 
-                var surfaceLineData = mapData.List[surfaceLinesLayerIndex] as FeatureBasedMapData;
+                var surfaceLineData = mapData.List[surfaceLinesLayerIndex] as MapLineData;
                 Assert.NotNull(surfaceLineData);
                 Assert.IsEmpty(surfaceLineData.Features);
                 Assert.AreEqual("Profielschematisaties", surfaceLineData.Name);
 
-                var sectionsData = mapData.List[sectionsLayerIndex] as FeatureBasedMapData;
+                var sectionsData = mapData.List[sectionsLayerIndex] as MapLineData;
                 Assert.NotNull(sectionsData);
                 Assert.IsEmpty(sectionsData.Features);
                 Assert.AreEqual("Vakindeling", sectionsData.Name);
 
-                var sectionStartsData = mapData.List[sectionStartsLayerIndex] as FeatureBasedMapData;
+                var sectionStartsData = mapData.List[sectionStartsLayerIndex] as MapPointData;
                 Assert.NotNull(sectionStartsData);
                 Assert.IsEmpty(sectionStartsData.Features);
                 Assert.AreEqual("Vakindeling (startpunten)", sectionStartsData.Name);
 
-                var sectionEndsData = mapData.List[sectionEndsLayerIndex] as FeatureBasedMapData;
+                var sectionEndsData = mapData.List[sectionEndsLayerIndex] as MapPointData;
                 Assert.NotNull(sectionEndsData);
                 Assert.IsEmpty(sectionEndsData.Features);
                 Assert.AreEqual("Vakindeling (eindpunten)", sectionEndsData.Name);
 
-                var hydraulicLocationsData = mapData.List[hydraulicLocationsLayerIndex] as FeatureBasedMapData;
+                var hydraulicLocationsData = mapData.List[hydraulicLocationsLayerIndex] as MapPointData;
                 Assert.NotNull(hydraulicLocationsData);
                 Assert.IsEmpty(hydraulicLocationsData.Features);
                 Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicLocationsData.Name);
 
-                var stochasticSoilModelsData = mapData.List[stochasticSoilModelsLayerIndex] as FeatureBasedMapData;
+                var stochasticSoilModelsData = mapData.List[stochasticSoilModelsLayerIndex] as MapLineData;
                 Assert.NotNull(stochasticSoilModelsData);
                 Assert.IsEmpty(stochasticSoilModelsData.Features);
                 Assert.AreEqual("Stochastische ondergrondmodellen", stochasticSoilModelsData.Name);
@@ -567,6 +567,92 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual(dataBeforeUpdate, map.Data);
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_DataUpdated_MapLayersSameOrder()
+        {
+            // Setup
+            const int updatedRefenceLineLayerIndex = referenceLineLayerIndex + 6;
+            const int updatedSurfaceLineLayerIndex = surfaceLinesLayerIndex - 1;
+            const int updatedSectionsLayerIndex = sectionsLayerIndex - 1;
+            const int updateSectionStartLayerIndex = sectionStartsLayerIndex - 1;
+            const int updatedSectionEndLayerIndex = sectionEndsLayerIndex - 1;
+            const int updatedHydraulicLocationsLayerIndex = hydraulicLocationsLayerIndex - 1;
+            const int updatedStochasticSoilModelsLayerIndex = stochasticSoilModelsLayerIndex - 1;
+
+            using (var view = new PipingFailureMechanismView())
+            {
+                var map = (MapControl)view.Controls[0];
+
+                var assessmentSection = new TestAssessmentSection();
+                var pipingFailureMechanism = new PipingFailureMechanism();
+                var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
+
+                view.Data = pipingContext;
+
+                var mapData = map.Data;
+
+                var dataToMove = (MapLineData)mapData.List[referenceLineLayerIndex];
+                mapData.Remove(dataToMove);
+                mapData.Add(dataToMove);
+
+                // Precondition
+                var referenceLineData = (MapLineData)mapData.List[updatedRefenceLineLayerIndex];
+                Assert.AreEqual("Referentielijn", referenceLineData.Name);
+
+                var surfaceLineData = (MapLineData)mapData.List[updatedSurfaceLineLayerIndex];
+                Assert.AreEqual("Profielschematisaties", surfaceLineData.Name);
+
+                var sectionsData = (MapLineData)mapData.List[updatedSectionsLayerIndex];
+                Assert.AreEqual("Vakindeling", sectionsData.Name);
+
+                var sectionStartsData = (MapPointData)mapData.List[updateSectionStartLayerIndex];
+                Assert.AreEqual("Vakindeling (startpunten)", sectionStartsData.Name);
+
+                var sectionEndsData = (MapPointData)mapData.List[updatedSectionEndLayerIndex];
+                Assert.AreEqual("Vakindeling (eindpunten)", sectionEndsData.Name);
+
+                var hydraulicLocationsData = (MapPointData)mapData.List[updatedHydraulicLocationsLayerIndex];
+                Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicLocationsData.Name);
+
+                var stochasticSoilModelsData = (MapLineData)mapData.List[updatedStochasticSoilModelsLayerIndex];
+                Assert.AreEqual("Stochastische ondergrondmodellen", stochasticSoilModelsData.Name);
+
+                var points = new List<Point2D>
+                {
+                    new Point2D(2.0, 5.0),
+                    new Point2D(4.0, 3.0)
+                };
+                ReferenceLine referenceLine = new ReferenceLine();
+                referenceLine.SetGeometry(points);
+                assessmentSection.ReferenceLine = referenceLine;
+
+                // Call
+                assessmentSection.NotifyObservers();
+
+                // Call
+                var actualReferenceLineData = (MapLineData)mapData.List[updatedRefenceLineLayerIndex];
+                Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
+
+                var actualSurfaceLineData = (MapLineData)mapData.List[updatedSurfaceLineLayerIndex];
+                Assert.AreEqual("Profielschematisaties", actualSurfaceLineData.Name);
+
+                var actualSectionsData = (MapLineData)mapData.List[updatedSectionsLayerIndex];
+                Assert.AreEqual("Vakindeling", actualSectionsData.Name);
+
+                var actualSectionStartsData = (MapPointData)mapData.List[updateSectionStartLayerIndex];
+                Assert.AreEqual("Vakindeling (startpunten)", actualSectionStartsData.Name);
+
+                var actualSectionEndsData = (MapPointData)mapData.List[updatedSectionEndLayerIndex];
+                Assert.AreEqual("Vakindeling (eindpunten)", actualSectionEndsData.Name);
+
+                var actualHydraulicLocationsData = (MapPointData)mapData.List[updatedHydraulicLocationsLayerIndex];
+                Assert.AreEqual("Hydraulische randvoorwaarden", actualHydraulicLocationsData.Name);
+
+                var actualStochasticSoilModelsData = (MapLineData)mapData.List[updatedStochasticSoilModelsLayerIndex];
+                Assert.AreEqual("Stochastische ondergrondmodellen", actualStochasticSoilModelsData.Name);
             }
         }
 

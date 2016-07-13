@@ -380,6 +380,58 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
+        public void UpdateObserver_DataUpdated_ChartSeriesOrderSame()
+        {
+            // Setup
+            const int updatedDikeProfileIndex = dikeProfileIndex + 1;
+            const int updatedForeshoreIndex = foreshoreIndex;
+            const int updatedDikeHeightIndex = dikeHeightIndex - 1;
+
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            {
+                Data = calculation
+            })
+            {
+                ChartLineData dataToMove = (ChartLineData) view.Chart.Data.List[dikeProfileIndex];
+                view.Chart.Data.Remove(dataToMove);
+                view.Chart.Data.Add(dataToMove);
+
+                // Precondition
+                ChartLineData dikeProfileChartData = (ChartLineData)view.Chart.Data.List[updatedDikeProfileIndex];
+                Assert.AreEqual(Resources.DikeProfile_DisplayName, dikeProfileChartData.Name);
+
+                ChartLineData foreshoreChartData = (ChartLineData)view.Chart.Data.List[updatedForeshoreIndex];
+                Assert.AreEqual(Resources.Foreshore_DisplayName, foreshoreChartData.Name);
+
+                ChartLineData dikeHeightChartData = (ChartLineData)view.Chart.Data.List[updatedDikeHeightIndex];
+                Assert.AreEqual(Resources.DikeHeight_ChartName, dikeHeightChartData.Name);
+
+                DikeProfile dikeProfile = GetDikeProfileWithGeometry();
+                calculation.InputParameters.DikeProfile = dikeProfile;
+
+                // Call
+                calculation.InputParameters.NotifyObservers();
+
+                // Assert
+                ChartLineData actualDikeProfileChartData = (ChartLineData)view.Chart.Data.List[updatedDikeProfileIndex];
+                string expectedDikeProfileName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+                                                               dikeProfile.Name, Resources.DikeProfile_DisplayName);
+                Assert.AreEqual(expectedDikeProfileName, actualDikeProfileChartData.Name);
+
+                ChartLineData actualForeshoreChartData = (ChartLineData)view.Chart.Data.List[updatedForeshoreIndex];
+                string expectedForeshoreName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+                                                dikeProfile.Name,
+                                                Resources.Foreshore_DisplayName);
+                Assert.AreEqual(expectedForeshoreName, actualForeshoreChartData.Name);
+
+                ChartLineData actualDikeHeightChartData = (ChartLineData)view.Chart.Data.List[updatedDikeHeightIndex];
+                Assert.AreEqual(Resources.DikeHeight_ChartName, actualDikeHeightChartData.Name);
+            }
+        }
+
+        [Test]
         public void NotifyObservers_DataUpdatedNotifyObserversOnOldData_NoUpdateInViewData()
         {
             // Setup

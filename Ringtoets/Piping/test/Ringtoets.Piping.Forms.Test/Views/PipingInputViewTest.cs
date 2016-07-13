@@ -196,7 +196,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 Assert.AreEqual(10, chartData.List.Count);
                 var soilProfileData = (ChartDataCollection) chartData.List[soilProfileIndex];
-                var lineData = (ChartLineData) chartData.List[surfaceLineIndex];
+                var surfaceLineData = (ChartLineData) chartData.List[surfaceLineIndex];
                 var entryPointData = (ChartPointData) chartData.List[entryPointIndex];
                 var exitPointData = (ChartPointData) chartData.List[exitPointIndex];
                 var ditchDikeSideData = (ChartPointData) chartData.List[ditchDikeSideIndex];
@@ -207,7 +207,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dikeToeAtRiverData = (ChartPointData) chartData.List[dikeToeAtRiverIndex];
 
                 CollectionAssert.IsEmpty(soilProfileData.List);
-                CollectionAssert.IsEmpty(lineData.Points);
+                CollectionAssert.IsEmpty(surfaceLineData.Points);
                 CollectionAssert.IsEmpty(entryPointData.Points);
                 CollectionAssert.IsEmpty(exitPointData.Points);
                 CollectionAssert.IsEmpty(ditchDikeSideData.Points);
@@ -217,7 +217,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 CollectionAssert.IsEmpty(dikeToeAtPolderData.Points);
                 CollectionAssert.IsEmpty(dikeToeAtRiverData.Points);
                 Assert.AreEqual(Resources.StochasticSoilProfileProperties_DisplayName, soilProfileData.Name);
-                Assert.AreEqual(Resources.RingtoetsPipingSurfaceLine_DisplayName, lineData.Name);
+                Assert.AreEqual(Resources.RingtoetsPipingSurfaceLine_DisplayName, surfaceLineData.Name);
                 Assert.AreEqual(Resources.PipingInput_EntryPointL_DisplayName, entryPointData.Name);
                 Assert.AreEqual(Resources.PipingInput_ExitPointL_DisplayName, exitPointData.Name);
                 Assert.AreEqual(PipingDataResources.CharacteristicPoint_DitchDikeSide, ditchDikeSideData.Name);
@@ -551,6 +551,87 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual(calculation1, view.Data);
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_DataUpdated_ChartSeriesSameOrder()
+        {
+            // Setup
+            const int updatedSoilProfileIndex = soilProfileIndex;
+            const int updatedSurfaceLineIndex = surfaceLineIndex + 8;
+            const int updatedDitchPolderSideIndex = ditchPolderSideIndex - 1;
+            const int updatedBottomDitchPolderSideIndex = bottomDitchPolderSideIndex - 1;
+            const int updatedBottomDitchDikeSideIndex = bottomDitchDikeSideIndex - 1;
+            const int updatedDitchDikeSideIndex = ditchDikeSideIndex - 1;
+            const int updatedDikeToeAtPolderIndex = dikeToeAtPolderIndex - 1;
+            const int updatedDikeToeAtRiverIndex = dikeToeAtRiverIndex - 1;
+            const int updatedExitPointIndex = exitPointIndex - 1;
+            const int updatedEntryPointIndex = entryPointIndex - 1;
+
+            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
+
+            using (PipingInputView view = new PipingInputView
+            {
+                Data = calculation
+            })
+            {
+                var chartData = view.Chart.Data;
+
+                var dataToMove = chartData.List[surfaceLineIndex];
+                chartData.Remove(dataToMove);
+                chartData.Add(dataToMove);
+
+                var soilProfileData = (ChartDataCollection)chartData.List[updatedSoilProfileIndex];
+                var surfaceLineData = (ChartLineData)chartData.List[updatedSurfaceLineIndex];
+                var entryPointData = (ChartPointData)chartData.List[updatedEntryPointIndex];
+                var exitPointData = (ChartPointData)chartData.List[updatedExitPointIndex];
+                var ditchDikeSideData = (ChartPointData)chartData.List[updatedDitchDikeSideIndex];
+                var bottomDitchDikeSideData = (ChartPointData)chartData.List[updatedBottomDitchDikeSideIndex];
+                var ditchPolderSideData = (ChartPointData)chartData.List[updatedDitchPolderSideIndex];
+                var bottomDitchPolderSideData = (ChartPointData)chartData.List[updatedBottomDitchPolderSideIndex];
+                var dikeToeAtPolderData = (ChartPointData)chartData.List[updatedDikeToeAtPolderIndex];
+                var dikeToeAtRiverData = (ChartPointData)chartData.List[updatedDikeToeAtRiverIndex];
+
+                Assert.AreEqual(Resources.StochasticSoilProfileProperties_DisplayName, soilProfileData.Name);
+                Assert.AreEqual(Resources.RingtoetsPipingSurfaceLine_DisplayName, surfaceLineData.Name);
+                Assert.AreEqual(Resources.PipingInput_EntryPointL_DisplayName, entryPointData.Name);
+                Assert.AreEqual(Resources.PipingInput_ExitPointL_DisplayName, exitPointData.Name);
+                Assert.AreEqual(PipingDataResources.CharacteristicPoint_DitchDikeSide, ditchDikeSideData.Name);
+                Assert.AreEqual(PipingDataResources.CharacteristicPoint_BottomDitchDikeSide, bottomDitchDikeSideData.Name);
+                Assert.AreEqual(PipingDataResources.CharacteristicPoint_DitchPolderSide, ditchPolderSideData.Name);
+                Assert.AreEqual(PipingDataResources.CharacteristicPoint_BottomDitchPolderSide, bottomDitchPolderSideData.Name);
+                Assert.AreEqual(PipingDataResources.CharacteristicPoint_DikeToeAtPolder, dikeToeAtPolderData.Name);
+                Assert.AreEqual(PipingDataResources.CharacteristicPoint_DikeToeAtRiver, dikeToeAtRiverData.Name);
+
+                var surfaceLine = GetSurfaceLineWithGeometry();
+                calculation.InputParameters.SurfaceLine = surfaceLine;
+
+                // Call
+                calculation.InputParameters.NotifyObservers();
+
+                // Assert
+                var actualSoilProfileData = (ChartDataCollection)chartData.List[updatedSoilProfileIndex];
+                var actualSurfaceLineData = (ChartLineData)chartData.List[updatedSurfaceLineIndex];
+                var actualEntryPointData = (ChartPointData)chartData.List[updatedEntryPointIndex];
+                var actualExitPointData = (ChartPointData)chartData.List[updatedExitPointIndex];
+                var actualDitchDikeSideData = (ChartPointData)chartData.List[updatedDitchDikeSideIndex];
+                var actualBottomDitchDikeSideData = (ChartPointData)chartData.List[updatedBottomDitchDikeSideIndex];
+                var actualDitchPolderSideData = (ChartPointData)chartData.List[updatedDitchPolderSideIndex];
+                var actualBottomDitchPolderSideData = (ChartPointData)chartData.List[updatedBottomDitchPolderSideIndex];
+                var actualDikeToeAtPolderData = (ChartPointData)chartData.List[updatedDikeToeAtPolderIndex];
+                var actualDikeToeAtRiverData = (ChartPointData)chartData.List[updatedDikeToeAtRiverIndex];
+
+                Assert.AreEqual(Resources.StochasticSoilProfileProperties_DisplayName, actualSoilProfileData.Name);
+                Assert.AreEqual(surfaceLine.Name, actualSurfaceLineData.Name);
+                Assert.AreEqual(Resources.PipingInput_EntryPointL_DisplayName, actualEntryPointData.Name);
+                Assert.AreEqual(Resources.PipingInput_ExitPointL_DisplayName, actualExitPointData.Name);
+                Assert.AreEqual(PipingDataResources.CharacteristicPoint_DitchDikeSide, actualDitchDikeSideData.Name);
+                Assert.AreEqual(PipingDataResources.CharacteristicPoint_BottomDitchDikeSide, actualBottomDitchDikeSideData.Name);
+                Assert.AreEqual(PipingDataResources.CharacteristicPoint_DitchPolderSide, actualDitchPolderSideData.Name);
+                Assert.AreEqual(PipingDataResources.CharacteristicPoint_BottomDitchPolderSide, actualBottomDitchPolderSideData.Name);
+                Assert.AreEqual(PipingDataResources.CharacteristicPoint_DikeToeAtPolder, actualDikeToeAtPolderData.Name);
+                Assert.AreEqual(PipingDataResources.CharacteristicPoint_DikeToeAtRiver, actualDikeToeAtRiverData.Name);
             }
         }
 
