@@ -96,16 +96,6 @@ namespace Core.Common.Gui.Plugin
         public Action<IView, object> AfterCreate { get; set; }
 
         /// <summary>
-        /// Gets or sets the optional method that allow for extra actions to be performed
-        /// after the view has received focus. Function arguments:
-        /// <list type="number">
-        ///     <item>View to modify.</item>
-        ///     <item>Data for this view info.</item>
-        /// </list>
-        /// </summary>
-        public Action<IView, object> OnActivateView { get; set; }
-
-        /// <summary>
         /// Gets or sets the optional method that allows for actions to be performed  to 
         /// see if the view should be closed. Function arguments:
         /// <list type="number">
@@ -214,16 +204,6 @@ namespace Core.Common.Gui.Plugin
         public Action<TView, TData> AfterCreate { get; set; }
 
         /// <summary>
-        /// Gets or sets the optional method that allow for extra actions to be performed
-        /// after the view has received focus. Function arguments:
-        /// <list type="number">
-        ///     <item>View to modify.</item>
-        ///     <item>Data for this view info.</item>
-        /// </list>
-        /// </summary>
-        public Action<TView, object> OnActivateView { get; set; }
-
-        /// <summary>
         /// Gets or sets the optional method that allows for actions to be performed  to 
         /// see if the view should be closed. Function arguments:
         /// <list type="number">
@@ -258,13 +238,6 @@ namespace Core.Common.Gui.Plugin
                     if (viewInfo.AfterCreate != null)
                     {
                         viewInfo.AfterCreate((TView) v, (TData) o);
-                    }
-                },
-                OnActivateView = (v, o) =>
-                {
-                    if (viewInfo.OnActivateView != null)
-                    {
-                        viewInfo.OnActivateView((TView) v, o);
                     }
                 },
                 GetViewName = (v, o) => viewInfo.GetViewName != null ? viewInfo.GetViewName((TView) v, (TViewData) o) : null

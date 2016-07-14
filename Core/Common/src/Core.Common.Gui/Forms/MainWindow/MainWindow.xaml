@@ -4,9 +4,9 @@
         xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
-        xmlns:commands="clr-namespace:Core.Common.Gui.Forms.MainWindow"
+    xmlns:commands="clr-namespace:Core.Common.Gui.Forms.MainWindow"
         xmlns:Properties="clr-namespace:Core.Common.Gui.Properties"
+    xmlns:viewHost="clr-namespace:Core.Common.Gui.Forms.ViewHost"
         mc:Ignorable="d" x:Class="Core.Common.Gui.Forms.MainWindow.MainWindow"
         Title="MainWindow" Height="768" Width="1024" Background="White" Foreground="Black" x:Name="window"
         Icon="/Core.Common.Gui;component\Resources/Ringtoets.ico"
@@ -142,49 +142,10 @@
                     <fluent:ToggleButton x:Name="ButtonShowProperties" Header="{x:Static Properties:Resources.Ribbon_Properties}" Icon="/Core.Common.Gui;component\Resources\PropertiesHS.png" Click="ButtonShowProperties_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="P" />
                     <fluent:ToggleButton x:Name="ButtonShowMessages" Header="{x:Static Properties:Resources.Ribbon_Messages}" Icon="/Core.Common.Gui;component\Resources\application_view_list.png" Click="ButtonShowMessages_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="M" />
                 </fluent:RibbonGroupBox>
-                <fluent:RibbonGroupBox Header="{x:Static Properties:Resources.Ribbon_GroupBox_Layout}" fluent:KeyTip.Keys="ZL">
-                    <fluent:ToggleButton x:Name="resetUIButton" Header="{x:Static Properties:Resources.Ribbon_Reset_Layout_After_Restart}" fluent:KeyTip.Keys="L" SizeDefinition="Middle,Middle,Small" Click="ButtonResetUILayout_Click" Icon="/Core.Common.Gui;component\Resources\application_import_blue.png"/>
-                </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
         </fluent:Ribbon>
 
-        <avalonDock:DockingManager Grid.Row="1" x:Name="dockingManager" AllowMixedOrientation="True">
-            <avalonDock:DockingManager.Theme>
-                <avalonDock:GenericTheme/>
-            </avalonDock:DockingManager.Theme>
-            <avalonDock:DockingManager.DocumentHeaderTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="{Binding IconSource}" Margin="0,0,4,0" Height="16" Width="16"/>
-                        <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis"/>
-                    </StackPanel>
-                </DataTemplate>
-            </avalonDock:DockingManager.DocumentHeaderTemplate>
-            <avalonDock:LayoutRoot>
-                <avalonDock:LayoutPanel Orientation="Horizontal">
-
-                    <avalonDock:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="220">
-                        <avalonDock:LayoutAnchorablePane />
-                        <avalonDock:LayoutAnchorablePane />
-                    </avalonDock:LayoutAnchorablePaneGroup>
-
-                    <avalonDock:LayoutPanel Orientation="Vertical">
-                        <avalonDock:LayoutAnchorablePane DockHeight="100" />
-
-                        <avalonDock:LayoutDocumentPaneGroup x:Name="LayoutDocumentPaneGroup">
-                            <avalonDock:LayoutDocumentPane />
-                        </avalonDock:LayoutDocumentPaneGroup>
-
-                        <avalonDock:LayoutAnchorablePane DockHeight="150" />
-                    </avalonDock:LayoutPanel>
-
-                    <avalonDock:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="250">
-                        <avalonDock:LayoutAnchorablePane />
-                        <avalonDock:LayoutAnchorablePane />
-                    </avalonDock:LayoutAnchorablePaneGroup>
-                </avalonDock:LayoutPanel>
-            </avalonDock:LayoutRoot>
-        </avalonDock:DockingManager>
+        <viewHost:AvalonDockViewHost Grid.Row="1" x:Name="avalonDockViewHost" />
 
         <fluent:StatusBar HorizontalAlignment="Stretch"
                         VerticalAlignment="Bottom"

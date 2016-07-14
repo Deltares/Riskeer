@@ -79,15 +79,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aero.
-        /// </summary>
-        public static string Aero {
-            get {
-                return ResourceManager.GetString("Aero", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Onbekende kritieke fout opgetreden..
         /// </summary>
         public static string App_AppDomain_UnhandledException_Unknown_exception_ {
@@ -190,24 +181,6 @@ namespace Core.Common.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("arrow_000_medium_question_mark", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Documentvenster is al toegevoegd. Activeer de weergave in plaats van het toe te voegen..
-        /// </summary>
-        public static string AvalonDockDockingManager_Add_View_was_already_added_activate_it_instead_of_add {
-            get {
-                return ResourceManager.GetString("AvalonDockDockingManager_Add_View_was_already_added_activate_it_instead_of_add", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locatie {0} is niet geldig voor het documentvenster..
-        /// </summary>
-        public static string AvalonDockDockingManager_AddToolView_View_location_0_is_not_implemented_yet {
-            get {
-                return ResourceManager.GetString("AvalonDockDockingManager_AddToolView_View_location_0_is_not_implemented_yet", resourceCulture);
             }
         }
         
@@ -337,15 +310,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Donker.
-        /// </summary>
-        public static string Dark {
-            get {
-                return ResourceManager.GetString("Dark", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Verwij&amp;deren....
         /// </summary>
         public static string Delete {
@@ -380,6 +344,15 @@ namespace Core.Common.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("DocumentHS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geen documentvenster geregistreerd voor: {0}..
+        /// </summary>
+        public static string DocumentViewController_OpenViewForData_No_view_registered_for_0_ {
+            get {
+                return ResourceManager.GetString("DocumentViewController_OpenViewForData_No_view_registered_for_0_", resourceCulture);
             }
         }
         
@@ -634,15 +607,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generiek.
-        /// </summary>
-        public static string Generic {
-            get {
-                return ResourceManager.GetString("Generic", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kan geen &apos;IExportImportCommandHandler&apos;-afhankelijk element in het contextmenu creëren zonder een &apos;IExportImportCommandHandler&apos;..
         /// </summary>
         public static string GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_exportImport_handler {
@@ -681,60 +645,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle vensters zijn gemaakt..
-        /// </summary>
-        public static string GuiCore_InitializeWindows_All_windows_are_created {
-            get {
-                return ResourceManager.GetString("GuiCore_InitializeWindows_All_windows_are_created", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Standaardschermen aan het maken....
-        /// </summary>
-        public static string GuiCore_InitializeWindows_Creating_default_tool_windows {
-            get {
-                return ResourceManager.GetString("GuiCore_InitializeWindows_Creating_default_tool_windows", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Schermen initialiseren....
-        /// </summary>
-        public static string GuiCore_InitializeWindows_Initializing_windows {
-            get {
-                return ResourceManager.GetString("GuiCore_InitializeWindows_Initializing_windows", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Schermmanager voor documenten aan het maken....
-        /// </summary>
-        public static string GuiCore_InitToolWindows_Creating_document_window_manager {
-            get {
-                return ResourceManager.GetString("GuiCore_InitToolWindows_Creating_document_window_manager", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Schermmanager aan het maken....
-        /// </summary>
-        public static string GuiCore_InitToolWindows_Creating_tool_window_manager {
-            get {
-                return ResourceManager.GetString("GuiCore_InitToolWindows_Creating_tool_window_manager", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Maken van standaardschermen beëindigd.
-        /// </summary>
-        public static string GuiCore_InitToolWindows_Finished_InitToolWindows {
-            get {
-                return ResourceManager.GetString("GuiCore_InitToolWindows_Finished_InitToolWindows", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Slechts één instantie van de Ringtoets grafische interface is toegestaan per proces. Zorg ervoor dat de vorige instantie correct opgeruimd is. &apos;Stack trace&apos;:.
         /// </summary>
         public static string GuiCore_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace {
@@ -754,29 +664,11 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Grafische gebruikersinterface initialiseren....
-        /// </summary>
-        public static string GuiCore_Run_Initializing_graphical_user_interface {
-            get {
-                return ResourceManager.GetString("GuiCore_Run_Initializing_graphical_user_interface", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Gestart in {0:f2} seconden..
         /// </summary>
         public static string GuiCore_Run_Started_in_0_f2_sec {
             get {
                 return ResourceManager.GetString("GuiCore_Run_Started_in_0_f2_sec", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Starten van de toepassing....
-        /// </summary>
-        public static string GuiCore_Run_Starting_application {
-            get {
-                return ResourceManager.GetString("GuiCore_Run_Starting_application", resourceCulture);
             }
         }
         
@@ -980,15 +872,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Licht.
-        /// </summary>
-        public static string Light {
-            get {
-                return ResourceManager.GetString("Light", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Project kan niet worden geopend..
         /// </summary>
         public static string MainWindow_AddNewMruItem_Can_t_open_project {
@@ -1003,63 +886,6 @@ namespace Core.Common.Gui.Properties {
         public static string MainWindow_LicenseView_Name {
             get {
                 return ResourceManager.GetString("MainWindow_LicenseView_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hoofdschermvenster is aangemaakt..
-        /// </summary>
-        public static string MainWindow_MainWindow_Main_window_created_ {
-            get {
-                return ResourceManager.GetString("MainWindow_MainWindow_Main_window_created_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kon de gevraagde &apos;dock&apos; opmaak niet laden. De instellingen zijn ongeldig en zullen teruggezet worden naar de standaardinstellingen..
-        /// </summary>
-        public static string MainWindow_OnLoadLayout_Could_not_load_the_requested_dock_layout_The_settings_are_invalid_and_will_be_reset_to_the_default_state_ {
-            get {
-                return ResourceManager.GetString("MainWindow_OnLoadLayout_Could_not_load_the_requested_dock_layout_The_settings_are" +
-                        "_invalid_and_will_be_reset_to_the_default_state_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ribbon kon niet worden hersteld. De instellingen zijn ongeldig en zullen worden teruggezet naar de standaardinstellingen..
-        /// </summary>
-        public static string MainWindow_OnLoadLayout_Could_not_restore_the_ribbon_state_The_settings_are_invalid_and_will_be_reset_to_the_default_state_ {
-            get {
-                return ResourceManager.GetString("MainWindow_OnLoadLayout_Could_not_restore_the_ribbon_state_The_settings_are_inval" +
-                        "id_and_will_be_reset_to_the_default_state_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toevoegen Startpagina....
-        /// </summary>
-        public static string MainWindow_ShowStartPage_Adding_welcome_page_ {
-            get {
-                return ResourceManager.GetString("MainWindow_ShowStartPage_Adding_welcome_page_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opmaak resetten na opnieuw opstarten.
-        /// </summary>
-        public static string MainWindow_UpdateMainWindowRibbonElements_Reset_layout_restart {
-            get {
-                return ResourceManager.GetString("MainWindow_UpdateMainWindowRibbonElements_Reset_layout_restart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wanneer deze optie is aangezet, zal de standaard opmaak worden gebruikt bij het opnieuw starten van Ringtoets..
-        /// </summary>
-        public static string MainWindow_UpdateMainWindowRibbonElements_When_this_option_is_turned_on_the_default_layout_will_be_used_when_restarting_Ringtoets {
-            get {
-                return ResourceManager.GetString("MainWindow_UpdateMainWindowRibbonElements_When_this_option_is_turned_on_the_defau" +
-                        "lt_layout_will_be_used_when_restarting_Ringtoets", resourceCulture);
             }
         }
         
@@ -1098,15 +924,6 @@ namespace Core.Common.Gui.Properties {
             get {
                 return ResourceManager.GetString("MessageWindowLogAppender_AppendToMessageWindow_Check_log_file_for_more_informatio" +
                         "n_Home_Show_Log", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Metro.
-        /// </summary>
-        public static string Metro {
-            get {
-                return ResourceManager.GetString("Metro", resourceCulture);
             }
         }
         
@@ -1431,15 +1248,6 @@ namespace Core.Common.Gui.Properties {
         public static string Ribbon_Recent {
             get {
                 return ResourceManager.GetString("Ribbon_Recent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opmaak resetten na opnieuw opstarten.
-        /// </summary>
-        public static string Ribbon_Reset_Layout_After_Restart {
-            get {
-                return ResourceManager.GetString("Ribbon_Reset_Layout_After_Restart", resourceCulture);
             }
         }
         
@@ -1773,67 +1581,12 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Documentvenster is niet gevonden tussen alle mogelijke documentvensters..
-        /// </summary>
-        public static string ViewList_ActivateView_Item_not_found_in_list_of_views {
-            get {
-                return ResourceManager.GetString("ViewList_ActivateView_Item_not_found_in_list_of_views", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Documentvenster wordt gesloten tijdens het openen..
-        /// </summary>
-        public static string ViewList_Close_View_is_being_closed_while_it_is_being_opened {
-            get {
-                return ResourceManager.GetString("ViewList_Close_View_is_being_closed_while_it_is_being_opened", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Documentvenster {0} wordt gesloten..
-        /// </summary>
-        public static string ViewList_DockingManagerViewBarClosing_Closing_view_0_ {
-            get {
-                return ResourceManager.GetString("ViewList_DockingManagerViewBarClosing_Closing_view_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er is geen standaardlocatie opgegeven. Kan geen documentvenster toevoegen zonder de locatie parameter..
         /// </summary>
         public static string ViewList_Insert_No_default_location_specified_Cannot_add_a_view_without_location_parameter_ {
             get {
                 return ResourceManager.GetString("ViewList_Insert_No_default_location_specified_Cannot_add_a_view_without_location_" +
                         "parameter_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geen documentvenster geregistreerd voor: {0}..
-        /// </summary>
-        public static string ViewResolver_OpenViewForData_No_view_registered_for_0_ {
-            get {
-                return ResourceManager.GetString("ViewResolver_OpenViewForData_No_view_registered_for_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Argument &apos;Sender&apos; moet een instantie van het type &apos;Control&apos; zijn.
-        /// </summary>
-        public static string ViewSelectionMouseController_OnViewSelectionMouseDown_Sender_must_be_non_null_and_of_type_Control {
-            get {
-                return ResourceManager.GetString("ViewSelectionMouseController_OnViewSelectionMouseDown_Sender_must_be_non_null_and" +
-                        "_of_type_Control", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to VS2010.
-        /// </summary>
-        public static string VS2010 {
-            get {
-                return ResourceManager.GetString("VS2010", resourceCulture);
             }
         }
     }

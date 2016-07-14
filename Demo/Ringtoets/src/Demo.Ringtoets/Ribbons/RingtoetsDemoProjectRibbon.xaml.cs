@@ -15,13 +15,13 @@ namespace Demo.Ringtoets.Ribbons
     {
         private readonly ICommand addNewAssessmentSection, openMapViewCommand, openChartViewCommand;
 
-        public RingtoetsDemoProjectRibbon(IProjectOwner projectOwner, IDocumentViewController documentViewController)
+        public RingtoetsDemoProjectRibbon(IProjectOwner projectOwner, IViewController viewController)
         {
             InitializeComponent();
 
             addNewAssessmentSection = new AddNewDemoAssessmentSectionCommand(projectOwner);
-            openChartViewCommand = new OpenChartViewCommand(documentViewController);
-            openMapViewCommand = new OpenMapViewCommand(documentViewController);
+            openChartViewCommand = new OpenChartViewCommand(viewController);
+            openMapViewCommand = new OpenMapViewCommand(viewController);
         }
 
         public IEnumerable<ICommand> Commands

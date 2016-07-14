@@ -78,7 +78,6 @@ namespace Core.Common.Controls.TreeView
     {
         public event EventHandler DataDoubleClick;
         public event EventHandler SelectedDataChanged;
-        public event EventHandler NodeUpdated; // TODO; Way to explicit!
         public event EventHandler<EventArgs<object>> DataDeleted; // TODO; Way to explicit!
 
         private const int maximumTextLength = 259;
@@ -494,8 +493,6 @@ namespace Core.Common.Controls.TreeView
                 }
                 treeNode.StateImageIndex = treeNode.Checked ? checkedCheckBoxStateImageIndex : uncheckedCheckBoxStateImageIndex;
             }
-
-            OnNodeUpdated(treeNode);
         }
 
         private void RefreshChildNodes(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
@@ -647,14 +644,6 @@ namespace Core.Common.Controls.TreeView
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
             byte[] hash = md5.ComputeHash(stream.ToArray());
             return Encoding.UTF8.GetString(hash);
-        }
-
-        private void OnNodeUpdated(TreeNode treeNode)
-        {
-            if (NodeUpdated != null)
-            {
-                NodeUpdated(treeNode, EventArgs.Empty);
-            }
         }
 
         private void OnNodeDataDeleted(TreeNode node)

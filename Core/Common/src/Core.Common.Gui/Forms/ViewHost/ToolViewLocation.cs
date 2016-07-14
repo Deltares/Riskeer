@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -19,21 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Windows.Forms;
-
-using Core.Common.Controls.Views;
-
-namespace Core.Common.Gui.Test.Forms.ViewManager
+namespace Core.Common.Gui.Forms.ViewHost
 {
-    public partial class TestView : UserControl, IView
+    /// <summary>
+    /// Enumeration that defines tool view locations.
+    /// </summary>
+    public enum ToolViewLocation
     {
-        public TestView()
-        {
-            InitializeComponent();
-        }
+        /// <summary>
+        /// Left of the location reserved for document views.
+        /// </summary>
+        Left,
 
-        public object Data { get; set; }
-    }
+        /// <summary>
+        /// Right of the location reserved for document views.
+        /// </summary>
+        Right,
 
-    public class TestViewDerivative : TestView {}
+        /// <summary>
+        /// Below the location reserved for document views.
+        /// </summary>
+        Bottom
+    };
 }

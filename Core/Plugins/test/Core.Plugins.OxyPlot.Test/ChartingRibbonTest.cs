@@ -56,13 +56,13 @@ namespace Core.Plugins.OxyPlot.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var toolViewController = mocks.Stub<IToolViewController>();
+            var viewController = mocks.Stub<IViewController>();
             mocks.ReplayAll();
 
-            var toggleLegendViewCommand = new ToggleLegendViewCommand(new ChartLegendController(toolViewController));
+            var toggleLegendViewCommand = new ToggleLegendViewCommand(new ChartLegendController(viewController));
             var ribbon = new ChartingRibbon
             {
-                ToggleLegendViewCommand = toggleLegendViewCommand,
+                ToggleLegendViewCommand = toggleLegendViewCommand
             };
 
             // Call
@@ -280,7 +280,7 @@ namespace Core.Plugins.OxyPlot.Test
 
             var ribbon = new ChartingRibbon
             {
-                ToggleLegendViewCommand = command,
+                ToggleLegendViewCommand = command
             };
 
             var toggleLegendViewButton = ribbon.GetRibbonControl().FindName("ToggleLegendViewButton") as ToggleButton;

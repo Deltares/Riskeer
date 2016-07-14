@@ -24,8 +24,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
+using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Selection;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -36,7 +38,6 @@ namespace Core.Plugins.ProjectExplorer.Test
     public class ProjectExplorerViewControllerTest
     {
         [Test]
-        [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(3)]
@@ -45,16 +46,15 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            IDocumentViewController documentViewController = paramNullIndex == 0 ? null : mocks.StrictMock<IDocumentViewController>();
             IViewCommands viewCommands = paramNullIndex == 1 ? null : mocks.StrictMock<IViewCommands>();
             IApplicationSelection applicationSelection = paramNullIndex == 2 ? null : mocks.StrictMock<IApplicationSelection>();
-            IToolViewController toolViewController = paramNullIndex == 3 ? null : mocks.StrictMock<IToolViewController>();
+            IViewController viewController = paramNullIndex == 3 ? null : mocks.StrictMock<IViewController>();
             IEnumerable<TreeNodeInfo> treeNodeInfos = paramNullIndex == 4 ? null : Enumerable.Empty<TreeNodeInfo>();
 
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, treeNodeInfos);
+            TestDelegate test = () => new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -62,132 +62,37 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        public void Constructor_NoNullArguments_CreatesNewInstance()
+        public void ToggleView_ViewOpen_ViewClosed()
         {
             // Setup
             var mocks = new MockRepository();
-            IDocumentViewController documentViewController = mocks.StrictMock<IDocumentViewController>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
-            IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
-            IToolViewController toolViewController = mocks.StrictMock<IToolViewController>();
-            IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
+            IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
+            IViewController viewController = mocks.StrictMock<IViewController>();
+            IViewHost viewHost = mocks.Stub<IViewHost>();
+
+            var toolViewList = new List<IView>();
+
+            viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
+            viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
+            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
+            {
+                toolViewList.Add(invocation.Arguments[0] as ProjectExplorer);
+            });
+            viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
+            viewHost.Expect(vm => vm.Remove(Arg<ProjectExplorer>.Is.TypeOf));
+
             mocks.ReplayAll();
+
+            IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
+
+            var controller = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos);
+
+            controller.ToggleView();
 
             // Call
-            using (var result = new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, treeNodeInfos))
-            {
-                // Assert
-                Assert.IsInstanceOf<IDisposable>(result);
-            }
-            mocks.VerifyAll();
-        }
+            controller.ToggleView();
 
-        [Test]
-        public void OpenView_ViewActiveNoOnOpenView_NoProjectExplorerOpened()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            IDocumentViewController documentViewController = mocks.Stub<IDocumentViewController>();
-            IViewCommands viewCommands = mocks.Stub<IViewCommands>();
-            IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
-            IToolViewController toolViewController = mocks.StrictMock<IToolViewController>();
-            toolViewController.Stub(tvc => tvc.IsToolWindowOpen<ProjectExplorer>()).Return(true);
-            mocks.ReplayAll();
-
-            IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
-
-            using (var controller = new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, treeNodeInfos))
-            {
-                // Call
-                controller.OpenView();
-            }
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void OpenView_ViewInactiveNoOnOpenView_OpenToolViewWithProjectExplorer()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            IDocumentViewController documentViewController = mocks.StrictMock<IDocumentViewController>();
-            IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
-            IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
-            IToolViewController toolViewController = mocks.StrictMock<IToolViewController>();
-            IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
-
-            toolViewController.Expect(tvc => tvc.IsToolWindowOpen<ProjectExplorer>()).Return(false).Repeat.Twice();
-            toolViewController.Expect(tvc => tvc.OpenToolView(Arg<ProjectExplorer>.Matches(v => true)));
-
-            mocks.ReplayAll();
-
-            using (var controller = new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, treeNodeInfos))
-            {
-                // Call
-                controller.OpenView();
-            }
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void OpenView_ViewInactiveOnOpenViewSet_OpenToolViewWithProjectExplorerCallsOnOpenView()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            IDocumentViewController documentViewController = mocks.StrictMock<IDocumentViewController>();
-            IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
-            IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
-            IToolViewController toolViewController = mocks.StrictMock<IToolViewController>();
-            IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
-
-            toolViewController.Expect(tvc => tvc.IsToolWindowOpen<ProjectExplorer>()).Return(false).Repeat.Twice();
-            toolViewController.Expect(tvc => tvc.OpenToolView(Arg<ProjectExplorer>.Matches(v => true)));
-
-            mocks.ReplayAll();
-
-            int activated = 0;
-            using (var controller = new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, treeNodeInfos))
-            {
-                controller.OnOpenView += (sender, args) => activated++;
-
-                // Call
-                controller.OpenView();
-            }
-            // Assert
-            Assert.AreEqual(1, activated);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ToggleView_ViewActive_ViewClosed()
-        {
-            // Setup
-            bool projectExplorerHasBeenOpened = false;
-
-            var mocks = new MockRepository();
-            IDocumentViewController documentViewController = mocks.StrictMock<IDocumentViewController>();
-            IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
-            IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
-            IToolViewController toolViewController = mocks.StrictMock<IToolViewController>();
-            toolViewController.Stub(tvc => tvc.IsToolWindowOpen<ProjectExplorer>())
-                .Return(false)
-                .WhenCalled(invocation => invocation.ReturnValue = projectExplorerHasBeenOpened);
-            toolViewController.Stub(tvc => tvc.OpenToolView(Arg<ProjectExplorer>.Is.TypeOf));
-            toolViewController.Expect(tvc => tvc.CloseToolView(Arg<ProjectExplorer>.Is.TypeOf));
-
-            mocks.ReplayAll();
-
-            IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
-
-            using (var controller = new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, treeNodeInfos))
-            {
-                controller.OpenView();
-                projectExplorerHasBeenOpened = true;
-
-                // Call
-                controller.ToggleView();
-            }
             // Assert
             mocks.VerifyAll();
         }
@@ -196,30 +101,25 @@ namespace Core.Plugins.ProjectExplorer.Test
         public void ToggleView_ViewInactive_ViewOpened()
         {
             // Setup
-            bool viewOpened = false;
-
             var mocks = new MockRepository();
-            IDocumentViewController documentViewController = mocks.StrictMock<IDocumentViewController>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
-            IToolViewController toolViewController = mocks.StrictMock<IToolViewController>();
-            toolViewController.Stub(tvc => tvc.IsToolWindowOpen<ProjectExplorer>())
-                              .Return(false)
-                              .WhenCalled(invocation => invocation.ReturnValue = viewOpened);
-            toolViewController.Expect(tvc => tvc.OpenToolView(Arg<ProjectExplorer>.Is.TypeOf));
-            toolViewController.Stub(tvc => tvc.CloseToolView(Arg<ProjectExplorer>.Is.TypeOf));
+            IViewController viewController = mocks.StrictMock<IViewController>();
+            IViewHost viewHost = mocks.Stub<IViewHost>();
+
+            viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
+            viewHost.Stub(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.TypeOf, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
+            viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
 
             mocks.ReplayAll();
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
-            using (var controller = new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, treeNodeInfos))
-            {
-                // Call
-                controller.ToggleView();
+            var controller = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos);
 
-                viewOpened = true;
-            }
+            // Call
+            controller.ToggleView();
+
             // Assert
             mocks.VerifyAll();
         }
@@ -231,24 +131,40 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            IDocumentViewController documentViewController = mocks.StrictMock<IDocumentViewController>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
-            IToolViewController toolViewController = mocks.StrictMock<IToolViewController>();
-            toolViewController.Stub(tvc => tvc.IsToolWindowOpen<ProjectExplorer>()).Return(isOpen);
+            IViewController viewController = mocks.StrictMock<IViewController>();
+
+            if (isOpen)
+            {
+                var toolViewList = new List<IView>();
+                var viewHost = mocks.StrictMock<IViewHost>();
+
+                viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
+                viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
+                viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
+                {
+                    toolViewList.Add(invocation.Arguments[0] as ProjectExplorer);
+                });
+                viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
+            }
 
             mocks.ReplayAll();
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
-            using (var controller = new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, treeNodeInfos))
-            {
-                // Call
-                var result = controller.IsViewActive();
+            var controller = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos);
 
-                Assert.AreEqual(isOpen, result);
+            if (isOpen)
+            {
+                controller.ToggleView();
             }
+
+            // Call
+            var result = controller.IsProjectExplorerOpen;
+
             // Assert
+            Assert.AreEqual(isOpen, result);
             mocks.VerifyAll();
         }
 
@@ -256,23 +172,23 @@ namespace Core.Plugins.ProjectExplorer.Test
         public void Update_ViewIsOpen_UpdateData()
         {
             // Setup
-            ProjectExplorer projectExplorer = null;
-            bool viewOpened = false;
-
             var mocks = new MockRepository();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
 
-            IDocumentViewController documentViewController = mocks.StrictMock<IDocumentViewController>();
-            documentViewController.Expect(dvc => dvc.UpdateToolTips());
-            
-            IToolViewController toolViewController = mocks.Stub<IToolViewController>();
-            toolViewController.Stub(tvc => tvc.IsToolWindowOpen<ProjectExplorer>())
-                              .Return(false)
-                              .WhenCalled(invocation => invocation.ReturnValue = viewOpened);
-            toolViewController.Stub(tvc => tvc.OpenToolView(Arg<ProjectExplorer>.Is.TypeOf))
-                              .WhenCalled(invocation => projectExplorer = (ProjectExplorer)invocation.Arguments[0]);
-            toolViewController.Stub(tvc => tvc.CloseToolView(Arg<ProjectExplorer>.Is.TypeOf));
+            IViewController viewController = mocks.Stub<IViewController>();
+            IViewHost viewHost = mocks.Stub<IViewHost>();
+
+            var toolViewList = new List<IView>();
+
+            viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
+            viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
+            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
+            {
+                toolViewList.Add(invocation.Arguments[0] as ProjectExplorer);
+            });
+            viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
+
             mocks.ReplayAll();
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
@@ -285,17 +201,15 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             var project = new Project();
 
-            using (var controller = new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, treeNodeInfos))
-            {
-                controller.OpenView();
-                viewOpened = true;
+            var controller = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos);
+            controller.ToggleView();
 
-                // Call
-                controller.Update(project);
+            // Call
+            controller.Update(project);
 
-                // Assert
-                Assert.AreSame(project, projectExplorer.Data);
-            }
+            // Assert
+            Assert.AreEqual(1, toolViewList.Count);
+            Assert.AreSame(project, toolViewList[0].Data);
             mocks.VerifyAll();
         }
 
@@ -304,56 +218,20 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            IDocumentViewController documentViewController = mocks.StrictMock<IDocumentViewController>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
-            IToolViewController toolViewController = mocks.Stub<IToolViewController>();
-            toolViewController.Stub(tvc => tvc.IsToolWindowOpen<ProjectExplorer>()).Return(false);
+            IViewController viewController = mocks.Stub<IViewController>();
             mocks.ReplayAll();
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
             var project = new Project();
 
-            using (var controller = new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, treeNodeInfos))
-            {
-                // Call
-                controller.Update(project);
-            }
-            // Assert
-            mocks.VerifyAll();
-        }
+            var controller = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos);
 
-        [Test]
-        public void Dispose_ViewActive_ViewClosed()
-        {
-            // Setup
-            var viewOpened = false;
+            // Call
+            controller.Update(project);
 
-            var mocks = new MockRepository();
-            IDocumentViewController documentViewController = mocks.Stub<IDocumentViewController>();
-            IViewCommands viewCommands = mocks.Stub<IViewCommands>();
-            IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
-            applicationSelection.Stub(s => s.SelectionChanged += null).IgnoreArguments();
-            applicationSelection.Stub(s => s.SelectionChanged -= null).IgnoreArguments();
-            IToolViewController toolViewController = mocks.StrictMock<IToolViewController>();
-            toolViewController.Stub(tvc => tvc.IsToolWindowOpen<ProjectExplorer>())
-                              .Return(false)
-                              .WhenCalled(invocation => invocation.ReturnValue = viewOpened);
-            toolViewController.Stub(tvc => tvc.OpenToolView(Arg<ProjectExplorer>.Is.TypeOf));
-            toolViewController.Expect(tvc => tvc.CloseToolView(Arg<ProjectExplorer>.Is.TypeOf));
-            mocks.ReplayAll();
-
-            IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
-
-            using (var controller = new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, treeNodeInfos))
-            {
-                controller.OpenView();
-                viewOpened = true;
-
-                // Call
-                controller.Dispose();
-            }
             // Assert
             mocks.VerifyAll();
         }

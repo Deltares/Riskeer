@@ -28,12 +28,11 @@ using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Components.DotSpatial.Forms;
-using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Forms;
 using Core.Plugins.DotSpatial.Forms;
 using Core.Plugins.DotSpatial.Legend;
 using NUnit.Framework;
@@ -68,47 +67,31 @@ namespace Core.Plugins.DotSpatial.Test
 
                 // Assert
                 ArgumentNullException exception = Assert.Throws<ArgumentNullException>(test);
-                Assert.AreEqual("toolViewController", exception.ParamName);
+                Assert.AreEqual("viewController", exception.ParamName);
             }
         }
 
         [Test]
         [RequiresSTA]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Activate_WithGui_InitializeComponentsWithIMapViewAndBindsActiveViewChanged(bool useMapView)
+        public void Activate_WithGui_AddsMapLegendView()
         {
             // Setup
             var mocks = new MockRepository();
 
-            IView view;
-
-            if (useMapView)
-            {
-                var mapView = mocks.Stub<IMapView>();
-                var map = new MapControl();
-                map.Data.Add(new TestMapData("test data"));
-                mapView.Stub(v => v.Map).Return(map);
-                view = mapView;
-            }
-            else
-            {
-                view = mocks.StrictMock<IView>();
-            }
-
             using (var plugin = new DotSpatialGuiPlugin())
             {
                 var gui = mocks.StrictMock<IGui>();
-
                 var mainWindow = mocks.StrictMock<IMainWindow>();
+                var viewHost = mocks.Stub<IViewHost>();
 
-                gui.Stub(g => g.IsToolWindowOpen<MapLegendView>()).Return(false);
-
-                gui.Expect(g => g.OpenToolView(Arg<MapLegendView>.Matches(c => true)));
-                gui.Expect(g => g.ActiveViewChanged += null).IgnoreArguments();
-                gui.Expect(g => g.ActiveViewChanged -= null).IgnoreArguments();
-                gui.Expect(g => g.ActiveView).Return(view);
                 gui.Expect(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.ViewHost).Return(viewHost);
+                viewHost.Expect(vm => vm.ToolViews).Return(new IView[0]);
+                viewHost.Expect(vm => vm.AddToolView(Arg<MapLegendView>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
+                viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
+                viewHost.Expect(vm => vm.ActiveDocumentView).Return(null);
+                viewHost.Expect(vm => vm.ActiveDocumentViewChanged += null).IgnoreArguments();
+                viewHost.Expect(vm => vm.ActiveDocumentViewChanged -= null).IgnoreArguments();
 
                 mocks.ReplayAll();
 
@@ -148,7 +131,7 @@ namespace Core.Plugins.DotSpatial.Test
         [RequiresSTA]
         [TestCase(true)]
         [TestCase(false)]
-        public void GivenConfiguredGui_WhenActiveViewChangesToViewWithMap_ThenRibbonSetVisibility(bool visible)
+        public void GivenConfiguredGui_WhenActiveDocumentViewChangesToViewWithMap_ThenRibbonSetVisibility(bool visible)
         {
             // Given
             var mocks = new MockRepository();
@@ -169,8 +152,7 @@ namespace Core.Plugins.DotSpatial.Test
                 gui.Run();
 
                 // When
-                gui.DocumentViews.Add(viewMock);
-                gui.DocumentViews.ActiveView = viewMock;
+                gui.ViewHost.AddDocumentView(viewMock);
 
                 // Then
                 Assert.AreEqual(visible ? Visibility.Visible : Visibility.Collapsed, plugin.RibbonCommandHandler.GetRibbonControl().ContextualGroups[0].Visibility);

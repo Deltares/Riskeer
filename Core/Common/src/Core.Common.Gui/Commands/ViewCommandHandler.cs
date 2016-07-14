@@ -21,8 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-
-using Core.Common.Controls.Views;
 using Core.Common.Gui.Selection;
 
 namespace Core.Common.Gui.Commands
@@ -32,23 +30,20 @@ namespace Core.Common.Gui.Commands
     /// </summary>
     public class ViewCommandHandler : IViewCommands
     {
-        private readonly IDocumentViewController documentViewController;
-        private readonly IToolViewController toolViewController;
+        private readonly IViewController viewController;
         private readonly IApplicationSelection applicationSelection;
         private readonly IGuiPluginsHost guiPluginsHost;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewCommandHandler"/> class.
         /// </summary>
-        /// <param name="documentViewController">The controller for Document Views.</param>
-        /// <param name="toolViewController">The controller for Tool Views.</param>
+        /// <param name="viewController">The controller for views.</param>
         /// <param name="applicationSelection">The application selection mechanism.</param>
         /// <param name="guiPluginsHost">The gui-plugins host.</param>
-        public ViewCommandHandler(IDocumentViewController documentViewController, IToolViewController toolViewController,
-                                  IApplicationSelection applicationSelection, IGuiPluginsHost guiPluginsHost)
+        public ViewCommandHandler(IViewController viewController, IApplicationSelection applicationSelection,
+                                  IGuiPluginsHost guiPluginsHost)
         {
-            this.documentViewController = documentViewController;
-            this.toolViewController = toolViewController;
+            this.viewController = viewController;
             this.applicationSelection = applicationSelection;
             this.guiPluginsHost = guiPluginsHost;
         }
@@ -60,17 +55,17 @@ namespace Core.Common.Gui.Commands
 
         public bool CanOpenViewFor(object dataObject)
         {
-            return documentViewController.DocumentViewsResolver.GetViewInfosFor(dataObject).Any();
+            return viewController.DocumentViewController.GetViewInfosFor(dataObject).Any();
         }
 
         public void OpenView(object dataObject)
         {
-            documentViewController.DocumentViewsResolver.OpenViewForData(dataObject);
+            viewController.DocumentViewController.OpenViewForData(dataObject);
         }
 
         public void RemoveAllViewsForItem(object dataObject)
         {
-            if (dataObject == null || documentViewController.DocumentViews == null)
+            if (dataObject == null || viewController.ViewHost == null)
             {
                 return;
             }
@@ -84,17 +79,7 @@ namespace Core.Common.Gui.Commands
 
             foreach (var data in objectsToRemoveViewsFor)
             {
-                documentViewController.DocumentViewsResolver.CloseAllViewsFor(data);
-                RemoveViewsAndData(toolViewController.ToolWindowViews.Where(v => v.Data == data).ToArray());
-            }
-        }
-
-        private void RemoveViewsAndData(IEnumerable<IView> toolViews)
-        {
-            // set all tool windows where dataObject was used to null
-            foreach (var view in toolViews)
-            {
-                view.Data = null;
+                viewController.DocumentViewController.CloseAllViewsFor(data);
             }
         }
     }

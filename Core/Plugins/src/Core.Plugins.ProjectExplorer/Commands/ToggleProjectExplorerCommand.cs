@@ -58,7 +58,7 @@ namespace Core.Plugins.ProjectExplorer.Commands
         {
             get
             {
-                return viewController.IsViewActive();
+                return viewController.IsProjectExplorerOpen;
             }
         }
 

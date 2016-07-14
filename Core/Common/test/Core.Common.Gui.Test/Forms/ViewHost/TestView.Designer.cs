@@ -1,6 +1,6 @@
-namespace Core.Common.Gui.Test.Forms.ViewManager
+﻿namespace Core.Common.Gui.Test.Forms.ViewHost
 {
-    partial class ToolWindowTestControl
+    partial class TestView
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,29 +28,29 @@ namespace Core.Common.Gui.Test.Forms.ViewManager
         /// </summary>
         private void InitializeComponent()
         {
-            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // propertyGrid1
+            // textBox1
             // 
-            this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propertyGrid1.Location = new System.Drawing.Point(0, 0);
-            this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(150, 150);
-            this.propertyGrid1.TabIndex = 0;
+            this.textBox1.Location = new System.Drawing.Point(3, 3);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(74, 20);
+            this.textBox1.TabIndex = 0;
             // 
-            // ToolWindowTestControl
+            // TestView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.propertyGrid1);
-            this.Name = "ToolWindowTestControl";
+            this.Controls.Add(this.textBox1);
+            this.Name = "TestView";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PropertyGrid propertyGrid1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

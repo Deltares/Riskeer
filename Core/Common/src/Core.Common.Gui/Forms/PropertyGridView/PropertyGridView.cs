@@ -138,10 +138,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             }
             set
             {
-                if (!IsDisposed)
-                {
-                    SelectedObject = value;
-                }
+                SelectedObject = value;
             }
         }
 

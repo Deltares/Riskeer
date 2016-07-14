@@ -38,9 +38,8 @@ namespace Core.Plugins.ProjectExplorer
 {
     public class ProjectExplorerGuiPlugin : PluginBase
     {
-        private IToolViewController toolViewController;
+        private IViewController viewController;
         private ProjectExplorerViewController projectExplorerViewController;
-        private IDocumentViewController documentViewController;
         private IViewCommands viewCommands;
         private IProjectOwner projectOwner;
         private IApplicationSelection applicationSelection;
@@ -68,19 +67,17 @@ namespace Core.Plugins.ProjectExplorer
 
                 if (value != null)
                 {
-                    toolViewController = value;
+                    viewController = value;
                     projectOwner = value;
                     applicationSelection = value;
-                    documentViewController = value;
                     viewCommands = value.ViewCommands;
                     treeNodeInfos = value.GetTreeNodeInfos();
                 }
                 else
                 {
-                    toolViewController = null;
+                    viewController = null;
                     projectOwner = null;
                     applicationSelection = null;
-                    documentViewController = null;
                     viewCommands = null;
                     treeNodeInfos = null;
                 }
@@ -144,7 +141,7 @@ namespace Core.Plugins.ProjectExplorer
             base.Activate();
             try
             {
-                projectExplorerViewController = new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, treeNodeInfos);
+                projectExplorerViewController = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos);
             }
             catch (ArgumentNullException e)
             {
@@ -158,7 +155,7 @@ namespace Core.Plugins.ProjectExplorer
             };
 
             projectExplorerViewController.OnOpenView += (s, e) => UpdateProject();
-            projectExplorerViewController.OpenView();
+            projectExplorerViewController.ToggleView();
 
             projectOwner.ProjectOpened += ApplicationProjectOpened;
             active = true;
@@ -167,10 +164,8 @@ namespace Core.Plugins.ProjectExplorer
         public override void Dispose()
         {
             Deactivate();
-            if (projectExplorerViewController != null)
-            {
-                projectExplorerViewController.Dispose();
-            }
+
+            base.Dispose();
         }
 
         public override void Deactivate()

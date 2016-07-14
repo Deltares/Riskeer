@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
-using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Components.Gis.Data;
@@ -56,8 +55,8 @@ namespace Core.Plugins.DotSpatial
             mapLegendController = CreateLegendController(Gui);
             mapRibbon = CreateMapRibbon();
 
-            mapLegendController.ToggleLegend();
-            Gui.ActiveViewChanged += GuiOnActiveViewChanged;
+            mapLegendController.ToggleView();
+            Gui.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
             activated = true;
         }
 
@@ -65,7 +64,7 @@ namespace Core.Plugins.DotSpatial
         {
             if (activated)
             {
-                Gui.ActiveViewChanged -= GuiOnActiveViewChanged;
+                Gui.ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
             }
             base.Dispose();
         }
@@ -79,15 +78,15 @@ namespace Core.Plugins.DotSpatial
             };
         }
 
-        private MapLegendController CreateLegendController(IToolViewController toolViewController)
+        private MapLegendController CreateLegendController(IViewController viewController)
         {
-            if (toolViewController == null)
+            if (viewController == null)
             {
-                throw new ArgumentNullException("toolViewController", "Cannot create a MapLegendController when the tool view controller is null");
+                throw new ArgumentNullException("viewController", "Cannot create a MapLegendController when the view controller is null");
             }
 
-            var controller = new MapLegendController(toolViewController, Gui, Gui.MainWindow);
-            controller.OnOpenLegend += (s, e) => UpdateComponentsForActiveView();
+            var controller = new MapLegendController(viewController, Gui, Gui.MainWindow);
+            controller.OnOpenLegend += (s, e) => UpdateComponentsForActiveDocumentView();
             return controller;
         }
 
@@ -99,18 +98,18 @@ namespace Core.Plugins.DotSpatial
             };
         }
 
-        private void GuiOnActiveViewChanged(object sender, ActiveViewChangeEventArgs activeViewChangeEventArgs)
+        private void OnActiveDocumentViewChanged(object sender, EventArgs e)
         {
-            UpdateComponentsForActiveView();
+            UpdateComponentsForActiveDocumentView();
         }
 
         /// <summary>
         /// Updates the components which the <see cref="DotSpatialGuiPlugin"/> knows about so that it reflects
         /// the currently active view.
         /// </summary>
-        private void UpdateComponentsForActiveView()
+        private void UpdateComponentsForActiveDocumentView()
         {
-            var mapView = Gui.ActiveView as IMapView;
+            var mapView = Gui.ViewHost.ActiveDocumentView as IMapView;
             if (mapView != null)
             {
                 mapRibbon.Map = mapView.Map;

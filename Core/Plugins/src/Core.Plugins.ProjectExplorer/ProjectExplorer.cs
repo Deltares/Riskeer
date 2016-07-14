@@ -87,10 +87,7 @@ namespace Core.Plugins.ProjectExplorer
             }
             set
             {
-                if (treeViewControl != null && !treeViewControl.IsDisposed)
-                {
-                    treeViewControl.Data = value;
-                }
+                treeViewControl.Data = value;
             }
         }
 
@@ -100,18 +97,6 @@ namespace Core.Plugins.ProjectExplorer
             {
                 return treeViewControl;
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            Data = null;
-
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-
-            base.Dispose(disposing);
         }
 
         private void BindTreeInteractionEvents()

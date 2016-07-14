@@ -20,6 +20,9 @@
 // All rights reserved.
 
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace Core.Common.Utils.Drawing
 {
@@ -47,6 +50,26 @@ namespace Core.Common.Utils.Drawing
             }
 
             return image;
+        }
+
+        /// <summary>
+        /// Gets a <see cref="BitmapImage"/> representation of an <see cref="Image"/>.
+        /// </summary>
+        /// <param name="image">The image to get a <see cref="BitmapImage"/> for.</param>
+        /// <returns>A <see cref="BitmapImage"/>.</returns>
+        public static BitmapImage AsBitmapImage(this Image image)
+        {
+            var memoryStream = new MemoryStream();
+
+            ((Bitmap) image).Save(memoryStream, ImageFormat.Png);
+
+            var bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            memoryStream.Seek(0, SeekOrigin.Begin);
+            bitmapImage.StreamSource = memoryStream;
+            bitmapImage.EndInit();
+
+            return bitmapImage;
         }
     }
 }

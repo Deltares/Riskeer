@@ -33,19 +33,17 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
-using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
-using Core.Common.Gui.Forms.ViewManager;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Common.Gui.Selection;
 using Core.Common.Gui.Settings;
-using Core.Common.Utils.Events;
 using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Reflection;
 using log4net;
@@ -65,8 +63,6 @@ namespace Core.Common.Gui
 
         private static bool isAlreadyRunningInstanceOfIGui;
         private static string instanceCreationStackTrace;
-
-        private AvalonDockDockingManager toolWindowViewsDockingManager;
 
         private SplashScreen splashScreen;
 
@@ -120,8 +116,8 @@ namespace Core.Common.Gui
 
             UserSettings = Properties.Settings.Default;
 
-            viewCommandHandler = new ViewCommandHandler(this, this, this, this);
-            storageCommandHandler = new StorageCommandHandler(projectStore, this, this, this, this, viewCommandHandler);
+            viewCommandHandler = new ViewCommandHandler(this, this, this);
+            storageCommandHandler = new StorageCommandHandler(projectStore, this, this, this, viewCommandHandler);
             exportImportCommandHandler = new ExportImportCommandHandler(MainWindow,
                                                                         Plugins.SelectMany(p => p.GetFileImporters()),
                                                                         Plugins.SelectMany(p => p.GetFileExporters()));
@@ -157,11 +153,7 @@ namespace Core.Common.Gui
 
             ShowSplashScreen();
 
-            log.Info(Resources.GuiCore_Run_Starting_application);
-
             InitializeProjectFromPath(projectPath);
-
-            log.Info(Resources.GuiCore_Run_Initializing_graphical_user_interface);
 
             Initialize();
 
@@ -191,10 +183,6 @@ namespace Core.Common.Gui
             isExiting = true;
 
             CopyDefaultViewsToUserSettings();
-
-            mainWindow.ClearDocumentTabs();
-
-            mainWindow.SaveLayout(); // save before ApplicationCore.Exit
 
             if (userSettingsDirty)
             {
@@ -248,35 +236,16 @@ namespace Core.Common.Gui
 
                 Project = null;
 
-                if (ToolWindowViews != null)
+                if (ViewHost != null)
                 {
-                    ToolWindowViews.CollectionChanged -= ToolWindowViewsOnCollectionChanged;
-                    ToolWindowViews.Clear();
-                    ToolWindowViews.Dispose();
-                    ToolWindowViews = null;
+                    ViewHost.Dispose();
+                    ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
                 }
 
                 if (storageCommandHandler != null)
                 {
                     storageCommandHandler.Dispose();
                     storageCommandHandler = null;
-                }
-
-                if (DocumentViews != null)
-                {
-                    DocumentViews.ActiveViewChanging -= ActiveViewChanging;
-                    DocumentViews.ActiveViewChanged -= OnActiveViewChanged;
-                    DocumentViews.CollectionChanged -= DocumentViewsCollectionChanged;
-
-                    DocumentViews.Clear();
-                    DocumentViews.Dispose();
-                    DocumentViews = null;
-                }
-
-                if (toolWindowViewsDockingManager != null)
-                {
-                    toolWindowViewsDockingManager.Dispose();
-                    toolWindowViewsDockingManager = null;
                 }
 
                 // Dispose managed resources. TODO: double check if we need to dispose managed resources?
@@ -286,7 +255,7 @@ namespace Core.Common.Gui
                     mainWindow = null;
                 }
 
-                DocumentViewsResolver = null;
+                DocumentViewController = null;
 
                 splashScreen = null;
 
@@ -378,7 +347,7 @@ namespace Core.Common.Gui
         {
             get
             {
-                return ToolWindowViews.OfType<IProjectExplorer>().FirstOrDefault();
+                return ViewHost.ToolViews.OfType<IProjectExplorer>().FirstOrDefault();
             }
         }
 
@@ -425,17 +394,6 @@ namespace Core.Common.Gui
             ResumeUI();
         }
 
-        // Sets the tooltip for given view, assuming that ProjectExplorer is not null.
-        private void SetToolTipForView(IView view)
-        {
-            if (mainWindow == null || ProjectExplorer == null)
-            {
-                return;
-            }
-
-            DocumentViews.SetTooltip(view, ProjectExplorer.TreeViewControl.TryGetPathForData(view.Data));
-        }
-
         private void ConfigureLogging()
         {
             // configure logging
@@ -466,10 +424,6 @@ namespace Core.Common.Gui
 
             CopyDefaultViewsFromUserSettings();
 
-            //enable activation AFTER initialization
-            DocumentViews.IgnoreActivation = false;
-            ToolWindowViews.IgnoreActivation = false;
-
             if (Properties.Settings.Default.SettingsKey.Contains("mruList"))
             {
                 if (Properties.Settings.Default["mruList"] == null)
@@ -485,7 +439,7 @@ namespace Core.Common.Gui
             {
                 VersionText = SettingsHelper.ApplicationVersion,
                 CopyrightText = FixedSettings.Copyright,
-                LicenseText = FixedSettings.LicenseDescription,
+                LicenseText = FixedSettings.LicenseDescription
             };
 
             splashScreen.IsVisibleChanged += delegate
@@ -518,25 +472,20 @@ namespace Core.Common.Gui
         {
             mainWindow.Loaded += delegate
             {
-                mainWindow.LoadLayout();
-
-                // bug in Fluent ribbon (views removed during load layout are not cleared - no events), synchronize them manually
-                ToolWindowViews.RemoveAllExcept(toolWindowViewsDockingManager.Views.ToArray());
-
                 // make sure these windows come on top
-                if (ToolWindowViews.Contains(mainWindow.PropertyGrid))
+                if (ViewHost.ToolViews.Contains(mainWindow.PropertyGrid))
                 {
-                    ToolWindowViews.ActiveView = mainWindow.PropertyGrid;
+                    ViewHost.SetFocusToView(mainWindow.PropertyGrid);
                 }
 
-                if (ToolWindowViews.Contains(mainWindow.MessageWindow))
+                if (ViewHost.ToolViews.Contains(mainWindow.MessageWindow))
                 {
-                    ToolWindowViews.ActiveView = mainWindow.MessageWindow;
+                    ViewHost.SetFocusToView(mainWindow.MessageWindow);
                 }
 
-                if (ToolWindowViews.Contains(ProjectExplorer))
+                if (ViewHost.ToolViews.Contains(ProjectExplorer))
                 {
-                    ToolWindowViews.ActiveView = ProjectExplorer;
+                    ViewHost.SetFocusToView(ProjectExplorer);
                 }
 
                 mainWindow.ValidateItems();
@@ -558,141 +507,31 @@ namespace Core.Common.Gui
 
         private void InitializeWindows()
         {
-            log.Info(Resources.GuiCore_InitializeWindows_Initializing_windows);
-
             InitializeMainWindow();
 
-            log.Info(Resources.GuiCore_InitializeWindows_Creating_default_tool_windows);
-            InitializeToolWindows();
+            ViewHost = mainWindow.ViewHost;
+            ViewHost.ViewClosed += OnActiveDocumentViewChanged;
+            ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
 
-            UpdateTitle();
-
-            log.Info(Resources.GuiCore_InitializeWindows_All_windows_are_created);
-        }
-
-        private void ActiveViewChanging(object sender, ActiveViewChangeEventArgs e)
-        {
-            if (e.View == null || mainWindow == null || mainWindow.IsWindowDisposed)
-            {
-                return;
-            }
-
-            if (ProjectExplorer != null)
-            {
-                SetToolTipForView(e.View);
-            }
-        }
-
-        private void InitializeToolWindows()
-        {
-            log.Info(Resources.GuiCore_InitToolWindows_Creating_document_window_manager);
-
-            InitializeDocumentViewController();
+            DocumentViewController = new DocumentViewController(ViewHost, Plugins.SelectMany(p => p.GetViewInfos()), mainWindow);
 
             PropertyResolver = new PropertyResolver(Plugins.SelectMany(p => p.GetPropertyInfos()));
             applicationFeatureCommands = new ApplicationFeatureCommandHandler(PropertyResolver, mainWindow, this);
 
-            InitializeToolViewController();
-
-            log.Info(Resources.GuiCore_InitToolWindows_Creating_tool_window_manager);
-
             mainWindow.InitializeToolWindows();
 
-            log.Debug(Resources.GuiCore_InitToolWindows_Finished_InitToolWindows);
-
             mainWindow.SubscribeToGui();
+
+            UpdateTitle();
         }
 
-        private void InitializeDocumentViewController()
-        {
-            var allowedDocumentWindowLocations = new[]
-            {
-                ViewLocation.Document,
-                ViewLocation.Floating
-            };
-
-            var documentDockingManager = new AvalonDockDockingManager(mainWindow.DockingManager, allowedDocumentWindowLocations);
-
-            var documentViewManager = new ViewList(documentDockingManager, ViewLocation.Document)
-            {
-                IgnoreActivation = true,
-                UpdateViewNameAction = v => UpdateViewName(v)
-            };
-
-            documentViewManager.EnableTabContextMenus();
-
-            documentViewManager.ActiveViewChanging += ActiveViewChanging;
-            documentViewManager.ActiveViewChanged += OnActiveViewChanged;
-            documentViewManager.CollectionChanged += DocumentViewsCollectionChanged;
-
-            DocumentViews = documentViewManager;
-
-            DocumentViewsResolver = new ViewResolver(documentViewManager, Plugins.SelectMany(p => p.GetViewInfos()), mainWindow);
-        }
-
-        private void InitializeToolViewController()
-        {
-            var allowedToolWindowLocations = new[]
-            {
-                ViewLocation.Left,
-                ViewLocation.Right,
-                ViewLocation.Top,
-                ViewLocation.Bottom,
-                ViewLocation.Floating
-            };
-
-            toolWindowViewsDockingManager = new AvalonDockDockingManager(mainWindow.DockingManager, allowedToolWindowLocations);
-
-            ToolWindowViews = new ViewList(toolWindowViewsDockingManager, ViewLocation.Left)
-            {
-                IgnoreActivation = true
-            };
-
-            ToolWindowViews.CollectionChanged += ToolWindowViewsOnCollectionChanged;
-        }
-
-        private void OnActiveViewChanged(object sender, ActiveViewChangeEventArgs e)
+        private void OnActiveDocumentViewChanged(object sender, EventArgs e)
         {
             if (mainWindow == null || mainWindow.IsWindowDisposed)
             {
                 return;
             }
 
-            mainWindow.ValidateItems();
-            FireActiveViewChanged(e);
-        }
-
-        private void FireActiveViewChanged(ActiveViewChangeEventArgs e)
-        {
-            if (ActiveViewChanged != null)
-            {
-                ActiveViewChanged(null, e);
-            }
-        }
-
-        private void UpdateViewName(IView view)
-        {
-            view.Text = DocumentViewsResolver.GetViewName(view);
-            SetToolTipForView(view);
-        }
-
-        private void ToolWindowViewsOnCollectionChanged(object sender, NotifyCollectionChangeEventArgs notifyCollectionChangeEventArgs)
-        {
-            if (isExiting)
-            {
-                return;
-            }
-            mainWindow.ValidateItems();
-        }
-
-        private void DocumentViewsCollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
-        {
-            if (isExiting || DocumentViews.Count != 0)
-            {
-                return;
-            }
-
-            // if no new active view is set update toolbars
             mainWindow.ValidateItems();
         }
 
@@ -740,7 +579,7 @@ namespace Core.Common.Gui
                 Type viewDataType = AssemblyUtils.GetTypeByName(viewDataTypeName);
                 if (viewDataType != null)
                 {
-                    DocumentViewsResolver.DefaultViewTypes.Add(viewDataType, AssemblyUtils.GetTypeByName(viewTypeName));
+                    DocumentViewController.DefaultViewTypes.Add(viewDataType, AssemblyUtils.GetTypeByName(viewTypeName));
                 }
             }
         }
@@ -750,13 +589,13 @@ namespace Core.Common.Gui
             StringCollection defaultViews = new StringCollection();
             StringCollection defaultViewDataTypes = new StringCollection();
 
-            foreach (Type objectType in DocumentViewsResolver.DefaultViewTypes.Keys)
+            foreach (Type objectType in DocumentViewController.DefaultViewTypes.Keys)
             {
-                if (DocumentViewsResolver.DefaultViewTypes[objectType] == null)
+                if (DocumentViewController.DefaultViewTypes[objectType] == null)
                 {
                     continue;
                 }
-                defaultViews.Add(DocumentViewsResolver.DefaultViewTypes[objectType].ToString());
+                defaultViews.Add(DocumentViewController.DefaultViewTypes[objectType].ToString());
                 defaultViewDataTypes.Add(objectType.ToString());
             }
 
@@ -829,11 +668,6 @@ namespace Core.Common.Gui
                     return;
                 }
 
-                if (null != DocumentViews)
-                {
-                    DocumentViews.IgnoreActivation = true;
-                }
-
                 selection = value;
 
                 settingSelection = true;
@@ -853,11 +687,6 @@ namespace Core.Common.Gui
                 if (!isExiting && mainWindow != null && !mainWindow.IsWindowDisposed)
                 {
                     mainWindow.ValidateItems();
-                }
-
-                if (null != DocumentViews)
-                {
-                    DocumentViews.IgnoreActivation = false;
                 }
             }
         }
@@ -906,31 +735,11 @@ namespace Core.Common.Gui
 
         #endregion
 
-        #region Implementation: IDocumentViewController
+        #region Implementation: IViewController
 
-        public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanged;
+        public IViewHost ViewHost { get; private set; }
 
-        public IView ActiveView
-        {
-            get
-            {
-                return DocumentViews != null ?
-                           DocumentViews.ActiveView :
-                           null;
-            }
-        }
-
-        public IViewList DocumentViews { get; private set; }
-
-        public IViewResolver DocumentViewsResolver { get; private set; }
-
-        public void UpdateToolTips()
-        {
-            foreach (var view in DocumentViews.AllViews)
-            {
-                SetToolTipForView(view);
-            }
-        }
+        public IDocumentViewController DocumentViewController { get; private set; }
 
         #endregion
 
@@ -1027,7 +836,7 @@ namespace Core.Common.Gui
             UpdateTitle();
         }
 
-        public void UpdateTitle()
+        private void UpdateTitle()
         {
             if (mainWindow != null)
             {
@@ -1036,28 +845,6 @@ namespace Core.Common.Gui
                                                  FixedSettings.MainWindowTitle,
                                                  SettingsHelper.ApplicationVersion);
             }
-        }
-
-        #endregion
-
-        #region Implementation: IToolViewController
-
-        public IViewList ToolWindowViews { get; private set; }
-
-        public void CloseToolView(IView toolView)
-        {
-            ToolWindowViews.Remove(toolView);
-        }
-
-        public bool IsToolWindowOpen<T>()
-        {
-            return ToolWindowViews.Any(t => t.GetType() == typeof(T));
-        }
-
-        public void OpenToolView(IView toolView)
-        {
-            ToolWindowViews.Add(toolView);
-            ToolWindowViews.ActiveView = toolView;
         }
 
         #endregion

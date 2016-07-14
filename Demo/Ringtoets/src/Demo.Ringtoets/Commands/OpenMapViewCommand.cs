@@ -16,15 +16,15 @@ namespace Demo.Ringtoets.Commands
     /// </summary>
     public class OpenMapViewCommand : ICommand
     {
-        private readonly IDocumentViewController documentViewController;
+        private readonly IViewController viewController;
 
         /// <summary>
         /// Creates a new instance of <see cref="OpenMapViewCommand"/>.
         /// </summary>
-        /// <param name="documentViewController">The <see cref="IDocumentViewController"/> to use internally.</param>
-        public OpenMapViewCommand(IDocumentViewController documentViewController)
+        /// <param name="viewController">The <see cref="IViewController"/> to use internally.</param>
+        public OpenMapViewCommand(IViewController viewController)
         {
-            this.documentViewController = documentViewController;
+            this.viewController = viewController;
         }
 
         public bool Enabled
@@ -159,7 +159,7 @@ namespace Demo.Ringtoets.Commands
                 new Point2D(6.871668, 53.416109)
             }), Resources.OpenMapViewCommand_Execute_Continentaal_Nederland);
 
-            documentViewController.DocumentViewsResolver.OpenViewForData(new MapDataCollection(new List<MapData>
+            viewController.DocumentViewController.OpenViewForData(new MapDataCollection(new List<MapData>
             {
                 polygons1, polygons2, polygons3, polygons4, polygons5, lines, polygonNetherlands, linesRandstad, pointsRandstad
             }, Resources.OpenMapViewCommand_Execute_Demo_map_netherlands));

@@ -156,7 +156,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     "Openen van bestaand Ringtoetsproject.",
                     "Bestaand Ringtoetsproject succesvol geopend.",
                 };
-                TestHelper.AssertLogMessagesAreGenerated(action, expectedMessages, 11);
+                TestHelper.AssertLogMessagesAreGenerated(action, expectedMessages, 3);
                 Assert.AreEqual(tempRingtoetsFile, gui.ProjectFilePath);
                 Assert.NotNull(gui.Project);
                 Assert.AreEqual(expectedProjectName, gui.Project.Name);
@@ -187,7 +187,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     "Het is niet gelukt om het Ringtoetsproject te laden.",
                     "Nieuw project aanmaken..."
                 };
-                TestHelper.AssertLogMessagesAreGenerated(action, expectedMessages, 13);
+                TestHelper.AssertLogMessagesAreGenerated(action, expectedMessages, 5);
                 Assert.AreEqual(null, gui.ProjectFilePath);
                 Assert.NotNull(gui.Project);
                 Assert.AreEqual("Project", gui.Project.Name);
@@ -216,7 +216,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     "Nieuw project aanmaken..."
                 };
-                TestHelper.AssertLogMessagesAreGenerated(action, expectedMessages, 10);
+                TestHelper.AssertLogMessagesAreGenerated(action, expectedMessages, 2);
                 Assert.AreEqual(null, gui.ProjectFilePath);
                 Assert.NotNull(gui.Project);
                 Assert.AreEqual("Project", gui.Project.Name);

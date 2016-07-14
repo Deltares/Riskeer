@@ -19,13 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
+using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Plugins.ProjectExplorer.Exceptions;
 using Core.Plugins.ProjectExplorer.Properties;
@@ -51,40 +52,6 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        [RequiresSTA]
-        public void RegisteringTreeNodeAddsToTreeView()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            using (var projectExplorerGuiPlugin = new ProjectExplorerGuiPlugin())
-            {
-                var gui = mocks.StrictMock<IGui>();
-                var otherGuiPlugin = mocks.StrictMock<PluginBase>();
-
-                gui.Expect(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                gui.Expect(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
-
-                gui.Expect(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(true);
-
-                gui.Expect(g => g.ProjectOpened += Arg<Action<Project>>.Is.Anything);
-                gui.Expect(g => g.ProjectOpened -= Arg<Action<Project>>.Is.Anything);
-
-                gui.Expect(g => g.Plugins).Return(new List<PluginBase>
-                {
-                    projectExplorerGuiPlugin, otherGuiPlugin
-                }).Repeat.Any();
-
-                mocks.ReplayAll();
-
-                projectExplorerGuiPlugin.Gui = gui;
-
-                // Call
-                projectExplorerGuiPlugin.Activate();
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Activate_WithoutGui_ThrowsPluginActivationException()
         {
             // Setup
@@ -107,15 +74,17 @@ namespace Core.Plugins.ProjectExplorer.Test
             // Setup
             var mocks = new MockRepository();
             var guiStub = mocks.Stub<IGui>();
+            var viewHost = mocks.Stub<IViewHost>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
             guiStub.Stub(g => g.ProjectCommands).Return(mocks.Stub<IProjectCommands>());
             guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             guiStub.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
-            guiStub.Stub(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(false);
-            guiStub.Stub(g => g.OpenToolView(Arg<ProjectExplorer>.Is.TypeOf));
+            viewHost.Stub(vm => vm.ToolViews).Return(new IView[0]);
+            viewHost.Stub(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.TypeOf, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
+            viewHost.Stub(vm => vm.SetImage(null, null)).IgnoreArguments();
+            guiStub.Stub(g => g.ViewHost).Return(viewHost);
             guiStub.Stub(g => g.SelectionChanged += null).IgnoreArguments();
             guiStub.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
-
             guiStub.Expect(g => g.ProjectOpened += null).IgnoreArguments();
             guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
@@ -140,12 +109,15 @@ namespace Core.Plugins.ProjectExplorer.Test
             // Setup
             var mocks = new MockRepository();
             var guiStub = mocks.Stub<IGui>();
+            var viewHost = mocks.Stub<IViewHost>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
             guiStub.Stub(g => g.ProjectCommands).Return(mocks.Stub<IProjectCommands>());
             guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             guiStub.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
-            guiStub.Stub(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(false);
-            guiStub.Stub(g => g.OpenToolView(Arg<ProjectExplorer>.Is.TypeOf));
+            viewHost.Stub(vm => vm.ToolViews).Return(new IView[0]);
+            viewHost.Stub(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.TypeOf, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
+            viewHost.Stub(vm => vm.SetImage(null, null)).IgnoreArguments();
+            guiStub.Stub(g => g.ViewHost).Return(viewHost);
             guiStub.Stub(g => g.SelectionChanged += null).IgnoreArguments();
             guiStub.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
             guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
@@ -177,12 +149,15 @@ namespace Core.Plugins.ProjectExplorer.Test
             // Setup
             var mocks = new MockRepository();
             var guiStub = mocks.Stub<IGui>();
+            var viewHost = mocks.Stub<IViewHost>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
             guiStub.Stub(g => g.ProjectCommands).Return(mocks.Stub<IProjectCommands>());
             guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             guiStub.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
-            guiStub.Stub(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(false);
-            guiStub.Stub(g => g.OpenToolView(Arg<ProjectExplorer>.Is.TypeOf));
+            viewHost.Stub(vm => vm.ToolViews).Return(new IView[0]);
+            viewHost.Stub(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.TypeOf, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
+            viewHost.Stub(vm => vm.SetImage(null, null)).IgnoreArguments();
+            guiStub.Stub(g => g.ViewHost).Return(viewHost);
             guiStub.Stub(g => g.SelectionChanged += null).IgnoreArguments();
             guiStub.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
             guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
@@ -306,6 +281,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             // Setup
             var mocks = new MockRepository();
             var guiStub = mocks.Stub<IGui>();
+            var viewHost = mocks.StrictMock<IViewHost>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
             guiStub.Stub(g => g.ProjectCommands).Return(mocks.Stub<IProjectCommands>());
             guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
@@ -316,29 +292,22 @@ namespace Core.Plugins.ProjectExplorer.Test
                     TagType = typeof(Project)
                 }
             });
+            guiStub.Stub(g => g.ViewHost).Return(viewHost);
 
-            ProjectExplorer view = null;
-
-            using (mocks.Ordered())
+            // Activate
+            var toolViews = new List<IView>();
+            viewHost.Stub(vm => vm.ToolViews).Return(toolViews);
+            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(v => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
             {
-                // Activate
-                guiStub.Expect(tvc => tvc.IsToolWindowOpen<ProjectExplorer>()).Return(false);
-                guiStub.Expect(tvc => tvc.OpenToolView(Arg<ProjectExplorer>.Matches(v => true))).WhenCalled(invocation => {
-                    view = invocation.Arguments[0] as ProjectExplorer;
-                });
-                guiStub.Expect(tvc => tvc.IsToolWindowOpen<ProjectExplorer>()).Return(true);
-                guiStub.Expect(dvc => dvc.UpdateToolTips());
-                guiStub.Expect(g => g.ProjectOpened += null).IgnoreArguments();
+                toolViews.Add(invocation.Arguments[0] as ProjectExplorer);
+            });
+            viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
 
-                // UpdateProject
-                guiStub.Expect(tvc => tvc.IsToolWindowOpen<ProjectExplorer>()).Return(true);
-                guiStub.Expect(dvc => dvc.UpdateToolTips());
+            // Dispose
+            viewHost.Expect(tvc => tvc.Remove(Arg<ProjectExplorer>.Matches(v => true)));
 
-                // Dispose
-                guiStub.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
-                guiStub.Expect(tvc => tvc.IsToolWindowOpen<ProjectExplorer>()).Return(true);
-                guiStub.Expect(tvc => tvc.CloseToolView(Arg<ProjectExplorer>.Matches(v => true)));
-            }
+            guiStub.Expect(g => g.ProjectOpened += null).IgnoreArguments();
+            guiStub.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
 
             mocks.ReplayAll();
 
@@ -352,7 +321,8 @@ namespace Core.Plugins.ProjectExplorer.Test
                 plugin.Activate();
 
                 // Precondition
-                Assert.AreSame(view.Data, initialProject);
+                Assert.AreEqual(1, toolViews.Count);
+                Assert.AreSame(initialProject, toolViews[0].Data);
 
                 // Call
                 var newProject = new Project();
@@ -360,7 +330,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 guiStub.Raise(s => s.ProjectOpened += null, newProject);
 
                 // Assert
-                Assert.AreSame(view.Data, newProject);
+                Assert.AreSame(newProject, toolViews[0].Data);
             }
         }
     }

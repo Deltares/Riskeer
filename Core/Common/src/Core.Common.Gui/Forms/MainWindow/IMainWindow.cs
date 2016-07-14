@@ -21,6 +21,7 @@
 
 using System.Windows.Forms;
 using Core.Common.Gui.Forms.MessageWindow;
+using Core.Common.Gui.Forms.ViewHost;
 
 namespace Core.Common.Gui.Forms.MainWindow
 {
@@ -29,6 +30,11 @@ namespace Core.Common.Gui.Forms.MainWindow
     /// </summary>
     public interface IMainWindow : IWin32Window
     {
+        /// <summary>
+        /// Gets the view host.
+        /// </summary>
+        IViewHost ViewHost { get; }
+
         /// <summary>
         /// Gets the property grid tool window.
         /// </summary>

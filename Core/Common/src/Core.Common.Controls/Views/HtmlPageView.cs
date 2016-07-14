@@ -55,10 +55,7 @@ namespace Core.Common.Controls.Views
                 }
                 else
                 {
-                    if (!IsDisposed)
-                    {
-                        webBrowser.Navigate("");
-                    }
+                    webBrowser.Navigate("");
                 }
             }
         }

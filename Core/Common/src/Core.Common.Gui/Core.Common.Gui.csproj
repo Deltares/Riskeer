@@ -83,7 +83,6 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
@@ -143,15 +142,15 @@
       <DependentUpon>MessageWindowDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\RichTextFile.cs" />
-    <Compile Include="Forms\ViewManager\ActiveViewChangeEventArgs.cs" />
-    <Compile Include="Forms\ViewManager\IViewList.cs" />
-    <Compile Include="Forms\ViewManager\IViewResolver.cs" />
-    <Compile Include="Forms\ViewManager\ViewLocation.cs" />
-    <Compile Include="IDocumentViewController.cs" />
+    <Compile Include="Forms\ViewHost\AvalonDockViewHost.xaml.cs">
+      <DependentUpon>AvalonDockViewHost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ViewHost\IDocumentViewController.cs" />
+    <Compile Include="Forms\ViewHost\ToolViewLocation.cs" />
+    <Compile Include="IViewController.cs" />
     <Compile Include="IGuiPluginsHost.cs" />
     <Compile Include="IMainWindowController.cs" />
     <Compile Include="IProjectOwner.cs" />
-    <Compile Include="IToolViewController.cs" />
     <Compile Include="Plugin\PluginBase.cs" />
     <Compile Include="Plugin\PropertyInfo.cs" />
     <Compile Include="Plugin\PropertyInfoExtensions.cs" />
@@ -173,8 +172,6 @@
     <Compile Include="Settings\GuiCoreSettings.cs" />
     <Compile Include="Settings\ISettingsOwner.cs" />
     <Compile Include="Settings\SettingsHelper.cs" />
-    <Compile Include="Theme\ColorTheme.cs" />
-    <Compile Include="Theme\ColorThemeExtensions.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilderException.cs" />
     <Compile Include="ContextMenu\IContextMenuBuilder.cs" />
     <Compile Include="Forms\ProgressDialog\ActivityProgressDialogRunner.cs" />
@@ -239,18 +236,8 @@
     <Compile Include="Forms\SplashScreen\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ViewManager\AvalonDockDockingManager.cs" />
-    <Compile Include="Forms\ViewManager\DockTabClosingEventArgs.cs" />
-    <Compile Include="Forms\ViewManager\IDockingManager.cs" />
-    <Compile Include="Forms\ViewManager\ViewList.cs" />
-    <Compile Include="Forms\ViewManager\ViewResolver.cs" />
-    <Compile Include="Forms\ViewManager\ViewSelectionContextMenuController.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\ViewManager\ViewSelectionContextMenuController.Designer.cs">
-      <DependentUpon>ViewSelectionContextMenuController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\ViewManager\ViewSelectionMouseController.cs" />
+    <Compile Include="Forms\ViewHost\IViewHost.cs" />
+    <Compile Include="Forms\ViewHost\DocumentViewController.cs" />
     <Compile Include="Properties\Settings.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <DependentUpon>Settings.settings</DependentUpon>
@@ -342,10 +329,6 @@
       <DependentUpon>SelectViewDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ViewManager\ViewSelectionContextMenuController.resx">
-      <DependentUpon>ViewSelectionContextMenuController.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -372,6 +355,10 @@
     <Page Include="Forms\SplashScreen\SplashScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\ViewHost\AvalonDockViewHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

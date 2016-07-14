@@ -28,11 +28,10 @@ using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Components.Charting.Data;
-using Core.Components.Charting.Forms;
-using Core.Components.Charting.TestUtil;
 using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Legend;
@@ -73,37 +72,23 @@ namespace Core.Plugins.OxyPlot.Test
 
         [Test]
         [RequiresSTA]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Activate_WithGui_InitializesComponentsWithIChartViewDataAndBindsActiveViewChanged(bool useChartView)
+        public void Activate_WithGui_AddsChartLegendView()
         {
             // Setup
             var mocks = new MockRepository();
-            IView view;
-
-            if (useChartView)
-            {
-                var chartView = mocks.Stub<IChartView>();
-                var chart = new ChartControl();
-                chart.Data.Add(new TestChartData());
-                chartView.Stub(v => v.Chart).Return(chart);
-                view = chartView;
-            }
-            else
-            {
-                view = mocks.StrictMock<IView>();
-            }
 
             using (var plugin = new OxyPlotGuiPlugin())
             {
                 var gui = mocks.StrictMock<IGui>();
+                var viewHost = mocks.Stub<IViewHost>();
 
-                gui.Stub(g => g.IsToolWindowOpen<ChartLegendView>()).Return(false);
-
-                gui.Expect(g => g.OpenToolView(Arg<ChartLegendView>.Matches(c => true)));
-                gui.Expect(g => g.ActiveViewChanged += null).IgnoreArguments();
-                gui.Expect(g => g.ActiveViewChanged -= null).IgnoreArguments();
-                gui.Expect(g => g.ActiveView).Return(view);
+                gui.Stub(g => g.ViewHost).Return(viewHost);
+                viewHost.Expect(vm => vm.ToolViews).Return(new IView[0]);
+                viewHost.Expect(vm => vm.AddToolView(Arg<ChartLegendView>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
+                viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
+                viewHost.Expect(vm => vm.ActiveDocumentView).Return(null);
+                viewHost.Expect(vm => vm.ActiveDocumentViewChanged += null).IgnoreArguments();
+                viewHost.Expect(vm => vm.ActiveDocumentViewChanged -= null).IgnoreArguments();
 
                 mocks.ReplayAll();
 
@@ -142,7 +127,7 @@ namespace Core.Plugins.OxyPlot.Test
         [TestCase(true)]
         [TestCase(false)]
         [RequiresSTA]
-        public void GivenConfiguredGui_WhenActiveViewChangesToViewWithChart_ThenRibbonSetVisibility(bool visible)
+        public void GivenConfiguredGui_WhenActiveDocumentViewChangesToViewWithChart_ThenRibbonSetVisibility(bool visible)
         {
             // Given
             var mocks = new MockRepository();
@@ -163,8 +148,7 @@ namespace Core.Plugins.OxyPlot.Test
                 gui.Run();
 
                 // When
-                gui.DocumentViews.Add(viewMock);
-                gui.DocumentViews.ActiveView = viewMock;
+                gui.ViewHost.AddDocumentView(viewMock);
 
                 // Then
                 Assert.AreEqual(visible ? Visibility.Visible : Visibility.Collapsed, plugin.RibbonCommandHandler.GetRibbonControl().ContextualGroups[0].Visibility);

@@ -23,7 +23,7 @@ using System.Collections.Generic;
 
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
-using Core.Common.Gui.Forms.ViewManager;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Selection;
 
@@ -43,18 +43,16 @@ namespace Core.Common.Gui.Test.Commands
             var selectedObject = new object();
 
             var mocks = new MockRepository();
-            var viewResolver = mocks.Stub<IViewResolver>();
-            viewResolver.Expect(r => r.OpenViewForData(selectedObject)).Return(true);
             var documentViewController = mocks.Stub<IDocumentViewController>();
-            documentViewController.Stub(c => c.DocumentViewsResolver).Return(viewResolver);
-            var toolViewController = mocks.Stub<IToolViewController>();
+            documentViewController.Expect(r => r.OpenViewForData(selectedObject)).Return(true);
+            var viewController = mocks.Stub<IViewController>();
+            viewController.Stub(c => c.DocumentViewController).Return(documentViewController);
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             applicationSelection.Selection = selectedObject;
             var guiPluginsHost = mocks.Stub<IGuiPluginsHost>();
             mocks.ReplayAll();
 
-            var commandHandler = new ViewCommandHandler(documentViewController, toolViewController,
-                                                        applicationSelection, guiPluginsHost);
+            var commandHandler = new ViewCommandHandler(viewController, applicationSelection, guiPluginsHost);
 
             // Call
             commandHandler.OpenViewForSelection();
@@ -72,17 +70,15 @@ namespace Core.Common.Gui.Test.Commands
             var viewInfos = new ViewInfo[0];
 
             var mocks = new MockRepository();
-            var viewResolver = mocks.Stub<IViewResolver>();
-            viewResolver.Expect(r => r.GetViewInfosFor(viewObject)).Return(viewInfos);
             var documentViewController = mocks.Stub<IDocumentViewController>();
-            documentViewController.Stub(c => c.DocumentViewsResolver).Return(viewResolver);
-            var toolViewController = mocks.Stub<IToolViewController>();
+            documentViewController.Expect(r => r.GetViewInfosFor(viewObject)).Return(viewInfos);
+            var viewController = mocks.Stub<IViewController>();
+            viewController.Stub(c => c.DocumentViewController).Return(documentViewController);
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             var guiPluginsHost = mocks.Stub<IGuiPluginsHost>();
             mocks.ReplayAll();
 
-            var commandHandler = new ViewCommandHandler(documentViewController, toolViewController,
-                                                        applicationSelection, guiPluginsHost);
+            var commandHandler = new ViewCommandHandler(viewController, applicationSelection, guiPluginsHost);
 
             // Call
             var hasViewDefinitionsForData = commandHandler.CanOpenViewFor(viewObject);
@@ -107,17 +103,15 @@ namespace Core.Common.Gui.Test.Commands
             }
 
             var mocks = new MockRepository();
-            var viewResolver = mocks.Stub<IViewResolver>();
-            viewResolver.Expect(r => r.GetViewInfosFor(viewObject)).Return(viewInfos);
             var documentViewController = mocks.Stub<IDocumentViewController>();
-            documentViewController.Stub(c => c.DocumentViewsResolver).Return(viewResolver);
-            var toolViewController = mocks.Stub<IToolViewController>();
+            documentViewController.Expect(r => r.GetViewInfosFor(viewObject)).Return(viewInfos);
+            var viewController = mocks.Stub<IViewController>();
+            viewController.Stub(c => c.DocumentViewController).Return(documentViewController);
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             var guiPluginsHost = mocks.Stub<IGuiPluginsHost>();
             mocks.ReplayAll();
 
-            var commandHandler = new ViewCommandHandler(documentViewController, toolViewController,
-                                                        applicationSelection, guiPluginsHost);
+            var commandHandler = new ViewCommandHandler(viewController, applicationSelection, guiPluginsHost);
 
             // Call
             var hasViewDefinitionsForData = commandHandler.CanOpenViewFor(viewObject);
@@ -134,17 +128,15 @@ namespace Core.Common.Gui.Test.Commands
             var viewObject = new object();
 
             var mocks = new MockRepository();
-            var viewResolver = mocks.Stub<IViewResolver>();
-            viewResolver.Expect(r => r.OpenViewForData(viewObject)).Return(true);
             var documentViewController = mocks.Stub<IDocumentViewController>();
-            documentViewController.Stub(c => c.DocumentViewsResolver).Return(viewResolver);
-            var toolViewController = mocks.Stub<IToolViewController>();
+            documentViewController.Expect(r => r.OpenViewForData(viewObject)).Return(true);
+            var viewController = mocks.Stub<IViewController>();
+            viewController.Stub(c => c.DocumentViewController).Return(documentViewController);
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             var guiPluginsHost = mocks.Stub<IGuiPluginsHost>();
             mocks.ReplayAll();
 
-            var commandHandler = new ViewCommandHandler(documentViewController, toolViewController,
-                                                        applicationSelection, guiPluginsHost);
+            var commandHandler = new ViewCommandHandler(viewController, applicationSelection, guiPluginsHost);
 
             // Call
             commandHandler.OpenView(viewObject);
@@ -158,14 +150,12 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var documentViewController = mocks.StrictMock<IDocumentViewController>();
-            var toolViewController = mocks.StrictMock<IToolViewController>();
+            var viewController = mocks.StrictMock<IViewController>();
             var applicationSelection = mocks.StrictMock<IApplicationSelection>();
             var guiPluginsHost = mocks.StrictMock<IGuiPluginsHost>();
             mocks.ReplayAll();
 
-            var commandHandler = new ViewCommandHandler(documentViewController, toolViewController,
-                                                        applicationSelection, guiPluginsHost);
+            var commandHandler = new ViewCommandHandler(viewController, applicationSelection, guiPluginsHost);
 
             // Call
             commandHandler.RemoveAllViewsForItem(null);
@@ -179,15 +169,13 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var documentViewController = mocks.StrictMock<IDocumentViewController>();
-            documentViewController.Expect(c => c.DocumentViews).Return(null);
-            var toolViewController = mocks.StrictMock<IToolViewController>();
+            var viewController = mocks.StrictMock<IViewController>();
+            viewController.Expect(c => c.ViewHost).Return(null);
             var applicationSelection = mocks.StrictMock<IApplicationSelection>();
             var guiPluginsHost = mocks.StrictMock<IGuiPluginsHost>();
             mocks.ReplayAll();
 
-            var commandHandler = new ViewCommandHandler(documentViewController, toolViewController,
-                                                        applicationSelection, guiPluginsHost);
+            var commandHandler = new ViewCommandHandler(viewController, applicationSelection, guiPluginsHost);
 
             // Call
             commandHandler.RemoveAllViewsForItem(new object());
@@ -204,7 +192,7 @@ namespace Core.Common.Gui.Test.Commands
             var childData = new object();
 
             var mocks = new MockRepository();
-            var documentViewsResolver = mocks.StrictMock<IViewResolver>();
+            var documentViewsResolver = mocks.StrictMock<IDocumentViewController>();
             documentViewsResolver.Expect(vr => vr.CloseAllViewsFor(data));
             documentViewsResolver.Expect(vr => vr.CloseAllViewsFor(childData));
 
@@ -218,10 +206,9 @@ namespace Core.Common.Gui.Test.Commands
                 dataView,
                 childDataView
             };
-            var toolWindows = mocks.StrictMock<IViewList>();
-            toolWindows.Stub(ws => ws.GetEnumerator())
-                       .WhenCalled(invocation => invocation.ReturnValue = viewsArray.GetEnumerator())
-                       .Return(null);
+
+            var viewHost = mocks.StrictMock<IViewHost>();
+            viewHost.Stub(ws => ws.DocumentViews).Return(viewsArray);
 
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             var guiPluginsHost = mocks.Stub<IGuiPluginsHost>();
@@ -229,21 +216,17 @@ namespace Core.Common.Gui.Test.Commands
             {
                 childData
             });
-            var documentViewController = mocks.Stub<IDocumentViewController>();
-            documentViewController.Stub(g => g.DocumentViews).Return(toolWindows);
-            documentViewController.Stub(g => g.DocumentViewsResolver).Return(documentViewsResolver);
-            var toolViewController = mocks.Stub<IToolViewController>();
-            toolViewController.Stub(g => g.ToolWindowViews).Return(toolWindows);
+            var viewController = mocks.Stub<IViewController>();
+            viewController.Stub(g => g.ViewHost).Return(viewHost);
+            viewController.Stub(g => g.DocumentViewController).Return(documentViewsResolver);
             mocks.ReplayAll();
-            
-            var viewCommandHandler = new ViewCommandHandler(documentViewController, toolViewController, applicationSelection, guiPluginsHost);
+
+            var viewCommandHandler = new ViewCommandHandler(viewController, applicationSelection, guiPluginsHost);
 
             // Call
             viewCommandHandler.RemoveAllViewsForItem(data);
 
             // Assert
-            Assert.IsNull(dataView.Data);
-            Assert.IsNull(childDataView.Data);
             mocks.VerifyAll();
         }
     }

@@ -68,6 +68,7 @@
     <Reference Include="System.Xaml" />
     <Reference Include="System.XML" />
     <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
     <Reference Include="Xceed.Wpf.AvalonDock, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
       <Private>True</Private>
@@ -124,23 +125,14 @@
     <Compile Include="Forms\SelectItemDialogTest.cs" />
     <Compile Include="Forms\SelectViewDialogTest.cs" />
     <Compile Include="Forms\SplashScreen\SplashScreenTest.cs" />
-    <Compile Include="Forms\ViewManager\ActiveViewChangeEventArgsTest.cs" />
-    <Compile Include="Forms\ViewManager\AvalonDockDockingManagerTest.cs" />
-    <Compile Include="Forms\ViewManager\DockTabClosingEventArgsTest.cs" />
-    <Compile Include="Forms\ViewManager\TestView.cs">
+    <Compile Include="Forms\ViewHost\AvalonDockViewHostTest.cs" />
+    <Compile Include="Forms\ViewHost\TestView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\ViewManager\TestView.Designer.cs">
+    <Compile Include="Forms\ViewHost\TestView.Designer.cs">
       <DependentUpon>TestView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ViewManager\ToolWindowTestControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\ViewManager\ToolWindowTestControl.Designer.cs">
-      <DependentUpon>ToolWindowTestControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\ViewManager\ViewListTest.cs" />
-    <Compile Include="Forms\ViewManager\ViewResolverTest.cs" />
+    <Compile Include="Forms\ViewHost\DocumentViewControllerTest.cs" />
     <Compile Include="Plugin\PluginBaseTest.cs" />
     <Compile Include="Plugin\PropertyInfoExtensionsTest.cs" />
     <Compile Include="Plugin\PropertyInfoTest.cs" />
@@ -158,9 +150,6 @@
     <Compile Include="PropertyBag\ReadOnlyPropertyDescriptorDecoratorTest.cs" />
     <Compile Include="Selection\SelectedItemChangedEventArgsTest.cs" />
     <Compile Include="Settings\SettingsHelperTest.cs" />
-    <Compile Include="Theme\ColorThemeExtensionsTest.cs" />
-    <Compile Include="Theme\ColorThemeTest.cs" />
-    <Compile Include="Forms\Options\OptionsDialogTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewPropertyEditorTest.cs" />
   </ItemGroup>
@@ -201,12 +190,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\ViewManager\TestView.resx">
+    <EmbeddedResource Include="Forms\ViewHost\TestView.resx">
       <DependentUpon>TestView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ViewManager\ToolWindowTestControl.resx">
-      <DependentUpon>ToolWindowTestControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -16,15 +16,15 @@ namespace Demo.Ringtoets.Commands
     /// </summary>
     public class OpenChartViewCommand : ICommand
     {
-        private readonly IDocumentViewController documentViewController;
+        private readonly IViewController viewController;
 
         /// <summary>
         /// Creates a new instance of <see cref="OpenChartViewCommand"/>.
         /// </summary>
-        /// <param name="documentViewController">The <see cref="IDocumentViewController"/> to use internally.</param>
-        public OpenChartViewCommand(IDocumentViewController documentViewController)
+        /// <param name="viewController">The <see cref="IViewController"/> to use internally.</param>
+        public OpenChartViewCommand(IViewController viewController)
         {
-            this.documentViewController = documentViewController;
+            this.viewController = viewController;
         }
 
         public bool Enabled
@@ -228,7 +228,7 @@ namespace Demo.Ringtoets.Commands
                 Style = new ChartPointStyle(Color.FromArgb(190, Color.Gold), 7, Color.DeepSkyBlue, 2, ChartPointSymbol.Diamond)
             };
 
-            documentViewController.DocumentViewsResolver.OpenViewForData(new ChartDataCollection(new List<ChartData>
+            viewController.DocumentViewController.OpenViewForData(new ChartDataCollection(new List<ChartData>
             {
                 area1, area2, line1, line2, points1, points2
             }, Resources.OpenChartViewCommand_Execute_Graph_data));

@@ -326,11 +326,15 @@ namespace Ringtoets.Integration.Forms.Views
                                                          "1/#,#");
         }
 
-
         #region Event handling
 
         private void ProbabilityDistributionGridOnCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            if (data == null)
+            {
+                return;
+            }
+
             if (e.ColumnIndex == probabilityPerYearColumnIndex)
             {
                 var contributionItem = data.Distribution.ElementAt(e.RowIndex);
@@ -343,6 +347,11 @@ namespace Ringtoets.Integration.Forms.Views
         }
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
+            if (data == null)
+            {
+                return;
+            }
+
             if (eventArgs.ColumnIndex != isRelevantColumnIndex)
             {
                 if (!IsIrrelevantChecked(eventArgs.RowIndex))

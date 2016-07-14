@@ -169,8 +169,6 @@ namespace Core.Common.Controls.TreeView.Test
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var hit = 0;
-                treeViewControl.NodeUpdated += (s, e) => hit++;
                 treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo
                 {
                     TagType = typeof(object)
@@ -184,7 +182,6 @@ namespace Core.Common.Controls.TreeView.Test
                 // Assert
                 Assert.AreSame(testNodeData, treeViewControl.Data);
                 Assert.AreSame(testNodeData, treeViewControl.SelectedData);
-                Assert.AreEqual(1, hit);
             }
         }
 
@@ -263,7 +260,6 @@ namespace Core.Common.Controls.TreeView.Test
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var hit = 0;
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
@@ -272,7 +268,6 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
                 var dataObject = new object();
                 treeViewControl.Data = dataObject;
-                treeViewControl.NodeUpdated += (s, e) => hit++;
 
                 string messageBoxText = null;
                 DialogBoxHandler = (name, wnd) =>
@@ -288,7 +283,6 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.TryRenameNodeForData(dataObject);
 
                 // Assert
-                Assert.AreEqual(0, hit);
                 Assert.AreEqual(Properties.Resources.TreeViewControl_The_selected_item_cannot_be_renamed, messageBoxText);
             }
         }
@@ -646,7 +640,7 @@ namespace Core.Common.Controls.TreeView.Test
             {
                 var treeNodeInfo = new TreeNodeInfo
                 {
-                    TagType = typeof(object),
+                    TagType = typeof(object)
                 };
                 treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
                 var data = new object();
@@ -710,7 +704,7 @@ namespace Core.Common.Controls.TreeView.Test
             {
                 var treeNodeInfo = new TreeNodeInfo
                 {
-                    TagType = typeof(object),
+                    TagType = typeof(object)
                 };
                 treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
                 var data = new object();
@@ -736,7 +730,7 @@ namespace Core.Common.Controls.TreeView.Test
             {
                 var treeNodeInfo = new TreeNodeInfo
                 {
-                    TagType = typeof(object),
+                    TagType = typeof(object)
                 };
                 treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
                 var data = new object();
@@ -1343,7 +1337,6 @@ namespace Core.Common.Controls.TreeView.Test
             {
                 var testString = "test";
                 var expectedText = "newTest";
-                var hit = 0;
 
                 var treeNodeInfo = new TreeNodeInfo
                 {
@@ -1353,7 +1346,6 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
                 treeViewControl.Data = observable;
 
-                treeViewControl.NodeUpdated += (s, e) => hit++;
                 var node = ((System.Windows.Forms.TreeView) treeViewControl.Controls[0]).Nodes[0];
 
                 testString = expectedText;
@@ -1363,7 +1355,6 @@ namespace Core.Common.Controls.TreeView.Test
 
                 // Then
                 Assert.AreEqual(expectedText, node.Text);
-                Assert.AreEqual(1, hit);
                 mocks.VerifyAll();
             }
         }

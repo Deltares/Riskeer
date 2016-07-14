@@ -52,13 +52,13 @@ namespace Core.Plugins.OxyPlot.Commands
         {
             get
             {
-                return controller.IsLegendViewOpen();
+                return controller.IsLegendViewOpen;
             }
         }
 
         public void Execute(params object[] arguments)
         {
-            controller.ToggleLegend();
+            controller.ToggleView();
         }
     }
 }

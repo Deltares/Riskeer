@@ -24,33 +24,23 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.Options;
-using Core.Common.Gui.Forms.ViewManager;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Selection;
 using Core.Common.Gui.Settings;
-using Core.Common.Gui.Theme;
 using Core.Common.Utils;
-using Core.Common.Utils.Events;
 using Fluent;
 using log4net;
-using Xceed.Wpf.AvalonDock;
-using Xceed.Wpf.AvalonDock.Controls;
-using Xceed.Wpf.AvalonDock.Layout;
-using Xceed.Wpf.AvalonDock.Layout.Serialization;
-using Xceed.Wpf.AvalonDock.Themes;
 using Button = Fluent.Button;
 using Cursors = System.Windows.Input.Cursors;
 using WindowsFormApplication = System.Windows.Forms.Application;
@@ -62,7 +52,6 @@ namespace Core.Common.Gui.Forms.MainWindow
     /// </summary>
     public partial class MainWindow : IMainWindow, IDisposable, ISynchronizeInvoke
     {
-        private const string dockingLayoutFileName = "WindowLayout_normal.xml";
         private static readonly ILog log = LogManager.GetLogger(typeof(MainWindow));
 
         /// <summary>
@@ -76,13 +65,10 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// </summary>
         private readonly WindowInteropHelper windowInteropHelper;
 
-        private IToolViewController toolViewController;
-        private IDocumentViewController documentViewController;
+        private IViewController viewController;
         private ICommandsOwner commands;
         private ISettingsOwner settings;
         private IApplicationSelection applicationSelection;
-
-        private bool resetDefaultLayout;
 
         private MessageWindow.MessageWindow messageWindow;
         private PropertyGridView.PropertyGridView propertyGrid;
@@ -102,6 +88,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         private string lastNonContextualTab;
 
         private IGui gui;
+        private RichTextFile richTextFile;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -111,8 +98,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             InitializeComponent();
 
             windowInteropHelper = new WindowInteropHelper(this);
-
-            log.Info(Properties.Resources.MainWindow_MainWindow_Main_window_created_);
         }
 
         /// <summary>
@@ -120,22 +105,19 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// </summary>
         public bool IsWindowDisposed { get; private set; }
 
-        /// <summary>
-        /// Gets the docking manager.
-        /// </summary>
-        public DockingManager DockingManager
-        {
-            get
-            {
-                return dockingManager;
-            }
-        }
-
         public IMessageWindow MessageWindow
         {
             get
             {
                 return messageWindow;
+            }
+        }
+
+        public IViewHost ViewHost
+        {
+            get
+            {
+                return avalonDockViewHost;
             }
         }
 
@@ -220,8 +202,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             gui = value;
 
-            toolViewController = gui;
-            documentViewController = gui;
+            viewController = gui;
             settings = gui;
             commands = gui;
             applicationSelection = gui;
@@ -232,14 +213,10 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// </summary>
         public void SubscribeToGui()
         {
-            if (toolViewController != null && toolViewController.ToolWindowViews != null)
+            if (viewController != null && viewController.ViewHost != null)
             {
-                toolViewController.ToolWindowViews.CollectionChanged += ToolWindowViews_CollectionChanged;
-            }
-            if (documentViewController != null && documentViewController.DocumentViews != null)
-            {
-                documentViewController.DocumentViews.ActiveViewChanged += DocumentViewsOnActiveViewChanged;
-                documentViewController.DocumentViews.ActiveViewChanging += DocumentViewsOnActiveViewChanging;
+                viewController.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
+                viewController.ViewHost.ActiveDocumentViewChanging += OnActiveDocumentViewChanging;
             }
         }
 
@@ -248,33 +225,11 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// </summary>
         public void UnsubscribeFromGui()
         {
-            if (toolViewController != null && toolViewController.ToolWindowViews != null)
+            if (viewController != null && viewController.ViewHost != null)
             {
-                toolViewController.ToolWindowViews.CollectionChanged -= ToolWindowViews_CollectionChanged;
+                viewController.ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
+                viewController.ViewHost.ActiveDocumentViewChanging -= OnActiveDocumentViewChanging;
             }
-            if (documentViewController != null && documentViewController.DocumentViews != null)
-            {
-                documentViewController.DocumentViews.ActiveViewChanged -= DocumentViewsOnActiveViewChanged;
-                documentViewController.DocumentViews.ActiveViewChanging -= DocumentViewsOnActiveViewChanging;
-            }
-        }
-
-        /// <summary>
-        /// Loads the layout of the main user interface from AppData.
-        /// </summary>
-        public void LoadLayout()
-        {
-            LoadDockingLayout();
-            RestoreWindowAppearance();
-        }
-
-        /// <summary>
-        /// Saves the layout of the main user interface to AppData.
-        /// </summary>
-        public void SaveLayout()
-        {
-            SaveWindowAppearance();
-            SaveDockingLayout();
         }
 
         /// <summary>
@@ -299,38 +254,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             if (!useUserSettings || Convert.ToBoolean(settings.UserSettings["showStartPage"], CultureInfo.InvariantCulture))
             {
-                log.Info(Properties.Resources.MainWindow_ShowStartPage_Adding_welcome_page_);
                 OpenStartPage();
-            }
-        }
-
-        /// <summary>
-        /// Closes all Document views.
-        /// </summary>
-        public void ClearDocumentTabs()
-        {
-            foreach (var contentToClose in dockingManager.Layout.Descendents().OfType<LayoutContent>()
-                                                         .Where(d => (d.Parent is LayoutDocumentPane || d.Parent is LayoutDocumentFloatingWindow) && d.CanClose)
-                                                         .ToArray())
-            {
-                if (contentToClose is LayoutDocument)
-                {
-                    CloseContent(contentToClose as LayoutDocument);
-                }
-                else if (contentToClose is LayoutAnchorable)
-                {
-                    CloseContent(contentToClose as LayoutAnchorable);
-                }
-            }
-
-            foreach (var child in LayoutDocumentPaneGroup.Children.OfType<LayoutDocumentPane>())
-            {
-                child.Children.Clear();
-            }
-
-            while (LayoutDocumentPaneGroup.Children.Count != 1)
-            {
-                LayoutDocumentPaneGroup.Children.RemoveAt(0);
             }
         }
 
@@ -345,13 +269,6 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             Close();
 
-            if (dockingManager.AutoHideWindow != null)
-            {
-                var m = typeof(LayoutAutoHideWindowControl).GetField("_manager", BindingFlags.Instance | BindingFlags.NonPublic);
-                m.SetValue(dockingManager.AutoHideWindow, null);
-                dockingManager.AutoHideWindow.Dispose();
-            }
-            
             if (Ribbon != null)
             {
                 foreach (var tab in Ribbon.Tabs)
@@ -364,20 +281,6 @@ namespace Core.Common.Gui.Forms.MainWindow
                 }
                 Ribbon.Tabs.Clear();
                 Ribbon = null;
-            }
-
-            dockingManager = null;
-
-            if (propertyGrid != null)
-            {
-                propertyGrid.Dispose();
-                propertyGrid = null;
-            }
-
-            if (messageWindow != null)
-            {
-                messageWindow.Dispose();
-                messageWindow = null;
             }
 
             ribbonCommandHandlers = null;
@@ -406,9 +309,8 @@ namespace Core.Common.Gui.Forms.MainWindow
             propertyGrid.Text = Properties.Resources.Properties_Title;
             propertyGrid.Data = propertyGrid.GetObjectProperties(applicationSelection.Selection);
 
-            toolViewController.ToolWindowViews.Add(propertyGrid, ViewLocation.Right | ViewLocation.Bottom);
-
-            toolViewController.ToolWindowViews.ActiveView = propertyGrid;
+            viewController.ViewHost.AddToolView(propertyGrid, ToolViewLocation.Right);
+            viewController.ViewHost.SetImage(propertyGrid, Properties.Resources.PropertiesHS);
         }
 
         public void ValidateItems()
@@ -467,27 +369,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             Mouse.OverrideCursor = null;
         }
 
-        private void ToolWindowViews_CollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
-        {
-            if (e.Action != NotifyCollectionChangeAction.Remove)
-            {
-                return;
-            }
-
-            if (e.Item == propertyGrid)
-            {
-                propertyGrid.Dispose();
-                propertyGrid = null;
-            }
-
-            if (e.Item == MessageWindow)
-            {
-                messageWindow.Dispose();
-                messageWindow = null;
-            }
-        }
-
-        private void DocumentViewsOnActiveViewChanging(object sender, ActiveViewChangeEventArgs e)
+        private void OnActiveDocumentViewChanging(object sender, EventArgs e)
         {
             if (Ribbon.SelectedTabItem != null && !Ribbon.SelectedTabItem.IsContextual)
             {
@@ -495,17 +377,18 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
 
             // remember active contextual tab per view type, when view is activated back - activate contextual item
-            if (Ribbon.SelectedTabItem != null && e.OldView != null)
+            var activeDocumentView = viewController.ViewHost.ActiveDocumentView;
+            if (Ribbon.SelectedTabItem != null && activeDocumentView != null)
             {
                 if (Ribbon.SelectedTabItem.IsContextual)
                 {
-                    lastActiveContextTabNamePerViewType[e.OldView.GetType()] = Ribbon.SelectedTabItem.Header.ToString();
+                    lastActiveContextTabNamePerViewType[activeDocumentView.GetType()] = Ribbon.SelectedTabItem.Header.ToString();
                     activateContextualTab = true;
                 }
                 else
                 {
                     // user has clicked on non-contextual tab before switching active view
-                    if (lastActiveContextTabNamePerViewType.ContainsKey(e.OldView.GetType()))
+                    if (lastActiveContextTabNamePerViewType.ContainsKey(activeDocumentView.GetType()))
                     {
                         activateContextualTab = false;
                     }
@@ -517,16 +400,17 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
-        private void DocumentViewsOnActiveViewChanged(object sender, ActiveViewChangeEventArgs e)
+        private void OnActiveDocumentViewChanged(object sender, EventArgs e)
         {
             // activate contextual tab which was active for this view type
-            if (activateContextualTab && Ribbon.SelectedTabItem != null && e.View != null &&
+            var activeDocumentView = viewController.ViewHost.ActiveDocumentView;
+            if (activateContextualTab && Ribbon.SelectedTabItem != null && activeDocumentView != null &&
                 Ribbon.Tabs.Any(t => t.IsContextual && t.Visibility == Visibility.Visible))
             {
-                string lastActiveTabForActiveView;
-                if (lastActiveContextTabNamePerViewType.TryGetValue(e.View.GetType(), out lastActiveTabForActiveView))
+                string lastActiveTabForActiveDocumentView;
+                if (lastActiveContextTabNamePerViewType.TryGetValue(activeDocumentView.GetType(), out lastActiveTabForActiveDocumentView))
                 {
-                    var tab = Ribbon.Tabs.First(t => t.Header.ToString() == lastActiveTabForActiveView);
+                    var tab = Ribbon.Tabs.First(t => t.Header.ToString() == lastActiveTabForActiveDocumentView);
                     if (tab.IsVisible)
                     {
                         Ribbon.SelectedTabItem = tab;
@@ -604,10 +488,10 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void UpdateToolWindowButtonState()
         {
-            if (toolViewController.ToolWindowViews != null)
+            if (viewController.ViewHost != null)
             {
-                ButtonShowMessages.IsChecked = toolViewController.ToolWindowViews.Contains(MessageWindow);
-                ButtonShowProperties.IsChecked = toolViewController.ToolWindowViews.Contains(PropertyGrid);
+                ButtonShowMessages.IsChecked = viewController.ViewHost.ToolViews.Contains(MessageWindow);
+                ButtonShowProperties.IsChecked = viewController.ViewHost.ToolViews.Contains(PropertyGrid);
             }
         }
 
@@ -626,18 +510,13 @@ namespace Core.Common.Gui.Forms.MainWindow
                 };
             }
 
-            if (toolViewController.ToolWindowViews == null)
+            if (viewController.ViewHost == null)
             {
                 return;
             }
 
-            if (toolViewController.ToolWindowViews.Contains(messageWindow))
-            {
-                toolViewController.ToolWindowViews.ActiveView = messageWindow;
-                return;
-            }
-
-            toolViewController.ToolWindowViews.Add(messageWindow, ViewLocation.Bottom);
+            viewController.ViewHost.AddToolView(messageWindow, ToolViewLocation.Bottom);
+            viewController.ViewHost.SetImage(messageWindow, Properties.Resources.application_view_list);
         }
 
         private void OnFileSaveClicked(object sender, RoutedEventArgs e)
@@ -685,149 +564,11 @@ namespace Core.Common.Gui.Forms.MainWindow
             gui.Exit();
         }
 
-        private string GetLayoutFilePath()
-        {
-            string localUserSettingsDirectory = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
-            return Path.Combine(localUserSettingsDirectory, dockingLayoutFileName);
-        }
-
-        private static string GetLocalLayoutFilePath()
-        {
-            var uri = new UriBuilder(Assembly.GetExecutingAssembly().CodeBase);
-            string path = Uri.UnescapeDataString(uri.Path);
-            string assemblyDir = Path.GetDirectoryName(path);
-            return Path.Combine(assemblyDir, dockingLayoutFileName);
-        }
-
-        private void LoadDockingLayout()
-        {
-            string layoutFilePath = GetLayoutFilePath();
-
-            if (!File.Exists(layoutFilePath))
-            {
-                layoutFilePath = GetLocalLayoutFilePath();
-            }
-            if (!File.Exists(layoutFilePath))
-            {
-                return;
-            }
-
-            try
-            {
-                new XmlLayoutSerializer(dockingManager).Deserialize(layoutFilePath);
-            }
-            catch (InvalidOperationException)
-            {
-                log.Warn(Properties.Resources.MainWindow_OnLoadLayout_Could_not_load_the_requested_dock_layout_The_settings_are_invalid_and_will_be_reset_to_the_default_state_);
-                return;
-            }
-
-            var ribbonSettingsPath = layoutFilePath + ".ribbon";
-
-            if (!File.Exists(ribbonSettingsPath))
-            {
-                return;
-            }
-
-            try
-            {
-                var tokenizedRibbonSettings = File.ReadAllText(ribbonSettingsPath).Split('|');
-                if (tokenizedRibbonSettings.Length != 2)
-                {
-                    return;
-                }
-
-                var ribbonStateSettings = tokenizedRibbonSettings[0].Split(',');
-                Ribbon.IsMinimized = bool.Parse(ribbonStateSettings[0]);
-                Ribbon.ShowQuickAccessToolBarAboveRibbon = bool.Parse(ribbonStateSettings[1]);
-            }
-            catch (Exception)
-            {
-                log.Warn(Properties.Resources.MainWindow_OnLoadLayout_Could_not_restore_the_ribbon_state_The_settings_are_invalid_and_will_be_reset_to_the_default_state_);
-            }
-        }
-
-        private void SaveDockingLayout()
-        {
-            string layoutFilePath = GetLayoutFilePath();
-            var ribbonLayoutFilePath = layoutFilePath + ".ribbon";
-            if (resetDefaultLayout)
-            {
-                if (File.Exists(layoutFilePath))
-                {
-                    File.Delete(layoutFilePath);
-                }
-                if (File.Exists(ribbonLayoutFilePath))
-                {
-                    File.Delete(ribbonLayoutFilePath);
-                }
-                return; // Do not save when resetting
-            }
-
-            var layoutSerializer = new XmlLayoutSerializer(dockingManager);
-            layoutSerializer.Serialize(layoutFilePath);
-
-            var ribbonStream = new FileStream(ribbonLayoutFilePath, FileMode.Create);
-            Ribbon.SaveState(ribbonStream);
-        }
-
-        private void RestoreWindowAppearance()
-        {
-            WindowStartupLocation = WindowStartupLocation.Manual;
-            var x = Properties.Settings.Default.MainWindow_X;
-            var y = Properties.Settings.Default.MainWindow_Y;
-            var width = Properties.Settings.Default.MainWindow_Width;
-            var height = Properties.Settings.Default.MainWindow_Height;
-            var rec = new Rectangle(x, y, width, height);
-
-            if (!IsVisibleOnAnyScreen(rec))
-            {
-                width = Screen.PrimaryScreen.Bounds.Width - 200;
-                height = Screen.PrimaryScreen.Bounds.Height - 200;
-            }
-
-            var fs = Properties.Settings.Default.MainWindow_FullScreen;
-            Width = width;
-            Height = height;
-            if (fs)
-            {
-                WindowState = WindowState.Maximized;
-            }
-        }
-
-        private bool IsVisibleOnAnyScreen(Rectangle rect)
-        {
-            foreach (Screen screen in Screen.AllScreens)
-            {
-                if (screen.WorkingArea.IntersectsWith(rect))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private void SaveWindowAppearance()
-        {
-            if (WindowState == WindowState.Maximized)
-            {
-                Properties.Settings.Default.MainWindow_FullScreen = true;
-            }
-            else
-            {
-                Properties.Settings.Default.MainWindow_Width = (int) Width;
-                Properties.Settings.Default.MainWindow_Height = (int) Height;
-                Properties.Settings.Default.MainWindow_FullScreen = false;
-            }
-            Properties.Settings.Default.Save();
-        }
-
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            AddRecentlyOpenedProjectsToFileMenu();
+            WindowState = WindowState.Maximized;
 
-            SetColorTheme((ColorTheme) settings.UserSettings["colorTheme"]);
+            AddRecentlyOpenedProjectsToFileMenu();
 
             FileManualButton.IsEnabled = File.Exists(settings.FixedSettings.ManualFilePath);
 
@@ -837,20 +578,15 @@ namespace Core.Common.Gui.Forms.MainWindow
             ButtonQuickAccessOpenProject.IsEnabled = ButtonMenuFileOpenProject.IsEnabled;
             ButtonQuickAccessSaveProject.IsEnabled = ButtonMenuFileSaveProject.IsEnabled;
 
-            UpdateMainWindowRibbonElements();
             UpdateRibbonExtensions(gui);
 
-            ValidateItems();
-        }
-
-        private void UpdateMainWindowRibbonElements()
-        {
-            resetUIButton.ToolTip = new ScreenTip
+            richTextFile = new RichTextFile
             {
-                Title = Properties.Resources.MainWindow_UpdateMainWindowRibbonElements_Reset_layout_restart,
-                Text = Properties.Resources.MainWindow_UpdateMainWindowRibbonElements_When_this_option_is_turned_on_the_default_layout_will_be_used_when_restarting_Ringtoets,
-                MaxWidth = 250
+                Name = Properties.Resources.MainWindow_LicenseView_Name,
+                FilePath = settings.FixedSettings.LicenseFilePath
             };
+
+            ValidateItems();
         }
 
         private void UpdateRibbonExtensions(IGuiPluginsHost guiPluginsHost)
@@ -955,50 +691,17 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             using (var optionsDialog = new OptionsDialog(this, settings.UserSettings))
             {
-                if (optionsDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    SetColorTheme((ColorTheme) settings.UserSettings["colorTheme"]);
-                }
+                optionsDialog.ShowDialog();
             }
-        }
-
-        private void SetColorTheme(ColorTheme colorTheme)
-        {
-            if (colorTheme == ColorTheme.Dark && !(DockingManager.Theme is ExpressionDarkTheme))
-            {
-                DockingManager.Theme = new ExpressionDarkTheme();
-            }
-            else if (colorTheme == ColorTheme.Light && !(DockingManager.Theme is ExpressionLightTheme))
-            {
-                DockingManager.Theme = new ExpressionLightTheme();
-            }
-            else if (colorTheme == ColorTheme.Metro && !(DockingManager.Theme is MetroTheme))
-            {
-                DockingManager.Theme = new MetroTheme();
-            }
-            else if (colorTheme == ColorTheme.Aero && !(DockingManager.Theme is AeroTheme))
-            {
-                DockingManager.Theme = new AeroTheme();
-            }
-            else if (colorTheme == ColorTheme.VS2010 && !(DockingManager.Theme is VS2010Theme))
-            {
-                DockingManager.Theme = new VS2010Theme();
-            }
-            else if (colorTheme == ColorTheme.Generic && !(DockingManager.Theme is GenericTheme))
-            {
-                DockingManager.Theme = new GenericTheme();
-            }
-
-            settings.UserSettings["colorTheme"] = colorTheme;
         }
 
         private void ButtonShowProperties_Click(object sender, RoutedEventArgs e)
         {
-            var active = toolViewController.ToolWindowViews.Contains(PropertyGrid);
+            var active = viewController.ViewHost.ToolViews.Contains(PropertyGrid);
 
             if (active)
             {
-                toolViewController.ToolWindowViews.Remove(PropertyGrid);
+                viewController.ViewHost.Remove(PropertyGrid);
                 ButtonShowProperties.IsChecked = false;
             }
             else
@@ -1010,11 +713,11 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void ButtonShowMessages_Click(object sender, RoutedEventArgs e)
         {
-            var active = toolViewController.ToolWindowViews.Contains(MessageWindow);
+            var active = viewController.ViewHost.ToolViews.Contains(MessageWindow);
 
             if (active)
             {
-                toolViewController.ToolWindowViews.Remove(MessageWindow);
+                viewController.ViewHost.Remove(MessageWindow);
                 ButtonShowMessages.IsChecked = false;
             }
             else
@@ -1031,23 +734,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileHelpLicense_Clicked(object sender, RoutedEventArgs e)
         {
-            var licensePageName = Properties.Resources.MainWindow_LicenseView_Name;
-
-            foreach (var view in documentViewController.DocumentViews.OfType<RichTextView>())
-            {
-                if (view.Text == licensePageName)
-                {
-                    documentViewController.DocumentViews.ActiveView = view;
-
-                    return;
-                }
-            }
-
-            documentViewController.DocumentViewsResolver.OpenViewForData(new RichTextFile
-            {
-                Name = licensePageName,
-                FilePath = settings.FixedSettings.LicenseFilePath
-            });
+            viewController.DocumentViewController.OpenViewForData(richTextFile);
         }
 
         private void OnFileHelpSubmitFeedback_Clicked(object sender, RoutedEventArgs e) {}
@@ -1081,24 +768,14 @@ namespace Core.Common.Gui.Forms.MainWindow
             commands.ViewCommands.OpenView(url);
         }
 
-        private void CloseContent(LayoutContent c)
-        {
-            c.Close();
-        }
-
         private void CloseDocumentTab(object sender, ExecutedRoutedEventArgs e)
         {
-            documentViewController.DocumentViews.Remove(documentViewController.DocumentViews.ActiveView);
+            viewController.ViewHost.Remove(viewController.ViewHost.ActiveDocumentView);
         }
 
         private void CanCloseDocumentTab(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = documentViewController.DocumentViews.Any();
-        }
-
-        private void ButtonResetUILayout_Click(object sender, RoutedEventArgs e)
-        {
-            resetDefaultLayout = resetUIButton.IsChecked ?? false;
+            e.CanExecute = viewController.ViewHost.DocumentViews.Any();
         }
 
         private void OnAboutDialog_Clicked(object sender, RoutedEventArgs e)

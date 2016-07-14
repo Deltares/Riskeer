@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Components.Charting.Data;
+using Core.Plugins.OxyPlot.Properties;
 
 namespace Core.Plugins.OxyPlot.Legend
 {
@@ -31,33 +34,45 @@ namespace Core.Plugins.OxyPlot.Legend
     /// </summary>
     public class ChartLegendController
     {
-        private readonly IToolViewController toolViewController;
-        private IView legendView;
+        private readonly IViewController viewController;
 
         /// <summary>
-        /// Fired when the legend has been opened.
+        /// Fired when the chart legend has been opened.
         /// </summary>
         public EventHandler<EventArgs> OnOpenLegend;
+
+        private IView legendView;
 
         /// <summary>
         /// Creates a new instance of <see cref="ChartLegendController"/>.
         /// </summary>
-        /// <param name="toolViewController">The <see cref="IToolViewController"/> to invoke actions upon.</param>
-        public ChartLegendController(IToolViewController toolViewController)
+        /// <param name="viewController">The <see cref="IViewController"/> to invoke actions upon.</param>
+        public ChartLegendController(IViewController viewController)
         {
-            if (toolViewController == null)
+            if (viewController == null)
             {
-                throw new ArgumentNullException("toolViewController", "Cannot create a ChartLegendController when the tool view controller is null.");
+                throw new ArgumentNullException("viewController", "Cannot create a ChartLegendController when the view controller is null.");
             }
-            this.toolViewController = toolViewController;
+            this.viewController = viewController;
         }
 
         /// <summary>
-        /// Toggles the <see cref="ChartLegendView"/>.
+        /// Gets a value indicating whether the <see cref="ChartLegendView"/> is visible.
         /// </summary>
-        public void ToggleLegend()
+        public bool IsLegendViewOpen
         {
-            if (IsLegendViewOpen())
+            get
+            {
+                return legendView != null && viewController.ViewHost.ToolViews.Contains(legendView);
+            }
+        }
+
+        /// <summary>
+        /// Toggles the visibility of the <see cref="ChartLegendView"/>.
+        /// </summary>
+        public void ToggleView()
+        {
+            if (IsLegendViewOpen)
             {
                 CloseLegendView();
             }
@@ -68,12 +83,16 @@ namespace Core.Plugins.OxyPlot.Legend
         }
 
         /// <summary>
-        /// Checks whether a <see cref="ChartLegendView"/> is open.
+        /// Updates the data for the <see cref="ChartLegendView"/> if it is open.
         /// </summary>
-        /// <returns><c>true</c> if the <see cref="ChartLegendView"/> is open, <c>false</c> otherwise.</returns>
-        public bool IsLegendViewOpen()
+        /// <param name="data">The <see cref="ChartData"/> to show. If <c>null</c> the 
+        /// data will be cleared.</param>
+        public void Update(ChartData data)
         {
-            return toolViewController.IsToolWindowOpen<ChartLegendView>();
+            if (IsLegendViewOpen)
+            {
+                legendView.Data = data;
+            }
         }
 
         /// <summary>
@@ -82,7 +101,10 @@ namespace Core.Plugins.OxyPlot.Legend
         private void OpenLegendView()
         {
             legendView = new ChartLegendView();
-            toolViewController.OpenToolView(legendView);
+
+            viewController.ViewHost.AddToolView(legendView, ToolViewLocation.Left);
+            viewController.ViewHost.SetImage(legendView, Resources.ChartIcon);
+
             if (OnOpenLegend != null)
             {
                 OnOpenLegend(this, EventArgs.Empty);
@@ -90,26 +112,12 @@ namespace Core.Plugins.OxyPlot.Legend
         }
 
         /// <summary>
-        /// Closes the <see cref="ChartLegendView"/>.
+        /// Closess the <see cref="ChartLegendView"/>.
         /// </summary>
         private void CloseLegendView()
         {
-            toolViewController.CloseToolView(legendView);
-            legendView.Dispose();
+            viewController.ViewHost.Remove(legendView);
             legendView = null;
-        }
-
-        /// <summary>
-        /// Updates the data for the <see cref="ChartLegendView"/> if it is open.
-        /// </summary>
-        /// <param name="data">The <see cref="ChartData"/> to show. If <c>null</c> the 
-        /// data will be cleared.</param>
-        public void Update(ChartData data)
-        {
-            if (IsLegendViewOpen())
-            {
-                legendView.Data = data;
-            }
         }
     }
 }

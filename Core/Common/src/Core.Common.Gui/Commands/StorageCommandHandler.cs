@@ -26,7 +26,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
-using Core.Common.Controls.Views;
 using Core.Common.Gui.Properties;
 using Core.Common.Gui.Selection;
 using log4net;
@@ -45,7 +44,6 @@ namespace Core.Common.Gui.Commands
         private readonly IProjectOwner projectOwner;
         private readonly IStoreProject projectPersistor;
         private readonly IApplicationSelection applicationSelection;
-        private readonly IToolViewController toolViewController;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StorageCommandHandler"/> class.
@@ -54,18 +52,16 @@ namespace Core.Common.Gui.Commands
         /// <param name="projectOwner">The class owning the application project.</param>
         /// <param name="applicationSelection">Class managing the application selection.</param>
         /// <param name="mainWindowController">Controller for UI.</param>
-        /// <param name="toolViewController">Controller for Tool Views.</param>
         /// <param name="viewCommands">The view command handler.</param>
         public StorageCommandHandler(IStoreProject projectStorage, IProjectOwner projectOwner,
                                      IApplicationSelection applicationSelection, IMainWindowController mainWindowController,
-                                     IToolViewController toolViewController, IViewCommands viewCommands)
+                                     IViewCommands viewCommands)
         {
             this.viewCommands = viewCommands;
             this.mainWindowController = mainWindowController;
             this.projectOwner = projectOwner;
             projectPersistor = projectStorage;
             this.applicationSelection = applicationSelection;
-            this.toolViewController = toolViewController;
 
             this.projectOwner.ProjectOpened += ApplicationProjectOpened;
             this.projectOwner.ProjectClosing += ApplicationProjectClosing;
@@ -326,16 +322,7 @@ namespace Core.Common.Gui.Commands
 
         private void ApplicationProjectClosing(Project project)
         {
-            // clean all views
             viewCommands.RemoveAllViewsForItem(project);
-
-            if (toolViewController.ToolWindowViews != null)
-            {
-                foreach (IView view in toolViewController.ToolWindowViews)
-                {
-                    view.Data = null;
-                }
-            }
 
             project.Detach(this);
         }

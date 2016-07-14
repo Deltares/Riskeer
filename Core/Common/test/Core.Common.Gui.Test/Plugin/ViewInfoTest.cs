@@ -49,7 +49,6 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNull(viewInfo.AdditionalDataCheck);
             Assert.IsNull(viewInfo.GetViewData);
             Assert.IsNull(viewInfo.AfterCreate);
-            Assert.IsNull(viewInfo.OnActivateView);
             Assert.IsNull(viewInfo.CloseForData);
         }
 
@@ -71,10 +70,6 @@ namespace Core.Common.Gui.Test.Plugin
             {
                 // Do something useful
             };
-            Action<IView, object> onActivateViewDelegate = (view, o) =>
-            {
-                // React to activation
-            };
             Func<IView, object, bool> closeViewForDataDelegate = (view, o) => true;
 
             // Call
@@ -87,7 +82,6 @@ namespace Core.Common.Gui.Test.Plugin
             viewInfo.AdditionalDataCheck = additionalDataDelegate;
             viewInfo.GetViewData = getViewDataDelegate;
             viewInfo.AfterCreate = afterCreateDelegate;
-            viewInfo.OnActivateView = onActivateViewDelegate;
             viewInfo.CloseForData = closeViewForDataDelegate;
 
             // Assert
@@ -100,7 +94,6 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.AreEqual(additionalDataDelegate, viewInfo.AdditionalDataCheck);
             Assert.AreEqual(getViewDataDelegate, viewInfo.GetViewData);
             Assert.AreEqual(afterCreateDelegate, viewInfo.AfterCreate);
-            Assert.AreEqual(onActivateViewDelegate, viewInfo.OnActivateView);
             Assert.AreEqual(closeViewForDataDelegate, viewInfo.CloseForData);
         }
 
@@ -140,7 +133,6 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNull(viewInfo.AdditionalDataCheck);
             Assert.IsNull(viewInfo.GetViewData);
             Assert.IsNull(viewInfo.AfterCreate);
-            Assert.IsNull(viewInfo.OnActivateView);
             Assert.IsNull(viewInfo.CloseForData);
         }
 
@@ -159,10 +151,6 @@ namespace Core.Common.Gui.Test.Plugin
             {
                 // Do something useful
             };
-            Action<IView, object> onActivateViewDelegate = (view, o) =>
-            {
-                // React to activation
-            };
             Func<IView, object, bool> closeViewForDataDelegate = (view, o) => true;
 
             // Call
@@ -172,7 +160,6 @@ namespace Core.Common.Gui.Test.Plugin
             viewInfo.AdditionalDataCheck = additionalDataDelegate;
             viewInfo.GetViewData = getViewDataDelegate;
             viewInfo.AfterCreate = afterCreateDelegate;
-            viewInfo.OnActivateView = onActivateViewDelegate;
             viewInfo.CloseForData = closeViewForDataDelegate;
 
             // Assert
@@ -182,7 +169,6 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.AreEqual(additionalDataDelegate, viewInfo.AdditionalDataCheck);
             Assert.AreEqual(getViewDataDelegate, viewInfo.GetViewData);
             Assert.AreEqual(afterCreateDelegate, viewInfo.AfterCreate);
-            Assert.AreEqual(onActivateViewDelegate, viewInfo.OnActivateView);
             Assert.AreEqual(closeViewForDataDelegate, viewInfo.CloseForData);
         }
 
@@ -236,13 +222,6 @@ namespace Core.Common.Gui.Test.Plugin
                 Assert.AreEqual(dataObject, o);
                 afterCreateDelegateCalled = true;
             };
-            bool onActivateViewDelegateCalled = false;
-            Action<IView, object> onActivateViewDelegate = (view, o) =>
-            {
-                Assert.AreSame(stringView, view);
-                Assert.AreEqual(dataObject, o);
-                onActivateViewDelegateCalled = true;
-            };
             Func<IView, object, bool> closeViewForDataDelegate = (view, o) =>
             {
                 Assert.AreSame(stringView, view);
@@ -256,7 +235,6 @@ namespace Core.Common.Gui.Test.Plugin
             viewInfo.AdditionalDataCheck = additionalDataDelegate;
             viewInfo.GetViewData = getViewDataDelegate;
             viewInfo.AfterCreate = afterCreateDelegate;
-            viewInfo.OnActivateView = onActivateViewDelegate;
             viewInfo.CloseForData = closeViewForDataDelegate;
 
             // Precondition
@@ -279,10 +257,6 @@ namespace Core.Common.Gui.Test.Plugin
             viewInfo.AfterCreate(stringView, dataObject);
             Assert.IsTrue(afterCreateDelegateCalled);
 
-            viewInfo.OnActivateView(stringView, dataObject);
-            Assert.IsTrue(onActivateViewDelegateCalled);
-
-            Assert.IsTrue(viewInfo.CloseForData(stringView, dataObject));
         }
 
         private class StringView : IView

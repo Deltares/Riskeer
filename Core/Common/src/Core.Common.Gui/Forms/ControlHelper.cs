@@ -69,10 +69,7 @@ namespace Core.Common.Gui.Forms
         /// when switching between views, closing a view or when performing a save.
         /// </summary>
         /// <param name="containerControl">Control to unfocus / trigger validation.</param>
-        /// <param name="notSwitchingToOtherControl">If <c>true</c>, it messes with switch 
-        /// to another control/tab, but it is required if you close a view or want the 
-        /// current view to commit any changes.</param>
-        public static void UnfocusActiveControl(IContainerControl containerControl, bool notSwitchingToOtherControl = false)
+        public static void UnfocusActiveControl(IContainerControl containerControl)
         {
             if (containerControl == null)
             {
@@ -81,16 +78,10 @@ namespace Core.Common.Gui.Forms
 
             while (containerControl.ActiveControl is IContainerControl)
             {
-                containerControl = containerControl.ActiveControl as IContainerControl;
+                containerControl = (IContainerControl) containerControl.ActiveControl;
             }
 
-            var control = containerControl as Control;
-            if (notSwitchingToOtherControl && control != null && !control.ContainsFocus)
-            {
-                control.Focus();
-            }
-
-            containerControl.ActiveControl = null; //unfocus current control, to force binding to happen
+            containerControl.ActiveControl = null; // Unfocus the current control (to force binding to happen)
         }
     }
 }

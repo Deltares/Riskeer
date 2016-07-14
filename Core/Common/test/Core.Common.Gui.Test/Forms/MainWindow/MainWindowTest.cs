@@ -26,26 +26,19 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
-using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
-using Core.Common.Gui.Forms.ViewManager;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Gui.Settings;
-using Core.Common.Gui.Theme;
 using Core.Common.Utils;
-using Core.Common.Utils.Events;
 using Core.Common.Utils.Reflection;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
-using FlowDirection = System.Windows.FlowDirection;
 
 namespace Core.Common.Gui.Test.Forms.MainWindow
 {
@@ -65,7 +58,6 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         public void TearDown()
         {
             MessageWindowLogAppender.Instance = originalValue;
-            Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 
         [Test]
@@ -82,7 +74,6 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
 
                 Assert.IsFalse(mainWindow.IsWindowDisposed);
                 Assert.IsFalse(mainWindow.Visible);
-                Assert.IsTrue(mainWindow.DockingManager.AllowMixedOrientation);
 
                 Assert.IsNull(mainWindow.MessageWindow);
                 Assert.IsNull(mainWindow.PropertyGrid);
@@ -91,7 +82,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
 
                 Assert.IsNotNull(mainWindow.Handle);
                 Assert.IsFalse(mainWindow.InvokeRequired,
-                    "'mainWindow' instance on same thread as test, therefore invocation not required.");
+                               "'mainWindow' instance on same thread as test, therefore invocation not required.");
 
                 Assert.AreEqual("MainWindow", mainWindow.Title);
                 Assert.AreEqual(ResizeMode.CanResizeWithGrip, mainWindow.ResizeMode);
@@ -138,19 +129,15 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             // Setup
             var mocks = new MockRepository();
             var settings = mocks.Stub<ApplicationSettingsBase>();
-            settings["colorTheme"] = ColorTheme.Generic;
 
-            var toolViewsList = mocks.Stub<IViewList>();
-            toolViewsList.Stub(l => l.Contains(Arg<IMessageWindow>.Is.Anything))
-                         .Return(false);
-            toolViewsList.Stub(l => l.Contains(Arg<IPropertyGrid>.Is.Anything))
-                         .Return(false);
+            var viewHost = mocks.Stub<IViewHost>();
+            viewHost.Stub(vm => vm.ToolViews).Return(new IView[0]);
 
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.UserSettings).Return(settings);
             gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
             gui.Stub(g => g.Plugins).Return(Enumerable.Empty<PluginBase>().ToList());
-            gui.Stub(g => g.ToolWindowViews).Return(toolViewsList);
+            gui.Stub(g => g.ViewHost).Return(viewHost);
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -175,19 +162,15 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             // Setup
             var mocks = new MockRepository();
             var settings = mocks.Stub<ApplicationSettingsBase>();
-            settings["colorTheme"] = ColorTheme.Generic;
 
-            var toolViewsList = mocks.Stub<IViewList>();
-            toolViewsList.Stub(l => l.Contains(Arg<IMessageWindow>.Is.Anything))
-                         .Return(false);
-            toolViewsList.Stub(l => l.Contains(Arg<IPropertyGrid>.Is.Anything))
-                         .Return(false);
+            var viewHost = mocks.Stub<IViewHost>();
+            viewHost.Stub(vm => vm.ToolViews).Return(new IView[0]);
 
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.UserSettings).Return(settings);
             gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
             gui.Stub(g => g.Plugins).Return(Enumerable.Empty<PluginBase>().ToList());
-            gui.Stub(g => g.ToolWindowViews).Return(toolViewsList);
+            gui.Stub(g => g.ViewHost).Return(viewHost);
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -244,16 +227,12 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         {
             // Setup
             var mocks = new MockRepository();
-            var toolWindowsList = mocks.Stub<IViewList>();
-            toolWindowsList.Expect(l => l.CollectionChanged += null).IgnoreArguments();
-
-            var documentViewsList = mocks.Stub<IViewList>();
-            documentViewsList.Expect(l => l.ActiveViewChanged += null).IgnoreArguments();
-            documentViewsList.Expect(l => l.ActiveViewChanging += null).IgnoreArguments(); // Should happen during dispose
+            var viewHost = mocks.Stub<IViewHost>();
+            viewHost.Expect(vm => vm.ActiveDocumentViewChanged += null).IgnoreArguments();
+            viewHost.Expect(vm => vm.ActiveDocumentViewChanging += null).IgnoreArguments(); // Should happen during dispose
 
             var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.ToolWindowViews).Return(toolWindowsList);
-            gui.Stub(g => g.DocumentViews).Return(documentViewsList);
+            gui.Stub(g => g.ViewHost).Return(viewHost);
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -265,98 +244,6 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             }
             // Assert
             mocks.VerifyAll(); // Expect event subscription
-        }
-
-        [Test]
-        [STAThread]
-        public void GivenSubscribedToGui_WhenPropertyGridRemovedEvent_ThenPropertyGridCleared()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var toolWindowsList = mocks.Stub<IViewList>();
-            toolWindowsList.Expect(l => l.CollectionChanged += null).IgnoreArguments();
-            toolWindowsList.Stub(l => l.Contains(null)).IgnoreArguments()
-                           .Return(false);
-            toolWindowsList.Stub(l => l.Add(null, ViewLocation.Right)).IgnoreArguments();
-
-            var documentViewsList = mocks.Stub<IViewList>();
-            documentViewsList.Expect(l => l.ActiveViewChanged += null).IgnoreArguments();
-            documentViewsList.Expect(l => l.ActiveViewChanging += null).IgnoreArguments(); // Should happen during dispose
-
-            var propertyResolver = mocks.Stub<IPropertyResolver>();
-            propertyResolver.Stub(r => r.GetObjectProperties(null)).IgnoreArguments().Return(null);
-
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.ToolWindowViews).Return(toolWindowsList);
-            gui.Stub(g => g.DocumentViews).Return(documentViewsList);
-            gui.Stub(g => g.PropertyResolver).Return(propertyResolver);
-            gui.Stub(g => g.SelectionChanged += null).IgnoreArguments();
-            gui.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
-            mocks.ReplayAll();
-
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            {
-                mainWindow.SetGui(gui);
-                mainWindow.InitializeToolWindows();
-
-                // Precondition:
-                Assert.IsNotNull(mainWindow.PropertyGrid);
-
-                // Call
-                mainWindow.SubscribeToGui();
-                toolWindowsList.Raise(l => l.CollectionChanged += null,
-                                      toolWindowsList,
-                                      new NotifyCollectionChangeEventArgs(NotifyCollectionChangeAction.Remove, mainWindow.PropertyGrid, -1, 0));
-                // Assert
-                Assert.IsNull(mainWindow.PropertyGrid);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [STAThread]
-        public void GivenSubscribedToGui_WhenMessageWindowRemovedEvent_ThenMessageWindowCleared()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var toolWindowsList = mocks.Stub<IViewList>();
-            toolWindowsList.Expect(l => l.CollectionChanged += null).IgnoreArguments();
-            toolWindowsList.Stub(l => l.Contains(null)).IgnoreArguments()
-                           .Return(false);
-            toolWindowsList.Stub(l => l.Add(null, ViewLocation.Right)).IgnoreArguments();
-
-            var documentViewsList = mocks.Stub<IViewList>();
-            documentViewsList.Expect(l => l.ActiveViewChanged += null).IgnoreArguments();
-            documentViewsList.Expect(l => l.ActiveViewChanging += null).IgnoreArguments(); // Should happen during dispose
-
-            var propertyResolver = mocks.Stub<IPropertyResolver>();
-            propertyResolver.Stub(r => r.GetObjectProperties(null)).IgnoreArguments().Return(null);
-
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.ToolWindowViews).Return(toolWindowsList);
-            gui.Stub(g => g.DocumentViews).Return(documentViewsList);
-            gui.Stub(g => g.PropertyResolver).Return(propertyResolver);
-            gui.Stub(g => g.SelectionChanged += null).IgnoreArguments();
-            gui.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
-            mocks.ReplayAll();
-
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            {
-                mainWindow.SetGui(gui);
-                mainWindow.InitializeToolWindows();
-
-                // Precondition:
-                Assert.IsNotNull(mainWindow.MessageWindow);
-
-                // Call
-                mainWindow.SubscribeToGui();
-                toolWindowsList.Raise(l => l.CollectionChanged += null,
-                                      toolWindowsList,
-                                      new NotifyCollectionChangeEventArgs(NotifyCollectionChangeAction.Remove, mainWindow.MessageWindow, -1, 0));
-                // Assert
-                Assert.IsNull(mainWindow.MessageWindow);
-            }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -380,19 +267,14 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         {
             // Setup
             var mocks = new MockRepository();
-            var toolWindowsList = mocks.Stub<IViewList>();
-            toolWindowsList.Expect(l => l.CollectionChanged += null).IgnoreArguments();
-            toolWindowsList.Expect(l => l.CollectionChanged -= null).IgnoreArguments();
-
-            var documentViewsList = mocks.Stub<IViewList>();
-            documentViewsList.Expect(l => l.ActiveViewChanged += null).IgnoreArguments();
-            documentViewsList.Expect(l => l.ActiveViewChanging += null).IgnoreArguments();
-            documentViewsList.Expect(l => l.ActiveViewChanged -= null).IgnoreArguments();
-            documentViewsList.Expect(l => l.ActiveViewChanging -= null).IgnoreArguments();
+            var viewHost = mocks.Stub<IViewHost>();
+            viewHost.Expect(l => l.ActiveDocumentViewChanged += null).IgnoreArguments();
+            viewHost.Expect(l => l.ActiveDocumentViewChanging += null).IgnoreArguments();
+            viewHost.Expect(l => l.ActiveDocumentViewChanged -= null).IgnoreArguments();
+            viewHost.Expect(l => l.ActiveDocumentViewChanging -= null).IgnoreArguments();
 
             var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.ToolWindowViews).Return(toolWindowsList);
-            gui.Stub(g => g.DocumentViews).Return(documentViewsList);
+            gui.Stub(g => g.ViewHost).Return(viewHost);
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -424,7 +306,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
 
         [Test]
         [STAThread]
-        public void InitPropertiesWindowAndActivate_GuiSet_InitializePropertyGridAndMakeActive()
+        public void InitPropertiesWindowAndActivate_GuiSet_InitializePropertyGrid()
         {
             // Setup
             var selectedObject = new object();
@@ -432,18 +314,14 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             var mocks = new MockRepository();
             var selectedObjectProperties = mocks.Stub<IObjectProperties>();
 
-            var toolWindowList = mocks.Stub<IViewList>();
-            toolWindowList.Expect(l => l.Add(Arg<Gui.Forms.PropertyGridView.PropertyGridView>.Matches(grid =>
-                                                                           grid.Text == "Eigenschappen" &&
-                                                                           grid.Data == selectedObjectProperties),
-                                             Arg<ViewLocation>.Is.Equal(ViewLocation.Right | ViewLocation.Bottom)));
+            var viewHost = new AvalonDockViewHost();
 
             var propertyResolver = mocks.Stub<IPropertyResolver>();
             propertyResolver.Expect(r => r.GetObjectProperties(selectedObject))
                             .Return(selectedObjectProperties);
 
             var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.ToolWindowViews).Return(toolWindowList);
+            gui.Stub(g => g.ViewHost).Return(viewHost);
             gui.Selection = selectedObject;
             gui.Stub(g => g.PropertyResolver).Return(propertyResolver);
             gui.Stub(g => g.SelectionChanged += null).IgnoreArguments();
@@ -458,12 +336,10 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 mainWindow.InitPropertiesWindowAndActivate();
 
                 // Assert
-                Assert.IsInstanceOf<Gui.Forms.PropertyGridView.PropertyGridView>(toolWindowList.ActiveView);
-                Assert.AreEqual("Eigenschappen", toolWindowList.ActiveView.Text);
-                Assert.AreEqual(selectedObjectProperties, toolWindowList.ActiveView.Data);
-
-                Assert.AreSame(toolWindowList.ActiveView, mainWindow.PropertyGrid,
-                    "PropertyGrid should now be initialized.");
+                Assert.IsNull(viewHost.ActiveDocumentView);
+                Assert.AreSame(viewHost.ToolViews.ElementAt(0), mainWindow.PropertyGrid, "PropertyGrid instance should remain the same.");
+                Assert.AreEqual("Eigenschappen", mainWindow.PropertyGrid.Text);
+                Assert.AreEqual(selectedObjectProperties, mainWindow.PropertyGrid.Data);
             }
             mocks.VerifyAll();
         }
@@ -477,20 +353,14 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
 
             var mocks = new MockRepository();
             var selectedObjectProperties = mocks.Stub<IObjectProperties>();
-
-            var toolWindowList = mocks.Stub<IViewList>();
-            toolWindowList.Expect(l => l.Add(Arg<Gui.Forms.PropertyGridView.PropertyGridView>.Matches(grid =>
-                                                                           grid.Text == "Eigenschappen" &&
-                                                                           grid.Data == selectedObjectProperties),
-                                             Arg<ViewLocation>.Is.Equal(ViewLocation.Right | ViewLocation.Bottom)));
-
+            var viewHost = new AvalonDockViewHost();
             var propertyResolver = mocks.Stub<IPropertyResolver>();
             propertyResolver.Expect(r => r.GetObjectProperties(selectedObject))
                             .Return(selectedObjectProperties)
                             .Repeat.Twice();
 
             var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.ToolWindowViews).Return(toolWindowList);
+            gui.Stub(g => g.ViewHost).Return(viewHost);
             gui.Selection = selectedObject;
             gui.Stub(g => g.PropertyResolver).Return(propertyResolver);
             gui.Stub(g => g.SelectionChanged += null).IgnoreArguments();
@@ -500,21 +370,20 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             {
                 mainWindow.SetGui(gui);
-
                 mainWindow.InitPropertiesWindowAndActivate();
+
                 var originalPropertyGrid = mainWindow.PropertyGrid;
 
                 // Call
                 mainWindow.InitPropertiesWindowAndActivate();
 
                 // Assert
-                Assert.AreSame(originalPropertyGrid, toolWindowList.ActiveView);
-                Assert.AreSame(originalPropertyGrid, mainWindow.PropertyGrid,
-                               "PropertyGrid instance should remain the same.");
-
+                Assert.IsNull(viewHost.ActiveDocumentView);
+                Assert.AreSame(originalPropertyGrid, mainWindow.PropertyGrid, "PropertyGrid instance should remain the same.");
                 Assert.AreEqual("Eigenschappen", mainWindow.PropertyGrid.Text);
                 Assert.AreEqual(selectedObjectProperties, mainWindow.PropertyGrid.Data);
             }
+
             mocks.VerifyAll();
         }
 
@@ -535,36 +404,20 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
 
         [Test]
         [STAThread]
-        [TestCase(false)]
-        [TestCase(true)]
-        public void InitializeToolWindows_GuiSet_InitializePropertyGridAndMessageWindowAndMakeActive(bool messageWindowAddedToViewList)
+        public void InitializeToolWindows_GuiSet_InitializePropertyGridAndMessageWindowAndMakeActive()
         {
             // Setup
             var selectedObject = new object();
 
             var mocks = new MockRepository();
             var selectedObjectProperties = mocks.Stub<IObjectProperties>();
-
-            var toolWindowList = mocks.Stub<IViewList>();
-            toolWindowList.Expect(l => l.Add(Arg<Gui.Forms.PropertyGridView.PropertyGridView>.Matches(grid =>
-                                                                           grid.Text == "Eigenschappen" &&
-                                                                           grid.Data == selectedObjectProperties),
-                                             Arg<ViewLocation>.Is.Equal(ViewLocation.Right | ViewLocation.Bottom)));
-
-            toolWindowList.Stub(l => l.Contains(Arg<Gui.Forms.MessageWindow.MessageWindow>.Matches(messages => messages.Text == "Berichten")))
-                          .Return(messageWindowAddedToViewList);
-            if (!messageWindowAddedToViewList)
-            {
-                toolWindowList.Expect(l => l.Add(Arg<Gui.Forms.MessageWindow.MessageWindow>.Matches(messages => messages.Text == "Berichten"),
-                                                 Arg<ViewLocation>.Is.Equal(ViewLocation.Bottom)));
-            }
-
+            var viewHost = new AvalonDockViewHost();
             var propertyResolver = mocks.Stub<IPropertyResolver>();
             propertyResolver.Expect(r => r.GetObjectProperties(selectedObject))
                             .Return(selectedObjectProperties);
 
             var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.ToolWindowViews).Return(toolWindowList);
+            gui.Stub(g => g.ViewHost).Return(viewHost);
             gui.Selection = selectedObject;
             gui.Stub(g => g.PropertyResolver).Return(propertyResolver);
             gui.Stub(g => g.SelectionChanged += null).IgnoreArguments();
@@ -586,8 +439,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 Assert.IsInstanceOf<Gui.Forms.MessageWindow.MessageWindow>(mainWindow.MessageWindow);
                 Assert.AreEqual("Berichten", mainWindow.MessageWindow.Text);
 
-                Assert.AreSame(mainWindow.PropertyGrid, toolWindowList.ActiveView,
-                    "PropertyGrid should be active view.");
+                Assert.IsNull(viewHost.ActiveDocumentView);
             }
             mocks.VerifyAll();
         }
@@ -699,7 +551,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 mainWindow.SetGui(gui);
 
                 // Call
-                mainWindow.ShowStartPage(true);
+                mainWindow.ShowStartPage();
             }
             // Assert
             mocks.VerifyAll(); // Assert that expectancies are met

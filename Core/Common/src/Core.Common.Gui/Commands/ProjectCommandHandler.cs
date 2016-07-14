@@ -41,7 +41,7 @@ namespace Core.Common.Gui.Commands
         private readonly IProjectOwner projectOwner;
         private readonly IWin32Window dialogOwner;
         private readonly IApplicationSelection applicationSelection;
-        private readonly IDocumentViewController documentViewController;
+        private readonly IViewController viewController;
         private readonly IEnumerable<DataItemInfo> dataItemInfos;
 
         /// <summary>
@@ -51,16 +51,16 @@ namespace Core.Common.Gui.Commands
         /// <param name="dialogParent">The window on which dialogs should be shown on top.</param>
         /// <param name="dataItemInfos">An enumeration of <see cref="DataItemInfo"/>.</param>
         /// <param name="applicationSelection">The application selection mechanism.</param>
-        /// <param name="documentViewController">The controller for Document Views.</param>
+        /// <param name="viewController">The controller for views.</param>
         public ProjectCommandHandler(IProjectOwner projectOwner, IWin32Window dialogParent,
                                      IEnumerable<DataItemInfo> dataItemInfos, IApplicationSelection applicationSelection,
-                                     IDocumentViewController documentViewController)
+                                     IViewController viewController)
         {
             this.projectOwner = projectOwner;
             dialogOwner = dialogParent;
             this.dataItemInfos = dataItemInfos;
             this.applicationSelection = applicationSelection;
-            this.documentViewController = documentViewController;
+            this.viewController = viewController;
         }
 
         public void AddNewItem(object parent)
@@ -80,7 +80,7 @@ namespace Core.Common.Gui.Commands
                         AddItemToProject(newItem);
 
                         applicationSelection.Selection = newItem;
-                        documentViewController.DocumentViewsResolver.OpenViewForData(applicationSelection.Selection);
+                        viewController.DocumentViewController.OpenViewForData(applicationSelection.Selection);
                     }
                 }
             }

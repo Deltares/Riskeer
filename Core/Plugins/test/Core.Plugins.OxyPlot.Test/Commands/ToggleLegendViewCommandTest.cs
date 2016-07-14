@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Controls.Commands;
+using Core.Common.Controls.Views;
 using Core.Common.Gui;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Plugins.OxyPlot.Commands;
 using Core.Plugins.OxyPlot.Legend;
 using NUnit.Framework;
@@ -58,13 +61,32 @@ namespace Core.Plugins.OxyPlot.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var plugin = mocks.StrictMock<IToolViewController>();
-            plugin.Expect(p => p.IsToolWindowOpen<ChartLegendView>()).Return(open);
+            var viewController = mocks.StrictMock<IViewController>();
+
+            if (open)
+            {
+                var toolViewList = new List<IView>();
+                var viewHost = mocks.Stub<IViewHost>();
+
+                viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
+                viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
+                viewHost.Expect(vm => vm.AddToolView(Arg<ChartLegendView>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
+                {
+                    toolViewList.Add(invocation.Arguments[0] as ChartLegendView);
+                });
+
+                viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
+            }
 
             mocks.ReplayAll();
 
-            var controller = new ChartLegendController(plugin);
+            var controller = new ChartLegendController(viewController);
             var command = new ToggleLegendViewCommand(controller);
+
+            if (open)
+            {
+                controller.ToggleView();
+            }
 
             // Call
             var result = command.Checked;
@@ -79,21 +101,26 @@ namespace Core.Plugins.OxyPlot.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var plugin = mocks.StrictMock<IToolViewController>();
+            var viewController = mocks.StrictMock<IViewController>();
+            var viewHost = mocks.Stub<IViewHost>();
+            var toolViewList = new List<IView>();
 
-            // Open first
-            using (mocks.Ordered())
+            viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
+            viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
+
+            // Open
+            viewHost.Expect(vm => vm.AddToolView(Arg<ChartLegendView>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
             {
-                plugin.Expect(p => p.IsToolWindowOpen<ChartLegendView>()).Return(false);
-                plugin.Expect(p => p.OpenToolView(Arg<ChartLegendView>.Matches(v => true)));
+                toolViewList.Add(invocation.Arguments[0] as ChartLegendView);
+            });
+            viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
 
-                // Then close
-                plugin.Expect(p => p.IsToolWindowOpen<ChartLegendView>()).Return(true);
-                plugin.Expect(p => p.CloseToolView(Arg<ChartLegendView>.Matches(v => true)));
-            }
+            // Close
+            viewHost.Expect(vm => vm.Remove(Arg<ChartLegendView>.Matches(v => true)));
+
             mocks.ReplayAll();
 
-            var controller = new ChartLegendController(plugin);
+            var controller = new ChartLegendController(viewController);
             var command = new ToggleLegendViewCommand(controller);
 
             // Call

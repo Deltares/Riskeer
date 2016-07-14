@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2016. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -19,29 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Windows.Forms;
+using Core.Common.Gui.Forms.ViewHost;
 
-using Core.Common.Controls.Views;
-
-namespace Core.Common.Gui.Test.Forms.ViewManager
+namespace Core.Common.Gui
 {
-    public partial class ToolWindowTestControl : UserControl, IView
+    /// <summary>
+    /// Interface for controller that controls views in the application.
+    /// </summary>
+    public interface IViewController
     {
-        public ToolWindowTestControl()
-        {
-            Initialize();
-        }
+        /// <summary>
+        /// Gets the view host.
+        /// </summary>
+        IViewHost ViewHost { get; }
 
-        #region IView Members
-
-        public object Data { get; set; }
-
-        #endregion
-
-        private void Initialize()
-        {
-            InitializeComponent();
-            propertyGrid1.SelectedObject = propertyGrid1;
-        }
+        /// <summary>
+        /// Gets the document view controller.
+        /// </summary>
+        IDocumentViewController DocumentViewController { get; }
     }
 }

@@ -21,56 +21,52 @@
 
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Selection;
+using Core.Plugins.ProjectExplorer.Properties;
 
 namespace Core.Plugins.ProjectExplorer
 {
     /// <summary>
     /// This class is responsible for showing and hiding a <see cref="ProjectExplorer"/>.
     /// </summary>
-    public class ProjectExplorerViewController : IDisposable
+    public class ProjectExplorerViewController
     {
-        private readonly IToolViewController toolViewController;
+        private readonly IViewController viewController;
         private readonly IEnumerable<TreeNodeInfo> treeNodeInfos;
         private readonly IApplicationSelection applicationSelection;
         private readonly IViewCommands viewCommands;
-        private readonly IDocumentViewController documentViewController;
-        private ProjectExplorer projectExplorer;
 
         /// <summary>
         /// Fired when the project explorer view has been opened.
         /// </summary>
         public EventHandler<EventArgs> OnOpenView;
 
+        private ProjectExplorer projectExplorer;
+
         /// <summary>
         /// Creates a new instance of <see cref="ProjectExplorerViewController"/>.
         /// </summary>
-        /// <param name="documentViewController">The provider of document view related commands.</param>
         /// <param name="viewCommands">The provider of view related commands.</param>
         /// <param name="applicationSelection">The owner of the selection in the application.</param>
-        /// <param name="toolViewController">The provider of tool view related commands.</param>
+        /// <param name="viewController">The provider of view related commands.</param>
         /// <param name="treeNodeInfos">The <see cref="IEnumerable{T}"/> of <see cref="TreeNodeInfo"/> which 
         /// are used to draw nodes.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="documentViewController"/> is <c>null</c>,</item>
         /// <item><paramref name="viewCommands"/> is <c>null</c>,</item>
         /// <item><paramref name="applicationSelection"/> is <c>null</c>,</item>
-        /// <item><paramref name="toolViewController"/> is <c>null</c>,</item>
+        /// <item><paramref name="viewController"/> is <c>null</c>,</item>
         /// <item><paramref name="treeNodeInfos"/> is <c>null</c></item>
         /// </list>
         /// </exception>
-        public ProjectExplorerViewController(IDocumentViewController documentViewController, IViewCommands viewCommands, IApplicationSelection applicationSelection, IToolViewController toolViewController, IEnumerable<TreeNodeInfo> treeNodeInfos)
+        public ProjectExplorerViewController(IViewCommands viewCommands, IApplicationSelection applicationSelection, IViewController viewController, IEnumerable<TreeNodeInfo> treeNodeInfos)
         {
-            if (documentViewController == null)
-            {
-                throw new ArgumentNullException("documentViewController");
-            }
             if (viewCommands == null)
             {
                 throw new ArgumentNullException("viewCommands");
@@ -79,20 +75,30 @@ namespace Core.Plugins.ProjectExplorer
             {
                 throw new ArgumentNullException("applicationSelection");
             }
-            if (toolViewController == null)
+            if (viewController == null)
             {
-                throw new ArgumentNullException("toolViewController");
+                throw new ArgumentNullException("viewController");
             }
             if (treeNodeInfos == null)
             {
                 throw new ArgumentNullException("treeNodeInfos");
             }
 
-            this.toolViewController = toolViewController;
+            this.viewController = viewController;
             this.applicationSelection = applicationSelection;
             this.treeNodeInfos = treeNodeInfos;
             this.viewCommands = viewCommands;
-            this.documentViewController = documentViewController;
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the <see cref="ProjectExplorer"/> is visible.
+        /// </summary>
+        public bool IsProjectExplorerOpen
+        {
+            get
+            {
+                return projectExplorer != null && viewController.ViewHost.ToolViews.Contains(projectExplorer);
+            }
         }
 
         /// <summary>
@@ -100,41 +106,14 @@ namespace Core.Plugins.ProjectExplorer
         /// </summary>
         public void ToggleView()
         {
-            if (IsViewActive())
+            if (IsProjectExplorerOpen)
             {
-                CloseView();
+                CloseProjectExplorer();
             }
             else
             {
-                OpenView();
+                OpenProjectExplorer();
             }
-        }
-
-        /// <summary>
-        /// Makes the <see cref="ProjectExplorer"/> visible.
-        /// </summary>
-        public void OpenView()
-        {
-            if (!IsViewActive())
-            {
-                projectExplorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos);
-                projectExplorer.TreeViewControl.NodeUpdated += (s, e) => documentViewController.UpdateToolTips();
-
-                toolViewController.OpenToolView(projectExplorer);
-
-                if (OnOpenView != null)
-                {
-                    OnOpenView(this, EventArgs.Empty);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Returns a value indicating whether the <see cref="ProjectExplorer"/> is visible.
-        /// </summary>
-        public bool IsViewActive()
-        {
-            return toolViewController.IsToolWindowOpen<ProjectExplorer>();
         }
 
         /// <summary>
@@ -143,28 +122,29 @@ namespace Core.Plugins.ProjectExplorer
         /// <param name="project">The <see cref="Project"/> to set.</param>
         public void Update(Project project)
         {
-            if (IsViewActive())
+            if (IsProjectExplorerOpen)
             {
                 projectExplorer.Data = project;
             }
         }
 
-        public void Dispose()
+        private void OpenProjectExplorer()
         {
-            CloseView();
+            projectExplorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos);
+
+            viewController.ViewHost.AddToolView(projectExplorer, ToolViewLocation.Left);
+            viewController.ViewHost.SetImage(projectExplorer, Resources.ProjectExplorerIcon);
+
+            if (OnOpenView != null)
+            {
+                OnOpenView(this, EventArgs.Empty);
+            }
         }
 
-        private void CloseView()
+        private void CloseProjectExplorer()
         {
-            if (projectExplorer != null && IsViewActive())
-            {
-                toolViewController.CloseToolView(projectExplorer);
-                if (!projectExplorer.IsDisposed)
-                {
-                    projectExplorer.Dispose();
-                }
-                projectExplorer = null;
-            }
+            viewController.ViewHost.Remove(projectExplorer);
+            projectExplorer = null;
         }
     }
 }

@@ -96,26 +96,6 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         }
 
         [Test]
-        public void Dispose_Always_DataSetToNull()
-        {
-            // Setup
-            var legendView = new ChartLegendView
-            {
-                Data = new ChartDataCollection(new List<ChartData>(), "test data")
-            };
-
-            var treeViewControl = TypeUtils.GetField<TreeViewControl>(legendView, "treeViewControl");
-
-            // Call
-            legendView.Dispose();
-
-            // Assert
-            Assert.IsNull(legendView.Data);
-            Assert.IsNull(treeViewControl.Data);
-            Assert.IsTrue(treeViewControl.IsDisposed);
-        }
-
-        [Test]
         public void GivenChartDataContainingCollection_WhenDragDroppingFromCollectionToRoot_ThenDataMoved()
         {
             // Given

@@ -20,11 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Components.Gis.Data;
+using Core.Plugins.DotSpatial.Properties;
 
 namespace Core.Plugins.DotSpatial.Legend
 {
@@ -33,25 +36,29 @@ namespace Core.Plugins.DotSpatial.Legend
     /// </summary>
     public class MapLegendController
     {
-        private readonly IToolViewController toolViewController;
+        private readonly IViewController viewController;
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
         private readonly IWin32Window parentWindow;
 
+        /// <summary>
+        /// Fired when the map legend has been opened.
+        /// </summary>
         public EventHandler<EventArgs> OnOpenLegend;
+
         private IView legendView;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapLegendController"/>.
         /// </summary>
-        /// <param name="toolViewController">The <see cref="IToolViewController"/> to invoke actions upon.</param>
+        /// <param name="viewController">The <see cref="IViewController"/> to invoke actions upon.</param>
         /// <param name="contextMenuBuilderProvider">The <see cref="IContextMenuBuilderProvider"/> to create context menus.</param>
         /// <param name="parentWindow">The <see cref="IWin32Window"/> to show dialogs.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="toolViewController"/> or <paramref name="contextMenuBuilderProvider"/> is <c>null</c>.</exception>
-        public MapLegendController(IToolViewController toolViewController, IContextMenuBuilderProvider contextMenuBuilderProvider, IWin32Window parentWindow)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="viewController"/> or <paramref name="contextMenuBuilderProvider"/> is <c>null</c>.</exception>
+        public MapLegendController(IViewController viewController, IContextMenuBuilderProvider contextMenuBuilderProvider, IWin32Window parentWindow)
         {
-            if (toolViewController == null)
+            if (viewController == null)
             {
-                throw new ArgumentNullException("toolViewController", "Cannot create a MapLegendController when the tool view controller is null.");
+                throw new ArgumentNullException("viewController", "Cannot create a MapLegendController when the view controller is null.");
             }
             if (contextMenuBuilderProvider == null)
             {
@@ -61,17 +68,28 @@ namespace Core.Plugins.DotSpatial.Legend
             {
                 throw new ArgumentNullException("parentWindow", "Cannot create a MapLegendController when the parent window is null");
             }
-            this.toolViewController = toolViewController;
+            this.viewController = viewController;
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
             this.parentWindow = parentWindow;
         }
 
         /// <summary>
-        /// Toggles the <see cref="MapLegendView"/>.
+        /// Gets a value indicating whether the <see cref="MapLegendView"/> is visible.
         /// </summary>
-        public void ToggleLegend()
+        public bool IsMapLegendViewOpen
         {
-            if (IsLegendViewOpen())
+            get
+            {
+                return legendView != null && viewController.ViewHost.ToolViews.Contains(legendView);
+            }
+        }
+
+        /// <summary>
+        /// Toggles the visibility of the <see cref="MapLegendView"/>.
+        /// </summary>
+        public void ToggleView()
+        {
+            if (IsMapLegendViewOpen)
             {
                 CloseLegendView();
             }
@@ -82,34 +100,28 @@ namespace Core.Plugins.DotSpatial.Legend
         }
 
         /// <summary>
-        /// Checks whether a <see cref="MapLegendView"/> is open.
-        /// </summary>
-        /// <returns><c>true</c> if the <see cref="MapLegendView"/> is open, <c>false</c> otherwise.</returns>
-        public bool IsLegendViewOpen()
-        {
-            return toolViewController.IsToolWindowOpen<MapLegendView>();
-        }
-
-        /// <summary>
         /// Updates the data for the <see cref="MapLegendView"/> if it is open.
         /// </summary>
         /// <param name="data">The <see cref="MapData"/> to show. If <c>null</c> the data 
         /// will be cleared.</param>
         public void Update(MapData data)
         {
-            if (IsLegendViewOpen())
+            if (IsMapLegendViewOpen)
             {
                 legendView.Data = data;
             }
         }
 
         /// <summary>
-        /// Open the <see cref="MapLegendView"/>.
+        /// Opens the <see cref="MapLegendView"/>.
         /// </summary>
         private void OpenLegendView()
         {
             legendView = new MapLegendView(contextMenuBuilderProvider, parentWindow);
-            toolViewController.OpenToolView(legendView);
+
+            viewController.ViewHost.AddToolView(legendView, ToolViewLocation.Left);
+            viewController.ViewHost.SetImage(legendView, Resources.MapIcon);
+
             if (OnOpenLegend != null)
             {
                 OnOpenLegend(this, EventArgs.Empty);
@@ -121,8 +133,7 @@ namespace Core.Plugins.DotSpatial.Legend
         /// </summary>
         private void CloseLegendView()
         {
-            toolViewController.CloseToolView(legendView);
-            legendView.Dispose();
+            viewController.ViewHost.Remove(legendView);
             legendView = null;
         }
     }

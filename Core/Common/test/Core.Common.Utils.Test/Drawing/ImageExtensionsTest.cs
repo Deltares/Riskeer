@@ -21,7 +21,8 @@
 
 using System.Drawing;
 using System.Drawing.Imaging;
-
+using System.IO;
+using System.Windows.Media.Imaging;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Drawing;
 using Core.Common.Utils.Test.Properties;
@@ -72,6 +73,27 @@ namespace Core.Common.Utils.Test.Drawing
 
                 // 'target' should be unchanged! A new image should have been created.
                 TestHelper.AssertImagesAreEqual(Resources.TestImage2x2, target);
+            }
+        }
+
+        [Test]
+        public void AsBitmapImage_ImageFromResources_BitmapImageCreated()
+        {
+            var bitmapImage = Resources.TestImage2x2.AsBitmapImage();
+
+            TestHelper.AssertImagesAreEqual(Resources.TestImage2x2, ConvertBitmapSourceToBitmap(bitmapImage));
+        }
+
+        private static Bitmap ConvertBitmapSourceToBitmap(BitmapSource bitmapImage)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                var bmpBitmapEncoder = new BmpBitmapEncoder();
+
+                bmpBitmapEncoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+                bmpBitmapEncoder.Save(memoryStream);
+
+                return new Bitmap(memoryStream);
             }
         }
     }

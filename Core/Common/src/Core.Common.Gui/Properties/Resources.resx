@@ -124,9 +124,6 @@
   <data name="SplashScreenBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SplashScreenBackground.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MainWindow_ShowStartPage_Adding_welcome_page_" xml:space="preserve">
-    <value>Toevoegen Startpagina...</value>
-  </data>
   <data name="brick_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/brick_add.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -148,12 +145,6 @@
   <data name="PortableSettingsProvider_SetPropertyValues_Error_storing_settings_to_0_" xml:space="preserve">
     <value>Fout bij het opslaan van de instellingen in {0}.</value>
   </data>
-  <data name="ViewList_Close_View_is_being_closed_while_it_is_being_opened" xml:space="preserve">
-    <value>Documentvenster wordt gesloten tijdens het openen.</value>
-  </data>
-  <data name="ViewList_DockingManagerViewBarClosing_Closing_view_0_" xml:space="preserve">
-    <value>Documentvenster {0} wordt gesloten.</value>
-  </data>
   <data name="exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exclamation.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -166,26 +157,17 @@
   <data name="ExportImportCommandHandler_ImportOn_Unable_to_import_on_0_" xml:space="preserve">
     <value>Kan niet importeren naar {0}.</value>
   </data>
-  <data name="AvalonDockDockingManager_Add_View_was_already_added_activate_it_instead_of_add" xml:space="preserve">
-    <value>Documentvenster is al toegevoegd. Activeer de weergave in plaats van het toe te voegen.</value>
-  </data>
   <data name="openfolderHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\openfolderHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Ribbon_Command_Save" xml:space="preserve">
     <value>Opslaan</value>
   </data>
-  <data name="GuiCore_InitializeWindows_Creating_default_tool_windows" xml:space="preserve">
-    <value>Standaardschermen aan het maken...</value>
-  </data>
   <data name="GuiCore_ActivatePlugins_Exception_during_plugin_gui_deactivation" xml:space="preserve">
     <value>Kritieke fout opgetreden tijdens deactivering van de grafische interface plugin.</value>
   </data>
   <data name="GuiCore_Run_Creating_new_project" xml:space="preserve">
     <value>Nieuw project aanmaken...</value>
-  </data>
-  <data name="GuiCore_Run_Starting_application" xml:space="preserve">
-    <value>Starten van de toepassing...</value>
   </data>
   <data name="Messages" xml:space="preserve">
     <value>Berichten</value>
@@ -223,16 +205,10 @@
   <data name="StorageCommandHandler_OpenExistingProject_Opening_existing_project_cancelled" xml:space="preserve">
     <value>Openen van bestaand Ringtoetsproject geannuleerd.</value>
   </data>
-  <data name="GuiCore_InitToolWindows_Creating_document_window_manager" xml:space="preserve">
-    <value>Schermmanager voor documenten aan het maken...</value>
-  </data>
-  <data name="ViewSelectionMouseController_OnViewSelectionMouseDown_Sender_must_be_non_null_and_of_type_Control" xml:space="preserve">
-    <value>Argument 'Sender' moet een instantie van het type 'Control' zijn</value>
-  </data>
   <data name="GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_" xml:space="preserve">
     <value>Geen enkele 'Importer' is beschikbaar voor dit element ({0}).</value>
   </data>
-  <data name="ViewResolver_OpenViewForData_No_view_registered_for_0_" xml:space="preserve">
+  <data name="DocumentViewController_OpenViewForData_No_view_registered_for_0_" xml:space="preserve">
     <value>Geen documentvenster geregistreerd voor: {0}.</value>
   </data>
   <data name="CopyHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -247,9 +223,6 @@
   <data name="map" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\map.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="GuiCore_InitToolWindows_Finished_InitToolWindows" xml:space="preserve">
-    <value>Maken van standaardschermen beëindigd</value>
-  </data>
   <data name="Ribbon_Command_Save_As" xml:space="preserve">
     <value>Opslaan Als</value>
   </data>
@@ -261,9 +234,6 @@
   </data>
   <data name="App_Starting_Ringtoets" xml:space="preserve">
     <value>Ringtoets wordt gestart...</value>
-  </data>
-  <data name="MainWindow_OnLoadLayout_Could_not_restore_the_ribbon_state_The_settings_are_invalid_and_will_be_reset_to_the_default_state_" xml:space="preserve">
-    <value>Ribbon kon niet worden hersteld. De instellingen zijn ongeldig en zullen worden teruggezet naar de standaardinstellingen.</value>
   </data>
   <data name="startpage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\startpage.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -292,17 +262,11 @@
   <data name="GuiCore_Run_Started_in_0_f2_sec" xml:space="preserve">
     <value>Gestart in {0:f2} seconden.</value>
   </data>
-  <data name="GuiCore_InitToolWindows_Creating_tool_window_manager" xml:space="preserve">
-    <value>Schermmanager aan het maken...</value>
-  </data>
   <data name="application_import_blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\application_import_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="application_import_blue1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\application_import_blue.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GuiCore_Run_Initializing_graphical_user_interface" xml:space="preserve">
-    <value>Grafische gebruikersinterface initialiseren...</value>
   </data>
   <data name="Ribbon_Command_Open" xml:space="preserve">
     <value>Openen</value>
@@ -331,38 +295,20 @@
   <data name="SelectItemDialog_buttonOk_Click_Error" xml:space="preserve">
     <value>Fout</value>
   </data>
-  <data name="MainWindow_UpdateMainWindowRibbonElements_When_this_option_is_turned_on_the_default_layout_will_be_used_when_restarting_Ringtoets" xml:space="preserve">
-    <value>Wanneer deze optie is aangezet, zal de standaard opmaak worden gebruikt bij het opnieuw starten van Ringtoets.</value>
-  </data>
-  <data name="GuiCore_InitializeWindows_All_windows_are_created" xml:space="preserve">
-    <value>Alle vensters zijn gemaakt.</value>
-  </data>
   <data name="GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_DataType_0_file_to_import_from" xml:space="preserve">
     <value>Selecteer een bestand met {0} om eruit te importeren...</value>
   </data>
   <data name="StorageCommandHandler_NewProject_Creating_new_project" xml:space="preserve">
     <value>Openen van nieuw Ringtoetsproject.</value>
   </data>
-  <data name="MainWindow_MainWindow_Main_window_created_" xml:space="preserve">
-    <value>Hoofdschermvenster is aangemaakt.</value>
-  </data>
   <data name="App_ParseArguments_Run_activity_or_model_available_in_the_project_" xml:space="preserve">
     <value>Berekenen activiteit of model is beschikbaar in het project.</value>
-  </data>
-  <data name="MainWindow_OnLoadLayout_Could_not_load_the_requested_dock_layout_The_settings_are_invalid_and_will_be_reset_to_the_default_state_" xml:space="preserve">
-    <value>Kon de gevraagde 'dock' opmaak niet laden. De instellingen zijn ongeldig en zullen teruggezet worden naar de standaardinstellingen.</value>
-  </data>
-  <data name="ViewList_ActivateView_Item_not_found_in_list_of_views" xml:space="preserve">
-    <value>Documentvenster is niet gevonden tussen alle mogelijke documentvensters.</value>
   </data>
   <data name="ApplicationFeatureCommandHandler_OpenLogFileExternal_Unable_to_open_log_file" xml:space="preserve">
     <value>Logbestand kan niet worden geopend.</value>
   </data>
   <data name="SelectItemDialog_buttonOk_Click_Please_select_an_item" xml:space="preserve">
     <value>Selecteer een type.</value>
-  </data>
-  <data name="MainWindow_UpdateMainWindowRibbonElements_Reset_layout_restart" xml:space="preserve">
-    <value>Opmaak resetten na opnieuw opstarten</value>
   </data>
   <data name="MessageWindowLogAppender_AppendToMessageWindow_Check_log_file_for_more_information_Home_Show_Log" xml:space="preserve">
     <value>Controleer logbestand voor meer informatie ("Bestand"-&gt;"Help"-&gt;"Log tonen").</value>
@@ -394,9 +340,6 @@
   <data name="Ribbon_Command_Close" xml:space="preserve">
     <value>Afsluiten</value>
   </data>
-  <data name="AvalonDockDockingManager_AddToolView_View_location_0_is_not_implemented_yet" xml:space="preserve">
-    <value>Locatie {0} is niet geldig voor het documentvenster.</value>
-  </data>
   <data name="GuiCore_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace" xml:space="preserve">
     <value>Slechts één instantie van de Ringtoets grafische interface is toegestaan per proces. Zorg ervoor dat de vorige instantie correct opgeruimd is. 'Stack trace':</value>
   </data>
@@ -408,9 +351,6 @@
   </data>
   <data name="GuiImportHandler_GetSupportedImporterForTargetType_Data_Import" xml:space="preserve">
     <value>Importeren gegevens</value>
-  </data>
-  <data name="Ribbon_Reset_Layout_After_Restart" xml:space="preserve">
-    <value>Opmaak resetten na opnieuw opstarten</value>
   </data>
   <data name="icon_clear_all_messages" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon_clear_all_messages.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -550,30 +490,6 @@
   <data name="ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories" xml:space="preserve">
     <value>Kan geen instanties maken van de benodigde objecten.</value>
   </data>
-  <data name="Light" xml:space="preserve">
-    <value>Licht</value>
-    <comment>Used for displaying ColorTheme.Light in combo box.</comment>
-  </data>
-  <data name="Dark" xml:space="preserve">
-    <value>Donker</value>
-    <comment>Used for displaying ColorTheme.Dark in combo box.</comment>
-  </data>
-  <data name="Metro" xml:space="preserve">
-    <value>Metro</value>
-    <comment>Used for displaying ColorTheme.Metro in combo box.</comment>
-  </data>
-  <data name="Aero" xml:space="preserve">
-    <value>Aero</value>
-    <comment>Used for displaying ColorTheme.Aero in combo box.</comment>
-  </data>
-  <data name="VS2010" xml:space="preserve">
-    <value>VS2010</value>
-    <comment>Used for displaying ColorTheme.VS2010 in combo box.</comment>
-  </data>
-  <data name="Generic" xml:space="preserve">
-    <value>Generiek</value>
-    <comment>Used for displaying ColorTheme.Generic in combo box.</comment>
-  </data>
   <data name="GuiImportHandler_GetSupportedImporterForTargetType_Error" xml:space="preserve">
     <value>Fout</value>
   </data>
@@ -672,9 +588,6 @@
   </data>
   <data name="SplashScreen_SupportTitle" xml:space="preserve">
     <value>Heeft u vragen of opmerkingen, neem dan contact op met Helpdesk Water.</value>
-  </data>
-  <data name="GuiCore_InitializeWindows_Initializing_windows" xml:space="preserve">
-    <value>Schermen initialiseren...</value>
   </data>
   <data name="GuiCore_UpdateTitle_Unknown" xml:space="preserve">
     <value>Onbekend</value>

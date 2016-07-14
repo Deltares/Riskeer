@@ -63,12 +63,10 @@ namespace Core.Common.Gui.Test.Commands
             var mainWindowController = mocks.Stub<IMainWindowController>();
             mainWindowController.Expect(c => c.RefreshGui());
 
-            var toolViewController = mocks.Stub<IToolViewController>();
-
             mocks.ReplayAll();
 
             using (var storageCommandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
-                                                                         mainWindowController, toolViewController, viewCommands))
+                                                                         mainWindowController, viewCommands))
             {
                 // Call
                 Action call = () => storageCommandHandler.CreateNewProject();
@@ -115,12 +113,10 @@ namespace Core.Common.Gui.Test.Commands
             var mainWindowController = mocks.Stub<IMainWindowController>();
             mainWindowController.Expect(c => c.RefreshGui()).Repeat.AtLeastOnce();
 
-            var toolViewController = mocks.Stub<IToolViewController>();
-
             mocks.ReplayAll();
 
             using (var storageCommandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
-                                                                         mainWindowController, toolViewController, viewCommands))
+                                                                         mainWindowController, viewCommands))
             {
                 // Call
                 Action call = () => storageCommandHandler.CreateNewProject();
@@ -149,7 +145,6 @@ namespace Core.Common.Gui.Test.Commands
             var projectStorage = mocks.StrictMock<IStoreProject>();
             var applicationSelection = mocks.StrictMock<IApplicationSelection>();
             var mainWindowController = mocks.StrictMock<IMainWindowController>();
-            var toolViewController = mocks.StrictMock<IToolViewController>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var projectOwner = mocks.StrictMock<IProjectOwner>();
             projectOwner.Expect(po => po.Project).Return(null);
@@ -160,7 +155,7 @@ namespace Core.Common.Gui.Test.Commands
             mocks.ReplayAll();
 
             using (var commandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
-                                                                  mainWindowController, toolViewController, viewCommands))
+                                                                  mainWindowController, viewCommands))
             {
                 // Call
                 var result = commandHandler.SaveProject();
@@ -185,7 +180,6 @@ namespace Core.Common.Gui.Test.Commands
                            Throw(new StorageException(exceptionMessage, new Exception("l33t h4xor!")));
             var applicationSelection = mocks.StrictMock<IApplicationSelection>();
             var mainWindowController = mocks.StrictMock<IMainWindowController>();
-            var toolViewController = mocks.StrictMock<IToolViewController>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Project = project;
@@ -197,7 +191,7 @@ namespace Core.Common.Gui.Test.Commands
             mocks.ReplayAll();
 
             using (var commandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
-                                                                  mainWindowController, toolViewController, viewCommands))
+                                                                  mainWindowController, viewCommands))
             {
                 // Call
                 bool result = true;
@@ -227,7 +221,6 @@ namespace Core.Common.Gui.Test.Commands
                           .Return(42);
             var applicationSelection = mocks.StrictMock<IApplicationSelection>();
             var mainWindowController = mocks.StrictMock<IMainWindowController>();
-            var toolViewController = mocks.StrictMock<IToolViewController>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Project = project;
@@ -239,7 +232,7 @@ namespace Core.Common.Gui.Test.Commands
             mocks.ReplayAll();
 
             using (var commandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
-                                                                  mainWindowController, toolViewController, viewCommands))
+                                                                  mainWindowController, viewCommands))
             {
                 // Call
                 bool result = false;
@@ -266,13 +259,12 @@ namespace Core.Common.Gui.Test.Commands
                           .Throw(new StorageException(goodErrorMessageText, new Exception("H@X!")));
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             var mainWindowController = mocks.Stub<IMainWindowController>();
-            var toolViewController = mocks.Stub<IToolViewController>();
             var viewCommands = mocks.Stub<IViewCommands>();
             var projectOwner = mocks.Stub<IProjectOwner>();
             mocks.ReplayAll();
 
             using (var commandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
-                                                                  mainWindowController, toolViewController, viewCommands))
+                                                                  mainWindowController, viewCommands))
             {
                 // Call
                 bool result = true;
@@ -302,13 +294,12 @@ namespace Core.Common.Gui.Test.Commands
                           .Return(null);
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             var mainWindowController = mocks.Stub<IMainWindowController>();
-            var toolViewController = mocks.Stub<IToolViewController>();
             var viewCommands = mocks.Stub<IViewCommands>();
             var projectOwner = mocks.Stub<IProjectOwner>();
             mocks.ReplayAll();
 
             using (var commandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
-                                                                  mainWindowController, toolViewController, viewCommands))
+                                                                  mainWindowController, viewCommands))
             {
                 // Call
                 bool result = true;
@@ -346,7 +337,6 @@ namespace Core.Common.Gui.Test.Commands
             var mainWindowController = mocks.Stub<IMainWindowController>();
             mainWindowController.Expect(c => c.RefreshGui());
 
-            var toolViewController = mocks.StrictMock<IToolViewController>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.ProjectOpened += null).IgnoreArguments();
@@ -358,7 +348,7 @@ namespace Core.Common.Gui.Test.Commands
             loadedProject.Attach(observer);
 
             using (var commandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
-                                                                  mainWindowController, toolViewController, viewCommands))
+                                                                  mainWindowController, viewCommands))
             {
                 // Call
                 bool result = false;
@@ -402,7 +392,6 @@ namespace Core.Common.Gui.Test.Commands
             var mainWindowController = mocks.Stub<IMainWindowController>();
             mainWindowController.Expect(c => c.RefreshGui()).Repeat.Twice();
 
-            var toolViewController = mocks.StrictMock<IToolViewController>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(vc => vc.RemoveAllViewsForItem(originalProject));
 
@@ -418,7 +407,7 @@ namespace Core.Common.Gui.Test.Commands
             loadedProject.Attach(observer);
 
             using (var commandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
-                                                                  mainWindowController, toolViewController, viewCommands))
+                                                                  mainWindowController, viewCommands))
             {
                 // Call
                 bool result = false;
@@ -446,13 +435,12 @@ namespace Core.Common.Gui.Test.Commands
             var projectStorage = mocks.Stub<IStoreProject>();
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             var mainWindowController = mocks.Stub<IMainWindowController>();
-            var toolViewController = mocks.StrictMock<IToolViewController>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var projectOwner = mocks.Stub<IProjectOwner>();
             mocks.ReplayAll();
 
             using (var commandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
-                                                                  mainWindowController, toolViewController, viewCommands))
+                                                                  mainWindowController, viewCommands))
             {
                 // Call
                 bool result = commandHandler.ContinueIfHasChanges();
@@ -470,7 +458,6 @@ namespace Core.Common.Gui.Test.Commands
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             var mainWindowController = mocks.Stub<IMainWindowController>();
-            var toolViewController = mocks.Stub<IToolViewController>();
             var projectMock = mocks.StrictMock<Project>();
             var projectStorageMock = mocks.Stub<IStoreProject>();
             var projectOwnerMock = mocks.Stub<IProjectOwner>();
@@ -478,7 +465,7 @@ namespace Core.Common.Gui.Test.Commands
             mocks.ReplayAll();
 
             using (var storageCommandHandler = new StorageCommandHandler(projectStorageMock, projectOwnerMock, applicationSelection,
-                                                                         mainWindowController, toolViewController, viewCommandsMock))
+                                                                         mainWindowController, viewCommandsMock))
             {
                 // Call
                 bool actionMaycontinue = storageCommandHandler.ContinueIfHasChanges();
@@ -497,7 +484,6 @@ namespace Core.Common.Gui.Test.Commands
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             var mainWindowController = mocks.Stub<IMainWindowController>();
-            var toolViewController = mocks.Stub<IToolViewController>();
             var projectMock = mocks.StrictMock<Project>();
             projectMock.StorageId = 1234L;
             var projectStorageMock = mocks.Stub<IStoreProject>();
@@ -511,7 +497,7 @@ namespace Core.Common.Gui.Test.Commands
             string expectedMessage = "Sla wijzigingen in het project op: Project?";
 
             using (var storageCommandHandler = new StorageCommandHandler(projectStorageMock, projectOwnerMock, applicationSelection,
-                                                                         mainWindowController, toolViewController, viewCommandsMock))
+                                                                         mainWindowController, viewCommandsMock))
             {
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -538,7 +524,6 @@ namespace Core.Common.Gui.Test.Commands
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             var mainWindowController = mocks.Stub<IMainWindowController>();
-            var toolViewController = mocks.Stub<IToolViewController>();
             var projectMock = mocks.StrictMock<Project>();
             projectMock.StorageId = 1234L;
             var projectStorageMock = mocks.Stub<IStoreProject>();
@@ -552,7 +537,7 @@ namespace Core.Common.Gui.Test.Commands
             string expectedMessage = "Sla wijzigingen in het project op: Project?";
 
             using (var storageCommandHandler = new StorageCommandHandler(projectStorageMock, projectOwnerMock, applicationSelection,
-                                                                         mainWindowController, toolViewController, viewCommandsMock))
+                                                                         mainWindowController, viewCommandsMock))
             {
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -579,7 +564,6 @@ namespace Core.Common.Gui.Test.Commands
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             var mainWindowController = mocks.Stub<IMainWindowController>();
-            var toolViewController = mocks.Stub<IToolViewController>();
             var projectMock = mocks.StrictMock<Project>();
             projectMock.StorageId = 1234L;
             var projectFilePath = "some path";
@@ -598,7 +582,7 @@ namespace Core.Common.Gui.Test.Commands
             string expectedMessage = "Sla wijzigingen in het project op: Project?";
 
             using (var storageCommandHandler = new StorageCommandHandler(projectStorageMock, projectOwnerMock, applicationSelection,
-                                                                         mainWindowController, toolViewController, viewCommandsMock))
+                                                                         mainWindowController, viewCommandsMock))
             {
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -625,7 +609,6 @@ namespace Core.Common.Gui.Test.Commands
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             var mainWindowController = mocks.Stub<IMainWindowController>();
-            var toolViewController = mocks.Stub<IToolViewController>();
             var projectMock = mocks.StrictMock<Project>();
             projectMock.StorageId = 1234L;
             var projectStorageMock = mocks.Stub<IStoreProject>();
@@ -639,7 +622,7 @@ namespace Core.Common.Gui.Test.Commands
             string expectedMessage = "Sla wijzigingen in het project op: Project?";
 
             using (var storageCommandHandler = new StorageCommandHandler(projectStorageMock, projectOwnerMock, applicationSelection,
-                                                                         mainWindowController, toolViewController, viewCommandsMock))
+                                                                         mainWindowController, viewCommandsMock))
             {
                 DialogBoxHandler = (name, wnd) =>
                 {

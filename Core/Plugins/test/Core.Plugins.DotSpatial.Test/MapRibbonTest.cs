@@ -69,13 +69,13 @@ namespace Core.Plugins.DotSpatial.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var toolViewController = mocks.Stub<IToolViewController>();
+            var viewController = mocks.Stub<IViewController>();
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var parentWindow = mocks.StrictMock<IWin32Window>();
 
             mocks.ReplayAll();
 
-            var toggleLegendViewCommand = new ToggleMapLegendViewCommand(new MapLegendController(toolViewController, contextMenuBuilderProvider, parentWindow));
+            var toggleLegendViewCommand = new ToggleMapLegendViewCommand(new MapLegendController(viewController, contextMenuBuilderProvider, parentWindow));
 
             var ribbon = new MapRibbon
             {
@@ -145,7 +145,7 @@ namespace Core.Plugins.DotSpatial.Test
 
             var ribbon = new MapRibbon
             {
-                ToggleLegendViewCommand = command,
+                ToggleLegendViewCommand = command
             };
 
             var toggleLegendViewButton = ribbon.GetRibbonControl().FindName("ToggleLegendViewButton") as ToggleButton;

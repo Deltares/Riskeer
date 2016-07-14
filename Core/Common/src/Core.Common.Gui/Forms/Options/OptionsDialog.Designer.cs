@@ -30,8 +30,6 @@ namespace Core.Common.Gui.Forms.Options
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsDialog));
             this.groupBoxUserSettings = new System.Windows.Forms.GroupBox();
-            this.comboBoxTheme = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.checkBoxStartPage = new System.Windows.Forms.CheckBox();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
@@ -41,23 +39,9 @@ namespace Core.Common.Gui.Forms.Options
             // groupBoxUserSettings
             // 
             resources.ApplyResources(this.groupBoxUserSettings, "groupBoxUserSettings");
-            this.groupBoxUserSettings.Controls.Add(this.comboBoxTheme);
-            this.groupBoxUserSettings.Controls.Add(this.label1);
             this.groupBoxUserSettings.Controls.Add(this.checkBoxStartPage);
             this.groupBoxUserSettings.Name = "groupBoxUserSettings";
             this.groupBoxUserSettings.TabStop = false;
-            // 
-            // comboBoxTheme
-            // 
-            this.comboBoxTheme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxTheme.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxTheme, "comboBoxTheme");
-            this.comboBoxTheme.Name = "comboBoxTheme";
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
             // 
             // checkBoxStartPage
             // 
@@ -101,8 +85,6 @@ namespace Core.Common.Gui.Forms.Options
 
         private System.Windows.Forms.GroupBox groupBoxUserSettings;
         private System.Windows.Forms.CheckBox checkBoxStartPage;
-        private System.Windows.Forms.ComboBox comboBoxTheme;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOk;
     }

@@ -44,14 +44,14 @@ namespace Core.Common.Gui.Test.Commands
 
             var dialogParent = mocks.Stub<IWin32Window>();
             var applicationSelection = mocks.Stub<IApplicationSelection>();
-            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var viewController = mocks.Stub<IViewController>();
 
             var observer = mocks.Stub<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             project.Attach(observer);
-            var commandHandler = new ProjectCommandHandler(projectOwner, dialogParent, null, applicationSelection, documentViewController);
+            var commandHandler = new ProjectCommandHandler(projectOwner, dialogParent, null, applicationSelection, viewController);
 
             // Call
             commandHandler.AddItemToProject(childData);

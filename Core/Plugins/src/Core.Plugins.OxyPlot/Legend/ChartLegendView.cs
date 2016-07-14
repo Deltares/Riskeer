@@ -55,25 +55,8 @@ namespace Core.Plugins.OxyPlot.Legend
             }
             set
             {
-                if (IsDisposed)
-                {
-                    return;
-                }
-
                 treeViewControl.Data = (ChartData) value;
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            Data = null;
-
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-
-            base.Dispose(disposing);
         }
 
         private void RegisterTreeNodeInfos()

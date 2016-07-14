@@ -23,38 +23,36 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
-
 using log4net;
 
-namespace Core.Common.Gui.Forms.ViewManager
+namespace Core.Common.Gui.Forms.ViewHost
 {
     /// <summary>
     /// Class responsible for finding a view given some data-object.
     /// </summary>
-    public class ViewResolver : IViewResolver
+    public class DocumentViewController : IDocumentViewController
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(ViewResolver));
+        private static readonly ILog log = LogManager.GetLogger(typeof(DocumentViewController));
 
         private readonly IDictionary<Type, Type> defaultViewTypes = new Dictionary<Type, Type>();
 
-        private readonly ViewList viewList;
+        private readonly IViewHost viewHost;
         private readonly ViewInfo[] viewInfos;
         private readonly IWin32Window dialogParent;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ViewResolver"/> class.
+        /// Initializes a new instance of the <see cref="DocumentViewController"/> class.
         /// </summary>
-        /// <param name="viewList">The view list.</param>
+        /// <param name="viewHost">The view host.</param>
         /// <param name="viewInfos">The sequence of available view info objects.</param>
         /// <param name="dialogParent">The parent object for which dialogs should be shown on top.</param>
-        public ViewResolver(ViewList viewList, IEnumerable<ViewInfo> viewInfos, IWin32Window dialogParent)
+        public DocumentViewController(IViewHost viewHost, IEnumerable<ViewInfo> viewInfos, IWin32Window dialogParent)
         {
-            this.viewList = viewList;
+            this.viewHost = viewHost;
             this.viewInfos = viewInfos.ToArray();
             this.dialogParent = dialogParent;
         }
@@ -69,56 +67,47 @@ namespace Core.Common.Gui.Forms.ViewManager
 
         public bool OpenViewForData(object data, bool alwaysShowDialog = false)
         {
-            try
+            if (data == null)
             {
-                IsOpeningView = true;
+                return false;
+            }
 
-                if (data == null)
+            var viewInfoList = FilterOnInheritance(GetViewInfosFor(data)).ToArray();
+            if (viewInfoList.Length == 0)
+            {
+                log.DebugFormat(Resources.DocumentViewController_OpenViewForData_No_view_registered_for_0_, data);
+                return false;
+            }
+
+            if (!alwaysShowDialog)
+            {
+                if (viewInfoList.Length == 1)
                 {
-                    return false;
+                    CreateViewFromViewInfo(data, viewInfoList[0]);
+                    return true;
                 }
 
-                var viewInfoList = FilterOnInheritance(GetViewInfosFor(data)).ToArray();
-                if (viewInfoList.Length == 0)
-                {
-                    log.DebugFormat(Resources.ViewResolver_OpenViewForData_No_view_registered_for_0_, data);
-                    return false;
-                }
+                // Create default view
+                var defaultType = GetDefaultViewType(data);
+                var defaultViewInfo = viewInfoList.FirstOrDefault(vi => vi.ViewType == defaultType);
 
-                if (!alwaysShowDialog)
+                if (defaultViewInfo != null)
                 {
-                    if (viewInfoList.Length == 1)
-                    {
-                        CreateViewFromViewInfo(data, viewInfoList[0]);
-                        return true;
-                    }
-
-                    // Create default view
-                    var defaultType = GetDefaultViewType(data);
-                    var defaultViewInfo = viewInfoList.FirstOrDefault(vi => vi.ViewType == defaultType);
-
-                    if (defaultViewInfo != null)
-                    {
-                        CreateViewFromViewInfo(data, defaultViewInfo);
-                        return true;
-                    }
-                }
-
-                // Create chosen view
-                var chosenViewInfo = GetViewInfoUsingDialog(data, viewInfoList);
-                if (chosenViewInfo == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    CreateViewFromViewInfo(data, chosenViewInfo);
+                    CreateViewFromViewInfo(data, defaultViewInfo);
                     return true;
                 }
             }
-            finally
+
+            // Create chosen view
+            var chosenViewInfo = GetViewInfoUsingDialog(data, viewInfoList);
+            if (chosenViewInfo == null)
             {
-                IsOpeningView = false;
+                return false;
+            }
+            else
+            {
+                CreateViewFromViewInfo(data, chosenViewInfo);
+                return true;
             }
         }
 
@@ -129,11 +118,11 @@ namespace Core.Common.Gui.Forms.ViewManager
                 return;
             }
 
-            foreach (var view in viewList.ToArray())
+            foreach (var view in viewHost.DocumentViews.ToArray())
             {
                 if (ShouldRemoveViewForData(view, data))
                 {
-                    viewList.Remove(view);
+                    viewHost.Remove(view);
                 }
             }
         }
@@ -142,24 +131,6 @@ namespace Core.Common.Gui.Forms.ViewManager
         {
             return viewInfos.Where(vi => data.GetType().Implements(vi.DataType) && vi.AdditionalDataCheck(data));
         }
-
-        public string GetViewName(IView view)
-        {
-            var viewInfo = GetViewInfoForView(view);
-            if (viewInfo != null)
-            {
-                return viewInfo.GetViewName(view, view.Data);
-            }
-
-            return "";
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating if the view resolver is opening a view. Can be
-        /// used to ensure consistency of <see cref="ViewList"/> / <see cref="ViewResolver"/> 
-        /// logic. Sometimes views are closed while being opened.
-        /// </summary>
-        internal static bool IsOpeningView { get; private set; }
 
         private bool ShouldRemoveViewForData(IView view, object data)
         {
@@ -194,35 +165,32 @@ namespace Core.Common.Gui.Forms.ViewManager
         {
             var viewData = viewInfo.GetViewData(data);
             var view = (viewInfo.DataType == viewInfo.ViewDataType
-                            ? GetOpenViewsFor(viewList, data)
-                            : GetOpenViewsFor(viewList, data).Concat(GetOpenViewsFor(viewList, viewData)))
+                            ? GetOpenViewsFor(viewHost.DocumentViews, data)
+                            : GetOpenViewsFor(viewHost.DocumentViews, data).Concat(GetOpenViewsFor(viewHost.DocumentViews, viewData)))
                 .FirstOrDefault(v => v.GetType() == viewInfo.ViewType);
 
             if (view != null)
             {
-                viewInfo.OnActivateView(view, data);
-                viewList.ActiveView = view;
+                viewHost.SetFocusToView(view);
 
                 return;
             }
 
             var newView = CreateViewForData(data, viewInfo);
 
-            viewList.Add(newView);
-            viewList.SetImage(newView, viewInfo.Image);
+            viewHost.AddDocumentView(newView);
+            viewHost.SetImage(newView, viewInfo.Image);
         }
 
         private static IView CreateViewForData(object data, ViewInfo viewInfo)
         {
-            var view = (IView)Activator.CreateInstance(viewInfo.ViewType);
+            var view = (IView) Activator.CreateInstance(viewInfo.ViewType);
 
             view.Data = viewInfo.GetViewData(data);
 
             viewInfo.AfterCreate(view, data);
 
             view.Text = viewInfo.GetViewName(view, view.Data);
-
-            viewInfo.OnActivateView(view, data);
 
             return view;
         }

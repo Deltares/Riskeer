@@ -19,10 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
-using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Plugin;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
@@ -57,8 +57,8 @@ namespace Core.Plugins.OxyPlot
             chartLegendController = CreateLegendController(Gui);
             chartingRibbon = CreateRibbon(chartLegendController, Gui);
 
-            chartLegendController.ToggleLegend();
-            Gui.ActiveViewChanged += GuiOnActiveViewChanged;
+            chartLegendController.ToggleView();
+            Gui.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
             activated = true;
         }
 
@@ -75,21 +75,22 @@ namespace Core.Plugins.OxyPlot
         {
             if (activated)
             {
-                Gui.ActiveViewChanged -= GuiOnActiveViewChanged;
+                Gui.ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
             }
+
             base.Dispose();
         }
 
         /// <summary>
         /// Creates a new <see cref="ChartLegendController"/>.
         /// </summary>
-        /// <param name="toolViewController">The <see cref="IToolViewController"/> to use for the controller
+        /// <param name="viewController">The <see cref="IViewController"/> to use for the controller
         /// <see cref="ChartLegendController"/>.</param>
         /// <returns>A new <see cref="ChartLegendController"/> instance.</returns>
-        private ChartLegendController CreateLegendController(IToolViewController toolViewController)
+        private ChartLegendController CreateLegendController(IViewController viewController)
         {
-            var controller = new ChartLegendController(toolViewController);
-            controller.OnOpenLegend += (s,e) => UpdateComponentsForActiveView();
+            var controller = new ChartLegendController(viewController);
+            controller.OnOpenLegend += (s,e) => UpdateComponentsForActiveDocumentView();
             return controller;
         }
 
@@ -98,9 +99,9 @@ namespace Core.Plugins.OxyPlot
         /// </summary>
         /// <param name="chartLegendController">The <see cref="ChartLegendController"/> to use for the 
         /// <see cref="ChartingRibbon"/>.</param>
-        /// <param name="documentViewController">The controller for Document Views.</param>
+        /// <param name="viewController">The controller for views.</param>
         /// <returns>A new <see cref="ChartingRibbon"/> instance.</returns>
-        private static ChartingRibbon CreateRibbon(ChartLegendController chartLegendController, IDocumentViewController documentViewController)
+        private static ChartingRibbon CreateRibbon(ChartLegendController chartLegendController, IViewController viewController)
         {
             return new ChartingRibbon
             {
@@ -108,18 +109,18 @@ namespace Core.Plugins.OxyPlot
             };
         }
 
-        private void GuiOnActiveViewChanged(object sender, ActiveViewChangeEventArgs activeViewChangeEventArgs)
+        private void OnActiveDocumentViewChanged(object sender, EventArgs e)
         {
-            UpdateComponentsForActiveView();
+            UpdateComponentsForActiveDocumentView();
         }
 
         /// <summary>
         /// Updates the components which the <see cref="OxyPlotGuiPlugin"/> knows about so that it reflects
         /// the currently active view.
         /// </summary>
-        private void UpdateComponentsForActiveView()
+        private void UpdateComponentsForActiveDocumentView()
         {
-            var chartView = Gui.ActiveView as IChartView;
+            var chartView = Gui.ViewHost.ActiveDocumentView as IChartView;
             if (chartView != null)
             {
                 chartingRibbon.Chart = chartView.Chart;

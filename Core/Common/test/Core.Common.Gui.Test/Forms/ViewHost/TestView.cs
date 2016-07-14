@@ -19,28 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Core.Common.Utils.Events
+using System.Windows.Forms;
+using Core.Common.Controls.Views;
+
+namespace Core.Common.Gui.Test.Forms.ViewHost
 {
-    /// <summary>
-    /// Marks the type of action that has been performed on a collection.
-    /// </summary>
-    public enum NotifyCollectionChangeAction
+    public partial class TestView : UserControl, IView
     {
-        /// <summary>
-        /// An element has been added (or inserted at a specific index).
-        /// </summary>
-        Add,
-        /// <summary>
-        /// An element has been removed.
-        /// </summary>
-        Remove,
-        /// <summary>
-        /// An element has been replaced by another.
-        /// </summary>
-        Replace,
-        /// <summary>
-        /// The collection as a whole as changed.
-        /// </summary>
-        Reset
+        public TestView()
+        {
+            InitializeComponent();
+        }
+
+        public object Data { get; set; }
     }
+
+    public class TestViewDerivative : TestView {}
 }

@@ -195,22 +195,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             }
         }
 
-        [Test]
-        public void Dispose_Always_DataSetToNull()
-        {
-            // Setup
-            var mapLegendView = new MapLegendView(contextMenuBuilderProvider, parentWindow);
-            var treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
-
-            // Call
-            mapLegendView.Dispose();
-
-            // Assert
-            Assert.IsNull(mapLegendView.Data);
-            Assert.IsNull(treeViewControl.Data);
-            Assert.IsTrue(treeViewControl.IsDisposed);
-        }
-
         private MapFeature[] CreateFeature()
         {
             return new []

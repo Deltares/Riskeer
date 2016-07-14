@@ -1,5 +1,5 @@
 ﻿using Core.Common.Gui;
-using Core.Common.Gui.Forms.ViewManager;
+using Core.Common.Gui.Forms.ViewHost;
 using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -14,14 +14,14 @@ namespace Demo.Ringtoets.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
+            var viewController = mocks.StrictMock<IViewController>();
             var documentViewController = mocks.StrictMock<IDocumentViewController>();
-            var viewResolverMock = mocks.StrictMock<IViewResolver>();
-            documentViewController.Expect(g => g.DocumentViewsResolver).Return(viewResolverMock);
-            viewResolverMock.Expect(vr => vr.OpenViewForData(null)).IgnoreArguments().Return(true);
+            viewController.Expect(g => g.DocumentViewController).Return(documentViewController);
+            documentViewController.Expect(vr => vr.OpenViewForData(null)).IgnoreArguments().Return(true);
 
             mocks.ReplayAll();
 
-            var command = new OpenChartViewCommand(documentViewController);
+            var command = new OpenChartViewCommand(viewController);
 
             // Call
             command.Execute();
@@ -35,7 +35,7 @@ namespace Demo.Ringtoets.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var documentViewControler = mocks.Stub<IDocumentViewController>();
+            var documentViewControler = mocks.Stub<IViewController>();
             mocks.ReplayAll();
 
             var command = new OpenChartViewCommand(documentViewControler);
@@ -53,10 +53,10 @@ namespace Demo.Ringtoets.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var viewController = mocks.Stub<IViewController>();
             mocks.ReplayAll();
 
-            var command = new OpenChartViewCommand(documentViewController);
+            var command = new OpenChartViewCommand(viewController);
 
             // Call
             var isChecked = command.Checked;

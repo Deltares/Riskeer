@@ -42,7 +42,7 @@ namespace Core.Common.Gui.Commands
         void OpenView(object dataObject);
 
         /// <summary>
-        /// Removes all document and tool views that are associated to the given data object and/or its children.
+        /// Removes all views that are associated to the given data object and/or its children.
         /// </summary>
         /// <param name="dataObject">The root data object for which all views must be closed.</param>
         void RemoveAllViewsForItem(object dataObject);

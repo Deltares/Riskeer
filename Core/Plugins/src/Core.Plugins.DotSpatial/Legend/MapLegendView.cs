@@ -84,26 +84,8 @@ namespace Core.Plugins.DotSpatial.Legend
             }
             set
             {
-                if (IsDisposed)
-                {
-                    return;
-                }
-
                 treeViewControl.Data = (MapData) value;
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (components != null) {
-                    components.Dispose();
-                }
-                Data = null;
-            }
-
-            base.Dispose(disposing);
         }
 
         private void RegisterTreeNodeInfos()

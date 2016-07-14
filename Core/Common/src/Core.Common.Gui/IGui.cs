@@ -34,8 +34,8 @@ namespace Core.Common.Gui
     /// <summary>
     /// Provides graphical user interface logic required to work with an application.
     /// </summary>
-    public interface IGui : ICommandsOwner, ISettingsOwner, IToolViewController, IProjectOwner,
-                            IApplicationSelection, IDocumentViewController, IContextMenuBuilderProvider,
+    public interface IGui : ICommandsOwner, ISettingsOwner, IProjectOwner,
+                            IApplicationSelection, IViewController, IContextMenuBuilderProvider,
                             IMainWindowController, IGuiPluginsHost, IDisposable
     {
         /// <summary>

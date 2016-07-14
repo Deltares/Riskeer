@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Linq;
@@ -31,17 +30,15 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
-using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
-using Core.Common.Gui.Test.Forms.ViewManager;
-using Core.Common.Gui.Theme;
+using Core.Common.Gui.Test.Forms.ViewHost;
 using Core.Common.TestUtil;
 
 using log4net;
@@ -108,9 +105,8 @@ namespace Core.Common.Gui.Test
                 Assert.IsInstanceOf<ViewCommandHandler>(gui.ViewCommands);
                 Assert.AreEqual(null, gui.ApplicationCommands);
 
-                Assert.AreEqual(null, gui.ActiveView);
-                Assert.AreEqual(null, gui.DocumentViews);
-                Assert.AreEqual(null, gui.DocumentViewsResolver);
+                Assert.AreEqual(null, gui.ViewHost);
+                Assert.AreEqual(null, gui.DocumentViewController);
 
                 AssertDefaultUserSettings(gui.UserSettings);
                 Assert.AreSame(guiCoreSettings, gui.FixedSettings);
@@ -118,8 +114,6 @@ namespace Core.Common.Gui.Test
                 CollectionAssert.IsEmpty(gui.Plugins);
 
                 Assert.AreEqual(mainWindow, gui.MainWindow);
-
-                Assert.AreEqual(null, gui.ToolWindowViews);
 
                 Assert.AreSame(ViewPropertyEditor.ViewCommands, gui.ViewCommands);
 
@@ -385,13 +379,13 @@ namespace Core.Common.Gui.Test
             {
                 gui.Run();
 
-                gui.OpenToolView(toolView);
+                gui.ViewHost.AddToolView(toolView, ToolViewLocation.Left);
 
                 // Call
                 gui.Dispose();
 
                 // Assert
-                Assert.IsNull(gui.ToolWindowViews);
+                Assert.IsEmpty(gui.ViewHost.ToolViews);
                 Assert.IsTrue(toolView.IsDisposed);
             }
             mocks.VerifyAll();
@@ -411,14 +405,14 @@ namespace Core.Common.Gui.Test
             {
                 gui.Run();
 
-                gui.DocumentViews.Add(documentView);
+                gui.ViewHost.AddDocumentView(documentView);
 
                 // Call
                 gui.Dispose();
 
                 // Assert
-                Assert.IsNull(gui.DocumentViews);
-                Assert.IsNull(gui.DocumentViewsResolver);
+                Assert.IsEmpty(gui.ViewHost.DocumentViews);
+                Assert.IsNull(gui.DocumentViewController);
                 Assert.IsTrue(documentView.IsDisposed);
             }
             mocks.VerifyAll();
@@ -732,35 +726,7 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [STAThread]
-        public void Run_InitializesDocumentViewController()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            mocks.ReplayAll();
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
-            {
-                // Call
-                Action call = () => gui.Run();
-
-                // Assert
-                var expectedMessage = "Schermmanager voor documenten aan het maken...";
-                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
-
-                CollectionAssert.IsEmpty(gui.DocumentViews);
-                Assert.IsFalse(gui.DocumentViews.IgnoreActivation);
-                Assert.IsNull(gui.DocumentViews.ActiveView);
-                
-                Assert.IsNotNull(gui.DocumentViewsResolver);
-                CollectionAssert.IsEmpty(gui.DocumentViewsResolver.DefaultViewTypes);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [STAThread]
-        public void Run_InitializesToolViewController()
+        public void Run_InitializesViewController()
         {
             // Setup
             var mocks = new MockRepository();
@@ -773,11 +739,15 @@ namespace Core.Common.Gui.Test
                 gui.Run();
 
                 // Assert
-                Assert.AreEqual(2, gui.ToolWindowViews.Count);
-                Assert.AreEqual(1, gui.ToolWindowViews.Count(v => v is PropertyGridView));
-                Assert.AreEqual(1, gui.ToolWindowViews.Count(v => v is MessageWindow));
-                Assert.IsFalse(gui.ToolWindowViews.IgnoreActivation);
-                Assert.IsNull(gui.ToolWindowViews.ActiveView);
+                CollectionAssert.IsEmpty(gui.ViewHost.DocumentViews);
+                Assert.IsNull(gui.ViewHost.ActiveDocumentView);
+
+                Assert.AreEqual(2, gui.ViewHost.ToolViews.Count());
+                Assert.AreEqual(1, gui.ViewHost.ToolViews.Count(v => v is PropertyGridView));
+                Assert.AreEqual(1, gui.ViewHost.ToolViews.Count(v => v is MessageWindow));
+
+                Assert.IsNotNull(gui.DocumentViewController);
+                CollectionAssert.IsEmpty(gui.DocumentViewController.DefaultViewTypes);
             }
             mocks.VerifyAll();
         }
@@ -902,39 +872,6 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [RequiresSTA]
-        public void ActiveViewChanged_LastDocumentViewClosed_EventFired()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            mocks.ReplayAll();
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
-            {
-                gui.Run();
-
-                var view = new TestView();
-
-                // Precondition
-                Assert.AreEqual(0, gui.DocumentViews.Count);
-
-                gui.DocumentViews.Add(view);
-
-                var hitCount = 0;
-                gui.ActiveViewChanged += (s, e) => hitCount++;
-
-                // Call
-                gui.DocumentViews.RemoveAt(0);
-
-                // Assert
-                Assert.AreEqual(0, gui.DocumentViews.Count);
-                Assert.AreEqual(1, hitCount);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [RequiresSTA]
         public void GetTreeNodeInfos_NoPluginsConfigured_EmptyList()
         {
             // Setup
@@ -964,13 +901,13 @@ namespace Core.Common.Gui.Test
             };
             var nodesPluginB = new[]
             {
-                new TreeNodeInfo(),
+                new TreeNodeInfo()
             };
             var nodesPluginC = new[]
             {
                 new TreeNodeInfo(),
                 new TreeNodeInfo(),
-                new TreeNodeInfo(),
+                new TreeNodeInfo()
             };
 
             var mocks = new MockRepository();
@@ -1065,41 +1002,6 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [STAThread]
-        public void GivenGuiRunCalled_WhenMainWindowOpens_EnsurePropertyGridAndMessageWindowAreActivated()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            mocks.ReplayAll();
-
-            using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, new ApplicationCore(), new GuiCoreSettings()))
-            {
-                gui.Run();
-
-                var projectExplorerMock = new ProjectExplorerMock();
-                gui.ToolWindowViews.Add(projectExplorerMock);
-
-                var activatedViewsDuringShow = new List<IView>();
-                gui.ToolWindowViews.ActiveViewChanged += (sender, args) =>
-                {
-                    activatedViewsDuringShow.Add(args.View);
-                };
-
-                // Call
-                mainWindow.Show();
-
-                // Assert
-                Assert.AreEqual(3, activatedViewsDuringShow.Count);
-                Assert.AreEqual(1, activatedViewsDuringShow.Count(v => v is MessageWindow));
-                Assert.AreEqual(1, activatedViewsDuringShow.Count(v => v is PropertyGrid));
-                Assert.AreEqual(1, activatedViewsDuringShow.Count(v => ReferenceEquals(v, projectExplorerMock)));
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [STAThread]
         public void Project_SetNewValue_FireProjectClosingAndOpenedEvents()
         {
             // Setup
@@ -1148,7 +1050,7 @@ namespace Core.Common.Gui.Test
         private static void AssertDefaultUserSettings(SettingsBase settings)
         {
             Assert.IsNotNull(settings);
-            Assert.AreEqual(15, settings.Properties.Count);
+            Assert.AreEqual(7, settings.Properties.Count);
 
             // Note: Cannot assert particular values, as they can be changed by user.
             var mruList = (StringCollection)settings["mruList"];
@@ -1159,32 +1061,12 @@ namespace Core.Common.Gui.Test
             Assert.IsNotNull(defaultViews);
             var lastVisitedPath = (string)settings["lastVisitedPath"];
             Assert.IsNotNull(lastVisitedPath);
-            var isMainWindowFullScreen = (bool)settings["MainWindow_FullScreen"];
-            Assert.IsNotNull(isMainWindowFullScreen);
-            var x = (int)settings["MainWindow_X"];
-            Assert.IsNotNull(x);
-            var y = (int)settings["MainWindow_Y"];
-            Assert.IsNotNull(y);
-            var width = (int)settings["MainWindow_Width"];
-            Assert.IsNotNull(width);
-            var height = (int)settings["MainWindow_Height"];
-            Assert.IsNotNull(height);
             var startPageName = (string)settings["startPageName"];
             Assert.IsNotNull(startPageName);
             var showStartPage = (bool)settings["showStartPage"];
             Assert.IsNotNull(showStartPage);
             var showSplashScreen = (bool)settings["showSplashScreen"];
             Assert.IsNotNull(showSplashScreen);
-            var showHiddenDataItems = (bool)settings["showHiddenDataItems"];
-            Assert.IsNotNull(showHiddenDataItems);
-            var colorTheme = (ColorTheme)settings["colorTheme"];
-            Assert.IsNotNull(colorTheme);
-        }
-
-        private class ProjectExplorerMock : UserControl, IProjectExplorer
-        {
-            public object Data { get; set; }
-            public TreeViewControl TreeViewControl { get; private set; }
         }
     }
 }

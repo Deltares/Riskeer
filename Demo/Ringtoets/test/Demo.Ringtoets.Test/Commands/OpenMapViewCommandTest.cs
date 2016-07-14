@@ -1,6 +1,6 @@
 ﻿using Core.Common.Controls.Commands;
 using Core.Common.Gui;
-using Core.Common.Gui.Forms.ViewManager;
+using Core.Common.Gui.Forms.ViewHost;
 using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -15,11 +15,11 @@ namespace Demo.Ringtoets.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var viewController = mocks.Stub<IViewController>();
             mocks.ReplayAll();
 
             // Call
-            var command = new OpenMapViewCommand(documentViewController);
+            var command = new OpenMapViewCommand(viewController);
 
             // Assert
             Assert.IsInstanceOf<ICommand>(command);
@@ -33,14 +33,14 @@ namespace Demo.Ringtoets.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var documentViewControllerMock = mocks.StrictMock<IDocumentViewController>();
-            var viewResolverMock = mocks.StrictMock<IViewResolver>();
-            documentViewControllerMock.Expect(g => g.DocumentViewsResolver).Return(viewResolverMock);
-            viewResolverMock.Expect(vr => vr.OpenViewForData(null)).IgnoreArguments().Return(true);
+            var viewController = mocks.StrictMock<IViewController>();
+            var documentViewController = mocks.StrictMock<IDocumentViewController>();
+            viewController.Expect(g => g.DocumentViewController).Return(documentViewController);
+            documentViewController.Expect(vr => vr.OpenViewForData(null)).IgnoreArguments().Return(true);
 
             mocks.ReplayAll();
 
-            var command = new OpenMapViewCommand(documentViewControllerMock);
+            var command = new OpenMapViewCommand(viewController);
 
             // Call
             command.Execute();
@@ -54,11 +54,11 @@ namespace Demo.Ringtoets.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var viewController = mocks.Stub<IViewController>();
             mocks.ReplayAll();
 
             // Call
-            var command = new OpenMapViewCommand(documentViewController);
+            var command = new OpenMapViewCommand(viewController);
 
             // Assert
             Assert.IsTrue(command.Enabled);
@@ -70,11 +70,11 @@ namespace Demo.Ringtoets.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var viewController = mocks.Stub<IViewController>();
             mocks.ReplayAll();
 
             // Call
-            var command = new OpenMapViewCommand(documentViewController);
+            var command = new OpenMapViewCommand(viewController);
 
             // Assert
             Assert.IsFalse(command.Checked);

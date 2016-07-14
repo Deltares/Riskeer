@@ -115,40 +115,6 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        public void Dispose_Always_DataSetToNull()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
-            IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
-            IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
-            {
-                new TreeNodeInfo
-                {
-                    TagType = typeof(Project)
-                }
-            };
-
-            mocks.ReplayAll();
-
-            var project = new Project();
-
-            var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos)
-            {
-                Data = project
-            };
-
-            // Call
-            explorer.Dispose();
-
-            // Assert
-            Assert.IsNull(explorer.Data);
-            Assert.IsNull(explorer.TreeViewControl.Data);
-            Assert.IsTrue(explorer.TreeViewControl.IsDisposed);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void ProjectDataDeleted_Always_CallsRemoveAllViewsForItemWithTag()
         {
             // Setup
@@ -264,7 +230,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 new TreeNodeInfo
                 {
                     TagType = typeof(Project)
-                },
+                }
             };
 
             using (mocks.Ordered())

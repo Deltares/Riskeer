@@ -19,10 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.Commands;
+using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Plugins.DotSpatial.Commands;
 using Core.Plugins.DotSpatial.Legend;
 using NUnit.Framework;
@@ -60,16 +63,35 @@ namespace Core.Plugins.DotSpatial.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var plugin = mocks.StrictMock<IToolViewController>();
+            var viewController = mocks.StrictMock<IViewController>();
             var parentWindow = mocks.StrictMock<IWin32Window>();
-            plugin.Expect(p => p.IsToolWindowOpen<MapLegendView>()).Return(open);
 
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
 
+            if (open)
+            {
+                var toolViewList = new List<IView>();
+                var viewHost = mocks.Stub<IViewHost>();
+
+                viewController.Stub(vc => vc.ViewHost).Return(viewHost);
+                viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
+                viewHost.Expect(vm => vm.AddToolView(Arg<MapLegendView>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
+                {
+                    toolViewList.Add(invocation.Arguments[0] as MapLegendView);
+                });
+
+                viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
+            }
+
             mocks.ReplayAll();
 
-            var controller = new MapLegendController(plugin, contextMenuBuilderProvider, parentWindow);
+            var controller = new MapLegendController(viewController, contextMenuBuilderProvider, parentWindow);
             var command = new ToggleMapLegendViewCommand(controller);
+
+            if (open)
+            {
+                controller.ToggleView();
+            }
 
             // Call
             var result = command.Checked;
@@ -84,23 +106,28 @@ namespace Core.Plugins.DotSpatial.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var plugin = mocks.StrictMock<IToolViewController>();
+            var viewController = mocks.StrictMock<IViewController>();
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var parentWindow = mocks.StrictMock<IWin32Window>();
+            var viewHost = mocks.Stub<IViewHost>();
+            var toolViewList = new List<IView>();
 
-            // Open first
-            using (mocks.Ordered())
+            viewController.Stub(vc => vc.ViewHost).Return(viewHost);
+            viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
+
+            // Open
+            viewHost.Expect(vm => vm.AddToolView(Arg<MapLegendView>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
             {
-                plugin.Expect(p => p.IsToolWindowOpen<MapLegendView>()).Return(false);
-                plugin.Expect(p => p.OpenToolView(Arg<MapLegendView>.Matches(v => true)));
+                toolViewList.Add(invocation.Arguments[0] as MapLegendView);
+            });
+            viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
 
-                // Then close
-                plugin.Expect(p => p.IsToolWindowOpen<MapLegendView>()).Return(true);
-                plugin.Expect(p => p.CloseToolView(Arg<MapLegendView>.Matches(v => true)));
-            }
+            // Close
+            viewHost.Expect(vm => vm.Remove(Arg<MapLegendView>.Matches(v => true)));
+
             mocks.ReplayAll();
 
-            var controller = new MapLegendController(plugin, contextMenuBuilderProvider, parentWindow);
+            var controller = new MapLegendController(viewController, contextMenuBuilderProvider, parentWindow);
             var command = new ToggleMapLegendViewCommand(controller);
 
             // Call
