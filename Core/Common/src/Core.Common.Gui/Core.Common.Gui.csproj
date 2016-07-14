@@ -383,7 +383,6 @@
     <Resource Include="Resources\SaveAsHH.png" />
     <Resource Include="Resources\saveHS.png" />
     <Resource Include="Resources\SplashScreenBackground.png" />
-    <Resource Include="Resources\startpage.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\arrow-000-medium-question-mark.ico" />

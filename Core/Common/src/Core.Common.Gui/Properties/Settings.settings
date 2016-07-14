@@ -11,15 +11,6 @@
     <Setting Name="defaultViews" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="lastVisitedPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="startPageName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Startpagina</Value>
-    </Setting>
-    <Setting Name="showStartPage" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="showSplashScreen" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>

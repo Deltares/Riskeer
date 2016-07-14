@@ -138,7 +138,6 @@ namespace Application.Ringtoets
 
             var settings = new GuiCoreSettings
             {
-                StartPageUrl = "http://www.helpdeskwater.nl",
                 SupportEmailAddress = "www.helpdeskwater.nl",
                 SupportPhoneNumber = "+31 (0)88-797 7102",
                 Copyright = "© Deltares 2016",

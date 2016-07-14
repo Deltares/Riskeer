@@ -475,8 +475,6 @@ namespace Core.Common.Gui
                 }
 
                 mainWindow.ValidateItems();
-
-                mainWindow.ShowStartPage();
             };
 
             mainWindow.Closing += delegate(object sender, CancelEventArgs e)

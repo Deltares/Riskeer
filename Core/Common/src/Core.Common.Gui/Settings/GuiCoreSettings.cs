@@ -27,11 +27,6 @@ namespace Core.Common.Gui.Settings
     public class GuiCoreSettings
     {
         /// <summary>
-        /// Gets or sets the start page url to use in the graphical user interface.
-        /// </summary>
-        public string StartPageUrl { get; set; }
-
-        /// <summary>
         /// Gets or sets the support email address to show in the graphical user interface.
         /// </summary>
         public string SupportEmailAddress { get; set; }

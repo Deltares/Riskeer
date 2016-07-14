@@ -27,7 +27,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Core.Common.Controls.Views;
-using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
@@ -35,7 +34,6 @@ using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Gui.Settings;
-using Core.Common.Utils;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -442,150 +440,6 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 Assert.IsNull(viewHost.ActiveDocumentView);
             }
             mocks.VerifyAll();
-        }
-
-        [Test]
-        [STAThread]
-        public void ShowStartPage_IgnoreUserSettings_OpenViewForWebPage()
-        {
-            // Setup
-            const string pageName = "<google page name>";
-            var fixedSettings = new GuiCoreSettings
-            {
-                StartPageUrl = "http://www.google.nl"
-            };
-
-            var mocks = new MockRepository();
-
-            var userSettings = mocks.Stub<ApplicationSettingsBase>();
-            userSettings["startPageName"] = pageName;
-
-            var viewCommands = mocks.Stub<IViewCommands>();
-            viewCommands.Expect(c => c.OpenView(Arg<WebLink>.Matches(link => link.Name == pageName &&
-                                                                             link.Path == new Uri(fixedSettings.StartPageUrl))));
-
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.FixedSettings).Return(fixedSettings);
-            gui.Stub(g => g.UserSettings).Return(userSettings);
-            gui.Stub(g => g.ViewCommands).Return(viewCommands);
-            mocks.ReplayAll();
-
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            {
-                mainWindow.SetGui(gui);
-
-                // Call
-                mainWindow.ShowStartPage(false);
-            }
-            // Assert
-            mocks.VerifyAll(); // Assert that expectancies are met
-        }
-
-        [Test]
-        [STAThread]
-        [TestCase(null)]
-        [TestCase("")]
-        public void ShowStartPage_IgnoreUserSettingsAndNoStartPageUrl_OpenViewForAboutBlank(string startPageNameValue)
-        {
-            // Setup
-            var fixedSettings = new GuiCoreSettings
-            {
-                StartPageUrl = "about:blank"
-            };
-
-            var mocks = new MockRepository();
-
-            var userSettings = mocks.Stub<ApplicationSettingsBase>();
-            userSettings["startPageName"] = startPageNameValue;
-
-            var viewCommands = mocks.Stub<IViewCommands>();
-            viewCommands.Expect(c => c.OpenView(Arg<WebLink>.Matches(link => link.Name == startPageNameValue &&
-                                                                             link.Path == new Uri(fixedSettings.StartPageUrl))));
-
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.FixedSettings).Return(fixedSettings);
-            gui.Stub(g => g.UserSettings).Return(userSettings);
-            gui.Stub(g => g.ViewCommands).Return(viewCommands);
-            mocks.ReplayAll();
-
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            {
-                mainWindow.SetGui(gui);
-
-                // Call
-                mainWindow.ShowStartPage(false);
-            }
-            // Assert
-            mocks.VerifyAll(); // Assert that expectancies are met
-        }
-
-        [Test]
-        [STAThread]
-        public void ShowStartPage_FromUserSettings_OpenViewForWebPage()
-        {
-            // Setup
-            const string pageName = "<google page name>";
-            var fixedSettings = new GuiCoreSettings
-            {
-                StartPageUrl = "http://www.google.nl"
-            };
-
-            var mocks = new MockRepository();
-
-            var userSettings = mocks.Stub<ApplicationSettingsBase>();
-            userSettings["startPageName"] = pageName;
-            userSettings["showStartPage"] = true.ToString();
-
-            var viewCommands = mocks.Stub<IViewCommands>();
-            viewCommands.Expect(c => c.OpenView(Arg<WebLink>.Matches(link => link.Name == pageName &&
-                                                                             link.Path == new Uri(fixedSettings.StartPageUrl))));
-
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.FixedSettings).Return(fixedSettings);
-            gui.Stub(g => g.UserSettings).Return(userSettings);
-            gui.Stub(g => g.ViewCommands).Return(viewCommands);
-            mocks.ReplayAll();
-
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            {
-                mainWindow.SetGui(gui);
-
-                // Call
-                mainWindow.ShowStartPage();
-            }
-            // Assert
-            mocks.VerifyAll(); // Assert that expectancies are met
-        }
-
-        [Test]
-        [STAThread]
-        public void ShowStartPage_FromUserSettingsWithShowStartPageFalse_DoNothing()
-        {
-            // Setup
-            var fixedSettings = new GuiCoreSettings();
-
-            var mocks = new MockRepository();
-
-            var userSettings = mocks.Stub<ApplicationSettingsBase>();
-            userSettings["showStartPage"] = false.ToString();
-
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.FixedSettings).Return(fixedSettings);
-            gui.Stub(g => g.UserSettings).Return(userSettings);
-            gui.Stub(g => g.ViewCommands).Return(viewCommands);
-            mocks.ReplayAll();
-
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            {
-                mainWindow.SetGui(gui);
-
-                // Call
-                mainWindow.ShowStartPage();
-            }
-            // Assert
-            mocks.VerifyAll(); // Assert that expectancies are met
         }
 
         [Test]

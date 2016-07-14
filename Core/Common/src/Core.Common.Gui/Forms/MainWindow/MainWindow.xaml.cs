@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -37,7 +36,6 @@ using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Selection;
 using Core.Common.Gui.Settings;
-using Core.Common.Utils;
 using Fluent;
 using log4net;
 using Button = Fluent.Button;
@@ -241,20 +239,6 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             InitMessagesWindowOrActivate();
             InitPropertiesWindowAndActivate();
-        }
-
-        /// <summary>
-        /// Shows the welcome page.
-        /// </summary>
-        /// <param name="useUserSettings">If set to <c>true</c> the user settings determine
-        /// if the start page should be shown. If set to <c>false</c> the welcome page will
-        /// be shown regardless of user settings.</param>
-        public void ShowStartPage(bool useUserSettings = true)
-        {
-            if (!useUserSettings || Convert.ToBoolean(settings.UserSettings["showStartPage"], CultureInfo.InvariantCulture))
-            {
-                OpenStartPage();
-            }
         }
 
         public void Dispose()
@@ -718,11 +702,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
-        private void OnFileHelpStartPage_Clicked(object sender, RoutedEventArgs e)
-        {
-            ShowStartPage(false);
-        }
-
         private void OnFileHelpLicense_Clicked(object sender, RoutedEventArgs e)
         {
             viewController.DocumentViewController.OpenViewForData(richTextFile);
@@ -743,20 +722,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             {
                 Process.Start(manualFileName);
             }
-        }
-
-        private void OpenStartPage()
-        {
-            var welcomePageName = (string) settings.UserSettings["startPageName"];
-            var welcomePageUrl = settings.FixedSettings.StartPageUrl;
-            if (string.IsNullOrEmpty(welcomePageUrl))
-            {
-                welcomePageUrl = "about:blank";
-            }
-
-            var url = new WebLink(welcomePageName, new Uri(welcomePageUrl));
-
-            commands.ViewCommands.OpenView(url);
         }
 
         private void CloseDocumentTab(object sender, ExecutedRoutedEventArgs e)

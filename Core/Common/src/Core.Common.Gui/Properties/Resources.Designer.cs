@@ -1232,15 +1232,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Startpagina.
-        /// </summary>
-        public static string Ribbon_Start_Page {
-            get {
-                return ResourceManager.GetString("Ribbon_Start_Page", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Statustekst.
         /// </summary>
         public static string Ribbon_StatusBar_Status_text {
@@ -1429,16 +1420,6 @@ namespace Core.Common.Gui.Properties {
         public static System.Drawing.Bitmap SplashScreenBackground {
             get {
                 object obj = ResourceManager.GetObject("SplashScreenBackground", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap startpage {
-            get {
-                object obj = ResourceManager.GetObject("startpage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

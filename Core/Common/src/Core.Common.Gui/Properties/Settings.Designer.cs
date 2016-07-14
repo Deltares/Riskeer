@@ -58,42 +58,6 @@ namespace Core.Common.Gui.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string lastVisitedPath {
-            get {
-                return ((string)(this["lastVisitedPath"]));
-            }
-            set {
-                this["lastVisitedPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Startpagina")]
-        public string startPageName {
-            get {
-                return ((string)(this["startPageName"]));
-            }
-            set {
-                this["startPageName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool showStartPage {
-            get {
-                return ((bool)(this["showStartPage"]));
-            }
-            set {
-                this["showStartPage"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool showSplashScreen {
             get {

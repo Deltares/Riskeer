@@ -1041,7 +1041,7 @@ namespace Core.Common.Gui.Test
         private static void AssertDefaultUserSettings(SettingsBase settings)
         {
             Assert.IsNotNull(settings);
-            Assert.AreEqual(7, settings.Properties.Count);
+            Assert.AreEqual(4, settings.Properties.Count);
 
             // Note: Cannot assert particular values, as they can be changed by user.
             var mruList = (StringCollection) settings["mruList"];
@@ -1050,12 +1050,6 @@ namespace Core.Common.Gui.Test
             Assert.IsNotNull(defaultViewDataTypes);
             var defaultViews = (StringCollection) settings["defaultViews"];
             Assert.IsNotNull(defaultViews);
-            var lastVisitedPath = (string) settings["lastVisitedPath"];
-            Assert.IsNotNull(lastVisitedPath);
-            var startPageName = (string) settings["startPageName"];
-            Assert.IsNotNull(startPageName);
-            var showStartPage = (bool) settings["showStartPage"];
-            Assert.IsNotNull(showStartPage);
             var showSplashScreen = (bool) settings["showSplashScreen"];
             Assert.IsNotNull(showSplashScreen);
         }
