@@ -110,7 +110,6 @@
     <Compile Include="ReferenceEqualityComparer.cs" />
     <Compile Include="Drawing\ImageExtensions.cs" />
     <Compile Include="Reflection\TypeUtils.cs" />
-    <Compile Include="WebLink.cs" />
     <Compile Include="Reflection\AssemblyUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

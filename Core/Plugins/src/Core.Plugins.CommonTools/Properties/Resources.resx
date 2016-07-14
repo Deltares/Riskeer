@@ -123,15 +123,6 @@
   <data name="Common_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
-  <data name="UrlProperties_Name_Description" xml:space="preserve">
-    <value>Naam van de website of waar de URL naar verwijst gegevens.</value>
-  </data>
-  <data name="UrlProperties_Path_DisplayName" xml:space="preserve">
-    <value>Pad</value>
-  </data>
-  <data name="UrlProperties_Path_Description" xml:space="preserve">
-    <value>Locatie waar de URL naar verwijst.</value>
-  </data>
   <data name="ProjectProperties_Name_Description" xml:space="preserve">
     <value>Naam van het project.</value>
   </data>

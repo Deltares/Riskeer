@@ -104,32 +104,5 @@ namespace Core.Plugins.CommonTools.Properties {
                 return ResourceManager.GetString("ProjectProperties_Name_Description", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van de website of waar de URL naar verwijst gegevens..
-        /// </summary>
-        public static string UrlProperties_Name_Description {
-            get {
-                return ResourceManager.GetString("UrlProperties_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locatie waar de URL naar verwijst..
-        /// </summary>
-        public static string UrlProperties_Path_Description {
-            get {
-                return ResourceManager.GetString("UrlProperties_Path_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pad.
-        /// </summary>
-        public static string UrlProperties_Path_DisplayName {
-            get {
-                return ResourceManager.GetString("UrlProperties_Path_DisplayName", resourceCulture);
-            }
-        }
     }
 }

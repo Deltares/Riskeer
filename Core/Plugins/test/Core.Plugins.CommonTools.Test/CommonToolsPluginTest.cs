@@ -24,7 +24,6 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
-using Core.Common.Utils;
 using Core.Plugins.CommonTools.Property;
 using NUnit.Framework;
 
@@ -43,13 +42,11 @@ namespace Core.Plugins.CommonTools.Test
             var propertyInfos = plugin.GetPropertyInfos().ToList();
 
             // Assert
-            Assert.AreEqual(2, propertyInfos.Count);
+            Assert.AreEqual(1, propertyInfos.Count);
 
             var projectPropertyInfo = propertyInfos.First(pi => pi.DataType == typeof(Project));
-            var urlPropertyInfo = propertyInfos.First(pi => pi.DataType == typeof(WebLink));
 
             Assert.AreEqual(typeof(ProjectProperties), projectPropertyInfo.PropertyObjectType);
-            Assert.AreEqual(typeof(WebLinkProperties), urlPropertyInfo.PropertyObjectType);
         }
 
         [Test]

@@ -24,7 +24,6 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
-using Core.Common.Utils;
 using Core.Plugins.CommonTools.Property;
 
 namespace Core.Plugins.CommonTools
@@ -36,7 +35,6 @@ namespace Core.Plugins.CommonTools
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<WebLink, WebLinkProperties>();
             yield return new PropertyInfo<Project, ProjectProperties>();
         }
 
