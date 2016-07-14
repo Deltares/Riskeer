@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
@@ -43,11 +42,6 @@ namespace Core.Common.Gui
         /// instance for a given data object for the application to use.
         /// </summary>
         IPropertyResolver PropertyResolver { get; }
-
-        /// <summary>
-        /// Gets the <see cref="ApplicationCore"/> of the <see cref="IGui"/>.
-        /// </summary>
-        ApplicationCore ApplicationCore { get; }
 
         /// <summary>
         /// Gets the current project storage.

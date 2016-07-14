@@ -28,7 +28,6 @@ using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Base.Plugin;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
@@ -145,7 +144,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             // Precondition
             SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, fullProject);
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
                 // Call
                 Action action = () => gui.Run(tempRingtoetsFile);
@@ -174,7 +173,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             var testFile = "SomeFile";
             var projectStore = new StorageSqLite();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
                 // Call
                 Action action = () => gui.Run(testFile);
@@ -206,7 +205,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             // Setup
             var projectStore = new StorageSqLite();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
                 // Call
                 Action action = () => gui.Run(testFile);

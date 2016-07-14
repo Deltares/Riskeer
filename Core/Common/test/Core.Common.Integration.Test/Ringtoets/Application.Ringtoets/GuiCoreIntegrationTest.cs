@@ -21,7 +21,6 @@
 
 using System.Windows.Controls;
 using System.Windows.Threading;
-using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
@@ -29,9 +28,7 @@ using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
 using Core.Plugins.ProjectExplorer;
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Integration.Plugin;
 
 namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
@@ -53,18 +50,15 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 
         [Test]
         [RequiresSTA]
-        public void StartGuiWithToolboxDoesNotCrash()
+        public void Run_GuiWithRingtoetsPlugin_DoesNotCrash()
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
-                var applicationCore = gui.ApplicationCore;
-
-                applicationCore.AddPlugin(new RingtoetsApplicationPlugin());
-
+                gui.Plugins.Add(new RingtoetsGuiPlugin());
                 gui.Run();
             }
             mocks.VerifyAll();
@@ -72,21 +66,21 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 
         [Test]
         [RequiresSTA]
-        public void StartWithCommonPluginsShouldBeFast()
+        public void Run_StartWithCommonPlugins_RunsFasterThanThreshold()
         {
             TestHelper.AssertIsFasterThan(7500, StartWithCommonPlugins);
         }
 
         [Test]
         [RequiresSTA]
-        public void GuiSelectionIsSetToProjectAfterStartWithProjectExplorer()
+        public void Run_GuiWithProjectExplorerPlugin_SelectionIsSetToProjectExplorer()
         {
             // initialize
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
@@ -106,7 +100,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
                 gui.Run();
                 int callCount = 0;
@@ -122,11 +116,9 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
-                var applicationCore = gui.ApplicationCore;
-
-                applicationCore.AddPlugin(new RingtoetsApplicationPlugin());
+                gui.Plugins.Add(new RingtoetsGuiPlugin());
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
 
                 gui.Run();

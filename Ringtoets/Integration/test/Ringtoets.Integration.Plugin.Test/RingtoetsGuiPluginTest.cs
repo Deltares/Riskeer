@@ -84,7 +84,7 @@ namespace Ringtoets.Integration.Plugin.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
                 using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
                 {
@@ -114,7 +114,7 @@ namespace Ringtoets.Integration.Plugin.Test
             var testDataDir = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
             var testDataPath = Path.Combine(testDataDir, "complete.sqlite");
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
                 using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
                 {
@@ -151,7 +151,7 @@ namespace Ringtoets.Integration.Plugin.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
                 using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
                 {

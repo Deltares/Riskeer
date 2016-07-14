@@ -33,7 +33,6 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using Application.Ringtoets.Storage;
-using Core.Common.Base.Plugin;
 using Core.Common.Controls.Dialogs;
 using Core.Common.Gui;
 using Core.Common.Gui.Appenders;
@@ -50,7 +49,6 @@ using Ringtoets.HeightStructures.Plugin;
 using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Plugin;
 using MessageBox = System.Windows.MessageBox;
-
 #if INCLUDE_DEMOPROJECT
 using Demo.Ringtoets.GUIs;
 
@@ -138,12 +136,6 @@ namespace Application.Ringtoets
 
             Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
 
-            var applicationCore = new ApplicationCore();
-
-            applicationCore.AddPlugin(new RingtoetsApplicationPlugin());
-            applicationCore.AddPlugin(new PipingApplicationPlugin());
-            applicationCore.AddPlugin(new GrassCoverErosionInwardsApplicationPlugin());
-
             var settings = new GuiCoreSettings
             {
                 StartPageUrl = "http://www.helpdeskwater.nl",
@@ -156,7 +148,7 @@ namespace Application.Ringtoets
                 ManualFilePath = "Ringtoets_Manual.pdf"
             };
             var mainWindow = new MainWindow();
-            gui = new GuiCore(mainWindow, new StorageSqLite(), applicationCore, settings)
+            gui = new GuiCore(mainWindow, new StorageSqLite(), settings)
             {
                 Plugins =
                 {

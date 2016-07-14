@@ -27,7 +27,6 @@ using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using System.Windows.Threading;
 using Core.Common.Base.Data;
-using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Commands;
@@ -40,13 +39,10 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Common.Gui.Test.Forms.ViewHost;
 using Core.Common.TestUtil;
-
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test
@@ -83,53 +79,53 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            var applicationCore = new ApplicationCore();
             var guiCoreSettings = new GuiCoreSettings();
 
             // Call
             using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, applicationCore, guiCoreSettings))
             {
-                // Assert
-                Assert.AreSame(applicationCore, gui.ApplicationCore);
-                Assert.AreEqual(null, gui.PropertyResolver);
-                Assert.AreSame(projectStore, gui.Storage);
-
-                Assert.AreEqual(null, gui.ProjectFilePath);
-                Assert.AreEqual(null, gui.Project);
-
-                Assert.AreEqual(null, gui.Selection);
-
-                Assert.IsInstanceOf<ProjectCommandHandler>(gui.ProjectCommands);
-                Assert.IsInstanceOf<StorageCommandHandler>(gui.StorageCommands);
-                Assert.IsInstanceOf<ViewCommandHandler>(gui.ViewCommands);
-                Assert.AreEqual(null, gui.ApplicationCommands);
-
-                Assert.AreEqual(null, gui.ViewHost);
-                Assert.AreEqual(null, gui.DocumentViewController);
-
-                AssertDefaultUserSettings(gui.UserSettings);
-                Assert.AreSame(guiCoreSettings, gui.FixedSettings);
-
-                CollectionAssert.IsEmpty(gui.Plugins);
-
-                Assert.AreEqual(mainWindow, gui.MainWindow);
-
-                Assert.AreSame(ViewPropertyEditor.ViewCommands, gui.ViewCommands);
-
-                // Check for OS settings that allow visual styles to be rendered in the first place:
-                if (VisualStyleInformation.IsSupportedByOS && VisualStyleInformation.IsEnabledByUser &&
-                    (Application.VisualStyleState == VisualStyleState.ClientAreaEnabled ||
-                     Application.VisualStyleState == VisualStyleState.ClientAndNonClientAreasEnabled))
+                using (var gui = new GuiCore(mainWindow, projectStore, guiCoreSettings))
                 {
-                    Assert.IsTrue(Application.RenderWithVisualStyles,
-                        "OS configured to support visual styles, therefore GUI should enable this rendering style.");
-                }
-                else
-                {
-                    // 
-                    Assert.IsFalse(Application.RenderWithVisualStyles,
-                        "OS not supporting visual styles, therefore application shouldn't be render with visual styles.");
+                    // Assert
+                    Assert.AreEqual(null, gui.PropertyResolver);
+                    Assert.AreSame(projectStore, gui.Storage);
+
+                    Assert.AreEqual(null, gui.ProjectFilePath);
+                    Assert.AreEqual(null, gui.Project);
+
+                    Assert.AreEqual(null, gui.Selection);
+
+                    Assert.IsInstanceOf<ProjectCommandHandler>(gui.ProjectCommands);
+                    Assert.IsInstanceOf<StorageCommandHandler>(gui.StorageCommands);
+                    Assert.IsInstanceOf<ViewCommandHandler>(gui.ViewCommands);
+                    Assert.AreEqual(null, gui.ApplicationCommands);
+
+                    Assert.AreEqual(null, gui.ViewHost);
+                    Assert.AreEqual(null, gui.DocumentViewController);
+
+                    AssertDefaultUserSettings(gui.UserSettings);
+                    Assert.AreSame(guiCoreSettings, gui.FixedSettings);
+
+                    CollectionAssert.IsEmpty(gui.Plugins);
+
+                    Assert.AreEqual(mainWindow, gui.MainWindow);
+
+                    Assert.AreSame(ViewPropertyEditor.ViewCommands, gui.ViewCommands);
+
+                    // Check for OS settings that allow visual styles to be rendered in the first place:
+                    if (VisualStyleInformation.IsSupportedByOS && VisualStyleInformation.IsEnabledByUser &&
+                        (Application.VisualStyleState == VisualStyleState.ClientAreaEnabled ||
+                         Application.VisualStyleState == VisualStyleState.ClientAndNonClientAreasEnabled))
+                    {
+                        Assert.IsTrue(Application.RenderWithVisualStyles,
+                                      "OS configured to support visual styles, therefore GUI should enable this rendering style.");
+                    }
+                    else
+                    {
+                        // 
+                        Assert.IsFalse(Application.RenderWithVisualStyles,
+                                       "OS not supporting visual styles, therefore application shouldn't be render with visual styles.");
+                    }
                 }
             }
             mocks.VerifyAll();
@@ -140,23 +136,21 @@ namespace Core.Common.Gui.Test
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
-        [TestCase(3)]
-        public void ParameteredConstructor_SomeArgumentIsNull_ThrowArgumentNullException(int nullArgumentIndex)
+        public void ParameteredConstructor_SomeArgumentIsNull_ThrowsArgumentNullException(int nullArgumentIndex)
         {
             // Setup
             var mocks = new MockRepository();
             IStoreProject projectStore = nullArgumentIndex == 1 ? null : mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            ApplicationCore applicationCore = nullArgumentIndex == 2 ? null : new ApplicationCore();
-            GuiCoreSettings guiCoreSettings = nullArgumentIndex == 3 ? null : new GuiCoreSettings();
+            GuiCoreSettings guiCoreSettings = nullArgumentIndex == 2 ? null : new GuiCoreSettings();
 
             // Call
             using (var mainWindow = new MainWindow())
-            
+
             {
                 // Call
-                TestDelegate call = () => new GuiCore(nullArgumentIndex == 0 ? null : mainWindow, projectStore, applicationCore, guiCoreSettings);
+                TestDelegate call = () => new GuiCore(nullArgumentIndex == 0 ? null : mainWindow, projectStore, guiCoreSettings);
 
                 // Assert
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Value cannot be null.");
@@ -167,47 +161,28 @@ namespace Core.Common.Gui.Test
         [Test]
         [STAThread]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void Constructor_ConstuctedAfterAnotherInstanceHasBeenCreated_ThrowInvalidOperationException()
+        public void Constructor_ConstuctedAfterAnotherInstanceHasBeenCreated_ThrowsInvalidOperationException()
         {
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            var applicationCore = new ApplicationCore();
             var guiCoreSettings = new GuiCoreSettings();
 
             // Call
             using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, applicationCore, guiCoreSettings))
             {
-                // Call
-                using (var gui2 = new GuiCore(mainWindow, projectStore, applicationCore, guiCoreSettings))
+                using (var gui = new GuiCore(mainWindow, projectStore, guiCoreSettings))
                 {
-                    // Assert
-                    Assert.Fail("Expected an InvalidOperationException to be thrown.");
+                    // Call
+                    using (var gui2 = new GuiCore(mainWindow, projectStore, guiCoreSettings))
+                    {
+                        // Assert
+                        Assert.Fail("Expected an InvalidOperationException to be thrown.");
+                    }
                 }
             }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [STAThread]
-        public void Dispose_ApplicationCoreSet_DisposesOfApplicationCore()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var applicationCore = mocks.Stub<ApplicationCore>();
-            applicationCore.Expect(ac => ac.Dispose());
-            mocks.ReplayAll();
-
-            var gui = new GuiCore(new MainWindow(), projectStore, applicationCore, new GuiCoreSettings());
-
-            // Call
-            gui.Dispose();
-
-            // Assert
             mocks.VerifyAll();
         }
 
@@ -223,7 +198,7 @@ namespace Core.Common.Gui.Test
             guiPluginMock.Expect(p => p.Dispose());
             mocks.ReplayAll();
 
-            var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings());
+            var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings());
             gui.Plugins.Add(guiPluginMock);
 
             // Call
@@ -246,7 +221,7 @@ namespace Core.Common.Gui.Test
             guiPluginMock.Expect(p => p.Dispose());
             mocks.ReplayAll();
 
-            var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings());
+            var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings());
             gui.Plugins.Add(guiPluginMock);
 
             // Call
@@ -267,7 +242,7 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings())
+            var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings())
             {
                 Selection = new object()
             };
@@ -289,7 +264,7 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings())
+            var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings())
             {
                 Project = new Project()
             };
@@ -313,7 +288,7 @@ namespace Core.Common.Gui.Test
 
             using (var mainWindow = new MainWindow())
             {
-                var gui = new GuiCore(mainWindow, projectStore, new ApplicationCore(), new GuiCoreSettings());
+                var gui = new GuiCore(mainWindow, projectStore, new GuiCoreSettings());
 
                 // Call
                 gui.Dispose();
@@ -336,12 +311,12 @@ namespace Core.Common.Gui.Test
 
             var messageWindowLogAppender = new MessageWindowLogAppender();
 
-            var rootLogger = ((Hierarchy)LogManager.GetRepository()).Root;
+            var rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
             rootLogger.AddAppender(messageWindowLogAppender);
 
             try
             {
-                using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+                using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
                 {
                     gui.Run();
 
@@ -374,19 +349,21 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using(var toolView = new TestView())
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var toolView = new TestView())
             {
-                gui.Run();
+                using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
+                {
+                    gui.Run();
 
-                gui.ViewHost.AddToolView(toolView, ToolViewLocation.Left);
+                    gui.ViewHost.AddToolView(toolView, ToolViewLocation.Left);
 
-                // Call
-                gui.Dispose();
+                    // Call
+                    gui.Dispose();
 
-                // Assert
-                Assert.IsEmpty(gui.ViewHost.ToolViews);
-                Assert.IsTrue(toolView.IsDisposed);
+                    // Assert
+                    Assert.IsEmpty(gui.ViewHost.ToolViews);
+                    Assert.IsTrue(toolView.IsDisposed);
+                }
             }
             mocks.VerifyAll();
         }
@@ -401,19 +378,21 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             using (var documentView = new TestView())
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
-                gui.Run();
+                using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
+                {
+                    gui.Run();
 
-                gui.ViewHost.AddDocumentView(documentView);
+                    gui.ViewHost.AddDocumentView(documentView);
 
-                // Call
-                gui.Dispose();
+                    // Call
+                    gui.Dispose();
 
-                // Assert
-                Assert.IsEmpty(gui.ViewHost.DocumentViews);
-                Assert.IsNull(gui.DocumentViewController);
-                Assert.IsTrue(documentView.IsDisposed);
+                    // Assert
+                    Assert.IsEmpty(gui.ViewHost.DocumentViews);
+                    Assert.IsNull(gui.DocumentViewController);
+                    Assert.IsTrue(documentView.IsDisposed);
+                }
             }
             mocks.VerifyAll();
         }
@@ -427,13 +406,13 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            Logger rootLogger = ((Hierarchy)LogManager.GetRepository()).Root;
+            Logger rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
             IAppender[] originalAppenders = rootLogger.Appenders.ToArray();
             rootLogger.RemoveAllAppenders();
 
             try
             {
-                using(var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+                using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
                 {
                     // Call
                     gui.Run();
@@ -470,7 +449,7 @@ namespace Core.Common.Gui.Test
 
             var appender = new MessageWindowLogAppender();
 
-            Logger rootLogger = ((Hierarchy)LogManager.GetRepository()).Root;
+            Logger rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
             IAppender[] originalAppenders = rootLogger.Appenders.ToArray();
             rootLogger.RemoveAllAppenders();
             rootLogger.AddAppender(appender);
@@ -478,7 +457,7 @@ namespace Core.Common.Gui.Test
 
             try
             {
-                using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+                using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
                 {
                     // Call
                     gui.Run();
@@ -524,27 +503,29 @@ namespace Core.Common.Gui.Test
             };
 
             using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, new ApplicationCore(), fixedSettings))
             {
-                // Call
-                Action call = () => gui.Run(testFile);
-
-                // Assert
-                var expectedMessages = new[]
+                using (var gui = new GuiCore(mainWindow, projectStore, fixedSettings))
                 {
-                    "Openen van bestaand Ringtoetsproject.",
-                    "Bestaand Ringtoetsproject succesvol geopend."
-                };
-                TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
-                Assert.AreEqual(testFile, gui.ProjectFilePath);
-                Assert.AreSame(deserializedProject, gui.Project);
-                Assert.AreEqual(fileName, gui.Project.Name,
-                    "Project name should be updated to the name of the file.");
+                    // Call
+                    Action call = () => gui.Run(testFile);
 
-                Assert.AreSame(gui.Selection, gui.Project);
-                var expectedTitle = string.Format("{0} - {1} {2}",
-                                                  fileName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
-                Assert.AreEqual(expectedTitle, mainWindow.Title);
+                    // Assert
+                    var expectedMessages = new[]
+                    {
+                        "Openen van bestaand Ringtoetsproject.",
+                        "Bestaand Ringtoetsproject succesvol geopend."
+                    };
+                    TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+                    Assert.AreEqual(testFile, gui.ProjectFilePath);
+                    Assert.AreSame(deserializedProject, gui.Project);
+                    Assert.AreEqual(fileName, gui.Project.Name,
+                                    "Project name should be updated to the name of the file.");
+
+                    Assert.AreSame(gui.Selection, gui.Project);
+                    var expectedTitle = string.Format("{0} - {1} {2}",
+                                                      fileName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
+                    Assert.AreEqual(expectedTitle, mainWindow.Title);
+                }
             }
             mocks.VerifyAll();
         }
@@ -570,32 +551,34 @@ namespace Core.Common.Gui.Test
             };
 
             using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, new ApplicationCore(), fixedSettings))
             {
-                // Call
-                Action call = () => gui.Run(testFile);
-
-                // Assert
-                var expectedMessages = new[]
+                using (var gui = new GuiCore(mainWindow, projectStore, fixedSettings))
                 {
-                    "Openen van bestaand Ringtoetsproject.",
-                    storageExceptionText,
-                    "Het is niet gelukt om het Ringtoetsproject te laden.",
-                    "Nieuw project aanmaken..."
-                };
-                TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+                    // Call
+                    Action call = () => gui.Run(testFile);
 
-                Assert.IsNull(gui.ProjectFilePath);
-                const string expectedProjectName = "Project";
-                Assert.AreEqual(expectedProjectName, gui.Project.Name);
-                Assert.AreEqual(string.Empty, gui.Project.Description);
-                CollectionAssert.IsEmpty(gui.Project.Items);
-                Assert.AreEqual(0, gui.Project.StorageId);
+                    // Assert
+                    var expectedMessages = new[]
+                    {
+                        "Openen van bestaand Ringtoetsproject.",
+                        storageExceptionText,
+                        "Het is niet gelukt om het Ringtoetsproject te laden.",
+                        "Nieuw project aanmaken..."
+                    };
+                    TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
 
-                Assert.AreSame(gui.Selection, gui.Project);
-                var expectedTitle = string.Format("{0} - {1} {2}",
-                                                  expectedProjectName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
-                Assert.AreEqual(expectedTitle, mainWindow.Title);
+                    Assert.IsNull(gui.ProjectFilePath);
+                    const string expectedProjectName = "Project";
+                    Assert.AreEqual(expectedProjectName, gui.Project.Name);
+                    Assert.AreEqual(string.Empty, gui.Project.Description);
+                    CollectionAssert.IsEmpty(gui.Project.Items);
+                    Assert.AreEqual(0, gui.Project.StorageId);
+
+                    Assert.AreSame(gui.Selection, gui.Project);
+                    var expectedTitle = string.Format("{0} - {1} {2}",
+                                                      expectedProjectName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
+                    Assert.AreEqual(expectedTitle, mainWindow.Title);
+                }
             }
             mocks.VerifyAll();
         }
@@ -617,33 +600,35 @@ namespace Core.Common.Gui.Test
                 MainWindowTitle = "<title part>"
             };
 
-            using(var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, new ApplicationCore(), fixedSettings))
+            using (var mainWindow = new MainWindow())
             {
-                // Call
-                Action call = () => gui.Run(path);
+                using (var gui = new GuiCore(mainWindow, projectStore, fixedSettings))
+                {
+                    // Call
+                    Action call = () => gui.Run(path);
 
-                // Assert
-                TestHelper.AssertLogMessageIsGenerated(call, "Nieuw project aanmaken...");
+                    // Assert
+                    TestHelper.AssertLogMessageIsGenerated(call, "Nieuw project aanmaken...");
 
-                Assert.IsNull(gui.ProjectFilePath);
-                const string expectedProjectName = "Project";
-                Assert.AreEqual(expectedProjectName, gui.Project.Name);
-                Assert.AreEqual(string.Empty, gui.Project.Description);
-                CollectionAssert.IsEmpty(gui.Project.Items);
-                Assert.AreEqual(0, gui.Project.StorageId);
+                    Assert.IsNull(gui.ProjectFilePath);
+                    const string expectedProjectName = "Project";
+                    Assert.AreEqual(expectedProjectName, gui.Project.Name);
+                    Assert.AreEqual(string.Empty, gui.Project.Description);
+                    CollectionAssert.IsEmpty(gui.Project.Items);
+                    Assert.AreEqual(0, gui.Project.StorageId);
 
-                Assert.AreSame(gui.Selection, gui.Project);
-                var expectedTitle = string.Format("{0} - {1} {2}",
-                                                  expectedProjectName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
-                Assert.AreEqual(expectedTitle, mainWindow.Title);
+                    Assert.AreSame(gui.Selection, gui.Project);
+                    var expectedTitle = string.Format("{0} - {1} {2}",
+                                                      expectedProjectName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
+                    Assert.AreEqual(expectedTitle, mainWindow.Title);
+                }
             }
             mocks.VerifyAll();
         }
 
         [Test]
         [STAThread]
-        public void Run_WithGuiPlugins_SetGuiAndActivatePlugins()
+        public void Run_WithPlugins_SetGuiAndActivatePlugins()
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
@@ -656,7 +641,7 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             // Setup
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(guiPlugin);
 
@@ -671,7 +656,7 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [STAThread]
-        public void Run_WithGuiPluginThatThrowsExceptionWhenActivated_DeactivateAndDisposePlugin()
+        public void Run_WithPluginThatThrowsExceptionWhenActivated_DeactivateAndDisposePlugin()
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
@@ -684,7 +669,7 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             // Setup
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(guiPlugin);
 
@@ -697,7 +682,7 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [STAThread]
-        public void Run_WithGuiPluginThatThrowsExceptionWhenActivatedAndDeactivated_LogErrorForDeactivatingThenDispose()
+        public void Run_WithPluginThatThrowsExceptionWhenActivatedAndDeactivated_LogErrorForDeactivatingThenDispose()
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
@@ -710,7 +695,7 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             // Setup
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(guiPlugin);
 
@@ -733,7 +718,7 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
                 // Call
                 gui.Run();
@@ -761,7 +746,7 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
                 var rootData = new object();
 
@@ -800,7 +785,7 @@ namespace Core.Common.Gui.Test
             plugin2.Stub(p => p.Deactivate());
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(plugin1);
                 gui.Plugins.Add(plugin2);
@@ -831,7 +816,8 @@ namespace Core.Common.Gui.Test
             var plugin1 = mocks.StrictMock<PluginBase>();
             plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootData)).Return(new[]
             {
-                rootData, rootChild
+                rootData,
+                rootChild
             });
             plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootChild)).Return(new[]
             {
@@ -842,7 +828,8 @@ namespace Core.Common.Gui.Test
             var plugin2 = mocks.StrictMock<PluginBase>();
             plugin2.Expect(p => p.GetChildDataWithViewDefinitions(rootData)).Return(new[]
             {
-                rootChild, rootData
+                rootChild,
+                rootData
             });
             plugin2.Expect(p => p.GetChildDataWithViewDefinitions(rootChild)).Return(new[]
             {
@@ -852,7 +839,7 @@ namespace Core.Common.Gui.Test
             plugin2.Stub(p => p.Deactivate());
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(plugin1);
                 gui.Plugins.Add(plugin2);
@@ -863,7 +850,8 @@ namespace Core.Common.Gui.Test
                 // Assert
                 var expectedDataDefinitions = new[]
                 {
-                    rootData, rootChild
+                    rootData,
+                    rootChild
                 };
                 CollectionAssert.AreEquivalent(expectedDataDefinitions, dataInstancesWithViewDefinitions);
             }
@@ -879,7 +867,7 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
                 // Call
                 var result = gui.GetTreeNodeInfos();
@@ -927,7 +915,7 @@ namespace Core.Common.Gui.Test
             pluginC.Stub(p => p.Deactivate());
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(pluginA);
                 gui.Plugins.Add(pluginB);
@@ -946,7 +934,7 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [STAThread]
-        public void Get_GuiHasntRunYet_ThrowInvalidOperationException()
+        public void Get_GuiHasNotRunYet_ThrowsInvalidOperationException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -954,15 +942,16 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             using (var treeView = new TreeViewControl())
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
-                // Call
-                TestDelegate call = () => gui.Get(new object(), treeView);
+                using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
+                {
+                    // Call
+                    TestDelegate call = () => gui.Get(new object(), treeView);
 
-                // Assert
-                var message = Assert.Throws<InvalidOperationException>(call).Message;
-                Assert.AreEqual("Call IGui.Run in order to initialize dependencies before getting the ContextMenuBuilder.", message);
-
+                    // Assert
+                    var message = Assert.Throws<InvalidOperationException>(call).Message;
+                    Assert.AreEqual("Call IGui.Run in order to initialize dependencies before getting the ContextMenuBuilder.", message);
+                }
             }
             mocks.VerifyAll();
         }
@@ -977,25 +966,27 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             using (var treeView = new TreeViewControl())
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
-                gui.Run();
+                using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
+                {
+                    gui.Run();
 
-                // Call
-                IContextMenuBuilder builder = gui.Get(new object(), treeView);
+                    // Call
+                    IContextMenuBuilder builder = gui.Get(new object(), treeView);
 
-                // Assert
-                ContextMenuStrip contextMenu = builder.AddRenameItem()
-                                                      .AddCollapseAllItem()
-                                                      .AddDeleteItem()
-                                                      .AddExpandAllItem()
-                                                      .AddImportItem()
-                                                      .AddExportItem()
-                                                      .AddOpenItem()
-                                                      .AddSeparator()
-                                                      .AddPropertiesItem()
-                                                      .Build();
-                Assert.AreEqual(9, contextMenu.Items.Count);
+                    // Assert
+                    ContextMenuStrip contextMenu = builder.AddRenameItem()
+                                                          .AddCollapseAllItem()
+                                                          .AddDeleteItem()
+                                                          .AddExpandAllItem()
+                                                          .AddImportItem()
+                                                          .AddExportItem()
+                                                          .AddOpenItem()
+                                                          .AddSeparator()
+                                                          .AddPropertiesItem()
+                                                          .Build();
+                    Assert.AreEqual(9, contextMenu.Items.Count);
+                }
             }
             mocks.VerifyAll();
         }
@@ -1009,7 +1000,7 @@ namespace Core.Common.Gui.Test
             var storeProject = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), storeProject, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), storeProject, new GuiCoreSettings()))
             {
                 var oldProject = new Project("A");
                 var newProject = new Project("B");
@@ -1053,19 +1044,19 @@ namespace Core.Common.Gui.Test
             Assert.AreEqual(7, settings.Properties.Count);
 
             // Note: Cannot assert particular values, as they can be changed by user.
-            var mruList = (StringCollection)settings["mruList"];
+            var mruList = (StringCollection) settings["mruList"];
             Assert.IsNotNull(mruList);
-            var defaultViewDataTypes = (StringCollection)settings["defaultViewDataTypes"];
+            var defaultViewDataTypes = (StringCollection) settings["defaultViewDataTypes"];
             Assert.IsNotNull(defaultViewDataTypes);
-            var defaultViews = (StringCollection)settings["defaultViews"];
+            var defaultViews = (StringCollection) settings["defaultViews"];
             Assert.IsNotNull(defaultViews);
-            var lastVisitedPath = (string)settings["lastVisitedPath"];
+            var lastVisitedPath = (string) settings["lastVisitedPath"];
             Assert.IsNotNull(lastVisitedPath);
-            var startPageName = (string)settings["startPageName"];
+            var startPageName = (string) settings["startPageName"];
             Assert.IsNotNull(startPageName);
-            var showStartPage = (bool)settings["showStartPage"];
+            var showStartPage = (bool) settings["showStartPage"];
             Assert.IsNotNull(showStartPage);
-            var showSplashScreen = (bool)settings["showSplashScreen"];
+            var showSplashScreen = (bool) settings["showSplashScreen"];
             Assert.IsNotNull(showSplashScreen);
         }
     }

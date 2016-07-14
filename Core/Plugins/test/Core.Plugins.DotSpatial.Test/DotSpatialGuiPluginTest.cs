@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
-using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
@@ -138,7 +137,7 @@ namespace Core.Plugins.DotSpatial.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
                 var plugin = new DotSpatialGuiPlugin();
                 var testMapView = new TestMapView();

@@ -30,7 +30,6 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using Core.Common.Base.Data;
-using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Commands;
@@ -74,12 +73,11 @@ namespace Core.Common.Gui
         /// </summary>
         /// <param name="mainWindow">The main window.</param>
         /// <param name="projectStore">The project store.</param>
-        /// <param name="applicationCore">The application core.</param>
         /// <param name="fixedSettings">The fixed settings.</param>
         /// <exception cref="System.InvalidOperationException">When another <see cref="GuiCore"/>
         /// instance is running.</exception>
         /// <exception cref="System.ArgumentNullException">When any parameter is null.</exception>
-        public GuiCore(IMainWindow mainWindow, IStoreProject projectStore, ApplicationCore applicationCore, GuiCoreSettings fixedSettings)
+        public GuiCore(IMainWindow mainWindow, IStoreProject projectStore, GuiCoreSettings fixedSettings)
         {
             // error detection code, make sure we use only a single instance of GuiCore at a time
             if (isAlreadyRunningInstanceOfIGui)
@@ -96,17 +94,12 @@ namespace Core.Common.Gui
             {
                 throw new ArgumentNullException("projectStore");
             }
-            if (applicationCore == null)
-            {
-                throw new ArgumentNullException("applicationCore");
-            }
             if (fixedSettings == null)
             {
                 throw new ArgumentNullException("fixedSettings");
             }
             MainWindow = mainWindow;
             Storage = projectStore;
-            ApplicationCore = applicationCore;
             FixedSettings = fixedSettings;
 
             isAlreadyRunningInstanceOfIGui = true;
@@ -128,8 +121,6 @@ namespace Core.Common.Gui
 
             ProjectOpened += ApplicationProjectOpened;
         }
-
-        public ApplicationCore ApplicationCore { get; private set; }
 
         public IPropertyResolver PropertyResolver { get; private set; }
 
@@ -260,11 +251,6 @@ namespace Core.Common.Gui
                 splashScreen = null;
 
                 MessageWindowLogAppender.Instance.MessageWindow = null;
-
-                if (ApplicationCore != null)
-                {
-                    ApplicationCore.Dispose();
-                }
 
                 RemoveLogging();
                 Plugins = null;
@@ -420,7 +406,7 @@ namespace Core.Common.Gui
         {
             InitializeWindows();
 
-            InitializeGuiPlugins();
+            InitializePlugins();
 
             CopyDefaultViewsFromUserSettings();
 
@@ -535,7 +521,7 @@ namespace Core.Common.Gui
             mainWindow.ValidateItems();
         }
 
-        private void InitializeGuiPlugins()
+        private void InitializePlugins()
         {
             Plugins.ForEachElementDo(p => p.Gui = this);
 
