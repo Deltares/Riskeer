@@ -170,7 +170,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
-            TestDelegate call = () => AssignUnassignCalculations.Update(null, calculation);
+            TestDelegate call = () => AssignUnassignCalculations.Delete(null, calculation, Enumerable.Empty<GrassCoverErosionInwardsCalculation>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -184,11 +184,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => AssignUnassignCalculations.Update(failureMechanism.SectionResults, null);
+            TestDelegate call = () => AssignUnassignCalculations.Delete(failureMechanism.SectionResults, null, Enumerable.Empty<GrassCoverErosionInwardsCalculation>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("calculation", paramName);
+        }
+
+        [Test]
+        public void Delete_NullCalculations_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            // Call
+            TestDelegate call = () => AssignUnassignCalculations.Delete(failureMechanism.SectionResults, new GrassCoverErosionInwardsCalculation(),  null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("calculations", paramName);
         }
 
         [Test]
@@ -221,7 +235,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             AssignUnassignCalculations.Delete(failureMechanism.SectionResults, calculation, Enumerable.Empty<GrassCoverErosionInwardsCalculation>());
 
             // Assert
-            Assert.IsNull(failureMechanism.SectionResults.First().Calculation);
+            Assert.IsNull(failureMechanism.SectionResults.Single().Calculation);
         }
 
         [Test]
@@ -258,7 +272,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
                 new Point2D(0.0, 0.0), new Point2D(1.1, 1.1)
             }));
 
-            failureMechanism.SectionResults.First().Calculation = calculation1;
+            failureMechanism.SectionResults.Single().Calculation = calculation1;
 
             var remainingCalculations = new[]
             {
@@ -269,7 +283,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             AssignUnassignCalculations.Delete(failureMechanism.SectionResults, calculation1, remainingCalculations);
 
             // Assert
-            Assert.AreSame(calculation2, failureMechanism.SectionResults.First().Calculation);
+            Assert.AreSame(calculation2, failureMechanism.SectionResults.Single().Calculation);
         }
     }
 }

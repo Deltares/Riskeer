@@ -65,7 +65,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// </summary>
         /// <param name="sectionResults">The <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects.</param>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/>.</param>
-        /// <param name="calculations"></param>
+        /// <param name="calculations">All the remaining calculations after deletion of the <paramref name="calculation"/>.</param>
         /// <exception cref="ArgumentNullException">When any input parameter is <c>null</c>.</exception>
         public static void Delete(
             IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults, 
@@ -79,6 +79,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
             if (calculation == null)
             {
                 throw new ArgumentNullException("calculation");
+            }
+            if (calculations == null)
+            {
+                throw new ArgumentNullException("calculations");
             }
 
             var sectionResultsArray = sectionResults.ToArray();
@@ -94,16 +98,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
             GrassCoverErosionInwardsCalculation calculation, Dictionary<string, 
             IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegmentName)
         {
-            var sectionsContainingOneCalculation = calculationsPerSegmentName.Where(kvp => kvp.Value.Count == 1).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-
             IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResultsUsingCalculation =
                 sectionResults.Where(sr => sr.Calculation != null && sr.Calculation.Equals(calculation));
             foreach (var sectionResult in sectionResultsUsingCalculation)
             {
                 string sectionName = sectionResult.Section.Name;
-                if (sectionsContainingOneCalculation.ContainsKey(sectionName))
+                if (calculationsPerSegmentName.ContainsKey(sectionName) && calculationsPerSegmentName[sectionName].Count == 1)
                 {
-                    sectionResult.Calculation = sectionsContainingOneCalculation[sectionName][0];
+                    sectionResult.Calculation = calculationsPerSegmentName[sectionName].Single();
                     continue;
                 }
                 sectionResult.Calculation = null;
