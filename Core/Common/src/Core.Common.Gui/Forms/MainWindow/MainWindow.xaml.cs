@@ -34,7 +34,6 @@ using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MessageWindow;
-using Core.Common.Gui.Forms.Options;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Selection;
 using Core.Common.Gui.Settings;
@@ -684,14 +683,6 @@ namespace Core.Common.Gui.Forms.MainWindow
                         existingTab.Group = newGroup;
                     }
                 }
-            }
-        }
-
-        private void OnFileOptionsClicked(object sender, RoutedEventArgs e)
-        {
-            using (var optionsDialog = new OptionsDialog(this, settings.UserSettings))
-            {
-                optionsDialog.ShowDialog();
             }
         }
 

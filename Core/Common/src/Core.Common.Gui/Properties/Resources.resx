@@ -127,9 +127,6 @@
   <data name="brick_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/brick_add.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Ribbon_Options" xml:space="preserve">
-    <value>Opties</value>
-  </data>
   <data name="SelectItemDialog_ListViewItemTypesOnHandleCreated_Explorer" xml:space="preserve">
     <value>Verkenner</value>
   </data>
@@ -273,9 +270,6 @@
   </data>
   <data name="GuiCore_ShowSplashScreen_User_has_cancelled_start_Exiting" xml:space="preserve">
     <value>Gebruiker heeft het opstarten onderbroken. Het programma wordt afgesloten...</value>
-  </data>
-  <data name="OptionsHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OptionsHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Ribbon_About" xml:space="preserve">
     <value>Over</value>
@@ -492,9 +486,6 @@
   </data>
   <data name="GuiImportHandler_GetSupportedImporterForTargetType_Error" xml:space="preserve">
     <value>Fout</value>
-  </data>
-  <data name="OptionsHS1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OptionsHS.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FailureMechanismContributionView_GridColumn_ProbabilitySpace" xml:space="preserve">
     <value>Faalkansruimte [1/jaar]</value>

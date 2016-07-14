@@ -205,12 +205,6 @@
       <DependentUpon>MessageWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MessageWindow\MessageWindowLogAppender.cs" />
-    <Compile Include="Forms\Options\OptionsDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Options\OptionsDialog.Designer.cs">
-      <DependentUpon>OptionsDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\PropertyGridView\PropertyGridView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -310,10 +304,6 @@
     <EmbeddedResource Include="Forms\MessageWindow\MessageWindowDialog.resx">
       <DependentUpon>MessageWindowDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Options\OptionsDialog.resx">
-      <DependentUpon>OptionsDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProgressDialog\ActivityProgressDialog.resx">
       <DependentUpon>ActivityProgressDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -386,7 +376,6 @@
     <Resource Include="Resources\manual.png" />
     <Resource Include="Resources\map.png" />
     <Resource Include="Resources\openfolderHS.png" />
-    <Resource Include="Resources\OptionsHS.png" />
     <Resource Include="Resources\Paste.png" />
     <Resource Include="Resources\PasteLarge.png" />
     <Resource Include="Resources\PropertiesHS.png" />
@@ -395,9 +384,6 @@
     <Resource Include="Resources\saveHS.png" />
     <Resource Include="Resources\SplashScreenBackground.png" />
     <Resource Include="Resources\startpage.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\OptionsHS.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\arrow-000-medium-question-mark.ico" />

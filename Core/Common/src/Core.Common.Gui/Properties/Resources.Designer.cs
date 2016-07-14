@@ -966,26 +966,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap OptionsHS {
-            get {
-                object obj = ResourceManager.GetObject("OptionsHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        public static System.Drawing.Icon OptionsHS1 {
-            get {
-                object obj = ResourceManager.GetObject("OptionsHS1", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon plus {
@@ -1221,15 +1201,6 @@ namespace Core.Common.Gui.Properties {
         public static string Ribbon_Open_Manual {
             get {
                 return ResourceManager.GetString("Ribbon_Open_Manual", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opties.
-        /// </summary>
-        public static string Ribbon_Options {
-            get {
-                return ResourceManager.GetString("Ribbon_Options", resourceCulture);
             }
         }
         
