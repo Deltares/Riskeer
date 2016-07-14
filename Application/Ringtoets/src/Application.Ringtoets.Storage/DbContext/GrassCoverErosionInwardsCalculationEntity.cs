@@ -33,27 +33,25 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class HydraulicLocationEntity
+    public partial class GrassCoverErosionInwardsCalculationEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HydraulicLocationEntity()
-        {
-            this.GrassCoverErosionInwardsCalculationEntities = new HashSet<GrassCoverErosionInwardsCalculationEntity>();
-            this.PipingCalculationEntities = new HashSet<PipingCalculationEntity>();
-        }
-    
-        public long HydraulicLocationEntityId { get; set; }
-        public long AssessmentSectionEntityId { get; set; }
-        public long LocationId { get; set; }
+        public long GrassCoverErosionInwardsCalculationEntityId { get; set; }
+        public long CalculationGroupEntityId { get; set; }
+        public Nullable<long> HydraulicLocationEntityId { get; set; }
+        public Nullable<long> ProbabilisticOutputEntityId { get; set; }
+        public int Order { get; set; }
         public string Name { get; set; }
-        public decimal LocationX { get; set; }
-        public decimal LocationY { get; set; }
-        public Nullable<double> DesignWaterLevel { get; set; }
+        public string Comments { get; set; }
+        public decimal Orientation { get; set; }
+        public decimal CriticalFlowRateMean { get; set; }
+        public decimal CriticalFlowRateStandardDeviation { get; set; }
+        public byte UseForeshore { get; set; }
+        public decimal DikeHeight { get; set; }
+        public byte UseBreakWater { get; set; }
+        public short BreakWaterType { get; set; }
+        public decimal BreakWaterHeight { get; set; }
     
-        public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverErosionInwardsCalculationEntity> GrassCoverErosionInwardsCalculationEntities { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }
+        public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
+        public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
     }
 }

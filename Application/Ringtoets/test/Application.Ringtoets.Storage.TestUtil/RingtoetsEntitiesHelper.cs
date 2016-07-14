@@ -44,6 +44,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             DbSet<PipingSectionResultEntity> pipingSectionResultsSet = CreateEmptyTestDbSet<PipingSectionResultEntity>();
             DbSet<DikeProfileEntity> dikeProfileEntities = CreateEmptyTestDbSet<DikeProfileEntity>();
             DbSet<GrassCoverErosionInwardsFailureMechanismMetaEntity> grassCoverErosionInwardsMetaEntities = CreateEmptyTestDbSet<GrassCoverErosionInwardsFailureMechanismMetaEntity>();
+            DbSet<GrassCoverErosionInwardsCalculationEntity> grassCoverErosionInwardsCalculationEntities = CreateEmptyTestDbSet<GrassCoverErosionInwardsCalculationEntity>();
             DbSet<GrassCoverErosionInwardsSectionResultEntity> grassCoverErosionInwardsSectionResultsSet = CreateEmptyTestDbSet<GrassCoverErosionInwardsSectionResultEntity>();
             DbSet<HeightStructuresSectionResultEntity> heightStructuresSectionResultsSet = CreateEmptyTestDbSet<HeightStructuresSectionResultEntity>();
             DbSet<StrengthStabilityLengthwiseConstructionSectionResultEntity> strengthStabilityLengthwiseConstructionSectionResultsSet = CreateEmptyTestDbSet<StrengthStabilityLengthwiseConstructionSectionResultEntity>();
@@ -86,6 +87,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             ringtoetsEntities.Stub(r => r.PipingSectionResultEntities).Return(pipingSectionResultsSet);
             ringtoetsEntities.Stub(r => r.DikeProfileEntities).Return(dikeProfileEntities);
             ringtoetsEntities.Stub(r => r.GrassCoverErosionInwardsFailureMechanismMetaEntities).Return(grassCoverErosionInwardsMetaEntities);
+            ringtoetsEntities.Stub(r => r.GrassCoverErosionInwardsCalculationEntities).Return(grassCoverErosionInwardsCalculationEntities);
             ringtoetsEntities.Stub(r => r.GrassCoverErosionInwardsSectionResultEntities).Return(grassCoverErosionInwardsSectionResultsSet);
             ringtoetsEntities.Stub(r => r.HeightStructuresSectionResultEntities).Return(heightStructuresSectionResultsSet);
             ringtoetsEntities.Stub(r => r.StrengthStabilityLengthwiseConstructionSectionResultEntities).Return(strengthStabilityLengthwiseConstructionSectionResultsSet);

@@ -73,6 +73,12 @@ namespace Application.Ringtoets.Storage.DbContext
         DbSet<GrassCoverErosionInwardsFailureMechanismMetaEntity> GrassCoverErosionInwardsFailureMechanismMetaEntities { get; }
 
         /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="GrassCoverErosionInwardsCalculationEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<GrassCoverErosionInwardsCalculationEntity> GrassCoverErosionInwardsCalculationEntities { get; }
+
+        /// <summary>
         /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="GrassCoverErosionInwardsSectionResultEntity"/> containing
         /// every entity found in the database.
         /// </summary>
