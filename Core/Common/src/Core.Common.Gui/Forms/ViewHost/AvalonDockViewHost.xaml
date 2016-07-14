@@ -36,7 +36,7 @@
                         <xcad:LayoutDocumentPaneGroup>
                             <xcad:LayoutDocumentPane x:Name="documentPane" />
                         </xcad:LayoutDocumentPaneGroup>
-                        <xcad:LayoutAnchorablePaneGroup DockHeight="150">
+                        <xcad:LayoutAnchorablePaneGroup DockHeight="200">
                             <xcad:LayoutAnchorablePane x:Name="bottomPane" />
                         </xcad:LayoutAnchorablePaneGroup>
                     </xcad:LayoutPanel>
