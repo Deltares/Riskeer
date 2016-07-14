@@ -218,10 +218,58 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             }));
 
             // Call
-            AssignUnassignCalculations.Delete(failureMechanism.SectionResults, calculation);
+            AssignUnassignCalculations.Delete(failureMechanism.SectionResults, calculation, Enumerable.Empty<GrassCoverErosionInwardsCalculation>());
 
             // Assert
             Assert.IsNull(failureMechanism.SectionResults.First().Calculation);
+        }
+
+        [Test]
+        public void Delete_RemoveCalculationAssignedToSectionResult_SingleRemainingCalculationAssignedToSectionResult()
+        {
+            // Setup
+            var dikeProfile = new DikeProfile(new Point2D(0.51, 0.51), new RoughnessPoint[0], new Point2D[0],
+                                              null, new DikeProfile.ConstructionProperties());
+
+            var calculation1 = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = dikeProfile
+                }
+            };
+            var calculation2 = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = dikeProfile
+                }
+            };
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            failureMechanism.DikeProfiles.Add(dikeProfile);
+
+            failureMechanism.CalculationsGroup.Children.Add(calculation1);
+            failureMechanism.CalculationsGroup.Children.Add(calculation2);
+
+            failureMechanism.AddSection(new FailureMechanismSection("section", new List<Point2D>
+            {
+                new Point2D(0.0, 0.0), new Point2D(1.1, 1.1)
+            }));
+
+            failureMechanism.SectionResults.First().Calculation = calculation1;
+
+            var remainingCalculations = new[]
+            {
+                calculation2
+            };
+
+            // Call
+            AssignUnassignCalculations.Delete(failureMechanism.SectionResults, calculation1, remainingCalculations);
+
+            // Assert
+            Assert.AreSame(calculation2, failureMechanism.SectionResults.First().Calculation);
         }
     }
 }

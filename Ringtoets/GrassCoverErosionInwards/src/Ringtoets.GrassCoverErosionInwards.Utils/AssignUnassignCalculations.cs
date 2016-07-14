@@ -65,8 +65,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// </summary>
         /// <param name="sectionResults">The <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects.</param>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/>.</param>
+        /// <param name="calculations"></param>
         /// <exception cref="ArgumentNullException">When any input parameter is <c>null</c>.</exception>
-        public static void Delete(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults, GrassCoverErosionInwardsCalculation calculation)
+        public static void Delete(
+            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults, 
+            GrassCoverErosionInwardsCalculation calculation, 
+            IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
             if (sectionResults == null)
             {
@@ -77,16 +81,31 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
                 throw new ArgumentNullException("calculation");
             }
 
-            UnassignCalculationInAllSectionResults(sectionResults, calculation);
+            var sectionResultsArray = sectionResults.ToArray();
+
+            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegmentName =
+                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(sectionResultsArray, calculations);
+
+            UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(sectionResultsArray, calculation, calculationsPerSegmentName);
         }
 
-        private static void UnassignCalculationInAllSectionResults(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
-                                                                   GrassCoverErosionInwardsCalculation calculation)
+        private static void UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(
+            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults, 
+            GrassCoverErosionInwardsCalculation calculation, Dictionary<string, 
+            IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegmentName)
         {
+            var sectionsContainingOneCalculation = calculationsPerSegmentName.Where(kvp => kvp.Value.Count == 1).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
             IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResultsUsingCalculation =
                 sectionResults.Where(sr => sr.Calculation != null && sr.Calculation.Equals(calculation));
             foreach (var sectionResult in sectionResultsUsingCalculation)
             {
+                string sectionName = sectionResult.Section.Name;
+                if (sectionsContainingOneCalculation.ContainsKey(sectionName))
+                {
+                    sectionResult.Calculation = sectionsContainingOneCalculation[sectionName][0];
+                    continue;
+                }
                 sectionResult.Calculation = null;
             }
         }
