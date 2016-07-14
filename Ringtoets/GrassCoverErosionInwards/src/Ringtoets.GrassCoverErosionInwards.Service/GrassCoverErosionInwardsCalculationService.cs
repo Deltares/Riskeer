@@ -123,9 +123,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             double? dikeHeightOutput = null;
 
-            if (calculateDikeHeight && targetProbabiltyCalculationParser.Output != null)
+            if (calculateDikeHeight)
             {
-                dikeHeightOutput = targetProbabiltyCalculationParser.Output.Result;
+                TargetProbabilityCalculationOutput output = targetProbabiltyCalculationParser.Output;
+                dikeHeightOutput = output == null ? double.NaN : output.Result;
             }
 
             return new GrassCoverErosionInwardsCalculationServiceOutput(
