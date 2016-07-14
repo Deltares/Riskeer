@@ -17,7 +17,7 @@ namespace Demo.Ringtoets.Test.GUIs
             using (var plugin = new DemoProjectGuiPlugin())
             {
                 // Assert
-                Assert.IsInstanceOf<GuiPlugin>(plugin);
+                Assert.IsInstanceOf<PluginBase>(plugin);
                 Assert.IsInstanceOf<IRibbonCommandHandler>(plugin.RibbonCommandHandler);
             }
         }

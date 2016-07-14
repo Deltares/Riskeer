@@ -37,7 +37,7 @@ namespace Core.Plugins.DotSpatial
     /// <summary>
     /// The gui plugin for the <see cref="DotSpatial"/> map component.
     /// </summary>
-    public class DotSpatialGuiPlugin : GuiPlugin
+    public class DotSpatialGuiPlugin : PluginBase
     {
         private MapRibbon mapRibbon;
         private MapLegendController mapLegendController;

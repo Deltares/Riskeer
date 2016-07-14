@@ -58,7 +58,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
     /// <summary>
     /// The GUI plug-in for the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionInwardsGuiPlugin : GuiPlugin
+    public class GrassCoverErosionInwardsGuiPlugin : PluginBase
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {

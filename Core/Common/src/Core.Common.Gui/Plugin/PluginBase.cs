@@ -30,9 +30,9 @@ using Core.Common.Gui.Forms;
 namespace Core.Common.Gui.Plugin
 {
     /// <summary>
-    /// Template class for gui plugin definitions.
+    /// Template class for a plugin definitions.
     /// </summary>
-    public abstract class GuiPlugin : IDisposable
+    public abstract class PluginBase : IDisposable
     {
         /// <summary>
         /// Gets or sets the gui.
@@ -63,7 +63,7 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// This method returns an enumeration of <see cref="IFileImporter"/>.
         /// </summary>
-        /// <returns>The enumeration of <see cref="IFileImporter"/> provided by the <see cref="GuiPlugin"/>.</returns>
+        /// <returns>The enumeration of <see cref="IFileImporter"/> provided by the <see cref="PluginBase"/>.</returns>
         public virtual IEnumerable<IFileImporter> GetFileImporters()
         {
             yield break;
@@ -72,7 +72,7 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// This method returns an enumeration of <see cref="IFileExporter"/>.
         /// </summary>
-        /// <returns>The enumeration of <see cref="IFileExporter"/> provided by the <see cref="GuiPlugin"/>.</returns>
+        /// <returns>The enumeration of <see cref="IFileExporter"/> provided by the <see cref="PluginBase"/>.</returns>
         public virtual IEnumerable<IFileExporter> GetFileExporters()
         {
             yield break;
@@ -81,7 +81,7 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// This method returns an enumeration of <see cref="DataItemInfo"/>.
         /// </summary>
-        /// <returns>The enumeration of <see cref="DataItemInfo"/> provided by the <see cref="GuiPlugin"/>.</returns>
+        /// <returns>The enumeration of <see cref="DataItemInfo"/> provided by the <see cref="PluginBase"/>.</returns>
         public virtual IEnumerable<DataItemInfo> GetDataItemInfos()
         {
             yield break;

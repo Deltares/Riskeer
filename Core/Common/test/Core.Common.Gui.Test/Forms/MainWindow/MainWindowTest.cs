@@ -149,7 +149,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.UserSettings).Return(settings);
             gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
-            gui.Stub(g => g.Plugins).Return(Enumerable.Empty<GuiPlugin>().ToList());
+            gui.Stub(g => g.Plugins).Return(Enumerable.Empty<PluginBase>().ToList());
             gui.Stub(g => g.ToolWindowViews).Return(toolViewsList);
             mocks.ReplayAll();
 
@@ -186,7 +186,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.UserSettings).Return(settings);
             gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
-            gui.Stub(g => g.Plugins).Return(Enumerable.Empty<GuiPlugin>().ToList());
+            gui.Stub(g => g.Plugins).Return(Enumerable.Empty<PluginBase>().ToList());
             gui.Stub(g => g.ToolWindowViews).Return(toolViewsList);
             mocks.ReplayAll();
 

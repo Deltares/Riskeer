@@ -50,7 +50,7 @@ namespace Ringtoets.HeightStructures.Plugin
     /// <summary>
     /// The GUI plug-in for the <see cref="HeightStructuresFailureMechanism"/>.
     /// </summary>
-    public class HeightStructuresGuiPlugin : GuiPlugin
+    public class HeightStructuresGuiPlugin : PluginBase
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {

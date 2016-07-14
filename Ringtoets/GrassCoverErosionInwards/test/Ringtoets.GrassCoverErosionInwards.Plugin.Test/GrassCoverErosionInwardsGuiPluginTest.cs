@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base.Plugin;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -47,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
             using (var grassCoverErosionInwardsGuiPlugin = new GrassCoverErosionInwardsGuiPlugin())
             {
                 // assert
-                Assert.IsInstanceOf<GuiPlugin>(grassCoverErosionInwardsGuiPlugin);
+                Assert.IsInstanceOf<PluginBase>(grassCoverErosionInwardsGuiPlugin);
             }
         }
 
@@ -99,11 +98,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
         {
             // setup
             var mocks = new MockRepository();
-            var applicationCore = new ApplicationCore();
             var guiStub = mocks.Stub<IGui>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-
-            Expect.Call(guiStub.ApplicationCore).Return(applicationCore).Repeat.Any();
             mocks.ReplayAll();
 
             using (var guiPlugin = new GrassCoverErosionInwardsGuiPlugin
@@ -135,12 +131,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationCore = new ApplicationCore();
 
             var guiStub = mocks.Stub<IGui>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-
-            guiStub.Stub(g => g.ApplicationCore).Return(applicationCore);
 
             mocks.ReplayAll();
 
@@ -166,13 +159,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationCore = new ApplicationCore();
-
             var guiStub = mocks.Stub<IGui>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-
-            guiStub.Stub(g => g.ApplicationCore).Return(applicationCore);
-
             mocks.ReplayAll();
 
             using (var guiPlugin = new GrassCoverErosionInwardsGuiPlugin

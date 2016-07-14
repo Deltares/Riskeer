@@ -116,7 +116,7 @@ namespace Core.Common.Gui
             isAlreadyRunningInstanceOfIGui = true;
             instanceCreationStackTrace = new StackTrace().ToString();
 
-            Plugins = new List<GuiPlugin>();
+            Plugins = new List<PluginBase>();
 
             UserSettings = Properties.Settings.Default;
 
@@ -396,7 +396,7 @@ namespace Core.Common.Gui
             }
         }
 
-        private void DeactivatePlugin(GuiPlugin plugin)
+        private void DeactivatePlugin(PluginBase plugin)
         {
             try
             {
@@ -700,7 +700,7 @@ namespace Core.Common.Gui
         {
             Plugins.ForEachElementDo(p => p.Gui = this);
 
-            var problematicPlugins = new List<GuiPlugin>();
+            var problematicPlugins = new List<PluginBase>();
 
             // Try to activate all plugins
             foreach (var plugin in Plugins)
@@ -974,7 +974,7 @@ namespace Core.Common.Gui
 
         #region Implementation: IGuiPluginHost
 
-        public IList<GuiPlugin> Plugins { get; private set; }
+        public IList<PluginBase> Plugins { get; private set; }
 
         public IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {

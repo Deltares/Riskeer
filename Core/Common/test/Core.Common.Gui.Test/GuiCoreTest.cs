@@ -224,7 +224,7 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
-            var guiPluginMock = mocks.Stub<GuiPlugin>();
+            var guiPluginMock = mocks.Stub<PluginBase>();
             guiPluginMock.Expect(p => p.Deactivate());
             guiPluginMock.Expect(p => p.Dispose());
             mocks.ReplayAll();
@@ -247,7 +247,7 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
-            var guiPluginMock = mocks.Stub<GuiPlugin>();
+            var guiPluginMock = mocks.Stub<PluginBase>();
             guiPluginMock.Expect(p => p.Deactivate()).Throw(new Exception("Bad stuff happening!"));
             guiPluginMock.Expect(p => p.Dispose());
             mocks.ReplayAll();
@@ -653,7 +653,7 @@ namespace Core.Common.Gui.Test
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
-            var guiPlugin = mocks.Stub<GuiPlugin>();
+            var guiPlugin = mocks.Stub<PluginBase>();
             guiPlugin.Stub(p => p.Deactivate());
             guiPlugin.Stub(p => p.Dispose());
             guiPlugin.Expect(p => p.Activate());
@@ -681,7 +681,7 @@ namespace Core.Common.Gui.Test
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
-            var guiPlugin = mocks.Stub<GuiPlugin>();
+            var guiPlugin = mocks.Stub<PluginBase>();
             guiPlugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
             guiPlugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
             guiPlugin.Stub(p => p.Activate()).Throw(new Exception("ERROR!"));
@@ -707,7 +707,7 @@ namespace Core.Common.Gui.Test
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
-            var guiPlugin = mocks.Stub<GuiPlugin>();
+            var guiPlugin = mocks.Stub<PluginBase>();
             guiPlugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
             guiPlugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
             guiPlugin.Stub(p => p.Activate()).Throw(new Exception("ERROR!"));
@@ -814,14 +814,14 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
 
-            var plugin1 = mocks.StrictMock<GuiPlugin>();
+            var plugin1 = mocks.StrictMock<PluginBase>();
             plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootData)).Return(new[]
             {
                 rootData
             });
             plugin1.Stub(p => p.Dispose());
             plugin1.Stub(p => p.Deactivate());
-            var plugin2 = mocks.StrictMock<GuiPlugin>();
+            var plugin2 = mocks.StrictMock<PluginBase>();
             plugin2.Expect(p => p.GetChildDataWithViewDefinitions(rootData)).Return(new[]
             {
                 rootData
@@ -858,7 +858,7 @@ namespace Core.Common.Gui.Test
 
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
-            var plugin1 = mocks.StrictMock<GuiPlugin>();
+            var plugin1 = mocks.StrictMock<PluginBase>();
             plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootData)).Return(new[]
             {
                 rootData, rootChild
@@ -869,7 +869,7 @@ namespace Core.Common.Gui.Test
             });
             plugin1.Stub(p => p.Dispose());
             plugin1.Stub(p => p.Deactivate());
-            var plugin2 = mocks.StrictMock<GuiPlugin>();
+            var plugin2 = mocks.StrictMock<PluginBase>();
             plugin2.Expect(p => p.GetChildDataWithViewDefinitions(rootData)).Return(new[]
             {
                 rootChild, rootData
@@ -976,15 +976,15 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
 
-            var pluginA = mocks.Stub<GuiPlugin>();
+            var pluginA = mocks.Stub<PluginBase>();
             pluginA.Stub(p => p.GetTreeNodeInfos()).Return(nodesPluginA);
             pluginA.Stub(p => p.Dispose());
             pluginA.Stub(p => p.Deactivate());
-            var pluginB = mocks.Stub<GuiPlugin>();
+            var pluginB = mocks.Stub<PluginBase>();
             pluginB.Stub(p => p.GetTreeNodeInfos()).Return(nodesPluginB);
             pluginB.Stub(p => p.Dispose());
             pluginB.Stub(p => p.Deactivate());
-            var pluginC = mocks.Stub<GuiPlugin>();
+            var pluginC = mocks.Stub<PluginBase>();
             pluginC.Stub(p => p.GetTreeNodeInfos()).Return(nodesPluginC);
             pluginC.Stub(p => p.Dispose());
             pluginC.Stub(p => p.Deactivate());

@@ -44,7 +44,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             using (var plugin = new ProjectExplorerGuiPlugin())
             {
                 // Assert
-                Assert.IsInstanceOf<GuiPlugin>(plugin);
+                Assert.IsInstanceOf<PluginBase>(plugin);
                 Assert.IsNull(plugin.Gui);
                 Assert.IsNull(plugin.RibbonCommandHandler);
             }
@@ -59,7 +59,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             using (var projectExplorerGuiPlugin = new ProjectExplorerGuiPlugin())
             {
                 var gui = mocks.StrictMock<IGui>();
-                var otherGuiPlugin = mocks.StrictMock<GuiPlugin>();
+                var otherGuiPlugin = mocks.StrictMock<PluginBase>();
 
                 gui.Expect(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 gui.Expect(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
@@ -69,7 +69,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 gui.Expect(g => g.ProjectOpened += Arg<Action<Project>>.Is.Anything);
                 gui.Expect(g => g.ProjectOpened -= Arg<Action<Project>>.Is.Anything);
 
-                gui.Expect(g => g.Plugins).Return(new List<GuiPlugin>
+                gui.Expect(g => g.Plugins).Return(new List<PluginBase>
                 {
                     projectExplorerGuiPlugin, otherGuiPlugin
                 }).Repeat.Any();

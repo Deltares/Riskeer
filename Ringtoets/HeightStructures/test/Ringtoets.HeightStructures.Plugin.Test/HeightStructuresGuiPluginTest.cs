@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base.Plugin;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -46,7 +45,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test
             using (var heightStructuresGuiPlugin = new HeightStructuresGuiPlugin())
             {
                 // Assert
-                Assert.IsInstanceOf<GuiPlugin>(heightStructuresGuiPlugin);
+                Assert.IsInstanceOf<PluginBase>(heightStructuresGuiPlugin);
             }
         }
 
@@ -85,12 +84,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationCore = new ApplicationCore();
             var guiStub = mocks.Stub<IGui>();
-
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            Expect.Call(guiStub.ApplicationCore).Return(applicationCore).Repeat.Any();
-
             mocks.ReplayAll();
 
             using (var guiPlugin = new HeightStructuresGuiPlugin
@@ -120,13 +115,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationCore = new ApplicationCore();
-
             var guiStub = mocks.Stub<IGui>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-
-            guiStub.Stub(g => g.ApplicationCore).Return(applicationCore);
-
             mocks.ReplayAll();
 
             using (var guiPlugin = new HeightStructuresGuiPlugin

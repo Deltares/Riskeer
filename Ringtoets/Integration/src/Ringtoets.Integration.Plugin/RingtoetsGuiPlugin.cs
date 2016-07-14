@@ -79,9 +79,9 @@ namespace Ringtoets.Integration.Plugin
     /// <summary>
     /// The GUI plugin for the Ringtoets application.
     /// </summary>
-    public class RingtoetsGuiPlugin : GuiPlugin
+    public class RingtoetsGuiPlugin : PluginBase
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(GuiPlugin));
+        private static readonly ILog log = LogManager.GetLogger(typeof(PluginBase));
 
         #region failureMechanismAssociations
 

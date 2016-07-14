@@ -152,7 +152,7 @@
     <Compile Include="IMainWindowController.cs" />
     <Compile Include="IProjectOwner.cs" />
     <Compile Include="IToolViewController.cs" />
-    <Compile Include="Plugin\GuiPlugin.cs" />
+    <Compile Include="Plugin\PluginBase.cs" />
     <Compile Include="Plugin\PropertyInfo.cs" />
     <Compile Include="Plugin\PropertyInfoExtensions.cs" />
     <Compile Include="Plugin\ViewInfo.cs" />

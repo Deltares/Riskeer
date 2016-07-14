@@ -51,7 +51,7 @@ namespace Core.Plugins.OxyPlot.Test
             using (var plugin = new OxyPlotGuiPlugin())
             {
                 // Assert
-                Assert.IsInstanceOf<GuiPlugin>(plugin);
+                Assert.IsInstanceOf<PluginBase>(plugin);
                 Assert.IsNull(plugin.RibbonCommandHandler);
             }
         }
@@ -113,7 +113,7 @@ namespace Core.Plugins.OxyPlot.Test
                 plugin.Activate();
 
                 // Assert
-                Assert.IsInstanceOf<GuiPlugin>(plugin);
+                Assert.IsInstanceOf<PluginBase>(plugin);
                 Assert.NotNull(plugin.RibbonCommandHandler);
             }
             mocks.VerifyAll();

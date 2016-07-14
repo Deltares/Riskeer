@@ -27,13 +27,13 @@ using Rhino.Mocks;
 namespace Core.Common.Gui.Test.Plugin
 {
     [TestFixture]
-    public class GuiPluginTest
+    public class PluginBaseTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            using (var plugin = new SimpleGuiPlugin())
+            using (var plugin = new SimplePlugin())
             {
                 // Assert
                 Assert.IsNull(plugin.Gui);
@@ -49,7 +49,7 @@ namespace Core.Common.Gui.Test.Plugin
             var gui = mocks.Stub<IGui>();
             mocks.ReplayAll();
 
-            using (var plugin = new SimpleGuiPlugin())
+            using (var plugin = new SimplePlugin())
             {
                 // Call
                 plugin.Gui = gui;
@@ -68,7 +68,7 @@ namespace Core.Common.Gui.Test.Plugin
             var gui = mocks.StrictMock<IGui>();
             mocks.ReplayAll();
 
-            using (var plugin = new SimpleGuiPlugin
+            using (var plugin = new SimplePlugin
             {
                 Gui = gui
             })
@@ -90,7 +90,7 @@ namespace Core.Common.Gui.Test.Plugin
             var gui = mocks.StrictMock<IGui>();
             mocks.ReplayAll();
 
-            using (var plugin = new SimpleGuiPlugin
+            using (var plugin = new SimplePlugin
             {
                 Gui = gui
             })
@@ -112,7 +112,7 @@ namespace Core.Common.Gui.Test.Plugin
             var gui = mocks.StrictMock<IGui>();
             mocks.ReplayAll();
 
-            using (var plugin = new SimpleGuiPlugin
+            using (var plugin = new SimplePlugin
             {
                 Gui = gui
             })
@@ -134,7 +134,7 @@ namespace Core.Common.Gui.Test.Plugin
             var gui = mocks.StrictMock<IGui>();
             mocks.ReplayAll();
 
-            using (var plugin = new SimpleGuiPlugin
+            using (var plugin = new SimplePlugin
             {
                 Gui = gui
             })
@@ -156,7 +156,7 @@ namespace Core.Common.Gui.Test.Plugin
             var gui = mocks.StrictMock<IGui>();
             mocks.ReplayAll();
 
-            using (var plugin = new SimpleGuiPlugin
+            using (var plugin = new SimplePlugin
             {
                 Gui = gui
             })
@@ -178,7 +178,7 @@ namespace Core.Common.Gui.Test.Plugin
             var gui = mocks.StrictMock<IGui>();
             mocks.ReplayAll();
 
-            using (var plugin = new SimpleGuiPlugin
+            using (var plugin = new SimplePlugin
             {
                 Gui = gui
             })
@@ -200,7 +200,7 @@ namespace Core.Common.Gui.Test.Plugin
             var gui = mocks.StrictMock<IGui>();
             mocks.ReplayAll();
 
-            using (var plugin = new SimpleGuiPlugin
+            using (var plugin = new SimplePlugin
             {
                 Gui = gui
             })
@@ -222,7 +222,7 @@ namespace Core.Common.Gui.Test.Plugin
             var gui = mocks.StrictMock<IGui>();
             mocks.ReplayAll();
 
-            using (var plugin = new SimpleGuiPlugin
+            using (var plugin = new SimplePlugin
             {
                 Gui = gui
             })
@@ -240,7 +240,7 @@ namespace Core.Common.Gui.Test.Plugin
         public void GetDataItemInfos_ReturnEmptyEnumerable()
         {
             // Setup
-            var guiPlugin = new SimpleGuiPlugin();
+            var guiPlugin = new SimplePlugin();
 
             // Call
             var dataItemInfos = guiPlugin.GetDataItemInfos().ToArray();
@@ -257,7 +257,7 @@ namespace Core.Common.Gui.Test.Plugin
             var gui = mocks.Stub<IGui>();
             mocks.ReplayAll();
 
-            using (var plugin = new SimpleGuiPlugin
+            using (var plugin = new SimplePlugin
             {
                 Gui = gui
             })
@@ -271,6 +271,6 @@ namespace Core.Common.Gui.Test.Plugin
             mocks.VerifyAll();
         }
 
-        private class SimpleGuiPlugin : GuiPlugin {}
+        private class SimplePlugin : PluginBase {}
     }
 }

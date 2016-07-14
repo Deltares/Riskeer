@@ -36,7 +36,7 @@ namespace Core.Plugins.OxyPlot
     /// <summary>
     /// This class ties all the components together to enable charting interaction.
     /// </summary>
-    public class OxyPlotGuiPlugin : GuiPlugin
+    public class OxyPlotGuiPlugin : PluginBase
     {
         private ChartingRibbon chartingRibbon;
 

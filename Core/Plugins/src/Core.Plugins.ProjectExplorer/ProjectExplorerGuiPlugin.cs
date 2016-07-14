@@ -36,7 +36,7 @@ using ProjectExplorerResources = Core.Plugins.ProjectExplorer.Properties.Resourc
 
 namespace Core.Plugins.ProjectExplorer
 {
-    public class ProjectExplorerGuiPlugin : GuiPlugin
+    public class ProjectExplorerGuiPlugin : PluginBase
     {
         private IToolViewController toolViewController;
         private ProjectExplorerViewController projectExplorerViewController;

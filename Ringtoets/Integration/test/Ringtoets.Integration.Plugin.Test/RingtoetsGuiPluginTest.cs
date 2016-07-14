@@ -70,7 +70,7 @@ namespace Ringtoets.Integration.Plugin.Test
             using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
             {
                 // Assert
-                Assert.IsInstanceOf<GuiPlugin>(ringtoetsGuiPlugin);
+                Assert.IsInstanceOf<PluginBase>(ringtoetsGuiPlugin);
                 Assert.IsInstanceOf<RingtoetsRibbon>(ringtoetsGuiPlugin.RibbonCommandHandler);
             }
         }
@@ -341,12 +341,7 @@ namespace Ringtoets.Integration.Plugin.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationCore = new ApplicationCore();
-
             var guiStub = mocks.DynamicMultiMock<IGui>(typeof(IGui), typeof(IContextMenuBuilderProvider));
-
-            guiStub.Expect(g => g.ApplicationCore).Return(applicationCore).Repeat.Any();
-
             mocks.ReplayAll();
 
             using (var guiPlugin = new RingtoetsGuiPlugin

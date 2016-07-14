@@ -34,7 +34,7 @@ namespace Core.Plugins.CommonTools
     /// <summary>
     /// This class configures general GUI components.
     /// </summary>
-    public class CommonToolsGuiPlugin : GuiPlugin
+    public class CommonToolsGuiPlugin : PluginBase
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {

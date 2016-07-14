@@ -149,7 +149,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-        private TreeNodeInfo GetInfo(Core.Common.Gui.Plugin.GuiPlugin gui)
+        private TreeNodeInfo GetInfo(Core.Common.Gui.Plugin.PluginBase gui)
         {
             return gui.GetTreeNodeInfos().First(tni => tni.TagType == typeof(CommentContext<ICommentable>));
         }

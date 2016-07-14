@@ -141,7 +141,7 @@
     </Compile>
     <Compile Include="Forms\ViewManager\ViewListTest.cs" />
     <Compile Include="Forms\ViewManager\ViewResolverTest.cs" />
-    <Compile Include="Plugin\GuiPluginTest.cs" />
+    <Compile Include="Plugin\PluginBaseTest.cs" />
     <Compile Include="Plugin\PropertyInfoExtensionsTest.cs" />
     <Compile Include="Plugin\PropertyInfoTest.cs" />
     <Compile Include="Plugin\ViewInfoTest.cs" />

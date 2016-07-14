@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Plugin
     /// <summary>
     /// The GUI plug-in for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class PipingGuiPlugin : GuiPlugin
+    public class PipingGuiPlugin : PluginBase
     {
         public override IRibbonCommandHandler RibbonCommandHandler
         {
