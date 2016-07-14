@@ -89,6 +89,7 @@
     <Compile Include="Views\FailureMechanismResultView.Designer.cs">
       <DependentUpon>FailureMechanismResultView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\MapDataFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -113,6 +114,7 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
       <Project>{1d27f91f-4e62-4eaf-a0a8-a32708b9a9b1}</Project>
       <Name>Core.Common.Controls.TreeView</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
@@ -122,6 +124,7 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
       <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
       <Name>Core.Common.Gui</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
@@ -136,6 +139,16 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting\Core.Components.Charting.csproj">
       <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
       <Name>Core.Components.Charting</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
+      <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
+      <Name>Core.Components.Gis</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
+      <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
+      <Name>Ringtoets.HydraRing.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">

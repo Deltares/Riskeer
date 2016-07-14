@@ -33,12 +33,8 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms
+namespace Ringtoets.Common.Forms.Views
 {
-    /// <summary>
-    /// This factory is used to create <see cref="MapData"/> with default styling based on different
-    /// types of data.
-    /// </summary>
     public static class MapDataFactory
     {
         /// <summary>
@@ -78,7 +74,7 @@ namespace Ringtoets.Integration.Forms
 
             var features = GetMapFeature(locations);
 
-            return new MapPointData(features, RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName)
+            return new MapPointData(features, Common.Data.Properties.Resources.HydraulicBoundaryConditions_DisplayName)
             {
                 Style = new PointStyle(Color.DarkBlue, 6, PointSymbol.Circle)
             };
@@ -104,7 +100,7 @@ namespace Ringtoets.Integration.Forms
             return new MapPointData(Enumerable.Empty<MapFeature>(), name);
         }
 
-        private static IEnumerable<MapFeature> GetMapFeature(IEnumerable<Point2D> points)
+        public static IEnumerable<MapFeature> GetMapFeature(IEnumerable<Point2D> points)
         {
             return new[]
             {

@@ -25,6 +25,7 @@ using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 

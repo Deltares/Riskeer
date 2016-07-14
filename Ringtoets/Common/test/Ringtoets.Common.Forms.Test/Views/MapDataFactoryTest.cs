@@ -30,9 +30,11 @@ using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Properties;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.HydraRing.Data;
 
-namespace Ringtoets.Integration.Forms.Test
+namespace Ringtoets.Common.Forms.Test.Views
 {
     [TestFixture]
     public class MapDataFactoryTest
@@ -87,7 +89,7 @@ namespace Ringtoets.Integration.Forms.Test
             Assert.AreEqual(1, mapLineData.Features.ElementAt(0).MapGeometries.Count());
             AssertEqualPointCollections(pointsOne, mapLineData.Features.ElementAt(0).MapGeometries.ElementAt(0));
 
-            Assert.AreEqual(Common.Data.Properties.Resources.ReferenceLine_DisplayName, data.Name);
+            Assert.AreEqual(Resources.ReferenceLine_DisplayName, data.Name);
 
             AssertEqualStyle(mapLineData.Style, Color.Red, 3, DashStyle.Solid);
         }
@@ -125,7 +127,7 @@ namespace Ringtoets.Integration.Forms.Test
             Assert.AreEqual(1, mapPointData.Features.ElementAt(0).MapGeometries.Count());
             AssertEqualPointCollections(pointsOne, mapPointData.Features.ElementAt(0).MapGeometries.ElementAt(0));
 
-            Assert.AreEqual(Common.Data.Properties.Resources.HydraulicBoundaryConditions_DisplayName, data.Name);
+            Assert.AreEqual(Resources.HydraulicBoundaryConditions_DisplayName, data.Name);
 
             AssertEqualStyle(mapPointData.Style, Color.DarkBlue, 6, PointSymbol.Circle);
         }
@@ -141,6 +143,13 @@ namespace Ringtoets.Integration.Forms.Test
             Assert.AreEqual("hydraulicBoundaryDatabase", parameter);
         }
 
+        private static void AssertEqualStyle(LineStyle lineStyle, Color color, int width, DashStyle style)
+        {
+            Assert.AreEqual(color, lineStyle.Color);
+            Assert.AreEqual(width, lineStyle.Width);
+            Assert.AreEqual(style, lineStyle.Style);
+        }
+
         private void AssertEqualStyle(PointStyle pointStyle, Color color, int width, PointSymbol symbol)
         {
             Assert.AreEqual(color, pointStyle.Color);
@@ -148,13 +157,6 @@ namespace Ringtoets.Integration.Forms.Test
             Assert.AreEqual(symbol, pointStyle.Symbol);
         }
 
-        private static void AssertEqualStyle(LineStyle lineStyle, Color color, int width, DashStyle style)
-        {
-            Assert.AreEqual(color, lineStyle.Color);
-            Assert.AreEqual(width, lineStyle.Width);
-            Assert.AreEqual(style, lineStyle.Style);
-        }
-        
         private void AssertEqualPointCollections(IEnumerable<Point2D> points, MapGeometry geometry)
         {
             CollectionAssert.AreEqual(points.Select(p => new Point2D(p.X, p.Y)), geometry.PointCollections.First());

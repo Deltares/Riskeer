@@ -25,6 +25,7 @@ using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
@@ -153,25 +154,25 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (data == null || data.Parent == null || data.Parent.ReferenceLine == null)
             {
-                return PipingMapDataFactory.CreateEmptyLineData(RingtoetsCommonDataResources.ReferenceLine_DisplayName);
+                return MapDataFactory.CreateEmptyLineData(RingtoetsCommonDataResources.ReferenceLine_DisplayName);
             }
-            return PipingMapDataFactory.Create(data.Parent.ReferenceLine);
+            return MapDataFactory.Create(data.Parent.ReferenceLine);
         }
 
         private MapData GetHydraulicBoundaryLocationsMapData()
         {
             if (data == null || data.Parent == null || data.Parent.HydraulicBoundaryDatabase == null)
             {
-                return PipingMapDataFactory.CreateEmptyPointData(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName);
+                return MapDataFactory.CreateEmptyPointData(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName);
             }
-            return PipingMapDataFactory.Create(data.Parent.HydraulicBoundaryDatabase);
+            return MapDataFactory.Create(data.Parent.HydraulicBoundaryDatabase);
         }
 
         private MapData GetSurfaceLinesMapData()
         {
             if (data == null || data.WrappedData == null || data.WrappedData.SurfaceLines == null || !data.WrappedData.SurfaceLines.Any())
             {
-                return PipingMapDataFactory.CreateEmptyLineData(PipingFormsResources.PipingSurfaceLinesCollection_DisplayName);
+                return MapDataFactory.CreateEmptyLineData(PipingFormsResources.PipingSurfaceLinesCollection_DisplayName);
             }
             return PipingMapDataFactory.Create(data.WrappedData.SurfaceLines);
         }
@@ -180,7 +181,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (data == null || data.WrappedData == null || data.WrappedData.StochasticSoilModels == null || !data.WrappedData.StochasticSoilModels.Any())
             {
-                return PipingMapDataFactory.CreateEmptyLineData(PipingFormsResources.StochasticSoilModelCollection_DisplayName);
+                return MapDataFactory.CreateEmptyLineData(PipingFormsResources.StochasticSoilModelCollection_DisplayName);
             }
             return PipingMapDataFactory.Create(data.WrappedData.StochasticSoilModels);
         }
@@ -189,7 +190,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (data == null || data.WrappedData == null || data.WrappedData.Sections == null || !data.WrappedData.Sections.Any())
             {
-                return PipingMapDataFactory.CreateEmptyLineData(Resources.FailureMechanism_Sections_DisplayName);
+                return MapDataFactory.CreateEmptyLineData(Resources.FailureMechanism_Sections_DisplayName);
             }
             return PipingMapDataFactory.Create(data.WrappedData.Sections);
         }
@@ -201,7 +202,7 @@ namespace Ringtoets.Piping.Forms.Views
                 string mapDataName = string.Format("{0} ({1})",
                                                    Resources.FailureMechanism_Sections_DisplayName,
                                                    Resources.FailureMechanismSections_StartPoints_DisplayName);
-                return PipingMapDataFactory.CreateEmptyPointData(mapDataName);
+                return MapDataFactory.CreateEmptyPointData(mapDataName);
             }
             return PipingMapDataFactory.CreateStartPoints(data.WrappedData.Sections);
         }
@@ -213,7 +214,7 @@ namespace Ringtoets.Piping.Forms.Views
                 string mapDataName = string.Format("{0} ({1})",
                                                    Resources.FailureMechanism_Sections_DisplayName,
                                                    Resources.FailureMechanismSections_EndPoints_DisplayName);
-                return PipingMapDataFactory.CreateEmptyPointData(mapDataName);
+                return MapDataFactory.CreateEmptyPointData(mapDataName);
             }
             return PipingMapDataFactory.CreateEndPoints(data.WrappedData.Sections);
         }
