@@ -36,37 +36,67 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// <summary>
         /// Update <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects which used or can use the <see cref="GrassCoverErosionInwardsCalculation"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/> containing the 
-        /// <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects.</param>
+        /// <param name="sectionResults">The <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects.</param>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/>.</param>
         /// <exception cref="ArgumentNullException">When any input parameter is <c>null</c>.</exception>
-        public static void Update(GrassCoverErosionInwardsFailureMechanism failureMechanism, GrassCoverErosionInwardsCalculation calculation)
+        public static void Update(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults, GrassCoverErosionInwardsCalculation calculation)
         {
-            if (failureMechanism == null)
+            if (sectionResults == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException("sectionResults");
             }
             if (calculation == null)
             {
                 throw new ArgumentNullException("calculation");
             }
 
-            // The FailureMechanismSection which contains the calculation whose dikeprofile has been updated.
-            FailureMechanismSection failureMechanismSection = GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(failureMechanism.SectionResults, calculation);
+            var sectionResultsArray = sectionResults.ToArray();
 
-            // All SectionResults (0 or 1) which don't contain the calculation, but do have it assigned, have their calculation set to null.
-            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResultsUsingCalculation = 
-                failureMechanism.SectionResults.Where(sr => sr.Calculation != null && sr.Calculation.Equals(calculation));
-            foreach (var sectionResult in sectionResultsUsingCalculation)
+            FailureMechanismSection failureMechanismSectionContainingCalculation =
+                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(sectionResultsArray, calculation);
+
+            UnassignCalculationInSectionResultsNotContainingCalculation(calculation, sectionResultsArray, failureMechanismSectionContainingCalculation);
+
+            AssignCalculationIfContainingSectionResultHasNoCalculationAssigned(calculation, sectionResultsArray, failureMechanismSectionContainingCalculation);
+        }
+
+        /// <summary>
+        /// Update <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects which use the deleted <see cref="GrassCoverErosionInwardsCalculation"/>.
+        /// </summary>
+        /// <param name="sectionResults">The <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects.</param>
+        /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/>.</param>
+        /// <exception cref="ArgumentNullException">When any input parameter is <c>null</c>.</exception>
+        public static void Delete(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults, GrassCoverErosionInwardsCalculation calculation)
+        {
+            if (sectionResults == null)
             {
-                if (!sectionResult.Section.Equals(failureMechanismSection))
-                {
-                    sectionResult.Calculation = null;
-                }
+                throw new ArgumentNullException("sectionResults");
+            }
+            if (calculation == null)
+            {
+                throw new ArgumentNullException("calculation");
             }
 
-            // Assign the calculation to the SectionResult which contains it, if that SectionResult currently has no calculation set.
-            foreach (var sectionResult in failureMechanism.SectionResults)
+            UnassignCalculationInAllSectionResults(sectionResults, calculation);
+        }
+
+        private static void UnassignCalculationInAllSectionResults(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
+                                                                   GrassCoverErosionInwardsCalculation calculation)
+        {
+            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResultsUsingCalculation =
+                sectionResults.Where(sr => sr.Calculation != null && sr.Calculation.Equals(calculation));
+            foreach (var sectionResult in sectionResultsUsingCalculation)
+            {
+                sectionResult.Calculation = null;
+            }
+        }
+
+        private static void AssignCalculationIfContainingSectionResultHasNoCalculationAssigned(
+            GrassCoverErosionInwardsCalculation calculation,
+            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
+            FailureMechanismSection failureMechanismSection)
+        {
+            foreach (var sectionResult in sectionResults)
             {
                 if (sectionResult.Section.Equals(failureMechanismSection) && sectionResult.Calculation == null)
                 {
@@ -75,29 +105,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
             }
         }
 
-        /// <summary>
-        /// Update <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects which use the deleted <see cref="GrassCoverErosionInwardsCalculation"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/> containing the 
-        /// <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects.</param>
-        /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/>.</param>
-        /// <exception cref="ArgumentNullException">When any input parameter is <c>null</c>.</exception>
-        public static void Delete(GrassCoverErosionInwardsFailureMechanism failureMechanism, GrassCoverErosionInwardsCalculation calculation)
+        private static void UnassignCalculationInSectionResultsNotContainingCalculation(
+            GrassCoverErosionInwardsCalculation calculation,
+            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
+            FailureMechanismSection failureMechanismSection)
         {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException("failureMechanism");
-            }
-            if (calculation == null)
-            {
-                throw new ArgumentNullException("calculation");
-            }
-
             IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResultsUsingCalculation =
-                failureMechanism.SectionResults.Where(sr => sr.Calculation != null && sr.Calculation.Equals(calculation));
+                sectionResults.Where(sr => sr.Calculation != null && sr.Calculation.Equals(calculation));
             foreach (var sectionResult in sectionResultsUsingCalculation)
             {
-                sectionResult.Calculation = null;
+                if (!sectionResult.Section.Equals(failureMechanismSection))
+                {
+                    sectionResult.Calculation = null;
+                }
             }
         }
     }
