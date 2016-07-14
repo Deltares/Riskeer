@@ -750,6 +750,53 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
         }
 
+        [Test]
+        public void OnNodeRemoved_NodeRemoved_RemoveCalculationFromFailureMechanismSectionResults()
+        {
+            // Setup
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var group = new CalculationGroup();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 1.0)
+            }));
+            var dikeProfile = new DikeProfile(new Point2D(0.5, 0.5), new RoughnessPoint[0], new Point2D[0]);
+            failureMechanism.DikeProfiles.Add(dikeProfile);
+
+            var elementToBeRemoved = new GrassCoverErosionInwardsCalculation();
+            elementToBeRemoved.InputParameters.DikeProfile = dikeProfile;
+
+            var sectionResult = failureMechanism.SectionResults.First();
+            sectionResult.Calculation = elementToBeRemoved;
+
+            var calculationContext = new GrassCoverErosionInwardsCalculationContext(elementToBeRemoved,
+                                                                                    failureMechanism,
+                                                                                    assessmentSectionMock);
+            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                                                   failureMechanism,
+                                                                                   assessmentSectionMock);
+
+            group.Children.Add(elementToBeRemoved);
+            group.Children.Add(new GrassCoverErosionInwardsCalculation());
+
+            // Precondition
+            Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
+            Assert.AreEqual(2, group.Children.Count);
+            Assert.AreEqual(elementToBeRemoved, sectionResult.Calculation);
+
+            // Call
+            info.OnNodeRemoved(calculationContext, groupContext);
+
+            // Assert
+            Assert.AreEqual(1, group.Children.Count);
+            CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
+            Assert.IsNull(sectionResult.Calculation);
+        }
+
         private const int contextMenuValidateIndex = 0;
         private const int contextMenuCalculateIndex = 1;
         private const int contextMenuClearIndex = 2;
