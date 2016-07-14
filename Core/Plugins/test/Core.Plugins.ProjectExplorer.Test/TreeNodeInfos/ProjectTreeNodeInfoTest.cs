@@ -37,14 +37,14 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
     public class ProjectTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private ProjectExplorerGuiPlugin plugin;
+        private ProjectExplorerPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new ProjectExplorerGuiPlugin();
+            plugin = new ProjectExplorerPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(Project));
         }
 

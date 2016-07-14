@@ -22,6 +22,7 @@
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using Core.Plugins.CommonTools.Property;
@@ -30,16 +31,16 @@ using NUnit.Framework;
 namespace Core.Plugins.CommonTools.Test
 {
     [TestFixture]
-    public class CommonToolsGuiPluginTest
+    public class CommonToolsPluginTest
     {
         [Test]
-        public void GetCommonToolsGuiPluginProperties_Always_ReturnProperties()
+        public void GetCommonToolsPluginProperties_Always_ReturnProperties()
         {
             // Setup
-            var guiPlugin = new CommonToolsGuiPlugin();
+            var plugin = new CommonToolsPlugin();
 
             // Call
-            var propertyInfos = guiPlugin.GetPropertyInfos().ToList();
+            var propertyInfos = plugin.GetPropertyInfos().ToList();
 
             // Assert
             Assert.AreEqual(2, propertyInfos.Count);
@@ -52,13 +53,13 @@ namespace Core.Plugins.CommonTools.Test
         }
 
         [Test]
-        public void GetCommonToolsGuiPluginProperties_Always_ReturnViews()
+        public void GetCommonToolsPluginProperties_Always_ReturnViews()
         {
             // Setup
-            var guiPlugin = new CommonToolsGuiPlugin();
+            var plugin = new CommonToolsPlugin();
 
             // Call
-            var viewInfos = guiPlugin.GetViewInfos().ToArray();
+            var viewInfos = plugin.GetViewInfos().ToArray();
 
             // Assert
             Assert.NotNull(viewInfos);
@@ -68,17 +69,17 @@ namespace Core.Plugins.CommonTools.Test
 
             Assert.AreEqual(richTextFileInfo.ViewType, typeof(RichTextView));
             Assert.IsNull(richTextFileInfo.Description);
-            TestHelper.AssertImagesAreEqual(Common.Gui.Properties.Resources.key, richTextFileInfo.Image);
+            TestHelper.AssertImagesAreEqual(Resources.key, richTextFileInfo.Image);
         }
 
         [Test]
         public void RichTextFileViewInfoName_WithoutData_EmptyString()
         {
             // Setup
-            var guiPlugin = new CommonToolsGuiPlugin();
+            var plugin = new CommonToolsPlugin();
 
-            var info = guiPlugin.GetViewInfos().First(vi => vi.DataType == typeof(RichTextFile));
-            
+            var info = plugin.GetViewInfos().First(vi => vi.DataType == typeof(RichTextFile));
+
             // Call
             var name = info.GetViewName(null, null);
 
@@ -91,14 +92,14 @@ namespace Core.Plugins.CommonTools.Test
         {
             // Setup
             var expected = "SomeName";
-            var guiPlugin = new CommonToolsGuiPlugin();
+            var plugin = new CommonToolsPlugin();
 
-            var info = guiPlugin.GetViewInfos().First(vi => vi.DataType == typeof(RichTextFile));
+            var info = plugin.GetViewInfos().First(vi => vi.DataType == typeof(RichTextFile));
             var richTextFile = new RichTextFile
             {
                 Name = expected
             };
-            
+
             // Call
             var name = info.GetViewName(null, richTextFile);
 

@@ -101,7 +101,7 @@
     <Compile Include="ProjectExplorerViewControllerTest.cs" />
     <Compile Include="RibbonTest.cs" />
     <Compile Include="TreeNodeInfos\ProjectTreeNodeInfoTest.cs" />
-    <Compile Include="ProjectExplorerGuiPluginTest.cs" />
+    <Compile Include="ProjectExplorerPluginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

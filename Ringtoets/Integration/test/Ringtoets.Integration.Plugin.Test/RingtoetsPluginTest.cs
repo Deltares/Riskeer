@@ -60,24 +60,24 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Plugin.Test
 {
     [TestFixture]
-    public class RingtoetsGuiPluginTest
+    public class RingtoetsPluginTest
     {
         [Test]
         [STAThread] // For creation of XAML UI component
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 // Assert
-                Assert.IsInstanceOf<PluginBase>(ringtoetsGuiPlugin);
-                Assert.IsInstanceOf<RingtoetsRibbon>(ringtoetsGuiPlugin.RibbonCommandHandler);
+                Assert.IsInstanceOf<PluginBase>(plugin);
+                Assert.IsInstanceOf<RingtoetsRibbon>(plugin.RibbonCommandHandler);
             }
         }
 
         [Test]
         [STAThread] // For creation of XAML UI component
-        public void GivenGuiPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithoutHydraulicBoundaryDatabase_ThenNoWarning()
+        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithoutHydraulicBoundaryDatabase_ThenNoWarning()
         {
             // Setup
             var mocks = new MockRepository();
@@ -86,9 +86,9 @@ namespace Ringtoets.Integration.Plugin.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
-                using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
+                using (var plugin = new RingtoetsPlugin())
                 {
-                    ringtoetsGuiPlugin.Gui = gui;
+                    plugin.Gui = gui;
                     gui.Run();
 
                     // Call
@@ -104,7 +104,7 @@ namespace Ringtoets.Integration.Plugin.Test
 
         [Test]
         [STAThread] // For creation of XAML UI component
-        public void GivenGuiPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseWithExistingLocation_ThenNoWarning()
+        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseWithExistingLocation_ThenNoWarning()
         {
             // Setup
             var mocks = new MockRepository();
@@ -116,9 +116,9 @@ namespace Ringtoets.Integration.Plugin.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
-                using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
+                using (var plugin = new RingtoetsPlugin())
                 {
-                    ringtoetsGuiPlugin.Gui = gui;
+                    plugin.Gui = gui;
                     gui.Run();
 
                     var project = new Project();
@@ -144,7 +144,7 @@ namespace Ringtoets.Integration.Plugin.Test
 
         [Test]
         [STAThread] // For creation of XAML UI component
-        public void GivenGuiPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseWithNonExistingLocation_ThenWarning()
+        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseWithNonExistingLocation_ThenWarning()
         {
             // Setup
             var mocks = new MockRepository();
@@ -153,7 +153,7 @@ namespace Ringtoets.Integration.Plugin.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
-                using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
+                using (var plugin = new RingtoetsPlugin())
                 {
                     var project = new Project();
                     var notExistingFile = "not_existing_file";
@@ -167,7 +167,7 @@ namespace Ringtoets.Integration.Plugin.Test
                     };
                     project.Items.Add(section);
 
-                    ringtoetsGuiPlugin.Gui = gui;
+                    plugin.Gui = gui;
                     gui.Run();
 
                     // Call
@@ -189,10 +189,10 @@ namespace Ringtoets.Integration.Plugin.Test
         public void GetPropertyInfos_ReturnsSupportedPropertyClasses()
         {
             // Setup
-            using (var guiPlugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 // Call
-                PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
+                PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
                 Assert.AreEqual(6, propertyInfos.Length);
@@ -239,10 +239,10 @@ namespace Ringtoets.Integration.Plugin.Test
         public void GetViewInfos_ReturnsSupportedViewInfoClasses()
         {
             // Setup
-            using (var guiPlugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 // Call
-                ViewInfo[] viewInfos = guiPlugin.GetViewInfos().ToArray();
+                ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
                 Assert.AreEqual(18, viewInfos.Length);
@@ -344,13 +344,13 @@ namespace Ringtoets.Integration.Plugin.Test
             var guiStub = mocks.DynamicMultiMock<IGui>(typeof(IGui), typeof(IContextMenuBuilderProvider));
             mocks.ReplayAll();
 
-            using (var guiPlugin = new RingtoetsGuiPlugin
+            using (var plugin = new RingtoetsPlugin
             {
                 Gui = guiStub
             })
             {
                 // Call
-                TreeNodeInfo[] treeNodeInfos = guiPlugin.GetTreeNodeInfos().ToArray();
+                TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
                 Assert.AreEqual(24, treeNodeInfos.Length);
@@ -390,10 +390,10 @@ namespace Ringtoets.Integration.Plugin.Test
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var guiPlugin = new RingtoetsGuiPlugin();
+            var plugin = new RingtoetsPlugin();
 
             // Call
-            var childrenWithViewDefinitions = guiPlugin.GetChildDataWithViewDefinitions(assessmentSectionMock);
+            var childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(assessmentSectionMock);
 
             // Assert
             CollectionAssert.AreEqual(new object[]
@@ -407,10 +407,10 @@ namespace Ringtoets.Integration.Plugin.Test
         public void GetChildDataWithViewDefinitions_UnsupportedData_ReturnEmpty()
         {
             // Setup
-            var guiPlugin = new RingtoetsGuiPlugin();
+            var plugin = new RingtoetsPlugin();
 
             // Call
-            var childrenWithViewDefinitions = guiPlugin.GetChildDataWithViewDefinitions(1);
+            var childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(1);
 
             // Assert
             CollectionAssert.IsEmpty(childrenWithViewDefinitions);
@@ -420,7 +420,7 @@ namespace Ringtoets.Integration.Plugin.Test
         public void GetFileImporters_ReturnsExpectedFileImporters()
         {
             // Setup
-            var plugin = new RingtoetsGuiPlugin();
+            var plugin = new RingtoetsPlugin();
 
             // Call
             IFileImporter[] importers = plugin.GetFileImporters().ToArray();
@@ -435,7 +435,7 @@ namespace Ringtoets.Integration.Plugin.Test
         public void GetDataItemInfos_ReturnsExpectedDataItemDefinitions()
         {
             // Setup
-            var plugin = new RingtoetsGuiPlugin();
+            var plugin = new RingtoetsPlugin();
 
             // Call
             var dataItemDefinitions = plugin.GetDataItemInfos().ToArray();
@@ -456,7 +456,7 @@ namespace Ringtoets.Integration.Plugin.Test
         {
             // Setup
             var project = new Project();
-            var plugin = new RingtoetsGuiPlugin();
+            var plugin = new RingtoetsPlugin();
             AddAssessmentSectionToProject(project, plugin);
 
             // Call
@@ -466,7 +466,7 @@ namespace Ringtoets.Integration.Plugin.Test
             CollectionAssert.AllItemsAreUnique(project.Items.Cast<IAssessmentSection>().Select(section => section.Name));
         }
 
-        private void AddAssessmentSectionToProject(Project project, RingtoetsGuiPlugin plugin)
+        private static void AddAssessmentSectionToProject(Project project, RingtoetsPlugin plugin)
         {
             var itemToAdd = plugin.GetDataItemInfos()
                                   .First(di => di.ValueType == typeof(AssessmentSection))

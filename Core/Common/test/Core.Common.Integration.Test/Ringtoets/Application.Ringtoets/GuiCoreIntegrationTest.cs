@@ -58,7 +58,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new RingtoetsGuiPlugin());
+                gui.Plugins.Add(new RingtoetsPlugin());
                 gui.Run();
             }
             mocks.VerifyAll();
@@ -82,7 +82,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new ProjectExplorerGuiPlugin());
+                gui.Plugins.Add(new ProjectExplorerPlugin());
                 gui.Run();
 
                 Assert.AreEqual(gui.Project, gui.Selection);
@@ -118,8 +118,8 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new RingtoetsGuiPlugin());
-                gui.Plugins.Add(new ProjectExplorerGuiPlugin());
+                gui.Plugins.Add(new RingtoetsPlugin());
+                gui.Plugins.Add(new ProjectExplorerPlugin());
 
                 gui.Run();
 

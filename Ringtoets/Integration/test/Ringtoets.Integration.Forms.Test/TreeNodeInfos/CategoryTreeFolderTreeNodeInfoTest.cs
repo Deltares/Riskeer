@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -79,8 +79,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var testname = "testName";
             var categoryTreeFolder = new CategoryTreeFolder(testname, new object[0]);
-            
-            using (var plugin = new RingtoetsGuiPlugin())
+
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -100,8 +100,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var categoryTreeFolder = new CategoryTreeFolder("", new object[0]);
-            
-            using (var plugin = new RingtoetsGuiPlugin())
+
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -121,8 +121,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var categoryTreeFolder = new CategoryTreeFolder("", new object[0], TreeFolderCategory.Input);
-            
-            using (var plugin = new RingtoetsGuiPlugin())
+
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -142,8 +142,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var categoryTreeFolder = new CategoryTreeFolder("", new object[0], TreeFolderCategory.Output);
-            
-            using (var plugin = new RingtoetsGuiPlugin())
+
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -164,9 +164,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var object1 = new object();
             var object2 = new object();
-            var categoryTreeFolder = new CategoryTreeFolder("", new[] { object1, object2 });
-            
-            using (var plugin = new RingtoetsGuiPlugin())
+            var categoryTreeFolder = new CategoryTreeFolder("", new[]
+            {
+                object1,
+                object2
+            });
+
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -201,7 +205,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 gui.Expect(cmp => cmp.Get(null, treeViewControl)).Return(menuBuilderMock);
                 mocks.ReplayAll();
 
-                using (var plugin = new RingtoetsGuiPlugin())
+                using (var plugin = new RingtoetsPlugin())
                 {
                     var info = GetInfo(plugin);
 
@@ -215,10 +219,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-
-        private TreeNodeInfo GetInfo(RingtoetsGuiPlugin guiPlugin)
+        private TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return guiPlugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(CategoryTreeFolder));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(CategoryTreeFolder));
         }
     }
 }

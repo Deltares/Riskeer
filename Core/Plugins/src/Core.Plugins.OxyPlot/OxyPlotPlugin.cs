@@ -36,7 +36,7 @@ namespace Core.Plugins.OxyPlot
     /// <summary>
     /// This class ties all the components together to enable charting interaction.
     /// </summary>
-    public class OxyPlotGuiPlugin : PluginBase
+    public class OxyPlotPlugin : PluginBase
     {
         private ChartingRibbon chartingRibbon;
 
@@ -67,7 +67,7 @@ namespace Core.Plugins.OxyPlot
             yield return new ViewInfo<ChartDataCollection, ChartDataView>
             {
                 Image = Resources.ChartIcon,
-                GetViewName = (v, o) => Resources.OxyPlotGuiPlugin_GetViewInfos_Diagram
+                GetViewName = (v, o) => Resources.OxyPlotPlugin_GetViewInfos_Diagram
             };
         }
 
@@ -90,7 +90,7 @@ namespace Core.Plugins.OxyPlot
         private ChartLegendController CreateLegendController(IViewController viewController)
         {
             var controller = new ChartLegendController(viewController);
-            controller.OnOpenLegend += (s,e) => UpdateComponentsForActiveDocumentView();
+            controller.OnOpenLegend += (s, e) => UpdateComponentsForActiveDocumentView();
             return controller;
         }
 
@@ -115,7 +115,7 @@ namespace Core.Plugins.OxyPlot
         }
 
         /// <summary>
-        /// Updates the components which the <see cref="OxyPlotGuiPlugin"/> knows about so that it reflects
+        /// Updates the components which the <see cref="OxyPlotPlugin"/> knows about so that it reflects
         /// the currently active view.
         /// </summary>
         private void UpdateComponentsForActiveDocumentView()

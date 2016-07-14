@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var commentMock = mocks.StrictMock<ICommentable>();
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -104,7 +104,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var commentMock = mocks.StrictMock<ICommentable>();
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
                 var context = new CommentContext<ICommentable>(commentMock);
@@ -123,7 +123,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();

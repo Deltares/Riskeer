@@ -39,13 +39,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismResultViewInfoTest
     {
-        private GrassCoverErosionInwardsGuiPlugin plugin;
+        private GrassCoverErosionInwardsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new GrassCoverErosionInwardsGuiPlugin();
+            plugin = new GrassCoverErosionInwardsPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GrassCoverErosionInwardsFailureMechanismResultView));
         }
 

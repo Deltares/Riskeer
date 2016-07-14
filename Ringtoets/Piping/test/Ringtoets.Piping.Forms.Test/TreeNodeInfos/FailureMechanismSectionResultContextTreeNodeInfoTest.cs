@@ -37,14 +37,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
     public class FailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private PipingGuiPlugin plugin;
+        private PipingPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new PipingGuiPlugin();
+            plugin = new PipingPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>));
         }
 

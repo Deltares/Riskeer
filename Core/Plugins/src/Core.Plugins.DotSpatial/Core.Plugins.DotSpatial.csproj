@@ -75,7 +75,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Commands\ToggleMapLegendViewCommand.cs" />
-    <Compile Include="DotSpatialGuiPlugin.cs" />
+    <Compile Include="DotSpatialPlugin.cs" />
     <Compile Include="Forms\MapDataView.cs">
       <SubType>UserControl</SubType>
     </Compile>

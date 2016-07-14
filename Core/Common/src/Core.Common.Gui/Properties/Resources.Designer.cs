@@ -359,9 +359,9 @@ namespace Core.Common.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kaart.
         /// </summary>
-        public static string DotSpatialGuiPlugin_GetViewInfoObjects_Map {
+        public static string DotSpatialPlugin_GetViewInfoObjects_Map {
             get {
-                return ResourceManager.GetString("DotSpatialGuiPlugin_GetViewInfoObjects_Map", resourceCulture);
+                return ResourceManager.GetString("DotSpatialPlugin_GetViewInfoObjects_Map", resourceCulture);
             }
         }
         

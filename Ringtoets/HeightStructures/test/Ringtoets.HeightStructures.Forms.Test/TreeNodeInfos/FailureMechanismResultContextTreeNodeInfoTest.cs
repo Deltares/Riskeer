@@ -39,14 +39,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
     public class FailureMechanismResultContextTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private HeightStructuresGuiPlugin plugin;
+        private HeightStructuresPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new HeightStructuresGuiPlugin();
+            plugin = new HeightStructuresPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>));
         }
 

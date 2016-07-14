@@ -240,10 +240,10 @@ namespace Core.Common.Gui.Test.Plugin
         public void GetDataItemInfos_ReturnEmptyEnumerable()
         {
             // Setup
-            var guiPlugin = new SimplePlugin();
+            var plugin = new SimplePlugin();
 
             // Call
-            var dataItemInfos = guiPlugin.GetDataItemInfos().ToArray();
+            var dataItemInfos = plugin.GetDataItemInfos().ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(dataItemInfos);

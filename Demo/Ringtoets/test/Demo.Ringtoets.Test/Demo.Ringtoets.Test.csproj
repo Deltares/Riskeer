@@ -63,7 +63,7 @@
     <Compile Include="Commands\AddNewDemoAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\OpenChartViewCommandTest.cs" />
     <Compile Include="Commands\OpenMapViewCommandTest.cs" />
-    <Compile Include="GUIs\DemoProjectGuiPluginTest.cs" />
+    <Compile Include="GUIs\DemoProjectPluginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ribbons\RingtoestDemoProjectRibbonTest.cs" />
   </ItemGroup>

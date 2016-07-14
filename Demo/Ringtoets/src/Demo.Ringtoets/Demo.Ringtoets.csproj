@@ -53,7 +53,7 @@
     <Compile Include="Commands\AddNewDemoAssessmentSectionCommand.cs" />
     <Compile Include="Commands\OpenChartViewCommand.cs" />
     <Compile Include="Commands\OpenMapViewCommand.cs" />
-    <Compile Include="GUIs\DemoProjectGuiPlugin.cs" />
+    <Compile Include="GUIs\DemoProjectPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

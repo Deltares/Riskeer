@@ -40,13 +40,13 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
     [TestFixture]
     public class HeightStructuresFailureMechanismResultViewInfoTest
     {
-        private HeightStructuresGuiPlugin plugin;
+        private HeightStructuresPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new HeightStructuresGuiPlugin();
+            plugin = new HeightStructuresPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(HeightStructuresFailureMechanismResultView));
         }
 

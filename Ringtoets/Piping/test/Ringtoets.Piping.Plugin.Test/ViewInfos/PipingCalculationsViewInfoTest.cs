@@ -19,14 +19,14 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
     public class PipingCalculationsViewInfoTest
     {
         private MockRepository mocks;
-        private PipingGuiPlugin plugin;
+        private PipingPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new PipingGuiPlugin();
+            plugin = new PipingPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(PipingCalculationsView));
         }
 

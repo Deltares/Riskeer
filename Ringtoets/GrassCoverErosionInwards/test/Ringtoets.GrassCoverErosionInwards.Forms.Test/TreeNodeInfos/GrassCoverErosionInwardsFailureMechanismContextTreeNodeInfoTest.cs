@@ -54,14 +54,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
 
         private MockRepository mocksRepository;
-        private GrassCoverErosionInwardsGuiPlugin plugin;
+        private GrassCoverErosionInwardsPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocksRepository = new MockRepository();
-            plugin = new GrassCoverErosionInwardsGuiPlugin();
+            plugin = new GrassCoverErosionInwardsPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsFailureMechanismContext));
         }
 
@@ -422,7 +422,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                               RingtoetsFormsResources.Calculate_all,
-                                                              RingtoetsFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                              RingtoetsFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
@@ -459,7 +459,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
                                                               RingtoetsFormsResources.Calculate_all,
-                                                              RingtoetsFormsResources.GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                              RingtoetsFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
@@ -575,7 +575,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
                                                               RingtoetsFormsResources.Validate_all,
-                                                              RingtoetsFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                              RingtoetsFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
             }
@@ -612,7 +612,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndex,
                                                               RingtoetsFormsResources.Validate_all,
-                                                              RingtoetsFormsResources.GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                              RingtoetsFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
             }

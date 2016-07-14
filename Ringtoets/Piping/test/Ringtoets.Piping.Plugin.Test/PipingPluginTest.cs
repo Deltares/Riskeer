@@ -34,24 +34,24 @@ using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
-using GuiPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
+using PipingPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test
 {
     [TestFixture]
-    public class PipingGuiPluginTest
+    public class PipingPluginTest
     {
         [Test]
         [STAThread] // For creation of XAML UI component (PipingRibbon)
         public void DefaultConstructor_ExpectedValues()
         {
             // call
-            using (var ringtoetsGuiPlugin = new PipingGuiPlugin())
+            using (var plugin = new PipingPlugin())
             {
                 // assert
-                Assert.IsInstanceOf<PluginBase>(ringtoetsGuiPlugin);
-                Assert.IsInstanceOf<PipingRibbon>(ringtoetsGuiPlugin.RibbonCommandHandler);
+                Assert.IsInstanceOf<PluginBase>(plugin);
+                Assert.IsInstanceOf<PipingRibbon>(plugin.RibbonCommandHandler);
             }
         }
 
@@ -59,13 +59,13 @@ namespace Ringtoets.Piping.Plugin.Test
         public void GetPropertyInfos_ReturnsSupportedPropertyClasses()
         {
             // setup
-            using (var guiPlugin = new PipingGuiPlugin())
+            using (var plugin = new PipingPlugin())
             {
                 // call
                 var mocks = new MockRepository();
                 mocks.ReplayAll();
 
-                PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
+                PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // assert
                 Assert.AreEqual(6, propertyInfos.Length);
@@ -119,13 +119,13 @@ namespace Ringtoets.Piping.Plugin.Test
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
             mocks.ReplayAll();
 
-            using (var guiPlugin = new PipingGuiPlugin
+            using (var plugin = new PipingPlugin
             {
                 Gui = guiStub
             })
             {
                 // call
-                TreeNodeInfo[] treeNodeInfos = guiPlugin.GetTreeNodeInfos().ToArray();
+                TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // assert
                 Assert.AreEqual(13, treeNodeInfos.Length);
@@ -155,13 +155,13 @@ namespace Ringtoets.Piping.Plugin.Test
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
             mocks.ReplayAll();
 
-            using (var guiPlugin = new PipingGuiPlugin
+            using (var plugin = new PipingPlugin
             {
                 Gui = guiStub
             })
             {
                 // Call
-                ViewInfo[] viewInfos = guiPlugin.GetViewInfos().ToArray();
+                ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
                 Assert.AreEqual(5, viewInfos.Length);
@@ -183,13 +183,13 @@ namespace Ringtoets.Piping.Plugin.Test
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
             mocks.ReplayAll();
 
-            using (var guiPlugin = new PipingGuiPlugin
+            using (var plugin = new PipingPlugin
             {
                 Gui = guiStub
             })
             {
                 // Call
-                var importers = guiPlugin.GetFileImporters().ToArray();
+                var importers = plugin.GetFileImporters().ToArray();
 
                 // Assert
                 Assert.AreEqual(2, importers.Length);

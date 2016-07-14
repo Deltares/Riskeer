@@ -39,14 +39,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
     public class GrassCoverErosionInwardsInputViewInfoTest
     {
         private MockRepository mocks;
-        private GrassCoverErosionInwardsGuiPlugin plugin;
+        private GrassCoverErosionInwardsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new GrassCoverErosionInwardsGuiPlugin();
+            plugin = new GrassCoverErosionInwardsPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GrassCoverErosionInwardsInputView));
         }
 

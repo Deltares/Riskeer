@@ -30,23 +30,23 @@ using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
-using Core.Components.Charting.Data;
-using Core.Components.OxyPlot.Forms;
-using Core.Plugins.OxyPlot.Forms;
-using Core.Plugins.OxyPlot.Legend;
+using Core.Components.DotSpatial.Forms;
+using Core.Components.Gis.Data;
+using Core.Plugins.DotSpatial.Forms;
+using Core.Plugins.DotSpatial.Legend;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.OxyPlot.Test
+namespace Core.Plugins.DotSpatial.Test
 {
     [TestFixture]
-    public class OxyPlotGuiPluginTest
+    public class DotSpatialPluginTest
     {
         [Test]
         public void DefaultConstructor_Always_NoRibbonCommandHandlerSet()
         {
             // Call
-            using (var plugin = new OxyPlotGuiPlugin())
+            using (var plugin = new DotSpatialPlugin())
             {
                 // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
@@ -59,31 +59,34 @@ namespace Core.Plugins.OxyPlot.Test
         public void Activate_WithoutGui_ThrowsArgumentNullException()
         {
             // Setup
-            using (var plugin = new OxyPlotGuiPlugin())
+            using (var plugin = new DotSpatialPlugin())
             {
                 // Call
                 TestDelegate test = () => plugin.Activate();
 
                 // Assert
-                Assert.Throws<ArgumentNullException>(test);
+                ArgumentNullException exception = Assert.Throws<ArgumentNullException>(test);
+                Assert.AreEqual("viewController", exception.ParamName);
             }
         }
 
         [Test]
         [RequiresSTA]
-        public void Activate_WithGui_AddsChartLegendView()
+        public void Activate_WithGui_AddsMapLegendView()
         {
             // Setup
             var mocks = new MockRepository();
 
-            using (var plugin = new OxyPlotGuiPlugin())
+            using (var plugin = new DotSpatialPlugin())
             {
                 var gui = mocks.StrictMock<IGui>();
+                var mainWindow = mocks.StrictMock<IMainWindow>();
                 var viewHost = mocks.Stub<IViewHost>();
 
+                gui.Expect(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(g => g.ViewHost).Return(viewHost);
                 viewHost.Expect(vm => vm.ToolViews).Return(new IView[0]);
-                viewHost.Expect(vm => vm.AddToolView(Arg<ChartLegendView>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
+                viewHost.Expect(vm => vm.AddToolView(Arg<MapLegendView>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
                 viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
                 viewHost.Expect(vm => vm.ActiveDocumentView).Return(null);
                 viewHost.Expect(vm => vm.ActiveDocumentViewChanged += null).IgnoreArguments();
@@ -104,29 +107,30 @@ namespace Core.Plugins.OxyPlot.Test
         }
 
         [Test]
-        public void GetViewInfoObjects_Always_ReturnsChartDataViewInfo()
+        public void GetViewInfoObjects_Always_ReturnsMapDataViewInfo()
         {
             // Setup
-            using (var plugin = new OxyPlotGuiPlugin())
+            using (var plugin = new DotSpatialPlugin())
             {
-                var view = new ChartDataView();
+                using (var view = new MapDataView())
+                {
+                    // Call
+                    var views = plugin.GetViewInfos().ToArray();
 
-                // Call
-                var views = plugin.GetViewInfos().ToArray();
-
-                // Assert
-                Assert.AreEqual(1, views.Length);
-                Assert.AreEqual(typeof(ChartDataCollection), views[0].DataType);
-                Assert.AreEqual(typeof(ChartDataView), views[0].ViewType);
-                Assert.AreEqual("Diagram", views[0].GetViewName(view, null));
+                    // Assert
+                    Assert.AreEqual(1, views.Length);
+                    Assert.AreEqual(typeof(MapData), views[0].DataType);
+                    Assert.AreEqual(typeof(MapDataView), views[0].ViewType);
+                    Assert.AreEqual("Kaart", views[0].GetViewName(view, null));
+                }
             }
         }
 
         [Test]
+        [RequiresSTA]
         [TestCase(true)]
         [TestCase(false)]
-        [RequiresSTA]
-        public void GivenConfiguredGui_WhenActiveDocumentViewChangesToViewWithChart_ThenRibbonSetVisibility(bool visible)
+        public void GivenConfiguredGui_WhenActiveDocumentViewChangesToViewWithMap_ThenRibbonSetVisibility(bool visible)
         {
             // Given
             var mocks = new MockRepository();
@@ -135,12 +139,12 @@ namespace Core.Plugins.OxyPlot.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
-                var plugin = new OxyPlotGuiPlugin();
-                var testChartView = new TestChartView();
-                var chart = new ChartControl();
-                IView viewMock = visible ? (IView) testChartView : new TestView();
+                var plugin = new DotSpatialPlugin();
+                var testMapView = new TestMapView();
+                var map = new MapControl();
+                IView viewMock = visible ? (IView) testMapView : new TestView();
 
-                testChartView.Data = chart;
+                testMapView.Data = map;
 
                 gui.Plugins.Add(plugin);
                 plugin.Gui = gui;

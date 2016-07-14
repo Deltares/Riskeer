@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -96,7 +96,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var failureMechanism = new TestFailureMechanism("name", "code");
             var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -115,7 +115,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -132,7 +132,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ForeColor_Always_ReturnsControlText()
         {
             // Setup
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -157,7 +157,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -230,36 +230,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             genericMethod.Invoke(this, null);
         }
 
-        /* Used in ChildNodeObjects_FailureMechanismIsRelevantWithDifferentFailureMechanismSectionResults_OutputNodeAdded(Type) */
-        public void ChildNodeObjects_FailureMechanismIsRelevantWithSectionResults_OutputNodeAdded<T>() where T : FailureMechanismSectionResult
-        {
-             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            using (var plugin = new RingtoetsGuiPlugin())
-            {
-                var info = GetInfo(plugin);
-
-                var failureMechanism = mocks.StrictMultiMock<IHasSectionResults<T>>(typeof(IFailureMechanism));
-                failureMechanism.Expect(fm => ((IFailureMechanism) fm).IsRelevant).Return(true);
-                failureMechanism.Expect(fm => fm.SectionResults).Return(new List<T>()).Repeat.Any();
-                var failureMechanismContext = mocks.Stub<FailureMechanismContext<IFailureMechanism>>(failureMechanism, assessmentSection);
-
-                mocks.ReplayAll();
-
-                // Call
-                object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
-
-                // Assert
-                var outputFolder = (CategoryTreeFolder)children[1];
-
-                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<T>)outputFolder.Contents[0];
-                Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
-                Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
-            }
-            mocks.VerifyAll();
-        }
-
         [Test]
         public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismComments()
         {
@@ -267,7 +237,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -323,7 +293,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                using (var plugin = new RingtoetsGuiPlugin())
+                using (var plugin = new RingtoetsPlugin())
                 {
                     var info = GetInfo(plugin);
 
@@ -365,7 +335,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                using (var plugin = new RingtoetsGuiPlugin())
+                using (var plugin = new RingtoetsPlugin())
                 {
                     var info = GetInfo(plugin);
 
@@ -398,7 +368,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                using (var plugin = new RingtoetsGuiPlugin())
+                using (var plugin = new RingtoetsPlugin())
                 {
                     plugin.Gui = gui;
 
@@ -449,11 +419,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                using (var guiPlugin = new RingtoetsGuiPlugin())
+                using (var plugin = new RingtoetsPlugin())
                 {
-                    guiPlugin.Gui = gui;
+                    plugin.Gui = gui;
 
-                    var info = GetInfo(guiPlugin);
+                    var info = GetInfo(plugin);
 
                     var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
 
@@ -495,11 +465,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                using (var guiPlugin = new RingtoetsGuiPlugin())
+                using (var plugin = new RingtoetsPlugin())
                 {
-                    guiPlugin.Gui = gui;
+                    plugin.Gui = gui;
 
-                    var info = GetInfo(guiPlugin);
+                    var info = GetInfo(plugin);
 
                     var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
 
@@ -513,12 +483,42 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
+        /* Used in ChildNodeObjects_FailureMechanismIsRelevantWithDifferentFailureMechanismSectionResults_OutputNodeAdded(Type) */
+
+        public void ChildNodeObjects_FailureMechanismIsRelevantWithSectionResults_OutputNodeAdded<T>() where T : FailureMechanismSectionResult
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                var failureMechanism = mocks.StrictMultiMock<IHasSectionResults<T>>(typeof(IFailureMechanism));
+                failureMechanism.Expect(fm => ((IFailureMechanism) fm).IsRelevant).Return(true);
+                failureMechanism.Expect(fm => fm.SectionResults).Return(new List<T>()).Repeat.Any();
+                var failureMechanismContext = mocks.Stub<FailureMechanismContext<IFailureMechanism>>(failureMechanism, assessmentSection);
+
+                mocks.ReplayAll();
+
+                // Call
+                object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+
+                // Assert
+                var outputFolder = (CategoryTreeFolder) children[1];
+
+                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<T>) outputFolder.Contents[0];
+                Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
+                Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
+            }
+            mocks.VerifyAll();
+        }
+
         private const int contextMenuRelevancyIndex = 0;
 
-        private TreeNodeInfo GetInfo(RingtoetsGuiPlugin guiPlugin)
+        private TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return guiPlugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismContext<IFailureMechanism>));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismContext<IFailureMechanism>));
         }
     }
-
 }

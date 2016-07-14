@@ -23,16 +23,16 @@ using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.Properties;
 using Core.Common.Utils;
 using Core.Plugins.CommonTools.Property;
-using PropertyInfo = Core.Common.Gui.Plugin.PropertyInfo;
 
 namespace Core.Plugins.CommonTools
 {
     /// <summary>
     /// This class configures general GUI components.
     /// </summary>
-    public class CommonToolsGuiPlugin : PluginBase
+    public class CommonToolsPlugin : PluginBase
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
@@ -44,7 +44,7 @@ namespace Core.Plugins.CommonTools
         {
             yield return new ViewInfo<RichTextFile, RichTextView>
             {
-                Image = Common.Gui.Properties.Resources.key,
+                Image = Resources.key,
                 GetViewName = (v, o) => o != null ? o.Name : ""
             };
         }

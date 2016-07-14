@@ -36,13 +36,13 @@ using Rhino.Mocks;
 namespace Core.Plugins.ProjectExplorer.Test
 {
     [TestFixture]
-    public class ProjectExplorerGuiPluginTest
+    public class ProjectExplorerPluginTest
     {
         [Test]
         public void DefaultConstructor_CreatesNewInstance()
         {
             // Call
-            using (var plugin = new ProjectExplorerGuiPlugin())
+            using (var plugin = new ProjectExplorerPlugin())
             {
                 // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
@@ -55,14 +55,14 @@ namespace Core.Plugins.ProjectExplorer.Test
         public void Activate_WithoutGui_ThrowsPluginActivationException()
         {
             // Setup
-            using (var plugin = new ProjectExplorerGuiPlugin())
+            using (var plugin = new ProjectExplorerPlugin())
             {
                 // Call
                 TestDelegate test = () => plugin.Activate();
 
                 // Assert
                 var message = Assert.Throws<PluginActivationException>(test).Message;
-                var expected = string.Format(Resources.ProjectExplorerGuiPlugin_Activation_of_0_failed, Resources.General_ProjectExplorer);
+                var expected = string.Format(Resources.ProjectExplorerPlugin_Activation_of_0_failed, Resources.General_ProjectExplorer);
                 Assert.AreEqual(expected, message);
             }
         }
@@ -89,7 +89,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
 
-            using (var plugin = new ProjectExplorerGuiPlugin
+            using (var plugin = new ProjectExplorerPlugin
             {
                 Gui = guiStub
             })
@@ -124,7 +124,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
 
-            using (var plugin = new ProjectExplorerGuiPlugin
+            using (var plugin = new ProjectExplorerPlugin
             {
                 Gui = guiStub
             })
@@ -136,7 +136,7 @@ namespace Core.Plugins.ProjectExplorer.Test
 
                 // Assert
                 var message = Assert.Throws<PluginActivationException>(test).Message;
-                var expected = string.Format(Resources.ProjectExplorerGuiPlugin_Cannot_activate_0_twice, Resources.General_ProjectExplorer);
+                var expected = string.Format(Resources.ProjectExplorerPlugin_Cannot_activate_0_twice, Resources.General_ProjectExplorer);
                 Assert.AreEqual(expected, message);
             }
             mocks.VerifyAll();
@@ -165,7 +165,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             guiStub.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
 
-            using (var plugin = new ProjectExplorerGuiPlugin
+            using (var plugin = new ProjectExplorerPlugin
             {
                 Gui = guiStub
             })
@@ -185,7 +185,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         public void Deactivate_AlwaysWhenNotActive_DoesNotThrow()
         {
             // Setup
-            using (var plugin = new ProjectExplorerGuiPlugin())
+            using (var plugin = new ProjectExplorerPlugin())
             {
                 // Call
                 TestDelegate test = () => plugin.Deactivate();
@@ -200,7 +200,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         public void Dispose_AlwaysWhenNotActive_DoesNotThrow()
         {
             // Setup
-            var plugin = new ProjectExplorerGuiPlugin();
+            var plugin = new ProjectExplorerPlugin();
 
             // Call
             TestDelegate test = () => plugin.Dispose();
@@ -224,13 +224,13 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             mocks.ReplayAll();
 
-            using (var guiPlugin = new ProjectExplorerGuiPlugin
+            using (var plugin = new ProjectExplorerPlugin
             {
                 Gui = guiStub
             })
             {
                 // Call
-                TreeNodeInfo[] treeNodeInfos = guiPlugin.GetTreeNodeInfos().ToArray();
+                TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
                 Assert.AreEqual(1, treeNodeInfos.Length);
@@ -249,7 +249,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             project.Items.Add(2);
             project.Items.Add(3);
 
-            using (var plugin = new ProjectExplorerGuiPlugin())
+            using (var plugin = new ProjectExplorerPlugin())
             {
                 // Call
                 var childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(project);
@@ -264,7 +264,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         public void GetChildDataWithViewDefinitions_UnsupportedDataType_ReturnEmpty()
         {
             // Setup
-            using (var plugin = new ProjectExplorerGuiPlugin())
+            using (var plugin = new ProjectExplorerPlugin())
             {
                 // Call
                 var childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(2);
@@ -297,10 +297,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             // Activate
             var toolViews = new List<IView>();
             viewHost.Stub(vm => vm.ToolViews).Return(toolViews);
-            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(v => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
-            {
-                toolViews.Add(invocation.Arguments[0] as ProjectExplorer);
-            });
+            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(v => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation => { toolViews.Add(invocation.Arguments[0] as ProjectExplorer); });
             viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
 
             // Dispose
@@ -311,7 +308,7 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             mocks.ReplayAll();
 
-            using (var plugin = new ProjectExplorerGuiPlugin
+            using (var plugin = new ProjectExplorerPlugin
             {
                 Gui = guiStub
             })

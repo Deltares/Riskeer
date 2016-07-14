@@ -196,37 +196,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er zijn geen dijkprofielen beschikbaar om berekeningen voor te genereren..
         /// </summary>
-        internal static string GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip {
+        internal static string GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_NoDikeLocations_" +
-                        "ToolTip", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_NoDikeLocations_Too" +
+                        "lTip", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Genereer scenario&apos;s op basis van geselecteerde dijkprofielen..
         /// </summary>
-        internal static string GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_ToolTip {
+        internal static string GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_ToolTip {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_ToolTip", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_ToolTip", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Dijkprofielen.
         /// </summary>
-        internal static string GrassCoverErosionInwardsGuiPlugin_DikeProfilesContext_DisplayName {
+        internal static string GrassCoverErosionInwardsPlugin_DikeProfilesContext_DisplayName {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsGuiPlugin_DikeProfilesContext_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de berekening..
-        /// </summary>
-        internal static string GrassCoverErosionInwardsGuiPlugin_Error_during_overtopping_calculation {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsGuiPlugin_Error_during_overtopping_calculation", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_DikeProfilesContext_DisplayName", resourceCulture);
             }
         }
     }

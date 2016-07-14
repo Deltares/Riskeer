@@ -188,18 +188,18 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [STAThread]
-        public void Dispose_GuipluginsAdded_PluginsDisabledAndRemovedAndDisposed()
+        public void Dispose_PluginsAdded_PluginsDisabledAndRemovedAndDisposed()
         {
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
-            var guiPluginMock = mocks.Stub<PluginBase>();
-            guiPluginMock.Expect(p => p.Deactivate());
-            guiPluginMock.Expect(p => p.Dispose());
+            var pluginMock = mocks.Stub<PluginBase>();
+            pluginMock.Expect(p => p.Deactivate());
+            pluginMock.Expect(p => p.Dispose());
             mocks.ReplayAll();
 
             var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings());
-            gui.Plugins.Add(guiPluginMock);
+            gui.Plugins.Add(pluginMock);
 
             // Call
             gui.Dispose();
@@ -211,18 +211,18 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [STAThread]
-        public void Dispose_GuiPluginAddedButThrowsExceptionDuringDeactivation_LogErrorAndStillDisposeAndRemove()
+        public void Dispose_PluginAddedButThrowsExceptionDuringDeactivation_LogErrorAndStillDisposeAndRemove()
         {
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
-            var guiPluginMock = mocks.Stub<PluginBase>();
-            guiPluginMock.Expect(p => p.Deactivate()).Throw(new Exception("Bad stuff happening!"));
-            guiPluginMock.Expect(p => p.Dispose());
+            var pluginMock = mocks.Stub<PluginBase>();
+            pluginMock.Expect(p => p.Deactivate()).Throw(new Exception("Bad stuff happening!"));
+            pluginMock.Expect(p => p.Dispose());
             mocks.ReplayAll();
 
             var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings());
-            gui.Plugins.Add(guiPluginMock);
+            gui.Plugins.Add(pluginMock);
 
             // Call
             Action call = () => gui.Dispose();
@@ -632,24 +632,24 @@ namespace Core.Common.Gui.Test
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
-            var guiPlugin = mocks.Stub<PluginBase>();
-            guiPlugin.Stub(p => p.Deactivate());
-            guiPlugin.Stub(p => p.Dispose());
-            guiPlugin.Expect(p => p.Activate());
-            guiPlugin.Expect(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
-            guiPlugin.Expect(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
+            var plugin = mocks.Stub<PluginBase>();
+            plugin.Stub(p => p.Deactivate());
+            plugin.Stub(p => p.Dispose());
+            plugin.Expect(p => p.Activate());
+            plugin.Expect(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
+            plugin.Expect(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
             mocks.ReplayAll();
 
             // Setup
             using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(guiPlugin);
+                gui.Plugins.Add(plugin);
 
                 // Call
                 gui.Run();
 
                 // Assert
-                Assert.AreSame(gui, guiPlugin.Gui);
+                Assert.AreSame(gui, plugin.Gui);
             }
             mocks.VerifyAll();
         }
@@ -660,18 +660,18 @@ namespace Core.Common.Gui.Test
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
-            var guiPlugin = mocks.Stub<PluginBase>();
-            guiPlugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
-            guiPlugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
-            guiPlugin.Stub(p => p.Activate()).Throw(new Exception("ERROR!"));
-            guiPlugin.Expect(p => p.Deactivate());
-            guiPlugin.Expect(p => p.Dispose());
+            var plugin = mocks.Stub<PluginBase>();
+            plugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
+            plugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
+            plugin.Stub(p => p.Activate()).Throw(new Exception("ERROR!"));
+            plugin.Expect(p => p.Deactivate());
+            plugin.Expect(p => p.Dispose());
             mocks.ReplayAll();
 
             // Setup
             using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(guiPlugin);
+                gui.Plugins.Add(plugin);
 
                 // Call
                 gui.Run();
@@ -686,18 +686,18 @@ namespace Core.Common.Gui.Test
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
-            var guiPlugin = mocks.Stub<PluginBase>();
-            guiPlugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
-            guiPlugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
-            guiPlugin.Stub(p => p.Activate()).Throw(new Exception("ERROR!"));
-            guiPlugin.Stub(p => p.Deactivate()).Throw(new Exception("MORE ERROR!"));
-            guiPlugin.Expect(p => p.Dispose());
+            var plugin = mocks.Stub<PluginBase>();
+            plugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
+            plugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
+            plugin.Stub(p => p.Activate()).Throw(new Exception("ERROR!"));
+            plugin.Stub(p => p.Deactivate()).Throw(new Exception("MORE ERROR!"));
+            plugin.Expect(p => p.Dispose());
             mocks.ReplayAll();
 
             // Setup
             using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(guiPlugin);
+                gui.Plugins.Add(plugin);
 
                 // Call
                 Action call = () => gui.Run();

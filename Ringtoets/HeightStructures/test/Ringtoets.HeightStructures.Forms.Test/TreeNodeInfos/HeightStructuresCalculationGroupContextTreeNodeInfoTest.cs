@@ -53,14 +53,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         private IGui guiMock;
         private TreeNodeInfo info;
         private MockRepository mocks;
-        private HeightStructuresGuiPlugin plugin;
+        private HeightStructuresPlugin plugin;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
             guiMock = mocks.StrictMock<IGui>();
-            plugin = new HeightStructuresGuiPlugin
+            plugin = new HeightStructuresPlugin
             {
                 Gui = guiMock
             };
@@ -389,7 +389,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
                                                               RingtoetsFormsResources.Calculate_all,
-                                                              RingtoetsFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                              RingtoetsFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
@@ -435,7 +435,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndexRootGroup,
                                                               RingtoetsFormsResources.Calculate_all,
-                                                              RingtoetsFormsResources.GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                              RingtoetsFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
@@ -574,7 +574,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                               RingtoetsFormsResources.Validate_all,
-                                                              RingtoetsFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                              RingtoetsFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
             }
@@ -620,7 +620,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndexRootGroup,
                                                               RingtoetsFormsResources.Validate_all,
-                                                              RingtoetsFormsResources.GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                              RingtoetsFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
             }

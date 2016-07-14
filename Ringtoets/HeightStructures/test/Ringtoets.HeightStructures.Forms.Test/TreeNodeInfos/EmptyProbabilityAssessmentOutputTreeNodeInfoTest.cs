@@ -35,14 +35,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
     public class EmptyProbabilityAssessmentOutputTreeNodeInfoTest
     {
         private MockRepository mocksRepository;
-        private HeightStructuresGuiPlugin plugin;
+        private HeightStructuresPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocksRepository = new MockRepository();
-            plugin = new HeightStructuresGuiPlugin();
+            plugin = new HeightStructuresPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptyProbabilityAssessmentOutput));
         }
 

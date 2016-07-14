@@ -21,19 +21,15 @@
 
 using System.Drawing;
 using System.Linq;
-
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
-
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -56,7 +52,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -88,7 +84,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -110,7 +106,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -139,7 +135,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 gui.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
                 mocks.ReplayAll();
 
-                using (var plugin = new RingtoetsGuiPlugin())
+                using (var plugin = new RingtoetsPlugin())
                 {
                     var info = GetInfo(plugin);
 
@@ -162,7 +158,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -185,7 +181,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -198,9 +194,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-        private TreeNodeInfo GetInfo(RingtoetsGuiPlugin guiPlugin)
+        private TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return guiPlugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ReferenceLineContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ReferenceLineContext));
         }
     }
 }

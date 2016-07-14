@@ -56,9 +56,9 @@ using BaseResources = Core.Common.Base.Properties.Resources;
 namespace Ringtoets.GrassCoverErosionInwards.Plugin
 {
     /// <summary>
-    /// The GUI plug-in for the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
+    /// The plug-in for the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionInwardsGuiPlugin : PluginBase
+    public class GrassCoverErosionInwardsPlugin : PluginBase
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
@@ -118,7 +118,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             yield return new TreeNodeInfo<DikeProfilesContext>
             {
-                Text = context => GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_DikeProfilesContext_DisplayName,
+                Text = context => GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsPlugin_DikeProfilesContext_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.Any() ?
                                            Color.FromKnownColor(KnownColor.ControlText) :
@@ -213,12 +213,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             if (!failureMechanism.Sections.Any())
             {
-                return RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported;
+                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported;
             }
 
             if (assessmentSection.HydraulicBoundaryDatabase == null)
             {
-                return RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
+                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
             }
 
             var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
@@ -242,7 +242,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            var assessmentSection = removedData as IAssessmentSection; 
+            var assessmentSection = removedData as IAssessmentSection;
             if (assessmentSection != null)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
@@ -519,8 +519,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             bool isDikeProfileAvailable = nodeData.AvailableDikeProfiles.Any();
 
             string calculationGroupGenerateCalculationsToolTip = isDikeProfileAvailable
-                                                                     ? GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_ToolTip
-                                                                     : GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip;
+                                                                     ? GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_ToolTip
+                                                                     : GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip;
 
             var generateCalculationsItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,

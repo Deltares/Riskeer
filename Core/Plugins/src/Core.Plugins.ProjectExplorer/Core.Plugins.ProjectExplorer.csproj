@@ -99,7 +99,7 @@
     <Compile Include="Ribbon.xaml.cs">
       <DependentUpon>Ribbon.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProjectExplorerGuiPlugin.cs" />
+    <Compile Include="ProjectExplorerPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

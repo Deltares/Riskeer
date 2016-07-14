@@ -77,9 +77,9 @@ using BaseResources = Core.Common.Base.Properties.Resources;
 namespace Ringtoets.Integration.Plugin
 {
     /// <summary>
-    /// The GUI plugin for the Ringtoets application.
+    /// The plug-in for the Ringtoets application.
     /// </summary>
-    public class RingtoetsGuiPlugin : PluginBase
+    public class RingtoetsPlugin : PluginBase
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PluginBase));
 
@@ -222,7 +222,7 @@ namespace Ringtoets.Integration.Plugin
         }
 
         /// <summary>
-        /// Returns all <see cref="Core.Common.Gui.Plugin.PropertyInfo"/> instances provided for data of <see cref="RingtoetsGuiPlugin"/>.
+        /// Returns all <see cref="Core.Common.Gui.Plugin.PropertyInfo"/> instances provided for data of <see cref="RingtoetsPlugin"/>.
         /// </summary>
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
@@ -235,7 +235,7 @@ namespace Ringtoets.Integration.Plugin
         }
 
         /// <summary>
-        /// Returns all <see cref="ViewInfo"/> instances provided for data of <see cref="RingtoetsGuiPlugin"/>.
+        /// Returns all <see cref="ViewInfo"/> instances provided for data of <see cref="RingtoetsPlugin"/>.
         /// </summary>
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
@@ -328,7 +328,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsFormsResources.AssessmentSectionFolderIcon,
                 CreateData = owner =>
                 {
-                    var project = (Project)owner;
+                    var project = (Project) owner;
                     var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                     assessmentSection.Name = GetUniqueForAssessmentSectionName(project, assessmentSection.Name);
                     return assessmentSection;
@@ -351,7 +351,7 @@ namespace Ringtoets.Integration.Plugin
         }
 
         /// <summary>
-        /// Returns all <see cref="TreeNodeInfo"/> instances provided for data of <see cref="RingtoetsGuiPlugin"/>.
+        /// Returns all <see cref="TreeNodeInfo"/> instances provided for data of <see cref="RingtoetsPlugin"/>.
         /// </summary>
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
@@ -947,7 +947,7 @@ namespace Ringtoets.Integration.Plugin
                     }
                     else
                     {
-                        log.ErrorFormat(Resources.RingtoetsGuiPlugin_HydraulicBoundaryDatabaseContextMenuStrip_Start_calculation_failed_0_, validationProblem);
+                        log.ErrorFormat(Resources.RingtoetsPlugin_HydraulicBoundaryDatabaseContextMenuStrip_Start_calculation_failed_0_, validationProblem);
                     }
                 });
 
@@ -1027,7 +1027,7 @@ namespace Ringtoets.Integration.Plugin
                         ClearCalculations(assessmentSection);
                     }
                     assessmentSection.NotifyObservers();
-                    log.InfoFormat(RingtoetsFormsResources.RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,
+                    log.InfoFormat(RingtoetsFormsResources.RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,
                                    assessmentSection.HydraulicBoundaryDatabase.FilePath);
                 }
             }

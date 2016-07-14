@@ -36,16 +36,16 @@ using Ringtoets.HeightStructures.Forms.Views;
 namespace Ringtoets.HeightStructures.Plugin.Test
 {
     [TestFixture]
-    public class HeightStructuresGuiPluginTest
+    public class HeightStructuresPluginTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            using (var heightStructuresGuiPlugin = new HeightStructuresGuiPlugin())
+            using (var plugin = new HeightStructuresPlugin())
             {
                 // Assert
-                Assert.IsInstanceOf<PluginBase>(heightStructuresGuiPlugin);
+                Assert.IsInstanceOf<PluginBase>(plugin);
             }
         }
 
@@ -53,13 +53,13 @@ namespace Ringtoets.HeightStructures.Plugin.Test
         public void GetPropertyInfos_ReturnsSupportedPropertyClasses()
         {
             // setup
-            using (var guiPlugin = new HeightStructuresGuiPlugin())
+            using (var plugin = new HeightStructuresPlugin())
             {
                 // call
                 var mocks = new MockRepository();
                 mocks.ReplayAll();
 
-                PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
+                PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // assert
                 Assert.AreEqual(2, propertyInfos.Length);
@@ -88,13 +88,13 @@ namespace Ringtoets.HeightStructures.Plugin.Test
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
             mocks.ReplayAll();
 
-            using (var guiPlugin = new HeightStructuresGuiPlugin
+            using (var plugin = new HeightStructuresPlugin
             {
                 Gui = guiStub
             })
             {
                 // Call
-                TreeNodeInfo[] treeNodeInfos = guiPlugin.GetTreeNodeInfos().ToArray();
+                TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
                 Assert.AreEqual(7, treeNodeInfos.Length);
@@ -119,13 +119,13 @@ namespace Ringtoets.HeightStructures.Plugin.Test
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
             mocks.ReplayAll();
 
-            using (var guiPlugin = new HeightStructuresGuiPlugin
+            using (var plugin = new HeightStructuresPlugin
             {
                 Gui = guiStub
             })
             {
                 // Call
-                ViewInfo[] viewInfos = guiPlugin.GetViewInfos().ToArray();
+                ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
                 Assert.AreEqual(1, viewInfos.Length);

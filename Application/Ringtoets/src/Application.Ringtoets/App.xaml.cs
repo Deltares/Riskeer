@@ -151,16 +151,16 @@ namespace Application.Ringtoets
             {
                 Plugins =
                 {
-                    new ProjectExplorerGuiPlugin(),
-                    new CommonToolsGuiPlugin(),
-                    new RingtoetsGuiPlugin(),
-                    new GrassCoverErosionInwardsGuiPlugin(),
-                    new PipingGuiPlugin(),
-                    new HeightStructuresGuiPlugin(),
-                    new OxyPlotGuiPlugin(),
-                    new DotSpatialGuiPlugin()
+                    new ProjectExplorerPlugin(),
+                    new CommonToolsPlugin(),
+                    new RingtoetsPlugin(),
+                    new GrassCoverErosionInwardsPlugin(),
+                    new PipingPlugin(),
+                    new HeightStructuresPlugin(),
+                    new OxyPlotPlugin(),
+                    new DotSpatialPlugin()
 #if INCLUDE_DEMOPROJECT
-                    , new DemoProjectGuiPlugin()
+                    , new DemoProjectPlugin()
 #endif
                 }
             };

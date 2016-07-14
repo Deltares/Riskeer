@@ -36,7 +36,7 @@ using ProjectExplorerResources = Core.Plugins.ProjectExplorer.Properties.Resourc
 
 namespace Core.Plugins.ProjectExplorer
 {
-    public class ProjectExplorerGuiPlugin : PluginBase
+    public class ProjectExplorerPlugin : PluginBase
     {
         private IViewController viewController;
         private ProjectExplorerViewController projectExplorerViewController;
@@ -127,14 +127,14 @@ namespace Core.Plugins.ProjectExplorer
         }
 
         /// <summary>
-        /// Activates the <see cref="ProjectExplorerGuiPlugin"/>
+        /// Activates the <see cref="ProjectExplorerPlugin"/>
         /// </summary>
         /// <exception cref="PluginActivationException">Thrown when <see cref="Gui"/> is <c>null</c>.</exception>
         public override void Activate()
         {
             if (active)
             {
-                var message = string.Format(ProjectExplorerResources.ProjectExplorerGuiPlugin_Cannot_activate_0_twice, ProjectExplorerResources.General_ProjectExplorer);
+                var message = string.Format(ProjectExplorerResources.ProjectExplorerPlugin_Cannot_activate_0_twice, ProjectExplorerResources.General_ProjectExplorer);
                 throw new PluginActivationException(message);
             }
 
@@ -145,7 +145,7 @@ namespace Core.Plugins.ProjectExplorer
             }
             catch (ArgumentNullException e)
             {
-                var message = string.Format(ProjectExplorerResources.ProjectExplorerGuiPlugin_Activation_of_0_failed, ProjectExplorerResources.General_ProjectExplorer);
+                var message = string.Format(ProjectExplorerResources.ProjectExplorerPlugin_Activation_of_0_failed, ProjectExplorerResources.General_ProjectExplorer);
                 throw new PluginActivationException(message, e);
             }
 

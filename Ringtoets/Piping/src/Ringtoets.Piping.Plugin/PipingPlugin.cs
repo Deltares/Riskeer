@@ -53,9 +53,9 @@ using BaseResources = Core.Common.Base.Properties.Resources;
 namespace Ringtoets.Piping.Plugin
 {
     /// <summary>
-    /// The GUI plug-in for the <see cref="PipingFailureMechanism"/>.
+    /// The plugin for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class PipingGuiPlugin : PluginBase
+    public class PipingPlugin : PluginBase
     {
         public override IRibbonCommandHandler RibbonCommandHandler
         {

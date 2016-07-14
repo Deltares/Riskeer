@@ -192,10 +192,10 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Berekeningen konden niet worden gestart. {0}.
         /// </summary>
-        public static string RingtoetsGuiPlugin_HydraulicBoundaryDatabaseContextMenuStrip_Start_calculation_failed_0_ {
+        public static string RingtoetsPlugin_HydraulicBoundaryDatabaseContextMenuStrip_Start_calculation_failed_0_ {
             get {
-                return ResourceManager.GetString("RingtoetsGuiPlugin_HydraulicBoundaryDatabaseContextMenuStrip_Start_calculation_fa" +
-                        "iled_0_", resourceCulture);
+                return ResourceManager.GetString("RingtoetsPlugin_HydraulicBoundaryDatabaseContextMenuStrip_Start_calculation_faile" +
+                        "d_0_", resourceCulture);
             }
         }
     }

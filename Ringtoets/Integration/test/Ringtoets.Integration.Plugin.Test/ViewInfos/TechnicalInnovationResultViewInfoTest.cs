@@ -40,14 +40,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
     public class TechnicalInnovationResultViewInfoTest
     {
         private MockRepository mocks;
-        private RingtoetsGuiPlugin plugin;
+        private RingtoetsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new RingtoetsGuiPlugin();
+            plugin = new RingtoetsPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(TechnicalInnovationResultView));
         }
 

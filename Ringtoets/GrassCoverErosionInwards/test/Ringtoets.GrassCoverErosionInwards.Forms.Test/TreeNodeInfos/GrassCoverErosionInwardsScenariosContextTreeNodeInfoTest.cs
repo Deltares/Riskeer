@@ -42,13 +42,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionInwardsScenariosContextTreeNodeInfoTest
     {
-        private GrassCoverErosionInwardsGuiPlugin plugin;
+        private GrassCoverErosionInwardsPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new GrassCoverErosionInwardsGuiPlugin();
+            plugin = new GrassCoverErosionInwardsPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsScenariosContext));
         }
 

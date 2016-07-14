@@ -38,13 +38,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class PipingScenariosContextTreeNodeInfoTest
     {
-        private PipingGuiPlugin plugin;
+        private PipingPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new PipingGuiPlugin();
+            plugin = new PipingPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingScenariosContext));
         }
 

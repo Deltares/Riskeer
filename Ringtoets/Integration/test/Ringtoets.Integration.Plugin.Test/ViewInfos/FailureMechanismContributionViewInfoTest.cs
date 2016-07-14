@@ -39,14 +39,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
     public class FailureMechanismContributionViewInfoTest
     {
         private MockRepository mocks;
-        private RingtoetsGuiPlugin plugin;
+        private RingtoetsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new RingtoetsGuiPlugin();
+            plugin = new RingtoetsPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismContributionView));
         }
 
@@ -245,10 +245,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var context = new FailureMechanismContributionContext(contribution, assessmentSection);
             var view = new FailureMechanismContributionView();
 
-            using (var guiPlugin = new RingtoetsGuiPlugin())
+            using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
-                info = guiPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismContributionView));
-                guiPlugin.Gui = guiStub;
+                info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismContributionView));
+                ringtoetsPlugin.Gui = guiStub;
 
                 // Call
                 info.AfterCreate(view, context);

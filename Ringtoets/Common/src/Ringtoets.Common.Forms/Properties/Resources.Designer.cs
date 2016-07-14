@@ -674,24 +674,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen vakindeling geïmporteerd..
-        /// </summary>
-        public static string GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported {
-            get {
-                return ResourceManager.GetString("GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase geïmporteerd..
-        /// </summary>
-        public static string GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported {
-            get {
-                return ResourceManager.GetString("GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. {0}.
         /// </summary>
         public static string Hydraulic_boundary_database_connection_failed_0_ {
@@ -807,6 +789,24 @@ namespace Ringtoets.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("OutputFolderIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen vakindeling geïmporteerd..
+        /// </summary>
+        public static string Plugin_AllDataAvailable_No_failure_mechanism_sections_imported {
+            get {
+                return ResourceManager.GetString("Plugin_AllDataAvailable_No_failure_mechanism_sections_imported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase geïmporteerd..
+        /// </summary>
+        public static string Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported {
+            get {
+                return ResourceManager.GetString("Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported", resourceCulture);
             }
         }
         

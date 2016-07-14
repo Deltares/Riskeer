@@ -71,7 +71,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="PipingGuiPlugin.cs" />
+    <Compile Include="PipingPlugin.cs" />
     <Compile Include="PipingRibbon.xaml.cs">
       <DependentUpon>PipingRibbon.xaml</DependentUpon>
     </Compile>

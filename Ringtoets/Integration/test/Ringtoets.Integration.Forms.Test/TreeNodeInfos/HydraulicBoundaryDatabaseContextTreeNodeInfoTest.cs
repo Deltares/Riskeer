@@ -58,7 +58,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -86,7 +86,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var context = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -105,7 +105,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -124,7 +124,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -166,7 +166,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                using (var plugin = new RingtoetsGuiPlugin())
+                using (var plugin = new RingtoetsPlugin())
                 {
                     var info = GetInfo(plugin);
 
@@ -188,7 +188,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
 
             var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
-            
+
             guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
@@ -197,7 +197,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
-                using (var plugin = new RingtoetsGuiPlugin())
+                using (var plugin = new RingtoetsPlugin())
                 {
                     var info = GetInfo(plugin);
 
@@ -232,7 +232,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
-                using (var plugin = new RingtoetsGuiPlugin())
+                using (var plugin = new RingtoetsPlugin())
                 {
                     var info = GetInfo(plugin);
 
@@ -288,7 +288,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                using (var plugin = new RingtoetsGuiPlugin())
+                using (var plugin = new RingtoetsPlugin())
                 {
                     var info = GetInfo(plugin);
                     plugin.Gui = gui;
@@ -319,7 +319,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
                 // Call
@@ -341,7 +341,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
                 // Call
@@ -353,9 +353,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-        private TreeNodeInfo GetInfo(RingtoetsGuiPlugin guiPlugin)
+        private TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return guiPlugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HydraulicBoundaryDatabaseContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HydraulicBoundaryDatabaseContext));
         }
     }
 }

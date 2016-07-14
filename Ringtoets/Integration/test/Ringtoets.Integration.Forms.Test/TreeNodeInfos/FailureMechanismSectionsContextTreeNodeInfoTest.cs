@@ -58,7 +58,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -87,7 +87,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -106,7 +106,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -140,7 +140,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilderMock);
                 mocks.ReplayAll();
 
-                using (var plugin = new RingtoetsGuiPlugin())
+                using (var plugin = new RingtoetsPlugin())
                 {
                     var info = GetInfo(plugin);
 
@@ -165,7 +165,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -196,7 +196,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -209,9 +209,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-        private TreeNodeInfo GetInfo(RingtoetsGuiPlugin guiPlugin)
+        private TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return guiPlugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionsContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionsContext));
         }
     }
 }

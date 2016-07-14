@@ -57,14 +57,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         private IGui guiMock;
         private TreeNodeInfo info;
         private MockRepository mocks;
-        private GrassCoverErosionInwardsGuiPlugin plugin;
+        private GrassCoverErosionInwardsPlugin plugin;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
             guiMock = mocks.StrictMock<IGui>();
-            plugin = new GrassCoverErosionInwardsGuiPlugin
+            plugin = new GrassCoverErosionInwardsPlugin
             {
                 Gui = guiMock
             };
@@ -397,7 +397,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndexRootGroup,
                                                               RingtoetsFormsResources.Calculate_all,
-                                                              RingtoetsFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                              RingtoetsFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
@@ -448,7 +448,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuClearAllIndexRootGroup,
                                                               RingtoetsFormsResources.Calculate_all,
-                                                              RingtoetsFormsResources.GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                              RingtoetsFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
@@ -584,7 +584,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuGenerateCalculationsIndexRootGroup,
                                                               RingtoetsFormsResources.CalculationGroup_Generate_Scenarios,
-                                                              GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip,
+                                                              GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip,
                                                               RingtoetsFormsResources.GenerateScenariosIcon,
                                                               false);
             }
@@ -617,7 +617,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuGenerateCalculationsIndexRootGroup,
                                                               RingtoetsFormsResources.CalculationGroup_Generate_Scenarios,
-                                                              GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsGuiPlugin_CreateGenerateCalculationsItem_ToolTip,
+                                                              GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_ToolTip,
                                                               RingtoetsFormsResources.GenerateScenariosIcon);
             }
         }

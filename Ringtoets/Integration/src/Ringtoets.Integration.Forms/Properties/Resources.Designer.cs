@@ -444,9 +444,9 @@ namespace Ringtoets.Integration.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Database op pad &apos;{0}&apos; gekoppeld..
         /// </summary>
-        public static string RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked {
+        public static string RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked {
             get {
-                return ResourceManager.GetString("RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked", resourceCulture);
+                return ResourceManager.GetString("RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked", resourceCulture);
             }
         }
         

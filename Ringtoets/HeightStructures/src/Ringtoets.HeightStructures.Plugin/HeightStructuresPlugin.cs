@@ -48,9 +48,9 @@ using HeightStructuresFormsResources = Ringtoets.HeightStructures.Forms.Properti
 namespace Ringtoets.HeightStructures.Plugin
 {
     /// <summary>
-    /// The GUI plug-in for the <see cref="HeightStructuresFailureMechanism"/>.
+    /// The plug-in for the <see cref="HeightStructuresFailureMechanism"/>.
     /// </summary>
-    public class HeightStructuresGuiPlugin : PluginBase
+    public class HeightStructuresPlugin : PluginBase
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
@@ -151,12 +151,12 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             if (!failureMechanism.Sections.Any())
             {
-                return RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported;
+                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported;
             }
 
             if (assessmentSection.HydraulicBoundaryDatabase == null)
             {
-                return RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
+                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
             }
 
             var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);

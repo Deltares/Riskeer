@@ -34,9 +34,9 @@ using Core.Plugins.DotSpatial.Legend;
 namespace Core.Plugins.DotSpatial
 {
     /// <summary>
-    /// The gui plugin for the <see cref="DotSpatial"/> map component.
+    /// The plug-in for the <see cref="DotSpatial"/> map component.
     /// </summary>
-    public class DotSpatialGuiPlugin : PluginBase
+    public class DotSpatialPlugin : PluginBase
     {
         private MapRibbon mapRibbon;
         private MapLegendController mapLegendController;
@@ -74,7 +74,7 @@ namespace Core.Plugins.DotSpatial
             yield return new ViewInfo<MapData, MapDataView>
             {
                 Image = Resources.DocumentHS,
-                GetViewName = (v, o) => Resources.DotSpatialGuiPlugin_GetViewInfoObjects_Map
+                GetViewName = (v, o) => Resources.DotSpatialPlugin_GetViewInfoObjects_Map
             };
         }
 
@@ -82,7 +82,7 @@ namespace Core.Plugins.DotSpatial
         {
             if (viewController == null)
             {
-                throw new ArgumentNullException("viewController", "Cannot create a MapLegendController when the view controller is null");
+                throw new ArgumentNullException("viewController", @"Cannot create a MapLegendController when the view controller is null");
             }
 
             var controller = new MapLegendController(viewController, Gui, Gui.MainWindow);
@@ -104,7 +104,7 @@ namespace Core.Plugins.DotSpatial
         }
 
         /// <summary>
-        /// Updates the components which the <see cref="DotSpatialGuiPlugin"/> knows about so that it reflects
+        /// Updates the components which the <see cref="DotSpatialPlugin"/> knows about so that it reflects
         /// the currently active view.
         /// </summary>
         private void UpdateComponentsForActiveDocumentView()

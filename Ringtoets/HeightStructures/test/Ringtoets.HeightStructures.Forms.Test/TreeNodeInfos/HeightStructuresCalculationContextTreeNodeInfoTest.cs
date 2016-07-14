@@ -55,14 +55,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
 
         private MockRepository mocks;
-        private HeightStructuresGuiPlugin plugin;
+        private HeightStructuresPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new HeightStructuresGuiPlugin();
+            plugin = new HeightStructuresPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresCalculationContext));
         }
 
@@ -243,13 +243,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateIndex,
                                                               RingtoetsCommonFormsResources.Validate,
-                                                              RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                              RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
                                                               RingtoetsCommonFormsResources.ValidateIcon,
                                                               false);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateIndex,
                                                               RingtoetsCommonFormsResources.Calculate,
-                                                              RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                              RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
                                                               RingtoetsCommonFormsResources.CalculateIcon,
                                                               false);
 
@@ -286,7 +286,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
                                                               RingtoetsCommonFormsResources.Calculate,
-                                                              RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                              RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
                                                               RingtoetsCommonFormsResources.CalculateIcon,
                                                               false);
             }
@@ -323,7 +323,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
                                                               RingtoetsCommonFormsResources.Calculate,
-                                                              RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                              RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
                                                               RingtoetsCommonFormsResources.CalculateIcon,
                                                               false);
             }
@@ -438,7 +438,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
                                                               RingtoetsCommonFormsResources.Validate,
-                                                              RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                              RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
                                                               RingtoetsCommonFormsResources.ValidateIcon,
                                                               false);
             }
@@ -475,7 +475,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
                                                               RingtoetsCommonFormsResources.Validate,
-                                                              RingtoetsCommonFormsResources.GuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                              RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
                                                               RingtoetsCommonFormsResources.ValidateIcon,
                                                               false);
             }

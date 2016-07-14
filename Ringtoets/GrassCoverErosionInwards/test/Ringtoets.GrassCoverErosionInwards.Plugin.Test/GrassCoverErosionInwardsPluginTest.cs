@@ -37,16 +37,16 @@ using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter;
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsGuiPluginTest
+    public class GrassCoverErosionInwardsPluginTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // call
-            using (var grassCoverErosionInwardsGuiPlugin = new GrassCoverErosionInwardsGuiPlugin())
+            using (var plugin = new GrassCoverErosionInwardsPlugin())
             {
                 // assert
-                Assert.IsInstanceOf<PluginBase>(grassCoverErosionInwardsGuiPlugin);
+                Assert.IsInstanceOf<PluginBase>(plugin);
             }
         }
 
@@ -54,13 +54,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
         public void GetPropertyInfos_ReturnsSupportedPropertyClasses()
         {
             // setup
-            using (var guiPlugin = new GrassCoverErosionInwardsGuiPlugin())
+            using (var plugin = new GrassCoverErosionInwardsPlugin())
             {
                 // call
                 var mocks = new MockRepository();
                 mocks.ReplayAll();
 
-                PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
+                PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // assert
                 Assert.AreEqual(4, propertyInfos.Length);
@@ -102,13 +102,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
             mocks.ReplayAll();
 
-            using (var guiPlugin = new GrassCoverErosionInwardsGuiPlugin
+            using (var plugin = new GrassCoverErosionInwardsPlugin
             {
                 Gui = guiStub
             })
             {
                 // call
-                TreeNodeInfo[] treeNodeInfos = guiPlugin.GetTreeNodeInfos().ToArray();
+                TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // assert
                 Assert.AreEqual(10, treeNodeInfos.Length);
@@ -137,13 +137,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
 
             mocks.ReplayAll();
 
-            using (var guiPlugin = new GrassCoverErosionInwardsGuiPlugin
+            using (var plugin = new GrassCoverErosionInwardsPlugin
             {
                 Gui = guiStub
             })
             {
                 // Call
-                ViewInfo[] viewInfos = guiPlugin.GetViewInfos().ToArray();
+                ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
                 Assert.AreEqual(3, viewInfos.Length);
@@ -163,13 +163,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
             mocks.ReplayAll();
 
-            using (var guiPlugin = new GrassCoverErosionInwardsGuiPlugin
+            using (var plugin = new GrassCoverErosionInwardsPlugin
             {
                 Gui = guiStub
             })
             {
                 // Call
-                var importers = guiPlugin.GetFileImporters().ToArray();
+                var importers = plugin.GetFileImporters().ToArray();
 
                 // Assert
                 Assert.AreEqual(1, importers.Length);
