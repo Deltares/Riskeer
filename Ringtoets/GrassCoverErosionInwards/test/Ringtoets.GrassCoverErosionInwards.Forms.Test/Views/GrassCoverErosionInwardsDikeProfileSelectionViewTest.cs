@@ -73,8 +73,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         {
             // Setup
             var testname = "testName";
-            DikeProfile ringtoetsGrassCoverErosionInwardsDikeProfile = CreateTestDikeProfile();
-            ringtoetsGrassCoverErosionInwardsDikeProfile.Name = testname;
+            DikeProfile ringtoetsGrassCoverErosionInwardsDikeProfile = CreateTestDikeProfile(testname);
 
             // Call
             var view = new GrassCoverErosionInwardsDikeProfileSelectionView(new[]
@@ -264,9 +263,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         private const int dikeProfileNameColumnIndex = 1;
         private const int selectedColumnIndex = 0;
 
-        private DikeProfile CreateTestDikeProfile()
+        private DikeProfile CreateTestDikeProfile(string name = null)
         {
-            return new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
+            return new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                   null, new DikeProfile.ConstructionProperties
+                                   {
+                                       Name = name
+                                   });
         }
 
         private void ShowPipingCalculationsView(GrassCoverErosionInwardsDikeProfileSelectionView pipingCalculationsView)

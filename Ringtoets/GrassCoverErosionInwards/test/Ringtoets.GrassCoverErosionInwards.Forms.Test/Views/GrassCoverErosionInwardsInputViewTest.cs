@@ -21,7 +21,6 @@
 
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
@@ -509,13 +508,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
         private DikeProfile GetDikeProfile(RoughnessPoint[] dikeGeometry, Point2D[] foreshoreGeometry)
         {
-            DikeProfile dikeProfile = new DikeProfile(new Point2D(0.0, 0.0), dikeGeometry, foreshoreGeometry)
-            {
-                Name = "Dike profile test",
-                DikeHeight = (RoundedDouble) 10.0
-            };
-
-            return dikeProfile;
+            return new DikeProfile(new Point2D(0.0, 0.0), dikeGeometry, foreshoreGeometry,
+                                   null, new DikeProfile.ConstructionProperties
+                                   {
+                                       Name = "Dike profile test",
+                                       DikeHeight = 10.0
+                                   });
         }
 
         private void AssertDikeProfileChartData(DikeProfile dikeProfile, ChartData chartData)

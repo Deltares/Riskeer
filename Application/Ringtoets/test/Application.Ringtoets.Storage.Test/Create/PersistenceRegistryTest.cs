@@ -934,6 +934,51 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void Register_WithNullDikeProfile_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(new DikeProfileEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullDikeProfileEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            DikeProfile profile = CreateDikeProfile();
+
+            // Call
+            TestDelegate test = () => registry.Register(null, profile);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        private static DikeProfile CreateDikeProfile()
+        {
+            return new DikeProfile(new Point2D(0, 0),
+                                   new[]
+                                   {
+                                       new RoughnessPoint(new Point2D(1, 2), 0.75),
+                                       new RoughnessPoint(new Point2D(3, 4), 0.75)
+                                   },
+                                   new[]
+                                   {
+                                       new Point2D(5, 6),
+                                       new Point2D(7, 8)
+                                   },
+                                   null, new DikeProfile.ConstructionProperties());
+        }
+
+        [Test]
         public void Register_WithNullGrassCoverErosionInwardsFailureMechanismSectionResult_ThrowsArgumentNullException()
         {
             // Setup
@@ -1899,6 +1944,27 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void TransferIds_WithDikeProfileEntityAddedWithDikeProfile_EqualDikeProfileEntityIdAndDikeProfileStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1, 4000);
+            var entity = new DikeProfileEntity
+            {
+                DikeProfileEntityId = storageId
+            };
+            DikeProfile model = CreateDikeProfile();
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
         public void TransferIds_WithGrassCoverErosionInwardsSectionResultEntityAddedWithGrassCoverErosionInwardsFailureMechanismSectionResult_EqualGrassCoverErosionInwardsSectionEntityIdAndGrassCoverErosionInwardsFailureMechanismSectionResultStorageId()
         {
             // Setup
@@ -2713,6 +2779,40 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(1, dbContext.GrassCoverErosionInwardsFailureMechanismMetaEntities.Count());
             CollectionAssert.Contains(dbContext.GrassCoverErosionInwardsFailureMechanismMetaEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_DikeProfileEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new DikeProfileEntity
+            {
+                DikeProfileEntityId = 1
+            };
+            var persistentEntity = new DikeProfileEntity
+            {
+                DikeProfileEntityId = 2
+            };
+            dbContext.DikeProfileEntities.Add(orphanedEntity);
+            dbContext.DikeProfileEntities.Add(persistentEntity);
+
+            var section = CreateDikeProfile();
+            section.StorageId = persistentEntity.DikeProfileEntityId;
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, section);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.DikeProfileEntities.Count());
+            CollectionAssert.Contains(dbContext.DikeProfileEntities, persistentEntity);
             mocks.VerifyAll();
         }
 

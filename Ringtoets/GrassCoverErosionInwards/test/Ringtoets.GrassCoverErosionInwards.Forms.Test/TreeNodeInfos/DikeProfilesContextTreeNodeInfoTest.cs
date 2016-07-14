@@ -21,18 +21,23 @@
 
 using System.Drawing;
 using System.Linq;
+
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
+
 using NUnit.Framework;
+
 using Rhino.Mocks;
+
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
+
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
@@ -154,7 +159,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var dikeProfiles = new ObservableList<DikeProfile>
             {
-                new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
+                CreateDikeProfile()
             };
 
             // Precondition
@@ -178,8 +183,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var dikeProfile1 = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
-            var dikeProfile2 = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
+            DikeProfile dikeProfile1 = CreateDikeProfile();
+            DikeProfile dikeProfile2 = CreateDikeProfile();
             var dikeProfiles = new ObservableList<DikeProfile>
             {
                 dikeProfile1,
@@ -225,6 +230,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             }
             // Assert
             mocks.VerifyAll();
+        }
+
+        private static DikeProfile CreateDikeProfile()
+        {
+            return new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                   null, new DikeProfile.ConstructionProperties());
         }
     }
 }

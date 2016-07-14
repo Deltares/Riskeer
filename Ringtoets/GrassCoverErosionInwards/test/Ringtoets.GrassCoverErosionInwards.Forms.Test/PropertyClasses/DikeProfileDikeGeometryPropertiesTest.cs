@@ -48,7 +48,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Data_SetNewDikeProfileInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              null, new DikeProfile.ConstructionProperties());
             var properties = new DikeProfileDikeGeometryProperties();
 
             // Call
@@ -63,11 +64,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Data_SetDikeProfileInstanceWithData_ReturnCorrectPropertyValues()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new []
-            {
-                new RoughnessPoint(new Point2D(0, 0), 0.6),
-                new RoughnessPoint(new Point2D(1, 1), 0.7)
-            }, new Point2D[0]);
+            var dikeProfile = new DikeProfile(new Point2D(0, 0),
+                                              new[]
+                                              {
+                                                  new RoughnessPoint(new Point2D(0, 0), 0.6),
+                                                  new RoughnessPoint(new Point2D(1, 1), 0.7)
+                                              }, new Point2D[0], null, new DikeProfile.ConstructionProperties());
 
             var properties = new DikeProfileDikeGeometryProperties();
 
@@ -93,7 +95,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              null, new DikeProfile.ConstructionProperties());
 
             // Call
             var properties = new DikeProfileDikeGeometryProperties

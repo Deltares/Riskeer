@@ -20,10 +20,13 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+
 using NUnit.Framework;
+
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
@@ -87,15 +90,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 foreShoreGeometry.Add(new Point2D(4.4, 5.5));
             }
 
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new[]
-            {
-                new RoughnessPoint(new Point2D(6.6, 7.7), 0.8)
-            }, foreShoreGeometry.ToArray())
-            {
-                Orientation = (RoundedDouble) 1.1,
-                DikeHeight = (RoundedDouble) 4.4
-            };
-
+            BreakWater breakWater = null;
             if (withBreakWater)
             {
                 var nonDefaultBreakWaterType = BreakWaterType.Wall;
@@ -105,8 +100,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 Assert.AreNotEqual(nonDefaultBreakWaterType, input.BreakWater.Type);
                 Assert.AreNotEqual(nonDefaultBreakWaterHeight, input.BreakWater.Height);
 
-                dikeProfile.BreakWater = new BreakWater(nonDefaultBreakWaterType, nonDefaultBreakWaterHeight);
+                breakWater = new BreakWater(nonDefaultBreakWaterType, nonDefaultBreakWaterHeight);
             }
+
+            var dikeProfile = new DikeProfile(new Point2D(0, 0),
+                                              new[]
+                                              {
+                                                  new RoughnessPoint(new Point2D(6.6, 7.7), 0.8)
+                                              }, foreShoreGeometry.ToArray(), breakWater,
+                                              new DikeProfile.ConstructionProperties
+                                              {
+                                                  Orientation = 1.1, DikeHeight = 4.4
+                                              });
 
             // Call
             input.DikeProfile = dikeProfile;
@@ -136,19 +141,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             LogNormalDistribution originalCriticalFlowRate = input.CriticalFlowRate;
             HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
 
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new[]
-            {
-                new RoughnessPoint(new Point2D(7.7, 8.8), 0.6)
-            }, new[]
-            {
-                new Point2D(3.3, 4.4),
-                new Point2D(5.5, 6.6)
-            })
-            {
-                Orientation = (RoundedDouble) 1.1,
-                BreakWater = new BreakWater(BreakWaterType.Caisson, 2.2),
-                DikeHeight = (RoundedDouble) 9.9
-            };
+            var dikeProfile = new DikeProfile(new Point2D(0, 0),
+                                              new[]
+                                              {
+                                                  new RoughnessPoint(new Point2D(7.7, 8.8), 0.6)
+                                              }, new[]
+                                              {
+                                                  new Point2D(3.3, 4.4),
+                                                  new Point2D(5.5, 6.6)
+                                              },
+                                              new BreakWater(BreakWaterType.Caisson, 2.2),
+                                              new DikeProfile.ConstructionProperties
+                                              {
+                                                  Orientation = 1.1,
+                                                  DikeHeight = 9.9
+                                              });
 
             input.DikeProfile = dikeProfile;
 
@@ -227,8 +234,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Call
             input.CriticalFlowRate = new LogNormalDistribution(10)
             {
-                Mean = (RoundedDouble) meanValue,
-                StandardDeviation = (RoundedDouble) standardDeviationValue
+                Mean = (RoundedDouble)meanValue,
+                StandardDeviation = (RoundedDouble)standardDeviationValue
             };
 
             // Assert

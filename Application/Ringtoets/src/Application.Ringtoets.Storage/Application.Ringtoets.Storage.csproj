@@ -59,6 +59,7 @@
     <Compile Include="Create\CalculationGroupCreateExtensions.cs" />
     <Compile Include="Create\ClosingStructureFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\ClosingStructureFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\DikeProfileCreateExtensions.cs" />
     <Compile Include="Create\GeneralGrassCoverErosionInwardsInputCreateExtensions.cs" />
     <Compile Include="Create\StrengthStabilityPointConstructionFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\StrengthStabilityPointConstructionFailureMechanismSectionResultCreateExtensions.cs" />
@@ -239,6 +240,7 @@
     <Compile Include="IStorableExtensions.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentions.cs" />
     <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\DikeProfileEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\StrengthStabilityPointConstructionSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityStoneCoverSectionResultEntityReadExtensions.cs" />
@@ -308,6 +310,7 @@
     <Compile Include="Update\CalculationGroupUpdateExtensions.cs" />
     <Compile Include="Update\ClosingStructureFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\ClosingStructureFailureMechanismUpdateExtensions.cs" />
+    <Compile Include="Update\DikeProfileUpdateExtensions.cs" />
     <Compile Include="Update\GeneralGrassCoverErosionInwardsInputUpdateExtensions.cs" />
     <Compile Include="Update\StrengthStabilityPointConstructionFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\StrengthStabilityPointConstructionFailureMechanismUpdateExtensions.cs" />

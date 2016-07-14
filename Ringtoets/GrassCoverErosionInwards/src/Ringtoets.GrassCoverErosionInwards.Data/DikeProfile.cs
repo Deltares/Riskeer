@@ -22,8 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Storage;
+
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
@@ -31,22 +34,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// Definition for a dike profile for the Grass Cover Erosion Inwards failure mechanism.
     /// </summary>
-    public class DikeProfile
+    public class DikeProfile : IStorable
     {
-        private RoundedDouble orientation;
-        private RoundedDouble dikeHeight;
-
         /// <summary>
         /// Creates a new instance of the <see cref="DikeProfile"/> class.
         /// </summary>
         /// <param name="worldCoordinate">worldCoordinate">The value for <see cref="WorldReferencePoint"/>.</param>
         /// <param name="dikeGeometry">The geometry of the dike.</param>
         /// <param name="foreshoreGeometry">The geometry of the dike foreshore.</param>
+        /// <param name="breakWater">The break water definition (can be null).</param>
+        /// <param name="properties">The property values required to create an instance of <see cref="DikeProfile"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dikeGeometry"/> 
         /// or <paramref name="foreshoreGeometry"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when any element of <paramref name="dikeGeometry"/>
         /// or <paramref name="foreshoreGeometry"/> is <c>null</c>.</exception>
-        public DikeProfile(Point2D worldCoordinate, RoughnessPoint[] dikeGeometry, Point2D[] foreshoreGeometry)
+        public DikeProfile(Point2D worldCoordinate, RoughnessPoint[] dikeGeometry, Point2D[] foreshoreGeometry,
+                           BreakWater breakWater, ConstructionProperties properties)
         {
             if (worldCoordinate == null)
             {
@@ -56,23 +59,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             SetGeometry(dikeGeometry);
             SetForeshoreGeometry(foreshoreGeometry);
 
-            orientation = new RoundedDouble(2);
-            dikeHeight = new RoundedDouble(2);
+            Orientation = new RoundedDouble(2, properties.Orientation);
+            DikeHeight = new RoundedDouble(2, properties.DikeHeight);
 
-            Name = Resources.DikeProfile_DefaultName;
-            Memo = "";
+            BreakWater = breakWater;
+            Name = properties.Name;
             WorldReferencePoint = worldCoordinate;
+            X0 = properties.X0;
         }
 
         /// <summary>
         /// Gets or sets the name of the dike profile.
         /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the optional notes about this instance.
-        /// </summary>
-        public string Memo { get; set; }
+        public string Name { get; private set; }
 
         /// <summary>
         /// Gets the reference point in world coordinates corresponding to the local coordinate <see cref="X0"/>.
@@ -82,23 +81,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets or sets the local x-coordinate corresponding to the world reference point <see cref="WorldReferencePoint"/>.
         /// </summary>
-        public double X0 { get; set; }
+        public double X0 { get; private set; }
 
         /// <summary>
         /// Gets or sets the orientation of the dike profile geometry with respect to North
         /// in degrees. A positive value equals a clockwise rotation.
         /// </summary>
-        public RoundedDouble Orientation
-        {
-            get
-            {
-                return orientation;
-            }
-            set
-            {
-                orientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
-            }
-        }
+        public RoundedDouble Orientation { get; private set; }
 
         /// <summary>
         /// Indicates if there is a break water object available for this instance or not.
@@ -114,7 +103,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets or sets the break water object of the dike profile, if any.
         /// </summary>
-        public BreakWater BreakWater { get; set; }
+        public BreakWater BreakWater { get; private set; }
 
         /// <summary>
         /// Gets the geometry of the foreshore.
@@ -135,17 +124,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets or sets the height of the dike [m+NAP].
         /// </summary>
-        public RoundedDouble DikeHeight
-        {
-            get
-            {
-                return dikeHeight;
-            }
-            set
-            {
-                dikeHeight = value.ToPrecision(dikeHeight.NumberOfDecimalPlaces);
-            }
-        }
+        public RoundedDouble DikeHeight { get; private set; }
+
+        public long StorageId { get; set; }
 
         public override string ToString()
         {
@@ -180,6 +161,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
 
             ForeshoreGeometry = new RoundedPoint2DCollection(2, points);
+        }
+
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="DikeProfile"/>.
+        /// </summary>
+        public class ConstructionProperties
+        {
+            /// <summary>
+            /// Gets or sets the value for <see cref="DikeProfile.Name"/>.
+            /// </summary>
+            public string Name { get; set; }
+
+            /// <summary>
+            /// Gets or sets the value for <see cref="DikeProfile.X0"/>.
+            /// </summary>
+            public double X0 { get; set; }
+
+            /// <summary>
+            /// Gets or sets the value for <see cref="DikeProfile.Orientation"/>.
+            /// </summary>
+            public double Orientation { get; set; }
+
+            /// <summary>
+            /// Gets or sets the value for <see cref="DikeProfile.DikeHeight"/>.
+            /// </summary>
+            public double DikeHeight { get; set; }
         }
     }
 }

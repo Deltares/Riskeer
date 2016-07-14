@@ -53,10 +53,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void Create_GivenDikeProfileGeometry_ReturnsChartDataWithDefaultStyling()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0), CreateDikeProfileGeometry(), new Point2D[0])
-            {
-                Name = "dike profile"
-            };
+            var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0), CreateDikeProfileGeometry(), new Point2D[0],
+                                              null, new DikeProfile.ConstructionProperties
+                                              {
+                                                  Name = "dike profile"
+                                              });
 
             // Call
             ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeProfile.DikeGeometry, dikeProfile.Name);
@@ -88,10 +89,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         public void Create_GivenDikeProfileForshoreGeometry_ReturnsChartDataWithDefaultStyling()
         {
-            var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0), new RoughnessPoint[0], CreateForshoreGeometry())
-            {
-                Name = "dike profile"
-            };
+            var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0), new RoughnessPoint[0], CreateForshoreGeometry(),
+                                              null, new DikeProfile.ConstructionProperties
+                                              {
+                                                  Name = "dike profile"
+                                              });
 
             // Call
             ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeProfile.ForeshoreGeometry, dikeProfile.Name);

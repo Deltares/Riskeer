@@ -50,7 +50,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var properties = new DikeProfileForeshoreProperties();
 
             // Call
-            properties.Data = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
+            properties.Data = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              null, new DikeProfile.ConstructionProperties());
 
             // Assert
             CollectionAssert.IsEmpty(properties.Coordinates);
@@ -60,11 +61,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Data_SetDikeProfileInstanceWithData_ReturnCorrectPropertyValues()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            });
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0],
+                                              new[]
+                                              {
+                                                  new Point2D(0, 0),
+                                                  new Point2D(1, 1)
+                                              }, null, new DikeProfile.ConstructionProperties());
 
             var properties = new DikeProfileForeshoreProperties();
 
@@ -84,7 +86,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              null, new DikeProfile.ConstructionProperties());
 
             // Call
             var properties = new DikeProfileForeshoreProperties

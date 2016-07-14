@@ -607,7 +607,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             // Assert
             Assert.AreEqual(new Point2D(136039.49100000039, 533920.28050000477), dikeProfile.WorldReferencePoint);
             Assert.AreEqual("profiel005", dikeProfile.Name);
-            StringAssert.StartsWith("Verkenning prfl format:", dikeProfile.Memo);
             Assert.AreEqual(15.56165507, dikeProfile.X0);
             Assert.AreEqual(new RoundedDouble(2, 330.0), dikeProfile.Orientation);
             Assert.IsTrue(dikeProfile.HasBreakWater);

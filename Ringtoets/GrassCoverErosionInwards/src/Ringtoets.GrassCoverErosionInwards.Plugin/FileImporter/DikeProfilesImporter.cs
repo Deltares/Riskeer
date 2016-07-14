@@ -25,17 +25,20 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using Core.Common.Base.Data;
+
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
+
 using log4net;
+
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
+
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -91,7 +94,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
 
         public override bool Import(object targetItem, string filePath)
         {
-            var dikeProfilesContext = (DikeProfilesContext) targetItem;
+            var dikeProfilesContext = (DikeProfilesContext)targetItem;
             if (!IsReferenceLineAvailable(dikeProfilesContext))
             {
                 log.Error(Resources.DikeProfilesImporter_Import_no_referenceline_import_aborted);
@@ -310,34 +313,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
 
         private static DikeProfile CreateDikeProfile(DikeProfileLocation dikeProfileLocation, DikeProfileData dikeProfileData)
         {
-            var dikeProfile = new DikeProfile(dikeProfileLocation.Point, dikeProfileData.DikeGeometry, dikeProfileData.ForeshoreGeometry.Select(fg => fg.Point).ToArray())
-            {
-                Name = dikeProfileData.Id,
-                Memo = dikeProfileData.Memo,
-                X0 = dikeProfileLocation.Offset,
-                Orientation = (RoundedDouble) dikeProfileData.Orientation,
-                DikeHeight = (RoundedDouble) dikeProfileData.DikeHeight
-            };
+            var dikeProfile = new DikeProfile(dikeProfileLocation.Point, dikeProfileData.DikeGeometry,
+                                              dikeProfileData.ForeshoreGeometry.Select(fg => fg.Point).ToArray(),
+                                              CreateBreakWater(dikeProfileData),
+                                              new DikeProfile.ConstructionProperties
+                                              {
+                                                  Name = dikeProfileData.Id,
+                                                  X0 = dikeProfileLocation.Offset,
+                                                  Orientation = dikeProfileData.Orientation,
+                                                  DikeHeight = dikeProfileData.DikeHeight
+                                              });
 
+            return dikeProfile;
+        }
+
+        private static BreakWater CreateBreakWater(DikeProfileData dikeProfileData)
+        {
             switch (dikeProfileData.DamType)
             {
-                case DamType.None:
-                    dikeProfile.BreakWater = null;
-                    break;
                 case DamType.Caisson:
-                    dikeProfile.BreakWater = new BreakWater(BreakWaterType.Caisson, dikeProfileData.DamHeight);
-                    break;
+                    return new BreakWater(BreakWaterType.Caisson, dikeProfileData.DamHeight);
                 case DamType.HarborDam:
-                    dikeProfile.BreakWater = new BreakWater(BreakWaterType.Dam, dikeProfileData.DamHeight);
-                    break;
+                    return new BreakWater(BreakWaterType.Dam, dikeProfileData.DamHeight);
                 case DamType.Vertical:
-                    dikeProfile.BreakWater = new BreakWater(BreakWaterType.Wall, dikeProfileData.DamHeight);
-                    break;
-                default:
-                    // Invalid values are caught as exceptions from DikeProfileDataReader.
-                    break;
+                    return new BreakWater(BreakWaterType.Wall, dikeProfileData.DamHeight);
             }
-            return dikeProfile;
+            return null;
         }
 
         private void HandleUserCancellingImport()
@@ -348,7 +349,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
 
         private static bool IsReferenceLineAvailable(object targetItem)
         {
-            return ((DikeProfilesContext) targetItem).ParentAssessmentSection.ReferenceLine != null;
+            return ((DikeProfilesContext)targetItem).ParentAssessmentSection.ReferenceLine != null;
         }
 
         private double GetDistanceToReferenceLine(Point2D point, ReferenceLine referenceLine)

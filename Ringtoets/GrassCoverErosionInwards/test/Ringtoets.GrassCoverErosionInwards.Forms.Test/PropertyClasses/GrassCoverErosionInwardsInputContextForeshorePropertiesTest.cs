@@ -89,11 +89,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 InputParameters =
                 {
                     UseForeshore = true,
-                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new[]
-                    {
-                        new Point2D(1.1, 2.2),
-                        new Point2D(3.3, 4.4)
-                    })
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0],
+                                                  new[]
+                                                  {
+                                                      new Point2D(1.1, 2.2),
+                                                      new Point2D(3.3, 4.4)
+                                                  }, null, new DikeProfile.ConstructionProperties())
                 }
             };
             var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties();
@@ -152,7 +153,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var calculation = new GrassCoverErosionInwardsCalculation();
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
+                DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              null, new DikeProfile.ConstructionProperties())
             };
 
             // Call
@@ -192,10 +194,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var calculation = new GrassCoverErosionInwardsCalculation();
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new[]
-                {
-                    new Point2D(0, 0)
-                })
+                DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0],
+                                              new[]
+                                              {
+                                                  new Point2D(0, 0)
+                                              }, null, new DikeProfile.ConstructionProperties())
             };
 
             // Call
@@ -235,11 +238,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var calculation = new GrassCoverErosionInwardsCalculation();
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                })
+                DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0],
+                                              new[]
+                                              {
+                                                  new Point2D(0, 0),
+                                                  new Point2D(1, 1)
+                                              }, null, new DikeProfile.ConstructionProperties())
             };
 
             // Call
@@ -282,11 +286,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             if (withDikeProfile)
             {
-                input.DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                });
+                input.DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0],
+                                                    new[]
+                                                    {
+                                                        new Point2D(0, 0),
+                                                        new Point2D(1, 1)
+                                                    }, null, new DikeProfile.ConstructionProperties());
             }
 
             // Call

@@ -43,8 +43,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         public void Update_CalculationDikeProfileChangedToMatchOtherSection_FirstSectionResultCalculationNullSecondSectionResultCalculationSet()
         {
             // Setup
-            var dikeProfile1 = new DikeProfile(new Point2D(0.51, 0.51), new RoughnessPoint[0], new Point2D[0]);
-            var dikeProfile2 = new DikeProfile(new Point2D(1.51, 1.51), new RoughnessPoint[0], new Point2D[0]);
+            var dikeProfile1 = new DikeProfile(new Point2D(0.51, 0.51), new RoughnessPoint[0], new Point2D[0],
+                                               null, new DikeProfile.ConstructionProperties());
+            var dikeProfile2 = new DikeProfile(new Point2D(1.51, 1.51), new RoughnessPoint[0], new Point2D[0],
+                                               null, new DikeProfile.ConstructionProperties());
 
             var calculation1 = new GrassCoverErosionInwardsCalculation
             {
@@ -90,8 +92,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         public void Update_CalculationDikeProfileChangedToMatchOtherSection_FirstSectionResultCalculationNullSecondSectionResultCalculationUnchanged()
         {
             // Setup
-            var dikeProfile1 = new DikeProfile(new Point2D(0.51, 0.51), new RoughnessPoint[0], new Point2D[0]);
-            var dikeProfile2 = new DikeProfile(new Point2D(1.51, 1.51), new RoughnessPoint[0], new Point2D[0]);
+            var dikeProfile1 = new DikeProfile(new Point2D(0.51, 0.51), new RoughnessPoint[0], new Point2D[0],
+                                               null, new DikeProfile.ConstructionProperties());
+            var dikeProfile2 = new DikeProfile(new Point2D(1.51, 1.51), new RoughnessPoint[0], new Point2D[0],
+                                               null, new DikeProfile.ConstructionProperties());
 
             var calculation1 = new GrassCoverErosionInwardsCalculation
             {
@@ -176,7 +180,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         public void Delete_RemoveCalculationAssignedToSectionResult_SectionResultCalculationNull()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0.51, 0.51), new RoughnessPoint[0], new Point2D[0]);
+            var dikeProfile = new DikeProfile(new Point2D(0.51, 0.51), new RoughnessPoint[0], new Point2D[0],
+                                              null, new DikeProfile.ConstructionProperties());
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {

@@ -118,19 +118,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         public void CollectCalculationsPerSegment_SingleCalculationPerSegment_OneCalculationPerSegment()
         {
             // Setup
-            GrassCoverErosionInwardsCalculation[] calculations = {
+            GrassCoverErosionInwardsCalculation[] calculations =
+            {
                 new GrassCoverErosionInwardsCalculation
                 {
                     InputParameters =
                     {
-                        DikeProfile = new DikeProfile(new Point2D(1.1, 2.2), new RoughnessPoint[0], new Point2D[0])
+                        DikeProfile = new DikeProfile(new Point2D(1.1, 2.2), new RoughnessPoint[0], new Point2D[0],
+                                                      null, new DikeProfile.ConstructionProperties())
                     }
                 },
                 new GrassCoverErosionInwardsCalculation
                 {
                     InputParameters =
                     {
-                        DikeProfile = new DikeProfile(new Point2D(50.0, 66.0), new RoughnessPoint[0], new Point2D[0])
+                        DikeProfile = new DikeProfile(new Point2D(50.0, 66.0), new RoughnessPoint[0], new Point2D[0],
+                                                      null, new DikeProfile.ConstructionProperties())
                     }
                 }
             };
@@ -233,7 +236,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             {
                 InputParameters =
                 {
-                    DikeProfile = new DikeProfile(new Point2D(1.1, 2.2), new RoughnessPoint[0], new Point2D[0])
+                    DikeProfile = new DikeProfile(new Point2D(1.1, 2.2), new RoughnessPoint[0], new Point2D[0],
+                                                  null, new DikeProfile.ConstructionProperties())
                 }
             };
 
@@ -253,7 +257,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             {
                 InputParameters =
                 {
-                    DikeProfile = new DikeProfile(new Point2D(50.0, 66.0), new RoughnessPoint[0], new Point2D[0])
+                    DikeProfile = new DikeProfile(new Point2D(50.0, 66.0), new RoughnessPoint[0], new Point2D[0],
+                                                  null, new DikeProfile.ConstructionProperties())
                 }
             };
 
@@ -291,19 +296,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
                 }))
         };
 
-        private readonly GrassCoverErosionInwardsCalculation[] twoCalculations = {
+        private readonly GrassCoverErosionInwardsCalculation[] twoCalculations =
+        {
             new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
-                    DikeProfile = new DikeProfile(new Point2D(1.1, 2.2), new RoughnessPoint[0], new Point2D[0])
+                    DikeProfile = new DikeProfile(new Point2D(1.1, 2.2), new RoughnessPoint[0], new Point2D[0],
+                                                  null, new DikeProfile.ConstructionProperties())
                 }
             },
             new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
-                    DikeProfile = new DikeProfile(new Point2D(3.3, 4.4), new RoughnessPoint[0], new Point2D[0])
+                    DikeProfile = new DikeProfile(new Point2D(3.3, 4.4), new RoughnessPoint[0], new Point2D[0],
+                                                  null, new DikeProfile.ConstructionProperties())
                 }
             }
         };

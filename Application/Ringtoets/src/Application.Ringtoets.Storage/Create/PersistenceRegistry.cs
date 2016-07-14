@@ -55,6 +55,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections = new Dictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
         private readonly Dictionary<PipingSectionResultEntity, PipingFailureMechanismSectionResult> pipingFailureMechanismSectionResults = new Dictionary<PipingSectionResultEntity, PipingFailureMechanismSectionResult>();
         private readonly Dictionary<GrassCoverErosionInwardsFailureMechanismMetaEntity, GeneralGrassCoverErosionInwardsInput> generalGrassCoverErosionInwardsInputs = new Dictionary<GrassCoverErosionInwardsFailureMechanismMetaEntity, GeneralGrassCoverErosionInwardsInput>();
+        private readonly Dictionary<DikeProfileEntity, DikeProfile> dikeProfiles = new Dictionary<DikeProfileEntity, DikeProfile>();
         private readonly Dictionary<GrassCoverErosionInwardsSectionResultEntity, GrassCoverErosionInwardsFailureMechanismSectionResult> grassCoverErosionInwardsFailureMechanismSectionResults = new Dictionary<GrassCoverErosionInwardsSectionResultEntity, GrassCoverErosionInwardsFailureMechanismSectionResult>();
         private readonly Dictionary<HeightStructuresSectionResultEntity, HeightStructuresFailureMechanismSectionResult> heightStructuresFailureMechanismSectionResults = new Dictionary<HeightStructuresSectionResultEntity, HeightStructuresFailureMechanismSectionResult>();
         private readonly Dictionary<StrengthStabilityLengthwiseConstructionSectionResultEntity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> strengthStabilityLengthwiseConstructionFailureMechanismSectionResults = new Dictionary<StrengthStabilityLengthwiseConstructionSectionResultEntity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
@@ -97,7 +98,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(FailureMechanismSectionEntity entity, FailureMechanismSection model)
+        internal void Register(FailureMechanismSectionEntity entity, FailureMechanismSection model)
         {
             Register(failureMechanismSections, entity, model);
         }
@@ -113,7 +114,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(PipingSectionResultEntity entity, PipingFailureMechanismSectionResult model)
+        internal void Register(PipingSectionResultEntity entity, PipingFailureMechanismSectionResult model)
         {
             Register(pipingFailureMechanismSectionResults, entity, model);
         }
@@ -129,9 +130,25 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(GrassCoverErosionInwardsFailureMechanismMetaEntity entity, GeneralGrassCoverErosionInwardsInput model)
+        internal void Register(GrassCoverErosionInwardsFailureMechanismMetaEntity entity, GeneralGrassCoverErosionInwardsInput model)
         {
             Register(generalGrassCoverErosionInwardsInputs, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="DikeProfileEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="DikeProfile"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        internal void Register(DikeProfileEntity entity, DikeProfile model)
+        {
+            Register(dikeProfiles, entity, model);
         }
 
         /// <summary>
@@ -145,7 +162,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(GrassCoverErosionInwardsSectionResultEntity entity, GrassCoverErosionInwardsFailureMechanismSectionResult model)
+        internal void Register(GrassCoverErosionInwardsSectionResultEntity entity, GrassCoverErosionInwardsFailureMechanismSectionResult model)
         {
             Register(grassCoverErosionInwardsFailureMechanismSectionResults, entity, model);
         }
@@ -161,7 +178,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(HeightStructuresSectionResultEntity entity, HeightStructuresFailureMechanismSectionResult model)
+        internal void Register(HeightStructuresSectionResultEntity entity, HeightStructuresFailureMechanismSectionResult model)
         {
             Register(heightStructuresFailureMechanismSectionResults, entity, model);
         }
@@ -177,7 +194,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(StrengthStabilityLengthwiseConstructionSectionResultEntity entity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult model)
+        internal void Register(StrengthStabilityLengthwiseConstructionSectionResultEntity entity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult model)
         {
             Register(strengthStabilityLengthwiseConstructionFailureMechanismSectionResults, entity, model);
         }
@@ -193,7 +210,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(TechnicalInnovationSectionResultEntity entity, TechnicalInnovationFailureMechanismSectionResult model)
+        internal void Register(TechnicalInnovationSectionResultEntity entity, TechnicalInnovationFailureMechanismSectionResult model)
         {
             Register(technicalInnovationFailureMechanismSectionResults, entity, model);
         }
@@ -209,7 +226,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(WaterPressureAsphaltCoverSectionResultEntity entity, WaterPressureAsphaltCoverFailureMechanismSectionResult model)
+        internal void Register(WaterPressureAsphaltCoverSectionResultEntity entity, WaterPressureAsphaltCoverFailureMechanismSectionResult model)
         {
             Register(waterPressureAsphaltCoverFailureMechanismSectionResults, entity, model);
         }
@@ -225,7 +242,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(ClosingStructureSectionResultEntity entity, ClosingStructureFailureMechanismSectionResult model)
+        internal void Register(ClosingStructureSectionResultEntity entity, ClosingStructureFailureMechanismSectionResult model)
         {
             Register(closingStructureFailureMechanismSectionResults, entity, model);
         }
@@ -241,7 +258,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(MacrostabilityInwardsSectionResultEntity entity, MacrostabilityInwardsFailureMechanismSectionResult model)
+        internal void Register(MacrostabilityInwardsSectionResultEntity entity, MacrostabilityInwardsFailureMechanismSectionResult model)
         {
             Register(macrostabilityInwardsFailureMechanismSectionResults, entity, model);
         }
@@ -257,7 +274,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(MacrostabilityOutwardsSectionResultEntity entity, MacrostabilityOutwardsFailureMechanismSectionResult model)
+        internal void Register(MacrostabilityOutwardsSectionResultEntity entity, MacrostabilityOutwardsFailureMechanismSectionResult model)
         {
             Register(macrostabilityOutwardsFailureMechanismSectionResults, entity, model);
         }
@@ -273,7 +290,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(WaveImpactAsphaltCoverSectionResultEntity entity, WaveImpactAsphaltCoverFailureMechanismSectionResult model)
+        internal void Register(WaveImpactAsphaltCoverSectionResultEntity entity, WaveImpactAsphaltCoverFailureMechanismSectionResult model)
         {
             Register(waveImpactAsphaltCoverFailureMechanismSectionResults, entity, model);
         }
@@ -289,7 +306,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(GrassCoverErosionOutwardsSectionResultEntity entity, GrassCoverErosionOutwardsFailureMechanismSectionResult model)
+        internal void Register(GrassCoverErosionOutwardsSectionResultEntity entity, GrassCoverErosionOutwardsFailureMechanismSectionResult model)
         {
             Register(grassCoverErosionOutwardsFailureMechanismSectionResults, entity, model);
         }
@@ -305,7 +322,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(GrassCoverSlipOffInwardsSectionResultEntity entity, GrassCoverSlipOffInwardsFailureMechanismSectionResult model)
+        internal void Register(GrassCoverSlipOffInwardsSectionResultEntity entity, GrassCoverSlipOffInwardsFailureMechanismSectionResult model)
         {
             Register(grassCoverSlipOffInwardsFailureMechanismSectionResults, entity, model);
         }
@@ -321,7 +338,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(GrassCoverSlipOffOutwardsSectionResultEntity entity, GrassCoverSlipOffOutwardsFailureMechanismSectionResult model)
+        internal void Register(GrassCoverSlipOffOutwardsSectionResultEntity entity, GrassCoverSlipOffOutwardsFailureMechanismSectionResult model)
         {
             Register(grassCoverSlipOffOutwardsFailureMechanismSectionResults, entity, model);
         }
@@ -337,7 +354,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(MicrostabilitySectionResultEntity entity, MicrostabilityFailureMechanismSectionResult model)
+        internal void Register(MicrostabilitySectionResultEntity entity, MicrostabilityFailureMechanismSectionResult model)
         {
             Register(microstabilityFailureMechanismSectionResults, entity, model);
         }
@@ -353,7 +370,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(PipingStructureSectionResultEntity entity, PipingStructureFailureMechanismSectionResult model)
+        internal void Register(PipingStructureSectionResultEntity entity, PipingStructureFailureMechanismSectionResult model)
         {
             Register(pipingStructureFailureMechanismSectionResults, entity, model);
         }
@@ -369,7 +386,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(DuneErosionSectionResultEntity entity, DuneErosionFailureMechanismSectionResult model)
+        internal void Register(DuneErosionSectionResultEntity entity, DuneErosionFailureMechanismSectionResult model)
         {
             Register(duneErosionFailureMechanismSectionResults, entity, model);
         }
@@ -385,7 +402,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(StabilityStoneCoverSectionResultEntity entity, StabilityStoneCoverFailureMechanismSectionResult model)
+        internal void Register(StabilityStoneCoverSectionResultEntity entity, StabilityStoneCoverFailureMechanismSectionResult model)
         {
             Register(stabilityStoneCoverFailureMechanismSectionResults, entity, model);
         }
@@ -401,7 +418,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(StrengthStabilityPointConstructionSectionResultEntity entity, StrengthStabilityPointConstructionFailureMechanismSectionResult model)
+        internal void Register(StrengthStabilityPointConstructionSectionResultEntity entity, StrengthStabilityPointConstructionFailureMechanismSectionResult model)
         {
             Register(strengthStabilityPointConstructionFailureMechanismSectionResults, entity, model);
         }
@@ -417,7 +434,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(CalculationGroupEntity entity, CalculationGroup model)
+        internal void Register(CalculationGroupEntity entity, CalculationGroup model)
         {
             Register(calculationGroups, entity, model);
         }
@@ -433,7 +450,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(PipingCalculationEntity entity, PipingCalculationScenario model)
+        internal void Register(PipingCalculationEntity entity, PipingCalculationScenario model)
         {
             Register(pipingCalculations, entity, model);
         }
@@ -449,7 +466,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(PipingCalculationOutputEntity entity, PipingOutput model)
+        internal void Register(PipingCalculationOutputEntity entity, PipingOutput model)
         {
             Register(pipingOutputs, entity, model);
         }
@@ -465,7 +482,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(PipingSemiProbabilisticOutputEntity entity, PipingSemiProbabilisticOutput model)
+        internal void Register(PipingSemiProbabilisticOutputEntity entity, PipingSemiProbabilisticOutput model)
         {
             Register(pipingSemiProbabilisticOutputs, entity, model);
         }
@@ -886,6 +903,11 @@ namespace Application.Ringtoets.Storage.Create
                 generalGrassCoverErosionInwardsInputs[entity].StorageId = entity.GrassCoverErosionInwardsFailureMechanismMetaEntityId;
             }
 
+            foreach (var entity in dikeProfiles.Keys)
+            {
+                dikeProfiles[entity].StorageId = entity.DikeProfileEntityId;
+            }
+
             foreach (var entity in grassCoverErosionInwardsFailureMechanismSectionResults.Keys)
             {
                 grassCoverErosionInwardsFailureMechanismSectionResults[entity].StorageId = entity.GrassCoverErosionInwardsSectionResultEntityId;
@@ -1106,6 +1128,17 @@ namespace Application.Ringtoets.Storage.Create
                 }
             }
             dbContext.GrassCoverErosionInwardsFailureMechanismMetaEntities.RemoveRange(orphanedGrassCoverErosionInwardsFailureMechanismMetaEntities);
+
+            var orphanedDikeProfileEntities = new List<DikeProfileEntity>();
+            foreach (DikeProfileEntity dikeProfileEntity in dbContext.DikeProfileEntities
+                                                                     .Where(e => e.DikeProfileEntityId > 0))
+            {
+                if (!dikeProfiles.ContainsKey(dikeProfileEntity))
+                {
+                    orphanedDikeProfileEntities.Add(dikeProfileEntity);
+                }
+            }
+            dbContext.DikeProfileEntities.RemoveRange(orphanedDikeProfileEntities);
 
             var orphanedGrassCoverErosionInwardsSectionResultEntities = new List<GrassCoverErosionInwardsSectionResultEntity>();
             foreach (GrassCoverErosionInwardsSectionResultEntity sectionResultEntity in dbContext.GrassCoverErosionInwardsSectionResultEntities

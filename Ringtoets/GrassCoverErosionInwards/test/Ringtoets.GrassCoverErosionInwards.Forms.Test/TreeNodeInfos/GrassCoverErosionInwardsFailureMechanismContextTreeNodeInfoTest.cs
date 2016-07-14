@@ -22,6 +22,7 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -30,9 +31,12 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+
 using Rhino.Mocks;
+
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -41,6 +45,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
 using Ringtoets.HydraRing.Data;
+
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
@@ -63,14 +68,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             mocksRepository = new MockRepository();
             plugin = new GrassCoverErosionInwardsPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsFailureMechanismContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocksRepository.VerifyAll();
-
-            base.TearDown();
         }
 
         [Test]
@@ -116,11 +113,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
 
-            var inputsFolder = (CategoryTreeFolder) children[0];
+            var inputsFolder = (CategoryTreeFolder)children[0];
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
             Assert.AreEqual(3, inputsFolder.Contents.Count);
-            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
+            var failureMechanismSectionsContext = (FailureMechanismSectionsContext)inputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSectionMock, failureMechanismSectionsContext.ParentAssessmentSection);
 
@@ -128,15 +125,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.DikeProfiles, dikeProfilesContext.WrappedData);
             Assert.AreSame(assessmentSectionMock, dikeProfilesContext.ParentAssessmentSection);
 
-            var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
+            var commentContext = (CommentContext<ICommentable>)inputsFolder.Contents[2];
             Assert.AreSame(failureMechanism, commentContext.WrappedData);
 
-            var calculationsFolder = (GrassCoverErosionInwardsCalculationGroupContext) children[1];
+            var calculationsFolder = (GrassCoverErosionInwardsCalculationGroupContext)children[1];
             Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
             Assert.AreSame(failureMechanism.CalculationsGroup, calculationsFolder.WrappedData);
             Assert.AreSame(failureMechanism, calculationsFolder.FailureMechanism);
 
-            var outputsFolder = (CategoryTreeFolder) children[2];
+            var outputsFolder = (CategoryTreeFolder)children[2];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
             Assert.AreEqual(2, outputsFolder.Contents.Count);
@@ -144,7 +141,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.CalculationsGroup, scenariosContext.WrappedData);
             Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>) outputsFolder.Contents[1];
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>)outputsFolder.Contents[1];
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
         }
@@ -167,7 +164,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(1, children.Length);
-            var commentContext = (CommentContext<ICommentable>) children[0];
+            var commentContext = (CommentContext<ICommentable>)children[0];
             Assert.AreSame(failureMechanism, commentContext.WrappedData);
         }
 
@@ -405,7 +402,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
 
             var nodeData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
-            
+
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -725,7 +722,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
-                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                                  null, new DikeProfile.ConstructionProperties())
                 }
             });
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
@@ -734,7 +732,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
-                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                                  null, new DikeProfile.ConstructionProperties())
                 }
             });
 
@@ -806,7 +805,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
-                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                                  null, new DikeProfile.ConstructionProperties())
                 }
             });
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
@@ -815,7 +815,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
-                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                                  null, new DikeProfile.ConstructionProperties())
                 }
             });
 
@@ -850,6 +851,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                     StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[3]);
                 });
             }
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocksRepository.VerifyAll();
+
+            base.TearDown();
         }
 
         private const int contextMenuRelevancyIndexWhenRelevant = 1;

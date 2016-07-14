@@ -127,10 +127,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             if (withDikeProfile)
             {
-                input.DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0])
-                {
-                    BreakWater = new BreakWater(BreakWaterType.Caisson, 1.1)
-                };
+                input.DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                                    new BreakWater(BreakWaterType.Caisson, 1.1), new DikeProfile.ConstructionProperties());
             }
 
             // Call
@@ -176,12 +174,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var calculation = new GrassCoverErosionInwardsCalculation();
             var input = new GrassCoverErosionInwardsInput();
 
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0]);
-
+            BreakWater breakWater = null;
             if (useBreakWaterState)
             {
-                dikeProfile.BreakWater = new BreakWater(BreakWaterType.Caisson, 1.1);
+                breakWater = new BreakWater(BreakWaterType.Caisson, 1.1);
             }
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              breakWater, new DikeProfile.ConstructionProperties());
 
             input.DikeProfile = dikeProfile;
 
