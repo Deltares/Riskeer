@@ -94,7 +94,6 @@
     <Compile Include="IO\FileImporterBaseTest.cs" />
     <Compile Include="ObservableTest.cs" />
     <Compile Include="ObserverTest.cs" />
-    <Compile Include="Plugin\ApplicationCoreTest.cs" />
     <Compile Include="RecursiveObserverTest.cs" />
     <Compile Include="Service\ActivityTest.cs" />
     <Compile Include="Plugin\DataItemInfoTest.cs" />

@@ -62,7 +62,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RingtoetsApplicationPlugin.cs" />
     <Compile Include="RingtoetsPlugin.cs" />
     <Compile Include="RingtoetsRibbon.xaml.cs">
       <DependentUpon>RingtoetsRibbon.xaml</DependentUpon>

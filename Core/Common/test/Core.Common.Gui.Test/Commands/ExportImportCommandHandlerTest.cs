@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
-using Core.Common.Base.Plugin;
 using Core.Common.Gui.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -42,8 +41,6 @@ namespace Core.Common.Gui.Test.Commands
             var fileImporters = Enumerable.Empty<IFileImporter>();
             var fileExporters = Enumerable.Empty<IFileExporter>();
             mocks.ReplayAll();
-
-            var applicationCore = new ApplicationCore();
 
             var commandHandler = new ExportImportCommandHandler(dialogParent, fileImporters, fileExporters);
 
