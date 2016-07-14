@@ -24,6 +24,9 @@ using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
+
+using Core.Common.Base.Geometry;
+
 using NUnit.Framework;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -103,6 +106,61 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionInwardsSectionResultEntities).Count());
+        }
+
+        [Test]
+        public void Create_WithoutDikeProfiles_EmptyDikeProfileEntities()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var registry = new PersistenceRegistry();
+
+            // Call
+            var entity = failureMechanism.Create(registry);
+
+            // Assert
+            CollectionAssert.IsEmpty(entity.DikeProfileEntities);
+        }
+
+        [Test]
+        public void Create_WithDikeProfiles_AddDikeProfileEntities()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.DikeProfiles.Add(new DikeProfile(new Point2D(0, 0),
+                                                              new[]
+                                                              {
+                                                                  new RoughnessPoint(new Point2D(1, 1), 0.75),
+                                                                  new RoughnessPoint(new Point2D(2, 2), 0.75),
+                                                              },
+                                                              new[]
+                                                              {
+                                                                  new Point2D(3, 3),
+                                                                  new Point2D(4, 4),
+                                                              },
+                                                              null, new DikeProfile.ConstructionProperties()));
+            failureMechanism.DikeProfiles.Add(new DikeProfile(new Point2D(5, 5),
+                                                              new[]
+                                                              {
+                                                                  new RoughnessPoint(new Point2D(6, 6), 1),
+                                                                  new RoughnessPoint(new Point2D(7, 7), 1),
+                                                              },
+                                                              new Point2D[0], 
+                                                              new BreakWater(BreakWaterType.Caisson, 8), 
+                                                              new DikeProfile.ConstructionProperties
+                                                              {
+                                                                  Name = "A",
+                                                                  DikeHeight = 9,
+                                                                  Orientation = 10,
+                                                                  X0 = 11
+                                                              }));
+            var registry = new PersistenceRegistry();
+
+            // Call
+            var entity = failureMechanism.Create(registry);
+
+            // Assert
+            Assert.AreEqual(2, entity.DikeProfileEntities.Count);
         }
     }
 }

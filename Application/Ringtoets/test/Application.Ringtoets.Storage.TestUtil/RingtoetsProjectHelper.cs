@@ -261,6 +261,39 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void ConfigureGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
             failureMechanism.GeneralInput.N = 15;
+            failureMechanism.DikeProfiles.Add(new DikeProfile(new Point2D(1, 2),
+                                                              new[]
+                                                              {
+                                                                  new RoughnessPoint(new Point2D(1, 2), 1),
+                                                                  new RoughnessPoint(new Point2D(3, 4), 0.5),
+                                                              },
+                                                              new[]
+                                                              {
+                                                                  new Point2D(5, 6),
+                                                                  new Point2D(7, 8),
+                                                              },
+                                                              null, new DikeProfile.ConstructionProperties
+                                                              {
+                                                                  DikeHeight = 1.1,
+                                                                  Name = "2.2",
+                                                                  Orientation = 3.3,
+                                                                  X0 = 4.4
+                                                              }));
+            failureMechanism.DikeProfiles.Add(new DikeProfile(new Point2D(9, 10),
+                                                              new[]
+                                                              {
+                                                                  new RoughnessPoint(new Point2D(11, 12), 1),
+                                                                  new RoughnessPoint(new Point2D(13, 14), 0.5),
+                                                              },
+                                                              new Point2D[0],
+                                                              new BreakWater(BreakWaterType.Caisson, 15), 
+                                                              new DikeProfile.ConstructionProperties
+                                                              {
+                                                                  DikeHeight = 5.5,
+                                                                  Name = "6.6",
+                                                                  Orientation = 7.7,
+                                                                  X0 = 8.8
+                                                              }));
         }
 
         private static void SetSectionResults(IEnumerable<PipingFailureMechanismSectionResult> sectionResults)

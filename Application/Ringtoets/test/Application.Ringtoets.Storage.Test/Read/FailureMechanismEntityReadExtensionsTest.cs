@@ -21,8 +21,13 @@
 
 using System;
 using System.Linq;
+
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
+
+using Core.Common.Base.Geometry;
+
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
@@ -295,6 +300,53 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             Assert.AreEqual(inputId, failureMechanism.GeneralInput.StorageId);
             Assert.AreEqual(3, failureMechanism.GeneralInput.N);
+        }
+
+        [Test]
+        public void ReadAsGrassCoverErosionInwardsFailureMechanism_WithDikeProfilesSet_ReturnsGrassCoverErosionInwardsFailureMechanismWithDikeProfilesAdded()
+        {
+            // Setup
+            const int id1 = 4578;
+            const int id2 = 384729847;
+            byte[] emptyDikeGeometryBinaryData = new RoughnessPointBinaryConverter().ToBytes(new RoughnessPoint[0]);
+            byte[] emptyForeshoreBinaryData = new Point2DBinaryConverter().ToBytes(new Point2D[0]);
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = 1,
+                GrassCoverErosionInwardsFailureMechanismMetaEntities =
+                {
+                    new GrassCoverErosionInwardsFailureMechanismMetaEntity
+                    {
+                        GrassCoverErosionInwardsFailureMechanismMetaEntityId = 2,
+                        N = 3
+                    }
+                },
+                DikeProfileEntities =
+                {
+                    new DikeProfileEntity
+                    {
+                        DikeProfileEntityId = id1,
+                        DikeGeometryData = emptyDikeGeometryBinaryData,
+                        ForeShoreData = emptyForeshoreBinaryData
+                    },
+                    new DikeProfileEntity
+                    {
+                        DikeProfileEntityId = id2,
+                        DikeGeometryData = emptyDikeGeometryBinaryData,
+                        ForeShoreData = emptyForeshoreBinaryData
+                    }
+                }
+            };
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            ReadConversionCollector collector = new ReadConversionCollector();
+
+            // Call
+            entity.ReadAsGrassCoverErosionInwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.DikeProfiles.Count);
+            Assert.AreEqual(id1, failureMechanism.DikeProfiles[0].StorageId);
+            Assert.AreEqual(id2, failureMechanism.DikeProfiles[1].StorageId);
         }
 
         [Test]

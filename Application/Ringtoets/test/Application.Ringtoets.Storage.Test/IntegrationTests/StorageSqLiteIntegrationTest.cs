@@ -887,6 +887,56 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                                                            GrassCoverErosionInwardsFailureMechanism actualFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
+            AssertDikeProfiles(expectedFailureMechanism.DikeProfiles, actualFailureMechanism.DikeProfiles);
+        }
+
+        private static void AssertDikeProfiles(IList<DikeProfile> expectedDikeProfiles, IList<DikeProfile> actualDikeProfiles)
+        {
+            Assert.AreEqual(expectedDikeProfiles.Count, actualDikeProfiles.Count);
+            for (int i = 0; i < expectedDikeProfiles.Count; i++)
+            {
+                AssertDikeProfile(expectedDikeProfiles[i], actualDikeProfiles[i]);
+            }
+        }
+
+        private static void AssertDikeProfile(DikeProfile expectedDikeProfile, DikeProfile actualDikeProfile)
+        {
+            Assert.AreEqual(expectedDikeProfile.Name, actualDikeProfile.Name);
+            Assert.AreEqual(expectedDikeProfile.WorldReferencePoint, actualDikeProfile.WorldReferencePoint);
+            Assert.AreEqual(expectedDikeProfile.X0, actualDikeProfile.X0);
+            Assert.AreEqual(expectedDikeProfile.Orientation, actualDikeProfile.Orientation);
+            AssertBreakWater(expectedDikeProfile.BreakWater, actualDikeProfile.BreakWater);
+            CollectionAssert.AreEqual(expectedDikeProfile.ForeshoreGeometry, actualDikeProfile.ForeshoreGeometry);
+            AssertRoughnessPoints(expectedDikeProfile.DikeGeometry, actualDikeProfile.DikeGeometry);
+            Assert.AreEqual(expectedDikeProfile.DikeHeight, actualDikeProfile.DikeHeight);
+        }
+
+        private static void AssertBreakWater(BreakWater expectedBreakWater, BreakWater actualBreakWater)
+        {
+            if (expectedBreakWater == null)
+            {
+                Assert.IsNull(actualBreakWater);
+            }
+            else
+            {
+                Assert.AreEqual(expectedBreakWater.Height, actualBreakWater.Height);
+                Assert.AreEqual(expectedBreakWater.Type, actualBreakWater.Type);
+            }
+        }
+
+        private static void AssertRoughnessPoints(RoughnessPoint[] expectedRoughnessPoints, RoughnessPoint[] actualRoughnessPoints)
+        {
+            Assert.AreEqual(expectedRoughnessPoints.Length, actualRoughnessPoints.Length);
+            for (int i = 0; i < expectedRoughnessPoints.Length; i++)
+            {
+                AssertRoughnessPoint(expectedRoughnessPoints[i], actualRoughnessPoints[i]);
+            }
+        }
+
+        private static void AssertRoughnessPoint(RoughnessPoint expectedRoughnessPoint, RoughnessPoint actualRoughnessPoint)
+        {
+            Assert.AreEqual(expectedRoughnessPoint.Point, actualRoughnessPoint.Point);
+            Assert.AreEqual(expectedRoughnessPoint.Roughness, actualRoughnessPoint.Roughness);
         }
 
         private void TearDownTempRingtoetsFile(string filePath)

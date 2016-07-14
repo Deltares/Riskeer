@@ -22,7 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Application.Ringtoets.Storage.DbContext;
+
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -38,6 +40,31 @@ namespace Application.Ringtoets.Storage.Read
     /// </summary>
     internal static class FailureMechanismEntityReadExtensions
     {
+        /// <summary>
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="IFailureMechanism"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to read into a <see cref="IFailureMechanism"/>.</param>
+        /// <param name="failureMechanism">The target of the read operation.</param>
+        /// <param name="collector">The object keeping track of read operations.</param>
+        internal static void ReadCommonFailureMechanismProperties(this FailureMechanismEntity entity, IFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            failureMechanism.StorageId = entity.FailureMechanismEntityId;
+            failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
+            failureMechanism.Comments = entity.Comments;
+
+            entity.ReadFailureMechanismSections(failureMechanism, collector);
+        }
+
+        private static void ReadFailureMechanismSections(this FailureMechanismEntity entity, IFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            foreach (var failureMechanismSectionEntity in entity.FailureMechanismSectionEntities)
+            {
+                failureMechanism.AddSection(failureMechanismSectionEntity.Read(collector));
+            }
+        }
+
+        #region Piping
+
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="PipingFailureMechanism"/>.
         /// </summary>
@@ -83,6 +110,14 @@ namespace Application.Ringtoets.Storage.Read
                                      failureMechanism.GeneralInput, collector);
         }
 
+        private static void ReadProbabilityAssessmentInput(ICollection<PipingFailureMechanismMetaEntity> pipingFailureMechanismMetaEntities, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput)
+        {
+            PipingProbabilityAssessmentInput probabilityAssessmentInput = pipingFailureMechanismMetaEntities.ElementAt(0).Read();
+
+            pipingProbabilityAssessmentInput.StorageId = probabilityAssessmentInput.StorageId;
+            pipingProbabilityAssessmentInput.A = probabilityAssessmentInput.A;
+        }
+
         private static void ReadPipingMechanismSectionResults(this FailureMechanismEntity entity, PipingFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
             foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities))
@@ -94,6 +129,22 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
+        private static void ReadRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
+                                                     CalculationGroup targetRootCalculationGroup, GeneralPipingInput generalPipingInput,
+                                                     ReadConversionCollector collector)
+        {
+            var rootCalculationGroup = rootCalculationGroupEntity.ReadPipingCalculationGroup(collector, generalPipingInput);
+            targetRootCalculationGroup.StorageId = rootCalculationGroup.StorageId;
+            foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
+            {
+                targetRootCalculationGroup.Children.Add(calculationBase);
+            }
+        }
+
+        #endregion
+
+        #region Grass Cover Erosion Inwards
+
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
         /// </summary>
@@ -104,6 +155,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadGeneralCalculationInput(failureMechanism.GeneralInput);
+            entity.ReadDikeProfiles(failureMechanism.DikeProfiles);
             entity.ReadGrassCoverErosionInwardsMechanismSectionResults(failureMechanism, collector);
         }
 
@@ -113,16 +165,28 @@ namespace Application.Ringtoets.Storage.Read
             t.Read(input);
         }
 
+        private static void ReadDikeProfiles(this FailureMechanismEntity entity, ICollection<DikeProfile> dikeProfiles)
+        {
+            foreach (DikeProfileEntity dikeProfileEntity in entity.DikeProfileEntities)
+            {
+                dikeProfiles.Add(dikeProfileEntity.Read());
+            }
+        }
+
         private static void ReadGrassCoverErosionInwardsMechanismSectionResults(this FailureMechanismEntity entity, GrassCoverErosionInwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
             foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionInwardsSectionResultEntities))
             {
                 var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-                
+
                 sectionResultEntity.Read(result, collector);
             }
         }
+
+        #endregion
+
+        #region Height Structures
 
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="HeightStructuresFailureMechanism"/>.
@@ -147,6 +211,10 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
+        #endregion
+
+        #region Strength Stability Lengthwise
+
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="StrengthStabilityLengthwiseConstructionFailureMechanism"/>.
         /// </summary>
@@ -169,6 +237,10 @@ namespace Application.Ringtoets.Storage.Read
                 sectionResultEntity.Read(result, collector);
             }
         }
+
+        #endregion
+
+        #region Technical Innovation
 
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="TechnicalInnovationFailureMechanism"/>.
@@ -193,6 +265,10 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
+        #endregion
+
+        #region Water Pressure Asphalt
+
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="WaterPressureAsphaltCoverFailureMechanism"/>.
         /// </summary>
@@ -215,6 +291,10 @@ namespace Application.Ringtoets.Storage.Read
                 sectionResultEntity.Read(result, collector);
             }
         }
+
+        #endregion
+
+        #region Closing Structure
 
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="ClosingStructureFailureMechanism"/>.
@@ -239,6 +319,10 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
+        #endregion
+
+        #region Macrostability Inwards
+
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="MacrostabilityInwardsFailureMechanism"/>.
         /// </summary>
@@ -261,6 +345,10 @@ namespace Application.Ringtoets.Storage.Read
                 sectionResultEntity.Read(result, collector);
             }
         }
+
+        #endregion
+
+        #region Macrostability Outwards
 
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="MacrostabilityOutwardsFailureMechanism"/>.
@@ -285,6 +373,10 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
+        #endregion
+
+        #region Wave Impact Asphalt Cover
+
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
         /// </summary>
@@ -307,6 +399,10 @@ namespace Application.Ringtoets.Storage.Read
                 sectionResultEntity.Read(result, collector);
             }
         }
+
+        #endregion
+
+        #region Grass Cover Erosion Outwards
 
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
@@ -331,6 +427,10 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
+        #endregion
+
+        #region Grass Cover Slip Off Inwards
+
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="GrassCoverSlipOffInwardsFailureMechanism"/>.
         /// </summary>
@@ -353,6 +453,10 @@ namespace Application.Ringtoets.Storage.Read
                 sectionResultEntity.Read(result, collector);
             }
         }
+
+        #endregion
+
+        #region Grass Cover Slip Off Outwards
 
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="GrassCoverSlipOffOutwardsFailureMechanism"/>.
@@ -377,6 +481,10 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
+        #endregion
+
+        #region Microstability
+
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="MicrostabilityFailureMechanism"/>.
         /// </summary>
@@ -399,6 +507,10 @@ namespace Application.Ringtoets.Storage.Read
                 sectionResultEntity.Read(result, collector);
             }
         }
+
+        #endregion
+
+        #region Piping Structure
 
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="PipingStructureFailureMechanism"/>.
@@ -423,6 +535,10 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
+        #endregion
+
+        #region Dune Erosion
+
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="DuneErosionFailureMechanism"/>.
         /// </summary>
@@ -445,6 +561,10 @@ namespace Application.Ringtoets.Storage.Read
                 sectionResultEntity.Read(result, collector);
             }
         }
+
+        #endregion
+
+        #region Stability Stone Cover
 
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="StabilityStoneCoverFailureMechanism"/>.
@@ -469,6 +589,10 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
+        #endregion
+
+        #region Strength Stability Point Construction
+
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="StrengthStabilityPointConstructionFailureMechanism"/>.
         /// </summary>
@@ -492,47 +616,6 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-        /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="IFailureMechanism"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to read into a <see cref="IFailureMechanism"/>.</param>
-        /// <param name="failureMechanism">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
-        internal static void ReadCommonFailureMechanismProperties(this FailureMechanismEntity entity, IFailureMechanism failureMechanism, ReadConversionCollector collector)
-        {
-            failureMechanism.StorageId = entity.FailureMechanismEntityId;
-            failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
-            failureMechanism.Comments = entity.Comments;
-
-            entity.ReadFailureMechanismSections(failureMechanism, collector);
-        }
-
-        private static void ReadProbabilityAssessmentInput(ICollection<PipingFailureMechanismMetaEntity> pipingFailureMechanismMetaEntities, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput)
-        {
-            PipingProbabilityAssessmentInput probabilityAssessmentInput = pipingFailureMechanismMetaEntities.ElementAt(0).Read();
-
-            pipingProbabilityAssessmentInput.StorageId = probabilityAssessmentInput.StorageId;
-            pipingProbabilityAssessmentInput.A = probabilityAssessmentInput.A;
-        }
-
-        private static void ReadRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
-                                                     CalculationGroup targetRootCalculationGroup, GeneralPipingInput generalPipingInput,
-                                                     ReadConversionCollector collector)
-        {
-            var rootCalculationGroup = rootCalculationGroupEntity.ReadPipingCalculationGroup(collector, generalPipingInput);
-            targetRootCalculationGroup.StorageId = rootCalculationGroup.StorageId;
-            foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
-            {
-                targetRootCalculationGroup.Children.Add(calculationBase);
-            }
-        }
-
-        private static void ReadFailureMechanismSections(this FailureMechanismEntity entity, IFailureMechanism failureMechanism, ReadConversionCollector collector)
-        {
-            foreach (var failureMechanismSectionEntity in entity.FailureMechanismSectionEntities)
-            {
-                failureMechanism.AddSection(failureMechanismSectionEntity.Read(collector));
-            }
-        }
+        #endregion
     }
 }

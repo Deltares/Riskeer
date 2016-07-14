@@ -173,6 +173,128 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
+        public void Update_ContextWithNewDikeProfiles_DikeProfilesAdded()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                StorageId = 1,
+                GeneralInput =
+                {
+                    StorageId = 2
+                },
+                DikeProfiles =
+                {
+                    new DikeProfile(new Point2D(0, 0),
+                                    new[]
+                                    {
+                                        new RoughnessPoint(new Point2D(0, 0), 1),
+                                        new RoughnessPoint(new Point2D(1, 1), 1)
+                                    },
+                                    new Point2D[0], null, new DikeProfile.ConstructionProperties()),
+                    new DikeProfile(new Point2D(2, 2),
+                                    new[]
+                                    {
+                                        new RoughnessPoint(new Point2D(3, 3), 1),
+                                        new RoughnessPoint(new Point2D(4, 4), 1)
+                                    },
+                                    new Point2D[0], null, new DikeProfile.ConstructionProperties())
+                }
+            };
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = failureMechanism.StorageId,
+            };
+            ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
+            {
+                GrassCoverErosionInwardsFailureMechanismMetaEntityId = failureMechanism.GeneralInput.StorageId
+            });
+
+            // Call
+            failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
+
+            // Assert
+            Assert.AreEqual(2, failureMechanismEntity.DikeProfileEntities.Count);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ContextWithUpdatedDikeProfiles_NoNewDikeProfilesAdded()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                StorageId = 1,
+                GeneralInput =
+                {
+                    StorageId = 2
+                },
+                DikeProfiles =
+                {
+                    new DikeProfile(new Point2D(0, 0),
+                                    new[]
+                                    {
+                                        new RoughnessPoint(new Point2D(0, 0), 1),
+                                        new RoughnessPoint(new Point2D(1, 1), 1)
+                                    },
+                                    new Point2D[0], null, new DikeProfile.ConstructionProperties())
+                    {
+                        StorageId = 3
+                    },
+                    new DikeProfile(new Point2D(2, 2),
+                                    new[]
+                                    {
+                                        new RoughnessPoint(new Point2D(3, 3), 1),
+                                        new RoughnessPoint(new Point2D(4, 4), 1)
+                                    },
+                                    new Point2D[0], null, new DikeProfile.ConstructionProperties())
+                    {
+                        StorageId = 4
+                    }
+                }
+            };
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = failureMechanism.StorageId,
+            };
+            ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
+            {
+                GrassCoverErosionInwardsFailureMechanismMetaEntityId = failureMechanism.GeneralInput.StorageId
+            });
+            ringtoetsEntities.DikeProfileEntities.Add(new DikeProfileEntity
+            {
+                DikeProfileEntityId = failureMechanism.DikeProfiles[0].StorageId,
+                Name = "A"
+            });
+            ringtoetsEntities.DikeProfileEntities.Add(new DikeProfileEntity
+            {
+                DikeProfileEntityId = failureMechanism.DikeProfiles[1].StorageId,
+                Name = "B"
+            });
+
+            // Call
+            failureMechanism.Update(new PersistenceRegistry(), ringtoetsEntities);
+
+            // Assert
+            Assert.AreEqual(2, ringtoetsEntities.DikeProfileEntities.Count());
+            Assert.AreEqual("A", ringtoetsEntities.DikeProfileEntities.ElementAt(0).Name);
+            Assert.AreEqual("B", ringtoetsEntities.DikeProfileEntities.ElementAt(1).Name);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Update_ContextWithNewFailureMechanismSections_FailureMechanismSectionsAdded()
         {
             // Setup

@@ -65,13 +65,31 @@ namespace Application.Ringtoets.Storage.Update
             entity.IsRelevant = Convert.ToByte(mechanism.IsRelevant);
 
             mechanism.GeneralInput.Update(registry, context);
+            UpdateDikeProfiles(mechanism, registry, entity, context);
             mechanism.UpdateFailureMechanismSections(registry, entity, context);
             UpdateSectionResults(mechanism, registry, context);
 
             registry.Register(entity, mechanism);
         }
 
-        private static void UpdateSectionResults(GrassCoverErosionInwardsFailureMechanism mechanism, PersistenceRegistry registry, IRingtoetsEntities context)
+        private static void UpdateDikeProfiles(GrassCoverErosionInwardsFailureMechanism mechanism, 
+            PersistenceRegistry registry, FailureMechanismEntity entity, IRingtoetsEntities context)
+        {
+            foreach (DikeProfile dikeProfile in mechanism.DikeProfiles)
+            {
+                if (dikeProfile.IsNew())
+                {
+                    entity.DikeProfileEntities.Add(dikeProfile.Create(registry));
+                }
+                else
+                {
+                    dikeProfile.Update(registry, context);
+                }
+            }
+        }
+
+        private static void UpdateSectionResults(GrassCoverErosionInwardsFailureMechanism mechanism, 
+            PersistenceRegistry registry, IRingtoetsEntities context)
         {
             foreach (var sectionResult in mechanism.SectionResults)
             {
