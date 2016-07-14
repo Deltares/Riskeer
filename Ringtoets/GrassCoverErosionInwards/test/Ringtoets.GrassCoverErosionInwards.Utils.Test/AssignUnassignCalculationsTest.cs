@@ -143,5 +143,67 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             Assert.IsNull(sectionResults[0].Calculation);
             Assert.AreSame(calculation2, sectionResults[1].Calculation);
         }
+        
+        [Test]
+        public void Delete_NullFailureMechanism_ThrowsArgumentNullException()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation();
+
+            // Call
+            TestDelegate call = () => AssignUnassignCalculations.Update(null, calculation);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void Delete_NullCalculation_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            // Call
+            TestDelegate call = () => AssignUnassignCalculations.Update(failureMechanism, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("calculation", paramName);
+        }
+
+        [Test]
+        public void Delete_RemoveCalculationAssignedToSectionResult_SectionResultCalculationNull()
+        {
+            // Setup
+            var dikeProfile = new DikeProfile(new Point2D(0.51, 0.51), new RoughnessPoint[0], new Point2D[0]);
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = dikeProfile
+                }
+            };
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            failureMechanism.DikeProfiles.Add(dikeProfile);
+
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+
+            failureMechanism.DikeProfiles.Add(dikeProfile);
+
+            failureMechanism.AddSection(new FailureMechanismSection("section", new List<Point2D>
+            {
+                new Point2D(0.0, 0.0), new Point2D(1.1, 1.1)
+            }));
+
+            // Call
+            AssignUnassignCalculations.Delete(failureMechanism, calculation);
+
+            // Assert
+            Assert.IsNull(failureMechanism.SectionResults.First().Calculation);
+        }
     }
 }

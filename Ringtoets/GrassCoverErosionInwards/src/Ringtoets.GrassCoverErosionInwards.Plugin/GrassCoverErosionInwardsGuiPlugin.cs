@@ -659,6 +659,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             if (calculationGroupContext != null)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
+                AssignUnassignCalculations.Delete(context.FailureMechanism, context.WrappedData);
                 calculationGroupContext.NotifyObservers();
             }
         }
