@@ -33,7 +33,7 @@ using Xceed.Wpf.AvalonDock.Layout;
 namespace Core.Common.Gui.Forms.ViewHost
 {
     /// <summary>
-    /// Implementation of a view host based on 'AvalonDock'.
+    /// Implementation of a view host based on AvalonDock.
     /// </summary>
     public partial class AvalonDockViewHost : IViewHost
     {
@@ -47,6 +47,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private IView focussedView;
         private IView activeDocumentView;
+        private bool removingProgrammatically;
 
         /// <summary>
         /// Creates a new instance of the <see cref="AvalonDockViewHost"/> class.
@@ -122,8 +123,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             var layoutDocument = new LayoutDocument
             {
                 Title = view.Text,
-                Content = hostControl,
-                ContentId = view.Text
+                Content = hostControl
             };
 
             documentViews.Add(view);
@@ -158,8 +158,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             var layoutAnchorable = new LayoutAnchorable
             {
                 Content = hostControl,
-                Title = view.Text,
-                ContentId = view.Text
+                Title = view.Text
             };
 
             toolViews.Add(view);
@@ -185,6 +184,8 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         public void Remove(IView view)
         {
+            removingProgrammatically = true;
+
             if (documentViews.Contains(view))
             {
                 if (ActiveDocumentView == view)
@@ -201,6 +202,8 @@ namespace Core.Common.Gui.Forms.ViewHost
             {
                 GetLayoutContent<LayoutAnchorable>(view).Hide();
             }
+
+            removingProgrammatically = false;
         }
 
         public void SetFocusToView(IView view)
@@ -266,11 +269,13 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private void OnActiveContentChanged(object sender, EventArgs eventArgs)
         {
-            if (focussedView != null)
+            // Note: Raise (un)focus related events manually as changing focus from one WindowsFormsHost to another does not raise them
+            // (see https://msdn.microsoft.com/en-us/library/ms751797(v=vs.100).aspx#Windows_Presentation_Foundation_Application_Hosting).
+            // While doing so:
+            // - prevent unfocus actions when removing views programmatically (not necessary and might interfere with AvalonDock's active content change behavior);
+            // - prevent circular active content changes (which explains the code structure below).
+            if (focussedView != null && !removingProgrammatically)
             {
-                // Note: Raise (un)focus related events manually as changing focus from one WindowsFormsHost to another does not raise them
-                // (see https://msdn.microsoft.com/en-us/library/ms751797(v=vs.100).aspx#Windows_Presentation_Foundation_Application_Hosting).
-                // While doing so, prevent circular active content changes (which explains the code structure below).
                 dockingManager.ActiveContentChanged -= OnActiveContentChanged;
                 var activeContent = dockingManager.ActiveContent;
                 ControlHelper.UnfocusActiveControl(focussedView as IContainerControl);
