@@ -21,11 +21,9 @@
 
 using System.Collections.Generic;
 using Core.Common.Base.Data;
-using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Common.Utils;
-using Core.Plugins.CommonTools.Properties;
 using Core.Plugins.CommonTools.Property;
 using PropertyInfo = Core.Common.Gui.Plugin.PropertyInfo;
 
@@ -47,12 +45,6 @@ namespace Core.Plugins.CommonTools
             yield return new ViewInfo<RichTextFile, RichTextView>
             {
                 Image = Common.Gui.Properties.Resources.key,
-                GetViewName = (v, o) => o != null ? o.Name : ""
-            };
-            yield return new ViewInfo<WebLink, HtmlPageView>
-            {
-                Image = Resources.HomeIcon,
-                Description = Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Browser,
                 GetViewName = (v, o) => o != null ? o.Name : ""
             };
         }

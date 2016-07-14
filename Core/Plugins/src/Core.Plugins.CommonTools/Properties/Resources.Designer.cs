@@ -79,25 +79,6 @@ namespace Core.Plugins.CommonTools.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Browser.
-        /// </summary>
-        public static string CommonToolsGuiPlugin_GetViewInfoObjects_Browser {
-            get {
-                return ResourceManager.GetString("CommonToolsGuiPlugin_GetViewInfoObjects_Browser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap HomeIcon {
-            get {
-                object obj = ResourceManager.GetObject("HomeIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Korte beschrijving van het project..
         /// </summary>
         public static string ProjectProperties_Description_Description {
