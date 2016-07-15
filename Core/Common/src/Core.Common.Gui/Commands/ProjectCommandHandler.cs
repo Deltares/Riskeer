@@ -78,8 +78,6 @@ namespace Core.Common.Gui.Commands
                     if (newItem != null)
                     {
                         AddItemToProject(newItem);
-
-                        applicationSelection.Selection = newItem;
                         viewController.DocumentViewController.OpenViewForData(applicationSelection.Selection);
                     }
                 }

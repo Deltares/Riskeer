@@ -66,7 +66,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
+            IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
@@ -85,11 +85,32 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        public void Data_Always_SetTreeViewControlData()
+        public void Dispose_Always_SetsApplicationSelectionToNull()
         {
             // Setup
             var mocks = new MockRepository();
             IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
+            applicationSelection.Expect(aps => aps.Selection = null);
+
+            IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
+            IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
+            
+            mocks.ReplayAll();
+            var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos);
+
+            // Call
+            explorer.Dispose();
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Data_Always_SetTreeViewControlData()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
             {
@@ -119,7 +140,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
+            IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
             {
@@ -180,7 +201,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 },
                 new TreeNodeInfo
                 {
-                    TagType = typeof(String)
+                    TagType = typeof(string)
                 }
             };
 
@@ -188,6 +209,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             {
                 applicationSelection.Expect(a => a.Selection = project);
                 applicationSelection.Expect(a => a.Selection = stringA);
+                applicationSelection.Expect(a => a.Selection = null);
             }
 
             mocks.ReplayAll();
@@ -220,7 +242,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             var treeIdentifier = "SomeName";
             var formIdentifier = "SomeForm";
             var mocks = new MockRepository();
-            IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
+            IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
 
             var project = new Project();
@@ -235,7 +257,6 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             using (mocks.Ordered())
             {
-                applicationSelection.Expect(a => a.Selection = project);
                 viewCommands.Expect(a => a.OpenViewForSelection());
             }
 

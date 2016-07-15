@@ -86,13 +86,12 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
-            var controller = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos);
-
-            controller.ToggleView();
-
-            // Call
-            controller.ToggleView();
-
+            using (var controller = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos))
+            {
+                controller.ToggleView();
+                // Call
+                controller.ToggleView();
+            }
             // Assert
             mocks.VerifyAll();
         }
@@ -108,6 +107,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             IViewHost viewHost = mocks.Stub<IViewHost>();
 
             viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
+            viewHost.Stub(vm => vm.ToolViews).Return(new List<IView>());
             viewHost.Stub(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.TypeOf, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
             viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
 
@@ -115,11 +115,11 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
-            var controller = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos);
-
-            // Call
-            controller.ToggleView();
-
+            using (var controller = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos))
+            {
+                // Call
+                controller.ToggleView();
+            }
             // Assert
             mocks.VerifyAll();
         }
@@ -127,21 +127,22 @@ namespace Core.Plugins.ProjectExplorer.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void IsViewActive_Always_CallsIsToolWindowOpenWithProjectExplorer(bool isOpen)
+        public void IsProjectExplorerOpen_Always_CallsIsToolWindowOpenWithProjectExplorer(bool isOpen)
         {
             // Setup
             var mocks = new MockRepository();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
-            IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
+            IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
             IViewController viewController = mocks.StrictMock<IViewController>();
+
+            var toolViewList = new List<IView>();
+            var viewHost = mocks.StrictMock<IViewHost>();
+
+            viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
+            viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
 
             if (isOpen)
             {
-                var toolViewList = new List<IView>();
-                var viewHost = mocks.StrictMock<IViewHost>();
-
-                viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
-                viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
                 viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
                 {
                     toolViewList.Add(invocation.Arguments[0] as ProjectExplorer);
@@ -153,18 +154,18 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
-            var controller = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos);
-
-            if (isOpen)
+            using (var controller = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos))
             {
-                controller.ToggleView();
+                if (isOpen)
+                {
+                    controller.ToggleView();
+                }
+
+                // Call
+                var result = controller.IsProjectExplorerOpen;
+                // Assert
+                Assert.AreEqual(isOpen, result);
             }
-
-            // Call
-            var result = controller.IsProjectExplorerOpen;
-
-            // Assert
-            Assert.AreEqual(isOpen, result);
             mocks.VerifyAll();
         }
 
@@ -201,15 +202,17 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             var project = new Project();
 
-            var controller = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos);
-            controller.ToggleView();
+            using (var controller = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos))
+            {
+                controller.ToggleView();
 
-            // Call
-            controller.Update(project);
+                // Call
+                controller.Update(project);
 
-            // Assert
-            Assert.AreEqual(1, toolViewList.Count);
-            Assert.AreSame(project, toolViewList[0].Data);
+                // Assert
+                Assert.AreEqual(1, toolViewList.Count);
+                Assert.AreSame(project, toolViewList[0].Data);
+            }
             mocks.VerifyAll();
         }
 
@@ -221,17 +224,23 @@ namespace Core.Plugins.ProjectExplorer.Test
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
             IViewController viewController = mocks.Stub<IViewController>();
+
+            var viewHost = mocks.StrictMock<IViewHost>();
+
+            viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
+            viewHost.Stub(vm => vm.ToolViews).Return(new List<IView>());
+
             mocks.ReplayAll();
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
             var project = new Project();
 
-            var controller = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos);
-
-            // Call
-            controller.Update(project);
-
+            using (var controller = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos))
+            {
+                // Call
+                controller.Update(project);
+            }
             // Assert
             mocks.VerifyAll();
         }

@@ -28,7 +28,7 @@ namespace Core.Common.Gui.Commands
     /// <summary>
     /// Interface for exposing commands/methods related to saving/loading a <see cref="Project"/>.
     /// </summary>
-    public interface IStorageCommands : IDisposable
+    public interface IStorageCommands
     {
         /// <summary>
         /// Closes the current project and creates a new one.

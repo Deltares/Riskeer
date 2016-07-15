@@ -33,10 +33,5 @@ namespace Core.Common.Gui
         /// Gets main window of the graphical user interface.
         /// </summary>
         IMainWindow MainWindow { get; }
-
-        /// <summary>
-        /// Fully refreshes the user interface.
-        /// </summary>
-        void RefreshGui();
     }
 }

@@ -35,7 +35,7 @@ namespace Core.Plugins.ProjectExplorer
     /// <summary>
     /// This class is responsible for showing and hiding a <see cref="ProjectExplorer"/>.
     /// </summary>
-    public class ProjectExplorerViewController
+    public class ProjectExplorerViewController : IDisposable
     {
         private readonly IViewController viewController;
         private readonly IEnumerable<TreeNodeInfo> treeNodeInfos;
@@ -97,7 +97,7 @@ namespace Core.Plugins.ProjectExplorer
         {
             get
             {
-                return projectExplorer != null && viewController.ViewHost.ToolViews.Contains(projectExplorer);
+                return viewController.ViewHost.ToolViews.Contains(projectExplorer);
             }
         }
 
@@ -144,7 +144,14 @@ namespace Core.Plugins.ProjectExplorer
         private void CloseProjectExplorer()
         {
             viewController.ViewHost.Remove(projectExplorer);
-            projectExplorer = null;
+        }
+
+        public void Dispose()
+        {
+            if (projectExplorer != null)
+            {
+                projectExplorer.Dispose();
+            }
         }
     }
 }

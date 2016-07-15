@@ -88,7 +88,6 @@ namespace Core.Common.Gui.Test
                 {
                     // Assert
                     Assert.AreEqual(null, gui.PropertyResolver);
-                    Assert.AreSame(projectStore, gui.Storage);
 
                     Assert.AreEqual(null, gui.ProjectFilePath);
                     Assert.AreEqual(null, gui.Project);
@@ -521,7 +520,6 @@ namespace Core.Common.Gui.Test
                     Assert.AreEqual(fileName, gui.Project.Name,
                                     "Project name should be updated to the name of the file.");
 
-                    Assert.AreSame(gui.Selection, gui.Project);
                     var expectedTitle = string.Format("{0} - {1} {2}",
                                                       fileName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
                     Assert.AreEqual(expectedTitle, mainWindow.Title);
@@ -574,7 +572,6 @@ namespace Core.Common.Gui.Test
                     CollectionAssert.IsEmpty(gui.Project.Items);
                     Assert.AreEqual(0, gui.Project.StorageId);
 
-                    Assert.AreSame(gui.Selection, gui.Project);
                     var expectedTitle = string.Format("{0} - {1} {2}",
                                                       expectedProjectName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
                     Assert.AreEqual(expectedTitle, mainWindow.Title);
@@ -617,7 +614,6 @@ namespace Core.Common.Gui.Test
                     CollectionAssert.IsEmpty(gui.Project.Items);
                     Assert.AreEqual(0, gui.Project.StorageId);
 
-                    Assert.AreSame(gui.Selection, gui.Project);
                     var expectedTitle = string.Format("{0} - {1} {2}",
                                                       expectedProjectName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
                     Assert.AreEqual(expectedTitle, mainWindow.Title);
@@ -993,7 +989,7 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [STAThread]
-        public void Project_SetNewValue_FireProjectClosingAndOpenedEvents()
+        public void Project_SetNewValue_FireProjectOpenedEvents()
         {
             // Setup
             var mocks = new MockRepository();
@@ -1007,20 +1003,6 @@ namespace Core.Common.Gui.Test
 
                 gui.Project = oldProject;
 
-                int closingCallCount = 0;
-                gui.ProjectClosing += project =>
-                {
-                    if (closingCallCount == 0)
-                    {
-                        Assert.AreSame(oldProject, project);
-                    }
-                    else
-                    {
-                        // Dispose causes this one:
-                        Assert.AreSame(newProject, project);
-                    }
-                    closingCallCount++;
-                };
                 int openedCallCount = 0;
                 gui.ProjectOpened += project =>
                 {
@@ -1032,7 +1014,6 @@ namespace Core.Common.Gui.Test
                 gui.Project = newProject;
 
                 // Assert
-                Assert.AreEqual(1, closingCallCount);
                 Assert.AreEqual(1, openedCallCount);
             }
             mocks.VerifyAll();

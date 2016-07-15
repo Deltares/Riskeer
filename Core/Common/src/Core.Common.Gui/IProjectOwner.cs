@@ -36,11 +36,6 @@ namespace Core.Common.Gui
         event Action<Project> ProjectOpened;
 
         /// <summary>
-        /// Occurs when the instance available at <see cref="Project"/> is removed.
-        /// </summary>
-        event Action<Project> ProjectClosing;
-
-        /// <summary>
         /// Gets or sets the project of the application.
         /// </summary>
         Project Project { get; set; }

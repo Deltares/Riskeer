@@ -35,7 +35,7 @@ namespace Core.Common.Gui.Test.Commands
     public class ApplicationFeatureCommandHandlerTest
     {
         [Test]
-        public void ShowPropertiesFor_InitializeAndShowPropertyGridAndUpdateSelection()
+        public void ShowPropertiesFor_InitializeAndShowPropertyGrid()
         {
             // Setup
             var target = new object();
@@ -47,13 +47,12 @@ namespace Core.Common.Gui.Test.Commands
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             mocks.ReplayAll();
 
-            var commandHandler = new ApplicationFeatureCommandHandler(propertyResolver, mainWindow, applicationSelection);
+            var commandHandler = new ApplicationFeatureCommandHandler(propertyResolver, mainWindow);
 
             // Call
             commandHandler.ShowPropertiesFor(target);
 
             // Assert
-            Assert.AreSame(target, applicationSelection.Selection);
             mocks.VerifyAll();
         }
 
@@ -71,7 +70,7 @@ namespace Core.Common.Gui.Test.Commands
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             mocks.ReplayAll();
 
-            var commandHandler = new ApplicationFeatureCommandHandler(propertyResolver, mainWindow, applicationSelection);
+            var commandHandler = new ApplicationFeatureCommandHandler(propertyResolver, mainWindow);
 
             // Call
             var result = commandHandler.CanShowPropertiesFor(target);
@@ -95,7 +94,7 @@ namespace Core.Common.Gui.Test.Commands
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             mocks.ReplayAll();
 
-            var commandHandler = new ApplicationFeatureCommandHandler(propertyResolver, mainWindow, applicationSelection);
+            var commandHandler = new ApplicationFeatureCommandHandler(propertyResolver, mainWindow);
 
             // Call
             var result = commandHandler.CanShowPropertiesFor(target);

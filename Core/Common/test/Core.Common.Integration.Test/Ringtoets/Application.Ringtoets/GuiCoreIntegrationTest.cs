@@ -73,25 +73,6 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 
         [Test]
         [RequiresSTA]
-        public void Run_GuiWithProjectExplorerPlugin_SelectionIsSetToProjectExplorer()
-        {
-            // initialize
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            mocks.ReplayAll();
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
-            {
-                gui.Plugins.Add(new ProjectExplorerPlugin());
-                gui.Run();
-
-                Assert.AreEqual(gui.Project, gui.Selection);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [RequiresSTA]
         public void FormActionIsRunForMainWindow()
         {
             //testing testhelper + visible changed event of mainwindow.

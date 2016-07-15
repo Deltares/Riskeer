@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Specialized;
 using System.IO;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Gui.Properties;
-using Core.Common.Gui.Selection;
 using log4net;
 
 namespace Core.Common.Gui.Commands
@@ -35,36 +32,25 @@ namespace Core.Common.Gui.Commands
     /// <summary>
     /// Class responsible for persistency of <see cref="Project"/>.
     /// </summary>
-    public class StorageCommandHandler : IStorageCommands, IObserver
+    public class StorageCommandHandler : IStorageCommands
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(StorageCommandHandler));
 
-        private readonly IViewCommands viewCommands;
-        private readonly IMainWindowController mainWindowController;
+        private readonly IWin32Window dialogParent;
         private readonly IProjectOwner projectOwner;
         private readonly IStoreProject projectPersistor;
-        private readonly IApplicationSelection applicationSelection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StorageCommandHandler"/> class.
         /// </summary>
         /// <param name="projectStorage">Class responsible to storing and loading the application project.</param>
         /// <param name="projectOwner">The class owning the application project.</param>
-        /// <param name="applicationSelection">Class managing the application selection.</param>
-        /// <param name="mainWindowController">Controller for UI.</param>
-        /// <param name="viewCommands">The view command handler.</param>
-        public StorageCommandHandler(IStoreProject projectStorage, IProjectOwner projectOwner,
-                                     IApplicationSelection applicationSelection, IMainWindowController mainWindowController,
-                                     IViewCommands viewCommands)
+        /// <param name="dialogParent">Controller for UI.</param>
+        public StorageCommandHandler(IStoreProject projectStorage, IProjectOwner projectOwner, IWin32Window dialogParent)
         {
-            this.viewCommands = viewCommands;
-            this.mainWindowController = mainWindowController;
+            this.dialogParent = dialogParent;
             this.projectOwner = projectOwner;
             projectPersistor = projectStorage;
-            this.applicationSelection = applicationSelection;
-
-            this.projectOwner.ProjectOpened += ApplicationProjectOpened;
-            this.projectOwner.ProjectClosing += ApplicationProjectClosing;
         }
 
         /// <summary>
@@ -81,11 +67,6 @@ namespace Core.Common.Gui.Commands
             return OpenSaveOrDiscardProjectDialog();
         }
 
-        public void UpdateObserver()
-        {
-            mainWindowController.RefreshGui();
-        }
-
         public void CreateNewProject()
         {
             if (!ContinueIfHasChanges())
@@ -99,8 +80,6 @@ namespace Core.Common.Gui.Commands
             projectOwner.Project = new Project();
             projectOwner.ProjectFilePath = "";
             log.Info(Resources.StorageCommandHandler_NewProject_Created_new_project_succesful);
-
-            mainWindowController.RefreshGui();
         }
 
         public bool OpenExistingProject()
@@ -112,7 +91,7 @@ namespace Core.Common.Gui.Commands
                 RestoreDirectory = true
             })
             {
-                if (openFileDialog.ShowDialog(mainWindowController.MainWindow) != DialogResult.Cancel && ContinueIfHasChanges())
+                if (openFileDialog.ShowDialog(dialogParent) != DialogResult.Cancel && ContinueIfHasChanges())
                 {
                     return OpenExistingProject(openFileDialog.FileName);
                 }
@@ -143,8 +122,6 @@ namespace Core.Common.Gui.Commands
             }
 
             projectOwner.Project = newProject;
-            projectOwner.Project.NotifyObservers();
-            mainWindowController.RefreshGui();
             return isOpenProjectSuccessful;
         }
 
@@ -154,14 +131,9 @@ namespace Core.Common.Gui.Commands
             {
                 return;
             }
-
-            viewCommands.RemoveAllViewsForItem(projectOwner.Project);
-
             projectOwner.Project = null;
             projectOwner.ProjectFilePath = "";
             projectPersistor.CloseProject();
-
-            mainWindowController.RefreshGui();
         }
 
         public bool SaveProjectAs()
@@ -187,7 +159,6 @@ namespace Core.Common.Gui.Commands
             projectOwner.ProjectFilePath = filePath;
             project.Name = Path.GetFileNameWithoutExtension(filePath);
             project.NotifyObservers();
-            mainWindowController.RefreshGui();
             log.Info(String.Format(Resources.StorageCommandHandler_SaveProject_Succesfully_saved_project_0_, project.Name));
             return true;
         }
@@ -218,8 +189,6 @@ namespace Core.Common.Gui.Commands
 
         public void Dispose()
         {
-            projectOwner.ProjectOpened -= ApplicationProjectOpened;
-            projectOwner.ProjectClosing -= ApplicationProjectClosing;
         }
 
         private bool OpenSaveOrDiscardProjectDialog()
@@ -317,31 +286,6 @@ namespace Core.Common.Gui.Commands
                 log.Error(Resources.StorageCommandHandler_Saving_project_failed);
                 return false;
             }
-        }
-
-        private void ApplicationProjectClosing(Project project)
-        {
-            viewCommands.RemoveAllViewsForItem(project);
-
-            project.Detach(this);
-        }
-
-        private void ApplicationProjectOpened(Project project)
-        {
-            applicationSelection.Selection = project;
-
-            project.Attach(this);
-        }
-
-        private void AddProjectToMruList()
-        {
-            var mruList = (StringCollection) Properties.Settings.Default["mruList"];
-            if (mruList.Contains(projectOwner.ProjectFilePath))
-            {
-                mruList.Remove(projectOwner.ProjectFilePath);
-            }
-
-            mruList.Insert(0, projectOwner.ProjectFilePath);
         }
     }
 }

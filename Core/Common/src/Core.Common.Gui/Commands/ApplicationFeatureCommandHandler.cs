@@ -29,7 +29,6 @@ using System.Windows.Forms;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.Properties;
-using Core.Common.Gui.Selection;
 using Core.Common.Gui.Settings;
 
 using log4net;
@@ -44,7 +43,6 @@ namespace Core.Common.Gui.Commands
     {
         private readonly IPropertyResolver propertyResolver;
         private readonly IMainWindow mainWindow;
-        private readonly IApplicationSelection applicationSelection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationFeatureCommandHandler"/> class.
@@ -52,18 +50,15 @@ namespace Core.Common.Gui.Commands
         /// <param name="propertyResolver">The object responsible for finding the object properties
         /// for a given data object.</param>
         /// <param name="mainWindow">The main user interface of the application.</param>
-        /// <param name="applicationSelection">The application's selection mechanism.</param>
-        public ApplicationFeatureCommandHandler(IPropertyResolver propertyResolver, IMainWindow mainWindow, IApplicationSelection applicationSelection)
+        public ApplicationFeatureCommandHandler(IPropertyResolver propertyResolver, IMainWindow mainWindow)
         {
             this.propertyResolver = propertyResolver;
             this.mainWindow = mainWindow;
-            this.applicationSelection = applicationSelection;
         }
 
         public void ShowPropertiesFor(object obj)
         {
             mainWindow.InitPropertiesWindowAndActivate();
-            applicationSelection.Selection = obj;
         }
 
         public bool CanShowPropertiesFor(object obj)

@@ -29,6 +29,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
@@ -99,7 +100,6 @@ namespace Core.Common.Gui
                 throw new ArgumentNullException("fixedSettings");
             }
             MainWindow = mainWindow;
-            Storage = projectStore;
             FixedSettings = fixedSettings;
 
             isAlreadyRunningInstanceOfIGui = true;
@@ -110,7 +110,7 @@ namespace Core.Common.Gui
             UserSettings = Properties.Settings.Default;
 
             viewCommandHandler = new ViewCommandHandler(this, this, this);
-            storageCommandHandler = new StorageCommandHandler(projectStore, this, this, this, viewCommandHandler);
+            storageCommandHandler = new StorageCommandHandler(projectStore, this, MainWindow);
             exportImportCommandHandler = new ExportImportCommandHandler(MainWindow,
                                                                         Plugins.SelectMany(p => p.GetFileImporters()),
                                                                         Plugins.SelectMany(p => p.GetFileExporters()));
@@ -120,11 +120,10 @@ namespace Core.Common.Gui
             ViewPropertyEditor.ViewCommands = ViewCommands;
 
             ProjectOpened += ApplicationProjectOpened;
+            projectObserver = new Observer(UpdateTitle);
         }
 
         public IPropertyResolver PropertyResolver { get; private set; }
-
-        public IStoreProject Storage { get; private set; }
 
         public void Dispose()
         {
@@ -204,7 +203,7 @@ namespace Core.Common.Gui
 
         #endregion
 
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -224,7 +223,6 @@ namespace Core.Common.Gui
                 }
 
                 Selection = null;
-
                 Project = null;
 
                 if (ViewHost != null)
@@ -500,7 +498,7 @@ namespace Core.Common.Gui
             DocumentViewController = new DocumentViewController(ViewHost, Plugins.SelectMany(p => p.GetViewInfos()), mainWindow);
 
             PropertyResolver = new PropertyResolver(Plugins.SelectMany(p => p.GetPropertyInfos()));
-            applicationFeatureCommands = new ApplicationFeatureCommandHandler(PropertyResolver, mainWindow, this);
+            applicationFeatureCommands = new ApplicationFeatureCommandHandler(PropertyResolver, mainWindow);
 
             mainWindow.InitializeToolWindows();
 
@@ -595,9 +593,9 @@ namespace Core.Common.Gui
         #region Implementation: IProjectOwner
 
         private Project project;
+        private readonly Observer projectObserver;
 
         public event Action<Project> ProjectOpened;
-        public event Action<Project> ProjectClosing;
 
         public string ProjectFilePath { get; set; }
 
@@ -611,13 +609,12 @@ namespace Core.Common.Gui
             {
                 if (project != null)
                 {
-                    if (ProjectClosing != null)
-                    {
-                        ProjectClosing(project);
-                    }
+                    ViewCommands.RemoveAllViewsForItem(project);
                 }
 
                 project = value;
+                projectObserver.Observable = project;
+                UpdateTitle();
 
                 if (project != null)
                 {
@@ -809,15 +806,6 @@ namespace Core.Common.Gui
                 mainWindow = (MainWindow) value;
                 mainWindow.SetGui(this);
             }
-        }
-
-        public void RefreshGui()
-        {
-            // Set the gui selection to the current project
-            Selection = Project;
-
-            // Update the window title
-            UpdateTitle();
         }
 
         private void UpdateTitle()

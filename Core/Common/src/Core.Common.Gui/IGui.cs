@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Storage;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.PropertyGridView;
@@ -42,11 +41,6 @@ namespace Core.Common.Gui
         /// instance for a given data object for the application to use.
         /// </summary>
         IPropertyResolver PropertyResolver { get; }
-
-        /// <summary>
-        /// Gets the current project storage.
-        /// </summary>
-        IStoreProject Storage { get; }
 
         /// <summary>
         /// Runs the user interface, causing all user interface components to initialize, 

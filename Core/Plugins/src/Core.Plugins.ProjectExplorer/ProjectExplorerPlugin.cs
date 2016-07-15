@@ -170,10 +170,12 @@ namespace Core.Plugins.ProjectExplorer
 
         public override void Deactivate()
         {
+            base.Deactivate();
+
             if (active)
             {
-                base.Deactivate();
                 projectOwner.ProjectOpened -= ApplicationProjectOpened;
+                projectExplorerViewController.Dispose();
                 active = false;
             }
         }
