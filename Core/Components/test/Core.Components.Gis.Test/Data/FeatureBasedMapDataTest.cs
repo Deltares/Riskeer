@@ -100,7 +100,6 @@ namespace Core.Components.Gis.Test.Data
             Assert.AreEqual(features.Length, data.Features.Count());
             Assert.AreEqual(features[0].MapGeometries.Count(), data.Features.First().MapGeometries.Count());
             CollectionAssert.AreEqual(points, data.Features.First().MapGeometries.First().PointCollections.First());
-            Assert.IsTrue(data.IsVisible);
         }
 
         [Test]

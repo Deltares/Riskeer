@@ -44,7 +44,7 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
-        public void Constructor_WithName_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var name = "Some name";
@@ -55,6 +55,7 @@ namespace Core.Components.Gis.Test.Data
             // Assert
             Assert.IsInstanceOf<Observable>(data);
             Assert.AreEqual(name, data.Name);
+            Assert.IsTrue(data.IsVisible);
         }
 
         [Test]

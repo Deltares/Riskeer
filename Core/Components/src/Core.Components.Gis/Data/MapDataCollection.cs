@@ -89,6 +89,7 @@ namespace Core.Components.Gis.Data
             {
                 if (List[i].Equals(oldElement))
                 {
+                    newElement.IsVisible = oldElement.IsVisible;
                     List[i] = newElement;
                 }
             }

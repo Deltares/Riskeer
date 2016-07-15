@@ -45,7 +45,6 @@ namespace Core.Components.Gis.Data
             ValidateFeatures(features);
 
             Features = features.ToArray();
-            IsVisible = true;
         }
 
         /// <summary>
@@ -61,11 +60,6 @@ namespace Core.Components.Gis.Data
                 throw new ArgumentException(message, "features");
             }
         }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the <see cref="FeatureBasedMapData"/> is visible.
-        /// </summary>
-        public bool IsVisible { get; set; }
 
         /// <summary>
         /// Gets the collection of features.

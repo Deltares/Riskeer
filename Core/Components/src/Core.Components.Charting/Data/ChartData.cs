@@ -63,7 +63,7 @@ namespace Core.Components.Charting.Data
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the <see cref="PointBasedChartData"/> is visible.
+        /// Gets or sets a value indicating whether the <see cref="ChartData"/> is visible.
         /// </summary>
         public bool IsVisible { get; set; }
     }

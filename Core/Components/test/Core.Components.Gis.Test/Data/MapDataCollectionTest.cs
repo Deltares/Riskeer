@@ -122,21 +122,26 @@ namespace Core.Components.Gis.Test.Data
             // Setup
             var list = Enumerable.Empty<MapData>().ToList();
             var data = new MapDataCollection(list, "test");
-            var oldDataElement = new MapLineData(Enumerable.Empty<MapFeature>(), "test");
+            var oldDataElement = new MapLineData(Enumerable.Empty<MapFeature>(), "test")
+            {
+                IsVisible = false
+            };
             var newDataElement = new MapPointData(Enumerable.Empty<MapFeature>(), "another test");
             
             data.Add(oldDataElement);
 
             // Precondition
             Assert.AreEqual(1, data.List.Count);
-            Assert.IsInstanceOf<MapLineData>(data.List.First());
+            Assert.IsInstanceOf<MapLineData>(data.List[0]);
+            Assert.IsFalse(data.List[0].IsVisible);
 
             // Call
             data.Replace(oldDataElement, newDataElement);
 
             // Assert
             Assert.AreEqual(1, data.List.Count);
-            Assert.IsInstanceOf<MapPointData>(data.List.First());
+            Assert.IsInstanceOf<MapPointData>(data.List[0]);
+            Assert.IsFalse(data.List[0].IsVisible);
         }
 
         [Test]

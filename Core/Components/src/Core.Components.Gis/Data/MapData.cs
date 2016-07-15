@@ -39,6 +39,7 @@ namespace Core.Components.Gis.Data
         protected MapData(string name)
         {
             Name = name;
+            IsVisible = true;
         }
 
         /// <summary>
@@ -60,5 +61,10 @@ namespace Core.Components.Gis.Data
                 name = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the <see cref="MapData"/> is visible.
+        /// </summary>
+        public bool IsVisible { get; set; }
     }
 }
