@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -26,6 +27,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Forms;
+using Core.Plugins.OxyPlot.PresentationObjects;
 using OxyPlotResources = Core.Plugins.OxyPlot.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -61,70 +63,139 @@ namespace Core.Plugins.OxyPlot.Legend
 
         private void RegisterTreeNodeInfos()
         {
-            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartPointData>
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartDataContext>
             {
-                Text = pointData => pointData.Name,
-                Image = pointData => OxyPlotResources.PointsIcon,
-                CanDrag = (pointData, parentData) => true,
-                CanCheck = pointData => true,
-                IsChecked = pointData => pointData.IsVisible,
-                OnNodeChecked = PointBasedChartDataOnNodeChecked
-            });
-
-            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartLineData>
-            {
-                Text = lineData => lineData.Name,
-                Image = lineData => OxyPlotResources.LineIcon,
-                CanDrag = (lineData, parentData) => true,
-                CanCheck = lineData => true,
-                IsChecked = lineData => lineData.IsVisible,
-                OnNodeChecked = PointBasedChartDataOnNodeChecked
-            });
-
-            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartAreaData>
-            {
-                Text = areaData => areaData.Name,
-                Image = areaData => OxyPlotResources.AreaIcon,
-                CanDrag = (areaData, parentData) => true,
-                CanCheck = areaData => true,
-                IsChecked = areaData => areaData.IsVisible,
-                OnNodeChecked = PointBasedChartDataOnNodeChecked
-            });
-
-            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartMultipleAreaData>
-            {
-                Text = multipleAreaData => multipleAreaData.Name,
-                Image = multipleAreaData => OxyPlotResources.AreaIcon,
-                CanDrag = (multipleAreaData, parentData) => true,
-                CanCheck = multipleAreaData => true,
-                IsChecked = multipleAreaData => multipleAreaData.IsVisible,
-                OnNodeChecked = ChartMultipleAreaDataOnNodeChecked
+                Text = context => context.WrappedData.Name,
+                Image = GetImage,
+                ChildNodeObjects = ChartDataContextGetChildNodeObjects,
+                CanDrag = (context, o) => !(context.WrappedData is ChartMultipleAreaData),
+                CanCheck = context => !(context.WrappedData is ChartDataCollection),                
+                IsChecked = context => context.WrappedData.IsVisible,
+                OnNodeChecked = ChartDataContextOnNodeChecked,
+                CanDrop = ChartDataContextCanDrop,
+                CanInsert = ChartDataContextCanInsert,
+                OnDrop = ChartDataContextOnDrop
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartDataCollection>
             {
                 Text = collection => collection.Name,
                 Image = collection => GuiResources.folder,
-                ChildNodeObjects = collection => collection.List.Reverse().Cast<object>().ToArray(),
+                ChildNodeObjects = GetCollectionChildNodeObjects,
                 CanDrag = (multipleAreaData, parentData) => true,
-                CanDrop = ChartControlCanDrop,
-                CanInsert = ChartControlCanInsert,
-                OnDrop = ChartControlOnDrop
+                CanDrop = ChartDataCollectionCanDrop,
+                CanInsert = ChartDataCollectionCanInsert,
+                OnDrop = ChartDataCollectionOnDrop
             });
         }
 
-        # region ChartData
+        #region ChartDataContext
 
-        private void PointBasedChartDataOnNodeChecked(PointBasedChartData pointBasedChartData, object parentData)
+        private Image GetImage(ChartDataContext context)
         {
-            pointBasedChartData.IsVisible = !pointBasedChartData.IsVisible;
-            NotifyObserversOfData(pointBasedChartData);
+            if (context.WrappedData is ChartPointData)
+            {
+                return OxyPlotResources.PointsIcon;
+            }
+
+            if (context.WrappedData is ChartLineData)
+            {
+                return OxyPlotResources.LineIcon;
+            }
+
+            if (context.WrappedData is ChartAreaData || context.WrappedData is ChartMultipleAreaData)
+            {
+                return OxyPlotResources.AreaIcon;
+            }
+
+            return GuiResources.folder;
         }
 
-        private void ChartMultipleAreaDataOnNodeChecked(ChartMultipleAreaData chartMultipleAreaData, object parentData)
+        private object[] ChartDataContextGetChildNodeObjects(ChartDataContext chartDataContext)
         {
-            chartMultipleAreaData.IsVisible = !chartMultipleAreaData.IsVisible;
-            NotifyObserversOfData(chartMultipleAreaData);
+            var collection = chartDataContext.WrappedData as ChartDataCollection;
+            return collection != null ? GetChildNodeObjects(collection) : new object[0];
+        }
+
+        private void ChartDataContextOnNodeChecked(ChartDataContext chartDataContext, object parentData)
+        {
+            chartDataContext.WrappedData.IsVisible = !chartDataContext.WrappedData.IsVisible;
+            NotifyObserversOfData(chartDataContext.WrappedData);
+        }
+
+        private static bool ChartDataContextCanDrop(object draggedData, object targetData)
+        {
+            var draggedDataContext = (ChartDataContext) draggedData;
+            var targetDataContext = (ChartDataContext) targetData;
+
+            return !(targetDataContext.WrappedData is ChartDataCollection) && draggedDataContext.ParentChartData.Equals(targetDataContext.ParentChartData);
+        }
+
+        private static bool ChartDataContextCanInsert(object draggedData, object targetData)
+        {
+            var draggedDataContext = (ChartDataContext)draggedData;
+            var targetDataContext = (ChartDataContext)targetData;
+
+            return !(targetDataContext.WrappedData is ChartDataCollection) && draggedDataContext.ParentChartData.Equals(targetDataContext.ParentChartData);
+        }
+
+        private void ChartDataContextOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
+        {
+            var chartContext = (ChartDataContext) droppedData;
+            var sourceContext = oldParentData as ChartDataContext;
+
+            var chartData = chartContext.WrappedData;
+            ChartDataCollection parent = (ChartDataCollection)(sourceContext != null ? sourceContext.WrappedData : oldParentData);
+
+            parent.Remove(chartData);
+            parent.Insert(parent.List.Count - position, chartData);
+            parent.NotifyObservers();
+        }
+
+        #endregion
+
+        # region ChartDataCollection
+
+        private static object[] GetCollectionChildNodeObjects(ChartDataCollection chartDataCollection)
+        {
+            return GetChildNodeObjects(chartDataCollection);
+        }
+
+        private static bool ChartDataCollectionCanDrop(object draggedData, object targetData)
+        {
+            var draggedDataContext = (ChartDataContext) draggedData;
+            var targetDataContext = targetData as ChartDataContext;
+            var targetDataObject = targetDataContext != null ? targetDataContext.ParentChartData : targetData;
+
+            return draggedDataContext.ParentChartData.Equals(targetDataObject);
+        }
+
+        private static bool ChartDataCollectionCanInsert(object draggedData, object targetData)
+        {
+            var draggedDataContext = (ChartDataContext)draggedData;
+            var targetDataContext = targetData as ChartDataContext;
+            var targetDataObject = targetDataContext != null ? targetDataContext.ParentChartData : targetData;
+
+            return draggedDataContext.ParentChartData.Equals(targetDataObject);
+        }
+
+        private static void ChartDataCollectionOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
+        {
+            var chartContext = (ChartDataContext)droppedData;
+
+            var chartData = chartContext.WrappedData;
+            ChartDataCollection parent = (ChartDataCollection) oldParentData;
+
+            parent.Remove(chartData);
+            parent.Insert(parent.List.Count - position, chartData);
+            parent.NotifyObservers();
+        }
+
+        # endregion
+
+        private static object[] GetChildNodeObjects(ChartDataCollection chartDataCollection)
+        {
+            return chartDataCollection.List.Reverse().Select(chartData => new ChartDataContext(chartData, chartDataCollection)).Cast<object>().ToArray();
         }
 
         private void NotifyObserversOfData(ChartData chartData)
@@ -137,32 +208,5 @@ namespace Core.Plugins.OxyPlot.Legend
                 observableParent.NotifyObservers();
             }
         }
-
-        # endregion
-
-        # region ChartDataCollection
-
-        private static bool ChartControlCanDrop(object draggedData, object targetData)
-        {
-            return draggedData is ChartData;
-        }
-
-        private static bool ChartControlCanInsert(object draggedData, object targetData)
-        {
-            return draggedData is ChartData;
-        }
-
-        private static void ChartControlOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
-        {
-            var chartData = (ChartData) droppedData;
-            var source = (ChartDataCollection)oldParentData;
-            var target = (ChartDataCollection) newParentData;
-
-            source.List.Remove(chartData);
-            target.List.Insert(target.List.Count - position, chartData);
-            target.NotifyObservers();
-        }
-
-        # endregion
     }
 }

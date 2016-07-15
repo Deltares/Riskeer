@@ -30,7 +30,9 @@ using Core.Common.Utils.Reflection;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
 using Core.Plugins.OxyPlot.Legend;
+using Core.Plugins.OxyPlot.PresentationObjects;
 using NUnit.Framework;
+using Rhino.Mocks;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Core.Plugins.OxyPlot.Test.Legend
@@ -40,14 +42,13 @@ namespace Core.Plugins.OxyPlot.Test.Legend
     {
         private ChartLegendView chartLegendView;
         private TreeNodeInfo info;
-        private TreeViewControl treeViewControl;
 
         [SetUp]
         public void SetUp()
         {
             chartLegendView = new ChartLegendView();
 
-            treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
+            TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
             Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
 
             info = treeNodeInfoLookup[typeof(ChartDataCollection)];
@@ -103,13 +104,13 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnsChildsOnDataReversed()
+        public void ChildNodeObjects_Always_ReturnsChildsWithContextAndDataReversed()
         {
             // Setup
-            var chartData1 = new TestChartData();
-            var chartData2 = new TestChartData();
-            var chartData3 = new TestChartData();
-            var chartDataCollection = new ChartDataCollection(new List<ChartData>
+            TestChartData chartData1 = new TestChartData();
+            TestChartData chartData2 = new TestChartData();
+            TestChartData chartData3 = new TestChartData();
+            ChartDataCollection chartDataCollection = new ChartDataCollection(new List<ChartData>
             {
                 chartData1,
                 chartData2,
@@ -120,61 +121,77 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             var objects = info.ChildNodeObjects(chartDataCollection);
 
             // Assert
-            CollectionAssert.AreEqual(new[] { chartData3, chartData2, chartData1 }, objects);
+            var expectedChilds = new[]
+            {
+                new ChartDataContext(chartData3, new ChartDataCollection(new ChartData[0], "test")),
+                new ChartDataContext(chartData2, new ChartDataCollection(new ChartData[0], "test")),
+                new ChartDataContext(chartData1, new ChartDataCollection(new ChartData[0], "test")),
+            };
+            CollectionAssert.AreEqual(expectedChilds, objects);
         }
 
         [Test]
-        public void CanDrop_SourceNodeTagIsNoChartData_ReturnsFalse()
+        public void CanDrop_TargetParentIsSameAsSourceParent_ReturnsTrue()
         {
             // Setup
-            var chartDataCollection = new ChartDataCollection(new List<ChartData>(), "test data");
+            ChartData chartData = new TestChartData();
+            ChartDataCollection chartDataCollection = new ChartDataCollection(new ChartData[0], "test");
+
+            ChartDataContext context = GetContext(chartData, chartDataCollection);
 
             // Call
-            var canDrop = info.CanDrop(new object(), chartDataCollection);
-
-            // Assert
-            Assert.IsFalse(canDrop);
-        }
-
-        [Test]
-        public void CanDrop_SourceNodeTagIsChartData_ReturnsTrue()
-        {
-            // Setup
-            var chartData = new TestChartData();
-            var chartDataCollection = new ChartDataCollection(new List<ChartData>(), "test data");
-
-            // Call
-            var canDrop = info.CanDrop(chartData, chartDataCollection);
+            bool canDrop = info.CanDrop(context, chartDataCollection);
 
             // Assert
             Assert.IsTrue(canDrop);
         }
 
         [Test]
-        public void CanInsert_SourceNodeTagIsNoChartData_ReturnsFalse()
+        public void CanDrop_TargetParentNotSameAsSourceParent_ReturnsFalse()
         {
             // Setup
-            var chartDataCollection = new ChartDataCollection(new List<ChartData>(), "test data");
+            ChartData chartData = new TestChartData();
+            ChartDataCollection chartDataCollection = new ChartDataCollection(new ChartData[0], "test");
+
+            ChartDataContext context = GetContext(chartData, chartDataCollection);
 
             // Call
-            var canInsert = info.CanInsert(new object(), chartDataCollection);
+            bool canDrop = info.CanDrop(context, GetContext(new ChartDataCollection(new ChartData[0], "test")));
 
             // Assert
-            Assert.IsFalse(canInsert);
+            Assert.IsFalse(canDrop);
         }
 
         [Test]
-        public void CanInsert_SourceNodeTagIsChartData_ReturnsTrue()
+        public void CanInsert_TargetParentIsSameAsSourceParent_ReturnsTrue()
         {
             // Setup
-            var chartData = new TestChartData();
-            var chartDataCollection = new ChartDataCollection(new List<ChartData>(), "test data");
+            ChartData chartData = new TestChartData();
+            ChartDataCollection chartDataCollection = new ChartDataCollection(new ChartData[0], "test");
+
+            ChartDataContext context = GetContext(chartData, chartDataCollection);
 
             // Call
-            var canInsert = info.CanInsert(chartData, chartDataCollection);
+            bool canInsert = info.CanInsert(context, chartDataCollection);
 
             // Assert
             Assert.IsTrue(canInsert);
+        }
+
+        [Test]
+        public void CanInsert_TargetParentNotSameAsSourceParent_ReturnsFalse()
+        {
+            // Setup
+            ChartData chartData = new TestChartData();
+            ChartDataCollection chartDataCollection = new ChartDataCollection(new ChartData[0], "test");
+
+            ChartDataContext context = GetContext(chartData, chartDataCollection);
+
+            // Call
+            bool canInsert = info.CanInsert(context, GetContext(new ChartDataCollection(new ChartData[0], "test")));
+
+            // Assert
+            Assert.IsFalse(canInsert);
         }
 
         [Test]
@@ -194,6 +211,11 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void OnDrop_ChartDataMovedToPositionInsideRange_SetsNewReverseOrder(int position)
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var chartData1 = new TestChartData();
             var chartData2 = new TestChartData();
             var chartData3 = new TestChartData();
@@ -204,19 +226,21 @@ namespace Core.Plugins.OxyPlot.Test.Legend
                 chartData3
             }, "test data");
 
-            var notify = 0;
-            var observer = new Observer(() => notify++);
+            var context1 = GetContext(chartData1);
 
             chartDataCollection.Attach(observer);
 
-            // Call
-            info.OnDrop(chartData1, chartDataCollection, chartDataCollection, position, treeViewControl);
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Call
+                info.OnDrop(context1, chartDataCollection, chartDataCollection, position, treeViewControl);
 
-            // Assert
-            var reversedIndex = 2 - position;
-            Assert.AreSame(chartData1, chartDataCollection.List.ElementAt(reversedIndex));
+                // Assert
+                var reversedIndex = 2 - position;
+                Assert.AreSame(context1.WrappedData, chartDataCollection.List.ElementAt(reversedIndex));
 
-            Assert.AreEqual(1, notify);
+                mocks.VerifyAll();
+            }
         }
 
         [Test]
@@ -227,6 +251,10 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void OnDrop_ChartDataMovedToPositionOutsideRange_ThrowsException(int position)
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
             var chartData1 = new ChartLineData(Enumerable.Empty<Point2D>(), "line");
             var chartData2 = new ChartAreaData(Enumerable.Empty<Point2D>(), "area");
             var chartData3 = new ChartPointData(Enumerable.Empty<Point2D>(), "point");
@@ -239,17 +267,28 @@ namespace Core.Plugins.OxyPlot.Test.Legend
                 chartData4
             }, "test data");
 
-            var notify = 0;
-            var observer = new Observer(() => notify++);
             chartDataCollection.Attach(observer);
             chartLegendView.Data = chartDataCollection;
 
-            // Call
-            TestDelegate test = () => info.OnDrop(chartData1, chartDataCollection, chartDataCollection, position, treeViewControl);
+            var context1 = GetContext(chartData1);
 
-            // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(test);
-            Assert.AreEqual(0, notify);
+            chartDataCollection.Attach(observer);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Call
+                TestDelegate test = () => info.OnDrop(context1, chartDataCollection, chartDataCollection, position, treeViewControl);
+
+                // Assert
+                Assert.Throws<ArgumentOutOfRangeException>(test);
+
+                mocks.VerifyAll(); // Expect no update observer.
+            }
+        }
+
+        private static ChartDataContext GetContext(ChartData chartData, ChartDataCollection chartDataCollection = null)
+        {
+            return new ChartDataContext(chartData, chartDataCollection ?? new ChartDataCollection(new List<ChartData>(), "test"));
         }
     }
 }

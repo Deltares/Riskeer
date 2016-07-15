@@ -94,8 +94,8 @@ namespace Core.Components.OxyPlot.Test.Converter
             var areaData = new ChartAreaData(pointsArea, "test data");
             var lineData = new ChartLineData(pointsLine, "test data");
 
-            collectionData.List.Add(areaData);
-            collectionData.List.Add(lineData);
+            collectionData.Add(areaData);
+            collectionData.Add(lineData);
 
             // Call
             var series = converter.Convert(collectionData);

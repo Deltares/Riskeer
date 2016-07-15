@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -97,8 +98,9 @@ namespace Core.Components.Charting.Test.Data
             data.Add(objectToAdd);
 
             // Assert
-            Assert.AreEqual(1, data.List.Count);
-            Assert.AreSame(objectToAdd, data.List.First());
+            var chartData = data.List.ToList();
+            Assert.AreEqual(1, chartData.Count);
+            Assert.AreSame(objectToAdd, chartData.First());
         }
 
         [Test]
@@ -220,6 +222,41 @@ namespace Core.Components.Charting.Test.Data
             Assert.AreEqual(1, data.List.Count);
             var newNestedCollection = (ChartDataCollection)data.List[0];
             Assert.IsInstanceOf<ChartPointData>(newNestedCollection.List[0]);
+        }
+
+        [Test]
+        public void Insert_NotNull_InsertsElementToCollectionAtGivenPosition()
+        {
+            // Setup
+            TestChartData chartData = new TestChartData("test");
+            var data = new ChartDataCollection(new List<ChartData>{ chartData }, "test");
+            var objectToAdd = new ChartLineData(Enumerable.Empty<Point2D>(), "test");
+
+            // Precondition
+            Assert.AreEqual(1, data.List.Count);
+            Assert.AreSame(chartData, data.List[0]);
+            
+            // Call
+            data.Insert(0, objectToAdd);
+
+            // Assert
+            Assert.AreEqual(2, data.List.Count);
+            Assert.AreSame(objectToAdd, data.List[0]);
+            Assert.AreSame(chartData, data.List[1]);
+        }
+
+        [Test]
+        public void Insert_ElementNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var list = Enumerable.Empty<ChartData>().ToList();
+            var data = new ChartDataCollection(list, "test");
+
+            // Call
+            TestDelegate call = () => data.Insert(0, null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "An element cannot be null when adding it to the collection.");
         }
 
         [Test]

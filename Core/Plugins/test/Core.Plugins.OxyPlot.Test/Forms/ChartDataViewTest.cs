@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Forms;
@@ -86,8 +87,7 @@ namespace Core.Plugins.OxyPlot.Test.Forms
             // Setup
             using (var chartView = new ChartDataView())
             {
-                var chartDataCollection = new ChartDataCollection(new ChartData[]
-                {}, "test data");
+                var chartDataCollection = new ChartDataCollection(new List<ChartData>(), "test data");
 
                 // Call
                 chartView.Data = chartDataCollection;

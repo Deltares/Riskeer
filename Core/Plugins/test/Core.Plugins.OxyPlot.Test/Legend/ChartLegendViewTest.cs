@@ -29,6 +29,7 @@ using Core.Common.Controls.Views;
 using Core.Common.Utils.Reflection;
 using Core.Components.Charting.Data;
 using Core.Plugins.OxyPlot.Legend;
+using Core.Plugins.OxyPlot.PresentationObjects;
 using Core.Plugins.OxyPlot.Properties;
 using NUnit.Framework;
 
@@ -96,74 +97,6 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         }
 
         [Test]
-        public void GivenChartDataContainingCollection_WhenDragDroppingFromCollectionToRoot_ThenDataMoved()
-        {
-            // Given
-            var chartLineData = CreateChartLineData();
-
-            var innerCollection = new ChartDataCollection(new List<ChartData>
-            {
-                chartLineData
-            }, "collection");
-            var rootCollection = new ChartDataCollection(new List<ChartData>
-            {
-                CreateChartLineData(),
-                innerCollection
-            }, "test data");
-
-            using (var chartLegendView = new ChartLegendView
-            {
-                Data = rootCollection
-            })
-            {
-                TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
-                Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
-                var info = treeNodeInfoLookup[typeof(ChartDataCollection)];
-
-                // When
-                info.OnDrop(chartLineData, rootCollection, innerCollection, 0, treeViewControl);
-
-                // Then
-                CollectionAssert.DoesNotContain(innerCollection.List, chartLineData);
-                CollectionAssert.Contains(rootCollection.List, chartLineData);
-            }
-        }
-
-        [Test]
-        public void GivenChartDataContainingCollection_WhenDragDroppingFromRootToCollection_ThenDataMoved()
-        {
-            // Given
-            var chartLineData = CreateChartLineData();
-
-            var innerCollection = new ChartDataCollection(new List<ChartData>
-            {
-                CreateChartLineData()
-            }, "collection");
-            var rootCollection = new ChartDataCollection(new List<ChartData>
-            {
-                chartLineData,
-                innerCollection
-            }, "test data");
-
-            using (var chartLegendView = new ChartLegendView
-            {
-                Data = rootCollection
-            })
-            {
-                TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
-                Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
-                var info = treeNodeInfoLookup[typeof(ChartDataCollection)];
-
-                // When
-                info.OnDrop(chartLineData, innerCollection, rootCollection, 0, treeViewControl);
-
-                // Then
-                CollectionAssert.DoesNotContain(rootCollection.List, chartLineData);
-                CollectionAssert.Contains(innerCollection.List, chartLineData);
-            }
-        }
-
-        [Test]
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
@@ -188,8 +121,10 @@ namespace Core.Plugins.OxyPlot.Test.Legend
                 Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
                 var info = treeNodeInfoLookup[typeof(ChartDataCollection)];
 
+                var context = new ChartDataContext(chartLineData, rootCollection);
+
                 // When
-                info.OnDrop(chartLineData, rootCollection, rootCollection, index, treeViewControl);
+                info.OnDrop(context, rootCollection, rootCollection, index, treeViewControl);
 
                 // Then
                 Assert.AreEqual(2 - index, rootCollection.List.IndexOf(chartLineData));
