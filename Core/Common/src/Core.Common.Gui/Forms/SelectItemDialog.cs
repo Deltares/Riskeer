@@ -23,7 +23,6 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Properties;
 

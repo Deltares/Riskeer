@@ -64,6 +64,7 @@
     <Compile Include="PropertyClasses\StandAloneFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
+    <Compile Include="ReferenceLineMetaSelectionDialogTest.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructureFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\AssessmentSectionTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CommentContextTreeNodeInfoTest.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="PropertyClasses\AssessmentSectionPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\ReferenceLineContextTreeNodeInfoTest.cs" />
     <Compile Include="Views\FailureMechanismContributionItemRowTest.cs" />
+    <Compile Include="Views\ReferenceLineMetaSelectionViewTest.cs" />
     <Compile Include="Views\SectionResultRows\FailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultViews\ClosingStructureResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\DuneErosionResultViewTest.cs" />

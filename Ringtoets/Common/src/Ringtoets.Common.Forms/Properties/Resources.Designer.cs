@@ -967,6 +967,16 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap SelectionDialogIcon {
+            get {
+                object obj = ResourceManager.GetObject("SelectionDialogIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Valideren.
         /// </summary>
         public static string Validate {
