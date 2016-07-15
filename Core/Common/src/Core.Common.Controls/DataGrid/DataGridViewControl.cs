@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace Core.Common.Controls.DataGrid
@@ -77,6 +78,27 @@ namespace Core.Common.Controls.DataGrid
             set
             {
                 dataGridView.MultiSelect = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating how the cells of the <see cref="DataGridViewControl"/> can be selected.
+        /// </summary>
+        /// <remarks>See <see cref="DataGridViewSelectionMode"/>.</remarks>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when the specified value to set is 
+        /// not a valid <see cref="DataGridViewSelectionMode"/> value.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the specified value to set is 
+        /// <see cref="DataGridViewSelectionMode.FullColumnSelect"/> or <see cref="DataGridViewSelectionMode.ColumnHeaderSelect"/> 
+        /// and the SortMode property of one or more columns is set to <c>Automatic</c>.</exception>
+        public DataGridViewSelectionMode SelectionMode
+        {
+            get
+            {
+                return dataGridView.SelectionMode;
+            }
+            set
+            {
+                dataGridView.SelectionMode = value;
             }
         }
 

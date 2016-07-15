@@ -183,6 +183,34 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
+        [TestCase(DataGridViewSelectionMode.RowHeaderSelect)]
+        [TestCase(DataGridViewSelectionMode.CellSelect)]
+        [TestCase(DataGridViewSelectionMode.ColumnHeaderSelect)]
+        [TestCase(DataGridViewSelectionMode.FullColumnSelect)]
+        [TestCase(DataGridViewSelectionMode.FullRowSelect)]
+        public void SelectionMode_ValidSelectionMode_SetsDataGridViewSelectionMode(DataGridViewSelectionMode mode)
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                using (var control = new DataGridViewControl())
+                {
+                    form.Controls.Add(control);
+                    form.Show();
+
+                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                    // Call
+                    control.SelectionMode = mode;
+
+                    // Assert
+                    Assert.AreEqual(mode, control.SelectionMode);
+                    Assert.AreEqual(mode, dataGridView.SelectionMode);
+                }
+            }
+        }
+
+        [Test]
         public void DataSource_Always_ReturnsDataGridViewSource()
         {
             // Setup
