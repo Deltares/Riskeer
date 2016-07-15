@@ -64,6 +64,23 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the user is allowed to select more than 
+        /// one cell, row, or column of the <see cref="DataGridViewControl"/> at a time.
+        /// </summary>
+        /// <remarks>See <see cref="DataGridView.MultiSelect"/>.</remarks>
+        public bool MultiSelect
+        {
+            get
+            {
+                return dataGridView.MultiSelect;
+            }
+            set
+            {
+                dataGridView.MultiSelect = value;
+            }
+        }
+
+        /// <summary>
         /// Adds a new <see cref="DataGridViewTextBoxColumn"/> to the <see cref="DataGridView"/> with the given data.
         /// </summary>
         /// <param name="dataPropertyName">The <see cref="DataGridViewColumn.DataPropertyName"/> of the column.</param>
