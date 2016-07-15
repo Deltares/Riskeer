@@ -74,6 +74,11 @@ namespace Core.Components.Charting.Data
         /// <paramref name="newElement"/> is <c>null</c>.</exception>
         public void Replace(ChartData oldElement, ChartData newElement)
         {
+            Replace(oldElement, newElement, List);
+        }
+
+        private void Replace(ChartData oldElement, ChartData newElement, IList<ChartData> listToCheck)
+        {
             if (newElement == null)
             {
                 throw new ArgumentNullException("newElement", "An element cannot be replaced with null. Use Remove instead.");
@@ -83,12 +88,23 @@ namespace Core.Components.Charting.Data
             {
                 throw new ArgumentNullException("oldElement", "A null element cannot be replaced. Use Add instead.");
             }
-
-            for (var i = 0; i < List.Count; i++)
+            
+            for (var i = 0; i < listToCheck.Count; i++)
             {
-                if (List[i].Equals(oldElement))
+                if (listToCheck[i].Equals(oldElement))
                 {
-                    List[i] = newElement;
+                    ChartDataCollection oldCollection = oldElement as ChartDataCollection;
+                    ChartDataCollection newCollection = newElement as ChartDataCollection;
+                    if (oldCollection != null && newCollection != null)
+                    {
+                        for (int j = 0; j < newCollection.List.Count; j++)
+                        {
+                            Replace(oldCollection.List[j], newCollection.List[j], oldCollection.List);
+                        }
+                    }
+
+                    newElement.IsVisible = oldElement.IsVisible;
+                    listToCheck[i] = newElement;
                 }
             }
         }

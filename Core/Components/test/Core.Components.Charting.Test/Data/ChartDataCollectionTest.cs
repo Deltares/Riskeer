@@ -121,21 +121,26 @@ namespace Core.Components.Charting.Test.Data
             // Setup
             var list = Enumerable.Empty<ChartData>().ToList();
             var data = new ChartDataCollection(list, "test");
-            var oldDataElement = new ChartLineData(Enumerable.Empty<Point2D>(), "test");
+            var oldDataElement = new ChartLineData(Enumerable.Empty<Point2D>(), "test")
+            {
+                IsVisible = false
+            };
             var newDataElement = new ChartPointData(Enumerable.Empty<Point2D>(), "another test");
 
             data.Add(oldDataElement);
 
             // Precondition
             Assert.AreEqual(1, data.List.Count);
-            Assert.IsInstanceOf<ChartLineData>(data.List.First());
+            Assert.IsInstanceOf<ChartLineData>(data.List[0]);
+            Assert.IsFalse(data.List[0].IsVisible);
 
             // Call
             data.Replace(oldDataElement, newDataElement);
 
             // Assert
             Assert.AreEqual(1, data.List.Count);
-            Assert.IsInstanceOf<ChartPointData>(data.List.First());
+            Assert.IsInstanceOf<ChartPointData>(data.List[0]);
+            Assert.IsFalse(data.List[0].IsVisible);
         }
 
         [Test]
@@ -181,6 +186,40 @@ namespace Core.Components.Charting.Test.Data
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A null element cannot be replaced. Use Add instead.");
             Assert.AreEqual(1, data.List.Count);
             Assert.IsInstanceOf<ChartLineData>(data.List.First());
+        }
+
+        [Test]
+        public void Replace_NestedCollection_ReplacesElementsInCollection()
+        {
+            // Setup
+            var emptyList = Enumerable.Empty<ChartData>().ToList();
+            var data = new ChartDataCollection(emptyList, "test");
+            var dataElement = new ChartLineData(Enumerable.Empty<Point2D>(), "test");
+            var nestedData = new ChartDataCollection(new ChartData[]
+            {
+                dataElement
+            }, "nested test");
+            
+            var newDataElement = new ChartPointData(Enumerable.Empty<Point2D>(), "another test");
+            var newNestedData = new ChartDataCollection(new ChartData[]
+            {
+                newDataElement
+            }, "another nested test");
+
+            data.Add(nestedData);
+
+            // Precondition
+            Assert.AreEqual(1, data.List.Count);
+            var nestedCollection = (ChartDataCollection)data.List[0];
+            Assert.IsInstanceOf<ChartLineData>(nestedCollection.List[0]);
+
+            // Call
+            data.Replace(nestedData, newNestedData);
+
+            // Assert
+            Assert.AreEqual(1, data.List.Count);
+            var newNestedCollection = (ChartDataCollection)data.List[0];
+            Assert.IsInstanceOf<ChartPointData>(newNestedCollection.List[0]);
         }
 
         [Test]

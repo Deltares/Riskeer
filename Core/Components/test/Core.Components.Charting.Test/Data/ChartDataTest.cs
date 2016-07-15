@@ -34,7 +34,7 @@ namespace Core.Components.Charting.Test.Data
         [TestCase(null)]
         [TestCase("   ")]
         [TestCase("")]
-        public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
+        public void ParameteredConstructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Call
             TestDelegate call = () => new TestChartData(invalidName);
@@ -44,7 +44,7 @@ namespace Core.Components.Charting.Test.Data
         }
 
         [Test]
-        public void Constructor_WithName_ExpectedValues()
+        public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
             var name = "Some name";
@@ -55,6 +55,7 @@ namespace Core.Components.Charting.Test.Data
             // Assert
             Assert.IsInstanceOf<Observable>(data);
             Assert.AreEqual(name, data.Name);
+            Assert.IsTrue(data.IsVisible);
         }
 
         [Test]

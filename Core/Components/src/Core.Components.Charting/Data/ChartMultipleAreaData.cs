@@ -56,13 +56,7 @@ namespace Core.Components.Charting.Data
             }
 
             Areas = areas.Select(area => area.ToList()).ToList();
-            IsVisible = true;
         }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the <see cref="ChartMultipleAreaData"/> is visible.
-        /// </summary>
-        public bool IsVisible { get; set; }
 
         /// <summary>
         /// Gets the areas that are described by the <see cref="ChartMultipleAreaData"/>.

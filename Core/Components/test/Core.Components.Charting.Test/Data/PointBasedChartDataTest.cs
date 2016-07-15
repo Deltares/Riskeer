@@ -79,7 +79,6 @@ namespace Core.Components.Charting.Test.Data
             // Assert
             Assert.AreNotSame(points, data.Points);
             CollectionAssert.AreEqual(points, data.Points);
-            Assert.IsTrue(data.IsVisible);
         }
     }
 

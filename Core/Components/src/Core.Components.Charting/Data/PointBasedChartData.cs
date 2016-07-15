@@ -48,13 +48,8 @@ namespace Core.Components.Charting.Data
                 throw new ArgumentNullException("points", message);
             }
             Points = points.ToArray();
-            IsVisible = true;
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether the <see cref="PointBasedChartData"/> is visible.
-        /// </summary>
-        public bool IsVisible { get; set; }
 
         /// <summary>
         /// Gets the collection of points in 2D space.

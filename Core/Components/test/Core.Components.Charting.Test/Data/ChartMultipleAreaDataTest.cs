@@ -82,7 +82,6 @@ namespace Core.Components.Charting.Test.Data
             // Assert
             Assert.IsInstanceOf<ChartData>(data);
             Assert.AreNotSame(areas, data.Areas);
-            Assert.IsTrue(data.IsVisible);
         }
 
         [Test]
