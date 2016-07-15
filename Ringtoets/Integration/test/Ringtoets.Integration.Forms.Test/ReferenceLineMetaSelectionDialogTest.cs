@@ -68,5 +68,20 @@ namespace Ringtoets.Integration.Forms.Test
                 Assert.AreEqual("Selecteer referentielijn", dialog.Text);
             }
         }
+
+        [Test]
+        public void OnLoad_Always_SetMinimumSize()
+        {
+            // Setup
+            using (var dialog = new ReferenceLineMetaSelectionDialog(new Form(), Enumerable.Empty<ReferenceLineMeta>()))
+            {
+                // Call
+                dialog.Show();
+
+                // Assert
+                Assert.AreEqual(300, dialog.MinimumSize.Width);
+                Assert.AreEqual(400, dialog.MinimumSize.Height);
+            }
+        }
     }
 }

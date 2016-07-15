@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Forms.Properties;
 
@@ -35,6 +36,12 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class ReferenceLineMetaSelectionView
     {
+        private enum SignalingLowerLimit
+        {
+            SignalingValue,
+            LowerLimitValue
+        }
+
         /// <summary>
         /// Creates a new instance of <see cref="ReferenceLineMetaSelectionView"/>.
         /// </summary>
@@ -47,20 +54,53 @@ namespace Ringtoets.Integration.Forms.Views
             }
             InitializeComponent();
 
-            SignalingLowerLimitComboBox.DataSource = GetSignalingLowerLimitComboBoxDataSource();
+            InitializeSignalingLowerLimitComboBox();
 
             ReferenceLineMetaDataGrid.AutoGenerateColumns = false;
             ReferenceLineMetaDataGrid.DataSource = referenceLineMetas.Select(rlm => new ReferenceLineMetaSelectionRow(rlm)).ToArray();
         }
 
-        private static IList<string> GetSignalingLowerLimitComboBoxDataSource()
+        public ReferenceLineMeta GetSelectedReferenceLineMeta()
         {
-            var datasourceList = new List<string>
+            var selectedRow = GetSelectedReferenceLineMetaSelectionRow();
+            return selectedRow == null ? null : selectedRow.ReferenceLineMeta;
+        }
+
+        public int? GetSelectedLimitValue()
+        {
+            var selectedRow = GetSelectedReferenceLineMetaSelectionRow();
+            if (selectedRow == null)
             {
-                Resources.ReferenceLineMetaSelectionView_SignalingValue_DisplayName,
-                Resources.ReferenceLineMetaSelectionView_LowerLimitValue_DisplayName
+                return null;
+            }
+
+            var selectedItemInComboBox = (SignalingLowerLimit)SignalingLowerLimitComboBox.SelectedValue;
+            return selectedItemInComboBox == SignalingLowerLimit.SignalingValue ?
+                       selectedRow.SignalingValue :
+                       selectedRow.LowerLimitValue;
+        }
+
+        private ReferenceLineMetaSelectionRow GetSelectedReferenceLineMetaSelectionRow()
+        {
+            var selectedRows = ReferenceLineMetaDataGrid.SelectedRows;
+            if (selectedRows.Count == 0)
+            {
+                return null;
+            }
+
+            var selectedRow = selectedRows[0];
+            return (ReferenceLineMetaSelectionRow) selectedRow.DataBoundItem;
+        }
+
+        private void InitializeSignalingLowerLimitComboBox()
+        {
+            SignalingLowerLimitComboBox.DataSource = new[]
+            {
+                Tuple.Create(SignalingLowerLimit.SignalingValue, Resources.ReferenceLineMetaSelectionView_SignalingValue_DisplayName),
+                Tuple.Create(SignalingLowerLimit.LowerLimitValue, Resources.ReferenceLineMetaSelectionView_LowerLimitValue_DisplayName)
             };
-            return datasourceList;
+            SignalingLowerLimitComboBox.ValueMember = TypeUtils.GetMemberName<Tuple<AssessmentSectionComposition, string>>(t => t.Item1);
+            SignalingLowerLimitComboBox.DisplayMember = TypeUtils.GetMemberName<Tuple<AssessmentSectionComposition, string>>(t => t.Item2);
         }
 
         private void eventLog1_EntryWritten(object sender, EntryWrittenEventArgs e) {}

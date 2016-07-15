@@ -52,6 +52,7 @@ namespace Ringtoets.Integration.Forms
         }
 
         public ReferenceLineMeta SelectedReferenceLineMeta { get; private set; }
+        public int? SelectedLimitValue { get; private set; }
 
         protected override Button GetCancelButton()
         {
@@ -62,6 +63,8 @@ namespace Ringtoets.Integration.Forms
 
         private void OkButtonOnClick(object sender, EventArgs e)
         {
+            SelectedReferenceLineMeta = SelectionView.GetSelectedReferenceLineMeta();
+            SelectedLimitValue = SelectionView.GetSelectedLimitValue();
             Close();
         }
 

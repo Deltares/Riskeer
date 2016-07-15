@@ -76,10 +76,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var signalingLowerLimitComboBox = (ComboBox) new ControlTester("SignalingLowerLimitComboBox").TheObject;
             Assert.AreEqual(2, signalingLowerLimitComboBox.Items.Count);
-            CollectionAssert.AreEqual(new[]
-            {
-                "Signaleringsnorm", "Ondergrens"
-            }, signalingLowerLimitComboBox.Items);
 
             var assessmentSectionIdColumn = (DataGridViewTextBoxColumn) referenceLineMetaDataGrid.Columns[assessmentSectionIdColumnIndex];
             Assert.AreEqual("AssessmentSectionId", assessmentSectionIdColumn.DataPropertyName);
@@ -122,6 +118,56 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(testname, (string) firstRow.Cells[assessmentSectionIdColumnIndex].Value);
             Assert.AreEqual(referenceLineMeta.SignalingValue, (int) firstRow.Cells[signalingValueColumnIndex].Value);
             Assert.AreEqual(referenceLineMeta.LowerLimitValue, (int) firstRow.Cells[lowerLimitColumnIndex].Value);
+        }
+
+        [Test]
+        public void GetSelectedReferenceLineMeta_ReferenceLineMetaSelected_ReturnsReferenceLineMeta()
+        {
+            // Setup
+            ReferenceLineMeta referenceLineMeta = TestReferenceLineMeta();
+            ReferenceLineMeta referenceLineMeta2 = TestReferenceLineMeta();
+
+            var view = new ReferenceLineMetaSelectionView(new[]
+            {
+                referenceLineMeta,
+                referenceLineMeta2
+            });
+
+            ShowReferenceLineSelectionView(view);
+
+            var referenceLineMetaDataGrid = (DataGridView) new ControlTester("ReferenceLineMetaDataGrid").TheObject;
+            referenceLineMetaDataGrid.Rows[0].Selected = true;
+
+            // Call
+            ReferenceLineMeta selectedReferenceLineMeta = view.GetSelectedReferenceLineMeta();
+
+            // Assert
+            Assert.AreEqual(referenceLineMeta, selectedReferenceLineMeta);
+        }
+
+        [Test]
+        [TestCase(0, 30000)]
+        [TestCase(1, 10000)]
+        public void GetSelectedLimitValue_ReferenceLineMetaSelected_ReturnsSelectedLimitValue(int selectedIndex, int expectedValue)
+        {
+            // Setup
+            ReferenceLineMeta referenceLineMeta = TestReferenceLineMeta();
+
+            var view = new ReferenceLineMetaSelectionView(new[]
+            {
+                referenceLineMeta
+            });
+
+            ShowReferenceLineSelectionView(view);
+
+            var signalingLowerLimitComboBox = (ComboBox) new ControlTester("SignalingLowerLimitComboBox").TheObject;
+            signalingLowerLimitComboBox.SelectedIndex = selectedIndex;
+
+            // Call
+            int? value = view.GetSelectedLimitValue();
+
+            // Assert
+            Assert.AreEqual(expectedValue, value);
         }
 
         private static ReferenceLineMeta TestReferenceLineMeta()
