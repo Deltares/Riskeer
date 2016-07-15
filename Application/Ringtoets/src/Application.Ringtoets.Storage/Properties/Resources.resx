@@ -142,4 +142,13 @@
   <data name="StorageSqLite_LoadProject_Invalid_Ringtoets_database_file" xml:space="preserve">
     <value>Het bestand is geen geldig Ringtoets bestand.</value>
   </data>
+  <data name="StorageSqLite_TryDeleteExistingTemporaryFile_Could_not_delete_existing_file_0" xml:space="preserve">
+    <value>Kon het reeds bestaande tijdelijk bestand '{0}' niet verwijderen.</value>
+  </data>
+  <data name="StorageSqLite_TryCreateTemporaryFile_Could_not_create_temporary_file_at_path_0" xml:space="preserve">
+    <value>Kon het tijdelijke bestand '{0}' niet aanmaken op de aangewezen locatie.</value>
+  </data>
+  <data name="StorageSqLite_TryMoveTemporaryFileToDestination_Could_not_overwrite_file_0" xml:space="preserve">
+    <value>Kon het bestand '{0}' niet overschrijven.</value>
+  </data>
 </root>

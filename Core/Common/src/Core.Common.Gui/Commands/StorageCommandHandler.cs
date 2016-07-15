@@ -234,8 +234,7 @@ namespace Core.Common.Gui.Commands
                 case DialogResult.Cancel:
                     return false;
                 case DialogResult.Yes:
-                    SaveProject();
-                    break;
+                    return SaveProject();
                 case DialogResult.No:
                     break;
             }

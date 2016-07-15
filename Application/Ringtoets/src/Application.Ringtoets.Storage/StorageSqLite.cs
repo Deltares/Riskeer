@@ -78,6 +78,7 @@ namespace Application.Ringtoets.Storage
             }
 
             SetConnectionToNewFile(databaseFilePath);
+
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
                 try
@@ -129,7 +130,15 @@ namespace Application.Ringtoets.Storage
                 throw new ArgumentNullException("project");
             }
 
-            SetConnectionToFile(databaseFilePath);
+            try
+            {
+                SetConnectionToExistingFile(databaseFilePath);
+            }
+            catch
+            {
+                return SaveProjectAs(databaseFilePath, project);
+            }
+
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
                 try
@@ -177,13 +186,18 @@ namespace Application.Ringtoets.Storage
         /// </exception>
         public Project LoadProject(string databaseFilePath)
         {
-            SetConnectionToFile(databaseFilePath);
+            SetConnectionToExistingFile(databaseFilePath);
             try
             {
                 using (var dbContext = new RingtoetsEntities(connectionString))
                 {
-                    var projectEntity = GetSingleProject(dbContext);
-                    if (projectEntity == null)
+                    ProjectEntity projectEntity;
+
+                    try
+                    {
+                        projectEntity = dbContext.ProjectEntities.Single();
+                    }
+                    catch (InvalidOperationException)
                     {
                         throw CreateStorageReaderException(Resources.StorageSqLite_LoadProject_Invalid_Ringtoets_database_file);
                     }
@@ -227,21 +241,160 @@ namespace Application.Ringtoets.Storage
 
                     return dbContext.ChangeTracker.HasChanges();
                 }
-                catch (EntityNotFoundException) {}
-                catch (SystemException) {}
-                return false;
+                catch (EntityNotFoundException)
+                {
+                    return true;
+                }
+                catch (SystemException)
+                {
+                    return true;
+                }
             }
         }
 
-        private ProjectEntity GetSingleProject(RingtoetsEntities dbContext)
+        /// <summary>
+        /// Attempts to set the connection to an existing storage file <paramref name="databaseFilePath"/>.
+        /// </summary>
+        /// <param name="databaseFilePath">Path to database file.</param>
+        /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
+        /// <exception cref="StorageException">Thrown when:<list type="bullet">
+        /// <item><paramref name="databaseFilePath"/> does not exist</item>
+        /// <item>the database has an invalid schema.</item>
+        /// </list>
+        /// </exception>
+        private void SetConnectionToExistingFile(string databaseFilePath)
+        {
+            FileUtils.ValidateFilePath(databaseFilePath);
+            SetConnectionToFile(databaseFilePath);
+        }
+
+        /// <summary>
+        /// Sets the connection to a newly created (empty) Ringtoets database file.
+        /// </summary>
+        /// <param name="databaseFilePath">Path to database file.</param>
+        /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
+        /// <exception cref="StorageException">Thrown when:<list type="bullet">
+        /// <item><paramref name="databaseFilePath"/> was not created</item>
+        /// <item>executing <c>DatabaseStructure</c> script failed</item>
+        /// </list>
+        /// </exception>
+        /// <exception cref="IOException">Thrown when the <paramref name="databaseFilePath"/> could not 
+        /// be overwritten.</exception>
+        private void SetConnectionToNewFile(string databaseFilePath)
+        {
+            FileUtils.ValidateFilePath(databaseFilePath);
+            CreateDatabaseStructureInFile(databaseFilePath);
+            SetConnectionToFile(databaseFilePath);
+        }
+
+        private void SetConnectionToFile(string databaseFilePath)
+        {
+            filePath = databaseFilePath;
+
+            if (!File.Exists(databaseFilePath))
+            {
+                throw CreateStorageReaderException(string.Empty, new CouldNotConnectException(UtilsResources.Error_File_does_not_exist));
+            }
+
+            connectionString = SqLiteConnectionStringBuilder.BuildSqLiteEntityConnectionString(databaseFilePath);
+
+            ValidateStorage();
+        }
+
+        /// <summary>
+        /// Validates if the connected storage is a valid Ringtoets database.
+        /// </summary>
+        /// <exception cref="StorageException">Thrown when the database does not contain the table <c>version</c>.</exception>
+        private void ValidateStorage()
+        {
+            using (var dbContext = new RingtoetsEntities(connectionString))
+            {
+                try
+                {
+                    dbContext.Database.Initialize(true);
+                    dbContext.VersionEntities.Load();
+                }
+                catch (Exception exception)
+                {
+                    throw CreateStorageReaderException(string.Empty, new StorageValidationException(string.Format(Resources.Error_Validating_Database_0, filePath), exception));
+                }
+            }
+        }
+
+        private static void CreateDatabaseStructureInFile(string databaseFilePath)
+        {
+            var temporaryFile = databaseFilePath + "~";
+
+            if (File.Exists(temporaryFile))
+            {
+                TryDeleteExistingTemporaryFile(temporaryFile);
+            }
+
+            TryCreateTemporaryFile(temporaryFile);
+            StorageSqliteCreator.CreateDatabaseStructure(temporaryFile);
+            TryMoveTemporaryFileToDestination(databaseFilePath, temporaryFile);
+        }
+
+        private static void TryMoveTemporaryFileToDestination(string databaseFilePath, string temporaryFile)
         {
             try
             {
-                return dbContext.ProjectEntities.Single();
+                File.Delete(databaseFilePath);
+                File.Move(temporaryFile, databaseFilePath);
             }
-            catch (InvalidOperationException)
+            catch (Exception e)
             {
-                return null;
+                if (e is ArgumentException || e is IOException || e is SystemException)
+                {
+                    var message = string.Format(Resources.StorageSqLite_TryMoveTemporaryFileToDestination_Could_not_overwrite_file_0, databaseFilePath);
+                    throw new IOException(message, e);
+                }
+                throw;
+            }
+            finally
+            {
+                try
+                {
+                    File.Delete(temporaryFile);
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+        }
+
+        private static void TryCreateTemporaryFile(string temporaryFile)
+        {
+            try
+            {
+                using (File.Create(temporaryFile)) {}
+            }
+            catch (Exception e)
+            {
+                if (e is ArgumentException || e is IOException || e is SystemException)
+                {
+                    var message = string.Format(Resources.StorageSqLite_TryCreateTemporaryFile_Could_not_create_temporary_file_at_path_0, temporaryFile);
+                    throw new IOException(message, e);
+                }
+                throw;
+            }
+        }
+
+        private static void TryDeleteExistingTemporaryFile(string temporaryFile)
+        {
+            try
+            {
+                File.Delete(temporaryFile);
+            }
+            catch (Exception e)
+            {
+                if (e is ArgumentException || e is IOException || e is SystemException)
+                {
+                    var message = string.Format(Resources.StorageSqLite_TryDeleteExistingTemporaryFile_Could_not_delete_existing_file_0, temporaryFile);
+                    throw new IOException(message, e);
+                }
+                throw;
             }
         }
 
@@ -267,69 +420,6 @@ namespace Application.Ringtoets.Storage
         {
             var message = new FileReaderErrorMessageBuilder(filePath).Build(errorMessage);
             return new StorageException(message, innerException);
-        }
-
-        /// <summary>
-        /// Attempts to set the connection to an existing storage file <paramref name="databaseFilePath"/>.
-        /// </summary>
-        /// <param name="databaseFilePath">Path to database file.</param>
-        /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
-        /// <exception cref="StorageException">Thrown when:<list type="bullet">
-        /// <item><paramref name="databaseFilePath"/> does not exist</item>
-        /// <item>the database does not contain the table <c>version</c>.</item>
-        /// </list>
-        /// </exception>
-        private void SetConnectionToFile(string databaseFilePath)
-        {
-            FileUtils.ValidateFilePath(databaseFilePath);
-            filePath = databaseFilePath;
-
-            if (!File.Exists(databaseFilePath))
-            {
-                throw CreateStorageReaderException(string.Empty, new CouldNotConnectException(UtilsResources.Error_File_does_not_exist));
-            }
-
-            connectionString = SqLiteConnectionStringBuilder.BuildSqLiteEntityConnectionString(databaseFilePath);
-
-            ValidateStorage();
-        }
-
-        /// <summary>
-        /// Sets the connection to a newly created (empty) Ringtoets database file.
-        /// </summary>
-        /// <param name="databaseFilePath">Path to database file.</param>
-        /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
-        /// <exception cref="StorageException">Thrown when:<list type="bullet">
-        /// <item><paramref name="databaseFilePath"/> was not created</item>
-        /// <item>executing <c>DatabaseStructure</c> script failed</item>
-        /// <item>the database does not contain the table <c>version</c>.</item>
-        /// </list>
-        /// </exception>
-        private void SetConnectionToNewFile(string databaseFilePath)
-        {
-            StorageSqliteCreator.CreateDatabaseStructure(databaseFilePath);
-
-            SetConnectionToFile(databaseFilePath);
-        }
-
-        /// <summary>
-        /// Validates if the connected storage is a valid Ringtoets database.
-        /// </summary>
-        /// <exception cref="StorageException">Thrown when the database does not contain the table <c>version</c>.</exception>
-        private void ValidateStorage()
-        {
-            using (var dbContext = new RingtoetsEntities(connectionString))
-            {
-                try
-                {
-                    dbContext.Database.Initialize(true);
-                    dbContext.VersionEntities.Load();
-                }
-                catch (Exception exception)
-                {
-                    throw CreateStorageReaderException(string.Empty, new StorageValidationException(string.Format(Resources.Error_Validating_Database_0, filePath), exception));
-                }
-            }
         }
     }
 }

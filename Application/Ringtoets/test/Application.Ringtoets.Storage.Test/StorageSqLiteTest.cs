@@ -294,7 +294,7 @@ namespace Application.Ringtoets.Storage.Test
         public void SaveProjectAs_ValidPathToLockedFile_ThrowsUpdateStorageException()
         {
             // Setup
-            var expectedMessage = String.Format(@"Fout bij het schrijven naar bestand '{0}': Een fout is opgetreden met schrijven naar het nieuwe Ringtoets bestand.", tempRingtoetsFile);
+            var expectedMessage = string.Format(@"Kon het bestand '{0}' niet overschrijven.", tempRingtoetsFile);
             var project = new Project();
             var storage = new StorageSqLite();
 
@@ -304,15 +304,15 @@ namespace Application.Ringtoets.Storage.Test
                 // Call
                 TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile, project);
 
-                StorageException exception;
+                IOException exception;
                 using (File.Create(tempRingtoetsFile)) // Locks file
                 {
-                    exception = Assert.Throws<StorageException>(test);
+                    exception = Assert.Throws<IOException>(test);
                 }
 
                 // Assert
                 Assert.IsInstanceOf<Exception>(exception);
-                Assert.IsInstanceOf<UpdateStorageException>(exception.InnerException);
+                Assert.IsInstanceOf<IOException>(exception.InnerException);
                 Assert.IsInstanceOf<Exception>(exception);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
@@ -369,7 +369,7 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        public void SaveProject_ValidProjectNonExistingPath_ThrowsStorageExceptionAndCouldNotConnectException()
+        public void SaveProject_ValidProjectNonExistingPath_NewFileCreated()
         {
             // Setup
             var project = new Project
@@ -377,20 +377,21 @@ namespace Application.Ringtoets.Storage.Test
                 StorageId = 1234L
             };
             var tempFile = Path.Combine(testDataPath, "DoesNotExist.rtd");
-            var expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': ", tempFile);
-            var expectedInnerMessage = "Het bestand bestaat niet.";
             var storage = new StorageSqLite();
 
-            // Call
-            TestDelegate test = () => storage.SaveProject(tempFile, project);
+            try
+            {
+                // Call
+                storage.SaveProject(tempFile, project);
 
-            // Assert
-            StorageException exception = Assert.Throws<StorageException>(test);
-            Assert.IsInstanceOf<Exception>(exception);
-            Assert.AreEqual(expectedMessage, exception.Message);
-
-            Assert.IsInstanceOf<CouldNotConnectException>(exception.InnerException);
-            Assert.AreEqual(expectedInnerMessage, exception.InnerException.Message);
+                // Assert
+                Assert.IsTrue(File.Exists(tempFile));
+            }
+            finally
+            {
+                CallGarbageCollector();
+                File.Delete(tempFile);
+            }
         }
 
         [Test]
