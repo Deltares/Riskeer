@@ -25,6 +25,25 @@ using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
+using Application.Ringtoets.Storage.Update.ClosingStructure;
+using Application.Ringtoets.Storage.Update.DuneErosion;
+using Application.Ringtoets.Storage.Update.GrassCoverErosionInwards;
+using Application.Ringtoets.Storage.Update.GrassCoverErosionOutwards;
+using Application.Ringtoets.Storage.Update.GrassCoverSlipOffInwards;
+using Application.Ringtoets.Storage.Update.GrassCoverSlipOffOutwards;
+using Application.Ringtoets.Storage.Update.HeightStructures;
+using Application.Ringtoets.Storage.Update.MacrostabilityInwards;
+using Application.Ringtoets.Storage.Update.MacrostabilityOutwards;
+using Application.Ringtoets.Storage.Update.Microstability;
+using Application.Ringtoets.Storage.Update.Piping;
+using Application.Ringtoets.Storage.Update.PipingStructure;
+using Application.Ringtoets.Storage.Update.StabilityStoneCover;
+using Application.Ringtoets.Storage.Update.StrengthStabilityLengthwiseConstruction;
+using Application.Ringtoets.Storage.Update.StrengthStabilityPointConstruction;
+using Application.Ringtoets.Storage.Update.TechnicalInnovation;
+using Application.Ringtoets.Storage.Update.WaterPressureAsphaltCover;
+using Application.Ringtoets.Storage.Update.WaveImpactAsphaltCover;
+
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
@@ -77,24 +96,24 @@ namespace Application.Ringtoets.Storage.Update
 
         private static void UpdateFailureMechanisms(AssessmentSection section, PersistenceRegistry registry, IRingtoetsEntities context)
         {
-            section.PipingFailureMechanism.Update(registry, context);
-            section.GrassCoverErosionInwards.Update(registry, context);
-            section.MacrostabilityInwards.Update(registry, context);
-            section.MacrostabilityOutwards.Update(registry, context);
-            section.Microstability.Update(registry, context);
-            section.StabilityStoneCover.Update(registry, context);
-            section.WaveImpactAsphaltCover.Update(registry, context);
-            section.WaterPressureAsphaltCover.Update(registry, context);
-            section.GrassCoverErosionOutwards.Update(registry, context);
-            section.GrassCoverSlipOffOutwards.Update(registry, context);
-            section.GrassCoverSlipOffInwards.Update(registry, context);
-            section.HeightStructures.Update(registry, context);
-            section.ClosingStructure.Update(registry, context);
-            section.PipingStructure.Update(registry, context);
-            section.StrengthStabilityPointConstruction.Update(registry, context);
-            section.StrengthStabilityLengthwiseConstruction.Update(registry, context);
-            section.DuneErosion.Update(registry, context);
-            section.TechnicalInnovation.Update(registry, context);
+            PipingFailureMechanismUpdateExtensions.Update(section.PipingFailureMechanism, registry, context);
+            GrassCoverErosionInwardsFailureMechanismUpdateExtensions.Update(section.GrassCoverErosionInwards, registry, context);
+            MacrostabilityInwardsFailureMechanismUpdateExtensions.Update(section.MacrostabilityInwards, registry, context);
+            MacrostabilityOutwardsFailureMechanismUpdateExtensions.Update(section.MacrostabilityOutwards, registry, context);
+            MicrostabilityFailureMechanismUpdateExtensions.Update(section.Microstability, registry, context);
+            StabilityStoneCoverFailureMechanismUpdateExtensions.Update(section.StabilityStoneCover, registry, context);
+            WaveImpactAsphaltCoverFailureMechanismUpdateExtensions.Update(section.WaveImpactAsphaltCover, registry, context);
+            WaterPressureAsphaltCoverFailureMechanismUpdateExtensions.Update(section.WaterPressureAsphaltCover, registry, context);
+            GrassCoverErosionOutwardsFailureMechanismUpdateExtensions.Update(section.GrassCoverErosionOutwards, registry, context);
+            GrassCoverSlipOffOutwardsFailureMechanismUpdateExtensions.Update(section.GrassCoverSlipOffOutwards, registry, context);
+            GrassCoverSlipOffInwardsFailureMechanismUpdateExtensions.Update(section.GrassCoverSlipOffInwards, registry, context);
+            HeightStructuresFailureMechanismUpdateExtensions.Update(section.HeightStructures, registry, context);
+            ClosingStructureFailureMechanismUpdateExtensions.Update(section.ClosingStructure, registry, context);
+            PipingStructureFailureMechanismUpdateExtensions.Update(section.PipingStructure, registry, context);
+            StrengthStabilityPointConstructionFailureMechanismUpdateExtensions.Update(section.StrengthStabilityPointConstruction, registry, context);
+            StrengthStabilityLengthwiseConstructionFailureMechanismUpdateExtensions.Update(section.StrengthStabilityLengthwiseConstruction, registry, context);
+            DuneErosionFailureMechanismUpdateExtensions.Update(section.DuneErosion, registry, context);
+            TechnicalInnovationFailureMechanismUpdateExtensions.Update(section.TechnicalInnovation, registry, context);
         }
 
         private static void UpdateReferenceLine(AssessmentSection section, AssessmentSectionEntity entity, IRingtoetsEntities context)

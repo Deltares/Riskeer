@@ -26,6 +26,8 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
+using Application.Ringtoets.Storage.Update.Piping;
+
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
 
