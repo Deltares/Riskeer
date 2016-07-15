@@ -53,6 +53,11 @@ namespace Ringtoets.Integration.Forms
 
         public ReferenceLineMeta SelectedReferenceLineMeta { get; private set; }
 
+        protected override Button GetCancelButton()
+        {
+            return Cancel;
+        }
+
         private ReferenceLineMetaSelectionView SelectionView { get; set; }
 
         private void OkButtonOnClick(object sender, EventArgs e)
