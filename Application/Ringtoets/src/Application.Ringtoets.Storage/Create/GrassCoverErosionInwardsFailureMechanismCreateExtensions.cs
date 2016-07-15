@@ -47,6 +47,8 @@ namespace Application.Ringtoets.Storage.Create
             AddEntitiesForDikeProfiles(mechanism, registry, entity);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
+            entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
+
             registry.Register(entity, mechanism);
             return entity;
         }

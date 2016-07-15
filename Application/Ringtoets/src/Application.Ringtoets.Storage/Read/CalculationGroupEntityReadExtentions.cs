@@ -44,7 +44,8 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <param name="generalPipingInput">The calculation input parameters for piping.</param>
         /// <returns>A new <see cref="CalculationGroup"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/>
+        /// or <paramref name="generalPipingInput"/> is <c>null</c>.</exception>
         internal static CalculationGroup ReadPipingCalculationGroup(this CalculationGroupEntity entity, ReadConversionCollector collector,
                                                                     GeneralPipingInput generalPipingInput)
         {
@@ -56,10 +57,12 @@ namespace Application.Ringtoets.Storage.Read
             {
                 throw new ArgumentNullException("generalPipingInput");
             }
+
             var group = new CalculationGroup(entity.Name, Convert.ToBoolean(entity.IsEditable))
             {
                 StorageId = entity.CalculationGroupEntityId
             };
+
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
                 var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
@@ -77,6 +80,46 @@ namespace Application.Ringtoets.Storage.Read
             return group;
         }
 
+        /// <summary>
+        /// Read the <see cref="CalculationGroupEntity"/> and use the information to construct
+        /// a <see cref="CalculationGroup"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="CalculationGroupEntity"/> to create 
+        /// <see cref="CalculationGroup"/> for.</param>
+        /// <param name="collector">The object keeping track of read operations.</param>
+        /// <returns>A new <see cref="CalculationGroup"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
+        internal static CalculationGroup ReadAsGrassCoverErosionInwardsCalculationGroup(this CalculationGroupEntity entity,
+                                                                                        ReadConversionCollector collector)
+        {
+            if (collector == null)
+            {
+                throw new ArgumentNullException("collector");
+            }
+
+            var group = new CalculationGroup(entity.Name, Convert.ToBoolean(entity.IsEditable))
+            {
+                StorageId = entity.CalculationGroupEntityId
+            };
+
+            foreach (object childEntity in GetChildEntitiesInOrder(entity))
+            {
+                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
+                if (childCalculationGroupEntity != null)
+                {
+                    group.Children.Add(childCalculationGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector));
+                }
+                var childPipingCalculationEntity = childEntity as GrassCoverErosionInwardsCalculationEntity;
+                if (childPipingCalculationEntity != null)
+                {
+                    // TODO
+                    //group.Children.Add(childPipingCalculationEntity.Read(collector, generalPipingInput));
+                }
+            }
+
+            return group;
+        }
+
         private static IEnumerable GetChildEntitiesInOrder(CalculationGroupEntity entity)
         {
             var sortedList = new SortedList();
@@ -88,6 +131,7 @@ namespace Application.Ringtoets.Storage.Read
             {
                 sortedList.Add(pipingCalculationEntity.Order, pipingCalculationEntity);
             }
+            //TODO Grass Cover Erosion Inwards Calculations
             return sortedList.Values;
         }
     }

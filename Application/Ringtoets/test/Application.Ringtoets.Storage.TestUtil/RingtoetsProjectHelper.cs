@@ -294,6 +294,18 @@ namespace Application.Ringtoets.Storage.TestUtil
                                                                   Orientation = 7.7,
                                                                   X0 = 8.8
                                                               }));
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Name = "GEKB A"
+            });
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Name = "GEKB B"
+            });
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Name = "GEKB C"
+            });
         }
 
         private static void SetSectionResults(IEnumerable<PipingFailureMechanismSectionResult> sectionResults)

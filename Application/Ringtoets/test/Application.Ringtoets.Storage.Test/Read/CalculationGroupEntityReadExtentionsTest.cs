@@ -297,5 +297,126 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual("group2", rootChildGroup2.Name);
             Assert.AreEqual(4, rootChildGroup2.StorageId);
         }
+
+        [Test]
+        public void ReadAsGrassCoverErosionInwardsCalculationGroup_CollectorIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var entity = new CalculationGroupEntity();
+
+            // Call
+            TestDelegate call = () => entity.ReadAsGrassCoverErosionInwardsCalculationGroup(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("collector", paramName);
+        }
+
+        [Test]
+        [TestCase(345, "HAbba", 1)]
+        [TestCase(45, "Dooeis", 0)]
+        public void ReadAsGrassCoverErosionInwardsCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren(
+            long id, string name, byte isEditable)
+        {
+            // Setup
+            var entity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = id,
+                Name = name,
+                IsEditable = isEditable
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            CalculationGroup group = entity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector);
+
+            // Assert
+            Assert.AreEqual(id, group.StorageId);
+            Assert.AreEqual(name, group.Name);
+            Assert.AreEqual(Convert.ToBoolean(isEditable), group.IsNameEditable);
+            CollectionAssert.IsEmpty(group.Children);
+        }
+
+        [Test]
+        public void ReadAsGrassCoverErosionInwardsCalculationGroup_EntityWithChildGroups_CreateCalculationGroupWithChildGroups()
+        {
+            // Setup
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = 1,
+                Name = "A",
+                CalculationGroupEntity1 =
+                {
+                    new CalculationGroupEntity
+                    {
+                        CalculationGroupEntityId = 2,
+                        Name = "AA",
+                        IsEditable = 1,
+                        Order = 0
+                    },
+                    new CalculationGroupEntity
+                    {
+                        CalculationGroupEntityId = 3,
+                        Name = "AB",
+                        IsEditable = 0,
+                        CalculationGroupEntity1 =
+                        {
+                            new CalculationGroupEntity
+                            {
+                                CalculationGroupEntityId = 4,
+                                Name = "ABA",
+                                IsEditable = 0,
+                                Order = 0
+                            },
+                            new CalculationGroupEntity
+                            {
+                                CalculationGroupEntityId = 5,
+                                Name = "ABB",
+                                IsEditable = 1,
+                                Order = 1
+                            }
+                        },
+                        Order = 1
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var rootGroup = rootGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector);
+
+            // Assert
+            Assert.AreEqual(1, rootGroup.StorageId);
+            Assert.AreEqual("A", rootGroup.Name);
+            Assert.IsFalse(rootGroup.IsNameEditable);
+
+            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
+            var rootChildGroup1 = (CalculationGroup)rootChildren[0];
+            Assert.AreEqual("AA", rootChildGroup1.Name);
+            Assert.AreEqual(2, rootChildGroup1.StorageId);
+            Assert.IsTrue(rootChildGroup1.IsNameEditable);
+            CollectionAssert.IsEmpty(rootChildGroup1.Children);
+            var rootChildGroup2 = (CalculationGroup)rootChildren[1];
+            Assert.AreEqual("AB", rootChildGroup2.Name);
+            Assert.AreEqual(3, rootChildGroup2.StorageId);
+            Assert.IsFalse(rootChildGroup2.IsNameEditable);
+
+            ICalculationBase[] rootChildGroup2Children = rootChildGroup2.Children.ToArray();
+            var rootChildGroup1Child1 = (CalculationGroup)rootChildGroup2Children[0];
+            Assert.AreEqual("ABA", rootChildGroup1Child1.Name);
+            Assert.AreEqual(4, rootChildGroup1Child1.StorageId);
+            Assert.IsFalse(rootChildGroup1Child1.IsNameEditable);
+            CollectionAssert.IsEmpty(rootChildGroup1Child1.Children);
+            var rootChildGroup1Child2 = (CalculationGroup)rootChildGroup2Children[1];
+            Assert.AreEqual("ABB", rootChildGroup1Child2.Name);
+            Assert.AreEqual(5, rootChildGroup1Child2.StorageId);
+            Assert.IsTrue(rootChildGroup1Child2.IsNameEditable);
+            CollectionAssert.IsEmpty(rootChildGroup1Child2.Children);
+        }
+
+        // TODO Calculations
+        // TODO Groups and Calculations
     }
 }

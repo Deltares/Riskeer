@@ -252,6 +252,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 GrassCoverErosionInwards =
                 {
                     StorageId = 1,
+                    CalculationsGroup =
+                    {
+                        StorageId = 854563
+                    },
                     GeneralInput =
                     {
                         StorageId = 3
@@ -349,6 +353,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.CalculationGroupEntities.Add(new CalculationGroupEntity
             {
                 CalculationGroupEntityId = section.PipingFailureMechanism.CalculationsGroup.StorageId
+            });
+            ringtoetsEntities.CalculationGroupEntities.Add(new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = section.GrassCoverErosionInwards.CalculationsGroup.StorageId
             });
             ringtoetsEntities.FailureMechanismEntities.Add(new FailureMechanismEntity
             {

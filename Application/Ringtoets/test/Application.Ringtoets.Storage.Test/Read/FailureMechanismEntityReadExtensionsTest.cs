@@ -39,6 +39,8 @@ namespace Application.Ringtoets.Storage.Test.Read
     [TestFixture]
     public class FailureMechanismEntityReadExtensionsTest
     {
+        #region Piping
+
         [Test]
         public void ReadAsPipingFailureMechanism_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
@@ -52,7 +54,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("failureMechanism", parameter);
         }
-        
+
         [Test]
         public void ReadAsPipingFailureMechanism_WithoutCollector_ThrowsArgumentNullException()
         {
@@ -255,12 +257,16 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             ICalculationBase child1 = failureMechanism.CalculationsGroup.Children[0];
             Assert.AreEqual("Child1", child1.Name);
-            Assert.AreEqual(childGroup1Id, ((CalculationGroup) child1).StorageId);
+            Assert.AreEqual(childGroup1Id, ((CalculationGroup)child1).StorageId);
 
             ICalculationBase child2 = failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual("Child2", child2.Name);
-            Assert.AreEqual(childGroup2Id, ((CalculationGroup) child2).StorageId);
+            Assert.AreEqual(childGroup2Id, ((CalculationGroup)child2).StorageId);
         }
+
+        #endregion
+
+        #region Grass Cover Erosion Inwards
 
         [Test]
         [TestCase(true)]
@@ -283,6 +289,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                         GrassCoverErosionInwardsFailureMechanismMetaEntityId = inputId,
                         N = 3
                     }
+                },
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    CalculationGroupEntityId = 456
                 }
             };
             var collector = new ReadConversionCollector();
@@ -335,6 +345,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                         DikeGeometryData = emptyDikeGeometryBinaryData,
                         ForeShoreData = emptyForeshoreBinaryData
                     }
+                },
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    CalculationGroupEntityId = 567
                 }
             };
             GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -382,6 +396,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                         GrassCoverErosionInwardsFailureMechanismMetaEntityId = 2,
                         N = 1
                     }
+                },
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    CalculationGroupEntityId = 9867
                 }
             };
             var collector = new ReadConversionCollector();
@@ -394,6 +412,74 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(1, failureMechanism.Sections.Count());
             Assert.AreEqual(entityId, failureMechanism.SectionResults.First().StorageId);
         }
+
+        [Test]
+        public void ReadAsGrassCoverErosionInwardsFailureMechanism_WithCalculationGroup_ReturnsNewGrassCoverErosionInwardsFailureMechanismWithCalculationGroupSet()
+        {
+            // Setup
+            var entityId = new Random(984356).Next(1, 502);
+            const int rootGroupId = 1;
+            const int childGroup1Id = 2;
+            const int childGroup2Id = 3;
+
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = entityId,
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    CalculationGroupEntityId = rootGroupId,
+                    IsEditable = 0,
+                    Name = "Berekeningen",
+                    Order = 0,
+                    CalculationGroupEntity1 =
+                    {
+                        new CalculationGroupEntity
+                        {
+                            CalculationGroupEntityId = childGroup1Id,
+                            IsEditable = 1,
+                            Name = "Child1",
+                            Order = 0
+                        },
+                        new CalculationGroupEntity
+                        {
+                            CalculationGroupEntityId = childGroup2Id,
+                            IsEditable = 1,
+                            Name = "Child2",
+                            Order = 1
+                        },
+                    }
+                },
+                GrassCoverErosionInwardsFailureMechanismMetaEntities =
+                {
+                    new GrassCoverErosionInwardsFailureMechanismMetaEntity
+                    {
+                        GrassCoverErosionInwardsFailureMechanismMetaEntityId = 3456,
+                        N = 1
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsGrassCoverErosionInwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(rootGroupId, failureMechanism.CalculationsGroup.StorageId);
+            Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
+
+            ICalculationBase child1 = failureMechanism.CalculationsGroup.Children[0];
+            Assert.AreEqual("Child1", child1.Name);
+            Assert.AreEqual(childGroup1Id, ((CalculationGroup)child1).StorageId);
+
+            ICalculationBase child2 = failureMechanism.CalculationsGroup.Children[1];
+            Assert.AreEqual("Child2", child2.Name);
+            Assert.AreEqual(childGroup2Id, ((CalculationGroup)child2).StorageId);
+        }
+
+        // TODO Calculations
+
+        #endregion
 
         [Test]
         [TestCase(true)]

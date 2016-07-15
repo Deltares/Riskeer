@@ -30,6 +30,8 @@ using Application.Ringtoets.Storage.Update;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
+
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -141,6 +143,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 {
                     StorageId = 62981,
                     N = 13
+                },
+                CalculationsGroup =
+                {
+                    StorageId = 209
                 }
             };
 
@@ -149,6 +155,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 GrassCoverErosionInwardsFailureMechanismMetaEntityId = failureMechanism.GeneralInput.StorageId,
                 N = 2
             };
+            var rootCalculationGroup = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = failureMechanism.CalculationsGroup.StorageId
+            };
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = failureMechanism.StorageId,
@@ -156,10 +166,12 @@ namespace Application.Ringtoets.Storage.Test.Update
                 GrassCoverErosionInwardsFailureMechanismMetaEntities =
                 {
                     generalInputEntity
-                }
+                },
+                CalculationGroupEntity = rootCalculationGroup
             };
 
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroup);
             ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(generalInputEntity);
 
             // Call
@@ -203,14 +215,24 @@ namespace Application.Ringtoets.Storage.Test.Update
                                         new RoughnessPoint(new Point2D(4, 4), 1)
                                     },
                                     new Point2D[0], null, new DikeProfile.ConstructionProperties())
+                },
+                CalculationsGroup =
+                {
+                    StorageId = 765
                 }
             };
 
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = failureMechanism.CalculationsGroup.StorageId
+            };
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = failureMechanism.StorageId,
+                CalculationGroupEntity = rootGroupEntity
             };
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(rootGroupEntity);
             ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
             {
                 GrassCoverErosionInwardsFailureMechanismMetaEntityId = failureMechanism.GeneralInput.StorageId
@@ -261,14 +283,24 @@ namespace Application.Ringtoets.Storage.Test.Update
                     {
                         StorageId = 4
                     }
+                },
+                CalculationsGroup =
+                {
+                    StorageId = 405986
                 }
             };
 
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = failureMechanism.CalculationsGroup.StorageId
+            };
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = failureMechanism.StorageId,
+                CalculationGroupEntity = rootGroupEntity
             };
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(rootGroupEntity);
             ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
             {
                 GrassCoverErosionInwardsFailureMechanismMetaEntityId = failureMechanism.GeneralInput.StorageId
@@ -309,6 +341,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 GeneralInput =
                 {
                     StorageId = 2
+                },
+                CalculationsGroup =
+                {
+                    StorageId = 30495
                 }
             };
             failureMechanism.AddSection(new FailureMechanismSection("", new[]
@@ -316,12 +352,18 @@ namespace Application.Ringtoets.Storage.Test.Update
                 new Point2D(0, 0)
             }));
 
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = failureMechanism.CalculationsGroup.StorageId
+            };
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = failureMechanism.StorageId,
+                CalculationGroupEntity = rootGroupEntity
             };
 
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(rootGroupEntity);
             ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
             {
                 GrassCoverErosionInwardsFailureMechanismMetaEntityId = failureMechanism.GeneralInput.StorageId
@@ -352,6 +394,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 GeneralInput =
                 {
                     StorageId = 2
+                },
+                CalculationsGroup =
+                {
+                    StorageId = 4968
                 }
             };
             var testName = "testName";
@@ -363,9 +409,13 @@ namespace Application.Ringtoets.Storage.Test.Update
                 StorageId = 1
             });
 
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = failureMechanism.CalculationsGroup.StorageId
+            };
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
-                FailureMechanismSectionEntityId = 1,
+                FailureMechanismSectionEntityId = 1
             };
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -373,10 +423,12 @@ namespace Application.Ringtoets.Storage.Test.Update
                 FailureMechanismSectionEntities =
                 {
                     failureMechanismSectionEntity
-                }
+                },
+                CalculationGroupEntity = rootGroupEntity
             };
 
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(rootGroupEntity);
             ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
             {
                 GrassCoverErosionInwardsFailureMechanismMetaEntityId = failureMechanism.GeneralInput.StorageId
@@ -391,6 +443,140 @@ namespace Application.Ringtoets.Storage.Test.Update
             Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionInwardsSectionResultEntities).Count());
             Assert.AreEqual(testName, failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(0).Name);
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ContextWithNewCalculationGroup_CalculationGroupEntityAdded()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                StorageId = 1,
+                CalculationsGroup =
+                {
+                    StorageId = 1
+                },
+                GeneralInput =
+                {
+                    StorageId = 2
+                }
+            };
+            var newCalculationGroup = new CalculationGroup
+            {
+                Name = "new group"
+            };
+            failureMechanism.CalculationsGroup.Children.Add(newCalculationGroup);
+
+            var rootCalculationGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = failureMechanism.CalculationsGroup.StorageId,
+                Name = "Berekeningen",
+                IsEditable = 0,
+                Order = 0
+            };
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = failureMechanism.StorageId,
+                CalculationGroupEntity = rootCalculationGroupEntity
+            };
+            ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
+            ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
+            {
+                GrassCoverErosionInwardsFailureMechanismMetaEntityId = failureMechanism.GeneralInput.StorageId,
+                FailureMechanismEntityId = failureMechanism.StorageId
+            });
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            failureMechanism.Update(registry, ringtoetsEntities);
+
+            // Assert
+            Assert.AreEqual(1, rootCalculationGroupEntity.CalculationGroupEntity1.Count);
+            CalculationGroupEntity newlyAddedGroupEntity = rootCalculationGroupEntity.CalculationGroupEntity1.First();
+            Assert.AreEqual(newCalculationGroup.Name, newlyAddedGroupEntity.Name);
+            Assert.AreEqual(1, newlyAddedGroupEntity.IsEditable);
+            Assert.AreEqual(0, newlyAddedGroupEntity.Order);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ContextWithUnchangedCalculationGroup_NoNewCalculationGroupEntityAdded()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                StorageId = 1,
+                CalculationsGroup =
+                {
+                    StorageId = 1
+                },
+                GeneralInput = 
+                {
+                    StorageId = 1
+                }
+            };
+            var alreadySavedChildGroup = new CalculationGroup
+            {
+                Name = "saved child group",
+                StorageId = 2
+            };
+            failureMechanism.CalculationsGroup.Children.Add(alreadySavedChildGroup);
+
+            var childGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = alreadySavedChildGroup.StorageId,
+                Name = alreadySavedChildGroup.Name,
+                IsEditable = 1,
+                Order = 0
+            };
+            var rootCalculationGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = failureMechanism.CalculationsGroup.StorageId,
+                Name = "Berekeningen",
+                IsEditable = 0,
+                Order = 0,
+                CalculationGroupEntity1 =
+                {
+                    childGroupEntity
+                }
+            };
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = failureMechanism.StorageId,
+                CalculationGroupEntity = rootCalculationGroupEntity
+            };
+            ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(rootCalculationGroupEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(childGroupEntity);
+            ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
+            {
+                GrassCoverErosionInwardsFailureMechanismMetaEntityId = failureMechanism.GeneralInput.StorageId,
+                FailureMechanismEntityId = failureMechanism.StorageId
+            });
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            failureMechanism.Update(registry, ringtoetsEntities);
+
+            // Assert
+            Assert.AreEqual(1, rootCalculationGroupEntity.CalculationGroupEntity1.Count);
+            CalculationGroupEntity retainedCalculationGroupEntity = rootCalculationGroupEntity.CalculationGroupEntity1.First();
+            Assert.AreEqual(alreadySavedChildGroup.Name, retainedCalculationGroupEntity.Name);
+            Assert.AreEqual(1, retainedCalculationGroupEntity.IsEditable);
+            Assert.AreEqual(0, retainedCalculationGroupEntity.Order);
+            Assert.AreEqual(alreadySavedChildGroup.StorageId, retainedCalculationGroupEntity.CalculationGroupEntityId);
             mocks.VerifyAll();
         }
     }

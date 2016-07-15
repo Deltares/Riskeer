@@ -28,6 +28,8 @@ using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 
 using NUnit.Framework;
+
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create
@@ -162,5 +164,40 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(2, entity.DikeProfileEntities.Count);
         }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Create_WithCalculationGroup_ReturnFailureMechanismEntityWithCalculationGroupEntities(bool isRelevant)
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup("A", true));
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup("B", true));
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreEqual(failureMechanism.CalculationsGroup.Name, entity.CalculationGroupEntity.Name);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.CalculationsGroup.IsNameEditable), entity.CalculationGroupEntity.IsEditable);
+            Assert.AreEqual(0, entity.CalculationGroupEntity.Order);
+
+            CalculationGroupEntity[] childGroupEntities = entity.CalculationGroupEntity.CalculationGroupEntity1
+                                                                .OrderBy(cge => cge.Order)
+                                                                .ToArray();
+            Assert.AreEqual(2, childGroupEntities.Length);
+            Assert.AreEqual("A", childGroupEntities[0].Name);
+            Assert.AreEqual(1, childGroupEntities[0].IsEditable);
+            Assert.AreEqual(0, childGroupEntities[0].Order);
+            Assert.AreEqual("B", childGroupEntities[1].Name);
+            Assert.AreEqual(1, childGroupEntities[1].IsEditable);
+            Assert.AreEqual(1, childGroupEntities[1].Order);
+        }
+
+        // TODO: With calculations in root folder
     }
 }

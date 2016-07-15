@@ -805,6 +805,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     AssertPipingCalculationScenario(expectedPipingCalculation, (PipingCalculationScenario) actualChild);
                 }
+                // TODO GEBK Berekening
             }
         }
 
@@ -883,11 +884,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private static void AssertGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism expectedFailureMechanism,
+        private void AssertGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism expectedFailureMechanism,
                                                                            GrassCoverErosionInwardsFailureMechanism actualFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
             AssertDikeProfiles(expectedFailureMechanism.DikeProfiles, actualFailureMechanism.DikeProfiles);
+            AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
         }
 
         private static void AssertDikeProfiles(IList<DikeProfile> expectedDikeProfiles, IList<DikeProfile> actualDikeProfiles)

@@ -412,6 +412,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = CreateAssessmentSectionEntity();
             var entityId = new Random(21).Next(1, 502);
 
+            var rootGroupEntity = new CalculationGroupEntity();
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = entityId,
@@ -424,7 +425,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                         GrassCoverErosionInwardsFailureMechanismMetaEntityId = 2,
                         N = 1
                     }
-                }
+                },
+                CalculationGroupEntity = rootGroupEntity
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
 

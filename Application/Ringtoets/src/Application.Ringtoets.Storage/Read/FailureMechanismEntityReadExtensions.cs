@@ -133,7 +133,7 @@ namespace Application.Ringtoets.Storage.Read
                                                      CalculationGroup targetRootCalculationGroup, GeneralPipingInput generalPipingInput,
                                                      ReadConversionCollector collector)
         {
-            var rootCalculationGroup = rootCalculationGroupEntity.ReadPipingCalculationGroup(collector, generalPipingInput);
+            CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadPipingCalculationGroup(collector, generalPipingInput);
             targetRootCalculationGroup.StorageId = rootCalculationGroup.StorageId;
             foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
             {
@@ -156,6 +156,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadGeneralCalculationInput(failureMechanism.GeneralInput);
             entity.ReadDikeProfiles(failureMechanism.DikeProfiles);
+            ReadRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
             entity.ReadGrassCoverErosionInwardsMechanismSectionResults(failureMechanism, collector);
         }
 
@@ -181,6 +182,18 @@ namespace Application.Ringtoets.Storage.Read
                 var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result, collector);
+            }
+        }
+
+        private static void ReadRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
+                                             CalculationGroup targetRootCalculationGroup, 
+            ReadConversionCollector collector)
+        {
+            CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector);
+            targetRootCalculationGroup.StorageId = rootCalculationGroup.StorageId;
+            foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
+            {
+                targetRootCalculationGroup.Children.Add(calculationBase);
             }
         }
 

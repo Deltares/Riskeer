@@ -68,6 +68,7 @@ namespace Application.Ringtoets.Storage.Update
             UpdateDikeProfiles(mechanism, registry, entity, context);
             mechanism.UpdateFailureMechanismSections(registry, entity, context);
             UpdateSectionResults(mechanism, registry, context);
+            mechanism.CalculationsGroup.Update(registry, context);
 
             registry.Register(entity, mechanism);
         }
