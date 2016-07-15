@@ -20,6 +20,25 @@
 // All rights reserved.
 
 using System;
+
+using Application.Ringtoets.Storage.Create.ClosingStructure;
+using Application.Ringtoets.Storage.Create.DuneErosion;
+using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
+using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
+using Application.Ringtoets.Storage.Create.GrassCoverSlipOffInwards;
+using Application.Ringtoets.Storage.Create.GrassCoverSlipOffOutwards;
+using Application.Ringtoets.Storage.Create.HeightStructures;
+using Application.Ringtoets.Storage.Create.MacrostabilityInwards;
+using Application.Ringtoets.Storage.Create.MacrostabilityOutwards;
+using Application.Ringtoets.Storage.Create.Microstability;
+using Application.Ringtoets.Storage.Create.Piping;
+using Application.Ringtoets.Storage.Create.PipingStructure;
+using Application.Ringtoets.Storage.Create.StabilityStoneCover;
+using Application.Ringtoets.Storage.Create.StrengthStabilityLengthwise;
+using Application.Ringtoets.Storage.Create.StrengthStabilityPointConstruction;
+using Application.Ringtoets.Storage.Create.TechnicalInnovation;
+using Application.Ringtoets.Storage.Create.WaterPressureAsphaltCover;
+using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Integration.Data;
 
