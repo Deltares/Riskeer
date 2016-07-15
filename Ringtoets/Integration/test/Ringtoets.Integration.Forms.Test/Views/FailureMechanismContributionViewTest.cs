@@ -198,8 +198,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var testName = "testName";
             var testCode = "testCode";
+            double testContribution = 100 - otherContribution;
 
             var someMechanism = mockRepository.StrictMock<FailureMechanismBase>(testName, testCode);
+            someMechanism.Contribution = testContribution;
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.GetFailureMechanisms())
                               .Return(Enumerable.Empty<IFailureMechanism>());
@@ -234,7 +236,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(testCode, codeCell.Value);
 
                 var contributionCell = (DataGridViewTextBoxCell)row.Cells[contributionColumnIndex];
-                Assert.AreEqual(testCode, codeCell.Value);
+                Assert.AreEqual(testContribution, contributionCell.Value);
             }
 
             mockRepository.VerifyAll();
