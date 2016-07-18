@@ -37,19 +37,19 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
     public class StabilityStoneCoverResultViewTest
     {
         [Test]
-        public void GivenFormWithStabilityStoneCoverFailureMechanismResultView_WhenAlways_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithStabilityStoneCoverFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
         {
-            // Setup
+            // Given
             using (var form = new Form())
             {
                 using (var view = new StabilityStoneCoverResultView())
                 {
                     form.Controls.Add(view);
-                    // Call
-
+                    
+                    // When
                     form.Show();
 
-                    // Assert
+                    // Then
                     var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                     Assert.AreEqual(3, dataGridView.ColumnCount);

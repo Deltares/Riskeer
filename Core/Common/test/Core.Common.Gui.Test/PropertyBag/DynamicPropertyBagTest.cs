@@ -51,7 +51,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         }
 
         [Test]
-        public void GivenTestProperties_WhenConstructing_ThenCorrectNumberOfPropertiesCreated()
+        public void Constructor_ClassWith4Properties_CorrectNumberOfPropertiesCreated()
         {
             // Setup
             var propertyObject = new TestProperties();
@@ -64,7 +64,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         }
 
         [Test]
-        public void GivenTestProperties_WhenConstructing_ThenPropertySpecsHaveAttributesSet()
+        public void Constructor_ClassWithAttributes_PropertySpecsHaveAttributesSet()
         {
             // Setup
             var propertyObject = new TestProperties();
@@ -238,7 +238,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         [Test]
         public void GivenObjectPropertiesWithDynamicVisibleProperties_WhenPropertyShown_ThenPropertyShouldBePresentInBag()
         {
-            // Setup
+            // Given
             var propertyObject = new TestProperties
             {
                 Visible = true
@@ -250,11 +250,11 @@ namespace Core.Common.Gui.Test.PropertyBag
                 new BrowsableAttribute(true)
             });
 
-            // Call
+            // When
             var dynamicallyVisiblePropertyName = TypeUtils.GetMemberName<TestProperties>(tp => tp.Name);
             var namePropertyDescriptor = propertyDescriptorCollection.Find(dynamicallyVisiblePropertyName, false);
 
-            // Assert
+            // Then
             Assert.IsTrue(namePropertyDescriptor.IsBrowsable,
                           string.Format("{0} should be visible", dynamicallyVisiblePropertyName));
         }
@@ -333,7 +333,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         [Test]
         public void GivenPropertyDescriptorFromDynamicPropertyBag_WhenSettingProperty_ThenWrappedObjectUpdated()
         {
-            // Setup
+            // Given
             var testProperties = new TestProperties
             {
                 Name = "name"
@@ -342,15 +342,15 @@ namespace Core.Common.Gui.Test.PropertyBag
 
             var newName = "newName";
 
-            // Call
+            // When
             dynamicPropertyBag.GetProperties()["Name"].SetValue(testProperties, newName);
 
-            // Assert
+            // Then
             Assert.AreEqual(newName, testProperties.Name);
         }
 
         [Test]
-        public void GivenPropertiesWithoutPublicSetter_WhenGettingPropertyDescriptors_ThenPropertiesDecoratedWithReadOnlyAttribute()
+        public void GetProperties_ClassWithPropertiesWithoutPublicSetter_PropertiesDecoratedWithReadOnlyAttribute()
         {
             // Setup
             var dynamicPropertyBag = new DynamicPropertyBag(new TestWithoutSetterPropertyClassProperties());

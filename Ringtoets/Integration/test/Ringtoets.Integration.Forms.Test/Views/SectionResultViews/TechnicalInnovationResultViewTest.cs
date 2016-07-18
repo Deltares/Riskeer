@@ -38,19 +38,19 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
     public class TechnicalInnovationResultViewTest
     {
         [Test]
-        public void GivenFormWithTechnicalInnovationFailureMechanismResultView_WhenAlways_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithTechnicalInnovationFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
         {
-            // Setup
+            // Given
             using (var form = new Form())
             {
                 using (var view = new TechnicalInnovationResultView())
                 {
                     form.Controls.Add(view);
-                    // Call
-
+                    
+                    // When
                     form.Show();
 
-                    // Assert
+                    // Then
                     var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                     Assert.AreEqual(3, dataGridView.ColumnCount);

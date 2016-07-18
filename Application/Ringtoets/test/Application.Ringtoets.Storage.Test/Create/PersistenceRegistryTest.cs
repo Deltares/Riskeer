@@ -956,10 +956,9 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            DikeProfile profile = CreateDikeProfile();
 
             // Call
-            TestDelegate test = () => registry.Register(null, profile);
+            TestDelegate test = () => registry.Register(null, CreateDikeProfile());
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

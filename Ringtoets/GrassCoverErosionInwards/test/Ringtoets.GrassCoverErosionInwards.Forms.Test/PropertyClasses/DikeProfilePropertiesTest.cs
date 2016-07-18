@@ -46,10 +46,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Data_SetNewDikeProfileInstance_ReturnCorrectPropertyValues()
         {
             // Setup
+            const string name = "Dijkprofiel";
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
                                               null, new DikeProfile.ConstructionProperties
                                               {
-                                                  Name = "Dijkprofiel"
+                                                  Name = name
                                               });
 
             // Call
@@ -59,7 +60,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Assert
-            Assert.AreEqual("Dijkprofiel", properties.Name);
+            Assert.AreEqual(name, properties.Name);
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, properties.Orientation.Value);
             Assert.AreSame(dikeProfile, properties.BreakWater.Data);

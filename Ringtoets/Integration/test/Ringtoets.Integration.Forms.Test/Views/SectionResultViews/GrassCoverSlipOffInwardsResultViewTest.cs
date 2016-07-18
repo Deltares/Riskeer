@@ -38,19 +38,19 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
     public class GrassCoverSlipOffInwardsResultViewTest
     {
         [Test]
-        public void GivenFormWithGrassCoverSlipOffInwardsFailureMechanismResultView_WhenAlways_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithGrassCoverSlipOffInwardsFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
         {
-            // Setup
+            // Given
             using (var form = new Form())
             {
                 using (var view = new GrassCoverSlipOffInwardsResultView())
                 {
                     form.Controls.Add(view);
-                    // Call
-
+                    
+                    // When
                     form.Show();
 
-                    // Assert
+                    // Then
                     var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                     Assert.AreEqual(4, dataGridView.ColumnCount);

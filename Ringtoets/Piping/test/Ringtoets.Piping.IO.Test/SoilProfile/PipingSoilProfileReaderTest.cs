@@ -632,11 +632,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
         private void GivenDatabaseWith1DProfile_WhenReadingTheCompleteDatabase_ReturnsCompleteSoilProfile()
         {
-            // Setup
+            // Given
             var testFile = "1dprofile.soil";
             using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
             {
-                // Call
+                // When
                 var result = new Collection<PipingSoilProfile>();
                 var skipped = 0;
 
@@ -652,7 +652,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     }
                 }
 
-                // Assert
+                // Then
                 Assert.AreEqual(0, skipped);
                 Assert.AreEqual(1, pipingSoilProfilesReader.Count);
                 Assert.AreEqual(1, result.Count);
@@ -668,11 +668,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
         private void GivenACompleteDatabase_WhenReadingTheCompleteDatabase_ReturnsProfilesWithLayersAndGeometries()
         {
-            // Setup
+            // Given
             var testFile = "complete.soil";
             using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
             {
-                // Call
+                // When
                 ICollection<PipingSoilProfile> result = new List<PipingSoilProfile>();
                 int skipped = 0;
 
@@ -688,7 +688,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     }
                 }
 
-                // Assert
+                // Then
                 Assert.AreEqual(0, skipped);
                 Assert.AreEqual(26, pipingSoilProfilesReader.Count);
                 Assert.AreEqual(26, result.Count);

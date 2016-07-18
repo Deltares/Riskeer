@@ -79,14 +79,14 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
         {
             // Setup
             var mocks = new MockRepository();
-            IRingtoetsEntities ringtoetsEntitites = RingtoetsEntitiesHelper.CreateStub(mocks);
+            IRingtoetsEntities ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             var registry = new PersistenceRegistry();
             DikeProfile profile = CreateSimpleDikeProfile();
 
             // Call
-            TestDelegate call = () => profile.Update(registry, ringtoetsEntitites);
+            TestDelegate call = () => profile.Update(registry, ringtoetsEntities);
 
             // Assert
             string expectedMessage = string.Format("Het object 'DikeProfileEntity' met id '{0}' is niet gevonden.",
@@ -101,19 +101,19 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
         {
             // Setup
             var mocks = new MockRepository();
-            IRingtoetsEntities ringtoetsEntitites = RingtoetsEntitiesHelper.CreateStub(mocks);
+            IRingtoetsEntities ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
             var registry = new PersistenceRegistry();
             DikeProfile profile = CreateSimpleDikeProfile();
 
-            ringtoetsEntitites.DikeProfileEntities.Add(new DikeProfileEntity
+            ringtoetsEntities.DikeProfileEntities.Add(new DikeProfileEntity
             {
                 DikeProfileEntityId = 1
             });
 
             // Call
-            TestDelegate call = () => profile.Update(registry, ringtoetsEntitites);
+            TestDelegate call = () => profile.Update(registry, ringtoetsEntities);
 
             // Assert
             string expectedMessage = string.Format("Het object 'DikeProfileEntity' met id '{0}' is niet gevonden.",

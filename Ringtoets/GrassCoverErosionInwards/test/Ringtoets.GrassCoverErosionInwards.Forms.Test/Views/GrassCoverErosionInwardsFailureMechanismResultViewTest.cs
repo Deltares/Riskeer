@@ -294,7 +294,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         public void GivenSectionResultWithoutCalculation_ThenLayerTwoANoError()
         {
-            // Setup
+            // Given
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
@@ -309,10 +309,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
-                // Call
+                // When
                 var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
-                // Assert
+                // Then
                 Assert.AreEqual("-", formattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
             }
@@ -321,7 +321,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         public void GivenSectionResultAndCalculationNotCalculated_ThenLayerTwoAErrorTooltip()
         {
-            // Setup
+            // Given
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var calculation = new GrassCoverErosionInwardsCalculation();
@@ -341,10 +341,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
-                // Call
+                // When
                 var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
-                // Assert
+                // Then
                 Assert.AreEqual("-", formattedValue);
                 Assert.AreEqual("De maatgevende berekening voor dit vak is niet uitgevoerd.", dataGridViewCell.ErrorText);
             }
@@ -353,7 +353,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip()
         {
-            // Setup
+            // Given
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
@@ -377,10 +377,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
-                // Call
+                // When
                 var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
-                // Assert
+                // Then
                 Assert.AreEqual("-", formattedValue);
                 Assert.AreEqual("De maatgevende berekening voor dit vak heeft geen geldige uitkomst.", dataGridViewCell.ErrorText);
             }
@@ -389,7 +389,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError()
         {
-            // Setup
+            // Given
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 const double probability = 0.56789;
@@ -414,10 +414,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
-                // Call
+                // When
                 var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
-                // Assert
+                // Then
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
             }
@@ -426,7 +426,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError()
         {
-            // Setup
+            // Given
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 const double probability = 0.56789;
@@ -462,11 +462,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
 
-                // Call
+                // When
                 sectionResult.Calculation = failedCalculation;
                 formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
-                // Assert
+                // Then
                 Assert.AreEqual("-", formattedValue);
                 Assert.AreEqual("De maatgevende berekening voor dit vak heeft geen geldige uitkomst.", dataGridViewCell.ErrorText);
             }

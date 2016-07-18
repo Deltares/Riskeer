@@ -117,7 +117,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
         [Test]
         public void GivenContextWithAttachedObserver_WhenWrappedDataNotifiesObservers_ThenObserverIsNotified()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
@@ -129,10 +129,10 @@ namespace Core.Common.Controls.Test.PresentationObjects
 
             context.Attach(observerMock);
 
-            // Call
+            // When
             sourceObject.NotifyObservers();
 
-            // Assert
+            // Then
             mocks.VerifyAll(); // Expect call UpdateObserver on 'observer'
         }
 

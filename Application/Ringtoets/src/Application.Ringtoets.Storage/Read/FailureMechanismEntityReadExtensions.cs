@@ -228,7 +228,7 @@ namespace Application.Ringtoets.Storage.Read
 
         #endregion
 
-        #region Strength Stability Lengthwise
+        #region Strength Stability Lengthwise Construction
 
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="StrengthStabilityLengthwiseConstructionFailureMechanism"/>.

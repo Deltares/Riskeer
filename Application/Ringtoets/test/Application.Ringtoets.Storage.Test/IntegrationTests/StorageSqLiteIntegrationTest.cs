@@ -135,7 +135,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         [STAThread]
         public void GivenRingtoetsGuiWithStorageSql_WhenRunWithValidFile_ProjectSet()
         {
-            // Setup
+            // Given
             var projectStore = new StorageSqLite();
             Project fullProject = RingtoetsProjectHelper.GetFullTestProject();
             var expectedProjectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
@@ -146,10 +146,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
-                // Call
+                // When
                 Action action = () => gui.Run(tempRingtoetsFile);
 
-                // Assert
+                // Then
                 var expectedMessages = new[]
                 {
                     "Openen van bestaand Ringtoetsproject.",
@@ -169,16 +169,16 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         [STAThread]
         public void GivenRingtoetsGuiWithStorageSql_WhenRunWithInvalidFile_EmptyProjectSet()
         {
-            // Setup
+            // Given
             var testFile = "SomeFile";
             var projectStore = new StorageSqLite();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
-                // Call
+                // When
                 Action action = () => gui.Run(testFile);
 
-                // Assert
+                // Then
                 var expectedMessages = new[]
                 {
                     "Openen van bestaand Ringtoetsproject.",
@@ -202,15 +202,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         [TestCase("  ")]
         public void GivenRingtoetsGuiWithStorageSql_WhenRunWithEmptyFile_EmptyProjectSet(string testFile)
         {
-            // Setup
+            // Given
             var projectStore = new StorageSqLite();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
-                // Call
+                // When
                 Action action = () => gui.Run(testFile);
 
-                // Assert
+                // Then
                 var expectedMessages = new[]
                 {
                     "Nieuw project aanmaken..."

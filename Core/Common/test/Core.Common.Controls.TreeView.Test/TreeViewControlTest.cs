@@ -1369,7 +1369,7 @@ namespace Core.Common.Controls.TreeView.Test
         public void GivenTreeViewControl_WhenMouseClickOnNode_SelectThatNodeForRightMouseButtons(
             MouseButtons mouseButtonDown, bool changeSelectionToTarget)
         {
-            // Setup
+            // Given
             using (var treeViewControl = new TreeViewControl())
             {
                 var selectionTarget = "I'm the target!";
@@ -1404,10 +1404,10 @@ namespace Core.Common.Controls.TreeView.Test
                     WindowsFormsTestHelper.Show(treeViewControl);
                     var treeViewTester = new TreeViewTester(identifier);
 
-                    // Call
+                    // When
                     treeViewTester.FireEvent("MouseClick", new MouseEventArgs(mouseButtonDown, 1, 60, 30, 0));
 
-                    // Assert
+                    // Then
                     object expectedSelectedData = changeSelectionToTarget ? selectionTarget : data;
                     Assert.AreEqual(expectedSelectedData, treeViewControl.SelectedData);
                 }
@@ -1426,7 +1426,7 @@ namespace Core.Common.Controls.TreeView.Test
         public void GivenTreeViewControl_WhenTreeViewItemDragOnNode_SelectThatNode(
             bool canRenameNode)
         {
-            // Setup
+            // Given
             using (var treeViewControl = new TreeViewControl())
             {
                 var selectionTarget = "I'm the target!";
@@ -1463,10 +1463,10 @@ namespace Core.Common.Controls.TreeView.Test
                     WindowsFormsTestHelper.Show(treeViewControl);
                     var treeViewTester = new TreeViewTester(identifier);
 
-                    // Call
+                    // When
                     treeViewTester.FireEvent("ItemDrag", new ItemDragEventArgs(MouseButtons.Left, childNode));
 
-                    // Assert
+                    // Then
                     object expectedSelectedData = selectionTarget;
                     Assert.AreEqual(expectedSelectedData, treeViewControl.SelectedData);
                 }

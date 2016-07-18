@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 
 using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
@@ -96,10 +95,10 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(dikeProfile.WorldReferencePoint.X, entity.X);
             Assert.AreEqual(dikeProfile.WorldReferencePoint.Y, entity.Y);
             Assert.AreEqual(dikeProfile.X0, entity.X0);
-            RoughnessPoint[] convertedDikeGeometry = new RoughnessPointBinaryConverter().ToData(entity.DikeGeometryData);
-            CollectionAssert.AreEqual(dikeProfile.DikeGeometry, convertedDikeGeometry, new RoughnessPointComparer());
-            Point2D[] convertedForeshoreGeometry = new Point2DBinaryConverter().ToData(entity.ForeShoreData);
-            CollectionAssert.AreEqual(dikeProfile.ForeshoreGeometry, convertedForeshoreGeometry);
+            byte[] convertedDikeGeometry = new RoughnessPointBinaryConverter().ToBytes(dikeProfile.DikeGeometry);
+            CollectionAssert.AreEqual(convertedDikeGeometry, entity.DikeGeometryData);
+            byte[] convertedForeshoreGeometry = new Point2DBinaryConverter().ToBytes(dikeProfile.ForeshoreGeometry);
+            CollectionAssert.AreEqual(convertedForeshoreGeometry, entity.ForeShoreData);
             Assert.AreEqual(dikeProfile.Orientation.Value, entity.Orientation);
             Assert.AreEqual(dikeProfile.DikeHeight.Value, entity.DikeHeight);
             Assert.AreEqual(dikeProfile.Name, entity.Name);
@@ -143,10 +142,10 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(dikeProfile.WorldReferencePoint.X, entity.X);
             Assert.AreEqual(dikeProfile.WorldReferencePoint.Y, entity.Y);
             Assert.AreEqual(dikeProfile.X0, entity.X0);
-            RoughnessPoint[] convertedDikeGeometry = new RoughnessPointBinaryConverter().ToData(entity.DikeGeometryData);
-            CollectionAssert.AreEqual(dikeProfile.DikeGeometry, convertedDikeGeometry, new RoughnessPointComparer());
-            Point2D[] convertedForeshoreGeometry = new Point2DBinaryConverter().ToData(entity.ForeShoreData);
-            CollectionAssert.AreEqual(dikeProfile.ForeshoreGeometry, convertedForeshoreGeometry);
+            byte[] convertedDikeGeometry = new RoughnessPointBinaryConverter().ToBytes(dikeProfile.DikeGeometry);
+            CollectionAssert.AreEqual(convertedDikeGeometry, entity.DikeGeometryData);
+            byte[] convertedForeshoreGeometry = new Point2DBinaryConverter().ToBytes(dikeProfile.ForeshoreGeometry);
+            CollectionAssert.AreEqual(convertedForeshoreGeometry, entity.ForeShoreData);
             Assert.AreEqual(dikeProfile.Orientation.Value, entity.Orientation);
             Assert.AreEqual(dikeProfile.DikeHeight.Value, entity.DikeHeight);
             Assert.AreEqual(dikeProfile.Name, entity.Name);
@@ -179,20 +178,6 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             entity.DikeProfileEntityId = 345678;
             registry.TransferIds();
             Assert.AreEqual(entity.DikeProfileEntityId, dikeProfile.StorageId);
-        }
-
-        private class RoughnessPointComparer : IComparer
-        {
-            public int Compare(object x, object y)
-            {
-                RoughnessPoint x1 = (RoughnessPoint)x;
-                RoughnessPoint y1 = (RoughnessPoint)y;
-                if (x1.Point.Equals(y1.Point) && x1.Roughness.Equals(y1.Roughness))
-                {
-                    return 0;
-                }
-                return 1;
-            }
         }
     }
 }

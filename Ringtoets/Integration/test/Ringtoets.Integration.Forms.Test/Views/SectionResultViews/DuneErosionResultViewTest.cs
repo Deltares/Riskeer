@@ -37,19 +37,19 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
     public class DuneErosionResultViewTest
     {
         [Test]
-        public void GivenFormWithDuneErosionFailureMechanismResultView_WhenAlways_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithDuneErosionFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
         {
-            // Setup
+            // Given
             using (var form = new Form())
             {
                 using (var view = new DuneErosionResultView())
                 {
                     form.Controls.Add(view);
-                    // Call
 
+                    // When
                     form.Show();
 
-                    // Assert
+                    // Then
                     var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                     Assert.AreEqual(3, dataGridView.ColumnCount);

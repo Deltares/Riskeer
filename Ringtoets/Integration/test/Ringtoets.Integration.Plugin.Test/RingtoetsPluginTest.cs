@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.Plugin.Test
         [STAThread] // For creation of XAML UI component
         public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithoutHydraulicBoundaryDatabase_ThenNoWarning()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
@@ -90,10 +90,10 @@ namespace Ringtoets.Integration.Plugin.Test
                     plugin.Gui = gui;
                     gui.Run();
 
-                    // Call
+                    // When
                     Action action = () => gui.Project = new Project();
 
-                    // Assert
+                    // Then
                     TestHelper.AssertLogMessagesCount(action, 0);
                 }
             }
@@ -105,7 +105,7 @@ namespace Ringtoets.Integration.Plugin.Test
         [STAThread] // For creation of XAML UI component
         public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseWithExistingLocation_ThenNoWarning()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
@@ -130,10 +130,10 @@ namespace Ringtoets.Integration.Plugin.Test
                     };
                     project.Items.Add(section);
 
-                    // Call
+                    // When
                     Action action = () => { gui.Project = project; };
 
-                    // Assert
+                    // Then
                     TestHelper.AssertLogMessagesCount(action, 0);
                 }
             }
@@ -145,7 +145,7 @@ namespace Ringtoets.Integration.Plugin.Test
         [STAThread] // For creation of XAML UI component
         public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseWithNonExistingLocation_ThenWarning()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
@@ -169,10 +169,10 @@ namespace Ringtoets.Integration.Plugin.Test
                     plugin.Gui = gui;
                     gui.Run();
 
-                    // Call
+                    // When
                     Action action = () => { gui.Project = project; };
 
-                    // Assert
+                    // Then
                     var fileMissingMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", notExistingFile);
                     string message = string.Format(
                         RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_,

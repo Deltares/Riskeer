@@ -140,6 +140,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
+        public void Constructor_ConstructionPropertiesIsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new DikeProfile(new Point2D(0,0), new RoughnessPoint[0], new Point2D[0], null, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("properties", paramName);
+        }
+
+        [Test]
         public void Orientation_SetToValueWithTooManyDecimalPlaces_ValueIsRounded()
         {
             // Call

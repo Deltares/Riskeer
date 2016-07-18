@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Test.BinaryConverters
         [Test]
         public void GivenArrayWithPoint2D_WhenConvertingRoundTrip_ThenEqualArrayOfPoints2D()
         {
-            // Setup
+            // Given
             var original = new[]
             {
                 new Point2D(-7.7, -6.6),
@@ -78,26 +78,26 @@ namespace Application.Ringtoets.Storage.Test.BinaryConverters
             };
             var converter = new Point2DBinaryConverter();
 
-            // Call
+            // When
             byte[] bytes = converter.ToBytes(original);
             Point2D[] roundtripResult = converter.ToData(bytes);
 
-            // Assert
+            // Then
             CollectionAssert.AreEqual(original, roundtripResult);
         }
 
         [Test]
         public void GivenEmptyArray_WhenConvertingRoundTrip_ThenReturnEmptyArray()
         {
-            // Setup
+            // Given
             var original = new Point2D[0];
             var converter = new Point2DBinaryConverter();
 
-            // Call
+            // When
             byte[] bytes = converter.ToBytes(original);
             Point2D[] roundtripResult = converter.ToData(bytes);
 
-            // Assert
+            // Then
             CollectionAssert.IsEmpty(roundtripResult);
         }
     }

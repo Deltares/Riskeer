@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.BinaryConverters
         [Test]
         public void GivenArrayWithPoint2D_WhenConvertingRoundTrip_ThenEqualArrayOfPoints2D()
         {
-            // Setup
+            // Given
             var original = new[]
             {
                 new RoughnessPoint(new Point2D(-7.7, -6.6), 0.5),
@@ -81,26 +81,26 @@ namespace Application.Ringtoets.Storage.Test.BinaryConverters
             };
             var converter = new RoughnessPointBinaryConverter();
 
-            // Call
+            // When
             byte[] bytes = converter.ToBytes(original);
             RoughnessPoint[] roundtripResult = converter.ToData(bytes);
 
-            // Assert
+            // Then
             CollectionAssert.AreEqual(original, roundtripResult, new RoughnessPointComparer());
         }
 
         [Test]
         public void GivenEmptyArray_WhenConvertingRoundTrip_ThenReturnEmptyArray()
         {
-            // Setup
+            // Given
             var original = new RoughnessPoint[0];
             var converter = new RoughnessPointBinaryConverter();
 
-            // Call
+            // When
             byte[] bytes = converter.ToBytes(original);
             RoughnessPoint[] roundtripResult = converter.ToData(bytes);
 
-            // Assert
+            // Then
             CollectionAssert.IsEmpty(roundtripResult);
         }
 

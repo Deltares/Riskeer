@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual((short) FailureMechanismType.GrassRevetmentTopErosionAndInwards, entity.FailureMechanismType);
+            Assert.AreEqual((short)FailureMechanismType.GrassRevetmentTopErosionAndInwards, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.Comments, entity.Comments);
 
@@ -149,7 +149,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                                                                   new RoughnessPoint(new Point2D(6, 6), 1),
                                                                   new RoughnessPoint(new Point2D(7, 7), 1),
                                                               },
-                                                              new Point2D[0], 
+                                                              new Point2D[0],
                                                               new BreakWater(BreakWaterType.Caisson, 8), 
                                                               new DikeProfile.ConstructionProperties
                                                               {

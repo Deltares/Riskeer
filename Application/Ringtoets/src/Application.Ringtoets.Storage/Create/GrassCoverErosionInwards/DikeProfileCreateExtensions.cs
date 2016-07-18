@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         /// <summary>
         /// Creates a <see cref="DikeProfileEntity"/> based on the information of the <see cref="DikeProfile"/>.
         /// </summary>
-        /// <param name="dikeProfile">The result to create a database entity for.</param>
+        /// <param name="dikeProfile">The dike profile to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="DikeProfileEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>

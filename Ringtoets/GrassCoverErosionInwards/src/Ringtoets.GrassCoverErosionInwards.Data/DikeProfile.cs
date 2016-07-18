@@ -44,8 +44,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <param name="foreshoreGeometry">The geometry of the dike foreshore.</param>
         /// <param name="breakWater">The break water definition (can be null).</param>
         /// <param name="properties">The property values required to create an instance of <see cref="DikeProfile"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dikeGeometry"/> 
-        /// or <paramref name="foreshoreGeometry"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when either <paramref name="dikeGeometry"/>,
+        /// <paramref name="foreshoreGeometry"/>, <paramref name="worldCoordinate"/> or 
+        /// <paramref name="properties"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when any element of <paramref name="dikeGeometry"/>
         /// or <paramref name="foreshoreGeometry"/> is <c>null</c>.</exception>
         public DikeProfile(Point2D worldCoordinate, RoughnessPoint[] dikeGeometry, Point2D[] foreshoreGeometry,
@@ -54,6 +55,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             if (worldCoordinate == null)
             {
                 throw new ArgumentNullException("worldCoordinate");
+            }
+            if (properties == null)
+            {
+                throw new ArgumentNullException("properties");
             }
 
             SetGeometry(dikeGeometry);

@@ -161,7 +161,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [Test]
         public void GivenPipingScenariosViewWithPipingFailureMechanism_WhenSectionsAddedAndPipingFailureMechanismNotified_ThenSectionsListBoxCorrectlyUpdated()
         {
-            // Setup
+            // Given
             var pipingFailureMechanismWithSections = new PipingFailureMechanism();
             var failureMechanismSection1 = new FailureMechanismSection("Section 1", new List<Point2D>
             {
@@ -191,10 +191,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             pipingFailureMechanismWithSections.AddSection(failureMechanismSection2);
             pipingFailureMechanismWithSections.AddSection(failureMechanismSection3);
 
-            // Call
+            // When
             pipingFailureMechanismWithSections.NotifyObservers();
 
-            // Assert
+            // Then
             Assert.AreEqual(3, listBox.Items.Count);
             Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
             Assert.AreSame(failureMechanismSection2, listBox.Items[1]);

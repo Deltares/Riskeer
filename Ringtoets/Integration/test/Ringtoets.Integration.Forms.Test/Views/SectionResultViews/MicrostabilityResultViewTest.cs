@@ -38,19 +38,19 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
     public class MicrostabilityResultViewTest
     {
         [Test]
-        public void GivenFormWithMicrostabilityFailureMechanismResultView_WhenAlways_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithMicrostabilityFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
         {
-            // Setup
+            // Given
             using (var form = new Form())
             {
                 using (var view = new MicrostabilityResultView())
                 {
                     form.Controls.Add(view);
+                    
                     // Call
-
                     form.Show();
 
-                    // Assert
+                    // Then
                     var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                     Assert.AreEqual(4, dataGridView.ColumnCount);

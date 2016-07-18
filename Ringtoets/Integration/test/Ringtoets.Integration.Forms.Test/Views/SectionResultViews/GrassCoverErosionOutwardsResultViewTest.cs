@@ -38,19 +38,19 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
     public class GrassCoverErosionOutwardsResultViewTest
     {
         [Test]
-        public void GivenFormWithGrassCoverErosionOutwardsFailureMechanismResultView_WhenAlways_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithGrassCoverErosionOutwardsFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
         {
-            // Setup
+            // Given
             using (var form = new Form())
             {
                 using (var view = new GrassCoverErosionOutwardsResultView())
                 {
                     form.Controls.Add(view);
-                    // Call
 
+                    // Call
                     form.Show();
 
-                    // Assert
+                    // Then
                     var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                     Assert.AreEqual(4, dataGridView.ColumnCount);
