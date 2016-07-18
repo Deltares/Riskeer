@@ -20,17 +20,23 @@
 // All rights reserved.
 
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Geometry;
+using Core.Common.Controls.DataGrid;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.Exceptions;
+using Ringtoets.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.Test
 {
     [TestFixture]
-    public class AssessmentSectionFromFileCommandHandlerTest
+    public class AssessmentSectionFromFileCommandHandlerTest : NUnitFormTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "ReferenceLineMetaImporter");
 
@@ -71,6 +77,106 @@ namespace Ringtoets.Integration.Forms.Test
             CriticalFileValidationException exception = Assert.Throws<CriticalFileValidationException>(call);
             Assert.AreEqual("Er kunnen geen trajecten gelezen worden uit het shape bestand.", exception.Message);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CreateAssessmentSectionFromFile_ValidDirectoryUserClicksCancel_ReturnsNull()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
+            mockRepository.ReplayAll();
+
+            var assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialog);
+            string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
+                new ButtonTester("Cancel", selectionDialog).Click();
+            };
+
+            // Call
+            IAssessmentSection assessmentSection = assessmentSectionFromFile.CreateAssessmentSectionFromFile(pathValidFolder);
+
+            // Assert
+            Assert.IsNull(assessmentSection);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CreateAssessmentSectionFromFile_ValidDirectoryUserClicksOk_ReturnsFirstReadAssessmentSection()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
+            mockRepository.ReplayAll();
+
+            var assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialog);
+            string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
+
+            int rowCount = 0;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
+                var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", selectionDialog).TheObject;
+                rowCount = grid.GetRows().Count;
+                new ButtonTester("Ok", selectionDialog).Click();
+            };
+
+            // Call
+            var assessmentSection = (AssessmentSection) assessmentSectionFromFile.CreateAssessmentSectionFromFile(pathValidFolder);
+
+            // Assert
+            Assert.AreEqual(3, rowCount);
+            Assert.IsNotNull(assessmentSection);
+            AssertAssessmentSection(TestAssessmentSection1_1(), assessmentSection);
+            mockRepository.VerifyAll();
+        }
+
+        private static AssessmentSection TestAssessmentSection1_1()
+        {
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                Id = "1-1",
+                FailureMechanismContribution =
+                {
+                    Norm = 3000
+                }
+            };
+            assessmentSection.GrassCoverErosionInwards.GeneralInput.N = 3;
+            assessmentSection.HeightStructures.GeneralInput.N = 3;
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            assessmentSection.ReferenceLine.SetGeometry(new[]
+            {
+                new Point2D(160679.9250, 475072.583),
+                new Point2D(160892.0751, 474315.4917)
+            });
+
+            return assessmentSection;
+        }
+
+        private static void AssertAssessmentSection(AssessmentSection expected, AssessmentSection actual)
+        {
+            Assert.AreEqual(expected.Id, actual.Id);
+            Assert.AreEqual(expected.FailureMechanismContribution.Norm, actual.FailureMechanismContribution.Norm);
+            Assert.AreEqual(expected.Composition, actual.Composition);
+
+            Assert.AreEqual(expected.GrassCoverErosionInwards.GeneralInput.N, actual.GrassCoverErosionInwards.GeneralInput.N);
+            Assert.AreEqual(expected.HeightStructures.GeneralInput.N, actual.HeightStructures.GeneralInput.N);
+
+            AssertReferenceLine(expected.ReferenceLine, actual.ReferenceLine);
+        }
+
+        private static void AssertReferenceLine(ReferenceLine expected, ReferenceLine actual)
+        {
+            Assert.IsNotNull(expected);
+            Assert.IsNotNull(actual);
+            Point2D[] expectedPoints = expected.Points.ToArray();
+            Point2D[] actualPoints = actual.Points.ToArray();
+            CollectionAssert.AreEqual(expectedPoints, actualPoints,
+                                      new Point2DComparerWithTolerance(1e-6),
+                                      "Unexpected geometry found in ReferenceLine");
         }
     }
 }
