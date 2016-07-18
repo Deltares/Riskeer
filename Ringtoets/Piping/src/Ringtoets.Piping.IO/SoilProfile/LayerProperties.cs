@@ -33,36 +33,119 @@ namespace Ringtoets.Piping.IO.SoilProfile
     /// </summary>
     internal class LayerProperties
     {
-        internal readonly double? IsAquifer;
-        internal readonly string MaterialName;
-        internal readonly double? Color;
+        /// <summary>
+        /// Gets a <see cref="double"/> value representing  whether the layer is an aquifer.
+        /// </summary>
+        internal double? IsAquifer { get; private set; }
 
-        internal readonly long? BelowPhreaticLevelDistribution;
-        internal readonly double? BelowPhreaticLevelShift;
-        internal readonly double? BelowPhreaticLevelMean;
-        internal readonly double? BelowPhreaticLevelDeviation;
+        /// <summary>
+        /// Gets the name of the material that was assigned to the layer.
+        /// </summary>
+        internal string MaterialName { get; private set; }
 
-        internal readonly long? DiameterD70Distribution;
-        internal readonly double? DiameterD70Shift;
-        internal readonly double? DiameterD70Mean;
-        internal readonly double? DiameterD70Deviation;
+        /// <summary>
+        /// Gets the value representing the color that was used to represent the layer.
+        /// </summary>
+        internal double? Color { get; private set; }
 
-        internal readonly long? PermeabilityDistribution;
-        internal readonly double? PermeabilityShift;
-        internal readonly double? PermeabilityMean;
-        internal readonly double? PermeabilityDeviation;
+        /// <summary>
+        /// Gets the distribution for the volumic weight of the layer below the 
+        /// phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        internal long? BelowPhreaticLevelDistribution { get; private set; }
+
+        /// <summary>
+        /// Gets the shift of the distribution for the volumic weight of the layer 
+        /// below the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        internal double? BelowPhreaticLevelShift { get; private set; }
+
+        /// <summary>
+        /// Gets the mean of the distribution for the volumic weight of the layer 
+        /// below the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        internal double? BelowPhreaticLevelMean { get; private set; }
+
+        /// <summary>
+        /// Gets the deviation of the distribution for the volumic weight of the layer below the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        internal double? BelowPhreaticLevelDeviation { get; private set; }
+
+        /// <summary>
+        /// Gets the distribution for the mean diameter of small scale tests applied to different kinds of sand, on which the 
+        /// formula of Sellmeijer has been fit.
+        /// [m]
+        /// </summary>
+        internal long? DiameterD70Distribution { get; private set; }
+
+        /// <summary>
+        /// Gets the shift of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
+        /// on which the formula of Sellmeijer has been fit.
+        /// [m]
+        /// </summary>
+        internal double? DiameterD70Shift { get; private set; }
+
+        /// <summary>
+        /// Gets the mean of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
+        /// on which the formula of Sellmeijer has been fit.
+        /// [m]
+        /// </summary>
+        internal double? DiameterD70Mean { get; private set; }
+
+        /// <summary>
+        /// Gets the deviation of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
+        /// on which the formula of Sellmeijer has been fit.
+        /// [m]
+        /// </summary>
+        internal double? DiameterD70Deviation { get; private set; }
+
+        /// <summary>
+        /// Gets the distribution for the Darcy-speed with which water flows through the aquifer layer.
+        /// [m/s]
+        /// </summary>
+        internal long? PermeabilityDistribution { get; private set; }
+
+        /// <summary>
+        /// Gets the shift of the distribution for the Darcy-speed with which water flows through the aquifer layer.
+        /// [m/s]
+        /// </summary>
+        internal double? PermeabilityShift { get; private set; }
+
+        /// <summary>
+        /// Gets the mean of the distribution for the the Darcy-speed with which water flows through the aquifer layer.
+        /// [m/s]
+        /// </summary>
+        internal double? PermeabilityMean { get; private set; }
+
+        /// <summary>
+        /// Gets the deviation of the distribution for the Darcy-speed with which water flows through the aquifer layer.
+        /// [m/s]
+        /// </summary>
+        internal double? PermeabilityDeviation { get; private set; }
 
         /// <summary>
         /// Creates a new instance of <see cref="LayerProperties"/>, which contains properties
-        /// that are required to create a complete soil layer. If these properties
-        /// cannot be read, then the reader can proceed to the next profile.
+        /// that are required to create a complete soil layer.
         /// </summary>
-        /// <param name="reader">The <see cref="SQLiteDataReader"/> to read the required layer property values from.</param>
+        /// <param name="reader">The <see cref="SQLiteDataReader"/> to obtain the required layer property values from.</param>
         /// <param name="profileName">The profile name used in generating exceptions messages if casting failed.</param>
-        /// <exception cref="PipingSoilProfileReadException">Thrown when the values in the database could not be 
+        /// <exception cref="PipingSoilProfileReadException">Thrown when the values in the database cannot be 
         /// casted to the expected column types.</exception>
         internal LayerProperties(IRowBasedDatabaseReader reader, string profileName)
         {
+            if (reader == null)
+            {
+                throw new ArgumentNullException("reader");
+            }
+            if (profileName == null)
+            {
+                throw new ArgumentNullException("profileName");
+            }
+
             string readColumn = SoilProfileDatabaseColumns.IsAquifer;
             try
             {

@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Ringtoets.Piping.IO.Builders;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Test.Builders
 {
@@ -34,6 +36,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var parameters = new TestGenericSoilLayerParameters();
 
             // Assert
+            Assert.IsNull(parameters.IsAquifer);
             Assert.IsNull(parameters.Color);
             Assert.IsNull(parameters.MaterialName);
             Assert.IsNull(parameters.BelowPhreaticLevelDeviation);
@@ -50,6 +53,100 @@ namespace Ringtoets.Piping.IO.Test.Builders
             Assert.IsNull(parameters.PermeabilityShift);
         }
 
-        private class TestGenericSoilLayerParameters : GenericSoilLayerParameters {}
+        [Test]
+        public void SetOptionalStochasticParameters_NullSoilLayer_ThrowsArgumentNullException()
+        {
+            // Setup
+            var parameters = new TestGenericSoilLayerParameters();
+
+            // Call
+            TestDelegate test = () => parameters.CallSetOptionalStochasticParameters(null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("pipingSoilLayer", paramName);
+        }
+
+        [Test]
+        public void SetOptionalStochasticParameters_SoilLayerNoNullValues_SetsLayerProperties()
+        {
+            // Setup
+            var random = new Random(21);
+            var parameters = new TestGenericSoilLayerParameters
+            {
+                BelowPhreaticLevelMean = random.NextDouble(),
+                BelowPhreaticLevelDeviation = random.NextDouble(),
+                BelowPhreaticLevelShift = random.NextDouble(),
+                DiameterD70Mean = random.NextDouble(),
+                DiameterD70Deviation = random.NextDouble(),
+                PermeabilityMean = random.NextDouble(),
+                PermeabilityDeviation = random.NextDouble(),
+            };
+            var soilLayer = new PipingSoilLayer(3.0);
+
+            // Call
+            parameters.CallSetOptionalStochasticParameters(soilLayer);
+
+            // Assert
+            Assert.AreEqual(parameters.BelowPhreaticLevelMean, soilLayer.BelowPhreaticLevelMean);
+            Assert.AreEqual(parameters.BelowPhreaticLevelDeviation, soilLayer.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(parameters.BelowPhreaticLevelShift, soilLayer.BelowPhreaticLevelShift);
+            Assert.AreEqual(parameters.DiameterD70Mean, soilLayer.DiameterD70Mean);
+            Assert.AreEqual(parameters.DiameterD70Deviation, soilLayer.DiameterD70Deviation);
+            Assert.AreEqual(parameters.PermeabilityMean, soilLayer.PermeabilityMean);
+            Assert.AreEqual(parameters.PermeabilityDeviation, soilLayer.PermeabilityDeviation);
+        }
+
+        [Test]
+        public void SetOptionalStochasticParameters_SoilLayerNullValues_NoChange()
+        {
+            // Setup
+            var random = new Random(21);
+            var parameters = new TestGenericSoilLayerParameters();
+
+            var belowPhreaticLevelMean = random.NextDouble();
+            var belowPhreaticLevelDeviation = random.NextDouble();
+            var belowPhreaticLevelShift = random.NextDouble();
+            var diameterD70Mean = random.NextDouble();
+            var diameterD70Deviation = random.NextDouble();
+            var permeabilityMean = random.NextDouble();
+            var permeabilityDeviation = random.NextDouble();
+
+            var soilLayer = new PipingSoilLayer(3.0)
+            {
+                BelowPhreaticLevelMean = belowPhreaticLevelMean,
+                BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
+                BelowPhreaticLevelShift = belowPhreaticLevelShift,
+                DiameterD70Mean = diameterD70Mean,
+                DiameterD70Deviation = diameterD70Deviation,
+                PermeabilityMean = permeabilityMean,
+                PermeabilityDeviation = permeabilityDeviation,
+            };
+
+            // Call
+            parameters.CallSetOptionalStochasticParameters(soilLayer);
+
+            // Assert
+            Assert.AreEqual(belowPhreaticLevelMean, soilLayer.BelowPhreaticLevelMean);
+            Assert.AreEqual(belowPhreaticLevelDeviation, soilLayer.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(belowPhreaticLevelShift, soilLayer.BelowPhreaticLevelShift);
+            Assert.AreEqual(diameterD70Mean, soilLayer.DiameterD70Mean);
+            Assert.AreEqual(diameterD70Deviation, soilLayer.DiameterD70Deviation);
+            Assert.AreEqual(permeabilityMean, soilLayer.PermeabilityMean);
+            Assert.AreEqual(permeabilityDeviation, soilLayer.PermeabilityDeviation);
+        }
+
+        private class TestGenericSoilLayerParameters : GenericSoilLayerParameters {
+
+            /// <summary>
+            /// Simply calls the implementation of the protected 
+            /// <see cref="GenericSoilLayerParameters.SetOptionalStochasticParameters"/>.
+            /// </summary>
+            /// <param name="pipingSoilLayer">The <see cref="PipingSoilLayer"/> to use as parameter.</param>
+            public void CallSetOptionalStochasticParameters(PipingSoilLayer pipingSoilLayer)
+            {
+                SetOptionalStochasticParameters(pipingSoilLayer);
+            }
+        }
     }
 }

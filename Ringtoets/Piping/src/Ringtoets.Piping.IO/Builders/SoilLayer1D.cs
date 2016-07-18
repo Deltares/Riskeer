@@ -43,11 +43,6 @@ namespace Ringtoets.Piping.IO.Builders
         public double Top { get; private set; }
 
         /// <summary>
-        /// Gets or sets the double which represents whether the <see cref="SoilLayer1D"/> is an aquifer.
-        /// </summary>
-        public double? IsAquifer { get; set; }
-
-        /// <summary>
         /// Constructs a (1D) <see cref="PipingSoilLayer"/> based on the properties set for the <see cref="SoilLayer1D"/>.
         /// </summary>
         /// <returns>The <see cref="PipingSoilLayer"/> with properties corresponding to those set on the <see cref="SoilLayer1D"/>.</returns>

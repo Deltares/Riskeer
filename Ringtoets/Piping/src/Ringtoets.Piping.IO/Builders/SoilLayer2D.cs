@@ -49,12 +49,6 @@ namespace Ringtoets.Piping.IO.Builders
         }
 
         /// <summary>
-        /// Gets or sets a <see cref="double"/> value representing 
-        /// whether the <see cref="SoilLayer2D"/> is an aquifer.
-        /// </summary>
-        public double? IsAquifer { get; set; }
-
-        /// <summary>
         /// Gets the outer loop of the <see cref="SoilLayer2D"/> as a <see cref="List{T}"/> of <see cref="Segment2D"/>,
         /// for which each of the segments are connected to the next.
         /// </summary>

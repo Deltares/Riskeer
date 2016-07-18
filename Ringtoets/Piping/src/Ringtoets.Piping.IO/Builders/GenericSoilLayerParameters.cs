@@ -19,45 +19,55 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Builders
 {
+    /// <summary>
+    /// Class containing parameters which are defined for both 1D and 2D soil layers.
+    /// </summary>
     internal abstract class GenericSoilLayerParameters {
+
         /// <summary>
-        /// Gets or sets the name of the material that was assigned to the <see cref="SoilLayer1D"/>.
+        /// Gets or sets a <see cref="double"/> value representing whether the layer is an aquifer.
+        /// </summary>
+        public double? IsAquifer { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the material that was assigned to the layer.
         /// </summary>
         internal string MaterialName { get; set; }
 
         /// <summary>
-        /// Gets or sets the value representing a color that was used to represent the <see cref="SoilLayer1D"/>.
+        /// Gets or sets the value representing the color that was used to represent the layer.
         /// </summary>
         internal double? Color { get; set; }
 
         /// <summary>
-        /// Gets or sets the distribution for the volumic weight of the <see cref="SoilLayer1D"/> below the 
+        /// Gets or sets the distribution for the volumic weight of the layer below the 
         /// phreatic level.
         /// [kN/m³]
         /// </summary>
         internal long? BelowPhreaticLevelDistribution { get; set; }
 
         /// <summary>
-        /// Gets or sets the shift of the distribution for the volumic weight of the <see cref="SoilLayer1D"/> 
+        /// Gets or sets the shift of the distribution for the volumic weight of the layer 
         /// below the phreatic level.
         /// [kN/m³]
         /// </summary>
         internal double? BelowPhreaticLevelShift { get; set; }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the volumic weight of the <see cref="SoilLayer1D"/> 
+        /// Gets or sets the mean of the distribution for the volumic weight of the layer 
         /// below the phreatic level.
         /// [kN/m³]
         /// </summary>
         internal double? BelowPhreaticLevelMean { get; set; }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the volumic weight of the <see cref="SoilLayer1D"/> below the phreatic level.
+        /// Gets or sets the deviation of the distribution for the volumic weight of the layer below the phreatic level.
         /// [kN/m³]
         /// </summary>
         internal double? BelowPhreaticLevelDeviation { get; set; }
@@ -118,10 +128,16 @@ namespace Ringtoets.Piping.IO.Builders
         /// Sets the values of the optional stochastic parameters for the given <see cref="PipingSoilLayer"/>.
         /// </summary>
         /// <param name="pipingSoilLayer">The <see cref="PipingSoilLayer"/> to set the property values for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingSoilLayer"/> is <c>null</c>.</exception>
         /// <remarks>This method does not perform validation. Use <see cref="ValidateStochasticParametersForPiping"/> to 
         /// verify whether the distributions for the stochastic parameters are correctly defined.</remarks>
         protected void SetOptionalStochasticParameters(PipingSoilLayer pipingSoilLayer)
         {
+            if (pipingSoilLayer == null)
+            {
+                throw new ArgumentNullException("pipingSoilLayer");
+            }
+
             if (BelowPhreaticLevelMean.HasValue)
             {
                 pipingSoilLayer.BelowPhreaticLevelMean = BelowPhreaticLevelMean.Value;

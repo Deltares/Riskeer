@@ -21,6 +21,7 @@
 
 using System;
 using System.Data.SQLite;
+using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.Piping.IO.Builders;
@@ -41,14 +42,14 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// </summary>
         /// <param name="reader">A <see cref="IRowBasedDatabaseReader"/> which is used to read row values from.</param>
         /// <returns>A new <see cref="PipingSoilProfile"/>, which is based on the information from the database.</returns>
-        /// <exception cref="Core.Common.IO.Exceptions.CriticalFileReadException">Thrown when reading the profile encountered an unrecoverable error.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when encountering an unrecoverable error while reading the profile.</exception>
         /// <exception cref="PipingSoilProfileReadException">Thrown when
         /// <list type="bullet">
-        /// <item>a layer's geometry could not be parsed as XML;</item>
-        /// <item>the parsed geometry did not contain loops;</item>
-        /// <item>after reading the layers, no layers were added to be build;</item>
-        /// <item>unexpected values were encountered for layer properties;</item>
-        /// <item>stochastic layer properties were not defined with a lognormal distribution
+        /// <item>a layer's geometry cannot be parsed as XML;</item>
+        /// <item>the parsed geometry does not contain loops;</item>
+        /// <item>after reading the layers, no layers are added to be build;</item>
+        /// <item>unexpected values are encountered for layer properties;</item>
+        /// <item>stochastic layer properties are not defined with a lognormal distribution
         /// or is shifted when it should not be</item>
         /// </list> 
         /// </exception>

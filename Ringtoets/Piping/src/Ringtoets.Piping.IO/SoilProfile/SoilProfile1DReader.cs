@@ -42,8 +42,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// </summary>
         /// <param name="reader">A <see cref="IRowBasedDatabaseReader"/> which is used to read row values from.</param>
         /// <returns>A new <see cref="PipingSoilProfile"/>, which is based on the information from the database.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when reading the profile encountered an unrecoverable error.</exception>
-        /// <exception cref="PipingSoilProfileReadException">Thrown when reading the profile encountered a recoverable error.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when encountering an unrecoverable error while reading the profile.</exception>
+        /// <exception cref="PipingSoilProfileReadException">Thrown when encountering an recoverable error while reading the profile</exception>
         internal static PipingSoilProfile ReadFrom(IRowBasedDatabaseReader reader)
         {
             var criticalProperties = new CriticalProfileProperties(reader);
@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <summary>
         /// Builds a <see cref="SoilLayer1D"/> from the given <paramref name="soilProfileBuilder"/>.
         /// </summary>
-        /// <exception cref="PipingSoilProfileReadException">Thrown when building the <see cref="PipingSoilProfile"/> failed.</exception>
+        /// <exception cref="PipingSoilProfileReadException">Thrown when building the <see cref="PipingSoilProfile"/> fails.</exception>
         private static PipingSoilProfile Build(SoilProfileBuilder1D soilProfileBuilder, string path, string profileName)
         {
             try
@@ -124,7 +124,10 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private class Layer1DProperties : LayerProperties
         {
-            internal readonly double Top;
+            /// <summary>
+            /// Gets the top level of the 1D soil layer.
+            /// </summary>
+            internal double Top { get; private set;  }
 
             /// <summary>
             /// Creates a new instance of <see cref="Layer1DProperties"/>, which contains properties

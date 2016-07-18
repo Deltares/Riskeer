@@ -21,8 +21,14 @@
 
 namespace Ringtoets.Piping.IO.Builders
 {
-    public class SoilLayerConstants
+    /// <summary>
+    /// Class defining constants that hold certain meaning in the DSoilModel database.
+    /// </summary>
+    internal static class SoilLayerConstants
     {
+        /// <summary>
+        /// The value of the distribution parameter when the the distribution is lognormal.
+        /// </summary>
         public const long LogNormalDistributionValue = 3; 
     }
 }

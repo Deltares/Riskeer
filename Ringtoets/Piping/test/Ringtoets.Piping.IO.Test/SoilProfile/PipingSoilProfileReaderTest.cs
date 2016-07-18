@@ -296,10 +296,17 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadProfile_DatabaseProfileWithInvalidBottom_ReturnsNoProfile()
+        [TestCase("incorrect2dStochastDistributionProperty.soil", "Parameter \'Verzadigd gewicht\' is niet verschoven lognormaal verdeeld.")]
+        [TestCase("incorrect2dStochastShiftProperty.soil", "Parameter \'Korrelgrootte\' is niet lognormaal verdeeld.")]
+        [TestCase("incorrectValue2dStochastProperty.soil", "Ondergrondschematisatie bevat geen geldige waarde in kolom \'BelowPhreaticLevelMean\'.")]
+        [TestCase("incorrectValue2dProperty.soil", "Ondergrondschematisatie bevat geen geldige waarde in kolom \'Color\'.")]
+        [TestCase("invalidTop1dProfile.soil", "Ondergrondschematisatie bevat geen geldige waarde in kolom \'Top\'.")]
+        [TestCase("invalidBottom1dProfile.soil", "Ondergrondschematisatie bevat geen geldige waarde in kolom \'Bottom\'.")]
+        public void ReadProfile_DatabaseProfileWithLayerWithIncorrectDistributionForBelowPhreaticLevelProperty_ThrowsPipingSoilProfileReadException(
+            string testFile,
+            string expectedMessage)
         {
             // Setup
-            var testFile = "invalidBottom1dProfile.soil";
             string databaseFilePath = Path.Combine(testDataPath, testFile);
             using (var pipingSoilProfilesReader = new PipingSoilProfileReader(databaseFilePath))
             {
@@ -310,108 +317,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
                 var message = new FileReaderErrorMessageBuilder(databaseFilePath)
                     .WithSubject("ondergrondschematisatie 'Profile'")
-                    .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, "Bottom"));
-                Assert.AreEqual(message, exceptionMessage);
-            }
-        }
-
-        [Test]
-        public void ReadProfile_DatabaseProfileWithLayerWithInvalidTop_ReturnsNoProfile()
-        {
-            // Setup
-            var testFile = "invalidTop1dProfile.soil";
-            string databaseFilePath = Path.Combine(testDataPath, testFile);
-            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(databaseFilePath))
-            {
-                // Call
-                TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
-
-                // Assert
-                var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
-                var message = new FileReaderErrorMessageBuilder(databaseFilePath)
-                    .WithSubject("ondergrondschematisatie 'Profile'")
-                    .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, "Top"));
-                Assert.AreEqual(message, exceptionMessage);
-            }
-        }
-
-        [Test]
-        public void ReadProfile_DatabaseProfileWithLayerWithInvalidLayerProperty_ReturnsNoProfile()
-        {
-            // Setup
-            var testFile = "incorrectValue2dProperty.soil";
-            string databaseFilePath = Path.Combine(testDataPath, testFile);
-            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(databaseFilePath))
-            {
-                // Call
-                TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
-
-                // Assert
-                var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
-                var message = new FileReaderErrorMessageBuilder(databaseFilePath)
-                    .WithSubject("ondergrondschematisatie 'Profile'")
-                    .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, "Color"));
-                Assert.AreEqual(message, exceptionMessage);
-            }
-        }
-
-        [Test]
-        public void ReadProfile_DatabaseProfileWithLayerWithInvalidStochastProperty_ReturnsNoProfile()
-        {
-            // Setup
-            var testFile = "incorrectValue2dStochastProperty.soil";
-            string databaseFilePath = Path.Combine(testDataPath, testFile);
-            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(databaseFilePath))
-            {
-                // Call
-                TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
-
-                // Assert
-                var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
-                var message = new FileReaderErrorMessageBuilder(databaseFilePath)
-                    .WithSubject("ondergrondschematisatie 'Profile'")
-                    .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, "BelowPhreaticLevelMean"));
-                Assert.AreEqual(message, exceptionMessage);
-            }
-        }
-
-        [Test]
-        public void ReadProfile_DatabaseProfileWithLayerWithIncorrectDistributionForBelowPhreaticLevelProperty_ReturnsNoProfile()
-        {
-            // Setup
-            var testFile = "incorrect2dStochastDistributionProperty.soil";
-            string databaseFilePath = Path.Combine(testDataPath, testFile);
-            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(databaseFilePath))
-            {
-                // Call
-                TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
-
-                // Assert
-                var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
-                var message = new FileReaderErrorMessageBuilder(databaseFilePath)
-                    .WithSubject("ondergrondschematisatie 'Profile'")
-                    .Build(string.Format(Resources.SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution, Resources.SoilLayer_BelowPhreaticLevelDistribution_Description));
-                Assert.AreEqual(message, exceptionMessage);
-            }
-        }
-
-
-        [Test]
-        public void ReadProfile_DatabaseProfileWithLayerWithIncorrectShiftForDiameterD70Property_ReturnsNoProfile()
-        {
-            // Setup
-            var testFile = "incorrect2dStochastShiftProperty.soil";
-            string databaseFilePath = Path.Combine(testDataPath, testFile);
-            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(databaseFilePath))
-            {
-                // Call
-                TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
-
-                // Assert
-                var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
-                var message = new FileReaderErrorMessageBuilder(databaseFilePath)
-                    .WithSubject("ondergrondschematisatie 'Profile'")
-                    .Build(string.Format(Resources.SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution, Resources.SoilLayer_DiameterD70Distribution_Description));
+                    .Build(expectedMessage);
                 Assert.AreEqual(message, exceptionMessage);
             }
         }

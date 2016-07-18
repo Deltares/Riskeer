@@ -70,6 +70,7 @@
     <Compile Include="Builders\SoilProfileBuilderExceptionTest.cs" />
     <Compile Include="Builders\SoilDatabaseQueryBuilderTest.cs" />
     <Compile Include="Exceptions\StochasticSoilProfileReadExceptionTest.cs" />
+    <Compile Include="SoilProfile\LayerPropertiesTest.cs" />
     <Compile Include="SoilProfile\SoilLayerColorConversionHelperTest.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelTest.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelReaderTest.cs" />

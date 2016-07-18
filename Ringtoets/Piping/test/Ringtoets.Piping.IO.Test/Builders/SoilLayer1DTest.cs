@@ -142,7 +142,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Assert
             var message = Assert.Throws<SoilLayerConversionException>(test).Message;
-            Assert.AreEqual(string.Format("De parameter '{0}' is niet verschoven lognormaal verdeeld.", "Verzadigd gewicht"), message);
+            Assert.AreEqual(string.Format("Parameter '{0}' is niet verschoven lognormaal verdeeld.", "Verzadigd gewicht"), message);
         }
 
         [Test]
@@ -169,7 +169,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Assert
             var message = Assert.Throws<SoilLayerConversionException>(test).Message;
-            Assert.AreEqual(string.Format("De parameter '{0}' is niet lognormaal verdeeld.", expectedParameter), message);
+            Assert.AreEqual(string.Format("Parameter '{0}' is niet lognormaal verdeeld.", expectedParameter), message);
         }
 
         [Test]
@@ -195,7 +195,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Assert
             var message = Assert.Throws<SoilLayerConversionException>(test).Message;
-            Assert.AreEqual(string.Format("De parameter '{0}' is niet lognormaal verdeeld.", expectedParameter), message);
+            Assert.AreEqual(string.Format("Parameter '{0}' is niet lognormaal verdeeld.", expectedParameter), message);
         }
 
         [Test]

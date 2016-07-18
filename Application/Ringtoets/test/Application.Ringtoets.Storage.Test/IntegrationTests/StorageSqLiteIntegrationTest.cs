@@ -749,6 +749,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual(expectedLayer.Top, actualLayer.Top);
                 Assert.AreEqual(expectedLayer.IsAquifer, actualLayer.IsAquifer);
                 Assert.AreEqual(expectedLayer.BelowPhreaticLevelMean, actualLayer.BelowPhreaticLevelMean);
+                Assert.AreEqual(expectedLayer.BelowPhreaticLevelDeviation, actualLayer.BelowPhreaticLevelDeviation);
+                Assert.AreEqual(expectedLayer.BelowPhreaticLevelShift, actualLayer.BelowPhreaticLevelShift);
+                Assert.AreEqual(expectedLayer.DiameterD70Mean, actualLayer.DiameterD70Mean);
+                Assert.AreEqual(expectedLayer.DiameterD70Deviation, actualLayer.DiameterD70Deviation);
+                Assert.AreEqual(expectedLayer.PermeabilityMean, actualLayer.PermeabilityMean);
+                Assert.AreEqual(expectedLayer.PermeabilityDeviation, actualLayer.PermeabilityDeviation);
             }
         }
 
