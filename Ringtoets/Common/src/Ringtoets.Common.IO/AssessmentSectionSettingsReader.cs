@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.Properties;
 
@@ -49,7 +48,7 @@ namespace Ringtoets.Common.IO
             var resultArray = new AssessmentSectionSettings[ihwFileLines.Length - 1];
             for (int i = 1; i < ihwFileLines.Length; i++)
             {
-                resultArray[i-1] = ReadAssessmentSectionSettings(ihwFileLines[i]);
+                resultArray[i - 1] = ReadAssessmentSectionSettings(ihwFileLines[i]);
             }
             return resultArray;
         }
@@ -60,10 +59,10 @@ namespace Ringtoets.Common.IO
         /// <param name="lineToParse">The line to be parsed.</param>
         /// <returns>The initialized <see cref="AssessmentSectionSettings"/>.</returns>
         /// <exception cref="IndexOutOfRangeException">When <paramref name="lineToParse"/>
-        /// does not have at least 2 columns or when the columns aren't separated by a ';'.</exception>
-        /// <exception cref="FormatException">When the second column text doesn't represent a number.</exception>
+        /// does not have at least 2 columns or when the columns are not separated by a ';'.</exception>
+        /// <exception cref="FormatException">When the second column text does not represent a number.</exception>
         /// <exception cref="OverflowException">When the second column text represents a number
-        /// that is too big or too small to be stored in a <see cref="double"/>.</exception>
+        /// that is too big or too small to be stored in an <see cref="int"/>.</exception>
         private static AssessmentSectionSettings ReadAssessmentSectionSettings(string lineToParse)
         {
             string[] lineValues = lineToParse.Split(new[]
@@ -78,7 +77,7 @@ namespace Ringtoets.Common.IO
                 return AssessmentSectionSettings.CreateDuneAssessmentSectionSettings(assessmentSectionId);
             }
 
-            double n = double.Parse(nValue);
+            int n = int.Parse(nValue);
             return AssessmentSectionSettings.CreateDikeAssessmentSectionSettings(assessmentSectionId, n);
         }
     }

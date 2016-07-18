@@ -31,7 +31,7 @@ namespace Ringtoets.Common.IO.Test
         {
             // Setup
             string id = "test";
-            double n = 1.1;
+            const int n = 1;
 
             // Call
             AssessmentSectionSettings result = AssessmentSectionSettings.CreateDikeAssessmentSectionSettings(id, n);
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.IO.Test
 
             // Assert
             Assert.AreEqual(id, result.AssessmentSectionId);
-            Assert.AreEqual(3.0, result.N);
+            Assert.AreEqual(3, result.N);
             Assert.IsTrue(result.IsDune);
         }
     }

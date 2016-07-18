@@ -29,7 +29,7 @@ namespace Ringtoets.Common.IO
     /// </summary>
     public class AssessmentSectionSettings
     {
-        private AssessmentSectionSettings(string id, double n, bool isDune)
+        private AssessmentSectionSettings(string id, int n, bool isDune)
         {
             AssessmentSectionId = id;
             N = n;
@@ -39,7 +39,7 @@ namespace Ringtoets.Common.IO
         /// <summary>
         /// The 'length effect' parameter.
         /// </summary>
-        public double N { get; private set; }
+        public int N { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether this instance is a dune assessment section or not.
@@ -57,7 +57,7 @@ namespace Ringtoets.Common.IO
         /// <param name="id">The identifier of the assessment section.</param>
         /// <param name="n">The 'length effect' parameter.</param>
         /// <returns>A fully configured <see cref="AssessmentSectionSettings"/>.</returns>
-        public static AssessmentSectionSettings CreateDikeAssessmentSectionSettings(string id, double n)
+        public static AssessmentSectionSettings CreateDikeAssessmentSectionSettings(string id, int n)
         {
             return new AssessmentSectionSettings(id, n, false);
         }
@@ -69,7 +69,7 @@ namespace Ringtoets.Common.IO
         /// <returns>A fully configured <see cref="AssessmentSectionSettings"/>.</returns>
         public static AssessmentSectionSettings CreateDuneAssessmentSectionSettings(string id)
         {
-            return new AssessmentSectionSettings(id, 3.0, true);
+            return new AssessmentSectionSettings(id, 3, true);
         }
     }
 }
