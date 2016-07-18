@@ -66,7 +66,8 @@ namespace Core.Components.Charting.Data
         }
 
         /// <summary>
-        /// Replaces an element in the list of <see cref="ChartData"/>.
+        /// Replaces the given old element in the list of <see cref="ChartData"/> with the given new element.
+        /// Meta-data of the old element is being kept.
         /// </summary>
         /// <param name="oldElement">The <see cref="ChartData"/> element to replace.</param>
         /// <param name="newElement">The <see cref="ChartData"/> element to replace with.</param>

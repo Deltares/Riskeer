@@ -69,11 +69,11 @@ namespace Core.Plugins.OxyPlot.Legend
                 Image = GetImage,
                 ChildNodeObjects = ChartDataContextGetChildNodeObjects,
                 CanDrag = (context, o) => !(context.WrappedData is ChartMultipleAreaData),
-                CanCheck = context => !(context.WrappedData is ChartDataCollection),                
+                CanCheck = context => !(context.WrappedData is ChartDataCollection),
                 IsChecked = context => context.WrappedData.IsVisible,
                 OnNodeChecked = ChartDataContextOnNodeChecked,
-                CanDrop = ChartDataContextCanDrop,
-                CanInsert = ChartDataContextCanInsert,
+                CanDrop = ChartDataContextCanDropAndInsert,
+                CanInsert = ChartDataContextCanDropAndInsert,
                 OnDrop = ChartDataContextOnDrop
             });
 
@@ -83,10 +83,26 @@ namespace Core.Plugins.OxyPlot.Legend
                 Image = collection => GuiResources.folder,
                 ChildNodeObjects = GetCollectionChildNodeObjects,
                 CanDrag = (multipleAreaData, parentData) => true,
-                CanDrop = ChartDataCollectionCanDrop,
-                CanInsert = ChartDataCollectionCanInsert,
+                CanDrop = ChartDataCollectionCanDropAndInsert,
+                CanInsert = ChartDataCollectionCanDropAndInsert,
                 OnDrop = ChartDataCollectionOnDrop
             });
+        }
+
+        private static object[] GetChildNodeObjects(ChartDataCollection chartDataCollection)
+        {
+            return chartDataCollection.List.Reverse().Select(chartData => new ChartDataContext(chartData, chartDataCollection)).Cast<object>().ToArray();
+        }
+
+        private void NotifyObserversOfData(ChartData chartData)
+        {
+            chartData.NotifyObservers();
+
+            var observableParent = Data as IObservable;
+            if (observableParent != null)
+            {
+                observableParent.NotifyObservers();
+            }
         }
 
         #region ChartDataContext
@@ -123,18 +139,10 @@ namespace Core.Plugins.OxyPlot.Legend
             NotifyObserversOfData(chartDataContext.WrappedData);
         }
 
-        private static bool ChartDataContextCanDrop(object draggedData, object targetData)
+        private static bool ChartDataContextCanDropAndInsert(object draggedData, object targetData)
         {
             var draggedDataContext = (ChartDataContext) draggedData;
             var targetDataContext = (ChartDataContext) targetData;
-
-            return !(targetDataContext.WrappedData is ChartDataCollection) && draggedDataContext.ParentChartData.Equals(targetDataContext.ParentChartData);
-        }
-
-        private static bool ChartDataContextCanInsert(object draggedData, object targetData)
-        {
-            var draggedDataContext = (ChartDataContext)draggedData;
-            var targetDataContext = (ChartDataContext)targetData;
 
             return !(targetDataContext.WrappedData is ChartDataCollection) && draggedDataContext.ParentChartData.Equals(targetDataContext.ParentChartData);
         }
@@ -145,7 +153,7 @@ namespace Core.Plugins.OxyPlot.Legend
             var sourceContext = oldParentData as ChartDataContext;
 
             var chartData = chartContext.WrappedData;
-            ChartDataCollection parent = (ChartDataCollection)(sourceContext != null ? sourceContext.WrappedData : oldParentData);
+            ChartDataCollection parent = (ChartDataCollection) (sourceContext != null ? sourceContext.WrappedData : oldParentData);
 
             parent.Remove(chartData);
             parent.Insert(parent.List.Count - position, chartData);
@@ -161,7 +169,7 @@ namespace Core.Plugins.OxyPlot.Legend
             return GetChildNodeObjects(chartDataCollection);
         }
 
-        private static bool ChartDataCollectionCanDrop(object draggedData, object targetData)
+        private static bool ChartDataCollectionCanDropAndInsert(object draggedData, object targetData)
         {
             var draggedDataContext = (ChartDataContext) draggedData;
             var targetDataContext = targetData as ChartDataContext;
@@ -170,18 +178,9 @@ namespace Core.Plugins.OxyPlot.Legend
             return draggedDataContext.ParentChartData.Equals(targetDataObject);
         }
 
-        private static bool ChartDataCollectionCanInsert(object draggedData, object targetData)
-        {
-            var draggedDataContext = (ChartDataContext)draggedData;
-            var targetDataContext = targetData as ChartDataContext;
-            var targetDataObject = targetDataContext != null ? targetDataContext.ParentChartData : targetData;
-
-            return draggedDataContext.ParentChartData.Equals(targetDataObject);
-        }
-
         private static void ChartDataCollectionOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
         {
-            var chartContext = (ChartDataContext)droppedData;
+            var chartContext = (ChartDataContext) droppedData;
 
             var chartData = chartContext.WrappedData;
             ChartDataCollection parent = (ChartDataCollection) oldParentData;
@@ -192,21 +191,5 @@ namespace Core.Plugins.OxyPlot.Legend
         }
 
         # endregion
-
-        private static object[] GetChildNodeObjects(ChartDataCollection chartDataCollection)
-        {
-            return chartDataCollection.List.Reverse().Select(chartData => new ChartDataContext(chartData, chartDataCollection)).Cast<object>().ToArray();
-        }
-
-        private void NotifyObserversOfData(ChartData chartData)
-        {
-            chartData.NotifyObservers();
-
-            var observableParent = Data as IObservable;
-            if (observableParent != null)
-            {
-                observableParent.NotifyObservers();
-            }
-        }
     }
 }

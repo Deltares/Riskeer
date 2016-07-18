@@ -71,13 +71,13 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Create_GivenReferenceLine_ReturnsMapFeaturesWithDefaultStyling()
         {
             // Setup
-            var pointsOne = new[]
+            var points = new[]
             {
                 new Point2D(1.2, 2.3),
                 new Point2D(2.7, 2.0)
             };
             var line = new ReferenceLine();
-            line.SetGeometry(pointsOne);
+            line.SetGeometry(points);
 
             // Call
             MapData data = MapDataFactory.Create(line);
@@ -87,7 +87,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var mapLineData = (MapLineData)data;
             Assert.AreEqual(1, mapLineData.Features.Count());
             Assert.AreEqual(1, mapLineData.Features.ElementAt(0).MapGeometries.Count());
-            AssertEqualPointCollections(pointsOne, mapLineData.Features.ElementAt(0).MapGeometries.ElementAt(0));
+            AssertEqualPointCollections(points, mapLineData.Features.ElementAt(0).MapGeometries.ElementAt(0));
 
             Assert.AreEqual(Resources.ReferenceLine_DisplayName, data.Name);
 
@@ -109,13 +109,13 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Create_GivenHydraulicDatabase_ReturnsMapFeaturesWithDefaultStyling()
         {
             // Setup
-            var pointsOne = new[]
+            var points = new[]
             {
                 new Point2D(1.2, 2.3),
                 new Point2D(2.7, 2.0)
             };
             var database = new HydraulicBoundaryDatabase();
-            database.Locations.AddRange(pointsOne.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)));
+            database.Locations.AddRange(points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)));
 
             // Call
             MapData data = MapDataFactory.Create(database);
@@ -125,7 +125,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var mapPointData = (MapPointData)data;
             Assert.AreEqual(1, mapPointData.Features.Count());
             Assert.AreEqual(1, mapPointData.Features.ElementAt(0).MapGeometries.Count());
-            AssertEqualPointCollections(pointsOne, mapPointData.Features.ElementAt(0).MapGeometries.ElementAt(0));
+            AssertEqualPointCollections(points, mapPointData.Features.ElementAt(0).MapGeometries.ElementAt(0));
 
             Assert.AreEqual(Resources.HydraulicBoundaryConditions_DisplayName, data.Name);
 
@@ -159,7 +159,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private void AssertEqualPointCollections(IEnumerable<Point2D> points, MapGeometry geometry)
         {
-            CollectionAssert.AreEqual(points.Select(p => new Point2D(p.X, p.Y)), geometry.PointCollections.First());
+            CollectionAssert.AreEqual(points, geometry.PointCollections.First());
         } 
     }
 }

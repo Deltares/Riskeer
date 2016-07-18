@@ -117,7 +117,7 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
-        public void Replace_NotNull_ReplacesElementInCollection()
+        public void Replace_NotNull_ReplacesElementInCollectionAndKeepsMetaData()
         {
             // Setup
             var list = Enumerable.Empty<MapData>().ToList();

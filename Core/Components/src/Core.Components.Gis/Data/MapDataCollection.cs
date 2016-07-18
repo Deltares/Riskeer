@@ -67,7 +67,8 @@ namespace Core.Components.Gis.Data
         }
 
         /// <summary>
-        /// Replaces an element in the list of <see cref="MapData"/>.
+        /// Replaces the given old element in the list of <see cref="MapData"/> with the given new element.
+        /// Meta-data of the old element is being kept.
         /// </summary>
         /// <param name="oldElement">The <see cref="MapData"/> element to replace.</param>
         /// <param name="newElement">The <see cref="MapData"/> element to replace with.</param>

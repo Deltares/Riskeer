@@ -35,6 +35,9 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Views
 {
+    /// <summary>
+    /// Factory for creating <see cref="MapData"/> based on information used as input in the assessment section.
+    /// </summary>
     public static class MapDataFactory
     {
         /// <summary>
@@ -49,7 +52,7 @@ namespace Ringtoets.Common.Forms.Views
             {
                 throw new ArgumentNullException("referenceLine");
             }
-            var features = GetMapFeature(referenceLine.Points);
+            IEnumerable<MapFeature> features = GetMapFeature(referenceLine.Points);
 
             return new MapLineData(features, RingtoetsCommonDataResources.ReferenceLine_DisplayName)
             {
@@ -70,11 +73,11 @@ namespace Ringtoets.Common.Forms.Views
                 throw new ArgumentNullException("hydraulicBoundaryDatabase");
             }
 
-            IEnumerable<Point2D> locations = hydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToArray();
+            Point2D[] locations = hydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToArray();
 
-            var features = GetMapFeature(locations);
+            IEnumerable<MapFeature> features = GetMapFeature(locations);
 
-            return new MapPointData(features, Common.Data.Properties.Resources.HydraulicBoundaryConditions_DisplayName)
+            return new MapPointData(features, RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName)
             {
                 Style = new PointStyle(Color.DarkBlue, 6, PointSymbol.Circle)
             };
@@ -100,7 +103,7 @@ namespace Ringtoets.Common.Forms.Views
             return new MapPointData(Enumerable.Empty<MapFeature>(), name);
         }
 
-        public static IEnumerable<MapFeature> GetMapFeature(IEnumerable<Point2D> points)
+        private static IEnumerable<MapFeature> GetMapFeature(IEnumerable<Point2D> points)
         {
             return new[]
             {

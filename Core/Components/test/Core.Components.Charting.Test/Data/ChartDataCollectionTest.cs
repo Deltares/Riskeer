@@ -118,7 +118,7 @@ namespace Core.Components.Charting.Test.Data
         }
 
         [Test]
-        public void Replace_NotNull_ReplacesElementInCollection()
+        public void Replace_NotNull_ReplacesElementInCollectionAndKeepsMetaData()
         {
             // Setup
             var list = Enumerable.Empty<ChartData>().ToList();
@@ -191,12 +191,15 @@ namespace Core.Components.Charting.Test.Data
         }
 
         [Test]
-        public void Replace_NestedCollection_ReplacesElementsInCollection()
+        public void Replace_NestedCollection_ReplacesElementsInCollectionAndKeepsMetaData()
         {
             // Setup
             var emptyList = Enumerable.Empty<ChartData>().ToList();
             var data = new ChartDataCollection(emptyList, "test");
-            var dataElement = new ChartLineData(Enumerable.Empty<Point2D>(), "test");
+            var dataElement = new ChartLineData(Enumerable.Empty<Point2D>(), "test")
+            {
+                IsVisible = false
+            };
             var nestedData = new ChartDataCollection(new ChartData[]
             {
                 dataElement
@@ -214,6 +217,7 @@ namespace Core.Components.Charting.Test.Data
             Assert.AreEqual(1, data.List.Count);
             var nestedCollection = (ChartDataCollection)data.List[0];
             Assert.IsInstanceOf<ChartLineData>(nestedCollection.List[0]);
+            Assert.IsFalse(nestedCollection.List[0].IsVisible);
 
             // Call
             data.Replace(nestedData, newNestedData);
@@ -222,6 +226,7 @@ namespace Core.Components.Charting.Test.Data
             Assert.AreEqual(1, data.List.Count);
             var newNestedCollection = (ChartDataCollection)data.List[0];
             Assert.IsInstanceOf<ChartPointData>(newNestedCollection.List[0]);
+            Assert.IsFalse(newNestedCollection.List[0].IsVisible);
         }
 
         [Test]
