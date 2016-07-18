@@ -260,4 +260,19 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="ReferenceLineMetaSelectionView_LowerLimitValue_DisplayName" xml:space="preserve">
     <value>Ondergrens</value>
   </data>
+  <data name="ReferenceLineMetaSelectionDialog_ColumnHeader_SignalingValue" xml:space="preserve">
+    <value>Signaleringswaarde</value>
+  </data>
+  <data name="ReferenceLineMetaSelectionDialog_ColumnHeader_AssessmentSectionId" xml:space="preserve">
+    <value>Identificatiecode</value>
+  </data>
+  <data name="ReferenceLineMetaSelectionDialog_ColumnHeader_LowerLimitValue" xml:space="preserve">
+    <value>Ondergrens</value>
+  </data>
+  <data name="AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found_for_AssessmentSection" xml:space="preserve">
+    <value>Er zijn geen instellingen gevonden voor het geselecteerde traject. Standaardinstellingen zullen gebruikt worden.</value>
+  </data>
+  <data name="AssessmentSectionFromFileCommandHandler_ValidateReferenceLineMetas_No_referenceLines_in_file" xml:space="preserve">
+    <value>Er kunnen geen trajecten gelezen worden uit het shape bestand.</value>
+  </data>
 </root>

@@ -19,10 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.IO;
-
-using Core.Common.TestUtil;
-
 using NUnit.Framework;
 
 namespace Ringtoets.Common.IO.Test
@@ -31,7 +27,7 @@ namespace Ringtoets.Common.IO.Test
     public class AssessmentSectionSettingsReaderTest
     {
         [Test]
-        public void ReadSettigns_FromValidFile_ReturnAllAssessmentSectionSettings()
+        public void ReadSettings_FromValidFile_ReturnsAllAssessmentSectionSettings()
         {
             // Setup
             var reader = new AssessmentSectionSettingsReader();

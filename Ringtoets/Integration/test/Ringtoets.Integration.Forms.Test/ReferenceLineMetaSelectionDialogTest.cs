@@ -23,10 +23,8 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
-using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test
 {
@@ -63,7 +61,6 @@ namespace Ringtoets.Integration.Forms.Test
             {
                 // Assert
                 Assert.IsInstanceOf<DialogBase>(dialog);
-                Assert.IsInstanceOf<ReferenceLineMetaSelectionView>(new ControlTester("ReferenceLineMetaSelectionView", dialog).TheObject);
                 Assert.IsNull(dialog.SelectedReferenceLineMeta);
                 Assert.AreEqual("Selecteer referentielijn", dialog.Text);
             }
@@ -79,8 +76,8 @@ namespace Ringtoets.Integration.Forms.Test
                 dialog.Show();
 
                 // Assert
-                Assert.AreEqual(300, dialog.MinimumSize.Width);
-                Assert.AreEqual(400, dialog.MinimumSize.Height);
+                Assert.AreEqual(410, dialog.MinimumSize.Width);
+                Assert.AreEqual(350, dialog.MinimumSize.Height);
             }
         }
     }

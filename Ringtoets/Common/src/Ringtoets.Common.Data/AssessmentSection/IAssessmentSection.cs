@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <summary>
         /// Gets or sets the identifier of the assessment section.
         /// </summary>
-        string Id { get; }
+        string Id { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the assessment section.

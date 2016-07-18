@@ -61,6 +61,7 @@ namespace Core.Common.Gui.Commands
             this.dataItemInfos = dataItemInfos;
             this.applicationSelection = applicationSelection;
             this.viewController = viewController;
+
         }
 
         public void AddNewItem(object parent)
@@ -69,18 +70,18 @@ namespace Core.Common.Gui.Commands
             {
                 log.Error(Resources.ProjectCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item);
             }
-
-            using (var selectDataDialog = CreateSelectionDialogWithItems(GetSupportedDataItemInfos(parent).ToArray()))
+            var firstSupportedDataItemInfo = GetSupportedDataItemInfos(parent).FirstOrDefault();
+            if (firstSupportedDataItemInfo == null)
             {
-                if (selectDataDialog.ShowDialog() == DialogResult.OK)
-                {
-                    var newItem = GetNewDataObject(parent, selectDataDialog.SelectedItemTag as DataItemInfo);
-                    if (newItem != null)
-                    {
-                        AddItemToProject(newItem);
-                        viewController.DocumentViewController.OpenViewForData(applicationSelection.Selection);
-                    }
-                }
+                return;
+            }
+            var newItem = GetNewDataObject(parent, firstSupportedDataItemInfo);
+            if (newItem != null)
+            {
+                AddItemToProject(newItem);
+
+                applicationSelection.Selection = newItem;
+                viewController.DocumentViewController.OpenViewForData(applicationSelection.Selection);
             }
         }
 
@@ -88,18 +89,6 @@ namespace Core.Common.Gui.Commands
         {
             projectOwner.Project.Items.Add(newItem);
             projectOwner.Project.NotifyObservers();
-        }
-
-        private SelectItemDialog CreateSelectionDialogWithItems(IEnumerable<DataItemInfo> supportedDataItemInfos)
-        {
-            var selectDataDialog = new SelectItemDialog(dialogOwner);
-
-            foreach (var dataItemInfo in supportedDataItemInfos)
-            {
-                selectDataDialog.AddItemType(dataItemInfo.Name, dataItemInfo.Category, dataItemInfo.Image, dataItemInfo);
-            }
-
-            return selectDataDialog;
         }
 
         private static object GetNewDataObject(object parent, DataItemInfo dataItemInfo)

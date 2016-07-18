@@ -116,6 +116,26 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen instellingen gevonden voor het geselecteerde traject. Standaardinstellingen zullen gebruikt worden..
+        /// </summary>
+        public static string AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found_for_AssessmentSection {
+            get {
+                return ResourceManager.GetString("AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found" +
+                        "_for_AssessmentSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er kunnen geen trajecten gelezen worden uit het shape bestand..
+        /// </summary>
+        public static string AssessmentSectionFromFileCommandHandler_ValidateReferenceLineMetas_No_referenceLines_in_file {
+            get {
+                return ResourceManager.GetString("AssessmentSectionFromFileCommandHandler_ValidateReferenceLineMetas_No_referenceLi" +
+                        "nes_in_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Trajectkaart.
         /// </summary>
         public static string AssessmentSectionMap_DisplayName {
@@ -438,6 +458,33 @@ namespace Ringtoets.Integration.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("Map", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Identificatiecode.
+        /// </summary>
+        public static string ReferenceLineMetaSelectionDialog_ColumnHeader_AssessmentSectionId {
+            get {
+                return ResourceManager.GetString("ReferenceLineMetaSelectionDialog_ColumnHeader_AssessmentSectionId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ondergrens.
+        /// </summary>
+        public static string ReferenceLineMetaSelectionDialog_ColumnHeader_LowerLimitValue {
+            get {
+                return ResourceManager.GetString("ReferenceLineMetaSelectionDialog_ColumnHeader_LowerLimitValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signaleringswaarde.
+        /// </summary>
+        public static string ReferenceLineMetaSelectionDialog_ColumnHeader_SignalingValue {
+            get {
+                return ResourceManager.GetString("ReferenceLineMetaSelectionDialog_ColumnHeader_SignalingValue", resourceCulture);
             }
         }
         

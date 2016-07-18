@@ -23,6 +23,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
@@ -33,6 +34,7 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Core.Common.IO.Exceptions;
@@ -49,15 +51,16 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.IO;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Integration.Forms;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
@@ -321,17 +324,43 @@ namespace Ringtoets.Integration.Plugin
 
         public override IEnumerable<DataItemInfo> GetDataItemInfos()
         {
-            yield return new DataItemInfo<AssessmentSection>
+            if (Gui == null)
             {
-                Name = RingtoetsFormsResources.AssessmentSection_DisplayName,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsFormsResources.AssessmentSectionFolderIcon,
-                CreateData = owner =>
+                return Enumerable.Empty<DataItemInfo>();
+            }
+
+            IAssessmentSection assessmentSection;
+            try
+            {
+                var assessmentSectionHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow);
+                var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "NBPW");
+                assessmentSection = assessmentSectionHandler.CreateAssessmentSectionFromFile(path);
+            }
+            catch (CriticalFileValidationException exception)
+            {
+                MessageBox.Show(exception.Message, BaseResources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                log.Warn(exception.Message, exception.InnerException);
+                return Enumerable.Empty<DataItemInfo>();
+            }
+            catch (CriticalFileReadException exception)
+            {
+                log.Error(exception.Message, exception.InnerException);
+                return Enumerable.Empty<DataItemInfo>();
+            }
+
+            return new DataItemInfo[]
+            {
+                new DataItemInfo<IAssessmentSection>
                 {
-                    var project = (Project) owner;
-                    var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                    assessmentSection.Name = GetUniqueForAssessmentSectionName(project, assessmentSection.Name);
-                    return assessmentSection;
+                    Name = RingtoetsFormsResources.AssessmentSection_DisplayName,
+                    Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                    Image = RingtoetsFormsResources.AssessmentSectionFolderIcon,
+                    CreateData = owner =>
+                    {
+                        var project = (Project) owner;
+                        assessmentSection.Name = GetUniqueForAssessmentSectionName(project, assessmentSection.Name);
+                        return assessmentSection;
+                    }
                 }
             };
         }

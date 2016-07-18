@@ -26,7 +26,6 @@ using System.Linq;
 using System.Windows.Threading;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
-using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -429,41 +428,6 @@ namespace Ringtoets.Integration.Plugin.Test
             Assert.AreEqual(2, importers.Length);
             Assert.AreEqual(1, importers.Count(i => i is ReferenceLineImporter));
             Assert.AreEqual(1, importers.Count(i => i is FailureMechanismSectionsImporter));
-        }
-
-        [Test]
-        public void GetDataItemInfos_ReturnsExpectedDataItemDefinitions()
-        {
-            // Setup
-            var plugin = new RingtoetsPlugin();
-
-            // Call
-            var dataItemDefinitions = plugin.GetDataItemInfos().ToArray();
-
-            // Assert
-            Assert.AreEqual(1, dataItemDefinitions.Length);
-
-            DataItemInfo assessmentSectionDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(AssessmentSection));
-            Assert.AreEqual("Traject", assessmentSectionDataItemDefinition.Name);
-            Assert.AreEqual("Algemeen", assessmentSectionDataItemDefinition.Category);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AssessmentSectionFolderIcon, assessmentSectionDataItemDefinition.Image);
-            Assert.IsNull(assessmentSectionDataItemDefinition.AdditionalOwnerCheck);
-            Assert.IsInstanceOf<AssessmentSection>(assessmentSectionDataItemDefinition.CreateData(new Project()));
-        }
-
-        [Test]
-        public void WhenAddingAssessmentSection_GivenProjectHasAssessmentSection_ThenAddedAssessmentSectionHasUniqueName()
-        {
-            // Setup
-            var project = new Project();
-            var plugin = new RingtoetsPlugin();
-            AddAssessmentSectionToProject(project, plugin);
-
-            // Call
-            AddAssessmentSectionToProject(project, plugin);
-
-            // Assert
-            CollectionAssert.AllItemsAreUnique(project.Items.Cast<IAssessmentSection>().Select(section => section.Name));
         }
 
         private static void AddAssessmentSectionToProject(Project project, RingtoetsPlugin plugin)
