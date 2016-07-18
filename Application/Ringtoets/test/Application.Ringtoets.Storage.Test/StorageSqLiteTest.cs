@@ -75,19 +75,15 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             string nonExistingPath = "fileDoesNotExist";
-            string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': ", nonExistingPath);
-            string expectedInnerMessage = "Het bestand bestaat niet.";
+            string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': {1}", nonExistingPath, "Het bestand bestaat niet.");
 
             // Call
             TestDelegate test = () => new StorageSqLite().LoadProject(nonExistingPath);
 
             // Assert
-            StorageException exception = Assert.Throws<StorageException>(test);
+            StorageException exception = Assert.Throws<CouldNotConnectException>(test);
 
-            Assert.IsInstanceOf<Exception>(exception);
             Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsInstanceOf<CouldNotConnectException>(exception.InnerException);
-            Assert.AreEqual(expectedInnerMessage, exception.InnerException.Message);
         }
 
         [Test]
@@ -96,15 +92,14 @@ namespace Application.Ringtoets.Storage.Test
             // Setup
             string validPath = "empty.rtd";
             var tempFile = Path.Combine(testDataPath, validPath);
-            var expectedInnerMessage = String.Format(@"Het bestand '{0}' is geen geldig Ringtoets bestand.", tempFile);
+            string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': {1}", tempFile, @"Het bestand is geen geldig Ringtoets bestand.");
 
             // Call
             TestDelegate test = () => new StorageSqLite().LoadProject(tempFile);
 
             // Assert
-            StorageException exception = Assert.Throws<StorageException>(test);
-            Assert.IsInstanceOf<StorageValidationException>(exception.InnerException);
-            Assert.AreEqual(expectedInnerMessage, exception.InnerException.Message);
+            StorageException exception = Assert.Throws<StorageValidationException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -138,7 +133,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_CorruptRingtoetsFileThatPassesValidation_ThrowsStorageExceptionWithFullStackTrace()
         {
             // Setup
-            var expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': ", tempRingtoetsFile);
+            string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': {1}", tempRingtoetsFile, @"Het bestand is geen geldig Ringtoets bestand.");
             var expectedInnerExceptionMessage = "An error occurred while executing the command definition. See the inner exception for details.";
             var expectedInnerExceptionInnerExceptionMessage = "SQL logic error or missing database" + Environment.NewLine +
                                                               "no such table: ProjectEntity";

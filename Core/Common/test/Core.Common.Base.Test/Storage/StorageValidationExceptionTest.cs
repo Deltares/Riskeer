@@ -38,7 +38,7 @@ namespace Core.Common.Base.Test.Storage
             StorageValidationException exception = new StorageValidationException();
 
             // Assert
-            Assert.IsInstanceOf<Exception>(exception);
+            Assert.IsInstanceOf<StorageException>(exception);
             Assert.IsNull(exception.InnerException);
             Assert.AreEqual(expectedMessage, exception.Message);
         }

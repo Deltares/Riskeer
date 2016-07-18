@@ -38,7 +38,7 @@ namespace Core.Common.Base.Test.Storage
             CouldNotConnectException exception = new CouldNotConnectException();
 
             // Assert
-            Assert.IsInstanceOf<Exception>(exception);
+            Assert.IsInstanceOf<StorageException>(exception);
             Assert.IsNull(exception.InnerException);
             Assert.AreEqual(expectedMessage, exception.Message);
         }

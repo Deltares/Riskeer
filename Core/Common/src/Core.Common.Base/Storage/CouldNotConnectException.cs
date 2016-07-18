@@ -26,7 +26,7 @@ namespace Core.Common.Base.Storage
     /// <summary>
     /// The exception that is thrown when a class is unable to connect.
     /// </summary>
-    public class CouldNotConnectException : Exception
+    public class CouldNotConnectException : StorageException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CouldNotConnectException"/> class.

@@ -68,9 +68,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void Orientation_SetNewValue_GetNewlySetValue([Random(0, 360.0, 1)]double newValue)
+        public void Orientation_SetNewValue_GetNewlySetValue()
         {
             // Setup
+            var newValue = new Random(21).NextDouble() * 360;
             var dikeProfileData = new DikeProfileData();
 
             // Call
@@ -81,9 +82,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void DamType_SetNewValue_GetsNewlySetValue([Random(0, 3, 1)]int index)
+        public void DamType_SetNewValue_GetsNewlySetValue()
         {
             // Setup
+            var index = new Random(21).Next(0, 3);
             var dikeProfileData = new DikeProfileData();
 
             DamType newValue = Enum.GetValues(typeof(DamType)).OfType<DamType>().ElementAt(index);
@@ -96,9 +98,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void DamHeight_SetNewValue_GetNewlySetValue([Random(-999.999, 999.999, 1)]double newValue)
+        public void DamHeight_SetNewValue_GetNewlySetValue()
         {
             // Setup
+            var newValue = new Random(21).NextDouble();
             var dikeProfileData = new DikeProfileData();
 
             // Call
@@ -109,9 +112,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void DikeHeight_SetNewValue_GetNewlySetValue([Random(-999.999, 999.999, 1)]double newValue)
+        public void DikeHeight_SetNewValue_GetNewlySetValue()
         {
             // Setup
+            var newValue = new Random(21).NextDouble();
             var dikeProfileData = new DikeProfileData();
 
             // Call
@@ -122,9 +126,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void SheetPilingType_SetNewValue_GetsNewlySetValue([Random(0, 3, 1)]int index)
+        public void SheetPilingType_SetNewValue_GetsNewlySetValue()
         {
             // Setup
+            var index = new Random(21).Next(0,3);
             var dikeProfileData = new DikeProfileData();
 
             SheetPileType newValue = Enum.GetValues(typeof(SheetPileType)).OfType<SheetPileType>().ElementAt(index);

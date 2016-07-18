@@ -31,8 +31,11 @@ namespace Core.Common.Gui.Test.Attributes
     public class PropertyOrderAttributeTest
     {
         [Test]
-        public void ParameteredConstructor_ExpectedValues([Random(int.MinValue, int.MaxValue, 1)] int order)
+        public void ParameteredConstructor_ExpectedValues()
         {
+            // Setup
+            var order = new Random(21).Next(int.MinValue, int.MaxValue);
+
             // Call
             var attribute = new PropertyOrderAttribute(order);
 

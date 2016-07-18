@@ -39,8 +39,10 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        public void ToNullableDecimal_Number_ReturnThatNumberAsDecimal(
-            [Random(-9999.9999, 9999.9999, 1)] double value)
+        [TestCase(-154.516)]
+        [TestCase(9684.51)]
+        [TestCase(0.0)]
+        public void ToNullableDecimal_Number_ReturnThatNumberAsDecimal(double value)
         {
             // Call
             decimal? result = value.ToNullableDecimal();
@@ -85,8 +87,10 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        public void ToNullableDecimal_NullableNumber_ReturnThatNumberAsDecimal(
-            [Random(-9999.9999, 9999.9999, 1)] double value)
+        [TestCase(-12312.352)]
+        [TestCase(51516.351)]
+        [TestCase(0.0)]
+        public void ToNullableDecimal_NullableNumber_ReturnThatNumberAsDecimal(double value)
         {
             // Call
             decimal? result = ((double?)value).ToNullableDecimal();

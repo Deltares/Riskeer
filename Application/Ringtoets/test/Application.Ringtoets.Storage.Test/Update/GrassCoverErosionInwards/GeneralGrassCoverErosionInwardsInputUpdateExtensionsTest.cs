@@ -124,14 +124,14 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Update_ContextWithGrassCoverErosionInwardsFailureMechanismMetaEntity_PropertiesUpdated(
-            [Random(1, 20, 1)]int n)
+        public void Update_ContextWithGrassCoverErosionInwardsFailureMechanismMetaEntity_PropertiesUpdated()
         {
             // Setup
             MockRepository mocks = new MockRepository();
             var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
+            var n = new Random(21).Next(1,20);
             const int storageId = 1;
             var input = new GeneralGrassCoverErosionInwardsInput
             {

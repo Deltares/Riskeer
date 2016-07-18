@@ -175,9 +175,12 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void AddOperator_PointWithZeroVector_ReturnEqualPoint(
-            [Random(-12345.6789, 9876.54321, 1)]double x,
-            [Random(-12345.6789, 9876.54321, 1)]double y)
+        [TestCase(0, 0)]
+        [TestCase(-6541.2354, 5.25)]
+        [TestCase(-3.25, -12.55)]
+        [TestCase(6.154, -9684.514)]
+        [TestCase(6840.251, 15.3251)]
+        public void AddOperator_PointWithZeroVector_ReturnEqualPoint(double x, double y)
         {
             // Setup
             var originalPoint = new Point2D(x, y);
@@ -193,9 +196,12 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void AddOperator_PointWithVector_ReturnEqualPoint(
-            [Random(-12345.6789, 98765.4321, 1)]double x,
-            [Random(-12345.6789, 98765.4321, 1)]double y)
+        [TestCase(0, 0)]
+        [TestCase(-6541.2354, 5.25)]
+        [TestCase(-3.25, -12.55)]
+        [TestCase(6.154, -9684.514)]
+        [TestCase(6840.251, 15.3251)]
+        public void AddOperator_PointWithVector_ReturnEqualPoint(double x, double y)
         {
             // Setup
             var originalPoint = new Point2D(x, y);

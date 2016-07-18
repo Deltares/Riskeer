@@ -28,10 +28,10 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Create_ValidGeneralInput_ReturnEntity(
-            [Random(0, 20, 1)]int n)
+        public void Create_ValidGeneralInput_ReturnEntity()
         {
             // Setup
+            var n = new Random(21).Next(0,20);
             var input = new GeneralGrassCoverErosionInwardsInput
             {
                 N = n

@@ -48,11 +48,13 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Read_ValidEntity_ReturnGeneralGrassCoverErosionInwardsInput(
-            [Random(1, 20, 1)]int n,
-            [Random(1, 56, 1)]int id)
+        public void Read_ValidEntity_ReturnGeneralGrassCoverErosionInwardsInput()
         {
             // Setup
+            var random = new Random(21);
+            var n = random.Next(1, 20);
+            var id = random.Next(1, 56);
+
             var entity = new GrassCoverErosionInwardsFailureMechanismMetaEntity
             {
                 GrassCoverErosionInwardsFailureMechanismMetaEntityId = id,

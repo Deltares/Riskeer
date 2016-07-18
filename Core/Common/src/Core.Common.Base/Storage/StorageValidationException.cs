@@ -26,7 +26,7 @@ namespace Core.Common.Base.Storage
     /// <summary>
     /// The exception that is thrown when a storage is not valid.
     /// </summary>
-    public class StorageValidationException : Exception
+    public class StorageValidationException : StorageException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StorageValidationException"/> class.

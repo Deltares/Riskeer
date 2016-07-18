@@ -841,9 +841,12 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void GetIntersectionBetweenSegments_SegmentsArePointsOnTopOfEachOther_ReturnIntersection(
-            [Random(-9876.54321, 1234.56789, 1)]double x,
-            [Random(-123456.789, 98765.4321, 1)]double y)
+        [TestCase(0,0)]
+        [TestCase(-6541.2354,5.25)]
+        [TestCase(-3.25,-12.55)]
+        [TestCase(6.154,-9684.514)]
+        [TestCase(6840.251,15.3251)]
+        public void GetIntersectionBetweenSegments_SegmentsArePointsOnTopOfEachOther_ReturnIntersection(double x, double y)
         {
             // Setup
             var segment1 = new Segment2D(new Point2D(x, y), new Point2D(x, y));

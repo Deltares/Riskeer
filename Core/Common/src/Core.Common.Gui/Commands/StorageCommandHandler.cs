@@ -150,7 +150,7 @@ namespace Core.Common.Gui.Commands
                 return false;
             }
 
-            if (!TrySaveProjectAs(projectPersistor, filePath))
+            if (!TrySaveProjectAs(filePath))
             {
                 return false;
             }
@@ -178,7 +178,7 @@ namespace Core.Common.Gui.Commands
                 return SaveProjectAs();
             }
 
-            if (!TrySaveProject(projectPersistor, filePath))
+            if (!TrySaveProject(filePath))
             {
                 return false;
             }
@@ -258,11 +258,11 @@ namespace Core.Common.Gui.Commands
             }
         }
 
-        private bool TrySaveProjectAs(IStoreProject storage, string filePath)
+        private bool TrySaveProjectAs(string filePath)
         {
             try
             {
-                storage.SaveProjectAs(filePath, projectOwner.Project);
+                projectPersistor.SaveProjectAs(filePath, projectOwner.Project);
                 return true;
             }
             catch (StorageException e)
@@ -273,11 +273,11 @@ namespace Core.Common.Gui.Commands
             }
         }
 
-        private bool TrySaveProject(IStoreProject storage, string filePath)
+        private bool TrySaveProject(string filePath)
         {
             try
             {
-                storage.SaveProject(filePath, projectOwner.Project);
+                projectPersistor.SaveProject(filePath, projectOwner.Project);
                 return true;
             }
             catch (StorageException e)

@@ -42,8 +42,10 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        public void ToNanableDouble_Number_ReturnNumberAsDouble(
-            [Random(-9999.9999, 9999.9999, 1)]double expectedValue)
+        [TestCase(-12312.352)]
+        [TestCase(234.125)]
+        [TestCase(0.0)]
+        public void ToNanableDouble_Number_ReturnNumberAsDouble(double expectedValue)
         {
             // Setup
             decimal? value = Convert.ToDecimal(expectedValue);
@@ -69,8 +71,10 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        public void ToNullableDouble_Number_ReturnNumberAsDouble(
-            [Random(-9999.9999, 9999.9999, 1)]double expectedValue)
+        [TestCase(-541561.121)]
+        [TestCase(21311.12)]
+        [TestCase(0.0)]
+        public void ToNullableDouble_Number_ReturnNumberAsDouble(double expectedValue)
         {
             // Setup
             decimal? value = Convert.ToDecimal(expectedValue);

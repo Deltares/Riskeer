@@ -43,9 +43,11 @@ namespace Core.Common.Gui.Test.Converters
         }
 
         [Test]
-        public void ConvertTo_FromArrayToString_ReturnCountText([Random(0, 10, 1)]int arrayCount)
+        public void ConvertTo_FromArrayToString_ReturnCountText()
         {
             // Setup
+            var arrayCount = new Random(21).Next(0, 10);
+
             var sourceArray = new int[arrayCount];
             var converter = new ExpandableArrayConverter();
 
