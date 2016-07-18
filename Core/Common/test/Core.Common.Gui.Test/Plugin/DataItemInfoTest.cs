@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System.Drawing;
-using Core.Common.Base.Plugin;
+using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 
-namespace Core.Common.Base.Test.Plugin
+namespace Core.Common.Gui.Test.Plugin
 {
     [TestFixture]
     public class DataItemInfoTest

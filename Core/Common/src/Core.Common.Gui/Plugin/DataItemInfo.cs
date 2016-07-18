@@ -22,7 +22,7 @@
 using System;
 using System.Drawing;
 
-namespace Core.Common.Base.Plugin
+namespace Core.Common.Gui.Plugin
 {
     /// <summary>
     /// Class that holds information for creating data objects.

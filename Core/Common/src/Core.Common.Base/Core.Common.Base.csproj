@@ -105,7 +105,6 @@
     <Compile Include="Storage\StorageValidationException.cs" />
     <Compile Include="Storage\CouldNotConnectException.cs" />
     <Compile Include="Storage\IStoreProject.cs" />
-    <Compile Include="Plugin\DataItemInfo.cs" />
     <Compile Include="IO\IFileExporter.cs" />
     <Compile Include="IO\IFileImporter.cs" />
     <Compile Include="IObservable.cs" />

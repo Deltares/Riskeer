@@ -23,8 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
-using Core.Common.Base.Plugin;
-using Core.Common.Gui.Forms;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Common.Gui.Selection;
 using log4net;
@@ -61,7 +60,6 @@ namespace Core.Common.Gui.Commands
             this.dataItemInfos = dataItemInfos;
             this.applicationSelection = applicationSelection;
             this.viewController = viewController;
-
         }
 
         public void AddNewItem(object parent)
