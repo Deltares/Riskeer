@@ -194,12 +194,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-
-            assessmentSection.GrassCoverErosionInwards.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
+            AddSectionToAssessmentSection(assessmentSection);
 
             var dikeProfile = GetDikeProfile();
 
@@ -213,23 +208,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             };
 
             var failureMechanismSection = assessmentSection.GrassCoverErosionInwards.Sections.First();
-            GrassCoverErosionInwardsCalculationServiceOutput output = null;
 
             // Call
-            Action call = () => output = GrassCoverErosionInwardsCalculationService.CalculateProbability(calculation,
+            GrassCoverErosionInwardsCalculationServiceOutput output = GrassCoverErosionInwardsCalculationService.CalculateProbability(calculation,
                                                                                                          testDataPath,
                                                                                                          failureMechanismSection,
                                                                                                          failureMechanismSection.Name,
                                                                                                          assessmentSection.GrassCoverErosionInwards.GeneralInput);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-            });
             Assert.IsNotNull(output);
             Assert.IsNull(output.DikeHeight);
         }
@@ -240,12 +227,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-
-            assessmentSection.GrassCoverErosionInwards.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
+            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -269,10 +251,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 var msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith(String.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[1]);
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+                Assert.AreEqual(1, msgs.Length);
+                StringAssert.StartsWith(String.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[0]);
             });
             Assert.IsNull(output);
         }
@@ -283,12 +263,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-
-            assessmentSection.GrassCoverErosionInwards.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
+            AddSectionToAssessmentSection(assessmentSection);
 
             var dikeProfile = GetDikeProfile();
 
@@ -303,10 +278,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             };
 
             var failureMechanismSection = assessmentSection.GrassCoverErosionInwards.Sections.First();
-            double? output = null;
 
             // Call
-            Action call = () => output = GrassCoverErosionInwardsCalculationService.CalculateDikeHeight(calculation,
+            double output = GrassCoverErosionInwardsCalculationService.CalculateDikeHeight(calculation,
                                                                                               assessmentSection,
                                                                                               testDataPath,
                                                                                               failureMechanismSection,
@@ -314,13 +288,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                                                                                               assessmentSection.GrassCoverErosionInwards.GeneralInput);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-            });
             Assert.AreEqual(15.5937, output);
         }
 
@@ -336,12 +303,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 }
             };
             ImportHydraulicBoundaryDatabase(assessmentSection);
-
-            assessmentSection.GrassCoverErosionInwards.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
+            AddSectionToAssessmentSection(assessmentSection);
 
             var dikeProfile = GetDikeProfile();
 
@@ -370,12 +332,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 var msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith(String.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[1]);
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+                Assert.AreEqual(1, msgs.Length);
+                StringAssert.StartsWith(String.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[0]);
             });
             Assert.IsNaN(output);
+        }
+
+        private static void AddSectionToAssessmentSection(AssessmentSection assessmentSection)
+        {
+            assessmentSection.GrassCoverErosionInwards.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
         }
 
         private void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)

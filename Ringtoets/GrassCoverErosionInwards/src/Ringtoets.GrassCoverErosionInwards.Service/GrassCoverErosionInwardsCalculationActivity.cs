@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Service;
+using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Service;
@@ -29,6 +30,8 @@ using Ringtoets.GrassCoverErosionInwards.Service.Properties;
 using Ringtoets.GrassCoverErosionInwards.Utils;
 using Ringtoets.HydraRing.Calculation.Activities;
 
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+
 namespace Ringtoets.GrassCoverErosionInwards.Service
 {
     /// <summary>
@@ -36,6 +39,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
     /// </summary>
     public class GrassCoverErosionInwardsCalculationActivity : HydraRingActivity<GrassCoverErosionInwardsCalculationServiceOutput>
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionInwardsCalculationActivity));
+
         private readonly GrassCoverErosionInwardsCalculation calculation;
         private readonly string hlcdDirectory;
         private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
@@ -92,6 +97,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                        () => calculation.ClearOutput(),
                        () =>
                        {
+                           log.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_started_Time_1_,
+                                                  calculation.Name,
+                                                  DateTimeService.CurrentTimeAsString));
+
                            ProgressText = Resources.GrassCoverErosionInwardsCalculationActivity_OnRun_Calculate_probability;
                            GrassCoverErosionInwardsCalculationServiceOutput output =
                                GrassCoverErosionInwardsCalculationService.CalculateProbability(calculation,
@@ -111,6 +120,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                                                   failureMechanismSection.Name, // TODO : Provide name of reference line instead
                                                                                                   failureMechanism.GeneralInput);
                            }
+
+                           log.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_ended_Time_1_,
+                                                  calculation.Name,
+                                                  DateTimeService.CurrentTimeAsString));
 
                            return output;
                        });

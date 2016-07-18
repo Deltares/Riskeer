@@ -76,24 +76,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
             var waveHeightCalculationParser = new WaveHeightCalculationParser();
 
-            CalculationServiceHelper.PerformCalculation(
-                calculation.Name,
-                () =>
+            HydraRingCalculationService.PerformCalculation(
+                hlcdDirectory,
+                ringId,
+                HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta,
+                HydraRingUncertaintiesType.All,
+                overtoppingCalculationInput,
+                new IHydraRingFileParser[]
                 {
-                    HydraRingCalculationService.PerformCalculation(
-                        hlcdDirectory,
-                        ringId,
-                        HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta,
-                        HydraRingUncertaintiesType.All,
-                        overtoppingCalculationInput,
-                        new IHydraRingFileParser[]
-                        {
-                            exceedanceProbabilityCalculationParser,
-                            waveHeightCalculationParser
-                        });
-
-                    VerifyOvertoppingCalculationOutput(exceedanceProbabilityCalculationParser.Output, waveHeightCalculationParser.Output, calculation.Name);
+                    exceedanceProbabilityCalculationParser,
+                    waveHeightCalculationParser
                 });
+
+            VerifyOvertoppingCalculationOutput(exceedanceProbabilityCalculationParser.Output, waveHeightCalculationParser.Output, calculation.Name);
 
             return exceedanceProbabilityCalculationParser.Output != null
                    && waveHeightCalculationParser.Output != null ? new GrassCoverErosionInwardsCalculationServiceOutput(
@@ -122,25 +117,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         {
             var targetProbabiltyCalculationParser = new TargetProbabilityCalculationParser();
 
-            CalculationServiceHelper.PerformCalculation(
-                calculation.Name,
-                () =>
+            DikeHeightCalculationInput dikeHeightCalculationInput = CreateDikeHeightInput(calculation, assessmentSection, failureMechanismSection, generalInput);
+
+            HydraRingCalculationService.PerformCalculation(
+                hlcdDirectory,
+                ringId,
+                HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta,
+                HydraRingUncertaintiesType.All,
+                dikeHeightCalculationInput,
+                new IHydraRingFileParser[]
                 {
-                    DikeHeightCalculationInput dikeHeightCalculationInput = CreateDikeHeightInput(calculation, assessmentSection, failureMechanismSection, generalInput);
-
-                    HydraRingCalculationService.PerformCalculation(
-                        hlcdDirectory,
-                        ringId,
-                        HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta,
-                        HydraRingUncertaintiesType.All,
-                        dikeHeightCalculationInput,
-                        new IHydraRingFileParser[]
-                        {
-                            targetProbabiltyCalculationParser
-                        });
-
-                    VerifyDikeHeightCalculationOutput(targetProbabiltyCalculationParser.Output, calculation.Name);
+                    targetProbabiltyCalculationParser
                 });
+
+            VerifyDikeHeightCalculationOutput(targetProbabiltyCalculationParser.Output, calculation.Name);
 
             return targetProbabiltyCalculationParser.Output == null ? double.NaN : targetProbabiltyCalculationParser.Output.Result;
         }
