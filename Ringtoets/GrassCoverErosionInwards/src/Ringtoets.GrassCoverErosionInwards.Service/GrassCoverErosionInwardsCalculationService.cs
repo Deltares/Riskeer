@@ -58,26 +58,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         }
 
         /// <summary>
-        /// Performs a grass cover erosion inwards calculation based on the supplied <see cref="GrassCoverErosionInwardsCalculation"/> and sets <see cref="GrassCoverErosionInwardsCalculation.Output"/>
-        /// if the calculation was successful. Error and status information is logged during the execution of the operation.
+        /// Performs a grass cover erosion inwards calculation based on the supplied <see cref="GrassCoverErosionInwardsCalculation"/> 
+        /// and sets <see cref="GrassCoverErosionInwardsCalculation.Output"/> if the calculation was successful. 
+        /// Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> that holds all the information required to perform the calculation.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
         /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
         /// <param name="failureMechanismSection">The <see cref="FailureMechanismSection"/> to create input with.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
         /// <returns>A <see cref="ExceedanceProbabilityCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
-        internal static GrassCoverErosionInwardsCalculationServiceOutput Calculate(GrassCoverErosionInwardsCalculation calculation,
-                                                                                   IAssessmentSection assessmentSection,
-                                                                                   string hlcdDirectory, FailureMechanismSection failureMechanismSection,
-                                                                                   string ringId, GeneralGrassCoverErosionInwardsInput generalInput)
+        internal static GrassCoverErosionInwardsCalculationServiceOutput CalculateProbability(GrassCoverErosionInwardsCalculation calculation,
+                                                                                              string hlcdDirectory, FailureMechanismSection failureMechanismSection,
+                                                                                              string ringId, GeneralGrassCoverErosionInwardsInput generalInput)
         {
             OvertoppingCalculationInput overtoppingCalculationInput = CreateOvertoppingInput(calculation, failureMechanismSection, generalInput);
             var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
             var waveHeightCalculationParser = new WaveHeightCalculationParser();
-            var targetProbabiltyCalculationParser = new TargetProbabilityCalculationParser();
-            var calculateDikeHeight = calculation.InputParameters.CalculateDikeHeight;
 
             CalculationServiceHelper.PerformCalculation(
                 calculation.Name,
@@ -96,44 +93,56 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                         });
 
                     VerifyOvertoppingCalculationOutput(exceedanceProbabilityCalculationParser.Output, waveHeightCalculationParser.Output, calculation.Name);
-
-                    if (calculateDikeHeight)
-                    {
-                        DikeHeightCalculationInput dikeHeightCalculationInput = CreateDikeHeightInput(calculation, assessmentSection, failureMechanismSection, generalInput);                        
-
-                        HydraRingCalculationService.PerformCalculation(
-                            hlcdDirectory,
-                            ringId,
-                            HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta,
-                            HydraRingUncertaintiesType.All,
-                            dikeHeightCalculationInput,
-                            new IHydraRingFileParser[]
-                            {
-                                targetProbabiltyCalculationParser
-                            });
-
-                        VerifyDikeHeightCalculationOutput(targetProbabiltyCalculationParser.Output, calculation.Name);
-                    }
                 });
 
-            if (exceedanceProbabilityCalculationParser.Output == null || waveHeightCalculationParser.Output == null)
-            {
-                return null;
-            }
+            return exceedanceProbabilityCalculationParser.Output != null
+                   && waveHeightCalculationParser.Output != null ? new GrassCoverErosionInwardsCalculationServiceOutput(
+                                                                       exceedanceProbabilityCalculationParser.Output.Beta,
+                                                                       waveHeightCalculationParser.Output.WaveHeight,
+                                                                       waveHeightCalculationParser.Output.IsOvertoppingDominant,
+                                                                       null) : null;
+        }
 
-            double? dikeHeightOutput = null;
+        /// <summary>
+        /// Performs a grass cover erosion inwards dike height calculation based on the supplied <see cref="GrassCoverErosionInwardsCalculation"/> 
+        /// and sets <see cref="GrassCoverErosionInwardsCalculation.Output"/> if the calculation was successful. 
+        /// Error and status information is logged during the execution of the operation.
+        /// </summary>
+        /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> that holds all the information required to perform the calculation.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
+        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="failureMechanismSection">The <see cref="FailureMechanismSection"/> to create input with.</param>
+        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
+        /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
+        /// <returns>A double with a  value on a successful calculation, <c>double.NaN</c> otherwise.</returns>
+        internal static double CalculateDikeHeight(GrassCoverErosionInwardsCalculation calculation,
+                                                   IAssessmentSection assessmentSection,
+                                                   string hlcdDirectory, FailureMechanismSection failureMechanismSection,
+                                                   string ringId, GeneralGrassCoverErosionInwardsInput generalInput)
+        {
+            var targetProbabiltyCalculationParser = new TargetProbabilityCalculationParser();
 
-            if (calculateDikeHeight)
-            {
-                TargetProbabilityCalculationOutput output = targetProbabiltyCalculationParser.Output;
-                dikeHeightOutput = output == null ? double.NaN : output.Result;
-            }
+            CalculationServiceHelper.PerformCalculation(
+                calculation.Name,
+                () =>
+                {
+                    DikeHeightCalculationInput dikeHeightCalculationInput = CreateDikeHeightInput(calculation, assessmentSection, failureMechanismSection, generalInput);
 
-            return new GrassCoverErosionInwardsCalculationServiceOutput(
-                exceedanceProbabilityCalculationParser.Output.Beta,
-                waveHeightCalculationParser.Output.WaveHeight,
-                waveHeightCalculationParser.Output.IsOvertoppingDominant,
-                dikeHeightOutput);
+                    HydraRingCalculationService.PerformCalculation(
+                        hlcdDirectory,
+                        ringId,
+                        HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta,
+                        HydraRingUncertaintiesType.All,
+                        dikeHeightCalculationInput,
+                        new IHydraRingFileParser[]
+                        {
+                            targetProbabiltyCalculationParser
+                        });
+
+                    VerifyDikeHeightCalculationOutput(targetProbabiltyCalculationParser.Output, calculation.Name);
+                });
+
+            return targetProbabiltyCalculationParser.Output == null ? double.NaN : targetProbabiltyCalculationParser.Output.Result;
         }
 
         private static void VerifyOvertoppingCalculationOutput(ExceedanceProbabilityCalculationOutput exceedanceOutput, WaveHeightCalculationOutput waveHeightOutput, string name)
@@ -152,25 +161,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
         }
 
-        private static OvertoppingCalculationInput CreateOvertoppingInput(GrassCoverErosionInwardsCalculation calculation, FailureMechanismSection failureMechanismSection, GeneralGrassCoverErosionInwardsInput generalInput)
+        private static OvertoppingCalculationInput CreateOvertoppingInput(GrassCoverErosionInwardsCalculation calculation,
+                                                                          FailureMechanismSection failureMechanismSection,
+                                                                          GeneralGrassCoverErosionInwardsInput generalInput)
         {
             return new OvertoppingCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
                                                    new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.Orientation),
-                                                   calculation.InputParameters.DikeHeight, 
+                                                   calculation.InputParameters.DikeHeight,
                                                    generalInput.CriticalOvertoppingModelFactor,
-                                                   generalInput.FbFactor.Mean, 
+                                                   generalInput.FbFactor.Mean,
                                                    generalInput.FbFactor.StandardDeviation,
-                                                   generalInput.FnFactor.Mean, 
+                                                   generalInput.FnFactor.Mean,
                                                    generalInput.FnFactor.StandardDeviation,
-                                                   generalInput.OvertoppingModelFactor, 
+                                                   generalInput.OvertoppingModelFactor,
                                                    calculation.InputParameters.CriticalFlowRate.Mean,
-                                                   calculation.InputParameters.CriticalFlowRate.StandardDeviation, 
-                                                   generalInput.FrunupModelFactor.Mean, 
-                                                   generalInput.FrunupModelFactor.StandardDeviation, 
-                                                   generalInput.FshallowModelFactor.Mean, 
-                                                   generalInput.FshallowModelFactor.StandardDeviation, 
+                                                   calculation.InputParameters.CriticalFlowRate.StandardDeviation,
+                                                   generalInput.FrunupModelFactor.Mean,
+                                                   generalInput.FrunupModelFactor.StandardDeviation,
+                                                   generalInput.FshallowModelFactor.Mean,
+                                                   generalInput.FshallowModelFactor.StandardDeviation,
                                                    ParseProfilePoints(calculation.InputParameters.DikeGeometry),
-                                                   ParseForeshore(calculation.InputParameters), 
+                                                   ParseForeshore(calculation.InputParameters),
                                                    ParseBreakWater(calculation.InputParameters));
         }
 

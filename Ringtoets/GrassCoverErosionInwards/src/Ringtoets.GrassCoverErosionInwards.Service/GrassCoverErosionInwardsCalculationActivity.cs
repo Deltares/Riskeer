@@ -25,6 +25,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Service.Properties;
 using Ringtoets.GrassCoverErosionInwards.Utils;
 using Ringtoets.HydraRing.Calculation.Activities;
 
@@ -89,12 +90,30 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             PerformRun(() => GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection),
                        () => calculation.ClearOutput(),
-                       () => GrassCoverErosionInwardsCalculationService.Calculate(calculation,
-                                                                                  assessmentSection,
-                                                                                  hlcdDirectory,
-                                                                                  failureMechanismSection,
-                                                                                  failureMechanismSection.Name, // TODO: Provide name of reference line instead
-                                                                                  failureMechanism.GeneralInput));
+                       () =>
+                       {
+                           ProgressText = Resources.GrassCoverErosionInwardsCalculationActivity_OnRun_Calculate_probability;
+                           GrassCoverErosionInwardsCalculationServiceOutput output =
+                               GrassCoverErosionInwardsCalculationService.CalculateProbability(calculation,
+                                                                                               hlcdDirectory,
+                                                                                               failureMechanismSection,
+                                                                                               failureMechanismSection.Name, // TODO: Provide name of reference line instead
+                                                                                               failureMechanism.GeneralInput);
+
+                           if (output != null && calculation.InputParameters.CalculateDikeHeight)
+                           {
+                               ProgressText = Resources.GrassCoverErosionInwardsCalculationActivity_OnRun_Calculate_dikeHeight;
+                               output.DikeHeight =
+                                   GrassCoverErosionInwardsCalculationService.CalculateDikeHeight(calculation,
+                                                                                                  assessmentSection,
+                                                                                                  hlcdDirectory,
+                                                                                                  failureMechanismSection,
+                                                                                                  failureMechanismSection.Name, // TODO : Provide name of reference line instead
+                                                                                                  failureMechanism.GeneralInput);
+                           }
+
+                           return output;
+                       });
         }
 
         protected override void OnFinish()

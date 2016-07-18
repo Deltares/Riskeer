@@ -61,6 +61,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HBN berekenen.
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationActivity_OnRun_Calculate_dikeHeight {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationActivity_OnRun_Calculate_dikeHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalkans berekenen.
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationActivity_OnRun_Calculate_probability {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationActivity_OnRun_Calculate_probability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De berekening voor grasbekleding erosie kruin en binnentalud &apos;{0}&apos; is niet gelukt..
         /// </summary>
         internal static string GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation {

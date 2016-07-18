@@ -58,8 +58,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         public bool IsOvertoppingDominant { get; private set; }
 
         /// <summary>
-        /// Gets the dike height that was a result of the dike height calculation.
+        /// Gets or sets the dike height that was a result of the dike height calculation.
         /// </summary>
-        public double? DikeHeight { get; private set; }
+        public double? DikeHeight { get; set; }
     }
 }
