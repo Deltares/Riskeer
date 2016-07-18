@@ -21,13 +21,18 @@
 
 using System;
 using System.Linq;
+
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
+
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+
 using NUnit.Framework;
+
 using Rhino.Mocks;
+
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -756,7 +761,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreSame(initializedEntity, retrievedEntity);
-
         }
 
         #endregion
@@ -796,7 +800,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new AssessmentSection(AssessmentSectionComposition.Dike));
 
@@ -810,7 +814,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new AssessmentSectionEntity(), null);
 
@@ -826,7 +830,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var mocks = new MockRepository();
             var model = mocks.StrictMock<IFailureMechanism>();
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, model);
 
@@ -840,7 +844,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new FailureMechanismEntity(), null);
 
@@ -854,7 +858,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new FailureMechanismSectionEntity(), null);
 
@@ -868,7 +872,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new TestFailureMechanismSection());
 
@@ -882,7 +886,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new PipingSectionResultEntity(), null);
 
@@ -896,7 +900,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new PipingFailureMechanismSectionResult(new TestFailureMechanismSection()));
 
@@ -962,20 +966,32 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual("entity", paramName);
         }
 
-        private static DikeProfile CreateDikeProfile()
+        [Test]
+        public void Register_WithNullGrassCoverErosionInwardsCalculation_ThrowsArgumentNullException()
         {
-            return new DikeProfile(new Point2D(0, 0),
-                                   new[]
-                                   {
-                                       new RoughnessPoint(new Point2D(1, 2), 0.75),
-                                       new RoughnessPoint(new Point2D(3, 4), 0.75)
-                                   },
-                                   new[]
-                                   {
-                                       new Point2D(5, 6),
-                                       new Point2D(7, 8)
-                                   },
-                                   null, new DikeProfile.ConstructionProperties());
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(new GrassCoverErosionInwardsCalculationEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullGrassCoverErosionInwardsCalculationEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(null, new GrassCoverErosionInwardsCalculation());
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
         }
 
         [Test]
@@ -983,7 +999,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new GrassCoverErosionInwardsSectionResultEntity(), null);
 
@@ -997,7 +1013,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection()));
 
@@ -1011,7 +1027,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new HeightStructuresSectionResultEntity(), null);
 
@@ -1025,7 +1041,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection()));
 
@@ -1039,7 +1055,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new StrengthStabilityLengthwiseConstructionSectionResultEntity(), null);
 
@@ -1053,7 +1069,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(new TestFailureMechanismSection()));
 
@@ -1067,7 +1083,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new TechnicalInnovationSectionResultEntity(), null);
 
@@ -1081,7 +1097,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new TechnicalInnovationFailureMechanismSectionResult(new TestFailureMechanismSection()));
 
@@ -1095,7 +1111,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new WaterPressureAsphaltCoverSectionResultEntity(), null);
 
@@ -1109,7 +1125,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new WaterPressureAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection()));
 
@@ -1123,7 +1139,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new ClosingStructureSectionResultEntity(), null);
 
@@ -1137,7 +1153,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new ClosingStructureFailureMechanismSectionResult(new TestFailureMechanismSection()));
 
@@ -1151,7 +1167,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new MacrostabilityInwardsSectionResultEntity(), null);
 
@@ -1165,7 +1181,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new MacrostabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection()));
 
@@ -1179,7 +1195,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new MacrostabilityOutwardsSectionResultEntity(), null);
 
@@ -1193,7 +1209,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new MacrostabilityOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection()));
 
@@ -1207,7 +1223,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new WaveImpactAsphaltCoverSectionResultEntity(), null);
 
@@ -1221,7 +1237,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new WaveImpactAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection()));
 
@@ -1235,7 +1251,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new GrassCoverErosionOutwardsSectionResultEntity(), null);
 
@@ -1249,7 +1265,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new GrassCoverErosionOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection()));
 
@@ -1263,7 +1279,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new GrassCoverSlipOffInwardsSectionResultEntity(), null);
 
@@ -1277,7 +1293,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new GrassCoverSlipOffInwardsFailureMechanismSectionResult(new TestFailureMechanismSection()));
 
@@ -1291,7 +1307,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new GrassCoverSlipOffOutwardsSectionResultEntity(), null);
 
@@ -1305,7 +1321,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection()));
 
@@ -1319,7 +1335,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new MicrostabilitySectionResultEntity(), null);
 
@@ -1333,7 +1349,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new MicrostabilityFailureMechanismSectionResult(new TestFailureMechanismSection()));
 
@@ -1347,7 +1363,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new PipingStructureSectionResultEntity(), null);
 
@@ -1361,7 +1377,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new PipingStructureFailureMechanismSectionResult(new TestFailureMechanismSection()));
 
@@ -1375,7 +1391,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new DuneErosionSectionResultEntity(), null);
 
@@ -1389,7 +1405,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection()));
 
@@ -1403,7 +1419,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new StabilityStoneCoverSectionResultEntity(), null);
 
@@ -1417,7 +1433,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection()));
 
@@ -1431,7 +1447,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(new StrengthStabilityPointConstructionSectionResultEntity(), null);
 
@@ -1445,7 +1461,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            
+
             // Call
             TestDelegate test = () => registry.Register(null, new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection()));
 
@@ -1545,7 +1561,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => registry.Register(null, new PipingOutput(1,1,1,1,1,1));
+            TestDelegate test = () => registry.Register(null, new PipingOutput(1, 1, 1, 1, 1, 1));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -1659,7 +1675,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => registry.Register(null, new PipingSoilProfile("name", 0, new [] { new PipingSoilLayer(1) }, SoilProfileType.SoilProfile1D, -1));
+            TestDelegate test = () => registry.Register(null, new PipingSoilProfile("name", 0, new[]
+            {
+                new PipingSoilLayer(1)
+            }, SoilProfileType.SoilProfile1D, -1));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -1802,7 +1821,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new ProjectEntity
             {
                 ProjectEntityId = storageId
@@ -1823,7 +1842,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new AssessmentSectionEntity
             {
                 AssessmentSectionEntityId = storageId
@@ -1844,7 +1863,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = storageId
@@ -1865,7 +1884,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = storageId
@@ -1886,7 +1905,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new FailureMechanismSectionEntity
             {
                 FailureMechanismSectionEntityId = storageId
@@ -1907,7 +1926,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new PipingSectionResultEntity
             {
                 PipingSectionResultEntityId = storageId
@@ -1965,12 +1984,33 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void TransferIds_WithGrassCoverErosionInwardsEntityAddedWithGrassCoverErosionInwardsCalculation_EqualGrassCoverErosionInwardsCalculationEntityIdAndGrassCoverErosionInwardsCalculationStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1, 4000);
+            var entity = new GrassCoverErosionInwardsCalculationEntity
+            {
+                GrassCoverErosionInwardsCalculationEntityId = storageId
+            };
+            var model = new GrassCoverErosionInwardsCalculation();
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
         public void TransferIds_WithGrassCoverErosionInwardsSectionResultEntityAddedWithGrassCoverErosionInwardsFailureMechanismSectionResult_EqualGrassCoverErosionInwardsSectionEntityIdAndGrassCoverErosionInwardsFailureMechanismSectionResultStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new GrassCoverErosionInwardsSectionResultEntity
             {
                 GrassCoverErosionInwardsSectionResultEntityId = storageId
@@ -1991,7 +2031,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new HeightStructuresSectionResultEntity
             {
                 HeightStructuresSectionResultEntityId = storageId
@@ -2012,7 +2052,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new StrengthStabilityLengthwiseConstructionSectionResultEntity
             {
                 StrengthStabilityLengthwiseConstructionSectionResultEntityId = storageId
@@ -2033,7 +2073,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new TechnicalInnovationSectionResultEntity
             {
                 TechnicalInnovationSectionResultEntityId = storageId
@@ -2054,7 +2094,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new WaterPressureAsphaltCoverSectionResultEntity
             {
                 WaterPressureAsphaltCoverSectionResultEntityId = storageId
@@ -2075,7 +2115,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new ClosingStructureSectionResultEntity
             {
                 ClosingStructureSectionResultEntityId = storageId
@@ -2096,7 +2136,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new MacrostabilityInwardsSectionResultEntity
             {
                 MacrostabilityInwardsSectionResultEntityId = storageId
@@ -2117,7 +2157,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new MacrostabilityOutwardsSectionResultEntity
             {
                 MacrostabilityOutwardsSectionResultEntityId = storageId
@@ -2138,7 +2178,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new WaveImpactAsphaltCoverSectionResultEntity
             {
                 WaveImpactAsphaltCoverSectionResultEntityId = storageId
@@ -2159,7 +2199,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new GrassCoverErosionOutwardsSectionResultEntity
             {
                 GrassCoverErosionOutwardsSectionResultEntityId = storageId
@@ -2180,7 +2220,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new GrassCoverSlipOffInwardsSectionResultEntity
             {
                 GrassCoverSlipOffInwardsSectionResultEntityId = storageId
@@ -2201,7 +2241,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new GrassCoverSlipOffOutwardsSectionResultEntity
             {
                 GrassCoverSlipOffOutwardsSectionResultEntityId = storageId
@@ -2222,7 +2262,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new MicrostabilitySectionResultEntity
             {
                 MicrostabilitySectionResultEntityId = storageId
@@ -2243,7 +2283,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new PipingStructureSectionResultEntity
             {
                 PipingStructureSectionResultEntityId = storageId
@@ -2264,7 +2304,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new DuneErosionSectionResultEntity
             {
                 DuneErosionSectionResultEntityId = storageId
@@ -2285,7 +2325,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new StabilityStoneCoverSectionResultEntity
             {
                 StabilityStoneCoverSectionResultEntityId = storageId
@@ -2306,7 +2346,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new StrengthStabilityPointConstructionSectionResultEntity
             {
                 StrengthStabilityPointConstructionSectionResultEntityId = storageId
@@ -2327,7 +2367,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new HydraulicLocationEntity
             {
                 HydraulicLocationEntityId = storageId
@@ -2395,7 +2435,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 PipingCalculationOutputEntityId = storageId
             };
-            var model = new PipingOutput(1,2,3,4,5,6);
+            var model = new PipingOutput(1, 2, 3, 4, 5, 6);
             registry.Register(entity, model);
 
             // Call
@@ -2432,7 +2472,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new StochasticSoilModelEntity
             {
                 StochasticSoilModelEntityId = storageId
@@ -2453,7 +2493,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new StochasticSoilProfileEntity
             {
                 StochasticSoilProfileEntityId = storageId
@@ -2474,12 +2514,15 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new SoilProfileEntity
             {
                 SoilProfileEntityId = storageId
             };
-            var model = new PipingSoilProfile("name", 0, new [] { new PipingSoilLayer(1) }, SoilProfileType.SoilProfile1D, -1);
+            var model = new PipingSoilProfile("name", 0, new[]
+            {
+                new PipingSoilLayer(1)
+            }, SoilProfileType.SoilProfile1D, -1);
             registry.Register(entity, model);
 
             // Call
@@ -2495,7 +2538,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            long storageId = new Random(21).Next(1,4000);
+            long storageId = new Random(21).Next(1, 4000);
             var entity = new SoilLayerEntity
             {
                 SoilLayerEntityId = storageId
@@ -2596,7 +2639,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             dbContext.ProjectEntities.Add(orphanedEntity);
             dbContext.ProjectEntities.Add(persistentEntity);
 
-            var project = new Project { StorageId = persistentEntity.ProjectEntityId };
+            var project = new Project
+            {
+                StorageId = persistentEntity.ProjectEntityId
+            };
 
             var registry = new PersistenceRegistry();
             registry.Register(persistentEntity, project);
@@ -2629,7 +2675,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             dbContext.AssessmentSectionEntities.Add(orphanedEntity);
             dbContext.AssessmentSectionEntities.Add(persistentEntity);
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike){ StorageId = persistentEntity.AssessmentSectionEntityId };
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                StorageId = persistentEntity.AssessmentSectionEntityId
+            };
 
             var registry = new PersistenceRegistry();
             registry.Register(persistentEntity, assessmentSection);
@@ -2696,7 +2745,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             dbContext.FailureMechanismSectionEntities.Add(orphanedEntity);
             dbContext.FailureMechanismSectionEntities.Add(persistentEntity);
 
-            var section = new TestFailureMechanismSection{ StorageId = persistentEntity.FailureMechanismSectionEntityId };
+            var section = new TestFailureMechanismSection
+            {
+                StorageId = persistentEntity.FailureMechanismSectionEntityId
+            };
 
             var registry = new PersistenceRegistry();
             registry.Register(persistentEntity, section);
@@ -2801,7 +2853,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             dbContext.DikeProfileEntities.Add(orphanedEntity);
             dbContext.DikeProfileEntities.Add(persistentEntity);
 
-            var section = CreateDikeProfile();
+            DikeProfile section = CreateDikeProfile();
             section.StorageId = persistentEntity.DikeProfileEntityId;
 
             var registry = new PersistenceRegistry();
@@ -2813,6 +2865,42 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(1, dbContext.DikeProfileEntities.Count());
             CollectionAssert.Contains(dbContext.DikeProfileEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_GrassCoverErosionInwardsCalculationEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new GrassCoverErosionInwardsCalculationEntity
+            {
+                GrassCoverErosionInwardsCalculationEntityId = 1
+            };
+            var persistentEntity = new GrassCoverErosionInwardsCalculationEntity
+            {
+                GrassCoverErosionInwardsCalculationEntityId = 2
+            };
+            dbContext.GrassCoverErosionInwardsCalculationEntities.Add(orphanedEntity);
+            dbContext.GrassCoverErosionInwardsCalculationEntities.Add(persistentEntity);
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                StorageId = persistentEntity.GrassCoverErosionInwardsCalculationEntityId
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, calculation);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.GrassCoverErosionInwardsCalculationEntities.Count());
+            CollectionAssert.Contains(dbContext.GrassCoverErosionInwardsCalculationEntities, persistentEntity);
             mocks.VerifyAll();
         }
 
@@ -3447,7 +3535,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             dbContext.HydraulicLocationEntities.Add(orphanedEntity);
             dbContext.HydraulicLocationEntities.Add(persistentEntity);
 
-            var boundaryLocation = new HydraulicBoundaryLocation(123, "A", 1, 2){ StorageId = persistentEntity.HydraulicLocationEntityId };
+            var boundaryLocation = new HydraulicBoundaryLocation(123, "A", 1, 2)
+            {
+                StorageId = persistentEntity.HydraulicLocationEntityId
+            };
 
             var registry = new PersistenceRegistry();
             registry.Register(persistentEntity, boundaryLocation);
@@ -3480,7 +3571,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             dbContext.CalculationGroupEntities.Add(orphanedEntity);
             dbContext.CalculationGroupEntities.Add(persistentEntity);
 
-            var calculationGroup = new CalculationGroup{ StorageId = persistentEntity.CalculationGroupEntityId };
+            var calculationGroup = new CalculationGroup
+            {
+                StorageId = persistentEntity.CalculationGroupEntityId
+            };
 
             var registry = new PersistenceRegistry();
             registry.Register(persistentEntity, calculationGroup);
@@ -3549,7 +3643,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             dbContext.PipingCalculationOutputEntities.Add(orphanedEntity);
             dbContext.PipingCalculationOutputEntities.Add(persistentEntity);
 
-            var pipingOutput = new PipingOutput(1,2,3,4,5,6)
+            var pipingOutput = new PipingOutput(1, 2, 3, 4, 5, 6)
             {
                 StorageId = persistentEntity.PipingCalculationOutputEntityId
             };
@@ -3586,7 +3680,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             dbContext.PipingSemiProbabilisticOutputEntities.Add(persistentEntity);
 
             var pipingSemiProbabilisticOutput = new PipingSemiProbabilisticOutput(1, 2, 0.3, 4, 5, 0.6, 7,
-                                                                     8, 0.9, 1.0, 11, 0.3, 13, 14)
+                                                                                  8, 0.9, 1.0, 11, 0.3, 13, 14)
             {
                 StorageId = persistentEntity.PipingSemiProbabilisticOutputEntityId
             };
@@ -3622,7 +3716,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             dbContext.StochasticSoilModelEntities.Add(orphanedEntity);
             dbContext.StochasticSoilModelEntities.Add(persistentEntity);
 
-            var soilModel = new StochasticSoilModel(123, "A", "B"){ StorageId = persistentEntity.StochasticSoilModelEntityId };
+            var soilModel = new StochasticSoilModel(123, "A", "B")
+            {
+                StorageId = persistentEntity.StochasticSoilModelEntityId
+            };
 
             var registry = new PersistenceRegistry();
             registry.Register(persistentEntity, soilModel);
@@ -3655,7 +3752,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             dbContext.StochasticSoilProfileEntities.Add(orphanedEntity);
             dbContext.StochasticSoilProfileEntities.Add(persistentEntity);
 
-            var stochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 123){ StorageId = persistentEntity.StochasticSoilProfileEntityId };
+            var stochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 123)
+            {
+                StorageId = persistentEntity.StochasticSoilProfileEntityId
+            };
 
             var registry = new PersistenceRegistry();
             registry.Register(persistentEntity, stochasticSoilProfile);
@@ -3886,5 +3986,21 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         #endregion
+
+        private static DikeProfile CreateDikeProfile()
+        {
+            return new DikeProfile(new Point2D(0, 0),
+                                   new[]
+                                   {
+                                       new RoughnessPoint(new Point2D(1, 2), 0.75),
+                                       new RoughnessPoint(new Point2D(3, 4), 0.75)
+                                   },
+                                   new[]
+                                   {
+                                       new Point2D(5, 6),
+                                       new Point2D(7, 8)
+                                   },
+                                   null, new DikeProfile.ConstructionProperties());
+        }
     }
 }

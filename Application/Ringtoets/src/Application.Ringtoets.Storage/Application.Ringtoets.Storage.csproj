@@ -63,6 +63,7 @@
     <Compile Include="Create\DuneErosion\DuneErosionFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\DikeProfileCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\GeneralGrassCoverErosionInwardsInputCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismCreateExtensions.cs" />
@@ -244,6 +245,9 @@
     <Compile Include="Read\CalculationGroupEntityReadExtentions.cs" />
     <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\DikeProfileEntityReadExtensions.cs" />
+    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationEntityReadExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\PipingCalculationEntityReadExtensions.cs" />
@@ -317,6 +321,7 @@
     <Compile Include="Update\DuneErosion\DuneErosionFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverErosionInwards\DikeProfileUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverErosionInwards\GeneralGrassCoverErosionInwardsInputUpdateExtensions.cs" />
+    <Compile Include="Update\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateExtensions.cs" />

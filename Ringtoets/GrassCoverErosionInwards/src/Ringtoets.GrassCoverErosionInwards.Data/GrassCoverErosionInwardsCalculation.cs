@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using Core.Common.Base;
+using Core.Common.Base.Storage;
+
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
@@ -29,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// This class holds information about a calculation for the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculation : Observable, ICalculation
+    public class GrassCoverErosionInwardsCalculation : Observable, ICalculation, IStorable
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculation"/>.
@@ -62,6 +64,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
         }
 
+        public long StorageId { get; set; }
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>The name of this calculation.</returns>
+        public override string ToString()
+        {
+            return Name;
+        }
+
         public void ClearOutput()
         {
             Output = null;
@@ -80,15 +93,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public ICalculationOutput GetObservableOutput()
         {
             return Output;
-        }
-
-        /// <summary>
-        /// Returns a string that represents the current object.
-        /// </summary>
-        /// <returns>The name of this calculation.</returns>
-        public override string ToString()
-        {
-            return Name;
         }
     }
 }

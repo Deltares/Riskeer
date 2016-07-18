@@ -56,6 +56,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<PipingSectionResultEntity, PipingFailureMechanismSectionResult> pipingFailureMechanismSectionResults = new Dictionary<PipingSectionResultEntity, PipingFailureMechanismSectionResult>();
         private readonly Dictionary<GrassCoverErosionInwardsFailureMechanismMetaEntity, GeneralGrassCoverErosionInwardsInput> generalGrassCoverErosionInwardsInputs = new Dictionary<GrassCoverErosionInwardsFailureMechanismMetaEntity, GeneralGrassCoverErosionInwardsInput>();
         private readonly Dictionary<DikeProfileEntity, DikeProfile> dikeProfiles = new Dictionary<DikeProfileEntity, DikeProfile>();
+        private readonly Dictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations = new Dictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation>();
         private readonly Dictionary<GrassCoverErosionInwardsSectionResultEntity, GrassCoverErosionInwardsFailureMechanismSectionResult> grassCoverErosionInwardsFailureMechanismSectionResults = new Dictionary<GrassCoverErosionInwardsSectionResultEntity, GrassCoverErosionInwardsFailureMechanismSectionResult>();
         private readonly Dictionary<HeightStructuresSectionResultEntity, HeightStructuresFailureMechanismSectionResult> heightStructuresFailureMechanismSectionResults = new Dictionary<HeightStructuresSectionResultEntity, HeightStructuresFailureMechanismSectionResult>();
         private readonly Dictionary<StrengthStabilityLengthwiseConstructionSectionResultEntity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> strengthStabilityLengthwiseConstructionFailureMechanismSectionResults = new Dictionary<StrengthStabilityLengthwiseConstructionSectionResultEntity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
@@ -149,6 +150,24 @@ namespace Application.Ringtoets.Storage.Create
         internal void Register(DikeProfileEntity entity, DikeProfile model)
         {
             Register(dikeProfiles, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="GrassCoverErosionInwardsCalculationEntity"/>
+        /// to be registered.</param>
+        /// <param name="model">The <see cref="GrassCoverErosionInwardsCalculation"/> to
+        /// be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsCalculation model)
+        {
+            Register(grassCoverErosionInwardsCalculations, entity, model);
         }
 
         /// <summary>
@@ -908,6 +927,11 @@ namespace Application.Ringtoets.Storage.Create
                 dikeProfiles[entity].StorageId = entity.DikeProfileEntityId;
             }
 
+            foreach (var entity in grassCoverErosionInwardsCalculations.Keys)
+            {
+                grassCoverErosionInwardsCalculations[entity].StorageId = entity.GrassCoverErosionInwardsCalculationEntityId;
+            }
+
             foreach (var entity in grassCoverErosionInwardsFailureMechanismSectionResults.Keys)
             {
                 grassCoverErosionInwardsFailureMechanismSectionResults[entity].StorageId = entity.GrassCoverErosionInwardsSectionResultEntityId;
@@ -1139,6 +1163,17 @@ namespace Application.Ringtoets.Storage.Create
                 }
             }
             dbContext.DikeProfileEntities.RemoveRange(orphanedDikeProfileEntities);
+
+            var orphanedGrassCoverErosionInwardsCalculationEntities = new List<GrassCoverErosionInwardsCalculationEntity>();
+            foreach (GrassCoverErosionInwardsCalculationEntity calculationEntity in dbContext.GrassCoverErosionInwardsCalculationEntities
+                                                                     .Where(e => e.GrassCoverErosionInwardsCalculationEntityId > 0))
+            {
+                if (!grassCoverErosionInwardsCalculations.ContainsKey(calculationEntity))
+                {
+                    orphanedGrassCoverErosionInwardsCalculationEntities.Add(calculationEntity);
+                }
+            }
+            dbContext.GrassCoverErosionInwardsCalculationEntities.RemoveRange(orphanedGrassCoverErosionInwardsCalculationEntities);
 
             var orphanedGrassCoverErosionInwardsSectionResultEntities = new List<GrassCoverErosionInwardsSectionResultEntity>();
             foreach (GrassCoverErosionInwardsSectionResultEntity sectionResultEntity in dbContext.GrassCoverErosionInwardsSectionResultEntities

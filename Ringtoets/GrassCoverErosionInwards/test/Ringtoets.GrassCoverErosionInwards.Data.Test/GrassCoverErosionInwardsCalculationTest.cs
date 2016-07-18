@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using Core.Common.Base;
+using Core.Common.Base.Storage;
+
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
@@ -39,12 +41,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
             Assert.IsInstanceOf<Observable>(calculation);
+            Assert.IsInstanceOf<IStorable>(calculation);
+
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments);
             Assert.IsNull(calculation.Output);
             Assert.IsNull(calculation.InputParameters.DikeProfile);
+            Assert.AreEqual(0, calculation.StorageId);
         }
 
         [Test]
