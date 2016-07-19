@@ -58,7 +58,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssessmentSectionFromFileCommandHandlerTest.cs" />
+    <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\CalculationContextPropertiesTest.cs" />
@@ -66,6 +66,7 @@
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
     <Compile Include="ReferenceLineMetaSelectionDialogTest.cs" />
+    <Compile Include="RingtoetsSettingsHelperTest.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructureFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\AssessmentSectionTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CommentContextTreeNodeInfoTest.cs" />

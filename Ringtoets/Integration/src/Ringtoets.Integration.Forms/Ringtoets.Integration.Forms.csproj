@@ -46,7 +46,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="AssessmentSectionFromFileCommandHandler.cs" />
+    <Compile Include="Commands\AssessmentSectionFromFileCommandHandler.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContext.cs" />
     <Compile Include="PropertyClasses\CalculationContextProperties.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextProperties.cs" />
@@ -66,6 +66,7 @@
     <Compile Include="ReferenceLineMetaSelectionDialog.Designer.cs">
       <DependentUpon>ReferenceLineMetaSelectionDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="RingtoetsSettingsHelper.cs" />
     <Compile Include="Views\AssessmentSectionView.cs">
       <SubType>UserControl</SubType>
     </Compile>

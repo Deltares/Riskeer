@@ -23,7 +23,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
@@ -35,7 +34,6 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
-using Core.Common.Gui.Settings;
 using Core.Common.IO.Exceptions;
 using log4net;
 using Ringtoets.Common.Data;
@@ -60,6 +58,7 @@ using Ringtoets.HydraRing.IO;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms;
+using Ringtoets.Integration.Forms.Commands;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
@@ -332,7 +331,7 @@ namespace Ringtoets.Integration.Plugin
             try
             {
                 var assessmentSectionHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow);
-                var path = SettingsHelper.GetCommonDocumentsDirectory();
+                var path = RingtoetsSettingsHelper.GetCommonDocumentsRingtoetsShapeFileDirectory();
                 assessmentSection = assessmentSectionHandler.CreateAssessmentSectionFromFile(path);
             }
             catch (CriticalFileValidationException exception)

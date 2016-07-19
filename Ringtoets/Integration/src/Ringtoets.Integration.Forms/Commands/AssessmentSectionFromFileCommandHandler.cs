@@ -30,7 +30,7 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Properties;
 
-namespace Ringtoets.Integration.Forms
+namespace Ringtoets.Integration.Forms.Commands
 {
     /// <summary>
     /// This class provides concrete implementation for <see cref="AssessmentSection"/>.

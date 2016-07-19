@@ -78,14 +78,5 @@ namespace Core.Common.Gui.Settings
 
             return appSettingsDirectoryPath;
         }
-
-        /// <summary>
-        /// Gets the common documents directory.
-        /// </summary>
-        /// <returns>Directory path where the common documents can be found.</returns>
-        public static string GetCommonDocumentsDirectory()
-        {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "NBPW");
-        }
     }
 }

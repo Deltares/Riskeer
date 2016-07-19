@@ -33,8 +33,9 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.Commands;
 
-namespace Ringtoets.Integration.Forms.Test
+namespace Ringtoets.Integration.Forms.Test.Commands
 {
     [TestFixture]
     public class AssessmentSectionFromFileCommandHandlerTest : NUnitFormTest

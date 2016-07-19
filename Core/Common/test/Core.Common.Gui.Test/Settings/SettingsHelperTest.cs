@@ -74,18 +74,5 @@ namespace Core.Common.Gui.Test.Settings
             // Assert
             Assert.AreEqual(appSettingsDirectoryPath, pathFromSettings);
         }
-
-        [Test]
-        public void GetCommonDocumentsDirectory_ReturnsCommonDocumentsDirectory()
-        {
-            // Setup
-            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "NBPW");
-
-            // Call
-            var pathFromSettings = SettingsHelper.GetCommonDocumentsDirectory();
-
-            // Assert
-            Assert.AreEqual(path, pathFromSettings);
-        }
     }
 }
