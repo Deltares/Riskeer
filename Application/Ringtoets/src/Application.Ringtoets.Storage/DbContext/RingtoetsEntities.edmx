@@ -109,7 +109,7 @@
           <Property Name="GrassCoverErosionInwardsCalculationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CalculationGroupEntityId" Type="integer" Nullable="false" />
           <Property Name="HydraulicLocationEntityId" Type="integer" />
-          <Property Name="ProbabilisticOutputEntityId" Type="integer" />
+          <Property Name="GrassCoverErosionInwardsOutputEntityId" Type="integer" />
           <Property Name="Order" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" />
           <Property Name="Comments" Type="nvarchar" MaxLength="2147483647" />
@@ -129,6 +129,16 @@
           <Property Name="GrassCoverErosionInwardsFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
           <Property Name="N" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GrassCoverErosionInwardsOutputEntity">
+          <Key>
+            <PropertyRef Name="GrassCoverErosionInwardsOutputId" />
+          </Key>
+          <Property Name="GrassCoverErosionInwardsOutputId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProbabilisticOutputEntityId" Type="integer" Nullable="false" />
+          <Property Name="IsOvertoppingDominant" Type="tinyint" Nullable="false" />
+          <Property Name="WaveHeight" Type="real" Nullable="false" />
+          <Property Name="DikeHeight" Type="real" />
         </EntityType>
         <EntityType Name="GrassCoverErosionInwardsSectionResultEntity">
           <Key>
@@ -308,6 +318,17 @@
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
           <Property Name="LayerTwoA" Type="tinyint" Nullable="false" />
           <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+        </EntityType>
+        <EntityType Name="ProbabilisticOutputEntity">
+          <Key>
+            <PropertyRef Name="ProbabilisticOutputEntityId" />
+          </Key>
+          <Property Name="ProbabilisticOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequiredProbability" Type="real" />
+          <Property Name="RequiredReliability" Type="real" />
+          <Property Name="Probability" Type="real" />
+          <Property Name="Reliability" Type="real" />
+          <Property Name="FactorOfSafety" Type="real" />
         </EntityType>
         <EntityType Name="ProjectEntity">
           <Key>
@@ -598,6 +619,18 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GrassCoverErosionInwardsCalculationEntity_1_0">
+          <End Role="GrassCoverErosionInwardsOutputEntity" Type="Self.GrassCoverErosionInwardsOutputEntity" Multiplicity="0..1" />
+          <End Role="GrassCoverErosionInwardsCalculationEntity" Type="Self.GrassCoverErosionInwardsCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GrassCoverErosionInwardsOutputEntity">
+              <PropertyRef Name="GrassCoverErosionInwardsOutputId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionInwardsCalculationEntity">
+              <PropertyRef Name="GrassCoverErosionInwardsOutputEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrassCoverErosionInwardsCalculationEntity_2_0">
           <End Role="CalculationGroupEntity" Type="Self.CalculationGroupEntity" Multiplicity="1" />
           <End Role="GrassCoverErosionInwardsCalculationEntity" Type="Self.GrassCoverErosionInwardsCalculationEntity" Multiplicity="*" />
           <ReferentialConstraint>
@@ -618,6 +651,18 @@
             </Principal>
             <Dependent Role="GrassCoverErosionInwardsFailureMechanismMetaEntity">
               <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrassCoverErosionInwardsOutputEntity_0_0">
+          <End Role="ProbabilisticOutputEntity" Type="Self.ProbabilisticOutputEntity" Multiplicity="1" />
+          <End Role="GrassCoverErosionInwardsOutputEntity" Type="Self.GrassCoverErosionInwardsOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProbabilisticOutputEntity">
+              <PropertyRef Name="ProbabilisticOutputEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionInwardsOutputEntity">
+              <PropertyRef Name="ProbabilisticOutputEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1017,6 +1062,7 @@
           <EntitySet Name="FailureMechanismSectionPointEntity" EntityType="Self.FailureMechanismSectionPointEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionInwardsCalculationEntity" EntityType="Self.GrassCoverErosionInwardsCalculationEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionInwardsFailureMechanismMetaEntity" EntityType="Self.GrassCoverErosionInwardsFailureMechanismMetaEntity" store:Type="Tables" />
+          <EntitySet Name="GrassCoverErosionInwardsOutputEntity" EntityType="Self.GrassCoverErosionInwardsOutputEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionInwardsSectionResultEntity" EntityType="Self.GrassCoverErosionInwardsSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionOutwardsSectionResultEntity" EntityType="Self.GrassCoverErosionOutwardsSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverSlipOffInwardsSectionResultEntity" EntityType="Self.GrassCoverSlipOffInwardsSectionResultEntity" store:Type="Tables" />
@@ -1032,6 +1078,7 @@
           <EntitySet Name="PipingSectionResultEntity" EntityType="Self.PipingSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="PipingSemiProbabilisticOutputEntity" EntityType="Self.PipingSemiProbabilisticOutputEntity" store:Type="Tables" />
           <EntitySet Name="PipingStructureSectionResultEntity" EntityType="Self.PipingStructureSectionResultEntity" store:Type="Tables" />
+          <EntitySet Name="ProbabilisticOutputEntity" EntityType="Self.ProbabilisticOutputEntity" store:Type="Tables" />
           <EntitySet Name="ProjectEntity" EntityType="Self.ProjectEntity" store:Type="Tables" />
           <EntitySet Name="ReferenceLinePointEntity" EntityType="Self.ReferenceLinePointEntity" store:Type="Tables" />
           <EntitySet Name="SoilLayerEntity" EntityType="Self.SoilLayerEntity" store:Type="Tables" />
@@ -1093,12 +1140,20 @@
             <End Role="GrassCoverErosionInwardsCalculationEntity" EntitySet="GrassCoverErosionInwardsCalculationEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_GrassCoverErosionInwardsCalculationEntity_1_0" Association="Self.FK_GrassCoverErosionInwardsCalculationEntity_1_0">
+            <End Role="GrassCoverErosionInwardsOutputEntity" EntitySet="GrassCoverErosionInwardsOutputEntity" />
+            <End Role="GrassCoverErosionInwardsCalculationEntity" EntitySet="GrassCoverErosionInwardsCalculationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionInwardsCalculationEntity_2_0" Association="Self.FK_GrassCoverErosionInwardsCalculationEntity_2_0">
             <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntity" />
             <End Role="GrassCoverErosionInwardsCalculationEntity" EntitySet="GrassCoverErosionInwardsCalculationEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_GrassCoverErosionInwardsFailureMechanismMetaEntity_0_0" Association="Self.FK_GrassCoverErosionInwardsFailureMechanismMetaEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
             <End Role="GrassCoverErosionInwardsFailureMechanismMetaEntity" EntitySet="GrassCoverErosionInwardsFailureMechanismMetaEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionInwardsOutputEntity_0_0" Association="Self.FK_GrassCoverErosionInwardsOutputEntity_0_0">
+            <End Role="ProbabilisticOutputEntity" EntitySet="ProbabilisticOutputEntity" />
+            <End Role="GrassCoverErosionInwardsOutputEntity" EntitySet="GrassCoverErosionInwardsOutputEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_GrassCoverErosionInwardsSectionResultEntity_0_0" Association="Self.FK_GrassCoverErosionInwardsSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
@@ -1245,6 +1300,7 @@
           <EntitySet Name="FailureMechanismSectionPointEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismSectionPointEntity" />
           <EntitySet Name="GrassCoverErosionInwardsCalculationEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsCalculationEntity" />
           <EntitySet Name="GrassCoverErosionInwardsFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsFailureMechanismMetaEntity" />
+          <EntitySet Name="GrassCoverErosionInwardsOutputEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsOutputEntity" />
           <EntitySet Name="GrassCoverErosionInwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsSectionResultEntity" />
           <EntitySet Name="GrassCoverErosionOutwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsSectionResultEntity" />
           <EntitySet Name="GrassCoverSlipOffInwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.GrassCoverSlipOffInwardsSectionResultEntity" />
@@ -1260,6 +1316,7 @@
           <EntitySet Name="PipingSectionResultEntities" EntityType="RingtoetsEntitiesModel.PipingSectionResultEntity" />
           <EntitySet Name="PipingSemiProbabilisticOutputEntities" EntityType="RingtoetsEntitiesModel.PipingSemiProbabilisticOutputEntity" />
           <EntitySet Name="PipingStructureSectionResultEntities" EntityType="RingtoetsEntitiesModel.PipingStructureSectionResultEntity" />
+          <EntitySet Name="ProbabilisticOutputEntities" EntityType="RingtoetsEntitiesModel.ProbabilisticOutputEntity" />
           <EntitySet Name="ProjectEntities" EntityType="RingtoetsEntitiesModel.ProjectEntity" />
           <EntitySet Name="ReferenceLinePointEntities" EntityType="RingtoetsEntitiesModel.ReferenceLinePointEntity" />
           <EntitySet Name="SoilLayerEntities" EntityType="RingtoetsEntitiesModel.SoilLayerEntity" />
@@ -1300,7 +1357,7 @@
             <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntities" />
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_GrassCoverErosionInwardsCalculationEntity_1_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_1_0">
+          <AssociationSet Name="FK_GrassCoverErosionInwardsCalculationEntity_2_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_2_0">
             <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntities" />
             <End Role="GrassCoverErosionInwardsCalculationEntity" EntitySet="GrassCoverErosionInwardsCalculationEntities" />
           </AssociationSet>
@@ -1416,6 +1473,14 @@
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
             <End Role="GrassCoverErosionInwardsCalculationEntity" EntitySet="GrassCoverErosionInwardsCalculationEntities" />
           </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionInwardsCalculationEntity_1_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_1_0">
+            <End Role="GrassCoverErosionInwardsOutputEntity" EntitySet="GrassCoverErosionInwardsOutputEntities" />
+            <End Role="GrassCoverErosionInwardsCalculationEntity" EntitySet="GrassCoverErosionInwardsCalculationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionInwardsOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsOutputEntity_0_0">
+            <End Role="ProbabilisticOutputEntity" EntitySet="ProbabilisticOutputEntities" />
+            <End Role="GrassCoverErosionInwardsOutputEntity" EntitySet="GrassCoverErosionInwardsOutputEntities" />
+          </AssociationSet>
           <AssociationSet Name="FK_PipingCalculationEntity_4_0" Association="RingtoetsEntitiesModel.FK_PipingCalculationEntity_4_0">
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
             <End Role="PipingCalculationEntity" EntitySet="PipingCalculationEntities" />
@@ -1487,7 +1552,7 @@
           <NavigationProperty Name="CalculationGroupEntity1" Relationship="RingtoetsEntitiesModel.FK_CalculationGroupEntity_0_0" FromRole="CalculationGroupEntity" ToRole="CalculationGroupEntity1" />
           <NavigationProperty Name="CalculationGroupEntity2" Relationship="RingtoetsEntitiesModel.FK_CalculationGroupEntity_0_0" FromRole="CalculationGroupEntity1" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="FailureMechanismEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="CalculationGroupEntity" ToRole="FailureMechanismEntity" />
-          <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_1_0" FromRole="CalculationGroupEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
+          <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_2_0" FromRole="CalculationGroupEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_5_0" FromRole="CalculationGroupEntity" ToRole="PipingCalculationEntity" />
         </EntityType>
         <EntityType Name="CharacteristicPointEntity">
@@ -1603,7 +1668,7 @@
           <Property Name="GrassCoverErosionInwardsCalculationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CalculationGroupEntityId" Type="Int64" Nullable="false" />
           <Property Name="HydraulicLocationEntityId" Type="Int64" />
-          <Property Name="ProbabilisticOutputEntityId" Type="Int64" />
+          <Property Name="GrassCoverErosionInwardsOutputEntityId" Type="Int64" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
@@ -1615,8 +1680,9 @@
           <Property Name="UseBreakWater" Type="Byte" Nullable="false" />
           <Property Name="BreakWaterType" Type="Int16" Nullable="false" />
           <Property Name="BreakWaterHeight" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_1_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="CalculationGroupEntity" />
+          <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_2_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_0_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="GrassCoverErosionInwardsOutputEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_1_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="GrassCoverErosionInwardsOutputEntity" />
         </EntityType>
         <EntityType Name="GrassCoverErosionInwardsFailureMechanismMetaEntity">
           <Key>
@@ -1626,6 +1692,18 @@
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
           <Property Name="N" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsFailureMechanismMetaEntity_0_0" FromRole="GrassCoverErosionInwardsFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
+        </EntityType>
+        <EntityType Name="GrassCoverErosionInwardsOutputEntity">
+          <Key>
+            <PropertyRef Name="GrassCoverErosionInwardsOutputId" />
+          </Key>
+          <Property Name="GrassCoverErosionInwardsOutputId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProbabilisticOutputEntityId" Type="Int64" Nullable="false" />
+          <Property Name="IsOvertoppingDominant" Type="Byte" Nullable="false" />
+          <Property Name="WaveHeight" Type="Double" Nullable="false" />
+          <Property Name="DikeHeight" Type="Double" />
+          <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_1_0" FromRole="GrassCoverErosionInwardsOutputEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
+          <NavigationProperty Name="ProbabilisticOutputEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsOutputEntity_0_0" FromRole="GrassCoverErosionInwardsOutputEntity" ToRole="ProbabilisticOutputEntity" />
         </EntityType>
         <EntityType Name="GrassCoverErosionInwardsSectionResultEntity">
           <Key>
@@ -1827,6 +1905,18 @@
           <Property Name="LayerTwoA" Type="Byte" Nullable="false" />
           <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_PipingStructureSectionResultEntity_0_0" FromRole="PipingStructureSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
+        </EntityType>
+        <EntityType Name="ProbabilisticOutputEntity">
+          <Key>
+            <PropertyRef Name="ProbabilisticOutputEntityId" />
+          </Key>
+          <Property Name="ProbabilisticOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequiredProbability" Type="Double" />
+          <Property Name="RequiredReliability" Type="Double" />
+          <Property Name="Probability" Type="Double" />
+          <Property Name="Reliability" Type="Double" />
+          <Property Name="FactorOfSafety" Type="Double" />
+          <NavigationProperty Name="GrassCoverErosionInwardsOutputEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsOutputEntity_0_0" FromRole="ProbabilisticOutputEntity" ToRole="GrassCoverErosionInwardsOutputEntity" />
         </EntityType>
         <EntityType Name="ProjectEntity">
           <Key>
@@ -2079,7 +2169,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GrassCoverErosionInwardsCalculationEntity_1_0">
+        <Association Name="FK_GrassCoverErosionInwardsCalculationEntity_2_0">
           <End Type="RingtoetsEntitiesModel.CalculationGroupEntity" Role="CalculationGroupEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.GrassCoverErosionInwardsCalculationEntity" Role="GrassCoverErosionInwardsCalculationEntity" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2427,6 +2517,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GrassCoverErosionInwardsCalculationEntity_1_0">
+          <End Type="RingtoetsEntitiesModel.GrassCoverErosionInwardsOutputEntity" Role="GrassCoverErosionInwardsOutputEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.GrassCoverErosionInwardsCalculationEntity" Role="GrassCoverErosionInwardsCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GrassCoverErosionInwardsOutputEntity">
+              <PropertyRef Name="GrassCoverErosionInwardsOutputId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionInwardsCalculationEntity">
+              <PropertyRef Name="GrassCoverErosionInwardsOutputEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrassCoverErosionInwardsOutputEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.ProbabilisticOutputEntity" Role="ProbabilisticOutputEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.GrassCoverErosionInwardsOutputEntity" Role="GrassCoverErosionInwardsOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProbabilisticOutputEntity">
+              <PropertyRef Name="ProbabilisticOutputEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionInwardsOutputEntity">
+              <PropertyRef Name="ProbabilisticOutputEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PipingCalculationEntity_4_0">
           <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="0..1" />
           <End Type="RingtoetsEntitiesModel.PipingCalculationEntity" Role="PipingCalculationEntity" Multiplicity="*" />
@@ -2673,7 +2787,7 @@
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="ProbabilisticOutputEntityId" ColumnName="ProbabilisticOutputEntityId" />
+                <ScalarProperty Name="GrassCoverErosionInwardsOutputEntityId" ColumnName="GrassCoverErosionInwardsOutputEntityId" />
                 <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
                 <ScalarProperty Name="CalculationGroupEntityId" ColumnName="CalculationGroupEntityId" />
                 <ScalarProperty Name="GrassCoverErosionInwardsCalculationEntityId" ColumnName="GrassCoverErosionInwardsCalculationEntityId" />
@@ -2686,6 +2800,17 @@
                 <ScalarProperty Name="N" ColumnName="N" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="GrassCoverErosionInwardsFailureMechanismMetaEntityId" ColumnName="GrassCoverErosionInwardsFailureMechanismMetaEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GrassCoverErosionInwardsOutputEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionInwardsOutputEntity">
+              <MappingFragment StoreEntitySet="GrassCoverErosionInwardsOutputEntity">
+                <ScalarProperty Name="DikeHeight" ColumnName="DikeHeight" />
+                <ScalarProperty Name="WaveHeight" ColumnName="WaveHeight" />
+                <ScalarProperty Name="IsOvertoppingDominant" ColumnName="IsOvertoppingDominant" />
+                <ScalarProperty Name="ProbabilisticOutputEntityId" ColumnName="ProbabilisticOutputEntityId" />
+                <ScalarProperty Name="GrassCoverErosionInwardsOutputId" ColumnName="GrassCoverErosionInwardsOutputId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2880,6 +3005,18 @@
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="PipingStructureSectionResultEntityId" ColumnName="PipingStructureSectionResultEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProbabilisticOutputEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.ProbabilisticOutputEntity">
+              <MappingFragment StoreEntitySet="ProbabilisticOutputEntity">
+                <ScalarProperty Name="FactorOfSafety" ColumnName="FactorOfSafety" />
+                <ScalarProperty Name="Reliability" ColumnName="Reliability" />
+                <ScalarProperty Name="Probability" ColumnName="Probability" />
+                <ScalarProperty Name="RequiredReliability" ColumnName="RequiredReliability" />
+                <ScalarProperty Name="RequiredProbability" ColumnName="RequiredProbability" />
+                <ScalarProperty Name="ProbabilisticOutputEntityId" ColumnName="ProbabilisticOutputEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

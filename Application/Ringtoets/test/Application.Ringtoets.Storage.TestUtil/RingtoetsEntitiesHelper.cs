@@ -42,9 +42,10 @@ namespace Application.Ringtoets.Storage.TestUtil
             DbSet<FailureMechanismSectionEntity> failureMechanismSectionsSet = CreateEmptyTestDbSet<FailureMechanismSectionEntity>();
             DbSet<FailureMechanismSectionPointEntity> failureMechanismSectionPointsSet = CreateEmptyTestDbSet<FailureMechanismSectionPointEntity>();
             DbSet<PipingSectionResultEntity> pipingSectionResultsSet = CreateEmptyTestDbSet<PipingSectionResultEntity>();
-            DbSet<DikeProfileEntity> dikeProfileEntities = CreateEmptyTestDbSet<DikeProfileEntity>();
-            DbSet<GrassCoverErosionInwardsFailureMechanismMetaEntity> grassCoverErosionInwardsMetaEntities = CreateEmptyTestDbSet<GrassCoverErosionInwardsFailureMechanismMetaEntity>();
-            DbSet<GrassCoverErosionInwardsCalculationEntity> grassCoverErosionInwardsCalculationEntities = CreateEmptyTestDbSet<GrassCoverErosionInwardsCalculationEntity>();
+            DbSet<DikeProfileEntity> dikeProfileEntitiesSet = CreateEmptyTestDbSet<DikeProfileEntity>();
+            DbSet<GrassCoverErosionInwardsFailureMechanismMetaEntity> grassCoverErosionInwardsMetaEntitiesSet = CreateEmptyTestDbSet<GrassCoverErosionInwardsFailureMechanismMetaEntity>();
+            DbSet<GrassCoverErosionInwardsCalculationEntity> grassCoverErosionInwardsCalculationEntitiesSet = CreateEmptyTestDbSet<GrassCoverErosionInwardsCalculationEntity>();
+            DbSet<GrassCoverErosionInwardsOutputEntity> grassCoverErosionInwardsOutputEntitiesSet = CreateEmptyTestDbSet<GrassCoverErosionInwardsOutputEntity>();
             DbSet<GrassCoverErosionInwardsSectionResultEntity> grassCoverErosionInwardsSectionResultsSet = CreateEmptyTestDbSet<GrassCoverErosionInwardsSectionResultEntity>();
             DbSet<HeightStructuresSectionResultEntity> heightStructuresSectionResultsSet = CreateEmptyTestDbSet<HeightStructuresSectionResultEntity>();
             DbSet<StrengthStabilityLengthwiseConstructionSectionResultEntity> strengthStabilityLengthwiseConstructionSectionResultsSet = CreateEmptyTestDbSet<StrengthStabilityLengthwiseConstructionSectionResultEntity>();
@@ -77,6 +78,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             DbSet<SurfaceLinePointEntity> surfaceLinePointsSet = CreateEmptyTestDbSet<SurfaceLinePointEntity>();
             DbSet<CharacteristicPointEntity> characteristicPointsSet = CreateEmptyTestDbSet<CharacteristicPointEntity>();
             DbSet<PipingFailureMechanismMetaEntity> failureMechanismMetaSet = CreateEmptyTestDbSet<PipingFailureMechanismMetaEntity>();
+            DbSet<ProbabilisticOutputEntity> probabilisticOutputsSet = CreateEmptyTestDbSet<ProbabilisticOutputEntity>();
 
             var ringtoetsEntities = mockRepository.Stub<IRingtoetsEntities>();
             ringtoetsEntities.Stub(r => r.ProjectEntities).Return(projectsSet);
@@ -85,9 +87,10 @@ namespace Application.Ringtoets.Storage.TestUtil
             ringtoetsEntities.Stub(r => r.FailureMechanismSectionEntities).Return(failureMechanismSectionsSet);
             ringtoetsEntities.Stub(r => r.FailureMechanismSectionPointEntities).Return(failureMechanismSectionPointsSet);
             ringtoetsEntities.Stub(r => r.PipingSectionResultEntities).Return(pipingSectionResultsSet);
-            ringtoetsEntities.Stub(r => r.DikeProfileEntities).Return(dikeProfileEntities);
-            ringtoetsEntities.Stub(r => r.GrassCoverErosionInwardsFailureMechanismMetaEntities).Return(grassCoverErosionInwardsMetaEntities);
-            ringtoetsEntities.Stub(r => r.GrassCoverErosionInwardsCalculationEntities).Return(grassCoverErosionInwardsCalculationEntities);
+            ringtoetsEntities.Stub(r => r.DikeProfileEntities).Return(dikeProfileEntitiesSet);
+            ringtoetsEntities.Stub(r => r.GrassCoverErosionInwardsFailureMechanismMetaEntities).Return(grassCoverErosionInwardsMetaEntitiesSet);
+            ringtoetsEntities.Stub(r => r.GrassCoverErosionInwardsCalculationEntities).Return(grassCoverErosionInwardsCalculationEntitiesSet);
+            ringtoetsEntities.Stub(r => r.GrassCoverErosionInwardsOutputEntities).Return(grassCoverErosionInwardsOutputEntitiesSet);
             ringtoetsEntities.Stub(r => r.GrassCoverErosionInwardsSectionResultEntities).Return(grassCoverErosionInwardsSectionResultsSet);
             ringtoetsEntities.Stub(r => r.HeightStructuresSectionResultEntities).Return(heightStructuresSectionResultsSet);
             ringtoetsEntities.Stub(r => r.StrengthStabilityLengthwiseConstructionSectionResultEntities).Return(strengthStabilityLengthwiseConstructionSectionResultsSet);
@@ -120,6 +123,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             ringtoetsEntities.Stub(r => r.SurfaceLinePointEntities).Return(surfaceLinePointsSet);
             ringtoetsEntities.Stub(r => r.CharacteristicPointEntities).Return(characteristicPointsSet);
             ringtoetsEntities.Stub(r => r.PipingFailureMechanismMetaEntities).Return(failureMechanismMetaSet);
+            ringtoetsEntities.Stub(r => r.ProbabilisticOutputEntities).Return(probabilisticOutputsSet);
             return ringtoetsEntities;
         }
 

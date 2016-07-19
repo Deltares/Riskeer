@@ -79,6 +79,12 @@ namespace Application.Ringtoets.Storage.DbContext
         DbSet<GrassCoverErosionInwardsCalculationEntity> GrassCoverErosionInwardsCalculationEntities { get; }
 
         /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="GrassCoverErosionInwardsOutputEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<GrassCoverErosionInwardsOutputEntity> GrassCoverErosionInwardsOutputEntities { get; }
+
+        /// <summary>
         /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="GrassCoverErosionInwardsSectionResultEntity"/> containing
         /// every entity found in the database.
         /// </summary>
@@ -275,6 +281,12 @@ namespace Application.Ringtoets.Storage.DbContext
         /// containing every characteristic point of piping surface lines in the database.
         /// </summary>
         DbSet<CharacteristicPointEntity> CharacteristicPointEntities { get; }
+
+        /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="ProbabilisticOutputEntity"/>
+        /// containing every characteristic point of piping surface lines in the database.
+        /// </summary>
+        DbSet<ProbabilisticOutputEntity> ProbabilisticOutputEntities { get; }
 
         /// <summary> 
         /// Persists all updates to the database and resets change tracking in the object context, see <see cref="ObjectContext.SaveChanges()"/>.

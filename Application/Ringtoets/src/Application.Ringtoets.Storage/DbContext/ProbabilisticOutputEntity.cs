@@ -33,26 +33,22 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class GrassCoverErosionInwardsCalculationEntity
+    public partial class ProbabilisticOutputEntity
     {
-        public long GrassCoverErosionInwardsCalculationEntityId { get; set; }
-        public long CalculationGroupEntityId { get; set; }
-        public Nullable<long> HydraulicLocationEntityId { get; set; }
-        public Nullable<long> GrassCoverErosionInwardsOutputEntityId { get; set; }
-        public int Order { get; set; }
-        public string Name { get; set; }
-        public string Comments { get; set; }
-        public decimal Orientation { get; set; }
-        public decimal CriticalFlowRateMean { get; set; }
-        public decimal CriticalFlowRateStandardDeviation { get; set; }
-        public byte UseForeshore { get; set; }
-        public decimal DikeHeight { get; set; }
-        public byte UseBreakWater { get; set; }
-        public short BreakWaterType { get; set; }
-        public decimal BreakWaterHeight { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ProbabilisticOutputEntity()
+        {
+            this.GrassCoverErosionInwardsOutputEntities = new HashSet<GrassCoverErosionInwardsOutputEntity>();
+        }
     
-        public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
-        public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
-        public virtual GrassCoverErosionInwardsOutputEntity GrassCoverErosionInwardsOutputEntity { get; set; }
+        public long ProbabilisticOutputEntityId { get; set; }
+        public Nullable<double> RequiredProbability { get; set; }
+        public Nullable<double> RequiredReliability { get; set; }
+        public Nullable<double> Probability { get; set; }
+        public Nullable<double> Reliability { get; set; }
+        public Nullable<double> FactorOfSafety { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GrassCoverErosionInwardsOutputEntity> GrassCoverErosionInwardsOutputEntities { get; set; }
     }
 }
