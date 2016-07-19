@@ -193,8 +193,7 @@ namespace Core.Common.Gui.Test.Commands
             const string someValidFilePath = "<some valid filepath>";
 
             var projectStorage = mocks.Stub<IStoreProject>();
-            projectStorage.Expect(ps => ps.SaveProject(someValidFilePath, project))
-                          .Return(42);
+            projectStorage.Expect(ps => ps.SaveProject(someValidFilePath, project));
             var mainWindowController = mocks.StrictMock<IWin32Window>();
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Project = project;
@@ -524,7 +523,7 @@ namespace Core.Common.Gui.Test.Commands
             projectOwnerMock.Project = projectMock;
             projectOwnerMock.ProjectFilePath = projectFilePath;
 
-            projectStorageMock.Expect(p => p.SaveProject(projectFilePath, projectMock)).Return(1);
+            projectStorageMock.Expect(p => p.SaveProject(projectFilePath, projectMock));
             mocks.ReplayAll();
 
             string messageBoxText = null;

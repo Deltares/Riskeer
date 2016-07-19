@@ -142,10 +142,22 @@
   <data name="StorageSqLite_TryDeleteExistingTemporaryFile_Could_not_delete_existing_file_0" xml:space="preserve">
     <value>Kon het reeds bestaande tijdelijk bestand '{0}' niet verwijderen.</value>
   </data>
-  <data name="StorageSqLite_TryCreateTemporaryFile_Could_not_create_temporary_file_at_path_0" xml:space="preserve">
-    <value>Kon het tijdelijke bestand '{0}' niet aanmaken op de aangewezen locatie.</value>
+  <data name="StorageSqLite_CreateNewFile_Could_not_create_file_at_path_0" xml:space="preserve">
+    <value>Kon het bestand '{0}' niet aanmaken op de aangewezen locatie.</value>
   </data>
-  <data name="StorageSqLite_TryMoveTemporaryFileToDestination_Could_not_overwrite_file_0" xml:space="preserve">
-    <value>Kon het bestand '{0}' niet overschrijven.</value>
+  <data name="StorageSqLite_MoveTargetToTemporaryFile_Could_not_move_file_0_to_1" xml:space="preserve">
+    <value>Kon het bestand '{0}' niet verplaatsen naar '{1}'.</value>
+  </data>
+  <data name="SafeOverwriteFileHelper_CreateNewTargetFile_Cannot_create_target_file_0_Try_change_save_location" xml:space="preserve">
+    <value>Kan geen nieuw doelbestand maken ({0}). Probeer ergens anders op te slaan.</value>
+  </data>
+  <data name="SafeOverwriteFileHelper_CreateTemporaryFile_Cannot_create_temporary_file_0_Try_change_save_location" xml:space="preserve">
+    <value>Kan geen tijdelijk bestand maken van het originele bestand ({0}). Probeer ergens anders op te slaan.</value>
+  </data>
+  <data name="SafeOverwriteFileHelper_CreateTemporaryFile_Cannot_rever_to_original_file_0_Try_removing_manually" xml:space="preserve">
+    <value>Kan het originele bestand ({0}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld worden.</value>
+  </data>
+  <data name="SafeOverwriteFileHelper_CreateTemporaryFile_Cannot_remove_temporary_file_0_Try_removing_manually" xml:space="preserve">
+    <value>Kan het tijdelijke bestand ({0}) niet opruimen. Het tijdelijke bestand dient handmatig verwijderd te worden.</value>
   </data>
 </root>

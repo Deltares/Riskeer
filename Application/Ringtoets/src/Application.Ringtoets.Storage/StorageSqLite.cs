@@ -61,47 +61,36 @@ namespace Application.Ringtoets.Storage
         /// <returns>Returns the number of changes that were saved in <see cref="RingtoetsEntities"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
+        /// <exception cref="CouldNotConnectException">No file is present at <paramref name="databaseFilePath"/>
+        /// at the time a connection is made.</exception>
         /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">
         /// <item>The database does not contain the table <c>version</c></item>
-        /// <item>THe file <paramref name="databaseFilePath"/> was not created.</item>
+        /// <item>The file <paramref name="databaseFilePath"/> was not created.</item>
         /// <item>Saving the <paramref name="project"/> to the database failed.</item>
         /// <item>The connection to the database file failed.</item>
         /// </list>
         /// </exception>
-        public int SaveProjectAs(string databaseFilePath, Project project)
+        public void SaveProjectAs(string databaseFilePath, Project project)
         {
             if (project == null)
             {
                 throw new ArgumentNullException("project");
             }
 
-            SetConnectionToNewFile(databaseFilePath);
-
-            using (var dbContext = new RingtoetsEntities(connectionString))
+            SafeOverwriteFileHelper overwriteHelper = GetSafeOverwriteFileHelper(databaseFilePath);
+            if (overwriteHelper != null)
             {
                 try
                 {
-                    var registry = new PersistenceRegistry();
-                    dbContext.ProjectEntities.Add(project.Create(registry));
-                    var changes = dbContext.SaveChanges();
-                    registry.TransferIds();
-
-                    project.Name = Path.GetFileNameWithoutExtension(databaseFilePath);
-                    return changes;
+                    SetConnectionToNewFile(databaseFilePath);
+                    SaveProjectInDatabase(databaseFilePath, project);
                 }
-                catch (DataException exception)
+                catch
                 {
-                    throw CreateStorageWriterException(databaseFilePath, Resources.Error_Update_Database, exception);
+                    CleanUpTemporaryFile(overwriteHelper, true);
                 }
-                catch (SystemException exception)
-                {
-                    if (exception is InvalidOperationException || exception is NotSupportedException)
-                    {
-                        throw CreateStorageWriterException(databaseFilePath, Resources.Error_During_Connection, exception);
-                    }
-                    throw;
-                }
+                CleanUpTemporaryFile(overwriteHelper, false);
             }
         }
 
@@ -113,6 +102,8 @@ namespace Application.Ringtoets.Storage
         /// <returns>Returns the number of changes that were saved in <see cref="RingtoetsEntities"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
+        /// <exception cref="CouldNotConnectException">No file is present at <paramref name="databaseFilePath"/>
+        /// at the time a connection is made.</exception>
         /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">
         /// <item><paramref name="databaseFilePath"/> does not exist.</item>
@@ -122,7 +113,7 @@ namespace Application.Ringtoets.Storage
         /// <item>The related entity was not found in the database. Therefore, no update was possible.</item>
         /// </list>
         /// </exception>
-        public int SaveProject(string databaseFilePath, Project project)
+        public void SaveProject(string databaseFilePath, Project project)
         {
             if (project == null)
             {
@@ -135,38 +126,10 @@ namespace Application.Ringtoets.Storage
             }
             catch
             {
-                return SaveProjectAs(databaseFilePath, project);
+                SaveProjectAs(databaseFilePath, project);
             }
 
-            using (var dbContext = new RingtoetsEntities(connectionString))
-            {
-                try
-                {
-                    var updateCollector = new PersistenceRegistry();
-                    project.Update(updateCollector, dbContext);
-                    updateCollector.RemoveUntouched(dbContext);
-                    var changes = dbContext.SaveChanges();
-                    updateCollector.TransferIds();
-
-                    return changes;
-                }
-                catch (EntityNotFoundException e)
-                {
-                    throw CreateStorageWriterException(databaseFilePath, e.Message, e);
-                }
-                catch (DataException exception)
-                {
-                    throw CreateStorageWriterException(databaseFilePath, Resources.Error_Update_Database, exception);
-                }
-                catch (SystemException exception)
-                {
-                    if (exception is InvalidOperationException || exception is NotSupportedException)
-                    {
-                        throw CreateStorageWriterException(databaseFilePath, Resources.Error_During_Connection, exception);
-                    }
-                    throw;
-                }
-            }
+            UpdateProjectInDatabase(databaseFilePath, project);
         }
 
         /// <summary>
@@ -251,6 +214,105 @@ namespace Application.Ringtoets.Storage
         }
 
         /// <summary>
+        /// Cleans up  a new <see cref="SafeOverwriteFileHelper"/>.
+        /// </summary>
+        /// <param name="overwriteHelper">The <see cref="SafeOverwriteFileHelper"/> to use for cleaning up.</param>
+        /// <param name="revert">Value indicating whether the <paramref name="overwriteHelper"/> should revert to
+        /// original file or keep the new file.</param>
+        /// <exception cref="StorageException">A file IO operation fails while cleaning up using the 
+        /// <paramref name="overwriteHelper"/>.</exception>
+        private void CleanUpTemporaryFile(SafeOverwriteFileHelper overwriteHelper, bool revert)
+        {
+            try
+            {
+                overwriteHelper.Finish(revert);
+            }
+            catch (IOException e)
+            {
+                throw new StorageException(e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="SafeOverwriteFileHelper"/>.
+        /// </summary>
+        /// <param name="databaseFilePath">The path for which to create the <see cref="SafeOverwriteFileHelper"/>.</param>
+        /// <returns>A new <see cref="SafeOverwriteFileHelper"/></returns>
+        /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
+        /// <exception cref="StorageException">A file IO operation fails while initializing the 
+        /// <see cref="SafeOverwriteFileHelper"/>.</exception>
+        private SafeOverwriteFileHelper GetSafeOverwriteFileHelper(string databaseFilePath)
+        {
+            try
+            {
+                return new SafeOverwriteFileHelper(databaseFilePath);
+            }
+            catch (IOException e)
+            {
+                throw new StorageException(e.Message, e);
+            }
+        }
+
+        private void SaveProjectInDatabase(string databaseFilePath, Project project)
+        {
+            using (var dbContext = new RingtoetsEntities(connectionString))
+            {
+                try
+                {
+                    var registry = new PersistenceRegistry();
+                    dbContext.ProjectEntities.Add(project.Create(registry));
+                    dbContext.SaveChanges();
+                    registry.TransferIds();
+
+                    project.Name = Path.GetFileNameWithoutExtension(databaseFilePath);
+                }
+                catch (DataException exception)
+                {
+                    throw CreateStorageWriterException(databaseFilePath, Resources.Error_Update_Database, exception);
+                }
+                catch (SystemException exception)
+                {
+                    if (exception is InvalidOperationException || exception is NotSupportedException)
+                    {
+                        throw CreateStorageWriterException(databaseFilePath, Resources.Error_During_Connection, exception);
+                    }
+                    throw;
+                }
+            }
+        }
+
+        private void UpdateProjectInDatabase(string databaseFilePath, Project project)
+        {
+            using (var dbContext = new RingtoetsEntities(connectionString))
+            {
+                try
+                {
+                    var updateCollector = new PersistenceRegistry();
+                    project.Update(updateCollector, dbContext);
+                    updateCollector.RemoveUntouched(dbContext);
+                    dbContext.SaveChanges();
+                    updateCollector.TransferIds();
+                }
+                catch (EntityNotFoundException e)
+                {
+                    throw CreateStorageWriterException(databaseFilePath, e.Message, e);
+                }
+                catch (DataException exception)
+                {
+                    throw CreateStorageWriterException(databaseFilePath, Resources.Error_Update_Database, exception);
+                }
+                catch (SystemException exception)
+                {
+                    if (exception is InvalidOperationException || exception is NotSupportedException)
+                    {
+                        throw CreateStorageWriterException(databaseFilePath, Resources.Error_During_Connection, exception);
+                    }
+                    throw;
+                }
+            }
+        }
+
+        /// <summary>
         /// Attempts to set the connection to an existing storage file <paramref name="databaseFilePath"/>.
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
@@ -271,6 +333,8 @@ namespace Application.Ringtoets.Storage
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
         /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
+        /// <exception cref="CouldNotConnectException">No file is present at <paramref name="databaseFilePath"/>
+        /// at the time a connection is made.</exception>
         /// <exception cref="StorageException">Thrown when:<list type="bullet">
         /// <item><paramref name="databaseFilePath"/> was not created</item>
         /// <item>executing <c>DatabaseStructure</c> script failed</item>
@@ -281,10 +345,15 @@ namespace Application.Ringtoets.Storage
         private void SetConnectionToNewFile(string databaseFilePath)
         {
             FileUtils.ValidateFilePath(databaseFilePath);
-            CreateDatabaseStructureInFile(databaseFilePath);
+            StorageSqliteCreator.CreateDatabaseStructure(databaseFilePath);
             SetConnectionToFile(databaseFilePath);
         }
 
+        /// <summary>
+        /// Establishes a connection to an existing <paramref name="databaseFilePath"/>.
+        /// </summary>
+        /// <param name="databaseFilePath">The path of the database file to connect to.</param>
+        /// <exception cref="CouldNotConnectException">No file exists at <paramref name="databaseFilePath"/>.</exception>
         private void SetConnectionToFile(string databaseFilePath)
         {
             if (!File.Exists(databaseFilePath))
@@ -317,83 +386,6 @@ namespace Application.Ringtoets.Storage
                     var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(string.Format(Resources.StorageSqLite_LoadProject_Invalid_Ringtoets_database_file, databaseFilePath));
                     throw new StorageValidationException(message, exception);
                 }
-            }
-        }
-
-        private static void CreateDatabaseStructureInFile(string databaseFilePath)
-        {
-            var temporaryFile = databaseFilePath + "~";
-
-            if (File.Exists(temporaryFile))
-            {
-                TryDeleteExistingTemporaryFile(temporaryFile);
-            }
-
-            TryCreateTemporaryFile(temporaryFile);
-            StorageSqliteCreator.CreateDatabaseStructure(temporaryFile);
-            TryMoveTemporaryFileToDestination(databaseFilePath, temporaryFile);
-        }
-
-        private static void TryMoveTemporaryFileToDestination(string databaseFilePath, string temporaryFile)
-        {
-            try
-            {
-                File.Delete(databaseFilePath);
-                File.Move(temporaryFile, databaseFilePath);
-            }
-            catch (Exception e)
-            {
-                if (e is ArgumentException || e is IOException || e is SystemException)
-                {
-                    var message = string.Format(Resources.StorageSqLite_TryMoveTemporaryFileToDestination_Could_not_overwrite_file_0, databaseFilePath);
-                    throw new IOException(message, e);
-                }
-                throw;
-            }
-            finally
-            {
-                try
-                {
-                    File.Delete(temporaryFile);
-                }
-                catch
-                {
-                    // ignored
-                }
-            }
-        }
-
-        private static void TryCreateTemporaryFile(string temporaryFile)
-        {
-            try
-            {
-                using (File.Create(temporaryFile)) {}
-            }
-            catch (Exception e)
-            {
-                if (e is ArgumentException || e is IOException || e is SystemException)
-                {
-                    var message = string.Format(Resources.StorageSqLite_TryCreateTemporaryFile_Could_not_create_temporary_file_at_path_0, temporaryFile);
-                    throw new IOException(message, e);
-                }
-                throw;
-            }
-        }
-
-        private static void TryDeleteExistingTemporaryFile(string temporaryFile)
-        {
-            try
-            {
-                File.Delete(temporaryFile);
-            }
-            catch (Exception e)
-            {
-                if (e is ArgumentException || e is IOException || e is SystemException)
-                {
-                    var message = string.Format(Resources.StorageSqLite_TryDeleteExistingTemporaryFile_Could_not_delete_existing_file_0, temporaryFile);
-                    throw new IOException(message, e);
-                }
-                throw;
             }
         }
 

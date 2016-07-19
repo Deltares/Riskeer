@@ -68,12 +68,9 @@ namespace Core.Plugins.ProjectExplorer.Test
             var mocks = new MockRepository();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
-            IViewController viewController = mocks.StrictMock<IViewController>();
+
             IViewHost viewHost = mocks.Stub<IViewHost>();
-
             var toolViewList = new List<IView>();
-
-            viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
             viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
             viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
             {
@@ -81,6 +78,9 @@ namespace Core.Plugins.ProjectExplorer.Test
             });
             viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
             viewHost.Expect(vm => vm.Remove(Arg<ProjectExplorer>.Is.TypeOf));
+
+            IViewController viewController = mocks.StrictMock<IViewController>();
+            viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
 
             mocks.ReplayAll();
 
@@ -103,13 +103,14 @@ namespace Core.Plugins.ProjectExplorer.Test
             var mocks = new MockRepository();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
-            IViewController viewController = mocks.StrictMock<IViewController>();
-            IViewHost viewHost = mocks.Stub<IViewHost>();
 
-            viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
+            IViewHost viewHost = mocks.Stub<IViewHost>();
             viewHost.Stub(vm => vm.ToolViews).Return(new List<IView>());
             viewHost.Stub(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.TypeOf, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
             viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
+
+            IViewController viewController = mocks.StrictMock<IViewController>();
+            viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
 
             mocks.ReplayAll();
 
@@ -133,11 +134,11 @@ namespace Core.Plugins.ProjectExplorer.Test
             var mocks = new MockRepository();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
-            IViewController viewController = mocks.StrictMock<IViewController>();
 
             var toolViewList = new List<IView>();
             var viewHost = mocks.StrictMock<IViewHost>();
 
+            IViewController viewController = mocks.StrictMock<IViewController>();
             viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
             viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
 
@@ -177,18 +178,18 @@ namespace Core.Plugins.ProjectExplorer.Test
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
 
-            IViewController viewController = mocks.Stub<IViewController>();
             IViewHost viewHost = mocks.Stub<IViewHost>();
 
             var toolViewList = new List<IView>();
-
-            viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
             viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
             viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
             {
                 toolViewList.Add(invocation.Arguments[0] as ProjectExplorer);
             });
             viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
+
+            IViewController viewController = mocks.Stub<IViewController>();
+            viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
 
             mocks.ReplayAll();
 

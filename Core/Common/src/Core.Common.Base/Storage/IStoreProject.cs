@@ -50,7 +50,7 @@ namespace Core.Common.Base.Storage
         /// <item>The connection to the storage failed.</item>
         /// </list>
         /// </exception>
-        int SaveProjectAs(string connectionArguments, Project project);
+        void SaveProjectAs(string connectionArguments, Project project);
 
         /// <summary>
         /// Converts <paramref name="project"/> to an existing entity in the storage.
@@ -69,7 +69,7 @@ namespace Core.Common.Base.Storage
         /// <item>The related entity was not found in the storage. Therefore, no update was possible.</item>
         /// </list>
         /// </exception>
-        int SaveProject(string connectionArguments, Project project);
+        void SaveProject(string connectionArguments, Project project);
 
         /// <summary>
         /// Attempts to load the <see cref="Project"/> from the storage.

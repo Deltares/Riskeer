@@ -289,7 +289,9 @@ namespace Application.Ringtoets.Storage.Test
         public void SaveProjectAs_ValidPathToLockedFile_ThrowsUpdateStorageException()
         {
             // Setup
-            var expectedMessage = string.Format(@"Kon het bestand '{0}' niet overschrijven.", tempRingtoetsFile);
+            var expectedMessage = string.Format(
+                @"Kan geen tijdelijk bestand maken van het originele bestand ({0}). Probeer ergens anders op te slaan.", 
+                tempRingtoetsFile);
             var project = new Project();
             var storage = new StorageSqLite();
 
@@ -299,10 +301,10 @@ namespace Application.Ringtoets.Storage.Test
                 // Call
                 TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile, project);
 
-                IOException exception;
+                StorageException exception;
                 using (File.Create(tempRingtoetsFile)) // Locks file
                 {
-                    exception = Assert.Throws<IOException>(test);
+                    exception = Assert.Throws<StorageException>(test);
                 }
 
                 // Assert

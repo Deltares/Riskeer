@@ -116,22 +116,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         [Test]
-        public void SaveProject_SaveWithoutChanges_Return0()
-        {
-            // Setup
-            Project fullProject = RingtoetsProjectHelper.GetFullTestProject();
-
-            var storage = new StorageSqLite();
-            storage.SaveProjectAs(tempRingtoetsFile, fullProject);
-
-            // Call
-            int numberOfChanges = storage.SaveProject(tempRingtoetsFile, fullProject);
-
-            // Assert
-            Assert.AreEqual(0, numberOfChanges);
-        }
-
-        [Test]
         [STAThread]
         public void GivenRingtoetsGuiWithStorageSql_WhenRunWithValidFile_ProjectSet()
         {
