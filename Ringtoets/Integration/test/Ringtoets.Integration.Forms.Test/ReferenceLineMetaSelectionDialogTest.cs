@@ -22,14 +22,16 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.Integration.Forms.Test
 {
     [TestFixture]
-    public class ReferenceLineMetaSelectionDialogTest
+    public class ReferenceLineMetaSelectionDialogTest : NUnitFormTest
     {
         [Test]
         public void Constructor_WithoutParent_ThrowsArgumentNullException()
@@ -63,6 +65,9 @@ namespace Ringtoets.Integration.Forms.Test
                 Assert.IsInstanceOf<DialogBase>(dialog);
                 Assert.IsNull(dialog.SelectedReferenceLineMeta);
                 Assert.AreEqual("Selecteer referentielijn", dialog.Text);
+
+                AssertSignalingLowerLimitComboBox(dialog);
+                AssertReferenceLineMetaDataGridViewControl(dialog);
             }
         }
 
@@ -79,6 +84,19 @@ namespace Ringtoets.Integration.Forms.Test
                 Assert.AreEqual(410, dialog.MinimumSize.Width);
                 Assert.AreEqual(350, dialog.MinimumSize.Height);
             }
+        }
+
+        private static void AssertReferenceLineMetaDataGridViewControl(ReferenceLineMetaSelectionDialog dialog)
+        {
+            var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", dialog).TheObject;
+            Assert.IsFalse(grid.MultiSelect);
+            Assert.AreEqual(DataGridViewSelectionMode.FullRowSelect, grid.SelectionMode);
+        }
+
+        private static void AssertSignalingLowerLimitComboBox(ReferenceLineMetaSelectionDialog dialog)
+        {
+            var combobox = (ComboBox) new ComboBoxTester("SignalingLowerLimitComboBox", dialog).TheObject;
+            Assert.AreEqual(ComboBoxStyle.DropDownList, combobox.DropDownStyle);
         }
     }
 }

@@ -85,8 +85,6 @@ namespace Ringtoets.Integration.Forms
 
         private void InitializeReferenceLineMetaDataGridViewControl(IEnumerable<ReferenceLineMeta> referenceLineMetas)
         {
-            ReferenceLineMetaDataGridViewControl.MultiSelect = false;
-            ReferenceLineMetaDataGridViewControl.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ReferenceLineMetaDataGridViewControl.AddTextBoxColumn("AssessmentSectionId", Resources.ReferenceLineMetaSelectionDialog_ColumnHeader_AssessmentSectionId);
             ReferenceLineMetaDataGridViewControl.AddTextBoxColumn("SignalingValue", Resources.ReferenceLineMetaSelectionDialog_ColumnHeader_SignalingValue);
             ReferenceLineMetaDataGridViewControl.AddTextBoxColumn("LowerLimitValue", Resources.ReferenceLineMetaSelectionDialog_ColumnHeader_LowerLimitValue);

@@ -87,6 +87,7 @@
             // 
             // SignalingLowerLimitComboBox
             // 
+            this.SignalingLowerLimitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.SignalingLowerLimitComboBox.FormattingEnabled = true;
             resources.ApplyResources(this.SignalingLowerLimitComboBox, "SignalingLowerLimitComboBox");
             this.SignalingLowerLimitComboBox.Name = "SignalingLowerLimitComboBox";
@@ -94,9 +95,9 @@
             // ReferenceLineMetaDataGridViewControl
             // 
             resources.ApplyResources(this.ReferenceLineMetaDataGridViewControl, "ReferenceLineMetaDataGridViewControl");
-            this.ReferenceLineMetaDataGridViewControl.MultiSelect = true;
+            this.ReferenceLineMetaDataGridViewControl.MultiSelect = false;
             this.ReferenceLineMetaDataGridViewControl.Name = "ReferenceLineMetaDataGridViewControl";
-            this.ReferenceLineMetaDataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            this.ReferenceLineMetaDataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             // 
             // ReferenceLineMetaSelectionDialog
             // 

@@ -327,7 +327,7 @@ namespace Ringtoets.Integration.Plugin
                 return Enumerable.Empty<DataItemInfo>();
             }
 
-            IAssessmentSection assessmentSection;
+            IAssessmentSection assessmentSection = null;
             try
             {
                 var assessmentSectionHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow);
@@ -338,11 +338,14 @@ namespace Ringtoets.Integration.Plugin
             {
                 MessageBox.Show(exception.Message, BaseResources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 log.Warn(exception.Message, exception.InnerException);
-                return Enumerable.Empty<DataItemInfo>();
             }
             catch (CriticalFileReadException exception)
             {
                 log.Error(exception.Message, exception.InnerException);
+            }
+
+            if (assessmentSection == null)
+            {
                 return Enumerable.Empty<DataItemInfo>();
             }
 
