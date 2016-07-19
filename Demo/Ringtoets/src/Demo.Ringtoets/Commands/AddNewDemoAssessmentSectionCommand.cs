@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.CodeDom;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -50,6 +52,8 @@ namespace Demo.Ringtoets.Commands
 
         public void Execute(params object[] arguments)
         {
+            throw new Exception();
+
             var project = projectOwner.Project;
             project.Items.Add(CreateNewDemoAssessmentSection());
             project.NotifyObservers();

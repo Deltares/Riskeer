@@ -58,7 +58,6 @@
     <Compile Include="DataGrid\DataGridViewControlTest.cs" />
     <Compile Include="DataGrid\DoubleBufferedDataGridViewTest.cs" />
     <Compile Include="Dialogs\DialogBaseTest.cs" />
-    <Compile Include="Dialogs\ExceptionDialogTest.cs" />
     <Compile Include="PresentationObjects\ObservableWrappedObjectContextBaseTest.cs" />
     <Compile Include="PresentationObjects\WrappedObjectContextBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

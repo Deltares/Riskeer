@@ -3,16 +3,16 @@
 // This file is part of Ringtoets.
 //
 // Ringtoets is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
+// it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 // 
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU Lesser General Public License for more details.
+// GNU General Public License for more details.
 //
-// You should have received a copy of the GNU Lesser General Public License
+// You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
@@ -20,10 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Controls.Properties;
+using Application.Ringtoets.Properties;
+using Core.Common.Controls.Dialogs;
 
-namespace Core.Common.Controls.Dialogs
+namespace Application.Ringtoets
 {
     /// <summary>
     /// Class for showing an exception dialog.
@@ -46,7 +48,7 @@ namespace Core.Common.Controls.Dialogs
         /// </summary>
         /// <param name="dialogParent">The owner of the dialog.</param>
         /// <param name="exception">The exception to show in the dialog.</param>
-        public ExceptionDialog(IWin32Window dialogParent, Exception exception) : base(dialogParent, Resources.bug__exclamation, 470, 200)
+        public ExceptionDialog(IWin32Window dialogParent, Exception exception) : base(dialogParent, (Icon) Resources.bug__exclamation, 470, 200)
         {
             InitializeComponent();
 
