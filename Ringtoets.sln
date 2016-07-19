@@ -1066,6 +1066,7 @@ Global
 		{2A542599-87A4-4BDE-8BE1-8C77D178E5E4}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{2A542599-87A4-4BDE-8BE1-8C77D178E5E4}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{52BA7627-CBAB-4209-BE77-3B5F31378277}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{52BA7627-CBAB-4209-BE77-3B5F31378277}.CreateInstaller|x86.Build.0 = Release|x86
 		{52BA7627-CBAB-4209-BE77-3B5F31378277}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
 		{52BA7627-CBAB-4209-BE77-3B5F31378277}.CreateInstallerWithDemoProject|x86.Build.0 = Release|x86
 		{52BA7627-CBAB-4209-BE77-3B5F31378277}.Debug|x86.ActiveCfg = Debug|x86
@@ -1075,7 +1076,6 @@ Global
 		{52BA7627-CBAB-4209-BE77-3B5F31378277}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{52BA7627-CBAB-4209-BE77-3B5F31378277}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{7537DE22-3330-4F21-ABA2-FCEF117B4223}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{7537DE22-3330-4F21-ABA2-FCEF117B4223}.CreateInstaller|x86.Build.0 = Release|x86
 		{7537DE22-3330-4F21-ABA2-FCEF117B4223}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
 		{7537DE22-3330-4F21-ABA2-FCEF117B4223}.Debug|x86.ActiveCfg = Debug|x86
 		{7537DE22-3330-4F21-ABA2-FCEF117B4223}.Debug|x86.Build.0 = Debug|x86
