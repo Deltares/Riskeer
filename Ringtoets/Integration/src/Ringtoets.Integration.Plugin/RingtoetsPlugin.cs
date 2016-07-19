@@ -35,6 +35,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.Settings;
 using Core.Common.IO.Exceptions;
 using log4net;
 using Ringtoets.Common.Data;
@@ -331,7 +332,7 @@ namespace Ringtoets.Integration.Plugin
             try
             {
                 var assessmentSectionHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow);
-                var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "NBPW");
+                var path = SettingsHelper.GetCommonDocumentsDirectory();
                 assessmentSection = assessmentSectionHandler.CreateAssessmentSectionFromFile(path);
             }
             catch (CriticalFileValidationException exception)

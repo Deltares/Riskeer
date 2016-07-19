@@ -19,9 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.IO;
 using Core.Common.Gui.Settings;
 using Core.Common.Utils.Reflection;
-
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.Settings
@@ -30,7 +31,7 @@ namespace Core.Common.Gui.Test.Settings
     public class SettingsHelperTest
     {
         [Test]
-        public void ApplicationName_ReturnProductNameOfExecutingAssembly()
+        public void ApplicationName_ReturnsProductNameOfExecutingAssembly()
         {
             // Call
             var settings = SettingsHelper.ApplicationName;
@@ -40,7 +41,7 @@ namespace Core.Common.Gui.Test.Settings
         }
 
         [Test]
-        public void ApplicationVersion_ReturnVersionOfExecutingAssembly()
+        public void ApplicationVersion_RetursnVersionOfExecutingAssembly()
         {
             // Call
             var settings = SettingsHelper.ApplicationVersion;
@@ -50,13 +51,41 @@ namespace Core.Common.Gui.Test.Settings
         }
 
         [Test]
-        public void ApplicationCompany_ReturnCompanyOfExecutingAssembly()
+        public void ApplicationCompany_ReturnsCompanyOfExecutingAssembly()
         {
             // Call
             var settings = SettingsHelper.ApplicationCompany;
 
             // Assert
             Assert.AreEqual(AssemblyUtils.GetExecutingAssemblyInfo().Company, settings);
+        }
+
+        [Test]
+        public void GetApplicationLocalUserSettingsDirectory_ReturnsApplicationLocalUserSettingsDirectory()
+        {
+            // Setup
+            var localSettingsDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            var companySettingsDirectoryPath = Path.Combine(localSettingsDirectoryPath, SettingsHelper.ApplicationCompany);
+            var appSettingsDirectoryPath = Path.Combine(companySettingsDirectoryPath, SettingsHelper.ApplicationName + " " + SettingsHelper.ApplicationVersion);
+
+            // Call
+            var pathFromSettings = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
+
+            // Assert
+            Assert.AreEqual(appSettingsDirectoryPath, pathFromSettings);
+        }
+
+        [Test]
+        public void GetCommonDocumentsDirectory_ReturnsCommonDocumentsDirectory()
+        {
+            // Setup
+            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "NBPW");
+
+            // Call
+            var pathFromSettings = SettingsHelper.GetCommonDocumentsDirectory();
+
+            // Assert
+            Assert.AreEqual(path, pathFromSettings);
         }
     }
 }
