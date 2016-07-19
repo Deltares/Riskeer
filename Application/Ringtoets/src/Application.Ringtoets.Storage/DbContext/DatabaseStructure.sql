@@ -295,8 +295,7 @@ CREATE TABLE 'GrassCoverErosionInwardsCalculationEntity'
 	'BreakWaterType' SMALLINT NOT NULL,
 	'BreakWaterHeight' NUMERIC NOT NULL,
 	CONSTRAINT 'FK_GrassCoverErosionInwardsCalculationEntity_CalculationGroupEntity' FOREIGN KEY ('CalculationGroupEntityId') REFERENCES 'CalculationGroupEntity' ('CalculationGroupEntityId') ON DELETE Cascade ON UPDATE Cascade,
-	CONSTRAINT 'FK_GrassCoverErosionInwardsCalculationEntity_HydraulicLocationEntity' FOREIGN KEY ('HydraulicLocationEntityId') REFERENCES 'HydraulicLocationEntity' ('HydraulicLocationEntityId') ON DELETE Set Null ON UPDATE Cascade,
-	CONSTRAINT 'FK_GrassCoverErosionInwardsCalculationEntity_ProbabilisticOutputEntity' FOREIGN KEY ('ProbabilisticOutputEntityId') REFERENCES 'ProbabilisticOutputEntity' ('ProbabilisticOutputEntityId') ON DELETE Set Null ON UPDATE Cascade
+	CONSTRAINT 'FK_GrassCoverErosionInwardsCalculationEntity_HydraulicLocationEntity' FOREIGN KEY ('HydraulicLocationEntityId') REFERENCES 'HydraulicLocationEntity' ('HydraulicLocationEntityId') ON DELETE Set Null ON UPDATE Cascade
 )
 ;
 
@@ -709,10 +708,6 @@ CREATE INDEX 'IXFK_GrassCoverErosionInwardsCalculationEntity_CalculationGroupEnt
 
 CREATE INDEX 'IXFK_GrassCoverErosionInwardsCalculationEntity_HydraulicLocationEntity'
  ON 'GrassCoverErosionInwardsCalculationEntity' ('HydraulicLocationEntityId' ASC)
-;
-
-CREATE INDEX 'IXFK_GrassCoverErosionInwardsCalculationEntity_ProbabilisticOutputEntity'
- ON 'GrassCoverErosionInwardsCalculationEntity' ('ProbabilisticOutputEntityId' ASC)
 ;
 
 CREATE INDEX 'IXFK_ReferenceLinePointEntity_AssessmentSectionEntity'

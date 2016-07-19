@@ -28,6 +28,7 @@ using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
 
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
@@ -416,7 +417,113 @@ namespace Application.Ringtoets.Storage.Test.Read
             CollectionAssert.IsEmpty(rootChildGroup1Child2.Children);
         }
 
-        // TODO Calculations
-        // TODO Groups and Calculations
+        [Test]
+        public void ReadAsGrassCoverErosionInwardsCalculationGroup_EntityWithChildGrassCoverErosionInwardsCalculations_CreateCalculationGroupWithChildCalculations()
+        {
+            // Setup
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = 1,
+                Name = "A",
+                GrassCoverErosionInwardsCalculationEntities = 
+                {
+                    new GrassCoverErosionInwardsCalculationEntity
+                    {
+                        GrassCoverErosionInwardsCalculationEntityId = 3,
+                        Order = 0,
+                        Name = "1"
+                    },
+                    new GrassCoverErosionInwardsCalculationEntity
+                    {
+                        GrassCoverErosionInwardsCalculationEntityId = 6,
+                        Order = 1,
+                        Name = "2"
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var rootGroup = rootGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector);
+
+            // Assert
+            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
+            Assert.AreEqual(2, rootChildren.Length);
+
+            var rootChildCalculation1 = (GrassCoverErosionInwardsCalculation)rootChildren[0];
+            Assert.AreEqual("1", rootChildCalculation1.Name);
+            Assert.AreEqual(3, rootChildCalculation1.StorageId);
+
+            var rootChildCalculation2 = (GrassCoverErosionInwardsCalculation)rootChildren[1];
+            Assert.AreEqual("2", rootChildCalculation2.Name);
+            Assert.AreEqual(6, rootChildCalculation2.StorageId);
+        }
+
+        [Test]
+        public void ReadAsGrassCoverErosionInwardsCalculationGroup_EntityWithChildGrassCoverErosionInwardsCalculationsAndGroups_CreateCalculationGroupWithChildCalculationsAndGroups()
+        {
+            // Setup
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = 1,
+                Name = "A",
+                GrassCoverErosionInwardsCalculationEntities = 
+                {
+                    new GrassCoverErosionInwardsCalculationEntity
+                    {
+                        GrassCoverErosionInwardsCalculationEntityId = 3,
+                        Order = 0,
+                        Name = "calculation1"
+                    },
+                    new GrassCoverErosionInwardsCalculationEntity
+                    {
+                        GrassCoverErosionInwardsCalculationEntityId = 6,
+                        Order = 2,
+                        Name = "calculation2"
+                    }
+                },
+                CalculationGroupEntity1 =
+                {
+                    new CalculationGroupEntity
+                    {
+                        CalculationGroupEntityId = 2,
+                        Order = 1,
+                        Name = "group1"
+                    },
+                    new CalculationGroupEntity
+                    {
+                        CalculationGroupEntityId = 4,
+                        Order = 3,
+                        Name = "group2"
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var rootGroup = rootGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector);
+
+            // Assert
+            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
+            Assert.AreEqual(4, rootChildren.Length);
+
+            var rootChildCalculation1 = (GrassCoverErosionInwardsCalculation)rootChildren[0];
+            Assert.AreEqual("calculation1", rootChildCalculation1.Name);
+            Assert.AreEqual(3, rootChildCalculation1.StorageId);
+
+            var rootChildGroup1 = (CalculationGroup)rootChildren[1];
+            Assert.AreEqual("group1", rootChildGroup1.Name);
+            Assert.AreEqual(2, rootChildGroup1.StorageId);
+
+            var rootChildCalculation2 = (GrassCoverErosionInwardsCalculation)rootChildren[2];
+            Assert.AreEqual("calculation2", rootChildCalculation2.Name);
+            Assert.AreEqual(6, rootChildCalculation2.StorageId);
+
+            var rootChildGroup2 = (CalculationGroup)rootChildren[3];
+            Assert.AreEqual("group2", rootChildGroup2.Name);
+            Assert.AreEqual(4, rootChildGroup2.StorageId);
+        }
     }
 }

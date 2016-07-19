@@ -28,6 +28,7 @@ using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create
@@ -212,6 +213,95 @@ namespace Application.Ringtoets.Storage.Test.Create
             CollectionAssert.IsEmpty(childEntity3.CalculationGroupEntity1);
 
             PipingCalculationEntity childEntity4 = childCalculationEntities[1];
+            Assert.AreEqual("D", childEntity4.Name);
+            Assert.AreEqual(3, childEntity4.Order);
+        }
+
+        [Test]
+        public void Create_GroupWithChildGrassCoverErosionInwardsCalculations_CreateEntities()
+        {
+            // Setup
+            var group = new CalculationGroup("root", true)
+            {
+                Children =
+                {
+                    new GrassCoverErosionInwardsCalculation
+                    {
+                        Name = "A"
+                    },
+                    new GrassCoverErosionInwardsCalculation
+                    {
+                        Name = "B"
+                    }
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            CalculationGroupEntity entity = group.Create(registry, 0);
+
+            // Assert
+            GrassCoverErosionInwardsCalculationEntity[] childCalculationEntities = entity.GrassCoverErosionInwardsCalculationEntities.ToArray();
+            Assert.AreEqual(2, childCalculationEntities.Length);
+
+            GrassCoverErosionInwardsCalculationEntity childEntity1 = childCalculationEntities[0];
+            Assert.AreEqual("A", childEntity1.Name);
+            Assert.AreEqual(0, childEntity1.Order);
+            GrassCoverErosionInwardsCalculationEntity childEntity2 = childCalculationEntities[1];
+            Assert.AreEqual("B", childEntity2.Name);
+            Assert.AreEqual(1, childEntity2.Order);
+        }
+
+        [Test]
+        public void Create_GroupWithChildGrassCoverErosionInwardCalculationsAndChildCalculationGroups_CreateEntities()
+        {
+            // Setup
+            var group = new CalculationGroup("root", true)
+            {
+                Children =
+                {
+                    new CalculationGroup("A", true),
+                    new GrassCoverErosionInwardsCalculation
+                    {
+                        Name = "B"
+                    },
+                    new CalculationGroup("C", false),
+                    new GrassCoverErosionInwardsCalculation
+                    {
+                        Name = "D"
+                    }
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            CalculationGroupEntity entity = group.Create(registry, 0);
+
+            // Assert
+            CalculationGroupEntity[] childGroupEntities = entity.CalculationGroupEntity1.ToArray();
+            GrassCoverErosionInwardsCalculationEntity[] childCalculationEntities = entity.GrassCoverErosionInwardsCalculationEntities.ToArray();
+            Assert.AreEqual(2, childGroupEntities.Length);
+            Assert.AreEqual(2, childCalculationEntities.Length);
+
+            CalculationGroupEntity childEntity1 = childGroupEntities[0];
+            Assert.AreEqual("A", childEntity1.Name);
+            Assert.AreEqual(1, childEntity1.IsEditable);
+            Assert.AreEqual(0, childEntity1.Order);
+            CollectionAssert.IsEmpty(childEntity1.CalculationGroupEntity1);
+
+            GrassCoverErosionInwardsCalculationEntity childEntity2 = childCalculationEntities[0];
+            Assert.AreEqual("B", childEntity2.Name);
+            Assert.AreEqual(1, childEntity2.Order);
+
+            CalculationGroupEntity childEntity3 = childGroupEntities[1];
+            Assert.AreEqual("C", childEntity3.Name);
+            Assert.AreEqual(0, childEntity3.IsEditable);
+            Assert.AreEqual(2, childEntity3.Order);
+            CollectionAssert.IsEmpty(childEntity3.CalculationGroupEntity1);
+
+            GrassCoverErosionInwardsCalculationEntity childEntity4 = childCalculationEntities[1];
             Assert.AreEqual("D", childEntity4.Name);
             Assert.AreEqual(3, childEntity4.Order);
         }

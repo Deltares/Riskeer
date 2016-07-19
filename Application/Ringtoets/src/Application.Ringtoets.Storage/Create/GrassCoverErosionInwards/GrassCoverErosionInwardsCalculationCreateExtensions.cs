@@ -39,6 +39,8 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         /// </summary>
         /// <param name="calculation">The calculation to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
+        /// <param name="order">The index at where <paramref name="calculation"/> resides
+        /// in its parent container.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsCalculationEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static GrassCoverErosionInwardsCalculationEntity Create(this GrassCoverErosionInwardsCalculation calculation, PersistenceRegistry registry, int order)

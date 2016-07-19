@@ -296,7 +296,15 @@ namespace Application.Ringtoets.Storage.TestUtil
                                                               }));
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
-                Name = "GEKB A"
+                Name = "GEKB A",
+                Children =
+                {
+                    new GrassCoverErosionInwardsCalculation
+                    {
+                        Name = "Calculation 1",
+                        Comments = "Comments for Calculation 1"
+                    }
+                }
             });
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
@@ -304,7 +312,15 @@ namespace Application.Ringtoets.Storage.TestUtil
             });
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
-                Name = "GEKB C"
+                Name = "GEKB C",
+                Children =
+                {
+                    new GrassCoverErosionInwardsCalculation
+                    {
+                        Name = "Calculation 2",
+                        Comments = "Comments about Calculation 2"
+                    }
+                }
             });
         }
 

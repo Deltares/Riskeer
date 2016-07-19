@@ -21,10 +21,12 @@
 
 using System;
 
+using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Create
@@ -76,6 +78,11 @@ namespace Application.Ringtoets.Storage.Create
                 if (childPipingCalculation != null)
                 {
                     entity.PipingCalculationEntities.Add(childPipingCalculation.Create(registry, i));
+                }
+                var childGrassCoverErosionInwardsCalculation = calculationBase as GrassCoverErosionInwardsCalculation;
+                if (childGrassCoverErosionInwardsCalculation != null)
+                {
+                    entity.GrassCoverErosionInwardsCalculationEntities.Add(childGrassCoverErosionInwardsCalculation.Create(registry, i));
                 }
             }
         }

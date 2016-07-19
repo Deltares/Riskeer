@@ -23,13 +23,17 @@ using System;
 using System.Linq;
 
 using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Update.Piping;
 
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Piping.Data;
+
+using Application.Ringtoets.Storage.Update.GrassCoverErosionInwards;
 
 namespace Application.Ringtoets.Storage.Update
 {
@@ -45,6 +49,8 @@ namespace Application.Ringtoets.Storage.Update
         /// <param name="calculationGroup">The calculation group to update the database entity for.</param>
         /// <param name="registry">The object keeping track of update operations.</param>
         /// <param name="context">The context to obtain the existing entity from.</param>
+        /// <param name="order">The index at which <paramref name="calculationGroup"/> resides
+        /// in the parent container.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="registry"/> is <c>null</c></item>
@@ -52,7 +58,7 @@ namespace Application.Ringtoets.Storage.Update
         /// </list></exception>
         /// <exception cref="EntityNotFoundException">When <paramref name="calculationGroup"/>
         /// does not have a corresponding entity in the database.</exception>
-        internal static void Update(this CalculationGroup calculationGroup, PersistenceRegistry registry, IRingtoetsEntities context)
+        internal static void Update(this CalculationGroup calculationGroup, PersistenceRegistry registry, IRingtoetsEntities context, int order)
         {
             if (registry == null)
             {
@@ -65,6 +71,7 @@ namespace Application.Ringtoets.Storage.Update
 
             CalculationGroupEntity entity = calculationGroup.GetCorrespondingEntity(context.CalculationGroupEntities, o => o.CalculationGroupEntityId);
             entity.Name = calculationGroup.Name;
+            entity.Order = order;
 
             UpdateChildren(entity, calculationGroup, registry, context);
 
@@ -76,43 +83,87 @@ namespace Application.Ringtoets.Storage.Update
             for (int i = 0; i < calculationGroup.Children.Count; i++)
             {
                 ICalculationBase calculationBase = calculationGroup.Children[i];
-                var childGroup = calculationBase as CalculationGroup;
-                if (childGroup != null)
+                UpdateIfCalculationGroup(entity, registry, context, calculationBase, i);
+
+                UpdateIfPipingCalculation(entity, registry, context, calculationBase, i);
+
+                UpdateIfGrassCoverErosionInwardsCalculation(entity, registry, context, calculationBase, i);
+            }
+        }
+
+        private static void UpdateIfCalculationGroup(CalculationGroupEntity entity,
+                                                     PersistenceRegistry registry,
+                                                     IRingtoetsEntities context,
+                                                     ICalculationBase calculationBase,
+                                                     int order)
+        {
+            var childGroup = calculationBase as CalculationGroup;
+            if (childGroup != null)
+            {
+                if (childGroup.IsNew())
                 {
-                    if (childGroup.IsNew())
+                    entity.CalculationGroupEntity1.Add(childGroup.Create(registry, order));
+                }
+                else
+                {
+                    childGroup.Update(registry, context, order);
+                    CalculationGroupEntity childGroupEntity = context.CalculationGroupEntities.First(cge => cge.CalculationGroupEntityId == childGroup.StorageId);
+                    if (!entity.CalculationGroupEntity1.Contains(childGroupEntity))
                     {
-                        entity.CalculationGroupEntity1.Add(childGroup.Create(registry, i));
-                    }
-                    else
-                    {
-                        childGroup.Update(registry, context);
-                        CalculationGroupEntity childGroupEntity = context.CalculationGroupEntities.First(cge => cge.CalculationGroupEntityId == childGroup.StorageId);
-                        childGroupEntity.Order = i;
-                        if (!entity.CalculationGroupEntity1.Contains(childGroupEntity))
-                        {
-                            childGroupEntity.CalculationGroupEntity2.CalculationGroupEntity1.Remove(childGroupEntity);
-                            entity.CalculationGroupEntity1.Add(childGroupEntity);
-                        }
+                        childGroupEntity.CalculationGroupEntity2.CalculationGroupEntity1.Remove(childGroupEntity);
+                        entity.CalculationGroupEntity1.Add(childGroupEntity);
                     }
                 }
+            }
+        }
 
-                var childCalculationScenario = calculationBase as PipingCalculationScenario;
-                if (childCalculationScenario != null)
+        private static void UpdateIfPipingCalculation(CalculationGroupEntity entity,
+                                                       PersistenceRegistry registry,
+                                                       IRingtoetsEntities context,
+                                                       ICalculationBase calculationBase,
+                                                       int order)
+        {
+            var childCalculation = calculationBase as PipingCalculationScenario;
+            if (childCalculation != null)
+            {
+                if (childCalculation.IsNew())
                 {
-                    if (childCalculationScenario.IsNew())
+                    entity.PipingCalculationEntities.Add(childCalculation.Create(registry, order));
+                }
+                else
+                {
+                    childCalculation.Update(registry, context, order);
+                    PipingCalculationEntity childCalculationEntity = context.PipingCalculationEntities.First(cge => cge.PipingCalculationEntityId == childCalculation.StorageId);
+                    if (!entity.PipingCalculationEntities.Contains(childCalculationEntity))
                     {
-                        entity.PipingCalculationEntities.Add(childCalculationScenario.Create(registry, i));
+                        childCalculationEntity.CalculationGroupEntity.PipingCalculationEntities.Remove(childCalculationEntity);
+                        entity.PipingCalculationEntities.Add(childCalculationEntity);
                     }
-                    else
+                }
+            }
+        }
+
+        private static void UpdateIfGrassCoverErosionInwardsCalculation(CalculationGroupEntity entity,
+                                                                         PersistenceRegistry registry,
+                                                                         IRingtoetsEntities context,
+                                                                         ICalculationBase calculationBase,
+                                                                         int order)
+        {
+            var childCalculation = calculationBase as GrassCoverErosionInwardsCalculation;
+            if (childCalculation != null)
+            {
+                if (childCalculation.IsNew())
+                {
+                    entity.GrassCoverErosionInwardsCalculationEntities.Add(childCalculation.Create(registry, order));
+                }
+                else
+                {
+                    childCalculation.Update(registry, context, order);
+                    GrassCoverErosionInwardsCalculationEntity childCalculationEntity = context.GrassCoverErosionInwardsCalculationEntities.First(cge => cge.GrassCoverErosionInwardsCalculationEntityId == childCalculation.StorageId);
+                    if (!entity.GrassCoverErosionInwardsCalculationEntities.Contains(childCalculationEntity))
                     {
-                        childCalculationScenario.Update(registry, context);
-                        PipingCalculationEntity childPipingCalculationEntity = context.PipingCalculationEntities.First(cge => cge.PipingCalculationEntityId == childCalculationScenario.StorageId);
-                        childPipingCalculationEntity.Order = i;
-                        if (!entity.PipingCalculationEntities.Contains(childPipingCalculationEntity))
-                        {
-                            childPipingCalculationEntity.CalculationGroupEntity.PipingCalculationEntities.Remove(childPipingCalculationEntity);
-                            entity.PipingCalculationEntities.Add(childPipingCalculationEntity);
-                        }
+                        childCalculationEntity.CalculationGroupEntity.GrassCoverErosionInwardsCalculationEntities.Remove(childCalculationEntity);
+                        entity.GrassCoverErosionInwardsCalculationEntities.Add(childCalculationEntity);
                     }
                 }
             }

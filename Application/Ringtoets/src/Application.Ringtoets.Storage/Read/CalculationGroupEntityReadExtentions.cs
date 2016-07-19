@@ -23,6 +23,7 @@ using System;
 using System.Collections;
 
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Read.Piping;
 
 using Ringtoets.Common.Data.Calculation;
@@ -71,10 +72,10 @@ namespace Application.Ringtoets.Storage.Read
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadPipingCalculationGroup(collector, generalPipingInput));
                 }
-                var childPipingCalculationEntity = childEntity as PipingCalculationEntity;
-                if (childPipingCalculationEntity != null)
+                var childCalculationEntity = childEntity as PipingCalculationEntity;
+                if (childCalculationEntity != null)
                 {
-                    group.Children.Add(childPipingCalculationEntity.Read(collector, generalPipingInput));
+                    group.Children.Add(childCalculationEntity.Read(collector, generalPipingInput));
                 }
             }
 
@@ -110,11 +111,10 @@ namespace Application.Ringtoets.Storage.Read
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector));
                 }
-                var childPipingCalculationEntity = childEntity as GrassCoverErosionInwardsCalculationEntity;
-                if (childPipingCalculationEntity != null)
+                var childCalculationEntity = childEntity as GrassCoverErosionInwardsCalculationEntity;
+                if (childCalculationEntity != null)
                 {
-                    // TODO
-                    //group.Children.Add(childPipingCalculationEntity.Read(collector, generalPipingInput));
+                    group.Children.Add(childCalculationEntity.Read());
                 }
             }
 
@@ -132,7 +132,10 @@ namespace Application.Ringtoets.Storage.Read
             {
                 sortedList.Add(pipingCalculationEntity.Order, pipingCalculationEntity);
             }
-            //TODO Grass Cover Erosion Inwards Calculations
+            foreach (GrassCoverErosionInwardsCalculationEntity grassCoverErosionInwardsCalculationEntity in entity.GrassCoverErosionInwardsCalculationEntities)
+            {
+                sortedList.Add(grassCoverErosionInwardsCalculationEntity.Order, grassCoverErosionInwardsCalculationEntity);
+            }
             return sortedList.Values;
         }
     }

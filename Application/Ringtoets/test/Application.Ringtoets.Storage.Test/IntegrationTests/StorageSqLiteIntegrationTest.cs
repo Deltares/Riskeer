@@ -811,7 +811,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     AssertPipingCalculationScenario(expectedPipingCalculation, (PipingCalculationScenario) actualChild);
                 }
-                // TODO GEBK Berekening
+                var expectedGrassCoverErosionInwardsCalculation = expectedChild as GrassCoverErosionInwardsCalculation;
+                if (expectedGrassCoverErosionInwardsCalculation != null)
+                {
+                    AssertGrassCoverErosionInwardsCalculation(expectedGrassCoverErosionInwardsCalculation, (GrassCoverErosionInwardsCalculation)actualChild);
+                }
             }
         }
 
@@ -888,6 +892,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual(expectedOutput.PipingReliability, actualOutput.PipingReliability);
                 Assert.AreEqual(expectedOutput.PipingProbability, actualOutput.PipingProbability);
             }
+        }
+
+        private void AssertGrassCoverErosionInwardsCalculation(GrassCoverErosionInwardsCalculation expectedCalculation, GrassCoverErosionInwardsCalculation actualCalculation)
+        {
+            Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
+            Assert.AreEqual(expectedCalculation.Comments, actualCalculation.Comments);
         }
 
         private void AssertGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism expectedFailureMechanism,

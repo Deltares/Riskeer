@@ -34,7 +34,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Piping.Data;
+using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 
 namespace Application.Ringtoets.Storage.Test.Update
 {
@@ -55,7 +57,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
 
             // Call
-            TestDelegate call = () => calculationGroup.Update(null, rintoetsEntities);
+            TestDelegate call = () => calculationGroup.Update(null, rintoetsEntities, 0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -75,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate call = () => calculationGroup.Update(registry, null);
+            TestDelegate call = () => calculationGroup.Update(registry, null, 0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -98,7 +100,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate call = () => calculationGroup.Update(registry, ringtoetsEntities);
+            TestDelegate call = () => calculationGroup.Update(registry, ringtoetsEntities, 0);
 
             // Assert
             string message = Assert.Throws<EntityNotFoundException>(call).Message;
@@ -120,17 +122,21 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 CalculationGroupEntityId = calculationGroup.StorageId,
                 IsEditable = Convert.ToByte(calculationGroup.IsNameEditable),
-                Name = "<original name>"
+                Name = "<original name>",
+                Order = 0
             };
             ringtoetsEntities.CalculationGroupEntities.Add(groupEntity);
 
             var registry = new PersistenceRegistry();
 
+            const int newOrder = 2;
+
             // Call
-            calculationGroup.Update(registry, ringtoetsEntities);
+            calculationGroup.Update(registry, ringtoetsEntities, newOrder);
 
             // Assert
             Assert.AreEqual(calculationGroup.Name, groupEntity.Name);
+            Assert.AreEqual(newOrder, groupEntity.Order);
 
             CollectionAssert.IsEmpty(groupEntity.CalculationGroupEntity1,
                 "No changes to the children expected.");
@@ -159,7 +165,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var registry = new PersistenceRegistry();
 
             // Call
-            calculationGroup.Update(registry, ringtoetsEntities);
+            calculationGroup.Update(registry, ringtoetsEntities, 0);
 
             // Assert
             Assert.AreEqual(calculationGroup.Name, groupEntity.Name);
@@ -210,7 +216,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var registry = new PersistenceRegistry();
 
             // Call
-            calculationGroup.Update(registry, ringtoetsEntities);
+            calculationGroup.Update(registry, ringtoetsEntities, 0);
 
             // Assert
             Assert.AreEqual(0, childGroupEntity1.Order);
@@ -254,7 +260,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var registry = new PersistenceRegistry();
 
             // Call
-            calculationGroup.Update(registry, ringtoetsEntities);
+            calculationGroup.Update(registry, ringtoetsEntities, 0);
 
             // Assert
             CalculationGroupEntity[] updatedChildGroupEntities = groupEntity.CalculationGroupEntity1
@@ -295,7 +301,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var registry = new PersistenceRegistry();
 
             // Call
-            calculationGroup.Update(registry, ringtoetsEntities);
+            calculationGroup.Update(registry, ringtoetsEntities, 0);
 
             // Assert
             CalculationGroupEntity[] updatedChildGroupEntities = rootGroupEntity.CalculationGroupEntity1
@@ -345,7 +351,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var registry = new PersistenceRegistry();
 
             // Call
-            calculationGroup.Update(registry, ringtoetsEntities);
+            calculationGroup.Update(registry, ringtoetsEntities, 0);
 
             // Assert
             Assert.AreEqual(0, draggedGroupEntity.Order);
@@ -396,7 +402,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var registry = new PersistenceRegistry();
 
             // Call
-            calculationGroup.Update(registry, ringtoetsEntities);
+            calculationGroup.Update(registry, ringtoetsEntities, 0);
 
             // Assert
             Assert.AreEqual(0, childCalculationEntity1.Order);
@@ -440,7 +446,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var registry = new PersistenceRegistry();
 
             // Call
-            calculationGroup.Update(registry, ringtoetsEntities);
+            calculationGroup.Update(registry, ringtoetsEntities, 0);
 
             // Assert
             PipingCalculationEntity[] updatedChildPipingCalculationEntities = groupEntity.PipingCalculationEntities
@@ -480,7 +486,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var registry = new PersistenceRegistry();
 
             // Call
-            calculationGroup.Update(registry, ringtoetsEntities);
+            calculationGroup.Update(registry, ringtoetsEntities, 0);
 
             // Assert
             PipingCalculationEntity[] updatedChildPipingCalculationEntities = rootGroupEntity.PipingCalculationEntities
@@ -530,12 +536,197 @@ namespace Application.Ringtoets.Storage.Test.Update
             var registry = new PersistenceRegistry();
 
             // Call
-            calculationGroup.Update(registry, ringtoetsEntities);
+            calculationGroup.Update(registry, ringtoetsEntities, 0);
 
             // Assert
             Assert.AreEqual(0, draggedPipingCalculationEntity.Order);
             CollectionAssert.Contains(childGroup1Entity.PipingCalculationEntities, draggedPipingCalculationEntity);
             CollectionAssert.DoesNotContain(childGroup2Entity.PipingCalculationEntities, draggedPipingCalculationEntity);
+
+            Assert.AreEqual(0, fillerGroupEntity.Order);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ChildGrassCoverErosionInwardsCalculationsReordered_EntitiesUpdated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            CalculationGroup calculationGroup = CreateCalculationGroupWith2ChildGrassCoverErosionInwardsCalculations();
+
+            var childCalculationEntity1 = new GrassCoverErosionInwardsCalculationEntity
+            {
+                GrassCoverErosionInwardsCalculationEntityId = ((GrassCoverErosionInwardsCalculation)calculationGroup.Children[0]).StorageId,
+                Name = "A",
+                Order = 1
+            };
+            var childCalculationEntity2 = new GrassCoverErosionInwardsCalculationEntity
+            {
+                GrassCoverErosionInwardsCalculationEntityId = ((GrassCoverErosionInwardsCalculation)calculationGroup.Children[1]).StorageId,
+                Name = "B",
+                Order = 0
+            };
+            var groupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = calculationGroup.StorageId,
+                IsEditable = Convert.ToByte(calculationGroup.IsNameEditable),
+                Name = "<original name>",
+                GrassCoverErosionInwardsCalculationEntities = 
+                {
+                    childCalculationEntity1,
+                    childCalculationEntity2
+                }
+            };
+            ringtoetsEntities.CalculationGroupEntities.Add(groupEntity);
+            ringtoetsEntities.GrassCoverErosionInwardsCalculationEntities.Add(childCalculationEntity1);
+            ringtoetsEntities.GrassCoverErosionInwardsCalculationEntities.Add(childCalculationEntity2);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            calculationGroup.Update(registry, ringtoetsEntities, 0);
+
+            // Assert
+            Assert.AreEqual(0, childCalculationEntity1.Order);
+            Assert.AreEqual(calculationGroup.Children[0].Name, childCalculationEntity1.Name);
+            Assert.AreEqual(1, childCalculationEntity2.Order);
+            Assert.AreEqual(calculationGroup.Children[1].Name, childCalculationEntity2.Name);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ChildGrassCoverErosionInwardsCalculationsInserted_EntitiesUpdatedAndNewEntityCreated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            CalculationGroup calculationGroup = CreateCalculationGroupWith2ChildGrassCoverErosionInwardsCalculations();
+
+            GrassCoverErosionInwardsCalculationEntity childCalculationEntity1 = CreateExpectedGrassCoverErosionInwardsCalculationEntity((GrassCoverErosionInwardsCalculation)calculationGroup.Children[0], 0);
+            GrassCoverErosionInwardsCalculationEntity childCalculationEntity2 = CreateExpectedGrassCoverErosionInwardsCalculationEntity((GrassCoverErosionInwardsCalculation)calculationGroup.Children[1], 1);
+            var groupEntity = new CalculationGroupEntity
+            {
+                CalculationGroupEntityId = calculationGroup.StorageId,
+                IsEditable = Convert.ToByte(calculationGroup.IsNameEditable),
+                Name = "<original name>",
+                GrassCoverErosionInwardsCalculationEntities = 
+                {
+                    childCalculationEntity1,
+                    childCalculationEntity2
+                }
+            };
+            ringtoetsEntities.CalculationGroupEntities.Add(groupEntity);
+            ringtoetsEntities.GrassCoverErosionInwardsCalculationEntities.Add(childCalculationEntity1);
+            ringtoetsEntities.GrassCoverErosionInwardsCalculationEntities.Add(childCalculationEntity2);
+
+            var insertedCalculation = new GrassCoverErosionInwardsCalculation();
+            const int insertedIndex = 1;
+            calculationGroup.Children.Insert(insertedIndex, insertedCalculation);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            calculationGroup.Update(registry, ringtoetsEntities, 0);
+
+            // Assert
+            GrassCoverErosionInwardsCalculationEntity[] updatedChildCalculationEntities = groupEntity.GrassCoverErosionInwardsCalculationEntities
+                                                                                                     .OrderBy(cge => cge.Order)
+                                                                                                     .ToArray();
+            Assert.AreEqual(3, updatedChildCalculationEntities.Length);
+            Assert.AreSame(childCalculationEntity1, updatedChildCalculationEntities[0]);
+            Assert.AreEqual(0, childCalculationEntity1.Order);
+            Assert.AreEqual(calculationGroup.Children[0].Name, childCalculationEntity1.Name);
+
+            GrassCoverErosionInwardsCalculationEntity newCalculationEntity = updatedChildCalculationEntities[insertedIndex];
+            Assert.AreEqual(insertedIndex, newCalculationEntity.Order);
+            Assert.AreEqual(insertedCalculation.Name, newCalculationEntity.Name);
+
+            Assert.AreSame(childCalculationEntity2, updatedChildCalculationEntities[2]);
+            Assert.AreEqual(2, childCalculationEntity2.Order);
+            Assert.AreEqual(calculationGroup.Children[2].Name, childCalculationEntity2.Name);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ChildGrassCoverErosionInwardsCalculationAdded_RootEntityUpdatedAndNewEntityCreated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            CalculationGroup calculationGroup = CreateCalculationGroupWithoutChildren(true);
+
+            CalculationGroupEntity rootGroupEntity = CreateExpectedEmptyGroupEntity(calculationGroup, 0);
+            ringtoetsEntities.CalculationGroupEntities.Add(rootGroupEntity);
+
+            var newCalculation = new GrassCoverErosionInwardsCalculation();
+            calculationGroup.Children.Add(newCalculation);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            calculationGroup.Update(registry, ringtoetsEntities, 0);
+
+            // Assert
+            GrassCoverErosionInwardsCalculationEntity[] updatedChildCalculationEntities = rootGroupEntity.GrassCoverErosionInwardsCalculationEntities
+                                                                                                         .OrderBy(cge => cge.Order)
+                                                                                                         .ToArray();
+            Assert.AreEqual(1, updatedChildCalculationEntities.Length);
+            GrassCoverErosionInwardsCalculationEntity newGroupEntity = updatedChildCalculationEntities[0];
+            Assert.AreEqual(0, newGroupEntity.Order);
+            Assert.AreEqual(newCalculation.Name, newGroupEntity.Name);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ExistingChildGrassCoverErosionInwardsCalculationDragged_EntitiesUpdated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var draggedCalculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = "<Dragged GEKB calculation>",
+                StorageId = 87768
+            };
+            CalculationGroup calculationGroup = CreateCalculationGroupWith2ChildGroups();
+            ((CalculationGroup)calculationGroup.Children[0]).Children.Add(draggedCalculation);
+
+            CalculationGroupEntity childGroup1Entity = CreateExpectedEmptyGroupEntity((CalculationGroup)calculationGroup.Children[0], 0);
+            CalculationGroupEntity childGroup2Entity = CreateExpectedEmptyGroupEntity((CalculationGroup)calculationGroup.Children[1], 1);
+            CalculationGroupEntity fillerGroupEntity = CreateExpectedEmptyGroupEntity(new CalculationGroup(), 0);
+            childGroup2Entity.CalculationGroupEntity1.Add(fillerGroupEntity);
+            GrassCoverErosionInwardsCalculationEntity draggedCalculationEntity = CreateExpectedGrassCoverErosionInwardsCalculationEntity(draggedCalculation, 1);
+            childGroup2Entity.GrassCoverErosionInwardsCalculationEntities.Add(draggedCalculationEntity);
+            draggedCalculationEntity.CalculationGroupEntity = childGroup2Entity;
+
+            CalculationGroupEntity rootGroupEntity = CreateExpectedEmptyGroupEntity(calculationGroup, 0);
+            rootGroupEntity.CalculationGroupEntity1.Add(childGroup1Entity);
+            rootGroupEntity.CalculationGroupEntity1.Add(childGroup2Entity);
+
+            ringtoetsEntities.CalculationGroupEntities.Add(rootGroupEntity);
+            ringtoetsEntities.CalculationGroupEntities.Add(childGroup1Entity);
+            ringtoetsEntities.CalculationGroupEntities.Add(childGroup2Entity);
+            ringtoetsEntities.CalculationGroupEntities.Add(fillerGroupEntity);
+            ringtoetsEntities.GrassCoverErosionInwardsCalculationEntities.Add(draggedCalculationEntity);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            calculationGroup.Update(registry, ringtoetsEntities, 0);
+
+            // Assert
+            Assert.AreEqual(0, draggedCalculationEntity.Order);
+            CollectionAssert.Contains(childGroup1Entity.GrassCoverErosionInwardsCalculationEntities, draggedCalculationEntity);
+            CollectionAssert.DoesNotContain(childGroup2Entity.GrassCoverErosionInwardsCalculationEntities, draggedCalculationEntity);
 
             Assert.AreEqual(0, fillerGroupEntity.Order);
             mocks.VerifyAll();
@@ -588,6 +779,25 @@ namespace Application.Ringtoets.Storage.Test.Update
             };
         }
 
+        private CalculationGroup CreateCalculationGroupWith2ChildGrassCoverErosionInwardsCalculations()
+        {
+            return new CalculationGroup("<GroupWithTwoChildGrassCoverErosionInwardsCalculations", true)
+            {
+                StorageId = 4985,
+                Children =
+                {
+                    new GrassCoverErosionInwardsCalculation
+                    {
+                        StorageId = 2
+                    },
+                    new GrassCoverErosionInwardsCalculation
+                    {
+                        StorageId = 6
+                    }
+                }
+            };
+        }
+
         private CalculationGroupEntity CreateExpectedEmptyGroupEntity(CalculationGroup group, int order)
         {
             return new CalculationGroupEntity
@@ -603,6 +813,13 @@ namespace Application.Ringtoets.Storage.Test.Update
         {
             PipingCalculationEntity entity = pipingCalculation.Create(new PersistenceRegistry(), order);
             entity.PipingCalculationEntityId = pipingCalculation.StorageId;
+            return entity;
+        }
+
+        private GrassCoverErosionInwardsCalculationEntity CreateExpectedGrassCoverErosionInwardsCalculationEntity(GrassCoverErosionInwardsCalculation calculation, int order)
+        {
+            GrassCoverErosionInwardsCalculationEntity entity = calculation.Create(new PersistenceRegistry(), order);
+            entity.GrassCoverErosionInwardsCalculationEntityId = calculation.StorageId;
             return entity;
         }
     }

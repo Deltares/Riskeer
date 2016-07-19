@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Update.GrassCoverErosionInwards
             UpdateDikeProfiles(mechanism, registry, entity, context);
             mechanism.UpdateFailureMechanismSections(registry, entity, context);
             UpdateSectionResults(mechanism, registry, context);
-            mechanism.CalculationsGroup.Update(registry, context);
+            mechanism.CalculationsGroup.Update(registry, context, 0);
 
             registry.Register(entity, mechanism);
         }

@@ -43,6 +43,8 @@ namespace Application.Ringtoets.Storage.Update.Piping
         /// <param name="calculation">The piping calculation to update the database entity for.</param>
         /// <param name="registry">The object keeping track of update operations.</param>
         /// <param name="context">The context to obtain the existing entity from.</param>
+        /// <param name="order">The index at which <paramref name="calculation"/> resides
+        /// in its parent container.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="registry"/> is <c>null</c></item>
@@ -50,7 +52,7 @@ namespace Application.Ringtoets.Storage.Update.Piping
         /// </list></exception>
         /// <exception cref="EntityNotFoundException">When <paramref name="calculation"/>
         /// does not have a corresponding entity in the database.</exception>
-        internal static void Update(this PipingCalculationScenario calculation, PersistenceRegistry registry, IRingtoetsEntities context)
+        internal static void Update(this PipingCalculationScenario calculation, PersistenceRegistry registry, IRingtoetsEntities context, int order)
         {
             if (registry == null)
             {
@@ -68,6 +70,7 @@ namespace Application.Ringtoets.Storage.Update.Piping
             entity.ScenarioContribution = Convert.ToDecimal(calculation.Contribution);
             entity.Name = calculation.Name;
             entity.Comments = calculation.Comments;
+            entity.Order = order;
             SetInputParameters(entity, calculation.InputParameters, registry);
             UpdatePipingCalculationOutputs(entity, calculation, registry);
 

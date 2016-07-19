@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call
-            TestDelegate call = () => calculation.Update(null, context);
+            TestDelegate call = () => calculation.Update(null, context, 0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate call = () => calculation.Update(registry, null);
+            TestDelegate call = () => calculation.Update(registry, null, 0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call
-            TestDelegate call = () => calculation.Update(registry, context);
+            TestDelegate call = () => calculation.Update(registry, context, 0);
 
             // Assert
             Assert.Throws<EntityNotFoundException>(call);
@@ -154,14 +154,17 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
                 }
             };
 
+            const int newOrder = 5;
+
             // Call
-            calculation.Update(registry, context);
+            calculation.Update(registry, context, newOrder);
 
             // Assert
             Assert.AreEqual(Convert.ToByte(calculation.IsRelevant), entity.RelevantForScenario);
             Assert.AreEqual(Convert.ToDecimal(calculation.Contribution), entity.ScenarioContribution);
             Assert.AreEqual(calculation.Name, entity.Name);
             Assert.AreEqual(calculation.Comments, entity.Comments);
+            Assert.AreEqual(newOrder, entity.Order);
 
             PipingInput inputParameters = calculation.InputParameters;
             Assert.AreEqual(inputParameters.EntryPointL.Value.ToNullableDecimal(), entity.EntryPointL);
@@ -255,7 +258,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             };
 
             // Call
-            calculation.Update(registry, context);
+            calculation.Update(registry, context, 0);
 
             // Assert
             Assert.IsNotNull(entity.SurfaceLineEntity);
@@ -317,7 +320,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             };
 
             // Call
-            calculation.Update(registry, context);
+            calculation.Update(registry, context, 0);
 
             // Assert
             Assert.IsNull(entity.SurfaceLineEntity);
@@ -392,7 +395,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             };
 
             // Call
-            calculation.Update(registry, context);
+            calculation.Update(registry, context, 0);
 
             // Assert
             Assert.AreSame(replacementHydraulicLocationEntity, entity.HydraulicLocationEntity);
@@ -454,7 +457,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             };
 
             // Call
-            calculation.Update(registry, context);
+            calculation.Update(registry, context, 0);
 
             // Assert
             Assert.IsNull(entity.HydraulicLocationEntity);
@@ -527,7 +530,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             };
 
             // Call
-            calculation.Update(registry, context);
+            calculation.Update(registry, context, 0);
 
             // Assert
             Assert.AreSame(replacementStochasticSoilProfileEntity, entity.StochasticSoilProfileEntity);
@@ -586,7 +589,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             };
 
             // Call
-            calculation.Update(registry, context);
+            calculation.Update(registry, context, 0);
 
             // Assert
             Assert.IsNull(entity.StochasticSoilProfileEntity);
@@ -640,7 +643,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             };
 
             // Call
-            calculation.Update(registry, context);
+            calculation.Update(registry, context, 0);
 
             // Assert
             PipingCalculationOutputEntity pipingCalculationOutputEntity = entity.PipingCalculationOutputEntity;
@@ -704,7 +707,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             };
 
             // Call
-            calculation.Update(registry, context);
+            calculation.Update(registry, context, 0);
 
             // Assert
             CollectionAssert.Contains(context.PipingCalculationOutputEntities, calculationOutputEntity);
@@ -763,7 +766,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             };
 
             // Call
-            calculation.Update(registry, context);
+            calculation.Update(registry, context, 0);
 
             // Assert
             Assert.IsNull(entity.PipingCalculationOutputEntity);
@@ -821,7 +824,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             };
 
             // Call
-            calculation.Update(registry, context);
+            calculation.Update(registry, context, 0);
 
             // Assert
             PipingSemiProbabilisticOutputEntity semiProbabilisticOutputEntity = entity.PipingSemiProbabilisticOutputEntity;
@@ -889,7 +892,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             };
 
             // Call
-            calculation.Update(registry, context);
+            calculation.Update(registry, context, 0);
 
             // Assert
             CollectionAssert.Contains(context.PipingSemiProbabilisticOutputEntities, semiProbabilisticOutputEntity);
@@ -948,7 +951,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             };
 
             // Call
-            calculation.Update(registry, context);
+            calculation.Update(registry, context, 0);
 
             // Assert
             Assert.IsNull(entity.PipingSemiProbabilisticOutputEntity);
