@@ -24,7 +24,7 @@ using System;
 namespace Ringtoets.Common.IO.Exceptions
 {
     /// <summary>
-    /// The exception that is thrown when a shape file attribute is required, but not found.
+    /// The exception that is thrown when a file read successfully, but did not pass the validation process.
     /// </summary>
     public class CriticalFileValidationException : Exception
     {

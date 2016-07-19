@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -105,7 +106,7 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
-        public void CreateAssessmentSectionFromFile_ValidDirectoryUserClicksOk_ReturnsFirstReadAssessmentSection()
+        public void CreateAssessmentSectionFromFile_ValidDirectoryOkClicked_ReturnsFirstReadAssessmentSection()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -130,22 +131,119 @@ namespace Ringtoets.Integration.Forms.Test
             // Assert
             Assert.AreEqual(3, rowCount);
             Assert.IsNotNull(assessmentSection);
-            AssertAssessmentSection(TestAssessmentSection1_1(), assessmentSection);
+            AssertAssessmentSection(TestAssessmentSection1_2(true), assessmentSection);
             mockRepository.VerifyAll();
         }
 
-        private static AssessmentSection TestAssessmentSection1_1()
+        [Test]
+        public void CreateAssessmentSectionFromFile_ValidDirectoryLowLimitSelectedOkClicked_ReturnsFirstReadAssessmentSectionWithLowLimit()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
+            mockRepository.ReplayAll();
+
+            var assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialog);
+            string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
+                var combobox = (ComboBox) new ComboBoxTester("SignalingLowerLimitComboBox", selectionDialog).TheObject;
+                combobox.SelectedIndex = 1;
+                new ButtonTester("Ok", selectionDialog).Click();
+            };
+
+            // Call
+            var assessmentSection = (AssessmentSection) assessmentSectionFromFile.CreateAssessmentSectionFromFile(pathValidFolder);
+
+            // Assert
+            Assert.IsNotNull(assessmentSection);
+            AssertAssessmentSection(TestAssessmentSection1_2(false), assessmentSection);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CreateAssessmentSectionFromFile_SecondRowSelectedOkClicked_ReturnsSecondReadAssessmentSection()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
+            mockRepository.ReplayAll();
+
+            var assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialog);
+            string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
+
+            int rowCount = 0;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
+                var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", selectionDialog).TheObject;
+                rowCount = grid.GetRows().Count;
+                var dataGridView = grid.Controls.OfType<DataGridView>().First();
+                dataGridView[0, 1].Selected = true;
+
+                new ButtonTester("Ok", selectionDialog).Click();
+            };
+
+            // Call
+            AssessmentSection assessmentSection = (AssessmentSection) assessmentSectionFromFile.CreateAssessmentSectionFromFile(pathValidFolder);
+
+            // Assert
+            Assert.AreEqual(3, rowCount);
+            Assert.IsNotNull(assessmentSection);
+            AssertAssessmentSection(TestAssessmentSection2_1(), assessmentSection);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CreateAssessmentSectionFromFile_ThirdRowSelectedOkClicked_ReturnsThirdReadAssessmentSection()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
+            mockRepository.ReplayAll();
+
+            var assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialog);
+            string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
+                var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", selectionDialog).TheObject;
+                var dataGridView = grid.Controls.OfType<DataGridView>().First();
+                dataGridView[0, 2].Selected = true;
+
+                new ButtonTester("Ok", selectionDialog).Click();
+            };
+
+            AssessmentSection assessmentSection = null;
+
+            // Call
+            Action call = () => assessmentSection = (AssessmentSection) assessmentSectionFromFile.CreateAssessmentSectionFromFile(pathValidFolder);
+
+            // Assert
+            const string expectedMessage = @"Er zijn geen instellingen gevonden voor het geselecteerde traject. Standaardinstellingen zullen gebruikt worden.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+            Assert.IsNotNull(assessmentSection);
+            AssertAssessmentSection(TestAssessmentSection3_3(), assessmentSection);
+            mockRepository.VerifyAll();
+        }
+
+        #region Test Assessment Sections
+
+        private static AssessmentSection TestAssessmentSection1_2(bool useSignalingValue)
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                Id = "1-1",
+                Id = "1-2",
                 FailureMechanismContribution =
                 {
-                    Norm = 3000
+                    Norm = (useSignalingValue) ? 3000 : 1000
                 }
             };
-            assessmentSection.GrassCoverErosionInwards.GeneralInput.N = 3;
-            assessmentSection.HeightStructures.GeneralInput.N = 3;
+            assessmentSection.GrassCoverErosionInwards.GeneralInput.N = 2;
+            assessmentSection.HeightStructures.GeneralInput.N = 2;
             assessmentSection.ReferenceLine = new ReferenceLine();
             assessmentSection.ReferenceLine.SetGeometry(new[]
             {
@@ -155,6 +253,50 @@ namespace Ringtoets.Integration.Forms.Test
 
             return assessmentSection;
         }
+
+        private static AssessmentSection TestAssessmentSection2_1()
+        {
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune)
+            {
+                Id = "2-1",
+                FailureMechanismContribution =
+                {
+                    Norm = 300
+                }
+            };
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            assessmentSection.ReferenceLine.SetGeometry(new[]
+            {
+                new Point2D(155556.9191, 464341.1281),
+                new Point2D(155521.4761, 464360.7401)
+            });
+
+            return assessmentSection;
+        }
+
+        private static AssessmentSection TestAssessmentSection3_3()
+        {
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                Id = "3-3",
+                FailureMechanismContribution =
+                {
+                    Norm = 300
+                }
+            };
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            assessmentSection.ReferenceLine.SetGeometry(new[]
+            {
+                new Point2D(147367.32190, 476902.91571),
+                new Point2D(147410.0515, 476938.9447)
+            });
+
+            return assessmentSection;
+        }
+
+        #endregion
+
+        #region Asserts
 
         private static void AssertAssessmentSection(AssessmentSection expected, AssessmentSection actual)
         {
@@ -178,5 +320,7 @@ namespace Ringtoets.Integration.Forms.Test
                                       new Point2DComparerWithTolerance(1e-6),
                                       "Unexpected geometry found in ReferenceLine");
         }
+
+        #endregion
     }
 }

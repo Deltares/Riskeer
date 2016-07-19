@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.IO.Exceptions;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO;
@@ -42,11 +43,31 @@ namespace Ringtoets.Integration.Forms
         private IEnumerable<AssessmentSectionSettings> settings;
         private IEnumerable<ReferenceLineMeta> referenceLineMetas = new List<ReferenceLineMeta>();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssessmentSectionFromFileCommandHandler"/> class.
+        /// </summary>
+        /// <param name="dialogParent">The parent of the dialog.</param>
         public AssessmentSectionFromFileCommandHandler(IWin32Window dialogParent)
         {
             this.dialogParent = dialogParent;
         }
 
+        /// <summary>
+        /// Creates a new <see cref="IAssessmentSection"/>, based upon the in a dialog selected <see cref="ReferenceLineMeta"/>, which is derived from the shape file in <paramref name="folderpath"/>.
+        /// </summary>
+        /// <param name="folderpath">The path to the folder where a shape file should be read.</param>
+        /// <returns></returns>
+        /// <exception cref="CriticalFileValidationException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The shape file does not contain any polylines.</item>
+        /// <item>The shape file does not contain the required attributes.</item>
+        /// <item>The assessment section ids in the shape file are not unique or are missing.</item>
+        /// </list></exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="folderpath"/> points to an invalid directory.</item>
+        /// <item>The path <paramref name="folderpath"/> does not contain any shape files.</item>
+        /// </list></exception>
         public IAssessmentSection CreateAssessmentSectionFromFile(string folderpath)
         {
             ValidateAssessmentSectionSettings();

@@ -131,8 +131,6 @@ namespace Ringtoets.Integration.Forms
             Close();
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e) {}
-
         private class ReferenceLineMetaSelectionRow
         {
             public ReferenceLineMetaSelectionRow(ReferenceLineMeta referenceLineMeta)

@@ -201,7 +201,7 @@ namespace Ringtoets.Common.IO.Test
 
             var expectedReferenceLineMeta1 = new ReferenceLineMeta
             {
-                AssessmentSectionId = "1-1",
+                AssessmentSectionId = "1-2",
                 LowerLimitValue = 1000,
                 SignalingValue = 3000
             };
@@ -214,7 +214,7 @@ namespace Ringtoets.Common.IO.Test
 
             var expectedReferenceLineMeta2 = new ReferenceLineMeta
             {
-                AssessmentSectionId = "2-2",
+                AssessmentSectionId = "2-1",
                 LowerLimitValue = 100,
                 SignalingValue = 300
             };
