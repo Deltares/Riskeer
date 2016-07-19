@@ -138,7 +138,7 @@
           <Property Name="ProbabilisticOutputEntityId" Type="integer" Nullable="false" />
           <Property Name="IsOvertoppingDominant" Type="tinyint" Nullable="false" />
           <Property Name="WaveHeight" Type="real" />
-          <Property Name="DikeHeight" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="DikeHeight" Type="real" />
         </EntityType>
         <EntityType Name="GrassCoverErosionInwardsSectionResultEntity">
           <Key>
@@ -1701,7 +1701,7 @@
           <Property Name="ProbabilisticOutputEntityId" Type="Int64" Nullable="false" />
           <Property Name="IsOvertoppingDominant" Type="Byte" Nullable="false" />
           <Property Name="WaveHeight" Type="Double" />
-          <Property Name="DikeHeight" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="DikeHeight" Type="Double" />
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_1_0" FromRole="GrassCoverErosionInwardsOutputEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
           <NavigationProperty Name="ProbabilisticOutputEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsOutputEntity_0_0" FromRole="GrassCoverErosionInwardsOutputEntity" ToRole="ProbabilisticOutputEntity" />
         </EntityType>
