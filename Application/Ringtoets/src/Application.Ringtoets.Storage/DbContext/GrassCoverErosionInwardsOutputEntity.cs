@@ -44,8 +44,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public long GrassCoverErosionInwardsOutputId { get; set; }
         public long ProbabilisticOutputEntityId { get; set; }
         public byte IsOvertoppingDominant { get; set; }
-        public double WaveHeight { get; set; }
-        public Nullable<double> DikeHeight { get; set; }
+        public Nullable<double> WaveHeight { get; set; }
+        public string DikeHeight { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionInwardsCalculationEntity> GrassCoverErosionInwardsCalculationEntities { get; set; }
