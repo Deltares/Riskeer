@@ -52,8 +52,6 @@ namespace Demo.Ringtoets.Commands
 
         public void Execute(params object[] arguments)
         {
-            throw new Exception();
-
             var project = projectOwner.Project;
             project.Items.Add(CreateNewDemoAssessmentSection());
             project.NotifyObservers();
