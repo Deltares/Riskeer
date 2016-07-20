@@ -366,7 +366,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void GivenNoFilePathIsSet_WhenOpeningValidFileFromContextMenu_ThenPathWillBeSetAndNotifiesObserverAndLogMessageAdded()
         {
             // Given
-            string testFile = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+            string testFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             int contextMenuImportHydraulicBoundaryDatabaseIndex = 1;
 
@@ -456,7 +456,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void GivenNoFilePathIsSet_WhenOpeneningValidFileWithoutHLCDFromContextMenu_ThenPathWillNotBeSetAndLogMessageAdded()
         {
             // Given
-            string testFile = Path.Combine(testDataPathNoHlcd, "HRD ijsselmeer.sqlite");
+            string testFile = Path.Combine(testDataPathNoHlcd, "HRD dutch coast south.sqlite");
 
             int contextMenuImportHydraulicBoundaryDatabaseIndex = 1;
 
@@ -500,7 +500,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void GivenFilePathIsSet_WhenOpeningSameFileFromContextMenu_ThenCalculationsWillNotBeClearedAndLocationsWillBeImported()
         {
             // Given
-            string validFile = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+            string validFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             IObserver assessmentObserver = mocks.StrictMock<IObserver>();
             assessmentObserver.Expect(o => o.UpdateObserver());
             IObserver observer = mocks.StrictMock<IObserver>();
