@@ -208,7 +208,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertProjectsAreEqual(Project expectedProject, Project actualProject)
+        private static void AssertProjectsAreEqual(Project expectedProject, Project actualProject)
         {
             Assert.NotNull(expectedProject);
             Assert.NotNull(actualProject);
@@ -294,7 +294,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanismSectionResults(
+        private static void AssertFailureMechanismSectionResults(
             IEnumerable<PipingFailureMechanismSectionResult> expectedSectionResults,
             IEnumerable<PipingFailureMechanismSectionResult> actualSectionResults)
         {
@@ -313,7 +313,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanismSectionResults(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> expectedSectionResults, IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> expectedSectionResults, IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -330,7 +330,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanismSectionResults(IEnumerable<HeightStructuresFailureMechanismSectionResult> expectedSectionResults, IEnumerable<HeightStructuresFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<HeightStructuresFailureMechanismSectionResult> expectedSectionResults, IEnumerable<HeightStructuresFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -347,7 +347,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanismSectionResults(IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> expectedSectionResults, IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> expectedSectionResults, IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -364,7 +364,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanismSectionResults(IEnumerable<TechnicalInnovationFailureMechanismSectionResult> expectedSectionResults, IEnumerable<TechnicalInnovationFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<TechnicalInnovationFailureMechanismSectionResult> expectedSectionResults, IEnumerable<TechnicalInnovationFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -381,7 +381,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanismSectionResults(IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> expectedSectionResults, IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> expectedSectionResults, IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -398,7 +398,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanismSectionResults(IEnumerable<ClosingStructureFailureMechanismSectionResult> expectedSectionResults, IEnumerable<ClosingStructureFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<ClosingStructureFailureMechanismSectionResult> expectedSectionResults, IEnumerable<ClosingStructureFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -416,7 +416,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanismSectionResults(IEnumerable<MacrostabilityInwardsFailureMechanismSectionResult> expectedSectionResults, IEnumerable<MacrostabilityInwardsFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<MacrostabilityInwardsFailureMechanismSectionResult> expectedSectionResults, IEnumerable<MacrostabilityInwardsFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -434,7 +434,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanismSectionResults(IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> expectedSectionResults, IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> expectedSectionResults, IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -452,7 +452,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanismSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> expectedSectionResults, IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> expectedSectionResults, IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -470,7 +470,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanismSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> expectedSectionResults, IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> expectedSectionResults, IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -488,7 +488,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanismSectionResults(IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> expectedSectionResults, IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> expectedSectionResults, IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -506,7 +506,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanismSectionResults(IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> expectedSectionResults, IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> expectedSectionResults, IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -524,7 +524,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanismSectionResults(IEnumerable<MicrostabilityFailureMechanismSectionResult> expectedSectionResults, IEnumerable<MicrostabilityFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<MicrostabilityFailureMechanismSectionResult> expectedSectionResults, IEnumerable<MicrostabilityFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -542,7 +542,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanismSectionResults(IEnumerable<PipingStructureFailureMechanismSectionResult> expectedSectionResults, IEnumerable<PipingStructureFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<PipingStructureFailureMechanismSectionResult> expectedSectionResults, IEnumerable<PipingStructureFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -560,7 +560,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanismSectionResults(IEnumerable<DuneErosionFailureMechanismSectionResult> expectedSectionResults, IEnumerable<DuneErosionFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<DuneErosionFailureMechanismSectionResult> expectedSectionResults, IEnumerable<DuneErosionFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -577,7 +577,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanismSectionResults(IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> expectedSectionResults, IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> expectedSectionResults, IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -594,7 +594,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanismSectionResults(IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> expectedSectionResults, IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> expectedSectionResults, IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -611,7 +611,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertFailureMechanism(IFailureMechanism expectedFailureMechanism, IFailureMechanism actualFailureMechanism)
+        private static void AssertFailureMechanism(IFailureMechanism expectedFailureMechanism, IFailureMechanism actualFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanism.Name, actualFailureMechanism.Name);
             Assert.AreEqual(expectedFailureMechanism.Code, actualFailureMechanism.Code);
@@ -619,7 +619,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertFailureMechanismSections(expectedFailureMechanism.Sections, actualFailureMechanism.Sections);
         }
 
-        private void AssertFailureMechanismSections(IEnumerable<FailureMechanismSection> expectedSections, IEnumerable<FailureMechanismSection> actualSections)
+        private static void AssertFailureMechanismSections(IEnumerable<FailureMechanismSection> expectedSections, IEnumerable<FailureMechanismSection> actualSections)
         {
             var expectedSectionsArray = expectedSections.ToArray();
             var actualSectionsArray = actualSections.ToArray();
@@ -663,7 +663,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             CollectionAssert.AreEqual(expectedReferenceLine.Points, actualReferenceLine.Points);
         }
 
-        private void AssertPipingFailureMechanism(PipingFailureMechanism expectedPipingFailureMechanism, PipingFailureMechanism actualPipingFailureMechanism)
+        private static void AssertPipingFailureMechanism(PipingFailureMechanism expectedPipingFailureMechanism, PipingFailureMechanism actualPipingFailureMechanism)
         {
             AssertProbabilityAssesmentInput(expectedPipingFailureMechanism.PipingProbabilityAssessmentInput, actualPipingFailureMechanism.PipingProbabilityAssessmentInput);
             AssertStochasticSoilModels(expectedPipingFailureMechanism.StochasticSoilModels, actualPipingFailureMechanism.StochasticSoilModels);
@@ -671,12 +671,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertCalculationGroup(expectedPipingFailureMechanism.CalculationsGroup, actualPipingFailureMechanism.CalculationsGroup);
         }
 
-        private void AssertProbabilityAssesmentInput(PipingProbabilityAssessmentInput expectedModel, PipingProbabilityAssessmentInput actualModel)
+        private static void AssertProbabilityAssesmentInput(PipingProbabilityAssessmentInput expectedModel, PipingProbabilityAssessmentInput actualModel)
         {
             Assert.AreEqual(expectedModel.A, actualModel.A);
         }
 
-        private void AssertStochasticSoilModels(ObservableList<StochasticSoilModel> expectedModels, ObservableList<StochasticSoilModel> actualModels)
+        private static void AssertStochasticSoilModels(ObservableList<StochasticSoilModel> expectedModels, ObservableList<StochasticSoilModel> actualModels)
         {
             // Precondition:
             Assert.Less(0, actualModels.Count);
@@ -695,13 +695,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertSegmentPoints(List<Point2D> expectedSoilModelSegmentPoints, List<Point2D> actualSoilModelSegmentPoints)
+        private static void AssertSegmentPoints(List<Point2D> expectedSoilModelSegmentPoints, List<Point2D> actualSoilModelSegmentPoints)
         {
             Assert.Greater(expectedSoilModelSegmentPoints.Count, 0);
             CollectionAssert.AreEqual(expectedSoilModelSegmentPoints, actualSoilModelSegmentPoints);
         }
 
-        private void AssertStochasticSoilProfiles(List<StochasticSoilProfile> expectedStochasticSoilProfiles, List<StochasticSoilProfile> actualStochasticSoilProfiles)
+        private static void AssertStochasticSoilProfiles(List<StochasticSoilProfile> expectedStochasticSoilProfiles, List<StochasticSoilProfile> actualStochasticSoilProfiles)
         {
             Assert.Less(0, actualStochasticSoilProfiles.Count);
             Assert.AreEqual(expectedStochasticSoilProfiles.Count, actualStochasticSoilProfiles.Count);
@@ -718,7 +718,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertSoilLayers(IEnumerable<PipingSoilLayer> expectedLayers, IEnumerable<PipingSoilLayer> actualLayers)
+        private static void AssertSoilLayers(IEnumerable<PipingSoilLayer> expectedLayers, IEnumerable<PipingSoilLayer> actualLayers)
         {
             PipingSoilLayer[] actualLayerArray = actualLayers.ToArray();
             PipingSoilLayer[] expectedLayerArray = expectedLayers.ToArray();
@@ -742,7 +742,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertSurfaceLines(ICollection<RingtoetsPipingSurfaceLine> expectedSurfaceLines, ICollection<RingtoetsPipingSurfaceLine> actualSurfaceLines)
+        private static void AssertSurfaceLines(ICollection<RingtoetsPipingSurfaceLine> expectedSurfaceLines, ICollection<RingtoetsPipingSurfaceLine> actualSurfaceLines)
         {
             // Precondition:
             Assert.Greater(expectedSurfaceLines.Count, 0);
@@ -757,7 +757,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertSurfaceLine(RingtoetsPipingSurfaceLine expectedSurfaceLine, RingtoetsPipingSurfaceLine actualSurfaceLine)
+        private static void AssertSurfaceLine(RingtoetsPipingSurfaceLine expectedSurfaceLine, RingtoetsPipingSurfaceLine actualSurfaceLine)
         {
             Assert.AreEqual(expectedSurfaceLine.Name, actualSurfaceLine.Name);
             Assert.AreEqual(expectedSurfaceLine.ReferenceLineIntersectionWorldPoint, actualSurfaceLine.ReferenceLineIntersectionWorldPoint);
@@ -772,7 +772,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedSurfaceLine.DitchPolderSide, actualSurfaceLine.DitchPolderSide);
         }
 
-        private void AssertCalculationGroup(CalculationGroup expectedRootCalculationGroup, CalculationGroup actualRootCalculationGroup)
+        private static void AssertCalculationGroup(CalculationGroup expectedRootCalculationGroup, CalculationGroup actualRootCalculationGroup)
         {
             Assert.AreEqual(expectedRootCalculationGroup.Name, actualRootCalculationGroup.Name);
             Assert.AreEqual(expectedRootCalculationGroup.IsNameEditable, actualRootCalculationGroup.IsNameEditable);
@@ -803,7 +803,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertPipingCalculationScenario(PipingCalculationScenario expectedPipingCalculation, PipingCalculationScenario actualPipingCalculation)
+        private static void AssertPipingCalculationScenario(PipingCalculationScenario expectedPipingCalculation, PipingCalculationScenario actualPipingCalculation)
         {
             Assert.AreEqual(expectedPipingCalculation.IsRelevant, actualPipingCalculation.IsRelevant);
             Assert.AreEqual(expectedPipingCalculation.Contribution, actualPipingCalculation.Contribution);
@@ -832,7 +832,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedPipingInput.DarcyPermeability.StandardDeviation, actualPipingInput.DarcyPermeability.StandardDeviation);
         }
 
-        private void AssertPipingOutput(PipingOutput expectedOutput, PipingOutput actualOutput)
+        private static void AssertPipingOutput(PipingOutput expectedOutput, PipingOutput actualOutput)
         {
             if (expectedOutput == null)
             {
@@ -849,7 +849,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertPipingSemiProbabilisticOutput(PipingSemiProbabilisticOutput expectedOutput, PipingSemiProbabilisticOutput actualOutput)
+        private static void AssertPipingSemiProbabilisticOutput(PipingSemiProbabilisticOutput expectedOutput, PipingSemiProbabilisticOutput actualOutput)
         {
             if (expectedOutput == null)
             {
@@ -878,13 +878,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertGrassCoverErosionInwardsCalculation(GrassCoverErosionInwardsCalculation expectedCalculation, GrassCoverErosionInwardsCalculation actualCalculation)
+        private static void AssertGrassCoverErosionInwardsCalculation(GrassCoverErosionInwardsCalculation expectedCalculation, GrassCoverErosionInwardsCalculation actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             Assert.AreEqual(expectedCalculation.Comments, actualCalculation.Comments);
         }
 
-        private void AssertGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism expectedFailureMechanism,
+        private static void AssertGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism expectedFailureMechanism,
                                                                            GrassCoverErosionInwardsFailureMechanism actualFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
@@ -941,7 +941,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedRoughnessPoint.Roughness, actualRoughnessPoint.Roughness);
         }
 
-        private void TearDownTempRingtoetsFile(string filePath)
+        private static void TearDownTempRingtoetsFile(string filePath)
         {
             GC.Collect();
             GC.WaitForPendingFinalizers();

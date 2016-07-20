@@ -151,6 +151,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
             var registry = new PersistenceRegistry();
 
             const int order = 86;
+
             // Call
             calculation.Update(registry, ringtoetsEntities, order);
 

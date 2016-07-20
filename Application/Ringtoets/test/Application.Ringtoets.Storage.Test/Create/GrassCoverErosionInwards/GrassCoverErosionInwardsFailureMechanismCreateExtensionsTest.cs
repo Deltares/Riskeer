@@ -199,7 +199,5 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(1, childGroupEntities[1].IsEditable);
             Assert.AreEqual(1, childGroupEntities[1].Order);
         }
-
-        // TODO: With calculations in root folder
     }
 }

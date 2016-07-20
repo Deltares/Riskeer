@@ -477,8 +477,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(childGroup2Id, ((CalculationGroup)child2).StorageId);
         }
 
-        // TODO Calculations
-
         #endregion
 
         [Test]

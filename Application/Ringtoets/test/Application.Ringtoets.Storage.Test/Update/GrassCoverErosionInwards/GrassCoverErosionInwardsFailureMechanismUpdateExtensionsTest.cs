@@ -492,7 +492,6 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
             ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
             {
                 GrassCoverErosionInwardsFailureMechanismMetaEntityId = failureMechanism.GeneralInput.StorageId,
-                FailureMechanismEntityId = failureMechanism.StorageId
             });
 
             var registry = new PersistenceRegistry();
@@ -565,7 +564,6 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
             ringtoetsEntities.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(new GrassCoverErosionInwardsFailureMechanismMetaEntity
             {
                 GrassCoverErosionInwardsFailureMechanismMetaEntityId = failureMechanism.GeneralInput.StorageId,
-                FailureMechanismEntityId = failureMechanism.StorageId
             });
 
             var registry = new PersistenceRegistry();
