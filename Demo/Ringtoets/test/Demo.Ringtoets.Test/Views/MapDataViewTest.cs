@@ -30,10 +30,10 @@ using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
-using Core.Plugins.DotSpatial.Forms;
+using Demo.Ringtoets.Views;
 using NUnit.Framework;
 
-namespace Core.Plugins.DotSpatial.Test.Forms
+namespace Demo.Ringtoets.Test.Views
 {
     [TestFixture]
     public class MapDataViewTest

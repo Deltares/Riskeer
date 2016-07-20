@@ -36,18 +36,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Data.dll</HintPath>
     </Reference>
-    <Reference Include="DotSpatial.Mono, Version=1.8.0.0, Culture=neutral, PublicKeyToken=425ba4de41127026, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Mono.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Projections, Version=1.8.0.0, Culture=neutral, PublicKeyToken=272632bddd08a38b, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Projections.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Serialization, Version=1.8.0.0, Culture=neutral, PublicKeyToken=441f200f827611e7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Serialization.dll</HintPath>
-    </Reference>
     <Reference Include="DotSpatial.Topology, Version=1.8.0.0, Culture=neutral, PublicKeyToken=a66b5e9434ca3671, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Topology.dll</HintPath>
@@ -76,12 +64,6 @@
     </Compile>
     <Compile Include="Commands\ToggleMapLegendViewCommand.cs" />
     <Compile Include="DotSpatialPlugin.cs" />
-    <Compile Include="Forms\MapDataView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\MapDataView.Designer.cs">
-      <DependentUpon>MapDataView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Legend\MapLegendController.cs" />
     <Compile Include="Legend\MapLegendView.cs">
       <SubType>UserControl</SubType>

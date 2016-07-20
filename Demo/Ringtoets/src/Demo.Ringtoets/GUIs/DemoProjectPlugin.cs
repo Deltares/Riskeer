@@ -2,9 +2,12 @@
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Components.Charting.Data;
-using Core.Plugins.Chart.Properties;
+using Core.Components.Gis.Data;
 using Demo.Ringtoets.Ribbons;
 using Demo.Ringtoets.Views;
+
+using ChartResources = Core.Plugins.Chart.Properties.Resources;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Demo.Ringtoets.GUIs
 {
@@ -25,8 +28,14 @@ namespace Demo.Ringtoets.GUIs
         {
             yield return new ViewInfo<ChartDataCollection, ChartDataView>
             {
-                Image = Resources.ChartIcon,
-                GetViewName = (v, o) => Resources.OxyPlotPlugin_GetViewInfos_Diagram
+                Image = ChartResources.ChartIcon,
+                GetViewName = (v, o) => ChartResources.OxyPlotPlugin_GetViewInfos_Diagram
+            };
+
+            yield return new ViewInfo<MapData, MapDataView>
+            {
+                Image = CoreCommonGuiResources.DocumentHS,
+                GetViewName = (v, o) => CoreCommonGuiResources.DotSpatialPlugin_GetViewInfoObjects_Map
             };
         }
     }

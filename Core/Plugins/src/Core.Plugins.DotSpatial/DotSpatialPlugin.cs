@@ -20,15 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
-using Core.Common.Gui.Properties;
-using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Core.Plugins.DotSpatial.Commands;
-using Core.Plugins.DotSpatial.Forms;
 using Core.Plugins.DotSpatial.Legend;
 
 namespace Core.Plugins.DotSpatial
@@ -67,15 +63,6 @@ namespace Core.Plugins.DotSpatial
                 Gui.ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
             }
             base.Dispose();
-        }
-
-        public override IEnumerable<ViewInfo> GetViewInfos()
-        {
-            yield return new ViewInfo<MapData, MapDataView>
-            {
-                Image = Resources.DocumentHS,
-                GetViewName = (v, o) => Resources.DotSpatialPlugin_GetViewInfoObjects_Map
-            };
         }
 
         private MapLegendController CreateLegendController(IViewController viewController)

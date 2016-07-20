@@ -32,7 +32,6 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
-using Core.Plugins.DotSpatial.Forms;
 using Core.Plugins.DotSpatial.Legend;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -104,26 +103,6 @@ namespace Core.Plugins.DotSpatial.Test
                 Assert.NotNull(plugin.RibbonCommandHandler);
             }
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetViewInfoObjects_Always_ReturnsMapDataViewInfo()
-        {
-            // Setup
-            using (var plugin = new DotSpatialPlugin())
-            {
-                using (var view = new MapDataView())
-                {
-                    // Call
-                    var views = plugin.GetViewInfos().ToArray();
-
-                    // Assert
-                    Assert.AreEqual(1, views.Length);
-                    Assert.AreEqual(typeof(MapData), views[0].DataType);
-                    Assert.AreEqual(typeof(MapDataView), views[0].ViewType);
-                    Assert.AreEqual("Kaart", views[0].GetViewName(view, null));
-                }
-            }
         }
 
         [Test]

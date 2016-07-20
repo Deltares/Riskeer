@@ -1,4 +1,4 @@
-﻿namespace Core.Plugins.DotSpatial.Forms
+﻿namespace Demo.Ringtoets.Views
 {
     partial class MapDataView
     {
@@ -28,10 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.mapControl = new Core.Components.DotSpatial.Forms.MapControl();
+            this.SuspendLayout();
+            // 
+            // mapControl1
+            // 
+            this.mapControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mapControl.Location = new System.Drawing.Point(0, 0);
+            this.mapControl.Name = "mapControl1";
+            this.mapControl.Size = new System.Drawing.Size(150, 150);
+            this.mapControl.TabIndex = 0;
+            this.mapControl.Text = "mapControl1";
+            // 
+            // MapDataView
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.mapControl);
+            this.Name = "MapDataView";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private Core.Components.DotSpatial.Forms.MapControl mapControl;
     }
 }

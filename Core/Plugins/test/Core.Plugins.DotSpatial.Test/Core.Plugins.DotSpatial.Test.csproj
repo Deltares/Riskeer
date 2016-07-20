@@ -62,7 +62,6 @@
   <ItemGroup>
     <Compile Include="Commands\ToggleMapLegendViewCommandTest.cs" />
     <Compile Include="DotSpatialPluginTest.cs" />
-    <Compile Include="Forms\MapDataViewTest.cs" />
     <Compile Include="Legend\MapDataCollectionTreeNodeInfoTest.cs" />
     <Compile Include="Legend\MapLegendControllerTest.cs" />
     <Compile Include="Legend\MapLegendViewTest.cs" />
