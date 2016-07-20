@@ -30,15 +30,15 @@ using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
-using Core.Plugins.DotSpatial.Legend;
+using Core.Plugins.Map.Legend;
+using Core.Plugins.Map.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
-using DotSpatialResources = Core.Plugins.DotSpatial.Properties.Resources;
 
-namespace Core.Plugins.DotSpatial.Test.Legend
+namespace Core.Plugins.Map.Test.Legend
 {
     [TestFixture]
-    public class MapLineDataTreeNodeInfoTest
+    public class MapPointDataTreeNodeInfoTest
     {
         private MockRepository mocks;
         private MapLegendView mapLegendView;
@@ -56,15 +56,13 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
             Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
 
-            info = treeNodeInfoLookup[typeof(MapLineData)];
+            info = treeNodeInfoLookup[typeof(MapPointData)];
         }
 
         [TearDown]
         public void TearDown()
         {
             mapLegendView.Dispose();
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -74,7 +72,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             mocks.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(MapLineData), info.TagType);
+            Assert.AreEqual(typeof(MapPointData), info.TagType);
             Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
@@ -92,14 +90,14 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void Text_Always_ReturnsNameFromMapData()
         {
             // Setup
-            var mapLineData = mocks.StrictMock<MapLineData>(Enumerable.Empty<MapFeature>(), "MapLineData");
+            var mapPointData = mocks.StrictMock<MapPointData>(Enumerable.Empty<MapFeature>(), "MapPointData");
             mocks.ReplayAll();
 
             // Call
-            var text = info.Text(mapLineData);
+            var text = info.Text(mapPointData);
 
             // Assert
-            Assert.AreEqual(mapLineData.Name, text);
+            Assert.AreEqual(mapPointData.Name, text);
         }
 
         [Test]
@@ -112,14 +110,14 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             var image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(DotSpatialResources.LineIcon, image);
+            TestHelper.AssertImagesAreEqual(Resources.PointsIcon, image);
         }
 
         [Test]
         public void CanCheck_Always_ReturnsTrue()
         {
             // Setup
-            var lineData = mocks.StrictMock<MapLineData>(Enumerable.Empty<MapFeature>(), "test data");
+            var lineData = mocks.StrictMock<MapPointData>(Enumerable.Empty<MapFeature>(), "test data");
 
             mocks.ReplayAll();
 
@@ -135,8 +133,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void IsChecked_Always_ReturnsAccordingToVisibleStateOfLineData(bool isVisible)
         {
             // Setup
-            var lineData = mocks.StrictMock<MapLineData>(Enumerable.Empty<MapFeature>(), "test data");
-
+            var lineData = mocks.StrictMock<MapPointData>(Enumerable.Empty<MapFeature>(), "test data");
             lineData.IsVisible = isVisible;
 
             mocks.ReplayAll();
@@ -153,7 +150,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void OnNodeChecked_LineDataNodeWithoutParent_SetsLineDataVisibility(bool initialVisibleState)
         {
             // Setup
-            var lineData = mocks.StrictMock<MapLineData>(Enumerable.Empty<MapFeature>(), "test data");
+            var lineData = mocks.StrictMock<MapPointData>(Enumerable.Empty<MapFeature>(), "test data");
 
             mocks.ReplayAll();
 
@@ -171,10 +168,10 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void OnNodeChecked_LineDataNodeWithObservableParent_SetsLineDataVisibilityAndNotifiesParentObservers(bool initialVisibleState)
         {
             // Setup
+            var lineData = mocks.StrictMock<MapPointData>(Enumerable.Empty<MapFeature>(), "test data");
+
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
-
-            var lineData = mocks.StrictMock<MapLineData>(Enumerable.Empty<MapFeature>(), "test data");
 
             mocks.ReplayAll();
 
@@ -191,12 +188,12 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void CanDrag_Always_ReturnsTrue()
         {
             // Setup
-            var lineData = mocks.StrictMock<MapLineData>(Enumerable.Empty<MapFeature>(), "test data");
+            var pointData = mocks.StrictMock<MapPointData>(Enumerable.Empty<MapFeature>(), "test data");
 
             mocks.ReplayAll();
 
             // Call
-            var canDrag = info.CanDrag(lineData, null);
+            var canDrag = info.CanDrag(pointData, null);
 
             // Assert
             Assert.IsTrue(canDrag);

@@ -32,12 +32,12 @@ using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
-using Core.Plugins.DotSpatial.Legend;
-using Core.Plugins.DotSpatial.Properties;
+using Core.Plugins.Map.Legend;
+using Core.Plugins.Map.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.DotSpatial.Test.Legend
+namespace Core.Plugins.Map.Test.Legend
 {
     [TestFixture]
     public class MapLegendViewTest

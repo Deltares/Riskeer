@@ -22,6 +22,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Core.Plugins.DotSpatial.Test")]
-[assembly: AssemblyProduct("Core.Plugins.DotSpatial.Test")]
-[assembly: Guid("93AB5AFB-F58E-4EC4-A25E-FF439B1895E7")]
+[assembly: AssemblyTitle("Core.Plugins.Map")]
+[assembly: AssemblyProduct("Core.Plugins.Map")]
+[assembly: Guid("610E0A9C-1997-4C43-A10E-39D4C66ADA93")]

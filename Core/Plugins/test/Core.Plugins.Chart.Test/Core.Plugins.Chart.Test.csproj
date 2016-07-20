@@ -126,8 +126,7 @@
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Plugins.Chart\Core.Plugins.Chart.csproj">
       <Project>{4163B996-3455-4324-A38A-9F2F0E6FCB52}</Project>
-      <Name>Core.Plugins.OxyPlot</Name>
-      <Private>True</Private>
+      <Name>Core.Plugins.Chart</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

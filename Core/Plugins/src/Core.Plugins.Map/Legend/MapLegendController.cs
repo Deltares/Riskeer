@@ -27,9 +27,9 @@ using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Components.Gis.Data;
-using Core.Plugins.DotSpatial.Properties;
+using Core.Plugins.Map.Properties;
 
-namespace Core.Plugins.DotSpatial.Legend
+namespace Core.Plugins.Map.Legend
 {
     /// <summary>
     /// This class controls the actions which are related to controlling visibility and updating contents of a <see cref="MapLegendView"/>.

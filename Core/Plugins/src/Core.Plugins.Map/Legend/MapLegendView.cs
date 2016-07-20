@@ -35,11 +35,11 @@ using Core.Components.Gis.IO.Readers;
 using DotSpatial.Data;
 using DotSpatial.Topology;
 using log4net;
-using DotSpatialResources = Core.Plugins.DotSpatial.Properties.Resources;
+using MapResources = Core.Plugins.Map.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 using ILog = log4net.ILog;
 
-namespace Core.Plugins.DotSpatial.Legend
+namespace Core.Plugins.Map.Legend
 {
     /// <summary>
     /// The view which shows the data that is added to a <see cref="MapControl"/>.
@@ -71,7 +71,7 @@ namespace Core.Plugins.DotSpatial.Legend
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
             this.parentWindow = parentWindow;
             InitializeComponent();
-            Text = DotSpatialResources.General_Map;
+            Text = MapResources.General_Map;
 
             RegisterTreeNodeInfos();
         }
@@ -93,7 +93,7 @@ namespace Core.Plugins.DotSpatial.Legend
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPointData>
             {
                 Text = mapPointData => mapPointData.Name,
-                Image = mapPointData => DotSpatialResources.PointsIcon,
+                Image = mapPointData => MapResources.PointsIcon,
                 CanDrag = (mapPointData, parentData) => true,
                 CanCheck = mapPointData => true,
                 IsChecked = mapPointData => mapPointData.IsVisible,
@@ -103,7 +103,7 @@ namespace Core.Plugins.DotSpatial.Legend
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapLineData>
             {
                 Text = mapLineData => mapLineData.Name,
-                Image = mapLineData => DotSpatialResources.LineIcon,
+                Image = mapLineData => MapResources.LineIcon,
                 CanDrag = (mapLineData, parentData) => true,
                 CanCheck = mapLineData => true,
                 IsChecked = mapLineData => mapLineData.IsVisible,
@@ -113,7 +113,7 @@ namespace Core.Plugins.DotSpatial.Legend
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPolygonData>
             {
                 Text = mapPolygonData => mapPolygonData.Name,
-                Image = mapPolygonData => DotSpatialResources.AreaIcon,
+                Image = mapPolygonData => MapResources.AreaIcon,
                 CanDrag = (mapPolygonData, parentData) => true,
                 CanCheck = mapPolygonData => true,
                 IsChecked = mapPolygonData => mapPolygonData.IsVisible,
@@ -173,9 +173,9 @@ namespace Core.Plugins.DotSpatial.Legend
         private ContextMenuStrip MapDataCollectionContextMenuStrip(MapDataCollection mapDataCollection, object parentData, TreeViewControl treeView)
         {
             StrictContextMenuItem addMapLayerMenuItem = new StrictContextMenuItem(
-                DotSpatialResources.MapLegendView_MapDataCollectionContextMenuStrip__Add_MapLayer,
-                DotSpatialResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip,
-                DotSpatialResources.MapPlusIcon,
+                MapResources.MapLegendView_MapDataCollectionContextMenuStrip__Add_MapLayer,
+                MapResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip,
+                MapResources.MapPlusIcon,
                 (sender, args) => ShowSelectShapeFileDialog(sender, args, mapDataCollection));
 
             return contextMenuBuilderProvider.Get(mapDataCollection, treeView).AddCustomItem(addMapLayerMenuItem).Build();
@@ -187,10 +187,10 @@ namespace Core.Plugins.DotSpatial.Legend
 
         private void ShowSelectShapeFileDialog(object sender, EventArgs eventArgs, MapDataCollection mapDataCollection)
         {
-            var windowTitle = DotSpatialResources.MapLegendView_ShowSelectShapeFileDialog_Select_Shape_File;
+            var windowTitle = MapResources.MapLegendView_ShowSelectShapeFileDialog_Select_Shape_File;
             using (var dialog = new OpenFileDialog
             {
-                Filter = string.Format("{0} (*.shp)|*.shp", DotSpatialResources.MapLegendView_ShowSelectShapeFileDialog_Shape_file),
+                Filter = string.Format("{0} (*.shp)|*.shp", MapResources.MapLegendView_ShowSelectShapeFileDialog_Shape_file),
                 Multiselect = false,
                 Title = windowTitle,
                 RestoreDirectory = true,
@@ -234,25 +234,25 @@ namespace Core.Plugins.DotSpatial.Legend
                         }
                         break;
                     default:
-                        log.Error(DotSpatialResources.MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data);
+                        log.Error(MapResources.MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data);
                         return;
                 }
 
                 mapDataCollection.Add(importedData);
 
-                log.Info(DotSpatialResources.MapLegendView_CheckDataFormat_Shapefile_Is_Imported);
+                log.Info(MapResources.MapLegendView_CheckDataFormat_Shapefile_Is_Imported);
                 mapDataCollection.NotifyObservers();
             }
             catch (FileNotFoundException)
             {
                 string message = new FileReaderErrorMessageBuilder(filePath)
-                    .Build(DotSpatialResources.MapLegendView_CheckDataFormat_File_Does_Not_Exist_Or_Misses_Needed_Files);
+                    .Build(MapResources.MapLegendView_CheckDataFormat_File_Does_Not_Exist_Or_Misses_Needed_Files);
                 log.Error(message);
             }
             catch (IOException)
             {
                 string message = new FileReaderErrorMessageBuilder(filePath)
-                    .Build(DotSpatialResources.MapLegendView_CheckDataFormat_An_Error_Occured_When_Trying_To_Read_The_File);
+                    .Build(MapResources.MapLegendView_CheckDataFormat_An_Error_Occured_When_Trying_To_Read_The_File);
                 log.Error(message);
             }
             catch (CriticalFileReadException e)

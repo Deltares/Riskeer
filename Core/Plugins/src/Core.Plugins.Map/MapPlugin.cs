@@ -24,15 +24,15 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Components.Gis.Forms;
-using Core.Plugins.DotSpatial.Commands;
-using Core.Plugins.DotSpatial.Legend;
+using Core.Plugins.Map.Commands;
+using Core.Plugins.Map.Legend;
 
-namespace Core.Plugins.DotSpatial
+namespace Core.Plugins.Map
 {
     /// <summary>
     /// The plug-in for the <see cref="DotSpatial"/> map component.
     /// </summary>
-    public class DotSpatialPlugin : PluginBase
+    public class MapPlugin : PluginBase
     {
         private MapRibbon mapRibbon;
         private MapLegendController mapLegendController;
@@ -91,7 +91,7 @@ namespace Core.Plugins.DotSpatial
         }
 
         /// <summary>
-        /// Updates the components which the <see cref="DotSpatialPlugin"/> knows about so that it reflects
+        /// Updates the components which the <see cref="MapPlugin"/> knows about so that it reflects
         /// the currently active view.
         /// </summary>
         private void UpdateComponentsForActiveDocumentView()

@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using Core.Common.Controls.Commands;
-using Core.Plugins.DotSpatial.Legend;
+using Core.Plugins.Map.Legend;
 
-namespace Core.Plugins.DotSpatial.Commands
+namespace Core.Plugins.Map.Commands
 {
     /// <summary>
     /// The command which toggles the visibility of the <see cref="MapLegendView"/>.

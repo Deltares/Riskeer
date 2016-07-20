@@ -5,8 +5,8 @@
     <ProjectGuid>{610E0A9C-1997-4C43-A10E-39D4C66ADA93}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.Plugins.DotSpatial</RootNamespace>
-    <AssemblyName>Core.Plugins.DotSpatial</AssemblyName>
+    <RootNamespace>Core.Plugins.Map</RootNamespace>
+    <AssemblyName>Core.Plugins.Map</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -63,7 +63,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Commands\ToggleMapLegendViewCommand.cs" />
-    <Compile Include="DotSpatialPlugin.cs" />
+    <Compile Include="MapPlugin.cs" />
     <Compile Include="Legend\MapLegendController.cs" />
     <Compile Include="Legend\MapLegendView.cs">
       <SubType>UserControl</SubType>

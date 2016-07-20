@@ -24,10 +24,9 @@ using System.Windows;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
 using Core.Components.Gis.Forms;
-
 using Fluent;
 
-namespace Core.Plugins.DotSpatial
+namespace Core.Plugins.Map
 {
     /// <summary>
     /// This class represents the ribbon interaction which has to do with maps.

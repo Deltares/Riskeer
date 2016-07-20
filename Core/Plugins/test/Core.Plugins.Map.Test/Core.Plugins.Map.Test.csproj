@@ -6,8 +6,8 @@
     <ProjectGuid>{93AB5AFB-F58E-4EC4-A25E-FF439B1895E7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.Plugins.DotSpatial.Test</RootNamespace>
-    <AssemblyName>Core.Plugins.DotSpatial.Test</AssemblyName>
+    <RootNamespace>Core.Plugins.Map.Test</RootNamespace>
+    <AssemblyName>Core.Plugins.Map.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ToggleMapLegendViewCommandTest.cs" />
-    <Compile Include="DotSpatialPluginTest.cs" />
+    <Compile Include="MapPluginTest.cs" />
     <Compile Include="Legend\MapDataCollectionTreeNodeInfoTest.cs" />
     <Compile Include="Legend\MapLegendControllerTest.cs" />
     <Compile Include="Legend\MapLegendViewTest.cs" />
@@ -127,7 +127,7 @@
       <Project>{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}</Project>
       <Name>Core.Components.DotSpatial.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Plugins.DotSpatial\Core.Plugins.DotSpatial.csproj">
+    <ProjectReference Include="..\..\src\Core.Plugins.Map\Core.Plugins.Map.csproj">
       <Project>{610e0a9c-1997-4c43-a10e-39d4c66ada93}</Project>
       <Name>Core.Plugins.DotSpatial</Name>
     </ProjectReference>

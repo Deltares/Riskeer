@@ -30,13 +30,13 @@ using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
-using Core.Plugins.DotSpatial.Legend;
+using Core.Plugins.Map.Legend;
+using Core.Plugins.Map.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
-using DotSpatialResources = Core.Plugins.DotSpatial.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Core.Plugins.DotSpatial.Test.Legend
+namespace Core.Plugins.Map.Test.Legend
 {
     [TestFixture]
     public class MapDataCollectionTreeNodeInfoTest
@@ -314,7 +314,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
                 var contextMenu = info.ContextMenuStrip(mapDataCollection, null, treeViewControl);
 
                 // Assert
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, DotSpatialResources.MapPlusIcon);
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, Resources.MapPlusIcon);
             }
         }
     }

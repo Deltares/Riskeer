@@ -26,8 +26,8 @@ using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Components.Gis.Forms;
-using Core.Plugins.DotSpatial.Commands;
-using Core.Plugins.DotSpatial.Legend;
+using Core.Plugins.Map.Commands;
+using Core.Plugins.Map.Legend;
 using Fluent;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -36,7 +36,7 @@ using ButtonBase = System.Windows.Controls.Primitives.ButtonBase;
 using Control = System.Windows.Controls.Control;
 using ToggleButton = Fluent.ToggleButton;
 
-namespace Core.Plugins.DotSpatial.Test
+namespace Core.Plugins.Map.Test
 {
     [TestFixture]
     public class MapRibbonTest

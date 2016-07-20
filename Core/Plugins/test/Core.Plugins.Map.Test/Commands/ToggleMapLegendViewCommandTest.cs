@@ -26,12 +26,12 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ViewHost;
-using Core.Plugins.DotSpatial.Commands;
-using Core.Plugins.DotSpatial.Legend;
+using Core.Plugins.Map.Commands;
+using Core.Plugins.Map.Legend;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.DotSpatial.Test.Commands
+namespace Core.Plugins.Map.Test.Commands
 {
     [TestFixture]
     public class ToggleMapLegendViewCommandTest

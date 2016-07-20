@@ -40,7 +40,7 @@ using Core.Common.Gui.Settings;
 using Core.Common.Utils;
 using Core.Plugins.Chart;
 using Core.Plugins.CommonTools;
-using Core.Plugins.DotSpatial;
+using Core.Plugins.Map;
 using Core.Plugins.ProjectExplorer;
 using log4net;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
@@ -157,7 +157,7 @@ namespace Application.Ringtoets
                     new PipingPlugin(),
                     new HeightStructuresPlugin(),
                     new ChartPlugin(),
-                    new DotSpatialPlugin()
+                    new MapPlugin()
 #if INCLUDE_DEMOPROJECT
                     , new DemoProjectPlugin()
 #endif

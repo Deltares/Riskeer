@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 using Core.Common.Base.Storage;
@@ -31,21 +30,21 @@ using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Components.DotSpatial.Forms;
-using Core.Components.Gis.Data;
-using Core.Plugins.DotSpatial.Legend;
+using Core.Plugins.DotSpatial.Test;
+using Core.Plugins.Map.Legend;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.DotSpatial.Test
+namespace Core.Plugins.Map.Test
 {
     [TestFixture]
-    public class DotSpatialPluginTest
+    public class MapPluginTest
     {
         [Test]
         public void DefaultConstructor_Always_NoRibbonCommandHandlerSet()
         {
             // Call
-            using (var plugin = new DotSpatialPlugin())
+            using (var plugin = new MapPlugin())
             {
                 // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
@@ -58,7 +57,7 @@ namespace Core.Plugins.DotSpatial.Test
         public void Activate_WithoutGui_ThrowsArgumentNullException()
         {
             // Setup
-            using (var plugin = new DotSpatialPlugin())
+            using (var plugin = new MapPlugin())
             {
                 // Call
                 TestDelegate test = () => plugin.Activate();
@@ -76,7 +75,7 @@ namespace Core.Plugins.DotSpatial.Test
             // Setup
             var mocks = new MockRepository();
 
-            using (var plugin = new DotSpatialPlugin())
+            using (var plugin = new MapPlugin())
             {
                 var gui = mocks.StrictMock<IGui>();
                 var mainWindow = mocks.StrictMock<IMainWindow>();
@@ -118,7 +117,7 @@ namespace Core.Plugins.DotSpatial.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
             {
-                var plugin = new DotSpatialPlugin();
+                var plugin = new MapPlugin();
                 var testMapView = new TestMapView();
                 var map = new MapControl();
                 IView viewMock = visible ? (IView) testMapView : new TestView();

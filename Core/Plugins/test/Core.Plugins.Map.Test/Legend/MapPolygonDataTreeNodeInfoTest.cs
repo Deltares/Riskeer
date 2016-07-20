@@ -30,15 +30,15 @@ using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
-using Core.Plugins.DotSpatial.Legend;
+using Core.Plugins.Map.Legend;
+using Core.Plugins.Map.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
-using DotSpatialResources = Core.Plugins.DotSpatial.Properties.Resources;
 
-namespace Core.Plugins.DotSpatial.Test.Legend
+namespace Core.Plugins.Map.Test.Legend
 {
     [TestFixture]
-    public class MapPointDataTreeNodeInfoTest
+    public class MapPolygonDataTreeNodeInfoTest
     {
         private MockRepository mocks;
         private MapLegendView mapLegendView;
@@ -47,22 +47,26 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
-            var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            var parentWindow = mocks.StrictMock<IWin32Window>();
+            var mockRepository = new MockRepository();
+            var contextMenuBuilderProvider = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            var parentWindow = mockRepository.StrictMock<IWin32Window>();
 
             mapLegendView = new MapLegendView(contextMenuBuilderProvider, parentWindow);
 
             TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
             Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
 
-            info = treeNodeInfoLookup[typeof(MapPointData)];
+            info = treeNodeInfoLookup[typeof(MapPolygonData)];
+
+            mocks = mockRepository;
         }
 
         [TearDown]
         public void TearDown()
         {
             mapLegendView.Dispose();
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -72,7 +76,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             mocks.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(MapPointData), info.TagType);
+            Assert.AreEqual(typeof(MapPolygonData), info.TagType);
             Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
@@ -90,14 +94,14 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void Text_Always_ReturnsNameFromMapData()
         {
             // Setup
-            var mapPointData = mocks.StrictMock<MapPointData>(Enumerable.Empty<MapFeature>(), "MapPointData");
+            var mapPolygonData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<MapFeature>(), "MapPolygonData");
             mocks.ReplayAll();
 
             // Call
-            var text = info.Text(mapPointData);
+            var text = info.Text(mapPolygonData);
 
             // Assert
-            Assert.AreEqual(mapPointData.Name, text);
+            Assert.AreEqual(mapPolygonData.Name, text);
         }
 
         [Test]
@@ -110,14 +114,14 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             var image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(DotSpatialResources.PointsIcon, image);
+            TestHelper.AssertImagesAreEqual(Resources.AreaIcon, image);
         }
 
         [Test]
         public void CanCheck_Always_ReturnsTrue()
         {
             // Setup
-            var lineData = mocks.StrictMock<MapPointData>(Enumerable.Empty<MapFeature>(), "test data");
+            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<MapFeature>(), "test data");
 
             mocks.ReplayAll();
 
@@ -128,12 +132,27 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             Assert.IsTrue(canCheck);
         }
 
+        [Test]
+        public void CanDrag_Always_ReturnsTrue()
+        {
+            // Setup
+            var polygonData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<MapFeature>(), "test data");
+
+            mocks.ReplayAll();
+
+            // Call
+            var canDrag = info.CanDrag(polygonData, null);
+
+            // Assert
+            Assert.IsTrue(canDrag);
+        }
+
         [TestCase(true)]
         [TestCase(false)]
         public void IsChecked_Always_ReturnsAccordingToVisibleStateOfLineData(bool isVisible)
         {
             // Setup
-            var lineData = mocks.StrictMock<MapPointData>(Enumerable.Empty<MapFeature>(), "test data");
+            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<MapFeature>(), "test data");
             lineData.IsVisible = isVisible;
 
             mocks.ReplayAll();
@@ -150,7 +169,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void OnNodeChecked_LineDataNodeWithoutParent_SetsLineDataVisibility(bool initialVisibleState)
         {
             // Setup
-            var lineData = mocks.StrictMock<MapPointData>(Enumerable.Empty<MapFeature>(), "test data");
+            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<MapFeature>(), "test data");
 
             mocks.ReplayAll();
 
@@ -168,7 +187,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void OnNodeChecked_LineDataNodeWithObservableParent_SetsLineDataVisibilityAndNotifiesParentObservers(bool initialVisibleState)
         {
             // Setup
-            var lineData = mocks.StrictMock<MapPointData>(Enumerable.Empty<MapFeature>(), "test data");
+            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<MapFeature>(), "test data");
 
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
@@ -182,21 +201,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
             // Assert
             Assert.AreEqual(!initialVisibleState, lineData.IsVisible);
-        }
-
-        [Test]
-        public void CanDrag_Always_ReturnsTrue()
-        {
-            // Setup
-            var pointData = mocks.StrictMock<MapPointData>(Enumerable.Empty<MapFeature>(), "test data");
-
-            mocks.ReplayAll();
-
-            // Call
-            var canDrag = info.CanDrag(pointData, null);
-
-            // Assert
-            Assert.IsTrue(canDrag);
         }
     }
 }

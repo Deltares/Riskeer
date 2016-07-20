@@ -1,4 +1,4 @@
-﻿namespace Core.Plugins.DotSpatial.Legend
+﻿namespace Core.Plugins.Map.Legend
 {
     partial class MapLegendView
     {
