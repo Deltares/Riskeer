@@ -172,7 +172,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
 
             // Assert
-            Assert.AreEqual(calculation.Output.Probability, assessmentLayerTwoA);
+            Assert.AreEqual(calculation.Output.ProbabilisticAssessmentOutput.Probability, assessmentLayerTwoA);
         }
 
         [Test]

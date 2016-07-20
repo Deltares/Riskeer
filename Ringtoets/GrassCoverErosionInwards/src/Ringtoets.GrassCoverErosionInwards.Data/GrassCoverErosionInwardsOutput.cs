@@ -21,6 +21,8 @@
 
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Storage;
+
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 
@@ -29,9 +31,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// The result of a Grass Cover Erosion Inwards assessment.
     /// </summary>
-    public class GrassCoverErosionInwardsOutput : Observable, ICalculationOutput
+    public class GrassCoverErosionInwardsOutput : Observable, ICalculationOutput, IStorable
     {
-        private readonly ProbabilityAssessmentOutput probabilityAssessmentOutput;
         private readonly double? dikeHeight;
 
         /// <summary>
@@ -44,9 +45,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <param name="dikeHeight">The calculated dike height.</param>
         public GrassCoverErosionInwardsOutput(double waveHeight, bool isOvertoppingDominant, ProbabilityAssessmentOutput probabilityAssessmentOutput, double? dikeHeight)
         {
-            IsOvertoppingDominant = isOvertoppingDominant;            
+            IsOvertoppingDominant = isOvertoppingDominant;
             WaveHeight = new RoundedDouble(2, waveHeight);
-            this.probabilityAssessmentOutput = probabilityAssessmentOutput;
+            ProbabilisticAssessmentOutput = probabilityAssessmentOutput;
             this.dikeHeight = dikeHeight;
         }
 
@@ -84,58 +85,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets the factor of safety of the failure mechanism.
+        /// Gets the probabilistic assessment output based on the grass cover erosion 
+        /// inwards calculation output.
         /// </summary>
-        public RoundedDouble FactorOfSafety
-        {
-            get
-            {
-                return probabilityAssessmentOutput.FactorOfSafety;
-            }
-        }
+        public ProbabilityAssessmentOutput ProbabilisticAssessmentOutput { get; private set; }
 
-        /// <summary>
-        /// Gets the probability of failure.
-        /// </summary>
-        public double Probability
-        {
-            get
-            {
-                return probabilityAssessmentOutput.Probability;
-            }
-        }
-
-        /// <summary>
-        /// Gets the reliability of the failure mechanism.
-        /// </summary>
-        public RoundedDouble Reliability
-        {
-            get
-            {
-                return probabilityAssessmentOutput.Reliability;
-            }
-        }
-
-        /// <summary>
-        /// Gets the required (maximum allowed) probability of failure.
-        /// </summary>
-        public double RequiredProbability
-        {
-            get
-            {
-                return probabilityAssessmentOutput.RequiredProbability;
-            }
-        }
-
-        /// <summary>
-        /// Get the required (maximum allowed) reliability of the failure mechanism.
-        /// </summary>
-        public RoundedDouble RequiredReliability
-        {
-            get
-            {
-                return probabilityAssessmentOutput.RequiredReliability;
-            }
-        }
+        public long StorageId { get; set; }
     }
 }

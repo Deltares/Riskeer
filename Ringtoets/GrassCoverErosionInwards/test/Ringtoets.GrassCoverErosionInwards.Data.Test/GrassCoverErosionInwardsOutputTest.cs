@@ -21,10 +21,11 @@
 
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Storage;
+
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -52,17 +53,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Assert
             Assert.IsInstanceOf<ICalculationOutput>(output);
             Assert.IsInstanceOf<Observable>(output);
+            Assert.IsInstanceOf<IStorable>(output);
+
             Assert.AreEqual(new RoundedDouble(2, waveHeight), output.WaveHeight);
             Assert.AreEqual(2, output.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(isOvertoppingDominant, output.IsOvertoppingDominant);
             Assert.AreEqual(new RoundedDouble(2, dikeHeight), output.DikeHeight);
             Assert.AreEqual(2, output.DikeHeight.NumberOfDecimalPlaces);
             Assert.IsTrue(output.DikeHeightCalculated);
-            Assert.AreEqual(requiredProbability, output.RequiredProbability);
-            Assert.AreEqual(requiredReliability, output.RequiredReliability, output.RequiredReliability.GetAccuracy());
-            Assert.AreEqual(probability, output.Probability);
-            Assert.AreEqual(reliability, output.Reliability, output.Reliability.GetAccuracy());
-            Assert.AreEqual(factorOfSafety, output.FactorOfSafety, output.FactorOfSafety.GetAccuracy());
+
+            Assert.AreSame(probabilityAssessmentOutput, output.ProbabilisticAssessmentOutput);
+
+            Assert.AreEqual(0, output.StorageId);
         }
 
         [Test]

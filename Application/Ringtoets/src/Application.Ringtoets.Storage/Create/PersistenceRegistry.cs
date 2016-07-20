@@ -31,6 +31,7 @@ using Core.Common.Utils;
 
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
@@ -57,6 +58,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<GrassCoverErosionInwardsFailureMechanismMetaEntity, GeneralGrassCoverErosionInwardsInput> generalGrassCoverErosionInwardsInputs = new Dictionary<GrassCoverErosionInwardsFailureMechanismMetaEntity, GeneralGrassCoverErosionInwardsInput>();
         private readonly Dictionary<DikeProfileEntity, DikeProfile> dikeProfiles = new Dictionary<DikeProfileEntity, DikeProfile>();
         private readonly Dictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations = new Dictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation>();
+        private readonly Dictionary<GrassCoverErosionInwardsOutputEntity, GrassCoverErosionInwardsOutput> grassCoverErosionInwardsOutputs = new Dictionary<GrassCoverErosionInwardsOutputEntity, GrassCoverErosionInwardsOutput>();
         private readonly Dictionary<GrassCoverErosionInwardsSectionResultEntity, GrassCoverErosionInwardsFailureMechanismSectionResult> grassCoverErosionInwardsFailureMechanismSectionResults = new Dictionary<GrassCoverErosionInwardsSectionResultEntity, GrassCoverErosionInwardsFailureMechanismSectionResult>();
         private readonly Dictionary<HeightStructuresSectionResultEntity, HeightStructuresFailureMechanismSectionResult> heightStructuresFailureMechanismSectionResults = new Dictionary<HeightStructuresSectionResultEntity, HeightStructuresFailureMechanismSectionResult>();
         private readonly Dictionary<StrengthStabilityLengthwiseConstructionSectionResultEntity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> strengthStabilityLengthwiseConstructionFailureMechanismSectionResults = new Dictionary<StrengthStabilityLengthwiseConstructionSectionResultEntity, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
@@ -87,6 +89,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<SurfaceLinePointEntity, Point3D> surfaceLinePoints = new Dictionary<SurfaceLinePointEntity, Point3D>(new ReferenceEqualityComparer<SurfaceLinePointEntity>());
         private readonly Dictionary<CharacteristicPointEntity, Point3D> characteristicPoints = new Dictionary<CharacteristicPointEntity, Point3D>(new ReferenceEqualityComparer<CharacteristicPointEntity>());
         private readonly Dictionary<PipingFailureMechanismMetaEntity, PipingProbabilityAssessmentInput> pipingProbabilityAssessmentInputs = new Dictionary<PipingFailureMechanismMetaEntity, PipingProbabilityAssessmentInput>(new ReferenceEqualityComparer<PipingFailureMechanismMetaEntity>());
+        private readonly Dictionary<ProbabilisticOutputEntity, ProbabilityAssessmentOutput> probabilisticAssessmentOutputs = new Dictionary<ProbabilisticOutputEntity, ProbabilityAssessmentOutput>(new ReferenceEqualityComparer<ProbabilisticOutputEntity>());
 
         /// <summary>
         /// Registers a create or update operation for <paramref name="model"/> and the
@@ -168,6 +171,42 @@ namespace Application.Ringtoets.Storage.Create
         public void Register(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsCalculation model)
         {
             Register(grassCoverErosionInwardsCalculations, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="GrassCoverErosionInwardsOutputEntity"/>
+        /// to be registered.</param>
+        /// <param name="model">The <see cref="GrassCoverErosionInwardsOutput"/> to
+        /// be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(GrassCoverErosionInwardsOutputEntity entity, GrassCoverErosionInwardsOutput model)
+        {
+            Register(grassCoverErosionInwardsOutputs, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="ProbabilisticOutputEntity"/>
+        /// to be registered.</param>
+        /// <param name="model">The <see cref="ProbabilityAssessmentOutput"/> to
+        /// be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(ProbabilisticOutputEntity entity, ProbabilityAssessmentOutput model)
+        {
+            Register(probabilisticAssessmentOutputs, entity, model);
         }
 
         /// <summary>
@@ -932,6 +971,11 @@ namespace Application.Ringtoets.Storage.Create
                 grassCoverErosionInwardsCalculations[entity].StorageId = entity.GrassCoverErosionInwardsCalculationEntityId;
             }
 
+            foreach (var entity in grassCoverErosionInwardsOutputs.Keys)
+            {
+                grassCoverErosionInwardsOutputs[entity].StorageId = entity.GrassCoverErosionInwardsOutputId;
+            }
+
             foreach (var entity in grassCoverErosionInwardsFailureMechanismSectionResults.Keys)
             {
                 grassCoverErosionInwardsFailureMechanismSectionResults[entity].StorageId = entity.GrassCoverErosionInwardsSectionResultEntityId;
@@ -1077,6 +1121,11 @@ namespace Application.Ringtoets.Storage.Create
                 pipingProbabilityAssessmentInputs[entity].StorageId = entity.PipingFailureMechanismMetaEntityId;
             }
 
+            foreach (var entity in probabilisticAssessmentOutputs.Keys)
+            {
+                probabilisticAssessmentOutputs[entity].StorageId = entity.ProbabilisticOutputEntityId;
+            }
+
             // CharacteristicPoints do not really have a 'identity' within the object-model.
             // As such, no need to copy StorageId. This is already covered by surfaceLinePoints.
         }
@@ -1174,6 +1223,17 @@ namespace Application.Ringtoets.Storage.Create
                 }
             }
             dbContext.GrassCoverErosionInwardsCalculationEntities.RemoveRange(orphanedGrassCoverErosionInwardsCalculationEntities);
+
+            var orphanedGrassCoverErosionInwardsOutputEntities = new List<GrassCoverErosionInwardsOutputEntity>();
+            foreach (GrassCoverErosionInwardsOutputEntity outputEntity in dbContext.GrassCoverErosionInwardsOutputEntities
+                                                                                   .Where(e => e.GrassCoverErosionInwardsOutputId > 0))
+            {
+                if (!grassCoverErosionInwardsOutputs.ContainsKey(outputEntity))
+                {
+                    orphanedGrassCoverErosionInwardsOutputEntities.Add(outputEntity);
+                }
+            }
+            dbContext.GrassCoverErosionInwardsOutputEntities.RemoveRange(orphanedGrassCoverErosionInwardsOutputEntities);
 
             var orphanedGrassCoverErosionInwardsSectionResultEntities = new List<GrassCoverErosionInwardsSectionResultEntity>();
             foreach (GrassCoverErosionInwardsSectionResultEntity sectionResultEntity in dbContext.GrassCoverErosionInwardsSectionResultEntities
@@ -1504,6 +1564,17 @@ namespace Application.Ringtoets.Storage.Create
                 }
             }
             dbContext.PipingFailureMechanismMetaEntities.RemoveRange(orphanedPipingFailureMechanismMetaEntities);
+
+            var orphanedProbabilisticOutputEntities = new List<ProbabilisticOutputEntity>();
+            foreach (ProbabilisticOutputEntity outputEntity in dbContext.ProbabilisticOutputEntities
+                                                                        .Where(e => e.ProbabilisticOutputEntityId > 0))
+            {
+                if (!probabilisticAssessmentOutputs.ContainsKey(outputEntity))
+                {
+                    orphanedProbabilisticOutputEntities.Add(outputEntity);
+                }
+            }
+            dbContext.ProbabilisticOutputEntities.RemoveRange(orphanedProbabilisticOutputEntities);
         }
 
         private bool ContainsValue<T, U>(Dictionary<T, U> collection, U model)

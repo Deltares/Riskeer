@@ -66,6 +66,7 @@
     <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsOutputCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverSlipOffInwards\GrassCoverSlipOffInwardsFailureMechanismCreateExtensions.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Create\Piping\RingtoetsPipingSurfaceLineCreateExtensions.cs" />
     <Compile Include="Create\Piping\StochasticSoilModelCreateExtensions.cs" />
     <Compile Include="Create\Piping\StochasticSoilProfileCreateExtensions.cs" />
+    <Compile Include="Create\ProbabilisticAssessmentOutputCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\StrengthStabilityLengthwise\StrengthStabilityLengthwiseConstructionFailureMechanismCreateExtensions.cs" />
@@ -255,6 +257,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensions.cs" />
+    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsOutputEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\PipingCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\PipingCalculationOutputEntityReadExtensions.cs" />
@@ -269,6 +272,7 @@
     <Compile Include="Read\Piping\StochasticSoilProfileEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\SurfaceLineEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\SurfaceLinePointEntityReadExtensions.cs" />
+    <Compile Include="Read\ProbabilisticOutputEntityReadExtensions.cs" />
     <Compile Include="Read\StrengthStabilityPointConstructionSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityStoneCoverSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\DuneErosionSectionResultEntityReadExtensions.cs" />
@@ -331,6 +335,7 @@
     <Compile Include="Update\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismUpdateExtensions.cs" />
+    <Compile Include="Update\GrassCoverErosionInwards\GrassCoverErosionInwardsOutputUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverSlipOffInwards\GrassCoverSlipOffInwardsFailureMechanismSectionResultUpdateExtensions.cs" />
@@ -356,6 +361,7 @@
     <Compile Include="Update\Piping\RingtoetsPipingSurfaceLineUpdateExtensions.cs" />
     <Compile Include="Update\Piping\StochasticSoilModelUpdateExtensions.cs" />
     <Compile Include="Update\Piping\StochasticSoilProfileUpdateExtensions.cs" />
+    <Compile Include="Update\ProbabilityAssessmentOutputUpdateExtensions.cs" />
     <Compile Include="Update\StabilityStoneCover\StabilityStoneCoverFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\StabilityStoneCover\StabilityStoneCoverFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\StrengthStabilityLengthwiseConstruction\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultUpdateExtensions.cs" />

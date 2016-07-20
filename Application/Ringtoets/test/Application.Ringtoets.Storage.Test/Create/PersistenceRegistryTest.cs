@@ -36,6 +36,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
@@ -987,6 +988,64 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Call
             TestDelegate test = () => registry.Register(null, new GrassCoverErosionInwardsCalculation());
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullGrassCoverErosionInwardsOutput_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(new GrassCoverErosionInwardsOutputEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullGrassCoverErosionInwardsOutputEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var output = new GrassCoverErosionInwardsOutput(1, false, new ProbabilityAssessmentOutput(1, 1, 1, 1, 1), 1);
+
+            // Call
+            TestDelegate test = () => registry.Register(null, output);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullProbabilityAssessmentOutput_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(new ProbabilisticOutputEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullProbabilisticOutputEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var output = new ProbabilityAssessmentOutput(1, 1, 1, 1, 1);
+
+            // Call
+            TestDelegate test = () => registry.Register(null, output);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -1983,7 +2042,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void TransferIds_WithGrassCoverErosionInwardsEntityAddedWithGrassCoverErosionInwardsCalculation_EqualGrassCoverErosionInwardsCalculationEntityIdAndGrassCoverErosionInwardsCalculationStorageId()
+        public void TransferIds_WithGrassCoverErosionInwardsCalculationEntityAddedWithGrassCoverErosionInwardsCalculation_EqualGrassCoverErosionInwardsCalculationEntityIdAndGrassCoverErosionInwardsCalculationStorageId()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1994,6 +2053,48 @@ namespace Application.Ringtoets.Storage.Test.Create
                 GrassCoverErosionInwardsCalculationEntityId = storageId
             };
             var model = new GrassCoverErosionInwardsCalculation();
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferIds_WithGrassCoverErosionInwardsOutputEntityAddedWithGrassCoverErosionInwardsOutput_EqualGrassCoverErosionInwardsOutputEntityIdAndGrassCoverErosionInwardsOutputStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1, 4000);
+            var entity = new GrassCoverErosionInwardsOutputEntity
+            {
+                GrassCoverErosionInwardsOutputId = storageId
+            };
+            var model = new GrassCoverErosionInwardsOutput(1, false, new ProbabilityAssessmentOutput(1, 1, 1, 1, 1), 1);
+            registry.Register(entity, model);
+
+            // Call
+            registry.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferIds_WithProbabilisticOutputEntityAddedWithGrassCoverErosionInwardsOutput_EqualProbabilisticOutputEntityIdAndGrassCoverErosionInwardsOutputProbabilityAssessmentOutputStorageId()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            long storageId = new Random(21).Next(1, 4000);
+            var entity = new ProbabilisticOutputEntity
+            {
+                ProbabilisticOutputEntityId = storageId
+            };
+            var model = new ProbabilityAssessmentOutput(1, 1, 1, 1, 1);
             registry.Register(entity, model);
 
             // Call
@@ -2900,6 +3001,78 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(1, dbContext.GrassCoverErosionInwardsCalculationEntities.Count());
             CollectionAssert.Contains(dbContext.GrassCoverErosionInwardsCalculationEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_GrassCoverErosionInwardsOutputEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new GrassCoverErosionInwardsOutputEntity
+            {
+                GrassCoverErosionInwardsOutputId = 1
+            };
+            var persistentEntity = new GrassCoverErosionInwardsOutputEntity
+            {
+                GrassCoverErosionInwardsOutputId = 2
+            };
+            dbContext.GrassCoverErosionInwardsOutputEntities.Add(orphanedEntity);
+            dbContext.GrassCoverErosionInwardsOutputEntities.Add(persistentEntity);
+
+            var calculation = new GrassCoverErosionInwardsOutput(1, false, new ProbabilityAssessmentOutput(1,1,1,1,1), 1)
+            {
+                StorageId = persistentEntity.GrassCoverErosionInwardsOutputId
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, calculation);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.GrassCoverErosionInwardsOutputEntities.Count());
+            CollectionAssert.Contains(dbContext.GrassCoverErosionInwardsOutputEntities, persistentEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUntouched_ProbabilisticOutputEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var orphanedEntity = new ProbabilisticOutputEntity
+            {
+                ProbabilisticOutputEntityId = 1
+            };
+            var persistentEntity = new ProbabilisticOutputEntity
+            {
+                ProbabilisticOutputEntityId = 2
+            };
+            dbContext.ProbabilisticOutputEntities.Add(orphanedEntity);
+            dbContext.ProbabilisticOutputEntities.Add(persistentEntity);
+
+            var calculation = new ProbabilityAssessmentOutput(1, 1, 1, 1, 1)
+            {
+                StorageId = persistentEntity.ProbabilisticOutputEntityId
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(persistentEntity, calculation);
+
+            // Call
+            registry.RemoveUntouched(dbContext);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.ProbabilisticOutputEntities.Count());
+            CollectionAssert.Contains(dbContext.ProbabilisticOutputEntities, persistentEntity);
             mocks.VerifyAll();
         }
 

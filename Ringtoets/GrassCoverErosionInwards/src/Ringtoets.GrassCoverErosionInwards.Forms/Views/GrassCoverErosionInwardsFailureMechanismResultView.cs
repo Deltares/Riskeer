@@ -183,7 +183,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             if (calculation.HasOutput)
             {
-                if (double.IsNaN(calculation.Output.Probability))
+                if (double.IsNaN(calculation.Output.ProbabilisticAssessmentOutput.Probability))
                 {
                     return CalculationScenarioStatus.Failed;
                 }

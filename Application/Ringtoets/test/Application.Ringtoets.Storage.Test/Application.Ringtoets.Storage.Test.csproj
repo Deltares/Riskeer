@@ -94,6 +94,7 @@
     <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverSlipOffInwards\GrassCoverSlipOffInwardsFailureMechanismCreateExtensionsTest.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Create\Piping\RingtoetsPipingSurfaceLineCreateExtensionsTest.cs" />
     <Compile Include="Create\Piping\StochasticSoilModelCreateExtensionsTest.cs" />
     <Compile Include="Create\Piping\StochasticSoilProfileCreateExtensionsTest.cs" />
+    <Compile Include="Create\ProbabilisticAssessmentOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\StrengthStabilityLengthwise\StrengthStabilityLengthwiseConstructionFailureMechanismCreateExtensionsTest.cs" />
@@ -150,6 +152,7 @@
     <Compile Include="Read\GrassCoverErosionInwards\DikeProfileEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\PipingCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\PipingCalculationOutputEntityReadExtensionsTest.cs" />
@@ -164,6 +167,7 @@
     <Compile Include="Read\Piping\StochasticSoilProfileEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\SurfaceLineEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\SurfaceLinePointEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\ProbabilisticOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StrengthStabilityPointConstructionSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityStoneCoverSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\DuneErosionSectionResultEntityReadExtensionsTest.cs" />
@@ -204,6 +208,7 @@
     <Compile Include="Update\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationUpdateExtensionsTest.cs" />
     <Compile Include="Update\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismSectionResultUpdateExtensionsTest.cs" />
     <Compile Include="Update\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismUpdateExtensionsTest.cs" />
+    <Compile Include="Update\GrassCoverErosionInwards\GrassCoverErosionInwardsOutputUpdateExtensionsTest.cs" />
     <Compile Include="Update\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateExtensionsTest.cs" />
     <Compile Include="Update\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\GrassCoverSlipOffInwards\GrassCoverSlipOffInwardsFailureMechanismSectionResultUpdateExtensionsTest.cs" />
@@ -229,6 +234,7 @@
     <Compile Include="Update\Piping\RingtoetsPipingSurfaceLineUpdateExtensionsTest.cs" />
     <Compile Include="Update\Piping\StochasticSoilModelUpdateExtensionsTest.cs" />
     <Compile Include="Update\Piping\StochasticSoilProfileUpdateExtensionsTest.cs" />
+    <Compile Include="Update\ProbabilityAssessmentOutputUpdateExtensionsTest.cs" />
     <Compile Include="Update\StabilityStoneCover\StabilityStoneCoverFailureMechanismSectionResultUpdateExtensionsTest.cs" />
     <Compile Include="Update\StabilityStoneCover\StabilityStoneCoverFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\StrengthStabilityLengthwiseConstruction\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultUpdateExtensionsTest.cs" />
