@@ -146,6 +146,11 @@
       <Name>Core.Common.Version</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.Chart\Core.Plugins.Chart.csproj">
+      <Project>{4163B996-3455-4324-A38A-9F2F0E6FCB52}</Project>
+      <Name>Core.Plugins.Chart</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj">
       <Project>{93E73FAB-FAE8-49C6-9ABB-27D24DF761F6}</Project>
       <Name>Core.Plugins.CommonTools</Name>
@@ -154,11 +159,6 @@
     <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.DotSpatial\Core.Plugins.DotSpatial.csproj">
       <Project>{610E0A9C-1997-4C43-A10E-39D4C66ADA93}</Project>
       <Name>Core.Plugins.DotSpatial</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.OxyPlot\Core.Plugins.OxyPlot.csproj">
-      <Project>{4163B996-3455-4324-A38A-9F2F0E6FCB52}</Project>
-      <Name>Core.Plugins.OxyPlot</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj">
       <Project>{ED20DBA9-D577-423F-A68D-A0A8130FB10B}</Project>

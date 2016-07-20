@@ -33,15 +33,14 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using Application.Ringtoets.Storage;
-using Core.Common.Controls.Dialogs;
 using Core.Common.Gui;
 using Core.Common.Gui.Appenders;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
 using Core.Common.Utils;
+using Core.Plugins.Chart;
 using Core.Plugins.CommonTools;
 using Core.Plugins.DotSpatial;
-using Core.Plugins.OxyPlot;
 using Core.Plugins.ProjectExplorer;
 using log4net;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
@@ -157,7 +156,7 @@ namespace Application.Ringtoets
                     new GrassCoverErosionInwardsPlugin(),
                     new PipingPlugin(),
                     new HeightStructuresPlugin(),
-                    new OxyPlotPlugin(),
+                    new ChartPlugin(),
                     new DotSpatialPlugin()
 #if INCLUDE_DEMOPROJECT
                     , new DemoProjectPlugin()

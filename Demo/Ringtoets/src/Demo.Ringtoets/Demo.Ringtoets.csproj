@@ -117,10 +117,9 @@
       <Name>Core.Components.OxyPlot.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.OxyPlot\Core.Plugins.OxyPlot.csproj">
+    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.Chart\Core.Plugins.Chart.csproj">
       <Project>{4163B996-3455-4324-A38A-9F2F0E6FCB52}</Project>
-      <Name>Core.Plugins.OxyPlot</Name>
-      <Private>False</Private>
+      <Name>Core.Plugins.Chart</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>

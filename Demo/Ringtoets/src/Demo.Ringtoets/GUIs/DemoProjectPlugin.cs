@@ -2,7 +2,7 @@
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Components.Charting.Data;
-using Core.Plugins.OxyPlot.Properties;
+using Core.Plugins.Chart.Properties;
 using Demo.Ringtoets.Ribbons;
 using Demo.Ringtoets.Views;
 
