@@ -21,12 +21,16 @@
 
 using System;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -34,17 +38,20 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
+using Ringtoets.Integration.Plugin.FileImporters;
+using Ringtoets.Piping.Data;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabaseContextTreeNodeInfoTest
+    public class HydraulicBoundaryDatabaseContextTreeNodeInfoTest : NUnitFormTest
     {
         private MockRepository mocks;
 
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabase");
+        private readonly string testDataPathNoHlcd = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabaseNoHLCD");
 
         [SetUp]
         public void SetUp()
@@ -344,11 +351,225 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
+
                 // Call
                 Color color = info.ForeColor(hydraulicBoundaryDatabaseContext);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void GivenNoFilePathIsSet_WhenOpeningValidFileFromContextMenu_ThenPathWillBeSetAndNotifiesObserverAndLogMessageAdded()
+        {
+            // Given
+            string testFile = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+
+            int contextMenuImportHydraulicBoundaryDatabaseIndex = 1;
+
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+
+            using (TreeViewControl treeViewControl = new TreeViewControl())
+            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            {
+                IGui gui = mocks.DynamicMock<IGui>();
+                gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+                
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
+                    tester.OpenFile(testFile);
+                };
+
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
+
+                ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControl);
+
+                // When
+                Action action = () => contextMenuAdapter.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
+
+                // Then
+                TestHelper.AssertLogMessages(action, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(2, msgs.Length);
+                    Assert.AreEqual("De hydraulische randvoorwaardenlocaties zijn ingelezen.", msgs[0]);
+                    Assert.AreEqual(string.Format("Database op pad '{0}' gekoppeld.", testFile), msgs[1]);
+                });
+
+                Assert.IsNotNull(assessmentSection.HydraulicBoundaryDatabase);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void GivenNoFilePathIsSet_WhenOpeneningInvalidFileFromContextMenu_ThenPathWillNotBeSetAndLogMessageAdded()
+        {
+            // Given
+            string testFile = Path.Combine(testDataPath, "empty.sqlite");
+
+            int contextMenuImportHydraulicBoundaryDatabaseIndex = 1;
+
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+
+            using (TreeViewControl treeViewControl = new TreeViewControl())
+            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            {
+                IGui gui = mocks.DynamicMock<IGui>();
+                gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
+                    tester.OpenFile(testFile);
+                };
+
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
+
+                ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControl);
+
+                // When
+                Action action = () => contextMenuAdapter.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
+
+                // Then
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Kon geen locaties verkrijgen van de database. Het bestand wordt overgeslagen.",
+                                                       testFile);
+                TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
+
+                Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void GivenNoFilePathIsSet_WhenOpeneningValidFileWithoutHLCDFromContextMenu_ThenPathWillNotBeSetAndLogMessageAdded()
+        {
+            // Given
+            string testFile = Path.Combine(testDataPathNoHlcd, "HRD ijsselmeer.sqlite");
+
+            int contextMenuImportHydraulicBoundaryDatabaseIndex = 1;
+
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+
+            using (TreeViewControl treeViewControl = new TreeViewControl())
+            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            {
+                IGui gui = mocks.DynamicMock<IGui>();
+                gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
+                    tester.OpenFile(testFile);
+                };
+
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
+
+                ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControl);
+
+                // When
+                Action action = () => contextMenuAdapter.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
+
+                // Then
+                string expectedMessage =
+                    string.Format("Fout bij het lezen van bestand '{0}': Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.",
+                                  testFile);
+                TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
+
+                Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void GivenFilePathIsSet_WhenOpeningSameFileFromContextMenu_ThenCalculationsWillNotBeClearedAndLocationsWillBeImported()
+        {
+            // Given
+            string validFile = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+            IObserver assessmentObserver = mocks.StrictMock<IObserver>();
+            assessmentObserver.Expect(o => o.UpdateObserver());
+            IObserver observer = mocks.StrictMock<IObserver>();
+
+            int contextMenuImportHydraulicBoundaryDatabaseIndex = 1;
+
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            using (HydraulicBoundaryDatabaseImporter importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFile);
+            }
+
+            assessmentSection.Attach(assessmentObserver);
+
+            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+
+            PipingOutput pipingOutput = new PipingOutput(3.0, 4.0, 1.0, 3.0, 0.2, 0.4);
+            PipingCalculation pipingCalculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First()
+                },
+                Output = pipingOutput
+            };
+
+            pipingCalculation.Attach(observer);
+
+            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+
+            // Precondition
+            Assert.IsNotNull(assessmentSection.HydraulicBoundaryDatabase);
+            CollectionAssert.IsNotEmpty(assessmentSection.HydraulicBoundaryDatabase.Locations);
+
+            string currentFilePath = assessmentSection.HydraulicBoundaryDatabase.FilePath;
+            string currentVersion = assessmentSection.HydraulicBoundaryDatabase.Version;
+            var currentLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+
+            using (TreeViewControl treeViewControl = new TreeViewControl())
+            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            {
+                IGui gui = mocks.DynamicMock<IGui>();
+                gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
+                    tester.OpenFile(validFile);
+                };
+
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
+
+                ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControl);
+
+                // When
+                Action action = () => contextMenuAdapter.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
+
+                // Then
+                string expectedMessage = string.Format("Database op pad '{0}' gekoppeld.", validFile);
+                TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
+
+                Assert.IsNotNull(assessmentSection.HydraulicBoundaryDatabase);
+                Assert.AreEqual(currentFilePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
+                Assert.AreEqual(currentVersion, assessmentSection.HydraulicBoundaryDatabase.Version);
+                CollectionAssert.AreEqual(currentLocations, assessmentSection.HydraulicBoundaryDatabase.Locations);
+                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations.First(), pipingCalculation.InputParameters.HydraulicBoundaryLocation);
+                Assert.AreSame(pipingOutput, pipingCalculation.Output);
             }
             mocks.VerifyAll();
         }

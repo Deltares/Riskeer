@@ -1052,7 +1052,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 if (hydraulicBoundaryLocationsImporter.Import(assessmentSection, databaseFile))
                 {
-                    if (isClearConfirmationRequired)
+                    if (isClearConfirmationGiven)
                     {
                         ClearCalculations(assessmentSection);
                     }
@@ -1084,7 +1084,7 @@ namespace Ringtoets.Integration.Plugin
                 calc.NotifyObservers();
             }
 
-            log.Info(RingtoetsFormsResources.Calculations_Deleted);
+            log.Info(RingtoetsFormsResources.Calculations_Cleared);
         }
 
         #endregion
