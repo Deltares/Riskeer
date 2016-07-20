@@ -27,7 +27,6 @@ using Core.Common.Gui.Plugin;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
 using Core.Plugins.OxyPlot.Commands;
-using Core.Plugins.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Legend;
 using Core.Plugins.OxyPlot.Properties;
 
@@ -60,15 +59,6 @@ namespace Core.Plugins.OxyPlot
             chartLegendController.ToggleView();
             Gui.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
             activated = true;
-        }
-
-        public override IEnumerable<ViewInfo> GetViewInfos()
-        {
-            yield return new ViewInfo<ChartDataCollection, ChartDataView>
-            {
-                Image = Resources.ChartIcon,
-                GetViewName = (v, o) => Resources.OxyPlotPlugin_GetViewInfos_Diagram
-            };
         }
 
         public override void Dispose()

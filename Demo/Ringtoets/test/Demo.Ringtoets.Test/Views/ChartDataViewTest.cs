@@ -24,10 +24,10 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Forms;
-using Core.Plugins.OxyPlot.Forms;
+using Demo.Ringtoets.Views;
 using NUnit.Framework;
 
-namespace Core.Plugins.OxyPlot.Test.Forms
+namespace Demo.Ringtoets.Test.Views
 {
     [TestFixture]
     public class ChartDataViewTest
@@ -44,7 +44,7 @@ namespace Core.Plugins.OxyPlot.Test.Forms
                 Assert.IsInstanceOf<ChartControl>(chartObject);
 
                 var chart = (ChartControl) chartObject;
-                Assert.AreEqual(DockStyle.Fill, chart.Dock);
+                Assert.AreEqual((object) DockStyle.Fill, chart.Dock);
                 Assert.NotNull(chartView.Chart);
             }
         }

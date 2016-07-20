@@ -60,7 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ToggleLegendViewCommandTest.cs" />
-    <Compile Include="Forms\ChartDataViewTest.cs" />
     <Compile Include="Legend\ChartDataCollectionTreeNodeInfoTest.cs" />
     <Compile Include="Legend\ChartDataContextTreeNodeInfoTest.cs" />
     <Compile Include="Legend\ChartLegendViewTest.cs" />

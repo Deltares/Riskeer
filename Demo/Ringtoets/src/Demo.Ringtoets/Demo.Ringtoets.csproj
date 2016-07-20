@@ -42,6 +42,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
@@ -62,6 +63,12 @@
     </Compile>
     <Compile Include="Ribbons\RingtoetsDemoProjectRibbon.xaml.cs">
       <DependentUpon>RingtoetsDemoProjectRibbon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChartDataView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ChartDataView.Designer.cs">
+      <DependentUpon>ChartDataView.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +97,11 @@
       <Name>Core.Common.Version</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting.Forms\Core.Components.Charting.Forms.csproj">
+      <Project>{2465CCA1-C505-4827-9454-4FD5FD9194CD}</Project>
+      <Name>Core.Components.Charting.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting\Core.Components.Charting.csproj">
       <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
       <Name>Core.Components.Charting</Name>
@@ -98,6 +110,16 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
       <Name>Core.Components.Gis</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
+      <Project>{DADAA0A5-288C-49CB-9F08-337F16832C86}</Project>
+      <Name>Core.Components.OxyPlot.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.OxyPlot\Core.Plugins.OxyPlot.csproj">
+      <Project>{4163B996-3455-4324-A38A-9F2F0E6FCB52}</Project>
+      <Name>Core.Plugins.OxyPlot</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
@@ -123,6 +145,7 @@
     <ProjectReference Include="..\..\..\..\Ringtoets\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
       <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
       <Name>Ringtoets.HeightStructures.Data</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
@@ -132,11 +155,6 @@
     <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Forms\Ringtoets.Integration.Forms.csproj">
-      <Project>{ad0cdc89-0a00-4068-aeec-9838863c2fe8}</Project>
-      <Name>Ringtoets.Integration.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">

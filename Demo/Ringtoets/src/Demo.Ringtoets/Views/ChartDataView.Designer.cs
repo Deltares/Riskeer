@@ -1,6 +1,6 @@
 ﻿using Core.Components.OxyPlot.Forms;
 
-namespace Core.Plugins.OxyPlot.Forms
+namespace Demo.Ringtoets.Views
 {
     partial class ChartDataView
     {
@@ -24,6 +24,10 @@ namespace Core.Plugins.OxyPlot.Forms
 
         #region Component Designer generated code
 
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChartDataView));
@@ -45,7 +49,6 @@ namespace Core.Plugins.OxyPlot.Forms
             this.MinimumSize = new System.Drawing.Size(0, 1);
             this.Name = "ChartDataView";
             this.ResumeLayout(false);
-
         }
 
         #endregion

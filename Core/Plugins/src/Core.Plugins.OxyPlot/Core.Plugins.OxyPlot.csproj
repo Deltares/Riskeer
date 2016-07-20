@@ -60,12 +60,6 @@
       <DependentUpon>ChartingRibbon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Commands\ToggleLegendViewCommand.cs" />
-    <Compile Include="Forms\ChartDataView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\ChartDataView.Designer.cs">
-      <DependentUpon>ChartDataView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Legend\ChartLegendView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -118,11 +112,6 @@
       <Name>Core.Components.Charting</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
-      <Project>{DADAA0A5-288C-49CB-9F08-337F16832C86}</Project>
-      <Name>Core.Components.OxyPlot.Forms</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="ChartingRibbon.xaml">
@@ -131,9 +120,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\ChartDataView.resx">
-      <DependentUpon>ChartDataView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Legend\ChartLegendView.resx">
       <DependentUpon>ChartLegendView.cs</DependentUpon>
       <SubType>Designer</SubType>

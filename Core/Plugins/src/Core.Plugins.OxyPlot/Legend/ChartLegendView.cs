@@ -26,7 +26,6 @@ using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Components.Charting.Data;
-using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.PresentationObjects;
 using OxyPlotResources = Core.Plugins.OxyPlot.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;

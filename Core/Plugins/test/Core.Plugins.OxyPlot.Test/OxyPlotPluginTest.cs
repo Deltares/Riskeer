@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 using Core.Common.Base.Storage;
@@ -30,9 +29,7 @@ using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
-using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Forms;
-using Core.Plugins.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Legend;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -101,25 +98,6 @@ namespace Core.Plugins.OxyPlot.Test
                 Assert.NotNull(plugin.RibbonCommandHandler);
             }
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetViewInfoObjects_Always_ReturnsChartDataViewInfo()
-        {
-            // Setup
-            using (var plugin = new OxyPlotPlugin())
-            {
-                var view = new ChartDataView();
-
-                // Call
-                var views = plugin.GetViewInfos().ToArray();
-
-                // Assert
-                Assert.AreEqual(1, views.Length);
-                Assert.AreEqual(typeof(ChartDataCollection), views[0].DataType);
-                Assert.AreEqual(typeof(ChartDataView), views[0].ViewType);
-                Assert.AreEqual("Diagram", views[0].GetViewName(view, null));
-            }
         }
 
         [Test]
