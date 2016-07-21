@@ -160,7 +160,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bereken HBN.
+        ///   Looks up a localized string similar to HBN berekenen.
         /// </summary>
         public static string CalculateDikeHeight_DisplayName {
             get {

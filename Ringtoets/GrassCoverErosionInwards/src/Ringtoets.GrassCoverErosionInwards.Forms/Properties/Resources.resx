@@ -314,7 +314,7 @@
     <value>Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend.</value>
   </data>
   <data name="CalculateDikeHeight_DisplayName" xml:space="preserve">
-    <value>Bereken HBN</value>
+    <value>HBN berekenen</value>
   </data>
   <data name="GrassCoverErosionInwardsOutput_DikeHeight_Description" xml:space="preserve">
     <value>Het berekende Hydraulisch Belasting Niveau (HBN).</value>
