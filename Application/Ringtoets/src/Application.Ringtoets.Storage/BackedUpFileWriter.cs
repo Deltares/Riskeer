@@ -35,7 +35,7 @@ namespace Application.Ringtoets.Storage
 
         private readonly string temporaryFilePath;
         private readonly string targetFilePath;
-        private bool createTemporaryFile;
+        private bool isTemporaryFileCreated;
 
         /// <summary>
         /// Creates an instance of <see cref="BackedUpFileWriter"/>.
@@ -87,7 +87,7 @@ namespace Application.Ringtoets.Storage
         /// <exception cref="IOException">The temporary file cannot be removed.</exception>
         private void Finish()
         {
-            if (createTemporaryFile)
+            if (isTemporaryFileCreated)
             {
                 DeleteTemporaryFile();
             }
@@ -100,7 +100,7 @@ namespace Application.Ringtoets.Storage
         /// <exception cref="IOException">The original file cannot be restored.</exception>
         private void Revert()
         {
-            if (createTemporaryFile)
+            if (isTemporaryFileCreated)
             {
                 RestoreOriginalFile();
             }
@@ -118,12 +118,13 @@ namespace Application.Ringtoets.Storage
         /// </exception>
         private void CreateTemporaryFile()
         {
-            createTemporaryFile = File.Exists(targetFilePath);
+            isTemporaryFileCreated = false;
 
-            if (createTemporaryFile)
+            if (File.Exists(targetFilePath))
             {
                 RemoveAlreadyExistingTemporaryFile();
                 CreateNewTemporaryFile();
+                isTemporaryFileCreated = true;
             }
         }
 

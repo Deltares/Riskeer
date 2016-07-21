@@ -318,7 +318,7 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        public void Perform_ActionThrowsExceptionTargetFileFileExistsCannotMoveFile_ThrowsIOException()
+        public void Perform_ActionThrowsExceptionTargetFileExistsCannotMoveFile_ThrowsIOException()
         {
             // Setup
             var noAccessDirectory = Path.Combine(testWorkDir, "NoAccess");
