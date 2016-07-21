@@ -473,7 +473,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             FileManualButton.IsEnabled = File.Exists(settings.FixedSettings.ManualFilePath);
 
             LicenseButton.IsEnabled = File.Exists(settings.FixedSettings.LicenseFilePath);
-            FeedbackButton.IsEnabled = false;
 
             ButtonQuickAccessOpenProject.IsEnabled = ButtonMenuFileOpenProject.IsEnabled;
             ButtonQuickAccessSaveProject.IsEnabled = ButtonMenuFileSaveProject.IsEnabled;
@@ -616,8 +615,6 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             viewController.DocumentViewController.OpenViewForData(richTextFile);
         }
-
-        private void OnFileHelpSubmitFeedback_Clicked(object sender, RoutedEventArgs e) {}
 
         private void OnFileHelpShowLog_Clicked(object sender, RoutedEventArgs e)
         {

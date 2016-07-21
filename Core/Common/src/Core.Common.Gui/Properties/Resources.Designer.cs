@@ -1243,15 +1243,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Feedback Verzenden.
-        /// </summary>
-        public static string Ribbon_Submit_Feedback {
-            get {
-                return ResourceManager.GetString("Ribbon_Submit_Feedback", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
         public static string Ribbon_TabItem_Help {
