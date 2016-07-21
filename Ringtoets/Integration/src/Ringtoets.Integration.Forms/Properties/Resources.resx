@@ -255,7 +255,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Id</value>
   </data>
   <data name="ReferenceLineMetaSelectionView_SignalingValue_DisplayName" xml:space="preserve">
-    <value>Signaleringsnorm</value>
+    <value>Signaleringswaarde</value>
   </data>
   <data name="ReferenceLineMetaSelectionView_LowerLimitValue_DisplayName" xml:space="preserve">
     <value>Ondergrens</value>
