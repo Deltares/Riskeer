@@ -50,8 +50,9 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
 
             var entity = new GrassCoverErosionInwardsOutputEntity
             {
-                ProbabilisticOutputEntity = output.ProbabilisticAssessmentOutput.Create(registry),
+                ProbabilisticOutputEntity = output.ProbabilityAssessmentOutput.Create(registry),
                 DikeHeight = output.DikeHeight.Value.ToNaNAsNull(),
+                IsDikeHeightCalculated = Convert.ToByte(output.DikeHeightCalculated),
                 IsOvertoppingDominant = Convert.ToByte(output.IsOvertoppingDominant),
                 WaveHeight = output.WaveHeight.Value.ToNaNAsNull()
             };

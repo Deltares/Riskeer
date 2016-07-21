@@ -64,6 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             // Assert
             Assert.AreEqual(output.DikeHeight.Value, entity.DikeHeight);
+            Assert.AreEqual(Convert.ToByte(output.DikeHeightCalculated), entity.IsDikeHeightCalculated);
             Assert.AreEqual(output.WaveHeight.Value, entity.WaveHeight);
             Assert.AreEqual(Convert.ToByte(output.IsOvertoppingDominant), entity.IsOvertoppingDominant);
 
@@ -112,6 +113,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             // Assert
             Assert.IsNull(entity.DikeHeight);
+            Assert.AreEqual(Convert.ToByte(false), entity.IsDikeHeightCalculated);
         }
 
         [Test]

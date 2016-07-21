@@ -24,7 +24,6 @@ using System;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Update;
 
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -66,7 +65,7 @@ namespace Application.Ringtoets.Storage.Update.GrassCoverErosionInwards
                 context.GrassCoverErosionInwardsOutputEntities,
                 o => o.GrassCoverErosionInwardsOutputId);
 
-            output.ProbabilisticAssessmentOutput.Update(registry, context);
+            output.ProbabilityAssessmentOutput.Update(registry, context);
 
             registry.Register(entity, output);
         }

@@ -27,6 +27,7 @@ using Application.Ringtoets.Storage.DbContext;
 
 using NUnit.Framework;
 
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
@@ -57,7 +58,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = name,
-                Comments = comment
+                Comments = comment,
+                Output = null
             };
 
             var registry = new PersistenceRegistry();
@@ -69,6 +71,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(name, entity.Name);
             Assert.AreEqual(comment, entity.Comments);
             Assert.AreEqual(order, entity.Order);
+
+            Assert.IsNull(entity.GrassCoverErosionInwardsOutputEntity);
         }
 
         [Test]
@@ -86,6 +90,24 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             entity.GrassCoverErosionInwardsCalculationEntityId = 8734;
             registry.TransferIds();
             Assert.AreEqual(entity.GrassCoverErosionInwardsCalculationEntityId, calculation.StorageId);
+        }
+
+        [Test]
+        public void Create_CalculationWithOutput_ReturnEntity()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new GrassCoverErosionInwardsOutput(1, true, new ProbabilityAssessmentOutput(1, 1, 1, 1, 1), 2)
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            GrassCoverErosionInwardsCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            Assert.IsNotNull(entity.GrassCoverErosionInwardsOutputEntity);
         }
     }
 }

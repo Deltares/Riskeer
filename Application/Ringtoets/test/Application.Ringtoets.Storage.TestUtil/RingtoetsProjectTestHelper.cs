@@ -28,6 +28,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
@@ -301,7 +302,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                     new GrassCoverErosionInwardsCalculation
                     {
                         Name = "Calculation 1",
-                        Comments = "Comments for Calculation 1"
+                        Comments = "Comments for Calculation 1",
+                        Output = new GrassCoverErosionInwardsOutput(0.45, true, new ProbabilityAssessmentOutput(0.004, 0.95, 0.00003, 1.1, 4.5), 0.56)
                     }
                 }
             });

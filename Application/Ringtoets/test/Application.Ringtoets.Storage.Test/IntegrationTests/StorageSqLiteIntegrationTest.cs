@@ -35,6 +35,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
@@ -884,6 +885,33 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             Assert.AreEqual(expectedCalculation.Comments, actualCalculation.Comments);
+
+            if (expectedCalculation.HasOutput)
+            {
+                AssertGrassCoverErosionInwardsOutput(expectedCalculation.Output, actualCalculation.Output);
+            }
+            else
+            {
+                Assert.IsFalse(actualCalculation.HasOutput);
+            }
+        }
+
+        private static void AssertGrassCoverErosionInwardsOutput(GrassCoverErosionInwardsOutput expectedOutput, GrassCoverErosionInwardsOutput actualOutput)
+        {
+            Assert.AreEqual(expectedOutput.DikeHeightCalculated, actualOutput.DikeHeightCalculated);
+            Assert.AreEqual(expectedOutput.DikeHeight, actualOutput.DikeHeight);
+            Assert.AreEqual(expectedOutput.WaveHeight, actualOutput.WaveHeight);
+            Assert.AreEqual(expectedOutput.IsOvertoppingDominant, actualOutput.IsOvertoppingDominant);
+            AssertProbabilityAssesmentOutput(expectedOutput.ProbabilityAssessmentOutput, actualOutput.ProbabilityAssessmentOutput);
+        }
+
+        private static void AssertProbabilityAssesmentOutput(ProbabilityAssessmentOutput expectedOutput, ProbabilityAssessmentOutput actualOutput)
+        {
+            Assert.AreEqual(expectedOutput.FactorOfSafety, actualOutput.FactorOfSafety);
+            Assert.AreEqual(expectedOutput.Probability, actualOutput.Probability);
+            Assert.AreEqual(expectedOutput.Reliability, actualOutput.Reliability);
+            Assert.AreEqual(expectedOutput.RequiredProbability, actualOutput.RequiredProbability);
+            Assert.AreEqual(expectedOutput.RequiredReliability, actualOutput.RequiredReliability);
         }
 
         private static void AssertGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism expectedFailureMechanism,

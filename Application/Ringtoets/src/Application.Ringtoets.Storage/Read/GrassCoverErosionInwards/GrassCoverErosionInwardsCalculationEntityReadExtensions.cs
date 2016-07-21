@@ -40,12 +40,17 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
         /// <returns>A new <see cref="GrassCoverErosionInwardsCalculation"/>.</returns>
         internal static GrassCoverErosionInwardsCalculation Read(this GrassCoverErosionInwardsCalculationEntity entity)
         {
-            return new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = entity.Name,
                 Comments = entity.Comments,
                 StorageId = entity.GrassCoverErosionInwardsCalculationEntityId
             };
+            if (entity.GrassCoverErosionInwardsOutputEntity != null)
+            {
+                calculation.Output = entity.GrassCoverErosionInwardsOutputEntity.Read();
+            }
+            return calculation;
         }
     }
 }

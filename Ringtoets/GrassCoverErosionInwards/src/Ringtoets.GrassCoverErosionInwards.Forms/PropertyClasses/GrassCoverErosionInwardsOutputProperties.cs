@@ -43,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.ProbabilisticAssessmentOutput.RequiredProbability);
+                return ProbabilityFormattingHelper.Format(data.ProbabilityAssessmentOutput.RequiredProbability);
             }
         }
 
@@ -55,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.ProbabilisticAssessmentOutput.RequiredReliability;
+                return data.ProbabilityAssessmentOutput.RequiredReliability;
             }
         }
 
@@ -67,7 +67,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.ProbabilisticAssessmentOutput.Probability);
+                return ProbabilityFormattingHelper.Format(data.ProbabilityAssessmentOutput.Probability);
             }
         }
 
@@ -79,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.ProbabilisticAssessmentOutput.Reliability;
+                return data.ProbabilityAssessmentOutput.Reliability;
             }
         }
 
@@ -91,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.ProbabilisticAssessmentOutput.FactorOfSafety;
+                return data.ProbabilityAssessmentOutput.FactorOfSafety;
             }
         }
 

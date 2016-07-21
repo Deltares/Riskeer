@@ -62,7 +62,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(2, output.DikeHeight.NumberOfDecimalPlaces);
             Assert.IsTrue(output.DikeHeightCalculated);
 
-            Assert.AreSame(probabilityAssessmentOutput, output.ProbabilisticAssessmentOutput);
+            Assert.AreSame(probabilityAssessmentOutput, output.ProbabilityAssessmentOutput);
 
             Assert.AreEqual(0, output.StorageId);
         }

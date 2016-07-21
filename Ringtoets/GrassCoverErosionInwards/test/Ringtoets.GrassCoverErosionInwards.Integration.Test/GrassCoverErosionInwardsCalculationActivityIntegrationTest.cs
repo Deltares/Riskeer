@@ -391,7 +391,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             // Assert
             Assert.IsNotNull(calculation.Output);
-            ProbabilityAssessmentOutput probabilisticAssessmentOutput = calculation.Output.ProbabilisticAssessmentOutput;
+            ProbabilityAssessmentOutput probabilisticAssessmentOutput = calculation.Output.ProbabilityAssessmentOutput;
             Assert.AreEqual((RoundedDouble) 0.625, probabilisticAssessmentOutput.FactorOfSafety);
             Assert.AreEqual(0.002617555933643434d, probabilisticAssessmentOutput.Probability);
             Assert.AreEqual((RoundedDouble) 2.792, probabilisticAssessmentOutput.Reliability);
@@ -474,7 +474,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             // Assert
             Assert.IsNotNull(calculation.Output);
-            ProbabilityAssessmentOutput probabilisticAssessmentOutput = calculation.Output.ProbabilisticAssessmentOutput;
+            ProbabilityAssessmentOutput probabilisticAssessmentOutput = calculation.Output.ProbabilityAssessmentOutput;
             Assert.AreEqual((RoundedDouble) 0.625, probabilisticAssessmentOutput.FactorOfSafety);
             Assert.AreEqual(0.002617555933643434d, probabilisticAssessmentOutput.Probability);
             Assert.AreEqual((RoundedDouble)2.792, probabilisticAssessmentOutput.Reliability);

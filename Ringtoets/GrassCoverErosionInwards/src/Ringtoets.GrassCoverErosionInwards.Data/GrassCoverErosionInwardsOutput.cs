@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             IsOvertoppingDominant = isOvertoppingDominant;
             WaveHeight = new RoundedDouble(2, waveHeight);
-            ProbabilisticAssessmentOutput = probabilityAssessmentOutput;
+            ProbabilityAssessmentOutput = probabilityAssessmentOutput;
             this.dikeHeight = dikeHeight;
         }
 
@@ -88,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets the probabilistic assessment output based on the grass cover erosion 
         /// inwards calculation output.
         /// </summary>
-        public ProbabilityAssessmentOutput ProbabilisticAssessmentOutput { get; private set; }
+        public ProbabilityAssessmentOutput ProbabilityAssessmentOutput { get; private set; }
 
         public long StorageId { get; set; }
     }

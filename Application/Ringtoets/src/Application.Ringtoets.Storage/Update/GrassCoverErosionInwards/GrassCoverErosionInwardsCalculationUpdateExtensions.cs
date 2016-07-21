@@ -22,6 +22,7 @@
 using System;
 
 using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 
@@ -68,6 +69,22 @@ namespace Application.Ringtoets.Storage.Update.GrassCoverErosionInwards
             entity.Name = calculation.Name;
             entity.Comments = calculation.Comments;
             entity.Order = order;
+
+            if (calculation.HasOutput)
+            {
+                if (calculation.Output.IsNew())
+                {
+                    entity.GrassCoverErosionInwardsOutputEntity = calculation.Output.Create(registry);
+                }
+                else
+                {
+                    calculation.Output.Update(registry, context);
+                }
+            }
+            else
+            {
+                entity.GrassCoverErosionInwardsOutputEntity = null;
+            }
 
             registry.Register(entity, calculation);
         }

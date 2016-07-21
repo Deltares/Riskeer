@@ -40,7 +40,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             {
                 GrassCoverErosionInwardsCalculationEntityId = 457,
                 Name = "sodhfksn",
-                Comments = "s;ohfgwjo5p09u"
+                Comments = "s;ohfgwjo5p09u",
+                GrassCoverErosionInwardsOutputEntity = null
             };
 
             // Call
@@ -50,6 +51,32 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.AreEqual(entity.GrassCoverErosionInwardsCalculationEntityId, calculation.StorageId);
             Assert.AreEqual(entity.Name, calculation.Name);
             Assert.AreEqual(entity.Comments, calculation.Comments);
+
+            Assert.IsFalse(calculation.HasOutput);
+        }
+
+        [Test]
+        public void Read_ValidEntityWithOutputEntity_ReturnCalculationWithOutput()
+        {
+            // Setup
+            var entity = new GrassCoverErosionInwardsCalculationEntity
+            {
+                GrassCoverErosionInwardsCalculationEntityId = 456,
+                GrassCoverErosionInwardsOutputEntity = new GrassCoverErosionInwardsOutputEntity
+                {
+                    GrassCoverErosionInwardsOutputId = 9745,
+                    ProbabilisticOutputEntity = new ProbabilisticOutputEntity
+                    {
+                        ProbabilisticOutputEntityId = 3245
+                    }
+                }
+            };
+
+            // Call
+            GrassCoverErosionInwardsCalculation calculation = entity.Read();
+
+            // Assert
+            Assert.IsTrue(calculation.HasOutput);
         }
     }
 }

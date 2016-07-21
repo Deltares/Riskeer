@@ -56,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 {
                     return double.NaN;
                 }
-                return Calculation.Output.ProbabilisticAssessmentOutput.Probability;
+                return Calculation.Output.ProbabilityAssessmentOutput.Probability;
             }
         }
 

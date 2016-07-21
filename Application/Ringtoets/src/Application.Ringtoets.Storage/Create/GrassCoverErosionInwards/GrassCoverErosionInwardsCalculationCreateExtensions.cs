@@ -56,7 +56,13 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
                 Comments = calculation.Comments,
                 Order = order
             };
+            if (calculation.HasOutput)
+            {
+                entity.GrassCoverErosionInwardsOutputEntity = calculation.Output.Create(registry);
+            }
+
             registry.Register(entity, calculation);
+
             return entity;
         }
     }
