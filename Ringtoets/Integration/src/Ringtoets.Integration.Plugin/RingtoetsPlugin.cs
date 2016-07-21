@@ -253,18 +253,23 @@ namespace Ringtoets.Integration.Plugin
 
         public void SetAssessmentSectionToProject(RingtoetsProject ringtoetsProject, AssessmentSection assessmentSection)
         {
+            if (ringtoetsProject == null)
+            {
+                throw new ArgumentNullException("ringtoetsProject");
+            }
             if (assessmentSection == null)
             {
-                return;
+                throw new ArgumentNullException("assessmentSection");
             }
+
             assessmentSection.Name = GetUniqueForAssessmentSectionName(ringtoetsProject.Items, assessmentSection.Name);
             ringtoetsProject.Items.Add(assessmentSection);
             ringtoetsProject.NotifyObservers();
 
-            if (Gui != null && (Gui.Selection == null || Gui.Selection.Equals(assessmentSection)))
+            if (Gui != null && (Gui.Selection == null || !Gui.Selection.Equals(assessmentSection)))
             {
                 Gui.Selection = assessmentSection;
-                Gui.DocumentViewController.OpenViewForData(Gui.Selection);
+                Gui.DocumentViewController.OpenViewForData(assessmentSection);
             }
         }
 
@@ -372,6 +377,7 @@ namespace Ringtoets.Integration.Plugin
 
             if (assessmentSection == null)
             {
+                return Enumerable.Empty<DataItemInfo>();
             }
 
             return new DataItemInfo[]
@@ -556,6 +562,10 @@ namespace Ringtoets.Integration.Plugin
         private void SetAssessmentSectionFromFileToProject(RingtoetsProject ringtoetsProject)
         {
             var assessmentSection = GetAssessmentSectionFromFile();
+            if (!(assessmentSection is AssessmentSection))
+            {
+                return;
+            }
             SetAssessmentSectionToProject(ringtoetsProject, (AssessmentSection) assessmentSection);
         }
 

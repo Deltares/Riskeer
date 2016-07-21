@@ -24,13 +24,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Threading;
-using Core.Common.Base.Data;
+using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
@@ -427,28 +428,195 @@ namespace Ringtoets.Integration.Plugin.Test
         public void GetChildDataWithViewDefinitions_UnsupportedData_ReturnEmpty()
         {
             // Setup
-            var plugin = new RingtoetsPlugin();
+            using (var plugin = new RingtoetsPlugin())
+            {
+                // Call
+                var childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(1);
 
-            // Call
-            var childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(1);
-
-            // Assert
-            CollectionAssert.IsEmpty(childrenWithViewDefinitions);
+                // Assert
+                CollectionAssert.IsEmpty(childrenWithViewDefinitions);
+            }
         }
 
         [Test]
         public void GetFileImporters_ReturnsExpectedFileImporters()
         {
             // Setup
-            var plugin = new RingtoetsPlugin();
+            using (var plugin = new RingtoetsPlugin())
+            {
+                // Call
+                IFileImporter[] importers = plugin.GetFileImporters().ToArray();
 
-            // Call
-            IFileImporter[] importers = plugin.GetFileImporters().ToArray();
+                // Assert
+                Assert.AreEqual(2, importers.Length);
+                Assert.AreEqual(1, importers.Count(i => i is ReferenceLineImporter));
+                Assert.AreEqual(1, importers.Count(i => i is FailureMechanismSectionsImporter));
+            }
+        }
+
+        [Test]
+        public void SetAssessmentSectionToProject_ProjectIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            using (var plugin = new RingtoetsPlugin())
+            {
+                // Call
+                TestDelegate call = () => plugin.SetAssessmentSectionToProject(null, assessmentSection);
+
+                // Assert
+                var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+                Assert.AreEqual("ringtoetsProject", paramName);
+            }
+        }
+
+        [Test]
+        public void SetAssessmentSectionToProject_AssessmentSectionIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var project = new RingtoetsProject();
+            using (var plugin = new RingtoetsPlugin())
+            {
+                // Call
+                TestDelegate call = () => plugin.SetAssessmentSectionToProject(project, null);
+
+                // Assert
+                var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+                Assert.AreEqual("assessmentSection", paramName);
+            }
+        }
+
+        [Test]
+        public void SetAssessmentSectionToProject_WithData_UpdateDataAndNotifyObservers()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var projectObserver = mockRepository.StrictMock<IObserver>();
+            projectObserver.Expect(o => o.UpdateObserver());
+            mockRepository.ReplayAll();
+
+            var project = new RingtoetsProject();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            using (var plugin = new RingtoetsPlugin())
+            {
+                project.Attach(projectObserver);
+
+                // Precondition
+                CollectionAssert.IsEmpty(project.Items);
+
+                // Call
+                plugin.SetAssessmentSectionToProject(project, assessmentSection);
+            }
+            // Assert
+            Assert.AreEqual(1, project.Items.Count);
+            CollectionAssert.Contains(project.Items, assessmentSection);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void SetAssessmentSectionToProject_NoSelectionSet_SelectionSetUpdated()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var documentViewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            documentViewControllerMock.Expect(d => d.OpenViewForData(assessmentSection)).Return(true);
+
+            var guiMock = mockRepository.StrictMock<IGui>();
+            guiMock.Stub(g => g.SelectionChanged += null).IgnoreArguments();
+            guiMock.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
+            guiMock.Expect(g => g.ProjectOpened += null).IgnoreArguments();
+            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            guiMock.Expect(g => g.Selection).SetPropertyWithArgument(assessmentSection);
+            guiMock.Expect(g => g.Selection).Return(null);
+            guiMock.Expect(g => g.DocumentViewController).Return(documentViewControllerMock);
+            mockRepository.ReplayAll();
+
+            var project = new RingtoetsProject();
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                plugin.Gui = guiMock;
+
+                // Call
+                plugin.SetAssessmentSectionToProject(project, assessmentSection);
+            }
 
             // Assert
-            Assert.AreEqual(2, importers.Length);
-            Assert.AreEqual(1, importers.Count(i => i is ReferenceLineImporter));
-            Assert.AreEqual(1, importers.Count(i => i is FailureMechanismSectionsImporter));
+            Assert.AreEqual(1, project.Items.Count);
+            CollectionAssert.Contains(project.Items, assessmentSection);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void SetAssessmentSectionToProject_SelectionAlreadySetToSameAssessmentSection_SelectionNotUpdated()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var guiMock = mockRepository.StrictMock<IGui>();
+            guiMock.Stub(g => g.SelectionChanged += null).IgnoreArguments();
+            guiMock.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
+            guiMock.Expect(g => g.ProjectOpened += null).IgnoreArguments();
+            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+
+            guiMock.Expect(g => g.Selection).Return(assessmentSection).Repeat.AtLeastOnce();
+
+            mockRepository.ReplayAll();
+
+            var project = new RingtoetsProject();
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                plugin.Gui = guiMock;
+
+                // Call
+                plugin.SetAssessmentSectionToProject(project, assessmentSection);
+            }
+
+            // Assert
+            Assert.AreEqual(1, project.Items.Count);
+            CollectionAssert.Contains(project.Items, assessmentSection);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void SetAssessmentSectionToProject_SelectionAlreadySetToDifferentAssessmentSection_SelectionUpdated()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var previousAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var documentViewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            documentViewControllerMock.Expect(d => d.OpenViewForData(assessmentSection)).Return(true);
+
+            var guiMock = mockRepository.StrictMock<IGui>();
+            guiMock.Stub(g => g.SelectionChanged += null).IgnoreArguments();
+            guiMock.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
+            guiMock.Expect(g => g.ProjectOpened += null).IgnoreArguments();
+            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            guiMock.Expect(g => g.Selection).SetPropertyWithArgument(assessmentSection);
+            guiMock.Expect(g => g.Selection).Return(previousAssessmentSection).Repeat.AtLeastOnce();
+            guiMock.Expect(g => g.DocumentViewController).Return(documentViewControllerMock);
+            mockRepository.ReplayAll();
+
+            var project = new RingtoetsProject();
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                plugin.Gui = guiMock;
+
+                // Call
+                plugin.SetAssessmentSectionToProject(project, assessmentSection);
+            }
+
+            // Assert
+            Assert.AreEqual(1, project.Items.Count);
+            CollectionAssert.Contains(project.Items, assessmentSection);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -456,13 +624,16 @@ namespace Ringtoets.Integration.Plugin.Test
         {
             // Setup
             var project = new RingtoetsProject();
-            var plugin = new RingtoetsPlugin();
             var assessmentSection1 = new AssessmentSection(AssessmentSectionComposition.Dike);
             var assessmentSection2 = new AssessmentSection(AssessmentSectionComposition.Dike);
-            plugin.SetAssessmentSectionToProject(project, assessmentSection1);
 
-            // Call
-            plugin.SetAssessmentSectionToProject(project, assessmentSection2);
+            using (var plugin = new RingtoetsPlugin())
+            {
+                plugin.SetAssessmentSectionToProject(project, assessmentSection1);
+
+                // Call
+                plugin.SetAssessmentSectionToProject(project, assessmentSection2);
+            }
 
             // Assert
             CollectionAssert.AllItemsAreUnique(project.Items.Select(section => section.Name));
