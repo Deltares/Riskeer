@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Controls.PresentationObjects;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
 using Core.Plugins.Chart.PresentationObjects;
@@ -41,6 +42,7 @@ namespace Core.Plugins.Chart.Test.PresentationObjects
             ChartDataContext context = new ChartDataContext(data, collection);
 
             // Assert
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ChartData>>(context);
             Assert.AreSame(data, context.WrappedData);
             Assert.AreSame(collection, context.ParentChartData);
         }

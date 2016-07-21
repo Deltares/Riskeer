@@ -144,7 +144,7 @@ namespace Core.Plugins.Chart.Legend
             var draggedDataContext = (ChartDataContext) draggedData;
             var targetDataContext = (ChartDataContext) targetData;
 
-            return !(targetDataContext.WrappedData is ChartDataCollection) && draggedDataContext.ParentChartData.Equals(targetDataContext.ParentChartData);
+            return draggedDataContext.ParentChartData.Equals(targetDataContext.WrappedData);
         }
 
         private void ChartDataContextOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)

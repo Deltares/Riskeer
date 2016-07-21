@@ -242,15 +242,14 @@ namespace Core.Plugins.Chart.Test.Legend
         }
 
         [Test]
-        public void CanDrop_TargetParentIsSameAsSourceParent_ReturnsTrue()
+        public void CanDrop_TargetIsSameAsSourceParent_ReturnsTrue()
         {
             // Setup
             ChartData chartData = new TestChartData();
-            ChartData chartData2 = new TestChartData();
             ChartDataCollection chartDataCollection = new ChartDataCollection(new ChartData[0], "test");
 
             ChartDataContext context = GetContext(chartData, chartDataCollection);
-            ChartDataContext targetContext = GetContext(chartData2, chartDataCollection);
+            ChartDataContext targetContext = GetContext(chartDataCollection);
 
             // Call
             bool canDrop = info.CanDrop(context, targetContext);
@@ -295,15 +294,14 @@ namespace Core.Plugins.Chart.Test.Legend
         }
 
         [Test]
-        public void CanInsert_TargetParentIsSameAsSourceParent_ReturnsTrue()
+        public void CanInsert_TargetIsSameAsSourceParent_ReturnsTrue()
         {
             // Setup
             ChartData chartData = new TestChartData();
-            ChartData chartData2 = new TestChartData();
             ChartDataCollection chartDataCollection = new ChartDataCollection(new ChartData[0], "test");
 
             ChartDataContext context = GetContext(chartData, chartDataCollection);
-            ChartDataContext targetContext = GetContext(chartData2, chartDataCollection);
+            ChartDataContext targetContext = GetContext(chartDataCollection);
 
             // Call
             bool canInsert = info.CanInsert(context, targetContext);

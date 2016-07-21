@@ -28,7 +28,7 @@ namespace Core.Plugins.Chart.PresentationObjects
     /// <summary>
     /// Presentation object for <see cref="ChartData"/>.
     /// </summary>
-    public class ChartDataContext : WrappedObjectContextBase<ChartData>
+    public class ChartDataContext : ObservableWrappedObjectContextBase<ChartData>
     {
         private readonly ChartDataCollection parentChartData;
 
