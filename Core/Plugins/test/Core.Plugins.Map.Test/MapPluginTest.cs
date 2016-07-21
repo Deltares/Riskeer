@@ -31,7 +31,6 @@ using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Components.DotSpatial.Forms;
-using Core.Plugins.DotSpatial.Test;
 using Core.Plugins.Map.Legend;
 using NUnit.Framework;
 using Rhino.Mocks;

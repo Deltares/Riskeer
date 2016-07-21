@@ -20,9 +20,10 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+
 using Core.Common.Controls.Views;
 
-namespace Core.Plugins.DotSpatial.Test
+namespace Core.Plugins.Map.Test
 {
     public partial class TestView : UserControl, IView
     {

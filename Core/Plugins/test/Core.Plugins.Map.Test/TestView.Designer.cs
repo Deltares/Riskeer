@@ -1,4 +1,4 @@
-﻿namespace Core.Plugins.DotSpatial.Test
+﻿namespace Core.Plugins.Map.Test
 {
     partial class TestView
     {
