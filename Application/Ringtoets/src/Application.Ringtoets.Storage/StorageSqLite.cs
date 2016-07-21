@@ -191,6 +191,11 @@ namespace Application.Ringtoets.Storage
                 return true;
             }
 
+            if (!(project is RingtoetsProject))
+            {
+                throw new ArgumentNullException("project");
+            }
+
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
                 try

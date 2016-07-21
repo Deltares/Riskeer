@@ -504,6 +504,32 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
+        public void HasChanges_ValidProjectLoadedParamIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            StorageSqLite storageSqLite = new StorageSqLite();
+
+            FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
+            try
+            {
+                SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, new RingtoetsProject());
+                storageSqLite.LoadProject(tempRingtoetsFile);
+
+                // Call
+                TestDelegate call = () => storageSqLite.HasChanges(null);
+
+                // Assert
+                var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+                Assert.AreEqual("project", paramName);
+            }
+            finally
+            {
+                CallGarbageCollector();
+                fileDisposeHelper.Dispose();
+            }
+        }
+
+        [Test]
         public void HasChanges_NoConnectionSet_ReturnsTrue()
         {
             // Setup

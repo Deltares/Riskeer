@@ -21,7 +21,6 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Data;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Create
