@@ -25,13 +25,14 @@ using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test.Forms.ViewHost
 {
     [TestFixture]
-    public class DocumentViewControllerTest
+    public class DocumentViewControllerTest : NUnitFormTest
     {
         [Test]
         public void ParameteredConstructor_ExpectedValues()
@@ -329,6 +330,191 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             Assert.IsTrue(result);
             Assert.AreEqual(data, view.Data);
             Assert.AreEqual(string.Empty, view.Text);
+        }
+
+        [Test]
+        public void OpenViewForData_ClickCancelInOpenedDialog_ReturnFalseAndNoViewAddedToViewList()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            var viewHost = mocks.StrictMock<IViewHost>();
+
+            viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
+
+            mocks.ReplayAll();
+
+            var data = new object();
+            var viewInfos = new ViewInfo[]
+            {
+                new ViewInfo<object, TestViewDerivative>(),
+                new ViewInfo<object, TestView>()
+            };
+
+            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var buttonCancel = new ControlTester("buttonCancel");
+
+                buttonCancel.Click();
+            };
+
+            // Call
+            var result = documentViewController.OpenViewForData(data);
+
+            // Assert
+            Assert.IsFalse(result);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OpenViewForData_ClickOkInOpenedDialog_ReturnTrueAndViewAddedToViewList()
+        {
+            // Setup
+            TestView view = null;
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            var viewHost = mocks.StrictMock<IViewHost>();
+
+            viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => true))).WhenCalled(invocation =>
+            {
+                view = invocation.Arguments[0] as TestView;
+            });
+            viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
+
+            mocks.ReplayAll();
+
+            var data = new object();
+
+            var viewInfos = new ViewInfo[]
+            {
+                new ViewInfo<object, TestViewDerivative>(),
+                new ViewInfo<object, TestView>()
+            };
+
+            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var buttonOk = new ControlTester("buttonOk");
+
+                buttonOk.Click();
+            };
+
+            // Call
+            var result = documentViewController.OpenViewForData(data);
+
+            // Assert
+            Assert.IsTrue(result);
+            Assert.AreEqual(data, view.Data);
+            Assert.AreEqual(string.Empty, view.Text);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OpenViewForData_MarkAsDefaultViewAndClickOkInOpenedDialog_ReturnTrueViewAddedToViewListAndDefaultViewTypesUpdated()
+        {
+            // Setup
+            TestView view = null;
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            var viewHost = mocks.StrictMock<IViewHost>();
+
+            viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => true))).WhenCalled(invocation =>
+            {
+                view = invocation.Arguments[0] as TestView;
+            });
+            viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
+
+            mocks.ReplayAll();
+
+            var data = new object();
+
+            var viewInfos = new ViewInfo[]
+            {
+                new ViewInfo<object, TestViewDerivative>(),
+                new ViewInfo<object, TestView>()
+            };
+
+            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var buttonOk = new ControlTester("buttonOk");
+                var checkbox = new CheckBoxTester("checkBoxDefault");
+
+                checkbox.Check();
+                buttonOk.Click();
+            };
+
+            // Precondition
+            Assert.IsFalse(documentViewController.DefaultViewTypes.ContainsKey(typeof(object)));
+
+            // Call
+            var result = documentViewController.OpenViewForData(data);
+
+            // Assert
+            Assert.IsTrue(result);
+            Assert.AreEqual(data, view.Data);
+            Assert.AreEqual(string.Empty, view.Text);
+            Assert.IsTrue(documentViewController.DefaultViewTypes.ContainsKey(typeof(object)));
+            Assert.AreEqual(documentViewController.DefaultViewTypes[typeof(object)], typeof(TestView));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OpenViewForData_SelectDifferentDefaultViewAndClickOkInOpenedDialog_ReturnTrueViewAddedToViewListAndDefaultViewTypesUpdated()
+        {
+            // Setup
+            TestView view = null;
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            var viewHost = mocks.StrictMock<IViewHost>();
+
+            viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => true))).WhenCalled(invocation =>
+            {
+                view = invocation.Arguments[0] as TestView;
+            });
+            viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
+
+            mocks.ReplayAll();
+
+            var data = new object();
+
+            var viewInfos = new ViewInfo[]
+            {
+                new ViewInfo<object, TestViewDerivative>(),
+                new ViewInfo<object, TestView>()
+            };
+
+            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
+            documentViewController.DefaultViewTypes[typeof(object)] = typeof(TestViewDerivative);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var buttonOk = new ControlTester("buttonOk");
+                var listBox = new ListBoxTester("listBox");
+                var checkBox = new CheckBoxTester("checkBoxDefault");
+
+                listBox.SetSelected(0, true);
+                checkBox.Check();
+                buttonOk.Click();
+            };
+
+            // Call
+            var result = documentViewController.OpenViewForData(data, true);
+
+            // Assert
+            Assert.IsTrue(result);
+            Assert.AreEqual(data, view.Data);
+            Assert.AreEqual(string.Empty, view.Text);
+            Assert.IsTrue(documentViewController.DefaultViewTypes.ContainsKey(typeof(object)));
+            Assert.AreEqual(documentViewController.DefaultViewTypes[typeof(object)], typeof(TestView));
+            mocks.VerifyAll();
         }
 
         [Test]
