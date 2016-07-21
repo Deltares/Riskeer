@@ -493,13 +493,11 @@ namespace Core.Common.Gui.Forms.MainWindow
                 };
             }
 
-            if (viewController.ViewHost == null)
+            if (viewController.ViewHost != null)
             {
-                return;
+                viewController.ViewHost.AddToolView(messageWindow, ToolViewLocation.Bottom);
+                viewController.ViewHost.SetImage(messageWindow, Properties.Resources.application_view_list);
             }
-
-            viewController.ViewHost.AddToolView(messageWindow, ToolViewLocation.Bottom);
-            viewController.ViewHost.SetImage(messageWindow, Properties.Resources.application_view_list);
         }
 
         private void OnFileSaveClicked(object sender, RoutedEventArgs e)
@@ -577,18 +575,11 @@ namespace Core.Common.Gui.Forms.MainWindow
             // get all ribbon controls
             ribbonCommandHandlers = pluginsHost.Plugins.Where(p => p.RibbonCommandHandler != null).Select(p => p.RibbonCommandHandler).ToArray();
 
-            foreach (var ribbonExtension in ribbonCommandHandlers)
+            foreach (var ribbonControl in ribbonCommandHandlers.Select(rch => rch.GetRibbonControl())) 
             {
-                var ribbonControl = ribbonExtension.GetRibbonControl();
-
                 // fill contextual groups from plugins
-                foreach (var group in ribbonControl.ContextualGroups)
+                foreach (var group in ribbonControl.ContextualGroups.Where(group => Ribbon.ContextualGroups.All(g => g.Name != group.Name)))
                 {
-                    if (Ribbon.ContextualGroups.Any(g => g.Name == group.Name))
-                    {
-                        continue;
-                    }
-
                     Ribbon.ContextualGroups.Add(group);
                 }
 
@@ -677,13 +668,13 @@ namespace Core.Common.Gui.Forms.MainWindow
             if (active)
             {
                 viewController.ViewHost.Remove(PropertyGrid);
-                ButtonShowProperties.IsChecked = false;
             }
             else
             {
                 InitPropertiesWindowAndActivate();
-                ButtonShowProperties.IsChecked = true;
             }
+
+            ButtonShowProperties.IsChecked = !active;
         }
 
         private void ButtonShowMessages_Click(object sender, RoutedEventArgs e)
@@ -693,13 +684,13 @@ namespace Core.Common.Gui.Forms.MainWindow
             if (active)
             {
                 viewController.ViewHost.Remove(MessageWindow);
-                ButtonShowMessages.IsChecked = false;
             }
             else
             {
                 InitMessagesWindowOrActivate();
-                ButtonShowMessages.IsChecked = true;
             }
+
+            ButtonShowMessages.IsChecked = !active;
         }
 
         private void OnFileHelpLicense_Clicked(object sender, RoutedEventArgs e)

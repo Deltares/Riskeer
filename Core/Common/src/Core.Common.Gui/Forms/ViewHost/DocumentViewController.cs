@@ -104,11 +104,10 @@ namespace Core.Common.Gui.Forms.ViewHost
             {
                 return false;
             }
-            else
-            {
-                CreateViewFromViewInfo(data, chosenViewInfo);
-                return true;
-            }
+
+            CreateViewFromViewInfo(data, chosenViewInfo);
+
+            return true;
         }
 
         public void CloseAllViewsFor(object data)
@@ -118,12 +117,9 @@ namespace Core.Common.Gui.Forms.ViewHost
                 return;
             }
 
-            foreach (var view in viewHost.DocumentViews.ToArray())
+            foreach (var view in viewHost.DocumentViews.Where(view => ShouldRemoveViewForData(view, data))) 
             {
-                if (ShouldRemoveViewForData(view, data))
-                {
-                    viewHost.Remove(view);
-                }
+                viewHost.Remove(view);
             }
         }
 
@@ -172,7 +168,6 @@ namespace Core.Common.Gui.Forms.ViewHost
             if (view != null)
             {
                 viewHost.SetFocusToView(view);
-
                 return;
             }
 
@@ -237,7 +232,7 @@ namespace Core.Common.Gui.Forms.ViewHost
         private bool IsViewData(IView view, object data)
         {
             var viewInfo = GetViewInfoForView(view);
-            return data.Equals(view.Data) || (IsDataForView(data, GetViewInfoForView(view)) && Equals(viewInfo.GetViewData(data), view.Data));
+            return data.Equals(view.Data) || (IsDataForView(data, viewInfo) && Equals(viewInfo.GetViewData(data), view.Data));
         }
 
         private bool IsDataForView(object data, ViewInfo info)

@@ -328,8 +328,8 @@
   <data name="Ribbon_Command_Close" xml:space="preserve">
     <value>Afsluiten</value>
   </data>
-  <data name="GuiCore_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace" xml:space="preserve">
-    <value>Slechts één instantie van de Ringtoets grafische interface is toegestaan per proces. Zorg ervoor dat de vorige instantie correct opgeruimd is. 'Stack trace':</value>
+  <data name="GuiCore_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace_0" xml:space="preserve">
+    <value>Slechts één instantie van de Ringtoets grafische interface is toegestaan per proces. Zorg ervoor dat de vorige instantie correct opgeruimd is. 'Stack trace': {0}</value>
   </data>
   <data name="Ribbon_Show_Log" xml:space="preserve">
     <value>Log Tonen</value>

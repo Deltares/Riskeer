@@ -25,7 +25,6 @@ using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Common.Controls.TreeView.Test
 {
@@ -1329,9 +1328,7 @@ namespace Core.Common.Controls.TreeView.Test
         public void GivenObservableDataOnTreeControl_WhenObserversNotified_ThenNodeForDataChanges()
         {
             // Given
-            var mocks = new MockRepository();
             var observable = new TestObservable();
-            mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1355,7 +1352,6 @@ namespace Core.Common.Controls.TreeView.Test
 
                 // Then
                 Assert.AreEqual(expectedText, node.Text);
-                mocks.VerifyAll();
             }
         }
 

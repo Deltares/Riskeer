@@ -87,7 +87,9 @@ namespace Core.Common.Gui
             if (isAlreadyRunningInstanceOfIGui)
             {
                 isAlreadyRunningInstanceOfIGui = false; // reset to that the consecutive creations won't fail.
-                throw new InvalidOperationException(Resources.GuiCore_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace + instanceCreationStackTrace);
+                throw new InvalidOperationException(
+                    string.Format(Resources.GuiCore_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace_0,
+                                  instanceCreationStackTrace));
             }
 
             if (mainWindow == null)
@@ -517,12 +519,10 @@ namespace Core.Common.Gui
 
         private void OnActiveDocumentViewChanged(object sender, EventArgs e)
         {
-            if (mainWindow == null || mainWindow.IsWindowDisposed)
+            if (mainWindow != null && !mainWindow.IsWindowDisposed)
             {
-                return;
+                mainWindow.ValidateItems();
             }
-
-            mainWindow.ValidateItems();
         }
 
         private void InitializePlugins()
@@ -579,12 +579,8 @@ namespace Core.Common.Gui
             StringCollection defaultViews = new StringCollection();
             StringCollection defaultViewDataTypes = new StringCollection();
 
-            foreach (Type objectType in DocumentViewController.DefaultViewTypes.Keys)
+            foreach (Type objectType in DocumentViewController.DefaultViewTypes.Keys.Where(objectType => DocumentViewController.DefaultViewTypes[objectType] != null))
             {
-                if (DocumentViewController.DefaultViewTypes[objectType] == null)
-                {
-                    continue;
-                }
                 defaultViews.Add(DocumentViewController.DefaultViewTypes[objectType].ToString());
                 defaultViewDataTypes.Add(objectType.ToString());
             }

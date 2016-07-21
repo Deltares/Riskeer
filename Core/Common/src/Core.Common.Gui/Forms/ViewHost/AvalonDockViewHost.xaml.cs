@@ -112,7 +112,6 @@ namespace Core.Common.Gui.Forms.ViewHost
             if (documentViews.Contains(view) || toolViews.Contains(view))
             {
                 SetFocusToView(view);
-
                 return;
             }
 
@@ -147,7 +146,6 @@ namespace Core.Common.Gui.Forms.ViewHost
             if (documentViews.Contains(view) || toolViews.Contains(view))
             {
                 SetFocusToView(view);
-
                 return;
             }
 
@@ -164,17 +162,17 @@ namespace Core.Common.Gui.Forms.ViewHost
             toolViews.Add(view);
             hostControls.Add(hostControl);
 
-            if (toolViewLocation == ToolViewLocation.Left)
+            switch (toolViewLocation)
             {
-                leftPane.Children.Add(layoutAnchorable);
-            }
-            else if (toolViewLocation == ToolViewLocation.Bottom)
-            {
-                bottomPane.Children.Add(layoutAnchorable);
-            }
-            else if (toolViewLocation == ToolViewLocation.Right)
-            {
-                rightPane.Children.Add(layoutAnchorable);
+                case ToolViewLocation.Left:
+                    leftPane.Children.Add(layoutAnchorable);
+                    break;
+                case ToolViewLocation.Bottom:
+                    bottomPane.Children.Add(layoutAnchorable);
+                    break;
+                case ToolViewLocation.Right:
+                    rightPane.Children.Add(layoutAnchorable);
+                    break;
             }
 
             SetFocusToView(view);
@@ -352,12 +350,7 @@ namespace Core.Common.Gui.Forms.ViewHost
         private static IView GetView(object content)
         {
             var windowsFormsHost = content as WindowsFormsHost;
-            if (windowsFormsHost != null)
-            {
-                return windowsFormsHost.Child as IView;
-            }
-
-            return null;
+            return windowsFormsHost != null ? windowsFormsHost.Child as IView : null;
         }
     }
 }
