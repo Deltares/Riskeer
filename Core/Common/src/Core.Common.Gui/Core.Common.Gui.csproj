@@ -78,7 +78,6 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -155,7 +154,6 @@
     <Compile Include="PropertyBag\ReadOnlyPropertyDescriptorDecorator.cs" />
     <Compile Include="Selection\IApplicationSelection.cs" />
     <Compile Include="Selection\SelectedItemChangedEventArgs.cs" />
-    <Compile Include="Settings\PortableSettingsProvider.cs" />
     <Compile Include="Settings\GuiCoreSettings.cs" />
     <Compile Include="Settings\ISettingsOwner.cs" />
     <Compile Include="Settings\SettingsHelper.cs" />

@@ -128,7 +128,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             {
                 if (gui == null)
                 {
-                    throw new InvalidOperationException("First call 'SetGui(IGui)' before settings a value on this property.");
+                    throw new InvalidOperationException("First call 'SetGui(IGui)' before setting a value on this property.");
                 }
 
                 if (value)

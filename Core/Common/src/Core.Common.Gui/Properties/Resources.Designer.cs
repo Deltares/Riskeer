@@ -977,25 +977,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fout bij het opslaan van de instellingen in {0}..
-        /// </summary>
-        public static string PortableSettingsProvider_SetPropertyValues_Error_storing_settings_to_0_ {
-            get {
-                return ResourceManager.GetString("PortableSettingsProvider_SetPropertyValues_Error_storing_settings_to_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Instelling {0} heeft de niet-ondersteunde waarde &apos;roaming&apos;..
-        /// </summary>
-        public static string PortableSettingsProvider_ThrowIfRoaming_Setting_0_is_roaming_This_is_not_supported {
-            get {
-                return ResourceManager.GetString("PortableSettingsProvider_ThrowIfRoaming_Setting_0_is_roaming_This_is_not_supporte" +
-                        "d", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er moet een project zijn om gegevens te kunnen toevoegen..
         /// </summary>
         public static string ProjectCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item {

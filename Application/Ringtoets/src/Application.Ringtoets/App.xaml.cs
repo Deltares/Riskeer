@@ -95,9 +95,6 @@ namespace Application.Ringtoets
                 Environment.CurrentDirectory = loaderDirectory;
             }
 
-            //gui.ApplicationCore.ProjectRepositoryFactory.SpeedUpSessionCreationUsingParallelThread = true;
-            //gui.ApplicationCore.ProjectRepositoryFactory.SpeedUpConfigurationCreationUsingCaching = true;
-            //gui.ApplicationCore.ProjectRepositoryFactory.ConfigurationCacheDirectory = gui.ApplicationCore.GetUserSettingsDirectoryPath();
             System.Windows.Forms.Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException, true);
 
             // handle exception from UI thread
@@ -264,7 +261,7 @@ namespace Application.Ringtoets
                 //and 'Morphan' side by side.
                 var applicationName = ConfigurationManager.AppSettings.AllKeys.Contains("applicationName")
                                           ? ConfigurationManager.AppSettings["applicationName"]
-                                          : "";
+                                          : string.Empty;
 
                 var mutexName = string.Format("Ringtoets-single-instance-mutex-{0}-{1}", Environment.UserName,
                                               applicationName);
