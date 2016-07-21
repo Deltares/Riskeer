@@ -21,7 +21,6 @@
 
 using System;
 using System.IO;
-using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
@@ -56,8 +55,8 @@ namespace Application.Ringtoets.Storage.Test
 
             // Precondition
             Assert.IsFalse(File.Exists(fullPath));
-
-            using (new FileDisposeHelper(fullPath))
+            
+            try
             {
                 // Call
                 TestDelegate call = () => StorageSqliteCreator.CreateDatabaseStructure(fullPath);
@@ -66,6 +65,13 @@ namespace Application.Ringtoets.Storage.Test
                 Assert.DoesNotThrow(call);
 
                 Assert.IsTrue(File.Exists(fullPath));
+            }
+            finally
+            {
+                if (File.Exists(fullPath))
+                {
+                    File.Delete(fullPath);
+                }
             }
         }
 
@@ -80,7 +86,7 @@ namespace Application.Ringtoets.Storage.Test
             // Precondition
             Assert.IsFalse(File.Exists(fullPath));
 
-            using (new FileDisposeHelper(fullPath))
+            try
             {
                 // Call
                 TestDelegate call = () => StorageSqliteCreator.CreateDatabaseStructure(uncPath);
@@ -90,26 +96,31 @@ namespace Application.Ringtoets.Storage.Test
 
                 Assert.IsTrue(File.Exists(fullPath));
             }
+            finally
+            {
+                if (File.Exists(fullPath))
+                {
+                    File.Delete(fullPath);
+                }
+            }
         }
 
         [Test]
-        public void CreateDatabaseStructure_ValidPathToLockedFile_ThrowsUpdateStorageException()
+        public void CreateDatabaseStructure_ValidExistingFile_ThrowsStorageException()
         {
             using (new FileDisposeHelper(tempRingtoetsFile))
             {
                 // Call
                 TestDelegate call = () => StorageSqliteCreator.CreateDatabaseStructure(tempRingtoetsFile);
 
-                StorageException exception;
+                ArgumentException exception;
                 using (File.Create(tempRingtoetsFile)) // Locks file
                 {
-                    exception = Assert.Throws<StorageException>(call);
+                    exception = Assert.Throws<ArgumentException>(call);
                 }
 
                 // Assert
-                Assert.IsInstanceOf<UpdateStorageException>(exception.InnerException);
-                var expectedMessage = String.Format(@"Fout bij het schrijven naar bestand '{0}': " +
-                                                    "Een fout is opgetreden met schrijven naar het nieuwe Ringtoets bestand.", tempRingtoetsFile);
+                var expectedMessage = String.Format(@"File '{0}' already exists.", tempRingtoetsFile);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }

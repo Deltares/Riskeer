@@ -291,7 +291,7 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             var expectedMessage = string.Format(
-                @"Kan geen tijdelijk bestand maken van het originele bestand ({0}). Probeer ergens anders op te slaan.",
+                @"Kan geen tijdelijk bestand maken van het originele bestand ({0}).",
                 tempRingtoetsFile);
             var project = new RingtoetsProject();
             var storage = new StorageSqLite();

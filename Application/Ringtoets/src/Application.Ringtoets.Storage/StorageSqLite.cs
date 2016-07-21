@@ -61,14 +61,12 @@ namespace Application.Ringtoets.Storage
         /// <param name="project"><see cref="IProject"/> to save.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
-        /// <exception cref="CouldNotConnectException">No file is present at <paramref name="databaseFilePath"/>
-        /// at the time a connection is made.</exception>
         /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">
-        /// <item>The database does not contain the table <c>version</c></item>
-        /// <item>The file <paramref name="databaseFilePath"/> was not created.</item>
-        /// <item>Saving the <paramref name="project"/> to the database failed.</item>
+        /// <item>No backup file could be created or restored when overwriting an existing file.</item>
+        /// <item>The file at <paramref name="databaseFilePath"/> cannot be created.</item>
         /// <item>The connection to the database file failed.</item>
+        /// <item>Saving the <paramref name="project"/> to the database failed.</item>
         /// </list>
         /// </exception>
         public void SaveProjectAs(string databaseFilePath, IProject project)
@@ -78,19 +76,18 @@ namespace Application.Ringtoets.Storage
                 throw new ArgumentNullException("project");
             }
 
-            SafeOverwriteFileHelper overwriteHelper = GetSafeOverwriteFileHelper(databaseFilePath);
-            if (overwriteHelper != null)
+            try
             {
-                try
+                BackedUpFileWriter writer = new BackedUpFileWriter(databaseFilePath);
+                writer.Perform(() =>
                 {
                     SetConnectionToNewFile(databaseFilePath);
                     SaveProjectInDatabase(databaseFilePath, (RingtoetsProject) project);
-                }
-                catch
-                {
-                    CleanUpTemporaryFile(overwriteHelper, true);
-                }
-                CleanUpTemporaryFile(overwriteHelper, false);
+                });
+            }
+            catch (IOException e)
+            {
+                throw new StorageException(e.Message, e);
             }
         }
 
@@ -218,46 +215,6 @@ namespace Application.Ringtoets.Storage
             }
         }
 
-        /// <summary>
-        /// Cleans up a new <see cref="SafeOverwriteFileHelper"/>.
-        /// </summary>
-        /// <param name="overwriteHelper">The <see cref="SafeOverwriteFileHelper"/> to use for cleaning up.</param>
-        /// <param name="revert">Value indicating whether the <paramref name="overwriteHelper"/> should revert to
-        /// original file or keep the new file.</param>
-        /// <exception cref="StorageException">A file IO operation fails while cleaning up using the 
-        /// <paramref name="overwriteHelper"/>.</exception>
-        private void CleanUpTemporaryFile(SafeOverwriteFileHelper overwriteHelper, bool revert)
-        {
-            try
-            {
-                overwriteHelper.Finish(revert);
-            }
-            catch (IOException e)
-            {
-                throw new StorageException(e.Message, e);
-            }
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="SafeOverwriteFileHelper"/>.
-        /// </summary>
-        /// <param name="databaseFilePath">The path for which to create the <see cref="SafeOverwriteFileHelper"/>.</param>
-        /// <returns>A new <see cref="SafeOverwriteFileHelper"/></returns>
-        /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
-        /// <exception cref="StorageException">A file IO operation fails while initializing the 
-        /// <see cref="SafeOverwriteFileHelper"/>.</exception>
-        private SafeOverwriteFileHelper GetSafeOverwriteFileHelper(string databaseFilePath)
-        {
-            try
-            {
-                return new SafeOverwriteFileHelper(databaseFilePath);
-            }
-            catch (IOException e)
-            {
-                throw new StorageException(e.Message, e);
-            }
-        }
-
         private void SaveProjectInDatabase(string databaseFilePath, RingtoetsProject project)
         {
             using (var dbContext = new RingtoetsEntities(connectionString))
@@ -337,16 +294,15 @@ namespace Application.Ringtoets.Storage
         /// Sets the connection to a newly created (empty) Ringtoets database file.
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
-        /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
-        /// <exception cref="CouldNotConnectException">No file is present at <paramref name="databaseFilePath"/>
-        /// at the time a connection is made.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="databaseFilePath"/> is invalid</item>
+        /// <item><paramref name="databaseFilePath"/> points to an existing file</item>
+        /// </list></exception>
         /// <exception cref="StorageException">Thrown when:<list type="bullet">
-        /// <item><paramref name="databaseFilePath"/> was not created</item>
         /// <item>executing <c>DatabaseStructure</c> script failed</item>
         /// </list>
         /// </exception>
-        /// <exception cref="IOException">Thrown when the <paramref name="databaseFilePath"/> could not 
-        /// be overwritten.</exception>
         private void SetConnectionToNewFile(string databaseFilePath)
         {
             FileUtils.ValidateFilePath(databaseFilePath);

@@ -323,7 +323,7 @@
     </Compile>
     <Compile Include="SqLiteConnectionStringBuilder.cs" />
     <Compile Include="StorageSqLite.cs" />
-    <Compile Include="SafeOverwriteFileHelper.cs" />
+    <Compile Include="BackedUpFileWriter.cs" />
     <Compile Include="Update\AssessmentSectionUpdateExtensions.cs" />
     <Compile Include="Update\CalculationGroupUpdateExtensions.cs" />
     <Compile Include="Update\ClosingStructure\ClosingStructureFailureMechanismSectionResultUpdateExtensions.cs" />

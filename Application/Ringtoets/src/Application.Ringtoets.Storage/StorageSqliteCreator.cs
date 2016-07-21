@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Data.SQLite;
 using System.IO;
 using Application.Ringtoets.Storage.Properties;
@@ -34,19 +35,27 @@ namespace Application.Ringtoets.Storage
     public static class StorageSqliteCreator
     {
         /// <summary>
-        /// Creates the basic database structure for a Ringtoets database file.
+        /// Creates a new file with the basic database structure for a Ringtoets database at
+        /// <paramref name="databaseFilePath"/>.
         /// </summary>
-        /// <param name="databaseFilePath">Path to database file.</param>
-        /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
+        /// <param name="databaseFilePath">Path of the new database file.</param>
+        /// <exception cref="System.ArgumentException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="databaseFilePath"/> is invalid</item>
+        /// <item><paramref name="databaseFilePath"/> points to an existing file</item>
+        /// </list></exception>
         /// <exception cref="StorageException">Thrown when executing <c>DatabaseStructure</c> script fails.</exception>
         public static void CreateDatabaseStructure(string databaseFilePath)
         {
             FileUtils.ValidateFilePath(databaseFilePath);
 
-            if (!File.Exists(databaseFilePath))
+            if (File.Exists(databaseFilePath))
             {
-                SQLiteConnection.CreateFile(databaseFilePath);
+                var message = string.Format("File '{0}' already exists.", databaseFilePath);
+                throw new ArgumentException(message);
             }
+
+            SQLiteConnection.CreateFile(databaseFilePath);
             var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(databaseFilePath);
             try
             {
