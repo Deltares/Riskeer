@@ -56,6 +56,7 @@ namespace Application.Ringtoets
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.buttonExit = new System.Windows.Forms.Button();
             this.buttonOpenLog = new System.Windows.Forms.Button();
+            this.buttonSaveProject = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonRestart
@@ -104,6 +105,13 @@ namespace Application.Ringtoets
             this.buttonOpenLog.UseVisualStyleBackColor = true;
             this.buttonOpenLog.Click += new System.EventHandler(this.ButtonOpenLogClick);
             // 
+            // buttonSaveProject
+            // 
+            resources.ApplyResources(this.buttonSaveProject, "buttonSaveProject");
+            this.buttonSaveProject.Name = "buttonSaveProject";
+            this.buttonSaveProject.UseVisualStyleBackColor = true;
+            this.buttonSaveProject.Click += new System.EventHandler(this.ButtonSaveProjectClick);
+            // 
             // ExceptionDialog
             // 
             this.AcceptButton = this.buttonRestart;
@@ -114,6 +122,7 @@ namespace Application.Ringtoets
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.buttonCopyTextToClipboard);
             this.Controls.Add(this.buttonRestart);
+            this.Controls.Add(this.buttonSaveProject);
             this.Name = "ExceptionDialog";
             this.ResumeLayout(false);
         }
@@ -126,5 +135,6 @@ namespace Application.Ringtoets
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.Button buttonOpenLog;
+        private System.Windows.Forms.Button buttonSaveProject;
     }
 }

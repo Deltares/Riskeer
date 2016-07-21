@@ -24,6 +24,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Application.Ringtoets.Properties;
 using Core.Common.Controls.Dialogs;
+using Core.Common.Gui.Commands;
 
 namespace Application.Ringtoets
 {
@@ -41,15 +42,18 @@ namespace Application.Ringtoets
     /// </summary>
     public partial class ExceptionDialog : DialogBase
     {
+        private readonly ICommandsOwner commands;
         private Action openLogClicked;
 
         /// <summary>
         /// Constructs a new <see cref="ExceptionDialog"/>.
         /// </summary>
         /// <param name="dialogParent">The owner of the dialog.</param>
+        /// <param name="commands">The commands available in the application.</param>
         /// <param name="exception">The exception to show in the dialog.</param>
-        public ExceptionDialog(IWin32Window dialogParent, Exception exception) : base(dialogParent, (Icon) Resources.bug__exclamation, 470, 200)
+        public ExceptionDialog(IWin32Window dialogParent, ICommandsOwner commands, Exception exception) : base(dialogParent, (Icon) Resources.bug__exclamation, 470, 200)
         {
+            this.commands = commands;
             InitializeComponent();
 
             buttonOpenLog.Enabled = false;
@@ -101,6 +105,20 @@ namespace Application.Ringtoets
         private void ButtonOpenLogClick(object sender, EventArgs e)
         {
             OpenLogClicked();
+        }
+
+        private void ButtonSaveProjectClick(object sender, EventArgs e)
+        {
+            var saved = commands.StorageCommands.SaveProjectAs();
+
+            ShowMessageDialog(
+                saved ? Resources.ExceptionDialog_ButtonSaveProjectClick_Succesfully_saved_project : Resources.ExceptionDialog_ButtonSaveProjectClick_Saving_project_failed,
+                saved ? Resources.ExceptionDialog_ButtonSaveProjectClick_Succesfully_saved_project_caption : Resources.ExceptionDialog_ButtonSaveProjectClick_Saving_project_failed_caption);
+        }
+
+        private void ShowMessageDialog(string message, string caption)
+        {
+            MessageBox.Show(message, caption, MessageBoxButtons.OK);
         }
     }
 }

@@ -316,7 +316,7 @@ namespace Application.Ringtoets
         {
             if (gui != null && gui.MainWindow != null)
             {
-                using (var exceptionDialog = new ExceptionDialog(gui.MainWindow, exception)
+                using (var exceptionDialog = new ExceptionDialog(gui.MainWindow, gui, exception)
                 {
                     OpenLogClicked = () =>
                     {

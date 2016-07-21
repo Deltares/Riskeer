@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Test
             mocks.ReplayAll();
 
             // Call
-            using (var dialog = new ExceptionDialog(window, null))
+            using (var dialog = new ExceptionDialog(window, null, null))
             {
                 // Assert
                 Assert.IsNotNull(dialog.Icon);
@@ -73,7 +73,7 @@ namespace Application.Ringtoets.Test
                 openedDialog.Close();
             };
 
-            using (var dialog = new ExceptionDialog(window, null))
+            using (var dialog = new ExceptionDialog(window, null, null))
             {
                 // Call
                 dialog.ShowDialog();
@@ -106,7 +106,7 @@ namespace Application.Ringtoets.Test
 
             var exception = new Exception("Test", new Exception("Test inner"));
 
-            using (var dialog = new ExceptionDialog(window, exception))
+            using (var dialog = new ExceptionDialog(window, null, exception))
             {
                 // Call
                 dialog.ShowDialog();
@@ -136,7 +136,7 @@ namespace Application.Ringtoets.Test
                 openedDialog.Close();
             };
 
-            using (var dialog = new ExceptionDialog(window, null))
+            using (var dialog = new ExceptionDialog(window, null, null))
             {
                 // Call
                 dialog.ShowDialog();
@@ -166,7 +166,7 @@ namespace Application.Ringtoets.Test
                 openedDialog.Close();
             };
 
-            using (var dialog = new ExceptionDialog(window, null))
+            using (var dialog = new ExceptionDialog(window, null, null))
             {
                 // Call
                 dialog.ShowDialog();
@@ -196,7 +196,7 @@ namespace Application.Ringtoets.Test
                 openedDialog.Close();
             };
 
-            using (var dialog = new ExceptionDialog(window, null)
+            using (var dialog = new ExceptionDialog(window, null, null)
             {
                 OpenLogClicked = () => { }
             })
@@ -225,7 +225,7 @@ namespace Application.Ringtoets.Test
                 button.Click();
             };
 
-            using (var dialog = new ExceptionDialog(window, null))
+            using (var dialog = new ExceptionDialog(window, null, null))
             {
                 // Call
                 dialog.ShowDialog();
@@ -251,7 +251,7 @@ namespace Application.Ringtoets.Test
                 button.Click();
             };
 
-            using (var dialog = new ExceptionDialog(window, null))
+            using (var dialog = new ExceptionDialog(window, null, null))
             {
                 // Call
                 dialog.ShowDialog();
@@ -281,7 +281,7 @@ namespace Application.Ringtoets.Test
                 openedDialog.Close();
             };
 
-            using (var dialog = new ExceptionDialog(window, null)
+            using (var dialog = new ExceptionDialog(window, null, null)
             {
                 OpenLogClicked = () => counter++
             })
@@ -310,7 +310,7 @@ namespace Application.Ringtoets.Test
             };
 
             var exception = new Exception("Test");
-            using (var dialog = new ExceptionDialog(new UserControl(), exception))
+            using (var dialog = new ExceptionDialog(new UserControl(), null, exception))
             {
                 // Call
                 dialog.ShowDialog();

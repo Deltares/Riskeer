@@ -282,14 +282,35 @@
   <data name="&gt;&gt;buttonOpenLog.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="buttonSaveProject.Location" type="System.Drawing.Point, System.Drawing">
+    <value>287, 242</value>
+  </data>
+  <data name="buttonSaveProject.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="buttonSaveProject.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="buttonSaveProject.Text" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="&gt;&gt;buttonSaveProject.Name" xml:space="preserve">
+    <value>buttonSaveProject</value>
+  </data>
+  <data name="&gt;&gt;buttonSaveProject.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonSaveProject.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonSaveProject.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>536, 273</value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
