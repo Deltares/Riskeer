@@ -165,7 +165,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsTrue(dikeHeightProperty.IsReadOnly);
             Assert.AreEqual("Resultaat", dikeHeightProperty.Category);
             Assert.AreEqual("HBN [m+NAP]", dikeHeightProperty.DisplayName);
-            Assert.AreEqual("De HBN van de overslag deelberekening.", dikeHeightProperty.Description);
+            Assert.AreEqual("Het berekende Hydraulisch Belasting Niveau (HBN).", dikeHeightProperty.Description);
         }
 
         [Test]

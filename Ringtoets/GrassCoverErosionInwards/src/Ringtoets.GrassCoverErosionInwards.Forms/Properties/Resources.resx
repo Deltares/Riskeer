@@ -317,7 +317,7 @@
     <value>Bereken HBN</value>
   </data>
   <data name="GrassCoverErosionInwardsOutput_DikeHeight_Description" xml:space="preserve">
-    <value>De HBN van de overslag deelberekening.</value>
+    <value>Het berekende Hydraulisch Belasting Niveau (HBN).</value>
   </data>
   <data name="GrassCoverErosionInwardsOutput_DikeHeight_DisplayName" xml:space="preserve">
     <value>HBN [m+NAP]</value>
