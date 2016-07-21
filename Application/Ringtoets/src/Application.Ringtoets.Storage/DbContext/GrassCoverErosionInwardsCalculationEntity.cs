@@ -38,20 +38,23 @@ namespace Application.Ringtoets.Storage.DbContext
         public long GrassCoverErosionInwardsCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
         public Nullable<long> HydraulicLocationEntityId { get; set; }
+        public Nullable<long> DikeProfileEntityId { get; set; }
         public Nullable<long> GrassCoverErosionInwardsOutputEntityId { get; set; }
         public int Order { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
-        public decimal Orientation { get; set; }
-        public decimal CriticalFlowRateMean { get; set; }
-        public decimal CriticalFlowRateStandardDeviation { get; set; }
+        public Nullable<double> Orientation { get; set; }
+        public Nullable<double> CriticalFlowRateMean { get; set; }
+        public Nullable<double> CriticalFlowRateStandardDeviation { get; set; }
         public byte UseForeshore { get; set; }
-        public decimal DikeHeight { get; set; }
+        public Nullable<double> DikeHeight { get; set; }
         public byte UseBreakWater { get; set; }
         public short BreakWaterType { get; set; }
-        public decimal BreakWaterHeight { get; set; }
+        public Nullable<double> BreakWaterHeight { get; set; }
+        public byte CalculateDikeHeight { get; set; }
     
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
+        public virtual DikeProfileEntity DikeProfileEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
         public virtual GrassCoverErosionInwardsOutputEntity GrassCoverErosionInwardsOutputEntity { get; set; }
     }

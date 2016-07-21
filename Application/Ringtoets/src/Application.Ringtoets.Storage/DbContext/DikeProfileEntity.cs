@@ -35,6 +35,12 @@ namespace Application.Ringtoets.Storage.DbContext
     
     public partial class DikeProfileEntity
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DikeProfileEntity()
+        {
+            this.GrassCoverErosionInwardsCalculationEntities = new HashSet<GrassCoverErosionInwardsCalculationEntity>();
+        }
+    
         public long DikeProfileEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public string Name { get; set; }
@@ -49,5 +55,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double X0 { get; set; }
     
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GrassCoverErosionInwardsCalculationEntity> GrassCoverErosionInwardsCalculationEntities { get; set; }
     }
 }
