@@ -417,14 +417,6 @@ namespace Core.Common.Gui
             InitializePlugins();
 
             CopyDefaultViewsFromUserSettings();
-
-            if (Properties.Settings.Default.SettingsKey.Contains("mruList"))
-            {
-                if (Properties.Settings.Default["mruList"] == null)
-                {
-                    Properties.Settings.Default["mruList"] = new StringCollection();
-                }
-            }
         }
 
         private void ShowSplashScreen()

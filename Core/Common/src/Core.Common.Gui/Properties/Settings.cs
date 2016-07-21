@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Configuration;
 using System.IO;
 
@@ -37,14 +36,10 @@ namespace Core.Common.Gui.Properties
     [SettingsProvider(typeof(PortableSettingsProvider))]
     public sealed partial class Settings
     {
-        public Settings()
+        private Settings()
         {
             PortableSettingsProvider.SettingsFilePath = Path.Combine(SettingsHelper.GetApplicationLocalUserSettingsDirectory(), "user.config");
             //add default intances for collections
-            if (mruList == null)
-            {
-                mruList = new StringCollection();
-            }
             if (defaultViews == null)
             {
                 defaultViews = new StringCollection();
@@ -53,23 +48,6 @@ namespace Core.Common.Gui.Properties
             {
                 defaultViewDataTypes = new StringCollection();
             }
-
-            // // To add event handlers for saving and changing settings, uncomment the lines below:
-            //
-            // this.SettingChanging += this.SettingChangingEventHandler;
-            //
-            // this.SettingsSaving += this.SettingsSavingEventHandler;
-            //
-        }
-
-        private void SettingChangingEventHandler(object sender, SettingChangingEventArgs e)
-        {
-            // Add code to handle the SettingChangingEvent event here.
-        }
-
-        private void SettingsSavingEventHandler(object sender, CancelEventArgs e)
-        {
-            // Add code to handle the SettingsSaving event here.
         }
     }
 }

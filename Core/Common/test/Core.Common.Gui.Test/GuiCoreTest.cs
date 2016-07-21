@@ -1044,11 +1044,9 @@ namespace Core.Common.Gui.Test
         private static void AssertDefaultUserSettings(SettingsBase settings)
         {
             Assert.IsNotNull(settings);
-            Assert.AreEqual(4, settings.Properties.Count);
+            Assert.AreEqual(3, settings.Properties.Count);
 
             // Note: Cannot assert particular values, as they can be changed by user.
-            var mruList = (StringCollection) settings["mruList"];
-            Assert.IsNotNull(mruList);
             var defaultViewDataTypes = (StringCollection) settings["defaultViewDataTypes"];
             Assert.IsNotNull(defaultViewDataTypes);
             var defaultViews = (StringCollection) settings["defaultViews"];

@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -37,7 +36,6 @@ using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Selection;
 using Core.Common.Gui.Settings;
 using Fluent;
-using log4net;
 using Button = Fluent.Button;
 using Cursors = System.Windows.Input.Cursors;
 using WindowsFormApplication = System.Windows.Forms.Application;
@@ -49,8 +47,6 @@ namespace Core.Common.Gui.Forms.MainWindow
     /// </summary>
     public partial class MainWindow : IMainWindow, IDisposable, ISynchronizeInvoke
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(MainWindow));
-
         /// <summary>
         /// Remember last active contextual tab per view.
         /// </summary>
@@ -412,63 +408,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
-        private void AddRecentlyOpenedProjectsToFileMenu()
-        {
-            var mruList = Properties.Settings.Default["mruList"] as StringCollection;
-
-            foreach (var recent in mruList)
-            {
-                AddNewMruItem(recent);
-            }
-        }
-
-        private void AddNewMruItem(string path)
-        {
-            if (!RecentProjectsTabControl.Items.OfType<TabItem>().Any(i => Equals(i.Header, path)))
-            {
-                var newItem = new TabItem
-                {
-                    Header = path
-                };
-                newItem.MouseDoubleClick += (sender, args) =>
-                {
-                    if (commands.StorageCommands.OpenExistingProject(path))
-                    {
-                        RecentProjectsTabControl.Items.Remove(newItem);
-                        RecentProjectsTabControl.Items.Insert(1, newItem);
-                    }
-                    else
-                    {
-                        //remove item from the list if it cannot be retrieved from file
-                        RecentProjectsTabControl.Items.Remove(newItem);
-                        log.WarnFormat("{0} {1}", Properties.Resources.MainWindow_AddNewMruItem_Can_t_open_project, path);
-                    }
-
-                    CommitMruToSettings();
-                    ValidateItems();
-                    Menu.IsOpen = false;
-                };
-                RecentProjectsTabControl.Items.Add(newItem);
-            }
-        }
-
-        private void CommitMruToSettings()
-        {
-            var mruList = (StringCollection) Properties.Settings.Default["mruList"];
-
-            mruList.Clear();
-
-            foreach (TabItem item in RecentProjectsTabControl.Items)
-            {
-                if (item is SeparatorTabItem) //header
-                {
-                    continue;
-                }
-
-                mruList.Add(item.Header.ToString());
-            }
-        }
-
         private void UpdateToolWindowButtonState()
         {
             if (viewController.ViewHost != null)
@@ -502,35 +441,17 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileSaveClicked(object sender, RoutedEventArgs e)
         {
-            var saveSuccesful = commands.StorageCommands.SaveProject();
-            OnAfterProjectSaveOrOpen(saveSuccesful);
+            commands.StorageCommands.SaveProject();
         }
 
         private void OnFileSaveAsClicked(object sender, RoutedEventArgs e)
         {
-            var saveSuccesful = commands.StorageCommands.SaveProjectAs();
-            OnAfterProjectSaveOrOpen(saveSuccesful);
-        }
-
-        private void OnAfterProjectSaveOrOpen(bool actionSuccesful)
-        {
-            //TODO: Implement
-
-            // Original code:
-            /*
-            if (actionSuccesful)
-            {
-                AddNewMruItem(Gui.ApplicationCore.ProjectFilePath);
-                CommitMruToSettings();
-            }
-            ValidateItems();
-            */
+            commands.StorageCommands.SaveProjectAs();
         }
 
         private void OnFileOpenClicked(object sender, RoutedEventArgs e)
         {
-            var successful = commands.StorageCommands.OpenExistingProject();
-            OnAfterProjectSaveOrOpen(successful);
+            commands.StorageCommands.OpenExistingProject();
         }
 
         private void OnFileNewClicked(object sender, RoutedEventArgs e)
@@ -548,8 +469,6 @@ namespace Core.Common.Gui.Forms.MainWindow
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Maximized;
-
-            AddRecentlyOpenedProjectsToFileMenu();
 
             FileManualButton.IsEnabled = File.Exists(settings.FixedSettings.ManualFilePath);
 

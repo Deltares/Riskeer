@@ -25,17 +25,6 @@ namespace Core.Common.Gui.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection mruList {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["mruList"]));
-            }
-            set {
-                this["mruList"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public global::System.Collections.Specialized.StringCollection defaultViewDataTypes {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["defaultViewDataTypes"]));
