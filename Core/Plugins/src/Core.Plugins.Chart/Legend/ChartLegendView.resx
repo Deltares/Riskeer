@@ -142,7 +142,7 @@
     <value>treeViewControl</value>
   </data>
   <data name="&gt;&gt;treeViewControl.Type" xml:space="preserve">
-    <value>Core.Plugins.OxyPlot.Legend.LegendTreeView, Core.Plugins.OxyPlot, Version=0.5.0.1876, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Plugins.Chart.Legend.LegendTreeView, Core.Plugins.Chart, Version=0.5.0.1876, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;treeViewControl.Parent" xml:space="preserve">
     <value>$this</value>
