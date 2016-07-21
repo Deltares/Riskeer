@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Configuration;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
@@ -101,7 +100,6 @@ namespace Core.Common.Gui.Test
                     Assert.AreEqual(null, gui.ViewHost);
                     Assert.AreEqual(null, gui.DocumentViewController);
 
-                    AssertDefaultUserSettings(gui.UserSettings);
                     Assert.AreSame(guiCoreSettings, gui.FixedSettings);
 
                     CollectionAssert.IsEmpty(gui.Plugins);
@@ -1038,12 +1036,6 @@ namespace Core.Common.Gui.Test
                 Assert.AreEqual(1, openedCallCount);
             }
             mocks.VerifyAll();
-        }
-
-        private static void AssertDefaultUserSettings(SettingsBase settings)
-        {
-            Assert.IsNotNull(settings);
-            CollectionAssert.IsEmpty(settings.Properties);
         }
     }
 }

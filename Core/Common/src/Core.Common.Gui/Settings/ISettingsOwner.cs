@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Configuration;
-
 namespace Core.Common.Gui.Settings
 {
     /// <summary>
@@ -32,10 +30,5 @@ namespace Core.Common.Gui.Settings
         /// Gets the fixed settings of the user interface.
         /// </summary>
         GuiCoreSettings FixedSettings { get; }
-
-        /// <summary>
-        /// Gets the user specific settings of the user interface.
-        /// </summary>
-        ApplicationSettingsBase UserSettings { get; }
     }
 }

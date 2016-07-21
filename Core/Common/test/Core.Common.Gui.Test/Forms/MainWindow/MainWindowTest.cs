@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Configuration;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -126,13 +125,11 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         {
             // Setup
             var mocks = new MockRepository();
-            var settings = mocks.Stub<ApplicationSettingsBase>();
 
             var viewHost = mocks.Stub<IViewHost>();
             viewHost.Stub(vm => vm.ToolViews).Return(new IView[0]);
 
             var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.UserSettings).Return(settings);
             gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
             gui.Stub(g => g.Plugins).Return(Enumerable.Empty<PluginBase>().ToList());
             gui.Stub(g => g.ViewHost).Return(viewHost);
@@ -159,13 +156,11 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         {
             // Setup
             var mocks = new MockRepository();
-            var settings = mocks.Stub<ApplicationSettingsBase>();
 
             var viewHost = mocks.Stub<IViewHost>();
             viewHost.Stub(vm => vm.ToolViews).Return(new IView[0]);
 
             var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.UserSettings).Return(settings);
             gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
             gui.Stub(g => g.Plugins).Return(Enumerable.Empty<PluginBase>().ToList());
             gui.Stub(g => g.ViewHost).Return(viewHost);

@@ -23,7 +23,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -116,8 +115,6 @@ namespace Core.Common.Gui
 
             Plugins = new List<PluginBase>();
 
-            UserSettings = Properties.Settings.Default;
-
             viewCommandHandler = new ViewCommandHandler(this, this, this);
             storageCommandHandler = new StorageCommandHandler(projectStore, this, MainWindow);
             exportImportCommandHandler = new ExportImportCommandHandler(MainWindow,
@@ -179,13 +176,6 @@ namespace Core.Common.Gui
             }
 
             isExiting = true;
-
-            if (userSettingsDirty)
-            {
-                UserSettings.Save();
-            }
-
-            UserSettings = null;
 
             // close faster (hide main window)
             mainWindow.Visible = false;
@@ -680,39 +670,7 @@ namespace Core.Common.Gui
 
         #region Implementation: ISettingsOwner
 
-        private bool userSettingsDirty;
-        private ApplicationSettingsBase userSettings;
-
         public GuiCoreSettings FixedSettings { get; private set; }
-
-        public ApplicationSettingsBase UserSettings
-        {
-            get
-            {
-                return userSettings;
-            }
-            private set
-            {
-                if (userSettings != null)
-                {
-                    userSettings.PropertyChanged -= UserSettingsPropertyChanged;
-                }
-
-                userSettings = value;
-
-                if (userSettings != null)
-                {
-                    userSettings.PropertyChanged += UserSettingsPropertyChanged;
-                }
-
-                userSettingsDirty = false;
-            }
-        }
-
-        private void UserSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            userSettingsDirty = true;
-        }
 
         #endregion
 
