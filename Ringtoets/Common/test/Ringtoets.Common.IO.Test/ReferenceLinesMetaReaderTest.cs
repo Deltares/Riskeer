@@ -122,18 +122,18 @@ namespace Ringtoets.Common.IO.Test
 
         [Test]
         [TestCase("NBPW_MultiPolyLines.shp")]
-        public void ReadReferenceLinesMeta_ShapefileHasMultiplePolylines_ThrowCriticalFileReadException(string shapeFileName)
+        public void ReadReferenceLinesMeta_ShapefileHasMultiplePolylines_ReturnsEmptyReferenceLines(string shapeFileName)
         {
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, shapeFileName);
 
             // Call
-            TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
+            var referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
-            var expectedMessage = "Het bestand bevat een multi-polylijn. Multi-polylijnen worden niet ondersteund.";
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
-            Assert.AreEqual(expectedMessage, message);
+            Assert.AreEqual(2, referenceLineMetas.Count);
+            CollectionAssert.IsEmpty(referenceLineMetas[0].ReferenceLine.Points);
+            CollectionAssert.IsEmpty(referenceLineMetas[1].ReferenceLine.Points);
         }
 
         [Test]

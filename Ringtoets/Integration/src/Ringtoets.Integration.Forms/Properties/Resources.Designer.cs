@@ -116,12 +116,32 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het importeren van de referentielijn is mislukt..
+        /// </summary>
+        public static string AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Importing_ReferenceLineFailed {
+            get {
+                return ResourceManager.GetString("AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Importing_Referen" +
+                        "ceLineFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er zijn geen instellingen gevonden voor het geselecteerde traject. Standaardinstellingen zullen gebruikt worden..
         /// </summary>
         public static string AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found_for_AssessmentSection {
             get {
                 return ResourceManager.GetString("AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found" +
                         "_for_AssessmentSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde &apos;{0}&apos; kan niet gezet..
+        /// </summary>
+        public static string AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_value_0 {
+            get {
+                return ResourceManager.GetString("AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_val" +
+                        "ue_0", resourceCulture);
             }
         }
         

@@ -34,7 +34,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
@@ -683,8 +682,8 @@ namespace Ringtoets.Integration.Plugin.Test
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    var selectionDialog = (ReferenceLineMetaSelectionDialog)new FormTester(name).TheObject;
-                    var grid = (DataGridViewControl)new ControlTester("ReferenceLineMetaDataGridViewControl", selectionDialog).TheObject;
+                    var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
+                    var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", selectionDialog).TheObject;
                     var dataGridView = grid.Controls.OfType<DataGridView>().First();
                     dataGridView[0, 0].Selected = true;
                     new ButtonTester("Ok", selectionDialog).Click();

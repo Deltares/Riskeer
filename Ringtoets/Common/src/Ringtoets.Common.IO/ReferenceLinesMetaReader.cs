@@ -57,7 +57,6 @@ namespace Ringtoets.Common.IO
         /// <item>The shape file does not contain the mandatory attributes.</item>
         /// <item>Has an empty <see cref="assessmentsectionIdAttributeKey"/> attribute.</item>
         /// <item>The shape file has non-line geometries in it.</item>
-        /// <item>Contains multiple poly lines.</item>
         /// </list></exception>
         public static List<ReferenceLineMeta> ReadReferenceLinesMetas(string shapeFilePath)
         {
@@ -177,16 +176,13 @@ namespace Ringtoets.Common.IO
         /// </summary>
         /// <param name="lineData">The <see cref="MapFeature"/> to create a <see cref="ReferenceLineMeta"/> from.</param>
         /// <returns>The newly created <see cref="ReferenceLineMeta"/>.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the shape file contains multiple poly lines.</exception>
         private static ReferenceLineMeta CreateReferenceLineMeta(MapLineData lineData)
         {
-            var features = lineData.Features.ToArray();
-
-            var feature = features[0];
+            var feature = lineData.Features.First();
 
             string assessmentSectionId = GetAssessmentSectionId(feature);
-            int? signalingValue = GetSignalingValueAttributeKey(feature);
-            int? lowerLimitValue = GetLowerLimitValueAttribute(feature);
+            int? signalingValue = ParseNormValue(feature.MetaData[signalingValueAttributeKey]);
+            int? lowerLimitValue = ParseNormValue(feature.MetaData[lowerLimitValueAttributeKey]);
             IEnumerable<Point2D> geometryPoints = GetSectionGeometry(feature);
 
             var referenceLineMeta = new ReferenceLineMeta
@@ -211,13 +207,12 @@ namespace Ringtoets.Common.IO
         /// </summary>
         /// <param name="lineFeature">The <see cref="MapFeature"/> to get the geometry from.</param>
         /// <returns>A <see cref="Point2D"/> collection that represents the <paramref name="lineFeature"/>'s geometry.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the shape file contains multiple poly lines.</exception>
         private static IEnumerable<Point2D> GetSectionGeometry(MapFeature lineFeature)
         {
             var mapGeometries = lineFeature.MapGeometries.ToArray();
             if (mapGeometries.Length > 1)
             {
-                throw new CriticalFileReadException(RingtoetsCommonIOResources.ReferenceLineReader_File_contains_unsupported_multi_polyline);
+                return Enumerable.Empty<Point2D>();
             }
 
             return mapGeometries[0].PointCollections.First().Select(p => new Point2D(p.X, p.Y));
@@ -228,14 +223,20 @@ namespace Ringtoets.Common.IO
             return Convert.ToString(lineFeature.MetaData[assessmentsectionIdAttributeKey]);
         }
 
-        private static int? GetSignalingValueAttributeKey(MapFeature lineFeature)
+        private static int? ParseNormValue(object readObject)
         {
-            return lineFeature.MetaData[signalingValueAttributeKey] as int?;
-        }
-
-        private static int? GetLowerLimitValueAttribute(MapFeature lineFeature)
-        {
-            return lineFeature.MetaData[lowerLimitValueAttributeKey] as int?;
+            try
+            {
+                return Convert.ToInt32(readObject);
+            }
+            catch (Exception exception)
+            {
+                if (exception is InvalidCastException || exception is FormatException || exception is OverflowException)
+                {
+                    return null;
+                }
+                throw;
+            }
         }
     }
 }

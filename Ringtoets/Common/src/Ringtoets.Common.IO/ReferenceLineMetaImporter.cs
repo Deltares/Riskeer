@@ -66,11 +66,7 @@ namespace Ringtoets.Common.IO
         /// Reads and validates the <see cref="ReferenceLineMeta"/> objects from the shape file.
         /// </summary>
         /// <returns>The read <see cref="ReferenceLineMeta"/> objects.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when:
-        /// <list type="bullet">
-        /// <item>The shape file does not contain poly lines.</item>
-        /// <item>The shape file contains multiple poly lines.</item>
-        /// </list></exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the shape file does not contain poly lines.</exception>
         /// <exception cref="CriticalFileValidationException">Thrown when:
         /// <list type="bullet">
         /// <item>The shape file does not contain the required attributes.</item>

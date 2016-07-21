@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -103,9 +104,21 @@ namespace Ringtoets.Integration.Forms.Commands
             assessmentSection.Id = selectedItem.AssessmentSectionId;
             assessmentSection.ReferenceLine = selectedItem.ReferenceLine;
 
+            if (!assessmentSection.ReferenceLine.Points.Any())
+            {
+                log.Warn(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Importing_ReferenceLineFailed);
+            }
+
             if (selectedLimitValue.HasValue)
             {
-                assessmentSection.FailureMechanismContribution.Norm = selectedLimitValue.Value;
+                try
+                {
+                    assessmentSection.FailureMechanismContribution.Norm = selectedLimitValue.Value;
+                }
+                catch (ArgumentOutOfRangeException exception)
+                {
+                    log.Warn(string.Format(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_value_0, selectedLimitValue.Value), exception);
+                }
             }
             return assessmentSection;
         }
@@ -148,7 +161,7 @@ namespace Ringtoets.Integration.Forms.Commands
         private void ValidateReferenceLineMetas(string folderpath)
         {
             var importer = new ReferenceLineMetaImporter(folderpath);
-            referenceLineMetas = importer.GetReferenceLineMetas().ToArray();
+            referenceLineMetas = importer.GetReferenceLineMetas();
 
             if (!referenceLineMetas.Any())
             {
