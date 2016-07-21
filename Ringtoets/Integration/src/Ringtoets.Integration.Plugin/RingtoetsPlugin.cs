@@ -202,6 +202,8 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
+        private readonly string shapeFileDirectory = RingtoetsSettingsHelper.GetCommonDocumentsRingtoetsShapeFileDirectory();
+
         public override IRibbonCommandHandler RibbonCommandHandler
         {
             get
@@ -235,8 +237,7 @@ namespace Ringtoets.Integration.Plugin
             try
             {
                 var assessmentSectionHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow);
-                var path = RingtoetsSettingsHelper.GetCommonDocumentsRingtoetsShapeFileDirectory();
-                assessmentSection = assessmentSectionHandler.CreateAssessmentSectionFromFile(path);
+                assessmentSection = assessmentSectionHandler.CreateAssessmentSectionFromFile(shapeFileDirectory);
             }
             catch (CriticalFileValidationException exception)
             {
