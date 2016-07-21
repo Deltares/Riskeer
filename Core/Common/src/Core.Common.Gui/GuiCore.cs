@@ -436,11 +436,7 @@ namespace Core.Common.Gui
                 }
             };
 
-            object showSplashScreen = UserSettings["showSplashScreen"];
-            if (showSplashScreen != null && bool.Parse(showSplashScreen.ToString()))
-            {
-                splashScreen.Show();
-            }
+            splashScreen.Show();
         }
 
         private void HideSplashScreen()

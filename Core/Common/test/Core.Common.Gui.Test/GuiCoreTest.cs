@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Specialized;
 using System.Configuration;
 using System.Linq;
 using System.Windows.Forms;
@@ -1044,11 +1043,7 @@ namespace Core.Common.Gui.Test
         private static void AssertDefaultUserSettings(SettingsBase settings)
         {
             Assert.IsNotNull(settings);
-            Assert.AreEqual(1, settings.Properties.Count);
-
-            // Note: Cannot assert particular values, as they can be changed by user.
-            var showSplashScreen = (bool) settings["showSplashScreen"];
-            Assert.IsNotNull(showSplashScreen);
+            CollectionAssert.IsEmpty(settings.Properties);
         }
     }
 }
