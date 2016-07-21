@@ -267,9 +267,8 @@ namespace Ringtoets.Integration.Plugin
             ringtoetsProject.Items.Add(assessmentSection);
             ringtoetsProject.NotifyObservers();
 
-            if (Gui != null && (Gui.Selection == null || !Gui.Selection.Equals(assessmentSection)))
+            if (Gui != null)
             {
-                Gui.Selection = assessmentSection;
                 Gui.DocumentViewController.OpenViewForData(assessmentSection);
             }
         }

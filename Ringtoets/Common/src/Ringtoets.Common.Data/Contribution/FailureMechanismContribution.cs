@@ -61,6 +61,7 @@ namespace Ringtoets.Common.Data.Contribution
         /// <summary>
         /// Gets or sets the norm which has been defined on the assessment section.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the new value is lower than or equal to <c>0</c>.</exception>
         public int Norm
         {
             get
