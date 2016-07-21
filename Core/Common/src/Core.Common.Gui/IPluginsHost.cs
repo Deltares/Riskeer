@@ -19,32 +19,35 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using Core.Common.Controls.TreeView;
+using Core.Common.Gui.Plugin;
 
-namespace Core.Common.Base.Data
+namespace Core.Common.Gui
 {
     /// <summary>
-    /// This class can be used to compare <see cref="Project"/> objects.
+    /// Interface describing the object that hosts all the loaded graphical user interface
+    /// plugins of the application.
     /// </summary>
-    public static class ProjectComparer
+    public interface IPluginsHost
     {
         /// <summary>
-        /// Checks if <paramref name="other"/> is equal to a new instance of <see cref="Project"/>.
+        /// Gets the list of plugins.
         /// </summary>
-        /// <param name="other"><see cref="Project"/> to check.</param>
-        /// <returns><c>True</c> if <paramref name="other"/> is equal to a new instance of <see cref="Project"/>, <c>false</c> otherwise.</returns>
-        public static bool EqualsToNew(Project other)
-        {
-            var newProject = new Project();
-            return Equals(newProject, other);
-        }
+        IList<PluginBase> Plugins { get; }
 
-        private static bool Equals(Project x, Project y)
-        {
-            return string.Equals(x.Name, y.Name) &&
-                   string.Equals(x.Description, y.Description) &&
-                   x.StorageId == y.StorageId &&
-                   x.Items.SequenceEqual(y.Items);
-        }
+        /// <summary>
+        /// Queries the plugins to get all data with view definitions recursively, given a
+        /// piece of hierarchical data.
+        /// </summary>
+        /// <param name="rootDataObject">The root data object.</param>
+        /// <returns>An enumeration of all (child)data that have view definitions declared.</returns>
+        IEnumerable GetAllDataWithViewDefinitionsRecursively(object rootDataObject);
+
+        /// <summary>
+        /// Retrieves all the <see cref="TreeNodeInfo"/> defined on the configured plugins.
+        /// </summary>
+        IEnumerable<TreeNodeInfo> GetTreeNodeInfos();
     }
 }

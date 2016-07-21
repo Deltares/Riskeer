@@ -148,8 +148,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\plus.png" />
-    <None Include="Resources\project-16.png" />
     <Resource Include="Resources\folder_wrench.png" />
     <EmbeddedResource Include="ProjectExplorer.resx">
       <DependentUpon>ProjectExplorer.cs</DependentUpon>

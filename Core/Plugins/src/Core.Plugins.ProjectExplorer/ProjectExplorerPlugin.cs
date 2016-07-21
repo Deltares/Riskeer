@@ -21,12 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
-using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Selection;
@@ -80,48 +78,6 @@ namespace Core.Plugins.ProjectExplorer
                     applicationSelection = null;
                     viewCommands = null;
                     treeNodeInfos = null;
-                }
-            }
-        }
-
-        public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
-        {
-            yield return new TreeNodeInfo<Project>
-            {
-                Text = project => project.Name,
-                Image = project => ProjectExplorerResources.ProjectIcon,
-                ChildNodeObjects = project => project.Items.ToArray(),
-                ContextMenuStrip = (project, parentData, treeViewControl) =>
-                {
-                    var addItem = new StrictContextMenuItem(
-                        ProjectExplorerResources.AddItem,
-                        ProjectExplorerResources.AddItem_ToolTip,
-                        ProjectExplorerResources.PlusIcon,
-                        (s, e) => Gui.ProjectCommands.AddNewItem(project));
-
-                    return Gui.Get(project, treeViewControl)
-                              .AddCustomItem(addItem)
-                              .AddSeparator()
-                              .AddImportItem()
-                              .AddExportItem()
-                              .AddSeparator()
-                              .AddExpandAllItem()
-                              .AddCollapseAllItem()
-                              .AddSeparator()
-                              .AddPropertiesItem()
-                              .Build();
-                }
-            };
-        }
-
-        public override IEnumerable<object> GetChildDataWithViewDefinitions(object dataObject)
-        {
-            var project = dataObject as Project;
-            if (project != null)
-            {
-                foreach (var item in project.Items)
-                {
-                    yield return item;
                 }
             }
         }
@@ -180,7 +136,7 @@ namespace Core.Plugins.ProjectExplorer
             }
         }
 
-        private void ApplicationProjectOpened(Project project)
+        private void ApplicationProjectOpened(IProject project)
         {
             UpdateProject();
         }

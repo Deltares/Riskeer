@@ -938,6 +938,24 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Nieuw traject....
+        /// </summary>
+        public static string RingtoetsProject_DisplayName {
+            get {
+                return ResourceManager.GetString("RingtoetsProject_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg een nieuw traject toe aan het project..
+        /// </summary>
+        public static string RingtoetsProject_ToolTip {
+            get {
+                return ResourceManager.GetString("RingtoetsProject_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scenario&apos;s.
         /// </summary>
         public static string Scenarios_DisplayName {

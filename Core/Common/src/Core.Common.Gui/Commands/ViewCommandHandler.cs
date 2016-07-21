@@ -32,20 +32,20 @@ namespace Core.Common.Gui.Commands
     {
         private readonly IViewController viewController;
         private readonly IApplicationSelection applicationSelection;
-        private readonly IGuiPluginsHost guiPluginsHost;
+        private readonly IPluginsHost pluginsHost;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewCommandHandler"/> class.
         /// </summary>
         /// <param name="viewController">The controller for views.</param>
         /// <param name="applicationSelection">The application selection mechanism.</param>
-        /// <param name="guiPluginsHost">The gui-plugins host.</param>
+        /// <param name="pluginsHost">The plugins host.</param>
         public ViewCommandHandler(IViewController viewController, IApplicationSelection applicationSelection,
-                                  IGuiPluginsHost guiPluginsHost)
+                                  IPluginsHost pluginsHost)
         {
             this.viewController = viewController;
             this.applicationSelection = applicationSelection;
-            this.guiPluginsHost = guiPluginsHost;
+            this.pluginsHost = pluginsHost;
         }
 
         public void OpenViewForSelection()
@@ -75,7 +75,7 @@ namespace Core.Common.Gui.Commands
                 dataObject
             };
 
-            objectsToRemoveViewsFor.AddRange(guiPluginsHost.GetAllDataWithViewDefinitionsRecursively(dataObject).Cast<object>());
+            objectsToRemoveViewsFor.AddRange(pluginsHost.GetAllDataWithViewDefinitionsRecursively(dataObject).Cast<object>());
 
             foreach (var data in objectsToRemoveViewsFor)
             {

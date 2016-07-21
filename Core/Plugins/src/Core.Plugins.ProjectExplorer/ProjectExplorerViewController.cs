@@ -119,12 +119,20 @@ namespace Core.Plugins.ProjectExplorer
         /// <summary>
         /// Updates the <see cref="ProjectExplorer"/> with a <paramref name="project"/>.
         /// </summary>
-        /// <param name="project">The <see cref="Project"/> to set.</param>
-        public void Update(Project project)
+        /// <param name="project">The <see cref="IProject"/> to set.</param>
+        public void Update(IProject project)
         {
             if (IsProjectExplorerOpen)
             {
                 projectExplorer.Data = project;
+            }
+        }
+
+        public void Dispose()
+        {
+            if (projectExplorer != null)
+            {
+                projectExplorer.Dispose();
             }
         }
 
@@ -144,14 +152,6 @@ namespace Core.Plugins.ProjectExplorer
         private void CloseProjectExplorer()
         {
             viewController.ViewHost.Remove(projectExplorer);
-        }
-
-        public void Dispose()
-        {
-            if (projectExplorer != null)
-            {
-                projectExplorer.Dispose();
-            }
         }
     }
 }

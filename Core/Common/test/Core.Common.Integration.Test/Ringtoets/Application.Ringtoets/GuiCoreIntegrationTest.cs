@@ -21,6 +21,7 @@
 
 using System.Windows.Controls;
 using System.Windows.Threading;
+using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
@@ -54,9 +55,10 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new RingtoetsPlugin());
                 gui.Run();
@@ -79,9 +81,10 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             //could be tested separately but the combination is vital to many tests. That's why this test is here.
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
                 int callCount = 0;
@@ -95,9 +98,10 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new RingtoetsPlugin());
                 gui.Plugins.Add(new ProjectExplorerPlugin());

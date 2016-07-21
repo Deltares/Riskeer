@@ -572,10 +572,10 @@ namespace Core.Common.Gui.Forms.MainWindow
             ValidateItems();
         }
 
-        private void UpdateRibbonExtensions(IGuiPluginsHost guiPluginsHost)
+        private void UpdateRibbonExtensions(IPluginsHost pluginsHost)
         {
             // get all ribbon controls
-            ribbonCommandHandlers = guiPluginsHost.Plugins.Where(p => p.RibbonCommandHandler != null).Select(p => p.RibbonCommandHandler).ToArray();
+            ribbonCommandHandlers = pluginsHost.Plugins.Where(p => p.RibbonCommandHandler != null).Select(p => p.RibbonCommandHandler).ToArray();
 
             foreach (var ribbonExtension in ribbonCommandHandlers)
             {

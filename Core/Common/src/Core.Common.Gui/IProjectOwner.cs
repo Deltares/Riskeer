@@ -20,29 +20,45 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base.Data;
 
 namespace Core.Common.Gui
 {
     /// <summary>
-    /// Interface declaring members related to owning a <see cref="Project"/>.
+    /// Interface declaring members related to owning a <see cref="IProject"/>.
     /// </summary>
     public interface IProjectOwner
     {
         /// <summary>
-        /// Occurs when a new instance is available at <see cref="Project"/>.
+        /// Occurs when a new instance is available at <see cref="IProject"/>.
         /// </summary>
-        event Action<Project> ProjectOpened;
+        event Action<IProject> ProjectOpened;
 
         /// <summary>
         /// Gets or sets the project of the application.
         /// </summary>
-        Project Project { get; set; }
+        IProject Project { get; set; }
 
         /// <summary>
         /// Gets or sets the project path of the application.
         /// </summary>
-        string ProjectFilePath { get; set; } 
+        string ProjectFilePath { get; set; }
+
+        /// <summary>
+        /// Indicates whether the current <see cref="IProjectOwner.Project"/> is equal to <paramref name="other"/>.
+        /// </summary>
+        /// <param name="other">The <see cref="IProject"/> to compare with <see cref="IProjectOwner.Project"/>.</param>
+        /// <returns><c>true</c> if <see cref="IProjectOwner.Project"/> is equal to <paramref name="other"/>; <c>false</c> otherwise.</returns>
+        bool EqualsToNew(IProject other);
+
+        /// <summary>
+        /// Creates a new <see cref="IProject"/>.
+        /// </summary>
+        void CreateNewProject();
+
+        /// <summary>
+        /// Closes the current <see cref="IProjectOwner.Project"/>.
+        /// </summary>
+        void CloseProject();
     }
 }

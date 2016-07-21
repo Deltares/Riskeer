@@ -22,13 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Application.Ringtoets.Storage.DbContext;
-
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils;
-
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
@@ -50,7 +46,7 @@ namespace Application.Ringtoets.Storage.Create
     /// </summary>
     internal class PersistenceRegistry
     {
-        private readonly Dictionary<ProjectEntity, Project> projects = new Dictionary<ProjectEntity, Project>(new ReferenceEqualityComparer<ProjectEntity>());
+        private readonly Dictionary<ProjectEntity, RingtoetsProject> projects = new Dictionary<ProjectEntity, RingtoetsProject>(new ReferenceEqualityComparer<ProjectEntity>());
         private readonly Dictionary<AssessmentSectionEntity, AssessmentSection> assessmentSections = new Dictionary<AssessmentSectionEntity, AssessmentSection>(new ReferenceEqualityComparer<AssessmentSectionEntity>());
         private readonly Dictionary<FailureMechanismEntity, IFailureMechanism> failureMechanisms = new Dictionary<FailureMechanismEntity, IFailureMechanism>(new ReferenceEqualityComparer<FailureMechanismEntity>());
         private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections = new Dictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
@@ -550,13 +546,13 @@ namespace Application.Ringtoets.Storage.Create
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
         /// <param name="entity">The <see cref="ProjectEntity"/> to be registered.</param>
-        /// <param name="model">The <see cref="Project"/> to be registered.</param>
+        /// <param name="model">The <see cref="RingtoetsProject"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        internal void Register(ProjectEntity entity, Project model)
+        internal void Register(ProjectEntity entity, RingtoetsProject model)
         {
             Register(projects, entity, model);
         }

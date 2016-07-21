@@ -34,6 +34,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
+using Ringtoets.Integration.Data;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Application.Ringtoets.Storage
@@ -57,8 +58,7 @@ namespace Application.Ringtoets.Storage
         /// Converts <paramref name="project"/> to a new <see cref="ProjectEntity"/> in the database.
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
-        /// <param name="project"><see cref="Project"/> to save.</param>
-        /// <returns>Returns the number of changes that were saved in <see cref="RingtoetsEntities"/>.</returns>
+        /// <param name="project"><see cref="IProject"/> to save.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
         /// <exception cref="CouldNotConnectException">No file is present at <paramref name="databaseFilePath"/>
@@ -71,9 +71,9 @@ namespace Application.Ringtoets.Storage
         /// <item>The connection to the database file failed.</item>
         /// </list>
         /// </exception>
-        public void SaveProjectAs(string databaseFilePath, Project project)
+        public void SaveProjectAs(string databaseFilePath, IProject project)
         {
-            if (project == null)
+            if (!(project is RingtoetsProject))
             {
                 throw new ArgumentNullException("project");
             }
@@ -84,7 +84,7 @@ namespace Application.Ringtoets.Storage
                 try
                 {
                     SetConnectionToNewFile(databaseFilePath);
-                    SaveProjectInDatabase(databaseFilePath, project);
+                    SaveProjectInDatabase(databaseFilePath, (RingtoetsProject) project);
                 }
                 catch
                 {
@@ -98,8 +98,7 @@ namespace Application.Ringtoets.Storage
         /// Converts <paramref name="project"/> to an existing <see cref="ProjectEntity"/> in the database.
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
-        /// <param name="project"><see cref="Project"/> to save.</param>
-        /// <returns>Returns the number of changes that were saved in <see cref="RingtoetsEntities"/>.</returns>
+        /// <param name="project"><see cref="IProject"/> to save.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
         /// <exception cref="CouldNotConnectException">No file is present at <paramref name="databaseFilePath"/>
@@ -113,9 +112,9 @@ namespace Application.Ringtoets.Storage
         /// <item>The related entity was not found in the database. Therefore, no update was possible.</item>
         /// </list>
         /// </exception>
-        public void SaveProject(string databaseFilePath, Project project)
+        public void SaveProject(string databaseFilePath, IProject project)
         {
-            if (project == null)
+            if (!(project is RingtoetsProject))
             {
                 throw new ArgumentNullException("project");
             }
@@ -129,11 +128,11 @@ namespace Application.Ringtoets.Storage
                 SaveProjectAs(databaseFilePath, project);
             }
 
-            UpdateProjectInDatabase(databaseFilePath, project);
+            UpdateProjectInDatabase(databaseFilePath, (RingtoetsProject) project);
         }
 
         /// <summary>
-        /// Attempts to load the <see cref="Project"/> from the SQLite database.
+        /// Attempts to load the <see cref="IProject"/> from the SQLite database.
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
         /// <returns>Returns a new instance of <see cref="Project"/> with the data from the database or <c>null</c> when not found.</returns>
@@ -146,7 +145,7 @@ namespace Application.Ringtoets.Storage
         /// <item>The related entity was not found in the database.</item>
         /// </list>
         /// </exception>
-        public Project LoadProject(string databaseFilePath)
+        public IProject LoadProject(string databaseFilePath)
         {
             SetConnectionToExistingFile(databaseFilePath);
             try
@@ -185,7 +184,7 @@ namespace Application.Ringtoets.Storage
             connectionString = null;
         }
 
-        public bool HasChanges(Project project)
+        public bool HasChanges(IProject project)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
             {
@@ -196,8 +195,9 @@ namespace Application.Ringtoets.Storage
             {
                 try
                 {
+                    var ringtoetsProject = (RingtoetsProject) project;
                     var persistenceRegistry = new PersistenceRegistry();
-                    project.Update(persistenceRegistry, dbContext);
+                    ringtoetsProject.Update(persistenceRegistry, dbContext);
                     persistenceRegistry.RemoveUntouched(dbContext);
 
                     return dbContext.ChangeTracker.HasChanges();
@@ -214,7 +214,7 @@ namespace Application.Ringtoets.Storage
         }
 
         /// <summary>
-        /// Cleans up  a new <see cref="SafeOverwriteFileHelper"/>.
+        /// Cleans up a new <see cref="SafeOverwriteFileHelper"/>.
         /// </summary>
         /// <param name="overwriteHelper">The <see cref="SafeOverwriteFileHelper"/> to use for cleaning up.</param>
         /// <param name="revert">Value indicating whether the <paramref name="overwriteHelper"/> should revert to
@@ -253,7 +253,7 @@ namespace Application.Ringtoets.Storage
             }
         }
 
-        private void SaveProjectInDatabase(string databaseFilePath, Project project)
+        private void SaveProjectInDatabase(string databaseFilePath, RingtoetsProject project)
         {
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
@@ -281,7 +281,7 @@ namespace Application.Ringtoets.Storage
             }
         }
 
-        private void UpdateProjectInDatabase(string databaseFilePath, Project project)
+        private void UpdateProjectInDatabase(string databaseFilePath, RingtoetsProject project)
         {
             using (var dbContext = new RingtoetsEntities(connectionString))
             {

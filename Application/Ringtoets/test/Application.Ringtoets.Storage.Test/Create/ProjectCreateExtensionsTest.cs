@@ -21,7 +21,6 @@
 
 using System;
 using Application.Ringtoets.Storage.Create;
-using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
@@ -35,7 +34,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
-            var project = new Project();
+            var project = new RingtoetsProject();
 
             // Call
             TestDelegate test = () => project.Create(null);
@@ -50,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var testdescription = "testDescription";
-            var project = new Project
+            var project = new RingtoetsProject
             {
                 Description = testdescription
             };
@@ -68,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithAssessmentSections_AddsSectionsToEntity()
         {
             // Setup
-            var project = new Project
+            var project = new RingtoetsProject
             {
                 Items =
                 {

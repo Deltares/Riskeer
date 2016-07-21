@@ -19,35 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections;
-using System.Collections.Generic;
-using Core.Common.Controls.TreeView;
-using Core.Common.Gui.Plugin;
-
-namespace Core.Common.Gui
+namespace Core.Common.Base.Data
 {
     /// <summary>
-    /// Interface describing the object that hosts all the loaded graphical user interface
-    /// plugins of the application.
+    /// Factory for creating <see cref="IProject"/> objects.
     /// </summary>
-    public interface IGuiPluginsHost
+    public interface IProjectFactory
     {
         /// <summary>
-        /// Gets the list of plugins.
+        /// Creates a new instance of <see cref="IProject"/>.
         /// </summary>
-        IList<PluginBase> Plugins { get; }
-
-        /// <summary>
-        /// Queries the plugins to get all data with view definitions recursively, given a
-        /// piece of hierarchical data.
-        /// </summary>
-        /// <param name="rootDataObject">The root data object.</param>
-        /// <returns>An enumeration of all (child)data that have view definitions declared.</returns>
-        IEnumerable GetAllDataWithViewDefinitionsRecursively(object rootDataObject);
-
-        /// <summary>
-        /// Retrieves all the <see cref="TreeNodeInfo"/> defined on the configured plugins.
-        /// </summary>
-        IEnumerable<TreeNodeInfo> GetTreeNodeInfos();
+        /// <returns>An empty <see cref="IProject"/> object.</returns>
+        IProject CreateNewProject();
     }
 }

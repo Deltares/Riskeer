@@ -197,7 +197,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             {
                 new TreeNodeInfo
                 {
-                    TagType = typeof(Project)
+                    TagType = typeof(IProject)
                 }
             };
 

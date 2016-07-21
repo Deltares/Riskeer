@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         public void Update_WithoutContext_ThrowsArgumentNullException()
         {
             // Setup
-            var project = new Project();
+            var project = new RingtoetsProject();
 
             // Call
             TestDelegate test = () => project.Update(new PersistenceRegistry(), null);
@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         public void Update_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
-            var project = new Project();
+            var project = new RingtoetsProject();
 
             // Call
             TestDelegate test = () =>
@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         public void Update_ContextWithNoProject_ThrowsEntityNotFoundException()
         {
             // Setup
-            var project = new Project();
+            var project = new RingtoetsProject();
 
             // Call
             TestDelegate test = () =>
@@ -100,7 +100,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             mocks.ReplayAll();
 
             var storageId = 1;
-            var project = new Project
+            var project = new RingtoetsProject
             {
                 StorageId = storageId
             };
@@ -131,7 +131,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             mocks.ReplayAll();
 
             var storageId = 1;
-            var project = new Project
+            var project = new RingtoetsProject
             {
                 StorageId = storageId
             };
@@ -171,7 +171,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             mocks.ReplayAll();
 
             var newDescription = "newDescription";
-            var project = new Project
+            var project = new RingtoetsProject
             {
                 StorageId = 1,
                 Description = newDescription
@@ -202,7 +202,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
-            var project = new Project
+            var project = new RingtoetsProject
             {
                 StorageId = 1,
                 Items =
@@ -326,7 +326,7 @@ namespace Application.Ringtoets.Storage.Test.Update
                     StorageId = 1
                 }
             };
-            var project = new Project
+            var project = new RingtoetsProject
             {
                 StorageId = 1,
                 Items =

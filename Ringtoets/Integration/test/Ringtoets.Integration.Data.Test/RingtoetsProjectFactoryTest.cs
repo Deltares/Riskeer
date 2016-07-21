@@ -3,16 +3,16 @@
 // This file is part of Ringtoets.
 //
 // Ringtoets is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
+// it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 // 
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU Lesser General Public License for more details.
+// GNU General Public License for more details.
 //
-// You should have received a copy of the GNU Lesser General Public License
+// You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
@@ -20,19 +20,24 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
-using Core.Common.Controls.TreeView;
-using Core.Common.Controls.Views;
+using NUnit.Framework;
 
-namespace Core.Common.Gui.Forms
+namespace Ringtoets.Integration.Data.Test
 {
-    /// <summary>
-    /// View to show the contents of a <see cref="IProject"/> instance.
-    /// </summary>
-    public interface IProjectExplorer : IView
+    [TestFixture]
+    public class RingtoetsProjectFactoryTest
     {
-        /// <summary>
-        /// Gets the internal <see cref="TreeViewControl"/>.
-        /// </summary>
-        TreeViewControl TreeViewControl { get; }
+        [Test]
+        public void CreateNewProject_ReturnsNewRingtoetsProject()
+        {
+            // Setup
+            RingtoetsProjectFactory projectFactory = new RingtoetsProjectFactory();
+
+            // Call
+            IProject result = projectFactory.CreateNewProject();
+
+            // Assert
+            Assert.IsInstanceOf<RingtoetsProject>(result);
+        }
     }
 }

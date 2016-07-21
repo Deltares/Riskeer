@@ -64,6 +64,8 @@ namespace Core.Common.Gui
         private static bool isAlreadyRunningInstanceOfIGui;
         private static string instanceCreationStackTrace;
 
+        private readonly IProjectFactory projectFactory;
+
         private SplashScreen splashScreen;
 
         private bool runFinished;
@@ -74,11 +76,12 @@ namespace Core.Common.Gui
         /// </summary>
         /// <param name="mainWindow">The main window.</param>
         /// <param name="projectStore">The project store.</param>
+        /// <param name="projectFactory">The project factory.</param>
         /// <param name="fixedSettings">The fixed settings.</param>
         /// <exception cref="System.InvalidOperationException">When another <see cref="GuiCore"/>
         /// instance is running.</exception>
         /// <exception cref="System.ArgumentNullException">When any parameter is null.</exception>
-        public GuiCore(IMainWindow mainWindow, IStoreProject projectStore, GuiCoreSettings fixedSettings)
+        public GuiCore(IMainWindow mainWindow, IStoreProject projectStore, IProjectFactory projectFactory, GuiCoreSettings fixedSettings)
         {
             // error detection code, make sure we use only a single instance of GuiCore at a time
             if (isAlreadyRunningInstanceOfIGui)
@@ -95,10 +98,16 @@ namespace Core.Common.Gui
             {
                 throw new ArgumentNullException("projectStore");
             }
+            if (projectFactory == null)
+            {
+                throw new ArgumentNullException("projectFactory");
+            }
             if (fixedSettings == null)
             {
                 throw new ArgumentNullException("fixedSettings");
             }
+            this.projectFactory = projectFactory;
+
             MainWindow = mainWindow;
             FixedSettings = fixedSettings;
 
@@ -114,7 +123,6 @@ namespace Core.Common.Gui
             exportImportCommandHandler = new ExportImportCommandHandler(MainWindow,
                                                                         Plugins.SelectMany(p => p.GetFileImporters()),
                                                                         Plugins.SelectMany(p => p.GetFileExporters()));
-            projectCommandHandler = new ProjectCommandHandler(this, MainWindow, Plugins.SelectMany(p => p.GetDataItemInfos()), this, this);
 
             WindowsApplication.EnableVisualStyles();
             ViewPropertyEditor.ViewCommands = ViewCommands;
@@ -202,6 +210,14 @@ namespace Core.Common.Gui
         }
 
         #endregion
+
+        private IProjectExplorer ProjectExplorer
+        {
+            get
+            {
+                return ViewHost.ToolViews.OfType<IProjectExplorer>().FirstOrDefault();
+            }
+        }
 
         private void Dispose(bool disposing)
         {
@@ -327,14 +343,6 @@ namespace Core.Common.Gui
             isAlreadyRunningInstanceOfIGui = false;
         }
 
-        private IProjectExplorer ProjectExplorer
-        {
-            get
-            {
-                return ViewHost.ToolViews.OfType<IProjectExplorer>().FirstOrDefault();
-            }
-        }
-
         private void InitializeProjectFromPath(string projectPath)
         {
             var setDefaultProject = string.IsNullOrWhiteSpace(projectPath);
@@ -345,7 +353,7 @@ namespace Core.Common.Gui
             if (setDefaultProject)
             {
                 log.Info(Resources.GuiCore_Run_Creating_new_project);
-                Project = new Project();
+                CreateNewProject();
             }
         }
 
@@ -373,7 +381,7 @@ namespace Core.Common.Gui
             }
         }
 
-        private void ApplicationProjectOpened(Project project)
+        private void ApplicationProjectOpened(IProject newProject)
         {
             ResumeUI();
         }
@@ -592,14 +600,14 @@ namespace Core.Common.Gui
 
         #region Implementation: IProjectOwner
 
-        private Project project;
+        private IProject project;
         private readonly Observer projectObserver;
 
-        public event Action<Project> ProjectOpened;
+        public event Action<IProject> ProjectOpened;
 
         public string ProjectFilePath { get; set; }
 
-        public Project Project
+        public IProject Project
         {
             get
             {
@@ -624,6 +632,21 @@ namespace Core.Common.Gui
                     }
                 }
             }
+        }
+
+        public bool EqualsToNew(IProject other)
+        {
+            return Project != null && Project.Equals(projectFactory.CreateNewProject());
+        }
+
+        public void CreateNewProject()
+        {
+            Project = projectFactory.CreateNewProject();
+        }
+
+        public void CloseProject()
+        {
+            Project = null;
         }
 
         #endregion
@@ -678,7 +701,6 @@ namespace Core.Common.Gui
 
         private ApplicationFeatureCommandHandler applicationFeatureCommands;
         private readonly ViewCommandHandler viewCommandHandler;
-        private readonly ProjectCommandHandler projectCommandHandler;
         private readonly ExportImportCommandHandler exportImportCommandHandler;
         private StorageCommandHandler storageCommandHandler;
 
@@ -695,14 +717,6 @@ namespace Core.Common.Gui
             get
             {
                 return storageCommandHandler;
-            }
-        }
-
-        public IProjectCommands ProjectCommands
-        {
-            get
-            {
-                return projectCommandHandler;
             }
         }
 

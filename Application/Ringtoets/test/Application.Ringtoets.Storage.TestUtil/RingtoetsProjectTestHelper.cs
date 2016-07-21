@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -41,15 +40,15 @@ using Ringtoets.Piping.Primitives;
 namespace Application.Ringtoets.Storage.TestUtil
 {
     /// <summary>
-    /// This class can be used to create <see cref="Project"/> instances which have their properties set and can be used in tests.
+    /// This class can be used to create <see cref="RingtoetsProject"/> instances which have their properties set and can be used in tests.
     /// </summary>
-    public static class RingtoetsProjectHelper
+    public static class RingtoetsProjectTestHelper
     {
         /// <summary>
-        /// Returns a new complete instance of <see cref="Project"/>.
+        /// Returns a new complete instance of <see cref="RingtoetsProject"/>.
         /// </summary>
-        /// <returns>A new complete instance of <see cref="Project"/>.</returns>
-        public static Project GetFullTestProject()
+        /// <returns>A new complete instance of <see cref="RingtoetsProject"/>.</returns>
+        public static RingtoetsProject GetFullTestProject()
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
@@ -100,7 +99,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddSections(assessmentSection.TechnicalInnovation);
             SetSectionResults(assessmentSection.TechnicalInnovation.SectionResults);
 
-            var fullTestProject = new Project
+            var fullTestProject = new RingtoetsProject
             {
                 Name = "tempProjectFile",
                 Description = "description",
@@ -160,7 +159,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                     {
                         Name = "AA",
                         IsRelevant = true,
-                        Contribution = (RoundedDouble)1.0,
+                        Contribution = (RoundedDouble) 1.0,
                         Comments = "Nice comment about this calculation!",
                         InputParameters =
                         {
@@ -169,33 +168,33 @@ namespace Application.Ringtoets.Storage.TestUtil
                             StochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(),
                             StochasticSoilProfile = pipingFailureMechanism.StochasticSoilModels.First()
                                                                           .StochasticSoilProfiles.First(),
-                            EntryPointL = (RoundedDouble)1.0,
-                            ExitPointL = (RoundedDouble)2.0,
+                            EntryPointL = (RoundedDouble) 1.0,
+                            ExitPointL = (RoundedDouble) 2.0,
                             PhreaticLevelExit =
                             {
-                                Mean = (RoundedDouble)1.1,
-                                StandardDeviation = (RoundedDouble)2.2
+                                Mean = (RoundedDouble) 1.1,
+                                StandardDeviation = (RoundedDouble) 2.2
                             },
                             DampingFactorExit =
                             {
-                                Mean = (RoundedDouble)3.3,
-                                StandardDeviation = (RoundedDouble)4.4
+                                Mean = (RoundedDouble) 3.3,
+                                StandardDeviation = (RoundedDouble) 4.4
                             },
                             SaturatedVolumicWeightOfCoverageLayer =
                             {
-                                Mean = (RoundedDouble)5.5,
-                                StandardDeviation = (RoundedDouble)6.6,
-                                Shift = (RoundedDouble)7.7
+                                Mean = (RoundedDouble) 5.5,
+                                StandardDeviation = (RoundedDouble) 6.6,
+                                Shift = (RoundedDouble) 7.7
                             },
                             Diameter70 =
                             {
-                                Mean = (RoundedDouble)8.8,
-                                StandardDeviation = (RoundedDouble)9.9
+                                Mean = (RoundedDouble) 8.8,
+                                StandardDeviation = (RoundedDouble) 9.9
                             },
                             DarcyPermeability =
                             {
-                                Mean = (RoundedDouble)10.10,
-                                StandardDeviation = (RoundedDouble)11.11
+                                Mean = (RoundedDouble) 10.10,
+                                StandardDeviation = (RoundedDouble) 11.11
                             }
                         },
                         Output = new PipingOutput(1.1, 2.2, 3.3, 4.4, 5.5, 6.6),
@@ -215,7 +214,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             {
                 Name = "C",
                 IsRelevant = false,
-                Contribution = (RoundedDouble)0.5,
+                Contribution = (RoundedDouble) 0.5,
                 Comments = "Another great comment",
                 InputParameters =
                 {
@@ -224,33 +223,33 @@ namespace Application.Ringtoets.Storage.TestUtil
                     StochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(),
                     StochasticSoilProfile = pipingFailureMechanism.StochasticSoilModels.First()
                                                                   .StochasticSoilProfiles.Skip(1).First(),
-                    EntryPointL = (RoundedDouble)0.3,
-                    ExitPointL = (RoundedDouble)2.3,
+                    EntryPointL = (RoundedDouble) 0.3,
+                    ExitPointL = (RoundedDouble) 2.3,
                     PhreaticLevelExit =
                     {
-                        Mean = (RoundedDouble)12.12,
-                        StandardDeviation = (RoundedDouble)13.13
+                        Mean = (RoundedDouble) 12.12,
+                        StandardDeviation = (RoundedDouble) 13.13
                     },
                     DampingFactorExit =
                     {
-                        Mean = (RoundedDouble)14.14,
-                        StandardDeviation = (RoundedDouble)15.15
+                        Mean = (RoundedDouble) 14.14,
+                        StandardDeviation = (RoundedDouble) 15.15
                     },
                     SaturatedVolumicWeightOfCoverageLayer =
                     {
-                        Mean = (RoundedDouble)16.16,
-                        StandardDeviation = (RoundedDouble)17.17,
-                        Shift = (RoundedDouble)18.18
+                        Mean = (RoundedDouble) 16.16,
+                        StandardDeviation = (RoundedDouble) 17.17,
+                        Shift = (RoundedDouble) 18.18
                     },
                     Diameter70 =
                     {
-                        Mean = (RoundedDouble)19.19,
-                        StandardDeviation = (RoundedDouble)20.20
+                        Mean = (RoundedDouble) 19.19,
+                        StandardDeviation = (RoundedDouble) 20.20
                     },
                     DarcyPermeability =
                     {
-                        Mean = (RoundedDouble)21.21,
-                        StandardDeviation = (RoundedDouble)22.22
+                        Mean = (RoundedDouble) 21.21,
+                        StandardDeviation = (RoundedDouble) 22.22
                     }
                 },
                 Output = null,
@@ -286,7 +285,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                                                                   new RoughnessPoint(new Point2D(13, 14), 0.5),
                                                               },
                                                               new Point2D[0],
-                                                              new BreakWater(BreakWaterType.Caisson, 15), 
+                                                              new BreakWater(BreakWaterType.Caisson, 15),
                                                               new DikeProfile.ConstructionProperties
                                                               {
                                                                   DikeHeight = 5.5,
@@ -340,7 +339,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 
@@ -350,7 +349,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 
@@ -360,7 +359,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 
@@ -370,7 +369,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 
@@ -380,7 +379,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 
@@ -390,8 +389,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerTwoA = (RoundedDouble)random.NextDouble();
-                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 
@@ -401,8 +400,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerTwoA = (RoundedDouble)random.NextDouble();
-                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 
@@ -412,8 +411,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerTwoA = (RoundedDouble)random.NextDouble();
-                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 
@@ -423,8 +422,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerTwoA = (RoundedDouble)random.NextDouble();
-                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 
@@ -437,7 +436,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
                 sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
-                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 
@@ -450,7 +449,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
                 sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
-                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 
@@ -463,7 +462,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
                 sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
-                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 
@@ -476,7 +475,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
                 sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
-                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 
@@ -489,7 +488,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
                 sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
-                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 
@@ -501,7 +500,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                 var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
 
                 sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
-                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 
@@ -513,7 +512,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                 var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
 
                 sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
-                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 
@@ -522,8 +521,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             var random = new Random(21);
             foreach (var sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerTwoA = (RoundedDouble)random.NextDouble();
-                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 

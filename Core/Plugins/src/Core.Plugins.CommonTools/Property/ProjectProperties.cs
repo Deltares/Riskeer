@@ -28,9 +28,9 @@ using Core.Plugins.CommonTools.Properties;
 namespace Core.Plugins.CommonTools.Property
 {
     /// <summary>
-    /// This class describes the presentation of properties of a <see cref="Project"/>.
+    /// This class describes the presentation of properties of a <see cref="IProject"/>.
     /// </summary>
-    public class ProjectProperties : ObjectProperties<Project>
+    public class ProjectProperties : ObjectProperties<IProject>
     {
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]

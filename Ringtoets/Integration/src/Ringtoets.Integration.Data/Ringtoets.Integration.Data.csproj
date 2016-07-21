@@ -41,6 +41,8 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="AssessmentSection.cs" />
+    <Compile Include="RingtoetsProjectFactory.cs" />
+    <Compile Include="RingtoetsProject.cs" />
     <Compile Include="StandAlone\MacrostabilityOutwardsFailureMechanism.cs" />
     <Compile Include="StandAlone\MicrostabilityFailureMechanism.cs" />
     <Compile Include="StandAlone\SectionResults\ClosingStructureFailureMechanismSectionResult.cs" />

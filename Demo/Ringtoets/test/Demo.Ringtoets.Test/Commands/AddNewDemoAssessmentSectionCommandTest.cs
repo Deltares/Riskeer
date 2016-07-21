@@ -47,7 +47,7 @@ namespace Demo.Ringtoets.Test.Commands
         public void Execute_GuiIsProperlyInitialized_AddNewAssessmentSectionWithDemoDataToRootProject()
         {
             // Setup
-            var project = new Project();
+            var project = new RingtoetsProject();
 
             var mocks = new MockRepository();
             var projectOwnerStub = mocks.Stub<IProjectOwner>();
@@ -67,7 +67,7 @@ namespace Demo.Ringtoets.Test.Commands
 
             // Assert
             Assert.AreEqual(1, project.Items.Count);
-            var demoAssessmentSection = (AssessmentSection) project.Items[0];
+            var demoAssessmentSection = project.Items[0];
             Assert.AreEqual("Demo traject", demoAssessmentSection.Name);
 
             Assert.IsNotEmpty(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath);

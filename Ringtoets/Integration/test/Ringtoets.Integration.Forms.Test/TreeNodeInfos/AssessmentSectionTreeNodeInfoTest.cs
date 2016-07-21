@@ -21,7 +21,6 @@
 
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -37,6 +36,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
@@ -367,13 +367,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             var observerMock = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             observerMock.Expect(o => o.UpdateObserver());
 
             mocks.ReplayAll();
 
-            var project = new Project();
+            var project = new RingtoetsProject();
             project.Items.Add(assessmentSection);
             project.Attach(observerMock);
 

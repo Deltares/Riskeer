@@ -35,7 +35,7 @@ namespace Core.Plugins.CommonTools
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<Project, ProjectProperties>();
+            yield return new PropertyInfo<IProject, ProjectProperties>();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()

@@ -22,8 +22,8 @@
 using System;
 using System.Data.SQLite;
 using Application.Ringtoets.Storage.Properties;
-using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.TestUtil
 {
@@ -71,8 +71,8 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// Converts the <paramref name="project"/> into a new Ringtoets database file.
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
-        /// <param name="project"><see cref="Project"/> to save.</param>
-        public static void CreateValidRingtoetsDatabase(string databaseFilePath, Project project)
+        /// <param name="project"><see cref="RingtoetsProject"/> to save.</param>
+        public static void CreateValidRingtoetsDatabase(string databaseFilePath, RingtoetsProject project)
         {
             try
             {

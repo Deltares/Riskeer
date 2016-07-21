@@ -49,9 +49,8 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             var projectStorage = mocks.Stub<IStoreProject>();
-
             var projectOwner = mocks.Stub<IProjectOwner>();
-
+            projectOwner.Expect(po => po.CreateNewProject());
             var mainWindowController = mocks.Stub<IWin32Window>();
 
             mocks.ReplayAll();
@@ -71,8 +70,6 @@ namespace Core.Common.Gui.Test.Commands
                 "Nieuw Ringtoetsproject succesvol geopend."
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
-
-            Assert.IsInstanceOf<Project>(projectOwner.Project);
             Assert.AreEqual("", projectOwner.ProjectFilePath);
             mocks.VerifyAll();
         }
@@ -83,15 +80,14 @@ namespace Core.Common.Gui.Test.Commands
             // Setup
             const string savedProjectPath = @"C:\savedProject.rtd";
 
-            var projectMock = mocks.StrictMock<Project>();
-            projectMock.Name = "test";
-            projectMock.StorageId = 1234L;
-
+            var projectMock = mocks.StrictMock<IProject>();
             var projectStorage = mocks.Stub<IStoreProject>();
-
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Project = projectMock;
             projectOwner.ProjectFilePath = savedProjectPath;
+            projectOwner.Expect(po => po.CreateNewProject());
+            projectOwner.Expect(po => po.EqualsToNew(projectMock)).Return(true);
+            projectOwner.Expect(po => po.CloseProject());
 
             var mainWindowController = mocks.Stub<IWin32Window>();
 
@@ -113,10 +109,7 @@ namespace Core.Common.Gui.Test.Commands
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
 
-            Assert.IsInstanceOf<Project>(projectOwner.Project);
-            Assert.AreNotEqual(projectMock, projectOwner.Project);
-            Assert.AreNotEqual(projectMock.StorageId, projectOwner.Project.StorageId);
-            Assert.AreNotEqual(savedProjectPath, projectOwner.ProjectFilePath);
+            Assert.IsInstanceOf<IProject>(projectOwner.Project);
             Assert.AreEqual("", projectOwner.ProjectFilePath);
 
             mocks.VerifyAll();
@@ -406,7 +399,7 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             var mainWindowController = mocks.Stub<IWin32Window>();
-            var projectMock = mocks.StrictMock<Project>();
+            var projectMock = mocks.StrictMock<IProject>();
             var projectStorageMock = mocks.Stub<IStoreProject>();
             var projectOwnerMock = mocks.Stub<IProjectOwner>();
             projectOwnerMock.Project = projectMock;
@@ -432,7 +425,9 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             var mainWindowController = mocks.Stub<IWin32Window>();
-            var projectMock = mocks.StrictMock<Project>();
+            var projectMock = mocks.Stub<IProject>();
+            const string projectName = "Project";
+            projectMock.Name = projectName;
             projectMock.StorageId = 1234L;
             var projectStorageMock = mocks.Stub<IStoreProject>();
             projectStorageMock.Expect(p => p.HasChanges(null)).IgnoreArguments().Return(true);
@@ -442,7 +437,7 @@ namespace Core.Common.Gui.Test.Commands
             mocks.ReplayAll();
 
             string messageBoxText = null;
-            string expectedMessage = "Sla wijzigingen in het project op: Project?";
+            string expectedMessage = string.Format("Sla wijzigingen in het project op: {0}?", projectName);
 
             var storageCommandHandler = new StorageCommandHandler(
                 projectStorageMock,
@@ -472,7 +467,9 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             var mainWindowController = mocks.Stub<IWin32Window>();
-            var projectMock = mocks.StrictMock<Project>();
+            var projectMock = mocks.Stub<IProject>();
+            const string projectName = "Project";
+            projectMock.Name = projectName;
             projectMock.StorageId = 1234L;
             var projectStorageMock = mocks.Stub<IStoreProject>();
             projectStorageMock.Expect(p => p.HasChanges(null)).IgnoreArguments().Return(true);
@@ -482,7 +479,7 @@ namespace Core.Common.Gui.Test.Commands
             mocks.ReplayAll();
 
             string messageBoxText = null;
-            string expectedMessage = "Sla wijzigingen in het project op: Project?";
+            string expectedMessage = string.Format("Sla wijzigingen in het project op: {0}?", projectName);
 
             var storageCommandHandler = new StorageCommandHandler(
                 projectStorageMock,
@@ -512,7 +509,9 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             var mainWindowController = mocks.Stub<IWin32Window>();
-            var projectMock = mocks.StrictMock<Project>();
+            var projectMock = mocks.Stub<IProject>();
+            const string projectName = "Project";
+            projectMock.Name = projectName;
             projectMock.StorageId = 1234L;
             var projectFilePath = "some path";
 
@@ -527,7 +526,7 @@ namespace Core.Common.Gui.Test.Commands
             mocks.ReplayAll();
 
             string messageBoxText = null;
-            string expectedMessage = "Sla wijzigingen in het project op: Project?";
+            string expectedMessage = string.Format("Sla wijzigingen in het project op: {0}?", projectName);
 
             var storageCommandHandler = new StorageCommandHandler(
                 projectStorageMock,
@@ -557,7 +556,9 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             var mainWindowController = mocks.Stub<IWin32Window>();
-            var projectMock = mocks.StrictMock<Project>();
+            var projectMock = mocks.Stub<IProject>();
+            const string projectName = "Project";
+            projectMock.Name = projectName;
             projectMock.StorageId = 1234L;
             var projectStorageMock = mocks.Stub<IStoreProject>();
             projectStorageMock.Expect(p => p.HasChanges(null)).IgnoreArguments().Return(true);
@@ -567,7 +568,7 @@ namespace Core.Common.Gui.Test.Commands
             mocks.ReplayAll();
 
             string messageBoxText = null;
-            string expectedMessage = "Sla wijzigingen in het project op: Project?";
+            string expectedMessage = string.Format("Sla wijzigingen in het project op: {0}?", projectName);
 
             var storageCommandHandler = new StorageCommandHandler(
                 projectStorageMock,

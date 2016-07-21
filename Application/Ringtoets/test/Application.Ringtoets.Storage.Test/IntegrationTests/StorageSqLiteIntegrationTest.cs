@@ -26,7 +26,6 @@ using System.Linq;
 using System.Windows.Threading;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
@@ -63,7 +62,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         public void SaveProjectAs_SaveAsNewFile_ProjectAsEntitiesInBothFiles()
         {
             // Setup
-            Project fullProject = RingtoetsProjectHelper.GetFullTestProject();
+            RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
             var tempFile = Path.Combine(testDataPath, "tempProjectAsFile.rtd");
 
             StorageSqLite storage = new StorageSqLite();
@@ -71,13 +70,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.DoesNotThrow(precondition, String.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempRingtoetsFile));
 
             // Call
-            Project firstProject = null;
-            Project secondProject = null;
+            RingtoetsProject firstProject = null;
+            RingtoetsProject secondProject = null;
             try
             {
                 storage.SaveProjectAs(tempFile, fullProject);
-                firstProject = storage.LoadProject(tempRingtoetsFile);
-                secondProject = storage.LoadProject(tempFile);
+                firstProject = storage.LoadProject(tempRingtoetsFile) as RingtoetsProject;
+                secondProject = storage.LoadProject(tempFile) as RingtoetsProject;
             }
             catch (Exception exception)
             {
@@ -98,7 +97,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             // Setup
             StorageSqLite storage = new StorageSqLite();
-            Project fullProject = RingtoetsProjectHelper.GetFullTestProject();
+            RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
             TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile, fullProject);
             Assert.DoesNotThrow(precondition, String.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempRingtoetsFile));
 
@@ -109,7 +108,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.DoesNotThrow(test, String.Format("Precondition: failed to save project to file '{0}'.", tempRingtoetsFile));
 
             // Call
-            Project loadedProject = storage.LoadProject(tempRingtoetsFile);
+            RingtoetsProject loadedProject = storage.LoadProject(tempRingtoetsFile) as RingtoetsProject;
 
             // Assert
             AssertProjectsAreEqual(fullProject, loadedProject);
@@ -121,14 +120,14 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             // Given
             var projectStore = new StorageSqLite();
-            Project fullProject = RingtoetsProjectHelper.GetFullTestProject();
+            RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
             var expectedProjectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
             var expectedProjectDescription = fullProject.Description;
 
             // Precondition
             SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, fullProject);
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
             {
                 // When
                 Action action = () => gui.Run(tempRingtoetsFile);
@@ -145,7 +144,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual(expectedProjectName, gui.Project.Name);
                 Assert.AreEqual(expectedProjectDescription, gui.Project.Description);
 
-                AssertProjectsAreEqual(gui.Project, fullProject);
+                Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
+                AssertProjectsAreEqual((RingtoetsProject) gui.Project, fullProject);
             }
         }
 
@@ -157,7 +157,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             var testFile = "SomeFile";
             var projectStore = new StorageSqLite();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
             {
                 // When
                 Action action = () => gui.Run(testFile);
@@ -175,7 +175,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.NotNull(gui.Project);
                 Assert.AreEqual("Project", gui.Project.Name);
                 Assert.IsEmpty(gui.Project.Description);
-                CollectionAssert.IsEmpty(gui.Project.Items);
+                Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
+                CollectionAssert.IsEmpty(((RingtoetsProject) gui.Project).Items);
             }
         }
 
@@ -189,7 +190,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             // Given
             var projectStore = new StorageSqLite();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
             {
                 // When
                 Action action = () => gui.Run(testFile);
@@ -204,18 +205,19 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.NotNull(gui.Project);
                 Assert.AreEqual("Project", gui.Project.Name);
                 Assert.IsEmpty(gui.Project.Description);
-                CollectionAssert.IsEmpty(gui.Project.Items);
+                Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
+                CollectionAssert.IsEmpty(((RingtoetsProject) gui.Project).Items);
             }
         }
 
-        private static void AssertProjectsAreEqual(Project expectedProject, Project actualProject)
+        private void AssertProjectsAreEqual(RingtoetsProject expectedProject, RingtoetsProject actualProject)
         {
             Assert.NotNull(expectedProject);
             Assert.NotNull(actualProject);
             Assert.AreNotSame(expectedProject, actualProject);
 
-            AssessmentSection[] expectedProjectAssessmentSections = expectedProject.Items.OfType<AssessmentSection>().ToArray();
-            AssessmentSection[] actualProjectAssessmentSections = actualProject.Items.OfType<AssessmentSection>().ToArray();
+            AssessmentSection[] expectedProjectAssessmentSections = expectedProject.Items.ToArray();
+            AssessmentSection[] actualProjectAssessmentSections = actualProject.Items.ToArray();
             Assert.AreEqual(expectedProjectAssessmentSections.Length, actualProjectAssessmentSections.Length);
             for (var i = 0; i < expectedProjectAssessmentSections.Length; i++)
             {
@@ -798,7 +800,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 var expectedGrassCoverErosionInwardsCalculation = expectedChild as GrassCoverErosionInwardsCalculation;
                 if (expectedGrassCoverErosionInwardsCalculation != null)
                 {
-                    AssertGrassCoverErosionInwardsCalculation(expectedGrassCoverErosionInwardsCalculation, (GrassCoverErosionInwardsCalculation)actualChild);
+                    AssertGrassCoverErosionInwardsCalculation(expectedGrassCoverErosionInwardsCalculation, (GrassCoverErosionInwardsCalculation) actualChild);
                 }
             }
         }

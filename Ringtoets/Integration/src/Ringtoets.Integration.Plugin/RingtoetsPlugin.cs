@@ -55,6 +55,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms;
@@ -74,6 +75,7 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
+using GuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin
 {
@@ -222,6 +224,50 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
+        public IAssessmentSection GetAssessmentSectionFromFile()
+        {
+            if (Gui == null)
+            {
+                return null;
+            }
+
+            IAssessmentSection assessmentSection = null;
+            try
+            {
+                var assessmentSectionHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow);
+                var path = RingtoetsSettingsHelper.GetCommonDocumentsRingtoetsShapeFileDirectory();
+                assessmentSection = assessmentSectionHandler.CreateAssessmentSectionFromFile(path);
+            }
+            catch (CriticalFileValidationException exception)
+            {
+                MessageBox.Show(exception.Message, BaseResources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                log.Warn(exception.Message, exception.InnerException);
+            }
+            catch (CriticalFileReadException exception)
+            {
+                log.Error(exception.Message, exception.InnerException);
+            }
+
+            return assessmentSection;
+        }
+
+        public void SetAssessmentSectionToProject(RingtoetsProject ringtoetsProject, AssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                return;
+            }
+            assessmentSection.Name = GetUniqueForAssessmentSectionName(ringtoetsProject.Items, assessmentSection.Name);
+            ringtoetsProject.Items.Add(assessmentSection);
+            ringtoetsProject.NotifyObservers();
+
+            if (Gui != null && (Gui.Selection == null || Gui.Selection.Equals(assessmentSection)))
+            {
+                Gui.Selection = assessmentSection;
+                Gui.DocumentViewController.OpenViewForData(Gui.Selection);
+            }
+        }
+
         /// <summary>
         /// Returns all <see cref="Core.Common.Gui.Plugin.PropertyInfo"/> instances provided for data of <see cref="RingtoetsPlugin"/>.
         /// </summary>
@@ -322,31 +368,10 @@ namespace Ringtoets.Integration.Plugin
 
         public override IEnumerable<DataItemInfo> GetDataItemInfos()
         {
-            if (Gui == null)
-            {
-                return Enumerable.Empty<DataItemInfo>();
-            }
-
-            IAssessmentSection assessmentSection = null;
-            try
-            {
-                var assessmentSectionHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow);
-                var path = RingtoetsSettingsHelper.GetCommonDocumentsRingtoetsShapeFileDirectory();
-                assessmentSection = assessmentSectionHandler.CreateAssessmentSectionFromFile(path);
-            }
-            catch (CriticalFileValidationException exception)
-            {
-                MessageBox.Show(exception.Message, BaseResources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                log.Warn(exception.Message, exception.InnerException);
-            }
-            catch (CriticalFileReadException exception)
-            {
-                log.Error(exception.Message, exception.InnerException);
-            }
+            IAssessmentSection assessmentSection = GetAssessmentSectionFromFile();
 
             if (assessmentSection == null)
             {
-                return Enumerable.Empty<DataItemInfo>();
             }
 
             return new DataItemInfo[]
@@ -358,8 +383,8 @@ namespace Ringtoets.Integration.Plugin
                     Image = RingtoetsFormsResources.AssessmentSectionFolderIcon,
                     CreateData = owner =>
                     {
-                        var project = (Project) owner;
-                        assessmentSection.Name = GetUniqueForAssessmentSectionName(project, assessmentSection.Name);
+                        var project = (RingtoetsProject) owner;
+                        assessmentSection.Name = GetUniqueForAssessmentSectionName(project.Items, assessmentSection.Name);
                         return assessmentSection;
                     }
                 }
@@ -373,6 +398,15 @@ namespace Ringtoets.Integration.Plugin
         /// <returns>Sequence of child data.</returns>
         public override IEnumerable<object> GetChildDataWithViewDefinitions(object dataObject)
         {
+            var project = dataObject as RingtoetsProject;
+            if (project != null)
+            {
+                foreach (var item in project.Items)
+                {
+                    yield return item;
+                }
+            }
+
             var assessmentSection = dataObject as IAssessmentSection;
             if (assessmentSection != null)
             {
@@ -490,10 +524,42 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
+
+            yield return new TreeNodeInfo<RingtoetsProject>
+            {
+                Text = project => project.Name,
+                Image = project => GuiResources.ProjectIcon,
+                ChildNodeObjects = nodeData => nodeData.Items.Cast<object>().ToArray(),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) =>
+                {
+                    var addItem = new StrictContextMenuItem(
+                        RingtoetsCommonFormsResources.RingtoetsProject_DisplayName,
+                        RingtoetsCommonFormsResources.RingtoetsProject_ToolTip,
+                        GuiResources.PlusIcon,
+                        (s, e) => SetAssessmentSectionFromFileToProject(nodeData));
+
+                    return Gui.Get(nodeData, treeViewControl)
+                              .AddCustomItem(addItem)
+                              .AddSeparator()
+                              .AddImportItem()
+                              .AddExportItem()
+                              .AddSeparator()
+                              .AddExpandAllItem()
+                              .AddCollapseAllItem()
+                              .AddSeparator()
+                              .AddPropertiesItem()
+                              .Build();
+                }
+            };
         }
 
-        private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IEnumerable<TResult>, TView>
-            CreateFailureMechanismResultViewInfo<TResult, TView>()
+        private void SetAssessmentSectionFromFileToProject(RingtoetsProject ringtoetsProject)
+        {
+            var assessmentSection = GetAssessmentSectionFromFile();
+            SetAssessmentSectionToProject(ringtoetsProject, (AssessmentSection) assessmentSection);
+        }
+
+        private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<TResult, TView>()
             where TResult : FailureMechanismSectionResult
             where TView : FailureMechanismResultView<TResult>
         {
@@ -510,7 +576,8 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private TreeNodeInfo<FailureMechanismSectionResultContext<T>> CreateFailureMechanismSectionResultTreeNodeInfo<T>() where T : FailureMechanismSectionResult
+        private TreeNodeInfo<FailureMechanismSectionResultContext<T>> CreateFailureMechanismSectionResultTreeNodeInfo<T>()
+            where T : FailureMechanismSectionResult
         {
             return new TreeNodeInfo<FailureMechanismSectionResultContext<T>>
             {
@@ -538,10 +605,15 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        private static void VerifyHydraulicBoundaryDatabasePath(Project project)
+        private static void VerifyHydraulicBoundaryDatabasePath(IProject project)
         {
-            var sectionsWithDatabase = project.Items.OfType<IAssessmentSection>().Where(i => i.HydraulicBoundaryDatabase != null);
-            foreach (IAssessmentSection section in sectionsWithDatabase)
+            var ringtoetsProject = project as RingtoetsProject;
+            if (ringtoetsProject == null)
+            {
+                return;
+            }
+            var sectionsWithDatabase = ringtoetsProject.Items.Where(i => i.HydraulicBoundaryDatabase != null);
+            foreach (AssessmentSection section in sectionsWithDatabase)
             {
                 string selectedFile = section.HydraulicBoundaryDatabase.FilePath;
                 var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(selectedFile);
@@ -695,9 +767,9 @@ namespace Ringtoets.Integration.Plugin
 
         #region AssessmentSection
 
-        private static string GetUniqueForAssessmentSectionName(Project project, string baseName)
+        private static string GetUniqueForAssessmentSectionName(IEnumerable<IAssessmentSection> assessmentSections, string baseName)
         {
-            return NamingHelper.GetUniqueName(project.Items.OfType<IAssessmentSection>(), baseName, a => a.Name);
+            return NamingHelper.GetUniqueName(assessmentSections, baseName, a => a.Name);
         }
 
         private object[] AssessmentSectionChildNodeObjects(IAssessmentSection nodeData)
@@ -734,9 +806,9 @@ namespace Ringtoets.Integration.Plugin
 
         private void AssessmentSectionOnNodeRemoved(IAssessmentSection nodeData, object parentNodeData)
         {
-            var parentProject = (Project) parentNodeData;
-
-            parentProject.Items.Remove(nodeData);
+            var parentProject = (RingtoetsProject) parentNodeData;
+            var assessmentSection = (AssessmentSection) nodeData;
+            parentProject.Items.Remove(assessmentSection);
             parentProject.NotifyObservers();
         }
 

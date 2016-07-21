@@ -30,6 +30,7 @@ using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Integration.Data;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Application.Ringtoets.Storage.Test
@@ -172,7 +173,7 @@ namespace Application.Ringtoets.Storage.Test
             var projectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
             var storage = new StorageSqLite();
             var mockRepository = new MockRepository();
-            var projectMock = mockRepository.StrictMock<Project>();
+            var projectMock = mockRepository.StrictMock<RingtoetsProject>();
             projectMock.Description = "<some description>";
             projectMock.StorageId = 1L;
 
@@ -183,10 +184,10 @@ namespace Application.Ringtoets.Storage.Test
                 SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, projectMock);
 
                 // Call
-                Project loadedProject = storage.LoadProject(tempRingtoetsFile);
+                IProject loadedProject = storage.LoadProject(tempRingtoetsFile);
 
                 // Assert
-                Assert.IsInstanceOf<Project>(loadedProject);
+                Assert.IsInstanceOf<RingtoetsProject>(loadedProject);
                 Assert.AreEqual(1L, loadedProject.StorageId);
                 Assert.AreEqual(projectName, loadedProject.Name);
                 Assert.AreEqual(projectMock.Description, loadedProject.Description);
@@ -205,7 +206,7 @@ namespace Application.Ringtoets.Storage.Test
         public void SaveProjectAs_InvalidPath_ThrowsArgumentException(string invalidPath)
         {
             // Setup
-            Project project = new Project();
+            RingtoetsProject project = new RingtoetsProject();
             var expectedMessage = String.Format("Fout bij het lezen van bestand '{0}': {1}",
                                                 invalidPath, UtilsResources.Error_Path_must_be_specified);
 
@@ -243,7 +244,7 @@ namespace Application.Ringtoets.Storage.Test
         public void SaveProjectAs_ValidPathToNonExistingFile_DoesNotThrowException()
         {
             // Setup
-            var project = new Project();
+            var project = new RingtoetsProject();
             var storage = new StorageSqLite();
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
@@ -266,7 +267,7 @@ namespace Application.Ringtoets.Storage.Test
         public void SaveProjectAs_ValidPathToExistingFile_DoesNotThrowException()
         {
             // Setup
-            var project = new Project();
+            var project = new RingtoetsProject();
             var storage = new StorageSqLite();
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
@@ -290,9 +291,9 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             var expectedMessage = string.Format(
-                @"Kan geen tijdelijk bestand maken van het originele bestand ({0}). Probeer ergens anders op te slaan.", 
+                @"Kan geen tijdelijk bestand maken van het originele bestand ({0}). Probeer ergens anders op te slaan.",
                 tempRingtoetsFile);
-            var project = new Project();
+            var project = new RingtoetsProject();
             var storage = new StorageSqLite();
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
@@ -327,7 +328,7 @@ namespace Application.Ringtoets.Storage.Test
         public void SaveProject_InvalidPath_ThrowsArgumentException(string invalidPath)
         {
             // Setup
-            Project project = new Project();
+            RingtoetsProject project = new RingtoetsProject();
             var expectedMessage = String.Format("Fout bij het lezen van bestand '{0}': {1}",
                                                 invalidPath, UtilsResources.Error_Path_must_be_specified);
 
@@ -344,7 +345,7 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             var storage = new StorageSqLite();
-            Project storedProject = new Project();
+            RingtoetsProject storedProject = new RingtoetsProject();
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
@@ -369,7 +370,7 @@ namespace Application.Ringtoets.Storage.Test
         public void SaveProject_ValidProjectNonExistingPath_NewFileCreated()
         {
             // Setup
-            var project = new Project
+            var project = new RingtoetsProject
             {
                 StorageId = 1234L
             };
@@ -395,11 +396,11 @@ namespace Application.Ringtoets.Storage.Test
         public void SaveProject_EmptyDatabaseFile_ThrowsStorageException()
         {
             // Setup
-            var savedProject = new Project
+            var savedProject = new RingtoetsProject
             {
                 StorageId = 1L
             };
-            var projectWithIncorrectStorageId = new Project
+            var projectWithIncorrectStorageId = new RingtoetsProject
             {
                 StorageId = 1234L
             };
@@ -431,7 +432,7 @@ namespace Application.Ringtoets.Storage.Test
         public void SaveProject_CorruptRingtoetsFileThatPassesValidation_ThrowsStorageExceptionWithFullStackTrace()
         {
             // Setup
-            var project = new Project
+            var project = new RingtoetsProject
             {
                 StorageId = 1234L
             };
@@ -476,7 +477,7 @@ namespace Application.Ringtoets.Storage.Test
             long projectId = 1234L;
             var projectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
 
-            var project = new Project()
+            var project = new RingtoetsProject()
             {
                 StorageId = projectId
             };
@@ -509,7 +510,7 @@ namespace Application.Ringtoets.Storage.Test
             StorageSqLite storageSqLite = new StorageSqLite();
 
             // Call
-            bool hasChanges = storageSqLite.HasChanges(new Project());
+            bool hasChanges = storageSqLite.HasChanges(new RingtoetsProject());
 
             // Assert
             Assert.IsTrue(hasChanges);
@@ -520,13 +521,13 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             StorageSqLite storageSqLite = new StorageSqLite();
-            Project storedProject = new Project();
+            RingtoetsProject storedProject = new RingtoetsProject();
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
             {
                 SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, storedProject);
-                Project loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
+                IProject loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
 
                 // Call
                 bool hasChanges = storageSqLite.HasChanges(loadedProject);
@@ -546,13 +547,13 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             StorageSqLite storageSqLite = new StorageSqLite();
-            Project storedProject = new Project();
+            RingtoetsProject storedProject = new RingtoetsProject();
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
             {
                 SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, storedProject);
-                Project loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
+                IProject loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
                 storageSqLite.CloseProject();
 
                 // Call
@@ -573,14 +574,14 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             StorageSqLite storageSqLite = new StorageSqLite();
-            Project storedProject = new Project();
+            RingtoetsProject storedProject = new RingtoetsProject();
             var changedName = "some name";
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
             {
                 SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, storedProject);
-                Project loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
+                IProject loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
 
                 // Call
                 loadedProject.Name = changedName;
@@ -601,14 +602,14 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             StorageSqLite storageSqLite = new StorageSqLite();
-            Project storedProject = new Project();
+            RingtoetsProject storedProject = new RingtoetsProject();
             var changedDescription = "some description";
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
             {
                 SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, storedProject);
-                Project loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
+                IProject loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
 
                 // Call
                 loadedProject.Description = changedDescription;
@@ -629,7 +630,7 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var projectMock = mockRepository.StrictMock<Project>();
+            var projectMock = mockRepository.StrictMock<RingtoetsProject>();
             projectMock.StorageId = 1234L;
             mockRepository.ReplayAll();
             var storage = new StorageSqLite();

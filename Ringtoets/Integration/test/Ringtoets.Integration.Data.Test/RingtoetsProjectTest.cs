@@ -1,38 +1,40 @@
-// Copyright (C) Stichting Deltares 2016. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
 // Ringtoets is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
+// it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 // 
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU Lesser General Public License for more details.
+// GNU General Public License for more details.
 //
-// You should have received a copy of the GNU Lesser General Public License
+// You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Core.Common.Base.Test.Data
+namespace Ringtoets.Integration.Data.Test
 {
     [TestFixture]
-    public class ProjectTest
+    public class RingtoetsProjectTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValue()
         {
             // Call
-            var project = new Project();
+            var project = new RingtoetsProject();
 
             // Assert
             Assert.IsInstanceOf<IProject>(project);
@@ -48,7 +50,7 @@ namespace Core.Common.Base.Test.Data
             const string someName = "<Some name>";
 
             // Call
-            var project = new Project(someName);
+            var project = new RingtoetsProject(someName);
 
             // Assert
             Assert.IsInstanceOf<IProject>(project);
@@ -65,7 +67,7 @@ namespace Core.Common.Base.Test.Data
             const string nicerDescription = "Nicer description";
 
             // Call
-            var project = new Project
+            var project = new RingtoetsProject
             {
                 Name = niceProjectName,
                 Description = nicerDescription,
@@ -80,8 +82,8 @@ namespace Core.Common.Base.Test.Data
         public void Equals_NewProject_ReturnsTrue()
         {
             // Setup
-            Project newProjectA = new Project();
-            Project newProjectB = new Project();
+            RingtoetsProject newProjectA = new RingtoetsProject();
+            RingtoetsProject newProjectB = new RingtoetsProject();
 
             // Call
             bool result = newProjectA.Equals(newProjectB);
@@ -96,8 +98,8 @@ namespace Core.Common.Base.Test.Data
         public void Equals_ProjectNameChanged_ReturnsFalse()
         {
             // Setup
-            Project newProject = new Project();
-            Project changedProject = new Project
+            RingtoetsProject newProject = new RingtoetsProject();
+            RingtoetsProject changedProject = new RingtoetsProject
             {
                 Name = "<some name>"
             };
@@ -115,8 +117,8 @@ namespace Core.Common.Base.Test.Data
         public void Equals_ProjectDescriptionChanged_ReturnsFalse()
         {
             // Setup
-            Project newProject = new Project();
-            Project changedProject = new Project
+            RingtoetsProject newProject = new RingtoetsProject();
+            RingtoetsProject changedProject = new RingtoetsProject
             {
                 Description = "<some description>"
             };
@@ -134,8 +136,8 @@ namespace Core.Common.Base.Test.Data
         public void Equals_ProjectStorageIdChanged_ReturnsFalse()
         {
             // Setup
-            Project newProject = new Project();
-            Project changedProject = new Project
+            RingtoetsProject newProject = new RingtoetsProject();
+            RingtoetsProject changedProject = new RingtoetsProject
             {
                 StorageId = 1L
             };
@@ -153,9 +155,9 @@ namespace Core.Common.Base.Test.Data
         public void Equals_ProjectItemsChanged_ReturnsFalse()
         {
             // Setup
-            Project newProject = new Project();
-            Project changedProject = new Project();
-            newProject.Items.Add(new object());
+            RingtoetsProject newProject = new RingtoetsProject();
+            RingtoetsProject changedProject = new RingtoetsProject();
+            newProject.Items.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Call
             bool result = newProject.Equals(changedProject);
@@ -173,8 +175,8 @@ namespace Core.Common.Base.Test.Data
             const long storageId = 1234;
             const string name = "Some name";
             const string desctiption = "Some desctiption";
-            var project = new Project(name){StorageId=storageId,Description=desctiption};
-            var otherProject = new Project(name) { StorageId = storageId, Description = desctiption };
+            var project = new RingtoetsProject(name) { StorageId = storageId, Description = desctiption };
+            var otherProject = new RingtoetsProject(name) { StorageId = storageId, Description = desctiption };
 
             // Call
             var result = project.GetHashCode();
@@ -188,31 +190,31 @@ namespace Core.Common.Base.Test.Data
         public void NotifyObservers_WithObserverAttached_ObserverIsNotified()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
+            var mockRepository = new MockRepository();
+            var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+            mockRepository.ReplayAll();
 
-            var project = new Project();
+            var project = new RingtoetsProject();
             project.Attach(observerMock);
 
             // Call
             project.NotifyObservers();
 
             // Assert
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void NotifyObservers_AttachedObserverHasBeenDetached_ObserverShouldNoLongerBeNotified()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
+            var mockRepository = new MockRepository();
+            var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+            mockRepository.ReplayAll();
 
-            var project = new Project();
+            var project = new RingtoetsProject();
             project.Attach(observerMock);
             project.NotifyObservers();
 
@@ -221,7 +223,7 @@ namespace Core.Common.Base.Test.Data
             project.NotifyObservers();
 
             // Assert
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
     }
 }

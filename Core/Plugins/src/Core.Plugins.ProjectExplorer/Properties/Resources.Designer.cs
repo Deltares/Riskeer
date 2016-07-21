@@ -61,39 +61,11 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Nieuw element....
-        /// </summary>
-        public static string AddItem {
-            get {
-                return ResourceManager.GetString("AddItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voeg een nieuw element toe aan het project..
-        /// </summary>
-        public static string AddItem_ToolTip {
-            get {
-                return ResourceManager.GetString("AddItem_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Projectverkenner.
         /// </summary>
         public static string General_ProjectExplorer {
             get {
                 return ResourceManager.GetString("General_ProjectExplorer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap PlusIcon {
-            get {
-                object obj = ResourceManager.GetObject("PlusIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -122,16 +94,6 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         public static string ProjectExplorerPlugin_Cannot_activate_0_twice {
             get {
                 return ResourceManager.GetString("ProjectExplorerPlugin_Cannot_activate_0_twice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap ProjectIcon {
-            get {
-                object obj = ResourceManager.GetObject("ProjectIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

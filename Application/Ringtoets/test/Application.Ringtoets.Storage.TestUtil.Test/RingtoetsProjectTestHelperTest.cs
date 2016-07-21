@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -32,7 +30,7 @@ using Ringtoets.Piping.Primitives;
 namespace Application.Ringtoets.Storage.TestUtil.Test
 {
     [TestFixture]
-    public class RingtoetsProjectHelperTest
+    public class RingtoetsProjectTestHelperTest
     {
         [Test]
         public void RingtoetsProjectHelper_Always_ReturnsFullProject()
@@ -52,21 +50,21 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             double designWaterLevel = 12.4;
 
             // Call
-            Project project = RingtoetsProjectHelper.GetFullTestProject();
+            RingtoetsProject project = RingtoetsProjectTestHelper.GetFullTestProject();
 
             // Assert
             Assert.AreEqual(expectedProjectName, project.Name);
             Assert.AreEqual(expectedDescription, project.Description);
 
-            AssessmentSection assessmentSection = project.Items.OfType<AssessmentSection>().FirstOrDefault();
+            AssessmentSection assessmentSection = project.Items.FirstOrDefault();
             Assert.NotNull(assessmentSection);
             Assert.AreEqual(expectedAssessmentSectionName, assessmentSection.Name);
-            
+
             Assert.NotNull(assessmentSection.HydraulicBoundaryDatabase);
             Assert.AreEqual(hydraulicDatabaseVersion, assessmentSection.HydraulicBoundaryDatabase.Version);
             Assert.AreEqual(hydraulicDatabaseFilePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual(1, assessmentSection.HydraulicBoundaryDatabase.Locations.Count);
-            
+
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(locationId, hydraulicBoundaryLocation.Id);
             Assert.AreEqual(locationName, hydraulicBoundaryLocation.Name);

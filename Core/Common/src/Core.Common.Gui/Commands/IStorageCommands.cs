@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 namespace Core.Common.Gui.Commands
 {
     /// <summary>
-    /// Interface for exposing commands/methods related to saving/loading a <see cref="Project"/>.
+    /// Interface for exposing commands/methods related to saving/loading a <see cref="IProject"/>.
     /// </summary>
     public interface IStorageCommands
     {
@@ -51,7 +51,7 @@ namespace Core.Common.Gui.Commands
         /// Asks the user to select the file to load a project from, then proceeds to perform
         /// the read of the project data.
         /// </summary>
-        /// <returns><c>true</c> if an existing <see cref="Project"/> has been loaded, 
+        /// <returns><c>true</c> if an existing <see cref="IProject"/> has been loaded, 
         /// <c>false</c> otherwise (for example, user cancelled).</returns>
         bool OpenExistingProject();
 
@@ -59,7 +59,7 @@ namespace Core.Common.Gui.Commands
         /// Loads a project from a given file-location.
         /// </summary>
         /// <param name="filePath">Location of the storage file.</param>
-        /// <returns><c>true</c> if an existing <see cref="Project"/> has been loaded, 
+        /// <returns><c>true</c> if an existing <see cref="IProject"/> has been loaded, 
         /// <c>false</c> otherwise.</returns>
         bool OpenExistingProject(string filePath);
     }

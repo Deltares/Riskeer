@@ -976,6 +976,16 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap PlusIcon {
+            get {
+                object obj = ResourceManager.GetObject("PlusIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fout bij het opslaan van de instellingen in {0}..
         /// </summary>
         public static string PortableSettingsProvider_SetPropertyValues_Error_storing_settings_to_0_ {
@@ -1000,6 +1010,16 @@ namespace Core.Common.Gui.Properties {
         public static string ProjectCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item {
             get {
                 return ResourceManager.GetString("ProjectCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ProjectIcon {
+            get {
+                object obj = ResourceManager.GetObject("ProjectIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

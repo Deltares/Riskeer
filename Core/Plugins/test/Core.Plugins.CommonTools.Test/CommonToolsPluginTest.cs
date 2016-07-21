@@ -44,7 +44,7 @@ namespace Core.Plugins.CommonTools.Test
             // Assert
             Assert.AreEqual(1, propertyInfos.Count);
 
-            var projectPropertyInfo = propertyInfos.First(pi => pi.DataType == typeof(Project));
+            var projectPropertyInfo = propertyInfos.First(pi => pi.DataType == typeof(IProject));
 
             Assert.AreEqual(typeof(ProjectProperties), projectPropertyInfo.PropertyObjectType);
         }

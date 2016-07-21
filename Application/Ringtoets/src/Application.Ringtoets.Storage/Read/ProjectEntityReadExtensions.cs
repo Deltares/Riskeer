@@ -21,30 +21,30 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Data;
+using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="Project"/> based on the
+    /// This class defines extension methods for read operations for an <see cref="RingtoetsProject"/> based on the
     /// <see cref="ProjectEntity"/>.
     /// </summary>
     internal static class ProjectEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="ProjectEntity"/> and use the information to construct a <see cref="Project"/>.
+        /// Reads the <see cref="ProjectEntity"/> and use the information to construct a <see cref="RingtoetsProject"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="ProjectEntity"/> to create <see cref="Project"/> for.</param>
+        /// <param name="entity">The <see cref="ProjectEntity"/> to create <see cref="RingtoetsProject"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="Project"/>.</returns>
+        /// <returns>A new <see cref="RingtoetsProject"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static Project Read(this ProjectEntity entity, ReadConversionCollector collector)
+        internal static RingtoetsProject Read(this ProjectEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
             }
-            var project = new Project
+            var project = new RingtoetsProject
             {
                 StorageId = entity.ProjectEntityId,
                 Description = entity.Description

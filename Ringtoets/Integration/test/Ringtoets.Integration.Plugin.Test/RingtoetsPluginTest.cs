@@ -83,7 +83,7 @@ namespace Ringtoets.Integration.Plugin.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
             {
                 using (var plugin = new RingtoetsPlugin())
                 {
@@ -91,7 +91,7 @@ namespace Ringtoets.Integration.Plugin.Test
                     gui.Run();
 
                     // When
-                    Action action = () => gui.Project = new Project();
+                    Action action = () => gui.Project = new RingtoetsProject();
 
                     // Then
                     TestHelper.AssertLogMessagesCount(action, 0);
@@ -113,15 +113,15 @@ namespace Ringtoets.Integration.Plugin.Test
             var testDataDir = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
             var testDataPath = Path.Combine(testDataDir, "complete.sqlite");
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
             {
                 using (var plugin = new RingtoetsPlugin())
                 {
                     plugin.Gui = gui;
                     gui.Run();
 
-                    var project = new Project();
-                    IAssessmentSection section = new AssessmentSection(AssessmentSectionComposition.Dike)
+                    var project = new RingtoetsProject();
+                    var section = new AssessmentSection(AssessmentSectionComposition.Dike)
                     {
                         HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                         {
@@ -150,14 +150,14 @@ namespace Ringtoets.Integration.Plugin.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
             {
                 using (var plugin = new RingtoetsPlugin())
                 {
-                    var project = new Project();
+                    var project = new RingtoetsProject();
                     var notExistingFile = "not_existing_file";
 
-                    IAssessmentSection section = new AssessmentSection(AssessmentSectionComposition.Dike)
+                    var section = new AssessmentSection(AssessmentSectionComposition.Dike)
                     {
                         HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                         {
@@ -352,7 +352,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(24, treeNodeInfos.Length);
+                Assert.AreEqual(25, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(IAssessmentSection)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ReferenceLineContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismContext<IFailureMechanism>)));
@@ -377,6 +377,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<StrengthStabilityPointConstructionFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CommentContext<ICommentable>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilityAssessmentOutput)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsProject)));
             }
             mocks.VerifyAll();
         }
@@ -400,6 +401,26 @@ namespace Ringtoets.Integration.Plugin.Test
                 assessmentSectionMock.FailureMechanismContribution
             }, childrenWithViewDefinitions);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetChildDataWithViewDefinitions_RingtoetsProjectWithChildren_ReturnChildren()
+        {
+            // Setup
+            var project = new RingtoetsProject();
+            project.Items.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
+            project.Items.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
+            project.Items.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                // Call
+                var childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(project);
+
+                // Assert
+                var expectedResult = project.Items;
+                CollectionAssert.AreEquivalent(expectedResult, childrenWithViewDefinitions);
+            }
         }
 
         [Test]
@@ -430,13 +451,21 @@ namespace Ringtoets.Integration.Plugin.Test
             Assert.AreEqual(1, importers.Count(i => i is FailureMechanismSectionsImporter));
         }
 
-        private static void AddAssessmentSectionToProject(Project project, RingtoetsPlugin plugin)
+        [Test]
+        public void WhenAddingAssessmentSection_GivenProjectHasAssessmentSection_ThenAddedAssessmentSectionHasUniqueName()
         {
-            var itemToAdd = plugin.GetDataItemInfos()
-                                  .First(di => di.ValueType == typeof(AssessmentSection))
-                                  .CreateData(project);
+            // Setup
+            var project = new RingtoetsProject();
+            var plugin = new RingtoetsPlugin();
+            var assessmentSection1 = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection2 = new AssessmentSection(AssessmentSectionComposition.Dike);
+            plugin.SetAssessmentSectionToProject(project, assessmentSection1);
 
-            project.Items.Add(itemToAdd);
+            // Call
+            plugin.SetAssessmentSectionToProject(project, assessmentSection2);
+
+            // Assert
+            CollectionAssert.AllItemsAreUnique(project.Items.Select(section => section.Name));
         }
     }
 }

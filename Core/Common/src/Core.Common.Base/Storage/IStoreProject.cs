@@ -37,9 +37,8 @@ namespace Core.Common.Base.Storage
         /// <summary>
         /// Converts <paramref name="project"/> to a new storage entry.
         /// </summary>
-        /// <param name="project"><see cref="Project"/> to save.</param>
+        /// <param name="project"><see cref="IProject"/> to save.</param>
         /// <param name="connectionArguments">Arguments required to connect to the storage.</param>
-        /// <returns>Returns the number of changes that were saved.</returns>
         /// <exception cref="System.ArgumentException"><paramref name="connectionArguments"/> is invalid.</exception>
         /// <exception cref="CouldNotConnectException">Thrown when no new storage was created.</exception>
         /// <exception cref="StorageException">Thrown when
@@ -50,14 +49,13 @@ namespace Core.Common.Base.Storage
         /// <item>The connection to the storage failed.</item>
         /// </list>
         /// </exception>
-        void SaveProjectAs(string connectionArguments, Project project);
+        void SaveProjectAs(string connectionArguments, IProject project);
 
         /// <summary>
         /// Converts <paramref name="project"/> to an existing entity in the storage.
         /// </summary>
         /// <param name="connectionArguments">Arguments required to connect to the storage.</param>
-        /// <param name="project">The <see cref="Project"/> to save.</param>
-        /// <returns>Returns the number of changes that were saved.</returns>
+        /// <param name="project">The <see cref="IProject"/> to save.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
         /// <exception cref="System.ArgumentException"><paramref name="connectionArguments"/> is invalid.</exception>
         /// <exception cref="StorageException">Thrown when
@@ -69,13 +67,13 @@ namespace Core.Common.Base.Storage
         /// <item>The related entity was not found in the storage. Therefore, no update was possible.</item>
         /// </list>
         /// </exception>
-        void SaveProject(string connectionArguments, Project project);
+        void SaveProject(string connectionArguments, IProject project);
 
         /// <summary>
-        /// Attempts to load the <see cref="Project"/> from the storage.
+        /// Attempts to load the <see cref="IProject"/> from the storage.
         /// </summary>
         /// <param name="connectionArguments">Arguments required to connect to the storage.</param>
-        /// <returns>Returns a new instance of <see cref="Project"/> with the data from the storage or <c>null</c> when not found.</returns>
+        /// <returns>Returns a new instance of <see cref="IProject"/> with the data from the storage or <c>null</c> when not found.</returns>
         /// <exception cref="System.ArgumentException"><paramref name="connectionArguments"/> is invalid.</exception>
         /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">
@@ -85,7 +83,7 @@ namespace Core.Common.Base.Storage
         /// <item>The related entity was not found in the storage.</item>
         /// </list>
         /// </exception>
-        Project LoadProject(string connectionArguments);
+        IProject LoadProject(string connectionArguments);
 
         /// <summary>
         /// Removes the connection to a database that has been made previously.
@@ -93,10 +91,11 @@ namespace Core.Common.Base.Storage
         void CloseProject();
 
         /// <summary>
-        /// Checks if <paramref name="project"/> differs from the last saved or loaded <see cref="Project"/>, if any.
+        /// Checks if <paramref name="project"/> differs from the last saved or loaded <see cref="IProject"/>, if any.
         /// </summary>
-        /// <param name="project">The <see cref="Project"/> to save.</param>
-        /// <returns><c>true</c> if last <see cref="Project"/> was set and is different from <paramref name="project"/>, <c>false</c> otherwise.</returns>
-        bool HasChanges(Project project);
+        /// <param name="project">The <see cref="IProject"/> to save.</param>
+        /// <returns><c>true</c> if last <see cref="IProject"/> was set and is different from <paramref name="project"/>, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
+        bool HasChanges(IProject project);
     }
 }

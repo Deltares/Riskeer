@@ -30,7 +30,7 @@ using log4net;
 namespace Core.Common.Gui.Commands
 {
     /// <summary>
-    /// Class responsible for persistency of <see cref="Project"/>.
+    /// Class responsible for persistency of <see cref="IProject"/>.
     /// </summary>
     public class StorageCommandHandler : IStorageCommands
     {
@@ -60,12 +60,14 @@ namespace Core.Common.Gui.Commands
         public bool ContinueIfHasChanges()
         {
             var project = projectOwner.Project;
-            if (project == null || ProjectComparer.EqualsToNew(project) || !projectPersistor.HasChanges(project))
+            if (project == null || projectOwner.EqualsToNew(project) || !projectPersistor.HasChanges(project))
             {
                 return true;
             }
             return OpenSaveOrDiscardProjectDialog();
         }
+
+        public void Dispose() {}
 
         public void CreateNewProject()
         {
@@ -77,7 +79,7 @@ namespace Core.Common.Gui.Commands
             CloseProject();
 
             log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project);
-            projectOwner.Project = new Project();
+            projectOwner.CreateNewProject();
             projectOwner.ProjectFilePath = "";
             log.Info(Resources.StorageCommandHandler_NewProject_Created_new_project_succesful);
         }
@@ -112,28 +114,16 @@ namespace Core.Common.Gui.Commands
             if (!isOpenProjectSuccessful)
             {
                 log.Error(Resources.StorageCommandHandler_OpeningExistingProject_Opening_existing_project_failed);
-                newProject = new Project();
             }
             else
             {
                 log.Info(Resources.StorageCommandHandler_OpeningExistingProject_Opening_existing_project_successful);
                 newProject.Name = Path.GetFileNameWithoutExtension(filePath);
                 projectOwner.ProjectFilePath = filePath;
+                projectOwner.Project = newProject;
             }
 
-            projectOwner.Project = newProject;
             return isOpenProjectSuccessful;
-        }
-
-        private void CloseProject()
-        {
-            if (projectOwner.Project == null)
-            {
-                return;
-            }
-            projectOwner.Project = null;
-            projectOwner.ProjectFilePath = "";
-            projectPersistor.CloseProject();
         }
 
         public bool SaveProjectAs()
@@ -187,8 +177,15 @@ namespace Core.Common.Gui.Commands
             return true;
         }
 
-        public void Dispose()
+        private void CloseProject()
         {
+            if (projectOwner.Project == null)
+            {
+                return;
+            }
+            projectOwner.CloseProject();
+            projectOwner.ProjectFilePath = "";
+            projectPersistor.CloseProject();
         }
 
         private bool OpenSaveOrDiscardProjectDialog()
@@ -217,9 +214,9 @@ namespace Core.Common.Gui.Commands
         /// <returns>The loaded <see cref="Project"/> from <paramref name="filePath"/> or <c>null</c> if the project
         /// could not be loaded from <paramref name="filePath"/>.</returns>
         /// <exception cref="System.ArgumentException"><paramref name="filePath"/> is invalid.</exception>
-        private Project LoadProjectFromStorage(string filePath)
+        private IProject LoadProjectFromStorage(string filePath)
         {
-            Project loadedProject = null;
+            IProject loadedProject = null;
 
             try
             {

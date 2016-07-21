@@ -118,18 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ProjectIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\project-16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PlusIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\plus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AddItem" xml:space="preserve">
-    <value>&amp;Nieuw element...</value>
-  </data>
-  <data name="AddItem_ToolTip" xml:space="preserve">
-    <value>Voeg een nieuw element toe aan het project.</value>
-  </data>
   <data name="ProjectExplorerIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\folder_wrench.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

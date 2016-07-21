@@ -20,23 +20,21 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
-using Core.Common.Base.Data;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Update
 {
     /// <summary>
-    /// Extension methods for <see cref="Project"/> related to updating a <see cref="ProjectEntity"/>.
+    /// Extension methods for <see cref="RingtoetsProject"/> related to updating a <see cref="ProjectEntity"/>.
     /// </summary>
     internal static class ProjectUpdateExtensions
     {
         /// <summary>
         /// Updates a <see cref="ProjectEntity"/> in the database based on the information of the 
-        /// <see cref="Project"/>.
+        /// <see cref="RingtoetsProject"/>.
         /// </summary>
         /// <param name="project">The project to update the database entity for.</param>
         /// <param name="registry">The object keeping track of update operations.</param>
@@ -48,7 +46,7 @@ namespace Application.Ringtoets.Storage.Update
         /// </list></exception>
         /// <exception cref="EntityNotFoundException">When <paramref name="project"/>
         /// does not have a corresponding entity in the database.</exception>
-        internal static void Update(this Project project, PersistenceRegistry registry, IRingtoetsEntities context)
+        internal static void Update(this RingtoetsProject project, PersistenceRegistry registry, IRingtoetsEntities context)
         {
             if (context == null)
             {
@@ -65,7 +63,7 @@ namespace Application.Ringtoets.Storage.Update
 
             entity.Description = project.Description;
 
-            foreach (var result in project.Items.OfType<AssessmentSection>())
+            foreach (var result in project.Items)
             {
                 if (result.IsNew())
                 {

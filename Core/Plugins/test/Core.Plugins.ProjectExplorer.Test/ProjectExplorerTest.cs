@@ -94,7 +94,7 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
-            
+
             mocks.ReplayAll();
             var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos);
 
@@ -116,7 +116,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             {
                 new TreeNodeInfo
                 {
-                    TagType = typeof(Project)
+                    TagType = typeof(IProject)
                 }
             };
 
@@ -146,7 +146,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             {
                 new TreeNodeInfo
                 {
-                    TagType = typeof(Project),
+                    TagType = typeof(IProject),
                     CanRemove = (item, parent) => true
                 }
             };
@@ -192,7 +192,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             {
                 new TreeNodeInfo
                 {
-                    TagType = typeof(Project),
+                    TagType = typeof(IProject),
                     ChildNodeObjects = o => new[]
                     {
                         stringA,
@@ -251,7 +251,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             {
                 new TreeNodeInfo
                 {
-                    TagType = typeof(Project)
+                    TagType = typeof(IProject)
                 }
             };
 

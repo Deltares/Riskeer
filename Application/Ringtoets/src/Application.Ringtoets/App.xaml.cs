@@ -45,6 +45,7 @@ using Core.Plugins.ProjectExplorer;
 using log4net;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
 using Ringtoets.HeightStructures.Plugin;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Plugin;
 using MessageBox = System.Windows.MessageBox;
@@ -146,7 +147,7 @@ namespace Application.Ringtoets
                 ManualFilePath = "Ringtoets_Manual.pdf"
             };
             var mainWindow = new MainWindow();
-            gui = new GuiCore(mainWindow, new StorageSqLite(), settings)
+            gui = new GuiCore(mainWindow, new StorageSqLite(), new RingtoetsProjectFactory(), settings)
             {
                 Plugins =
                 {

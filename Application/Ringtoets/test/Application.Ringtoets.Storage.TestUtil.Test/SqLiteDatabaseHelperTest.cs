@@ -22,10 +22,9 @@
 using System;
 using System.Data.SQLite;
 using System.IO;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.TestUtil.Test
 {
@@ -141,19 +140,18 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         {
             // Setup
             string validPath = Path.Combine(testDataPath, "tempFile.rtd");
-            MockRepository mockRepository = new MockRepository();
-            var projectMock = mockRepository.StrictMock<Project>();
+            var project = new RingtoetsProject();
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(validPath);
             try
             {
                 // Call
-                TestDelegate test = () => SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(validPath, projectMock);
+                TestDelegate test = () => SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(validPath, project);
 
                 // Assert
                 Assert.DoesNotThrow(test);
                 Assert.IsTrue(File.Exists(validPath));
-            } 
+            }
             finally
             {
                 CallGarbageCollector();

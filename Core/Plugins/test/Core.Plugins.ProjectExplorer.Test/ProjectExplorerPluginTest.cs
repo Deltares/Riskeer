@@ -76,7 +76,6 @@ namespace Core.Plugins.ProjectExplorer.Test
             var guiStub = mocks.Stub<IGui>();
             var viewHost = mocks.Stub<IViewHost>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            guiStub.Stub(g => g.ProjectCommands).Return(mocks.Stub<IProjectCommands>());
             guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             guiStub.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
             viewHost.Stub(vm => vm.ToolViews).Return(new IView[0]);
@@ -111,7 +110,6 @@ namespace Core.Plugins.ProjectExplorer.Test
             var guiStub = mocks.Stub<IGui>();
             var viewHost = mocks.Stub<IViewHost>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            guiStub.Stub(g => g.ProjectCommands).Return(mocks.Stub<IProjectCommands>());
             guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             guiStub.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
             viewHost.Stub(vm => vm.ToolViews).Return(new IView[0]);
@@ -151,7 +149,6 @@ namespace Core.Plugins.ProjectExplorer.Test
             var guiStub = mocks.Stub<IGui>();
             var viewHost = mocks.Stub<IViewHost>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            guiStub.Stub(g => g.ProjectCommands).Return(mocks.Stub<IProjectCommands>());
             guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             guiStub.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
             viewHost.Stub(vm => vm.ToolViews).Return(new IView[0]);
@@ -210,57 +207,6 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        [RequiresSTA]
-        public void GetTreeNodeInfos_ReturnsSupportedTreeNodeInfos()
-        {
-            // Setup
-            var mocks = new MockRepository();
-
-            var guiStub = mocks.Stub<IGui>();
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            guiStub.Stub(g => g.ProjectCommands).Return(mocks.Stub<IProjectCommands>());
-            guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-            guiStub.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
-
-            mocks.ReplayAll();
-
-            using (var plugin = new ProjectExplorerPlugin
-            {
-                Gui = guiStub
-            })
-            {
-                // Call
-                TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
-
-                // Assert
-                Assert.AreEqual(1, treeNodeInfos.Length);
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(Project)));
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetChildDataWithViewDefinitions_DataIsProjectWithChildren_ReturnChildren()
-        {
-            // Setup
-            var project = new Project();
-            project.Items.Add(1);
-            project.Items.Add(2);
-            project.Items.Add(3);
-
-            using (var plugin = new ProjectExplorerPlugin())
-            {
-                // Call
-                var childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(project);
-
-                // Assert
-                var expectedResult = project.Items;
-                CollectionAssert.AreEquivalent(expectedResult, childrenWithViewDefinitions);
-            }
-        }
-
-        [Test]
         public void GetChildDataWithViewDefinitions_UnsupportedDataType_ReturnEmpty()
         {
             // Setup
@@ -283,13 +229,12 @@ namespace Core.Plugins.ProjectExplorer.Test
             var guiStub = mocks.Stub<IGui>();
             var viewHost = mocks.StrictMock<IViewHost>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            guiStub.Stub(g => g.ProjectCommands).Return(mocks.Stub<IProjectCommands>());
             guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             guiStub.Stub(g => g.GetTreeNodeInfos()).Return(new[]
             {
                 new TreeNodeInfo
                 {
-                    TagType = typeof(Project)
+                    TagType = typeof(IProject)
                 }
             });
             guiStub.Stub(g => g.ViewHost).Return(viewHost);

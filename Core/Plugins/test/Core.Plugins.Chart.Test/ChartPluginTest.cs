@@ -22,6 +22,7 @@
 using System;
 using System.Windows;
 using System.Windows.Threading;
+using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
@@ -109,9 +110,10 @@ namespace Core.Plugins.Chart.Test
             // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
             {
                 var plugin = new ChartPlugin();
                 var testChartView = new TestChartView();

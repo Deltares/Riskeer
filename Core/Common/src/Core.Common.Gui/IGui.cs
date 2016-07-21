@@ -34,7 +34,7 @@ namespace Core.Common.Gui
     /// </summary>
     public interface IGui : ICommandsOwner, ISettingsOwner, IProjectOwner,
                             IApplicationSelection, IViewController, IContextMenuBuilderProvider,
-                            IMainWindowController, IGuiPluginsHost, IDisposable
+                            IMainWindowController, IPluginsHost, IDisposable
     {
         /// <summary>
         /// Gets the object responsible for retrieving the <see cref="ObjectProperties{T}"/>

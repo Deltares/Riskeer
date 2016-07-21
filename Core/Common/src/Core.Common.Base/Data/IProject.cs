@@ -19,25 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Data;
+using Core.Common.Base.Storage;
 
-namespace Core.Common.Gui.Commands
+namespace Core.Common.Base.Data
 {
     /// <summary>
-    /// Interface declaring a set of methods related to adding data to an instance of <see cref="Project"/>.
+    /// Interface for a project.
     /// </summary>
-    public interface IProjectCommands
+    public interface IProject : IStorable, IObservable
     {
         /// <summary>
-        /// Ask the user which data object should be created and then add it to the project.
+        /// Gets or sets the name of the <see cref="IProject"/>.
         /// </summary>
-        /// <param name="parent">The data parent.</param>
-        void AddNewItem(object parent);
+        string Name { get; set; }
 
         /// <summary>
-        /// Adds the data object to the project.
+        /// Gets or sets the description of the <see cref="IProject"/>.
         /// </summary>
-        /// <param name="item">The item.</param>
-        void AddItemToProject(object item); 
+        string Description { get; set; }
     }
 }

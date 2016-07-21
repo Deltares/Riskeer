@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Integration.Data;
@@ -28,18 +27,18 @@ using Ringtoets.Integration.Data;
 namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
-    /// Extension methods for <see cref="Project"/> related to creating database entities.
+    /// Extension methods for <see cref="RingtoetsProject"/> related to creating database entities.
     /// </summary>
     internal static class ProjectCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="ProjectEntity"/> based on the information of the <see cref="Project"/>.
+        /// Creates a <see cref="ProjectEntity"/> based on the information of the <see cref="RingtoetsProject"/>.
         /// </summary>
         /// <param name="project">The project to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="ProjectEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static ProjectEntity Create(this Project project, PersistenceRegistry registry)
+        internal static ProjectEntity Create(this RingtoetsProject project, PersistenceRegistry registry)
         {
             if (registry == null)
             {
@@ -57,9 +56,9 @@ namespace Application.Ringtoets.Storage.Create
             return entity;
         }
 
-        private static void AddEntitiesForAssessmentSections(Project project, ProjectEntity entity, PersistenceRegistry registry)
+        private static void AddEntitiesForAssessmentSections(RingtoetsProject project, ProjectEntity entity, PersistenceRegistry registry)
         {
-            foreach (var result in project.Items.OfType<AssessmentSection>())
+            foreach (var result in project.Items)
             {
                 entity.AssessmentSectionEntities.Add(result.Create(registry));
             }
