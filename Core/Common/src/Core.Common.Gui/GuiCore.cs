@@ -22,7 +22,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
@@ -45,7 +44,6 @@ using Core.Common.Gui.Properties;
 using Core.Common.Gui.Selection;
 using Core.Common.Gui.Settings;
 using Core.Common.Utils.Extensions;
-using Core.Common.Utils.Reflection;
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
@@ -181,8 +179,6 @@ namespace Core.Common.Gui
             }
 
             isExiting = true;
-
-            CopyDefaultViewsToUserSettings();
 
             if (userSettingsDirty)
             {
@@ -415,8 +411,6 @@ namespace Core.Common.Gui
             InitializeWindows();
 
             InitializePlugins();
-
-            CopyDefaultViewsFromUserSettings();
         }
 
         private void ShowSplashScreen()
@@ -541,44 +535,6 @@ namespace Core.Common.Gui
             {
                 DeactivatePlugin(problematicPlugin);
             }
-        }
-
-        private void CopyDefaultViewsFromUserSettings()
-        {
-            if (UserSettings["defaultViews"] == null)
-            {
-                return;
-            }
-
-            var defaultViews = (StringCollection) UserSettings["defaultViews"];
-            var defaultViewDataTypes = (StringCollection) UserSettings["defaultViewDataTypes"];
-
-            for (int i = 0; i < defaultViews.Count; i++)
-            {
-                string viewDataTypeName = defaultViewDataTypes[i];
-                string viewTypeName = defaultViews[i];
-
-                Type viewDataType = AssemblyUtils.GetTypeByName(viewDataTypeName);
-                if (viewDataType != null)
-                {
-                    DocumentViewController.DefaultViewTypes.Add(viewDataType, AssemblyUtils.GetTypeByName(viewTypeName));
-                }
-            }
-        }
-
-        private void CopyDefaultViewsToUserSettings()
-        {
-            StringCollection defaultViews = new StringCollection();
-            StringCollection defaultViewDataTypes = new StringCollection();
-
-            foreach (Type objectType in DocumentViewController.DefaultViewTypes.Keys.Where(objectType => DocumentViewController.DefaultViewTypes[objectType] != null))
-            {
-                defaultViews.Add(DocumentViewController.DefaultViewTypes[objectType].ToString());
-                defaultViewDataTypes.Add(objectType.ToString());
-            }
-
-            UserSettings["defaultViews"] = defaultViews;
-            UserSettings["defaultViewDataTypes"] = defaultViewDataTypes;
         }
 
         ~GuiCore()

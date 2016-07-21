@@ -219,7 +219,6 @@
     </Compile>
     <Compile Include="Forms\ViewHost\IViewHost.cs" />
     <Compile Include="Forms\ViewHost\DocumentViewController.cs" />
-    <Compile Include="Properties\Settings.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <DependentUpon>Settings.settings</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -342,6 +341,7 @@
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
     <Resource Include="Resources\application_import_blue.ico" />
     <Resource Include="Resources\application_import_blue.png" />

@@ -25,28 +25,6 @@ namespace Core.Common.Gui.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection defaultViewDataTypes {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["defaultViewDataTypes"]));
-            }
-            set {
-                this["defaultViewDataTypes"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection defaultViews {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["defaultViews"]));
-            }
-            set {
-                this["defaultViews"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool showSplashScreen {
             get {
