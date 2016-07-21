@@ -139,6 +139,7 @@
           <Property Name="IsOvertoppingDominant" Type="tinyint" Nullable="false" />
           <Property Name="WaveHeight" Type="real" />
           <Property Name="DikeHeight" Type="real" />
+          <Property Name="IsDikeHeightCalculated" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="GrassCoverErosionInwardsSectionResultEntity">
           <Key>
@@ -1702,6 +1703,7 @@
           <Property Name="IsOvertoppingDominant" Type="Byte" Nullable="false" />
           <Property Name="WaveHeight" Type="Double" />
           <Property Name="DikeHeight" Type="Double" />
+          <Property Name="IsDikeHeightCalculated" Type="Byte" Nullable="false" />
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_1_0" FromRole="GrassCoverErosionInwardsOutputEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
           <NavigationProperty Name="ProbabilisticOutputEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsOutputEntity_0_0" FromRole="GrassCoverErosionInwardsOutputEntity" ToRole="ProbabilisticOutputEntity" />
         </EntityType>
@@ -2806,6 +2808,7 @@
           <EntitySetMapping Name="GrassCoverErosionInwardsOutputEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionInwardsOutputEntity">
               <MappingFragment StoreEntitySet="GrassCoverErosionInwardsOutputEntity">
+                <ScalarProperty Name="IsDikeHeightCalculated" ColumnName="IsDikeHeightCalculated" />
                 <ScalarProperty Name="DikeHeight" ColumnName="DikeHeight" />
                 <ScalarProperty Name="WaveHeight" ColumnName="WaveHeight" />
                 <ScalarProperty Name="IsOvertoppingDominant" ColumnName="IsOvertoppingDominant" />
