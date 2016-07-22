@@ -217,10 +217,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.NotNull(actualProject);
             Assert.AreNotSame(expectedProject, actualProject);
 
-            AssessmentSection[] expectedProjectAssessmentSections = expectedProject.AssessmentSections.ToArray();
-            AssessmentSection[] actualProjectAssessmentSections = actualProject.AssessmentSections.ToArray();
-            Assert.AreEqual(expectedProjectAssessmentSections.Length, actualProjectAssessmentSections.Length);
-            for (var i = 0; i < expectedProjectAssessmentSections.Length; i++)
+            IList<AssessmentSection> expectedProjectAssessmentSections = expectedProject.AssessmentSections;
+            IList<AssessmentSection> actualProjectAssessmentSections = actualProject.AssessmentSections;
+            Assert.AreEqual(expectedProjectAssessmentSections.Count, actualProjectAssessmentSections.Count);
+            for (var i = 0; i < expectedProjectAssessmentSections.Count; i++)
             {
                 AssessmentSection expectedAssessmentSection = expectedProjectAssessmentSections[i];
                 AssessmentSection actualAssessmentSection = actualProjectAssessmentSections[i];

@@ -30,14 +30,18 @@ namespace Ringtoets.Integration.Forms
     public static class RingtoetsSettingsHelper
     {
         /// <summary>
-        /// Gets the common documents directory.
+        /// Gets the directory of the "NBPW" shape file within the common documents directory.
         /// </summary>
-        /// <returns>Directory path where the common documents can be found.</returns>
+        /// <returns>Directory path where the "NBPW" shape file can be found.</returns>
         public static string GetCommonDocumentsRingtoetsShapeFileDirectory()
         {
             return Path.Combine(GetCommonDocumentsRingtoetsDirectory(), "NBPW");
         }
 
+        /// <summary>
+        /// Gets the "Ringtoets" folder within the common documents directory.
+        /// </summary>
+        /// <returns>Directory path where the "Ringtoets" folder within the common documents can be found.</returns>
         public static string GetCommonDocumentsRingtoetsDirectory()
         {
             return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "Ringtoets");
