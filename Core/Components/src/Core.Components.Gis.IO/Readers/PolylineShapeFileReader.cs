@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
@@ -59,11 +60,16 @@ namespace Core.Components.Gis.IO.Readers
             {
                 ShapeFile = new LineShapefile(shapeFilePath);
             }
-            catch (ArgumentException e)
+            catch (ArgumentException exception)
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)
                     .Build(GisIOResources.LineShapeFileReader_File_contains_geometries_not_line);
-                throw new CriticalFileReadException(message, e);
+                throw new CriticalFileReadException(message, exception);
+            }
+            catch (IOException exception)
+            {
+                var message = new FileReaderErrorMessageBuilder(shapeFilePath).Build(CoreCommonUtilsResources.Error_General_IO_ErrorMessage);
+                throw new CriticalFileReadException(message, exception);
             }
         }
 
