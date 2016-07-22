@@ -22,9 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Application.Ringtoets.Storage.DbContext;
+
 using Core.Common.Base.Geometry;
 using Core.Common.Utils;
+
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
@@ -87,9 +90,58 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<PipingFailureMechanismMetaEntity, PipingProbabilityAssessmentInput> pipingProbabilityAssessmentInputs = CreateDictionary<PipingFailureMechanismMetaEntity, PipingProbabilityAssessmentInput>();
         private readonly Dictionary<ProbabilisticOutputEntity, ProbabilityAssessmentOutput> probabilisticAssessmentOutputs = CreateDictionary<ProbabilisticOutputEntity, ProbabilityAssessmentOutput>();
 
-        private static Dictionary<TEntity, TModel> CreateDictionary<TEntity, TModel>()
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="GrassCoverErosionInwardsCalculationEntity"/>
+        /// to be registered.</param>
+        /// <param name="model">The <see cref="GrassCoverErosionInwardsCalculation"/> to
+        /// be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsCalculation model)
         {
-            return new Dictionary<TEntity, TModel>(new ReferenceEqualityComparer<TEntity>());
+            Register(grassCoverErosionInwardsCalculations, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="GrassCoverErosionInwardsOutputEntity"/>
+        /// to be registered.</param>
+        /// <param name="model">The <see cref="GrassCoverErosionInwardsOutput"/> to
+        /// be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(GrassCoverErosionInwardsOutputEntity entity, GrassCoverErosionInwardsOutput model)
+        {
+            Register(grassCoverErosionInwardsOutputs, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="ProbabilisticOutputEntity"/>
+        /// to be registered.</param>
+        /// <param name="model">The <see cref="ProbabilityAssessmentOutput"/> to
+        /// be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Register(ProbabilisticOutputEntity entity, ProbabilityAssessmentOutput model)
+        {
+            Register(probabilisticAssessmentOutputs, entity, model);
         }
 
         /// <summary>
@@ -154,60 +206,6 @@ namespace Application.Ringtoets.Storage.Create
         internal void Register(DikeProfileEntity entity, DikeProfile model)
         {
             Register(dikeProfiles, entity, model);
-        }
-
-        /// <summary>
-        /// Registers a create or update operation for <paramref name="model"/> and the
-        /// <paramref name="entity"/> that was constructed with the information.
-        /// </summary>
-        /// <param name="entity">The <see cref="GrassCoverErosionInwardsCalculationEntity"/>
-        /// to be registered.</param>
-        /// <param name="model">The <see cref="GrassCoverErosionInwardsCalculation"/> to
-        /// be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
-        public void Register(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsCalculation model)
-        {
-            Register(grassCoverErosionInwardsCalculations, entity, model);
-        }
-
-        /// <summary>
-        /// Registers a create or update operation for <paramref name="model"/> and the
-        /// <paramref name="entity"/> that was constructed with the information.
-        /// </summary>
-        /// <param name="entity">The <see cref="GrassCoverErosionInwardsOutputEntity"/>
-        /// to be registered.</param>
-        /// <param name="model">The <see cref="GrassCoverErosionInwardsOutput"/> to
-        /// be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
-        public void Register(GrassCoverErosionInwardsOutputEntity entity, GrassCoverErosionInwardsOutput model)
-        {
-            Register(grassCoverErosionInwardsOutputs, entity, model);
-        }
-
-        /// <summary>
-        /// Registers a create or update operation for <paramref name="model"/> and the
-        /// <paramref name="entity"/> that was constructed with the information.
-        /// </summary>
-        /// <param name="entity">The <see cref="ProbabilisticOutputEntity"/>
-        /// to be registered.</param>
-        /// <param name="model">The <see cref="ProbabilityAssessmentOutput"/> to
-        /// be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
-        public void Register(ProbabilisticOutputEntity entity, ProbabilityAssessmentOutput model)
-        {
-            Register(probabilisticAssessmentOutputs, entity, model);
         }
 
         /// <summary>
@@ -1245,7 +1243,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var orphanedGrassCoverErosionInwardsCalculationEntities = new List<GrassCoverErosionInwardsCalculationEntity>();
             foreach (GrassCoverErosionInwardsCalculationEntity calculationEntity in dbContext.GrassCoverErosionInwardsCalculationEntities
-                                                                     .Where(e => e.GrassCoverErosionInwardsCalculationEntityId > 0))
+                                                                                             .Where(e => e.GrassCoverErosionInwardsCalculationEntityId > 0))
             {
                 if (!grassCoverErosionInwardsCalculations.ContainsKey(calculationEntity))
                 {
@@ -1605,6 +1603,11 @@ namespace Application.Ringtoets.Storage.Create
                 }
             }
             dbContext.ProbabilisticOutputEntities.RemoveRange(orphanedProbabilisticOutputEntities);
+        }
+
+        private static Dictionary<TEntity, TModel> CreateDictionary<TEntity, TModel>()
+        {
+            return new Dictionary<TEntity, TModel>(new ReferenceEqualityComparer<TEntity>());
         }
 
         private bool ContainsValue<T, U>(Dictionary<T, U> collection, U model)
