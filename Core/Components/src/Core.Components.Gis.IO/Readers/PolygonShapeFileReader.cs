@@ -21,18 +21,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
-
 using DotSpatial.Data;
 using DotSpatial.Topology;
-
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
 
@@ -54,6 +52,7 @@ namespace Core.Components.Gis.IO.Readers
         /// <list type="bullet">
         /// <item><paramref name="filePath"/> points to a file that doesn't exist.</item>
         /// <item>The shapefile has non-polygon geometries in it.</item>
+        /// <item>An unexpected error occurred when reading the shapefile.</item>
         /// </list>
         /// </exception>
         public PolygonShapeFileReader(string filePath) : base(filePath)
@@ -67,6 +66,11 @@ namespace Core.Components.Gis.IO.Readers
                 string message = new FileReaderErrorMessageBuilder(filePath)
                     .Build(GisIOResources.PointShapeFileReader_File_contains_geometries_not_polygons);
                 throw new CriticalFileReadException(message, e);
+            }
+            catch (IOException exception)
+            {
+                var message = new FileReaderErrorMessageBuilder(filePath).Build(CoreCommonUtilsResources.Error_General_IO_ErrorMessage);
+                throw new CriticalFileReadException(message, exception);
             }
         }
 
@@ -145,7 +149,7 @@ namespace Core.Components.Gis.IO.Readers
 
             for (int i = 0; i < polygonFeature.BasicGeometry.NumGeometries; i++)
             {
-                var basicPolygon = (IBasicPolygon)polygonFeature.BasicGeometry.GetBasicGeometryN(i);
+                var basicPolygon = (IBasicPolygon) polygonFeature.BasicGeometry.GetBasicGeometryN(i);
 
                 MapGeometry mapGeometry = new MapGeometry(GetMapGeometryPointCollections(basicPolygon));
                 geometries.Add(mapGeometry);

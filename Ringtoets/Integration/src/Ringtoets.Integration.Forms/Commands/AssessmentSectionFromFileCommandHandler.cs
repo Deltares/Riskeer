@@ -117,7 +117,7 @@ namespace Ringtoets.Integration.Forms.Commands
                 }
                 catch (ArgumentOutOfRangeException exception)
                 {
-                    log.Warn(string.Format(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_value_0, selectedLimitValue.Value), exception);
+                    log.Warn(string.Format(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_Value_0, selectedLimitValue.Value), exception);
                 }
             }
             return assessmentSection;

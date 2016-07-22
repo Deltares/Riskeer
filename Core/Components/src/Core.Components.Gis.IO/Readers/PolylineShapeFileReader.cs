@@ -52,6 +52,7 @@ namespace Core.Components.Gis.IO.Readers
         /// <list type="bullet">
         /// <item><paramref name="shapeFilePath"/> points to a file that doesn't exist.</item>
         /// <item>The shapefile has non-line geometries in it.</item>
+        /// <item>An unexpected error occurred when reading the shapefile.</item>
         /// </list>
         /// </exception>
         public PolylineShapeFileReader(string shapeFilePath) : base(shapeFilePath)

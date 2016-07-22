@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 using Core.Common.Base.Geometry;
@@ -71,6 +72,26 @@ namespace Core.Components.Gis.IO.Test.Readers
                                                 nonPointShapeFile);
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void ParameteredConstructor_ShapeFileIsInUse_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string testFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Single_Point_with_ID.shp");
+
+            using (File.Open(testFilePath, FileMode.Open, FileAccess.ReadWrite))
+            {
+                // Call
+                TestDelegate call = () => new PointShapeFileReader(testFilePath);
+
+                // Assert
+                var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Er is een onverwachte fout opgetreden tijdens het inlezen van het bestand.",
+                                                    testFilePath);
+                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<IOException>(exception.InnerException);
+            }
         }
 
         [Test]

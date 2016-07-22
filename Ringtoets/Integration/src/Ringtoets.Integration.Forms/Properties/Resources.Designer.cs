@@ -138,9 +138,9 @@ namespace Ringtoets.Integration.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De waarde &apos;{0}&apos; kan niet gezet..
         /// </summary>
-        public static string AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_value_0 {
+        public static string AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_Value_0 {
             get {
-                return ResourceManager.GetString("AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_val" +
+                return ResourceManager.GetString("AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_Val" +
                         "ue_0", resourceCulture);
             }
         }
