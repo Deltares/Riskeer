@@ -263,8 +263,8 @@ namespace Ringtoets.Integration.Plugin
                 throw new ArgumentNullException("assessmentSection");
             }
 
-            assessmentSection.Name = GetUniqueForAssessmentSectionName(ringtoetsProject.Items, assessmentSection.Name);
-            ringtoetsProject.Items.Add(assessmentSection);
+            assessmentSection.Name = GetUniqueForAssessmentSectionName(ringtoetsProject.AssessmentSections, assessmentSection.Name);
+            ringtoetsProject.AssessmentSections.Add(assessmentSection);
             ringtoetsProject.NotifyObservers();
 
             if (Gui != null)
@@ -390,7 +390,7 @@ namespace Ringtoets.Integration.Plugin
                     CreateData = owner =>
                     {
                         var project = (RingtoetsProject) owner;
-                        assessmentSection.Name = GetUniqueForAssessmentSectionName(project.Items, assessmentSection.Name);
+                        assessmentSection.Name = GetUniqueForAssessmentSectionName(project.AssessmentSections, assessmentSection.Name);
                         return assessmentSection;
                     }
                 }
@@ -407,7 +407,7 @@ namespace Ringtoets.Integration.Plugin
             var project = dataObject as RingtoetsProject;
             if (project != null)
             {
-                foreach (var item in project.Items)
+                foreach (var item in project.AssessmentSections)
                 {
                     yield return item;
                 }
@@ -535,7 +535,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = project => project.Name,
                 Image = project => GuiResources.ProjectIcon,
-                ChildNodeObjects = nodeData => nodeData.Items.Cast<object>().ToArray(),
+                ChildNodeObjects = nodeData => nodeData.AssessmentSections.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) =>
                 {
                     var addItem = new StrictContextMenuItem(
@@ -622,7 +622,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 return;
             }
-            var sectionsWithDatabase = ringtoetsProject.Items.Where(i => i.HydraulicBoundaryDatabase != null);
+            var sectionsWithDatabase = ringtoetsProject.AssessmentSections.Where(i => i.HydraulicBoundaryDatabase != null);
             foreach (AssessmentSection section in sectionsWithDatabase)
             {
                 string selectedFile = section.HydraulicBoundaryDatabase.FilePath;
@@ -818,7 +818,7 @@ namespace Ringtoets.Integration.Plugin
         {
             var parentProject = (RingtoetsProject) parentNodeData;
             var assessmentSection = (AssessmentSection) nodeData;
-            parentProject.Items.Remove(assessmentSection);
+            parentProject.AssessmentSections.Remove(assessmentSection);
             parentProject.NotifyObservers();
         }
 

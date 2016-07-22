@@ -71,7 +71,8 @@ namespace Application.Ringtoets.Storage
         /// </exception>
         public void SaveProjectAs(string databaseFilePath, IProject project)
         {
-            if (!(project is RingtoetsProject))
+            var ringtoetsProject = project as RingtoetsProject;
+            if (ringtoetsProject == null)
             {
                 throw new ArgumentNullException("project");
             }
@@ -82,7 +83,7 @@ namespace Application.Ringtoets.Storage
                 writer.Perform(() =>
                 {
                     SetConnectionToNewFile(databaseFilePath);
-                    SaveProjectInDatabase(databaseFilePath, (RingtoetsProject) project);
+                    SaveProjectInDatabase(databaseFilePath, ringtoetsProject);
                 });
             }
             catch (IOException e)
@@ -111,7 +112,8 @@ namespace Application.Ringtoets.Storage
         /// </exception>
         public void SaveProject(string databaseFilePath, IProject project)
         {
-            if (!(project is RingtoetsProject))
+            var ringtoetsProject = project as RingtoetsProject;
+            if (ringtoetsProject == null)
             {
                 throw new ArgumentNullException("project");
             }
@@ -122,10 +124,10 @@ namespace Application.Ringtoets.Storage
             }
             catch
             {
-                SaveProjectAs(databaseFilePath, project);
+                SaveProjectAs(databaseFilePath, ringtoetsProject);
             }
 
-            UpdateProjectInDatabase(databaseFilePath, (RingtoetsProject) project);
+            UpdateProjectInDatabase(databaseFilePath, ringtoetsProject);
         }
 
         /// <summary>
@@ -188,7 +190,8 @@ namespace Application.Ringtoets.Storage
                 return true;
             }
 
-            if (!(project is RingtoetsProject))
+            var ringtoetsProject = project as RingtoetsProject;
+            if (ringtoetsProject == null)
             {
                 throw new ArgumentNullException("project");
             }
@@ -197,7 +200,6 @@ namespace Application.Ringtoets.Storage
             {
                 try
                 {
-                    var ringtoetsProject = (RingtoetsProject) project;
                     var persistenceRegistry = new PersistenceRegistry();
                     ringtoetsProject.Update(persistenceRegistry, dbContext);
                     persistenceRegistry.RemoveUntouched(dbContext);

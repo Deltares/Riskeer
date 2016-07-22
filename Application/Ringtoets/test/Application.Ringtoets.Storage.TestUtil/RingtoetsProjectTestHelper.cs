@@ -104,7 +104,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             {
                 Name = "tempProjectFile",
                 Description = "description",
-                Items =
+                AssessmentSections =
                 {
                     assessmentSection
                 }

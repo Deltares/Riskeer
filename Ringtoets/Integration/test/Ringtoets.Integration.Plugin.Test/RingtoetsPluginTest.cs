@@ -136,7 +136,7 @@ namespace Ringtoets.Integration.Plugin.Test
                             FilePath = testDataPath
                         }
                     };
-                    project.Items.Add(section);
+                    project.AssessmentSections.Add(section);
 
                     // When
                     Action action = () => { gui.Project = project; };
@@ -172,7 +172,7 @@ namespace Ringtoets.Integration.Plugin.Test
                             FilePath = notExistingFile
                         }
                     };
-                    project.Items.Add(section);
+                    project.AssessmentSections.Add(section);
 
                     plugin.Gui = gui;
                     gui.Run();
@@ -416,9 +416,9 @@ namespace Ringtoets.Integration.Plugin.Test
         {
             // Setup
             var project = new RingtoetsProject();
-            project.Items.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
-            project.Items.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
-            project.Items.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
+            project.AssessmentSections.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
+            project.AssessmentSections.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
+            project.AssessmentSections.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -426,7 +426,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 var childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(project);
 
                 // Assert
-                var expectedResult = project.Items;
+                var expectedResult = project.AssessmentSections;
                 CollectionAssert.AreEquivalent(expectedResult, childrenWithViewDefinitions);
             }
         }
@@ -509,14 +509,14 @@ namespace Ringtoets.Integration.Plugin.Test
                 project.Attach(projectObserver);
 
                 // Precondition
-                CollectionAssert.IsEmpty(project.Items);
+                CollectionAssert.IsEmpty(project.AssessmentSections);
 
                 // Call
                 plugin.SetAssessmentSectionToProject(project, assessmentSection);
             }
             // Assert
-            Assert.AreEqual(1, project.Items.Count);
-            CollectionAssert.Contains(project.Items, assessmentSection);
+            Assert.AreEqual(1, project.AssessmentSections.Count);
+            CollectionAssert.Contains(project.AssessmentSections, assessmentSection);
             mockRepository.VerifyAll();
         }
 
@@ -537,7 +537,7 @@ namespace Ringtoets.Integration.Plugin.Test
             }
 
             // Assert
-            CollectionAssert.AllItemsAreUnique(project.Items.Select(section => section.Name));
+            CollectionAssert.AllItemsAreUnique(project.AssessmentSections.Select(section => section.Name));
         }
 
         [Test]

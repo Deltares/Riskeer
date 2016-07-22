@@ -28,7 +28,7 @@ namespace Application.Ringtoets.Storage.Create
     /// <summary>
     /// Extension methods for <see cref="RingtoetsProject"/> related to creating database entities.
     /// </summary>
-    internal static class ProjectCreateExtensions
+    internal static class RingtoetsProjectCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="ProjectEntity"/> based on the information of the <see cref="RingtoetsProject"/>.
@@ -57,7 +57,7 @@ namespace Application.Ringtoets.Storage.Create
 
         private static void AddEntitiesForAssessmentSections(RingtoetsProject project, ProjectEntity entity, PersistenceRegistry registry)
         {
-            foreach (var result in project.Items)
+            foreach (var result in project.AssessmentSections)
             {
                 entity.AssessmentSectionEntities.Add(result.Create(registry));
             }

@@ -89,7 +89,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var project = entity.Read(new ReadConversionCollector());
 
             // Assert
-            Assert.AreEqual(2, project.Items.Count);
+            Assert.AreEqual(2, project.AssessmentSections.Count);
         }
     }
 }

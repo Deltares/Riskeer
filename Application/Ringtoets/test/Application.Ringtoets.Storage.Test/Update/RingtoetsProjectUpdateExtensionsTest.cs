@@ -35,7 +35,7 @@ using Ringtoets.Integration.Data;
 namespace Application.Ringtoets.Storage.Test.Update
 {
     [TestFixture]
-    public class ProjectUpdateExtensionsTest
+    public class RingtoetsProjectUpdateExtensionsTest
     {
         [Test]
         public void Update_WithoutContext_ThrowsArgumentNullException()
@@ -205,7 +205,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var project = new RingtoetsProject
             {
                 StorageId = 1,
-                Items =
+                AssessmentSections =
                 {
                     new AssessmentSection(AssessmentSectionComposition.Dike)
                 }
@@ -329,7 +329,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var project = new RingtoetsProject
             {
                 StorageId = 1,
-                Items =
+                AssessmentSections =
                 {
                     section
                 }

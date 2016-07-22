@@ -374,7 +374,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var project = new RingtoetsProject();
-            project.Items.Add(assessmentSection);
+            project.AssessmentSections.Add(assessmentSection);
             project.Attach(observerMock);
 
             using (var plugin = new RingtoetsPlugin())
@@ -385,7 +385,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 info.OnNodeRemoved(assessmentSection, project);
 
                 // Assert
-                CollectionAssert.DoesNotContain(project.Items, assessmentSection);
+                CollectionAssert.DoesNotContain(project.AssessmentSections, assessmentSection);
             }
             mocks.VerifyAll();
         }

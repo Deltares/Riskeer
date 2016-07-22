@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Read
 
             foreach (var assessmentSectionEntity in entity.AssessmentSectionEntities)
             {
-                project.Items.Add(assessmentSectionEntity.Read(collector));
+                project.AssessmentSections.Add(assessmentSectionEntity.Read(collector));
             }
 
             return project;

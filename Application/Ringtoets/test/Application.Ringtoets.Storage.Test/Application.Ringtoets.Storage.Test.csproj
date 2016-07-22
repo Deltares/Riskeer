@@ -140,7 +140,7 @@
     <Compile Include="Create\FailureMechanismSectionCreateExtensionsTest.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCreateExtensionsTest.cs" />
     <Compile Include="Create\Point2DCreateExtensionsTest.cs" />
-    <Compile Include="Create\ProjectCreateExtensionsTest.cs" />
+    <Compile Include="Create\RingtoetsProjectCreateExtensionsTest.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="DecimalConversionExtensionsTests.cs" />
@@ -248,7 +248,7 @@
     <Compile Include="Update\IFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\FailureMechanismSectionUpdateExtensionsTest.cs" />
     <Compile Include="Update\HydraulicBoundaryLocationUpdateExtensionsTest.cs" />
-    <Compile Include="Update\ProjectUpdateExtensionsTest.cs" />
+    <Compile Include="Update\RingtoetsProjectUpdateExtensionsTest.cs" />
     <Compile Include="Update\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateExtensionsTest.cs" />
     <Compile Include="Update\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismUpdateExtensionsTest.cs" />
   </ItemGroup>

@@ -53,7 +53,7 @@ namespace Demo.Ringtoets.Commands
         public void Execute(params object[] arguments)
         {
             var project = (RingtoetsProject) projectOwner.Project;
-            project.Items.Add(CreateNewDemoAssessmentSection());
+            project.AssessmentSections.Add(CreateNewDemoAssessmentSection());
             project.NotifyObservers();
         }
 

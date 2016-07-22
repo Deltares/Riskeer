@@ -43,13 +43,13 @@ namespace Ringtoets.Integration.Data
             Name = name;
             Description = "";
 
-            Items = new List<AssessmentSection>();
+            AssessmentSections = new List<AssessmentSection>();
         }
 
         /// <summary>
-        /// Gets or sets the items of the <see cref="RingtoetsProject"/>.
+        /// Gets or sets the assessmentSections of the <see cref="RingtoetsProject"/>.
         /// </summary>
-        public IList<AssessmentSection> Items { get; private set; }
+        public IList<AssessmentSection> AssessmentSections { get; private set; }
 
         /// <summary>
         /// Gets or sets the name of the <see cref="RingtoetsProject"/>.
@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.Data
             return string.Equals(Name, otherProject.Name) &&
                    string.Equals(Description, otherProject.Description) &&
                    StorageId == otherProject.StorageId &&
-                   Items.SequenceEqual(otherProject.Items);
+                   AssessmentSections.SequenceEqual(otherProject.AssessmentSections);
         }
 
         public override bool Equals(object obj)

@@ -110,7 +110,7 @@
     <Compile Include="Create\FailureMechanismSectionCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCreateExtensions.cs" />
     <Compile Include="Create\PersistenceRegistry.cs" />
-    <Compile Include="Create\ProjectCreateExtensions.cs" />
+    <Compile Include="Create\RingtoetsProjectCreateExtensions.cs" />
     <Compile Include="Create\Point2DCreateExtensions.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensions.cs" />
@@ -375,7 +375,7 @@
     <Compile Include="Update\IFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\FailureMechanismSectionUpdateExtensions.cs" />
     <Compile Include="Update\HydraulicBoundaryLocationUpdateExtensions.cs" />
-    <Compile Include="Update\ProjectUpdateExtensions.cs" />
+    <Compile Include="Update\RingtoetsProjectUpdateExtensions.cs" />
     <Compile Include="Update\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateExtensions.cs" />
     <Compile Include="Update\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismUpdateExtensions.cs" />
   </ItemGroup>

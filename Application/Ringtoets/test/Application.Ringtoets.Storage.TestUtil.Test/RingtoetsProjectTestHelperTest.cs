@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(expectedProjectName, project.Name);
             Assert.AreEqual(expectedDescription, project.Description);
 
-            AssessmentSection assessmentSection = project.Items.FirstOrDefault();
+            AssessmentSection assessmentSection = project.AssessmentSections.FirstOrDefault();
             Assert.NotNull(assessmentSection);
             Assert.AreEqual(expectedAssessmentSectionName, assessmentSection.Name);
 

@@ -28,7 +28,7 @@ using Ringtoets.Integration.Data;
 namespace Application.Ringtoets.Storage.Test.Create
 {
     [TestFixture]
-    public class ProjectCreateExtensionsTest
+    public class RingtoetsProjectCreateExtensionsTest
     {
         [Test]
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var project = new RingtoetsProject
             {
-                Items =
+                AssessmentSections =
                 {
                     new AssessmentSection(AssessmentSectionComposition.Dike)
                 }

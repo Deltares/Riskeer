@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.IsInstanceOf<IProject>(project);
             Assert.AreEqual("Project", project.Name);
             Assert.AreEqual("", project.Description);
-            CollectionAssert.IsEmpty(project.Items);
+            CollectionAssert.IsEmpty(project.AssessmentSections);
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.IsInstanceOf<IProject>(project);
             Assert.AreEqual(someName, project.Name);
             Assert.AreEqual("", project.Description);
-            CollectionAssert.IsEmpty(project.Items);
+            CollectionAssert.IsEmpty(project.AssessmentSections);
         }
 
         [Test]
@@ -152,12 +152,12 @@ namespace Ringtoets.Integration.Data.Test
         }
 
         [Test]
-        public void Equals_ProjectItemsChanged_ReturnsFalse()
+        public void Equals_ProjectAssessmentSectionsChanged_ReturnsFalse()
         {
             // Setup
             RingtoetsProject newProject = new RingtoetsProject();
             RingtoetsProject changedProject = new RingtoetsProject();
-            newProject.Items.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
+            newProject.AssessmentSections.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Call
             bool result = newProject.Equals(changedProject);
@@ -175,8 +175,14 @@ namespace Ringtoets.Integration.Data.Test
             const long storageId = 1234;
             const string name = "Some name";
             const string desctiption = "Some desctiption";
-            var project = new RingtoetsProject(name) { StorageId = storageId, Description = desctiption };
-            var otherProject = new RingtoetsProject(name) { StorageId = storageId, Description = desctiption };
+            var project = new RingtoetsProject(name)
+            {
+                StorageId = storageId, Description = desctiption
+            };
+            var otherProject = new RingtoetsProject(name)
+            {
+                StorageId = storageId, Description = desctiption
+            };
 
             // Call
             var result = project.GetHashCode();

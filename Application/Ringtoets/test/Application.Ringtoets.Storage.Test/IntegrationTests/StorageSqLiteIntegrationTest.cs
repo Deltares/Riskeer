@@ -76,8 +76,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             try
             {
                 storage.SaveProjectAs(tempFile, fullProject);
-                firstProject = storage.LoadProject(tempRingtoetsFile) as RingtoetsProject;
-                secondProject = storage.LoadProject(tempFile) as RingtoetsProject;
+                firstProject = (RingtoetsProject) storage.LoadProject(tempRingtoetsFile);
+                secondProject = (RingtoetsProject) storage.LoadProject(tempFile);
             }
             catch (Exception exception)
             {
@@ -109,7 +109,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.DoesNotThrow(test, String.Format("Precondition: failed to save project to file '{0}'.", tempRingtoetsFile));
 
             // Call
-            RingtoetsProject loadedProject = storage.LoadProject(tempRingtoetsFile) as RingtoetsProject;
+            RingtoetsProject loadedProject = (RingtoetsProject) storage.LoadProject(tempRingtoetsFile);
 
             // Assert
             AssertProjectsAreEqual(fullProject, loadedProject);
@@ -177,7 +177,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual("Project", gui.Project.Name);
                 Assert.IsEmpty(gui.Project.Description);
                 Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
-                CollectionAssert.IsEmpty(((RingtoetsProject) gui.Project).Items);
+                CollectionAssert.IsEmpty(((RingtoetsProject) gui.Project).AssessmentSections);
             }
         }
 
@@ -207,7 +207,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual("Project", gui.Project.Name);
                 Assert.IsEmpty(gui.Project.Description);
                 Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
-                CollectionAssert.IsEmpty(((RingtoetsProject) gui.Project).Items);
+                CollectionAssert.IsEmpty(((RingtoetsProject) gui.Project).AssessmentSections);
             }
         }
 
@@ -217,8 +217,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.NotNull(actualProject);
             Assert.AreNotSame(expectedProject, actualProject);
 
-            AssessmentSection[] expectedProjectAssessmentSections = expectedProject.Items.ToArray();
-            AssessmentSection[] actualProjectAssessmentSections = actualProject.Items.ToArray();
+            AssessmentSection[] expectedProjectAssessmentSections = expectedProject.AssessmentSections.ToArray();
+            AssessmentSection[] actualProjectAssessmentSections = actualProject.AssessmentSections.ToArray();
             Assert.AreEqual(expectedProjectAssessmentSections.Length, actualProjectAssessmentSections.Length);
             for (var i = 0; i < expectedProjectAssessmentSections.Length; i++)
             {

@@ -30,7 +30,7 @@ namespace Application.Ringtoets.Storage.Update
     /// <summary>
     /// Extension methods for <see cref="RingtoetsProject"/> related to updating a <see cref="ProjectEntity"/>.
     /// </summary>
-    internal static class ProjectUpdateExtensions
+    internal static class RingtoetsProjectUpdateExtensions
     {
         /// <summary>
         /// Updates a <see cref="ProjectEntity"/> in the database based on the information of the 
@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Update
 
             entity.Description = project.Description;
 
-            foreach (var result in project.Items)
+            foreach (var result in project.AssessmentSections)
             {
                 if (result.IsNew())
                 {
