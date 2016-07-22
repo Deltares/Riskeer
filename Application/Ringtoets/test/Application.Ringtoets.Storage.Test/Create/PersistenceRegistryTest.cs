@@ -399,6 +399,71 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsFalse(result);
         }
 
+        [Test]
+        public void Contains_WithoutDikeProfile_ArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Contains((DikeProfile)null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Contains_DikeProfileAdded_True()
+        {
+            // Setup
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              null, new DikeProfile.ConstructionProperties());
+            var registry = new PersistenceRegistry();
+            registry.Register(new DikeProfileEntity(), dikeProfile);
+
+            // Call
+            bool result = registry.Contains(dikeProfile);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_OtherDikeProfileAdded_False()
+        {
+            // Setup
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              null, new DikeProfile.ConstructionProperties());
+
+            var otherDikeProfile = new DikeProfile(new Point2D(1, 1), new RoughnessPoint[0], new Point2D[0],
+                                                   null, new DikeProfile.ConstructionProperties());
+            var registry = new PersistenceRegistry();
+            registry.Register(new DikeProfileEntity(), otherDikeProfile);
+
+            // Call
+            bool result = registry.Contains(dikeProfile);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_NoDikeProfileAdded_False()
+        {
+            // Setup
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              null, new DikeProfile.ConstructionProperties());
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            bool result = registry.Contains(dikeProfile);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
         #endregion
 
         #region Get methods
@@ -772,6 +837,73 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreSame(initializedEntity, retrievedEntity);
+        }
+
+        [Test]
+        public void Get_WithoutDikeProfile_ArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Get((DikeProfile)null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Get_NoDikeProfileAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              null, new DikeProfile.ConstructionProperties());
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Get(dikeProfile);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void Get_OtherDikeProfileAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              null, new DikeProfile.ConstructionProperties());
+            var registeredDikeProfile = new DikeProfile(new Point2D(1, 1), new RoughnessPoint[0], new Point2D[0],
+                                                        null, new DikeProfile.ConstructionProperties());
+            var registeredEntity = new DikeProfileEntity();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(registeredEntity, registeredDikeProfile);
+
+            // Call
+            TestDelegate call = () => registry.Get(dikeProfile);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void Get_DikeProfileAdded_ReturnsEntity()
+        {
+            // Setup
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              null, new DikeProfile.ConstructionProperties());
+            var registeredEntity = new DikeProfileEntity();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(registeredEntity, dikeProfile);
+
+            // Call
+            DikeProfileEntity retrievedEntity = registry.Get(dikeProfile);
+
+            // Assert
+            Assert.AreSame(registeredEntity, retrievedEntity);
         }
 
         #endregion

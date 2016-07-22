@@ -157,7 +157,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadGeneralCalculationInput(failureMechanism.GeneralInput);
-            entity.ReadDikeProfiles(failureMechanism.DikeProfiles);
+            entity.ReadDikeProfiles(failureMechanism.DikeProfiles, collector);
             ReadRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
             entity.ReadGrassCoverErosionInwardsMechanismSectionResults(failureMechanism, collector);
         }
@@ -168,11 +168,11 @@ namespace Application.Ringtoets.Storage.Read
             t.Read(input);
         }
 
-        private static void ReadDikeProfiles(this FailureMechanismEntity entity, ICollection<DikeProfile> dikeProfiles)
+        private static void ReadDikeProfiles(this FailureMechanismEntity entity, ICollection<DikeProfile> dikeProfiles, ReadConversionCollector collector)
         {
             foreach (DikeProfileEntity dikeProfileEntity in entity.DikeProfileEntities)
             {
-                dikeProfiles.Add(dikeProfileEntity.Read());
+                dikeProfiles.Add(dikeProfileEntity.Read(collector));
             }
         }
 

@@ -24,6 +24,7 @@ using System.Collections;
 
 using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 
 using Core.Common.Base.Geometry;
@@ -37,6 +38,20 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
     [TestFixture]
     public class DikeProfileEntityReadExtensionsTest
     {
+        [Test]
+        public void Read_ReadConversionCollectorNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var entity = new DikeProfileEntity();
+
+            // Call
+            TestDelegate call = () => entity.Read(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("collector", paramName);
+        }
+
         [Test]
         public void Read_DikeProfileEntityWithBreakWaterPropertiesNull_ReturnDikeProfileWithoutBreakWater()
         {
@@ -66,8 +81,10 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
                 X0 = -7.8
             };
 
+            var collector = new ReadConversionCollector();
+
             // Call
-            DikeProfile dikeProfile = entity.Read();
+            DikeProfile dikeProfile = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(entity.DikeProfileEntityId, dikeProfile.StorageId);
@@ -112,8 +129,10 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
                 X0 = 9.34
             };
 
+            var collector = new ReadConversionCollector();
+
             // Call
-            DikeProfile dikeProfile = entity.Read();
+            DikeProfile dikeProfile = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(entity.DikeProfileEntityId, dikeProfile.StorageId);
@@ -127,6 +146,25 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 
             Assert.AreEqual(height, dikeProfile.BreakWater.Height.Value);
             Assert.AreEqual(type, dikeProfile.BreakWater.Type);
+
+            Assert.IsTrue(collector.Contains(entity));
+        }
+
+        [Test]
+        public void Read_AlreadyReadDikeProfileEntity_ReturnDikeProfile()
+        {
+            // Setup
+            var registeredEntity = new DikeProfileEntity();
+            var registeredProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                          null, new DikeProfile.ConstructionProperties());
+            var collector = new ReadConversionCollector();
+            collector.Read(registeredEntity, registeredProfile);
+
+            // Call
+            var returnedProfile = registeredEntity.Read(collector);
+
+            // Assert
+            Assert.AreSame(registeredProfile, returnedProfile);
         }
 
         private class RoughnessPointComparer : IComparer {

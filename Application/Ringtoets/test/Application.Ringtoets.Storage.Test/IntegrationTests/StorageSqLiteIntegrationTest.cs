@@ -651,12 +651,17 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 HydraulicBoundaryLocation expectedBoundaryLocation = expectedBoundaryDatabase.Locations[i];
                 HydraulicBoundaryLocation actualBoundaryLocation = actualBoundaryDatabase.Locations[i];
 
-                Assert.AreEqual(expectedBoundaryLocation.Id, actualBoundaryLocation.Id);
-                Assert.AreEqual(expectedBoundaryLocation.Name, actualBoundaryLocation.Name);
-                Assert.AreEqual(expectedBoundaryLocation.DesignWaterLevel, actualBoundaryLocation.DesignWaterLevel);
-                Assert.AreEqual(expectedBoundaryLocation.StorageId, actualBoundaryLocation.StorageId);
-                Assert.AreEqual(expectedBoundaryLocation.Location, actualBoundaryLocation.Location);
+                AssertHydraulicBoundaryLocation(expectedBoundaryLocation, actualBoundaryLocation);
             }
+        }
+
+        private static void AssertHydraulicBoundaryLocation(HydraulicBoundaryLocation expectedBoundaryLocation, HydraulicBoundaryLocation actualBoundaryLocation)
+        {
+            Assert.AreEqual(expectedBoundaryLocation.Id, actualBoundaryLocation.Id);
+            Assert.AreEqual(expectedBoundaryLocation.Name, actualBoundaryLocation.Name);
+            Assert.AreEqual(expectedBoundaryLocation.DesignWaterLevel, actualBoundaryLocation.DesignWaterLevel);
+            Assert.AreEqual(expectedBoundaryLocation.StorageId, actualBoundaryLocation.StorageId);
+            Assert.AreEqual(expectedBoundaryLocation.Location, actualBoundaryLocation.Location);
         }
 
         private static void AssertReferenceLine(ReferenceLine expectedReferenceLine, ReferenceLine actualReferenceLine)
@@ -886,6 +891,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             Assert.AreEqual(expectedCalculation.Comments, actualCalculation.Comments);
 
+            AssertGrassCoverErosionInwardsInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
+
             if (expectedCalculation.HasOutput)
             {
                 AssertGrassCoverErosionInwardsOutput(expectedCalculation.Output, actualCalculation.Output);
@@ -894,6 +901,34 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 Assert.IsFalse(actualCalculation.HasOutput);
             }
+        }
+
+        private static void AssertGrassCoverErosionInwardsInput(GrassCoverErosionInwardsInput expectedInput, GrassCoverErosionInwardsInput actualInput)
+        {
+            if (expectedInput.DikeProfile == null)
+            {
+                Assert.IsNull(actualInput.DikeProfile);
+            }
+            else
+            {
+                AssertDikeProfile(expectedInput.DikeProfile, actualInput.DikeProfile);
+            }
+            if (expectedInput.HydraulicBoundaryLocation == null)
+            {
+                Assert.IsNull(actualInput.HydraulicBoundaryLocation);
+            }
+            else
+            {
+                AssertHydraulicBoundaryLocation(expectedInput.HydraulicBoundaryLocation, actualInput.HydraulicBoundaryLocation);
+            }
+            AssertBreakWater(expectedInput.BreakWater, actualInput.BreakWater);
+            Assert.AreEqual(expectedInput.Orientation, actualInput.Orientation);
+            Assert.AreEqual(expectedInput.UseBreakWater, actualInput.UseBreakWater);
+            Assert.AreEqual(expectedInput.UseForeshore, actualInput.UseForeshore);
+            Assert.AreEqual(expectedInput.DikeHeight, actualInput.DikeHeight);
+            Assert.AreEqual(expectedInput.CriticalFlowRate.Mean, actualInput.CriticalFlowRate.Mean);
+            Assert.AreEqual(expectedInput.CriticalFlowRate.StandardDeviation, actualInput.CriticalFlowRate.StandardDeviation);
+            Assert.AreEqual(expectedInput.CalculateDikeHeight, actualInput.CalculateDikeHeight);
         }
 
         private static void AssertGrassCoverErosionInwardsOutput(GrassCoverErosionInwardsOutput expectedOutput, GrassCoverErosionInwardsOutput actualOutput)

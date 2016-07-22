@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
@@ -45,6 +46,7 @@ namespace Application.Ringtoets.Storage.Read
         private readonly Dictionary<SurfaceLinePointEntity, Point3D> surfaceLineGeometryPoints = new Dictionary<SurfaceLinePointEntity, Point3D>(new ReferenceEqualityComparer<SurfaceLinePointEntity>());
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicBoundaryLocations = new Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>(new ReferenceEqualityComparer<HydraulicLocationEntity>());
         private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections = new Dictionary<FailureMechanismSectionEntity, FailureMechanismSection>(new ReferenceEqualityComparer<FailureMechanismSectionEntity>());
+        private readonly Dictionary<DikeProfileEntity, DikeProfile> dikeProfiles = new Dictionary<DikeProfileEntity, DikeProfile>(new ReferenceEqualityComparer<DikeProfileEntity>());
 
         #region StochasticSoilModelEntity: Read, Contains, Get
 
@@ -539,6 +541,78 @@ namespace Application.Ringtoets.Storage.Read
             try
             {
                 return failureMechanismSections[entity];
+            }
+            catch (KeyNotFoundException e)
+            {
+                throw new InvalidOperationException(e.Message, e);
+            }
+        }
+
+        #endregion
+
+        #region FailureMechanismSectionEntity: Read, Contains, Get
+
+        /// <summary>
+        /// Registers a read operation for <see cref="DikeProfileEntity"/> and the
+        /// <see cref="dikeProfiles"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="DikeProfileEntity"/> that was read.</param>
+        /// <param name="model">The <see cref="DikeProfile"/> that was constructed.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        internal void Read(DikeProfileEntity entity, DikeProfile model)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            if (model == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+
+            dikeProfiles[entity] = model;
+        }
+
+        /// <summary>
+        /// Checks whether a read operation has been registered for a given <see cref="DikeProfileEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="DikeProfileEntity"/> to check for.</param>
+        /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        internal bool Contains(DikeProfileEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            return dikeProfiles.ContainsKey(entity);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="DikeProfile"/> which was read for the
+        /// given <see cref="DikeProfileEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="DikeProfileEntity"/> for which a read
+        /// operation has been registered.</param>
+        /// <returns>The constructed <see cref="DikeProfile"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no read operation has
+        /// been registered for <paramref name="entity"/>.</exception>
+        /// <remarks>Use <see cref="Contains(DikeProfileEntity)"/> to find out whether a
+        /// read operation has been registered for <paramref name="entity"/>.</remarks>
+        internal DikeProfile Get(DikeProfileEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            try
+            {
+                return dikeProfiles[entity];
             }
             catch (KeyNotFoundException e)
             {

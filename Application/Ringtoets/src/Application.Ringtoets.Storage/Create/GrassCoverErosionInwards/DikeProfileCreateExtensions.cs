@@ -46,6 +46,11 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
             {
                 throw new ArgumentNullException("registry");
             }
+            if (registry.Contains(dikeProfile))
+            {
+                return registry.Get(dikeProfile);
+            }
+
             var sectionResultEntity = new DikeProfileEntity
             {
                 X = dikeProfile.WorldReferencePoint.X,

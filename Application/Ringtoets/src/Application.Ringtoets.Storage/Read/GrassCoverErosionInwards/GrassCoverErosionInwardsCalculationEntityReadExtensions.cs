@@ -19,9 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 using Application.Ringtoets.Storage.DbContext;
 
+using Core.Common.Base.Data;
+
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
 {
@@ -37,20 +42,66 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
         /// </summary>
         /// <param name="entity">The <see cref="GrassCoverErosionInwardsCalculationEntity"/>
         /// to create <see cref="GrassCoverErosionInwardsCalculation"/> for.</param>
+        /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsCalculation"/>.</returns>
-        internal static GrassCoverErosionInwardsCalculation Read(this GrassCoverErosionInwardsCalculationEntity entity)
+        internal static GrassCoverErosionInwardsCalculation Read(this GrassCoverErosionInwardsCalculationEntity entity, ReadConversionCollector collector)
         {
+            if (collector == null)
+            {
+                throw new ArgumentNullException("collector");
+            }
+
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = entity.Name,
                 Comments = entity.Comments,
-                StorageId = entity.GrassCoverErosionInwardsCalculationEntityId
+                StorageId = entity.GrassCoverErosionInwardsCalculationEntityId,
+                InputParameters =
+                {
+                    DikeProfile = GetDikeProfileValue(entity.DikeProfileEntity, collector),
+                    HydraulicBoundaryLocation = GetHydraulicBoundaryLocationValue(entity.HydraulicLocationEntity, collector),
+                    Orientation = (RoundedDouble)entity.Orientation.ToNullAsNaN(),
+                    CriticalFlowRate =
+                    {
+                        Mean = (RoundedDouble)entity.CriticalFlowRateMean.ToNullAsNaN(),
+                        StandardDeviation = (RoundedDouble)entity.CriticalFlowRateStandardDeviation.ToNullAsNaN()
+                    },
+                    UseForeshore = Convert.ToBoolean(entity.UseForeshore),
+                    DikeHeight = (RoundedDouble)entity.DikeHeight.ToNullAsNaN(),
+                    UseBreakWater = Convert.ToBoolean(entity.UseBreakWater),
+                    BreakWater =
+                    {
+                        Height = (RoundedDouble)entity.BreakWaterHeight.ToNullAsNaN(),
+                        Type = (BreakWaterType)entity.BreakWaterType
+                    },
+                    CalculateDikeHeight = Convert.ToBoolean(entity.CalculateDikeHeight)
+                }
             };
+
+
             if (entity.GrassCoverErosionInwardsOutputEntity != null)
             {
                 calculation.Output = entity.GrassCoverErosionInwardsOutputEntity.Read();
             }
             return calculation;
+        }
+
+        private static DikeProfile GetDikeProfileValue(DikeProfileEntity dikeProfileEntity, ReadConversionCollector collector)
+        {
+            if (dikeProfileEntity != null)
+            {
+                return dikeProfileEntity.Read(collector);
+            }
+            return null;
+        }
+
+        private static HydraulicBoundaryLocation GetHydraulicBoundaryLocationValue(HydraulicLocationEntity hydraulicLocationEntity, ReadConversionCollector collector)
+        {
+            if (hydraulicLocationEntity != null)
+            {
+                return hydraulicLocationEntity.Read(collector);
+            }
+            return null;
         }
     }
 }

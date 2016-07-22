@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 
@@ -39,17 +41,31 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
         /// <see cref="DikeProfile"/>.
         /// </summary>
         /// <param name="entity">The <see cref="DikeProfileEntity"/> to create <see cref="DikeProfile"/> for.</param>
+        /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="DikeProfile"/>.</returns>
-        internal static DikeProfile Read(this DikeProfileEntity entity)
+        internal static DikeProfile Read(this DikeProfileEntity entity, ReadConversionCollector collector)
         {
-            return new DikeProfile(new Point2D(entity.X, entity.Y),
-                                   new RoughnessPointBinaryConverter().ToData(entity.DikeGeometryData),
-                                   new Point2DBinaryConverter().ToData(entity.ForeShoreData),
-                                   CreateBreakWater(entity),
-                                   CreateProperties(entity))
+            if (collector == null)
+            {
+                throw new ArgumentNullException("collector");
+            }
+            if (collector.Contains(entity))
+            {
+                return collector.Get(entity);
+            }
+
+            var dikeProfile = new DikeProfile(new Point2D(entity.X, entity.Y),
+                                                      new RoughnessPointBinaryConverter().ToData(entity.DikeGeometryData),
+                                                      new Point2DBinaryConverter().ToData(entity.ForeShoreData),
+                                                      CreateBreakWater(entity),
+                                                      CreateProperties(entity))
             {
                 StorageId = entity.DikeProfileEntityId
             };
+
+            collector.Read(entity, dikeProfile);
+
+            return dikeProfile;
         }
 
         private static DikeProfile.ConstructionProperties CreateProperties(DikeProfileEntity entity)

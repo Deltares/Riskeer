@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             SetSectionResults(pipingFailureMechanism.SectionResults);
 
             GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
-            ConfigureGrassCoverErosionInwardsFailureMechanism(grassCoverErosionInwardsFailureMechanism);
+            ConfigureGrassCoverErosionInwardsFailureMechanism(grassCoverErosionInwardsFailureMechanism, assessmentSection);
             AddSections(grassCoverErosionInwardsFailureMechanism);
             SetSectionResults(grassCoverErosionInwardsFailureMechanism.SectionResults);
 
@@ -258,27 +258,30 @@ namespace Application.Ringtoets.Storage.TestUtil
             });
         }
 
-        private static void ConfigureGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        private static void ConfigureGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,
+            IAssessmentSection assessmentSection)
         {
             failureMechanism.GeneralInput.N = 15;
-            failureMechanism.DikeProfiles.Add(new DikeProfile(new Point2D(1, 2),
-                                                              new[]
-                                                              {
-                                                                  new RoughnessPoint(new Point2D(1, 2), 1),
-                                                                  new RoughnessPoint(new Point2D(3, 4), 0.5),
-                                                              },
-                                                              new[]
-                                                              {
-                                                                  new Point2D(5, 6),
-                                                                  new Point2D(7, 8),
-                                                              },
-                                                              null, new DikeProfile.ConstructionProperties
-                                                              {
-                                                                  DikeHeight = 1.1,
-                                                                  Name = "2.2",
-                                                                  Orientation = 3.3,
-                                                                  X0 = 4.4
-                                                              }));
+            var dikeProfile = new DikeProfile(new Point2D(1, 2),
+                                                      new[]
+                                                      {
+                                                          new RoughnessPoint(new Point2D(1, 2), 1),
+                                                          new RoughnessPoint(new Point2D(3, 4), 0.5)
+                                                      },
+                                                      new[]
+                                                      {
+                                                          new Point2D(5, 6),
+                                                          new Point2D(7, 8)
+                                                      },
+                                                      new BreakWater(BreakWaterType.Caisson, 15),
+                                                      new DikeProfile.ConstructionProperties
+                                                      {
+                                                          DikeHeight = 1.1,
+                                                          Name = "2.2",
+                                                          Orientation = 3.3,
+                                                          X0 = 4.4
+                                                      });
+            failureMechanism.DikeProfiles.Add(dikeProfile);
             failureMechanism.DikeProfiles.Add(new DikeProfile(new Point2D(9, 10),
                                                               new[]
                                                               {
@@ -286,7 +289,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                                                                   new RoughnessPoint(new Point2D(13, 14), 0.5),
                                                               },
                                                               new Point2D[0],
-                                                              new BreakWater(BreakWaterType.Caisson, 15),
+                                                              null,
                                                               new DikeProfile.ConstructionProperties
                                                               {
                                                                   DikeHeight = 5.5,
@@ -303,6 +306,26 @@ namespace Application.Ringtoets.Storage.TestUtil
                     {
                         Name = "Calculation 1",
                         Comments = "Comments for Calculation 1",
+                        InputParameters =
+                        {
+                            DikeProfile = dikeProfile,
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0],
+                            BreakWater =
+                            {
+                                Height = (RoundedDouble)(dikeProfile.BreakWater.Height + 0.3),
+                                Type = BreakWaterType.Wall
+                            },
+                            DikeHeight = (RoundedDouble)(dikeProfile.DikeHeight + 0.2),
+                            Orientation = dikeProfile.Orientation,
+                            CriticalFlowRate =
+                            {
+                                Mean = (RoundedDouble)1.1,
+                                StandardDeviation = (RoundedDouble)2.2
+                            },
+                            CalculateDikeHeight = true,
+                            UseForeshore = true,
+                            UseBreakWater = true
+                        },
                         Output = new GrassCoverErosionInwardsOutput(0.45, true, new ProbabilityAssessmentOutput(0.004, 0.95, 0.00003, 1.1, 4.5), 0.56)
                     }
                 }

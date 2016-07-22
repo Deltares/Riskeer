@@ -28,6 +28,7 @@ using Core.Common.Base.Geometry;
 
 using NUnit.Framework;
 
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -950,6 +951,161 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Call
             TestDelegate test = () => collector.Read(new FailureMechanismSectionEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        #endregion
+
+        #region FailureMechanismSectionEntity: Read, Contains, Get
+
+        [Test]
+        public void Contains_WithoutDikeProfileEntity_ArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Contains((DikeProfileEntity)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Contains_DikeProfileEntityAdded_True()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new DikeProfileEntity();
+            collector.Read(entity, CreateDikeProfile());
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_NoDikeProfileEntityAdded_False()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new DikeProfileEntity();
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_OtherDikeProfileEntityAdded_False()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new DikeProfileEntity();
+            collector.Read(new DikeProfileEntity(), CreateDikeProfile());
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Get_WithoutDikeProfileEntity_ThrowArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Get((DikeProfileEntity)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Get_DikeProfileEntityAdded_ReturnsHydraulicBoundaryLocation()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            DikeProfile dikeProfile = CreateDikeProfile();
+            var entity = new DikeProfileEntity();
+            collector.Read(entity, dikeProfile);
+
+            // Call
+            var result = collector.Get(entity);
+
+            // Assert
+            Assert.AreSame(dikeProfile, result);
+        }
+
+        private static DikeProfile CreateDikeProfile()
+        {
+            return new DikeProfile(new Point2D(0,0), new RoughnessPoint[0], new Point2D[0], 
+                                   null, new DikeProfile.ConstructionProperties());
+        }
+
+        [Test]
+        public void Get_NoDikeProfileEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new DikeProfileEntity();
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_OtherDikeProfileEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new DikeProfileEntity();
+            collector.Read(new DikeProfileEntity(), CreateDikeProfile());
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Read_WithNullDikeProfileEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(null, CreateDikeProfile());
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Read_WithNullDikeProfile_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(new DikeProfileEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

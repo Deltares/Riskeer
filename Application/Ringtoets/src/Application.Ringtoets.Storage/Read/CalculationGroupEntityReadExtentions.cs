@@ -114,7 +114,7 @@ namespace Application.Ringtoets.Storage.Read
                 var childCalculationEntity = childEntity as GrassCoverErosionInwardsCalculationEntity;
                 if (childCalculationEntity != null)
                 {
-                    group.Children.Add(childCalculationEntity.Read());
+                    group.Children.Add(childCalculationEntity.Read(collector));
                 }
             }
 

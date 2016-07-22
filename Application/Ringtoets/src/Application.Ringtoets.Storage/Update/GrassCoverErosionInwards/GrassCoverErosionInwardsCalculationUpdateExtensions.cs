@@ -27,6 +27,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Update.GrassCoverErosionInwards
 {
@@ -70,6 +71,68 @@ namespace Application.Ringtoets.Storage.Update.GrassCoverErosionInwards
             entity.Comments = calculation.Comments;
             entity.Order = order;
 
+            UpdateInput(entity, calculation.InputParameters, registry, context);
+            UpdateOutput(entity, calculation, registry, context);
+
+            registry.Register(entity, calculation);
+        }
+
+        private static void UpdateInput(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsInput input, PersistenceRegistry registry, IRingtoetsEntities context)
+        {
+            UpdateDikeProfile(entity, input.DikeProfile, registry, context);
+            UpdateHydraulicBoundaryLocation(entity, input.HydraulicBoundaryLocation, registry, context);
+
+            entity.Orientation = input.Orientation.Value.ToNaNAsNull();
+            entity.CriticalFlowRateMean = input.CriticalFlowRate.Mean.Value.ToNaNAsNull();
+            entity.CriticalFlowRateStandardDeviation = input.CriticalFlowRate.StandardDeviation.Value.ToNaNAsNull();
+            entity.UseForeshore = Convert.ToByte(input.UseForeshore);
+            entity.DikeHeight = input.DikeHeight.Value.ToNaNAsNull();
+            entity.UseBreakWater = Convert.ToByte(input.UseBreakWater);
+            entity.BreakWaterType = (short)input.BreakWater.Type;
+            entity.BreakWaterHeight = input.BreakWater.Height.Value.ToNaNAsNull();
+            entity.CalculateDikeHeight = Convert.ToByte(input.CalculateDikeHeight);
+        }
+
+        private static void UpdateDikeProfile(GrassCoverErosionInwardsCalculationEntity entity, DikeProfile dikeProfile, PersistenceRegistry registry, IRingtoetsEntities context)
+        {
+            if (dikeProfile != null)
+            {
+                if (dikeProfile.IsNew())
+                {
+                    entity.DikeProfileEntity = dikeProfile.Create(registry);
+                }
+                else
+                {
+                    dikeProfile.Update(registry, context);
+                }
+            }
+            else
+            {
+                entity.DikeProfileEntity = null;
+            }
+        }
+
+        private static void UpdateHydraulicBoundaryLocation(GrassCoverErosionInwardsCalculationEntity entity, HydraulicBoundaryLocation hydraulicBoundaryLocation, PersistenceRegistry registry, IRingtoetsEntities context)
+        {
+            if (hydraulicBoundaryLocation != null)
+            {
+                if (hydraulicBoundaryLocation.IsNew())
+                {
+                    entity.HydraulicLocationEntity = hydraulicBoundaryLocation.Create(registry);
+                }
+                else
+                {
+                    hydraulicBoundaryLocation.Update(registry, context);
+                }
+            }
+            else
+            {
+                entity.HydraulicLocationEntity = null;
+            }
+        }
+
+        private static void UpdateOutput(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsCalculation calculation, PersistenceRegistry registry, IRingtoetsEntities context)
+        {
             if (calculation.HasOutput)
             {
                 if (calculation.Output.IsNew())
@@ -85,8 +148,6 @@ namespace Application.Ringtoets.Storage.Update.GrassCoverErosionInwards
             {
                 entity.GrassCoverErosionInwardsOutputEntity = null;
             }
-
-            registry.Register(entity, calculation);
         }
     }
 }

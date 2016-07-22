@@ -56,6 +56,8 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
                 Comments = calculation.Comments,
                 Order = order
             };
+            SetInputValues(entity, calculation.InputParameters, registry);
+
             if (calculation.HasOutput)
             {
                 entity.GrassCoverErosionInwardsOutputEntity = calculation.Output.Create(registry);
@@ -64,6 +66,28 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
             registry.Register(entity, calculation);
 
             return entity;
+        }
+
+        private static void SetInputValues(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsInput input, PersistenceRegistry registry)
+        {
+            if (input.DikeProfile != null)
+            {
+                entity.DikeProfileEntity = input.DikeProfile.Create(registry);
+            }
+            if (input.HydraulicBoundaryLocation != null)
+            {
+                entity.HydraulicLocationEntity = input.HydraulicBoundaryLocation.Create(registry);
+            }
+
+            entity.BreakWaterHeight = input.BreakWater.Height.Value.ToNaNAsNull();
+            entity.BreakWaterType = Convert.ToInt16(input.BreakWater.Type);
+            entity.UseBreakWater = Convert.ToByte(input.UseBreakWater);
+            entity.CriticalFlowRateMean = input.CriticalFlowRate.Mean.Value.ToNaNAsNull();
+            entity.CriticalFlowRateStandardDeviation = input.CriticalFlowRate.StandardDeviation.Value.ToNaNAsNull();
+            entity.Orientation = input.Orientation.Value.ToNaNAsNull();
+            entity.CalculateDikeHeight = Convert.ToByte(input.CalculateDikeHeight);
+            entity.DikeHeight = input.DikeHeight.Value.ToNaNAsNull();
+            entity.UseForeshore = Convert.ToByte(input.UseForeshore);
         }
     }
 }

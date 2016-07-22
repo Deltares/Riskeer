@@ -25,10 +25,14 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
 
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+
 using NUnit.Framework;
 
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 {
@@ -59,6 +63,26 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             {
                 Name = name,
                 Comments = comment,
+                InputParameters =
+                {
+                    DikeProfile = null,
+                    HydraulicBoundaryLocation = null,
+                    DikeHeight = (RoundedDouble)1.1,
+                    Orientation = (RoundedDouble)2.2,
+                    BreakWater =
+                    {
+                        Height = (RoundedDouble)3.3,
+                        Type = BreakWaterType.Dam
+                    },
+                    CalculateDikeHeight = true,
+                    CriticalFlowRate =
+                    {
+                        Mean = (RoundedDouble)4.4,
+                        StandardDeviation = (RoundedDouble)5.5
+                    },
+                    UseBreakWater = true,
+                    UseForeshore = false
+                },
                 Output = null
             };
 
@@ -72,7 +96,55 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(comment, entity.Comments);
             Assert.AreEqual(order, entity.Order);
 
+            Assert.IsNull(entity.DikeProfileEntity);
+            Assert.IsNull(entity.HydraulicLocationEntity);
+
+            GrassCoverErosionInwardsInput input = calculation.InputParameters;
+            Assert.AreEqual(input.BreakWater.Height.Value, entity.BreakWaterHeight);
+            Assert.AreEqual((short)input.BreakWater.Type, entity.BreakWaterType);
+            Assert.AreEqual(Convert.ToByte(input.UseBreakWater), entity.UseBreakWater);
+            Assert.AreEqual(input.CriticalFlowRate.Mean.Value, entity.CriticalFlowRateMean);
+            Assert.AreEqual(input.CriticalFlowRate.StandardDeviation.Value, entity.CriticalFlowRateStandardDeviation);
+            Assert.AreEqual(input.Orientation.Value, entity.Orientation);
+            Assert.AreEqual(Convert.ToByte(input.CalculateDikeHeight), entity.CalculateDikeHeight);
+            Assert.AreEqual(input.DikeHeight.Value, entity.DikeHeight);
+            Assert.AreEqual(Convert.ToByte(input.UseForeshore), entity.UseForeshore);
+
             Assert.IsNull(entity.GrassCoverErosionInwardsOutputEntity);
+        }
+
+        [Test]
+        public void Create_NaNParameters_EntityWithNullFields()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    Orientation = (RoundedDouble)double.NaN,
+                    CriticalFlowRate =
+                    {
+                        Mean = (RoundedDouble)double.NaN,
+                        StandardDeviation = (RoundedDouble)double.NaN
+                    },
+                    DikeHeight = (RoundedDouble)double.NaN,
+                    BreakWater =
+                    {
+                        Height = (RoundedDouble)double.NaN
+                    }
+                }
+            };
+            var registry = new PersistenceRegistry();
+
+            // Call
+            GrassCoverErosionInwardsCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            Assert.IsNull(entity.Orientation);
+            Assert.IsNull(entity.CriticalFlowRateMean);
+            Assert.IsNull(entity.CriticalFlowRateStandardDeviation);
+            Assert.IsNull(entity.DikeHeight);
+            Assert.IsNull(entity.BreakWaterHeight);
         }
 
         [Test]
@@ -90,6 +162,102 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             entity.GrassCoverErosionInwardsCalculationEntityId = 8734;
             registry.TransferIds();
             Assert.AreEqual(entity.GrassCoverErosionInwardsCalculationEntityId, calculation.StorageId);
+        }
+
+        [Test]
+        public void Create_CalculationWithAlreadySavedDikeProfile_ReturnEntityWithDikeProfileEntity()
+        {
+            // Setup
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0],
+                                              new Point2D[0], null, new DikeProfile.ConstructionProperties());
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = dikeProfile
+                }
+            };
+
+            var dikeProfileEntity = new DikeProfileEntity();
+            var registry = new PersistenceRegistry();
+            registry.Register(dikeProfileEntity, dikeProfile);
+
+            // Call
+            GrassCoverErosionInwardsCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            Assert.AreSame(dikeProfileEntity, entity.DikeProfileEntity);
+        }
+
+        [Test]
+        public void Create_CalculationWithNewDikeProfile_ReturnEntityWithDikeProfileEntity()
+        {
+            // Setup
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0],
+                                              new Point2D[0], null, new DikeProfile.ConstructionProperties());
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = dikeProfile
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            GrassCoverErosionInwardsCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            Assert.IsTrue(registry.Contains(dikeProfile));
+            Assert.IsNotNull(entity.DikeProfileEntity);
+        }
+
+        [Test]
+        public void Create_CalculationWithAlreadySavedHydraulicBoundaryLocation_ReturnEntityWithHydraulicLocationEntity()
+        {
+            // Setup
+            var hydroLocation = new HydraulicBoundaryLocation(1, "A", 1, 1);
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydroLocation
+                }
+            };
+
+            var hydraulicLocationEntity = new HydraulicLocationEntity();
+            var registry = new PersistenceRegistry();
+            registry.Register(hydraulicLocationEntity, hydroLocation);
+
+            // Call
+            GrassCoverErosionInwardsCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            Assert.AreSame(hydraulicLocationEntity, entity.HydraulicLocationEntity);
+        }
+
+        [Test]
+        public void Create_CalculationWithNewHydraulicBoundaryLocation_ReturnEntityWithHydraulicLocationEntity()
+        {
+            // Setup
+            var hydroLocation = new HydraulicBoundaryLocation(1, "A", 1, 1);
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydroLocation
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            GrassCoverErosionInwardsCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            Assert.IsTrue(registry.Contains(hydroLocation));
+            Assert.IsNotNull(entity.HydraulicLocationEntity);
         }
 
         [Test]
