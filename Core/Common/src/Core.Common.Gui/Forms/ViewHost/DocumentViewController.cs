@@ -117,7 +117,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                 return;
             }
 
-            foreach (var view in viewHost.DocumentViews.Where(view => ShouldRemoveViewForData(view, data))) 
+            foreach (var view in viewHost.DocumentViews.Where(view => ShouldRemoveViewForData(view, data)).ToArray()) 
             {
                 viewHost.Remove(view);
             }
