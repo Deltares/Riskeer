@@ -302,7 +302,7 @@ namespace Application.Ringtoets.Storage.Test
 
                 // Assert
                 var expectedMessage = string.Format(
-                    "Kan het originele bestand ({0}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld worden.",
+                    "Kan het originele bestand ({0}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld te worden.",
                     filePath);
                 var message = Assert.Throws<IOException>(test).Message;
                 Assert.AreEqual(expectedMessage, message);
@@ -342,7 +342,7 @@ namespace Application.Ringtoets.Storage.Test
 
                 // Assert
                 var expectedMessage = string.Format(
-                    "Kan het originele bestand ({0}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld worden.", 
+                    "Kan het originele bestand ({0}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld te worden.", 
                     filePath);
                 var message = Assert.Throws<IOException>(test).Message;
                 Assert.AreEqual(expectedMessage, message);

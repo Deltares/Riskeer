@@ -165,7 +165,7 @@ namespace Application.Ringtoets.Storage.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan het originele bestand ({0}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld worden..
+        ///   Looks up a localized string similar to Kan het originele bestand ({0}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld te worden..
         /// </summary>
         internal static string SafeOverwriteFileHelper_RestoreOriginalFile_Cannot_revert_to_original_FilePath_0_Try_reverting_manually {
             get {
