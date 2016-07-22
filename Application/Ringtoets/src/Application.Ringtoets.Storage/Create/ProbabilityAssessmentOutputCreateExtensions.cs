@@ -31,7 +31,7 @@ namespace Application.Ringtoets.Storage.Create
     /// Extension methods for <see cref="ProbabilityAssessmentOutput"/> related to creating a 
     /// <see cref="ProbabilisticOutputEntity"/>.
     /// </summary>
-    internal static class ProbabilisticAssessmentOutputCreateExtensions
+    internal static class ProbabilityAssessmentOutputCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="ProbabilisticOutputEntity"/> based on the information of

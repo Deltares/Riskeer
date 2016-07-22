@@ -120,7 +120,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_RingtoetsEntitiesWithMatchingGrassCoverErosionInwardsOutputEntity_RegisterEntity()
+        public void Update_RingtoetsEntitiesWithMatchingProbabilisticOutputEntity_RegisterEntity()
         {
             // Setup
             var mocks = new MockRepository();

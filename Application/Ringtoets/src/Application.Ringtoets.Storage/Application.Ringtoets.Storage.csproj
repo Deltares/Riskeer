@@ -94,7 +94,7 @@
     <Compile Include="Create\Piping\RingtoetsPipingSurfaceLineCreateExtensions.cs" />
     <Compile Include="Create\Piping\StochasticSoilModelCreateExtensions.cs" />
     <Compile Include="Create\Piping\StochasticSoilProfileCreateExtensions.cs" />
-    <Compile Include="Create\ProbabilisticAssessmentOutputCreateExtensions.cs" />
+    <Compile Include="Create\ProbabilityAssessmentOutputCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\StrengthStabilityLengthwise\StrengthStabilityLengthwiseConstructionFailureMechanismCreateExtensions.cs" />

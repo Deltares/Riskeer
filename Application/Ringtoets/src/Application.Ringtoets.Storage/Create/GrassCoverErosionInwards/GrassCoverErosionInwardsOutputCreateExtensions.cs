@@ -37,7 +37,8 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         /// Creates a <see cref="GrassCoverErosionInwardsOutputEntity"/> based on
         /// the information of the <see cref="GrassCoverErosionInwardsOutput"/>.
         /// </summary>
-        /// <param name="output">The result to create a database entity for.</param>
+        /// <param name="output">The grass cover erosion inwards calculation output to create
+        /// a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
