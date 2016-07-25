@@ -854,14 +854,14 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
-
-            viewHost.Stub(vh => vh.DocumentViews).Return(new[]
+            var documentViews = new List<IView>
             {
                 testView,
                 testViewDerivative
-            });
+            };
 
-            viewHost.Expect(vh => vh.Remove(testView));
+            viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
+            viewHost.Expect(vh => vh.Remove(testView)).WhenCalled(x => documentViews.Remove(testView));
 
             mocks.ReplayAll();
 
@@ -899,15 +899,15 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
-
-            viewHost.Stub(vh => vh.DocumentViews).Return(new[]
+            var documentViews = new List<IView>
             {
                 testView,
                 testViewDerivative
-            });
+            };
 
-            viewHost.Expect(vh => vh.Remove(testView));
-            viewHost.Expect(vh => vh.Remove(testViewDerivative));
+            viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
+            viewHost.Expect(vh => vh.Remove(testView)).WhenCalled(x => documentViews.Remove(testView));
+            viewHost.Expect(vh => vh.Remove(testViewDerivative)).WhenCalled(x => documentViews.Remove(testViewDerivative));
 
             mocks.ReplayAll();
 
