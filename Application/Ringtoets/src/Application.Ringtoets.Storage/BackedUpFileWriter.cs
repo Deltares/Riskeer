@@ -21,6 +21,8 @@
 
 using System;
 using System.IO;
+
+using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
 using Core.Common.Utils;
 
@@ -61,9 +63,9 @@ namespace Application.Ringtoets.Storage
         /// <item>The temporary file already exists and cannot be deleted.</item>
         /// <item>The temporary file cannot be created from the target file.</item>
         /// <item>When reverting, the original file cannot be restored.</item>
-        /// <item>When cleaning up, the temporary file cannot be removed.</item>
         /// </list>
         /// </exception>
+        /// <exception cref="CannotDeleteBackupFileException">When cleaning up, the temporary file cannot be removed.</exception>
         /// <remark>Any <see cref="Exception"/> thrown by <paramref name="writeAction"/> will be rethrown.</remark>
         public void Perform(Action writeAction)
         {
@@ -84,7 +86,7 @@ namespace Application.Ringtoets.Storage
         /// <summary>
         /// Removes the temporary file if it was created.
         /// </summary>
-        /// <exception cref="IOException">The temporary file cannot be removed.</exception>
+        /// <exception cref="CannotDeleteBackupFileException">The temporary file cannot be removed.</exception>
         private void Finish()
         {
             if (isTemporaryFileCreated)
@@ -209,7 +211,7 @@ namespace Application.Ringtoets.Storage
         /// <summary>
         /// Deletes the created temporary file.
         /// </summary>
-        /// <exception cref="IOException">The temporary file cannot be removed.</exception>
+        /// <exception cref="CannotDeleteBackupFileException">The temporary file cannot be removed.</exception>
         private void DeleteTemporaryFile()
         {
             try
@@ -223,7 +225,7 @@ namespace Application.Ringtoets.Storage
                     var message = string.Format(
                         Resources.SafeOverwriteFileHelper_DeleteTemporaryFile_Cannot_remove_temporary_FilePath_0_Try_removing_manually, 
                         temporaryFilePath);
-                    throw new IOException(message, e);
+                    throw new CannotDeleteBackupFileException(message, e);
                 }
                 throw;
             }

@@ -23,6 +23,9 @@ using System;
 using System.IO;
 using System.Security.AccessControl;
 using System.Security.Principal;
+
+using Application.Ringtoets.Storage.Exceptions;
+
 using NUnit.Framework;
 
 namespace Application.Ringtoets.Storage.Test
@@ -263,7 +266,7 @@ namespace Application.Ringtoets.Storage.Test
                 var expectedMessage = string.Format(
                     "Kan het tijdelijke bestand ({0}) niet opruimen. Het tijdelijke bestand dient handmatig verwijderd te worden.", 
                     temporaryFilePath);
-                var message = Assert.Throws<IOException>(test).Message;
+                var message = Assert.Throws<CannotDeleteBackupFileException>(test).Message;
                 Assert.AreEqual(expectedMessage, message);
             }
             finally

@@ -34,6 +34,9 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
+
+using log4net;
+
 using Ringtoets.Integration.Data;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
@@ -44,6 +47,8 @@ namespace Application.Ringtoets.Storage
     /// </summary>
     public class StorageSqLite : IStoreProject
     {
+        private static ILog log = LogManager.GetLogger(typeof(StorageSqLite));
+
         private string connectionString;
 
         public string FileFilter
@@ -90,6 +95,10 @@ namespace Application.Ringtoets.Storage
             {
                 throw new StorageException(e.Message, e);
             }
+            catch (CannotDeleteBackupFileException e)
+            {
+                log.Warn(e.Message);
+            }
         }
 
         /// <summary>
@@ -134,7 +143,7 @@ namespace Application.Ringtoets.Storage
         /// Attempts to load the <see cref="IProject"/> from the SQLite database.
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
-        /// <returns>Returns a new instance of <see cref="Project"/> with the data from the database or <c>null</c> when not found.</returns>
+        /// <returns>Returns a new instance of <see cref="IProject"/> with the data from the database or <c>null</c> when not found.</returns>
         /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
         /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">

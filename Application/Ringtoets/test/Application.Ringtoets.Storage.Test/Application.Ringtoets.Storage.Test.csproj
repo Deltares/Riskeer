@@ -47,6 +47,10 @@
       <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\Fluent.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\Microsoft.Windows.Shell.dll</HintPath>
       <Private>True</Private>
@@ -145,6 +149,7 @@
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="DecimalConversionExtensionsTests.cs" />
     <Compile Include="DoubleConversionExtensionsTest.cs" />
+    <Compile Include="Exceptions\CannotDeleteBackupFileExceptionTest.cs" />
     <Compile Include="IStorableExtensionsTest.cs" />
     <Compile Include="Read\AssessmentSectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentionsTest.cs" />
