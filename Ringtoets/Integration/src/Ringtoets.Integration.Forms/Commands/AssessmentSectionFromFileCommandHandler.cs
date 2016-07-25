@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Forms.Commands
         /// Creates a new <see cref="IAssessmentSection"/>, based upon the in a dialog selected <see cref="ReferenceLineMeta"/>, which is derived from the shape file in <paramref name="folderpath"/>.
         /// </summary>
         /// <param name="folderpath">The path to the folder where a shape file should be read.</param>
-        /// <returns></returns>
+        /// <returns>The newly created <see cref="IAssessmentSection"/>.</returns>
         /// <exception cref="CriticalFileValidationException">Thrown when:
         /// <list type="bullet">
         /// <item>The shape file does not contain any polylines.</item>

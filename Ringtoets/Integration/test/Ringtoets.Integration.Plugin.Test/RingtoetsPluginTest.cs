@@ -34,6 +34,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
@@ -92,16 +93,18 @@ namespace Ringtoets.Integration.Plugin.Test
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
-            using (var plugin = new RingtoetsPlugin())
             {
-                plugin.Gui = gui;
-                gui.Run();
+                using (var plugin = new RingtoetsPlugin())
+                {
+                    plugin.Gui = gui;
+                    gui.Run();
 
-                // When
-                Action action = () => gui.Project = new RingtoetsProject();
+                    // When
+                    Action action = () => gui.Project = new RingtoetsProject();
 
-                // Then
-                TestHelper.AssertLogMessagesCount(action, 0);
+                    // Then
+                    TestHelper.AssertLogMessagesCount(action, 0);
+                }
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
@@ -120,26 +123,28 @@ namespace Ringtoets.Integration.Plugin.Test
             var testFilePath = Path.Combine(testDataDir, "complete.sqlite");
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
-            using (var plugin = new RingtoetsPlugin())
             {
-                plugin.Gui = gui;
-                gui.Run();
-
-                var project = new RingtoetsProject();
-                var section = new AssessmentSection(AssessmentSectionComposition.Dike)
+                using (var plugin = new RingtoetsPlugin())
                 {
-                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                    plugin.Gui = gui;
+                    gui.Run();
+
+                    var project = new RingtoetsProject();
+                    var section = new AssessmentSection(AssessmentSectionComposition.Dike)
                     {
-                        FilePath = testFilePath
-                    }
-                };
-                project.AssessmentSections.Add(section);
+                        HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                        {
+                            FilePath = testFilePath
+                        }
+                    };
+                    project.AssessmentSections.Add(section);
 
-                // When
-                Action action = () => { gui.Project = project; };
+                    // When
+                    Action action = () => { gui.Project = project; };
 
-                // Then
-                TestHelper.AssertLogMessagesCount(action, 0);
+                    // Then
+                    TestHelper.AssertLogMessagesCount(action, 0);
+                }
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
@@ -155,32 +160,34 @@ namespace Ringtoets.Integration.Plugin.Test
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
-            using (var plugin = new RingtoetsPlugin())
             {
-                var project = new RingtoetsProject();
-                const string nonExistingFileExistingFile = "not_existing_file";
-
-                var section = new AssessmentSection(AssessmentSectionComposition.Dike)
+                using (var plugin = new RingtoetsPlugin())
                 {
-                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                    var project = new RingtoetsProject();
+                    const string nonExistingFileExistingFile = "not_existing_file";
+
+                    var section = new AssessmentSection(AssessmentSectionComposition.Dike)
                     {
-                        FilePath = nonExistingFileExistingFile
-                    }
-                };
-                project.AssessmentSections.Add(section);
+                        HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                        {
+                            FilePath = nonExistingFileExistingFile
+                        }
+                    };
+                    project.AssessmentSections.Add(section);
 
-                plugin.Gui = gui;
-                gui.Run();
+                    plugin.Gui = gui;
+                    gui.Run();
 
-                // When
-                Action action = () => { gui.Project = project; };
+                    // When
+                    Action action = () => { gui.Project = project; };
 
-                // Then
-                var fileMissingMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", nonExistingFileExistingFile);
-                string message = string.Format(
-                    RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_,
-                    fileMissingMessage);
-                TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(message, LogLevelConstant.Warn));
+                    // Then
+                    var fileMissingMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", nonExistingFileExistingFile);
+                    string message = string.Format(
+                        RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_,
+                        fileMissingMessage);
+                    TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(message, LogLevelConstant.Warn));
+                }
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
@@ -494,12 +501,24 @@ namespace Ringtoets.Integration.Plugin.Test
             var mockRepository = new MockRepository();
             var projectObserver = mockRepository.StrictMock<IObserver>();
             projectObserver.Expect(o => o.UpdateObserver());
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var documentViewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            documentViewControllerMock.Expect(dvc => dvc.OpenViewForData(assessmentSection)).Return(true);
+            var guiMock = mockRepository.StrictMock<IGui>();
+            guiMock.Expect(g => g.DocumentViewController).Return(documentViewControllerMock);
+            guiMock.Stub(g => g.SelectionChanged += null).IgnoreArguments();
+            guiMock.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
+            guiMock.Expect(g => g.ProjectOpened += null).IgnoreArguments();
+            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             mockRepository.ReplayAll();
 
             var project = new RingtoetsProject();
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            
             using (var plugin = new RingtoetsPlugin())
             {
+                plugin.Gui = guiMock;
+
                 project.Attach(projectObserver);
 
                 // Precondition
@@ -532,6 +551,21 @@ namespace Ringtoets.Integration.Plugin.Test
 
             // Assert
             CollectionAssert.AllItemsAreUnique(project.AssessmentSections.Select(section => section.Name));
+        }
+
+        [Test]
+        public void GetAssessmentSectionFromFile_GuiIsNull_ThrowsInvalidOperationException()
+        {
+            using (var plugin = new RingtoetsPlugin())
+            {
+                SetShapeFileDirectory(plugin, "");
+
+                // Call
+                TestDelegate call = () => plugin.GetAssessmentSectionFromFile();
+
+                // Assert
+                Assert.Throws<InvalidOperationException>(call);
+            }
         }
 
         [Test]

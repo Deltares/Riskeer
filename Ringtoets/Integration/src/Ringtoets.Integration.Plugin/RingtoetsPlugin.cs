@@ -226,11 +226,16 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
+        /// <summary>
+        /// Returns a new <see cref="IAssessmentSection"/>, based upon the in a dialog selected <see cref="ReferenceLineMeta"/>.
+        /// </summary>
+        /// <returns>The newly created <see cref="IAssessmentSection"/>.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when <see cref="Gui"/> is <c>null</c>.</exception>
         public IAssessmentSection GetAssessmentSectionFromFile()
         {
             if (Gui == null)
             {
-                return null;
+                throw new InvalidOperationException("Gui must be set.");
             }
 
             IAssessmentSection assessmentSection = null;
@@ -252,6 +257,11 @@ namespace Ringtoets.Integration.Plugin
             return assessmentSection;
         }
 
+        /// <summary>
+        /// Adds <paramref name="assessmentSection"/> to <paramref name="ringtoetsProject"/> and ensures a unique name.
+        /// </summary>
+        /// <param name="ringtoetsProject">The <see cref="RingtoetsProject"/> to add the <paramref name="assessmentSection"/> to.</param>
+        /// <param name="assessmentSection">The <paramref name="assessmentSection"/> to add.</param>
         public void SetAssessmentSectionToProject(RingtoetsProject ringtoetsProject, AssessmentSection assessmentSection)
         {
             if (ringtoetsProject == null)
